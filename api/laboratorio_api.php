@@ -54,7 +54,7 @@ switch($api){
         break;
     case 2:
         # recuperar las capturas del turno
-        $resultset = $master->getByProcedure("sp_capturas_imagen_lab_b", [$turno_id, 6 /*area id */, $servicio_id]);
+        $resultset = $master->getByProcedure("sp_capturas_imagen_lab_b", [$turno_id, $area_id, $servicio_id]);
 
         $response = $master->decodeJsonRecursively($resultset);
         break;

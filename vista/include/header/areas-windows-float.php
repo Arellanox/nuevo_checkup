@@ -215,9 +215,9 @@ if (
                     <a class="dropdown-a text-white align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/soporte_ti/#SoporteTI'; ?>">
                         <i class="bi bi-wrench-adjustable-circle"></i> Soporte TI
                     </a>
-                    <a class="dropdown-a text-white align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/administracion/#MEDICOS'; ?>">
+                    <!-- <a class="dropdown-a text-white align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/administracion/#MEDICOS'; ?>">
                         <i class="bi bi-person-hearts"></i> Médicos
-                    </a>
+                    </a> -->
 
                 </ul>
             </div>

@@ -254,13 +254,13 @@ switch ($api) {
                     $response = "No se envió el resultado.";
                 }
             } else {
-                $response = "No hay archivos para enviar.";
+                $response = "Reporte validado. No hay archivos para enviar o paciente de empresa.";
             }
         }
         break;
     case 14:
 
-        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, $area_id, 1, null, 0]);
+        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, $area_id, null, null, 0]);
         $response = $response[count($response) - 1];
         //$response = $master->cleanAttachingFiles($response);
         break;

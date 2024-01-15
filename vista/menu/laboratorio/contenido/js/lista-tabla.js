@@ -205,7 +205,7 @@ function generarFormularioPaciente(id) {
 
           //Creo valores por defecto para Biomolecular
           switch (row['ID_GRUPO']) {
-            case '685': case '684': // <-- PCR -->
+            case '685': case '684': case '1486': // <-- PCR -->
               kitDiag = {
                 0: {
                   'descripcion': 'CoviFlu Kit Multiplex',
@@ -232,6 +232,9 @@ function generarFormularioPaciente(id) {
                 },
                 4: {
                   'descripcion': 'HISOPADO NASOFARÍNGEO'
+                },
+                5: {
+                  'descripcion': 'EXPECTORACIÓN'
                 }
               }
               break;
@@ -271,6 +274,9 @@ function generarFormularioPaciente(id) {
                 },
                 5: {
                   'descripcion': 'SURCO BALANO-PREPUSIAL.'
+                },
+                6: {
+                  'descripcion': 'HISOPADO GLANDE Y PUBIS'
                 }
               }
               break;
@@ -394,6 +400,9 @@ function generarFormularioPaciente(id) {
                 },
                 7: {
                   'descripcion': 'Tejido Pleural'
+                },
+                8: {
+                  'descripcion': 'Secreción'
                 }
                 // 4: {
                 //   'descripcion': 'Lavado Bronquial'
@@ -505,10 +514,33 @@ function generarFormularioPaciente(id) {
               }
 
               break;
+            case '':
+              // pneumoBacter
+
+              break;
 
             //Laboratorio Clinico
             case '1':
               Tipo = '_BH'
+              break;
+
+            case '1516':
+              // rT-PCR Thrombosis SNP
+              classSelect = 'selectTipoMuestraThrombosisSNP';
+              muestras = {
+                0: {
+                  'descripcion': 'Sangre Total con EDTA',
+                },
+              }
+
+              resultado = {
+                0: {
+                  'descripcion': 'Homocigoto',
+                },
+                1: {
+                  'descripcion': 'Heterocitogo',
+                }
+              }
               break;
 
 
@@ -567,7 +599,7 @@ function generarFormularioPaciente(id) {
             let inputname = getRandomInt(1000000000000);
             if (Number.isInteger(parseInt(k))) {
               // console.log(2)
-              html += '<li class="list-group-item" style="zoom: 95%">';
+              html += `<li class="list-group-item linearEstudiosLabs" style="zoom: 95%" data-id_servicio="${row[k]['ID_SERVICIO']}" data-id_grupo="${row['ID_GRUPO']}">`;
               html += '<div class="row d-flex align-items-center">';
 
 
@@ -611,6 +643,12 @@ function generarFormularioPaciente(id) {
                 // Ag virus respiratorio
                 case '344':
 
+                // PCR SARS-CoV-2/INFLUENZA A Y B
+                case '1470': case '1472': case '1474': case '1523': case '1526': case '1529': case '1531':
+
+                // rT-PCR Thrombosis SNP
+                case '1519': case '1521':
+
                   anotherInput = crearSelectCamposMolecular(resultado, nameInput, row[k]['RESULTADO']); break;
 
                 // Panel 21
@@ -625,6 +663,8 @@ function generarFormularioPaciente(id) {
                 case '1436': case '1432':
                 // rT-PCR Entero-DR
                 case '1421': case '1427': case '1430':
+                // rT-PCR Thrombosis SNP
+                case '1517': case '1524': case '1527':
 
                   onlyLabel = true; break;
 
@@ -704,6 +744,8 @@ function generarFormularioPaciente(id) {
                 html += colreStart;
                 html += '<div class="input-group">';
 
+
+                // Si es posible, crea otro tipo de input, como select o más
                 if (anotherInput) {
                   html += anotherInput;
                   html += `<input type="text" style="display: none" name="servicios[${inputname}][ID_GRUPO]" value="${row['ID_GRUPO']}">`
@@ -716,7 +758,7 @@ function generarFormularioPaciente(id) {
 
 
 
-
+                // Muestra o no la medida
                 if (row[k]['MEDIDA']) {
                   if ((row[k]['TIENE_VALOR_ABSOLUTO'] == 1)) {
                     html += '<span class="input-span">%</span>';
@@ -747,7 +789,7 @@ function generarFormularioPaciente(id) {
                 }
 
               } else {
-                html += '<div class="col-12 col-lg-12 text-center">';
+                html += `<div class="col-12 col-lg-12 text-center">`;
                 html += '<p style="font-size: 19px; font-wieght: bolder">' + row[k]['DESCRIPCION_SERVICIO'] + '</p>';
                 html += `<input type="text" style="display: none" name="servicios[${inputname}][ID_GRUPO]" value="${row['ID_GRUPO']}">`
                 html += `<input type="text" style="display: none" name="servicios[${inputname}][ID_SERVICIO]" value="${row[k]['ID_SERVICIO']}">`
@@ -757,6 +799,7 @@ function generarFormularioPaciente(id) {
 
 
               html += endDiv;
+              html += `<div class="linearEstudiosLabs_${row[k]['ID_SERVICIO']}_${row['ID_GRUPO']}"></div>`
               html += '</li>';
 
               if (row[k]['LLEVA_COMENTARIO'] == true) {
@@ -856,3 +899,77 @@ $(document).on('click', '.selectMolecular', function () {
 });
 
 
+
+$(document).on('click', '.linearEstudiosLabs', function (event) {
+  event.stopPropagation();
+  event.preventDefault();
+
+  if (areaActiva == 12)
+    return false;
+
+  let id = $(this).attr('data-id_servicio');
+  let grupo = $(this).attr('data-id_grupo');
+  let $element = $(`.linearEstudiosLabs_${id}_${grupo}`);
+
+  // Oculta todos los otros elementos de collapse
+  $('#formAnalisisLaboratorio .valores-referencia').collapse('hide');
+
+  // Verifica si el contenido ya ha sido cargado
+  if ($element.find('.valores-referencia').length === 0) {
+    // Si no existe, realiza la llamada AJAX y carga el contenido
+    reloadValoresRef($element, id);
+  } else {
+    $element.find('.valores-referencia').collapse('show');
+  }
+});
+
+// Evento de clic para el botón de recarga
+$(document).on('click', '.reload-button', function (event) {
+  event.stopPropagation();
+
+  // Desactiva la secuencia para biomolecular
+  if (areaActiva == 12)
+    return false;
+
+  let id = $(this).closest('.linearEstudiosLabs').attr('data-id_servicio');
+  let grupo = $(this).closest('.linearEstudiosLabs').attr('data-id_grupo');
+  let $element = $(`.linearEstudiosLabs_${id}_${grupo}`);
+
+  // Oculta todos los otros elementos de collapse
+  $('#formAnalisisLaboratorio .valores-referencia').collapse('hide');
+
+  // Recarga el contenido del collapse actual
+  reloadValoresRef($element, id);
+});
+
+function reloadValoresRef($element, id) {
+
+  // Desactiva la secuencia para biomolecular
+  if (areaActiva == 12)
+    return false;
+
+  ajaxAwait({
+    id_servicio: id,
+    genero: selectListaLab.GENERO,
+    fecha_nacimiento: selectListaLab.NACIMIENTO,
+    api: 1
+  }, 'valor_referencia_api', { callbackAfter: true }, false, (data) => {
+    console.log(data);
+    data = data.response.data;
+    let html = `
+      <div class="valores-referencia collapse">
+        <div class="d-flex justify-content-between align-items-center px-3 pb-2">
+          <h6 class="fw-bold text-primary m-0">Valores de referencia</h6>
+          <button class="btn btn-outline-secondary btn-sm reload-button" type="button">
+            <i class="bi bi-arrow-clockwise"></i>
+          </button>
+        </div>
+        <p class="px-3 none-p">${data[0]['VALORES']}</p>
+      </div>`;
+
+    // Inserta el contenido del collapse
+    $element.html(html);
+    // Muestra el collapse
+    $element.find('.valores-referencia').collapse('show');
+  });
+}
