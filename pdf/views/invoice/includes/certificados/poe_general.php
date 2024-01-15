@@ -238,15 +238,36 @@ function obtenerDiferenciaFechas($fechaFinal)
 $cuerpo = convertirObjetoAArray($resultados[0]->CUERPO);
 $medico = convertirObjetoAArray($resultados[0]->MEDICO_INFO);
 $resultado = convertirObjetoAArray($resultados[0]->DATA_BASE);
-$signos_vitales = $resultados[0]->SIGNOS_VITALES;
+$signos_vitales = convertirObjetoAArray($resultados[0]->SIGNOS_VITALES_POE);
 
 $curp_array = str_split($resultados[0]->CURP);
 $rfc_array = str_split($resultados[0]->RFC);
 $genero = strtolower($resultados[0]->GENERO);
 
-echo "<pre>";
-var_dump($signos_vitales);
-echo "</pre>";
+$examen_id = $cuerpo['realizado_examen_medico'];
+
+switch ($examen_id) {
+    case '1':
+        $examen_texto = "De ingreso";
+        break;
+    case '2':
+        $examen_texto = "Periodico";
+        break;
+    case '3':
+        $examen_texto = "Especial";
+        break;
+    case '3':
+        $examen_texto = $cuerpo['examen_otro'];
+        break;
+    default:
+        # code...
+        break;
+}
+
+
+// echo "<pre>";
+// var_dump($cuerpo);
+// echo "</pre>";
 // exit;
 
 
@@ -264,17 +285,17 @@ $poe = array(
         ),
         "curp" => $curp_array,
         "rfc" => $rfc_array,
-        "puesto" => "Técnico en disparos",
+        "puesto" => $resultados[0]->PUESTO,
         "edad" => $resultados[0]->EDAD_L,
         "fecha_nacimiento" => formatear_fecha($resultados[0]->fecha_nacimiento),
         "sexo" => $genero === "masculino" ? 1 : 2,
-        "tipo_examen" => "1",
-        "tipo_examen_text" => "de Ingreso",
+        "tipo_examen" => $examen_id,
+        "tipo_examen_text" => $examen_texto,
         "lugar" => "Villahermosa, Tabasco, México",
         "fecha" => "09 de Octubre de 2023",
-        "procedencia" => "VINCO",
-        "es_sera" => "1",
-        "apto" => "1",
+        "procedencia" => $resultados[0]->PROCEDENCIA,
+        "quien_es" => $cuerpo['quien_es'],
+        "apto" => $cuerpo['calificacion_apto'],
     ),
     "domicilio" => array(
         "calle" => $resultados[0]->CALLE,
@@ -296,20 +317,19 @@ $poe = array(
         "interveciones_quirurgica" => $cuerpo['intervenciones_quirurgicas'],
     ),
     "signos_vitales" => array(
-        "talla" => "168 cm",
-        "peso" => "55.4 kg",
-        "tension_arterial" => "12/80 mmHg",
-        "frecuencia_respiratoria" => "16 respiraciones por minuto",
-        "temperatura" => "36.5 °C",
-        "pulso" => "81 latidos por minuto",
+        "talla" => $signos_vitales[1]->VALOR . ' ' . $signos_vitales[1]->MEDIDA,
+        "peso" => $signos_vitales[2]->VALOR . ' ' . $signos_vitales[2]->MEDIDA,
+        "tension_arterial" => $signos_vitales[6]->VALOR . '/' . $signos_vitales[7]->VALOR . ' ' . $signos_vitales[7]->MEDIDA,
+        "frecuencia_respiratoria" => $signos_vitales[5]->VALOR . ' ' . $signos_vitales[5]->MEDIDA,
+        "temperatura" => $signos_vitales[4]->VALOR . ' ' . $signos_vitales[4]->MEDIDA,
+        "pulso" => $signos_vitales[8]->VALOR . ' ' . $signos_vitales[8]->MEDIDA,
         "exploracion_fisica" => $cuerpo['exploracion_fisica']
     ),
     "examenes_laboratorio" => array(
         "serie_roja" => "Sin hallazgos de significancia médico-ocupacional",
         "serie_blanca" => "Sin hallazgos de significancia médico-ocupacional",
         "serie_trombocitaria" => "Sin hallazgos de significancia médico-ocupacional",
-        "pruebas_bioquimicas" => "Glucosa 218mg/dl, Urea 30.5mg/dl, Bun 14.25mg/dl, Creatinina sérica 0.50 mg/dl, Colesterol
-        total 136mg/dl, Triglicéridos 79mg/dl"
+        "pruebas_bioquimicas" => $resultado['LABORATORIO']->QUIMICA_SANGUINEA_TEXT
     ),
     "normalidad_psiquica_fisica" => $cuerpo['interpretacion'],
     "conclusiones" => $cuerpo['conclusiones'],
@@ -1152,7 +1172,7 @@ $poe = array(
                 </tr>
                 <tr>
                     <td colspan="4">
-                        <p>Quién es / será considerado personal ocupacionalmente expuesto a radiaciones ionizantes
+                        <p>Quién <?php echo $poe['paciente']['quien_es'] ?> considerado personal ocupacionalmente expuesto a radiaciones ionizantes
                             en la empresa o compañía: <strong>
                                 <?php
                                 # procedencia
