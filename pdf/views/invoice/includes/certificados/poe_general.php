@@ -238,32 +238,36 @@ function obtenerDiferenciaFechas($fechaFinal)
 $cuerpo = convertirObjetoAArray($resultados[0]->CUERPO);
 $medico = convertirObjetoAArray($resultados[0]->MEDICO_INFO);
 $resultado = convertirObjetoAArray($resultados[0]->DATA_BASE);
+$signos_vitales = $resultados[0]->SIGNOS_VITALES;
 
-$curp_array = str_split('SADL641005HVZNLZ09');
-$rfc_array = str_split('LOGJ580812RH7');
+$curp_array = str_split($resultados[0]->CURP);
+$rfc_array = str_split($resultados[0]->RFC);
+$genero = strtolower($resultados[0]->GENERO);
 
-// echo "<pre>";
-// var_dump($resultados[0]);
-// echo "</pre>";
+echo "<pre>";
+var_dump($signos_vitales);
+echo "</pre>";
 // exit;
 
 
 // Arreglo para rellenar el PDF para el certificado de poe
 $poe = array(
+    "fecha_actual" => formatear_fecha($resultados[0]->current_fecha),
     "paciente" => array(
         // Nombre completoss
-        "px" => "Lázaro Francisco Santiago Delgado",
+        "px" => $resultados[0]->PX,
         // Nombre por partes
         "nombre" => array(
-            "nombres" => "Lázaro Francisco",
-            "materno" => "Delgado",
-            "paterno" => "Santiago",
+            "nombres" => $resultados[0]->NOMBRES,
+            "materno" => $resultados[0]->MATERNO,
+            "paterno" => $resultados[0]->PATERNO,
         ),
         "curp" => $curp_array,
         "rfc" => $rfc_array,
         "puesto" => "Técnico en disparos",
-        "edad" => "59 años",
-        "sexo" => "1",
+        "edad" => $resultados[0]->EDAD_L,
+        "fecha_nacimiento" => formatear_fecha($resultados[0]->fecha_nacimiento),
+        "sexo" => $genero === "masculino" ? 1 : 2,
         "tipo_examen" => "1",
         "tipo_examen_text" => "de Ingreso",
         "lugar" => "Villahermosa, Tabasco, México",
@@ -272,28 +276,24 @@ $poe = array(
         "es_sera" => "1",
         "apto" => "1",
     ),
-    "informe_detallado" => "Me complace comunicarme con ustedes en relación con el candidato Lázaro Francisco Delgado
-    Santiago, quien ha sido sometido recientemente a un examen médico ocupacional, como parte
-    del proceso de selección de su empresa. Como médico a cargo de la evaluación, deseo
-    proporcionarles un informe detallado sobre los resultados de dicha evaluación, de acuerdo con
-    los requisitos médicos y en cumplimiento a lo establecido al apéndice normativo B de la NOM-
-    026-NUCL-2011, Vigilancia Médica del Personal Ocupacionalmente Expuesto a Radiaciones
-    Ionizantes y/o la normatividad aplicable de salud en el trabajo.",
+    "domicilio" => array(
+        "calle" => $resultados[0]->CALLE,
+        "exterior" => $resultados[0]->EXTERIOR,
+        "colonia" => $resultados[0]->COLONIA,
+        "ciudad" => $resultados[0]->MUNICIPIO,
+        "codigo" => $resultados[0]->POSTAL,
+        "estado" => $resultados[0]->ESTADO,
+        "telefono" =>  $resultados[0]->CELULAR
+    ),
+    "informe_detallado" => $cuerpo['informacion_detallada'],
     "resultados" => array(
-        "APNP" => "Historia de tabaquismo desde hace 30 años.
-        Consumo 7 cigarrillos diariamente. Consumo ocasional de alcohol. Realiza ejercicio aeróbico
-        durante alrededor 40 minutos 6 días a la semana (caminata)",
-        "vacunas_aplicadas" => "El candidato presenta un historial de vacunación completo de acuerdo con
-        las recomendaciones de salu d pública",
-        "APP" => "Niega alergias a medicamentos, alimentos o
-        condiciones medioambientales. Historia de fractura nasal hace 35 años, no refiere secuelas.
-        Convive don diabetes mellitus tipo II con diagnóstico desde hace 26 años, actualmente bajo
-        tratamiento con medidas higiénico-dietéticas y farmacológico con Metformina y Glibenclamida",
-        "infeccion_previa" => "El candidato no refiere haber tenido episodios previos de infecciones en el
-        año en curso.",
-        "alergias" => "El trabajador no reporta alergias a medicamentos, alimentos y/o condiciones medioambientales",
-        "accidentes_enfermedades" => "El candidato no refiere antecedentes de accidentes o enfermedades profesional.",
-        "interveciones_quirurgica" => "El candidato no refiere haberse sometido a intervenciones quirúrgicas",
+        "APNP" => $cuerpo['antecedentes_personales_no_patologicos'],
+        "vacunas_aplicadas" => $cuerpo['vacunas_aplicadas'],
+        "APP" => $cuerpo['antecedentes_personales_patologicos'],
+        "infeccion_previa" => $cuerpo['infeccion_previas'],
+        "alergias" => $cuerpo['alergias'],
+        "accidentes_enfermedades" => $cuerpo['accidentes_enfermedades_trabajo'],
+        "interveciones_quirurgica" => $cuerpo['intervenciones_quirurgicas'],
     ),
     "signos_vitales" => array(
         "talla" => "168 cm",
@@ -302,7 +302,7 @@ $poe = array(
         "frecuencia_respiratoria" => "16 respiraciones por minuto",
         "temperatura" => "36.5 °C",
         "pulso" => "81 latidos por minuto",
-        "exploracion_fisica" => "En la exploración física por aparatos y sistemas, no hay hallazgos de significancia médico-ocupacional."
+        "exploracion_fisica" => $cuerpo['exploracion_fisica']
     ),
     "examenes_laboratorio" => array(
         "serie_roja" => "Sin hallazgos de significancia médico-ocupacional",
@@ -311,15 +311,8 @@ $poe = array(
         "pruebas_bioquimicas" => "Glucosa 218mg/dl, Urea 30.5mg/dl, Bun 14.25mg/dl, Creatinina sérica 0.50 mg/dl, Colesterol
         total 136mg/dl, Triglicéridos 79mg/dl"
     ),
-    "normalidad_psiquica_fisica" => "El candidato Lázaro Francisco Santiago Delgado ha demostrado normalidad psíquica y física.
-    Presenta agudeza en los sentidos y facilidad de expresión, lo que le permite comunicarse de
-    manera efectiva. Su capacidad física es adecuada para las funciones requeridas en el puesto, con
-    destreza de movimientos necesaria para llevar a cabo sus tareas de manera eficiente.",
-    "conclusiones" => "Basado en los resultados de la evaluación médica y el historial médico del candidato Lázaro
-    Francisco Santiago Delgado, considero que se encuentra apto y en condiciones de salud
-    adecuadas para ocupar el puesto de Técnico en Disparos en su VINCO. No existen
-    contraindicaciones médicas significativas que limiten su capacidad para desempeñar las
-    funciones requeridas.",
+    "normalidad_psiquica_fisica" => $cuerpo['interpretacion'],
+    "conclusiones" => $cuerpo['conclusiones'],
     "encabezado" => "Espacio para el nombre del Servicio Médico o del Médico encargado de la vigilancia médica.
         Dirección completa y teléfono de contacto // Edgar David Vázquez Paz, Boulevard Adolfo Ruiz
         Cortines 1344, Piso 2 Suite 245. Col. Tabasco 2000, C.P. 86035 Villahermosa, Centro, Tabasco.
@@ -339,7 +332,7 @@ $poe = array(
             <div class="trabajador-body" style="margin-top: 5px;">
                 <!-- Lugar y fecha -->
                 <label class="none-p">Lugar y fecha:</label>
-                <input type="text" value="">
+                <input style="width: 270px !important;" type="text" value="Villahermosa Tabasco a <?php echo $poe['fecha_actual'] ?>">
                 <!-- Fotografia y pulgares -->
                 <div class="fotografia_pulgares" style="margin-top: 10px;">
                     <table>
@@ -451,11 +444,11 @@ $poe = array(
                                 </td>
                                 <td class="none-p" style="width: 30%;">
                                     <p class="none-p center">
-                                        <?php if ($poe['paciente']['sexo'] === "1") : ?>
+                                        <?php if ($poe['paciente']['sexo'] === 2) : ?>
                                             <strong>(X)</strong>
                                         <?php endif; ?>
                                         <span style="margin-right: 30px;">Femenino</span>
-                                        <?php if ($poe['paciente']['sexo'] === "2") : ?>
+                                        <?php if ($poe['paciente']['sexo'] === 1) : ?>
                                             <strong>(X)</strong>
                                         <?php endif; ?>
                                         <span>Masculino</span>
@@ -488,7 +481,13 @@ $poe = array(
                                     <p class="none-p  center">Lugar de nacimiento</p>
                                 </td>
                                 <td>
-                                    <p class="none-p center">05 / octubre /1964</p>
+                                    <p class="none-p center">
+
+                                        <?php
+                                        # fecha de nacimiento
+                                        echo $poe['paciente']['fecha_nacimiento'];
+                                        ?>
+                                    </p>
                                 </td>
                             </tr>
                         </table>
@@ -570,14 +569,29 @@ $poe = array(
                         <table>
                             <tr>
                                 <td class="none-p">
-                                    <p class="none-p center"></p>
+                                    <p class="none-p center">
+                                        <?php
+                                        # calle 
+                                        echo $poe['domicilio']['calle']
+                                        ?>
+                                    </p>
                                 </td>
                                 <td class="none-p">
-                                    <p class="none-p center"></p>
+                                    <p class="none-p center">
+                                        <?php
+                                        # Numero exterior 
+                                        echo $poe['domicilio']['exterior']
+                                        ?>
+                                    </p>
 
                                 </td>
                                 <td class="none-p">
-                                    <p class="none-p center"></p>
+                                    <p class="none-p center">
+                                        <?php
+                                        # colonia
+                                        echo $poe['domicilio']['colonia']
+                                        ?>
+                                    </p>
                                 </td>
                             </tr>
                         </table>
@@ -609,22 +623,34 @@ $poe = array(
                         <tr>
                             <td class="center">
                                 <p class="none-p">
-
+                                    <?php
+                                    # ciudad 
+                                    echo $poe['domicilio']['ciudad']
+                                    ?>
                                 </p>
                             </td>
                             <td class="center">
                                 <p class="none-p">
-
+                                    <?php
+                                    # codigo postal
+                                    echo $poe['domicilio']['codigo']
+                                    ?>
                                 </p>
                             </td>
                             <td class="center">
                                 <p class="none-p">
-
+                                    <?php
+                                    # estado 
+                                    echo $poe['domicilio']['estado']
+                                    ?>
                                 </p>
                             </td>
                             <td class="center">
                                 <p class="none-p">
-
+                                    <?php
+                                    # telefono particular 
+                                    echo $poe['domicilio']['telefono']
+                                    ?>
                                 </p>
                             </td>
                         </tr>
@@ -727,7 +753,7 @@ $poe = array(
                         APÉNDICE NORMATIVO B
                     </p>
                     <p style="text-align: right !important;">
-                        Villahermosa, Tabasco a 09 de Octubre de 2023
+                        Villahermosa Tabasco a <?php echo $poe['fecha_actual'] ?>
                     </p>
                 </div>
                 <div class="body-examen">
@@ -1045,7 +1071,7 @@ $poe = array(
                             <strong>Fecha:</strong>
                             <?php
                             # fecha
-                            echo $poe['paciente']['fecha']
+                            echo $poe['fecha_actual']
                             ?>
                         </p>
                     </td>

@@ -34,14 +34,14 @@ $usuario_id = $_SESSION['id'];
 // decomentar las siguientes 3 lineas para hacer las pruebas
 
 
-$turno_id = 2068;
+$turno_id = 2211;
 $api = "certificados_medicos";
 $area_id = -5;
 
 // //$cliente_id = 19;
 // // $id_cotizacion = 7;
 
-$preview = "poe"; // <- debe estar activo, y la firma de quien interpreta no debe aparecer
+$preview = "poe_general"; // <- debe estar activo, y la firma de quien interpreta no debe aparecer
 
 
 switch ($api) {
