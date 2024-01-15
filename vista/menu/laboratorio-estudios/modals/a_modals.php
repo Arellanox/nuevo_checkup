@@ -16,7 +16,7 @@ include "modal_metodos.html";
 //Modales de Grupo de Examenes
 // include "gp_agregar_grupo.html";
 // include "gp_editar_grupo.html";
-// include "gp_rellenar_grupo.html";
+include "gp_rellenar_grupo.html";
 
 //Valores de Referencia
 include "modal_referencia.php";
