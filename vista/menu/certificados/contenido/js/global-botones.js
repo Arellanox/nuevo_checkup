@@ -114,17 +114,7 @@ function btnCertificados(config) {
           // Valida quien es el medico actual del paciente, ya sea que no hay
           // guardado o sea el guardado quien esta trantando la interpretación
           console.log(dataPaciente[0]);
-          if (ifnull(dataPaciente[0], false, ['MEDICO']) || ifnull(dataPaciente[0], false, ['CEDULA_MEDICO'])) {
-            $('#Nom_medico').html(`${dataPaciente['MEDICO']}`)
-            $('#cedula').html(dataPaciente['CEDULA_MEDICA'])
-          } else {
-            $('#Nom_medico').html(`${session['nombre']} ${session['apellidos']}`)
-            $('#cedula').html(session['CEDULA'])
-          }
-
-          // colocar todos los datos faltantes
-          // datosPaciente(datPaciente, config.cliente)
-
+          informacionMedica(dataPaciente);
           resolve(1)
         })
 

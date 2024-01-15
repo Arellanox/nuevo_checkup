@@ -1,19 +1,16 @@
 //Recupera y muestra la informacion del paciente
-function datosPaciente(data, cliente) {
+function informacionMedica(data) {
+    // Información del medico
+    $('#nom_paciente').html(ifnull(data, `${session['nombre']} ${session['apellidos']}`, ['MEDICO']))
+    $('#fech_nacimiento').html(ifnull(data, session['CEDULA'], ['CEDULA_MEDICA']))
 
-    switch (cliente) {
-        case 'SLB':
-            $('#nom_paciente').html(data['NOMBRE_PACIENTE'])
-            $('#fech_nacimiento').html(data['FECHA_NACIMIENTO'])
-            $('#segmento').html(data['SEGMENTO'])
-            $('#categoria').html(data['CATEGORIA'])
-            break;
+    // Nombre y fecha de nacimiento
+    $('#nom_paciente').html(datalist['NOMBRE_COMPLETO'])
+    $('#fech_nacimiento').html(datalist['NOMBRE_COMPLETO'])
 
-        default:
-            break;
-    }
-
-
+    // Que lo manden
+    $('#segmento').html(datalist['SEGMENTO'])
+    $('#categoria').html(datalist['SEGMENTO'])
 }
 
 
@@ -31,18 +28,20 @@ $('#cuerpo_certificado_form').submit(function (e) {
 });
 
 
-$(document).on('click', '#btn-guardarInterpretacion', function (e) {
+// guardar o confirmar interpretación
+$(document).on('click', '.btn-interpretacion', function (e) {
     e.preventDefault();
-    title = '¿Esta seguro de guardar la valoración prequirúrgica?'
-    text = 'Se podra modificarlo despues'
-    btnAlertas(title, text, 0)
-})
 
-$(document).on('click', '#btn-confirmarReporte', function (e) {
-    e.preventDefault();
-    title = '¿Esta seguro de confirmar el reporte?'
-    text = 'No se podra modificar despues'
-    btnAlertas(title, text, 1)
+    let $btn = $(this);
+    let action = $btn.attr('data-bs-action');
+    title = `¿Esta seguro de ${action} el certificado?`
+    add_text = 'Se' // <-- De guardar
+    switch (action) {
+        case 'guardar': bit = 0; break; // <-- Guardar
+        case 'confirmar': add_text = 'No'; bit = 1; break; // <-- Confirmar
+    }
+    text = `${add_text} podrá modificarlo más tarde`;
+    btnAlertas(title, text, bit)
 })
 
 
@@ -88,6 +87,25 @@ $(document).on('click', '#listado-resultados div.collapse a[target="_blank"]', (
     // Construir el nombre del archivo
     let filename = `${collapseLinkText} - ${clickedLinkText}`;
 
+    vistaPrevia(filename, url);
+})
+
+
+$(document).on('click', '#btn-vistaPrevia', function () {
+
+    let api = encodeURIComponent(window.btoa('certificados_medicos'));
+    let turno = encodeURIComponent(window.btoa($(this).attr('turno_actual')));
+    let area = encodeURIComponent(window.btoa('-5'));
+    let preview = encodeURIComponent(window.btoa(pdf_format));
+
+    let url = `${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}&preview=${preview}`;
+    let filename = `${datalist['NOMBRE_COMPLETO']} ${pdf_format}`
+    window.open(url, "_blank");
+
+    vistaPrevia(filename, url)
+})
+
+function vistaPrevia(filename, url) {
     // Destruir la instancia existente de AdobeDC.View
     // Crear una instancia inicial de AdobeDC.View
     let adobeDCView = new AdobeDC.View({ clientId: "cd0a5ec82af74d85b589bbb7f1175ce3", divId: "adobe-dc-view" });
@@ -100,16 +118,4 @@ $(document).on('click', '#listado-resultados div.collapse a[target="_blank"]', (
         content: { location: { url: url } },
         metaData: { fileName: filename }
     });
-
-})
-
-
-$(document).on('click', '#btn-vistaPrevia', function () {
-
-    let api = encodeURIComponent(window.btoa('certificados_medicos'));
-    let turno = encodeURIComponent(window.btoa($(this).attr('turno_actual')));
-    let area = encodeURIComponent(window.btoa('-5'));
-    let preview = encodeURIComponent(window.btoa(pdf_format));
-
-    window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}&preview=${preview}`, "_blank");
-})
+}

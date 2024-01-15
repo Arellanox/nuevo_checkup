@@ -11,3 +11,4 @@
 28/12/23 13:08:03 sp_lista_de_trabajo_certificados Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_nueva_copia.sp_lista_de_trabajo_certificados; expected 6, got 5
 28/12/23 13:08:55 sp_lista_de_trabajo_certificados Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_nueva_copia.sp_lista_de_trabajo_certificados; expected 6, got 5
 28/12/23 13:09:56 sp_lista_de_trabajo_certificados Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_nueva_copia.sp_lista_de_trabajo_certificados; expected 6, got 5
+15/01/24 12:22:25 sp_certificados_g Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'CONFIMADO' in 'field list'
