@@ -229,6 +229,9 @@ class CargadorProgresivo {
         imagenes_css: {
           height: 'auto',
           width: 'auto'
+        },
+        divElement: {
+          class: 'col-lg-4 col-md-6 mb-4'
         }
       },
       detalles: false,
@@ -298,7 +301,7 @@ class CargadorProgresivo {
     }
 
     // estilosComoTexto(imagenes_css)
-    var html = `<div class="col-lg-4 col-md-6 mb-4 fadeIn">
+    var html = `<div class="${config.html.divElement.class} fadeIn">
               <div class="bg-white rounded shadow-sm">
                 <img src="${dato.ARCHIVOS[0].url}" alt="" class="img-fluid card-img-top" style="${this.estilosComoTexto(config.html.imagenes_css)}">
                 <div class="p-4">
