@@ -1,4 +1,7 @@
 
+
+
+// En desuso 
 class CatalogoModal {
 
     CONTENT;

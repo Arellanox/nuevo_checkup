@@ -635,7 +635,13 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
   // Setea para no perder configuracion
   config = setConfig(
     // nuevas configuraciones
-    { multiple: false }
+    {
+      multiple: false,
+      dropArea: {
+        background: '#ffffff00',
+        border: '2px dashed rgb(0 79 90 / 17%)'
+      }
+    }, config
   )
 
   let dropArea = $(divPadre) // <- Recomendaible una ID tipo #divPadre
@@ -647,6 +653,7 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
   // Personalización 
   if (ifnull(config, false, ['width'])) {
     dropArea.css('width', config.width)
+    dropArea.css(config.dropArea); // <--
   }
 
 

@@ -1,3 +1,27 @@
+// Configura
+function setConfig(defaults, config) {
+  // Función recursiva para manejar propiedades anidadas
+  function mergeDefaults(defaults, config) {
+    Object.entries(defaults).forEach(([key, defaultValue]) => {
+      if (typeof defaultValue === 'object' && defaultValue !== null && !Array.isArray(defaultValue)) {
+        // Si la propiedad es un objeto (y no un array), llama recursivamente
+        config[key] = config[key] || {}; // Asegúrate de que exista un objeto para mergear
+        mergeDefaults(defaultValue, config[key]);
+      } else {
+        // Si la propiedad no es un objeto, o es un array, simplemente la copiamos
+        config[key] = config.hasOwnProperty(key) ? config[key] : defaultValue;
+      }
+    });
+  }
+
+  // Copia superficial de config para evitar la modificación del objeto original
+  let configCopy = { ...config };
+  mergeDefaults(defaults, configCopy);
+  return configCopy;
+}
+
+
+
 class GuardarArreglo {
   array = new Array();
   selectID;
@@ -185,3 +209,110 @@ class TableNew {
 
 
 }
+
+
+
+
+
+
+
+
+// Galeria de fotos dinamicas
+class CargadorProgresivo {
+  constructor(config) {
+    config = setConfig({
+      contenedor: 'divPadre',
+      datos: {},
+      itemsIniciales: '',
+      itemsPorCarga: '',
+      html: {
+        imagenes_css: {
+          height: 'auto',
+          width: 'auto'
+        }
+      },
+      detalles: false,
+    }, config)
+
+    this.config = config
+    this.contenedor = document.getElementById(config.contenedor);
+    this.contenedor.innerHTML = ''; // <-- Cuando se inicialice, borramos todo
+    this.datos = config.datos;
+    this.itemsIniciales = config.itemsIniciales;
+    this.itemsPorCarga = config.itemsPorCarga;
+    this.currentIndex = 0;
+
+    this.loadInitialItems(); // Carga inicial
+    this.addScrollListener();
+  }
+
+  loadItems(n) {
+    // Obten las configuraciones previas
+    const config = this.config;
+    const totalItems = this.datos.length;
+    const nextIndex = Math.min(this.currentIndex + n, totalItems);
+
+    for (let i = this.currentIndex; i < nextIndex; i++) {
+      const elemento = this.datos[i];
+      const html = this.card_html(elemento);
+      console.log(html);
+      this.contenedor.innerHTML += html;
+    }
+
+    this.currentIndex = nextIndex;
+  }
+
+  loadInitialItems() {
+    this.loadItems(this.itemsIniciales);
+  }
+
+  loadMoreItems() {
+    this.loadItems(this.itemsPorCarga);
+  }
+
+  checkLoadMore() {
+    const rect = this.contenedor.getBoundingClientRect();
+    if (rect.bottom <= window.innerHeight) {
+      this.loadMoreItems();
+    }
+  }
+
+  addScrollListener() {
+    window.addEventListener('scroll', () => this.checkLoadMore());
+  }
+
+  //Galeria de fotos (HTML)
+  card_html(dato) {
+    // Obten las configuraciones previas
+    const config = this.config;
+
+    let detalle = '';
+    if (config.detalles) {
+      detalle = `
+        <p class="none-p">
+          <strong>Registro:</strong> ${dato.REGISTRADO_POR}</br>
+          <strong>Vigencia:</strong> ${dato.FECHA_INICIO}-${dato.FECHA_FIN}</br>
+          <strong>Pausa:</strong> ${dato.PAUSADO}
+        </p>
+      `
+    }
+
+    var html = `<div class="col-lg-4 col-md-6 mb-4 fadeIn">
+              <div class="bg-white rounded shadow-sm">
+                <img src="${dato.ARCHIVOS[0].url}" alt="" class="img-fluid card-img-top" style="${config.html.imagenes_css}">
+                <div class="p-4">
+                  <h5><a href="#" class="text-dark">${dato.TITULO}</a></h5>
+                  <p class="small text-muted mb-0">${dato.DESCRIPCION}</p>
+                  ${detalle}
+                  <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">${dato.ARCHIVOS[0].tipo}</span></p>
+                    <div class="badge text-bg-warning px-3 rounded-pill font-weight-normal text-white">${dato.VIGENTE}</div>
+                  </div>
+                </div>
+              </div>
+            </div>`;
+    return html;
+  }
+}
+
+
