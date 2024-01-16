@@ -278,7 +278,7 @@ switch ($menu) {
       <!-- Contenido del Modal -->
       <div class="modal-body contentPromociones">
 
-        <div class="row justify-content-center div-padre" id="div-padre">
+        <div class="row justify-content-center div-padre" id="vistaPromociones">
           <!-- <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
             <div class="bg-white rounded shadow-sm">
 
@@ -314,34 +314,34 @@ switch ($menu) {
 
 
 <script type="text/javascript">
-$(document).ready(function() {
-    var imagenes = [
-        "https://bootstrapious.com/i/snippets/sn-gallery/img-1.jpg",
-        "https://bootstrapious.com/i/snippets/sn-gallery/img-2.jpg",
-        "https://bootstrapious.com/i/snippets/sn-gallery/img-3.jpg",
-        "https://bootstrapious.com/i/snippets/sn-gallery/img-4.jpg",
-        // Añade más URLs de imágenes aquí
-    ];
+// $(document).ready(function() {
+//     var imagenes = [
+//         "https://bootstrapious.com/i/snippets/sn-gallery/img-1.jpg",
+//         "https://bootstrapious.com/i/snippets/sn-gallery/img-2.jpg",
+//         "https://bootstrapious.com/i/snippets/sn-gallery/img-3.jpg",
+//         "https://bootstrapious.com/i/snippets/sn-gallery/img-4.jpg",
+//         // Añade más URLs de imágenes aquí
+//     ];
 
-    function insertarImagenes(imagenes) {
-        var $divPadre = $('.div-padre');
-        $divPadre.empty(); // Limpiar el contenido actual
+//     function insertarImagenes(imagenes) {
+//         var $divPadre = $('.div-padre');
+//         $divPadre.empty(); // Limpiar el contenido actual
 
-        for (var i = 0; i < imagenes.length; i++) {
-            var imagen = imagenes[i];
-            var $col = $('<div class="col-xl-6 col-lg-6 col-md-6 mb-4"></div>');
-            var $tarjeta = $('<div class="bg-white rounded shadow-sm"></div>');
+//         for (var i = 0; i < imagenes.length; i++) {
+//             var imagen = imagenes[i];
+//             var $col = $('<div class="col-xl-6 col-lg-6 col-md-6 mb-4"></div>');
+//             var $tarjeta = $('<div class="bg-white rounded shadow-sm"></div>');
 
-            $tarjeta.append('<img src="' + imagen + '" alt="" class="img-fluid card-img-top" style="width: 100%; height: 400px; object-fit: cover;">');
-            $tarjeta.append('<div class="p-4"><h5> <a href="#" class="text-dark">Titulo de imagen</a></h5><p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p><div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4"><div class="badge text-bg-success px-3 rounded-pill font-weight-normal text-white">Activo</div></div></div>');
+//             $tarjeta.append('<img src="' + imagen + '" alt="" class="img-fluid card-img-top" style="width: 100%; height: 400px; object-fit: cover;">');
+//             $tarjeta.append('<div class="p-4"><h5> <a href="#" class="text-dark">Titulo de imagen</a></h5><p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p><div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4"><div class="badge text-bg-success px-3 rounded-pill font-weight-normal text-white">Activo</div></div></div>');
             
-            $col.append($tarjeta);
-            $divPadre.append($col);
-        }
-    }
+//             $col.append($tarjeta);
+//             $divPadre.append($col);
+//         }
+//     }
 
-    insertarImagenes(imagenes);
-});
+//     insertarImagenes(imagenes);
+// });
 </script>
 
 <style>
