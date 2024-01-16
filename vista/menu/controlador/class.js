@@ -301,16 +301,18 @@ class CargadorProgresivo {
     }
 
     // estilosComoTexto(imagenes_css)
-    var html = `<div class="${config.html.divElement.class} fadeIn">
-              <div class="bg-white rounded shadow-sm">
-                <img src="${dato.ARCHIVOS[0].url}" alt="" class="img-fluid card-img-top" style="${this.estilosComoTexto(config.html.imagenes_css)}">
-                <div class="p-4">
+    var html = `<div class="${config.html.divElement.class} fadeIn ">
+              <div class="bg-white rounded shadow-sm tarjeta-flexible">
+                <img src="${dato.ARCHIVOS[0].url}" alt="" class="img-fluid card-img-top imagen-tarjeta" style="${this.estilosComoTexto(config.html.imagenes_css)}">
+                <div class="p-4 contenido-tarjeta">
                   <h5><a href="#" class="text-dark">${dato.TITULO}</a></h5>
                   <p class="small text-muted mb-0">${dato.DESCRIPCION}</p>
                   ${detalle}
-                  <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">${dato.ARCHIVOS[0].tipo}</span></p>
-                    <div class="badge text-bg-warning px-3 rounded-pill font-weight-normal text-white">${dato.VIGENTE}</div>
+                  <div class="pie-tarjeta">
+                    <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                      <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">${dato.ARCHIVOS[0].tipo}</span></p>
+                      <div class="badge text-bg-warning px-3 rounded-pill font-weight-normal text-white">${dato.VIGENTE}</div>
+                    </div>
                   </div>
                 </div>
               </div>
