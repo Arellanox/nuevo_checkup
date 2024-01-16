@@ -297,9 +297,10 @@ class CargadorProgresivo {
       `
     }
 
+    // estilosComoTexto(imagenes_css)
     var html = `<div class="col-lg-4 col-md-6 mb-4 fadeIn">
               <div class="bg-white rounded shadow-sm">
-                <img src="${dato.ARCHIVOS[0].url}" alt="" class="img-fluid card-img-top" style="${config.html.imagenes_css}">
+                <img src="${dato.ARCHIVOS[0].url}" alt="" class="img-fluid card-img-top" style="${this.estilosComoTexto(config.html.imagenes_css)}">
                 <div class="p-4">
                   <h5><a href="#" class="text-dark">${dato.TITULO}</a></h5>
                   <p class="small text-muted mb-0">${dato.DESCRIPCION}</p>
@@ -312,6 +313,16 @@ class CargadorProgresivo {
               </div>
             </div>`;
     return html;
+  }
+
+  estilosComoTexto(objetoEstilos) {
+    return Object.entries(objetoEstilos)
+      .map(([key, value]) => `${this.camelCaseToKebabCase(key)}: ${value}`)
+      .join('; ');
+  }
+
+  camelCaseToKebabCase(string) {
+    return string.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
   }
 }
 
