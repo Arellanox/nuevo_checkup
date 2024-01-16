@@ -82,12 +82,6 @@ switch($api){
             $vigente
         ]);
 
-        # evaluar si existen, de lo contrario enviar el aviso correspondiente
-        if(empty($resultset)){
-            echo $master->returnApi("No hay promociones con los parámetros seleccionados.",3);
-            exit;
-        }
-
         # preparar los archivos para el intercambio.
         $response = array();
         foreach($resultset as $set){
