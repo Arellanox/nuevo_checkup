@@ -91,7 +91,7 @@ switch($api){
         # preparar los archivos para el intercambio.
         $response = array();
         foreach($resultset as $set){
-            $set['ARCHIVOS'] = $master->decodeJsonRecursively($set['ARCHIVOS']);
+            $set = $master->decodeJsonRecursively($set);
             array_push($response, $set);
         }
         break;
