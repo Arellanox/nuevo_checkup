@@ -278,7 +278,7 @@ switch ($menu) {
       <!-- Contenido del Modal -->
       <div class="modal-body contentPromociones">
 
-        <div class="row justify-content-center div-padre">
+        <div class="row justify-content-center div-padre" id="div-padre">
           <!-- <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
             <div class="bg-white rounded shadow-sm">
 
