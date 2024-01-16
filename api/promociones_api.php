@@ -22,7 +22,7 @@ $titulo = $_POST['titulo'];
 $descripcion = $_POST['descripcion'];
 $fecha_inicio = $_POST['fecha_inicio'];
 $fecha_fin = $_POST['fecha_fin'];
-$usuario_id = $_SESSION['id'];
+$usuario_id = $_POST['usuario_id'];
 $pausado = $_POST['pausado'];
 
 #variables de busqueda.
