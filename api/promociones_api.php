@@ -16,7 +16,7 @@ $master = new Master();
 #variables sistema
 $host = $master->selectHost($_SERVER['SERVER_NAME']);
 
-#variables promociones
+#variables promociones, insert
 $id_promocion = $_POST['id_promocion'];
 $titulo = $_POST['titulo'];
 $descripcion = $_POST['descripcion'];
@@ -51,7 +51,7 @@ switch($api){
             $nuevaRutaJson = json_encode($nuevaRutaArchivos);
 
             # insertamos el registro
-            $master -> insertByProcedure("sp_promociones_g", [
+            $response = $master -> insertByProcedure("sp_promociones_g", [
                 $id_promocion,
                 $titulo,
                 $descripcion,
@@ -66,6 +66,9 @@ switch($api){
             $response = 'Imposible crear directorio para las promociones.';
         }
         break;
+    case 2:
+        # buscar las promociones
+        $response;
 
     default:
         $response = "Api no definida.";
