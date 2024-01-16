@@ -189,7 +189,16 @@ include "../../variables.php";
                 datos: data.response.data,
                 itemsIniciales: 10,
                 itemsPorCarga: 50,
-                detalles: false
+                html: {
+                  imagenes_css: {
+                    width: '100%',
+                    height: '400px',
+                    // object-fit: 'cover',
+                  },
+                  divElement: {
+                    class: 'col-lg-6 col-md-6 mb-4'
+                  }
+                }
               });
             })
           }
