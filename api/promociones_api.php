@@ -48,7 +48,9 @@ switch($api){
                 array_push($nuevaRutaArchivos, $archivo);
             }
 
-            $nuevaRutaJson = json_encode($nuevaRutaArchivos);
+            # si quieren actualizar solo los campos y no los archivos
+            # nuleamos la variable para evitar que el sp sobreescriba un json vacio.
+            $nuevaRutaJson = empty($nuevaRutaArchivos) ? null : json_encode($nuevaRutaArchivos);
 
             # insertamos el registro
             $response = $master -> insertByProcedure("sp_promociones_g", [
