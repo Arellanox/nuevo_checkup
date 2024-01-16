@@ -89,11 +89,13 @@ switch($api){
         }
 
         # preparar los archivos para el intercambio.
-        $response = [];
+        $response = array();
         foreach($resultset as $set){
             $set['ARCHIVOS'] = $master->decodeJsonRecursively($set['ARCHIVOS']);
             array_push($response, $set);
         }
+        break;
+
     case 3:
         # eliminar promociones
         $response = $master->deleteByProcedure('sp_promociones_e', [$id_promocion]);
