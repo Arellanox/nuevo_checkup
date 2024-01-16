@@ -174,6 +174,26 @@ include "../../variables.php";
     $.getScript("<?php echo $https . $url . '/' . $appname . '/vista/menu/controlador/funciones.js'; ?>").done(function() {
       loggin(function(val) {
         if (val) {
+
+          getGalleryPromociones();
+
+          function getGalleryPromociones() {
+            ajaxAwait({
+              api: 2
+            }, 'promociones_api', {
+              callbackAfter: true
+            }, false, (data) => {
+
+              const galleria = new CargadorProgresivo({
+                contenedor: 'div-padre',
+                datos: data.response.data,
+                itemsIniciales: 10,
+                itemsPorCarga: 50,
+                detalles: false
+              });
+            })
+          }
+
           $(function() {
             // console.log(session)
             // <!-- Aqui controlar e incluir las modals -->
