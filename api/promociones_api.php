@@ -22,7 +22,7 @@ $titulo = $_POST['titulo'];
 $descripcion = $_POST['descripcion'];
 $fecha_inicio = $_POST['fecha_inicio'];
 $fecha_fin = $_POST['fecha_fin'];
-$usuario_id = $_SESSION['id'];
+$usuario_id = $_POST['usuario_id'];
 $pausado = $_POST['pausado'];
 
 #variables de busqueda.
@@ -81,12 +81,6 @@ switch($api){
             $usuario_id,
             $vigente
         ]);
-
-        # evaluar si existen, de lo contrario enviar el aviso correspondiente
-        if(empty($resultset)){
-            echo $master->returnApi("No hay promociones con los parámetros seleccionados.",3);
-            exit;
-        }
 
         # preparar los archivos para el intercambio.
         $response = array();

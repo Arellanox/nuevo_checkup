@@ -185,7 +185,7 @@ include "../../variables.php";
             }, false, (data) => {
 
               const galleria = new CargadorProgresivo({
-                contenedor: 'div-padre',
+                contenedor: 'vistaPromociones',
                 datos: data.response.data,
                 itemsIniciales: 10,
                 itemsPorCarga: 50,
