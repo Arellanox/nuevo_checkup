@@ -25,6 +25,9 @@ $fecha_fin = $_POST['fecha_fin'];
 $usuario_id = $_SESSION['id'];
 $pausado = $_POST['pausado'];
 
+#variables de busqueda.
+$vigente = $_POST['vigente'];
+
 switch($api){
     case 1:
         #insertar o actualizar promociones
@@ -70,7 +73,31 @@ switch($api){
         break;
     case 2:
         # buscar las promociones
-        $response;
+        $resultset = $master->getByProcedure("sp_promociones_b", [
+            $id_promocion,
+            $fecha_inicio,
+            $fecha_fin,
+            $pausado,
+            $usuario_id,
+            $vigente
+        ]);
+
+        # evaluar si existen, de lo contrario enviar el aviso correspondiente
+        if(empty($resultset)){
+            echo $master->returnApi("No hay promociones con los parámetros seleccionados.",3);
+            exit;
+        }
+
+        # preparar los archivos para el intercambio.
+        $response = [];
+        foreach($resultset as $set){
+            $set['ARCHIVOS'] = $master->decodeJsonRecursively($set['ARCHIVOS']);
+            array_push($response, $set);
+        }
+    case 3:
+        # eliminar promociones
+        $response = $master->deleteByProcedure('sp_promociones_e', [$id_promocion]);
+        break;
 
     default:
         $response = "Api no definida.";
@@ -79,4 +106,3 @@ switch($api){
 
 echo $master->returnApi($response);
 
-?>
