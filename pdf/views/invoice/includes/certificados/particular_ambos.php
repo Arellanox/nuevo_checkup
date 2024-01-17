@@ -90,7 +90,12 @@ $resultado = convertirObjetoAArray($resultados[0]->DATA_BASE);
 $cuerpo = convertirObjetoAArray($resultados[0]->CUERPO);
 $medico = convertirObjetoAArray($resultados[0]->MEDICO_INFO);
 $servicios = convertirObjetoAArray($resultado['SERVICIOS']);
+$genero = strtolower($resultados[0]->GENERO);
 
+
+// echo "<pre>";
+// var_dump($genero);
+// echo "</pre>";
 
 
 # arreglo para rellenar el certificado de particulares
@@ -347,6 +352,7 @@ $particular = array(
                     ?>
                 </td>
             </tr>
+            <?php if ($genero === 'femenino'): ?>
             <tr>
                 <td colspan="4">Mastrografía</td>
             </tr>
@@ -369,6 +375,7 @@ $particular = array(
                     ?>
                 </td>
             </tr>
+            <?php endif; ?>
         </table>
 
         <!-- Table Two -->
