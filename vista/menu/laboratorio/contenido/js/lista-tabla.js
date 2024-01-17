@@ -279,7 +279,7 @@ function generarFormularioPaciente(id) {
                   'descripcion': 'HISOPADO GLANDE Y PUBIS'
                 },
                 7: {
-                  'descripcion': 'URETRAL, SURCO Y CUERPO DEL PENE'
+                  'descripcion': 'URETRAL,SURCO Y CUERPO DE PENE'
                 }
               }
               break;
