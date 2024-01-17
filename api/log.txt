@@ -2,3 +2,13 @@
 28/07/23 12:59:46 sp_agenda_horarios_g Ha ocurrido un error(42S22). 42S22 1054 Unknown column '_hora_inicial' in 'field list'
 28/07/23 15:33:56 sp_agenda_horarios_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_checkup_copio`.`agenda_horarios`, CONSTRAINT `fk_agenda_horarios_areas_1` FOREIGN KEY (`AREA_ID`) REFERENCES `areas` (`ID_AREA`) ON DELETE CASCADE ON UPDATE CASCADE)
 28/07/23 16:16:58  Area: 1
+17/01/24 13:45:33  Area: 5
+17/01/24 13:46:28 [function guardarFiles][file-captura-oido-izquierdo] El archivo esta vacio o dañado, error al subir archivo.
+17/01/24 13:46:34 [function guardarFiles][file-captura-oido-derecho] El archivo esta vacio o dañado, error al subir archivo.
+17/01/24 13:46:43 [function guardarFiles][file-captura-oido-derecho] El archivo esta vacio o dañado, error al subir archivo.
+17/01/24 13:48:52  Area: 5
+17/01/24 13:50:11  Area: 5
+17/01/24 13:53:55  Area: 5
+17/01/24 13:54:39  Area: 5
+17/01/24 13:56:13  Area: 5
+17/01/24 13:57:06  Area: 5

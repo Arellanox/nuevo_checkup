@@ -148,7 +148,11 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
                 getFormOidosAudiometria(datalist);
 
                 // Recupera la info del reporte:
-                document.getElementById(formulario).reset()
+                // document.getElementById(formulario).reset()
+                $('#formulario_html_audio').html('')
+
+                $('#formulario_html_audio').html(form_audio_html)
+
                 if (ifnull(selectEstudio, false, ['array'], (data) => { return data.length ? true : false }))
                     await obtenerResultadosAudio(selectEstudio);
 
