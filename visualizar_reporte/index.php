@@ -95,7 +95,8 @@ switch ($api) {
         $r = $master->reportador($master, $turno_id, 4, 'audiometria', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
         break;
     case 'certificados_medicos':
-        $r = $master->reportador($master, $turno_id, '-5', 'certificados_medicos', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
+    case 'caratula_poe':
+        $r = $master->reportador($master, $turno_id, '-5', $api , 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
         break;
     default:
         echo '<script language="javascript">alert("¡URL invalida!"); window.close()</script>';

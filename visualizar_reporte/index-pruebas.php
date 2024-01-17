@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 require_once "../clases/token_auth.php";
 include_once '../clases/master_class.php';
@@ -26,6 +25,7 @@ $preview = mb_convert_encoding(base64_decode(urldecode($_GET['preview'])), 'UTF-
 $id_cotizacion = mb_convert_encoding(base64_decode(urldecode($_GET['id_cotizacion'])), 'UTF-8');
 $usuario_id = $_SESSION['id'];
 
+
 // mb_convert_encoding($rePa['paterno'],'UTF-8'));
 // Imagenologia --> 8 para rayos y 11 para ultrasonido
 
@@ -34,9 +34,9 @@ $usuario_id = $_SESSION['id'];
 // decomentar las siguientes 3 lineas para hacer las pruebas
 
 
-$turno_id = 2211;
-$api = "certificados_medicos";
-$area_id = -5;
+// $turno_id = 2211;
+// $api = "caratula_poe";
+// $area_id = -5;
 
 // //$cliente_id = 19;
 // // $id_cotizacion = 7;
@@ -99,7 +99,8 @@ switch ($api) {
         $r = $master->reportador($master, $turno_id, $area_id, 'temperatura', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
         break;
     case 'certificados_medicos':
-        $r = $master->reportador($master, $turno_id, '-5', 'certificados_medicos', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
+    case 'caratula_poe':
+        $r = $master->reportador($master, $turno_id, '-5', $api, 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
         break;
     default:
         echo '<script language="javascript">alert("¡URL invalida!"); window.close()</script>';

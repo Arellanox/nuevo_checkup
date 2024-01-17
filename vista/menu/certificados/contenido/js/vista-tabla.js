@@ -82,6 +82,13 @@ selectTable('#TablaContenidoPaciCertificados', TablaContenidoPaciCertificados, {
         turno: datalist['ID_TURNO'],
       }) //<- Funcion que alamacena la procedencia del paciente parta ir a global-botones.js
 
+      await certificadosPoe({
+        turno: datalist['ID_TURNO'],
+        api: 'caratula_poe',
+        area: '-5',
+        preview: 'poe_general'
+      }) // <-- Funcion para mostrar la caratula del certificado poe para imprimir
+
 
       callback('In')
     }

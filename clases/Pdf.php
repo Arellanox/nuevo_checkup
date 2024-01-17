@@ -242,6 +242,11 @@ class Reporte
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
                 break;
+            case 'caratula_poe':
+                $template = render_view('invoice/caratula_poe.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter', 'portrait');
+                break;
             default:
                 $template = render_view('invoice/reportes.php', $view_vars);
                 $pdf->loadHtml($template);

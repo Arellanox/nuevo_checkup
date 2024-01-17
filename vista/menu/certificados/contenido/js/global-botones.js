@@ -183,3 +183,39 @@ function setFormData(formId, data, path = '') {
   if (log_error)
     alertToast('Algunos campos no fueron encontrados', 'info', 4000);
 }
+
+
+
+// Descargar Caratula del certificado POE
+function btnPoe() {
+  return `
+       <button type="button" class="btn btn-cancelar me-2" style="margin-bottom:4px;" id="btn-caratulaPoe">
+          <i class="bi bi-printer"></i> Caratula
+        </button>
+  `;
+}
+
+function certificadosPoe(config = { turno: '', api: '', area: '-5', preview: '' }) {
+  return new Promise((resolve, reject) => {
+    // Div padre
+    let div = $('#divPoe');
+    // Obtnemos el boton para mostrar la caratula del certificado poe
+    let btn = btnPoe();
+    // Renderizamos el boton dentro del contendor padre
+    div.html(btn);
+
+    $(document).on('click', '#btn-caratulaPoe', function () {
+      let api = encodeURIComponent(window.btoa(config.api));
+      let turno = encodeURIComponent(window.btoa(config.turno));
+      let area = encodeURIComponent(window.btoa(config.area));
+      let preview = encodeURIComponent(window.btoa(config.preview));
+
+      let url = `${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}&preview=${preview}`;
+
+      window.open(url, "_blank");
+    });
+
+
+    resolve(1)
+  })
+}
