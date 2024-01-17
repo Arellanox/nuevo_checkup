@@ -48,12 +48,14 @@ function hasLocation() {
     switch (hash) {
       case 'CERTIFICADOS_MEDICOS':
         dataListaPaciente['tipo_certificado'] = 1; // Es el tipo de certificado que necesita back para traer la lista de pacientes
+        dataListaPaciente['api'] = 1;
         certificado_tipo = { tipo: 1, certificacion: null };
         config.titulo = 'Certificados médicos general'
         break;
 
       case 'CERTIFICADOS_POE':
         dataListaPaciente['tipo_certificado'] = 2; // Es el tipo de certificado que necesita back para traer la lista de pacientes
+        dataListaPaciente['api'] = 4;
         certificado_tipo = { tipo: 2, certificacion: 'POE' }
 
         config.titulo = 'Certificados Poe'

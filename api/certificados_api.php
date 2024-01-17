@@ -91,6 +91,11 @@ switch ($api) {
         }
 
         break;
+    case 4:
+        # lista de trabajo para certificados poe.
+        # pacientes que tengan cargado entre sus estudios una historia clinica.
+        $response = $master->getByProcedure("sp_lista_de_trabajo_certificados_poe", [$fecha, 1, null, null, null, $tipo]);
+        break;
     default:
         $response = "API no definida.";
         break;
