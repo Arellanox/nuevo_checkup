@@ -94,7 +94,7 @@ $genero = strtolower($resultados[0]->GENERO);
 
 
 // echo "<pre>";
-// var_dump($resultado);
+// var_dump($servicios);
 // echo "</pre>";
 
 
@@ -121,7 +121,7 @@ $particular = array(
         "audiometria" => $cuerpo['audiometria'],
         "espirometria" => $cuerpo['espirometria'],
         "prueba_esfuerzo" => $cuerpo['prueba_esfuerzo'],
-        "rx_tele_torax" => $servicios['TELE DE TÓRAX POSTERO ANTERIOR (PA)'],
+        "rx_tele_torax" => $servicios['TELE DE TÓRAX POSTERO ANTERIOR (PA)']->INTERPRETACION,
         "rx_lumbar_anteroposterior" =>  $servicios['COLUMNA LUMBAR ANTEROPOSTERIOR']->INTERPRETACION,
         "rx_lumbar_lateral" => $servicios['COLUMNA LUMBAR LATERAL']->INTERPRETACION,
         "ultrasonido_abdominal" => $servicios['ULTRASONIDO DE ABDOMEN COMPLETO']->INTERPRETACION,
