@@ -24,6 +24,7 @@ $fecha_inicio = $_POST['fecha_inicio'];
 $fecha_fin = $_POST['fecha_fin'];
 $usuario_id = $_POST['usuario_id'];
 $pausado = $_POST['pausado'];
+$registrado_por = $_SESSION['id'];
 
 #variables de busqueda.
 $vigente = $_POST['vigente'];
@@ -64,7 +65,8 @@ switch($api){
                 $fecha_fin,
                 $usuario_id,
                 $nuevaRutaJson,
-                $pausado
+                $pausado,
+                $registrado_por
             ]);
         } else {
             # si no existe el directorio, enviamos el error correspondiente
