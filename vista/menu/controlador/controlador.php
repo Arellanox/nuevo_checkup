@@ -192,8 +192,6 @@ include "../../variables.php";
                 html: {
                   imagenes_css: {
                     width: '100%',
-                    height: '400px',
-                    // object-fit: 'cover',
                   },
                   divElement: {
                     class: 'col-lg-6 col-md-6 mb-4'
