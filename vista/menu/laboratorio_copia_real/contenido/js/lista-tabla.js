@@ -255,9 +255,6 @@ function generarFormularioPaciente(id) {
                 },
                 4: {
                   'descripcion': 'HISOPADO NASOFARÍNGEO'
-                },
-                5: {
-                  'descripcion': 'URETRAL, SURCO Y CUERPO DEL PENE'
                 }
               }
               break;
