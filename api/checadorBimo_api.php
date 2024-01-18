@@ -24,12 +24,14 @@ $faltaInjustificada = isset($_POST['faltaInjustificada']) ? $_POST['faltaInjusti
 $hrsExtras = isset($_POST['hrsExtras']) ? $_POST['hrsExtras'] : 0;
 $permisoSGS = isset($_POST['permisoSGS']) ? $_POST['permisoSGS'] : 0;
 
+
+$inpust = $_POST['inputs'];
+$fecha = $_POST['fecha'];
+$id_asistencia = $_POST['ID_ASISTENCIA'];
+
 $creado_por  = $_SESSION['id'];
 
-
-
 $asistencia = json_decode(file_get_contents('php://input'), true);
-
 $api = isset($asistencia['api']) ? $asistencia['api'] : $_POST['api'];
 
 
@@ -129,7 +131,7 @@ if ((isset($asistencia['api']) && isset($asistencia['nombre'])) || (isset($_POST
             break;
         case 11:
             #Guardar o actualizar los registros de asistencias
-            $response = $master->getByProcedure("sp_reporte_checadorBimo_excel_g", [$bimer_id, $fecha, $hora_entrada, $hora_salida, $id_asistencia]);
+            $response = $master->getByProcedure("sp_reporte_checadorBimo_excel_g", [$bimer_id, $fecha, $inpust['HORA_ENTRADA'], $inpust['HORA_SALIDA'], $id_asistencia]);
             
             break;
         default:
