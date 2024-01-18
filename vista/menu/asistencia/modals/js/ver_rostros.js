@@ -389,7 +389,7 @@ $(document).on('click', '.editarAsistencia', function () {
         div.html(`<input type="time" value="${texto}" class="new_hours_registros form-control input-form" data-value-column="${texto}">`) // <-- el input debe tener el valor anterior por si cancelar dejar como estaba las horas
     });
 });
-
+var response_prueba;
 $(document).on('click', '.guardarAsistencia', function () {
     // Obtener de nuevo el tr
     let tr = $(this).closest('tr');
@@ -429,8 +429,8 @@ $(document).on('click', '.guardarAsistencia', function () {
         bimer_id: select_data.ID_BIMER,
         ID_ASISTENCIA: $(this).attr('data-id'),
         fecha: $(this).attr('fecha')
-    }, 'checadorBimo_api', { callbackAfter: true }, false, function (response) {
-        let id = response.data[0];
+    }, 'checadorBimo_api', { callbackAfter: true }, false, function (data) {
+        let id = data.response.data[0][0]
 
         $(`#editar_${count}`).attr('data-id', id);
         $(`#guardar_${count}`).attr('data-id', id);
