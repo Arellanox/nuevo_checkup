@@ -88,12 +88,8 @@ if ((isset($asistencia['api']) && isset($asistencia['nombre'])) || (isset($_POST
 
             break;
         case 7:
+
             #Guardamos los datos del reporte personal
-
-            $preview = ['FECHA_INICIO' => $fecha_inicio, 'FECHA_FINAL' => $fecha_final];
-            $url = $master->reportador($master, $bimer_id, -6, "asistencia", 'url', $preview);
-            
-
             $data = array(
                 $bimer_id,
                 $vacaciones, 
@@ -103,10 +99,16 @@ if ((isset($asistencia['api']) && isset($asistencia['nombre'])) || (isset($_POST
                 $hrsExtras,
                 $permisoSGS,
                 $creado_por,
-                $url
+                NULL,
             );
 
             $response = $master->getByProcedure('sp_reporte_checadorBimo_g', $data);
+
+            $preview = ['FECHA_INICIO' => $fecha_inicio, 'FECHA_FINAL' => $fecha_final];
+            $url = $master->reportador($master, $bimer_id, -6, "asistencia", 'url', $preview);
+
+            $response = $master->getByProcedure('sp_reportes_actualizar_ruta', ["reporte_checadorBimo", "RUTA_REPORTE", $url, $bimer_id, -6] );
+
 
 
             break;

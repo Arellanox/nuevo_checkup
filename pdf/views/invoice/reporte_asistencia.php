@@ -42,14 +42,14 @@ $asistencia = array(
     "colaborador" => array(
         "px" => $resultado['NOMBRE'],
         "area" => $resultado['AREA'],
-        "dias_trabajados" => $resultado['DIAS_TRABAJADOS'],
+        "dias_trabajados" => $resultado['TOTAL_ASISTENCIAS'],
         "Hrs_extras" => $resultado['hrs_extras'],
         "vacaciones" => $resultado['vacaciones'],
         "permiso_cgs_1" => $resultado['permiso_cgs_1'],
         "permiso_cgs_2" => $resultado['permiso_cgs_2'],
         "permiso_sgs" => $resultado['permiso_sgs'],
         "incapacidad" => $resultado['incapacidad'],
-        "retardos" => $resultado['retardos'],
+        "retardos" => $resultado['TOTAL_RETARDOS'],
         "faltas_injustificadas" => $resultado['faltas_injustificadas'],
     ),
     "periodo" => array(
@@ -59,6 +59,11 @@ $asistencia = array(
     "no_quincenca" => 12,
     "fechas" => json_decode($resultado['ASISTENCIAS']),
 );
+
+// echo "<pre>";
+// echo $asistencia['colaborador']['faltas_injustificadas'];
+// echo "</pre>";
+// exit;
 
 
 ?>
@@ -285,14 +290,13 @@ $asistencia = array(
                     <td class="center bold p-blue">Observaciones</td>
                 </tr>
                 <?php foreach ($asistencia['fechas'] as $key => $value) : ?>
-                    <?php $e = json_decode($value) ?>
                     <tr>
-                        <td class="center"> <?php echo formatear_fecha($e->FECHA) ?> </td>
-                        <td class="center"><?php echo $e->HORA_ENTRADA ?></td>
-                        <td class="center"> <?php echo $e->HORA_SALIDA ?></td>
+                        <td class="center"> <?php echo formatear_fecha($value->FECHA) ?> </td>
+                        <td class="center"><?php echo $value->HORA_ENTRADA ?></td>
+                        <td class="center"> <?php echo $value->HORA_SALIDA ?></td>
                         <td> </td>
                     </tr>
-                <?php endforeach ?>
+                <?php endforeach; ?>
                 <!-- <tr>
                     <td class="center">01/01/2024</td>
                     <td></td>
@@ -309,31 +313,27 @@ $asistencia = array(
             <table>
                 <tr>
                     <td class="center bg-gray">Días trabajados</td>
-                    <td class="center bg-gray"> Hrs. Extras</td>
+                    <td class="center bg-gray"> Hrs. Extras </td>
                     <td class="center bg-gray">Vacaciones</td>
-                    <td class="center bg-gray">Permisos CGS</td>
                     <td class="center bg-gray">Permisos CGS</td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="center">
                         <?php echo $asistencia['colaborador']['dias_trabajados'] ?>
                     </td>
-                    <td>
-                        <?php echo $asistencia['colaborador']['hrs_extras'] ?>
+                    <td class="center">
+                        <?php echo $asistencia['colaborador']['Hrs_extras'] ?>
                     </td>
-                    <td>
+                    <td class="center">
                         <?php echo $asistencia['colaborador']['vacaciones'] ?>
                     </td>
-                    <td>
+                    <td class="center">
                         <?php echo $asistencia['colaborador']['permiso_cgs_1'] ?>
-                    </td>
-                    <td>
-                        <?php echo $asistencia['colaborador']['permiso_cgs_2'] ?>
                     </td>
                 </tr>
                 <!-- Espacio -->
                 <tr>
-                    <td style="border: none !important; height:20px !important;" colspan="5"></td>
+                    <td style="border: none !important; height:20px !important;" colspan="4"></td>
                 </tr>
             </table>
 
@@ -341,30 +341,30 @@ $asistencia = array(
             <table>
                 <tr>
                     <td class="center bg-gray">Permisos SGS</td>
-                    <td class="center bg-gray"> incapacidad</td>
+                    <td class="center bg-gray"> Incapacidad</td>
                     <td class="center bg-gray">Retardos</td>
                     <td class="center bg-gray">Falta injustificada</td>
-                    <td class="border-none"></td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="center">
                         <?php echo $asistencia['colaborador']['permiso_sgs'] ?>
                     </td>
-                    <td>
+                    <td class="center">
                         <?php echo $asistencia['colaborador']['incapacidad'] ?>
                     </td>
-                    <td>
+                    <td class="center">
+                        <?php echo $asistencia['colaborador']['retardos'] ?>
+                    </td>
+                    <td class="center">
                         <?php echo $asistencia['colaborador']['faltas_injustificadas'] ?>
                     </td>
-                    <td></td>
-                    <td class="border-none"></td>
                 </tr>
                 <!-- Espacio -->
                 <tr>
-                    <td style="border: none !important; height:20px !important;" colspan="5"></td>
+                    <td style="border: none !important; height:20px !important;" colspan="4"></td>
                 </tr>
                 <tr>
-                    <td style="border: none !important; height:20px !important;" colspan="5"></td>
+                    <td style="border: none !important; height:20px !important;" colspan="4"></td>
                 </tr>
             </table>
 

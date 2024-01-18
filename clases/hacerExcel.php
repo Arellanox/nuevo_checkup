@@ -129,7 +129,8 @@ function crearCuerpoFechas($sheet, $data, $border, $colorAzul)
         $columna = 'L';
         foreach ($asistenciasArray as $asistencia) {
 
-            $info = json_decode($asistencia, true);
+            // $info = json_decode($asistencia, true);
+            $info = $asistencia;
 
             $celda1 = $columna . '5';
 

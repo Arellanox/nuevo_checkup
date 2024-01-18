@@ -36,7 +36,7 @@ $usuario_id = $_SESSION['id'];
 
 $api = "asistencia";
 $area_id = -6;
-$turno_id = 5;
+$turno_id =5;
 
 //$cliente_id = 19;
 // $id_cotizacion = 7;
@@ -101,7 +101,7 @@ switch ($api) {
     case 'asistencia':
 
         # $turno_id = id_bimer
-        $r = $master->reportador($master, $turno_id, $area_id, 'asistencia', 'mostrar', ['FECHA_INICIO' => '2024-01-01', 'FECHA_FINAL' => '2024-01-15'], 0, 0, $id_cliente, $id_cotizacion);
+        $r = $master->reportador($master, $turno_id, $area_id, 'asistencia', 'mostrar', ['FECHA_INICIO' => '2024-01-01', 'FECHA_FINAL' => '2024-01-16'], 0, 0, $id_cliente, $id_cotizacion);
         break;
     default:
         echo '<script language="javascript">alert("¡URL invalida!"); window.close()</script>';

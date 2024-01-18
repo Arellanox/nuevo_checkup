@@ -545,13 +545,13 @@ class Miscelaneus
                 #ASISTENCIA
 
                 #turno_id = id_bimer
-                $arregloPaciente = $this->getBodyAsistencia($master, $preview['FECHA_INICIO'], $preview['FECHA_FINAL'], $turno_id );
+                $arregloPaciente = $this->getBodyAsistencia($master, $preview['FECHA_INICIO'], $preview['FECHA_FINAL'], $turno_id);
 
                 $carpeta_guardado = "checadorBimo";
                 $fecha_resultado = date('Ymd');
-                $nombre_paciente = $turno_id.'_'.uniqid();
+                $nombre_paciente = $turno_id . '_' . uniqid();
 
-    
+
                 break;
         }
 
@@ -754,9 +754,10 @@ class Miscelaneus
         return $response;
     }
 
-    private function getBodyAsistencia($master,$fecha_inicio, $fecha_final, $turno_id)
+    private function getBodyAsistencia($master, $fecha_inicio, $fecha_final, $turno_id)
     {
         $response = $master->getByProcedure('sp_checador_data', [$fecha_inicio, $fecha_final, $turno_id, 0]);
+
         return $response;
     }
 
