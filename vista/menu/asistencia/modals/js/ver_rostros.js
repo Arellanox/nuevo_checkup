@@ -430,7 +430,7 @@ $(document).on('click', '.guardarAsistencia', function () {
         fecha: $(this).attr('fecha')
     }, 'checadorBimo_api', { callbackAfter: true }, false, function (response) {
         console.log(response);
-
+        tablaReporteAsistencias.ajax.reload();
     })
     // ajaxAwait(function () {
     // Dentro del ajax await se hace otro each para remplazar ahora si los inputs a los html con los nuevos valores
