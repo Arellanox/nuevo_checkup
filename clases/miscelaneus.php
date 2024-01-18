@@ -559,7 +559,8 @@ class Miscelaneus
                         'CLAVE_IMAGEN' => $arregloPaciente[0]['CLAVE_IMAGEN'],
                     ]
                 ];
-
+                $carpeta_guardado = "certificado_poe";
+                $fecha_resultado = date("Ymd");
                 break;
             case -4:
                 #Corte de caja

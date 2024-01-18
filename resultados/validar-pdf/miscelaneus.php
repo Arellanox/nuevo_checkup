@@ -454,7 +454,7 @@ class Miscelaneus
                 $carpeta_guardado = "espirometria";
                 $folio = $infoPaciente[array_key_last($infoPaciente)]['FOLIO_ESPIRO'];
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[array_key_last($infoPaciente)]['CLAVE_ESPIRO'];
-
+                
                 break;
 
             case 19:

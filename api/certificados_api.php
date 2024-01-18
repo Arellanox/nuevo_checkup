@@ -1,4 +1,7 @@
 <?php
+
+use NumberToWords\Language\Arabic\ArabicDictionary;
+
 require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
 include "../clases/correo_class.php";
@@ -16,7 +19,8 @@ $registrado_por = $_SESSION['id'];
 
 # variables para lista de trabajo.
 $fecha = isset($_POST['fecha_busqueda']) ? $_POST['fecha_busqueda'] : null;
-
+$host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/";
+$host_2 = $master->selectHost($_SERVER['SERVER_NAME']);
 # variables para certificado slb
 $turno_id = $_POST['turno_id'];
 $cliente_id = $_POST['cliente_id'];
@@ -70,21 +74,66 @@ switch ($api) {
         break;
     case 3:
 
+        # guardar la caratula del certificado poe
+        if ($tipo_certificado === "poe_general") {
+            $destination = "../reportes/modulo/certificado_poe/$id_turno";
+            $r = $master->createDir($destination);
+
+            $caratula = $master->guardarFiles($_FILES, "cuerpo", $destination, "caratula_poe_$turno_id");
+
+            $ruta_archivo = str_replace("../", $host_2, $caratula[0]['url']);
+        }
+
         $response = $master->getByProcedure("sp_certificados_g", [
             $cuerpo,
             $turno_id,
             $cliente_id,
             $_SESSION['id'],
             $confirmado,
-            $tipo_certificado
+            $tipo_certificado,
+            $ruta_archivo
         ]);
 
         if ($confirmado == 1) {
             # crear el reporte 
-            $url = $master->reportador($master, $turno_id, -5, "certificados", 'url', 0);
+            $url = $master->reportador($master, $turno_id, -5, "certificados_medicos", 'url', $tipo_certificado);
 
-            $response =  $master->updateByProcedure("sp_reportes_actualizar_certificados", [
-                $url,
+
+            if ($tipo_certificado === "poe_general") {
+                # tenemos que unir los 2 pdf, la caratula y el cuerpo
+                $response = $master->getByProcedure("sp_certificados_b", [$cliente_id, $turno_id, $_SESSION['id'], $tipo_certificado]);
+                $response = $master->decodeJsonRecursively($response);
+                # sacamos la ruta de la caratula
+                $ruta_caratula = $response[0]['RUTA_CARATULA'];
+
+                if ($ruta_caratula === "") {
+                    $response = "Necesita subir la caratula del certificado poe";
+                    break;
+                }
+
+
+                //Si existe unimos el reporte con el cuestionario
+                $reporte_final = $master->joinPdf([
+                    "../" . explode('nuevo_checkup', $ruta_caratula)[1],
+                    "../" . explode('nuevo_checkup', $url)[1]
+                ]);
+
+                $ruta_pdf_combinado = "../reportes/modulo/certificado_poe/certificado_poe_$turno_id.pdf";
+
+                $fh = fopen($ruta_pdf_combinado, 'a');
+                fwrite($fh, $reporte_final);
+                fclose($fh);
+
+                $ruta_final_pdf = str_replace('../', $host, $ruta_pdf_combinado);
+            } else {
+                $ruta_final_pdf = $url;
+            }
+
+
+
+
+            $response = $master->updateByProcedure("sp_reportes_actualizar_certificados", [
+                $ruta_final_pdf,
                 $turno_id,
                 $tipo_certificado
             ]);

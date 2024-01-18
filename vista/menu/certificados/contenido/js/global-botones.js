@@ -195,8 +195,9 @@ function btnPoe() {
   `;
 }
 
-function certificadosPoe(config = { turno: '', api: '', area: '-5', preview: '' }) {
+function certificadosPoe(config = { turno: '', api: '', area: '-5', preview: '', tipo: '' }) {
   return new Promise((resolve, reject) => {
+    if (config.tipo === 1) return;
     // Div padre
     let div = $('#divPoe');
     // Obtnemos el boton para mostrar la caratula del certificado poe
