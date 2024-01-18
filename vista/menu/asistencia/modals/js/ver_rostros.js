@@ -210,9 +210,9 @@ tablaReporteAsistencias = $('#tablaReporteAsistencias').DataTable({
                 return `
                 <div class="d-flex d-lg-block align-items-center" style="max-width: max-content; padding: 0px;">
                     <div class="d-flex flex-wrap flex-lg-nowrap align-items-center">
-                        <i data-id='${meta.ID_ASISTENCIA === null ? 0 : meta.ID_ASISTENCIA}' class="editarAsistencia bi bi-pencil-square btn-hover rounded-pill" style="cursor: pointer; font-size:16px;padding: 2px 4px; display:none;"></i>
-                        <i data-id='${meta.ID_ASISTENCIA === null ? 0 : meta.ID_ASISTENCIA}' class="guardarAsistencia bi bi-check-circle btn-hover rounded-pill" style="cursor: pointer; font-size:16px;padding: 2px 4px; display:none ;"></i>
-                        <i data-id='${meta.ID_ASISTENCIA === null ? 0 : meta.ID_ASISTENCIA}' class="cancelarAsistencia bi bi-x-circle btn-hover rounded-pill" style="cursor: pointer; font-size:16px;padding: 2px 4px; display:none ;"></i>
+                        <i fecha='${meta.FECHA}' count='${meta.COUNT}' id='editar_${meta.COUNT}' data-id='${meta.ID_ASISTENCIA === null ? 0 : meta.ID_ASISTENCIA}' class="editarAsistencia bi bi-pencil-square btn-hover rounded-pill" style="cursor: pointer; font-size:16px;padding: 2px 4px; display:none;"></i>
+                        <i fecha='${meta.FECHA}' count='${meta.COUNT}' id='guardar_${meta.COUNT}' data-id='${meta.ID_ASISTENCIA === null ? 0 : meta.ID_ASISTENCIA}' class="guardarAsistencia bi bi-check-circle btn-hover rounded-pill" style="cursor: pointer; font-size:16px;padding: 2px 4px; display:none ;"></i>
+                        <i fecha='${meta.FECHA}' count='${meta.COUNT}' id='cancelar_${meta.COUNT}' data-id='${meta.ID_ASISTENCIA === null ? 0 : meta.ID_ASISTENCIA}' class="cancelarAsistencia bi bi-x-circle btn-hover rounded-pill" style="cursor: pointer; font-size:16px;padding: 2px 4px; display:none ;"></i>
                     </div>
                 </div>
                 `
@@ -361,7 +361,8 @@ $(document).on('click', '#consultarInformacion', async (e) => {
 // Botones para la modificacion de las asistenciias
 
 $(document).on('click', '.editarAsistencia', function () {
-    fadeBotones({ type: 'Out' });
+
+    fadeBotones({ type: 'OutElement', count: parseInt($(this).attr('count')) });
 
     // Obten todas las columnas desde tr
     let tr = $(this).closest('tr');
@@ -385,7 +386,7 @@ $(document).on('click', '.editarAsistencia', function () {
 
         // Cambias a un input el div con el valor de texto
         let div = $(this)
-        div.html(`<input type="datetime" value="${texto}" class="new_hours_registros form-control input-form" data-value-column="${texto}">`) // <-- el input debe tener el valor anterior por si cancelar dejar como estaba las horas
+        div.html(`<input type="time" value="${texto}" class="new_hours_registros form-control input-form" data-value-column="${texto}">`) // <-- el input debe tener el valor anterior por si cancelar dejar como estaba las horas
     });
 });
 
@@ -421,6 +422,16 @@ $(document).on('click', '.guardarAsistencia', function () {
     })
 
     // Una vez hace el primer each para recuperar y armar el array se hace un  AjaxAwait
+    ajaxAwait({
+        api: 11,
+        inputs: inputs,
+        bimer_id: select_data.ID_BIMER,
+        ID_ASISTENCIA: $(this).attr('data-id'),
+        fecha: $(this).attr('fecha')
+    }, 'checadorBimo_api', { callbackAfter: true }, false, function (response) {
+        console.log(response);
+
+    })
     // ajaxAwait(function () {
     // Dentro del ajax await se hace otro each para remplazar ahora si los inputs a los html con los nuevos valores
 
@@ -455,8 +466,7 @@ $(document).on('click', '.guardarAsistencia', function () {
     //     $(this).attr('data-id', 'nuevo_valor')
     // })
 
-    fadeBotones({ type: 'In' });
-
+    fadeBotones({ type: 'InElement', count: parseInt($(this).attr('count')) });
 
 })
 
@@ -479,12 +489,12 @@ $(document).on('click', '.cancelarAsistencia', function () {
         div.html(valor_anterior);
     })
 
-    fadeBotones({ type: 'In' });
+    fadeBotones({ type: 'InElement', count: parseInt($(this).attr('count')) });
 });
 
 
 
-function fadeBotones(config = { type: 'In' || 'Out' }) {
+function fadeBotones(config = { type: 'In' || 'Out', count: '' }) {
     const btnEditar = $('.editarAsistencia');
     const btnGuardar = $('.guardarAsistencia');
     const btnCancelar = $('.cancelarAsistencia');
@@ -499,6 +509,16 @@ function fadeBotones(config = { type: 'In' || 'Out' }) {
             btnEditar.fadeOut();
             btnGuardar.fadeIn();
             btnCancelar.fadeIn();
+            break;
+        case 'InElement':
+            $(`#editar_${config.count}`).fadeIn();
+            $(`#guardar_${config.count}`).fadeOut();
+            $(`#cancelar_${config.count}`).fadeOut();
+            break;
+        case 'OutElement':
+            $(`#editar_${config.count}`).fadeOut();
+            $(`#guardar_${config.count}`).fadeIn();
+            $(`#cancelar_${config.count}`).fadeIn();
             break;
         default:
             fadeBotones({ type: 'In' })
