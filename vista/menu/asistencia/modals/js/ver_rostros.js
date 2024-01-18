@@ -130,7 +130,7 @@ tablaReporteAsistencias = $('#tablaReporteAsistencias').DataTable({
         [15, 30, 45, "All"]
     ],
     info: false,
-    paging: true,
+    paging: false,
     scrollY: '50vh',
     scrollCollapse: true,
     ajax: {
@@ -393,6 +393,7 @@ $(document).on('click', '.editarAsistencia', function () {
 $(document).on('click', '.guardarAsistencia', function () {
     // Obtener de nuevo el tr
     let tr = $(this).closest('tr');
+    let count = parseInt($(this).attr('count'))
     // Obtener los inputs
     let columnas_inputs = tr.find('input.new_hours_registros');
 
@@ -429,42 +430,15 @@ $(document).on('click', '.guardarAsistencia', function () {
         ID_ASISTENCIA: $(this).attr('data-id'),
         fecha: $(this).attr('fecha')
     }, 'checadorBimo_api', { callbackAfter: true }, false, function (response) {
-        console.log(response);
-        tablaReporteAsistencias.ajax.reload();
+        let id = response.data[0];
+
+        $(`#editar_${count}`).attr('data-id', id);
+        $(`#guardar_${count}`).attr('data-id', id);
+        $(`#cancelar_${count}`).attr('data-id', id);
+
+        alertToast('Hora modificada con exito', 'success', 2000);
     })
-    // ajaxAwait(function () {
-    // Dentro del ajax await se hace otro each para remplazar ahora si los inputs a los html con los nuevos valores
 
-    // columnas_inputs.each(function () {
-    //     // Se obtiene el input
-    //     let input = $(this);
-
-    //     // Obtener el elemento div que envuelve al input
-    //     let div = input.parent('div');
-
-    //     // Obten el nombre del elemento (data-name)
-    //     let nombre = div.data('name');
-
-    //     // Se obtiene el nuevo valor
-    //     let valor_nuevo = input.val();
-
-    //     // Almacena estos valores en el objeto columnas
-    //     inputs[nombre] = valor_nuevo;
-
-    //     // En caso contrario de cancelar, debe ser los anteriores del atributo del input
-    //     div.html(valor_nuevo);
-
-    // })
-    // });
-
-    console.log(inputs)
-
-
-    // En caso de guardar y no tener id, reemplaza el valor del atributo de las id de esta forma
-    // let botones = tr.find(`i.boton_edit_registro`);
-    // botones.each(function () {
-    //     $(this).attr('data-id', 'nuevo_valor')
-    // })
 
     fadeBotones({ type: 'InElement', count: parseInt($(this).attr('count')) });
 
