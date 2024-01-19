@@ -1908,7 +1908,7 @@ class Miscelaneus
         $datos = array(
             'api' => '1',
             'user' => 'TurneroUno',
-            'pass' => 'TurneroUno'
+            'pass' => 'I16E!H{fg7'
         );
 
         $url1 = "https://bimo-lab.com/nuevo_checkup/api/login_api.php";
