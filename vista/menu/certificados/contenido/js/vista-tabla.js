@@ -1,3 +1,4 @@
+console.log(dataListaPaciente)
 TablaContenidoPaciCertificados = $('#TablaContenidoPaciCertificados').DataTable({
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
@@ -51,8 +52,7 @@ selectTable('#TablaContenidoPaciCertificados', TablaContenidoPaciCertificados, {
   async function (selectTR, array, callback) {
 
     datalist = array
-    // Reinicia el formulario
-    estadoFormulario(0, 0)
+
 
     if (selectTR == 1) {
 
@@ -60,7 +60,7 @@ selectTable('#TablaContenidoPaciCertificados', TablaContenidoPaciCertificados, {
         select: true,
         // nombre_paciente: datalist['NOMBRE_COMPLETO'],
         turno: datalist['ID_TURNO']
-      })
+      }, ifnull(datalist['CONFIRMADO'] == 1 ? 2 : false, datalist['GUARDADO']))
 
       $(`#${'nombre_paciente_certificado'}`).html(datalist['NOMBRE_COMPLETO']);
 
@@ -82,15 +82,11 @@ selectTable('#TablaContenidoPaciCertificados', TablaContenidoPaciCertificados, {
         turno: datalist['ID_TURNO'],
       }) //<- Funcion que alamacena la procedencia del paciente parta ir a global-botones.js
 
-      certificadosPoe({
-        turno: datalist['ID_TURNO'],
-        api: 'caratula_poe',
-        area: '-5',
-        preview: 'poe_general',
-        tipo: certificado_tipo.tipo
-      }) // <-- Funcion para mostrar la caratula del certificado poe para imprimir
+      // Mostrar caratula de POE
+      // $('#')
 
-
+      // Formato de estatus del formulario
+      estadoFormulario(datalist['GUARDADO'], datalist['CONFIRMADO'])
       callback('In')
     }
     else {

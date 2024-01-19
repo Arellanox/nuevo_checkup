@@ -18,7 +18,7 @@ $api = $_POST['api'];
 $registrado_por = $_SESSION['id'];
 
 # variables para lista de trabajo.
-$fecha = isset($_POST['fecha_busqueda']) ? $_POST['fecha_busqueda'] : null;
+$fecha = isset($_POST['fecha_busqueda'])  && count($_POST['fecha_busqueda']) != 0 ? $_POST['fecha_busqueda'] : null;
 $host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/";
 $host_2 = $master->selectHost($_SERVER['SERVER_NAME']);
 # variables para certificado slb

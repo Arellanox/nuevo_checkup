@@ -58,8 +58,9 @@ function btnAlertas(title, text, bit) {
 
 
 function guardarDatos(bit) {
-    ajaxAwaitFormData({ api: 3, tipo_certificado: pdf_format, turno_id: datalist['ID_TURNO'], confirmado: bit }, 'certificados_api', 'cuerpo_certificado_form', { callbackAfter: true }, false, () => {
+    ajaxAwaitFormData({ api: 3, tipo_certificado: pdf_format, turno_id: datalist['ID_TURNO'], confirmado: bit }, 'certificados_api', 'cuerpo_certificado_form', { callbackAfter: true }, false, (data) => {
         alertToast('Se han guardado los datos corretamente!', 'success', 4000)
+        data.response.data[0].RUTA_REPORTE
 
         estadoFormulario(1, bit);
     })
@@ -100,12 +101,32 @@ $(document).on('click', '#btn-vistaPrevia', function () {
 
     let url = `${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}&preview=${preview}`;
     let filename = `${datalist['NOMBRE_COMPLETO']} ${pdf_format}`
-    window.open(url, "_blank");
 
+    url = ifnull(dataSelect, url, { array: 'url_reporte' })
+    // if ()
+    window.open(url, "_blank");
     vistaPrevia(filename, url)
 })
 
+$(document).on('click', '#consultar-caratula-actual', function (e) {
+    e.preventDefault();
+
+    // Validar que tenga o no, ocultarlo si es necesario
+    let url = $(this).attr('data-url');
+    let filename = $(this).attr('data-nombre-pdf');
+
+    if (ifnull(url, false) && ifnull(filename, false)) {
+        vistaPrevia(filename, url)
+    } else {
+        alertToast('PDF no encontrado', 'question', 4000)
+    }
+
+})
+
 function vistaPrevia(filename, url) {
+
+    if (!ifnull(filename, false))
+        return
     // Destruir la instancia existente de AdobeDC.View
     // Crear una instancia inicial de AdobeDC.View
     let adobeDCView = new AdobeDC.View({ clientId: "cd0a5ec82af74d85b589bbb7f1175ce3", divId: "adobe-dc-view" });

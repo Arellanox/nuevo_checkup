@@ -18,11 +18,13 @@ $(window).on("hashchange", function (e) {
 });
 
 
-async function contenidoCertificados(config = { 'titulo': 'Certificados médicos general' }) {
+async function contenidoCertificados(config = { 'titulo': 'Certificados médicos general' }, tipo) {
   await obtenerTitulo(`${config.titulo}`);
   $.post("contenido/certificados.html", function (html) {
     $("#body-js").html(html);
   }).done(function () {
+
+
 
     dataListaPaciente['fecha_busqueda'] = $('#fechaListadoAreaMaster').val();
 
@@ -31,6 +33,15 @@ async function contenidoCertificados(config = { 'titulo': 'Certificados médicos
 
     //Botones generales
     $.getScript('contenido/js/global-botones.js')
+
+    switch (tipo) {
+      case 'POE':
+        $('#btn-caratulaPoe').fadeIn(0);
+        break;
+
+      default:
+        break;
+    }
   })
 }
 
@@ -66,7 +77,7 @@ function hasLocation() {
     }
 
 
-    contenidoCertificados(config)
+    contenidoCertificados(config, certificado_tipo.certificacion)
   }
 
 }

@@ -1,8 +1,4 @@
 
-$('#fechaListadoAreaMaster').change(function () {
-  recargarVistaLab();
-})
-
 $('#checkDiaAnalisis').click(function () {
   if ($(this).is(':checked')) {
     recargarVistaLab(0)
@@ -14,11 +10,8 @@ $('#checkDiaAnalisis').click(function () {
 })
 
 function recargarVistaLab(fecha = 1) {
-  dataListaPaciente = {
-    api: 1
-    // fecha_busqueda: $('#fechaListadoAreaMaster').val()
-  }
-
+  console.log(fecha)
+  dataListaPaciente['fecha_busqueda'] = null
   if (fecha) dataListaPaciente['fecha_busqueda'] = $('#fechaListadoAreaMaster').val();
 
   TablaContenidoPaciCertificados.ajax.reload()
@@ -28,7 +21,7 @@ function recargarVistaLab(fecha = 1) {
 
 
 //Mapeo de la procedencia de los botones
-const btnProcedencia = {
+let btnProcedencia = {
   1: {
     // ID de particular
     1: {
@@ -95,7 +88,8 @@ function btnCertificados(config) {
 
       // Reajusta los textarea para su tamaño si es necesario
       autosize(document.querySelectorAll('textarea'));
-
+      if (certificado_tipo.certificacion == 'POE')
+        $('#consultar-caratula-actual').fadeOut();
       ajaxAwait(
         {
           api: 2,
@@ -107,13 +101,20 @@ function btnCertificados(config) {
 
           if (ifnull(dataPaciente[0], false, ['CUERPO'])) {
             setFormData('cuerpo_certificado_form', { 'cuerpo': dataPaciente[0]['CUERPO'] })
-            estadoFormulario(1, 0);
           }
           // Cambia el estado del formulario
 
           // Valida quien es el medico actual del paciente, ya sea que no hay
           // guardado o sea el guardado quien esta trantando la interpretación
-          console.log(dataPaciente[0]);
+          // console.log(dataPaciente[0]);
+          dataSelect.array['url_reporte'] = dataPaciente[0]['RUTA_REPORTE'];
+
+
+          if (certificado_tipo.certificacion == 'POE') {
+            $('#consultar-caratula-actual').attr('data-url', dataPaciente[0]['RUTA_REPORTE']);
+            $('#consultar-caratula-actual').attr('data-nombre-pdf', dataPaciente[0]['ARCHIVO_CARATULA']);
+            $('#consultar-caratula-actual').fadeIn();
+          }
           informacionMedica(dataPaciente);
           resolve(1)
         })
@@ -126,6 +127,18 @@ function btnCertificados(config) {
 $(document).on('click', '#btn-carga_certificado', function () {
   $(`#${'MoldaCertificadoMaster'}`).modal('show')
 })
+
+$(document).on('click', '#btn-caratulaPoe', function () {
+
+  let api = encodeURIComponent(window.btoa('caratula_poe'));
+  let turno = encodeURIComponent(window.btoa(dataSelect.array['turno']));
+  let area = encodeURIComponent(window.btoa('-5'));
+  let preview = encodeURIComponent(window.btoa('poe_general'));
+
+  let url = `${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}&preview=${preview}`;
+
+  window.open(url, "_blank");
+});
 
 
 
@@ -189,9 +202,7 @@ function setFormData(formId, data, path = '') {
 // Descargar Caratula del certificado POE
 function btnPoe() {
   return `
-       <button type="button" class="btn btn-cancelar me-2" style="margin-bottom:4px;" id="btn-caratulaPoe">
-          <i class="bi bi-printer"></i> Caratula
-        </button>
+
   `;
 }
 
@@ -205,16 +216,7 @@ function certificadosPoe(config = { turno: '', api: '', area: '-5', preview: '',
     // Renderizamos el boton dentro del contendor padre
     div.html(btn);
 
-    $(document).on('click', '#btn-caratulaPoe', function () {
-      let api = encodeURIComponent(window.btoa(config.api));
-      let turno = encodeURIComponent(window.btoa(config.turno));
-      let area = encodeURIComponent(window.btoa(config.area));
-      let preview = encodeURIComponent(window.btoa(config.preview));
 
-      let url = `${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}&preview=${preview}`;
-
-      window.open(url, "_blank");
-    });
 
 
     resolve(1)

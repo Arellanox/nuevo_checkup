@@ -111,6 +111,10 @@ a {
   text-decoration: none;
 }
 
+a.a-hover:hover {
+  color: rgb(247, 190, 000) !important;
+}
+
 /* a:hover{
   color: black;
 } */
