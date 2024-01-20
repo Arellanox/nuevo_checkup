@@ -273,14 +273,8 @@ $(document).on('click', '#btn-guardar-referencia', function (e) {
             normalidad = 0;
             TablaValoresReferencia.ajax.reload()
 
-            // $('#edad-minima-referencia').val('')
-            // $('#edad-maxima-referencia').val('')
-            // $('#presentacion').val('')
-            // $('#valor_minimo').val('')
-            // $('#valor_maximo').val('')
-            // $('#valor_referencia').val('')
-
             $('#formGuardarReferencia').trigger("reset");
+            $('#ID_VALORES_REFERENCIA').val(0);
             $('#SinEdad').prop('checked', false);
             ChangeReferencias()
             minimaReferencia.removeClass('disable-element');
