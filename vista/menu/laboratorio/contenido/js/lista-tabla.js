@@ -363,6 +363,9 @@ function generarFormularioPaciente(id) {
                 },
                 5: {
                   'descripcion': 'GLANDE, URETRA Y PREPUCIO'
+                },
+                6:{
+                  'descripcion': 'CORONA,GLANDE,URETRA Y PREPUCIO'
                 }
               }
               break;
