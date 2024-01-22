@@ -222,6 +222,7 @@ class CargadorProgresivo {
   constructor(config) {
     config = setConfig({
       contenedor: 'divPadre',
+      html_case: '--',
       datos: {},
       itemsIniciales: '',
       itemsPorCarga: '',
@@ -257,8 +258,9 @@ class CargadorProgresivo {
 
     for (let i = this.currentIndex; i < nextIndex; i++) {
       const elemento = this.datos[i];
-      const html = this.card_html(elemento);
-      console.log(html);
+      // Elige el tipo de html a usar
+      const html = this.tipo_html(this.config.html_case, elemento);
+
       this.contenedor.innerHTML += html;
     }
 
@@ -284,36 +286,106 @@ class CargadorProgresivo {
     window.addEventListener('scroll', () => this.checkLoadMore());
   }
 
+  tipo_html(type, elemento) {
+    switch (type) {
+      case 'PROMOCIONES_BIMO': return this.promociones_bimo(elemento);
+
+      default: return type;
+    }
+  }
+
   //Galeria de fotos (HTML)
-  card_html(dato) {
+  promociones_bimo(dato) {
     // Obten las configuraciones previas
     const config = this.config;
 
-    let detalle = '';
+    let detalle = '', registro_html = '', pausado_html = '', boton = "";
     if (config.detalles) {
-      detalle = `
-        <p class="none-p">
-          <strong>Registro:</strong> ${dato.REGISTRADO_POR}</br>
-          <strong>Vigencia:</strong> ${dato.FECHA_INICIO}-${dato.FECHA_FIN}</br>
-          <strong>Pausa:</strong> ${dato.PAUSADO}
-        </p>
-      `
+      let pausa = dato.PAUSADO == 1 ? 'Si' : 'No';
+
+      registro_html = `<strong>Registro:</strong> ${dato.REGISTRADO_POR}</br>`
+      pausado_html = `<strong>Pausado:</strong> ${pausa}`
+
+      boton = `
+        <!-- Boton para cambiar texto a inputs -->
+        <button class="btn btn-pantone-325 btn-sm edit-button" data-bs-id_promocion="${dato.ID_PROMOCION}" type="button">
+          <i class="bi bi-pencil"></i>
+        </button>
+        <!-- Boton para guardar texto a inputs -->
+        <button class="btn btn-success btn-sm save-button mx-2" data-bs-id_promocion="${dato.ID_PROMOCION}" type="button" style="display: none">
+          <i class="bi bi-save"></i>
+        </button>
+        <!-- Boton para cancelar texto a inputs -->
+        <button class="btn btn-pantone-7408 btn-sm cancel-button" data-bs-id_promocion="${dato.ID_PROMOCION}" type="button" style="display: none">
+          <i class="bi bi-x-lg"></i>
+        </button>
+        `
     }
+
+    detalle = `
+      <p class="none-p">
+        ${registro_html}
+        <strong>Vigencia:</strong> </br>
+          <!-- Campos de vigencia -->
+          <span class="edit_format" input-name="fecha_inicio" type-input="date" value-save="${dato.FECHA_INICIO}" data-width="45%">${formatoFecha2(ifnull(dato, '0000-00-00', ['FECHA_INICIO']), [0, 1, 5, 2, 0, 0, 0])}</span> - <span class="edit_format" input-name="fecha_fin" type-input="date" value-save="${dato.FECHA_FIN}" data-width="45%">${formatoFecha2(ifnull(dato, '0000-00-00', ['FECHA_FIN']), [0, 1, 5, 2, 0, 0, 0])}</span></br>
+        ${pausado_html}
+      </p>
+    `
+    let vigencia = {
+      1: {
+        nombre: 'Por Vencer',
+        span_color: 'warning'
+      },
+      2: {
+        nombre: 'Proximamente',
+        span_color: 'info'
+      },
+      3: {
+        nombre: 'Vigente',
+        span_color: 'success'
+      },
+      4: {
+        nombre: 'Vencido',
+        span_color: 'danger'
+      },
+      5: {
+        nombre: 'NO ESTATUS',
+        span_color: 'danger'
+      },
+    };
+    vigencia = vigencia[ifnull_class(dato, 5, ['ESTATUS'])]; // 3 por defecto
 
     // estilosComoTexto(imagenes_css)
     var html = `<div class="${config.html.divElement.class} fadeIn ">
               <div class="bg-white rounded shadow-sm tarjeta-flexible">
-                <img src="${dato.ARCHIVOS[0].url}" alt="" class="img-fluid card-img-top imagen-tarjeta" style="${this.estilosComoTexto(config.html.imagenes_css)}">
+                <img src="${ifnull(dato, '', { ARCHIVOS: { '0': 'url' } })}" alt="" class="img-fluid card-img-top imagen-tarjeta" style="${this.estilosComoTexto(config.html.imagenes_css)}">
                 <div class="p-4 contenido-tarjeta">
-                  <h5><a href="#" class="text-dark">${dato.TITULO}</a></h5>
-                  <p class="small text-muted mb-0">${dato.DESCRIPCION}</p>
-                  ${detalle}
-                  <div class="pie-tarjeta">
-                    <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                      <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">${dato.ARCHIVOS[0].tipo}</span></p>
-                      <div class="badge text-bg-warning px-3 rounded-pill font-weight-normal text-white">${dato.VIGENTE}</div>
+                  
+                  <!-- Formulario por clase para editar -->
+                  <form class="formEditarGalleria"> 
+                    <div class="row mb-1 titulo-tarjeta">
+                      <!-- Primer campo (titulo) -->
+                      <div class="col-12 col-lg-8">
+                        <h5 class="text-dark edit_format mb-0" input-name="titulo" type-input="text" value-save="${dato.TITULO}">${dato.TITULO}</h5>
+                      </div>
+                      <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center">
+                        ${boton}
+                      </div>
                     </div>
-                  </div>
+                    
+                    <!-- Segundo campo (descripcion) -->
+                    <div class="mb-1 cuerpo-tarjeta">
+                      <p class="small text-muted mb-0 edit_format" input-name="descripcion" type-input="text" value-save="${dato.DESCRIPCION}">${dato.DESCRIPCION}</p
+                      ${detalle}
+                    </div>
+                    
+                    <div class="pie-tarjeta">
+                      <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                        <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">${ifnull(dato, '', { ARCHIVOS: { '0': 'tipo' } })}</span></p>
+                        <div class="badge text-bg-${vigencia.span_color} px-3 rounded-pill font-weight-normal text-white">${vigencia.nombre}</div>
+                      </div>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>`;
@@ -332,3 +404,68 @@ class CargadorProgresivo {
 }
 
 
+
+// Valida
+function ifnull_class(data, siNull = '', values = [
+  'option1',
+  {
+    'option2': [
+      'suboption1',
+      {
+        'suboption2': ['valor']
+      }
+    ],
+    'option3': 'suboption1'
+  },
+  'option4',
+]) {
+
+  values = ((typeof values === 'object' && !Array.isArray(values)) || (typeof values === 'string'))
+    ? [values]
+    : values;
+
+  // Comprobar si el dato es nulo o no es un objeto
+  if (!data || typeof data !== 'object') {
+    if (data === undefined || data === null || data === 'NaN' || data === '' || data === NaN) {
+      switch (siNull) {
+        case 'number': return 0
+        case 'boolean': return data ? true : false;
+        default: return siNull;
+      }
+    } else {
+
+      let data_modificado = escapeHtmlEntities(`${data}`);
+
+      switch (siNull) {
+        case 'number':
+          // No hará modificaciones
+          break;
+        case 'boolean': return ifnull_class(data, false) ? true : false;
+        default:
+          //Agregará las modificaciones nuevas
+          data = data_modificado
+          break;
+      }
+
+      return data;
+    }
+  }
+  // Iterar a través de las claves en values
+  for (const key of values) {
+    if (typeof key === 'string' && key in data) {
+      const result = ifnull_class(data[key], false);
+      if (result) {
+        return result;
+      }
+      // return result || siNull;
+    } else if (typeof key === 'object') {
+      for (const nestedKey in key) {
+        const result = ifnull_class(data[nestedKey], siNull, [key[nestedKey]]);
+        if (result) return result
+      }
+    }
+  }
+
+
+  return siNull;
+}

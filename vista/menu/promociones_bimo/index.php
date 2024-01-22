@@ -3,14 +3,14 @@
 
 session_start();
 include "../../variables.php";
-$menu = "muestras";
+$menu = "PromocionalesBimo";
 ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
 
 <head>
   <?php include "../../include/head.php"; ?>
-  <title>Toma de muestras | Bimo</title>
+  <title>Publicar | Bimo</title>
 </head>
 
 <body class="" id="body-controlador"> </body>

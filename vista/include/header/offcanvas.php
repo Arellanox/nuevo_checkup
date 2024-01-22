@@ -33,6 +33,11 @@
         <div class="container-avatar" style="zoom: 130%">
           <img src="<?php echo $_SESSION['AVATAR']; ?>" alt="Avatar" class="image-avatar">
         </div>
+
+        <div class="promociones promociones-block promociones_offcanva">
+          <span>%</span>
+        </div>
+
         <p class="none-p text-white" style="margin-left: 10px"></p><?php echo $_SESSION['user'] ?></p>
 
       </a>

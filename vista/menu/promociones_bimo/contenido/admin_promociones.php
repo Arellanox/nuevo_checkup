@@ -43,10 +43,10 @@
         </div>
 
         <div class="mb-2">
-          <label for="">Fecha de inicio:</label>
+          <label for="">Inicio de promoción:</label>
           <input type="date" class="form-control input-form" name="fecha_inicio" required>
 
-          <label for="">Fecha de vencimiento:</label>
+          <label for="">Vencimiento de promoción:</label>
           <input type="date" class="form-control input-form" name="fecha_fin" required>
         </div>
 
@@ -79,17 +79,8 @@
   <!-- Galeria -->
   <div class="col-12 col-xl-9 tab-first" id="tab-paciente" style="margin-right: -5px !important;">
     <div class="rounded p-3 shadow my-2" id="lista-pacientes">
-
       <h4>Promociones</h4>
-
-      <div class="row" id="galeria_prmociones">
-
-
-
-
-      </div>
-
-
+      <div class="row div-padre" id="galeria_prmociones"> </div>
     </div>
   </div>
 </div>

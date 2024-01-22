@@ -174,6 +174,7 @@ const configAjaxAwait = {
   resetForm: false, //Reinicia el formulario en ajaxAwaitFormData,
   ajaxComplete: () => { }, //Mete una funcion para cuando se complete
   ajaxError: () => { }, //Mete una funcion para cuando de error
+  formJquery: null, // Manda como variable el formulario ubicado, esto si el formulario esta por clases y lo mandas por jquery
 }
 
 //Ajax Async (NO FORM DATA SUPPORT)
@@ -258,7 +259,11 @@ async function ajaxAwaitFormData(dataJson = { api: 0, }, apiURL, form = 'OnlyFor
     //Configura la funcion misma
     config = setConfig(configAjaxAwait, config)
 
+    // Si mandas el form de jquery, mandalo a nativo
     let formID = document.getElementById(form);
+    if (config.formJquery) {
+      formID = config.formJquery[0];
+    }
     let formData = new FormData(formID);
 
     for (const key in dataJson) {
@@ -269,6 +274,7 @@ async function ajaxAwaitFormData(dataJson = { api: 0, }, apiURL, form = 'OnlyFor
         }
       }
     }
+
 
     $.ajax({
       url: `${http}${servidor}/${appname}/api/${apiURL}.php`,

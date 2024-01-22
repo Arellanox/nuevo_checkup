@@ -184,11 +184,15 @@ switch ($menu) {
       <?php
       endif; ?>
 
-
-      <button class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop" style="color: white;border-color: #ffffff54;">
-        <!-- onclick="openNav()" -->
-        <i class="bi bi-list"></i>
-      </button>
+      <div class="d-lg-none">
+        <button class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop" style="color: white;border-color: #ffffff54;">
+          <!-- onclick="openNav()" -->
+          <i class="bi bi-list"></i>
+        </button>
+        <div class="promociones promociones-block promociones_btn">
+          <span>%</span>
+        </div>
+      </div>
       <div id="navbarCollapse" class="collapse navbar-collapse">
         <ul class="nav navbar-nav" id="navbar-js">
           <?php
@@ -220,7 +224,9 @@ switch ($menu) {
                 <div class="overlay-avatar">
                   <div class="text-avatar"><?php echo strtok($_SESSION['nombre'], " "); ?></div>
                 </div>
-                <span class="promociones">%</span>
+                <div class="promociones promociones-block">
+                  <span class="span-lg">%</span>
+                </div>
               </div>
             </a>
 
@@ -233,14 +239,13 @@ switch ($menu) {
                     </div>
                     <div class="profile-description text-center">Hola, ¡buen día! :)</div>
 
-                    <a href="" class="btn-promociones" data-bs-toggle="modal" data-bs-target="#modalPromociones">
+                    <a href="" class="btn-promociones promociones-block" data-bs-toggle="modal" data-bs-target="#modalPromociones">
                       <i class="bi bi-tag-fill"></i> Promociones
                     </a>
 
                     <?php if ($menu != 'procedencia') { ?>
                       <div class="profile-description text-center">
                         <a href="<?php echo $_SESSION['newsletter']['button_usuario']['url'] ?>" target="_blank" class="a-hover"><i class="bi bi-newspaper"></i> <?php echo $_SESSION['newsletter']['button_usuario']['tittle_button'] ?></a>
-
                       </div>
                     <?php } ?>
                     <div class="row" style="padding-right: 5%; padding-left: 5%;">
@@ -271,7 +276,7 @@ switch ($menu) {
 </script>
 
 <!-- Modal de Bootstrap sin header ni footer -->
-<div class="modal fade modal-lg" id="modalPromociones" tabindex="-1" aria-labelledby="modalPromocionesLabel" aria-hidden="true">
+<div class="modal fade modal-xl" id="modalPromociones" tabindex="-1" aria-labelledby="modalPromocionesLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
 
@@ -450,19 +455,47 @@ switch ($menu) {
   }
 
   .promociones {
-    position: absolute;
-    top: 27px;
-    left: -6px;
     background-color: #ffb400;
-    width: 24px;
-    height: 24px;
-    border-radius: 20px;
-    padding: 2.1px 5.7px;
-    font-weight: bolder;
-    color: black;
-    font-size: 15px;
     display: inline-block;
     animation: vibrating 0.5s infinite;
+    /* crea animacion de temblor */
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 28px;
+    left: -8px;
+  }
+
+  .promociones.promociones_offcanva {
+    top: 40px;
+    left: -2px;
+    width: 26px;
+    height: 26px;
+  }
+
+  .promociones.promociones_btn {
+    background-color: #ffb400;
+    /* display: inline-block; */
+    animation: vibrating 0.5s infinite;
+    /* width: 23px; */
+    /* height: 23px; */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: unset;
+    /* top: 28px; */
+    /* left: -8px; */
+    margin: -13px -9px;
+  }
+
+  .promociones span {
+    color: #000;
+    font-weight: bold;
   }
 
   .btn-promociones {

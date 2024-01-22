@@ -16,35 +16,3 @@
         opacity: 1;
     }
 }
-
-
-/* Contenedor padre flex para las tarjetas */
-.div-padre {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-/* Clase para aplicar a cada tarjeta individual */
-.div-padre .tarjeta-flexible {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-/* Clase para la sección de contenido de la tarjeta para empujar el pie hacia abajo */
-.div-padre .contenido-tarjeta {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-/* Clase para la imagen de la tarjeta con altura fija */
-.div-padre .imagen-tarjeta {
-    object-fit: cover; /* Cambia a contain si no quieres que las imágenes se recorten */
-}
-
-/* Clase para el pie de la tarjeta */
-.div-padre .pie-tarjeta {
-    margin-top: auto; /* Esto empuja el pie de la tarjeta hacia abajo */
-}

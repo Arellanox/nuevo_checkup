@@ -175,17 +175,19 @@ include "../../variables.php";
       loggin(function(val) {
         if (val) {
 
-          getGalleryPromociones();
+          getGalleryPromociones_menu();
 
-          function getGalleryPromociones() {
+          function getGalleryPromociones_menu() {
             ajaxAwait({
-              api: 2
+              api: 2,
+              vigente: 1
             }, 'promociones_api', {
               callbackAfter: true
             }, false, (data) => {
 
               const galleria = new CargadorProgresivo({
                 contenedor: 'vistaPromociones',
+                html_case: 'PROMOCIONES_BIMO',
                 datos: data.response.data,
                 itemsIniciales: 10,
                 itemsPorCarga: 50,
