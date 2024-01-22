@@ -34,7 +34,7 @@
           <img src="<?php echo $_SESSION['AVATAR']; ?>" alt="Avatar" class="image-avatar">
         </div>
 
-        <div class="promociones promociones-block promociones_offcanva">
+        <div class="promociones promociones-block promociones_offcanva" style="display: none;">
           <span>%</span>
         </div>
 

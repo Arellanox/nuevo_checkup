@@ -189,7 +189,7 @@ switch ($menu) {
           <!-- onclick="openNav()" -->
           <i class="bi bi-list"></i>
         </button>
-        <div class="promociones promociones-block promociones_btn">
+        <div class="promociones promociones-block promociones_btn" style="display: none;">
           <span>%</span>
         </div>
       </div>
@@ -218,13 +218,13 @@ switch ($menu) {
 
           <li class="nav-item dropstart flex-grow-1">
             <!-- <a data-bs-toggle="dropdown" type="button" class="dropdown-toggle"><i class="bi bi-person-circle" style="zoom:190%"></i></a> -->
-            <a data-bs-toggle="dropdown" type="button" class="">
+            <a data-bs-toggle="dropdown" type="button" class="promociones_event">
               <div class=" container-avatar">
                 <img src="<?php echo $_SESSION['AVATAR']; ?>" alt="Avatar" class="image-avatar">
                 <div class="overlay-avatar">
                   <div class="text-avatar"><?php echo strtok($_SESSION['nombre'], " "); ?></div>
                 </div>
-                <div class="promociones promociones-block">
+                <div class="promociones promociones-block" style="display: none;">
                   <span class="span-lg">%</span>
                 </div>
               </div>
@@ -239,7 +239,7 @@ switch ($menu) {
                     </div>
                     <div class="profile-description text-center">Hola, ¡buen día! :)</div>
 
-                    <a href="" class="btn-promociones promociones-block" data-bs-toggle="modal" data-bs-target="#modalPromociones">
+                    <a href="" class="btn-promociones promociones-block" style="display: none;" data-bs-toggle="modal" data-bs-target="#modalPromociones">
                       <i class="bi bi-tag-fill"></i> Promociones
                     </a>
 

@@ -133,7 +133,11 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
 
 <?php endif; ?>
 
-
+<?php if ($_SESSION['vista']['PROMOCIONALES_BIMO'] == 1) : ?>
+    <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/promociones_bimo/'; ?>">
+        <i class="bi bi-percent"></i> Promociones
+    </a>
+<?php endif; ?>
 
 
 <?php if ($_SESSION['vista']['CURSOS BIMO'] == 1) : ?>

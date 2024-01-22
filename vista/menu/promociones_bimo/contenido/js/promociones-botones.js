@@ -45,7 +45,7 @@ function getGalleryPromociones() {
     api: 2
   }, 'promociones_api', { callbackAfter: true }, false, (data) => {
 
-    const galleria = new CargadorProgresivo({
+    new CargadorProgresivo({
       contenedor: 'galeria_prmociones',
       datos: data.response.data,
       itemsIniciales: 10,
