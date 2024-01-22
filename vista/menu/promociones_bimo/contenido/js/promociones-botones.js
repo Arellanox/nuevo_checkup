@@ -90,16 +90,37 @@ $(document).on('click', '.edit-button', function (e) {
       valueSave: elemento.attr('value-save'),
       width: ifnull(elemento.attr('data-width'), '100%'), // Le da una relacion especifica, sino 100%
     };
+    switch (info.typeInput) {
+      case 'select':
+        // Solo funcionando para el activo
+        // elemento.html(`
+        //   <select 
+        //     name="${info.inputName}" 
+        //     value-after="${info.valueSave}"
+        //     value="-1"
+        //     class="input-form">
 
-    // Inputs generados
-    elemento.html(`
-      <input class="form-control input-form edit-input-text"
-        name="${info.inputName}"
-        type="${info.typeInput}"
-        value="${info.valueSave}"
-        value-after="${info.valueSave}"
-        style="width: ${info.width};margin: 0px;">
-    `)
+        //     <option value="1">Activo</option>
+        //     <option value="0">Pausar</option>
+        //   </select>
+        // `)
+
+        // elemento.find('select').val(info.valueSave);
+        break;
+
+      default:
+        // Inputs generados
+        elemento.html(`
+          <input class="form-control input-form edit-input-text"
+            name="${info.inputName}"
+            type="${info.typeInput}"
+            value="${info.valueSave}"
+            value-after="${info.valueSave}"
+            style="width: ${info.width};margin: 0px;">
+        `)
+        break;
+    }
+
   });
 })
 
@@ -140,7 +161,7 @@ $(document).on('click', '.save-button', function (e) {
       // Generamos y devolvemos los valores como estaban
       formulario.find('.edit_format').each(function () {
         let elemento = $(this);
-        let inputElement = elemento.find('input');
+        let inputElement = elemento.find('input, select');
 
         // Verificar si realmente hay un input (por seguridad)
         if (inputElement.length > 0) {
@@ -152,6 +173,12 @@ $(document).on('click', '.save-button', function (e) {
           if (inputElement.type == 'number') {
             nuevoValor = formatoFecha2(nuevoValor, [0, 1, 5, 2, 0, 0, 0]);
           }
+
+          if (inputElement.is('select')) {
+            console.log(nuevoValor, inputElement)
+            nuevoValor = nuevoValor === "1" ? 'Si' : 'No';
+          }
+
           elemento.attr('data-original-html', nuevoValor);
 
           // Cambiar el input de vuelta a texto normal

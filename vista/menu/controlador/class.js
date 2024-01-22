@@ -301,10 +301,10 @@ class CargadorProgresivo {
 
     let detalle = '', registro_html = '', pausado_html = '', boton = "";
     if (config.detalles) {
-      let pausa = dato.PAUSADO == 1 ? 'Si' : 'No';
+      let pausa = dato.PAUSADO == '1' ? 'Si' : 'No';
 
       registro_html = `<strong>Registro:</strong> ${dato.REGISTRADO_POR}</br>`
-      pausado_html = `<strong>Pausado:</strong> ${pausa}`
+      pausado_html = `<strong>Pausado:</strong> <span class="edit_format" input-name="pausado" type-input="select", value-save="${dato.PAUSADO}">${pausa}</span>`
 
       boton = `
         <!-- Boton para cambiar texto a inputs -->
