@@ -280,6 +280,9 @@ function generarFormularioPaciente(id) {
                 },
                 7: {
                   'descripcion': 'URETRAL,SURCO Y CUERPO DE PENE'
+                },
+                8: {
+                  'descripcion': 'ESCROTO, GLANDE,<br> CORONA, PREPUSIO'
                 }
               }
               break;
@@ -364,7 +367,7 @@ function generarFormularioPaciente(id) {
                 5: {
                   'descripcion': 'GLANDE, URETRA Y PREPUCIO'
                 },
-                6:{
+                6: {
                   'descripcion': 'CORONA,GLANDE, <br>URETRA Y PREPUCIO'
                 }
               }
