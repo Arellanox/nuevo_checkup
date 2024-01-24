@@ -109,6 +109,7 @@ function estadoFormulario(guardado, confirmado) {
     $('.btn_interpretacion_modal').fadeIn() // Recupera/Visualiza todo
   } else {
     // Estado cuando Esta confirmado
+    $('.btn_interpretacion_modal').fadeIn() // Recupera/Visualiza todo
     $confirmar_rept.prop('disabled', true)
     $guardar_inter.prop('disabled', true)
 
