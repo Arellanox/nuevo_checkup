@@ -86,7 +86,7 @@ selectTable('#TablaContenidoPaciCertificados', TablaContenidoPaciCertificados, {
       // $('#')
 
       // Formato de estatus del formulario
-      estadoFormulario(datalist['GUARDADO'], datalist['CONFIRMADO'])
+      estadoFormulario(ifnull(datalist, 0, ['GUARDADO']), ifnull(datalist, 0, ['CONFIRMADO']))
       callback('In')
     }
     else {
