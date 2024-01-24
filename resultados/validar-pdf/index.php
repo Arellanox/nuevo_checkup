@@ -14,13 +14,16 @@ $clave = isset($_GET['clave']) ? $_GET['clave'] : null;
 // echo $clave;
 $area = isset($_GET['modulo']) ?  $_GET['modulo'] : null;
 
+
+
+
 // folio
 // $explode = preg_split("/(\d+)/", $id, -1, PREG_SPLIT_DELIM_CAPTURE);
 // $folio_etiqueta = $explode[0];
 // $folio_numero = $explode[1];
 // $master = new Master();
 
-$url1 = "https://bimo-lab.com/nuevo_checkup/api/qr_api.php";
+$url1 = "http://localhost/nuevo_checkup/api/qr_api.php";
 // Los datos de enviados
 $datos = [
     "api" => 1,
@@ -416,6 +419,25 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                                 <div id="adobe-dc-view" class="border" width='100%'></div>
                             </div>
                         </div>
+                    <?php break;
+                    case -5: ?>
+                        <!-- Certificados -->
+                        <hr>
+                        <div class="row mt-3" id="-5" style="display: none;">
+                            <div class='col-12 col-md-4 overflow-auto' style="max-height: 80vh">
+                                <div class="row mt-3">
+                                    <div class="col-12 mb-4">
+                                        <p class="none-p" style="font-size: 16px; ">Fecha de Resultado / Reported:</p>
+                                        <p class="info-detalle-p fw-bold" style="font-size: 18px;"><span class="span-info-paci"><?php echo ifnull($array['FECHA_RESULTADO']) ?></span></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-8 overflow-auto" style="max-height: 80vh;">
+                                <div id="adobe-dc-view" class="border" width='100%'></div>
+                            </div>
+                        </div>
+
                 <?php break;
                     default:
                         echo `No se hay ningun resultado para mostrar`;
@@ -653,8 +675,8 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
         clave = `<?php echo $clave ?>`;
         code = parseInt(`<?php echo $code ?>`)
         msj_error = `<?php echo "error: $msj" ?>`
-        // console.log(code)
-        // console.log(msj_error)
+        console.log(code)
+        console.log(msj_error)
         $(document).ready(function() {
             if (code == 2) {
                 ClearBody(msj_error)
@@ -696,6 +718,10 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                         break;
                     case 19:
                         // CONSULTORIO 2 
+                        fade(modulo, 'In')
+                        break;
+                    case -5:
+                        // CERTIFICADOS
                         fade(modulo, 'In')
                         break;
                     default:

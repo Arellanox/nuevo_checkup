@@ -290,10 +290,10 @@
     }
 
 
-    // echo "<pre>";
-    // var_dump($cuerpo);
-    // echo "</pre>";
-    // exit;
+    echo "<pre>";
+    var_dump($resultados);
+    echo "</pre>";
+    exit;
 
 
     // Arreglo para rellenar el PDF para el certificado de poe
