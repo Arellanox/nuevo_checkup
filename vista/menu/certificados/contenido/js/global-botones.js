@@ -88,8 +88,8 @@ function btnCertificados(config) {
 
       // Reajusta los textarea para su tamaño si es necesario
       autosize(document.querySelectorAll('textarea'));
-      if (certificado_tipo.certificacion == 'POE')
-        $('#consultar-caratula-actual').fadeOut();
+
+      // Consulta información reciente
       ajaxAwait(
         {
           api: 2,
@@ -101,6 +101,7 @@ function btnCertificados(config) {
 
           if (ifnull(dataPaciente[0], false, ['CUERPO'])) {
             setFormData('cuerpo_certificado_form', { 'cuerpo': dataPaciente[0]['CUERPO'] })
+            estadoFormulario(dataPaciente[0]['GUARDADO'], dataPaciente[0]['CONFIRMADO'])
           }
           // Cambia el estado del formulario
 
@@ -109,12 +110,12 @@ function btnCertificados(config) {
           // console.log(dataPaciente[0]);
           dataSelect.array['url_reporte'] = dataPaciente[0]['RUTA_REPORTE'];
 
-
-          if (certificado_tipo.certificacion == 'POE') {
-            $('#consultar-caratula-actual').attr('data-url', dataPaciente[0]['RUTA_REPORTE']);
+          if (certificado_tipo.certificacion == 'POE' && ifnull(dataPaciente, false, { 0: 'RUTA_CARATULA' }) && ifnull(dataPaciente, false, { 0: 'ARCHIVO_CARATULA' })) {
+            $('#consultar-caratula-actual').attr('data-url', dataPaciente[0]['RUTA_CARATULA']);
             $('#consultar-caratula-actual').attr('data-nombre-pdf', dataPaciente[0]['ARCHIVO_CARATULA']);
             $('#consultar-caratula-actual').fadeIn();
           }
+
           informacionMedica(dataPaciente);
           resolve(1)
         })

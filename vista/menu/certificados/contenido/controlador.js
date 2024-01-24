@@ -33,10 +33,10 @@ async function contenidoCertificados(config = { 'titulo': 'Certificados médicos
 
     //Botones generales
     $.getScript('contenido/js/global-botones.js')
-
+    console.log(tipo)
     switch (tipo) {
-      case 'POE':
-        $('#btn-caratulaPoe').fadeIn(0);
+      case "POE": case 'POE':
+        $('#btn_div_caratulaPOE').fadeIn(0);
         break;
 
       default:
@@ -93,6 +93,7 @@ function limpiarForm(form) {
 
 // Cambia y muestra los botones del formulario
 function estadoFormulario(guardado, confirmado) {
+  console.log(guardado, confirmado)
   let $vista_previa = $('#btn-vistaPrevia') // Boton de vista previa de pdf
   let $confirmar_rept = $('#btn-confirmarReporte') // Boton de confirmar reporte
   let $guardar_inter = $('#btn-guardarInterpretacion') // Boton de guardar interpretación

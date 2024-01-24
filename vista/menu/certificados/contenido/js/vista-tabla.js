@@ -64,6 +64,8 @@ selectTable('#TablaContenidoPaciCertificados', TablaContenidoPaciCertificados, {
 
       $(`#${'nombre_paciente_certificado'}`).html(datalist['NOMBRE_COMPLETO']);
 
+      // Oculta para reiniciar
+
       await obtenerPanelInformacion(datalist['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab',)
       await obtenerPanelInformacion(datalist['ID_TURNO'], 'consulta_api', 'listado_resultados', '#listado-resultados')
 
