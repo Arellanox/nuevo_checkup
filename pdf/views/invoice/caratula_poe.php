@@ -530,7 +530,7 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <p class="none-p  center">Lugar de nacimiento</p>
+                                        <p class="none-p  center"></p>
                                     </td>
                                     <td>
                                         <p class="none-p center">
