@@ -83,7 +83,7 @@ $(document).on('click', '#btn-concluir-paciente', function (e) {
         array_selected['CLIENTE_ID'] == '16' ||
         array_selected['CLIENTE_ID'] == '31' ||
         array_selected['CLIENTE_ID'] == '15'
-        ) {
+      ) {
 
         //Abrir el modal de estudios, precios y detalle
         configurarModal(array_selected);
@@ -307,5 +307,13 @@ $(document).on('click', '#btn-modalNotificacionesReportes', function () {
   }, 230);
 })
 
-
+// Boton para los consentimiento de los pacientes
+$(document).on('click', "#btn-consentimientos-paciente", function () {
+  if (array_selected != null) {
+    Swal.close();
+    configurarModalConsentimientoConfiguracion();
+  } else {
+    alertSelectTable();
+  }
+})
 
