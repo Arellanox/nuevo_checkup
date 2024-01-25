@@ -16,17 +16,17 @@
     </tr>
     <tr>
         <td>Detección de VPH Genotipo 16</td>
-        <td> <?php echo $body[0]->resultado; ?> </td>
+        <td <?php if ($body[0]->resultado == 'POSITIVO') echo "style='font-weight: bold;'"; ?>> <?php echo $body[0]->resultado; ?> </td>
         <td>NEGATIVO</td>
     </tr>
     <tr>
         <td>Detección de VPH Genotipo 18</td>
-        <td><?php echo $body[1]->resultado; ?></td>
+        <td <?php if ($body[1]->resultado == 'POSITIVO') echo "style='font-weight: bold;'"; ?>><?php echo $body[1]->resultado; ?></td>
         <td>NEGATIVO</td>
     </tr>
     <tr>
         <td>Detección de VPH Genotipo 45</td>
-        <td><?php echo $body[2]->resultado; ?>
+        <td <?php if ($body[2]->resultado == 'POSITIVO') echo "style='font-weight: bold;'"; ?>><?php echo $body[2]->resultado; ?>
         </td>
         <td>NEGATIVO</td>
     </tr>
@@ -34,7 +34,7 @@
         <td>Detección de Otros tipos de VPH de Alto Riesgo: <br>
             26, 30, 31, 33, 34, 35, 39, 51, 52, 53, 56, 58, 59, 66,<br> 67, 68, 69, 73, 82, 97, y otros de bajo riesgo: 70
         </td>
-        <td><?php echo $body[3]->resultado; ?></td>
+        <td <?php if ($body[3]->resultado == 'POSITIVO') echo "style='font-weight: bold;'"; ?>><?php echo $body[3]->resultado; ?></td>
         <td>NEGATIVO</td>
     </tr>
 </table>

@@ -282,38 +282,78 @@ $areas = $resultados->areas[0];
     <!-- <?php ?> -->
     <div class="invoice-content">
         <?php
-        $estudiosOtros = $areas;
-
-
-
-        foreach ($estudiosOtros->estudios as $key => $json) {
-            $body = $json->analitos;
-            // print_r($body[0]);
-            $body_html = passdata($json->estudio);
-            if (isset($body_html)) {
-                // $areas = array_filter($areas, function($data){
-                //     return $data
-                // })
-                $resultados->areas = eliminarKey($resultados->areas, $key);
-                include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/" . passdata($json->estudio) . ".php";
-            } else {
-                include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/laboratorios_global.php";
-            }
-
-            if (count($estudiosOtros->estudios) - 1 > $key)
-                echo '<div class="break"></div>';
-        }
 
 
         function eliminarKey($data, $key)
         {
-            // unset($data[$key]);
             foreach ($data as $index => $value) {
                 unset($data[$index]->estudios[$key]);
             }
-
             return $data;
         }
+
+        function passdata($indice)
+        {
+            $estudios = [
+                "PCR SARS-CoV-2" => 'pcr',
+                "PCR SARS-CoV-2/INFLUENZA A Y B" => 'pcr_influenza',
+                "PANEL RESPIRATORIO POR PCR" => 'PANEL21',
+                "Ag. SARS-CoV-2" => 'antigeno',
+                "VPH" => 'vph',
+                "CITOLOGÍA" => 'CITOLOGIA',
+                "rT-PCR-ETS" => 'PCR-ETS',
+                "FTD Fiebre Tropical Multiplex" => 'FTDMultiplex',
+                "PANEL RESPIRATORIO 22" => 'PANEL22',
+                "PCR PARA MYCOBACTERIUM TUBERCULOSIS MDR Y XDR" => 'mycobacte_tuberculosis',
+                "Prueba rT-PCR TICK BORNE DISEASES" => 'rt-PCR_TICK',
+                "rT-PCR Panel Meningitis" => 'rT-PCR_PaMeningitis',
+                "PCR HELICOBACTER PYLORI CON RESISTENCIA A CLARITROMICINA" => 'rT-PCR_pylari_claritromicina',
+                "rT-PCR Entero-DR" => 'rt-PCR_Entero',
+                'Ag. Virus Sincitial Respiratorio' => 'Ag-Virus_Respiratorio',
+                'Prueba rT-PCR de VSR - CoviFlu' => 'pcr-vsr_coviflu',
+                'rT-PCR PneumoBacter' => 'rT-PCR PneumoBacter',
+                'rT-PCR Thrombosis SNP' => 'rT-PCR_Thrombosis_SNP'
+            ];
+            return $estudios[$indice] ?? null;
+        }
+
+        function procesarEstudio($json, $documentoRaiz)
+        {
+
+            $body_html = passdata($json->estudio);
+            if ($body_html) {
+                $body = $json->analitos; // Para obtener los resultados de cada uno
+                include $documentoRaiz . "/nuevo_checkup/pdf/views/invoice/includes/biomolecular/" . $body_html . ".php";
+            }
+            return $body_html;
+        }
+
+        function realizarSaltoDePagina()
+        {
+            echo '<div class="break"></div>';
+        }
+
+        $documentoRaiz = $_SERVER["DOCUMENT_ROOT"];
+        $estudiosOtros = $areas; // Asumiendo que $areas está definido en alguna parte
+        $conteo = count($estudiosOtros->estudios);
+
+        foreach ($estudiosOtros->estudios as $key => $json) {
+            $body_html = procesarEstudio($json, $documentoRaiz);
+            if ($body_html) {
+                $resultados->areas = eliminarKey($resultados->areas, $key);
+
+                if (($conteo - 1) > $key) {
+                    realizarSaltoDePagina();
+                }
+            }
+        }
+
+        if (count($estudiosOtros->estudios)) {
+            realizarSaltoDePagina();
+            include $documentoRaiz . "/nuevo_checkup/pdf/views/invoice/includes/laboratorios_global.php";
+        }
+
+
 
         // include $_SERVER["DOCUMENT_ROOT"] . "/nuevo_checkup/pdf/views/invoice/includes/formato_clinico.php";
 
@@ -328,37 +368,5 @@ $areas = $resultados->areas[0];
     </div>
 </body>
 
-
-<?php
-
-function passdata($indice)
-{
-    $estudios = [
-        "PCR SARS-CoV-2" => 'pcr',
-        "PCR SARS-CoV-2/INFLUENZA A Y B" => 'pcr',
-        "PANEL RESPIRATORIO POR PCR" => 'PANEL21',
-        "Ag. SARS-CoV-2" => 'antigeno',
-        "VPH" => 'vph',
-        "CITOLOGÍA" => 'CITOLOGIA',
-        "rT-PCR-ETS" => 'PCR-ETS',
-        "FTD Fiebre Tropical Multiplex" => 'FTDMultiplex',
-        "PANEL RESPIRATORIO 22" => 'PANEL22',
-        "PCR PARA MYCOBACTERIUM TUBERCULOSIS MDR Y XDR" => 'mycobacte_tuberculosis'
-    ];
-
-    // echo $indice;
-
-    return $estudios[$indice];
-}
-// function getPDF($name)
-// {
-//     ob_start();
-//     return ob_get_clean();
-//     // return $htmlPCR;
-// }
-
-
-
-?>
 
 </html>

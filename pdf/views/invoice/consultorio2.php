@@ -442,6 +442,7 @@ if (isset($ruta_firma))
                 <?php
                 // print_r($resultados[3]);
                 $medicamentos = $resultados[3];
+                if(count($medicamentos)>0){
                 // exit;
                     for ($i = 0; $i < count($medicamentos); $i++) {
                         $recetas = $medicamentos[$i];
@@ -454,6 +455,9 @@ if (isset($ruta_firma))
                             </div>';
                         // }
                     }
+                }else{
+                    echo '<p class="margin: 10px 15px; font-size: 14px">Ninguna </br></br></p>';
+                }
                 
                 ?>
             </div>

@@ -16,6 +16,7 @@ $(document).on('click', '#modalGruposPacienteCredito', function (event) {
     grupoPacientesModificar = false
     tListPaciGrupo.clear().draw();
     $('#modalFiltroPacientesFacturacion').modal('show');
+    $('#cliente_fill').prop('selectedIndex', 0);
 })
 
 

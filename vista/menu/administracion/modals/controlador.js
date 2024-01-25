@@ -17,6 +17,11 @@ $.post("modals/a_modals.php", function (html) {
    // $.getScript('modals/js/cargo_modal.js');
    // $.getScript('modals/js/modal_html.js');
 
+
+
+   // Modal para agregar o actualizar el usuario de un medico
+   $.getScript('modals/js/m_medicos.js');
+
    //Cargos, Universidades, Titulos
    getAreaUnValor('cargos', 'cargo', 'cargos_api', 'ID_CARGO', '#MODAL_CARGOS_VISTA')
    getAreaUnValor('titulos', 'titulo', 'titulos_api', 'ID_U_TITULO', '#MODAL_TITULOS_VISTA')

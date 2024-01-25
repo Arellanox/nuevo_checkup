@@ -33,9 +33,9 @@ $('#btn-confirmarenviar-resultado').click(function () {
     }
     if (selectEstudio.getguardado() != 1 || datalist.DOBLE_CHECK != 1 || 1) {
         alertMensajeConfirm({
-            title: "¿Está seguro de validar y enviar el resultado?",
-            text: "¡Se enviará al correo (" + selectEstudio.array.CORREO + ") del paciente!",
-            icon: "warning",
+            title: "¿Está seguro de validar el resultado?",
+            text: `Si es necesario, se enviará al correo del paciente (${selectEstudio.array.CORREO})`,
+            icon: "info",
         }, function () {
             $.ajax({
                 url: `${http}${servidor}/${appname}/api/turnos_api.php/`,
@@ -47,11 +47,11 @@ $('#btn-confirmarenviar-resultado').click(function () {
                 },
                 dataType: "json",
                 beforeSend: function () {
-                    alertMensaje('info', 'Validando reporte', 'Espere un momento mientras validamos y enviamos el reporte al paciente')
+                    alertMensaje('info', 'Validando reporte', 'Espere un momento mientras validamos el reporte al paciente')
                 },
                 success: function (data) {
                     if (mensajeAjax(data)) {
-                        alertMensaje('success', '¡Reporte validado y enviado!', 'El reporte ha sido enviado exitosamente.')
+                        alertMensaje('success', '¡Reporte validado!', 'El reporte ha sido validado correctamente.')
                     }
                 },
                 error: function (jqXHR, exception, data) {

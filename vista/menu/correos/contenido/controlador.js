@@ -3,7 +3,7 @@
 var datalist, dataListaPaciente, selectEstudio, dataSelect;
 var areaActiva;
 async function obtenerVistaCorreosLaboratorio(cliente) {
-    await obtenerTitulo("Validación y envío de resultados de laboratorio");
+    await obtenerTitulo("Validación de resultados de laboratorio");
     $.post("contenido/laboratorio.html", function (html) {
         $("#body-js").html(html);
     }).done(function () {

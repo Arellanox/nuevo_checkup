@@ -459,7 +459,8 @@ class Miscelaneus
                 $fecha_resultado = $infoPaciente[0]['FECHA_TICKET'];
                 $carpeta_guardado = "ticket";
                 $folio = $infoPaciente[0]['FOLIO_TICKET'];
-                // print_r($arregloPaciente);
+                // var_dump($arregloPaciente);
+                // exit;
                 break;
             case 17:
                 #FAST CHECKUP
@@ -536,6 +537,10 @@ class Miscelaneus
                 $carpeta_guardado = "solicitud_estudios";
 
                 break;
+            case -4:
+                #Corte de caja
+                $arregloPaciente = $this->getBodyCorteCaja($master, $turno_id);
+                break;
         }
 
 
@@ -601,7 +606,8 @@ class Miscelaneus
         $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
         $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
 
-        // print_r(json_encode($arregloPaciente));
+        // echo (1);
+        // print_r($arregloPaciente);
         // // print_r(json_encode($infoPaciente[0]));
         // exit;
 
@@ -743,22 +749,35 @@ class Miscelaneus
         # recuperamos los datos del paciente
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$id_turno]);
         $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
-        $response = $master->getByProcedure("sp_cargos_turnos_b", [$id_turno]);
-        $infoDetalle = $master->getByNext('sp_cargos_turnos_b', [$id_turno]);
+        $response = $master->getByNext("sp_cargos_turnos_b", [$id_turno]);
+        // $infoDetalle = $master->getByNext('sp_cargos_turnos_b', [$id_turno]);
         //print_r($infoDetalle);
 
         $arrayServicios = [];
-        for ($i = 0; $i < count($response); $i++) {
+        // for ($i = 0; $i < count($response); $i++) {
 
-            $cargosT = [
-                "PRODUCTO" => $response[$i]['PAQUETES'] == "" ? $response[$i]['SERVICIOS'] : $response[$i]['PAQUETES'],
-                "PRECIO" => $response[$i]['PRECIO'],
-                "CANTIDAD" => $response[$i]['CANTIDAD'],
-                "TOTAL" => (($response[$i]['CANTIDAD'] * $response[$i]['PRECIO']) - (($infoDetalle[1][0]['DESCUENTO']) / ($response[$i]['CANTIDAD'] * $response[$i]['PRECIO']) * 100))
-            ];
+        //     $cargosT = [
+        //         "PRODUCTO" => $response[$i]['PAQUETES'] == "" ? $response[$i]['SERVICIOS'] : $response[$i]['PAQUETES'],
+        //         "PRECIO" => $response[$i]['PRECIO_VENTA'],
+        //         "CANTIDAD" => $response[$i]['CANTIDAD'],
+        //         "TOTAL" => (($response[$i]['CANTIDAD'] * $response[$i]['PRECIO_VENTA']) - (($infoDetalle[1][0]['DESCUENTO']) / ($response[$i]['CANTIDAD'] * $response[$i]['PRECIO_VENTA']) * 100))
+        //     ];
+        //     array_push($arrayServicios, $cargosT);
+        // }
 
-            array_push($arrayServicios, $cargosT);
-        }
+
+
+        // $servicios = $response[0];
+        // foreach ($servicios as $key => $value) {
+        //     $cargosT = [
+        //         "PRODUCTO" => $value['PAQUETES'] == "" ? $value['SERVICIOS'] : $value['PAQUETES'],
+        //         "PRECIO" => $value['PRECIO_VENTA'],
+        //         "CANTIDAD" => $value['CANTIDAD'],
+        //         "TOTAL" => (($value['CANTIDAD'] * $value['PRECIO_VENTA']) - (($response[1][0]['DESCUENTO']) / ($value['CANTIDAD'] * $value['PRECIO_VENTA']) * 100))
+        //     ];
+
+        //     array_push($arrayServicios, json_encode($cargosT));
+        // }
 
         // $arrayTckt = array_merge($locales, $subroga);
         # declaramos el array final 
@@ -766,18 +785,23 @@ class Miscelaneus
         $arregloTicket = array(
             'NOMBRE' => $infoPaciente[0]['NOMBRE'],
             "FOLIO" => $infoPaciente[0]['FOLIO_TICKET'],
-            "FECHA_TICKET" => $infoDetalle[1][0]['FECHA_IMPRESION'],
+            "FECHA_TICKET" => $response[1][0]['FECHA_IMPRESION'],
             "FECHA_NACIMIENTO" => $infoPaciente[0]['NACIMIENTO'],
             'CELULAR' => $infoPaciente[0]['CELULAR'],
             'RFC' => $infoPaciente[0]['RFC'],
-            'ESTUDIOS_DETALLE' => $arrayServicios,
-            "SUBTOTAL" => $infoDetalle[1][0]['SUBTOTAL'],
-            "DESCUENTO" => $infoDetalle[1][0]['DESCUENTO'],
-            "IVA" => $infoDetalle[1][0]['IVA'],
-            "TOTAL_DETALLE" => $infoDetalle[1][0]['TOTAL'],
-            "USUARIO" => $infoDetalle[1][0]['USUARIO'],
+            'ESTUDIOS_DETALLE' => $response[0],
+            "SUBTOTAL" => $response[1][0]['SUBTOTAL'],
+            "DESCUENTO" => $response[1][0]['DESCUENTO'],
+            "IVA" => $response[1][0]['IVA'],
+            "TOTAL_DETALLE" => $response[1][0]['TOTAL'],
+            "USUARIO" => $response[1][0]['USUARIO'],
             'FOLIO_TICKET' => $infoPaciente[0][0]['FOLIO_TICKET']
         );
+
+        // var_dump($arregloTicket);
+        // echo "<br>";
+        // exit;
+
 
         return $arregloTicket;
     }
@@ -867,6 +891,20 @@ class Miscelaneus
                         # ANAMNESIS
                         #$productoFinal['ANAMNESIS'] = $master->checkArray($response[$i]);
                         $anamnesis = $master->checkArray($response[$i]);
+
+                        #Orden deseado
+                        $ordenDeseado = [
+                            'SISTEMA CARDIOVASCULAR',
+                            'APARATO RESPIRATORIO',
+                            'APARATO DIGESTIVO',
+                            'APARATO GENITOURINARIO',
+                            'SISTEMA NERVIOSO',
+                            'ENDOCRINOLOGIA Y METABOLISMO',
+                            'APARATO LOCOMOTOR',
+                            'TERMOREGULACION'
+                        ];
+
+
                         #obtenenmos la clase
                         $clase = array();
                         foreach ($anamnesis as $current) {
@@ -882,7 +920,18 @@ class Miscelaneus
                                 return $obj['CLASE'] == $current;
                             });
                         }
-                        $productoFinal['ANAMNESIS'] = $newAnamnesis;
+
+                        #Reordenar la consulta y arreglo
+                        $newAnamnesisOrdenado = array();
+                        foreach ($ordenDeseado as $claseOrdenada) {
+                            $claseConGuion = str_replace(" ", "_", $claseOrdenada);
+                            if (array_key_exists($claseConGuion, $newAnamnesis)) {
+                                $newAnamnesisOrdenado[$claseConGuion] = $newAnamnesis[$claseConGuion];
+                            }
+                        }
+
+                        $productoFinal['ANAMNESIS'] = $newAnamnesisOrdenado;
+                        # $productoFinal['ANAMNESIS'] = $newAnamnesis;
                         break;
                     case 3:
                         # ODONTOGRAMA
@@ -1081,11 +1130,19 @@ class Miscelaneus
 
 
 
+
         for ($i = 0; $i < count($response2); $i++) {
             // print_r($decodedResponse2);
             $decodedResponse2 = $master->decodeJsonRecursively($response2[$i]);
             array_push($arrayNuevascapturas, $decodedResponse2['CAPTURAS_REPORTE']);
         }
+
+
+        // echo "<pre>";
+        // var_dump($arrayNuevascapturas);
+        // echo "</pre>;";
+        // // print_r($decodedResponse2);
+        // exit;
 
 
         for ($i = 0; $i < count($response1[1]); $i++) {
@@ -1425,7 +1482,8 @@ class Miscelaneus
                     "analitos"       => $analitos,
                     "metodo"         => $metodo_grupo,
                     "equipo"         => $equipo_grupo,
-                    "observaciones"  => isset($id_grupo) ? $observacionnes_generales : null
+                    "observaciones"  => isset($id_grupo) ? $observacionnes_generales : null,
+                    "muestra"        => $id_grupo == 972 ? "Plasma EDTA" : ""
                 );
                 $analitos = array();
             }
@@ -1651,7 +1709,7 @@ class Miscelaneus
 
         switch ($domain) {
             case "localhost":
-                $preUrl = "http://localhost/practicantes/";
+                $preUrl = "http://localhost/nuevo_checkup/";
                 break;
             case "bimo-lab.com":
                 $preUrl = "https://bimo-lab.com/nuevo_checkup/";
@@ -1867,5 +1925,215 @@ class Miscelaneus
         $response['DIAS'] = $result;
 
         return $response;
+    }
+
+    function llamar_api()
+    {
+
+        // Datos que deseas enviar a la API
+        $datos = array(
+            'api' => '1',
+            'user' => 'TurneroUno',
+            'pass' => 'I16E!H{fg7'
+        );
+
+        $url1 = "https://bimo-lab.com/nuevo_checkup/api/login_api.php";
+
+        // Crear opciones de la petición HTTP
+        $opciones = array(
+            "http" => array(
+                "header" => "Content-type: application/x-www-form-urlencoded\r\n",
+                "method" => "POST",
+                "content" => http_build_query($datos), # Agregar el contenido definido antes
+            ),
+        );
+        # Preparar petición
+        $contexto = stream_context_create($opciones);
+        # Hacerla
+        $json = file_get_contents($url1, false, $contexto);
+
+        $res = json_decode($json, true);
+
+
+        return $res;
+    }
+
+    public function getLevenshteinDistance($str1, $str2)
+    {
+        $str1 = strtolower($str1);
+        $str2 = strtolower($str2);
+
+        $len1 = strlen($str1);
+        $len2 = strlen($str2);
+
+        // Crear una matriz para almacenar los resultados de los subproblemas
+        $dp = array();
+        for ($i = 0; $i <= $len1; $i++) {
+            $dp[$i] = array();
+            for ($j = 0; $j <= $len2; $j++) {
+                $dp[$i][$j] = 0;
+            }
+        }
+
+        // Llenar la matriz con valores iniciales
+        for ($i = 0; $i <= $len1; $i++) {
+            $dp[$i][0] = $i;
+        }
+        for ($j = 0; $j <= $len2; $j++) {
+            $dp[0][$j] = $j;
+        }
+
+        // Calcular la distancia de Levenshtein
+        for ($i = 1; $i <= $len1; $i++) {
+            for ($j = 1; $j <= $len2; $j++) {
+                $cost = ($str1[$i - 1] != $str2[$j - 1]) ? 1 : 0;
+                $dp[$i][$j] = min(
+                    $dp[$i - 1][$j] + 1,
+                    $dp[$i][$j - 1] + 1,
+                    $dp[$i - 1][$j - 1] + $cost
+                );
+            }
+        }
+
+        return $dp[$len1][$len2];
+    }
+
+    public function getBodyCorteCaja($master, $turno_id)
+    {
+        #Llenar tabla del formato PDF, pasar ID del FOLIO
+        $response1 = $master->getByProcedure("sp_recuperar_info_hostorial_caja", [$turno_id]);
+        $response2 = $master->getByProcedure("sp_corte_detalle_pagos", [$turno_id]);
+        $response = [$response1, $response2];
+        // echo "<pre>";
+        // // echo $turno_id;
+        // var_dump($response[0]);
+        // echo "</pre>";
+
+        // exit;
+
+        $result = array();
+        $i = 0;
+
+        $folio = 0000;
+        $subtotal_general = 0;
+        $iva_general = 0;
+        $total_general = 0;
+        $resumen_credito = 0;
+        $resumen_contado = 0;
+        $resumen_cortesia = 0;
+        $resumen_BIMO =  0; # CONCEPTO BIMO  
+
+        // Datos de todos los pacientes que entraron en el cierre de caja
+        $array_prefolios = array();
+        foreach ($response[0] as $key => $e) {
+
+            $prefolio = $e['PREFOLIO'];
+            $nombre_paciente = $e['PACIENTE'];
+            $subtotal = $e['SUBTOTAL'];
+            $iva = $e['MONTO_IVA'];
+            $total = $e['TOTAL'];
+            $forma_pago = $e['FORMA_PAGO'];
+            $factura = $e['FACTURA'];
+
+            $monto_tipo_pago = $e['FORMA_PAGO_MONTO']; # Monto por tipo de pago;
+
+            $nombre_caja = $e['NOMBRE_CAJA']; # nombre de la caja
+
+            $result[$i] =  array(
+                "PREFOLIO" => $prefolio,
+                "NOMBRE_PACIENTE" => $nombre_paciente,
+                "SUBTOTAL" => $subtotal,
+                "IVA" => $iva,
+                "TOTAL" => $total,
+                "FORMA_PAGO" => substr($forma_pago, 0, 4),
+                "MONTO_PAGO_TIPO" => $monto_tipo_pago,
+                "FACTURA" => $factura
+            );
+
+            $i++;
+
+            if (!in_array($prefolio, $array_prefolios)) {
+                $subtotal_general += $subtotal;
+                $iva_general += $iva;
+                $total_general += $total;
+
+                $resumen_contado += in_array($e['CLIENTE_ID'], [1, 16, 31]) ? $total :  0;
+                $resumen_credito += !in_array($e['CLIENTE_ID'], [1, 16, 17, 31, 15]) ? $total :  0;
+                $resumen_cortesia += in_array($e['CLIENTE_ID'], [17]) ? $total : 0;
+                $resumen_BIMO += in_array($e['CLIENTE_ID'], [15]) ? $total : 0;
+            }
+
+
+            array_push($array_prefolios, $prefolio);
+
+
+            $folio = $e['FOLIO'];
+
+            $fecha_inicio = $e['FECHA_INICIO'];
+            $fecha_final = is_null($e['FECHA_FINAL']) ? "N/A" : $e['FECHA_FINAL'];
+        }
+
+        $tipos_precio = array();
+        $x = 0;
+        // Desglose de todos los tipos de precios con sus respectivos montos
+        foreach ($response[1] as $key1 => $value1) {
+            # code...
+            $tipo_pago = $value1['TIPO_PAGO'];
+            $total_tipo_pago = $value1['TOTAL'];
+            $ignorar = $value1['IGNORAR'];
+
+            $tipos_precio[$x] = array(
+                "DESCRIPCION" => $tipo_pago,
+                "MONTO" => $total_tipo_pago,
+                "IGNORAR" => $ignorar
+            );
+
+            $cortador = is_null($value1['HECHO_POR']) ?  "CORTE SIN FINALIZAR" : $value1['HECHO_POR'];
+
+
+            $x++;
+        }
+
+
+        $response = [];
+        $response = [
+            $result,
+            $subtotal_general,
+            $iva_general,
+            $total_general,
+            $resumen_credito,
+            $resumen_contado,
+            $folio,
+            $fecha_inicio,
+            $fecha_final,
+            $cortador,
+            $tipos_precio,
+            $nombre_caja,
+            $resumen_cortesia,
+            $resumen_BIMO
+        ];
+        // foreach($response as $i){
+        //     print_r($i);
+        //     echo "<br>";
+        // }
+        // echo $response[5];
+        // exit;
+        return $response;
+    }
+
+    public function setLogEmail(
+        $master,
+        $turno_id,
+        $area_id,
+        $correo_origen,
+        $correo_destino,
+        $tipo_correo,
+        $notas,
+        $enviado
+    ) {
+        # Guarda el comportamiento de los correo de resultados o cualquier otro correo enviado por bimo.
+        $response = $master->insertByProcedure("", []);
+
+        return true;
     }
 }

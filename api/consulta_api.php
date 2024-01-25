@@ -192,15 +192,17 @@ switch ($api) {
 
     case 11:
         # terminar consulta
-        $url = $master->reportador($master, $turno_id, 1, "consultorio", 'url', 0);
         $response = $master->updateByProcedure('sp_consultorio_terminar_consulta', [$id_consulta, $url, $_SESSION['id']]);
+        $url = $master->reportador($master, $turno_id, 1, "consultorio", 'url', 0);
+
+        $response = $master->updateByProcedure('sp_reportes_actualizar_ruta', ["consultorio_consulta","RUTA_REPORTE",$url,$turno_id,null]);
 
         //Enviamos correo
         $attachment = $master->cleanAttachFilesImage($master, $turno_id, 10, 1);
 
         if (!empty($attachment[0])) {
             $mail = new Correo();
-            if ($mail->sendEmail('resultados', '[bimo] Resultados de consulta', [$attachment[1]], null, $attachment[0], 1)) {
+            if ($mail->sendEmail('resultados', '[bimo] Resultados de consulta', [$attachment[1]], null, $attachment[0], 1, $turno_id, 1, $master)) {
                 $master->setLog("Correo enviado.", "Consulta");
             }
         }

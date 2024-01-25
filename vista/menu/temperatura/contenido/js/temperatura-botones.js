@@ -269,6 +269,8 @@ function mostrarComentariosDiaTemperatura() {
                 }
             }
 
+
+
             resolve(1);
         })
 

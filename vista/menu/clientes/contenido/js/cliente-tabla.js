@@ -25,7 +25,7 @@ var tablaClientes = $("#TablaClientes").DataTable({
     { data: 'COUNT' },
     { data: 'NOMBRE_COMERCIAL' },
     { data: 'RAZON_SOCIAL' },
-    { data: 'ABREVIATURA'},
+    { data: 'ABREVIATURA' },
 
     // {defaultContent: 'En progreso...'}
   ],
@@ -34,32 +34,38 @@ var tablaClientes = $("#TablaClientes").DataTable({
 // setTimeout(function(){loader("In")}, 500);
 // selectDatatable("TablaClientes", tablaClientes);
 
-$('#TablaClientes tbody').on('click', 'tr', function () {
-   if ($(this).hasClass('selected')) {
-       $(this).removeClass('selected');
-       array_selected = null;
-       // datacontactos.api = 2;
-       // datacontactos.id_cliente = 0;
-       tablaContacto.clear().draw();
-       // dataSegmento.cliente_id = 0;
-       tablaSegmentos.clear().draw();
-   } else {
-       tablaClientes.$('tr.selected').removeClass('selected');
-       $(this).addClass('selected');
-       array_selected = tablaClientes.row( this ).data();
-       // datacontactos.api = 2;
-       dataSegmento.cliente_id = array_selected["ID_CLIENTE"];
-       datacontactos.id_cliente = array_selected['ID_CLIENTE'];
-       tablaSegmentos.ajax.reload();
-       tablaContacto.ajax.reload();
-   }
-});
 
-$('#TablaClientes tbody').on('dblclick', 'tr', function () {
-    array_selected = tablaClientes.row( this ).data();
-    $(this).addClass('selected');
-    if (array_selected != null) {
+
+selectTable("#TablaClientes", tablaClientes,
+  { dblClick: true },
+  // One Click
+  (select, data, callback) => {
+    if (select) {
+      dataDescuentoTable.id_cliente = data['ID_CLIENTE'];
+      TablaDescuentoCliente.ajax.reload();
+
+      dataSegmento.cliente_id = data["ID_CLIENTE"];
+      tablaSegmentos.ajax.reload();
+
+
+      datacontactos.id_cliente = data['ID_CLIENTE'];
+      tablaContacto.ajax.reload();
+    } else {
+      dataDescuentoTable = false
+      tablaContacto.clear().draw();
+      // dataSegmento.cliente_id = 0;
+      tablaSegmentos.clear().draw();
+
+
+      TablaDescuentoCliente.clear().draw();
+    }
+  },
+  // Doble Click
+  (select, data) => {
+    if (select) {
       obtenerPanelInformacion(1, 0, 'cliente')
       $("#modalInfoCliente").modal("show");
     }
-});
+  }
+)
+

@@ -495,6 +495,13 @@ class Miscelaneus
                 $carpeta_guardado = "solicitud_estudios";
 
                 break;
+
+            case -4:
+                #Corte caja
+
+
+
+                break;
         }
 
 
@@ -1353,7 +1360,6 @@ class Miscelaneus
 
     public function selectHost($domain)
     {
-
         switch ($domain) {
             case "localhost":
                 $preUrl = "http://localhost/nuevo_checkup/";

@@ -19,7 +19,8 @@ $num_factura = $_POST['num_factura'];
 #variables para el reporte de la ujat
 $ujat_inicial = $_POST['fecha_inicial'];
 $ujat_final = $_POST['fecha_final'];
-$id_cliente = isset($_POST['full_clientes']) ? 0 : $_POST['id_cliente'];
+$id_cliente = $_POST['id_cliente'];
+$area_id    = $_POST['area_id'];
 
 switch ($api) {
     case 1:
@@ -27,7 +28,7 @@ switch ($api) {
         $total_cargos = 0;
 
         foreach ($response as $e) {
-            $total_cargos = $total_cargos + $e['PRECIO'];
+            $total_cargos = $total_cargos + $e['PRECIO_VENTA'];
         }
 
         // $areas = array();
@@ -52,7 +53,8 @@ switch ($api) {
         $params = $master->setToNull([
             $ujat_inicial,
             $ujat_final,
-            $id_cliente
+            $id_cliente,
+            $area_id
         ]);
         $response = $master->getByProcedure("sp_reporte_ujat", $params);
         break;

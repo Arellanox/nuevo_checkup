@@ -149,7 +149,7 @@ include "../../variables.php";
   // ontooltip(); // <-- Ejecutar los tooltip en todo momento
   // function ontooltip() {
   var delay = 100,
-    setTimeoutConst;
+    setTimeoutConst = false;
   $(document).on({
     mouseenter: function(e) {
       tool = this;
@@ -170,10 +170,69 @@ include "../../variables.php";
 
 
 
+  let oneClick_promociones = 0;
   $.getScript("<?php echo $https . $url . '/' . $appname . '/vista/menu/controlador/class.js'; ?>").done(function() {
     $.getScript("<?php echo $https . $url . '/' . $appname . '/vista/menu/controlador/funciones.js'; ?>").done(function() {
       loggin(function(val) {
         if (val) {
+
+          getGalleryPromociones_menu();
+
+          function getGalleryPromociones_menu() {
+            ajaxAwait({
+              api: 2,
+              vigente: 1
+            }, 'promociones_api', {
+              callbackAfter: true
+            }, false, (data) => {
+              // Resetea para volver a consultar
+              oneClick_promociones = 0;
+
+              if (data.response.data.length > 0) {
+                const galleria = new CargadorProgresivo({
+                  contenedor: 'vistaPromociones',
+                  html_case: 'PROMOCIONES_BIMO',
+                  datos: data.response.data,
+                  itemsIniciales: 10,
+                  itemsPorCarga: 50,
+                  html: {
+                    imagenes_css: {
+                      width: '100%',
+                    },
+                    divElement: {
+                      class: 'col-lg-6 col-md-6 mb-4'
+                    }
+                  }
+                });
+                modal_alert = 1;
+
+                $('.promociones-block').fadeIn(100);
+              } else {
+                $('.promociones-block').fadeOut(0);
+                $('#modalPromociones').modal('hide');
+                modal_alert = 0;
+                if (modal_alert)
+                  alertToast('Promociones no activas', 'info', 5000)
+              }
+
+            })
+          }
+
+          $(document).on('click', '.promociones_event', function(event) {
+            oneClick_promociones += 1;
+
+            setTimeout(() => {
+              if (oneClick_promociones === 1) {
+                getGalleryPromociones_menu();
+              } else {
+                // oneClick_promociones = 0;
+                // alertToast('Espera un momento', 'warning', 5000);
+              }
+            }, 250);
+          });
+
+
+
           $(function() {
             // console.log(session)
             // <!-- Aqui controlar e incluir las modals -->

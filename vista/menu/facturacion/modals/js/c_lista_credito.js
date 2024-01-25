@@ -211,13 +211,14 @@ $('#formFiltroListaCredito').submit(function (event) {
 
         alertMensajeConfirm({
             title: '¿Está seguro de filtrar otro cliente?',
-            text: '¡Todos los pacientes seleccionados de la tabla por agregar/actualizar se perderán!',
+            text: '¡Todos los pacientes seleccionados de la tabla por agregar/actualizar se perderán y cambiará el grupo de clinete!',
             icon: 'warning',
-            confirmButtonText: 'Filtra sin eliminar',
+            confirmButtonText: 'Si, limpia la tabla',
+            confirmButtonColor: 'red',
             cancelButtonText: 'Cancelar',
             cancelButtonColor: 'gray',
-            showDenyButton: true,
-            denyButtonText: 'Eliminalos y filtralo',
+            // showDenyButton: true,
+            // denyButtonText: 'Eliminalos y filtralo',
         }, () => {
 
             dataFill['fecha_inicial'] = fecha_inicial.val()
@@ -225,16 +226,18 @@ $('#formFiltroListaCredito').submit(function (event) {
             dataFill['cliente_id'] = cliente.val()
             tFillPaciCredito.ajax.reload();
 
-            // tListPaciGrupo.clear().draw();
-        }, 1, () => {
-
-            dataFill['fecha_inicial'] = fecha_inicial.val()
-            dataFill['fecha_final'] = fecha_final.val();
-            dataFill['cliente_id'] = cliente.val()
-            tFillPaciCredito.ajax.reload();
-
             tListPaciGrupo.clear().draw();
-        })
+        }, 1,
+            // , () => {
+
+            // dataFill['fecha_inicial'] = fecha_inicial.val()
+            // dataFill['fecha_final'] = fecha_final.val();
+            // dataFill['cliente_id'] = cliente.val()
+            // tFillPaciCredito.ajax.reload();
+
+            // tListPaciGrupo.clear().draw();
+            // }
+        )
 
 
         console.log("La ID no está presente en todos los registros de la tabla2");
@@ -270,7 +273,26 @@ $(document).on('click', '#btn-facturar-grupo', function (event) {
         return false
     }
 
-    console.log(grupoPacientesModificar);
+    // console.log(grupoPacientesModificar);
+
+    // Determina el cliente que se guarda
+    let cliente_id = 0, error_cliente = 0;
+    tListPaciGrupo.rows().every(function (rowIdx, tableLoop, rowLoop) {
+        var rowData = this.data();
+        if (cliente_id == 0) {
+            cliente_id = rowData.CLIENTE_ID;
+        }
+
+        if (rowData.CLIENTE_ID !== cliente_id) {
+            alertMensaje('error', 'Hay clientes diferentes', 'La tabla de pacientes existe un paciente diferente')
+            error_cliente = 1;
+            return false; // Detiene el bucle si es diferente alguna ID
+        }
+    });
+
+    if (error_cliente)
+        return false;
+    //
 
     alertPassConfirm({
         title: '¿Deseas guardar el grupo con los pacientes seleccionados?',
@@ -281,13 +303,13 @@ $(document).on('click', '#btn-facturar-grupo', function (event) {
             api: 1,
             detalle_grupo: grupo,
             descripcion: $('#descripcion-grupo-factura').val(),
-            cliente_id: cliente.val(),
+            cliente_id: cliente_id,
         }
 
         if (grupoPacientesModificar) dataAjax['id_grupo'] = grupoPacientesModificar
 
         ajaxAwait(dataAjax, 'admon_grupos_api', { callbackAfter: true }, false, (data) => {
-            alertToast('¡Grupo Creado!', 'success', 4000);
+            alertToast('¡Grupo guardado!', 'success', 4000);
             TablaGrupos.ajax.reload();
         })
 

@@ -67,6 +67,21 @@ function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = '
 }
 
 
+// Reinicia los collapse para medicos tratantes
+function reset_email_inputs_medicos() {
+  // Ocultar solo los collapses de confirmación de correo
+  $('.email-collapse').collapse('hide');
+
+  // Vaciar todos los inputs de correo y confirmación
+  $('.email-medicoTratante').val('');
+
+  // Ocultar mensajes de error asociados a los collapses de correo
+  $('.email-collapse').find('.error-message').hide();
+
+  // Desbloquear todos los botones asociados a los collapses de correo
+  $('.btn_confirmar_correo').prop('disabled', false);
+}
+
 
 function calcularEdad(fecha) {
   var hoy = new Date(), cumpleanos = new Date(fecha);
@@ -147,6 +162,21 @@ function avisoArea(tip = 0) {
   }
 }
 
+
+// Configuracion de ajax
+const configAjaxAwait = {
+  alertBefore: false, //Alerta por defecto, "Estamos cargando la solucitud" <- Solo si la api consume tiempo
+  response: true, //Si la api tiene la estructura correcta (response.code)
+  callbackBefore: false, //Activa la function antes de enviar datos, before
+  callbackAfter: false, //Activa una funcion para tratar datos enviados desde ajax, osea success
+  returnData: true, // regresa los datos o confirmado (1)
+  WithoutResponseData: false, //Manda los datos directos
+  resetForm: false, //Reinicia el formulario en ajaxAwaitFormData,
+  ajaxComplete: () => { }, //Mete una funcion para cuando se complete
+  ajaxError: () => { }, //Mete una funcion para cuando de error
+  formJquery: null, // Manda como variable el formulario ubicado, esto si el formulario esta por clases y lo mandas por jquery
+}
+
 //Ajax Async (NO FORM DATA SUPPORT)
 async function ajaxAwait(dataJson, apiURL,
   config = {
@@ -168,7 +198,7 @@ async function ajaxAwait(dataJson, apiURL,
 ) {
   return new Promise(function (resolve, reject) {
     //Configura la funcion misma
-    config = configAjaxAwait(config)
+    config = setConfig(configAjaxAwait, config)
 
 
     $.ajax({
@@ -193,39 +223,19 @@ async function ajaxAwait(dataJson, apiURL,
           }
         } catch (error) {
           alertMensaje('error', 'Error', 'Datos/Configuración erronea', error);
+          console.error(error);
         }
 
       },
       error: function (jqXHR, exception, data) {
         alertErrorAJAX(jqXHR, exception, data)
+        // console.log('Error')
       },
     })
   });
 }
 
-//
-function configAjaxAwait(config) {
-  //valores por defecto de la funcion ajaxAwait y ajaxAwaitFormData
-  const defaults = {
-    alertBefore: false, //Alerta por defecto, "Estamos cargando la solucitud" <- Solo si la api consume tiempo
-    response: true, //Si la api tiene la estructura correcta (response.code)
-    callbackBefore: false, //Activa la function antes de enviar datos, before
-    callbackAfter: false, //Activa una funcion para tratar datos enviados desde ajax, osea success
-    returnData: true, // regresa los datos o confirmado (1)
-    WithoutResponseData: false, //Manda los datos directos
-    resetForm: false, //Reinicia el formulario en ajaxAwaitFormData,
-    ajaxComplete: () => { }, //Mete una funcion para cuando se complete
-    ajaxError: () => { }, //Mete una funcion para cuando de error
-  }
-
-  Object.entries(defaults).forEach(([key, value]) => {
-    config[key] = config[key] ?? value;
-  });
-  return config;
-}
-
-
-//Ajax Async FormData
+//Ajax Async FormData (¡ Dejar de usar !)
 async function ajaxAwaitFormData(dataJson = { api: 0, }, apiURL, form = 'OnlyForm'  /* <-- Formulario sin # */,
   config = {
     alertBefore: false
@@ -247,17 +257,24 @@ async function ajaxAwaitFormData(dataJson = { api: 0, }, apiURL, form = 'OnlyFor
   // formData.set('api', 10);
   return new Promise(function (resolve, reject) {
     //Configura la funcion misma
-    config = configAjaxAwait(config)
+    config = setConfig(configAjaxAwait, config)
 
+    // Si mandas el form de jquery, mandalo a nativo
     let formID = document.getElementById(form);
+    if (config.formJquery) {
+      formID = config.formJquery[0];
+    }
     let formData = new FormData(formID);
 
     for (const key in dataJson) {
       if (Object.hasOwnProperty.call(dataJson, key)) {
         const element = dataJson[key];
-        formData.set(`${key}`, element);
+        if (!ifnull(formData.get(`${key}`), false)) {
+          formData.set(`${key}`, element);
+        }
       }
     }
+
 
     $.ajax({
       url: `${http}${servidor}/${appname}/api/${apiURL}.php`,
@@ -400,25 +417,46 @@ function ifnull(data, siNull = '', values = [
 
   // Comprobar si el dato es nulo o no es un objeto
   if (!data || typeof data !== 'object') {
-    if (data === undefined || data === null || data === 'NaN' || data === '') {
-      return siNull == 'number' ? 0 : siNull;
+    if (data === undefined || data === null || data === 'NaN' || data === '' || data === NaN) {
+      switch (siNull) {
+        case 'number': return 0
+        case 'boolean': return data ? true : false;
+        default: return siNull;
+      }
     } else {
-      if (siNull != 'number')
-        data = escapeHtmlEntities(`${data}`);
+
+      let data_modificado = escapeHtmlEntities(`${data}`);
+
+      switch (siNull) {
+        case 'number':
+          // No hará modificaciones
+          break;
+        case 'boolean': return ifnull(data, false) ? true : false;
+        default:
+          //Agregará las modificaciones nuevas
+          data = data_modificado
+          break;
+      }
+
       return data;
     }
   }
   // Iterar a través de las claves en values
   for (const key of values) {
     if (typeof key === 'string' && key in data) {
-      return data[key] || siNull;
+      const result = ifnull(data[key], false);
+      if (result) {
+        return result;
+      }
+      // return result || siNull;
     } else if (typeof key === 'object') {
       for (const nestedKey in key) {
-        const result = ifnull(data[nestedKey], siNull, key[nestedKey]);
-        if (result) return ifnull(result, siNull);
+        const result = ifnull(data[nestedKey], siNull, [key[nestedKey]]);
+        if (result) return result
       }
     }
   }
+
 
   return siNull;
 }
@@ -479,8 +517,8 @@ function escapeHtmlEntities(input) {
     '<': '&lt;',
     '>': '&gt;',
     "'": '&apos;',
-    '-': '&ndash;',
-    '—': '&mdash;',
+    // '-': '&ndash;',
+    // '—': '&mdash;',
     // '\u00A0': '&nbsp;',
     // '\u2013': '&ndash;',
     // '\u2014': '&mdash;',
@@ -574,16 +612,56 @@ function resetInputLabel() {
 
 // config = myfunctionconfig(config);
 
+function setConfig(defaults, config) {
+  // Función recursiva para manejar propiedades anidadas
+  function mergeDefaults(defaults, config) {
+    Object.entries(defaults).forEach(([key, defaultValue]) => {
+      if (typeof defaultValue === 'object' && defaultValue !== null && !Array.isArray(defaultValue)) {
+        // Si la propiedad es un objeto (y no un array), llama recursivamente
+        config[key] = config[key] || {}; // Asegúrate de que exista un objeto para mergear
+        mergeDefaults(defaultValue, config[key]);
+      } else {
+        // Si la propiedad no es un objeto, o es un array, simplemente la copiamos
+        config[key] = config.hasOwnProperty(key) ? config[key] : defaultValue;
+      }
+    });
+  }
+
+  // Copia superficial de config para evitar la modificación del objeto original
+  let configCopy = { ...config };
+  mergeDefaults(defaults, configCopy);
+  return configCopy;
+}
+
 // Esta funcion solo funciona para un solo input,
 // si hay mas de uno debe llamarse tantas veces sea posible
 let selectedFilesCount = 0;
-function InputDragDrop(divPadre, callback = () => { console.log('callback default') }, config = { multiple: false }) {
+function InputDragDrop(divPadre, callback = () => { console.log('callback default') }, config = { /*Configuracion */ }) {
 
+  // Setea para no perder configuracion
+  config = setConfig(
+    // nuevas configuraciones
+    {
+      multiple: false,
+      dropArea: {
+        background: '#ffffff00',
+        border: '2px dashed rgb(0 79 90 / 17%)'
+      }
+    }, config
+  )
 
   let dropArea = $(divPadre) // <- Recomendaible una ID tipo #divPadre
   let inputArea = $(divPadre).find('input'); // <- Deseable a que solo exista un input
   let labelArea = $(divPadre).find('label');// <- Si deseas modificar el texto del div añadelo
   let divCarga = $(divPadre).find('div')//<- Opcional se agrego para hacer un Spinners de bootraps
+
+
+  // Personalización 
+  if (ifnull(config, false, ['width'])) {
+    dropArea.css('width', config.width)
+    dropArea.css(config.dropArea); // <--
+  }
+
 
   // Antes de configurar la funcionalidad para el nuevo paciente, realiza la limpieza
   dropArea.off();
@@ -633,17 +711,38 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
 
   // Efecto de cargando e imagen subida lista;
   // Aviso que debe ejecutar callback para saber si ya se subió
-  let salidaInput = (msj = 'Archivo actualizado') => {
-    // Crear efecto de imagen subida
-    // console.log('Salida de input')
+  let salidaInput = (config = { /*Config de salida*/ }) => {
 
-    labelArea.html(`${msj}</br> <strong>¿Desea subir otro? </strong>`)
+    config = setConfig({
+      msj: {
+        msj: 'Archivo actualizado',
+        pregunta: '¿Deseas subir otro archivo?'
+      },
+      dropArea_css: {
+        background: '#f4fdff',
+        border: '2px dashed rgb(0 79 90 / 17%)',
+      },
+      strong: {
+        class: 'none-p',
+        style: `borderBottom: '1px solid'`
+      }
+    }, config)
+
+    // Crear efecto de imagen subida
+    // Previene errores y versionalidad
+    if (typeof config === 'string') {
+      // La variable es un string
+      msj = config;
+    } else {
+      msj = config.msj.msj;
+    }
+    // 
+
+    // console.log('Salida de input')
+    labelArea.html(`${msj} </br > <strong class="${config.strong.class}" style="${config.strong.style}">${config.msj.pregunta}</strong>`)
     divCarga.css({ 'display': 'none' })
 
-    dropArea.css({
-      'background': '#f4fdff',
-      'border': '2px dashed rgb(0 79 90 / 17%)'
-    })
+    dropArea.css(config.dropArea_css)
   }
 
 
@@ -651,7 +750,6 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
 
     const files = inputArea[0].files;
     if (config.multiple || files.length <= 1) {
-
       callback(inputArea, salidaInput);
     } else {
 
@@ -740,7 +838,7 @@ function resetInputFile() {
   $('input[type="file"]').each(function () {
     $(this).val('')
     var label = $(this).parent('div').find('label[class="input-file-label"]')
-    label.html(`<i class="bi bi-box-arrow-up"></i> Seleccione un archivo`)
+    label.html(`< i class= "bi bi-box-arrow-up" ></ > Seleccione un archivo`)
   });
 }
 
@@ -860,7 +958,7 @@ function omitirPaciente(areaFisica) {
     cancelButtonColor: "#3085d6",
   }, function () {
     $.ajax({
-      url: `${http}${servidor}/${appname}/api/turnero_api.php`,
+      url: `${http}${servidor} / ${appname} / api / turnero_api.php`,
       type: 'POST',
       dataType: 'json',
       data: { api: 3, area_fisica_id: areaFisica },
@@ -981,7 +1079,7 @@ function pasarPaciente() {
     cancelButtonColor: "#3085d6",
   }, function () {
     $.ajax({
-      url: `${http}${servidor}/${appname}/api/turnero_api.php`,
+      url: `${http}${servidor} / ${appname} / api / turnero_api.php`,
       type: 'POST',
       dataType: 'json',
       data: { api: 7 },
@@ -1255,6 +1353,7 @@ function rellenarSelect(select = false, api, apinum, v, c, values = {}, callback
     }
 
     $(select).find('option').remove().end()
+
     $.ajax({
       url: http + servidor + "/" + appname + "/api/" + api + ".php",
       data: values,
@@ -1306,7 +1405,6 @@ function rellenarSelect(select = false, api, apinum, v, c, values = {}, callback
 
         // //console.log(data);
         callback(data, selectHTML);
-
       },
       complete: function (data) {
         resolve(1);
@@ -1317,6 +1415,7 @@ function rellenarSelect(select = false, api, apinum, v, c, values = {}, callback
     })
   });
 }
+
 
 function setSelectContent(array, select, v, c, reset = 1, selected) {
   //console.log(array);
@@ -1597,7 +1696,7 @@ function alertPassConfirm(alert = {
     //   autocomplete: false
     // },
     // input: 'password',
-    html: '<form autocomplete="off" onsubmit="formpassword(); return false;"><input type="password" id="password-confirmar" class="form-control input-color" autocomplete="off" placeholder="Ingrese su contraseña para confirmar"></form>',
+    html: `<form autocomplete="off" onsubmit="formpassword(); return false;"><input type="password" id="password-confirmar" class="form-control input-color" autocomplete="off" placeholder="${alert['placeholder'] ? alert['placeholder'] : 'Ingrese su contraseña para confirmar'}"></form>`,
     // confirmButtonText: 'Sign in',
     focusConfirm: false,
     didOpen: () => {
@@ -1606,7 +1705,20 @@ function alertPassConfirm(alert = {
     },
     preConfirm: () => {
       const password = Swal.getPopup().querySelector('#password-confirmar').value;
-      return fetch(`${http}${servidor}/${appname}/api/usuarios_api.php?api=9&password=${password}`)
+
+
+      switch (alert['fetch']) {
+        case 'turnero':
+          url_fetch = `${http}${servidor}/${appname}/api/turnero_api.php?api=8&clave_secreta=${password}`
+          break;
+
+        default:
+          url_fetch = `${http}${servidor}/${appname}/api/usuarios_api.php?api=9&password=${password}`
+          break;
+      }
+
+
+      return fetch(url_fetch)
         .then(response => {
           if (!response.ok) {
             throw new Error(response.statusText)
@@ -1625,7 +1737,7 @@ function alertPassConfirm(alert = {
       if (result.value.status == 1) {
         callback();
       } else {
-        alertSelectTable('¡Contraseña incorrecta!', 'error')
+        alertSelectTable('¡Está incorrecto!', 'error')
       }
     }
 
@@ -1637,6 +1749,48 @@ function formpassword() {
   //No submit form with enter
 
 }
+
+// Levenshtein
+function detectCoincidence(input, api, config = {}) {
+  // alert(1);
+  $(document).on('change', `${input}`, function (e) {
+    // alert(2);
+    e.preventDefault();
+
+    ajaxAwait({
+      api: 5, nombre_medico: $(input).val(),
+    }, 'medicos_tratantes_api', { callbackAfter: true }, false, (data) => {
+
+      const names = data.response.data;
+
+      const html = names.map(name => {
+        return `<span class="chip btn-pantone-7541 ">${name}</span>`;
+      }).join(' ');
+
+      if (html !== '') {
+        $(`#${'suggestionsList'}`).html(html);
+        $(`#${'suggestionsBox'}`)
+          .removeClass('d-none')
+          .addClass('animate__animated animate__fadeIn');
+      } else {
+        $(`#${'suggestionsBox'}`).addClass('d-none');
+      }
+    });
+
+    // Añadir listener de clic a los chips
+    $(".chip").click(function () {
+      const textToCopy = $(this).text();
+      const tempInput = $("<input>");
+      $("body").append(tempInput);
+      tempInput.val(textToCopy).select();
+      document.execCommand("copy");
+      tempInput.remove();
+
+      alertToast("Nombre copiado: " + textToCopy, 'info');
+    });
+  });
+}
+
 
 
 function mensajeAjax(data, modulo = null) {
@@ -1654,7 +1808,7 @@ function mensajeAjax(data, modulo = null) {
           icon: 'error',
           title: 'Oops...',
           text: '¡Ha ocurrido un error!',
-          footer: 'Codigo: ' + data['response']['msj']
+          footer: 'Respuesta: ' + data['response']['msj']
         })
         break;
       case "repetido":
@@ -1669,7 +1823,7 @@ function mensajeAjax(data, modulo = null) {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'Codigo: ' + data['response']['msj']
+          text: 'Respuesta: ' + data['response']['msj']
         })
         break;
       case "Token": case "Usernovalid":
@@ -1981,64 +2135,6 @@ function createTooltipHtml(tooltipData) {
 //
 
 
-
-// Configuraciones por defecto para select table
-function configSelectTable(config) {
-  //valores por defecto de la funcion ajaxAwait y ajaxAwaitFormData
-  const defaults = {
-    dblClick: false, // Aceptar doble click
-    unSelect: false, // Deseleccionar un registro
-    anotherClass: 'other-for-table', //Cuando sea seleccionado, se agrega la clase, sino se quita
-    ignoreClass: '',
-    tabs: [
-      {
-        title: 'Pacientes',
-        element: '#tab-paciente',
-        class: 'active',
-      },
-      {
-        title: 'Información',
-        element: '#tab-informacion',
-        class: 'disabled tab-select'
-      },
-      {
-        title: 'Reporte',
-        element: '#tab-reporte',
-        class: 'disabled tab-select'
-      },
-    ],
-    "tab-id": '#tab-button',
-    "tab-default": 'Reporte',  //Por default, al dar click, abre aqui
-    reload: false, //Activa la rueda
-    movil: false, //Activa la version movil
-    multipleSelect: false,
-    OnlyData: false,
-    noColumns: false,
-    // alwaySelected: false,
-    ClickClass: [
-      {
-        class: '.',
-        callback: function (data) {
-
-        },
-        selected: true
-      },
-      {
-        class: '.',
-        callback: function (data) {
-
-        },
-        selected: false
-      }
-    ],
-    divPadre: false, //Busca dentro del div las clases, si no hay buscará cualquiera
-  }
-
-  Object.entries(defaults).forEach(([key, value]) => {
-    config[key] = config[key] ?? value;
-  });
-  return config;
-}
 //Detecta la dimension del dispositivo para saber si es movil o escritorio
 function isMovil(callback = (response) => { }) {
   var esTabletaVertical = /iPad/i.test(navigator.userAgent)
@@ -2066,7 +2162,7 @@ function selecTableTabs() {
 }
 
 // Para la version movil crea y visualiza columnas
-function getBtnTabs(config) {
+function getBtnTabs(config, reloadName) {
   if (config.tabs) {
     let row = config.tabs;
     let html = `<ul class="nav nav-tabs mt-2 tab-page-table" style="display:none">`;
@@ -2075,7 +2171,7 @@ function getBtnTabs(config) {
         const element = row[key];
 
         html += `<li class="nav-item">
-                    <a class="nav-link ${element.class ? element.class : ''} tab-table" data-id-column="${element['element']}" id="tab-btn-${element.title}" style="cursor: pointer">${element.title}</a>
+                    <a class="nav-link ${element.class ? element.class : ''} tab-table" data-id-column="${element['element']}" data-reload-column="${reloadName}" id="tab-btn-${element.title}" style="cursor: pointer">${element.title}</a>
                   </li>`;
       }
     }
@@ -2089,7 +2185,7 @@ function getBtnTabs(config) {
 //Visualiza la columna solo en movil
 let dinamicTabFunction = false;
 let documentClick = false;
-let loader_selectTable = false;
+let loader_selectTable = false;  //No usar, en desuso global, solo en selectTable
 function dinamicTabs() {
   // dinamicTabFunction = false;
   // // loader = loader
@@ -2120,17 +2216,25 @@ $(document).on('click', '.tab-table', function () {
 
       setTimeout(() => {
         let id = btn.attr('data-id-column');
+        let loader = btn.attr('data-reload-column');
         // console.log(id);
         let loaderVisible = false;
 
         // console.log(loader_selectTable)
         loaderVisible = function () {
           // console.log($(loader_selectTable))
-          if ($(loader_selectTable).is(":hidden")) {
+          if ($(loader).is(":hidden")) {
             $(`${id}`).fadeIn(100);
+            $.fn.dataTable
+              .tables({
+                visible: true,
+                api: true
+              })
+              .columns.adjust();
+
             loaderVisible = false;
           } else {
-            // console.log(loader_selectTable)}
+            // console.log(loader)
             setTimeout(() => {
               loaderVisible();
             }, 150);
@@ -2178,19 +2282,26 @@ function reloadSelectTable() {
 }
 
 //Evalua el estado de click de selectTable
+// Arreglo de clases a ignorar
+let ignoredClasses = [
+  'noClicked', //Algun elemento que podamos crear para que no implique selección
+  'dtr-control', //Cuando le da click al primer td con el boton + de visualizar mas columnas
+  'child',  //Cuando muestra las columnas ocultas de un regitro
+  'dataTables_empty', //Cuando la  tabla esta vacia, no selecciona
+];
+// Función para verificar si un elemento tiene alguna de las clases ignoradas
+const hasIgnoredClass = (elem) => ignoredClasses.some(className => elem.classList.contains(className));
+
 function eventClassClick(event, tr, config, data) {
   //Evalua donde está dando click el usuario
   var clickedElement = event.target;
+  ignoredClasses.push(config.ignoreClass) //Ignora el click por algun objeto en clase
   // var computedStyle = window.getComputedStyle(clickedElement, '::before');
   // computedStyle.getPropertyValue('property') === 'value'
   // console.log(computedStyle.getPropertyValue('property') === 'value')
   //Cancela la funcion si el elemento que hace click tiene la siguiente clase
-  if (
-    $(clickedElement).hasClass('noClicked') //Algun elemento que podamos crear para que no implique selección
-    || ($(clickedElement).hasClass('dtr-control')) //Cuando le da click al primer td con el boton + de visualizar mas columnas
-    || $(tr).hasClass('child') //Cuando muestra las columnas ocultas de un regitro
-    || $(tr).hasClass('dataTables_empty')  //Cuando la  tabla esta vacia, no selecciona
-    || $(tr).hasClass(`${config.ignoreClass}`) //Ignora el click por algun objeto en clase
+  if (hasIgnoredClass(clickedElement)
+    || hasIgnoredClass(tr)
     || $(tr).find('td').hasClass('dataTables_empty') //Ignora si no hay datos que mostrar (serverside)
   )
     return [true, false];
@@ -2213,10 +2324,10 @@ function eventClassClick(event, tr, config, data) {
   return [false, false];
 }
 
-function resizeConfigMovil(config, nameTable) {
+function resizeConfigMovil(config, loaderName) {
   if (config.movil) {
     //Cambia la vista del dispositivo
-    getBtnTabs(config);
+    getBtnTabs(config, loaderName);
     //Activa los botones si es movil
     // console.log(`#loaderDiv-${nameTable}`)
 
@@ -2232,11 +2343,59 @@ function selectTable(tablename, datatable,
   config = {
     dblClick: false,
   },
-  callbackClick = (select = 1, dataRow = [], tr = '1', row = []) => { },
-  callbackDblClick = (select = 1, dataRow = [], tr = '1', row = []) => { }
+  callbackClick = (select = 1, dataRow = [], callback, tr = '1', row = []) => { },
+  callbackDblClick = (select = 1, dataRow = [], callback, tr = '1', row = []) => { }
 ) {
   //manda valores por defecto
-  config = configSelectTable(config)
+  config = setConfig(
+    {
+      dblClick: false, // Aceptar doble click
+      unSelect: false, // Deseleccionar un registro
+      anotherClass: 'other-for-table', //Cuando sea seleccionado, se agrega la clase, sino se quita
+      ignoreClass: '',
+      tabs: [
+        {
+          title: 'Pacientes',
+          element: '#tab-paciente',
+          class: 'active',
+        },
+        {
+          title: 'Información',
+          element: '#tab-informacion',
+          class: 'disabled tab-select'
+        },
+        {
+          title: 'Reporte',
+          element: '#tab-reporte',
+          class: 'disabled tab-select'
+        },
+      ],
+      "tab-id": '#tab-button',
+      "tab-default": 'Reporte',  //Por default, al dar click, abre aqui
+      reload: false, //Activa la rueda [Example:  reload: ['col-xl-9'] ]
+      movil: false, //Activa la version movil
+      multipleSelect: false,
+      OnlyData: false,
+      noColumns: false,
+      // alwaySelected: false,
+      ClickClass: [
+        {
+          class: '.',
+          callback: function (data) {
+
+          },
+          selected: true
+        },
+        {
+          class: '.',
+          callback: function (data) {
+
+          },
+          selected: false
+        }
+      ],
+      divPadre: false, //Busca dentro del div las clases, si no hay buscará cualquiera
+    }, config)
 
   //Nombrando para usarlo
   let tableString = tablename.replace('#', '')
@@ -2417,7 +2576,7 @@ function selectTable(tablename, datatable,
       $('.tab-second').fadeOut()
     }
 
-    console.log($(loader_selectTable))
+    // console.log($(loader_selectTable))
     $(loader_selectTable).fadeIn(0);
   }
 
@@ -2785,6 +2944,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       $('#info-paci-alergias').html(row.ALERGIAS);
                       $('#info-paci-procedencia').html(row.PROCEDENCIA)
                       $('#info-paci-curp').html(row.CURP);
+                      $('#info-paci-naciondalidad').html(row.NACIONALIDAD)
                       $('#info-paci-telefono').html(row.CELULAR);
                       $('#info-paci-correo').html(row.CORREO);
                       $('#info-paci-sexo').html(row.GENERO);

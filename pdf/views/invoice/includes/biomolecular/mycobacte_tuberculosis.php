@@ -34,7 +34,6 @@ $kit = $body[count($body) - 3];
 
     foreach ($resultados as $key => $value) {
         if ($value->resultado == 'LABEL_BIOMOLECULAR') {
-            echo "<br>";
             echo '<tr>
                     <td style="text-align: center;">
                         <strong>' . $value->nombre . '</strong>
@@ -105,7 +104,7 @@ echo $estudio;
 
 
 </table>
-<br>
+
 <p style="text-align:justify;">
     <strong>Observaciones: </strong> <?php echo $obs->resultado; ?>
 </p>

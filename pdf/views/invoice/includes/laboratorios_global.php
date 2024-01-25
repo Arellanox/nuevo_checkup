@@ -98,6 +98,23 @@ foreach ($areas as $key => $area) {
                         }
                         ?>
                         <?php
+                        if (isset($analito->muestra) && $analito->muestra != null || $analito->muestra != '') {
+                        ?>
+                            <tr>
+                                <td class="col-one" style="font-size: 12px">
+                                    <?php echo "<strong style='font-size: 12px'>Muestra: </strong>" . $analito->muestra ?>
+                                </td>
+                                <td class="col-two">
+                                </td>
+                                <td class="col-three">
+                                </td>
+                                <td class="col-four">
+                                </td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
+                        <?php
 
                         if (isset($analito->equipo) && $analito->equipo != null || $analito->equipo != '') {
                         ?>
@@ -147,6 +164,15 @@ foreach ($areas as $key => $area) {
             if ($estudio->metodo == '' || $estudio->metodo == null) {
             } else {
                 echo "<strong style='font-size: 12px'>Método: </strong>" . $estudio->metodo;
+            }
+            ?>
+        </div>
+        <div style="font-size: 12px">
+
+            <?php
+            if ($estudio->muestra == '' || $estudio->muestra == null) {
+            } else {
+                echo "<strong style='font-size: 12px'>Muestra: </strong>" . $estudio->muestra;
             }
             ?>
         </div>

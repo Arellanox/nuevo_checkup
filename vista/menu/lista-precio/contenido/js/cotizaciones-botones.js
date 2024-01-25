@@ -254,6 +254,10 @@ $('#guardar-contenido-paquete').on('click', function () {
         $('#fiscalCotizacionCliente').html(row2['DOMICILIO_FISCAL'])
         $('#observacionesCotizacionCliente').html(row2['OBSERVACIONES'])
 
+
+
+        $('#check-editar').click()
+
       }
     })
   } else {

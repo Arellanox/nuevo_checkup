@@ -25,6 +25,3 @@ $menu = "Facturacion";
         });
     }
 </script>
-
-
-</html>

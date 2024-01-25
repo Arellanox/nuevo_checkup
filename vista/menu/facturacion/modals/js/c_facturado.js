@@ -1,13 +1,7 @@
+rellenarSelect('#credito-tipo-pago', 'formas_pago_api', 2, 'ID_PAGO', 'DESCRIPCION', { activo: 1 })
 
 $("#formFacturarGrupoCredito").on('submit', function (e) {
     e.preventDefault();
-
-    facturado = ($("#NumeroFactura").val())
-
-    if (facturado == "") {
-        alertToast("Rellene el campo requerido", "error", 3000)
-        return false;
-    }
 
     alertMensajeConfirm({
         title: '¿Deseas facturar este grupo?',
@@ -16,7 +10,24 @@ $("#formFacturarGrupoCredito").on('submit', function (e) {
     }, () => {
 
         id_grupo = SelectedGruposCredito['ID_GRUPO']
-        FacturarGruposCredito(facturado, id_grupo)
+        // FacturarGruposCredito(facturado, id_grupo)
+
+        ajaxAwaitFormData({
+            api: 1,
+            // num_factura: "",
+            id_grupo: id_grupo,
+            facturado: 1
+        }, 'admon_grupos_api', 'formFacturarGrupoCredito', { callbackAfter: true }, false,
+            function (data) {
+                let modal = "#ModalTicketCreditoFacturado";
+                $(modal).modal('hide');
+
+                alertToast("Factura guardada con exito", "success", 3000)
+
+                TablaGrupos.ajax.reload();
+
+            })
+
     }, 1)
 
 })
