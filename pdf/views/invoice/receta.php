@@ -359,6 +359,7 @@ $encode = base64_encode($ruta);
 $ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
 $encode_firma = base64_encode($ruta_firma);
 
+$folio = ((array)($resultados[1][0]))['FOLIO'];
 
 ?>
 
@@ -407,6 +408,7 @@ $encode_firma = base64_encode($ruta_firma);
 
     <!-- Body -->
     <?php
+
     $recetaPrincipal = '
             <div class="invoice-content row">
                 <div>
