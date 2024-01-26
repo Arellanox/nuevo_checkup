@@ -161,7 +161,7 @@ switch ($api) {
         #GUARDA EL CONCENTIMIENTOS CON TODO Y SERVICIOS
         $response = $master->getByProcedure(
             "sp_consentimieto_g",
-            [json_encode($data_consentimiento_g)]
+            [json_encode($data_consentimiento_g[0])]
         );
 
 
