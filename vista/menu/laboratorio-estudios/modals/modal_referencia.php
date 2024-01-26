@@ -139,7 +139,7 @@
             <!-- <button type="button" form="formGuardarReferencia" class="btn btn-borrar" id="btn-VisualizarPDFReferencia">
                 <i class="bi bi-file-earmark-pdf"></i> Visualizar PDF
             </button> -->
-            <button type="button" form="formGuardarReferencia" class="btn btn-confirmar" id="btn-guardar-referencia"><i class="bi bi-box-arrow-down"></i> Guardar</button>
+            <button type="submit" form="formGuardarReferencia" class="btn btn-confirmar" id="btn-guardar-referencia"><i class="bi bi-box-arrow-down"></i> Guardar</button>
 
         </div>
     </div>

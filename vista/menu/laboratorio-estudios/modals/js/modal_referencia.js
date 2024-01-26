@@ -243,7 +243,7 @@ function ChangeReferencias() {
 }
 
 
-$(document).on('click', '#btn-guardar-referencia', function (e) {
+$(document).on('submit', '#formGuardarReferencia', function (e) {
     e.preventDefault();
     alertMensajeConfirm({
         title: '¿Esta seguro de guardar los valores de referencia?',
