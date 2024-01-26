@@ -19,6 +19,7 @@
           <tr>
             <th scope="col d-flex justify-content-center" class="all">#</th>
             <th scope="col d-flex justify-content-center" class="all">Servicio</th>
+            <th scope="col d-flex justify-content-center" class="all">Abreviatura</th>
             <th scope="col d-flex justify-content-center" class="min-tablet">Clasificacion</th>
             <th scope="col d-flex justify-content-center" class="min-tablet">Area</th>
             <th scope="col d-flex justify-content-center" class="min-tablet">Estatus</th>
