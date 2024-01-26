@@ -19,7 +19,7 @@
 
 <table style="width: 100%;" cellspacing="0">
     <tr style="background-color: #d3d3d3;">
-        <th style="font-size: 12px;text-align:left;padding: 6px 5px; background-color: #d3d3d3;"><strong style="font-size:12px">Prueba rT-PCR de VSR - CoviFlu </strong></th>
+        <th style="font-size: 12px;text-align:left;padding: 6px 5px; background-color: #d3d3d3;"><strong style="font-size:12px">Prueba <?php echo $body[9]->resultado ?></strong></th>
         <th style="font-size: 12px;text-align:center; padding: 6px 12px; background-color: #d3d3d3;"><strong style="font-size:12px">Resultado</strong></th>
         <th style="font-size: 12px;text-align:center; padding: 6px 12px; background-color: #d3d3d3;"> <strong style="font-size:12px">Valor de Normalidad</strong></th>
     </tr>

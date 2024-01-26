@@ -193,6 +193,7 @@ function generarFormularioPaciente(id) {
           }
 
           let muestras = []
+          let tipo_resultado = []
 
           //Clinico
           let Tipo = '';
@@ -507,6 +508,15 @@ function generarFormularioPaciente(id) {
 
 
               classSelect = 'selectTipoMuestraPCRVirusRespiratorio';
+
+            tipo_resultado = {
+              0: {
+                'descripcion': 'rT-PCR de VSR - CoviFlu',
+              },
+              1: {
+                'descripcion': 'rT-PCR de CoviFlu',
+              }
+            }
               muestras = {
                 0: {
                   'descripcion': 'Hisopado nasal',
@@ -651,7 +661,6 @@ function generarFormularioPaciente(id) {
                 case '1112': case '1113': case '1114': case '1107': case '1108': case '1109': case '1110':
                 // Ag virus respiratorio
                 case '344':
-
                 // PCR SARS-CoV-2/INFLUENZA A Y B
                 case '1470': case '1472': case '1474': case '1523': case '1526': case '1529': case '1531':
 
@@ -676,6 +685,12 @@ function generarFormularioPaciente(id) {
                 case '1517': case '1524': case '1527':
 
                   onlyLabel = true; break;
+
+                  // PCR Virus Respiratorio - coviflu
+                case '1555':
+                  anotherInput = crearSelectCamposMolecular(tipo_resultado, nameInput, row[k]['RESULTADO']);
+
+                  break;
 
 
                 //FTD KIT DIAGNOSTICO
