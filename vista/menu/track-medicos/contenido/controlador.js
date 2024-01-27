@@ -1,18 +1,19 @@
 
 var tablaMuestras, dataListaPaciente = {}, selectListaMuestras;
 
-if (validarVista('LABORATORIO_MUESTRA_1')) {
-  contenidoMuestras()
+
+// Validar permiso de modulo
+if (validarVista('TRACKER_MEDICOS')) {
+  contenidoSeguimientoMedicos()
 }
-async function contenidoMuestras() {
-  await obtenerTitulo("Toma de muestras");
-  $.post("contenido/muestras.php", function (html) {
+async function contenidoSeguimientoMedicos() {
+  await obtenerTitulo("Tracking de médicos");
+  $.post("contenido/seg-medicos.php", function (html) {
     $("#body-js").html(html);
   }).done(function () {
-    dataListaPaciente = { api: 1, id_area: 6, fecha_agenda: $('#fechaListadoAreaMaster').val() };
     // DataTable
-    $.getScript('contenido/js/muestras-tabla.js')
+    $.getScript('contenido/js/seg-medicos-tabla.js')
     // Botones
-    $.getScript('contenido/js/muestras-botones.js')
+    $.getScript('contenido/js/seg-medicos-botones.js')
   })
 }

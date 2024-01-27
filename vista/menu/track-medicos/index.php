@@ -3,14 +3,14 @@
 
 session_start();
 include "../../variables.php";
-$menu = "muestras";
+$menu = "tracking-medicos";
 ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
 
 <head>
   <?php include "../../include/head.php"; ?>
-  <title>Toma de muestras | Bimo</title>
+  <title>Seguimiento Médicos | Bimo</title>
 </head>
 
 <body class="" id="body-controlador"> </body>
