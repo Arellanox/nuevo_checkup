@@ -1,5 +1,5 @@
 
-var tablaMuestras, dataListaPaciente = {}, selectListaMuestras;
+var tablaMuestras, dataListaPaciente = { api: 1 }, selectListaMuestras;
 
 
 // Validar permiso de modulo
