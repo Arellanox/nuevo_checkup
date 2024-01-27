@@ -12,7 +12,7 @@ if (!$tokenValido) {
 $master = new Master();
 $api = $_POST['api'];
 $id_medico = $_POST['id_medico' ];
-
+$id_turno = $_POST['id_turno'];
 
 switch($api){
     case 1:
@@ -24,6 +24,11 @@ switch($api){
         $response = $master->getByProcedure("sp_tracking_medicos_b", [
             $id_medico
         ]); 
+        break;
+    case 3:
+        #historial de resultados
+        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, ]);
+        break;
     default:
         $response = "Api no definida.";
 }
