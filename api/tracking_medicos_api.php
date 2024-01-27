@@ -27,7 +27,7 @@ switch($api){
         break;
     case 3:
         #historial de resultados
-        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, ]);
+        $response = $master->getByProcedure("sp_recuperar_reportes_confirmados", [$id_turno, null, null, null, 0]);
         break;
     default:
         $response = "Api no definida.";
