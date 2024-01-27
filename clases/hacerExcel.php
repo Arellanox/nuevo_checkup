@@ -200,6 +200,11 @@ ob_start();
 ## OBTENEMOS TODA LA INFORMACION Y LA GUARDAMNOS EN VARIABLES
 $data = getData($fecha_inicial, $fecha_final);
 
+// echo "<pre>";
+// print_r($data) ;
+// "</pre>";
+// exit;
+
 
 
 ###################################  ESQUELETO  DEL EXCEL ######################################
@@ -236,14 +241,14 @@ $sheet->getRowDimension(2)->setRowHeight(30);
 $sheet->getColumnDimension('A')->setWidth(15);
 
 
-$sheet->setCellValue('A3', 'PERIODO');
-$style = $sheet->getStyle('A3');
-$style->getFill()
-    ->setFillType(Fill::FILL_SOLID)
-    ->getStartColor()
-    ->setARGB($colorGris);
+// $sheet->setCellValue('A3', 'PERIODO');
+// $style = $sheet->getStyle('A3');
+// $style->getFill()
+//     ->setFillType(Fill::FILL_SOLID)
+//     ->getStartColor()
+//     ->setARGB($colorGris);
 
-$sheet->setCellValue('B3', '20/23');
+// $sheet->setCellValue('B3', '20/24');
 
 
 $sheet->mergeCells('A5:A6');
