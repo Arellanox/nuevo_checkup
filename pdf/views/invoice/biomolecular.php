@@ -311,7 +311,8 @@ $areas = $resultados->areas[0];
                 "rT-PCR Entero-DR" => 'rt-PCR_Entero',
                 'Ag. Virus Sincitial Respiratorio' => 'Ag-Virus_Respiratorio',
                 'Prueba rT-PCR de VSR - CoviFlu' => 'pcr-vsr_coviflu',
-                'rT-PCR PneumoBacter' => 'rT-PCR PneumoBacter'
+                'rT-PCR PneumoBacter' => 'rT-PCR PneumoBacter',
+                'rT-PCR Thrombosis SNP' => 'rT-PCR_Thrombosis_SNP'
             ];
             return $estudios[$indice] ?? null;
         }

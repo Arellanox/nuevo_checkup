@@ -890,6 +890,20 @@ class Miscelaneus
                         # ANAMNESIS
                         #$productoFinal['ANAMNESIS'] = $master->checkArray($response[$i]);
                         $anamnesis = $master->checkArray($response[$i]);
+
+                        #Orden deseado
+                        $ordenDeseado = [
+                            'SISTEMA CARDIOVASCULAR',
+                            'APARATO RESPIRATORIO',
+                            'APARATO DIGESTIVO',
+                            'APARATO GENITOURINARIO',
+                            'SISTEMA NERVIOSO',
+                            'ENDOCRINOLOGIA Y METABOLISMO',
+                            'APARATO LOCOMOTOR',
+                            'TERMOREGULACION'
+                        ];
+
+
                         #obtenenmos la clase
                         $clase = array();
                         foreach ($anamnesis as $current) {
@@ -905,7 +919,18 @@ class Miscelaneus
                                 return $obj['CLASE'] == $current;
                             });
                         }
-                        $productoFinal['ANAMNESIS'] = $newAnamnesis;
+
+                        #Reordenar la consulta y arreglo
+                        $newAnamnesisOrdenado = array();
+                        foreach ($ordenDeseado as $claseOrdenada) {
+                            $claseConGuion = str_replace(" ", "_", $claseOrdenada);
+                            if (array_key_exists($claseConGuion, $newAnamnesis)) {
+                                $newAnamnesisOrdenado[$claseConGuion] = $newAnamnesis[$claseConGuion];
+                            }
+                        }
+
+                        $productoFinal['ANAMNESIS'] = $newAnamnesisOrdenado;
+                        # $productoFinal['ANAMNESIS'] = $newAnamnesis;
                         break;
                     case 3:
                         # ODONTOGRAMA
@@ -1908,7 +1933,7 @@ class Miscelaneus
         $datos = array(
             'api' => '1',
             'user' => 'TurneroUno',
-            'pass' => 'TurneroUno'
+            'pass' => 'I16E!H{fg7'
         );
 
         $url1 = "https://bimo-lab.com/nuevo_checkup/api/login_api.php";

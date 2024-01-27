@@ -17,6 +17,7 @@ $operadores_logicos_id = $_POST['select-operador-referencia'];
 $valor_referencia = $_POST['valor_referencia'];
 $checkedCambiarReferencia = $_POST['checkedCambiarReferencia'];
 $valores_normalidad = $_POST['valores_normalidad'];
+$prefolio = $_POST['prefolio'];
 
 $checkedCambiarReferencia == 0 ? $operadores_logicos_id = null : $operadores_logicos_id = $operadores_logicos_id;
 
@@ -34,7 +35,26 @@ $insert_datos = $master->setToNull(array(
     $operadores_logicos_id,
     $valor_referencia,
     $valores_normalidad,
-    $id_valores_referencia
+    $id_valores_referencia,
+    0
+    
+));
+
+
+$update_data = $master->setToNull(array(
+    $servicio_id,
+    $sexo,
+    $edad_minima,
+    $edad_maxima,
+    $valor_minimo,
+    $valor_maximo,
+    $presentacion,
+    $operadores_logicos_id,
+    $valor_referencia,
+    $valores_normalidad,
+    $id_valores_referencia,
+    1
+
 ));
 
 switch ($api) {
@@ -54,9 +74,16 @@ switch ($api) {
         break;
 
     case 4:
-        $response = $master;
+        $response = $master->getByProcedure('sp_turno_b', [$prefolio]);
+
         break;
 
+    case 5:
+
+        #Editamos los valores de referencia
+        $response = $master->getByProcedure('sp_valores_referencia_g', $update_data);
+        
+        break;
     default:
         $response = "API no definida";
         break;

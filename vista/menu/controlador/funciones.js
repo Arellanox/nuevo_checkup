@@ -162,6 +162,21 @@ function avisoArea(tip = 0) {
   }
 }
 
+
+// Configuracion de ajax
+const configAjaxAwait = {
+  alertBefore: false, //Alerta por defecto, "Estamos cargando la solucitud" <- Solo si la api consume tiempo
+  response: true, //Si la api tiene la estructura correcta (response.code)
+  callbackBefore: false, //Activa la function antes de enviar datos, before
+  callbackAfter: false, //Activa una funcion para tratar datos enviados desde ajax, osea success
+  returnData: true, // regresa los datos o confirmado (1)
+  WithoutResponseData: false, //Manda los datos directos
+  resetForm: false, //Reinicia el formulario en ajaxAwaitFormData,
+  ajaxComplete: () => { }, //Mete una funcion para cuando se complete
+  ajaxError: () => { }, //Mete una funcion para cuando de error
+  formJquery: null, // Manda como variable el formulario ubicado, esto si el formulario esta por clases y lo mandas por jquery
+}
+
 //Ajax Async (NO FORM DATA SUPPORT)
 async function ajaxAwait(dataJson, apiURL,
   config = {
@@ -183,7 +198,7 @@ async function ajaxAwait(dataJson, apiURL,
 ) {
   return new Promise(function (resolve, reject) {
     //Configura la funcion misma
-    config = configAjaxAwait(config)
+    config = setConfig(configAjaxAwait, config)
 
 
     $.ajax({
@@ -220,29 +235,7 @@ async function ajaxAwait(dataJson, apiURL,
   });
 }
 
-//
-function configAjaxAwait(config) {
-  //valores por defecto de la funcion ajaxAwait y ajaxAwaitFormData
-  const defaults = {
-    alertBefore: false, //Alerta por defecto, "Estamos cargando la solucitud" <- Solo si la api consume tiempo
-    response: true, //Si la api tiene la estructura correcta (response.code)
-    callbackBefore: false, //Activa la function antes de enviar datos, before
-    callbackAfter: false, //Activa una funcion para tratar datos enviados desde ajax, osea success
-    returnData: true, // regresa los datos o confirmado (1)
-    WithoutResponseData: false, //Manda los datos directos
-    resetForm: false, //Reinicia el formulario en ajaxAwaitFormData,
-    ajaxComplete: () => { }, //Mete una funcion para cuando se complete
-    ajaxError: () => { }, //Mete una funcion para cuando de error
-  }
-
-  Object.entries(defaults).forEach(([key, value]) => {
-    config[key] = config[key] ?? value;
-  });
-  return config;
-}
-
-
-//Ajax Async FormData
+//Ajax Async FormData (¡ Dejar de usar !)
 async function ajaxAwaitFormData(dataJson = { api: 0, }, apiURL, form = 'OnlyForm'  /* <-- Formulario sin # */,
   config = {
     alertBefore: false
@@ -264,9 +257,13 @@ async function ajaxAwaitFormData(dataJson = { api: 0, }, apiURL, form = 'OnlyFor
   // formData.set('api', 10);
   return new Promise(function (resolve, reject) {
     //Configura la funcion misma
-    config = configAjaxAwait(config)
+    config = setConfig(configAjaxAwait, config)
 
+    // Si mandas el form de jquery, mandalo a nativo
     let formID = document.getElementById(form);
+    if (config.formJquery) {
+      formID = config.formJquery[0];
+    }
     let formData = new FormData(formID);
 
     for (const key in dataJson) {
@@ -277,6 +274,7 @@ async function ajaxAwaitFormData(dataJson = { api: 0, }, apiURL, form = 'OnlyFor
         }
       }
     }
+
 
     $.ajax({
       url: `${http}${servidor}/${appname}/api/${apiURL}.php`,
@@ -446,14 +444,19 @@ function ifnull(data, siNull = '', values = [
   // Iterar a través de las claves en values
   for (const key of values) {
     if (typeof key === 'string' && key in data) {
-      return data[key] || siNull;
+      const result = ifnull(data[key], false);
+      if (result) {
+        return result;
+      }
+      // return result || siNull;
     } else if (typeof key === 'object') {
       for (const nestedKey in key) {
-        const result = ifnull(data[nestedKey], siNull, key[nestedKey]);
-        if (result) return ifnull(result, siNull);
+        const result = ifnull(data[nestedKey], siNull, [key[nestedKey]]);
+        if (result) return result
       }
     }
   }
+
 
   return siNull;
 }
@@ -609,11 +612,43 @@ function resetInputLabel() {
 
 // config = myfunctionconfig(config);
 
+function setConfig(defaults, config) {
+  // Función recursiva para manejar propiedades anidadas
+  function mergeDefaults(defaults, config) {
+    Object.entries(defaults).forEach(([key, defaultValue]) => {
+      if (typeof defaultValue === 'object' && defaultValue !== null && !Array.isArray(defaultValue)) {
+        // Si la propiedad es un objeto (y no un array), llama recursivamente
+        config[key] = config[key] || {}; // Asegúrate de que exista un objeto para mergear
+        mergeDefaults(defaultValue, config[key]);
+      } else {
+        // Si la propiedad no es un objeto, o es un array, simplemente la copiamos
+        config[key] = config.hasOwnProperty(key) ? config[key] : defaultValue;
+      }
+    });
+  }
+
+  // Copia superficial de config para evitar la modificación del objeto original
+  let configCopy = { ...config };
+  mergeDefaults(defaults, configCopy);
+  return configCopy;
+}
+
 // Esta funcion solo funciona para un solo input,
 // si hay mas de uno debe llamarse tantas veces sea posible
 let selectedFilesCount = 0;
-function InputDragDrop(divPadre, callback = () => { console.log('callback default') }, config = { multiple: false }) {
+function InputDragDrop(divPadre, callback = () => { console.log('callback default') }, config = { /*Configuracion */ }) {
 
+  // Setea para no perder configuracion
+  config = setConfig(
+    // nuevas configuraciones
+    {
+      multiple: false,
+      dropArea: {
+        background: '#ffffff00',
+        border: '2px dashed rgb(0 79 90 / 17%)'
+      }
+    }, config
+  )
 
   let dropArea = $(divPadre) // <- Recomendaible una ID tipo #divPadre
   let inputArea = $(divPadre).find('input'); // <- Deseable a que solo exista un input
@@ -624,6 +659,7 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
   // Personalización 
   if (ifnull(config, false, ['width'])) {
     dropArea.css('width', config.width)
+    dropArea.css(config.dropArea); // <--
   }
 
 
@@ -675,17 +711,38 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
 
   // Efecto de cargando e imagen subida lista;
   // Aviso que debe ejecutar callback para saber si ya se subió
-  let salidaInput = (msj = 'Archivo actualizado') => {
-    // Crear efecto de imagen subida
-    // console.log('Salida de input')
+  let salidaInput = (config = { /*Config de salida*/ }) => {
 
-    labelArea.html(`${msj}</br> <strong>¿Desea subir otro? </strong>`)
+    config = setConfig({
+      msj: {
+        msj: 'Archivo actualizado',
+        pregunta: '¿Deseas subir otro archivo?'
+      },
+      dropArea_css: {
+        background: '#f4fdff',
+        border: '2px dashed rgb(0 79 90 / 17%)',
+      },
+      strong: {
+        class: 'none-p',
+        style: `borderBottom: '1px solid'`
+      }
+    }, config)
+
+    // Crear efecto de imagen subida
+    // Previene errores y versionalidad
+    if (typeof config === 'string') {
+      // La variable es un string
+      msj = config;
+    } else {
+      msj = config.msj.msj;
+    }
+    // 
+
+    // console.log('Salida de input')
+    labelArea.html(`${msj} </br > <strong class="${config.strong.class}" style="${config.strong.style}">${config.msj.pregunta}</strong>`)
     divCarga.css({ 'display': 'none' })
 
-    dropArea.css({
-      'background': '#f4fdff',
-      'border': '2px dashed rgb(0 79 90 / 17%)'
-    })
+    dropArea.css(config.dropArea_css)
   }
 
 
@@ -781,7 +838,7 @@ function resetInputFile() {
   $('input[type="file"]').each(function () {
     $(this).val('')
     var label = $(this).parent('div').find('label[class="input-file-label"]')
-    label.html(`<i class="bi bi-box-arrow-up"></i> Seleccione un archivo`)
+    label.html(`< i class= "bi bi-box-arrow-up" ></ > Seleccione un archivo`)
   });
 }
 
@@ -901,7 +958,7 @@ function omitirPaciente(areaFisica) {
     cancelButtonColor: "#3085d6",
   }, function () {
     $.ajax({
-      url: `${http}${servidor}/${appname}/api/turnero_api.php`,
+      url: `${http}${servidor} / ${appname} / api / turnero_api.php`,
       type: 'POST',
       dataType: 'json',
       data: { api: 3, area_fisica_id: areaFisica },
@@ -1022,7 +1079,7 @@ function pasarPaciente() {
     cancelButtonColor: "#3085d6",
   }, function () {
     $.ajax({
-      url: `${http}${servidor}/${appname}/api/turnero_api.php`,
+      url: `${http}${servidor} / ${appname} / api / turnero_api.php`,
       type: 'POST',
       dataType: 'json',
       data: { api: 7 },
@@ -2078,64 +2135,6 @@ function createTooltipHtml(tooltipData) {
 //
 
 
-
-// Configuraciones por defecto para select table
-function configSelectTable(config) {
-  //valores por defecto de la funcion ajaxAwait y ajaxAwaitFormData
-  const defaults = {
-    dblClick: false, // Aceptar doble click
-    unSelect: false, // Deseleccionar un registro
-    anotherClass: 'other-for-table', //Cuando sea seleccionado, se agrega la clase, sino se quita
-    ignoreClass: '',
-    tabs: [
-      {
-        title: 'Pacientes',
-        element: '#tab-paciente',
-        class: 'active',
-      },
-      {
-        title: 'Información',
-        element: '#tab-informacion',
-        class: 'disabled tab-select'
-      },
-      {
-        title: 'Reporte',
-        element: '#tab-reporte',
-        class: 'disabled tab-select'
-      },
-    ],
-    "tab-id": '#tab-button',
-    "tab-default": 'Reporte',  //Por default, al dar click, abre aqui
-    reload: false, //Activa la rueda [Example:  reload: ['col-xl-9'] ]
-    movil: false, //Activa la version movil
-    multipleSelect: false,
-    OnlyData: false,
-    noColumns: false,
-    // alwaySelected: false,
-    ClickClass: [
-      {
-        class: '.',
-        callback: function (data) {
-
-        },
-        selected: true
-      },
-      {
-        class: '.',
-        callback: function (data) {
-
-        },
-        selected: false
-      }
-    ],
-    divPadre: false, //Busca dentro del div las clases, si no hay buscará cualquiera
-  }
-
-  Object.entries(defaults).forEach(([key, value]) => {
-    config[key] = config[key] ?? value;
-  });
-  return config;
-}
 //Detecta la dimension del dispositivo para saber si es movil o escritorio
 function isMovil(callback = (response) => { }) {
   var esTabletaVertical = /iPad/i.test(navigator.userAgent)
@@ -2348,7 +2347,55 @@ function selectTable(tablename, datatable,
   callbackDblClick = (select = 1, dataRow = [], callback, tr = '1', row = []) => { }
 ) {
   //manda valores por defecto
-  config = configSelectTable(config)
+  config = setConfig(
+    {
+      dblClick: false, // Aceptar doble click
+      unSelect: false, // Deseleccionar un registro
+      anotherClass: 'other-for-table', //Cuando sea seleccionado, se agrega la clase, sino se quita
+      ignoreClass: '',
+      tabs: [
+        {
+          title: 'Pacientes',
+          element: '#tab-paciente',
+          class: 'active',
+        },
+        {
+          title: 'Información',
+          element: '#tab-informacion',
+          class: 'disabled tab-select'
+        },
+        {
+          title: 'Reporte',
+          element: '#tab-reporte',
+          class: 'disabled tab-select'
+        },
+      ],
+      "tab-id": '#tab-button',
+      "tab-default": 'Reporte',  //Por default, al dar click, abre aqui
+      reload: false, //Activa la rueda [Example:  reload: ['col-xl-9'] ]
+      movil: false, //Activa la version movil
+      multipleSelect: false,
+      OnlyData: false,
+      noColumns: false,
+      // alwaySelected: false,
+      ClickClass: [
+        {
+          class: '.',
+          callback: function (data) {
+
+          },
+          selected: true
+        },
+        {
+          class: '.',
+          callback: function (data) {
+
+          },
+          selected: false
+        }
+      ],
+      divPadre: false, //Busca dentro del div las clases, si no hay buscará cualquiera
+    }, config)
 
   //Nombrando para usarlo
   let tableString = tablename.replace('#', '')

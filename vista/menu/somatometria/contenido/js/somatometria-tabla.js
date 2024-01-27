@@ -95,7 +95,8 @@ async function obtenerResultadosSignos(id) {
 
                 // Iterar sobre el mapeo para establecer los valores de los elementos
                 for (const [elementID, rowKey] of Object.entries(elementMap)) {
-                    $(`#${elementID}`).val(ifnull(row, '', { [rowKey]: ['VALOR'] }));
+                    // console.log($(`#${elementID}`), rowKey, row[`${rowKey}`][['VALOR']]);
+                    $(`#${elementID}`).val(ifnull(row, '', { [rowKey]: 'VALOR' }));
                 }
 
                 // Manejar el botón de reporte

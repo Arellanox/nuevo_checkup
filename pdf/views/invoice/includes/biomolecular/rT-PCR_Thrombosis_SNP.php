@@ -19,11 +19,21 @@
 
 <table style="width: 100%;" cellspacing="0">
     <tr style="background-color: #d3d3d3;">
-        <th style="font-size: 12px;text-align:left;padding: 6px 5px; background-color: #d3d3d3;"><strong style="font-size:12px">Prueba <?php echo $body[9]->resultado ?></strong></th>
-        <th style="font-size: 12px;text-align:center; padding: 6px 12px; background-color: #d3d3d3;"><strong style="font-size:12px">Resultado</strong></th>
-        <th style="font-size: 12px;text-align:center; padding: 6px 12px; background-color: #d3d3d3;"> <strong style="font-size:12px">Valor de Normalidad</strong></th>
+        <th style="font-size: 12px;text-align:left;padding: 6px 5px; background-color: #d3d3d3;">
+            <strong style="font-size:12px">rT-PCR Thrombosis SNP </strong>
+        </th>
+        <th style="font-size: 12px;text-align:center; padding: 6px 12px; background-color: #d3d3d3;">
+            <strong style="font-size:12px">Resultado</strong>
+        </th>
+        <th style="font-size: 12px;text-align:center; padding: 6px 12px; background-color: #d3d3d3;">
+            <strong style="font-size:12px">Resultado</strong>
+        </th>
+        <th style="font-size: 12px;text-align:center; padding: 6px 12px; background-color: #d3d3d3;">
+            <strong style="font-size:12px">Valor de Normalidad</strong>
+        </th>
     </tr>
     <tr>
+        <td style="height: 10px"></td>
         <td style="height: 10px"></td>
         <td style="height: 10px"></td>
         <td style="height: 10px"></td>
@@ -38,6 +48,7 @@
             <tr>
                 <td style="padding-bottom: 15px;font-size: 12px;text-align: left;" class="bold">Valor CT</td>
                 <td class="" style="padding-bottom: 15px;font-size: 12px;text-align:center;"><?php if ($value->resultado != 'N/A') echo $value->resultado ?></td>
+                <td style="height: 10px"></td>
                 <td style="padding-bottom: 15px;font-size: 12px;text-align:center;"></td>
             </tr>
         <?php
@@ -49,6 +60,7 @@
                         <?php echo text_bold($value->nombre) ?>
                     </p>
                 </td>
+                <td style="height: 10px"></td>
                 <td class="<?php echo $value->resultado == 'POSITIVO' ? "bold" : "";  ?>" style="font-size: 12px;text-align:center;"><?php if ($value->resultado != 'N/A') echo $value->resultado ?></td>
                 <td style="font-size: 12px;text-align:center;"><?php if ($value->resultado != 'N/A') echo "NEGATIVO"; ?></td>
             </tr>
