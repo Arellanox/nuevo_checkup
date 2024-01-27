@@ -13,7 +13,7 @@ TablaMedicos = $('#TablaMedicos').DataTable({
       return $.extend(d, dataListaPaciente);
     },
     method: 'POST',
-    url: `${http}${servidor}/${appname}/api/medicos_tratantes_api.php`,
+    url: `${http}${servidor}/${appname}/api/tracking_medicos_api.php`,
     beforeSend: function () { loader("In") },
     complete: function () {
       loader("Out", 'bottom')
@@ -25,18 +25,39 @@ TablaMedicos = $('#TablaMedicos').DataTable({
   },
   columns: [
     { data: 'COUNT', },
-    { data: 'MEDICO' },
+    { data: 'NOMBRE_MEDICO' },
+    {
+      data: 'PACIENTES_ENVIADO', render: function (data, type) {
+        if (type === 'sort') {
+          return data;
+        } else {
+          return `${data} enviado${data > 1 ? 's' : ''}`
+        }
+      }
+    }
     // {defaultContent: 'En progreso...'}
   ],
   columnDefs: [
     { targets: 0, title: '#', className: "all", width: "10px" },
     { targets: 1, title: 'Médico', className: "all" },
+    {
+      targets: 2, title: 'Pacientes', className: "all",
+      // type: 'num', // Establece el tipo de la columna como numérico
+      // render: function (data, type, row) {
+      //   // Para ordenamiento y tipo, devuelve solo el número
+      //   if (type === 'sort' || type === 'type') {
+      //     return data.replace(/\D/g, ''); // Esto eliminará todos los caracteres no dígitos
+      //   }
+      //   // Para otros tipos (display, filter, etc.), devuelve el formato original
+      //   return data;
+      // }
+    },
   ],
 
 })
 
 //new selectDatatable:
-selectTable('#TablaMedicos', TablaMedicos, { unSelect: true, movil: true, reload: ['col-xl-9'] },
+selectTable('#TablaMedicos', TablaMedicos, { unSelect: true, movil: true, reload: ['col-xl-8'] },
   async function (select, data, callback) {
     selectListaMuestras = data;
     if (select == 1) {
