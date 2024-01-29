@@ -73,3 +73,9 @@ inputBusquedaTable('TablaDetallePacientesReportes', TablaDetallePacientesReporte
         place: "top"
     }
 ], [], 'col-18')
+
+
+// 
+$(document).on('click', '.historial-paciente', function () {
+    //  la id, y actualizar la tabla
+})
