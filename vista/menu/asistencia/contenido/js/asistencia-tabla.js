@@ -12,7 +12,7 @@ TablaAsistencia = $('#TablaAsistencia').DataTable({
     info: true,
     paging: false,
     sorting: false,
-    scrollY: '68vh',
+    scrollY: '63vh',
     scrollCollapse: true,
     ajax: {
         dataType: 'json',

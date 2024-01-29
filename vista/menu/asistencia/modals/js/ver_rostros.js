@@ -5,7 +5,7 @@ tablaUsuariosFiltro = $('#tablaUsuariosFiltro').DataTable({
     lengthChange: false,
     info: false,
     paging: false,
-    scrollY: '54vh',
+    scrollY: '63vh',
     scrollCollapse: true,
     ajax: {
         dataType: 'json',
@@ -131,7 +131,7 @@ tablaReporteAsistencias = $('#tablaReporteAsistencias').DataTable({
     ],
     info: false,
     paging: false,
-    scrollY: '50vh',
+    scrollY: '63vh',
     scrollCollapse: true,
     ajax: {
         dataType: 'json',
