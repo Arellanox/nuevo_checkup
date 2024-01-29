@@ -76,6 +76,12 @@ inputBusquedaTable('TablaDetallePacientesReportes', TablaDetallePacientesReporte
 
 
 // 
-$(document).on('click', '.historial-paciente', function () {
+$(document).on('click', '.btn-vizu-reporte', function (event) {
+    event.preventDefault();
+    event.stopPropagation();
     //  la id, y actualizar la tabla
+    let btn = $(this);
+    let id_turno = btn.attr('data-bs-id');
+
+    // ajax reload y ponerlo en el arreglo a mandar
 })
