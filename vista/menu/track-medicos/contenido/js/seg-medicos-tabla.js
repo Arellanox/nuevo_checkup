@@ -55,10 +55,10 @@ selectTable('#TablaMedicos', TablaMedicos, { unSelect: true, movil: true, reload
     if (select == 1) {
 
       // Información adicional
-      $('#nombre-persona').html(data.NOMBRE_MEDICO);
-      $('#correo-persona').html(data.EMAIL);
+      $('#nombre-medico').html(data.NOMBRE_MEDICO);
+      $('#correo-medico').html(data.EMAIL);
       let enviados = ifnull(data, 0, ['PACIENTES_ENVIADO']);
-      $('#enviados-persona').html(enviados == 1 ? '1 paciente' : `${enviados} pacientes`)
+      $('#enviados-medico').html(enviados == 1 ? '1 paciente' : `${enviados} pacientes`)
 
       dataPacientes['id_medico'] = data.ID_MEDICO;
       tablaPacientesMedicos.ajax.reload();

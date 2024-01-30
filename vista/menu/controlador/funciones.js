@@ -2521,9 +2521,9 @@ function selectTable(tablename, datatable,
 
     } else {
       //Manda a cargar la vista
-      // if (!config.noColumns) {
-      selectTable_cargarVista()
-      // }
+      if (!config.noColumns) {
+        selectTable_cargarVista()
+      }
 
       //Si esta seleccionando:
       dataDobleSelect = tr;

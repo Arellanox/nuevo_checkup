@@ -16,16 +16,18 @@
   </div>
 
   <div class="col-12 col-xl-3 tab-second" id="tab-informacion" style="margin-right: -5px !important;  display:none !important">
-    <div class="rounded p-3 shadow-sm my-2 overflow-auto tab-second" id="tab-informacion" style="max-width: 100%; max-height: 85vh;display:none !important">
+    <div class="rounded p-3 shadow my-2">
       <div class="m-2">
         <div class="row">
           <div class="col-12 info-detalle">
-            <p id="nombre-persona">--</p>
-            <p class="none-p">Correo: <strong id="correo-persona"></strong></p>
-            <p class="none-p">Enviados: <strong id="enviados-persona"></strong></p>
+            <p id="nombre-medico">--</p>
+            <p class="none-p">Correo: <strong id="correo-medico"></strong></p>
+            <p class="none-p">Enviados: <strong id="enviados-medico"></strong></p>
           </div>
         </div>
       </div>
+    </div>
+    <div class="rounded p-3 shadow my-2">
       <div id="panel-informacion"></div>
     </div>
   </div>
