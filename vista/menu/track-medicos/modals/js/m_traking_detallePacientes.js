@@ -1,4 +1,25 @@
+//Varibales
+var selectedEstudiosCargadosPacientes
 
+//Evento click que busca exactamente ese boton con la clase
+$(document).on('click', 'button.btn-vizu-reporte', function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    //  la id, y actualizar la tabla
+    let btn = $(this);
+    let id_turno = btn.attr('data-bs-id')
+
+    // Los datos que recoge para poner en la tabla se ponen con el id_turno que se trae de la pestaña anterior
+    dataDetallePacientesReportes = { api: 3, id_turno: id_turno }
+
+    // Se recarga la vista cada vez que entra a un nuevo paciente
+    TablaDetallePacientesReportes.ajax.reload()
+
+    $('#adobe-dc-view').html("")
+
+    // Se abre el molda una vez que se haya cargado todos los datos
+    $('#ModalVisualizarDetallePacientes').modal('show');
+})
 
 
 TablaDetallePacientesReportes = $("#TablaDetallePacientesReportes").DataTable({
@@ -11,10 +32,10 @@ TablaDetallePacientesReportes = $("#TablaDetallePacientesReportes").DataTable({
     ajax: {
         dataType: 'json',
         data: function (d) {
-            return $.extend(d, dataJsonTablaEstudiosPaciente);
+            return $.extend(d, dataDetallePacientesReportes);
         },
         method: 'POST',
-        url: `${http}${servidor}/${appname}/api/medicos_tratantes_api.php`,
+        url: `${http}${servidor}/${appname}/api/tracking_medicos_api.php`,
         beforeSend: function () {
         },
         complete: function () {
@@ -75,13 +96,42 @@ inputBusquedaTable('TablaDetallePacientesReportes', TablaDetallePacientesReporte
 ], [], 'col-18')
 
 
-// 
-$(document).on('click', 'button.btn-vizu-reporte', function (event) {
-    event.preventDefault();
-    event.stopPropagation();
-    //  la id, y actualizar la tabla
-    let btn = $(this);
-    let id_turno = btn.attr('data-bs-id');
-    console.log($(this), btn.attr('data-bs-id'))
-    // ajax reload y ponerlo en el arreglo a mandar
-})
+// funcion para setear o limpiar los estudios cargados de un paciente
+function SaveDataEstudiosPacientes(data = false) {
+    if (data) {
+        selectedEstudiosCargadosPacientes = data
+    } else {
+        selectedEstudiosCargadosPacientes = null
+        $('#adobe-dc-view').html("")
+    }
+}
+
+function MostrarReportePDF() {
+    const RUTA = selectedEstudiosCargadosPacientes['RUTA'];
+    const NOMBRE = selectedEstudiosCargadosPacientes['NOMBRE_ARCHIVO'];
+
+    if (RUTA === null) {
+        alertToast('El estudio seleccionado no cuenta con un reporte', 'error', 2000)
+        return false;
+    }
+
+    getNewView(RUTA, NOMBRE)
+}
+
+// Función que se ejecuta cuando se realiza una acción para obtener un nuevo PDF
+function getNewView(url, filename) {
+    // Destruir la instancia existente de AdobeDC.View
+    // Crear una instancia inicial de AdobeDC.View
+    let adobeDCView = new AdobeDC.View({ clientId: "cd0a5ec82af74d85b589bbb7f1175ce3", divId: "adobe-dc-view" });
+
+    var nuevaURL = url;
+
+    // Agregar un parámetro único a la URL para evitar la caché del navegador
+    nuevaURL += "?timestamp=" + Date.now();
+
+    // Cargar y mostrar el nuevo PDF en el visor
+    adobeDCView.previewFile({
+        content: { location: { url: nuevaURL } },
+        metaData: { fileName: filename }
+    });
+}

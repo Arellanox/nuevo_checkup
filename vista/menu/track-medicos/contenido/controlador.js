@@ -1,6 +1,8 @@
 
 var tablaMuestras, dataListaPaciente = { api: 1 }, selectListaMuestras;
 
+var TablaDetallePacientesReportes, dataDetallePacientesReportes
+
 
 // Validar permiso de modulo
 if (validarVista('TRACKER_MEDICOS')) {
