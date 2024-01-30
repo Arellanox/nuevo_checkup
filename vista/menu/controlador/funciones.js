@@ -2577,7 +2577,8 @@ function selectTable(tablename, datatable,
     }
 
     // console.log($(loader_selectTable))
-    $(loader_selectTable).fadeIn(0);
+    if (config.reload)
+      $(loader_selectTable).fadeIn(0);
   }
 
   function selectTable_resetSelect(tr, config, resetTR = false) {

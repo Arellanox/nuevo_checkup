@@ -51,10 +51,15 @@ TablaMedicos = $('#TablaMedicos').DataTable({
 selectTable('#TablaMedicos', TablaMedicos, { unSelect: true, movil: true, reload: ['col-xl-8'] },
   async function (select, data, callback) {
     selectListaMuestras = data;
+    tablaPacientesMedicos.clear().draw()
     if (select == 1) {
 
       // Información adicional
-      $('#nombre_medico').html(data.NOMBRE_MEDICO);
+      $('#nombre-persona').html(data.NOMBRE_MEDICO);
+      $('#correo-persona').html(data.EMAIL);
+      let enviados = ifnull(data, 0, ['PACIENTES_ENVIADO']);
+      $('#enviados-persona').html(enviados == 1 ? '1 paciente' : `${enviados} pacientes`)
+
       dataPacientes['id_medico'] = data.ID_MEDICO;
       tablaPacientesMedicos.ajax.reload();
       //Procesos
@@ -145,3 +150,19 @@ tablaPacientesMedicos = $('#tablaPacientesMedicos').DataTable({
   ],
 
 })
+//new selectDatatable:
+selectTable('#tablaPacientesMedicos', tablaPacientesMedicos, { unSelect: true, noColumns: true, },
+  async function (select, data, callback) {
+    if (select) {
+      obtenerPanelInformacion(data['ID_TURNO'], 'paciente_api', 'paciente')
+
+      //Muestra las columnas
+      callback('In')
+    } else {
+      // Oculta las columnas
+      callback('Out')
+      obtenerPanelInformacion(0, 'paciente_api', 'paciente')
+      selectListaMuestras = null;
+    }
+  }
+)

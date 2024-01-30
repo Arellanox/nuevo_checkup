@@ -11,8 +11,8 @@ $(document).on('click', 'button.btn-vizu-reporte', function (event) {
 
     // Los datos que recoge para poner en la tabla se ponen con el id_turno que se trae de la pestaña anterior
     dataDetallePacientesReportes = { api: 3, id_turno: id_turno }
-
     // Se recarga la vista cada vez que entra a un nuevo paciente
+    TablaDetallePacientesReportes.clear().draw()
     TablaDetallePacientesReportes.ajax.reload()
 
     $('#adobe-dc-view').html("")
@@ -73,7 +73,7 @@ TablaDetallePacientesReportes = $("#TablaDetallePacientesReportes").DataTable({
 
 
 selectTable('#TablaDetallePacientesReportes', TablaDetallePacientesReportes,
-    { unSelect: true, dblClick: false, noColumns: true, divPadre: '#modal-body-show_estudios' },
+    { unSelect: true, dblClick: false, noColumns: true, reload: false, divPadre: '#modal-body-show_estudios' },
     async function (select, data, callback) {
         if (select) {
             SaveDataEstudiosPacientes(data)
