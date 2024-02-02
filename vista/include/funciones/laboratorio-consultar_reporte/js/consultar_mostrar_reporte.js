@@ -28,7 +28,7 @@ $(document).on('click', '#btn_consultar_prefolio', function (e) {
         const NOMBRE = `reporte_${prefolio}`;
 
 
-        getNewView(URL, NOMBRE);
+        // getNewView(URL, NOMBRE);
     })
 })
 
@@ -38,7 +38,7 @@ function obtener_reporte(turno_id) {
     let turno = encodeURIComponent(window.btoa(turno_id));
     let area = encodeURIComponent(window.btoa('6'));
 
-    // window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, '_blank');
+    window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, '_blank');
 
     return `${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`;
 }

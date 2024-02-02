@@ -134,12 +134,17 @@ selectTable('#TablaValoresReferencia', TablaValoresReferencia,
                 callback: function (data) {
                     // Data son los datos de la fila
                     console.log(data);
+                    let prefolio = $('#prefolio').val();
                     // Reiniciar el formulario con el ID formGuardarReferencia
                     const formulario = document.getElementById('formGuardarReferencia');
                     if (formulario) {
                         formulario.reset();
                         ChangeReferencias()
                     }
+
+
+                    $('#prefolio').val(prefolio);
+
                     // Genero
                     $('#select-genero-referencia').val(data.DIRIGIDO_A_ID)
                     // Edades
