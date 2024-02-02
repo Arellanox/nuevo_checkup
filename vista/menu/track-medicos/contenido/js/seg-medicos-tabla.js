@@ -5,7 +5,7 @@ TablaMedicos = $('#TablaMedicos').DataTable({
   lengthChange: false,
   info: true,
   paging: false,
-  scrollY: autoHeightDiv(0, 384),
+  scrollY: '70vh',
   scrollCollapse: true,
   ajax: {
     dataType: 'json',
@@ -94,7 +94,7 @@ tablaPacientesMedicos = $('#tablaPacientesMedicos').DataTable({
   lengthChange: false,
   info: true,
   paging: false,
-  scrollY: autoHeightDiv(0, 384),
+  scrollY: '70vh',
   scrollCollapse: true,
   ajax: {
     dataType: 'json',
@@ -166,3 +166,6 @@ selectTable('#tablaPacientesMedicos', tablaPacientesMedicos, { unSelect: true, n
     }
   }
 )
+
+inputBusquedaTable('tablaPacientesMedicos', tablaPacientesMedicos, [
+], [], 'col-18')

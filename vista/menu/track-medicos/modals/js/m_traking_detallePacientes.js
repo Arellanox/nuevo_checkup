@@ -19,6 +19,9 @@ $(document).on('click', 'button.btn-vizu-reporte', function (event) {
 
     // Se abre el molda una vez que se haya cargado todos los datos
     $('#ModalVisualizarDetallePacientes').modal('show');
+    setTimeout(() => {
+        TablaDetallePacientesReportes.columns.adjust().draw()
+    }, 300);
 })
 
 
