@@ -15,7 +15,7 @@
     </div>
   </div>
 
-  <div class="col-12 col-xl-3 tab-second" id="tab-informacion" style="margin-right: -5px !important;  display:none !important">
+  <div class="col-12 col-xl-3 tab-second overflow-auto" id="tab-informacion" style="margin-right: -5px !important;  display:none !important;max-height: 82vh;">
     <div class="rounded p-3 shadow my-2">
       <div class="m-2">
         <div class="row">

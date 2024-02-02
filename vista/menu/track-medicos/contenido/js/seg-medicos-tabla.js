@@ -5,7 +5,7 @@ TablaMedicos = $('#TablaMedicos').DataTable({
   lengthChange: false,
   info: true,
   paging: false,
-  scrollY: '70vh',
+  scrollY: '52vh',
   scrollCollapse: true,
   ajax: {
     dataType: 'json',
@@ -94,7 +94,7 @@ tablaPacientesMedicos = $('#tablaPacientesMedicos').DataTable({
   lengthChange: false,
   info: true,
   paging: false,
-  scrollY: '70vh',
+  scrollY: '48vh',
   scrollCollapse: true,
   ajax: {
     dataType: 'json',
