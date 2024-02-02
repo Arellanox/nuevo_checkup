@@ -94,7 +94,7 @@ tablaPacientesMedicos = $('#tablaPacientesMedicos').DataTable({
   lengthChange: false,
   info: true,
   paging: false,
-  scrollY: '59vh',
+  scrollY: '54vh',
   scrollCollapse: true,
   ajax: {
     dataType: 'json',
@@ -136,7 +136,17 @@ tablaPacientesMedicos = $('#tablaPacientesMedicos').DataTable({
                     <i class="bi bi-clipboard2-pulse-fill btn-vizu-reporte"></i>
                 </button>`
       }
-    }
+    },
+
+    // Para las columnas del excel
+    { data: 'FECHA_INGRESO' },
+    { data: 'HORA_INGRESO' },
+    { data: 'CORREO_MEDICO' },
+    { data: 'CURP' },
+    { data: 'DIRECCION' },
+    { data: 'DIAGNOSTICO' },
+    { data: 'GENERO' },
+
   ],
   columnDefs: [
     { targets: 0, title: '#', className: "all", width: "10px" },
@@ -147,8 +157,36 @@ tablaPacientesMedicos = $('#tablaPacientesMedicos').DataTable({
     { targets: 5, title: 'Médico', className: "none" },
     { targets: 6, title: '#', className: "all" },
 
-  ],
+    // Para extraer en excel
+    { targets: 7, title: 'Fecha de ingreso', className: "none", visible: false },
+    { targets: 8, title: 'Hora de ingreso', className: "none", visible: false },
+    { targets: 9, title: 'Correo médico', className: "none", visible: false },
+    // { targets: 10, title: 'Correo', className: "none", visible: false },
+    { targets: 10, title: 'CURP', className: "none", visible: false },
+    { targets: 11, title: 'Dirección', className: "none", visible: false },
+    { targets: 12, title: 'Diagnóstico', className: "none", visible: false },
+    { targets: 13, title: 'Sexo', className: "none", visible: false },
 
+  ],
+  dom: 'Bl<"dataTables_toolbar">frtip',
+  buttons: [
+    {
+      extend: 'excelHtml5',
+      text: '<i class="fa fa-file-excel-o"></i> Excel',
+      className: 'btn btn-success',
+      titleAttr: 'Excel',
+      attr: {
+        'data-bs-toggle': "tooltip",
+        'data-bs-placement': "top",
+        title: "Genere el formato por toda la tabla de pacientes o filtrado (Filtrado por: Fecha, Procedencia...)"
+      },
+      exportOptions: {
+        // Especifica las columnas que deseas exportar
+        columns: [0, 1, 3, 2, 13, 10, 11, 12, 7, 8, 5, 9]
+      }
+
+    },
+  ],
 })
 //new selectDatatable:
 selectTable('#tablaPacientesMedicos', tablaPacientesMedicos, { unSelect: true, noColumns: true, },
