@@ -41,7 +41,7 @@ TablaMedicos = $('#TablaMedicos').DataTable({
   columnDefs: [
     { targets: 0, title: '#', className: "all", width: "10px" },
     { targets: 1, title: 'Médico', className: "all" },
-    { targets: 2, title: 'Pacientes', className: "all", type: 'natural' },
+    { targets: 2, title: 'Pacientes', className: "desktop", type: 'natural' },
     { targets: 3, title: 'Ultimo paciente:', className: 'none', type: 'natural' }
   ],
 
@@ -131,8 +131,8 @@ tablaPacientesMedicos = $('#tablaPacientesMedicos').DataTable({
     },
     { data: 'NOMBRE_MEDICO' },
     {
-      data: 'ID_TURNO', render: (data) => {
-        return `<button type="button" data-bs-id="${data}" class="btn-vizu-reporte btn btn-pantone-325" style="font-size: 20px;margin: 0px;padding: 1px 8px 1px 8px;">
+      data: 'ID_TURNO', render: () => {
+        return `<button type="button" class="btn-vizu-reporte btn btn-pantone-325" style="font-size: 20px;margin: 0px;padding: 1px 8px 1px 8px;">
                     <i class="bi bi-clipboard2-pulse-fill btn-vizu-reporte"></i>
                 </button>`
       }
@@ -147,12 +147,28 @@ tablaPacientesMedicos = $('#tablaPacientesMedicos').DataTable({
     { data: 'DIAGNOSTICO' },
     { data: 'GENERO' },
 
+    {
+      data: 'SUBTOTAL', render: function (data) {
+        return `$${parseFloat(data).toFixed(2)}`;
+      }
+    },
+    {
+      data: 'IVA', render: function (data) {
+        return `$${parseFloat(data).toFixed(2)}`;
+      }
+    },
+    {
+      data: 'TOTAL_CON_IVA', render: function (data) {
+        return `$${parseFloat(data).toFixed(2)}`;
+      }
+    },
+
   ],
   columnDefs: [
     { targets: 0, title: '#', className: "all", width: "10px" },
     { targets: 1, title: 'Paciente', className: "all" },
-    { targets: 2, title: 'Prefolio', className: "max-tablet" },
-    { targets: 3, title: 'Procedencia', className: "min-tablet" },
+    { targets: 2, title: 'Prefolio', className: "desktop" },
+    { targets: 3, title: 'Procedencia', className: "desktop" },
     { targets: 4, title: 'Recepción', className: "all" },
     { targets: 5, title: 'Médico', className: "none" },
     { targets: 6, title: '#', className: "all" },
@@ -166,7 +182,9 @@ tablaPacientesMedicos = $('#tablaPacientesMedicos').DataTable({
     { targets: 11, title: 'Dirección', className: "none", visible: false },
     { targets: 12, title: 'Diagnóstico', className: "none", visible: false },
     { targets: 13, title: 'Sexo', className: "none", visible: false },
-
+    { targets: 14, title: 'Subtotal', className: "none", visible: false },
+    { targets: 15, title: 'IVA', className: "none", visible: false },
+    { targets: 16, title: 'Total', className: "none", visible: false },
   ],
   dom: 'Bl<"dataTables_toolbar">frtip',
   buttons: [
@@ -182,23 +200,67 @@ tablaPacientesMedicos = $('#tablaPacientesMedicos').DataTable({
       },
       exportOptions: {
         // Especifica las columnas que deseas exportar
-        columns: [0, 1, 3, 2, 13, 10, 11, 12, 7, 8, 5, 9]
+        columns: [0, 1, 3, 2, 13, 10, 11, 12, 7, 8, 5, 9, 14, 15, 16]
       }
 
     },
   ],
 })
+
+
+
 //new selectDatatable:
-selectTable('#tablaPacientesMedicos', tablaPacientesMedicos, { unSelect: true, noColumns: true, },
+selectTable('#tablaPacientesMedicos', tablaPacientesMedicos, {
+  unSelect: true, noColumns: true,
+  tabs: [
+    {
+      title: 'Pacientes',
+      element: '#tab-paciente',
+      class: 'active',
+    },
+    {
+      title: 'Pacientes',
+      element: '#tab-reporte',
+      class: 'disabled tab-select'
+    },
+    {
+      title: 'Información',
+      element: '#tab-informacion',
+      class: 'disabled tab-select'
+    },
+  ],
+  "tab-default": 'Pacientes',
+  ClickClass: [
+    {
+      class: 'btn-vizu-reporte',
+      callback: function (data) {
+        //  la id, y actualizar la tabla
+        let id_turno = data.ID_TURNO
+
+        // Los datos que recoge para poner en la tabla se ponen con el id_turno que se trae de la pestaña anterior
+        dataDetallePacientesReportes = { api: 3, id_turno: id_turno }
+        // Se recarga la vista cada vez que entra a un nuevo paciente
+        TablaDetallePacientesReportes.clear().draw()
+        TablaDetallePacientesReportes.ajax.reload()
+
+        $('#adobe-dc-view').html("")
+
+        // Se abre el molda una vez que se haya cargado todos los datos
+        $('#ModalVisualizarDetallePacientes').modal('show');
+
+        setTimeout(() => {
+          TablaDetallePacientesReportes.columns.adjust().draw()
+        }, 300);
+      },
+      selected: true,
+    },
+  ]
+},
   async function (select, data, callback) {
     if (select) {
+      obtenerPanelInformacion(data['ID_TURNO'], 'toma_de_muestra_api', 'estudios_muestras', '#panel-muestras-estudios')
       obtenerPanelInformacion(data['ID_TURNO'], 'paciente_api', 'paciente')
-
-      //Muestra las columnas
-      callback('In')
     } else {
-      // Oculta las columnas
-      callback('Out')
       obtenerPanelInformacion(0, 'paciente_api', 'paciente')
       selectListaMuestras = null;
     }

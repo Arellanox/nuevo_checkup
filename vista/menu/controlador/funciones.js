@@ -2486,14 +2486,18 @@ function selectTable(tablename, datatable,
     array_selected = row.data();
 
     selectTableClickCount++;
+    console.log(tablename)
     if ($(tr).hasClass('selected')) {
+
       clearTimeout(selectTableTimeOutClick)
       console.log(selectTableClickCount)
 
       selectTableTimeOutClick = setTimeout(function () {
         if (selectTableClickCount === 1 && config.unSelect === true) {
           //Manda a cargar la vista
-          selectTable_cargarVista()
+          if (!config.noColumns) {
+            selectTable_cargarVista()
+          }
 
           //Resetea los clicks:
           selectTableClickCount = 0;
@@ -2573,6 +2577,7 @@ function selectTable(tablename, datatable,
       console.log('Hola');
       $(`${config.divPadre} .tab-second`).fadeOut()
     } else {
+      console.log('Hola');
       $('.tab-second').fadeOut()
     }
 
@@ -3175,7 +3180,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     function crearDIV(grupo, id, row) {
                       let html = '';
                       html += '<a class="collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-' + id + '" aria-expanded="false">';
-                      html += '<div style = "display: block"><div style="margin:0px;background: rgb(0 0 0 / 25%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;""><h4 style="font-size: 20px !important;padding: 0px;margin: 0px;">' + grupo + '</h4></div></div>';
+                      html += '<div style = "display: block"><div class="collapse_estudio" style="margin:0px;background: rgb(0 0 0 / 25%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;""><h4 style="font-size: 20px !important;padding: 0px;margin: 0px;">' + grupo + '</h4></div></div>';
                       html += '</a>'
 
                       html += '<div class="collapse bg-white-canvas" id="board-' + id + '">'
