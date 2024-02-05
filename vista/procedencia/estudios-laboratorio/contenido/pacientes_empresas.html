@@ -1,22 +1,100 @@
-<div class="col-12 loader" id="loader">
-    <div class="preloader" id="preloader"> </div>
-  </div>
-  
-  
-  <!-- tabs para movil -->
-  <div id="tab-button"></div>
-  
-  <div class="row">
-    <div class="col-12 col-xl-3 info-detalle">
-      <div class="rounded p-3 shadow-sm my-2 tab-second" id="tab-informacion-espera" style="display:none !important">
-        <div id="panel-informacion"></div>
-      </div>
+<!-- <div class="col-12 loader" id="loader">
+  <div class="preloader" id="preloader"> </div>
+</div> -->
+
+
+<!-- tabs para movil -->
+<div id="tab-button"></div>
+
+<div class="row">
+  <div class="col-12 col-xl-3 info-detalle">
+    <div class="rounded p-3 shadow-sm my-2 tab-second" id="tab-informacion-espera" style="display:none !important">
+      <div id="panel-informacion"></div>
     </div>
-  
-    <div class="col-12 col-xl-9 tab-first" id="tab-paciente-espera">
-      <div class="rounded p-3 shadow-sm my-2 table-responsive">
-        <div class="text-center" style="margin-top:4px;">
-          <!-- <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-aceptar"
+  </div>
+
+  <div class="col-12 col-xl-9 tab-first" id="tab-paciente-espera">
+
+    <!-- Iconos -->
+    <div class="row d-flex justify-content-center p-2">
+      <div class="col-3">
+        <div class="rounded p-3 shadow-sm my-2 m-2 mycard" id="myCard">
+          <div class="d-flex align-items-center">
+            <!-- Icono -->
+            <img src="http://localhost/nuevo_checkup/css/icons/franquicias/ciencia/icon_1.svg" alt="Icono" class="me-3"
+              style="width: 40px; height: 40px;">
+            <!-- Título con span -->
+            <h5 class="card-title mb-0"><span>Título del Texto</span></h5>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <style>
+      .mycard h5 {
+        color: rgb(000, 078, 89);
+        ;
+      }
+
+      .mycard {
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        color: rgb(000, 078, 089);
+      }
+
+      .mycard:hover {
+        transform: scale(1.05);
+      }
+
+      .mycard:hover h5 {
+        color: rgb(247, 190, 000);
+      }
+
+      .mycard .card-title span {
+        position: relative;
+        display: inline-block;
+      }
+
+      .mycard .card-title span::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        /* Ajusta la posición según sea necesario */
+        left: 50%;
+        width: 0;
+        height: 1.5px;
+        /* Ajusta el grosor de la línea según sea necesario */
+        background-color: rgb(218, 167, 0);
+        /* El color de la línea */
+        transition: width 0.3s ease, left 0.3s ease;
+      }
+
+      .mycard:hover .card-title span::after {
+        width: 100%;
+        /* Expande la línea al 100% del ancho del texto */
+        left: 0;
+        /* Inicia la línea desde el borde izquierdo del texto */
+      }
+    </style>
+    <script>
+      $(document).on({
+        mouseenter: function () {
+          $(this).removeClass('shadow-sm').addClass('shadow');
+        },
+        mouseleave: function () {
+          $(this).removeClass('shadow').addClass('shadow-sm');
+        }
+      }, '.mycard'); // Reemplaza #miDiv con el selector de tu elemento
+
+    </script>
+
+
+    <div class="rounded p-3 shadow-sm my-2 table-responsive">
+      <div class="text-center" style="margin-top:4px;">
+        <!-- <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-aceptar"
             data-bs-toggle="tooltip" data-bs-placement="top" title="Carga una solicitud de estudios">
             <i class="bi bi-check"></i> Aceptar paciente
           </button>
@@ -24,28 +102,28 @@
             data-bs-toggle="tooltip" data-bs-placement="top" title="Rechaza/Elimina este registro">
             <i class="bi bi-x"></i> Rechazar paciente
           </button> -->
-  
-  
-          <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px; display: none;"
-            data-bs-toggle="modal" style="display: none;" data-bs-target="#ModalBeneficiario" id="buttonBeneficiario"
-            data-bs-toggle="tooltip" data-bs-placement="top" title="Agregué información de pacientes de la UJAT">
-            <i class="bi bi-save"></i> Beneficiario
-          </button>
-        </div>
-        <div>
-          <table class="table table-hover display responsive" id="TablaRecepcionPacientes" style="width: 100%;">
-  
-          </table>
-        </div>
+
+
+        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px; display: none;"
+          data-bs-toggle="modal" style="display: none;" data-bs-target="#ModalBeneficiario" id="buttonBeneficiario"
+          data-bs-toggle="tooltip" data-bs-placement="top" title="Agregué información de pacientes de la UJAT">
+          <i class="bi bi-save"></i> Beneficiario
+        </button>
+      </div>
+      <div>
+        <table class="table table-hover display responsive" id="TablaRecepcionPacientes" style="width: 100%;">
+
+        </table>
       </div>
     </div>
-  
-  
-    <!-- Tercera Columna visual -->
-    <div id="reload-selectable">
-  
-    </div>
-  
-  
-  
   </div>
+
+
+  <!-- Tercera Columna visual -->
+  <div id="reload-selectable">
+
+  </div>
+
+
+
+</div>
