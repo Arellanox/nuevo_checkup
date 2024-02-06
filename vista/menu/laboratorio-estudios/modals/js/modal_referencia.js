@@ -265,7 +265,7 @@ $(document).on('submit', '#formGuardarReferencia', function (e) {
         }
 
         let api = 1;
-        if ($('#ID_VALORES_REFERENCIA').val()) {
+        if ($('#ID_VALORES_REFERENCIA').val() > 0) {
             api = 5;
         }
 
