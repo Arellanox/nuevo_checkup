@@ -206,6 +206,7 @@ $('#reset_form').on('click', function () {
     if (formulario) {
         formulario.reset();
         ChangeReferencias()
+        $('#ID_VALORES_REFERENCIA').val(0);
     }
     //Reinicia la seleccion:
     TablaValoresReferencia.$('tr.selected').removeClass('selected');
