@@ -71,7 +71,6 @@ switch($api){
         # Alta/registro paciente.
 
         # si existe una sesion activa.
-        $_SESSION['id'] = 1;
         if(!empty($_SESSION['id'])){
             $servicios = explode(',', $servicios);
 
@@ -106,6 +105,10 @@ switch($api){
 
         } else {
             $response = "Su sesión ha expirado. Regrese al login.";
+            if (!$tokenValido) {
+                // $tokenVerification->logout();
+            }
+
         }
         
         break;
