@@ -1,6 +1,6 @@
 // Detalles de datos a api
 let dataListaPaciente = { api: 3, };
-tablaPacientes = $('#tablaPacientes').DataTable({
+tablaPacientesFaltantes = $('#tablaPacientesFaltantes').DataTable({
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
     },
@@ -49,13 +49,13 @@ tablaPacientes = $('#tablaPacientes').DataTable({
 })
 
 loaderDiv("Out", null, "#loader-muestras", '#loaderDivmuestras');
-// selectDatatable('tablaPacientes', tablaPacientes, 0, 0, 0, 0, function (selectTR = null, array = null) {
+// selectDatatable('tablaPacientesFaltantes', tablaPacientesFaltantes, 0, 0, 0, 0, function (selectTR = null, array = null) {
 
 // })
 
 
 //new selectDatatable:
-selectTable('#tablaPacientes', tablaPacientes, { unSelect: true, movil: true, reload: ['col-xl-9'] }, async function (select, data, callback) {
+selectTable('#tablaPacientesFaltantes', tablaPacientesFaltantes, { unSelect: true, movil: true, reload: ['col-xl-9'] }, async function (select, data, callback) {
     selectListaMuestras = data;
 
     if (select == 1) {
@@ -82,7 +82,7 @@ selectTable('#tablaPacientes', tablaPacientes, { unSelect: true, movil: true, re
 
 
 
-inputBusquedaTable('tablaPacientes', tablaPacientes, [{
+inputBusquedaTable('tablaPacientesFaltantes', tablaPacientesFaltantes, [{
     msj: 'Los pacientes con muestras tomadas se visualizarán confirmados de color verde',
     place: 'top'
 }], [], 'col-12')
