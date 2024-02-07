@@ -637,7 +637,6 @@ function setConfig(defaults, config) {
 // si hay mas de uno debe llamarse tantas veces sea posible
 let selectedFilesCount = 0;
 function InputDragDrop(divPadre, callback = () => { console.log('callback default') }, config = { /*Configuracion */ }) {
-
   // Setea para no perder configuracion
   config = setConfig(
     // nuevas configuraciones
@@ -812,6 +811,28 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
     // callback
     envioFiles() // <- Recordar que debes terminar el proceso de cargando a salida
   })
+
+
+
+  const resetInputDrag = function resetInputDrag() {
+
+    // Resetear los estilos al estado inicial
+    dropArea.removeClass('hover_dropDrag').css({
+      'border-color': 'rgb(0 79 90 / 17%)',
+      'background-color': 'transparent', // Suponiendo que el fondo inicial es transparente
+      'color': 'black', // Si el texto inicial es negro
+      // Restablecer cualquier otro estilo que sea necesario
+    });
+
+    // También debes asegurarte de que el contenido de la zona de arrastre se restablezca
+    const labelArea = dropArea.find('label');
+    labelArea.text('Sube tu archivo arrastrándolo aquí'); // O el texto inicial que desees
+  }
+
+  return {
+    resetInputDrag: resetInputDrag
+  };
+
 }
 
 
@@ -1570,37 +1591,24 @@ function alertMensaje(icon = 'success', title = '¡Completado!', text = 'Datos c
 
 function alertMsj(options, callback = function () { }) {
 
-  if (!options.hasOwnProperty('title'))
-    options['title'] = "¿Desea realizar esta acción?"
+  // Configuración predeterminada
+  options = setConfig(
+    {
+      "title": "¿Desea realizar esta acción?",
+      "text": "Probablemente no podrá revertirlo",
+      "icon": "warning",
+      "showCancelButton": true,
+      showConfirmButton: true,
+      "confirmButtonColor": "#3085d6",
+      "cancelButtonColor": "#d33",
+      "confirmButtonText": "Aceptar",
+      "cancelButtonText": "Cancelar",
+      "allowOutsideClick": false,
+      allowEscapeKey: true,
+    }
+    , options)
 
-  if (!options.hasOwnProperty('text'))
-    options['text'] = "Probablemente no podrá revertirlo"
 
-  if (!options.hasOwnProperty('icon'))
-    options['icon'] = 'warning'
-
-  if (!options.hasOwnProperty('showCancelButton'))
-    options['showCancelButton'] = true
-
-  if (!options.hasOwnProperty('confirmButtonColor'))
-    options['confirmButtonColor'] = '#3085d6'
-
-  if (!options.hasOwnProperty('cancelButtonColor'))
-    options['cancelButtonColor'] = '#d33'
-
-  if (!options.hasOwnProperty('confirmButtonText'))
-    options['confirmButtonText'] = 'Aceptar'
-
-  if (!options.hasOwnProperty('cancelButtonText'))
-    options['cancelButtonText'] = 'Cancelar'
-
-  if (!options.hasOwnProperty('allowOutsideClick'))
-    options['allowOutsideClick'] = false
-  // if (!options.hasOwnProperty('timer'))
-  //   options['timer'] = 4000
-  // if (!options.hasOwnProperty('timerProgressBar'))
-  //   options['timerProgressBar'] = true
-  //
   Swal.fire(options).then((result) => {
     callback(result);
   })

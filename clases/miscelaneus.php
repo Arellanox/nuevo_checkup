@@ -540,6 +540,11 @@ class Miscelaneus
                 #Corte de caja
                 $arregloPaciente = $this->getBodyCorteCaja($master, $turno_id);
                 break;
+
+            case -5:
+                # Envio de Muestas
+                $arregloPaciente = $this->getBodyEnvioMuestras($master, $turno_id);
+                break;     
         }
 
 
@@ -2118,6 +2123,12 @@ class Miscelaneus
         // echo $response[5];
         // exit;
         return $response;
+    }
+
+    public function getBodyEnvioMuestras($master, $turno_id)
+    {
+        # json para recuperar datos de envio de muestras
+        $respuestas = $master->getByProcedure("", [$turno_id]);
     }
 
     public function setLogEmail(
