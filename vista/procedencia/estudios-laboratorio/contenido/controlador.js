@@ -4,6 +4,9 @@ $(window).on("hashchange", function (e) {
 });
 
 // Variables globales
+let tablaPacientesFaltantes_inicio = false;
+
+
 
 obtenerContenido()
 // var datapacientes = { api: 1 }

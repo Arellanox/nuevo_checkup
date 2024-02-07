@@ -1,5 +1,5 @@
 // Detalles de datos a api
-let dataListaPaciente = { api: 3, };
+let dataListaPaciente = { api: 3, id_cliente: session.id_cliente };
 tablaPacientesFaltantes = $('#tablaPacientesFaltantes').DataTable({
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
@@ -16,19 +16,11 @@ tablaPacientesFaltantes = $('#tablaPacientesFaltantes').DataTable({
         },
         method: 'POST',
         url: `${http}${servidor}/${appname}/api/maquilas_api.php`,
-        beforeSend: function () { loader("In") },
         complete: function () {
-            loader("Out", 'bottom')
-
-            //Para ocultar segunda columna
-            reloadSelectTable()
+            if (tablaPacientesFaltantes_inicio)
+                $('#EnvioLotesPacientes').modal('show');
         },
         dataSrc: 'response.data'
-    },
-    createdRow: function (row, data, dataIndex) {
-        if (data.MUESTRA_TOMADA == 1) {
-            $(row).addClass('bg-success text-white');
-        }
     },
     columns: [
         {
@@ -54,35 +46,35 @@ tablaPacientesFaltantes = $('#tablaPacientesFaltantes').DataTable({
 // })
 
 
-//new selectDatatable:
-selectTable('#tablaPacientesFaltantes', tablaPacientesFaltantes, { unSelect: true, movil: true, reload: ['col-xl-9'] }, async function (select, data, callback) {
-    selectListaMuestras = data;
+// //new selectDatatable:
+// selectTable('#tablaPacientesFaltantes', tablaPacientesFaltantes, { unSelect: true, movil: true, reload: ['col-xl-9'] }, async function (select, data, callback) {
+//     selectListaMuestras = data;
 
-    if (select == 1) {
+//     if (select == 1) {
 
-        //Activa o desactiva el boton
-        if (selectListaMuestras.MUESTRA_TOMADA == 1) {
-            $('#muestra-tomado').prop('disabled', true)
-        } else {
-            $('#muestra-tomado').prop('disabled', false)
-        }
+//         //Activa o desactiva el boton
+//         if (selectListaMuestras.MUESTRA_TOMADA == 1) {
+//             $('#muestra-tomado').prop('disabled', true)
+//         } else {
+//             $('#muestra-tomado').prop('disabled', false)
+//         }
 
-        //Procesos
-        await obtenerPanelInformacion(selectListaMuestras['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab')
-        await obtenerListaEstudiosContenedores(selectListaMuestras['ID_TURNO'])
+//         //Procesos
+//         await obtenerPanelInformacion(selectListaMuestras['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab')
+//         await obtenerListaEstudiosContenedores(selectListaMuestras['ID_TURNO'])
 
-        //Muestra las columnas
-        callback('In')
-    } else {
+//         //Muestra las columnas
+//         callback('In')
+//     } else {
 
-        callback('Out')
-        selectListaMuestras = null;
-    }
-})
+//         callback('Out')
+//         selectListaMuestras = null;
+//     }
+// })
 
 
 
-inputBusquedaTable('tablaPacientesFaltantes', tablaPacientesFaltantes, [{
-    msj: 'Los pacientes con muestras tomadas se visualizarán confirmados de color verde',
-    place: 'top'
-}], [], 'col-12')
+// inputBusquedaTable('tablaPacientesFaltantes', tablaPacientesFaltantes, [{
+//     msj: 'Los pacientes con muestras tomadas se visualizarán confirmados de color verde',
+//     place: 'top'
+// }], [], 'col-12')
