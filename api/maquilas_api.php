@@ -30,6 +30,7 @@ $orden_medica = $_FILES['orden_medica'];
 
 $id_alta = $_POST['id_alta'];
 $id_turno = $_POST['id_turno'];
+$bit_solitudes = $_POST['bit_solitudes'];
 
 $pacientes = $_POST['pacientes']; # array
 
@@ -137,6 +138,8 @@ if (!empty($_SESSION['id'])){
     case 3:
         # recuperar solicitudes.
         # que no esten dentro de un lote de envio.
+
+        #$bit_solicitudes: 0 es los que no tienen lote, 1 para los que si tienen lote
 
         $response = $master->getByProcedure("sp_maquilas_altas_pacientes_b", [$id_alta, $id_turno]);
         break;
