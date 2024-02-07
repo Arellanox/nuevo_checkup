@@ -71,7 +71,7 @@ switch($api){
         # Alta/registro paciente.
 
         # si existe una sesion activa.
-   
+        
         if(!empty($_SESSION['id'])){
             $servicios = explode(',', $servicios);
 
