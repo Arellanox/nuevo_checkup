@@ -13,7 +13,7 @@ function obtenerContenido() {
         $("#body-js").html(html);
     }).done(function () {
         // Datatable
-        // $.getScript("contenido/js/contenido-tablas.js");
+        $.getScript("contenido/js/franq-tablas.js");
         // Botones
         $.getScript("contenido/js/franq-botones.js");
 
