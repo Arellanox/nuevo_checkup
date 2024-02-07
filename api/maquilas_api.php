@@ -33,15 +33,17 @@ $id_turno = $_POST['id_turno'];
 
 $pacientes = $_POST['pacientes']; # array
 
-switch($api){
-    case 1:
-        # Verificar que si el paciente que estan ingresando ya existe.
-        $pacientes_existentes = $master->getByProcedure("sp_pacientes_b", [null, null, null, null]);
-        $paciente = strtolower($nombre.' '.$paterno.' '.$materno);
+if (!empty($_SESSION['id'])){
 
-
-        $coincidencias = [];
-        foreach($pacientes_existentes as $paciente_existente){
+    switch($api){
+        case 1:
+            # Verificar que si el paciente que estan ingresando ya existe.
+            $pacientes_existentes = $master->getByProcedure("sp_pacientes_b", [null, null, null, null]);
+            $paciente = strtolower($nombre.' '.$paterno.' '.$materno);
+            
+            
+            $coincidencias = [];
+            foreach($pacientes_existentes as $paciente_existente){
             $base = strtolower($paciente_existente['NOMBRE']. ' '.$paciente_existente['PATERNO']. ' ' .$paciente_existente['MATERNO']);
             $baseTokens = explode(' ', $base);
             $userTokens  = explode(' ', $paciente);
@@ -58,7 +60,7 @@ switch($api){
             }
 
             $score = $matches / count($userTokens);
-
+            
             if ($score > 0.7) {
                 $coincidencias[] = $paciente_existente;
             }
@@ -119,7 +121,7 @@ switch($api){
             $url = str_replace("../", $host, $orden[0]['url']);
             
             $ordenes = $master->insertByProcedure('sp_ordenes_medicas_g', [null, $id_turno, $url, $orden[0]['tipo'], 6]);
-
+            
             $response = [
                 "ID_TURNO" => $id_turno,
                 "FOLIO"    => $folio,
@@ -143,13 +145,18 @@ switch($api){
         # crear lotes para envio.
         $pacientes = explode(',', $pacientes);
         $response = $master->insertByProcedure("sp_maquilas_lotes_g", [
-            $pacientes
+            $pacientes,
+            $_SESSION['id']
         ]);
         break;
 
     default:
-        $response = "Api no definida.";
+    $response = "Api no definida.";
 }
 
+
+} else {
+    $response = "Su sesión ha expirado. Regrese al login.";
+}
 
 echo $master->returnApi($response);
