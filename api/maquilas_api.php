@@ -108,6 +108,13 @@ if (!empty($_SESSION['id'])){
                         # es folio
                         $folio = $current[0]['FOLIO'];
                         break;
+                    case 2:
+                        # otros datos
+                        $nombre = $current[0]['NOMBRE'];
+                        $nacimiento = $current[0]['NACIMIENTO'];
+                        $edad = $current[0]['EDAD'];
+                        $curp = $current[0]['CURP'];
+                        $cuenta = $current[0]['CUENTA'];
                     default:
                         $errores[] = $current[0]['@mensaje'];
                     break;
@@ -124,9 +131,14 @@ if (!empty($_SESSION['id'])){
             $ordenes = $master->insertByProcedure('sp_ordenes_medicas_g', [null, $id_turno, $url, $orden[0]['tipo'], 6]);
             
             $response = [
-                "ID_TURNO" => $id_turno,
-                "FOLIO"    => $folio,
-                "ERRORES"  => $errores
+                "ID_TURNO"  => $id_turno,
+                "FOLIO"     => $folio,
+                "NOMBRE"    => $nombre,
+                "NACIMIENTO"=> $nacimiento,
+                "EDAD"      => $edad,
+                "CURP"      => $curp, 
+                "CUENTA"    => $cuenta,
+                "ERRORES"   => $errores
             ];
 
 
