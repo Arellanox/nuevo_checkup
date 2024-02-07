@@ -1,1 +1,1 @@
-loaderDiv("Out", null, "#loader-muestras", '#loaderDivmuestras');
+loader("Out", 'bottom')

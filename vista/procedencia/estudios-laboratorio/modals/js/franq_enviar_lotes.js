@@ -48,7 +48,7 @@ tablaPacientesFaltantes = $('#tablaPacientesFaltantes').DataTable({
 
 })
 
-loaderDiv("Out", null, "#loader-muestras", '#loaderDivmuestras');
+// loaderDiv("Out", null, "#loader-muestras", '#loaderDivmuestras');
 // selectDatatable('tablaPacientesFaltantes', tablaPacientesFaltantes, 0, 0, 0, 0, function (selectTR = null, array = null) {
 
 // })
