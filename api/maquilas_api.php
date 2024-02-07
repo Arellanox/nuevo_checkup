@@ -71,10 +71,14 @@ switch($api){
         # Alta/registro paciente.
 
         # si existe una sesion activa.
+        $_SESSION['id'] = 1;
         if(!empty($_SESSION['id'])){
             $servicios = explode(',', $servicios);
 
-            $id_turno = $master->insertByProcedure("sp_maquilas_alta_paciente",[
+            echo json_encode($servicios);
+            exit;
+
+            $resultset = $master->getByNext("sp_maquilas_alta_paciente",[
                 $id_paciente,
                 $nombre,
                 $paterno,
@@ -91,6 +95,9 @@ switch($api){
                 $_SESSION['id'],
                 $orden_medica
             ]);
+            echo "resulatdo";
+            print_r($resultset);
+            exit;
     
             # subimos la orden medica al turno que acabmos de generar.
             $dir = '../archivos/ordenes_medicas/'.$id_turno;
@@ -105,10 +112,6 @@ switch($api){
 
         } else {
             $response = "Su sesión ha expirado. Regrese al login.";
-            if (!$tokenValido) {
-                // $tokenVerification->logout();
-            }
-
         }
         
         break;
@@ -120,10 +123,10 @@ switch($api){
         break;
 
     case 4:
-        # crear lotes de envio.
+        # crear lotes para envio.
         $pacientes = explode(',', $pacientes);
-        $response = $master->insertByProcedure("", [
-
+        $response = $master->insertByProcedure("sp_maquilas_lotes_g", [
+            $pacientes
         ]);
         break;
 
