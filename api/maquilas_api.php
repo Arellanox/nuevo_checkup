@@ -34,6 +34,9 @@ $bit_solitudes = $_POST['bit_solitudes'];
 
 $pacientes = $_POST['pacientes']; # array
 
+$cliente_id = $_POST['cliente_id'];
+$id_lote = $_POST['id_lote'];
+
 if (!empty($_SESSION['id'])){
 
     switch($api){
@@ -163,6 +166,11 @@ if (!empty($_SESSION['id'])){
             $pacientes,
             $_SESSION['id']
         ]);
+        break;
+    case 5:
+        # recuperar los lotes creados.
+
+        $response = $master->getByProcedure('sp_maquilas_lotes_b', [$cliente_id, $id_lote]);
         break;
 
     default:
