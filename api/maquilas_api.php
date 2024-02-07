@@ -5,8 +5,8 @@ require_once "../clases/token_auth.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    // $tokenVerification->logout();
-    // exit;
+    $tokenVerification->logout();
+    exit;
 }
 
 $master = new Master();
@@ -71,12 +71,9 @@ switch($api){
         # Alta/registro paciente.
 
         # si existe una sesion activa.
-        $_SESSION['id'] = 1;
+   
         if(!empty($_SESSION['id'])){
             $servicios = explode(',', $servicios);
-
-            echo json_encode($servicios);
-            exit;
 
             $resultset = $master->getByNext("sp_maquilas_alta_paciente",[
                 $id_paciente,
@@ -95,9 +92,25 @@ switch($api){
                 $_SESSION['id'],
                 $orden_medica
             ]);
-            echo "resulatdo";
-            print_r($resultset);
-            exit;
+  
+            $count = 0;
+            $errores = array();
+            foreach($resultset as $current){
+                switch($count){
+                    case 0:
+                        # es el turno
+                        $id_turno = $current[0]['TURNO'];
+                        break;
+                    case 1:
+                        # es folio
+                        $folio = $current[0]['FOLIO'];
+                        break;
+                    default:
+                        $errores[] = $current[0]['@mensaje'];
+                    break;
+                }
+                $count++;
+            }
     
             # subimos la orden medica al turno que acabmos de generar.
             $dir = '../archivos/ordenes_medicas/'.$id_turno;
@@ -107,7 +120,11 @@ switch($api){
             
             $ordenes = $master->insertByProcedure('sp_ordenes_medicas_g', [null, $id_turno, $url, $orden[0]['tipo'], 6]);
 
-            $response = $id_turno;
+            $response = [
+                "ID_TURNO" => $id_turno,
+                "FOLIO"    => $folio,
+                "ERRORES"  => $errores
+            ];
 
 
         } else {
