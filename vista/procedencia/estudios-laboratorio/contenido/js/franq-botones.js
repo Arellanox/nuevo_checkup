@@ -8,7 +8,7 @@ $(document).on('click', '.btn-agregar_paciente', async function (event) {
     tipoFormulario(type);
 
     $('#AgregarNuevoPaciente').modal('show');
-    await getDataFirst();
+    await getDataFirst(type);
 })
 
 
@@ -29,8 +29,8 @@ $(document).on('click', '#btn-muestras_enviadas', async function (event) {
 $(document).on('click', '#btn-envio_muestras', async function (event) {
     event.preventDefault();
     event.stopPropagation();
-    tablaPacientesFaltantes_inicio = true
-
+    // tablaPacientesFaltantes_inicio = true
+    $('#EnvioLotesPacientes').modal('show');
     // Configura y obten los datos antes de la tabla de lotes
     tablaPacientesFaltantes.ajax.reload();
 

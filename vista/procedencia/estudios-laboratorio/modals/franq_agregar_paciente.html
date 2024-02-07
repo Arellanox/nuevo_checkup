@@ -18,7 +18,7 @@
 
 
                             <div class="">
-                                <div class="row form_control_type" id="agregar_paciente_form">
+                                <div class="row form_control_type agregar_paciente_form">
                                     <!-- Nombre del paciente -->
                                     <div class="col-6 col-lg-3 d-lg-flex flex-lg-row align-items-lg-center">
                                         <label for="nombre" class="form-label" style="padding-right: 25px;">
@@ -82,7 +82,7 @@
                                             CURP
                                         </label>
                                         <input type="text" class="form-control input-form" name="curp"
-                                            id="curp-form-agregar" placeholder="" required id="curp-registro-infor">
+                                            id="curp-form-agregar" placeholder="" required>
                                         <!-- <div class="form-check">
                                                                         <input class="form-check-input" type="checkbox" value="" id="checkCurpPasaporte">
                                                                         <label class="form-check-label" for="checkCurpPasaporte">
@@ -102,6 +102,8 @@
                                             id="numero_cuenta-form-agregar" placeholder="Número de cuenta propia">
                                     </div>
 
+
+
                                 </div>
 
                                 <div class="row form_control_type" id="nueva_solicitd_paciente_form">
@@ -112,45 +114,52 @@
                                             </label>
                                             <select class="form-control input-form" id="paciente_existente"></select>
                                         </div>
-                                        <div class="col-12 col-lg-4" style="margin-bottom: 10px;">
-                                            <label for="selectpaciente" class="form-label">Buscar paciente</label>
-                                            <div class="row">
-                                                <div class="col-auto">
-                                                    <button class="btn btn-sm btn-confirmar" type="button"
-                                                        id="actualizarForm">
-                                                        <i class="bi bi-binoculars"></i> Consultar
-                                                    </button>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 col-lg-6 py-3 form_control_type agregar_paciente_form">
+                                        <div class="container">
+                                            <div class="row" style="zoom:110%;">
+                                                <div class="col-md-auto">
+                                                    <label for="">Género: </label>
                                                 </div>
-                                                <div class="col-auto">
-                                                    <button class="btn btn-sm btn-borrar" type="button"
-                                                        id="eliminarForm" disabled="">
-                                                        <i class="bi bi-eraser"></i> Limpiar
-                                                    </button>
+                                                <div class="col">
+                                                    <input type="radio" id="mascuCues" name="genero" value="MASCULINO"
+                                                        required>
+                                                    <label for="mascuCues">Masculino</label>
+                                                </div>
+                                                <div class="col">
+                                                    <input type="radio" id="FemeCues" name="genero" value="FEMENINO"
+                                                        required>
+                                                    <label for="FemeCues">Femenino</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6 py-3">
+                                        <div class="container">
+                                            <div class="row" style="zoom:110%;">
+                                                <div class="col-md-auto">
+                                                    <label for="">Tipo de solicitud: </label>
+                                                </div>
+                                                <div class="col">
+                                                    <input type="radio" id="tip_ordinario" name="tipo_solicitud" checked
+                                                        value="1" required>
+                                                    <label for="tip_ordinario">Ordinario</label>
+                                                </div>
+                                                <div class="col">
+                                                    <input type="radio" id="tip_urgente" name="tipo_solicitud" value="2"
+                                                        required>
+                                                    <label for="tip_urgente">Urgente</label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="col-12 py-3">
-                                    <div class="container">
-                                        <div class="row" style="zoom:110%;">
-                                            <div class="col-md-auto">
-                                                <label for="">Género: </label>
-                                            </div>
-                                            <div class="col">
-                                                <input type="radio" id="mascuCues" name="genero" value="MASCULINO"
-                                                    required>
-                                                <label for="mascuCues">Masculino</label>
-                                            </div>
-                                            <div class="col">
-                                                <input type="radio" id="FemeCues" name="genero" value="FEMENINO"
-                                                    required>
-                                                <label for="FemeCues">Femenino</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
 
 
@@ -352,7 +361,7 @@
                     Cerrar
                 </button>
                 <button style="display: none;" type="button" class="btn-footers page-etiquetas btn btn-borrar"
-                    id="btn-etiquetas-pdf">
+                    id="btn-etiquetas-pdf" data-bs-turno_guardado="false">
                     <i class="bi bi-file-earmark-pdf"></i> Imprimir etiquetas del paciente
                 </button>
 

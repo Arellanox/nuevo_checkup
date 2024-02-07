@@ -112,7 +112,7 @@ function login($user, $password)
         if (password_verify($password, $result[0]['CONTRASENIA'])) {
             $conn = $master->connectDb();
             $_SESSION['id'] = $result[0]['ID_USUARIO'];
-            $_SESSION['id_cliente'] = $result[0]['ID_CLIENTE'];
+            $_SESSION['id_cliente'] = $result[0]['CLIENTE_ID'];
             $_SESSION['nombre'] = $result[0]['NOMBRE'];
             $_SESSION['apellidos'] = $result[0]['PATERNO'] . " " . $result[0]['MATERNO'];
             $_SESSION['user'] = $result[0]['USUARIO'];

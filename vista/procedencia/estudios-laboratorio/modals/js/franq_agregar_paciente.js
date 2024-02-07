@@ -1,22 +1,28 @@
 
 // |------------------------- Información del paciente -------------------------|
 // Arma los datos y formulario
-async function getDataFirst() {
+async function getDataFirst(type) {
 
     // Resetea el formulario
     resetForm();
 
     //Pruebas
     await rellenarSelect("#select-labClinico", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
-        cliente_id: session['CLIENTE_ID'] ? 1 : 1,
+        cliente_id: session['CLIENTE_ID'],
         area_id: 6,
     });
     await rellenarSelect("#select-labBio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
-        cliente_id: session['CLIENTE_ID'] ? 1 : 1,
+        cliente_id: session['CLIENTE_ID'],
         area_id: 12,
     });
 
-
+    if (type === '2') {
+        await rellenarSelect("#paciente_existente", "maquilas_api", 3, 'ID_SERVICIO', 'FOLIO.PACIENTE.SIHO_CUENTA.TIPO_SOLICITUD', {
+            cliente_id: session['id_cliente'], bit_solitudes: 1 //<--- para todos
+        });
+    } else {
+        console.log('Hola client')
+    }
     return 1;
 }
 
@@ -35,6 +41,7 @@ function resetForm() {
 
     // Vacia el formulario
     $('#formAgregarPaciente').trigger("reset");
+    $('#btn-etiquetas-pdf').attr('data-bs-turno_guardado', false)
 
     // Llamar a esta función para reiniciar
     restartPages();
@@ -72,7 +79,7 @@ function btnEstatus(key) {
     switch (key) {
         case 1: $('.page-formulario').fadeIn(0).prop('disabled', false); break; // Primera pagina
         case 2: $('.page-etiquetas').fadeIn(0).prop('disabled', false); break; // Segunda pagina
-        case 3: $('.page-proceso_final').fadeIn(0).prop('disabled', false); break; // Reinicio
+        case 3: $('.page-etiquetas, .page-proceso_final').fadeIn(0).prop('disabled', false); break; // Reinicio
     }
 }
 
@@ -80,7 +87,7 @@ function btnEstatus(key) {
 function tipoFormulario(tipo) {
     $('.form_control_type').fadeOut(0);
     if (tipo === '1') {
-        $('#agregar_paciente_form').fadeIn(1);
+        $('.agregar_paciente_form').fadeIn(1);
     } else {
         $('#nueva_solicitd_paciente_form').fadeIn(1);
     }
@@ -92,7 +99,7 @@ function muestrasInfoPaciente() {
     $('#nombre-paciente').html(nombre)
     $('#fecha_de_nacimiento-paciente').html($('#nacimiento-form-agregar').val())
     $('#edad-paciente').html($('#edad-form-agregar').val())
-    $('#curp-paciente').html($('#CURP-form-agregar').val())
+    $('#curp-paciente').html($('#curp-form-agregar').val())
     $('#numero_cuenta-paciente').html($('#numero_cuenta-form-agregar').val())
 
     // Informacion de usuario
@@ -129,12 +136,14 @@ $(document).on('click', '.btn-cerrar_modal', function (event) {
 $(document).on('click', '#btn-etiquetas-pdf', function (e) {
     e.preventDefault();
     e.stopPropagation();
+
+    const btn = $(this)
     // Obtener URL para abrir
     api = encodeURIComponent(window.btoa('laboratorio'));
     area = encodeURIComponent(window.btoa(-1));
-    turno = encodeURIComponent(window.btoa());
+    turno = encodeURIComponent(window.btoa(btn.attr('data-bs-turno_guardado')));
 
-    var win = window.open(`http://localhost/practicantes/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, '_blank')
+    var win = window.open(`http://localhost/nuevo_checkup/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, '_blank')
 
     btnEstatus(3); // Abre el estado final para finalizar proceso
 })
@@ -191,11 +200,13 @@ $(document).on('submit', '#formAgregarPaciente', function (event) {
             // Guarda el turno que se ha hecho
             turno = row.ID_TURNO;
 
-            let folio_empresa = row.FOLIO_EMPRESA;
+            let folio_empresa = row.FOLIO;
             $('#folio-paciente').html(folio_empresa);
 
             // Muestra la información que se guardo en la base;
             muestrasInfoPaciente(); // Muestra información del paciente
+
+            $('#btn-etiquetas-pdf').attr('data-bs-turno_guardado', turno)
 
             // alertMensajeConfirm({
             //     title: ''
