@@ -1,30 +1,53 @@
-<!-- <div class="col-12 loader" id="loader">
+<div class="col-12 loader" id="loader">
   <div class="preloader" id="preloader"> </div>
-</div> -->
+</div>
 
-
-<!-- tabs para movil -->
-<div id="tab-button"></div>
 
 <div class="row">
-  <div class="col-12 col-xl-3 info-detalle">
+  <!-- <div class="col-12 col-xl-3 info-detalle">
     <div class="rounded p-3 shadow-sm my-2 tab-second" id="tab-informacion-espera" style="display:none !important">
       <div id="panel-informacion"></div>
     </div>
-  </div>
+  </div> -->
 
-  <div class="col-12 col-xl-9 tab-first" id="tab-paciente-espera">
+  <div class="col-12 col-xl-12" id="tab-paciente-espera">
 
     <!-- Iconos -->
     <div class="row d-flex justify-content-center p-2">
       <div class="col-3">
-        <div class="rounded p-3 shadow-sm my-2 m-2 mycard" id="myCard">
+        <div class="rounded p-3 shadow-sm my-2 m-2 card_franquicias btn-agregar_paciente" data-bs-type="1">
           <div class="d-flex align-items-center">
             <!-- Icono -->
-            <img src="http://localhost/nuevo_checkup/css/icons/franquicias/ciencia/icon_1.svg" alt="Icono" class="me-3"
+            <img src="../../../css/icons/franquicias/ciencia/icon_2.svg" alt="Icono" class="me-3"
               style="width: 40px; height: 40px;">
             <!-- Título con span -->
-            <h5 class="card-title mb-0"><span>Título del Texto</span></h5>
+            <h5 class="card-title mb-0"><span>Nuevo Paciente</span></h5>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="rounded p-3 shadow-sm my-2 m-2 card_franquicias btn-agregar_paciente" data-bs-type="2">
+          <div class="d-flex align-items-center">
+            <!-- Icono -->
+            <img src="../../../css/icons/franquicias/ciencia/icon_3.svg" alt="Icono" class="me-3"
+              style="width: 40px; height: 40px;">
+            <!-- Título con span -->
+            <h5 class="card-title mb-0"><span>Nueva Solicitud</span></h5>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="rounded p-3 shadow-sm my-2 m-2 card_franquicias" id="btn-envio_muestras">
+          <div class="d-flex align-items-center">
+            <!-- Icono -->
+            <img src="../../../css/icons/franquicias/ciencia/icon_1.svg" alt="Icono" class="me-3"
+              style="width: 40px; height: 40px;">
+            <!-- Título con span -->
+            <h5 class="card-title mb-0"><span>Envío de Muestras</span></h5>
 
           </div>
         </div>
@@ -32,65 +55,6 @@
 
 
     </div>
-
-    <style>
-      .mycard h5 {
-        color: rgb(000, 078, 89);
-        ;
-      }
-
-      .mycard {
-        cursor: pointer;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        color: rgb(000, 078, 089);
-      }
-
-      .mycard:hover {
-        transform: scale(1.05);
-      }
-
-      .mycard:hover h5 {
-        color: rgb(247, 190, 000);
-      }
-
-      .mycard .card-title span {
-        position: relative;
-        display: inline-block;
-      }
-
-      .mycard .card-title span::after {
-        content: '';
-        position: absolute;
-        bottom: -5px;
-        /* Ajusta la posición según sea necesario */
-        left: 50%;
-        width: 0;
-        height: 1.5px;
-        /* Ajusta el grosor de la línea según sea necesario */
-        background-color: rgb(218, 167, 0);
-        /* El color de la línea */
-        transition: width 0.3s ease, left 0.3s ease;
-      }
-
-      .mycard:hover .card-title span::after {
-        width: 100%;
-        /* Expande la línea al 100% del ancho del texto */
-        left: 0;
-        /* Inicia la línea desde el borde izquierdo del texto */
-      }
-    </style>
-    <script>
-      $(document).on({
-        mouseenter: function () {
-          $(this).removeClass('shadow-sm').addClass('shadow');
-        },
-        mouseleave: function () {
-          $(this).removeClass('shadow').addClass('shadow-sm');
-        }
-      }, '.mycard'); // Reemplaza #miDiv con el selector de tu elemento
-
-    </script>
-
 
     <div class="rounded p-3 shadow-sm my-2 table-responsive">
       <div class="text-center" style="margin-top:4px;">
@@ -111,19 +75,44 @@
         </button>
       </div>
       <div>
-        <table class="table table-hover display responsive" id="TablaRecepcionPacientes" style="width: 100%;">
+        <table class="table table-hover display responsive" id="tablaPacientes" style="width: 100%;">
 
         </table>
       </div>
     </div>
   </div>
 
-
-  <!-- Tercera Columna visual -->
-  <div id="reload-selectable">
-
-  </div>
-
-
-
 </div>
+
+
+<script>
+  $(document).on({
+    mouseenter: function () {
+      $(this).removeClass('shadow-sm').addClass('shadow');
+    },
+    mouseleave: function () {
+      $(this).removeClass('shadow').addClass('shadow-sm');
+    }
+  }, '.card_franquicias'); // Reemplaza #miDiv con el selector de tu elemento
+
+</script>
+
+<style>
+  .drop-zone {
+    width: 100%;
+    height: 85px;
+    border: 2px dashed rgb(0 79 90 / 17%);
+    text-align: center;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    margin-left: 8px;
+  }
+
+
+
+  .drop-zone.hover_dropDrag {
+    border-color: #00bbb9 !important;
+    background-color: #c6cacc !important;
+  }
+</style>

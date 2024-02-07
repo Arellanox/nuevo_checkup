@@ -5,7 +5,8 @@
 
 <!-- Frameworks -->
 <script src="<?php echo 'http://' . $url . '/' . $appname . '\js\framework\autosize\dist\autosize.min.js'; ?>"></script>
-<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.7.1.slim.js"></script> -->
 
 
 <!-- Bootstrap 5 -->
