@@ -141,7 +141,7 @@ if (!empty($_SESSION['id'])){
 
         #$bit_solicitudes: 0 es los que no tienen lote, 1 para los que si tienen lote
 
-        $response = $master->getByProcedure("sp_maquilas_altas_pacientes_b", [$id_alta, $id_turno]);
+        $response = $master->getByProcedure("sp_maquilas_altas_pacientes_b", [$id_alta, $id_turno, $bit_solitudes]);
         break;
 
     case 4:
