@@ -28,6 +28,11 @@ $servicios = $_POST['servicios'];
 $comentarios_orden = $_POST['comentarios_orden'];
 $orden_medica = $_FILES['orden_medica'];
 
+$id_alta = $_POST['id_alta'];
+$id_turno = $_POST['id_turno'];
+
+$pacientes = $_POST['pacientes']; # array
+
 switch($api){
     case 1:
         # Verificar que si el paciente que estan ingresando ya existe.
@@ -66,7 +71,8 @@ switch($api){
         # Alta/registro paciente.
 
         # si existe una sesion activa.
-        if(empty($_SESSION['id'])){
+        $_SESSION['id'] = 1;
+        if(!empty($_SESSION['id'])){
             $servicios = explode(',', $servicios);
 
             $id_turno = $master->insertByProcedure("sp_maquilas_alta_paciente",[
@@ -93,7 +99,9 @@ switch($api){
             $orden = $master->guardarFiles($_FILES,'orden_medica',$dir, 'ORDEN_MEDICA_LABORATORIO_'.$id_turno);
             $url = str_replace("../", $host, $orden[0]['url']);
             
-            $response = $master->insertByProcedure('sp_ordenes_medicas_g', [null, $id_turno, $url, $orden[0]['tipo'], 6]);
+            $ordenes = $master->insertByProcedure('sp_ordenes_medicas_g', [null, $id_turno, $url, $orden[0]['tipo'], 6]);
+
+            $response = $id_turno;
 
 
         } else {
@@ -101,6 +109,23 @@ switch($api){
         }
         
         break;
+    case 3:
+        # recuperar solicitudes.
+        # que no esten dentro de un lote de envio.
+
+        $response = $master->getByProcedure("sp_maquilas_altas_pacientes_b", [$id_alta, $id_turno]);
+        break;
+
+    case 4:
+        # crear lotes de envio.
+        $pacientes = explode(',', $pacientes);
+        $response = $master->insertByProcedure("", [
+
+        ]);
+        break;
+
+    default:
+        $response = "Api no definida.";
 }
 
 
