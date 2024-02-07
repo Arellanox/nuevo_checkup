@@ -64,18 +64,41 @@ switch($api){
         break;
     case 2:
         # Alta/registro paciente.
-        $response = $master->insertByProcedure("sp_maquilas_alta_paciente",[
-            $id_paciente,
-            $nombre,
-            $paterno,
-            $materno,
-            $curp,
-            $fecha_nacimiento,
-            $edad,
-            $genero,
-            json_enconde(["area_encuentra"=>$area_encuentra, "cuenta_siho"=>$siho_cuenta]),
+
+        # si existe una sesion activa.
+        if(empty($_SESSION['id'])){
+            $servicios = explode(',', $servicios);
+
+            $id_turno = $master->insertByProcedure("sp_maquilas_alta_paciente",[
+                $id_paciente,
+                $nombre,
+                $paterno,
+                $materno,
+                $curp,
+                $fecha_nacimiento,
+                $edad,
+                $genero,
+                $area_encuentra,
+                $siho_cuenta,
+                $tipo,
+                json_encode($servicios),
+                $comentarios_orden,
+                $_SESSION['id'],
+                $orden_medica
+            ]);
+    
+            # subimos la orden medica al turno que acabmos de generar.
+            $dir = '../archivos/ordenes_medicas/'.$id_turno;
+            $r = $master->createDir($dir);
+            $orden = $master->guardarFiles($_FILES,'orden_medica',$dir, 'ORDEN_MEDICA_LABORATORIO_'.$id_turno);
+            $url = str_replace("../", $host, $orden[0]['url']);
             
-        ]);
+            $response = $master->insertByProcedure('sp_ordenes_medicas_g', [null, $id_turno, $url, $orden[0]['tipo'], 6]);
+
+
+        } else {
+            $response = "Su sesión ha expirado. Regrese al login.";
+        }
         
         break;
 }
