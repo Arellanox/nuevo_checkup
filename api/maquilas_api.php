@@ -183,6 +183,7 @@ if (!empty($_SESSION['id'])) {
         case 7:
             # recuperar el detalle de los lotes
             $response = $master->getByProcedure('sp_maquilas_lotes_detalle_b', [$id_lote]);
+            $response = $master->decodeJsonRecursively($response);
             break;
 
         case 8:
