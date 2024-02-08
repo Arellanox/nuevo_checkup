@@ -13,12 +13,12 @@
   <div class="col-12 col-xl-12" id="tab-paciente-espera">
     <div class="px-4">
       <!-- Iconos -->
-      <div class="row d-flex justify-content-center p-2">
-        <div class="col-3">
-          <div class="rounded p-3 shadow-sm my-2 m-2 card_franquicias btn-agregar_paciente" data-bs-type="1">
-            <div class="d-flex align-items-center">
+      <div class="row d-flex justify-content-center">
+        <div class="col-6 col-lg-auto">
+          <div class="rounded p-3 shadow-sm my-2 card_franquicias btn-agregar_paciente" data-bs-type="1">
+            <div class="d-flex align-items-center card_botones_menu">
               <!-- Icono -->
-              <img src="../../../css/icons/franquicias/ciencia/icon_2.svg" alt="Icono" class="me-3"
+              <img src="../../../css/icons/franquicias/ciencia/icon_2.svg" alt="Icono" class="me-3 icon_btn"
                 style="width: 40px; height: 40px;">
               <!-- Título con span -->
               <h5 class="card-title mb-0"><span>Nuevo Paciente</span></h5>
@@ -27,11 +27,11 @@
           </div>
         </div>
 
-        <div class="col-3">
-          <div class="rounded p-3 shadow-sm my-2 m-2 card_franquicias btn-agregar_paciente" data-bs-type="2">
-            <div class="d-flex align-items-center">
+        <div class="col-6 col-lg-auto">
+          <div class="rounded p-3 shadow-sm my-2 card_franquicias btn-agregar_paciente" data-bs-type="2">
+            <div class="d-flex align-items-center card_botones_menu">
               <!-- Icono -->
-              <img src="../../../css/icons/franquicias/ciencia/icon_3.svg" alt="Icono" class="me-3"
+              <img src="../../../css/icons/franquicias/ciencia/icon_3.svg" alt="Icono" class="me-3 icon_btn"
                 style="width: 40px; height: 40px;">
               <!-- Título con span -->
               <h5 class="card-title mb-0"><span>Nueva Solicitud</span></h5>
@@ -40,11 +40,11 @@
           </div>
         </div>
 
-        <div class="col-3">
-          <div class="rounded p-3 shadow-sm my-2 m-2 card_franquicias" id="btn-envio_muestras">
-            <div class="d-flex align-items-center">
+        <div class="col-6 col-lg-auto">
+          <div class="rounded p-3 shadow-sm my-2 card_franquicias" id="btn-envio_muestras">
+            <div class="d-flex align-items-center card_botones_menu">
               <!-- Icono -->
-              <img src="../../../css/icons/franquicias/ciencia/icon_1.svg" alt="Icono" class="me-3"
+              <img src="../../../css/icons/franquicias/ciencia/icon_1.svg" alt="Icono" class="me-3 icon_btn"
                 style="width: 40px; height: 40px;">
               <!-- Título con span -->
               <h5 class="card-title mb-0"><span>Envío de Muestras</span></h5>
@@ -53,11 +53,11 @@
           </div>
         </div>
 
-        <div class="col-3">
-          <div class="rounded p-3 shadow-sm my-2 m-2 card_franquicias" id="btn-muestras_enviadas">
-            <div class="d-flex align-items-center">
+        <div class="col-6 col-lg-auto">
+          <div class="rounded p-3 shadow-sm my-2 card_franquicias" id="btn-muestras_enviadas">
+            <div class="d-flex align-items-center card_botones_menu">
               <!-- Icono -->
-              <img src="../../../css/icons/franquicias/ciencia/icon_4.svg" alt="Icono" class="me-3"
+              <img src="../../../css/icons/franquicias/ciencia/icon_4.svg" alt="Icono" class="me-3 icon_btn"
                 style="width: 40px; height: 40px;">
               <!-- Título con span -->
               <h5 class="card-title mb-0"><span>Lotes Enviados</span></h5>
@@ -129,5 +129,17 @@
   .drop-zone.hover_dropDrag {
     border-color: #00bbb9 !important;
     background-color: #c6cacc !important;
+  }
+
+
+  @media (max-width: 500px) {
+    .icon_btn {
+      height: 25px !important;
+      width: 25px !important;
+    }
+
+    .card_botones_menu span {
+      font-size: 20px !important;
+    }
   }
 </style>

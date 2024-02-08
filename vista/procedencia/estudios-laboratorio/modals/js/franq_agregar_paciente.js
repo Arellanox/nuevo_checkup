@@ -7,6 +7,8 @@ async function getDataFirst(type) {
         // Resetea el formulario
         resetForm();
 
+        turno = false;
+
         //Pruebas a cargar
         await rellenarSelect("#select-labClinico", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
             cliente_id: session['CLIENTE_ID'],
@@ -56,6 +58,15 @@ function resetForm() {
     // Vacia el formulario
     $('#formAgregarPaciente').trigger("reset");
     $('#btn-etiquetas-pdf').attr('data-bs-turno_guardado', false)
+
+
+
+    // Boton de muestra
+    // Cambiar el boton
+    $('.btn_submit_tomarmuestra').attr('disabled', false) // Deshabilita el botón para prevenir clics adicionales
+        .addClass('btn-confirmar') // Opcional: remover la clase original si deseas
+        .removeClass('btn-success') // Cambia a color verde
+        .html('<i class="bi bi-droplet-half"></i> Tomar Muestra'); // Cambia el contenido del botón a "Muestra Tomada" y el ícono a una gota de agua llena
 
     // Llamar a esta función para reiniciar
     restartPages();
@@ -235,6 +246,7 @@ $(document).on('submit', '#formAgregarPaciente', function (event) {
             //     title: ''
             // })
 
+            tablaPacientes.ajax.reload();
             await getListMuestras(turno); // Obtiene las muestras
             btnEstatus(2); // Cambia de botones
             combinePages('page_control-agregar_paciente', 1) // Cambia de pagina
@@ -249,7 +261,7 @@ $(document).on('submit', '.form_guardarMuestra', function (e) {
     e.stopPropagation();
 
     const form = $(this);
-    const botonGuardarMuestra = form.find('.btn-confirmar'); // Encuentra el botón dentro del formulario
+    const botonGuardarMuestra = form.find('.btn_submit_tomarmuestra'); // Encuentra el botón dentro del formulario
 
 
     alertMensajeConfirm({
@@ -262,11 +274,16 @@ $(document).on('submit', '.form_guardarMuestra', function (e) {
         ajaxAwaitFormData(data_json, 'maquilas_api', '', { callbackAfter: true, formJquery: form }, false, () => {
             alertToast('¡Fecha de muestra guardada!', 'success', 4000)
 
+            tablaPacientes.ajax.reload();
+            $('#ModaltomarMuestra').modal('hide');
+
             // Cambiar el boton
             botonGuardarMuestra.attr('disabled', true) // Deshabilita el botón para prevenir clics adicionales
                 .removeClass('btn-confirmar') // Opcional: remover la clase original si deseas
                 .addClass('btn-success') // Cambia a color verde
                 .html('<i class="bi bi-droplet-fill"></i> Muestra Tomada'); // Cambia el contenido del botón a "Muestra Tomada" y el ícono a una gota de agua llena
+
+
         })
     }, 1)
 

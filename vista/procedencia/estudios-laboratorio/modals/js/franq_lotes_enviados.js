@@ -11,7 +11,7 @@ TablaListaLotes = $('#TablaListaLotes').DataTable({
     lengthChange: false,
     info: true,
     paging: false,
-    scrollY: autoHeightDiv(0, 384),
+    scrollY: '47vh',
     scrollCollapse: true,
     ajax: {
         dataType: 'json',
@@ -107,7 +107,7 @@ TablaDetalleLotes = $('#TablaDetalleLotes').DataTable({
     lengthChange: false,
     info: true,
     paging: false,
-    scrollY: autoHeightDiv(0, 384),
+    scrollY: '47vh',
     scrollCollapse: true,
     ajax: {
         dataType: 'json',
@@ -146,16 +146,31 @@ TablaDetalleLotes = $('#TablaDetalleLotes').DataTable({
         },
         {
             data: 'REPORTES', render: function (data) {
+                // Inicializar un arreglo vacío para contener nuestros botones
+                var buttons = [];
 
-                if (data[0]['REPORTE'] == "NA") {
-                    return `<div class="badge text-bg-warning px-3 rounded-pill font-weight-normal 
-                            text-dark">Pendiente</div>`
+                // Asegurarse de que 'data' es un array antes de intentar usar 'length'
+                if (ifnull(data)) {
+                    // Recorrer cada reporte en los datos
+                    for (const key in data) {
+                        if (Object.hasOwnProperty.call(data, key)) {
+                            const element = data[key];
+                            buttons.push(
+                                '<a href="' + element + '" target="_blank" class="btn btn-borrar me-2">' +
+                                '<i class="bi bi-file-earmark-pdf-fill"></i>' +
+                                '</a>'
+                            );
+                        }
+                    }
                 } else {
-                    return `<div class="badge text-bg-danger px-3 rounded-pill font-weight-normal">
-                        <i class="bi bi-file-earmark-pdf data-id = "${data[0]['REPORTE']}" 
-                        style = "cursor: pointer" onclick ="vistapreviaPacienteLote.call(this)"></i></div>`;
+                    buttons.push(`<div class="badge text-bg-warning px-3 rounded-pill font-weight-normal 
+                            text-dark">Pendiente</div>`)
+                    // Manejar el caso en el que 'data' no es un array (por ejemplo, mostrar un mensaje de error o un valor por defecto)
+                    // console.error('Data is not an array:', data);
                 }
 
+                // Unir todos los botones con un espacio y devolver la cadena HTML
+                return '<div class="d-flex justify-content-start align-items-center">' + buttons.join(' ') + '</div>';
             }
         },
         { data: 'REGISTRADO_POR' },
