@@ -7,4 +7,6 @@ $.post("modals/m_franquicias.php", function (html) {
     $.getScript('modals/js/franq_enviar_lotes.js')
 
     $.getScript('modals/js/franq_lotes_enviados.js');
+
+    $.getScript('modals/js/franq_tomarMuestra.js');
 });
