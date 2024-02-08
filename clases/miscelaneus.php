@@ -544,7 +544,12 @@ class Miscelaneus
             case -5:
                 # Envio de Muestas
                 $arregloPaciente = $this->getBodyEnvioMuestras($master, $turno_id);
-                break;     
+                break;    
+            case -6:
+                # reporte de lotes.
+                # pacientes que son enviado por maquila.
+                $arregloPaciente = $this->getBodyFormatoEnvioLotesMaquila($master, $turno_id); # $turno_id es el id de lote que se quiere generar.
+                break;
         }
 
 
@@ -2145,5 +2150,17 @@ class Miscelaneus
         $response = $master->insertByProcedure("", []);
 
         return true;
+    }
+
+    
+    public function getBodyFormatoEnvioLotesMaquila($master, $id_lote){
+        $resultset = $master->getByNext("sp_maquilas_datos_reporte", [$id_lote]);
+
+        $generales = $resultset[0][0];
+        $detalle = $resultset[1];
+
+        $generales["DETALLE"] = $detalle;
+        
+        return $generales;
     }
 }
