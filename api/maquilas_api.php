@@ -191,13 +191,24 @@ if (!empty($_SESSION['id'])) {
 
         case 8:
             # enviar lote de muestras
+            # cambiar el estado del lote a enviado.
+            $response = $master->updateByProcedure("sp_maquilas_enviar_lote", [$id_lote]);
 
+            # crear el reporte y guardarlo en la tabla.
+            if(!is_numeric($response)){
+                $url = $master->reportador($master, $id_lote, -6, "envio_muestras");
+                $response = $master->updateByProcedure("sp_reportes_actualizar_ruta", ['maquilas_lotes', "RUTA_REPORTE", $url, $id_lote, null]);
+            }
             break;
 
         case 9:
             #Actualizar el MUESTRA_TOMADA de la tabla maquilas_altas_pacientes
             $response = $master->getByProcedure('sp_maquilas_altas_pacientes_a' ,[$fecha_toma, $id_turno, $_SESSION['id']]);
 
+            break;
+
+        case 10:
+            
             break;
         default:
             $response = "Api no definida.";

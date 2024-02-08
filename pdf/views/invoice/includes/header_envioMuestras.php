@@ -34,27 +34,27 @@
     <tbody>
         <tr>
             <td class="col-right" style="border-bottom: none; padding-left: 156%;">
-                <p> Folio: <strong style="font-size: 13px;"><?php echo $encabezado->SEXO; ?> </strong></p>
+                <p> Folio: <strong style="font-size: 13px;"><?php echo $resultados->FOLIO; ?> </strong></p>
             </td>
         </tr>
 
         <tr>
             <td class="col-two-left" style="border-bottom: none;">
-                <p> Unidad Solicitante: <strong style="font-size: 13px;"> <?php echo $encabezado->NOMBRE; ?> </strong></p>
+                <p> Unidad Solicitante: <strong style="font-size: 13px;"> <?php echo $resultados->UNIDAD_SOLICITANTE; ?> </strong></p>
             </td>
             <td class="col-two-right" style="border-bottom: none;">
-                <p> Fecha de Recolección o Envío de Muestras: <strong style="font-size: 13px; border-bottom: 1px solid black;"></strong></p>
+                <p> Fecha de Recolección o Envío de Muestras: <strong style="font-size: 13px; border-bottom: 1px solid black;"><?php echo $resultados->FECHA_ENVIO; ?></strong></p>
             </td>
 
         </tr>
 
         <tr>
             <td class="col-two-left" style="border-bottom: none;">
-                <p> Correo para resultados: <strong style="font-size: 13px;"> <?php echo $encabezado->FECHA_RESULTADO; ?> </strong></p>
+                <p> Correo para resultados: <strong style="font-size: 13px;"> <?php echo $resultados->CORREO_ENVIAR_RESULTADOS; ?> </strong></p>
             </td>
 
             <td class="col-two-left" style="border-bottom: none">
-                <p> Fecha de Resultado: <strong style="font-size: 13px;"> <?php echo $encabezado->FECHA_RESULTADO; ?> </strong></p>
+                <p> Hora de Recolección o Envío de Muestras:: <strong style="font-size: 13px;"> <?php echo $resultados->HORA_ENVIO; ?> </strong></p>
             </td>
     </tbody>
 </table>

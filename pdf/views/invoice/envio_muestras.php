@@ -362,8 +362,24 @@ $encode_firma = base64_encode($ruta_firma);
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="small-width">1</td>
+                    <?php
+                        foreach ($resultados->DETALLE as $item):
+                    ?>
+                        <tr>
+                        <td class="small-width"><?php echo $item['COUNT']; ?></td>
+                        <td><?php echo $item['PACIENTE']; ?></td>
+                        <td class="muestra-width"><?php echo $item['NACIMIENTO']; ?></td>
+                        <td class="small-width"><?php echo $item['EDAD']; ?></td>
+                        <td><?php echo $item['SEXO']; ?></td>
+                        <td class="muestra-width"><?php echo $item['MUESTRA']; ?></td>
+                        <td><?php echo $item['FECHA_TOMA']; ?></td>
+                        <td><?php echo $item['ESTUDIOS']; ?></td>
+                    </tr>
+                    <?php
+                        endforeach;
+                    ?>
+                    <!-- <tr>
+                        <td class="small-width"><?php echo $item[''] ?></td>
                         <td>Juan Esteban Pérez González</td>
                         <td class="muestra-width">15/02/1985</td>
                         <td class="small-width">39</td>
@@ -391,7 +407,7 @@ $encode_firma = base64_encode($ruta_firma);
                         <td class="muestra-width">Biopsia de Piel</td>
                         <td>05/02/2024</td>
                         <td>Biopsia Cutánea</td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
         </div>
