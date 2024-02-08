@@ -179,11 +179,16 @@ if (!empty($_SESSION['id'])){
     case 6:
         # vista principal maquila. la que tiene los resultados.
 
-        $response = $master->getByProcedure('sp_maquilas_detalles_b', [$fecha]);
+        $response = $master->getByProcedure('sp_maquilas_detalles_b', [$fecha, $_SESSION['CLIENTE_ID']]);
         break;
     case 7:
         # recuperar el detalle de los lotes
         $response = $master->getByProcedure('sp_maquilas_lotes_detalle_b', [$id_lote]);
+        break;
+
+    case 8:
+        # enviar lote de muestras
+        
         break;
 
     default:
