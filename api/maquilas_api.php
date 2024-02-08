@@ -159,6 +159,7 @@ if (!empty($_SESSION['id'])) {
             #$bit_solicitudes: 0 es los que no tienen lote, 1 para los que si tienen lote
 
             $response = $master->getByProcedure("sp_maquilas_altas_pacientes_b", [$id_alta, $id_turno, $bit_solitudes]);
+            $response = $master->decodeJsonRecursively($response);
             break;
 
         case 4:
@@ -179,6 +180,7 @@ if (!empty($_SESSION['id'])) {
             # vista principal maquila. la que tiene los resultados.
 
             $response = $master->getByProcedure('sp_maquilas_detalles_b', [$fecha, $_SESSION['CLIENTE_ID']]);
+            $response = $master->decodeJsonRecursively($response);
             break;
         case 7:
             # recuperar el detalle de los lotes
