@@ -28,6 +28,8 @@ $(document).on('click', '#btn-muestras_enviadas', async function (event) {
     event.preventDefault(); // Prevenimos los eventos
     event.stopPropagation(); // Prevenimos la propagacion
 
+    $('#tab-reporte').fadeOut('fast');
+
     alertToast('Espere un momento...', 'info') // Mandamos una pequeña alerta
     TablaListaLotes.ajax.reload() //Recargamos la tabla de la lista de los lotes enviados
 

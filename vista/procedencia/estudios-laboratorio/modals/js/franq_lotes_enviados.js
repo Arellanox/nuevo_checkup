@@ -125,7 +125,24 @@ TablaDetalleLotes = $('#TablaDetalleLotes').DataTable({
     columns: [
         { data: 'COUNT' },
         { data: 'PACIENTE' },
+        {
+            data: 'TIPO_SOLICITUD', render: function (data, type, row, meta) {
+                switch (row.TIPO_SOLICITUD_ID) {
+                    case "1":
+                        // Ordinario
+                        return '<span class="badge text-bg-info">${data}</span>'; break;
+                    case "2":
+                        // Urgente
+                        return '<span class="badge text-bg-warning">${data}</span>'; break;
+
+                    default:
+                        return ''; break;
+                }
+        }
+},
         { data: 'FOLIO' },
+        { data: 'SIHO_CUENTA' }, // texto
+        { data: 'AREA_SE_ENCUENTRA' }, // texto
         {
             data: 'FECHA_REGISTRO', render: function (data) {
                 // return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0])
