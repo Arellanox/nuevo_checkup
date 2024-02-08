@@ -136,7 +136,117 @@ $(document).on('click', '#QuitarPacientesGrupo', function () {
 
 
 
+// Trabajé de más en esto cuando me di cuenta que Angel iba hacer el aviso, gracias angel por darme cuenta que estaba mal.
 
+// // Paginacion para las paginas
+// $(document).on('click', '.control_pagina-envioLotes', function (event) {
+//     event.preventDefault();
+//     event.stopPropagation();
+
+//     // Boton
+//     const $btn = $(this);
+//     const action = $btn.attr('target');
+
+//     let last_page = 0; // Sin configurar
+
+//     const callback = (config, last_page) => {
+//         // Obten la pagina visible actual
+//         const page_actual = parseInt(config.page_visible.attr('page'))
+
+//         console.log(page_actual, last_page);
+
+//         // Cambia dinamicamente los botones
+//         if (last_page != page_actual) {
+//             let botones_mostrar = btnCambioPages + 1;
+//             btnCambioPages(botones_mostrar)
+//         }
+//     }
+
+
+//     switch (action) {
+//         case 'back':
+//             last_page = 1 // Primera pagina
+//             combinePages('page_control-envio_lotes', 0,
+//                 // cuando cambia de pagina
+//                 () => {
+
+//                 },
+//                 (config) => {
+//                     callback(config, last_page)
+//                 }
+//             )
+//             break;
+//         case 'next':
+//             last_page = 3 // Ultima pagina
+//             combinePages('page_control-envio_lotes', 1,
+//                 // cuando cambia de pagina
+//                 () => {
+
+//                 },
+//                 (config) => {
+//                     callback(config, last_page)
+//                 }
+//             )
+//             break;
+//         default:
+//             break;
+//     }
+// });
+
+
+
+
+
+$(document).on('click', '#enviar_lotes_actuales', function (event) {
+
+
+    alertMensajeConfirm({
+        title: '¿Está seguro de enviar este lote de pacientes?',
+        text: '¡No podrá revertir está acción!',
+        icon: 'warning'
+    }, () => {
+
+
+        // 
+        ajaxAwait({
+
+        }, 'maquilas_api', { callbackAfter: true, callbackBefore: true },
+            // Before del ajax
+            () => {
+                // Aviso antes de enviar
+                alertMsj({
+                    title: '¡Genial, espere un momento!',
+                    text: 'Esto puede tardar un rato, estamos configurando el proceso del paciente',
+                    showCancelButton: false, showConfirmButton: false,
+                    icon: 'info'
+
+                })
+            },
+
+            //Success del ajax
+            (data) => {
+                // Datos
+                const row = data.response.data;
+
+                // Suponiendo que llega asi:
+                let url_reporte = row.FORMATO_LOTES;
+
+
+
+
+
+                // Siguiente página para mostrarle formato cargado:
+                combinePages('page_control-envio_lotes', 1) // Cambia de pagina
+
+
+
+            })
+    }, 1)
+})
+
+
+
+// | ------------------------ Funciones para las tablas ------------------------------|
 
 // Obtiene los pacientes de las tablas
 function getPacientes(dataTable) {
@@ -193,3 +303,20 @@ function removeRows(table) {
     // Remover las filas seleccionadas de la tabla
     table.rows(filasSeleccionadas).remove().draw();
 }
+
+// Cambia la forma de los botones
+function btnCambioPages(key) {
+    // Primera pagina
+    $('.btn-footer_envioLote').fadeOut(0);
+    $('.btn-footer_envioLote').prop('disabled', true);
+
+    switch (key) {
+        case 1: $('.page1_envioLote').fadeIn(0).prop('disabled', false); break; // Primera pagina
+        case 2: $('.page2-envioLote').fadeIn(0).prop('disabled', false); break; // Segunda pagina
+        case 3: $('.page3-envioLote').fadeIn(0).prop('disabled', false); break; // Reinicio
+        case 4: $('.page3-envioLote, .pageFinal-envioLote').fadeIn(0).prop('disabled', false); break; // despues de aceptar
+    }
+}
+
+
+

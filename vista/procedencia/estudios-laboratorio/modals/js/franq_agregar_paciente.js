@@ -6,6 +6,9 @@ async function getDataFirst(type) {
 
         // Resetea el formulario
         resetForm();
+        // Llamar a esta función para reiniciar la paginacion
+        restartPages('page_control-agregar_paciente');
+
 
         turno = false;
 
@@ -69,7 +72,7 @@ function resetForm() {
         .html('<i class="bi bi-droplet-half"></i> Tomar Muestra'); // Cambia el contenido del botón a "Muestra Tomada" y el ícono a una gota de agua llena
 
     // Llamar a esta función para reiniciar
-    restartPages();
+    restartPages('page_control-agregar_paciente');
     btnEstatus(1); // Primera pagina
 }
 
@@ -213,7 +216,6 @@ $(document).on('submit', '#formAgregarPaciente', function (event) {
             text: 'Esto puede tardar un rato, estamos configurando el proceso del paciente',
             showCancelButton: false, showConfirmButton: false,
             icon: 'info'
-
         })
 
         const data_json = {
@@ -344,6 +346,8 @@ function agregarFilaDiv(appendDiv, text, id) {
     $(appendDiv).append(html);
 }
 
+
+
 // Aun sin usar
 // Variable global para almacenar el total acumulado
 let totalAcumulado = 0;
@@ -366,98 +370,3 @@ select2("#select-labBio", "AgregarNuevoPaciente", 'Seleccione un estudio');
 select2("#paciente_existente", "AgregarNuevoPaciente", 'Cargando...');
 
 
-
-// |------------------------- Posicion entre paginas -------------------------|
-
-// Movilidad de tablet o paginacion
-let isAnimating = false;
-function updatePage($newPage, direction) {
-    const $currentVisiblePage = $('.page:visible');
-    const $prevButton = $('button.control-pagina-interpretacion[target="back"]')
-    const $nextButton = $('button.control-pagina-interpretacion[target="next"]')
-
-    //     // Verificar si es la última página
-    if ($newPage.is('.page:last')) {
-        $('.pagination-interpretacion').fadeIn(400);
-    } else {
-        $('.pagination-interpretacion').hide();
-    }
-    // });
-    if (!direction) {
-        $newPage.show();
-        $currentVisiblePage.hide();
-        return;
-    }
-
-    if (isAnimating) return;  // Si una animación está en curso, no hacemos nada
-
-    isAnimating = true;  // Establecer el semáforo a verdadero
-
-    if (direction === 'next') {
-        $currentVisiblePage.addClass('animate__animated animate__slideOutLeft');
-        $newPage.show().addClass('animate__animated animate__slideInRight');
-    } else if (direction === 'back') {
-        $currentVisiblePage.addClass('animate__animated animate__slideOutRight');
-        $newPage.show().addClass('animate__animated animate__slideInLeft');
-    }
-
-    $currentVisiblePage.one('animationend', function () {
-        $currentVisiblePage.removeClass('animate__animated animate__slideOutLeft animate__slideOutRight').hide();
-    });
-
-    $newPage.one('animationend', function () {
-        $newPage.removeClass('animate__animated animate__slideInRight animate__slideInLeft');
-        isAnimating = false;
-
-        // Determinar la página actual y ajustar la visibilidad de los botones
-        const isFirstPage = $newPage.is($('.page').first());
-        const isLastPage = $newPage.is($('.page').last());
-
-
-        $prevButton.attr('disabled', isFirstPage ? true : false)
-        $nextButton.attr('disabled', isLastPage ? true : false)
-    });
-}
-
-
-$(document).on('click', '.control-pagina-interpretacion', function (event) {
-    event.preventDefault();
-    event.stopPropagation();
-    const $btn = $(this);
-    const action = $btn.attr('target');
-    const $visiblePage = $('.page:visible');
-    console.log($visiblePage)
-    switch (action) {
-        case 'back':
-            const $prevPage = $visiblePage.prev('.page');
-            console.log($visiblePage.prev('.page'))
-            if ($prevPage.length) {
-                updatePage($prevPage, action);
-            }
-            break;
-        case 'next':
-            const $nextPage = $visiblePage.next('.page');
-            console.log($visiblePage.next('.page'))
-            if ($nextPage.length) {
-                updatePage($nextPage, action);
-            }
-            break;
-        default:
-            break;
-    }
-});
-
-
-
-// Inicializamos mostrando la primera página
-// updatePage($('.page').first());
-function restartPages() {
-    // Ocultar todas las páginas
-    $('.page').hide();
-
-    // Mostrar la primera página sin animación
-    $('.page').first().show();
-}
-
-// Llamar a esta función para reiniciar
-restartPages();
