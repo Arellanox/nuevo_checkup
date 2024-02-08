@@ -180,6 +180,11 @@ if (!empty($_SESSION['id'])){
         # vista principal maquila. la que tiene los resultados.
 
         $response = $master->getByProcedure('sp_maquilas_detalles_b', [$fecha]);
+        break;
+    case 7:
+        # recuperar el detalle de los lotes
+        $response = $master->getByProcedure('sp_maquilas_lotes_detalle_b', [$id_lote]);
+        break;
 
     default:
     $response = "Api no definida.";
