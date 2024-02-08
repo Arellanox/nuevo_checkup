@@ -22,18 +22,34 @@ $(document).on('click', '.btn-agregar_paciente', async function (event) {
 })
 
 
-
-// Abre el estado de los lotes
+// |------------------------- Lotes enviados -----------------------------|
+// Abre el modal de la vista de los lotes enviados
 $(document).on('click', '#btn-muestras_enviadas', async function (event) {
-    event.preventDefault();
-    event.stopPropagation();
+    event.preventDefault(); // Prevenimos los eventos
+    event.stopPropagation(); // Prevenimos la propagacion
 
-    // Configura y obten los datos antes de la tabla de lotes
+    alertToast('Espere un momento...', 'info') // Mandamos una pequeña alerta
+    TablaListaLotes.ajax.reload() //Recargamos la tabla de la lista de los lotes enviados
 
+    const modalListaLotesEnviados = document.getElementById("LotesEnviados"); // Declaramos una constante con el id del modal
 
-    // Una vez obtenido, abre el modal (esto desde el complete del ajax de la tabla)
+    // recarga el diseño de la tabla antes de que se llegue abirir el modal
+    modalListaLotesEnviados.addEventListener("show.bs.modal", (event) => {
+        setTimeout(() => {
+            $.fn.dataTable
+                .tables({
+                    visible: true,
+                    api: true
+                })
+                .columns.adjust();
+        }, 250);
+    });
+
+    // //Hacemos un retraso de un 1 segundo para que la tabla pueda recargar
+    setTimeout(() => {
+        $('#LotesEnviados').modal('show'); // Abrimos el modal una vez pasado el segundo de espera
+    }, 1000);
 })
-
 
 // Abre el estado de los lotes
 $(document).on('click', '#btn-envio_muestras', async function (event) {
@@ -46,4 +62,3 @@ $(document).on('click', '#btn-envio_muestras', async function (event) {
 
     // Una vez obtenido, abre el modal (esto desde el complete del ajax de la tabla)
 })
-

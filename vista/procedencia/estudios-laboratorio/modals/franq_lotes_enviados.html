@@ -1,0 +1,110 @@
+<div class="modal fade" id="LotesEnviados" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+    role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen modal-dialog-scrollable modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="temperaturaTitle">Lotes de pacientes</h5>
+                <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+            </div>
+            <div class="modal-body">
+                <div class="row" style="width: 100%;">
+
+                    <div class="col-12 col-xl-4 tab-first" id="tab-paciente" style="margin-right: -5px !important;">
+                        <div class="rounded p-3 shadow my-2" id="lista-pacientes">
+                            <h4>Lista de lotes</h4>
+                            <!-- <div class="text-center">
+                                <label for="inputBuscarTableListaNuevos">Buscar:</label>
+                                <input type="text" class="form-control input-color"
+                                    style="display: unset !important;width:auto !important"
+                                    name="inputBuscarTableListaNuevos" value="" style="width:80%" autocomplete="off"
+                                    id="BuscarTablaListaLaboratorio" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    title="Filtra la lista de pacientes">
+                            </div> -->
+                            <table class="table responsive" id="TablaListaLotes" style="width: 100%">
+                                <thead class="">
+                                    <tr>
+                                        <th scope="col d-flex justify-content-center" class="all">#</th>
+                                        <th scope="col d-flex justify-content-center" class="all">Folio</th>
+                                        <th scope="col d-flex justify-content-center" class="all">Estatus</th>
+                                        <th scope="col d-flex justify-content-center" class="none">Fecha registro</th>
+                                        <th scope="col d-flex justify-content-center" class="none">Registrado por</th>
+
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Datos del paciente -->
+
+                    <div class="col-12 col-xl-8 tab-second" id="tab-reporte"
+                        style="margin-right: -5px !important;display:none !important">
+
+                        <table class="table responsive" id="TablaDetalleLotes" style="width: 100%">
+                            <thead class="">
+                                <tr>
+                                    <th scope="col d-flex justify-content-center" class="all">#</th>
+                                    <th scope="col d-flex justify-content-center" class="all">Paciente</th>
+                                    <th scope="col d-flex justify-content-center" class="all">Folio</th>
+                                    <th scope="col d-flex justify-content-center" class="all">Fecha registro</th>
+                                    <th scope="col d-flex justify-content-center" class="all">Resultado</th>
+                                    <th scope="col d-flex justify-content-center" class="none">Registrado</th>
+                                    <th scope="col d-flex justify-content-center" class="none">Prefolio</th>
+
+                                    <!-- Tipo de muestra (a futuro) -->
+                                    <!-- <th scope="col d-flex justify-content-center" class="all"></th> -->
+
+
+                            </thead>
+                        </table>
+
+                        <!-- <div class="rounded p-3 shadow my-2" id="height-card-pdf">
+                            <div class="row">
+                                <div class="col-12 col-lg-7">
+                                    <h4>Resultado del paciente</h4>
+                                    <p class="none-p">Validación y envío del reporte al paciente o invalide el mismo
+                                        para poder
+                                        modificar nuevamente el resultado
+                                    </p>
+                                </div>
+                                <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center">
+                                    <button type="button" data-attribute="guardar" class="btn btn-hover"
+                                        style="margin-bottom:4px" id="btn-rechazar-resultado">
+                                        <i class="bi bi-clipboard2-pulse"></i> Invalidar
+                                    </button>
+                                    <button type="button" data-attribute="confirmar" class="btn btn-hover"
+                                        style="margin-bottom:4px" id="btn-confirmarenviar-resultado">
+                                        <i class="bi bi-clipboard2-pulse"></i> Validar
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="pdfviewer" style="height: 93%;">
+                                <div id="adobe-dc-view"></div>
+
+
+                            </div>
+                        </div> -->
+
+                    </div>
+
+
+                </div>
+            </div>
+
+            <!-- <table class="table table-hover display responsive" id="tablaPacientesFaltantes" style="width: 100%;">
+
+                </table> -->
+
+            <div class="modal-footer">
+                <!-- para guardar -->
+                <button type="button" class="btn-footers btn btn-cancelar" data-bs-dismiss="modal">
+                    <i class="bi bi-arrow-left-short"></i>
+                    Cancelar
+                </button>
+                <!-- <button type="button" class="btn-footers btn btn-confirmar">
+                    <i class="bi bi-person-fill-up"></i> Guardar
+                </button> -->
+
+            </div>
+        </div>
+    </div>
+</div>
