@@ -4,11 +4,21 @@ $(document).on('click', '.btn-agregar_paciente', async function (event) {
     event.preventDefault();
     event.stopPropagation();
 
+    // Avisamos que esta cargando datos
+    // Avisamos que esta cargando datos
+    alertMsj({
+        title: 'Por favor, espere',
+        text: 'Estamos actualizando la información con los últimos datos disponibles.',
+        showCancelButton: false, showConfirmButton: false,
+        icon: 'info'
+    })
+
+
     const type = $(this).attr('data-bs-type');
+    form_type = type; // <-- 1 agregar, 2 agendar
     tipoFormulario(type);
 
-    $('#AgregarNuevoPaciente').modal('show');
-    await getDataFirst(type);
+    getDataFirst(type);
 })
 
 

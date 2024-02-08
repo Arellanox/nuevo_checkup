@@ -25,14 +25,14 @@
                                             Nombre(s):
                                         </label>
                                         <input type="text" name="nombre" id="nombre-form-agregar" value=""
-                                            class="form-control input-form" required>
+                                            class="form-control input-form required_input_agregar_paciente" required>
                                     </div>
                                     <div class="col-6 col-lg-3 d-lg-flex flex-lg-row align-items-lg-center">
                                         <label for="paterno" class="form-label" style="padding-right: 25px;">
                                             Apellido paterno:
                                         </label>
                                         <input type="text" name="paterno" id="paterno-form-agregar" value=""
-                                            class="form-control input-form" required>
+                                            class="form-control input-form required_input_agregar_paciente" required>
                                     </div>
                                     <div class="col-6 col-lg-3 d-lg-flex flex-lg-row align-items-lg-center">
                                         <label for="materno" class="form-label" style="padding-right: 25px;">
@@ -54,11 +54,12 @@
 
                                     <!-- Edad del paciente -->
                                     <div class="col-6 col-lg-3 d-lg-flex flex-lg-row align-items-lg-center">
-                                        <label for="nacimiento" class="form-label" style="padding-right: 25px;">
+                                        <label for="fecha_nacimiento" class="form-label" style="padding-right: 25px;">
                                             Fecha de nacimiento
                                         </label>
-                                        <input type="date" class="form-control input-form" name="fecha_nacimiento"
-                                            id="nacimiento-form-agregar" placeholder="" required
+                                        <input type="date"
+                                            class="form-control input-form required_input_agregar_paciente"
+                                            name="fecha_nacimiento" id="nacimiento-form-agregar" placeholder="" required
                                             onchange="$(`input[class='form-control input-form edadPacienteRegistro']`).val(calcularEdad(this.value))">
                                     </div>
                                     <div class="col-6 col-lg-3 d-lg-flex flex-lg-row align-items-lg-center">
@@ -67,8 +68,8 @@
                                         </label>
                                         <div class="input-group">
                                             <input type="number" class="form-control input-form edadPacienteRegistro"
-                                                step="0.01" name="edad" id="edad-form-agregar" placeholder="" min="0"
-                                                max="150" required>
+                                                step="0.01" name="edad" id="edad-form-agregar" placeholder="0" min="0"
+                                                max="150">
                                             <span class="input-span">
                                                 años
                                             </span>
@@ -81,7 +82,8 @@
                                         <label for="curp" class="form-label" style="padding-right: 25px;">
                                             CURP
                                         </label>
-                                        <input type="text" class="form-control input-form" name="curp"
+                                        <input type="text"
+                                            class="form-control input-form required_input_agregar_paciente" name="curp"
                                             id="curp-form-agregar" placeholder="" required>
                                         <!-- <div class="form-check">
                                                                         <input class="form-check-input" type="checkbox" value="" id="checkCurpPasaporte">
@@ -98,8 +100,10 @@
                                         <label for="estado" class="form-label" style="padding-right: 25px;">
                                             SiHO-No. Cuenta:
                                         </label>
-                                        <input type="text" class="form-control input-form" name="siho_cuenta"
-                                            id="numero_cuenta-form-agregar" placeholder="Número de cuenta propia">
+                                        <input type="text"
+                                            class="form-control input-form required_input_agregar_paciente"
+                                            name="siho_cuenta" id="numero_cuenta-form-agregar"
+                                            placeholder="Número de cuenta propia">
                                     </div>
 
 
@@ -125,13 +129,15 @@
                                                     <label for="">Género: </label>
                                                 </div>
                                                 <div class="col">
-                                                    <input type="radio" id="mascuCues" name="genero" value="MASCULINO"
-                                                        required>
+                                                    <input type="radio" id="mascuCues"
+                                                        class="required_input_agregar_paciente" name="genero"
+                                                        value="MASCULINO" required>
                                                     <label for="mascuCues">Masculino</label>
                                                 </div>
                                                 <div class="col">
-                                                    <input type="radio" id="FemeCues" name="genero" value="FEMENINO"
-                                                        required>
+                                                    <input type="radio" id="FemeCues"
+                                                        class="required_input_agregar_paciente" name="genero"
+                                                        value="FEMENINO" required>
                                                     <label for="FemeCues">Femenino</label>
                                                 </div>
                                             </div>
@@ -145,13 +151,13 @@
                                                     <label for="">Tipo de solicitud: </label>
                                                 </div>
                                                 <div class="col">
-                                                    <input type="radio" id="tip_ordinario" name="tipo_solicitud" checked
-                                                        value="1" required>
+                                                    <input type="radio" id="tip_ordinario" name="tipo_solicitud"
+                                                        class="" value="1" required>
                                                     <label for="tip_ordinario">Ordinario</label>
                                                 </div>
                                                 <div class="col">
-                                                    <input type="radio" id="tip_urgente" name="tipo_solicitud" value="2"
-                                                        required>
+                                                    <input type="radio" id="tip_urgente" name="tipo_solicitud" class=""
+                                                        value="2" required>
                                                     <label for="tip_urgente">Urgente</label>
                                                 </div>
                                             </div>
@@ -267,8 +273,8 @@
                                                 class="label-promocionales_bimo">Sube tu
                                                 archivo arrastrándolo aquí</label>
 
-                                            <input type="file" id="promocionales_bimo" name="orden_medica[]"
-                                                style="display: none;">
+                                            <input type="file" class="required_input_agregar_paciente"
+                                                id="promocionales_bimo" name="orden_medica[]" style="display: none;">
                                             <br>
                                             <div class="spinner-border text-primary carga-promocionales_bimo"
                                                 role="status" style="display: none;">
@@ -326,7 +332,20 @@
                             <!-- Informacion de las muestras -->
                             <div class="pt-2 px-3">
                                 <div class="rounded p-3 shadow my-2">
-                                    <h5>Muestras:</h5>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h5>Muestras:</h5>
+                                        <div class="d-flex">
+                                            <form
+                                                class="form_guardarMuestra d-flex justify-content-start align-items-center">
+                                                <input type="date" name="fecha_toma" id="nombre-form-agregar" value=""
+                                                    class="form-control input-form me-2" required>
+                                                <button type="submit" class="btn btn-confirmar">
+                                                    <i class="bi bi-person-plus"></i> Tomar Muestra
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+
                                     <ul class="list-group overflow-auto" id="lista-estudios-paciente"
                                         style="max-width: 100%; max-height: 70vh;margin-bottom:10px;">
 

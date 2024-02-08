@@ -4,7 +4,7 @@ $(window).on("hashchange", function (e) {
 });
 
 // Variables globales
-let tablaPacientesFaltantes_inicio = false;
+let tablaPacientesFaltantes_inicio = false, form_type = 1;
 
 
 

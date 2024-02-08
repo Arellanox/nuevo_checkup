@@ -2,28 +2,42 @@
 // |------------------------- Información del paciente -------------------------|
 // Arma los datos y formulario
 async function getDataFirst(type) {
+    return new Promise(async function (resolve, reject) {
 
-    // Resetea el formulario
-    resetForm();
+        // Resetea el formulario
+        resetForm();
 
-    //Pruebas
-    await rellenarSelect("#select-labClinico", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
-        cliente_id: session['CLIENTE_ID'],
-        area_id: 6,
-    });
-    await rellenarSelect("#select-labBio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
-        cliente_id: session['CLIENTE_ID'],
-        area_id: 12,
-    });
-
-    if (type === '2') {
-        await rellenarSelect("#paciente_existente", "maquilas_api", 3, 'ID_SERVICIO', 'FOLIO.PACIENTE.SIHO_CUENTA.TIPO_SOLICITUD', {
-            cliente_id: session['id_cliente'], bit_solitudes: 1 //<--- para todos
+        //Pruebas a cargar
+        await rellenarSelect("#select-labClinico", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+            cliente_id: session['CLIENTE_ID'],
+            area_id: 6,
         });
-    } else {
-        console.log('Hola client')
-    }
-    return 1;
+        await rellenarSelect("#select-labBio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+            cliente_id: session['CLIENTE_ID'],
+            area_id: 12,
+        });
+
+        // Lista de pacientes para que busquen y seleccionen más facilmente
+        if (type === '2') {
+            await rellenarSelect("#paciente_existente", "maquilas_api", 3, 'PACIENTE_ID', 'FOLIO.PACIENTE.SIHO_CUENTA.TIPO_SOLICITUD', {
+                cliente_id: session['id_cliente']
+            });
+
+            $('#formAgregarPaciente .required_input_agregar_paciente').removeAttr('required')
+        } else {
+            $('#formAgregarPaciente input.required_input_agregar_paciente').attr('required', true)
+            console.log('Hola client')
+        }
+
+        // Proceso final para abrir modal y cerrar ventana de aviso
+        $('#AgregarNuevoPaciente').modal('show');
+        swal.close();
+
+        // Confirma que esta todo bien
+        resolve(1)
+
+    })
+
 }
 
 // Reinicia el formulario
@@ -58,7 +72,7 @@ function getListMuestras(idturno = null) {
                 // console.log(row[i]);
                 html += '<li class="list-group-item">';
                 html += row[i]['GRUPO'];
-                html += '<i class="bi bi-arrow-right-short"></i><strong>' + row[i]['MUESTRA'] + '</strong> - <strong>' + row[i]['CONTENEDOR'] + '</strong></li>';
+                html += '<i class="bi bi-arrow-right-short"></i><strong>' + row[i]['MUESTRA'] + '</strong> - <strong>' + row[i]['CONTENEDOR'] + '</strong> - <strong>' + row[i]['ENTREGA'] + '</strong></li>';
 
             }
             $('#lista-estudios-paciente').html(html);
@@ -94,13 +108,13 @@ function tipoFormulario(tipo) {
 }
 
 // Usa datos del formulario y lo muestra en muestras
-function muestrasInfoPaciente() {
+function muestrasInfoPaciente(data) {
     const nombre = `${$('#nombre-form-agregar').val()} ${$('#paterno-form-agregar').val()} ${$('#materno-form-agregar').val()}`
-    $('#nombre-paciente').html(nombre)
-    $('#fecha_de_nacimiento-paciente').html($('#nacimiento-form-agregar').val())
-    $('#edad-paciente').html($('#edad-form-agregar').val())
-    $('#curp-paciente').html($('#curp-form-agregar').val())
-    $('#numero_cuenta-paciente').html($('#numero_cuenta-form-agregar').val())
+    $('#nombre-paciente').html(ifnull(data, nombre, ['NOMBRE']))
+    $('#fecha_de_nacimiento-paciente').html(ifnull(data, $('#nacimiento-form-agregar').val(), ['NACIMIENTO']))
+    $('#edad-paciente').html(ifnull(data, $('#edad-form-agregar').val(), ['EDAD']))
+    $('#curp-paciente').html(ifnull(data, $('#curp-form-agregar').val(), ['CURP']))
+    $('#numero_cuenta-paciente').html(ifnull(data, $('#numero_cuenta-form-agregar').val(), ['CUENTA']))
 
     // Informacion de usuario
     $('#usuario-paciente').html(`${session.nombre} ${session.apellidos}`)
@@ -139,11 +153,11 @@ $(document).on('click', '#btn-etiquetas-pdf', function (e) {
 
     const btn = $(this)
     // Obtener URL para abrir
-    api = encodeURIComponent(window.btoa('laboratorio'));
-    area = encodeURIComponent(window.btoa(-1));
+    api = encodeURIComponent(window.btoa('etiquetas'));
+    // area = encodeURIComponent(window.btoa(-1));
     turno = encodeURIComponent(window.btoa(btn.attr('data-bs-turno_guardado')));
 
-    var win = window.open(`http://localhost/nuevo_checkup/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, '_blank')
+    var win = window.open(`http://localhost/nuevo_checkup/visualizar_reporte/?api=${api}&turno=${turno}`, '_blank')
 
     btnEstatus(3); // Abre el estado final para finalizar proceso
 })
@@ -182,6 +196,7 @@ $(document).on('submit', '#formAgregarPaciente', function (event) {
         confirmButtonText: 'Si, aceptar',
         cancelButtonText: 'No estoy seguro',
     }, () => {
+
         alertMsj({
             title: '¡Genial, espere un momento!',
             text: 'Esto puede tardar un rato, estamos configurando el proceso del paciente',
@@ -189,11 +204,19 @@ $(document).on('submit', '#formAgregarPaciente', function (event) {
             icon: 'info'
 
         })
-        // Envia fotos para guardarlo
-        ajaxAwaitFormData({
+
+        const data_json = {
             servicios: estudiosEnviar,
             api: 2,
-        }, 'maquilas_api', 'formAgregarPaciente', { callbackAfter: true }, false, async (data) => {
+        }
+
+        // Verificamos si estamos agregando un nuevo usuario o ya existente
+        if (form_type) {
+            data_json['id_paciente'] = $('#paciente_existente').val(); // <-- el que seleccionó el usuario
+        }
+
+        // Envia fotos para guardarlo
+        ajaxAwaitFormData(data_json, 'maquilas_api', 'formAgregarPaciente', { callbackAfter: true }, false, async (data) => {
 
             const row = data.response.data;
 
@@ -204,7 +227,7 @@ $(document).on('submit', '#formAgregarPaciente', function (event) {
             $('#folio-paciente').html(folio_empresa);
 
             // Muestra la información que se guardo en la base;
-            muestrasInfoPaciente(); // Muestra información del paciente
+            muestrasInfoPaciente(row); // Muestra información del paciente
 
             $('#btn-etiquetas-pdf').attr('data-bs-turno_guardado', turno)
 
@@ -219,6 +242,36 @@ $(document).on('submit', '#formAgregarPaciente', function (event) {
         })
     }, 1)
 })
+
+// Guardar muestra
+$(document).on('submit', '.form_guardarMuestra', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const form = $(this);
+    const botonGuardarMuestra = form.find('.btn-confirmar'); // Encuentra el botón dentro del formulario
+
+
+    alertMensajeConfirm({
+        title: '¿Está seguro de cargar correctamente la fecha de toma?',
+        text: 'No podrás modificarlo luego.',
+        icon: 'warning',
+    }, () => {
+        // Datos a enviar
+        const data_json = { api: 9, id_turno: turno };
+        ajaxAwaitFormData(data_json, 'maquilas_api', '', { callbackAfter: true, formJquery: form }, false, () => {
+            alertToast('¡Fecha de muestra guardada!', 'success', 4000)
+
+            // Cambiar el boton
+            botonGuardarMuestra.attr('disabled', true) // Deshabilita el botón para prevenir clics adicionales
+                .removeClass('btn-confirmar') // Opcional: remover la clase original si deseas
+                .addClass('btn-success') // Cambia a color verde
+                .html('<i class="bi bi-droplet-fill"></i> Muestra Tomada'); // Cambia el contenido del botón a "Muestra Tomada" y el ícono a una gota de agua llena
+        })
+    }, 1)
+
+})
+
 
 // |--------------------------------Agregar nuevo estudio---------------------------------------|
 
@@ -293,6 +346,7 @@ function actualizarTotal(id, servicios, sumar = true) {
 // Select2 
 select2("#select-labClinico", "AgregarNuevoPaciente", 'Seleccione un estudio');
 select2("#select-labBio", "AgregarNuevoPaciente", 'Seleccione un estudio');
+select2("#paciente_existente", "AgregarNuevoPaciente", 'Cargando...');
 
 
 
