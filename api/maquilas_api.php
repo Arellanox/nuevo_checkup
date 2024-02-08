@@ -37,6 +37,9 @@ $pacientes = $_POST['pacientes']; # array
 $cliente_id = $_POST['cliente_id'];
 $id_lote = $_POST['id_lote'];
 
+# vista principal maquila
+$fecha = $_POST['fecha'];
+
 if (!empty($_SESSION['id'])){
 
     switch($api){
@@ -172,6 +175,11 @@ if (!empty($_SESSION['id'])){
 
         $response = $master->getByProcedure('sp_maquilas_lotes_b', [$cliente_id, $id_lote]);
         break;
+
+    case 6:
+        # vista principal maquila. la que tiene los resultados.
+
+        $response = $master->getByProcedure('sp_maquilas_detalles_b', [$fecha]);
 
     default:
     $response = "Api no definida.";
