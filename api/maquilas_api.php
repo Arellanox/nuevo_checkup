@@ -31,6 +31,7 @@ $orden_medica = $_FILES['orden_medica'];
 $id_alta = $_POST['id_alta'];
 $id_turno = $_POST['id_turno'];
 $bit_solitudes = $_POST['bit_solitudes'];
+$fecha_toma = $_POST['fecha_toma'];
 
 $pacientes = $_POST['pacientes']; # array
 
@@ -40,162 +41,163 @@ $id_lote = $_POST['id_lote'];
 # vista principal maquila
 $fecha = $_POST['fecha'];
 
-if (!empty($_SESSION['id'])){
+if (!empty($_SESSION['id'])) {
 
-    switch($api){
+    switch ($api) {
         case 1:
             # Verificar que si el paciente que estan ingresando ya existe.
             $pacientes_existentes = $master->getByProcedure("sp_pacientes_b", [null, null, null, null]);
-            $paciente = strtolower($nombre.' '.$paterno.' '.$materno);
-            
-            
+            $paciente = strtolower($nombre . ' ' . $paterno . ' ' . $materno);
+
+
             $coincidencias = [];
-            foreach($pacientes_existentes as $paciente_existente){
-            $base = strtolower($paciente_existente['NOMBRE']. ' '.$paciente_existente['PATERNO']. ' ' .$paciente_existente['MATERNO']);
-            $baseTokens = explode(' ', $base);
-            $userTokens  = explode(' ', $paciente);
+            foreach ($pacientes_existentes as $paciente_existente) {
+                $base = strtolower($paciente_existente['NOMBRE'] . ' ' . $paciente_existente['PATERNO'] . ' ' . $paciente_existente['MATERNO']);
+                $baseTokens = explode(' ', $base);
+                $userTokens  = explode(' ', $paciente);
 
-            $matches = 0;
+                $matches = 0;
 
-            foreach($userTokens as $userToken) {
-                foreach($baseTokens as $baseToken) {
-                    if (levenshtein($userToken, $baseToken) <= 2) {
-                        $matches++;
-                        break;
+                foreach ($userTokens as $userToken) {
+                    foreach ($baseTokens as $baseToken) {
+                        if (levenshtein($userToken, $baseToken) <= 2) {
+                            $matches++;
+                            break;
+                        }
                     }
                 }
-            }
 
-            $score = $matches / count($userTokens);
-            
-            if ($score > 0.7) {
-                $coincidencias[] = $paciente_existente;
-            }
-        }
+                $score = $matches / count($userTokens);
 
-        $response = $coincidencias;
-
-        break;
-    case 2:
-        # Alta/registro paciente.
-
-        # si existe una sesion activa.
-        
-        if(!empty($_SESSION['id'])){
-            $servicios = explode(',', $servicios);
-
-            $resultset = $master->getByNext("sp_maquilas_alta_paciente",[
-                $id_paciente,
-                $nombre,
-                $paterno,
-                $materno,
-                $curp,
-                $fecha_nacimiento,
-                $edad,
-                $genero,
-                $area_encuentra,
-                $siho_cuenta,
-                $tipo,
-                json_encode($servicios),
-                $comentarios_orden,
-                $_SESSION['id'],
-                $orden_medica
-            ]);
-  
-            $count = 0;
-            $errores = array();
-            foreach($resultset as $current){
-                switch($count){
-                    case 0:
-                        # es el turno
-                        $id_turno = $current[0]['TURNO'];
-                        break;
-                    case 1:
-                        # es folio
-                        $folio = $current[0]['FOLIO'];
-                        break;
-                    case 2:
-                        # otros datos
-                        $nombre = $current[0]['NOMBRE'];
-                        $nacimiento = $current[0]['NACIMIENTO'];
-                        $edad = $current[0]['EDAD'];
-                        $curp = $current[0]['CURP'];
-                        $cuenta = $current[0]['CUENTA'];
-                    default:
-                        $errores[] = $current[0]['@mensaje'];
-                    break;
+                if ($score > 0.7) {
+                    $coincidencias[] = $paciente_existente;
                 }
-                $count++;
             }
-    
-            # subimos la orden medica al turno que acabmos de generar.
-            $dir = '../archivos/ordenes_medicas/'.$id_turno;
-            $r = $master->createDir($dir);
-            $orden = $master->guardarFiles($_FILES,'orden_medica',$dir, 'ORDEN_MEDICA_LABORATORIO_'.$id_turno);
-            $url = str_replace("../", $host, $orden[0]['url']);
-            
-            $ordenes = $master->insertByProcedure('sp_ordenes_medicas_g', [null, $id_turno, $url, $orden[0]['tipo'], 6]);
-            
-            $response = [
-                "ID_TURNO"  => $id_turno,
-                "FOLIO"     => $folio,
-                "NOMBRE"    => $nombre,
-                "NACIMIENTO"=> $nacimiento,
-                "EDAD"      => $edad,
-                "CURP"      => $curp, 
-                "CUENTA"    => $cuenta,
-                "ERRORES"   => $errores
-            ];
 
+            $response = $coincidencias;
 
-        } else {
-            $response = "Su sesión ha expirado. Regrese al login.";
-        }
-        
-        break;
-    case 3:
-        # recuperar solicitudes.
-        # que no esten dentro de un lote de envio.
+            break;
+        case 2:
+            # Alta/registro paciente.
 
-        #$bit_solicitudes: 0 es los que no tienen lote, 1 para los que si tienen lote
+            # si existe una sesion activa.
 
-        $response = $master->getByProcedure("sp_maquilas_altas_pacientes_b", [$id_alta, $id_turno, $bit_solitudes]);
-        break;
+            if (!empty($_SESSION['id'])) {
+                $servicios = explode(',', $servicios);
 
-    case 4:
-        # crear lotes para envio.
-        $pacientes = explode(',', $pacientes);
-        $response = $master->insertByProcedure("sp_maquilas_lotes_g", [
-            $pacientes,
-            $_SESSION['id']
-        ]);
-        break;
-    case 5:
-        # recuperar los lotes creados.
+                $resultset = $master->getByNext("sp_maquilas_alta_paciente", [
+                    $id_paciente,
+                    $nombre,
+                    $paterno,
+                    $materno,
+                    $curp,
+                    $fecha_nacimiento,
+                    $edad,
+                    $genero,
+                    $area_encuentra,
+                    $siho_cuenta,
+                    $tipo,
+                    json_encode($servicios),
+                    $comentarios_orden,
+                    $_SESSION['id'],
+                    $orden_medica
+                ]);
 
-        $response = $master->getByProcedure('sp_maquilas_lotes_b', [$cliente_id, $id_lote]);
-        break;
+                $count = 0;
+                $errores = array();
+                foreach ($resultset as $current) {
+                    switch ($count) {
+                        case 0:
+                            # es el turno
+                            $id_turno = $current[0]['TURNO'];
+                            break;
+                        case 1:
+                            # es folio
+                            $folio = $current[0]['FOLIO'];
+                            break;
+                        case 2:
+                            # otros datos
+                            $nombre = $current[0]['NOMBRE'];
+                            $nacimiento = $current[0]['NACIMIENTO'];
+                            $edad = $current[0]['EDAD'];
+                            $curp = $current[0]['CURP'];
+                            $cuenta = $current[0]['CUENTA'];
+                        default:
+                            $errores[] = $current[0]['@mensaje'];
+                            break;
+                    }
+                    $count++;
+                }
 
-    case 6:
-        # vista principal maquila. la que tiene los resultados.
+                # subimos la orden medica al turno que acabmos de generar.
+                $dir = '../archivos/ordenes_medicas/' . $id_turno;
+                $r = $master->createDir($dir);
+                $orden = $master->guardarFiles($_FILES, 'orden_medica', $dir, 'ORDEN_MEDICA_LABORATORIO_' . $id_turno);
+                $url = str_replace("../", $host, $orden[0]['url']);
 
-        $response = $master->getByProcedure('sp_maquilas_detalles_b', [$fecha, $_SESSION['CLIENTE_ID']]);
-        break;
-    case 7:
-        # recuperar el detalle de los lotes
-        $response = $master->getByProcedure('sp_maquilas_lotes_detalle_b', [$id_lote]);
-        break;
+                $ordenes = $master->insertByProcedure('sp_ordenes_medicas_g', [null, $id_turno, $url, $orden[0]['tipo'], 6]);
 
-    case 8:
-        # enviar lote de muestras
-        
-        break;
+                $response = [
+                    "ID_TURNO"  => $id_turno,
+                    "FOLIO"     => $folio,
+                    "NOMBRE"    => $nombre,
+                    "NACIMIENTO" => $nacimiento,
+                    "EDAD"      => $edad,
+                    "CURP"      => $curp,
+                    "CUENTA"    => $cuenta,
+                    "ERRORES"   => $errores
+                ];
+            } else {
+                $response = "Su sesión ha expirado. Regrese al login.";
+            }
 
-    default:
-    $response = "Api no definida.";
-}
+            break;
+        case 3:
+            # recuperar solicitudes.
+            # que no esten dentro de un lote de envio.
 
+            #$bit_solicitudes: 0 es los que no tienen lote, 1 para los que si tienen lote
 
+            $response = $master->getByProcedure("sp_maquilas_altas_pacientes_b", [$id_alta, $id_turno, $bit_solitudes]);
+            break;
+
+        case 4:
+            # crear lotes para envio.
+            $pacientes = explode(',', $pacientes);
+            $response = $master->insertByProcedure("sp_maquilas_lotes_g", [
+                $pacientes,
+                $_SESSION['id']
+            ]);
+            break;
+        case 5:
+            # recuperar los lotes creados.
+
+            $response = $master->getByProcedure('sp_maquilas_lotes_b', [$cliente_id, $id_lote]);
+            break;
+
+        case 6:
+            # vista principal maquila. la que tiene los resultados.
+
+            $response = $master->getByProcedure('sp_maquilas_detalles_b', [$fecha, $_SESSION['CLIENTE_ID']]);
+            break;
+        case 7:
+            # recuperar el detalle de los lotes
+            $response = $master->getByProcedure('sp_maquilas_lotes_detalle_b', [$id_lote]);
+            break;
+
+        case 8:
+            # enviar lote de muestras
+
+            break;
+
+        case 9:
+            #Actualizar el MUESTRA_TOMADA de la tabla maquilas_altas_pacientes
+            $response = $master->getByProcedure('sp_maquilas_altas_pacientes_a' ,[$fecha_toma, $id_alta]);
+
+            break;
+        default:
+            $response = "Api no definida.";
+    }
 } else {
     $response = "Su sesión ha expirado. Regrese al login.";
 }
