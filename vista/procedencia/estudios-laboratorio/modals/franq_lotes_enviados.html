@@ -11,23 +11,16 @@
 
                     <div class="col-12 col-xl-4 tab-first" id="tab-paciente" style="margin-right: -5px !important;">
                         <div class="rounded p-3 shadow my-2" id="lista-pacientes">
-                            <h4>Lista de lotes</h4>
-                            <!-- <div class="text-center">
-                                <label for="inputBuscarTableListaNuevos">Buscar:</label>
-                                <input type="text" class="form-control input-color"
-                                    style="display: unset !important;width:auto !important"
-                                    name="inputBuscarTableListaNuevos" value="" style="width:80%" autocomplete="off"
-                                    id="BuscarTablaListaLaboratorio" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                    title="Filtra la lista de pacientes">
-                            </div> -->
+                            <!-- <h4>Lista de lotes</h4> -->
+                            <p>Lista de Lotes disponibles</p>
                             <table class="table responsive" id="TablaListaLotes" style="width: 100%">
                                 <thead class="">
                                     <tr>
                                         <th scope="col d-flex justify-content-center" class="all">#</th>
                                         <th scope="col d-flex justify-content-center" class="all">Folio</th>
                                         <th scope="col d-flex justify-content-center" class="all">Estatus</th>
-                                        <th scope="col d-flex justify-content-center" class="none">Fecha registro</th>
-                                        <th scope="col d-flex justify-content-center" class="none">Registrado por</th>
+                                        <th scope="col d-flex justify-content-center" class="none">Fecha registro:</th>
+                                        <th scope="col d-flex justify-content-center" class="none">Registrado por: </th>
 
                                 </thead>
                             </table>
@@ -39,6 +32,7 @@
                     <div class="col-12 col-xl-8 tab-second" id="tab-reporte"
                         style="margin-right: -5px !important;display:none !important">
 
+                        <p>Lista de los pacientes que estan en el lote seleccionado</p>
                         <table class="table responsive" id="TablaDetalleLotes" style="width: 100%">
                             <thead class="">
                                 <tr>

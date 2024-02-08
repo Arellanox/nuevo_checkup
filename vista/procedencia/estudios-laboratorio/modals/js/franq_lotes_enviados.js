@@ -34,7 +34,23 @@ TablaListaLotes = $('#TablaListaLotes').DataTable({
                 return ifnull(data, 'N/A', true)
             }
         },
-        { data: 'REGISTRADO' },
+        {
+            data: 'REGISTRADO', render: function (data) {
+
+                const formattedDate = formatoFecha2(data, [0, 1, 5, 2, 2, 2, 0], null); {
+
+                    // Separar la fecha y la hora basado en la coma
+                    const parts = formattedDate.split(', ');
+                    const datePart = parts[0];
+                    const timePart = parts[1];
+
+                    // Retornar la fecha y la hora envueltas en spans con las clases correspondientes
+                    return `
+                            <span class="d-block">${datePart}</span>
+                            <span class="d-block">${timePart}</span>`;
+                }
+            }
+        },
         { data: 'USUARIO' },
     ],
     columnDefs: [
@@ -45,7 +61,7 @@ TablaListaLotes = $('#TablaListaLotes').DataTable({
 
 // input que busca en la tabla de listaLotes
 inputBusquedaTable('TablaListaLotes', TablaListaLotes, [{
-    msj: 'Los pacientes con muestras tomadas se visualizarán confirmados de color verde',
+    msj: 'Los lotes disponibles se podran vizualizar en esta lista',
     place: 'top'
 }], [], 'col-12')
 
@@ -112,7 +128,20 @@ TablaDetalleLotes = $('#TablaDetalleLotes').DataTable({
         { data: 'FOLIO' },
         {
             data: 'FECHA_REGISTRO', render: function (data) {
-                return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0])
+                // return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0])
+
+                const formattedDate = formatoFecha2(data, [0, 1, 5, 2, 2, 2, 0], null); {
+
+                    // Separar la fecha y la hora basado en la coma
+                    const parts = formattedDate.split(', ');
+                    const datePart = parts[0];
+                    const timePart = parts[1];
+
+                    // Retornar la fecha y la hora envueltas en spans con las clases correspondientes
+                    return `
+                        <span class="d-block">${datePart}</span>
+                        <span class="d-block">${timePart}</span>`;
+                }
             }
         },
         {
@@ -140,7 +169,7 @@ TablaDetalleLotes = $('#TablaDetalleLotes').DataTable({
 
 // input que busca en la tabla de TablaDetalleLotes
 inputBusquedaTable('TablaDetalleLotes', TablaDetalleLotes, [{
-    msj: 'Los pacientes con muestras tomadas se visualizarán confirmados de color verde',
+    msj: 'Los pacientes que esten dentro del lote seleccionado se podran vizualizar en esta tabla',
     place: 'top'
 }], [], 'col-12')
 
@@ -161,10 +190,3 @@ function vistapreviaPacienteLote() {
     btn.attr('href', `${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`)
 
 }
-
-
-
-
-
-
-
