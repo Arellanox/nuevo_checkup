@@ -410,7 +410,7 @@ function ifnull(data, siNull = '', values = [
   },
   'option4',
 ]) {
-
+  console.log(data)
   values = ((typeof values === 'object' && !Array.isArray(values)) || (typeof values === 'string'))
     ? [values]
     : values;
@@ -441,6 +441,13 @@ function ifnull(data, siNull = '', values = [
       return data;
     }
   }
+
+  for (const key in data) {
+    if (Object.hasOwnProperty.call(data, key)) {
+      return data;
+    }
+  }
+
   // Iterar a través de las claves en values
   for (const key of values) {
     if (typeof key === 'string' && key in data) {
@@ -2515,12 +2522,24 @@ function selectTable(tablename, datatable,
           selectTable_resetSelect(tr, false, true)
           //
 
-          //Desactivar otros tab
-          $(`.tab-select`).addClass('disabled')
+          if (config.multipleSelect) {
+            //Multiple Seleccion
+            //Hará el callback cada que seleccionan a uno nuevo
+            let row_length = datatable.rows('.selected').data().length
+            let data = datatable.rows('.selected').data()
 
-          //Regresa la funcion personalizada
-          callbackClick(0, null, callback, null, null);
-          //
+            callbackClick(row_length, data, null, null)
+
+          } else {
+
+
+            //Desactivar otros tab
+            $(`.tab-select`).addClass('disabled')
+
+            //Regresa la funcion personalizada
+            callbackClick(0, null, callback, null, null);
+            //
+          }
         } else if (selectTableClickCount === 2 && config.dblClick === true) {
           //Si esta haciendo dobleClick: 
           selectTableClickCount = 0;

@@ -8,6 +8,7 @@ EnvioLotesPacientes.addEventListener('show.bs.modal', event => {
             })
             .columns.adjust();
     }, 300);
+
 })
 
 
@@ -15,7 +16,7 @@ EnvioLotesPacientes.addEventListener('show.bs.modal', event => {
 // |----------------- Tabla 1 --------------------|
 
 // Detalles de datos a api
-let dataListaPaciente = { api: 3, id_cliente: session.id_cliente, bit_solitudes: 0 };
+let dataListaPaciente = { api: 3, id_cliente: session.id_cliente, bit_solitudes: 0, bit_muestras: 1 };
 tablaPacientesFaltantes = $('#tablaPacientesFaltantes').DataTable({
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
@@ -63,6 +64,7 @@ inputBusquedaTable('tablaPacientesFaltantes', tablaPacientesFaltantes, [], [], '
 
 let pacientesLeft = [];
 selectTable('#tablaPacientesFaltantes', tablaPacientesFaltantes, { unSelect: true, multipleSelect: true, divPadre: '#false' }, (select, dataRow, callback) => {
+    console.log(dataRow)
     pacientesLeft = dataRow
 })
 
@@ -107,6 +109,7 @@ inputBusquedaTable('TablaPacientesNewGrupo', TablaPacientesNewGrupo, [], [], 'co
 
 let pacientesNewGroup
 selectTable('#TablaPacientesNewGrupo', TablaPacientesNewGrupo, { unSelect: true, multipleSelect: true, divPadre: '#false' }, (select, dataRow, callback) => {
+
     pacientesNewGroup = dataRow
 })
 
@@ -117,7 +120,7 @@ selectTable('#TablaPacientesNewGrupo', TablaPacientesNewGrupo, { unSelect: true,
 // -------------------Crear lista en tabla 2 --------------------//
 
 $(document).on('click', '#AgregarPacientesGrupo', function () {
-    if (pacientesLeft.length) {
+    if (ifnull(pacientesLeft, 0, ['lenght'])) {
         removeRows(tablaPacientesFaltantes)
         insertRowTable(pacientesLeft, TablaPacientesNewGrupo)
         pacientesLeft = []
@@ -127,7 +130,7 @@ $(document).on('click', '#AgregarPacientesGrupo', function () {
 })
 
 $(document).on('click', '#QuitarPacientesGrupo', function () {
-    if (pacientesNewGroup.length) {
+    if (ifnull(pacientesNewGroup, 0, ['lenght'])) {
         removeRows(TablaPacientesNewGrupo)
         insertRowTable(pacientesNewGroup, tablaPacientesFaltantes)
         pacientesNewGroup = []
@@ -193,55 +196,90 @@ $(document).on('click', '#QuitarPacientesGrupo', function () {
 //     }
 // });
 
+// Paginacion
+$(document).on('click', '#envioLotes-beforeConfirm', function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    // Verificamos que existan pacientes
+    if (getPacientes(TablaPacientesNewGrupo).length) {
+        // Siguiente pagina
+        combinePages('page_control-envio_lotes', 1)
+        btnCambioPages(2)
+    } else {
+        alertToast('Ningún paciente ha sido selecionado', 'info', 4000);
+    }
+})
+
+$(document).on('click', '.page2-botons', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const btn = $(this);
+    let action = btn.attr('action');
+
+    switch (action) {
+        case 'rechazo':
+            // Siguiente pagina
+            combinePages('page_control-envio_lotes', 0)
+            btnCambioPages(1)
+            break;
+
+        case 'aceptar':
+            // Mandar alerta de que esta completamente seguro y colocar contraseña
+            alertPassConfirm({
+                title: 'Para seguir,  por favor confirme su contraseña a continuación',
+                icon: 'warning'
+            }, () => {
 
 
 
+                // envio de paquete a back
+                ajaxAwait({
+                    api: 4, pacientes: `${getPacientes(TablaPacientesNewGrupo, 1)}`
+                }, 'maquilas_api', { callbackAfter: true, callbackBefore: true },
+                    // Before del ajax
+                    () => {
+                        // Aviso antes de enviar
+                        alertMsj({
+                            title: '¡Genial, espere un momento!',
+                            text: 'Esto puede tardar un rato, estamos configurando el proceso del paciente',
+                            showCancelButton: false, showConfirmButton: false,
+                            icon: 'info'
 
-$(document).on('click', '#enviar_lotes_actuales', function (event) {
+                        })
+                    },
 
+                    //Success del ajax
+                    (data) => {
+                        // Datos
+                        swal.close();
 
-    alertMensajeConfirm({
-        title: '¿Está seguro de enviar este lote de pacientes?',
-        text: '¡No podrá revertir está acción!',
-        icon: 'warning'
-    }, () => {
+                        const row = data.response.data[0];
 
+                        // Suponiendo que llega asi:
+                        let url_reporte = row.RUTA_REPORTE;
+                        let folio = row.FOLIO
 
-        // 
-        ajaxAwait({
+                        $('#folio_de_solicitud_muestras').html(folio)
+                        $('#formato_de_envio').attr('href', url_reporte);
 
-        }, 'maquilas_api', { callbackAfter: true, callbackBefore: true },
-            // Before del ajax
-            () => {
-                // Aviso antes de enviar
-                alertMsj({
-                    title: '¡Genial, espere un momento!',
-                    text: 'Esto puede tardar un rato, estamos configurando el proceso del paciente',
-                    showCancelButton: false, showConfirmButton: false,
-                    icon: 'info'
-
-                })
-            },
-
-            //Success del ajax
-            (data) => {
-                // Datos
-                const row = data.response.data;
-
-                // Suponiendo que llega asi:
-                let url_reporte = row.FORMATO_LOTES;
+                        // Siguiente página para mostrarle formato cargado:
+                        combinePages('page_control-envio_lotes', 1) // Cambia de pagina
 
 
 
-
-
-                // Siguiente página para mostrarle formato cargado:
-                combinePages('page_control-envio_lotes', 1) // Cambia de pagina
-
-
+                    })
 
             })
-    }, 1)
+
+            break;
+
+        default:
+            break;
+    }
+
+
 })
 
 
@@ -249,7 +287,7 @@ $(document).on('click', '#enviar_lotes_actuales', function (event) {
 // | ------------------------ Funciones para las tablas ------------------------------|
 
 // Obtiene los pacientes de las tablas
-function getPacientes(dataTable) {
+function getPacientes(dataTable, type) {
     var valoresIDTurno = [];
 
     // Obtener los datos del DataTable sin importar si está filtrado
@@ -260,6 +298,9 @@ function getPacientes(dataTable) {
         var idTurno = row.ID_TURNO; // Reemplaza "ID_TURNO" con el nombre de la columna correspondiente en tu DataTable
         valoresIDTurno.push(idTurno);
     });
+
+    if (type)
+        return valoresIDTurno.join();
 
     return valoresIDTurno;
 }
@@ -311,10 +352,7 @@ function btnCambioPages(key) {
     $('.btn-footer_envioLote').prop('disabled', true);
 
     switch (key) {
-        case 1: $('.page1_envioLote').fadeIn(0).prop('disabled', false); break; // Primera pagina
-        case 2: $('.page2-envioLote').fadeIn(0).prop('disabled', false); break; // Segunda pagina
-        case 3: $('.page3-envioLote').fadeIn(0).prop('disabled', false); break; // Reinicio
-        case 4: $('.page3-envioLote, .pageFinal-envioLote').fadeIn(0).prop('disabled', false); break; // despues de aceptar
+        case 1: $('.btn-footer_envioLote').fadeIn(0).prop('disabled', false); break; // Primera pagina
     }
 }
 
