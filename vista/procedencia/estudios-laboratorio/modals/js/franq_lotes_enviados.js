@@ -73,13 +73,10 @@ selectTable('#TablaListaLotes', TablaListaLotes, { unSelect: true, movil: true, 
     //Si se selecciono alguno de los lotes enviados entonces...
     if (select == 1) {
 
+        //Se rellena la varuable para poder abrir la tabla de TablaDetalleLotes
         dataListaPacientesLotes = { api: 7, id_lote: selectListLote.ID_LOTE }
 
-        TablaDetalleLotes.ajax.reload()
-
-        //Mandamos a llamar la funcion que abrira la vista hacia la tabla de los pacientes de ese lote seleccionado
-        // listaPacientesEnviadosLotes(selectListLote)
-
+        TablaDetalleLotes.ajax.reload() // Recargamos la tabla cada vez que se seleecione un lote
 
         //Muestra las columnas
         callback('In')
@@ -89,15 +86,6 @@ selectTable('#TablaListaLotes', TablaListaLotes, { unSelect: true, movil: true, 
     }
 })
 
-// loaderDiv("Out", null, "#loader-muestras", '#loaderDivmuestras');
-// selectDatatable('tablaPacientesFaltantes', tablaPacientesFaltantes, 0, 0, 0, 0, function (selectTR = null, array = null) {
-
-// })
-
-
-// //new selectDatatable:
-
-// Funcion donde estara la la tabla de la lista de los pacientes enviados del lote seleccionado
 
 // |-------------------------------- Tabla de lista de lotes -----------------------------------------|
 TablaDetalleLotes = $('#TablaDetalleLotes').DataTable({
@@ -141,11 +129,10 @@ TablaDetalleLotes = $('#TablaDetalleLotes').DataTable({
         }
 },
         { data: 'FOLIO' },
-        { data: 'SIHO_CUENTA' }, // texto
-        { data: 'AREA_SE_ENCUENTRA' }, // texto
+        { data: 'SIHO_CUENTA' },
+        { data: 'AREA_SE_ENCUENTRA' },
         {
             data: 'FECHA_REGISTRO', render: function (data) {
-                // return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0])
 
                 const formattedDate = formatoFecha2(data, [0, 1, 5, 2, 2, 2, 0], null); {
 
@@ -206,6 +193,7 @@ inputBusquedaTable('TablaDetalleLotes', TablaDetalleLotes, [{
 }], [], 'col-12')
 
 
+// Funcio para que cada vez que selecciones un reporte se abra
 function vistapreviaPacienteLote() {
 
     var reportePaciente = $(this).data("id");
