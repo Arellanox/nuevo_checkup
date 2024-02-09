@@ -172,6 +172,7 @@ if (!empty($_SESSION['id'])) {
             $id_lote = $master->insertByProcedure("sp_maquilas_lotes_g", [
                 json_encode($pacientes),
                 $_SESSION['id']
+                
             ]);
 
             # si ocurreo algun error, nos salidmos del procedimiento
