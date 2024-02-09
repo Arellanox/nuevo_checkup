@@ -41,6 +41,7 @@ $id_lote = $_POST['id_lote'];
 
 # vista principal maquila
 $fecha = $_POST['fecha'];
+$bit_muestras  = $_POST['bit_muestras'; # 0 los que no 1 lo que si tienen muestas tomadas
 
 if (!empty($_SESSION['id'])) {
 
@@ -159,17 +160,33 @@ if (!empty($_SESSION['id'])) {
 
             #$bit_solicitudes: 0 es los que no tienen lote, 1 para los que si tienen lote
 
-            $response = $master->getByProcedure("sp_maquilas_altas_pacientes_b", [$id_alta, $id_turno, $bit_solitudes]);
+            $response = $master->getByProcedure("sp_maquilas_altas_pacientes_b", [$id_alta, $id_turno, $bit_solitudes, $bit_muestras]);
             $response = $master->decodeJsonRecursively($response);
             break;
 
         case 4:
             # crear lotes para envio.
             $pacientes = explode(',', $pacientes);
-            $response = $master->insertByProcedure("sp_maquilas_lotes_g", [
+            $id_lote = $master->insertByProcedure("sp_maquilas_lotes_g", [
                 $pacientes,
                 $_SESSION['id']
             ]);
+
+            # si ocurreo algun error, nos salidmos del procedimiento
+            if(!is_numeric($id_lote)){
+                break;
+            }
+
+            # de lo contrario, continuamos con el procedimiento.
+
+            # crear el reporte y guardarlo en la tabla.
+
+            $url = $master->reportador($master, $id_lote, -6, "envio_muestras");
+            $responseUpdate = $master->updateByProcedure("sp_reportes_actualizar_ruta", ['maquilas_lotes', "RUTA_REPORTE", $url, $id_lote, null]);
+
+            $response = $master->getByProcedure("sp_maquilas_lotes_b", [null , $id_lote]);
+            # folio
+            # ruta del reporte
             break;
         case 5:
             # recuperar los lotes creados.
@@ -190,15 +207,11 @@ if (!empty($_SESSION['id'])) {
             break;
 
         case 8:
-            # enviar lote de muestras
+            # enviar lote
+
             # cambiar el estado del lote a enviado.
             $response = $master->updateByProcedure("sp_maquilas_enviar_lote", [$id_lote]);
-
-            # crear el reporte y guardarlo en la tabla.
-            if(!is_numeric($response)){
-                $url = $master->reportador($master, $id_lote, -6, "envio_muestras");
-                $response = $master->updateByProcedure("sp_reportes_actualizar_ruta", ['maquilas_lotes', "RUTA_REPORTE", $url, $id_lote, null]);
-            }
+          
             break;
 
         case 9:
