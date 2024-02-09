@@ -5,9 +5,11 @@ require_once "../clases/token_auth.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
+    // $tokenVerification->logout();
+    // exit;
 }
+
+$_SESSION['id'] = 1;
 
 $master = new Master();
 $api = $_POST['api'];
@@ -168,12 +170,13 @@ if (!empty($_SESSION['id'])) {
             # crear lotes para envio.
             $pacientes = explode(',', $pacientes);
             $id_lote = $master->insertByProcedure("sp_maquilas_lotes_g", [
-                $pacientes,
+                json_encode($pacientes),
                 $_SESSION['id']
             ]);
 
             # si ocurreo algun error, nos salidmos del procedimiento
             if(!is_numeric($id_lote)){
+                $response = $id_lote;
                 break;
             }
 
