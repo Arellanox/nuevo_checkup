@@ -442,12 +442,6 @@ function ifnull(data, siNull = '', values = [
     }
   }
 
-  for (const key in data) {
-    if (Object.hasOwnProperty.call(data, key)) {
-      return data;
-    }
-  }
-
   // Iterar a través de las claves en values
   for (const key of values) {
     if (typeof key === 'string' && key in data) {
@@ -464,6 +458,12 @@ function ifnull(data, siNull = '', values = [
     }
   }
 
+  // Verifica si el objeto esta lleno
+  for (const key in data) {
+    if (Object.hasOwnProperty.call(data, key)) {
+      return data;
+    }
+  }
 
   return siNull;
 }

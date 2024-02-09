@@ -194,7 +194,7 @@ if (
 <?php endif; ?>
 
 
-<?php //if ($_SESSION['vista']['ESTUDIOS_CALIDAD_EXCEL'] == 1) : 
+<?php if ($_SESSION['vista']['FRANQUISIAS'] == 1) : 
 ?>
 <li class="nav-item Recepción">
     <div class="dropdown ">
@@ -218,7 +218,7 @@ if (
         </div>
     </div>
 </li>
-<?php //endif; 
+<?php endif; 
 ?>
 
 <?php if ($_SESSION['perfil'] == 1) : ?>

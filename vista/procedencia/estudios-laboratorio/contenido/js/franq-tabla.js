@@ -10,7 +10,7 @@ tablaPacientes = $('#tablaPacientes').DataTable({
     scrollCollapse: true,
     ajax: {
         dataType: 'json',
-        data: { api: 3, cliente_id: session['id_cliente'] },
+        data: { api: 6 },
         method: 'POST',
         url: `${http}${servidor}/${appname}/api/maquilas_api.php`,
         complete: function () {
