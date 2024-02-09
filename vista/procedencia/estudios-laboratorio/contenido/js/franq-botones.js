@@ -58,9 +58,18 @@ $(document).on('click', '#btn-envio_muestras', async function (event) {
     event.preventDefault();
     event.stopPropagation();
     // tablaPacientesFaltantes_inicio = true
-    $('#EnvioLotesPacientes').modal('show');
+
+    restartPages('page_control-envio_lotes')
+    btnCambioPages(1)
+    $('#folio_de_solicitud_muestras').html('')
+    $('#formato_de_envio').attr('href', '#SinRellenar');
+
+
     // Configura y obten los datos antes de la tabla de lotes
     tablaPacientesFaltantes.ajax.reload();
 
+    // alertToast('')
+
+    $('#EnvioLotesPacientes').modal('show');
     // Una vez obtenido, abre el modal (esto desde el complete del ajax de la tabla)
 })
