@@ -1,0 +1,85 @@
+<div class="modal fade" id="modalCriteriosRechazo" tabindex="-1" data-bs-backdrop="static" role="dialog"
+    aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- <h5 class="modal-title" id="temperaturaTitle">Lotes de pacientes</h5> -->
+                <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+            </div>
+            <div class="modal-body">
+
+                <!-- Criterios de rechazo -->
+                <div class="rounded p-3 shadow my-2">
+                    <h3 style="color: red;"><strong>Importante: Criterios de rechazo</strong></h3>
+                    <p style="font-size: 18px;">
+                        <strong>Al llegar las muestras al laboratorio, estas serán revisadas por el personal de
+                            recepción
+                            de muestras y pueden ser rechazadas por los siguientes motivos:</strong>
+                    </p>
+
+                    <ol style="margin-top: -5px; padding: 6px" class="motivosCriterios">
+                        <li>Despertar</li>
+                        <li>Cepillarse los dientes</li>
+                        <li>Desayunar</li>
+                    </ol>
+
+                    <p style="text-align: center; font-size: 18px; margin-top: 19px; margin-bottom: 25px;"><strong>He
+                            leído los Criterios y estoy de acuerdo.</strong></p>
+
+                    <div class="row">
+                        <div class="col-6 centrar-botones">
+                            <button type="button" class="btn btn-cancelar">
+                                <i class="bi bi-x-square"></i>
+                                No estoy de acuerdo
+                            </button>
+                        </div>
+                        <div class="col-6 centrar-botones">
+                            <button type="button" class="btn btn-warning">
+                                <i class="bi bi-check-circle"></i>
+                                Sí
+                            </button>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <!-- para guardar -->
+                <!-- <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
+                    <i class="bi bi-arrow-left-short"></i>
+                    Cerrar
+                </button> -->
+
+                <!-- <button type="button" class="btn-footers btn btn-confirmar">
+                    <i class="bi bi-person-fill-up"></i> Guardar
+                </button> -->
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .motivosCriterios li {
+        margin: 10px;
+        font-size: 16px;
+    }
+
+    .centrar-botones {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .centrar-botones button {
+        font-size: 18px;
+    }
+</style>
