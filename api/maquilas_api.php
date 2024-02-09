@@ -13,7 +13,7 @@ $master = new Master();
 $api = $_POST['api'];
 $host = $master->selectHost($_SERVER['SERVER_NAME']);
 
-$id_paciente = $_POST['id_paciente'];
+$id_paciente = $_POST['id_paciente'] == 'null' ? null : $_POST['id_paciente'];
 $nombre = $_POST['nombre'];
 $paterno = $_POST['paterno'];
 $materno = $_POST['materno'];
