@@ -41,7 +41,7 @@ $id_lote = $_POST['id_lote'];
 
 # vista principal maquila
 $fecha = $_POST['fecha'];
-$bit_muestras  = $_POST['bit_muestras'; # 0 los que no 1 lo que si tienen muestas tomadas
+$bit_muestras  = $_POST['bit_muestras']; # 0 los que no 1 lo que si tienen muestas tomadas
 
 if (!empty($_SESSION['id'])) {
 
