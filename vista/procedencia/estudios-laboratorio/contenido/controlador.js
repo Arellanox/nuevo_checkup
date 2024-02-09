@@ -1,7 +1,14 @@
-hasLocation();
-$(window).on("hashchange", function (e) {
+if (validarVista(hash)) {
     hasLocation();
-});
+    obtenerContenido()
+
+    $(window).on("hashchange", function (e) {
+        hasLocation();
+    });
+}
+
+
+
 
 // Variables globales
 let tablaPacientesFaltantes_inicio = false, form_type = 1;
@@ -9,7 +16,8 @@ let TablaListaLotes
 
 
 
-obtenerContenido()
+
+// 
 // var datapacientes = { api: 1 }
 function obtenerContenido() {
     obtenerTitulo('Principal | Maquila'); //Aqui mandar el nombre de la area
