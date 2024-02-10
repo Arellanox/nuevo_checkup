@@ -27,13 +27,13 @@ tablaPacientes = $('#tablaPacientes').DataTable({
 
     columns: [
         { data: 'COUNT' }, // texto
-        { data: 'PACIENTE' }, // texto
+        { data: 'NOMBRE' }, // texto
         { data: 'EDAD' }, // texto
         { data: 'SIHO_CUENTA' }, // texto
         { data: 'FOLIO' }, // texto
         {
-            data: 'TIPO_SOLICITUD', render: function (data, type, row, meta) {
-                switch (row.TIPO_SOLICITUD_ID) {
+            data: 'DESCRIPCION_SOLICITUD', render: function (data, type, row, meta) {
+                switch (row.TIPO_SOLICITUD) {
                     case "1":
                         // Ordinario
                         return `<span class="badge text-bg-info">${data}</span>`; break;
@@ -54,7 +54,7 @@ tablaPacientes = $('#tablaPacientes').DataTable({
             }
         }, // Registro (formato)
 
-        { data: 'USUARIO' }, // texto
+        { data: 'QUIEN_REGISTRA' }, // texto
         {
             data: 'FECHA_TOMA_MUESTRA', render: function (data) {
                 // return 1;
@@ -89,7 +89,7 @@ tablaPacientes = $('#tablaPacientes').DataTable({
                 var buttons = [];
 
                 // Asegurarse de que 'data' es un array antes de intentar usar 'length'
-                if (ifnull(data)) {
+                if (data[0]) {
                     // Recorrer cada reporte en los datos
                     for (const key in data) {
                         if (Object.hasOwnProperty.call(data, key)) {
@@ -112,7 +112,21 @@ tablaPacientes = $('#tablaPacientes').DataTable({
                 return '<div class="d-flex justify-content-start align-items-center">' + buttons.join(' ') + '</div>';
             }
         }, // botones 
-        { data: 'ORDEN_MEDICA', }, // boton
+        {
+            data: 'ORDEN_MEDICA', render: function (data) {
+                // Inicializar un arreglo vacío para contener nuestros botones
+                var buttons = [];
+
+                buttons.push(
+                    '<a href="' + data + '" target="_blank" class="btn btn-borrar me-2">' +
+                    '<i class="bi bi-file-earmark-pdf-fill"></i>' +
+                    '</a>'
+                );
+
+                // Unir todos los botones con un espacio y devolver la cadena HTML
+                return '<div class="d-flex justify-content-start align-items-center">' + buttons.join(' ') + '</div>';
+            }
+        }, // boton
         { data: 'COMENTARIO_ORDEN_MEDICA' }, // texto
 
     ],
@@ -140,12 +154,14 @@ inputBusquedaTable('tablaPacientes', tablaPacientes, [], false, 'col-12')
 
 
 selectTable('#tablaPacientes', tablaPacientes, {
-    onlyData: false,
+    onlyData: true,
     ClickClass: [
         {
             class: 'btn_tomar_muestra',
             callback: function (data) {
                 turno = data.ID_TURNO
+                $('#form_toma_muestra_tablet').val('');
+
                 $('#ModaltomarMuestra').modal('show');
             },
             selected: false
