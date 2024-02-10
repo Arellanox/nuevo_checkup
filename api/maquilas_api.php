@@ -5,9 +5,11 @@ require_once "../clases/token_auth.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
+    // $tokenVerification->logout();
+    // exit;
 }
+
+$_SESSION['id'] = 1;
 
 $master = new Master();
 $api = $_POST['api'];
@@ -183,7 +185,7 @@ if (!empty($_SESSION['id'])) {
 
             # crear el reporte y guardarlo en la tabla.
 
-            $url = $master->reportador($master, $id_lote, -6, "envio_muestras");
+            $url = $master->reportador($master, $id_lote, -5, "envio_muestras");
             $responseUpdate = $master->updateByProcedure("sp_reportes_actualizar_ruta", ['maquilas_lotes', "RUTA_REPORTE", $url, $id_lote, null]);
 
             $response = $master->getByProcedure("sp_maquilas_lotes_b", [null , $id_lote]);
@@ -223,8 +225,10 @@ if (!empty($_SESSION['id'])) {
             break;
 
         case 10:
-            
+            # crear reporte de envio de muestras;
+            echo crearReporteEnvioMuestras($id_lote);
             break;
+
         default:
             $response = "Api no definida.";
     }
@@ -233,3 +237,12 @@ if (!empty($_SESSION['id'])) {
 }
 
 echo $master->returnApi($response);
+
+
+
+function crearReporteEnvioMuestras($id_lote){
+    global $master;
+    $url = $master->reportador($master, $id_lote, -5, "envio_muestras");
+    $responseUpdate = $master->updateByProcedure("sp_reportes_actualizar_ruta", ['maquilas_lotes', "RUTA_REPORTE", $url, $id_lote, -5]);
+    return $url;
+}

@@ -1,5 +1,8 @@
 <html>
+<?php
 
+
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -341,6 +344,7 @@ $encode_firma = base64_encode($ruta_firma);
         // $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
 
         include 'includes/footer_envioMuestras.php';
+
         ?>
     </div>
 
@@ -363,51 +367,23 @@ $encode_firma = base64_encode($ruta_firma);
                 </thead>
                 <tbody>
                     <?php
-                        foreach ($resultados->DETALLE as $item):
+                        
+                        foreach ((array)$resultados->DETALLE as $item){
                     ?>
                         <tr>
-                        <td class="small-width"><?php echo $item['COUNT']; ?></td>
-                        <td><?php echo $item['PACIENTE']; ?></td>
-                        <td class="muestra-width"><?php echo $item['NACIMIENTO']; ?></td>
-                        <td class="small-width"><?php echo $item['EDAD']; ?></td>
-                        <td><?php echo $item['SEXO']; ?></td>
-                        <td class="muestra-width"><?php echo $item['MUESTRA']; ?></td>
-                        <td><?php echo $item['FECHA_TOMA']; ?></td>
-                        <td><?php echo $item['ESTUDIOS']; ?></td>
+                        <td class="small-width"><?php echo $item->COUNT ?></td>
+                        <td><?php echo $item->PACIENTE; ?></td>
+                        <td class="muestra-width"><?php echo $item->NACIMIENTO; ?></td>
+                        <td class="small-width"><?php echo $item->EDAD; ?></td>
+                        <td><?php echo $item->SEXO; ?></td>
+                        <td class="muestra-width"><?php echo $item->MUESTRA; ?></td>
+                        <td><?php echo $item->FECHA_TOMA; ?></td>
+                        <td><?php echo $item->ESTUDIOS; ?></td>
                     </tr>
                     <?php
-                        endforeach;
+                        }
+                    
                     ?>
-                    <!-- <tr>
-                        <td class="small-width"><?php echo $item[''] ?></td>
-                        <td>Juan Esteban Pérez González</td>
-                        <td class="muestra-width">15/02/1985</td>
-                        <td class="small-width">39</td>
-                        <td>Masculino</td>
-                        <td class="muestra-width">Sangre</td>
-                        <td>07/02/2024</td>
-                        <td>Hemograma Completo</td>
-                    </tr>
-                    <tr>
-                        <td class="small-width">2</td>
-                        <td>Maria Antonieta López Miranda</td>
-                        <td class="muestra-width">22/07/1992</td>
-                        <td class="small-width">31</td>
-                        <td>Femenino</td>
-                        <td class="muestra-width">Orina</td>
-                        <td>06/02/2024</td>
-                        <td>Análisis de Orina</td>
-                    </tr>
-                    <tr>
-                        <td class="small-width">3</td>
-                        <td>Carlos Alberto Ruiz Fernández</td>
-                        <td>04/11/1978</td>
-                        <td class="small-width">45</td>
-                        <td>Masculino</td>
-                        <td class="muestra-width">Biopsia de Piel</td>
-                        <td>05/02/2024</td>
-                        <td>Biopsia Cutánea</td>
-                    </tr> -->
                 </tbody>
             </table>
         </div>

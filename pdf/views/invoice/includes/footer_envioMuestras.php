@@ -60,13 +60,13 @@
         <!-- <td class="input-vacio"></td> -->
 
         <td class="input-field">
-            <span class="content-above-line">Angel Pérez</span>
+            <span class="content-above-line"><?php echo $resultados->RESPONSABLE_ENVIO  ?></span>
         </td>
         <td class="input-field">
-            <span class="content-above-line">1234567890</span>
+            <span class="content-above-line"><?php echo $resultados->TELEFONO ?></span>
         </td>
         <td class="input-field">
-            <span class="content-above-line">Firma aquí</span>
+            <span class="content-above-line"></span>
         </td>
 
     </tr>
@@ -86,19 +86,19 @@
         <td class="titulo">Responsable de la recepción:</td>
         <!-- <td class="input-vacio"></td> -->
         <td class="input-field medium-padding">
-            <span class="content-above-line">Luis Gerardo Cuevas González</span>
+            <span class="content-above-line"><?php echo $resultados->RESPONSABLE_RECEPCION; ?></span>
         </td>
         <td class="input-field small-padding">
-            <span class="content-above-line">1234567890</span>
+            <span class="content-above-line"><?php echo $resultados->TELEFONO_RECEPCION; ?></span>
         </td>
         <td class="input-field small-padding">
-            <span class="content-above-line">Fecha</span>
+            <span class="content-above-line"><?php echo $resultados->FECHA_RECEPCION; ?></span>
         </td>
         <td class="input-field small-padding">
-            <span class="content-above-line">Hora</span>
+            <span class="content-above-line"><?php echo $resultados->HORA_RECEPCION; ?></span>
         </td>
         <td class="input-field">
-            <span class="content-above-line">Firma aquí</span>
+            <span class="content-above-line"></span>
         </td>
     </tr>
     <tr>
