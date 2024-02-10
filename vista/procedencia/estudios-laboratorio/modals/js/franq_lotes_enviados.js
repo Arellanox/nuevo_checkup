@@ -49,6 +49,21 @@ TablaListaLotes = $('#TablaListaLotes').DataTable({
             }
         },
         {
+            data: 'RUTA_REPORTE', render: (data) => {
+                // Inicializar un arreglo vacío para contener nuestros botones
+                var buttons = [];
+
+                buttons.push(
+                    '<a href="' + data + '" target="_blank" class="btn btn-borrar me-2">' +
+                    '<i class="bi bi-file-earmark-pdf-fill"></i>' +
+                    '</a>'
+                );
+
+                // Unir todos los botones con un espacio y devolver la cadena HTML
+                return '<div class="d-flex justify-content-start align-items-center">' + buttons.join(' ') + '</div>';
+            }
+        },
+        {
             data: 'REGISTRADO', render: function (data) {
 
                 const formattedDate = formatoFecha2(data, [0, 1, 5, 2, 2, 2, 0], null); {
@@ -68,7 +83,7 @@ TablaListaLotes = $('#TablaListaLotes').DataTable({
         { data: 'USUARIO' },
     ],
     columnDefs: [
-        { "width": "10px", "targets": 0 },
+        { "width": "10px", "targets": [0, 3] },
     ],
 
 })

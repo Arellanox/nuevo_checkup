@@ -132,7 +132,7 @@ if (!empty($_SESSION['id'])) {
                 }
 
                 # subimos la orden medica al turno que acabmos de generar.
-                $dir = '../archivos/ordenes_medicas/' . $id_turno.'/';
+                $dir = '../archivos/ordenes_medicas/' . $id_turno . '/';
                 $r = $master->createDir($dir);
                 $orden = $master->guardarFiles($_FILES, 'orden_medica', $dir, 'ORDEN_MEDICA_LABORATORIO_' . $id_turno);
                 $url = str_replace("../", $host, $orden[0]['url']);
@@ -174,7 +174,7 @@ if (!empty($_SESSION['id'])) {
             ]);
 
             # si ocurreo algun error, nos salidmos del procedimiento
-            if(!is_numeric($id_lote)){
+            if (!is_numeric($id_lote)) {
                 $response = $id_lote;
                 break;
             }
@@ -184,9 +184,9 @@ if (!empty($_SESSION['id'])) {
             # crear el reporte y guardarlo en la tabla.
 
             $url = $master->reportador($master, $id_lote, -5, "envio_muestras");
-            $responseUpdate = $master->updateByProcedure("sp_reportes_actualizar_ruta", ['maquilas_lotes', "RUTA_REPORTE", $url, $id_lote, null]);
+            $responseUpdate = $master->updateByProcedure("sp_reportes_actualizar_ruta", ['maquilas_lotes', "RUTA_REPORTE", $url, $id_lote, -5]);
 
-            $response = $master->getByProcedure("sp_maquilas_lotes_b", [null , $id_lote]);
+            $response = $master->getByProcedure("sp_maquilas_lotes_b", [null, $id_lote]);
             # folio
             # ruta del reporte
             break;
@@ -213,12 +213,12 @@ if (!empty($_SESSION['id'])) {
 
             # cambiar el estado del lote a enviado.
             $response = $master->updateByProcedure("sp_maquilas_enviar_lote", [$id_lote]);
-          
+
             break;
 
         case 9:
             #Actualizar el MUESTRA_TOMADA de la tabla maquilas_altas_pacientes
-            $response = $master->getByProcedure('sp_maquilas_altas_pacientes_a' ,[$fecha_toma, $id_turno, $_SESSION['id']]);
+            $response = $master->getByProcedure('sp_maquilas_altas_pacientes_a', [$fecha_toma, $id_turno, $_SESSION['id']]);
 
             break;
 
@@ -238,7 +238,8 @@ echo $master->returnApi($response);
 
 
 
-function crearReporteEnvioMuestras($id_lote){
+function crearReporteEnvioMuestras($id_lote)
+{
     global $master;
     $url = $master->reportador($master, $id_lote, -5, "envio_muestras");
     $responseUpdate = $master->updateByProcedure("sp_reportes_actualizar_ruta", ['maquilas_lotes', "RUTA_REPORTE", $url, $id_lote, -5]);

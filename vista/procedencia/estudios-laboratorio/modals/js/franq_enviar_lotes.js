@@ -157,7 +157,7 @@ $(document).on('click', '#envioLotes-beforeConfirm', function (event) {
 // Cierra el modal cuando ya haya enviado el envio ya este al final
 $(document).on('click', '#procesoFinal_aceptar-enviarLote', function (event) {
     event.preventDefault();
-    $('#EnvioLotesPacientes').modal('hidden');
+    $('#EnvioLotesPacientes').modal('hide');
 })
 
 $(document).on('click', '.page2-botons', function (e) {

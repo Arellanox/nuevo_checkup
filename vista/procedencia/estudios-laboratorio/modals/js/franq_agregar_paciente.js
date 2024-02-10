@@ -157,6 +157,18 @@ $(document).on('click', '.btn-cerrar_modal', function (event) {
     }
 })
 
+// Reinicias el formulario
+$(document).on('click', '#reset-agregarPaciente', function (event) {
+    event.preventDefault();
+
+    // Reiniciamos formulario
+    resetForm();
+
+    // Regresamos a primera vista
+    restartPages('page_control-agregar_paciente');
+
+})
+
 
 // Obtener las etiquetas del paciente
 $(document).on('click', '#btn-etiquetas-pdf', function (e) {
@@ -204,6 +216,10 @@ $(document).on('submit', '#formAgregarPaciente', function (event) {
     if (estudiosEnviar.length < 1) {
         alertToast('Recuerde cargar los estudios del paciente', 'info', 4000)
         return false;
+    }
+
+    if ($('#input_ordenMedica').val()) {
+        alertToast('¡No olvide cargar la orden médica!', 'info', 4000)
     }
 
     alertMensajeConfirm({

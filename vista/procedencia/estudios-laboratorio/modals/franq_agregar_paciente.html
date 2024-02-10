@@ -76,7 +76,7 @@
 
                                             <!-- Edad del paciente -->
                                             <div
-                                                class="col-12 col-md-6 col-xl-4 d-lg-flex flex-lg-row align-items-lg-center">
+                                                class="col-12 col-md-6 col-xl-5 d-lg-flex flex-lg-row align-items-lg-center">
                                                 <label for="fecha_nacimiento" class="form-label"
                                                     style="padding-right: 25px;">
                                                     Fecha de nacimiento
@@ -88,7 +88,7 @@
                                                     onchange="$(`input[class='form-control input-form edadPacienteRegistro']`).val(calcularEdad(this.value))">
                                             </div>
                                             <div
-                                                class="col-12 col-md-6 col-xl-4 d-lg-flex flex-lg-row align-items-lg-center">
+                                                class="col-12 col-md-6 col-xl-3 d-lg-flex flex-lg-row align-items-lg-center">
                                                 <label for="edad" class="form-label" style="padding-right: 25px;">
                                                     Edad
                                                 </label>
@@ -164,14 +164,14 @@
                                             <p>Carga o arrastra la orden médica aqui</p>
                                             <div class="d-flex flex-column align-items-center pt-3 px-4">
                                                 <div id="dropPromocionalesBimo" class="drop-zone mx-2">
-                                                    <label for="promocionales_bimo" style="cursor: pointer;"
-                                                        class="label-promocionales_bimo">Sube tu
+                                                    <label for="input_ordenMedica" style="cursor: pointer;"
+                                                        class="label-input_ordenMedica">Sube tu
                                                         archivo arrastrándolo aquí</label>
 
-                                                    <input type="file" class="" id="promocionales_bimo"
+                                                    <input type="file" class="" id="input_ordenMedica"
                                                         name="orden_medica[]" style="display: none;">
                                                     <br>
-                                                    <div class="spinner-border text-primary carga-promocionales_bimo"
+                                                    <div class="spinner-border text-primary carga-input_ordenMedica"
                                                         role="status" style="display: none;">
                                                         <span class="visually-hidden">Loading...</span>
                                                     </div>
