@@ -33,7 +33,10 @@
 <table style="color: #054d60">
     <tbody>
         <tr>
-            <td class="col-right" style="border-bottom: none; padding-left: 156%;">
+            <td class="col-two-left" style="border-bottom: none;">
+                <br>
+            </td>
+            <td class="col-two-right" style="border-bottom: none; text-align:right;padding-bottom: 20px; padding-top: 20px">
                 <p> Folio: <strong style="font-size: 13px;"><?php echo $resultados->FOLIO; ?> </strong></p>
             </td>
         </tr>
@@ -43,7 +46,7 @@
                 <p> Unidad Solicitante: <strong style="font-size: 13px;"> <?php echo $resultados->UNIDAD_SOLICITANTE; ?> </strong></p>
             </td>
             <td class="col-two-right" style="border-bottom: none;">
-                <p> Fecha de Recolección o Envío de Muestras: <strong style="font-size: 13px; border-bottom: 1px solid black;"><?php echo $resultados->FECHA_ENVIO; ?></strong></p>
+                <p> Fecha de Recolección o Envío de Muestras: <strong style="font-size: 13px;"><?php echo $resultados->FECHA_ENVIO; ?></strong></p>
             </td>
 
         </tr>
