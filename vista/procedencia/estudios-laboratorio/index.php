@@ -3,7 +3,7 @@
 //Variables dinamicas;
 session_start();
 include "../../variables.php";
-$menu = "franquisias";
+$menu = "FRANQUICIAS";
 ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">

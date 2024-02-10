@@ -2461,10 +2461,12 @@ function selectTable(tablename, datatable,
 
     // let td = $(event.target).is('td')
 
-    // if (config.alwaySelected) {
-    //   datatable.$('tr.selected').removeClass('selected');
-    //   $(tr).addClass('selected');
-    // }
+    // Verifica si el clic se hizo en un enlace o dentro de un enlace
+    if ($(event.target).closest('a').length) {
+      // Si el clic fue dentro de un enlace, simplemente sal de la función.
+      // Esto permitirá que el comportamiento predeterminado del enlace se ejecute sin interferencias.
+      return;
+    }
 
 
     //Evalua si el objeto es correcto a su click
@@ -2501,11 +2503,11 @@ function selectTable(tablename, datatable,
     array_selected = row.data();
 
     selectTableClickCount++;
-    console.log(tablename)
+
     if ($(tr).hasClass('selected')) {
 
       clearTimeout(selectTableTimeOutClick)
-      console.log(selectTableClickCount)
+
 
       selectTableTimeOutClick = setTimeout(function () {
         if (selectTableClickCount === 1 && config.unSelect === true) {

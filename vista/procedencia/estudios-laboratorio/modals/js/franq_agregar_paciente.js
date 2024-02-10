@@ -24,7 +24,7 @@ async function getDataFirst(type) {
 
         // Lista de pacientes para que busquen y seleccionen más facilmente
         if (type === '2') {
-            await rellenarSelect("#paciente_existente", "maquilas_api", 6, 'PACIENTE_ID', 'FOLIO.PACIENTE.SIHO_CUENTA.TIPO_SOLICITUD');
+            await rellenarSelect("#paciente_existente", "maquilas_api", 6, 'PACIENTE_ID', 'FOLIO.NOMBRE.SIHO_CUENTA.TIPO_SOLICITUD');
 
             $('#formAgregarPaciente .required_input_agregar_paciente').removeAttr('required')
         } else {
@@ -201,6 +201,10 @@ let turno;
 $(document).on('submit', '#formAgregarPaciente', function (event) {
     event.preventDefault();
     event.stopPropagation();
+    if (estudiosEnviar.length < 1) {
+        alertToast('Recuerde cargar los estudios del paciente', 'info', 4000)
+        return false;
+    }
 
     alertMensajeConfirm({
         title: '¿Está seguro de cargar este nuevo paciente y sus estudios?',

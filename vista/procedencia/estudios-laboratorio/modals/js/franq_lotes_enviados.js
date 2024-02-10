@@ -1,3 +1,17 @@
+const modalListaLotesEnviados = document.getElementById("LotesEnviados"); // Declaramos una constante con el id del modal
+// recarga el diseño de la tabla antes de que se llegue abirir el modal
+modalListaLotesEnviados.addEventListener("show.bs.modal", (event) => {
+    setTimeout(() => {
+        $.fn.dataTable
+            .tables({
+                visible: true,
+                api: true
+            })
+            .columns.adjust();
+    }, 250);
+});
+
+
 // |------------------------------- Variables -------------------------------------------------------|
 let dataListaLotes = { api: 5, id_cliente: session.id_cliente }; //data de lista de lotes
 let dataListaPacientesLotes, selectListLote //data de lista de pacientes del lote seleccionado
@@ -126,8 +140,8 @@ TablaDetalleLotes = $('#TablaDetalleLotes').DataTable({
                     default:
                         return ''; break;
                 }
-        }
-},
+            }
+        },
         { data: 'FOLIO' },
         { data: 'SIHO_CUENTA' },
         { data: 'AREA_SE_ENCUENTRA' },

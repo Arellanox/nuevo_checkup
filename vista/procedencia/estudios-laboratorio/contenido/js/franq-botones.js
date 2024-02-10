@@ -33,19 +33,6 @@ $(document).on('click', '#btn-muestras_enviadas', async function (event) {
     alertToast('Espere un momento...', 'info') // Mandamos una pequeña alerta
     TablaListaLotes.ajax.reload() //Recargamos la tabla de la lista de los lotes enviados
 
-    const modalListaLotesEnviados = document.getElementById("LotesEnviados"); // Declaramos una constante con el id del modal
-
-    // recarga el diseño de la tabla antes de que se llegue abirir el modal
-    modalListaLotesEnviados.addEventListener("show.bs.modal", (event) => {
-        setTimeout(() => {
-            $.fn.dataTable
-                .tables({
-                    visible: true,
-                    api: true
-                })
-                .columns.adjust();
-        }, 250);
-    });
 
     // //Hacemos un retraso de un 1 segundo para que la tabla pueda recargar
     setTimeout(() => {
@@ -67,6 +54,8 @@ $(document).on('click', '#btn-envio_muestras', async function (event) {
 
     // Configura y obten los datos antes de la tabla de lotes
     tablaPacientesFaltantes.ajax.reload();
+    TablaPacientesNewGrupo.clear().draw();
+
 
     // alertToast('')
 

@@ -119,6 +119,7 @@ selectTable('#TablaPacientesNewGrupo', TablaPacientesNewGrupo, { unSelect: true,
 
 // -------------------Crear lista en tabla 2 --------------------//
 
+// Agrega un nuevo paciente
 $(document).on('click', '#AgregarPacientesGrupo', function () {
     if (ifnull(pacientesLeft, 0, ['lenght'])) {
         removeRows(tablaPacientesFaltantes)
@@ -129,6 +130,7 @@ $(document).on('click', '#AgregarPacientesGrupo', function () {
     }
 })
 
+// Elimina y regresa un paciente a la lista principal
 $(document).on('click', '#QuitarPacientesGrupo', function () {
     if (ifnull(pacientesNewGroup, 0, ['lenght'])) {
         removeRows(TablaPacientesNewGrupo)
@@ -137,66 +139,7 @@ $(document).on('click', '#QuitarPacientesGrupo', function () {
     }
 })
 
-
-
-// Trabajé de más en esto cuando me di cuenta que Angel iba hacer el aviso, gracias angel por darme cuenta que estaba mal.
-
-// // Paginacion para las paginas
-// $(document).on('click', '.control_pagina-envioLotes', function (event) {
-//     event.preventDefault();
-//     event.stopPropagation();
-
-//     // Boton
-//     const $btn = $(this);
-//     const action = $btn.attr('target');
-
-//     let last_page = 0; // Sin configurar
-
-//     const callback = (config, last_page) => {
-//         // Obten la pagina visible actual
-//         const page_actual = parseInt(config.page_visible.attr('page'))
-
-//         console.log(page_actual, last_page);
-
-//         // Cambia dinamicamente los botones
-//         if (last_page != page_actual) {
-//             let botones_mostrar = btnCambioPages + 1;
-//             btnCambioPages(botones_mostrar)
-//         }
-//     }
-
-
-//     switch (action) {
-//         case 'back':
-//             last_page = 1 // Primera pagina
-//             combinePages('page_control-envio_lotes', 0,
-//                 // cuando cambia de pagina
-//                 () => {
-
-//                 },
-//                 (config) => {
-//                     callback(config, last_page)
-//                 }
-//             )
-//             break;
-//         case 'next':
-//             last_page = 3 // Ultima pagina
-//             combinePages('page_control-envio_lotes', 1,
-//                 // cuando cambia de pagina
-//                 () => {
-
-//                 },
-//                 (config) => {
-//                     callback(config, last_page)
-//                 }
-//             )
-//             break;
-//         default:
-//             break;
-//     }
-// });
-
-// Paginacion
+// Paginacion, envia a la pagina de advertencia
 $(document).on('click', '#envioLotes-beforeConfirm', function (event) {
     event.preventDefault();
     event.stopPropagation();
@@ -209,6 +152,12 @@ $(document).on('click', '#envioLotes-beforeConfirm', function (event) {
     } else {
         alertToast('Ningún paciente ha sido selecionado', 'info', 4000);
     }
+})
+
+// Cierra el modal cuando ya haya enviado el envio ya este al final
+$(document).on('click', '#procesoFinal_aceptar-enviarLote', function (event) {
+    event.preventDefault();
+    $('#EnvioLotesPacientes').modal('hidden');
 })
 
 $(document).on('click', '.page2-botons', function (e) {

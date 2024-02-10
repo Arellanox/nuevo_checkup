@@ -1,4 +1,4 @@
-if (validarVista(hash)) {
+if (validarVista('FRANQUICIAS')) {
     hasLocation();
     obtenerContenido()
 
