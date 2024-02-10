@@ -183,7 +183,7 @@ TablaDetalleLotes = $('#TablaDetalleLotes').DataTable({
                 var buttons = [];
 
                 // Asegurarse de que 'data' es un array antes de intentar usar 'length'
-                if (ifnull(data)) {
+                if (data[0]) {
                     // Recorrer cada reporte en los datos
                     for (const key in data) {
                         if (Object.hasOwnProperty.call(data, key)) {
