@@ -83,6 +83,30 @@ tablaPacientes = $('#tablaPacientes').DataTable({
 
         { data: 'TOMADOR_MUESTRA' }, // texto
         {
+            dat: "ID_TURNO", render: function (data) {
+
+                // Obtener URL para abrir
+                api = encodeURIComponent(window.btoa('etiquetas'));
+                // Obtener turno para abrir
+                data = encodeURIComponent(window.btoa(data));
+
+                url = `http://localhost/nuevo_checkup/visualizar_reporte/?api=${api}&turno=${data}`
+
+                // Inicializar un arreglo vacío para contener nuestros botones
+                var buttons = [];
+
+                buttons.push(
+                    '<a href="' + url + '" target="_blank" class="btn btn-borrar me-2">' +
+                    '<i class="bi bi-file-earmark-pdf-fill"></i> Etiquetas de laboratorio' +
+                    '</a>'
+                );
+
+
+                return '<div class="d-flex justify-content-start align-items-center">' + buttons.join(' ') + '</div>';
+
+            }
+        },
+        {
             data: 'REPORTES',
             render: function (data) {
                 // Inicializar un arreglo vacío para contener nuestros botones
@@ -119,7 +143,7 @@ tablaPacientes = $('#tablaPacientes').DataTable({
 
                 buttons.push(
                     '<a href="' + data + '" target="_blank" class="btn btn-borrar me-2">' +
-                    '<i class="bi bi-file-earmark-pdf-fill"></i>' +
+                    '<i class="bi bi-file-earmark-pdf-fill"></i> Orden Médica Cargada' +
                     '</a>'
                 );
 
@@ -142,9 +166,10 @@ tablaPacientes = $('#tablaPacientes').DataTable({
         { "targets": 8, "className": "none", "title": "Quién registro" }, // USUARIO
         { "targets": 9, "className": "all", "title": "Muestra" }, // Muestra (Color rojo sin tomar muestra - colocar fecha o Capturar muestra (modal))
         { "targets": 10, "className": "none", "title": "Muestra Tomado por" }, // ¿quien tomo la muestra?
-        { "targets": 11, "className": "all", "title": "Resultado" }, // Resultados (Clinico y Biomolecular [PDF])
-        { "targets": 12, "className": "none", "title": "Orden médica" }, // Orden médica (boton)
-        { "targets": 13, "className": "none", "title": "Comentarios" } // Comentarios de la orden médica
+        { "targets": 11, "className": "none", "title": "Etiquetas" },
+        { "targets": 12, "className": "all", "title": "Resultado" }, // Resultados (Clinico y Biomolecular [PDF])
+        { "targets": 13, "className": "none", "title": "Orden médica" }, // Orden médica (boton)
+        { "targets": 14, "className": "none", "title": "Comentarios" } // Comentarios de la orden médica
     ]
 
 })
