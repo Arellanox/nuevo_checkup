@@ -65,7 +65,7 @@ const opcionesContenedor = [
   { value: '6', text: "TUBO VERDE" },
   { value: '7', text: "TRANSCULT" },
   { value: '8', text: "TUBO AMARILLO" },
-  { value: '9', text: "MEDIO DE TRANSPORTE VIRAL" },
+  { value: '9', text: "MEDIO DE TRANSPORTE UNIVERSAL" },
   { value: '10', text: "PAPEL FILTRO PARA TAMIZ" },
   { value: '11', text: "FECAL SWAP" }
 ];
