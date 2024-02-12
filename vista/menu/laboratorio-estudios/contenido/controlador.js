@@ -87,7 +87,9 @@ const opcionesMuestra = [
   { value: '15', text: 'Colonia Bacteriana' },
   { value: '16', text: 'Plasma EDTA' },
   { value: '17', text: 'Sangre Total con EDTA' },
-  { value: '18', text: 'L.C.R.' }
+  { value: '18', text: 'L.C.R.' },
+  { value: '19', text: 'Biopsia' },
+  { value: '20', text: 'Líquido de lavado Bronquioalveolar' }
 ];
 
 
