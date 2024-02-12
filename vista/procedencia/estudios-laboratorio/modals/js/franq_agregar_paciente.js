@@ -14,11 +14,11 @@ async function getDataFirst(type) {
 
         //Pruebas a cargar
         await rellenarSelect("#select-labClinico", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
-            cliente_id: session['CLIENTE_ID'],
+            cliente_id: session['id_cliente'],
             area_id: 6,
         });
         await rellenarSelect("#select-labBio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
-            cliente_id: session['CLIENTE_ID'],
+            cliente_id: session['id_cliente'],
             area_id: 12,
         });
 
