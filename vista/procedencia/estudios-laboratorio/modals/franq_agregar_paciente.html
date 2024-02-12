@@ -43,7 +43,8 @@
                                                 </label>
                                                 <input type="text" name="nombre" id="nombre-form-agregar" value=""
                                                     class="form-control input-form required_input_agregar_paciente"
-                                                    required oninput="this.value = this.value.toUpperCase()">
+                                                    required oninput="this.value = this.value.toUpperCase()"
+                                                    autocomplete="off">
                                             </div>
                                             <div
                                                 class="col-12 col-md-6 col-xl-4 d-lg-flex flex-lg-row align-items-lg-center">
@@ -52,7 +53,8 @@
                                                 </label>
                                                 <input type="text" name="paterno" id="paterno-form-agregar" value=""
                                                     class="form-control input-form required_input_agregar_paciente"
-                                                    required oninput="this.value = this.value.toUpperCase()">
+                                                    required oninput="this.value = this.value.toUpperCase()"
+                                                    autocomplete="off">
                                             </div>
                                             <div
                                                 class="col-12 col-md-6 col-xl-4 d-lg-flex flex-lg-row align-items-lg-center">
@@ -61,7 +63,7 @@
                                                 </label>
                                                 <input type="text" name="materno" value="" id="materno-form-agregar"
                                                     class="form-control input-form"
-                                                    oninput="this.value = this.value.toUpperCase()">
+                                                    oninput="this.value = this.value.toUpperCase()" autocomplete="off">
                                             </div>
 
                                             <!-- Area donde pertenece -->
@@ -72,7 +74,7 @@
                                                 </label>
                                                 <input type="text" name="area_encuentra" value=""
                                                     class="form-control input-form"
-                                                    oninput="this.value = this.value.toUpperCase()">
+                                                    oninput="this.value = this.value.toUpperCase()" autocomplete="off">
                                             </div>
 
 
@@ -86,7 +88,8 @@
                                                 <input type="date"
                                                     class="form-control input-form required_input_agregar_paciente"
                                                     name="fecha_nacimiento" id="nacimiento-form-agregar" required
-                                                    onchange="$(`#edad-form-agregar`).val(calcularEdad(this.value))">
+                                                    onchange="$(`#edad-form-agregar`).val(calcularEdad(this.value))"
+                                                    autocomplete="off">
                                             </div>
                                             <div
                                                 class="col-12 col-md-6 col-xl-3 d-lg-flex flex-lg-row align-items-lg-center">
@@ -114,7 +117,7 @@
                                                 <input type="text"
                                                     class="form-control input-form required_input_agregar_paciente"
                                                     name="curp" id="curp-form-agregar" placeholder="" required
-                                                    oninput="this.value = this.value.toUpperCase()">
+                                                    oninput="this.value = this.value.toUpperCase()" autocomplete="off">
                                                 <!-- <div class="form-check">
                                                                                                                                                                                                                     <input class="form-check-input" type="checkbox" value="" id="checkCurpPasaporte">
                                                                                                                                                                                                                     <label class="form-check-label" for="checkCurpPasaporte">
@@ -134,7 +137,7 @@
                                                 <input type="text"
                                                     class="form-control input-form required_input_agregar_paciente"
                                                     name="siho_cuenta" id="numero_cuenta-form-agregar"
-                                                    placeholder="No. Cuenta">
+                                                    placeholder="No. Cuenta" autocomplete="off">
                                             </div>
 
                                             <div class="col-12 py-3 form_control_type agregar_paciente_form">
