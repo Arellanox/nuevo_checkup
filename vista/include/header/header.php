@@ -243,7 +243,7 @@ switch ($menu) {
                       <i class="bi bi-tag-fill"></i> Promociones
                     </a>
 
-                    <?php if ($menu != 'procedencia' && $SESSION['id_cliente'] == 1 && $_SESSION['cargo'] != 21) { ?>
+                    <?php if ($menu != 'procedencia' && $_SESSION['id_cliente'] == 1 && $_SESSION['cargo'] != 21) { ?>
                       <div class="profile-description text-center">
                         <a href="<?php echo $_SESSION['newsletter']['button_usuario']['url'] ?>" target="_blank" class="a-hover"><i class="bi bi-newspaper"></i> <?php echo $_SESSION['newsletter']['button_usuario']['tittle_button'] ?></a>
                       </div>

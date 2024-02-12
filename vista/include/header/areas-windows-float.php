@@ -1,9 +1,14 @@
-<li class="nav-item">
-    <a href="<?php echo "$https$url/$appname/vista/menu/principal";
-                /*echo $https . $url . '/' . /$appname . '/vista/menu/principal/';*/ ?>">
-        <i class="bi bi-window"></i> Menú principal
-    </a>
-</li>
+<?php
+if (
+    $menu != 'Recepción' && $_SESSION['cargo'] == 1
+) : ?>
+    <li class="nav-item">
+        <a href="<?php echo "$https$url/$appname/vista/menu/principal";
+                    /*echo $https . $url . '/' . /$appname . '/vista/menu/principal/';*/ ?>">
+            <i class="bi bi-window"></i> Menú principal
+        </a>
+    </li>
+<?php endif; ?>
 
 <?php
 if (
