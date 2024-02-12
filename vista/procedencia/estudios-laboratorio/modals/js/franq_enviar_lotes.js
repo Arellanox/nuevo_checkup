@@ -64,7 +64,10 @@ tablaPacientesFaltantes = $('#tablaPacientesFaltantes').DataTable({
 
 })
 
-inputBusquedaTable('tablaPacientesFaltantes', tablaPacientesFaltantes, [], [], 'col-12')
+inputBusquedaTable('tablaPacientesFaltantes', tablaPacientesFaltantes, [{
+    msj: 'Filtrará los pacientes con su toma de muestra tomada',
+    place: 'top'
+}], [], 'col-12')
 
 let pacientesLeft = [];
 selectTable('#tablaPacientesFaltantes', tablaPacientesFaltantes, { unSelect: true, multipleSelect: true, divPadre: '#false' }, (select, dataRow, callback) => {
