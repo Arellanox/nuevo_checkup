@@ -98,17 +98,22 @@ inputBusquedaTable('TablaListaLotes', TablaListaLotes, [{
 selectTable('#TablaListaLotes', TablaListaLotes, { unSelect: true, movil: true, reload: ['col-xl-9'] }, async function (select, data, callback) {
     selectListLote = data; //Recupera los todos los datos del lote seleecionado
 
+    // Intentamos limpiar la tabla
+    TablaDetalleLotes.clear().draw()
 
     //Si se selecciono alguno de los lotes enviados entonces...
     if (select == 1) {
 
         //Se rellena la varuable para poder abrir la tabla de TablaDetalleLotes
         dataListaPacientesLotes = { api: 7, id_lote: selectListLote.ID_LOTE }
-
+        TablaDetalleLotes.clear().draw()
         TablaDetalleLotes.ajax.reload() // Recargamos la tabla cada vez que se seleecione un lote
 
-        //Muestra las columnas
-        callback('In')
+        // Esperamos la carga de la tabla lo que podamos
+        setTimeout(() => {
+            //Muestra las columnas
+            callback('In')
+        }, 350);
     }
     else {
         callback('Out')

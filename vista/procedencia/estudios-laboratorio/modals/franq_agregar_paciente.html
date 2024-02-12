@@ -43,7 +43,7 @@
                                                 </label>
                                                 <input type="text" name="nombre" id="nombre-form-agregar" value=""
                                                     class="form-control input-form required_input_agregar_paciente"
-                                                    required>
+                                                    required oninput="this.value = this.value.toUpperCase()">
                                             </div>
                                             <div
                                                 class="col-12 col-md-6 col-xl-4 d-lg-flex flex-lg-row align-items-lg-center">
@@ -52,7 +52,7 @@
                                                 </label>
                                                 <input type="text" name="paterno" id="paterno-form-agregar" value=""
                                                     class="form-control input-form required_input_agregar_paciente"
-                                                    required>
+                                                    required oninput="this.value = this.value.toUpperCase()">
                                             </div>
                                             <div
                                                 class="col-12 col-md-6 col-xl-4 d-lg-flex flex-lg-row align-items-lg-center">
@@ -60,7 +60,8 @@
                                                     Apellido materno:
                                                 </label>
                                                 <input type="text" name="materno" value="" id="materno-form-agregar"
-                                                    class="form-control input-form">
+                                                    class="form-control input-form"
+                                                    oninput="this.value = this.value.toUpperCase()">
                                             </div>
 
                                             <!-- Area donde pertenece -->
@@ -70,7 +71,8 @@
                                                     Área:
                                                 </label>
                                                 <input type="text" name="area_encuentra" value=""
-                                                    class="form-control input-form">
+                                                    class="form-control input-form"
+                                                    oninput="this.value = this.value.toUpperCase()">
                                             </div>
 
 
@@ -83,9 +85,8 @@
                                                 </label>
                                                 <input type="date"
                                                     class="form-control input-form required_input_agregar_paciente"
-                                                    name="fecha_nacimiento" id="nacimiento-form-agregar" placeholder=""
-                                                    required
-                                                    onchange="$(`input[class='form-control input-form edadPacienteRegistro']`).val(calcularEdad(this.value))">
+                                                    name="fecha_nacimiento" id="nacimiento-form-agregar" required
+                                                    onchange="$(`#edad-form-agregar`).val(calcularEdad(this.value))">
                                             </div>
                                             <div
                                                 class="col-12 col-md-6 col-xl-3 d-lg-flex flex-lg-row align-items-lg-center">
@@ -96,7 +97,7 @@
                                                     <input type="number"
                                                         class="form-control input-form edadPacienteRegistro px-2"
                                                         step="0.01" name="edad" id="edad-form-agregar" placeholder="0"
-                                                        min="0" max="150">
+                                                        min="0" max="150" disabled>
                                                     <span class="input-span">
                                                         años
                                                     </span>
@@ -112,7 +113,8 @@
                                                 </label>
                                                 <input type="text"
                                                     class="form-control input-form required_input_agregar_paciente"
-                                                    name="curp" id="curp-form-agregar" placeholder="" required>
+                                                    name="curp" id="curp-form-agregar" placeholder="" required
+                                                    oninput="this.value = this.value.toUpperCase()">
                                                 <!-- <div class="form-check">
                                                                                                                                                                                                                     <input class="form-check-input" type="checkbox" value="" id="checkCurpPasaporte">
                                                                                                                                                                                                                     <label class="form-check-label" for="checkCurpPasaporte">

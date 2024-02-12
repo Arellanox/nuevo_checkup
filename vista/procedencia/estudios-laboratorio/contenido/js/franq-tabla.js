@@ -90,7 +90,8 @@ tablaPacientes = $('#tablaPacientes').DataTable({
                 // Obtener turno para abrir
                 data = encodeURIComponent(window.btoa(data));
 
-                url = `http://localhost/nuevo_checkup/visualizar_reporte/?api=${api}&turno=${data}`
+
+                url = `${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${data}`
 
                 // Inicializar un arreglo vacío para contener nuestros botones
                 var buttons = [];

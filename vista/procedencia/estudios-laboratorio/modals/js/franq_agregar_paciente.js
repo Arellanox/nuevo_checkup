@@ -181,7 +181,7 @@ $(document).on('click', '#btn-etiquetas-pdf', function (e) {
     // area = encodeURIComponent(window.btoa(-1));
     turno = encodeURIComponent(window.btoa(btn.attr('data-bs-turno_guardado')));
 
-    var win = window.open(`http://localhost/nuevo_checkup/visualizar_reporte/?api=${api}&turno=${turno}`, '_blank')
+    var win = window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}`, '_blank')
 
     btnEstatus(3); // Abre el estado final para finalizar proceso
 })
@@ -222,6 +222,8 @@ $(document).on('submit', '#formAgregarPaciente', function (event) {
         alertToast('¡No olvide cargar la orden médica!', 'info', 4000)
     }
 
+
+
     alertMensajeConfirm({
         title: '¿Está seguro de cargar este nuevo paciente y sus estudios?',
         text: 'No podrás revertir esta opción',
@@ -236,9 +238,13 @@ $(document).on('submit', '#formAgregarPaciente', function (event) {
             icon: 'info'
         })
 
+        // Calcula y envia la edad del paciente
+        let fecha_nacimiento = $('#nacimiento-form-agregar').val();
+        let edad = calcularEdad(fecha_nacimiento);
+
         const data_json = {
             servicios: estudiosEnviar,
-            api: 2,
+            api: 2, edad: edad
         }
 
         // Verificamos si estamos agregando un nuevo usuario o ya existente
@@ -326,8 +332,15 @@ $(document).on('click', '.btn-agregar_estudio', function (event) {
     console.log(id)
     const id_list = btn.attr('data-bs-divID') // Busca la id a donde mostrar
 
-    // actualizarTotal(id, estudiosLab, true)
-    agregarFilaDiv(`#${id_list}`, text, id)
+
+    // Verificamos si existe el estudio
+    if (!estudiosEnviar.includes(id)) {
+        // actualizarTotal(id, estudiosLab, true)
+        agregarFilaDiv(`#${id_list}`, text, id)
+    } else {
+        alertToast('Este estudio ya ha sido seleccionado', 'info', 4000)
+    }
+
 })
 
 // Elimina el estudio que fue agregado
