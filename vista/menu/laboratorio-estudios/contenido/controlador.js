@@ -121,8 +121,8 @@ function agregarContenedorMuestra(div, numeroSelect, tipo) {
   recargarSelects(); // Asegúrate de que esta función está definida en otro lugar
 
   return {
-    contenedor: `contenedores[${numeroSelect}][contenedor]`,
-    muestra: `contenedores[${numeroSelect}][muestra]`
+    0: `contenedores[${numeroSelect}][contenedor]`,
+    1: `contenedores[${numeroSelect}][muestra]`
   };
 }
 
