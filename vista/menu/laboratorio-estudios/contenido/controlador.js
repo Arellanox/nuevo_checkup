@@ -52,42 +52,75 @@ $.getScript("contenido/js/estudio-botones.js");
 // // Metodo botones
 // $.getScript("contenido/js/metodo-botones.js");
 
+function generarOpcionesSelect(opciones) {
+  return opciones.map(opcion => `<option value="${opcion.value}">${opcion.text}</option>`).join('');
+}
+
+const opcionesContenedor = [
+  { value: '1', text: "FRASCO" },
+  { value: '2', text: "TUBO AZUL" },
+  { value: '3', text: "TUBO LILA" },
+  { value: '4', text: "TUBO ROJO" },
+  { value: '5', text: "TUBO NEGRO" },
+  { value: '6', text: "TUBO VERDE" },
+  { value: '7', text: "TRANSCULT" },
+  { value: '8', text: "TUBO AMARILLO" },
+  { value: '9', text: "MEDIO DE TRANSPORTE VIRAL" },
+  { value: '10', text: "PAPEL FILTRO PARA TAMIZ" },
+  { value: '11', text: "FECAL SWAP" }
+];
+
+const opcionesMuestra = [
+  { value: '1', text: 'EXPECTORACIÓN' },
+  { value: '2', text: 'EXUDADO' },
+  { value: '3', text: 'HECES' },
+  { value: '4', text: 'LÍQUIDO' },
+  { value: '5', text: 'ORINA' },
+  { value: '6', text: 'SANGRE' },
+  { value: '7', text: 'SEMEN' },
+  { value: '8', text: 'UÑAS' },
+  { value: '10', text: 'Hisopado Naso - Faríngea' },
+  { value: '11', text: 'Orofaríngea' },
+  { value: '12', text: 'SANGRE CAPILAR' },
+  { value: '13', text: 'Líquido Céfalo - Raquídeo' },
+  { value: '14', text: 'Hisopado Rectal' },
+  { value: '15', text: 'Colonia Bacteriana' },
+  { value: '16', text: 'Plasma EDTA' },
+  { value: '17', text: 'Sangre Total con EDTA' },
+  { value: '18', text: 'L.C.R.' }
+];
+
 
 function agregarContenedorMuestra(div, numeroSelect, tipo) {
-  let startRow = '<div class="row">';
-  let startDivSelect = '<div class="col-5 col-md-5">';
-  let startDivButton = '<div class="col-2 d-flex justify-content-start align-items-center">';
-  let endDiv = '</div>';
-  numeroSelect = getRandomInt(10000000000000)
 
-  // <label for="contenedores[contenedor-uno[]]" class="form-label">Contenedor</label>
-  // <select name="contenedores[contenedor-uno[]]" id="registrar-contenedor1-estudio" required></select>
+  numeroSelect = getRandomInt(10000000000000); // Asegúrate de que esta es la lógica deseada
 
-  html = startRow + startDivSelect + '<label for="contenedores[' + numeroSelect + '][contenedor]" class="form-label select-contenedor">Contenedor</label>' +
-    '<select name="contenedores[' + numeroSelect + '][contenedor]" id="registrar-contenedor' + numeroSelect + '-estudio" class="input-form" required>' +
-    '<option value="1">Frasco</option><option value="2">Tubo azul</option><option value="3">Tubo lila</option><option value="4">Tubo rojo</option>' +
-    '<option value="5">Tubo negro</option><option value="6">Tubo verde</option><option value="7">Transcult</option>' +
-    '<option value="10">Papel filtro tamiz</option>' +
-    // '<option value="7">Transcult</option>' +
-    '</select>' + endDiv + startDivSelect +
-    '<label for="contenedores[' + numeroSelect + '][muestra]" class="form-label select-contenedor">Tipo o muestra</label>' +
-    '<select name="contenedores[' + numeroSelect + '][muestra]"  id="registrar-muestraCont' + numeroSelect + '-estudio" class="input-form" required placeholder="Seleccione un contenedor">' +
-    '<option value="1">EXPECTORACIÓN</option>' +
-    '<option value="2">EXUDADO</option>' +
-    '<option value="3">HECES</option>' +
-    '<option value="4">LÍQUIDO</option>' +
-    '<option value="5">ORINA</option>' +
-    '<option value="6">SANGRE</option>' +
-    '<option value="7">SEMEN</option>' +
-    '<option value="8">UÑAS</option>' +
-    '<option value="12">SANGRE CAPILAR</option>' +
-    '</select>' + endDiv +
-    startDivButton + '<button type="button" class="btn btn-hover eliminarContenerMuestra' + tipo + '" data-bs-contenedor="' + numeroSelect + '" style="margin-top: 20px;"><i class="bi bi-trash"></i></button>' + endDiv + endDiv;
+  // Simplificación del HTML usando plantillas literales
+  const html = `
+    <div class="row">
+      <div class="col-5 col-md-5">
+        <label for="contenedores[${numeroSelect}][contenedor]" class="form-label select-contenedor">Contenedor</label>
+        <select name="contenedores[${numeroSelect}][contenedor]" id="registrar-contenedor${numeroSelect}-estudio" class="input-form" required>
+          ${generarOpcionesSelect(opcionesContenedor)}
+        </select>
+      </div>
+      <div class="col-5 col-md-5">
+        <label for="contenedores[${numeroSelect}][muestra]" class="form-label select-contenedor">Tipo o muestra</label>
+        <select name="contenedores[${numeroSelect}][muestra]" id="registrar-muestraCont${numeroSelect}-estudio" class="input-form" required>
+          ${generarOpcionesSelect(opcionesMuestra)}
+        </select>
+      </div>
+      <div class="col-2 d-flex justify-content-start align-items-center">
+        <button type="button" class="btn btn-hover eliminarContenerMuestra${tipo}" data-bs-contenedor="${numeroSelect}" style="margin-top: 20px;"><i class="bi bi-trash"></i></button>
+      </div>
+    </div>`;
+
   $(div).append(html);
-  recargarSelects()
+  recargarSelects(); // Asegúrate de que esta función está definida en otro lugar
+
   return {
-    0: `${'contenedores[' + numeroSelect + '][contenedor]'}`,
-    1: `contenedores[${numeroSelect}][muestra]`
+    contenedor: `contenedores[${numeroSelect}][contenedor]`,
+    muestra: `contenedores[${numeroSelect}][muestra]`
   };
 }
 
