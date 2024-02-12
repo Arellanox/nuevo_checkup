@@ -38,6 +38,10 @@ TablaListaLotes = $('#TablaListaLotes').DataTable({
             // if (TablaListaLotes_inicio)
             //     $('#EnvioLotesPacientes').modal('show');
         },
+        error: function (jqXHR, exception, data) {
+            alertErrorAJAX(jqXHR, exception, data)
+            // console.log('Error')
+        },
         dataSrc: 'response.data'
     },
     columns: [
@@ -136,11 +140,16 @@ TablaDetalleLotes = $('#TablaDetalleLotes').DataTable({
         data: function (d) {
             return $.extend(d, dataListaPacientesLotes);
         },
+
         method: 'POST',
         url: `${http}${servidor}/${appname}/api/maquilas_api.php`,
         complete: function () {
             // if (TablaListaLotes_inicio)
             //     $('#EnvioLotesPacientes').modal('show');
+        },
+        error: function (jqXHR, exception, data) {
+            alertErrorAJAX(jqXHR, exception, data)
+            // console.log('Error')
         },
         dataSrc: 'response.data'
     },

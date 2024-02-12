@@ -16,6 +16,10 @@ tablaPacientes = $('#tablaPacientes').DataTable({
         complete: function () {
             loader("Out", 'bottom')
         },
+        error: function (jqXHR, exception, data) {
+            alertErrorAJAX(jqXHR, exception, data)
+            // console.log('Error')
+        },
         dataSrc: 'response.data'
     },
     createdRow: function (row, data, dataIndex) {

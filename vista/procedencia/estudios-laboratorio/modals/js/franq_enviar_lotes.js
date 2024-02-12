@@ -37,6 +37,10 @@ tablaPacientesFaltantes = $('#tablaPacientesFaltantes').DataTable({
             if (tablaPacientesFaltantes_inicio)
                 $('#EnvioLotesPacientes').modal('show');
         },
+        error: function (jqXHR, exception, data) {
+            alertErrorAJAX(jqXHR, exception, data)
+            // console.log('Error')
+        },
         dataSrc: 'response.data'
     },
     columns: [
