@@ -104,6 +104,12 @@ if (!empty($_SESSION['id'])) {
                     $_SESSION['id'],
                     $orden_medica
                 ]);
+                
+                # si el primer elemento 
+                if (!is_numeric($resultset[0][0])){
+                    $response = $resultset[0][0];
+                    break;
+                }
 
                 $count = 0;
                 $errores = array();
@@ -223,8 +229,8 @@ if (!empty($_SESSION['id'])) {
             break;
 
         case 10:
-            # crear reporte de envio de muestras;
-            echo crearReporteEnvioMuestras($id_lote);
+            # buscar pacientes de la empresa.
+            $response = $master->getByProcedure("sp_maquilas_pacientes_b", [$_SESSION["CLIENTE_ID"]]);
             break;
 
         default:
