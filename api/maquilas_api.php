@@ -236,7 +236,7 @@ if (!empty($_SESSION['id'])) {
 
 echo $master->returnApi($response);
 
-
+#;laksjdf
 
 function crearReporteEnvioMuestras($id_lote)
 {
