@@ -218,8 +218,12 @@ $(document).on('submit', '#formAgregarPaciente', function (event) {
         return false;
     }
 
-    if ($('#input_ordenMedica').val()) {
+    const ordenM = $('#input_ordenMedica').val();
+
+    if (ordenM === null || ordenM === undefined || ordenM === '') {
+        console.log('Hola, no hay orden medica')
         alertToast('¡No olvide cargar la orden médica!', 'info', 4000)
+        return false;
     }
 
 
