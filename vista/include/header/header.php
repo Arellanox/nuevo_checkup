@@ -248,7 +248,7 @@ switch ($menu) {
 
                     <?php if (
                       $menu != 'procedencia' &&
-                      $_SESSION['i_cliente'] == 15
+                      $_SESSION['id_cliente'] == 15
                     ) { ?>
                       <div class="profile-description text-center">
                         <a href="<?php echo $_SESSION['newsletter']['button_usuario']['url'] ?>" target="_blank" class="a-hover"><i class="bi bi-newspaper"></i> <?php echo $_SESSION['newsletter']['button_usuario']['tittle_button'] ?></a>

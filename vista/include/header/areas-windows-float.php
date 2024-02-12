@@ -1,6 +1,6 @@
 <?php
 if (
-    $_SESSION['i_cliente'] == 15
+    $_SESSION['id_cliente'] == 15
 ) : ?>
     <li class="nav-item">
         <a href="<?php echo "$https$url/$appname/vista/menu/principal";
