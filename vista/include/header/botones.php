@@ -351,3 +351,19 @@ $menu = $_POST['menu']; ?>
     <i class="bi bi-box-seam"></i> Administrar cajas
   </button>
 <?php endif; ?>
+
+<?php if ($menu == "Pacientes | Empresas") : ?>
+
+  <span data-bs-toggle="modal" data-bs-target="#ModalRegistrarPaciente">
+    <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="tooltip" data-bs-placement="top" title="Registra y agenda un paciente particular">
+      <i class="bi bi-person-plus"></i> Registrar
+    </button>
+  </span>
+
+  <span data-bs-toggle="modal" data-bs-target="#ModalRegistrarPrueba">
+    <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="tooltip" data-bs-placement="top" title="Agenda un paciente ya existente">
+      <i class="bi bi-person-lines-fill"></i> Agendar
+    </button>
+  </span>
+
+<?php endif; ?>

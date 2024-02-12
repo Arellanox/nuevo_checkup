@@ -1,0 +1,44 @@
+.card_franquicias h5 {
+    color: rgb(000, 078, 89);
+
+}
+
+.card_franquicias {
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: rgb(000, 078, 089);
+}
+
+.card_franquicias:hover {
+    transform: scale(1.05);
+}
+
+.card_franquicias:hover h5 {
+    color: rgb(247, 190, 000);
+}
+
+.card_franquicias .card-title span {
+    position: relative;
+    display: inline-block;
+}
+
+.card_franquicias .card-title span::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    /* Ajusta la posición según sea necesario */
+    left: 50%;
+    width: 0;
+    height: 1.5px;
+    /* Ajusta el grosor de la línea según sea necesario */
+    background-color: rgb(218, 167, 0);
+    /* El color de la línea */
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+.card_franquicias:hover .card-title span::after {
+    width: 100%;
+    /* Expande la línea al 100% del ancho del texto */
+    left: 0;
+    /* Inicia la línea desde el borde izquierdo del texto */
+}

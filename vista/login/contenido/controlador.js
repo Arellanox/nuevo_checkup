@@ -50,6 +50,11 @@ function obtenerContenido(tabla) {
                   $(location).attr('href', `${http}${servidor}/${appname}/vista/menu/consultorio/`);
                   return true;
 
+                case '21': case 21:
+                  $(location).attr('href', `${http}${servidor}/${appname}/vista/procedencia/estudios-laboratorio/`); // Pronto por procedencia
+
+                  return true;
+
 
                 default:
                   $(location).attr('href', `${http}${servidor}/${appname}/vista/menu/principal/`);

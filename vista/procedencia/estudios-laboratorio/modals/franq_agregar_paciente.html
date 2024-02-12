@@ -1,0 +1,437 @@
+<div class="modal fade" id="AgregarNuevoPaciente" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+    role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen modal-dialog-scrollable modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="temperaturaTitle">Alta de pacientes</h5>
+                <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+            </div>
+            <div class="modal-body">
+                <div class="row container-pages" id="page_control-agregar_paciente"
+                    style="height: 100%;max-height: 100%;">
+                    <section class="page px-4" style="display: none;">
+                        <p class=" my-2">Cargue los datos de un <strong>nuevo paciente</strong>, y sus
+                            estudios.</strong></p>
+
+
+                        <!-- Formulario de nuevo registro de paciente -->
+                        <form class="m-0 p-3" id="formAgregarPaciente">
+
+                            <div class="row">
+                                <div class="col-12 col-lg-6">
+                                    <div class="px-4">
+                                        <!-- Pacientes que ya existen -->
+                                        <div class="row form_control_type" id="nueva_solicitd_paciente_form">
+                                            <div class="row">
+                                                <div class="col-12 col-lg-8" id="Label-BuscarPaciente">
+                                                    <label for="curp" class="form-label" id="label-identificacion">
+                                                        Pacientes existentes
+                                                    </label>
+                                                    <select class="form-control input-form"
+                                                        id="paciente_existente"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Nuevo Paciente -->
+                                        <div class="row form_control_type agregar_paciente_form">
+                                            <!-- Nombre del paciente -->
+                                            <div
+                                                class="col-12 col-md-6 col-xl-4 d-lg-flex flex-lg-row align-items-lg-center">
+                                                <label for="nombre" class="form-label" style="padding-right: 25px;">
+                                                    Nombre(s):
+                                                </label>
+                                                <input type="text" name="nombre" id="nombre-form-agregar" value=""
+                                                    class="form-control input-form required_input_agregar_paciente"
+                                                    required oninput="this.value = this.value.toUpperCase()">
+                                            </div>
+                                            <div
+                                                class="col-12 col-md-6 col-xl-4 d-lg-flex flex-lg-row align-items-lg-center">
+                                                <label for="paterno" class="form-label" style="padding-right: 25px;">
+                                                    Apellido paterno:
+                                                </label>
+                                                <input type="text" name="paterno" id="paterno-form-agregar" value=""
+                                                    class="form-control input-form required_input_agregar_paciente"
+                                                    required oninput="this.value = this.value.toUpperCase()">
+                                            </div>
+                                            <div
+                                                class="col-12 col-md-6 col-xl-4 d-lg-flex flex-lg-row align-items-lg-center">
+                                                <label for="materno" class="form-label" style="padding-right: 25px;">
+                                                    Apellido materno:
+                                                </label>
+                                                <input type="text" name="materno" value="" id="materno-form-agregar"
+                                                    class="form-control input-form"
+                                                    oninput="this.value = this.value.toUpperCase()">
+                                            </div>
+
+                                            <!-- Area donde pertenece -->
+                                            <div
+                                                class="col-12 col-md-6 col-xl-4 d-lg-flex flex-lg-row align-items-lg-center">
+                                                <label for="materno" class="form-label" style="padding-right: 25px;">
+                                                    Área:
+                                                </label>
+                                                <input type="text" name="area_encuentra" value=""
+                                                    class="form-control input-form"
+                                                    oninput="this.value = this.value.toUpperCase()">
+                                            </div>
+
+
+                                            <!-- Edad del paciente -->
+                                            <div
+                                                class="col-12 col-md-6 col-xl-5 d-lg-flex flex-lg-row align-items-lg-center">
+                                                <label for="fecha_nacimiento" class="form-label"
+                                                    style="padding-right: 25px;">
+                                                    Fecha de nacimiento
+                                                </label>
+                                                <input type="date"
+                                                    class="form-control input-form required_input_agregar_paciente"
+                                                    name="fecha_nacimiento" id="nacimiento-form-agregar" required
+                                                    onchange="$(`#edad-form-agregar`).val(calcularEdad(this.value))">
+                                            </div>
+                                            <div
+                                                class="col-12 col-md-6 col-xl-3 d-lg-flex flex-lg-row align-items-lg-center">
+                                                <label for="edad" class="form-label" style="padding-right: 25px;">
+                                                    Edad
+                                                </label>
+                                                <div class="input-group">
+                                                    <input type="number"
+                                                        class="form-control input-form edadPacienteRegistro px-2"
+                                                        step="0.01" name="edad" id="edad-form-agregar" placeholder="0"
+                                                        min="0" max="150" disabled>
+                                                    <span class="input-span">
+                                                        años
+                                                    </span>
+                                                </div>
+                                            </div>
+
+
+                                            <!-- Curp -->
+                                            <div
+                                                class="col-12 col-md-6 col-xl-4 d-lg-flex flex-lg-row align-items-lg-center">
+                                                <label for="curp" class="form-label" style="padding-right: 25px;">
+                                                    CURP
+                                                </label>
+                                                <input type="text"
+                                                    class="form-control input-form required_input_agregar_paciente"
+                                                    name="curp" id="curp-form-agregar" placeholder="" required
+                                                    oninput="this.value = this.value.toUpperCase()">
+                                                <!-- <div class="form-check">
+                                                                                                                                                                                                                    <input class="form-check-input" type="checkbox" value="" id="checkCurpPasaporte">
+                                                                                                                                                                                                                    <label class="form-check-label" for="checkCurpPasaporte">
+                                                                                                                                                                                                                        Soy extranjero
+                                                                                                                                                                                                                    </label>
+                                                                                                                                                                                                                </div> -->
+                                                <!-- pattern="[A-Za-z]{4}[0-9]{6}[HMhm]{1}[A-Za-z]{5}[0-9]{2}" -->
+                                            </div>
+
+
+                                            <!-- Inputs de la empresas -->
+                                            <div
+                                                class="col-12 col-md-6 col-xl-4 d-lg-flex flex-lg-row align-items-lg-center">
+                                                <label for="estado" class="form-label" style="padding-right: 25px;">
+                                                    SiHO-No. Cuenta:
+                                                </label>
+                                                <input type="text"
+                                                    class="form-control input-form required_input_agregar_paciente"
+                                                    name="siho_cuenta" id="numero_cuenta-form-agregar"
+                                                    placeholder="No. Cuenta">
+                                            </div>
+
+                                            <div class="col-12 py-3 form_control_type agregar_paciente_form">
+                                                <div class="container">
+                                                    <div class="row" style="zoom:110%;">
+                                                        <div class="col-md-auto">
+                                                            <label for="">Género: </label>
+                                                        </div>
+                                                        <div class="col">
+                                                            <input type="radio" id="mascuCues"
+                                                                class="required_input_agregar_paciente" name="genero"
+                                                                value="MASCULINO" required>
+                                                            <label for="mascuCues">Masculino</label>
+                                                        </div>
+                                                        <div class="col">
+                                                            <input type="radio" id="FemeCues"
+                                                                class="required_input_agregar_paciente" name="genero"
+                                                                value="FEMENINO" required>
+                                                            <label for="FemeCues">Femenino</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <!-- Carga de orden médica -->
+                                        <div class="px-2">
+                                            <p>Carga o arrastra la orden médica aqui</p>
+                                            <div class="d-flex flex-column align-items-center pt-3 px-4">
+                                                <div id="dropPromocionalesBimo" class="drop-zone mx-2">
+                                                    <label for="input_ordenMedica" style="cursor: pointer;"
+                                                        class="label-input_ordenMedica">Sube tu
+                                                        archivo arrastrándolo aquí</label>
+
+                                                    <input type="file" class="" id="input_ordenMedica"
+                                                        name="orden_medica[]" style="display: none;">
+                                                    <br>
+                                                    <div class="spinner-border text-primary carga-input_ordenMedica"
+                                                        role="status" style="display: none;">
+                                                        <span class="visually-hidden">Loading...</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="py-2 px-4">
+                                                <label for="estado" class="form-label">Comentarios a la
+                                                    orden:</label>
+                                                <textarea type="text" class="form-control input-form inputFormRequired"
+                                                    name="comentarios_orden" autocomplete="off" rows="2"
+                                                    style="font-size: 20px; overflow: hidden; overflow-wrap: break-word; resize: none;"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-lg-6">
+                                    <div class="row rounded p-3 shadow my-2 mt-2">
+
+                                        <!-- Carga de estudios -->
+                                        <div class="col-12">
+                                            <p>Busque y seleccione los estudios del paciente a cargar</p>
+
+                                            <div class="col-12 py-3">
+                                                <div class="container">
+                                                    <div class="row" style="zoom:110%;">
+                                                        <div class="col-md-auto">
+                                                            <label for="">Tipo de solicitud: </label>
+                                                        </div>
+                                                        <div class="col">
+                                                            <input type="radio" id="tip_ordinario" name="tipo" class=""
+                                                                value="1" required>
+                                                            <label for="tip_ordinario">Ordinario</label>
+                                                        </div>
+                                                        <div class="col">
+                                                            <input type="radio" id="tip_urgente" name="tipo" class=""
+                                                                value="2" required>
+                                                            <label for="tip_urgente">Urgente</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Estudios laboratorio clínico -->
+                                            <div class="accordion px-4 pt-3 overflow-auto" id="accordionExample">
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="headingOne">
+                                                        <button class="accordion-button" type="button"
+                                                            data-bs-toggle="collapse" data-bs-target="#collapse"
+                                                            aria-expanded="true" aria-controls="collapse">
+                                                            Estudios de Laboratorio Clínico
+                                                        </button>
+                                                    </h2>
+                                                    <div id="collapse" class="accordion-collapse collapse show"
+                                                        aria-labelledby="headingOne">
+                                                        <div class="accordion-body">
+                                                            <div class="row">
+                                                                <div class="col-6">
+                                                                    <div class="row">
+                                                                        <div class="col-12 contenido_estudio">
+                                                                            <select class="" id="select-labClinico">
+                                                                            </select>
+                                                                        </div>
+
+                                                                        <div class="col-12">
+                                                                            <button type="button"
+                                                                                class="btn btn-confirmar btn-agregar_estudio"
+                                                                                data-bs-selectID="select-labClinico"
+                                                                                data-bs-divID="list-estudios-laboratorio">
+                                                                                <i class="bi bi-person-badge"></i>
+                                                                                Agregar
+                                                                            </button>
+                                                                        </div>
+                                                                        <!-- <div class="col-12 mt-3">
+                                                                                                                                                                          <label for="paquete" class="form-label">Orden médica de laboratorio:</label>
+                                                                                                                                                                          <input type="file" name="orden-medica-laboratorio[]" id="file-laboratorio" class="form-control input-form" value="">
+                                                                                                                                                                        </div> -->
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <ul class="list-group lista_estudios"
+                                                                        id="list-estudios-laboratorio">
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Estudios laboratorio biomolecular -->
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="headingTwo">
+                                                        <button class="accordion-button collapsed" type="button"
+                                                            data-bs-toggle="collapse" data-bs-target="#collapseSix"
+                                                            aria-expanded="true" aria-controls="collapseSix">
+                                                            Estudios de Laboratorio Biomolecular
+                                                        </button>
+                                                    </h2>
+                                                    <div id="collapseSix" class="accordion-collapse collapse"
+                                                        aria-labelledby="headingTwo">
+                                                        <div class="accordion-body">
+                                                            <div class="row">
+                                                                <div class="col-6">
+                                                                    <div class="row">
+                                                                        <div class="col-12">
+                                                                            <select class="" id="select-labBio">
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="col-12">
+                                                                            <button type="button"
+                                                                                class="btn btn-confirmar btn-agregar_estudio"
+                                                                                data-bs-selectID="select-labBio"
+                                                                                data-bs-divID="list-estudios-laboratorio-biomolecular">
+                                                                                <i class="bi bi-person-badge"></i>
+                                                                                Agregar
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <ul class="list-group lista_estudios"
+                                                                        id="list-estudios-laboratorio-biomolecular">
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </form>
+                    </section>
+
+                    <section class="page px-4" style="display: none;">
+                        <div class="p-4">
+                            <!-- <h4>Estudios y contenedores</h4> -->
+                            <p class="none-p">Lista de estudios y tipo de muestras cargados al paciente</p>
+
+                            <div class="row">
+                                <!-- Información del paciente -->
+                                <div class="col-12 col-lg-9">
+                                    <p>Paciente:
+                                        <span class="none-p" id="nombre-paciente"></span>
+                                    </p>
+                                    <p>Fecha de nacimiento:
+                                        <span class="none-p" id="fecha_de_nacimiento-paciente"></span>
+                                        &ensp;
+                                        Edad:
+                                        <span class="none-p" id="edad-paciente"></span>
+                                    </p>
+                                    <p>CURP:
+                                        <span class="none-p" id="curp-paciente"></span>
+                                    </p>
+                                    <p>Cuenta:
+                                        <span class="none-p" id="numero_cuenta-paciente"></span>
+                                    </p>
+                                </div>
+
+                                <!-- Información de subida -->
+                                <div class="col-12 col-lg-3">
+                                    <div class="rounded p-3 shadow my-2">
+                                        <strong>ESTIMADO: <span class="none-p" id="usuario-paciente"></span></strong>
+                                        </br>
+                                        <strong>SU SOLICITUD HA SIDO REGISTRADA</strong> </br>
+                                        <strong>CON EL FOLIO: <span class="none-p" id="folio-paciente"></span></strong>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Informacion de las muestras -->
+                            <div class="pt-2 px-3">
+                                <div class="rounded p-3 shadow my-2">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h5>Muestras:</h5>
+                                        <div class="d-flex">
+                                            <form
+                                                class="form_guardarMuestra d-flex justify-content-start align-items-center">
+                                                <input type="date" name="fecha_toma" value=""
+                                                    class="form-control input-form me-2" required>
+                                                <button type="submit" class="btn btn-confirmar btn_submit_tomarmuestra">
+                                                    <i class="bi bi-droplet-half"></i> Tomar Muestra
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <ul class="list-group overflow-auto" id="lista-estudios-paciente"
+                                        style="max-width: 100%; max-height: 70vh;margin-bottom:10px;">
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!-- para guardar -->
+                <button style="display: none;" type="button"
+                    class="btn-footers page-formulario btn btn-cancelar btn-cerrar_modal" data-bs-cancelar="0">
+                    <i class="bi bi-arrow-left-short"></i>
+                    Cancelar
+                </button>
+                <button style="display: none;" type="submit" class="btn-footers page-formulario btn btn-confirmar"
+                    form="formAgregarPaciente">
+                    <i class="bi bi-person-fill-up"></i> Guardar
+                </button>
+
+
+                <!-- Para las etiquetas -->
+                <button style="display: none;" type="button"
+                    class="btn-footers btn btn-cancelar btn-cerrar_modal page-proceso_final" data-bs-cancelar="1">
+                    <i class="bi bi-arrow-left-short"></i>
+                    Cerrar
+                </button>
+                <button style="display: none;" type="button" class="btn-footers page-etiquetas btn btn-borrar"
+                    id="btn-etiquetas-pdf" data-bs-turno_guardado="false">
+                    <i class="bi bi-file-earmark-pdf"></i> Imprimir etiquetas del paciente
+                </button>
+
+
+                <!-- Nuevo registro -->
+                <button style="display: none;" type="button" class="btn-footers page-proceso_final btn btn-confirmar"
+                    id="reset-agregarPaciente">
+                    <i class="bi bi-person-fill-up"></i> Nuevo registro
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .drop-zone label {
+        background-color: #f6fdff00 !important
+    }
+
+    .page.animate__animated {
+        animation-duration: 0.5s;
+        /* Ajusta este valor según lo rápido que quieras que sea */
+    }
+
+    .container-pages {
+        position: relative;
+    }
+
+    .page {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+</style>

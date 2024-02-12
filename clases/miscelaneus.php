@@ -540,6 +540,19 @@ class Miscelaneus
                 #Corte de caja
                 $arregloPaciente = $this->getBodyCorteCaja($master, $turno_id);
                 break;
+
+            case -5:
+                # Envio de Muestas
+                # reporte de lotes.
+                # pacientes que son enviado por maquila.
+                $carpeta_guardado = "envio_de_muestras";
+                $fecha_resultado = date("Ymd");
+                $nombre_paciente = "envio_muestras_$turno_id";
+                $arregloPaciente = $this->getBodyFormatoEnvioLotesMaquila($master, $turno_id); # $turno_id es el id de lote que se quiere generar.
+                break;    
+            case -6:
+                
+                break;
         }
 
 
@@ -2120,6 +2133,12 @@ class Miscelaneus
         return $response;
     }
 
+    public function getBodyEnvioMuestras($master, $turno_id)
+    {
+        # json para recuperar datos de envio de muestras
+        $respuestas = $master->getByProcedure("", [$turno_id]);
+    }
+
     public function setLogEmail(
         $master,
         $turno_id,
@@ -2134,5 +2153,17 @@ class Miscelaneus
         $response = $master->insertByProcedure("", []);
 
         return true;
+    }
+
+    
+    public function getBodyFormatoEnvioLotesMaquila($master, $id_lote){
+        $resultset = $master->getByNext("sp_maquilas_datos_reporte", [$id_lote]);
+
+        $detalle = $resultset[0];
+        $generales = $resultset[1][0];
+
+        $generales["DETALLE"] = $detalle;
+        
+        return $generales;
     }
 }
