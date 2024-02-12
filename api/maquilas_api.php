@@ -106,10 +106,10 @@ if (!empty($_SESSION['id'])) {
                 ]);
                 
                 # si el primer elemento 
-                if (!is_numeric($resultset[0][0])){
-                    $response = $resultset[0][0];
-                    break;
-                }
+                // if (!is_numeric($resultset[0][0])){
+                //     $response = $resultset[0][0];
+                //     break;
+                // }
 
                 $count = 0;
                 $errores = array();
