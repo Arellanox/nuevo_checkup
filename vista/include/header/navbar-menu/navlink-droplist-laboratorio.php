@@ -126,6 +126,15 @@ if ($_SESSION['vista']['CORREOSLAB'] == 1 || $_SESSION['vista']['CORREOSLABBIOMO
 <?php endif; ?>
 
 
+<?php if ($_SESSION['vista']['ESTUDIOS_LABORATORIO'] == 1) : ?>
+    <li class="nav-item">
+        <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/recepcion-muestras/#RECEPCIONMUESTRAS'; ?>">
+            <i class="bi bi-journal-medical"></i> Recepción de muestras
+        </a>
+    </li>
+<?php endif; ?>
+
+
 
 <?php if ($_SESSION['vista']['REGISTRO_TEMPERATURA'] == 1) : ?>
     <!-- <li class="nav-item">
