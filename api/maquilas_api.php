@@ -43,6 +43,9 @@ $id_lote = $_POST['id_lote'];
 $fecha = $_POST['fecha'];
 $bit_muestras  = $_POST['bit_muestras']; # 0 los que no 1 lo que si tienen muestas tomadas
 
+# rechazar muestras
+$id_servicio = $_POST['id_servicio'];
+
 if (!empty($_SESSION['id'])) {
 
     switch ($api) {
@@ -229,8 +232,12 @@ if (!empty($_SESSION['id'])) {
             break;
 
         case 10:
-            # buscar pacientes de la empresa.
+            # buscar pacientes de la empresa de acuerdo a la sesion.
             $response = $master->getByProcedure("sp_maquilas_pacientes_b", [$_SESSION["CLIENTE_ID"]]);
+            break;
+        case 11:
+            # rechazar servicios de una solicitud.
+            $response = $master->getByProcedure("sp_maquilas_historial_servicios_rechazados_g", [$id_turno, $id_servicio]);
             break;
 
         default:
