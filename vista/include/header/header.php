@@ -212,11 +212,13 @@ switch ($menu) {
 
           <!-- Botones alado de los usuarios -->
           <li class="nav-item dropstart d-flex justify-content-center align-items-center m">
-            <?php
-            if ($menu != 'procedencia') {
+            <?php if (
+              $menu != 'procedencia' &&
+              $_SESSION['id_cliente'] == 15
+            ) {
               include "btn-user/buttons.php";
-            }
-            ?>
+            } ?>
+
           </li>
 
           <li class="nav-item dropstart flex-grow-1">
