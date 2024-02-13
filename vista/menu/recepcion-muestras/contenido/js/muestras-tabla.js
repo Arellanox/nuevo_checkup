@@ -1,3 +1,7 @@
+// |------------------------------- Variables -------------------------------------------------------|
+let dataListaLotes = { api: 5, id_cliente: session.id_cliente }; //data de lista de lotes
+
+
 tablaMuestras = $('#TablaMuestras').DataTable({
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
@@ -112,3 +116,80 @@ function obtenerListaEstudiosContenedores(idturno = null) {
 
 //Panel turnos, mandar id fisica al  principio
 obtenerPanelInformacion(7, null, "turnos_panel", '#turnos_panel')
+
+
+
+
+
+
+
+// |-------------------------------- Tabla de lista de lotes -----------------------------------------|
+TablaListaLotes = $('#TablaListaLotes').DataTable({
+  language: {
+      url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+  },
+  lengthChange: false,
+  info: true,
+  paging: false,
+  scrollY: '47vh',
+  scrollCollapse: true,
+  ajax: {
+      dataType: 'json',
+      data: function (d) {
+          return $.extend(d, dataListaLotes);
+      },
+      method: 'POST',
+      url: `${http}${servidor}/${appname}/api/maquilas_api.php`,
+      complete: function () {
+          // if (TablaListaLotes_inicio)
+          //     $('#EnvioLotesPacientes').modal('show');
+      },
+      dataSrc: 'response.data'
+  },
+  columns: [
+      { data: 'COUNT' },
+      { data: 'FOLIO' },
+      {
+          data: 'ESTATUS', render: function (data) {
+              return ifnull(data, 'N/A', true)
+          }
+      },
+      {
+          data: 'RUTA_REPORTE', render: (data) => {
+              // Inicializar un arreglo vacío para contener nuestros botones
+              var buttons = [];
+
+              buttons.push(
+                  '<a href="' + data + '" target="_blank" class="btn btn-borrar me-2">' +
+                  '<i class="bi bi-file-earmark-pdf-fill"></i>' +
+                  '</a>'
+              );
+
+              // Unir todos los botones con un espacio y devolver la cadena HTML
+              return '<div class="d-flex justify-content-start align-items-center">' + buttons.join(' ') + '</div>';
+          }
+      },
+      {
+          data: 'REGISTRADO', render: function (data) {
+
+              const formattedDate = formatoFecha2(data, [0, 1, 5, 2, 2, 2, 0], null); {
+
+                  // Separar la fecha y la hora basado en la coma
+                  const parts = formattedDate.split(', ');
+                  const datePart = parts[0];
+                  const timePart = parts[1];
+
+                  // Retornar la fecha y la hora envueltas en spans con las clases correspondientes
+                  return `
+                          <span class="d-block">${datePart}</span>
+                          <span class="d-block">${timePart}</span>`;
+              }
+          }
+      },
+      { data: 'USUARIO' },
+  ],
+  columnDefs: [
+      { "width": "10px", "targets": [0, 3] },
+  ],
+
+})
