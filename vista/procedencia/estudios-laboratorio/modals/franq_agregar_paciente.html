@@ -189,129 +189,176 @@
 
                         <!-- Pagina 3 | Carga de estudios -->
                         <section class="page px-4" style="display: none;">
-
-                            <div class="col-12 col-lg-6">
-                                <div class="row rounded p-3 shadow my-2 mt-2">
-
-                                    <!-- Carga de estudios -->
-                                    <div class="col-12">
-                                        <p>Busque y seleccione los estudios del paciente a cargar</p>
-
-                                        <div class="col-12 py-3">
-                                            <div class="container">
-                                                <div class="row" style="zoom:110%;">
-                                                    <div class="col-md-auto">
-                                                        <label for="">Tipo de solicitud: </label>
-                                                    </div>
-                                                    <div class="col">
-                                                        <input type="radio" id="tip_ordinario" name="tipo" class=""
-                                                            value="1" required>
-                                                        <label for="tip_ordinario">Ordinario</label>
-                                                    </div>
-                                                    <div class="col">
-                                                        <input type="radio" id="tip_urgente" name="tipo" class=""
-                                                            value="2" required>
-                                                        <label for="tip_urgente">Urgente</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Estudios laboratorio clínico -->
-                                        <div class="accordion px-4 pt-3 overflow-auto" id="accordionExample">
-                                            <div class="accordion-item">
-                                                <h2 class="accordion-header" id="headingOne">
-                                                    <button class="accordion-button" type="button"
-                                                        data-bs-toggle="collapse" data-bs-target="#collapse"
-                                                        aria-expanded="true" aria-controls="collapse">
-                                                        Estudios de Laboratorio Clínico
-                                                    </button>
-                                                </h2>
-                                                <div id="collapse" class="accordion-collapse collapse show"
-                                                    aria-labelledby="headingOne">
-                                                    <div class="accordion-body">
-                                                        <div class="row">
-                                                            <div class="col-6">
-                                                                <div class="row">
-                                                                    <div class="col-12 contenido_estudio">
-                                                                        <select class="" id="select-labClinico">
-                                                                        </select>
-                                                                    </div>
-
-                                                                    <div class="col-12">
-                                                                        <button type="button"
-                                                                            class="btn btn-confirmar btn-agregar_estudio"
-                                                                            data-bs-selectID="select-labClinico"
-                                                                            data-bs-divID="list-estudios-laboratorio">
-                                                                            <i class="bi bi-person-badge"></i>
-                                                                            Agregar
-                                                                        </button>
-                                                                    </div>
-                                                                    <!-- <div class="col-12 mt-3">
-                                                                                                                                                                                                                                      <label for="paquete" class="form-label">Orden médica de laboratorio:</label>
-                                                                                                                                                                                                                                      <input type="file" name="orden-medica-laboratorio[]" id="file-laboratorio" class="form-control input-form" value="">
-                                                                                                                                                                                                                                    </div> -->
-                                                                </div>
-
+                        
+                            <div class="rounded p-3 shadow ">
+                                <div class="row">
+                                    <div class="col-12 col-lg-6">
+                                        <div class="row my-2 mt-2">
+                        
+                                            <!-- Carga de estudios -->
+                                            <div class="col-12">
+                                                <p>Busque y seleccione los estudios del paciente a cargar</p>
+                        
+                                                <div class="col-12 py-3">
+                                                    <div class="container">
+                                                        <div class="row" style="zoom:110%;">
+                                                            <div class="col-md-auto">
+                                                                <label for="">Tipo de solicitud: </label>
                                                             </div>
-                                                            <div class="col-6">
-                                                                <ul class="list-group lista_estudios"
-                                                                    id="list-estudios-laboratorio">
-                                                                </ul>
+                                                            <div class="col">
+                                                                <input type="radio" id="tip_ordinario" name="tipo" class="" value="1" required>
+                                                                <label for="tip_ordinario">Ordinario</label>
+                                                            </div>
+                                                            <div class="col">
+                                                                <input type="radio" id="tip_urgente" name="tipo" class="" value="2" required>
+                                                                <label for="tip_urgente">Urgente</label>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                        
+                                                <!-- Estudios laboratorio clínico -->
+                                                <div class="accordion px-4 pt-3 overflow-auto" id="accordionExample">
 
-                                            <!-- Estudios laboratorio biomolecular -->
-                                            <div class="accordion-item">
-                                                <h2 class="accordion-header" id="headingTwo">
-                                                    <button class="accordion-button" type="button"
-                                                        data-bs-toggle="collapse" data-bs-target="#collapseSix"
-                                                        aria-expanded="true" aria-controls="collapseSix">
-                                                        Estudios de Laboratorio Biomolecular
-                                                    </button>
-                                                </h2>
-                                                <div id="collapseSix" class="accordion-collapse collapse show"
-                                                    aria-labelledby="headingTwo">
-                                                    <div class="accordion-body">
-                                                        <div class="row">
-                                                            <div class="col-6">
+                                                    <!-- <div class="accordion-item">
+                                                        <h2 class="accordion-header" id="headingOne">
+                                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                                data-bs-target="#collapse" aria-expanded="true" aria-controls="collapse">
+                                                                Estudios de Laboratorio Clínico
+                                                            </button>
+                                                        </h2> -->
+                                                        <!-- <div id="collapse" class="accordion-collapse collapse show"
+                                                            aria-labelledby="headingOne"> -->
+                                                            <!-- <div class="accordion-body"> -->
                                                                 <div class="row">
-                                                                    <div class="col-12">
-                                                                        <select class="" id="select-labBio">
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="col-12">
-                                                                        <button type="button"
-                                                                            class="btn btn-confirmar btn-agregar_estudio"
-                                                                            data-bs-selectID="select-labBio"
-                                                                            data-bs-divID="list-estudios-laboratorio-biomolecular">
-                                                                            <i class="bi bi-person-badge"></i>
-                                                                            Agregar
-                                                                        </button>
-                                                                    </div>
+                                                                    <P class="mt-2 mb-2">Estudios de Laboratorio Clínico</P>
+                                                                    
+                                                                        <div class="row">
+                                                                            <div class="col-12 contenido_estudio">
+                                                                                <select class="" id="select-labClinico">
+                                                                                </select>
+                                                                            </div>
+                        
+                                                                            <div class="col-12">
+                                                                                <button type="button"
+                                                                                    class="btn btn-confirmar btn-agregar_estudio"
+                                                                                    data-bs-selectID="select-labClinico"
+                                                                                    data-bs-divID="list-estudios-laboratorio">
+                                                                                    <i class="bi bi-person-badge"></i>
+                                                                                    Agregar
+                                                                                </button>
+                                                                            </div>
+                                                                            <!-- <div class="col-12 mt-3">
+                                                                                                                                                                                                                                                                      <label for="paquete" class="form-label">Orden médica de laboratorio:</label>
+                                                                                                                                                                                                                                                                      <input type="file" name="orden-medica-laboratorio[]" id="file-laboratorio" class="form-control input-form" value="">
+                                                                                                                                                                                                                                                                    </div> -->
+                                                                        </div>
+                                                                    
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <ul class="list-group lista_estudios"
-                                                                    id="list-estudios-laboratorio-biomolecular">
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                            <!-- </div> -->
+                                                        <!-- </div> -->
+
+                                                    <!-- </div> -->
+                        
+                                                    <!-- Estudios laboratorio biomolecular -->
+                                                    <!-- <div class="accordion-item">
+                                                        <h2 class="accordion-header" id="headingTwo">
+                                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                                data-bs-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix">
+                                                                Estudios de Laboratorio Biomolecular
+                                                            </button>
+                                                        </h2> -->
+
+                                                        <!-- <div id="collapseSix" class="accordion-collapse collapse show"
+                                                            aria-labelledby="headingTwo"> -->
+                                                            <!-- <div class="accordion-body"> -->
+                                                                <div class="row">
+                                                                    <P class="mt-2 mb-2">Estudios de Laboratorio Biomolecular</P>
+                                                                
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <select class="" id="select-labBio">
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="col-12">
+                                                                                <button type="button"
+                                                                                    class="btn btn-confirmar btn-agregar_estudio"
+                                                                                    data-bs-selectID="select-labBio"
+                                                                                    data-bs-divID="list-estudios-laboratorio-biomolecular">
+                                                                                    <i class="bi bi-person-badge"></i>
+                                                                                    Agregar
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                
+                                                                </div>
+                                                            <!-- </div> -->
+
+                                                        <!-- </div> -->
+
+                                                    <!-- </div> -->
+
                                                 </div>
                                             </div>
+                        
                                         </div>
                                     </div>
+                    
+                                    <div class="col-12 col-lg-6">
+                                        <div class="row my-2 mt-2">
+                        
+                                            <div>
+                                                <p>Estudios Biomoleculares</p>
+                                                <div class="col-12 mt-2">
+                                                    <ul class="list-group lista_estudios" id="list-estudios-laboratorio-biomolecular">
+                                                    </ul>
+                                                </div>
+                                            </div>
 
+                                            <div>
+                                                <p>Estudios clinicos</p>
+                                                <div class="col-12 mt-2">
+                                                    <ul class="list-group lista_estudios" id="list-estudios-laboratorio">
+                                                    </ul>
+                                                </div>
+                                            </div>
+                        
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                        
                         </section>
 
                         <!-- Pagina 4 | Resumen de carga -->
-                        <section class="page px-4" style="display: none;" control-page="last"></section>
+                        <section class="page px-4" style="display: none;" control-page="last">
+                            <div class="col-12 col-lg-12">
+                                <div class="row">
+                        
+                                    <!-- Carga de estudios -->
+                                    <div class="col-6 rounded p-3 shadow my-2 mr-2">
+                                        <p>Informacion del paciente</p>
+                        
+                                        <!-- div de info del paciente -->
+                                        <div>
+                        
+                                        </div>
+                                    </div>
+                        
+                                    <div class="col-6 rounded p-3 shadow my-2 mr-2">
+                                        <p>Lista de estudios y muestras</p>
+                                        <ul class="list-group overflow-auto lista-estudios-paciente mt-2"
+                                            style="max-width: 100%; max-height: 70vh;margin-bottom:10px;">
+                                            <!-- <li class="list-group-item">
+                                                Nombre del grupo -> Contenedor -> Muestra <br>
+                                                Indicacioneskahjs dilajbhs diabsdi baisdhbiahbsdia bsdibaishbjd i
+                                            </li> -->
+                                        </ul>
+                                    </div>
+                        
+                                </div>
+                            </div>
+                        </section>
 
                         <!-- Pagina 5 | Proceso final para tomar muestra y su folio -->
                         <section class="page px-4" style="display: none;">
