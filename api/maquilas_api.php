@@ -232,6 +232,10 @@ if (!empty($_SESSION['id'])) {
             # buscar pacientes de la empresa.
             $response = $master->getByProcedure("sp_maquilas_pacientes_b", [$_SESSION["CLIENTE_ID"]]);
             break;
+        case 11:
+            # rechazar servicios de una solicitud.
+            $response = $master->getByProcedure("sp_maquilas_historial_servicios_rechazados_g", [$id_turno, $id_servicio]);
+            break;
 
         default:
             $response = "Api no definida.";
