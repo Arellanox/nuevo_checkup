@@ -405,3 +405,29 @@ select2("#select-labBio", "AgregarNuevoPaciente", 'Seleccione un estudio');
 select2("#paciente_existente", "AgregarNuevoPaciente", 'Cargando...');
 
 
+$(document).on('click', '.control-pagina-interpretacion', function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const $btn = $(this);
+    const action = $btn.attr('target');
+    const $visiblePage = $('.page:visible');
+    console.log($visiblePage)
+    switch (action) {
+        case 'back':
+            const $prevPage = $visiblePage.prev('.page');
+            console.log($visiblePage.prev('.page'))
+            if ($prevPage.length) {
+                updatePage($prevPage, action);
+            }
+            break;
+        case 'next':
+            const $nextPage = $visiblePage.next('.page');
+            console.log($visiblePage.next('.page'))
+            if ($nextPage.length) {
+                updatePage($nextPage, action);
+            }
+            break;
+        default:
+            break;
+    }
+});
