@@ -27,7 +27,7 @@
             <th scope="col d-flex justify-content-center" class="all">Fecha envio</th>
             <th scope="col d-flex justify-content-center" class="all">Estatus</th>
             <th scope="col d-flex justify-content-center" class="none">Registrado por: </th>
-            <th scope="col d-flex justify-content-center" class="none">Formato</th>
+            <th scope="col d-flex justify-content-center" class="none">Formato: </th>
 
         </thead>
       </table>
