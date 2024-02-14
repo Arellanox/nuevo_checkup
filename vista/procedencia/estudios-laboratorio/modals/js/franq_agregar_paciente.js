@@ -27,6 +27,8 @@ async function getDataFirst(type) {
             await rellenarSelect("#paciente_existente", "maquilas_api", 6, 'PACIENTE_ID', 'FOLIO.NOMBRE.SIHO_CUENTA.TIPO_SOLICITUD');
 
             $('#formAgregarPaciente .required_input_agregar_paciente').removeAttr('required')
+
+
         } else {
             $('#formAgregarPaciente input.required_input_agregar_paciente').attr('required', true)
             console.log('Hola client')
@@ -135,6 +137,8 @@ function muestrasInfoPaciente(data) {
 
 
 
+
+
 // Cancela el proceso y reinicia todo
 $(document).on('click', '.btn-cerrar_modal', function (event) {
     event.preventDefault();
@@ -192,6 +196,53 @@ $(document).on('click', '#btn-etiquetas-pdf', function (e) {
 
 // Drag and drop
 let input_ordenMedica = InputDragDrop('#dropPromocionalesBimo', (inputArea, salidaInput) => {
+
+
+
+    // Obtén el archivo del input
+    var file = inputArea.get(0).files[0];
+
+    // Verifica si el archivo es un PDF
+    if (file.type === 'application/pdf') {
+        // Muestra el canvas y oculta el img
+        $('#pdf-canvas').show();
+        $('#image-preview').hide();
+
+        // Usa PDF.js para leer y mostrar la primera página del PDF
+        var fileReader = new FileReader();
+        fileReader.onload = function () {
+            var typedarray = new Uint8Array(this.result);
+            pdfjsLib.getDocument(typedarray).promise.then(function (pdf) {
+                pdf.getPage(1).then(function (page) {
+                    var canvas = document.getElementById('pdf-canvas');
+                    var ctx = canvas.getContext('2d');
+                    var viewport = page.getViewport({ scale: 2 });
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+                    var renderContext = {
+                        canvasContext: ctx,
+                        viewport: viewport
+                    };
+                    page.render(renderContext);
+                });
+            });
+        };
+        fileReader.readAsArrayBuffer(file);
+    } else if (file.type.match('image.*')) {
+        // Muestra el img y oculta el canvas
+        $('#image-preview').show();
+        $('#pdf-canvas').hide();
+
+        // Lee y muestra la imagen
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#image-preview').attr('src', e.target.result).show();
+        };
+        reader.readAsDataURL(file);
+    } else {
+        alert('Por favor, selecciona un archivo PDF o una imagen.');
+    }
+
 
     // Siempre se ejecuta al final del proceso
     salidaInput({
@@ -495,3 +546,5 @@ function verificarCamposRequeridos(formId) {
 
     return todosLlenos;
 }
+
+
