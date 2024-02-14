@@ -1,6 +1,6 @@
 // |------------------------------- Variables -------------------------------------------------------|
 let dataListaLotes = { api: 5, id_cliente: session.id_cliente }; //data de lista de lotes
-let dataPacientesLotes = {};
+let dataListaPacientesLotes
 
 
 // tablaMuestras = $('#TablaMuestras').DataTable({
@@ -223,111 +223,103 @@ inputBusquedaTable('TablaListaLotes', TablaListaLotes, [{
 }], [], 'col-12')
 
 
-// selectTable('#TablaListaLotes', TablaListaLotes, { unSelect: true, movil: true, reload: ['col-xl-9'] }, async function (select, data, callback) {
-//   selectListaMuestras = data;
+selectTable('#TablaListaLotes', TablaListaLotes, { unSelect: true, movil: true, reload: ['col-xl-9'] }, async function (select, data, callback) {
 
-//   if (select == 1) {
+  if (select == 1) {
 
-//     //Activa o desactiva el boton
-//     // if (selectListaMuestras.MUESTRA_TOMADA == 1) {
-//     //   $('#muestra-tomado').prop('disabled', true)
-//     // } else {
-//     //   $('#muestra-tomado').prop('disabled', false)
-//     // }
+    dataPacientesLotes = { api: 7, id_lote: data.ID_LOTE }
+    TablaPacientesLotes.clear().draw()
+    TablaPacientesLotes.ajax.reload() // Recargamos la tabla cada vez que se seleecione un lote
 
-//     //Procesos
-//     // await obtenerPanelInformacion(selectListaMuestras['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab')
-//     // await obtenerListaEstudiosContenedores(selectListaMuestras['ID_TURNO'])
+    //Muestra las columnas
+    callback('In')
+  } else {
 
-//     //Muestra las columnas
-//     callback('In')
-//   } else {
-
-//     callback('Out')
-//     // selectListaMuestras = null;
-//   }
-// })
+    callback('Out')
+    // selectListaMuestras = null;
+  }
+})
 
 
 
 // |---------------------------- Tabla de lista de pacientes de los lotes-----------------------------|
-// TablaPacientesLotes = $('#TablaPacientesLotes').DataTable({
-//   language: {
-//       url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-//   },
-//   lengthChange: false,
-//   info: true,
-//   paging: false,
-//   scrollY: '47vh',
-//   scrollCollapse: true,
-//   ajax: {
-//       dataType: 'json',
-//       // data: function (d) {
-//       //     return $.extend(d, dataPacientesLotes);
-//       // },
-//       method: 'POST',
-//       url: `${http}${servidor}/${appname}/api/maquilas_api.php`,
-//       complete: function () {
-//           // if (TablaListaLotes_inicio)
-//           //     $('#EnvioLotesPacientes').modal('show');
-//       },
-//       dataSrc: 'response.data'
-//   },
-//   columns: [
+TablaPacientesLotes = $('#TablaPacientesLotes').DataTable({
+  language: {
+      url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+  },
+  lengthChange: false,
+  info: true,
+  paging: false,
+  scrollY: '47vh',
+  scrollCollapse: true,
+  ajax: {
+      dataType: 'json',
+      data: function (d) {
+          return $.extend(d, dataPacientesLotes);
+      },
+      method: 'POST',
+      url: `${http}${servidor}/${appname}/api/maquilas_api.php`,
+      complete: function () {
+          // if (TablaListaLotes_inicio)
+          //     $('#EnvioLotesPacientes').modal('show');
+      },
+      dataSrc: 'response.data'
+  },
+  columns: [
 
-//       { data: 'COUNT' },
-//       {data: 'NOMBRE_PACIENTE'},
-//       { data: 'FOLIO' },
-//       {data: 'ESTATUS'},
-//       {data: 'RESULTADO'},
-//       { data: 'FECHA_RESULTADO'},
-//       { data: 'FECHA_REGISTRO'},
-//       { data: 'REGISTRADO'},
-//       { data: 'EDAD'},
-//       { data: 'SEXO'},
+      { data: 'COUNT' },
+      {data: 'PACIENTE'},
+      { data: 'FOLIO' },
+      {data: 'ESTATUS'},
+      {data: 'REPORTES'}, //RESULTADO
+      { data: 'FECHA_TOMA_MUESTRA'}, //FECHA_RESULTADO
+      { data: 'FECHA_REGISTRO'},
+      { data: 'REGISTRADO'},
+      { data: 'EDAD'},
+      { data: 'SEXO'},
 
 
-//       {
-//           data: 'ESTATUS', render: function (data) {
-//               return ifnull(data, 'N/A', true)
-//           }
-//       },
-//       {
-//           data: 'RUTA_REPORTE', render: (data) => {
-//               // Inicializar un arreglo vacío para contener nuestros botones
-//               var buttons = [];
+    //   {
+    //       data: 'ESTATUS', render: function (data) {
+    //           return ifnull(data, 'N/A', true)
+    //       }
+    //   },
+    //   {
+    //       data: 'RUTA_REPORTE', render: (data) => {
+    //           // Inicializar un arreglo vacío para contener nuestros botones
+    //           var buttons = [];
 
-//               buttons.push(
-//                   '<a href="' + data + '" target="_blank" class="btn btn-borrar me-2">' +
-//                   '<i class="bi bi-file-earmark-pdf-fill"></i>' +
-//                   '</a>'
-//               );
+    //           buttons.push(
+    //               '<a href="' + data + '" target="_blank" class="btn btn-borrar me-2">' +
+    //               '<i class="bi bi-file-earmark-pdf-fill"></i>' +
+    //               '</a>'
+    //           );
 
-//               // Unir todos los botones con un espacio y devolver la cadena HTML
-//               return '<div class="d-flex justify-content-start align-items-center">' + buttons.join(' ') + '</div>';
-//           }
-//       },
-//       {
-//           data: 'REGISTRADO', render: function (data) {
+    //           // Unir todos los botones con un espacio y devolver la cadena HTML
+    //           return '<div class="d-flex justify-content-start align-items-center">' + buttons.join(' ') + '</div>';
+    //       }
+    //   },
+    //   {
+    //       data: 'REGISTRADO', render: function (data) {
 
-//               const formattedDate = formatoFecha2(data, [0, 1, 5, 2, 2, 2, 0], null); {
+    //           const formattedDate = formatoFecha2(data, [0, 1, 5, 2, 2, 2, 0], null); {
 
-//                   // Separar la fecha y la hora basado en la coma
-//                   const parts = formattedDate.split(', ');
-//                   const datePart = parts[0];
-//                   const timePart = parts[1];
+    //               // Separar la fecha y la hora basado en la coma
+    //               const parts = formattedDate.split(', ');
+    //               const datePart = parts[0];
+    //               const timePart = parts[1];
 
-//                   // Retornar la fecha y la hora envueltas en spans con las clases correspondientes
-//                   return `
-//                           <span class="d-block">${datePart}</span>
-//                           <span class="d-block">${timePart}</span>`;
-//               }
-//           }
-//       },
-//       { data: 'USUARIO' },
-//   ],
-//   columnDefs: [
-//       { "width": "10px", "targets": [0, 3] },
-//   ],
+    //               // Retornar la fecha y la hora envueltas en spans con las clases correspondientes
+    //               return `
+    //                       <span class="d-block">${datePart}</span>
+    //                       <span class="d-block">${timePart}</span>`;
+    //           }
+    //       }
+    //   },
+    //   { data: 'USUARIO' },
+  ],
+  columnDefs: [
+      { "width": "10px", "targets": [0, 3] },
+  ],
 
-// })
+})

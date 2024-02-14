@@ -44,7 +44,7 @@
   <!-- Numero, nombre del paciente complet, folio, estatus:  verde (aceptados), amarillo(Aceptados con recervas), rojo(rechazados), boton (abrir las muestras) (visibles)-->
 
   <!-- Resultado, fecha de resultado, fecha de registro, registrado por, edad, sexo (invisibles) -->
-  <div class="col-12 col-xl-8 tab-second" id="tab-reporte" style="margin-right: -5px !important;">
+  <div class="col-12 col-xl-8 tab-second" id="tab-reporte" style="margin-right: -5px !important; display: none;">
 
     <div class="d-flex justify-content-end">
       <div class="rounded p-3 shadow my-2 w-50">

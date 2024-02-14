@@ -33,7 +33,7 @@ $usuario_id = $_SESSION['id'];
 
 $api = "envio_muestras";
 $area_id = -5;
-// $turno_id = 2207;
+$turno_id = 27;
 
 //$cliente_id = 19;
 // $id_cotizacion = 7;
