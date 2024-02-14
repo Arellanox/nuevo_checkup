@@ -1,16 +1,75 @@
 <div class="modal fade" id="modalRecepcionMuestras" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-dialog modal-fullscreen modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header header-modal">
-                <h5 class="modal-title" id="filtrador">Editar</h5>
+                <h5 class="modal-title" id="filtrador">Muestras del paciente</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="rounded p-2 shadow my-2">
+                        <div class="row">
+                            <!-- Información del paciente -->
+                            <div class="col-12 col-lg-9">
+                                <p>Paciente:
+                                    <span class="none-p" id="nombre-paciente"></span>
+                                </p>
+                                <p>Fecha de nacimiento:
+                                    <span class="none-p" id="fecha_de_nacimiento-paciente"></span>
+                                    &ensp;
+                                    Edad:
+                                    <span class="none-p" id="edad-paciente"></span>
+                                </p>
+                                <p>CURP:
+                                    <span class="none-p" id="curp-paciente"></span>
+                                </p>
+                                <p>Cuenta:
+                                    <span class="none-p" id="numero_cuenta-paciente"></span>
+                                </p>
+                            </div>
+
+                            <!-- Información de subida -->
+                            <div class="col-12 col-lg-3">
+                                <div class="rounded p-3 shadow my-2">
+                                    <!-- USARIO ACTUAL -->
+                                    <strong>USARIO: <span class="none-p" id="usuario-paciente"></span></strong>
+                                    </br>
+                                    <!-- TEXTO PLANO DE AVISO -->
+                                    <strong>MUESTRAS DEL PACIENTE</strong> </br>
+                                    <!-- FOLIO DEL PACIENTE -->
+                                    <strong>CON EL FOLIO: <span class="none-p" id="folio-paciente"></span></strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="">
+                        <h5>Estudios cargados</h5>
+
+                        <table class="table responsive" id="pacienteEstudios">
+
+                            <tbody>
+                                <tr>
+                                    <td>Biometria Hematica</td>
+                                    <td>Tubo Lila</td>
+                                    <td>Si</td>
+                                    <td>No</td>
+                                    <td>Observaciones como campo</td>
+                                    <td>Drag&Drop</td>
+                                    <td> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i
-                        class="bi bi-arrow-left-short"></i> Cancelar</button>
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
+                    <i class="bi bi-arrow-left-short"></i> Cancelar
+                </button>
                 <button type="submit" form="formEditarGrupo" class="btn btn-confirmar" id="submit-editarGrupo">
                     <i class="bi bi-person-plus"></i> Crear
                 </button>
@@ -18,3 +77,18 @@
         </div>
     </div>
 </div>
+
+<!-- <style>
+
+    #pacienteEstudios td {
+        text-align: center;
+        /* Centra el texto de los encabezados horizontalmente */
+        vertical-align: middle;
+        /* Centra el texto de los encabezados verticalmente */
+    }
+
+    #pacienteEstudios th {
+        vertical-align: middle;
+        /* Centra el texto de las celdas verticalmente */
+    }
+</style> -->

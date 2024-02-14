@@ -49,6 +49,9 @@
     <div class="d-flex justify-content-end">
       <div class="rounded p-3 shadow my-2 w-50">
         <p>Informacion del lote</p>
+        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#modalRecepcionMuestras">
+          <i class="bi bi-plus-square"></i> Muestras (eliminar luego)
+        </button>
       </div>
     </div>
 

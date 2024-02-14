@@ -27,5 +27,6 @@ $menu = "FRANQUICIAS";
     }
 </script>
 
+<!-- Recordar meter estatus de estado de lote y pacientes -->
 
 </html>
