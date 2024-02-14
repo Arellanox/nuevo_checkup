@@ -261,7 +261,7 @@ if (!empty($_SESSION['id'])) {
                 $imgs[] = $imagen;
             }
 
-            $response = $master->getByProcedure("sp_maquilas_historial_servicios_rechazados_g", [$id_turno, $id_servicio]);
+            $response = $master->getByProcedure("sp_maquilas_historial_servicios_rechazados_g", [$id_turno, $id_servicio, json_encode($imgs), $comentario_rechazo]);
             break;
         case 12:
             # detalle de los servicios
