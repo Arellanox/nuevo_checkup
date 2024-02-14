@@ -410,12 +410,18 @@ let time_click = 0;
 $(document).on('click', '.control-pagina-interpretacion', function (event) {
     event.preventDefault();
     event.stopPropagation();
-    const $btn = $(this);
-    const action = $btn.attr('target');
-    const $visiblePage = $('.page:visible');
+
+    // Previene a mas de un click para terminar la animación
     if (time_click == 0) {
+        // Animacion activa
         time_click = 1;
 
+
+        const $btn = $(this); // Boton actual que da click
+        const action = $btn.attr('target'); // Lo que debe hacer el boton (next, back)
+        const $visiblePage = $('.page:visible'); // Busca la pagina actual
+        // Boton de formulario
+        $('#GuardarFormulario').prop('disabled', true) // Bloquea el boton de formulario
         switch (action) {
             case 'back':
                 // Para regresar pagina
@@ -444,14 +450,15 @@ $(document).on('click', '.control-pagina-interpretacion', function (event) {
                 }
 
                 if ($nextPage.attr('control-page') === 'last') {
-                    // Si es la ultima pagina a mostrar
-                    $btn.prop('disabled', true);
+                    $btn.prop('disabled', true); // Si es la ultima pagina a mostrar
+                    $('#GuardarFormulario').prop('disabled', false) // Activa boton de formulario si esta en la ultima pagina
                 }
                 break;
             default:
                 break;
         }
 
+        // El estado de animacion terminada para nuevamente dar click
         setTimeout(() => {
             time_click = 0;
         }, 350); // <-- Tiempo en terminar de cargar una pagina
