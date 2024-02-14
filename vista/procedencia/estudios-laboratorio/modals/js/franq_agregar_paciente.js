@@ -84,7 +84,8 @@ function getListMuestras(idturno = null) {
                 // console.log(row[i]);
                 html += '<li class="list-group-item">';
                 html += row[i]['GRUPO'];
-                html += '<i class="bi bi-arrow-right-short"></i><strong>' + row[i]['MUESTRA'] + '</strong> - <strong>' + row[i]['CONTENEDOR'] + '</strong> - <strong>' + row[i]['ENTREGA'] + '</strong></li>';
+                html += `<i class="bi bi-arrow-right-short"></i><strong>${row[i]['MUESTRA']}</strong> - <strong>${row[i]['CONTENEDOR']}</strong> - <strong>${row[i]['ENTREGA']}</strong>
+                </li>`;
 
             }
             $('#lista-estudios-paciente').html(html);
@@ -417,6 +418,8 @@ $(document).on('click', '.control-pagina-interpretacion', function (event) {
         time_click = 1;
 
 
+
+
         const $btn = $(this); // Boton actual que da click
         const action = $btn.attr('target'); // Lo que debe hacer el boton (next, back)
         const $visiblePage = $('.page:visible'); // Busca la pagina actual
@@ -464,3 +467,31 @@ $(document).on('click', '.control-pagina-interpretacion', function (event) {
         }, 350); // <-- Tiempo en terminar de cargar una pagina
     }
 });
+
+
+
+// Verifica si rellenó todo
+function verificarCamposRequeridos(formId) {
+    // Encuentra el formulario por su ID
+    const formulario = document.getElementById(formId);
+
+    // Selecciona todos los campos requeridos dentro del formulario
+    const camposRequeridos = formulario.querySelectorAll('.requeridos');
+
+    // Inicializa la variable para seguir el estado de los campos
+    let todosLlenos = true;
+
+    // Revisa cada campo para ver si está vacío
+    camposRequeridos.forEach(campo => {
+        if (!campo.value.trim()) { // .trim() es para asegurarse de que el campo no solo contenga espacios
+            todosLlenos = false;
+            // Aquí puedes también agregar alguna clase para indicar visualmente que el campo está vacío
+            campo.classList.add('campo-incompleto');
+        } else {
+            // Si el campo está lleno, asegúrate de eliminar la clase que indica que está incompleto
+            campo.classList.remove('campo-incompleto');
+        }
+    });
+
+    return todosLlenos;
+}

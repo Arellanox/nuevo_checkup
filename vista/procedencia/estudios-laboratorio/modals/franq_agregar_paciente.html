@@ -371,9 +371,12 @@
                                             </div>
                                         </div>
 
-                                        <ul class="list-group overflow-auto" id="lista-estudios-paciente"
+                                        <ul class="list-group overflow-auto lista-estudios-paciente"
                                             style="max-width: 100%; max-height: 70vh;margin-bottom:10px;">
-
+                                            <!-- <li class="list-group-item">
+                                                Nombre del grupo -> Contenedor -> Muestra <br>
+                                                Indicacioneskahjs dilajbhs diabsdi baisdhbiahbsdia bsdibaishbjd i
+                                            </li> -->
                                         </ul>
                                     </div>
                                 </div>
@@ -397,19 +400,22 @@
                 <!-- Botones de paginacion -->
                 <!-- Paginacion del formulario -->
                 <div id="panel-paginacion">
-                    <button type="button" class="btn btn-cancelar control-pagina-interpretacion" target="back" disabled>
+                    <button type="button" class="btn btn-cancelar page-formulario control-pagina-interpretacion"
+                        target="back" disabled>
                         <i class="bi bi-arrow-left"></i>
                         Regresar
                     </button>
-                    <button type="button" class="btn btn-confirmar control-pagina-interpretacion" target="next">
+                    <button type="button" class="btn btn-confirmar page-formulario control-pagina-interpretacion"
+                        target="next">
                         <i class="bi bi-arrow-right"></i>
                         Siguiente
                     </button>
                 </div>
 
                 <!-- Pagina 4 -->
-                <button style="display: none;" type="submit" class="btn-footers page-formulario btn btn-confirmar"
-                    form="formAgregarPaciente" id="GuardarFormulario" disabled>
+                <button style="display: none;" class="btn-footers page-formulario btn btn-confirmar"
+                    form="formAgregarPaciente" id="GuardarFormulario" type="submit" disabled data-bs-toggle="tooltip"
+                    data-bs-placement="top" data-bs-original-title="Al finalizar, cargará el paciente">
                     <i class="bi bi-person-fill-up"></i> Guardar
                 </button>
 
