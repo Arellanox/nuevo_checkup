@@ -298,12 +298,27 @@
         }
 
         .big-width {
-            width: 180px;
-            max-width: 200px;
+            width: 250px;
+            max-width: 300px;
         }
 
         .muestra-width {
             width: 100px;
+            max-width: 200px;
+        }
+
+        .prefolio-width{
+            width: 0px;
+            max-width: 150px;
+        }
+
+        .edad-width{
+            width: 40px;
+            max-width: 200px;
+        }
+
+        .estudio-width{
+            width: 180px;
             max-width: 200px;
         }
     </style>
@@ -356,13 +371,14 @@ $encode_firma = base64_encode($ruta_firma);
                 <thead>
                     <tr>
                         <th class="small-width">No.</th>
+                        <th class="prefolio-width">Prefolio</th>
                         <th class="big-width">Nombre del Paciente</th>
                         <th class="muestra-width">Fecha de Nacimiento</th>
-                        <th class="small-width">Edad</th>
+                        <th class="edad-width">Edad</th>
                         <th>Sexo</th>
                         <th class="muestra-width">Tipo de Muestra</th>
                         <th>Fecha de Toma</th>
-                        <th class="big-width">Estudio</th>
+                        <th class="estudio-width">Estudio</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -372,13 +388,14 @@ $encode_firma = base64_encode($ruta_firma);
                     ?>
                         <tr>
                         <td class="small-width"><?php echo $item->COUNT ?></td>
+                        <td class="prefolio-width"><?php echo $item->PREFOLIO ?></td>
                         <td><?php echo $item->PACIENTE; ?></td>
                         <td class="muestra-width"><?php echo $item->NACIMIENTO; ?></td>
-                        <td class="small-width"><?php echo $item->EDAD; ?></td>
+                        <td class="edad-width"><?php echo $item->EDAD; ?></td>
                         <td><?php echo $item->SEXO; ?></td>
                         <td class="muestra-width"><?php echo $item->MUESTRA; ?></td>
                         <td><?php echo $item->FECHA_TOMA; ?></td>
-                        <td><?php echo $item->ESTUDIOS; ?></td>
+                        <td class="estudio-width"><?php echo $item->ESTUDIOS; ?></td>
                     </tr>
                     <?php
                         }
