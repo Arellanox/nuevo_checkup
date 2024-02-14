@@ -405,29 +405,55 @@ select2("#select-labBio", "AgregarNuevoPaciente", 'Seleccione un estudio');
 select2("#paciente_existente", "AgregarNuevoPaciente", 'Cargando...');
 
 
+// Previene a mas de un click
+let time_click = 0;
 $(document).on('click', '.control-pagina-interpretacion', function (event) {
     event.preventDefault();
     event.stopPropagation();
     const $btn = $(this);
     const action = $btn.attr('target');
     const $visiblePage = $('.page:visible');
-    console.log($visiblePage)
-    switch (action) {
-        case 'back':
-            const $prevPage = $visiblePage.prev('.page');
-            console.log($visiblePage.prev('.page'))
-            if ($prevPage.length) {
-                updatePage($prevPage, action);
-            }
-            break;
-        case 'next':
-            const $nextPage = $visiblePage.next('.page');
-            console.log($visiblePage.next('.page'))
-            if ($nextPage.length) {
-                updatePage($nextPage, action);
-            }
-            break;
-        default:
-            break;
+    if (time_click == 0) {
+        time_click = 1;
+
+        switch (action) {
+            case 'back':
+                // Para regresar pagina
+                const $prevPage = $visiblePage.prev('.page');
+                // Resetea el bloqueado
+                $('.control-pagina-interpretacion').prop('disabled', false);
+                // Verifica si existe otra paginas
+                if ($prevPage.length) {
+                    updatePage($prevPage, action);
+                }
+
+                if ($prevPage.attr('control-page') === 'first') {
+                    // Si es la primera pagina a mostrar
+                    $btn.prop('disabled', true);
+                }
+
+                break;
+            case 'next':
+                // Para siguiente pagina
+                const $nextPage = $visiblePage.next('.page');
+                // Resetea el bloqueado
+                $('.control-pagina-interpretacion').prop('disabled', false);
+                // Verifica si existe otra paginas
+                if ($nextPage.length) {
+                    updatePage($nextPage, action);
+                }
+
+                if ($nextPage.attr('control-page') === 'last') {
+                    // Si es la ultima pagina a mostrar
+                    $btn.prop('disabled', true);
+                }
+                break;
+            default:
+                break;
+        }
+
+        setTimeout(() => {
+            time_click = 0;
+        }, 350); // <-- Tiempo en terminar de cargar una pagina
     }
 });
