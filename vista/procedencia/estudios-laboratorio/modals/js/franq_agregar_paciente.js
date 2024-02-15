@@ -63,6 +63,13 @@ function resetForm() {
     $('#btn-etiquetas-pdf').attr('data-bs-turno_guardado', false)
 
 
+    // Resetea el canva o imagen de la orden medica
+    $('.img-thumbnail').html('');
+
+    // Orden Medica Info
+    $('#nombre_orden-paciente').html('');
+    $('#comentario_orden_paciente').html('');
+
 
     // Boton de muestra
     // Cambiar el boton
@@ -138,36 +145,46 @@ function tipoFormulario(tipo) {
 }
 
 // Usa datos del formulario y lo muestra en muestras
-function muestrasInfoPaciente(data) {
-    const nombre = `${$('#nombre-form-agregar').val()} ${$('#paterno-form-agregar').val()} ${$('#materno-form-agregar').val()}`
-    $('#nombre-paciente').html(ifnull(data, nombre, ['NOMBRE']))
-    $('#fecha_de_nacimiento-paciente').html(ifnull(data, $('#nacimiento-form-agregar').val(), ['NACIMIENTO']))
-    $('#edad-paciente').html(ifnull(data, $('#edad-form-agregar').val(), ['EDAD']))
-    $('#curp-paciente').html(ifnull(data, $('#curp-form-agregar').val(), ['CURP']))
-    $('#numero_cuenta-paciente').html(ifnull(data, $('#numero_cuenta-form-agregar').val(), ['CUENTA']))
+function previewInfoPaciente(data) {
+    return new Promise(resolve => {
 
-    // Informacion de usuario
-    $('#usuario-paciente').html(`${session.nombre} ${session.apellidos}`)
+        ajaxAwait({
+            api: 2, id: $('#paciente_existente').val()
+        }, 'pacientes_api', { callbackAfter: true }, false, (data) => {
+            console.log(data);
+            // muestraDataPaciente(data.response.data[0])
+            resolve(1);
+        })
+
+    });
+
 }
 
 //Usa datos del formulario y los muestra en la section 3
 function muestraDataPaciente(data) {
+    // Variables
     const nombreClass = `${$('#nombre-form-agregar').val()} ${$('#paterno-form-agregar').val()} ${$('#materno-form-agregar').val()}`
     const tipo = $('input[name="tipo"]:checked').val()
-    $('.nombre-paciente').html(ifnull(data, nombreClass, ['NOMBRE']))
-    $('.fecha_de_nacimiento-paciente').html(ifnull(data, $('#nacimiento-form-agregar').val()))
-    $('.edad-paciente').html(ifnull(data, $('#edad-form-agregar').val()))
-    $('.curp-paciente').html(ifnull(data, $('#curp-form-agregar').val()))
-    $('.numero_cuenta-paciente').html(ifnull(data, $('#numero_cuenta-form-agregar').val()))
-    $('.area-paciente').html(ifnull(data, $('#area-form-agregar').val()))
-    $('.genero-paciente').html(ifnull(data, $('.required_input_agregar_paciente').val()))
-    $('.comentario_orden-paciente').html(ifnull(data, $('.comentarios_orden').val()))
-    
 
-    if(tipo === "1"){
+    // Informacion del paciente
+    $('.nombre-paciente').html(ifnull(data, nombreClass, ['NOMBRE_COMPLETO']))
+    $('.fecha_de_nacimiento-paciente').html(formatoFecha(ifnull(data, $('#nacimiento-form-agregar').val(), ['NACIMIENTO'])))
+    $('.edad-paciente').html(formatoEdad(ifnull(data, $('#edad-form-agregar').val(), ['EDAD'])))
+    $('.curp-paciente').html(ifnull(data, $('#curp-form-agregar').val(), ['CURP']))
+
+    $('.numero_cuenta-paciente').html(ifnull(data, $('#numero_cuenta-form-agregar').val(), ['NUMERO_CUENTA_PROCEDENCIAS']))
+    $('.area-paciente').html(ifnull(data, $('#area-form-agregar').val(), ['AREA_HABITA_PROCEDENCIAS'])) // Revisar luego
+    $('.genero-paciente').html(ifnull(data, $('.required_input_agregar_paciente').val(), ['GENERO']))
+
+
+    // Comentario de la orden
+    $('.comentario_orden-paciente').html(ifnull(data, $('.comentarios_orden').val()))
+
+
+    if (tipo === "1") {
         $('.tipo_solicitud-paciente').html(`<span class="text-warning tipo_solicitud-paciente"
                                             id="tipo_solicitud-paciente"><strong>Ordinario</strong></span>`)
-    }else{
+    } else {
         $('.tipo_solicitud-paciente').html(`<span class="text-danger tipo_solicitud-paciente"
                                             id="tipo_solicitud-paciente"><strong>Urgente</strong></span>`)
     }
@@ -240,6 +257,8 @@ let input_ordenMedica = InputDragDrop('#dropPromocionalesBimo', (inputArea, sali
 
     // Obtén el archivo del input
     var file = inputArea.get(0).files[0];
+    // Obten el nombre
+    var nombreArchivo = this.files[0].name;
 
     // Verifica si el archivo es un PDF
     if (file.type === 'application/pdf') {
@@ -282,6 +301,11 @@ let input_ordenMedica = InputDragDrop('#dropPromocionalesBimo', (inputArea, sali
         alert('Por favor, selecciona un archivo PDF o una imagen.');
     }
 
+
+
+    // Vista previa final
+    $('#nombre_orden-paciente').html(nombreArchivo);
+    $('#comentario_orden_paciente').html(ifnull($('#comentario_orden_agregar-paciente').val(), ''))
 
     // Siempre se ejecuta al final del proceso
     salidaInput({
@@ -522,6 +546,11 @@ $(document).on('click', '.control-pagina-interpretacion', async function (event)
                 icon: 'info'
             })
             await getListMuestras();
+            if (form_type) {
+                await previewInfoPaciente();
+            } else {
+                muestraDataPaciente();
+            }
             swal.close();
         }
 
