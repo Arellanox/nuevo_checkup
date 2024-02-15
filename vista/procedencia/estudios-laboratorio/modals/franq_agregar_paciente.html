@@ -67,7 +67,7 @@
                                             </label>
                                             <input type="text" name="area_encuentra" value=""
                                                 class="form-control input-form"
-                                                oninput="this.value = this.value.toUpperCase()" autocomplete="off">
+                                                oninput="this.value = this.value.toUpperCase()" autocomplete="off" id="area-form-agregar">
                                         </div>
 
 
@@ -359,15 +359,39 @@
                                 <div class="row">
 
                                     <!-- Carga de estudios -->
-                                    <div class="col-6 rounded p-3 shadow my-2 mr-2">
+                                    <div class="col-6">
                                         <p>Informacion del paciente</p>
 
-                                        <!-- div de info del paciente -->
+                                        <div class="col-12 col-lg-9 mt-3">
+                                            <p>Paciente:
+                                                <span class="none-p nombre-paciente" id="nombre-paciente">LUIS GERADO CUEVAS GONZALEZ</span>
+                                            </p>
+                                            <p>Fecha de nacimiento:
+                                                <span class="none-p fecha_de_nacimiento-paciente" id="fecha_de_nacimiento-paciente">2000-02-22</span>
+                                                &ensp;
+                                                Edad:
+                                                <span class="none-p edad-paciente" id="edad-paciente">23</span>
+                                            </p>
+                                            <p>CURP:
+                                                <span class="none-p curp-paciente" id="curp-paciente">IAJSBNDI AJBSDIABSIDBAISBDN</span>
+                                            </p>
+                                            <p>Cuenta:
+                                                <span class="none-p numero_cuenta-paciente" id="numero_cuenta-paciente">9287987698</span>
+                                                &ensp;
+                                                Área:
+                                                <span class="none-p area-paciente" id="area-paciente">TI</span>
+                                        
+                                            </p>
+                                            <p>Género:
+                                                <span class="none-p genero-paciente" id="genero-paciente">Masculino</span>
+                                            </p>
+                                        </div>
+
                                         <div>
 
                                         </div>
                                     </div>
-
+                        
                                     <div class="col-6 rounded p-3 shadow my-2 mr-2">
                                         <p>Lista de estudios y muestras</p>
                                         <ul class="list-group overflow-auto lista-estudios-paciente mt-2"

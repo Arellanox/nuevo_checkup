@@ -135,7 +135,17 @@ function muestrasInfoPaciente(data) {
     $('#usuario-paciente').html(`${session.nombre} ${session.apellidos}`)
 }
 
-
+//Usa datos del formulario y los muestra en la section 3
+function muestraDataPaciente(data){
+    const nombreClass = `${$('#nombre-form-agregar').val()} ${$('#paterno-form-agregar').val()} ${$('#materno-form-agregar').val()}`
+    $('.nombre-paciente').html(ifnull(data, nombreClass, ['NOMBRE']))
+    $('.fecha_de_nacimiento-paciente').html(ifnull(data, $('#nacimiento-form-agregar').val()))
+    $('.edad-paciente').html(ifnull(data, $('#edad-form-agregar').val()))
+    $('.curp-paciente').html(ifnull(data, $('#curp-form-agregar').val()))
+    $('.numero_cuenta-paciente').html(ifnull(data, $('#numero_cuenta-form-agregar').val() ))
+    $('.area-paciente').html(ifnull(data, $('#area-form-agregar').val()))
+    $('.genero-paciente').html(ifnull(data, $('.required_input_agregar_paciente').val()))
+}
 
 
 
