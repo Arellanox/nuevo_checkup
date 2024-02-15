@@ -275,19 +275,11 @@ let turno;
 $(document).on('submit', '#formAgregarPaciente', function (event) {
     event.preventDefault();
     event.stopPropagation();
-    if (estudiosEnviar.length < 1) {
-        alertToast('Recuerde cargar los estudios del paciente', 'info', 4000)
+
+    // Verifica nuevamente si existe o no datos
+    if (controlFormsPages("1", 'next') || controlFormsPages("2", 'next') || controlFormsPages("3", 'next')) {
         return false;
     }
-
-    const ordenM = $('#input_ordenMedica').val();
-
-    if (ordenM === null || ordenM === undefined || ordenM === '') {
-        console.log('Hola, no hay orden medica')
-        alertToast('¡No olvide cargar la orden médica!', 'info', 4000)
-        return false;
-    }
-
 
 
     alertMensajeConfirm({
@@ -473,83 +465,84 @@ $(document).on('click', '.control-pagina-interpretacion', function (event) {
     event.preventDefault();
     event.stopPropagation();
 
-    // Previene a mas de un click para terminar la animación
-    if (time_click == 0) {
-        // Animacion activa
-        time_click = 1;
+    if (time_click === 0) {
+        time_click = 1; // Bloquea clicks adicionales hasta que la animación termine
 
+        const $btn = $(this); // Botón actual que se clickeó
+        const action = $btn.attr('target'); // Acción del botón (next, back)
+        const $visiblePage = $('.page:visible'); // Página actualmente visible
 
+        // Bloquea el botón del formulario por defecto
+        $('#GuardarFormulario').prop('disabled', true);
 
+        // Determina la página objetivo basándose en la acción
+        const $targetPage = action === 'back' ? $visiblePage.prev('.page') : $visiblePage.next('.page');
 
-        const $btn = $(this); // Boton actual que da click
-        const action = $btn.attr('target'); // Lo que debe hacer el boton (next, back)
-        const $visiblePage = $('.page:visible'); // Busca la pagina actual
-        // Boton de formulario
-        $('#GuardarFormulario').prop('disabled', true) // Bloquea el boton de formulario
-        switch (action) {
-            case 'back':
-                // Para regresar pagina
-                const $prevPage = $visiblePage.prev('.page');
-                // Resetea el bloqueado
-                $('.control-pagina-interpretacion').prop('disabled', false);
-                // Verifica si existe otra paginas
-                if ($prevPage.length) {
-                    updatePage($prevPage, action);
-                }
+        if (controlFormsPages($visiblePage.attr('actual-page'), action))
+            return false; time_click = 0; // Si falta por rellenar campos
 
-                if ($prevPage.attr('control-page') === 'first') {
-                    // Si es la primera pagina a mostrar
-                    $btn.prop('disabled', true);
-                }
+        // Resetea el estado de deshabilitado en los controles de página
+        $('.control-pagina-interpretacion').prop('disabled', false);
+        console.log('hola, if')
+        if ($targetPage.length) {
+            console.log($targetPage);
+            updatePage($targetPage, action); // Actualiza la página mostrada
 
-                break;
-            case 'next':
-                // Para siguiente pagina
-                const $nextPage = $visiblePage.next('.page');
-                // Resetea el bloqueado
-                $('.control-pagina-interpretacion').prop('disabled', false);
-                // Verifica si existe otra paginas
-                if ($nextPage.length) {
-                    updatePage($nextPage, action);
-                }
-
-                if ($nextPage.attr('control-page') === 'last') {
-                    $btn.prop('disabled', true); // Si es la ultima pagina a mostrar
-                    $('#GuardarFormulario').prop('disabled', false) // Activa boton de formulario si esta en la ultima pagina
-                }
-                break;
-            default:
-                break;
+            // Si es la primera o última página, ajusta los controles de navegación
+            if ($targetPage.attr('control-page') === 'first') {
+                $btn.prop('disabled', true); // Deshabilita botón si es la primera página
+            } else if ($targetPage.attr('control-page') === 'last') {
+                $btn.prop('disabled', true); // Deshabilita botón si es la última página
+                $('#GuardarFormulario').prop('disabled', false); // Habilita el botón del formulario
+            }
         }
-
-        // El estado de animacion terminada para nuevamente dar click
-        setTimeout(() => {
-            time_click = 0;
-        }, 350); // <-- Tiempo en terminar de cargar una pagina
     }
+
+    // Permite clics después de que la animación haya terminado
+    setTimeout(() => {
+        time_click = 0;
+    }, 350); // Asume que 350ms es la duración de la animación
 });
 
+// Verifica cada pagina 
+function controlFormsPages(page, action) {
+    if (action === 'back')
+        return false; // Permite continuar flujo
 
+    switch (page) {
+        case "1":
+            // Verificar cada campo requerido
+            if (requiredInputLeft('formAgregarPaciente')) {
+                alertToast('¡Hay información del paciente que falta rellenar!')
+                return true;
+            }
+            break;
+        case "2":
+            // Verificar la orden medica
+            const ordenM = $('#input_ordenMedica').val();
+            if (ordenM === null || ordenM === undefined || ordenM === '') {
+                alertToast('¡No olvide cargar la orden médica!', 'info', 4000)
+                return true;
+            }
 
-// Verifica si rellenó todo
-function verificarCamposRequeridos(formId) {
-    // Encuentra el formulario por su ID
-    const formulario = document.getElementById(formId);
+            break;
 
-    // Selecciona todos los campos requeridos dentro del formulario
-    const camposRequeridos = formulario.querySelectorAll('.requeridos');
+        case "3":
+            // Verifica si hay cargos disponibles
+            if (estudiosEnviar.length < 1) {
+                alertToast('¡Recuerde cargar los estudios del paciente!', 'info', 4000)
+                return true;
+            }
 
-    // Inicializa la variable para seguir el estado de los campos
-    let todosLlenos = true;
+            // Verifica si hay algún botón de radio seleccionado para el grupo 'tipo'
+            if (!($('input[name="tipo"]:checked').length > 0)) {
+                alertToast('¡Selecciona el tipo de solicitud del paceinte!')
+                return true;
+            }
 
-    // Revisa cada campo para ver si está vacío
-    camposRequeridos.forEach(campo => {
-        if (campo.value) {
-            return todosLlenos = false;
-        }
-    });
+            break;
 
-    return todosLlenos;
+    }
+
+    return false;
 }
-
-

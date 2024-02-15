@@ -13,7 +13,7 @@
                     <div class="row container-pages" id="page_control-agregar_paciente" style="height: 100%;">
 
                         <!-- Pagina 1 | Información del paciente -->
-                        <section class="page px-4" style="display: none;" control-page="first">
+                        <section class="page px-4" actual-page="1" style="display: none;" control-page="first">
                             <div class="container">
                                 <p class=" my-2"> Cargue la información de su paciente</p>
 
@@ -154,7 +154,7 @@
                         </section>
 
                         <!-- Pagina 2 | Orden Médica -->
-                        <section class="page px-4" style="display: none;height: 100%;">
+                        <section class="page px-4" actual-page="2" style="display: none;height: 100%;">
                             <div class="container" style="height: 100%;">
                                 <div class="row" style="height: 100%;">
                                     <div class="col-12 col-md-6">
@@ -203,7 +203,7 @@
                         </section>
 
                         <!-- Pagina 3 | Carga de estudios -->
-                        <section class="page px-4" style="display: none;">
+                        <section class="page px-4" actual-page="3" style="display: none;">
 
                             <div class="rounded p-3 shadow ">
                                 <div class="row">
@@ -350,7 +350,7 @@
                         </section>
 
                         <!-- Pagina 4 | Resumen de carga -->
-                        <section class="page px-4" style="display: none;" control-page="last">
+                        <section class="page px-4" actual-page="4" style="display: none;" control-page="last">
                             <div class="col-12 col-lg-12">
                                 <div class="row">
 
@@ -409,7 +409,7 @@
                         </section>
 
                         <!-- Pagina 5 | Proceso final para tomar muestra y su folio -->
-                        <section class="page px-4" style="display: none;">
+                        <section class="page px-4" actual-page="5" style="display: none;">
                             <div class="p-4">
                                 <!-- <h4>Estudios y contenedores</h4> -->
                                 <p class="none-p">Lista de estudios y tipo de muestras cargados al paciente</p>
@@ -508,9 +508,9 @@
                 </div>
 
                 <!-- Pagina 4 -->
-                <button style="display: none;" class="btn-footers page-formulario btn btn-confirmar"
-                    form="formAgregarPaciente" id="GuardarFormulario" type="submit" disabled data-bs-toggle="tooltip"
-                    data-bs-placement="top" data-bs-original-title="Al finalizar, cargará el paciente">
+                <button style="display: none;" class="btn-footers btn btn-confirmar" form="formAgregarPaciente"
+                    id="GuardarFormulario" type="submit" disabled data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-original-title="Al finalizar, cargará el paciente">
                     <i class="bi bi-person-fill-up"></i> Guardar
                 </button>
 

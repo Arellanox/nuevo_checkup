@@ -469,6 +469,40 @@ function ifnull(data, siNull = '', values = [
 }
 
 
+// Verifica si rellenó todo
+function requiredInputLeft(formId) {
+  let todosLlenos = false; // Asumiendo que los datos estan rellenados
+
+  // Almacenar los grupos de radio verificados para no repetir la verificación
+  let radioVerificados = {};
+
+  $(`#${formId} .required_input`).each(function () {
+    // Para campos de texto y número, verifica si están vacíos
+    if (this.type === 'text' || this.type === 'number') {
+      if (!ifnull(this, false, ['value'])) {
+        todosLlenos = true; // Marca si falta campos por marcar
+        return false; // Salir del bucle
+      }
+    }
+    // Para botones de radio, verifica si alguno del mismo grupo está seleccionado
+    else if (this.type === 'radio') {
+      // Si el grupo de radio ya fue verificado, saltarlo
+      if (radioVerificados[this.name]) return true;
+
+      if (!$(`input[name="${this.name}"]:checked`).length) {
+        todosLlenos = true; // Marca si falta campos por marcar
+        return false; // Salir del bucle
+      }
+      // Marcar el grupo de radio como verificado
+      radioVerificados[this.name] = true;
+    }
+  });
+
+  return todosLlenos;
+}
+
+
+
 function htmlCaracter(data) {
 
   st = document.getElementById('ent').value;
