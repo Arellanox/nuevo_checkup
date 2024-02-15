@@ -542,10 +542,11 @@ function controlFormsPages(page, action) {
     switch (page) {
         case "1":
             // Verificar cada campo requerido
-            if (requiredInputLeft('formAgregarPaciente')) {
-                alertToast('¡Hay información del paciente que falta rellenar!')
-                return true;
-            }
+            if (!form_type)
+                if (requiredInputLeft('formAgregarPaciente')) {
+                    alertToast('¡Hay información del paciente que falta rellenar!')
+                    return true;
+                }
             break;
         case "2":
             // Verificar la orden medica
