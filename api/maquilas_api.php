@@ -43,8 +43,11 @@ $id_lote = $_POST['id_lote'];
 $fecha = $_POST['fecha'];
 $bit_muestras  = $_POST['bit_muestras']; # 0 los que no 1 lo que si tienen muestas tomadas
 
-# rechazar muestras
+
+#rechazar muestras 
 $id_servicio = $_POST['id_servicio'];
+$comentario_rechazo = $_POST['comentario_rechazo'];
+$rechazado = $_POST['rechazado']; # bit 0 rechazado, 1 aceptado.
 
 if (!empty($_SESSION['id'])) {
 
@@ -232,12 +235,38 @@ if (!empty($_SESSION['id'])) {
             break;
 
         case 10:
-            # buscar pacientes de la empresa de acuerdo a la sesion.
+            # buscar pacientes de la empresa.
             $response = $master->getByProcedure("sp_maquilas_pacientes_b", [$_SESSION["CLIENTE_ID"]]);
             break;
         case 11:
             # rechazar servicios de una solicitud.
-            $response = $master->getByProcedure("sp_maquilas_historial_servicios_rechazados_g", [$id_turno, $id_servicio]);
+            $dir = "../archivos/maquilas/evidencias_rechazo/$id_turno";
+            $r = $master->createDir($dir);
+
+            # si no se pueden guardar las evidencias, se retorna el error
+            if (!$r) {
+                $response = "Error al crear repositorios de evidencias.";
+                break;
+            }
+            
+            # continuamos con el procedemiento.
+
+            # subimos las capturas
+            $imagenes = $master->guardarFiles($_FILES,'evidencias',$dir,"evidencias_rechazo_$turno_id");
+
+            #cambiamos la el prefijo de la ruta
+            $imgs = [];
+            foreach($imagenes as $imagen){
+                $imagen['url'] = str_replace("../",$host, $imagen['url']);
+                $imgs[] = $imagen;
+            }
+
+            $response = $master->getByProcedure("sp_maquilas_historial_servicios_rechazados_g", [$id_turno, $id_servicio, json_encode($imgs), $comentario_rechazo]);
+            break;
+        case 12:
+            # detalle de los servicios
+            $servicios = explode(',', $servicios);
+            $response = $master->getByProcedure("sp_maquilas_detalle_servicios", [json_encode($servicios)]);
             break;
 
         default:

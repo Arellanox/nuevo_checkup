@@ -239,7 +239,7 @@ class Reporte
             case 'envio_muestras':
                 $template = render_view('invoice/envio_muestras.php', $view_vars);
                 $pdf->loadHtml($template);
-                $pdf->setPaper('letter', 'portrait');
+                $pdf->setPaper('letter', 'landscape');
                 break;    
 
             default:

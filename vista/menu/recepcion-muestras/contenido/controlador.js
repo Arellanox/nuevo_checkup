@@ -1,12 +1,13 @@
 
 var tablaMuestras, dataListaPaciente = {}, selectListaMuestras;
 
+// Permiso para entrar
 if (validarVista('LABORATORIO_MUESTRA_1')) {
-  contenidoMuestras()
+  contenidoRecepcionMuestras()
 }
-async function contenidoMuestras() {
-  await obtenerTitulo("Toma de muestras");
-  $.post("contenido/muestras.php", function (html) {
+async function contenidoRecepcionMuestras() {
+  await obtenerTitulo("Recepción de muestras");
+  $.post("contenido/recepcion.php", function (html) {
     $("#body-js").html(html);
   }).done(function () {
     dataListaPaciente = { api: 1, id_area: 6, fecha_agenda: $('#fechaListadoAreaMaster').val() };

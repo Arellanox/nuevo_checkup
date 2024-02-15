@@ -102,8 +102,9 @@ function updatePage($newPage, direction) {
         const isLastPage = $newPage.is($('.page').last());
 
 
-        $prevButton.attr('disabled', isFirstPage ? true : false)
-        $nextButton.attr('disabled', isLastPage ? true : false)
+        // Previene el doble click
+        // $prevButton.attr('disabled', isFirstPage ? true : false)
+        // $nextButton.attr('disabled', isLastPage ? true : false)
     });
 }
 

@@ -27,6 +27,8 @@ async function getDataFirst(type) {
             await rellenarSelect("#paciente_existente", "maquilas_api", 6, 'PACIENTE_ID', 'FOLIO.NOMBRE.SIHO_CUENTA.TIPO_SOLICITUD');
 
             $('#formAgregarPaciente .required_input_agregar_paciente').removeAttr('required')
+
+
         } else {
             $('#formAgregarPaciente input.required_input_agregar_paciente').attr('required', true)
             console.log('Hola client')
@@ -84,7 +86,8 @@ function getListMuestras(idturno = null) {
                 // console.log(row[i]);
                 html += '<li class="list-group-item">';
                 html += row[i]['GRUPO'];
-                html += '<i class="bi bi-arrow-right-short"></i><strong>' + row[i]['MUESTRA'] + '</strong> - <strong>' + row[i]['CONTENEDOR'] + '</strong> - <strong>' + row[i]['ENTREGA'] + '</strong></li>';
+                html += `<i class="bi bi-arrow-right-short"></i><strong>${row[i]['MUESTRA']}</strong> - <strong>${row[i]['CONTENEDOR']}</strong> - <strong>${row[i]['ENTREGA']}</strong>
+                </li>`;
 
             }
             $('#lista-estudios-paciente').html(html);
@@ -130,6 +133,18 @@ function muestrasInfoPaciente(data) {
 
     // Informacion de usuario
     $('#usuario-paciente').html(`${session.nombre} ${session.apellidos}`)
+}
+
+//Usa datos del formulario y los muestra en la section 3
+function muestraDataPaciente(data) {
+    const nombreClass = `${$('#nombre-form-agregar').val()} ${$('#paterno-form-agregar').val()} ${$('#materno-form-agregar').val()}`
+    $('.nombre-paciente').html(ifnull(data, nombreClass, ['NOMBRE']))
+    $('.fecha_de_nacimiento-paciente').html(ifnull(data, $('#nacimiento-form-agregar').val()))
+    $('.edad-paciente').html(ifnull(data, $('#edad-form-agregar').val()))
+    $('.curp-paciente').html(ifnull(data, $('#curp-form-agregar').val()))
+    $('.numero_cuenta-paciente').html(ifnull(data, $('#numero_cuenta-form-agregar').val()))
+    $('.area-paciente').html(ifnull(data, $('#area-form-agregar').val()))
+    $('.genero-paciente').html(ifnull(data, $('.required_input_agregar_paciente').val()))
 }
 
 
@@ -191,6 +206,53 @@ $(document).on('click', '#btn-etiquetas-pdf', function (e) {
 
 // Drag and drop
 let input_ordenMedica = InputDragDrop('#dropPromocionalesBimo', (inputArea, salidaInput) => {
+
+
+
+    // Obtén el archivo del input
+    var file = inputArea.get(0).files[0];
+
+    // Verifica si el archivo es un PDF
+    if (file.type === 'application/pdf') {
+        // Muestra el canvas y oculta el img
+        $('#pdf-canvas').show();
+        $('#image-preview').hide();
+
+        // Usa PDF.js para leer y mostrar la primera página del PDF
+        var fileReader = new FileReader();
+        fileReader.onload = function () {
+            var typedarray = new Uint8Array(this.result);
+            pdfjsLib.getDocument(typedarray).promise.then(function (pdf) {
+                pdf.getPage(1).then(function (page) {
+                    var canvas = document.getElementById('pdf-canvas');
+                    var ctx = canvas.getContext('2d');
+                    var viewport = page.getViewport({ scale: 2 });
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+                    var renderContext = {
+                        canvasContext: ctx,
+                        viewport: viewport
+                    };
+                    page.render(renderContext);
+                });
+            });
+        };
+        fileReader.readAsArrayBuffer(file);
+    } else if (file.type.match('image.*')) {
+        // Muestra el img y oculta el canvas
+        $('#image-preview').show();
+        $('#pdf-canvas').hide();
+
+        // Lee y muestra la imagen
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#image-preview').attr('src', e.target.result).show();
+        };
+        reader.readAsDataURL(file);
+    } else {
+        alert('Por favor, selecciona un archivo PDF o una imagen.');
+    }
+
 
     // Siempre se ejecuta al final del proceso
     salidaInput({
@@ -403,5 +465,91 @@ function actualizarTotal(id, servicios, sumar = true) {
 select2("#select-labClinico", "AgregarNuevoPaciente", 'Seleccione un estudio');
 select2("#select-labBio", "AgregarNuevoPaciente", 'Seleccione un estudio');
 select2("#paciente_existente", "AgregarNuevoPaciente", 'Cargando...');
+
+
+// Previene a mas de un click
+let time_click = 0;
+$(document).on('click', '.control-pagina-interpretacion', function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    // Previene a mas de un click para terminar la animación
+    if (time_click == 0) {
+        // Animacion activa
+        time_click = 1;
+
+
+
+
+        const $btn = $(this); // Boton actual que da click
+        const action = $btn.attr('target'); // Lo que debe hacer el boton (next, back)
+        const $visiblePage = $('.page:visible'); // Busca la pagina actual
+        // Boton de formulario
+        $('#GuardarFormulario').prop('disabled', true) // Bloquea el boton de formulario
+        switch (action) {
+            case 'back':
+                // Para regresar pagina
+                const $prevPage = $visiblePage.prev('.page');
+                // Resetea el bloqueado
+                $('.control-pagina-interpretacion').prop('disabled', false);
+                // Verifica si existe otra paginas
+                if ($prevPage.length) {
+                    updatePage($prevPage, action);
+                }
+
+                if ($prevPage.attr('control-page') === 'first') {
+                    // Si es la primera pagina a mostrar
+                    $btn.prop('disabled', true);
+                }
+
+                break;
+            case 'next':
+                // Para siguiente pagina
+                const $nextPage = $visiblePage.next('.page');
+                // Resetea el bloqueado
+                $('.control-pagina-interpretacion').prop('disabled', false);
+                // Verifica si existe otra paginas
+                if ($nextPage.length) {
+                    updatePage($nextPage, action);
+                }
+
+                if ($nextPage.attr('control-page') === 'last') {
+                    $btn.prop('disabled', true); // Si es la ultima pagina a mostrar
+                    $('#GuardarFormulario').prop('disabled', false) // Activa boton de formulario si esta en la ultima pagina
+                }
+                break;
+            default:
+                break;
+        }
+
+        // El estado de animacion terminada para nuevamente dar click
+        setTimeout(() => {
+            time_click = 0;
+        }, 350); // <-- Tiempo en terminar de cargar una pagina
+    }
+});
+
+
+
+// Verifica si rellenó todo
+function verificarCamposRequeridos(formId) {
+    // Encuentra el formulario por su ID
+    const formulario = document.getElementById(formId);
+
+    // Selecciona todos los campos requeridos dentro del formulario
+    const camposRequeridos = formulario.querySelectorAll('.requeridos');
+
+    // Inicializa la variable para seguir el estado de los campos
+    let todosLlenos = true;
+
+    // Revisa cada campo para ver si está vacío
+    camposRequeridos.forEach(campo => {
+        if (campo.value) {
+            return todosLlenos = false;
+        }
+    });
+
+    return todosLlenos;
+}
 
 
