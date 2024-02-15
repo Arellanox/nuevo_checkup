@@ -153,6 +153,7 @@ function muestrasInfoPaciente(data) {
 //Usa datos del formulario y los muestra en la section 3
 function muestraDataPaciente(data) {
     const nombreClass = `${$('#nombre-form-agregar').val()} ${$('#paterno-form-agregar').val()} ${$('#materno-form-agregar').val()}`
+    const tipo = $('input[name="tipo"]:checked').val()
     $('.nombre-paciente').html(ifnull(data, nombreClass, ['NOMBRE']))
     $('.fecha_de_nacimiento-paciente').html(ifnull(data, $('#nacimiento-form-agregar').val()))
     $('.edad-paciente').html(ifnull(data, $('#edad-form-agregar').val()))
@@ -160,6 +161,19 @@ function muestraDataPaciente(data) {
     $('.numero_cuenta-paciente').html(ifnull(data, $('#numero_cuenta-form-agregar').val()))
     $('.area-paciente').html(ifnull(data, $('#area-form-agregar').val()))
     $('.genero-paciente').html(ifnull(data, $('.required_input_agregar_paciente').val()))
+    $('.comentario_orden-paciente').html(ifnull(data, $('.comentarios_orden').val()))
+    
+
+    if(tipo === "1"){
+        $('.tipo_solicitud-paciente').html(`<span class="text-warning tipo_solicitud-paciente"
+                                            id="tipo_solicitud-paciente"><strong>Ordinario</strong></span>`)
+    }else{
+        $('.tipo_solicitud-paciente').html(`<span class="text-danger tipo_solicitud-paciente"
+                                            id="tipo_solicitud-paciente"><strong>Urgente</strong></span>`)
+    }
+
+
+
 }
 
 
