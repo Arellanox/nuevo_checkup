@@ -77,24 +77,29 @@ function resetForm() {
 }
 
 // Mostrar las muestras en lista (Pagina 2)
-function getListMuestras(idturno = null) {
+async function getListMuestras() {
     return new Promise(resolve => {
 
-        ajaxAwait({ api: 2, id_turno: idturno }, 'toma_de_muestra_api', { callbackAfter: true, WithoutResponseData: true }, false, (row) => {
+        ajaxAwait({
+            api: 12,
+            servicios: arrayATexto(estudiosEnviar)
+        }, 'maquilas_api', { callbackAfter: true }, false, (data) => {
+            let row = data.response.data;
+            console.log(row);
+
             let html = '';
             for (var i = 0; i < row.length; i++) {
                 // console.log(row[i]);
                 html += '<li class="list-group-item">';
-                html += row[i]['GRUPO'];
-                html += `<i class="bi bi-arrow-right-short"></i><strong>${row[i]['MUESTRA']}</strong> - <strong>${row[i]['CONTENEDOR']}</strong> - <strong>${row[i]['ENTREGA']}</strong>
+                html += row[i]['NOMBRE'];
+                html += `<i class="bi bi-arrow-right-short"></i><strong>${row[i]['TUBO']}</strong> - <strong>${row[i]['MUESTRA']}</strong> - <strong>${row[i]['DURACION']} <br/> <strong>${row[i]['INDICACIONES']}</strong>
                 </li>`;
 
             }
-            $('#lista-estudios-paciente').html(html);
+            $('.lista-estudios-paciente').html(html);
 
             resolve(1);
-        });
-
+        })
 
     });
 }
@@ -106,9 +111,19 @@ function btnEstatus(key) {
     $('.btn-footers').prop('disabled', true);
 
     switch (key) {
-        case 1: $('.page-formulario').fadeIn(0).prop('disabled', false); break; // Primera pagina
-        case 2: $('.page-etiquetas').fadeIn(0).prop('disabled', false); break; // Segunda pagina
-        case 3: $('.page-etiquetas, .page-proceso_final').fadeIn(0).prop('disabled', false); break; // Reinicio
+        case 1:
+            $('.page-formulario').fadeIn(0).prop('disabled', false);
+            break; // Primera pagina
+        case 2:
+            // Quita los botones antes de guardar
+            $('.page-formulario').fadeOut(0).prop('disabled', true);
+            $('#GuardarFormulario').fadeOut(0).prop('disabled', true);
+
+            $('.page-etiquetas').fadeIn(0).prop('disabled', false);
+            break; // Segunda pagina
+        case 3:
+            $('.page-etiquetas, .page-proceso_final').fadeIn(0).prop('disabled', false);
+            break; // Reinicio
     }
 }
 
@@ -290,8 +305,8 @@ $(document).on('submit', '#formAgregarPaciente', function (event) {
     }, () => {
 
         alertMsj({
-            title: '¡Genial, espere un momento!',
-            text: 'Esto puede tardar un rato, estamos configurando el proceso del paciente',
+            title: '¡Genial, todo en orden!',
+            text: 'Cargando todos los datos, espere un momento',
             showCancelButton: false, showConfirmButton: false,
             icon: 'info'
         })
@@ -322,7 +337,7 @@ $(document).on('submit', '#formAgregarPaciente', function (event) {
             $('#folio-paciente').html(folio_empresa);
 
             // Muestra la información que se guardo en la base;
-            muestrasInfoPaciente(row); // Muestra información del paciente
+            // muestrasInfoPaciente(row); // Muestra información del paciente
 
             $('#btn-etiquetas-pdf').attr('data-bs-turno_guardado', turno)
 
@@ -340,12 +355,13 @@ $(document).on('submit', '#formAgregarPaciente', function (event) {
 })
 
 // Guardar muestra
-$(document).on('submit', '.form_guardarMuestra', function (e) {
+$(document).on('click', '.btn_submit_tomarmuestra', function (e) {
     e.preventDefault();
     e.stopPropagation();
 
-    const form = $(this);
-    const botonGuardarMuestra = form.find('.btn_submit_tomarmuestra'); // Encuentra el botón dentro del formulario
+    const botonGuardarMuestra = $(this);
+    const input = botonGuardarMuestra.closest('div.div_muestraTomada').find('input');
+    // const botonGuardarMuestra = form.find('.btn_submit_tomarmuestra'); // Encuentra el botón dentro del formulario
 
 
     alertMensajeConfirm({
@@ -354,8 +370,8 @@ $(document).on('submit', '.form_guardarMuestra', function (e) {
         icon: 'warning',
     }, () => {
         // Datos a enviar
-        const data_json = { api: 9, id_turno: turno };
-        ajaxAwaitFormData(data_json, 'maquilas_api', '', { callbackAfter: true, formJquery: form }, false, () => {
+        const data_json = { api: 9, id_turno: turno, fecha_toma: input.val() };
+        ajaxAwait(data_json, 'maquilas_api', { callbackAfter: true }, false, () => {
             alertToast('¡Fecha de muestra guardada!', 'success', 4000)
 
             tablaPacientes.ajax.reload();
@@ -461,7 +477,7 @@ select2("#paciente_existente", "AgregarNuevoPaciente", 'Cargando...');
 
 // Previene a mas de un click
 let time_click = 0;
-$(document).on('click', '.control-pagina-interpretacion', function (event) {
+$(document).on('click', '.control-pagina-interpretacion', async function (event) {
     event.preventDefault();
     event.stopPropagation();
 
@@ -478,8 +494,22 @@ $(document).on('click', '.control-pagina-interpretacion', function (event) {
         // Determina la página objetivo basándose en la acción
         const $targetPage = action === 'back' ? $visiblePage.prev('.page') : $visiblePage.next('.page');
 
-        if (controlFormsPages($visiblePage.attr('actual-page'), action))
-            return false; time_click = 0; // Si falta por rellenar campos
+        if (controlFormsPages($visiblePage.attr('actual-page'), action)) {
+            time_click = 0; // Si falta por rellenar campos
+            return false;
+        }
+
+        // Carga las muestras a cargar y cargadas del paciente
+        if ($visiblePage.attr('actual-page') === "3" && action === 'next') {
+            alertMsj({
+                title: '¡Genial, espera un momento!',
+                text: 'Estamos preparando todo.',
+                showCancelButton: false, showConfirmButton: false,
+                icon: 'info'
+            })
+            await getListMuestras();
+            swal.close();
+        }
 
         // Resetea el estado de deshabilitado en los controles de página
         $('.control-pagina-interpretacion').prop('disabled', false);
@@ -528,6 +558,7 @@ function controlFormsPages(page, action) {
             break;
 
         case "3":
+
             // Verifica si hay cargos disponibles
             if (estudiosEnviar.length < 1) {
                 alertToast('¡Recuerde cargar los estudios del paciente!', 'info', 4000)

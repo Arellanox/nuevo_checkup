@@ -67,6 +67,13 @@ function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = '
 }
 
 
+// Función para convertir un arreglo a texto
+function arrayATexto(arr) {
+  return arr.join(', '); // Usa ', ' como separador
+}
+
+
+
 // Reinicia los collapse para medicos tratantes
 function reset_email_inputs_medicos() {
   // Ocultar solo los collapses de confirmación de correo
@@ -200,7 +207,6 @@ async function ajaxAwait(dataJson, apiURL,
     //Configura la funcion misma
     config = setConfig(configAjaxAwait, config)
 
-
     $.ajax({
       url: `${http}${servidor}/${appname}/api/${apiURL}.php`,
       data: dataJson,
@@ -264,6 +270,7 @@ async function ajaxAwaitFormData(dataJson = { api: 0, }, apiURL, form = 'OnlyFor
     if (config.formJquery) {
       formID = config.formJquery[0];
     }
+
     let formData = new FormData(formID);
 
     for (const key in dataJson) {
