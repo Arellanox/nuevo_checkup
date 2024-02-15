@@ -110,7 +110,7 @@ if (!empty($_SESSION['id'])) {
                     $_SESSION['id'],
                     $orden_medica
                 ]);
-                
+
                 # si el primer elemento 
                 // if (!is_numeric($resultset[0][0])){
                 //     $response = $resultset[0][0];
@@ -248,16 +248,16 @@ if (!empty($_SESSION['id'])) {
                 $response = "Error al crear repositorios de evidencias.";
                 break;
             }
-            
+
             # continuamos con el procedemiento.
 
             # subimos las capturas
-            $imagenes = $master->guardarFiles($_FILES,'evidencias',$dir,"evidencias_rechazo_$turno_id");
+            $imagenes = $master->guardarFiles($_FILES, 'evidencias', $dir, "evidencias_rechazo_$turno_id");
 
             #cambiamos la el prefijo de la ruta
             $imgs = [];
-            foreach($imagenes as $imagen){
-                $imagen['url'] = str_replace("../",$host, $imagen['url']);
+            foreach ($imagenes as $imagen) {
+                $imagen['url'] = str_replace("../", $host, $imagen['url']);
                 $imgs[] = $imagen;
             }
 
