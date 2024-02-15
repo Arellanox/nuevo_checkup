@@ -208,7 +208,7 @@ if (
                 <i class="bi bi-hospital"></i> Tomas Externas
             </a>
 
-            <!-- <div class="collapse" id="board-menu-empresas">
+            <div class="collapse" id="board-menu-empresas">
                 <ul style="padding-left: 15px;" class="btn-toggle-nav text-black list-unstyled fw-normal pb-1 small shadow">
 
                     <?php if ($_SESSION['vista']['FRANQUICIAS'] == 1) :
@@ -220,7 +220,7 @@ if (
                     <?php endif;
                     ?>
                 </ul>
-            </div> -->
+            </div>
         </div>
     </li>
 <?php endif;
