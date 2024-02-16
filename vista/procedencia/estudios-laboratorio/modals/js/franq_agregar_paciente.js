@@ -406,6 +406,7 @@ $(document).on('submit', '#formulario_submit_muestras', function (e) {
     const form = $(this);
     const input = form.find('input');
     const btn = $('button[form="formulario_submit_muestras"]');
+
     // const botonGuardarMuestra = form.find('.btn_submit_tomarmuestra'); // Encuentra el botón dentro del formulario
 
     guardarMuestraTomada(input, false)
@@ -414,12 +415,19 @@ $(document).on('submit', '#formulario_submit_muestras', function (e) {
 })
 
 // Guardar muestra
-$(document).on('submit', '#btn_submit_tomarmuestra', function (e) {
+$(document).on('click', '#btn_submit_tomarmuestra', function (e) {
     e.preventDefault();
     e.stopPropagation();
 
     const btn = $(this);
     const input = btn.closest('div_muestraTomada#div_muestraTomada').find('input');
+
+    console.log(input.value);
+    if (input.value === undefined) {
+        alertToast('Por favor ingresa la fecha de toma de muestra del paciente.', 'info', 4000)
+        return false;
+    }
+
     // const botonGuardarMuestra = form.find('.btn_submit_tomarmuestra'); // Encuentra el botón dentro del formulario
 
     guardarMuestraTomada(input, btn)
