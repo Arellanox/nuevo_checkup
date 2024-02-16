@@ -420,10 +420,10 @@ $(document).on('click', '#btn_submit_tomarmuestra', function (e) {
     e.stopPropagation();
 
     const btn = $(this);
-    const input = btn.closest('div_muestraTomada#div_muestraTomada').find('input');
+    const input = btn.closest('div').find('input');
 
-    console.log(input.value);
-    if (input.value === undefined) {
+    console.log(input.val());
+    if (input.val() === '') {
         alertToast('Por favor ingresa la fecha de toma de muestra del paciente.', 'info', 4000)
         return false;
     }
