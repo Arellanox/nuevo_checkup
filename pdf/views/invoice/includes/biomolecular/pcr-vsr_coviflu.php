@@ -30,7 +30,7 @@
     </tr>
     <?php
 
-    $body = array_slice($body, 0, count($body) - 1);
+    $body = array_slice($body, 0, count($body) - 2);
     foreach ($body as $key => $value) {
         $valor_ct = strpos($value->nombre, 'Valor CT') !== false;
         if ($valor_ct) {
