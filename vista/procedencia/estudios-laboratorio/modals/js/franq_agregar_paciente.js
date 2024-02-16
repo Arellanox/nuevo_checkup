@@ -406,7 +406,7 @@ $(document).on('submit', '#formulario_submit_muestras', function (e) {
     const btn = $('button[form="formulario_submit_muestras"]');
     // const botonGuardarMuestra = form.find('.btn_submit_tomarmuestra'); // Encuentra el botón dentro del formulario
 
-    guardarMuestra(input, btn)
+    guardarMuestra(input, false)
 
 
 })
@@ -439,11 +439,12 @@ function guardarMuestra(input, botonGuardarMuestra) {
             tablaPacientes.ajax.reload();
             $('#ModaltomarMuestra').modal('hide');
 
-            // Cambiar el boton
-            botonGuardarMuestra.attr('disabled', true) // Deshabilita el botón para prevenir clics adicionales
-                .removeClass('btn-confirmar') // Opcional: remover la clase original si deseas
-                .addClass('btn-success') // Cambia a color verde
-                .html('<i class="bi bi-droplet-fill"></i> Muestra Tomada'); // Cambia el contenido del botón a "Muestra Tomada" y el ícono a una gota de agua llena
+            if (botonGuardarMuestra)
+                // Cambiar el boton
+                botonGuardarMuestra.attr('disabled', true) // Deshabilita el botón para prevenir clics adicionales
+                    .removeClass('btn-confirmar') // Opcional: remover la clase original si deseas
+                    .addClass('btn-success') // Cambia a color verde
+                    .html('<i class="bi bi-droplet-fill"></i> Muestra Tomada'); // Cambia el contenido del botón a "Muestra Tomada" y el ícono a una gota de agua llena
 
 
         })
