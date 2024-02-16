@@ -180,7 +180,7 @@ function muestraDataPaciente(data) {
 
 
     // Comentario de la orden
-    $('.comentario_orden-paciente').html(ifnull(data, $('.comentarios_orden').val()))
+    $('.comentario_orden').html(ifnull(data, $('#comentario_orden_agregar-paciente').val()))
 
 
     if (tipo === "1") {
