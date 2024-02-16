@@ -73,7 +73,7 @@ function resetForm() {
 
     // Boton de muestra
     // Cambiar el boton
-    $('.btn_submit_tomarmuestra').attr('disabled', false) // Deshabilita el botón para prevenir clics adicionales
+    $('#btn_submit_tomarmuestra').attr('disabled', false) // Deshabilita el botón para prevenir clics adicionales
         .addClass('btn-confirmar') // Opcional: remover la clase original si deseas
         .removeClass('btn-success') // Cambia a color verde
         .html('<i class="bi bi-droplet-half"></i> Tomar Muestra'); // Cambia el contenido del botón a "Muestra Tomada" y el ícono a una gota de agua llena
