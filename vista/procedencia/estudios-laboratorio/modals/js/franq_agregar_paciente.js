@@ -64,7 +64,8 @@ function resetForm() {
 
 
     // Resetea el canva o imagen de la orden medica
-    $('.img-thumbnail').html('');
+    $('#pdf-canvas').html('');
+    $('#image-preview').html('');
 
     // Orden Medica Info
     $('.nombre_orden-paciente').html('');
@@ -406,7 +407,7 @@ $(document).on('submit', '#formulario_submit_muestras', function (e) {
     const btn = $('button[form="formulario_submit_muestras"]');
     // const botonGuardarMuestra = form.find('.btn_submit_tomarmuestra'); // Encuentra el botón dentro del formulario
 
-    guardarMuestra(input, false)
+    guardarMuestraTomada(input, false)
 
 
 })
@@ -420,12 +421,12 @@ $(document).on('submit', '#btn_submit_tomarmuestra', function (e) {
     const input = btn.closest('div_muestraTomada#div_muestraTomada').find('input');
     // const botonGuardarMuestra = form.find('.btn_submit_tomarmuestra'); // Encuentra el botón dentro del formulario
 
-    guardarMuestra(input, btn)
+    guardarMuestraTomada(input, btn)
 
 
 })
 
-function guardarMuestra(input, botonGuardarMuestra) {
+function guardarMuestraTomada(input, botonGuardarMuestra) {
     alertMensajeConfirm({
         title: '¿Está seguro de cargar correctamente la fecha de toma?',
         text: 'No podrás modificarlo luego.',
