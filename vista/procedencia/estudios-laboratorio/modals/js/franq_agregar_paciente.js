@@ -397,15 +397,34 @@ $(document).on('submit', '#formAgregarPaciente', function (event) {
 })
 
 // Guardar muestra
-$(document).on('click', '.btn_submit_tomarmuestra', function (e) {
+$(document).on('submit', '#formulario_submit_muestras', function (e) {
     e.preventDefault();
     e.stopPropagation();
 
-    const botonGuardarMuestra = $(this);
-    const input = botonGuardarMuestra.closest('div.div_muestraTomada').find('input');
+    const form = $(this);
+    const input = form.find('input');
     // const botonGuardarMuestra = form.find('.btn_submit_tomarmuestra'); // Encuentra el botón dentro del formulario
 
+    guardarMuestra(input)
 
+
+})
+
+// Guardar muestra
+$(document).on('submit', '#btn_submit_tomarmuestra', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const btn = $(this);
+    const input = btn.closest('div_muestraTomada#div_muestraTomada').find('input');
+    // const botonGuardarMuestra = form.find('.btn_submit_tomarmuestra'); // Encuentra el botón dentro del formulario
+
+    guardarMuestra(input)
+
+
+})
+
+function guardarMuestra(input) {
     alertMensajeConfirm({
         title: '¿Está seguro de cargar correctamente la fecha de toma?',
         text: 'No podrás modificarlo luego.',
@@ -428,8 +447,7 @@ $(document).on('click', '.btn_submit_tomarmuestra', function (e) {
 
         })
     }, 1)
-
-})
+}
 
 
 // |--------------------------------Agregar nuevo estudio---------------------------------------|
