@@ -67,8 +67,8 @@ function resetForm() {
     $('.img-thumbnail').html('');
 
     // Orden Medica Info
-    $('#nombre_orden-paciente').html('');
-    $('#comentario_orden_paciente').html('');
+    $('.nombre_orden-paciente').html('');
+    $('.comentario_orden-paciente').html('');
 
 
     // Boton de muestra
@@ -308,8 +308,8 @@ let input_ordenMedica = InputDragDrop('#dropPromocionalesBimo', (inputArea, sali
 
 
     // Vista previa final
-    $('#nombre_orden-paciente').html(nombreArchivo);
-    $('#comentario_orden_paciente').html(ifnull($('#comentario_orden_agregar-paciente').val(), ''))
+    $('.nombre_orden-paciente').html(nombreArchivo);
+
 
     // Siempre se ejecuta al final del proceso
     salidaInput({
