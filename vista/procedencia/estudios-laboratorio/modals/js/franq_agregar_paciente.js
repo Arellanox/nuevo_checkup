@@ -165,6 +165,7 @@ function muestraDataPaciente(data) {
     // Variables
     const nombreClass = `${$('#nombre-form-agregar').val()} ${$('#paterno-form-agregar').val()} ${$('#materno-form-agregar').val()}`
     const tipo = $('input[name="tipo"]:checked').val()
+    const genero = $('input[name="genero"]:checked').val()
 
     // Informacion del paciente
     $('.nombre-paciente').html(ifnull(data, nombreClass, ['NOMBRE_COMPLETO']))
@@ -176,11 +177,11 @@ function muestraDataPaciente(data) {
     $('.area-paciente').html($('#area-form-agregar').val()) // Revisar luego
 
 
-    $('.genero-paciente').html(ifnull(data, $('.required_input_agregar_paciente').val(), ['GENERO']))
+    $('.genero-paciente').html(ifnull(data, genero, ['GENERO']))
 
 
     // Comentario de la orden
-    $('.comentario_orden').html(ifnull(data, $('#comentario_orden_agregar-paciente').val()))
+    $('.comentario_orden-paciente').html($('#comentario_orden_agregar-paciente').val())
 
 
     if (tipo === "1") {
