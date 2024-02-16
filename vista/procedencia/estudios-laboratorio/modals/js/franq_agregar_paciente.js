@@ -121,6 +121,7 @@ function btnEstatus(key) {
     switch (key) {
         case 1:
             $('.page-formulario').fadeIn(0).prop('disabled', false);
+            $('#GuardarFormulario').fadeIn(0).prop('disabled', true);
             break; // Primera pagina
         case 2:
             // Quita los botones antes de guardar
