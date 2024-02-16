@@ -403,9 +403,10 @@ $(document).on('submit', '#formulario_submit_muestras', function (e) {
 
     const form = $(this);
     const input = form.find('input');
+    const btn = $('button[form="formulario_submit_muestras"]');
     // const botonGuardarMuestra = form.find('.btn_submit_tomarmuestra'); // Encuentra el botón dentro del formulario
 
-    guardarMuestra(input)
+    guardarMuestra(input, btn)
 
 
 })
@@ -419,12 +420,12 @@ $(document).on('submit', '#btn_submit_tomarmuestra', function (e) {
     const input = btn.closest('div_muestraTomada#div_muestraTomada').find('input');
     // const botonGuardarMuestra = form.find('.btn_submit_tomarmuestra'); // Encuentra el botón dentro del formulario
 
-    guardarMuestra(input)
+    guardarMuestra(input, btn)
 
 
 })
 
-function guardarMuestra(input) {
+function guardarMuestra(input, botonGuardarMuestra) {
     alertMensajeConfirm({
         title: '¿Está seguro de cargar correctamente la fecha de toma?',
         text: 'No podrás modificarlo luego.',
