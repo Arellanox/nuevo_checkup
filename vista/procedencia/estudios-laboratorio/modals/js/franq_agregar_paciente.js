@@ -152,7 +152,7 @@ function previewInfoPaciente(data) {
             api: 2, id: $('#paciente_existente').val()
         }, 'pacientes_api', { callbackAfter: true }, false, (data) => {
             console.log(data);
-            // muestraDataPaciente(data.response.data[0])
+            muestraDataPaciente(data.response.data[0])
             resolve(1);
         })
 
@@ -172,8 +172,10 @@ function muestraDataPaciente(data) {
     $('.edad-paciente').html(formatoEdad(ifnull(data, $('#edad-form-agregar').val(), ['EDAD'])))
     $('.curp-paciente').html(ifnull(data, $('#curp-form-agregar').val(), ['CURP']))
 
-    $('.numero_cuenta-paciente').html(ifnull(data, $('#numero_cuenta-form-agregar').val(), ['NUMERO_CUENTA_PROCEDENCIAS']))
-    $('.area-paciente').html(ifnull(data, $('#area-form-agregar').val(), ['AREA_HABITA_PROCEDENCIAS'])) // Revisar luego
+    $('.numero_cuenta-paciente').html($('#numero_cuenta-form-agregar').val())
+    $('.area-paciente').html($('#area-form-agregar').val()) // Revisar luego
+
+
     $('.genero-paciente').html(ifnull(data, $('.required_input_agregar_paciente').val(), ['GENERO']))
 
 
@@ -189,7 +191,8 @@ function muestraDataPaciente(data) {
                                             id="tipo_solicitud-paciente"><strong>Urgente</strong></span>`)
     }
 
-
+    // Informacion de usuario
+    $('#usuario-paciente').html(`${session.nombre} ${session.apellidos}`)
 
 }
 
@@ -258,7 +261,7 @@ let input_ordenMedica = InputDragDrop('#dropPromocionalesBimo', (inputArea, sali
     // Obtén el archivo del input
     var file = inputArea.get(0).files[0];
     // Obten el nombre
-    var nombreArchivo = this.files[0].name;
+    var nombreArchivo = inputArea.val().split('\\').pop();
 
     // Verifica si el archivo es un PDF
     if (file.type === 'application/pdf') {

@@ -33,9 +33,9 @@
                                     </div>
 
                                     <!-- Nuevo Paciente -->
-                                    <div class="row form_control_type agregar_paciente_form">
+                                    <div class="row">
                                         <!-- Nombre del paciente -->
-                                        <div class="col-12 col-md-6 col-xxl-4">
+                                        <div class="col-12 col-md-6 col-xxl-4 form_control_type agregar_paciente_form">
                                             <label for="nombre" class="form-label" style="padding-right: 25px;">
                                                 Nombre(s):
                                             </label>
@@ -43,7 +43,7 @@
                                                 class="form-control input-form required_input"
                                                 oninput="this.value = this.value.toUpperCase()" autocomplete="off">
                                         </div>
-                                        <div class="col-12 col-md-6 col-xxl-4">
+                                        <div class="col-12 col-md-6 col-xxl-4 form_control_type agregar_paciente_form">
                                             <label for="paterno" class="form-label" style="padding-right: 25px;">
                                                 Apellido paterno:
                                             </label>
@@ -51,7 +51,7 @@
                                                 class="form-control input-form required_input"
                                                 oninput="this.value = this.value.toUpperCase()" autocomplete="off">
                                         </div>
-                                        <div class="col-12 col-md-6 col-xxl-4">
+                                        <div class="col-12 col-md-6 col-xxl-4 form_control_type agregar_paciente_form">
                                             <label for="materno" class="form-label" style="padding-right: 25px;">
                                                 Apellido materno:
                                             </label>
@@ -73,7 +73,7 @@
 
 
                                         <!-- Edad del paciente -->
-                                        <div class="col-12 col-md-6 col-xxl-3">
+                                        <div class="col-12 col-md-6 col-xxl-3 form_control_type agregar_paciente_form">
                                             <label for="fecha_nacimiento" class="form-label"
                                                 style="padding-right: 25px;">
                                                 Fecha de nacimiento
@@ -83,7 +83,7 @@
                                                 onchange="$(`#edad-form-agregar`).val(calcularEdad(this.value))"
                                                 autocomplete="off">
                                         </div>
-                                        <div class="col-12 col-md-6 col-xxl-2">
+                                        <div class="col-12 col-md-6 col-xxl-2 form_control_type agregar_paciente_form">
                                             <label for="edad" class="form-label" style="padding-right: 25px;">
                                                 Edad
                                             </label>
@@ -100,7 +100,7 @@
 
 
                                         <!-- Curp -->
-                                        <div class="col-12 col-md-6 col-xxl-3">
+                                        <div class="col-12 col-md-6 col-xxl-3 form_control_type agregar_paciente_form">
                                             <label for="curp" class="form-label" style="padding-right: 25px;">
                                                 CURP
                                             </label>
@@ -127,7 +127,8 @@
                                                 placeholder="No. Cuenta" autocomplete="off">
                                         </div>
 
-                                        <div class="col-12 py-3 form_control_type agregar_paciente_form">
+                                        <div
+                                            class="col-12 py-3 form_control_type form_control_type agregar_paciente_form">
                                             <div class="container">
                                                 <div class="row" style="zoom:110%;">
                                                     <div class="col-md-auto">
