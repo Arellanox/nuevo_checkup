@@ -61,13 +61,13 @@
           <tr>
             <th scope="col d-flex justify-content-center" class="all 5-%">#</th>
             <th scope="col d-flex justify-content-center" class="all">Nombre</th>
-            <th scope="col d-flex justify-content-center" class="all">Estatus</th>
-            <th scope="col d-flex justify-content-center" class="none">Resultado</th>
             <th scope="col d-flex justify-content-center" class="none">Fecha resultado:</th>
-            <th scope="col d-flex justify-content-center" class="none">Fecha registro:</th>
+            <th scope="col d-flex justify-content-center" class="all">Sexo:</th>
+            <th scope="col d-flex justify-content-center" class="all">Fecha registro:</th>
             <th scope="col d-flex justify-content-center" class="none">Registrado por: </th>
             <th scope="col d-flex justify-content-center" class="none">Edad:</th>
-            <th scope="col d-flex justify-content-center" class="none">Sexo:</th>
+            <th scope="col d-flex justify-content-center" class="all">Estatus</th>
+            <th scope="col d-flex justify-content-center" class="all">Resultado</th>
         </thead>
       </table>
     </div>

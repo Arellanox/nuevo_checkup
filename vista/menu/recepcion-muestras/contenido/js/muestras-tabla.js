@@ -149,6 +149,31 @@ TablaPacientesLotes = $('#TablaPacientesLotes').DataTable({
         { data: 'COUNT' },
         { data: 'PACIENTE' },
         {
+            data: 'FECHA_TOMA_MUESTRA', render: function (data) {
+                return formatoFecha2(data, [0, 1, 5, 1])
+            }
+        },
+        { data: 'SEXO' },
+        {
+            data: 'FECHA_REGISTRO', render: function (data) {
+                const formattedDate = formatoFecha2(data, [0, 1, 5, 2, 2, 2, 0], null); {
+
+                    // Separar la fecha y la hora basado en la coma
+                    const parts = formattedDate.split(', ');
+                    const datePart = parts[0];
+                    const timePart = parts[1];
+
+                    // Retornar la fecha y la hora envueltas en spans con las clases correspondientes
+                    return `
+                <span class="d-block">${datePart} - ${timePart}</span>`
+                // <span class="d-block">${timePart}</span>
+                ;
+                }
+            }
+        },
+        { data: 'REGISTRADO_POR' },
+        { data: 'EDAD' },
+        {
             data: 'ESTATUS', render: function (data, type, row) {
 
                 switch (row.ID_ESTATUS) {
@@ -189,30 +214,6 @@ TablaPacientesLotes = $('#TablaPacientesLotes').DataTable({
                 return '<div class="d-flex justify-content-start align-items-center">' + buttons.join(' ') + '</div>';
             }
         },
-        {
-            data: 'FECHA_TOMA_MUESTRA', render: function (data) {
-                return formatoFecha2(data, [0, 1, 5, 1])
-            }
-        },
-        {
-            data: 'FECHA_REGISTRO', render: function (data) {
-                const formattedDate = formatoFecha2(data, [0, 1, 5, 2, 2, 2, 0], null); {
-
-                    // Separar la fecha y la hora basado en la coma
-                    const parts = formattedDate.split(', ');
-                    const datePart = parts[0];
-                    const timePart = parts[1];
-
-                    // Retornar la fecha y la hora envueltas en spans con las clases correspondientes
-                    return `
-                <span class="d-block">${datePart}</span>
-                <span class="d-block">${timePart}</span>`;
-                }
-            }
-        },
-        { data: 'REGISTRADO_POR' },
-        { data: 'EDAD' },
-        { data: 'SEXO' },
     ],
     columnDefs: [
         { "width": "10px", "targets": [0, 3] },
