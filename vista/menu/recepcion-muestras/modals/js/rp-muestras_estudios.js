@@ -31,14 +31,19 @@ pacienteEstudios = $('#pacienteEstudios').DataTable({
         // Observaciones
         {
             data: null, render: function (data, type, row, meta) {
-                let html = `<textarea name="comentario" class="md-textarea input-form" rows="1" data-row-index="${meta.row}"></textarea>`;
+                let html = `<textarea name="comentario" class="md-textarea input-form dt-checkbox" rows="1" data-row-index="${meta.row}"></textarea>`;
                 return html;
             }
         },
         // Evidencia
         {
             data: null, render: function (data, type, row, meta) {
-                let html = `<input class="form-control" name="evidencia" type="file" id="formFile" data-row-index="${meta.row}">`
+                let html = `
+                    <div class="input-group input_file_label">
+                        <input type="file" class="custom-file-input dt-checkbox" id="customFile" aria-describedby="inputGroupFileAddon04" onchange="updateLabel(this)" data-row-index="${meta.row}">
+                        <label class="custom-file-label text-center" for="customFile" data-browse="Seleccionar archivo">Subir Archivo</label>
+                    </div>
+                `
                 return html;
             }
         },
@@ -85,3 +90,21 @@ function selectOnlyThis(checkbox, type) {
         if (item.value == type) item.checked = true;
     });
 }
+
+
+
+// |-------------------- Observa el modal --------------------|
+
+const modalRecepcionMuestras = document.getElementById("modalRecepcionMuestras"); // Declaramos una constante con el id del modal
+// recarga el diseño de la tabla antes de que se llegue abirir el modal
+modalRecepcionMuestras.addEventListener("show.bs.modal", (event) => {
+    setTimeout(() => {
+        $.fn.dataTable
+            .tables({
+                visible: true,
+                api: true
+            })
+            .columns.adjust();
+    }, 250);
+});
+
