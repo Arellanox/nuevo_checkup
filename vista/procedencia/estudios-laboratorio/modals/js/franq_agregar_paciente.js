@@ -261,51 +261,26 @@ let input_ordenMedica = InputDragDrop('#dropPromocionalesBimo', (inputArea, sali
 
 
 
-    // Obtén el archivo del input
-    var file = inputArea.get(0).files[0];
+    // Suponiendo que inputArea es un input de tipo file con el atributo "multiple" habilitado
+    var files = inputArea.get(0).files;
+    var archivosNoSoportados = []; // Lista para guardar los nombres de archivos no soportados
+
     // Obten el nombre
     var nombreArchivo = inputArea.val().split('\\').pop();
 
-    // Verifica si el archivo es un PDF
-    if (file.type === 'application/pdf') {
-        // Muestra el canvas y oculta el img
-        $('#pdf-canvas').show();
-        $('#image-preview').hide();
-
-        // Usa PDF.js para leer y mostrar la primera página del PDF
-        var fileReader = new FileReader();
-        fileReader.onload = function () {
-            var typedarray = new Uint8Array(this.result);
-            pdfjsLib.getDocument(typedarray).promise.then(function (pdf) {
-                pdf.getPage(1).then(function (page) {
-                    var canvas = document.getElementById('pdf-canvas');
-                    var ctx = canvas.getContext('2d');
-                    var viewport = page.getViewport({ scale: 2 });
-                    canvas.height = viewport.height;
-                    canvas.width = viewport.width;
-                    var renderContext = {
-                        canvasContext: ctx,
-                        viewport: viewport
-                    };
-                    page.render(renderContext);
-                });
-            });
-        };
-        fileReader.readAsArrayBuffer(file);
-    } else if (file.type.match('image.*')) {
-        // Muestra el img y oculta el canvas
-        $('#image-preview').show();
-        $('#pdf-canvas').hide();
-
-        // Lee y muestra la imagen
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            $('#image-preview').attr('src', e.target.result).show();
-        };
-        reader.readAsDataURL(file);
-    } else {
-        alert('Por favor, selecciona un archivo PDF o una imagen.');
+    $('#image-preview').hide();
+    $('#pdf-canvas').hide();
+    // Itera sobre todos los archivos seleccionados
+    for (var i = 0; i < files.length; i++) {
+        procesarArchivo(files[i]);
     }
+
+    // Al finalizar, verifica si hay archivos no soportados para informar al usuario
+    if (archivosNoSoportados.length > 0) {
+        var listaArchivosNoSoportados = "Archivos no soportados:\n" + archivosNoSoportados.join('\n');
+        alert(listaArchivosNoSoportados);
+    }
+
 
 
 
@@ -324,7 +299,9 @@ let input_ordenMedica = InputDragDrop('#dropPromocionalesBimo', (inputArea, sali
             borderBottom: '1px solid'
         }
     });
-})
+
+    // Configuraciones
+}, { multiple: true })
 
 
 
@@ -670,3 +647,70 @@ function controlFormsPages(page, action) {
 
     return false;
 }
+
+
+
+// Función para procesar cada archivo
+var procesarArchivo = function (file) {
+    var nombreArchivo = file.name;
+
+    // Verifica si el archivo es un PDF
+    if (file.type === 'application/pdf') {
+        var fileReader = new FileReader();
+        fileReader.onload = function () {
+            $('#pdf-canvas').show();
+
+            var typedarray = new Uint8Array(this.result);
+            pdfjsLib.getDocument(typedarray).promise.then(function (pdf) {
+
+                mostrarPDF(typedarray)
+            });
+        };
+        fileReader.readAsArrayBuffer(file);
+    } else if (file.type.match('image.*')) {
+        // Procesamiento para imágenes, sin cambios
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#image-preview').attr('src', e.target.result).show();
+        };
+        reader.readAsDataURL(file);
+        $('#image-preview').show();
+    } else {
+        // Archivos no soportados
+        archivosNoSoportados.push(nombreArchivo);
+    }
+};
+
+// Función para mostrar PDFs
+var mostrarPDF = function (typedarray) {
+    pdfjsLib.getDocument(typedarray).promise.then(function (pdf) {
+        // Asegura que el contenedor esté vacío y muestra el contenedor
+        var pdfContainer = document.getElementById('pdf-canvas');
+        pdfContainer.innerHTML = ''; // Limpia el contenedor para nuevos archivos PDF
+        pdfContainer.style.display = 'block';
+
+        // Itera sobre cada página del PDF
+        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+            pdf.getPage(pageNum).then(function (page) {
+                var canvas = document.createElement('canvas');
+                var ctx = canvas.getContext('2d');
+
+                // Asegúrate de escalar el viewport a tu necesidad
+                var viewport = page.getViewport({ scale: 1.5 });
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                var renderContext = {
+                    canvasContext: ctx,
+                    viewport: viewport
+                };
+
+                // Renderiza la página
+                page.render(renderContext).promise.then(function () {
+                    // Agrega el canvas al contenedor
+                    pdfContainer.appendChild(canvas);
+                });
+            });
+        }
+    });
+};
