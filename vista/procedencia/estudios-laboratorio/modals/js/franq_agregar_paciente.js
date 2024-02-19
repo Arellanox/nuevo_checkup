@@ -65,7 +65,7 @@ function resetForm() {
 
     // Resetea el canva o imagen de la orden medica
     $('#pdf-canvas').html('');
-    $('#image-preview').html('');
+    $('#image-preview').attr('src', '');
 
     // Orden Medica Info
     $('.nombre_orden-paciente').html('');
@@ -571,6 +571,15 @@ $(document).on('click', '.control-pagina-interpretacion', async function (event)
             return false;
         }
 
+        if ($visiblePage.attr('actual-page') === "1") {
+            if (form_type === "2") {
+                alertToast('Buscando datos del paciente', 'info', 4000)
+                await previewInfoPaciente();
+            } else {
+                muestraDataPaciente();
+            }
+        }
+
         // Carga las muestras a cargar y cargadas del paciente
         if ($visiblePage.attr('actual-page') === "3" && action === 'next') {
             alertMsj({
@@ -580,17 +589,13 @@ $(document).on('click', '.control-pagina-interpretacion', async function (event)
                 icon: 'info'
             })
             await getListMuestras();
-            if (form_type) {
-                await previewInfoPaciente();
-            } else {
-                muestraDataPaciente();
-            }
+
             swal.close();
         }
 
         // Resetea el estado de deshabilitado en los controles de página
         $('.control-pagina-interpretacion').prop('disabled', false);
-        console.log('hola, if')
+
         if ($targetPage.length) {
             console.log($targetPage);
             updatePage($targetPage, action); // Actualiza la página mostrada
@@ -619,11 +624,21 @@ function controlFormsPages(page, action) {
     switch (page) {
         case "1":
             // Verificar cada campo requerido
-            if (!form_type)
+            if (form_type === "1") {
                 if (requiredInputLeft('formAgregarPaciente')) {
-                    alertToast('¡Hay información del paciente que falta rellenar!')
+                    alertToast('¡Hay información del paciente que falta rellenar!', 'info', 4000)
                     return true;
                 }
+            }
+            else if (form_type === "2") {
+                const area = $('#area-form-agregar').val();
+                const cuenta = $('#numero_cuenta-form-agregar').val();
+                if (area === '' || cuenta === '') {
+                    alertToast('¡Algunos campos faltan por rellenar!', 'info', 4000);
+                    return true;
+                }
+            }
+
             break;
         case "2":
             // Verificar la orden medica
