@@ -48,28 +48,8 @@ TablaListaLotes = $('#TablaListaLotes').DataTable({
         { data: 'COUNT' },
         { data: 'FOLIO' },
         {
-            data: 'ESTATUS', render: function (data, type, row) {
-                switch (row.ID_ESTATUS) {
-                    case "1":
-                        claslistaLotes = `<span class="badge text-bg-secondary">${data}</span>`; break;
-                    case "2":
-                        claslistaLotes = `<span class="badge text-bg-success">${data}</span>`; break;
-                    case "3":
-                        claslistaLotes = `<span class="badge text-bg-warning">${data}</span>`; break;
-                    case "4":
-                        claslistaLotes = `<span class="badge badge-strongBlue">${data}</span>`; break; //Poner el color naranja
-                    case "5":
-                        claslistaLotes = `<span class="badge text-bg-danger">${data}</span>`; break;
-                    case "6":
-                        claslistaLotes = `<span class="badge badge-orange">${data}</span>`; break; //quizas cambiar a uno mas oscuro
-                    case "7":
-                        claslistaLotes = `<span class="badge text-bg-info">${data}</span>`; break;
-                    default:
-                        claslistaLotes = `<span class="badge text-bg-danger">Error</span>`;
-                        break;
-                }
-
-                return claslistaLotes;
+            data: 'ESTATUS', render: function (data) {
+                return ifnull(data, 'N/A', true)
             }
         },
         {
@@ -177,14 +157,14 @@ TablaDetalleLotes = $('#TablaDetalleLotes').DataTable({
         { data: 'COUNT' },
         { data: 'PACIENTE' },
         {
-            data: 'DESCRIPCION_SOLICITUD', render: function (data, type, row, meta) {
-                switch (row.TIPO_SOLICITUD) {
+            data: 'TIPO_SOLICITUD', render: function (data, type, row, meta) {
+                switch (row.TIPO_SOLICITUD_ID) {
                     case "1":
                         // Ordinario
-                        return `<span class="badge text-bg-info">${data}</span>`; break;
+                        return '<span class="badge text-bg-info">${data}</span>'; break;
                     case "2":
                         // Urgente
-                        return `<span class="badge text-bg-warning">${data}</span>`; break;
+                        return '<span class="badge text-bg-warning">${data}</span>'; break;
 
                     default:
                         return ''; break;
