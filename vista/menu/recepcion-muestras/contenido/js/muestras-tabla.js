@@ -52,23 +52,23 @@ TablaListaLotes = $('#TablaListaLotes').DataTable({
 
                 switch (row.ID_ESTATUS) {
                     case "2":
-                        clas = `<span class="badge text-bg-success">${data}</span>`; break;
+                        clas_listoLotes = `<span class="badge text-bg-success">${data}</span>`; break;
                     case "3":
-                        clas = `<span class="badge text-bg-warning">${data}</span>`; break;
+                        clas_listoLotes = `<span class="badge text-bg-warning">${data}</span>`; break;
                     case "4":
-                        clas = `<span class="badge badge-strongBlue">${data}</span>`; break; //Poner el color naranja
+                        clas_listoLotes = `<span class="badge badge-strongBlue">${data}</span>`; break; //Poner el color naranja
                     case "5":
-                        clas = `<span class="badge text-bg-danger">${data}</span>`; break;
+                        clas_listoLotes = `<span class="badge text-bg-danger">${data}</span>`; break;
                     case "6":
-                        clas = `<span class="badge badge-orange">${data}</span>`; break; //quizas cambiar a uno mas oscuro
+                        clas_listoLotes = `<span class="badge badge-orange">${data}</span>`; break; //quizas cambiar a uno mas oscuro
                     case "7":
-                        clas = `<span class="badge text-bg-info">${data}</span>`; break;
+                        clas_listoLotes = `<span class="badge text-bg-info">${data}</span>`; break;
                     default:
-                        clas = `<span class="badge text-bg-danger">Error</span>`;
+                        clas_listoLotes = `<span class="badge text-bg-danger">Error</span>`;
                         break;
                 }
 
-                return clas;
+                return clas_listoLotes;
 
             }
         },
@@ -148,7 +148,32 @@ TablaPacientesLotes = $('#TablaPacientesLotes').DataTable({
 
         { data: 'COUNT' },
         { data: 'PACIENTE' },
-        { data: 'ESTATUS' },
+        {
+            data: 'ESTATUS', render: function (data, type, row) {
+
+                switch (row.ID_ESTATUS) {
+                    case "1":
+                        clas_pacientesLotes = `<span class="badge text-bg-secondary">${data}</span>`; break;
+                    case "2":
+                        clas_pacientesLotes = `<span class="badge text-bg-success">${data}</span>`; break;
+                    case "3":
+                        clas_pacientesLotes = `<span class="badge text-bg-warning">${data}</span>`; break;
+                    case "4":
+                        clas_pacientesLotes = `<span class="badge badge-strongBlue">${data}</span>`; break; //Poner el color naranja
+                    case "5":
+                        clas_pacientesLotes = `<span class="badge text-bg-danger">${data}</span>`; break;
+                    case "6":
+                        clas_pacientesLotes = `<span class="badge badge-orange">${data}</span>`; break; //quizas cambiar a uno mas oscuro
+                    case "7":
+                        clas_pacientesLotes = `<span class="badge text-bg-info">${data}</span>`; break;
+                    default:
+                        clas_pacientesLotes = `<span class="badge text-bg-danger">Error</span>`;
+                        break;
+                }
+
+                return clas_pacientesLotes;
+            }
+        },
         {
             data: 'REPORTES', render: function (data) {
                 // Inicializar un arreglo vacío para contener nuestros botones
