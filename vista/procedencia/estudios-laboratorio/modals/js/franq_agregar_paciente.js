@@ -549,12 +549,7 @@ $(document).on('click', '.control-pagina-interpretacion', async function (event)
         }
 
         if ($visiblePage.attr('actual-page') === "1") {
-            if (form_type === "2") {
-                alertToast('Buscando datos del paciente', 'info', 4000)
-                await previewInfoPaciente();
-            } else {
-                muestraDataPaciente();
-            }
+            await setInfo();
         }
 
         // Carga las muestras a cargar y cargadas del paciente
@@ -567,7 +562,7 @@ $(document).on('click', '.control-pagina-interpretacion', async function (event)
             })
 
             // Visualiza nuevamente el tipo de solicitud
-            muestraDataPaciente();
+            await setInfo();
             await getListMuestras();
 
             swal.close();
@@ -595,6 +590,20 @@ $(document).on('click', '.control-pagina-interpretacion', async function (event)
         time_click = 0;
     }, 350); // Asume que 350ms es la duración de la animación
 });
+
+
+function setInfo() {
+    return new Promise(async (resolve, reject) => {
+        if (form_type === "2") {
+            alertToast('Buscando datos del paciente', 'info', 4000)
+            await previewInfoPaciente();
+        } else {
+            muestraDataPaciente();
+        }
+        resolve(1);
+    })
+
+}
 
 // Verifica cada pagina 
 function controlFormsPages(page, action) {
