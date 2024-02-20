@@ -565,6 +565,9 @@ $(document).on('click', '.control-pagina-interpretacion', async function (event)
                 showCancelButton: false, showConfirmButton: false,
                 icon: 'info'
             })
+
+            // Visualiza nuevamente el tipo de solicitud
+            muestraDataPaciente();
             await getListMuestras();
 
             swal.close();
@@ -699,6 +702,8 @@ var mostrarPDF = function (typedarray) {
                 var viewport = page.getViewport({ scale: 1.5 });
                 canvas.height = viewport.height;
                 canvas.width = viewport.width;
+
+                canvas.style.maxWidth = "100%"
 
                 var renderContext = {
                     canvasContext: ctx,
