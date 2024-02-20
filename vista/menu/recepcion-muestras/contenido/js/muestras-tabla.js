@@ -214,9 +214,7 @@ TablaPacientesLotes = $('#TablaPacientesLotes').DataTable({
                 } else {
                     // En dado caso que no tenga nada se mostrara este boton
                     buttons.push(
-                        '<button class="btn btn-secondary me-2">' +
-                        '<i class="bi bi-file-earmark-x"></i>' +
-                        '</button>'
+                        '<span class="badge text-bg-warning">En proceso</span>'
                         
                     );
                 }
