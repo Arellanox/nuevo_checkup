@@ -199,21 +199,33 @@ TablaPacientesLotes = $('#TablaPacientesLotes').DataTable({
                 return clas_pacientesLotes;
             }
         },
+
         {
             data: 'REPORTES', render: function (data) {
-                // Inicializar un arreglo vacío para contener nuestros botones
                 var buttons = [];
 
-                buttons.push(
-                    '<a href="' + data + '" target="_blank" class="btn btn-borrar me-2">' +
-                    '<i class="bi bi-file-earmark-pdf-fill"></i>' +
-                    '</a>'
-                );
+                // Verificar si 'data' no es null o undefined y no termina en 'null'
+                if (data && data.split('/').pop() !== 'null') {
+                    buttons.push(
+                        '<a href="' + data + '" target="_blank" class="btn btn-borrar me-2">' +
+                        '<i class="bi bi-file-earmark-pdf-fill"></i>' +
+                        '</a>'
+                    );
+                } else {
+                    // En dado caso que no tenga nada se mostrara este boton
+                    buttons.push(
+                        '<button class="btn btn-secondary me-2">' +
+                        '<i class="bi bi-file-earmark-x"></i>' +
+                        '</button>'
+                        
+                    );
+                }
 
-                // Unir todos los botones con un espacio y devolver la cadena HTML
                 return '<div class="d-flex justify-content-start align-items-center">' + buttons.join(' ') + '</div>';
             }
-        },
+        }
+
+
     ],
     columnDefs: [
         { "width": "10px", "targets": [0, 3] },
