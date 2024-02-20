@@ -17,11 +17,16 @@
                   <p>Rellene la información basica del estudio</p>
                   <div class="col-8">
                     <label for="descripcion" class="form-label">Nombre del Estudio</label>
-                    <input type="text" name="descripcion" class="form-control input-form" id="input-descripcion" required style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
+                    <input type="text" name="descripcion" class="form-control input-form" id="input-descripcion"
+                      required style="text-transform:uppercase;"
+                      onkeyup="javascript:this.value=this.value.toUpperCase();">
                   </div>
                   <div class="col-4">
                     <label for="abreviatura" class="form-label">CVE</label>
-                    <input type="text" name="abreviatura" class="form-control input-form" id="input-abreviatura" data-bs-toggle="tooltip" data-bs-placement="top" title="Abreviatura que se visualizará en etiquetas si es necesario" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
+                    <input type="text" name="abreviatura" class="form-control input-form" id="input-abreviatura"
+                      data-bs-toggle="tooltip" data-bs-placement="top"
+                      title="Abreviatura que se visualizará en etiquetas si es necesario"
+                      style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
                   </div>
                   <!-- <div class="col-12 col-md-12">
                     <label for="grupo" class="form-label">Grupo de exámen</label>
@@ -68,7 +73,7 @@
                   </div>
                   <div class="col-6 col-md-6">
                     <label for="dias_entrega" class="form-label">Día de entrega</label>
-                    <input type="number" name="dias_entrega" class="input-form" id="input-dias_entrega">
+                    <input type="text" name="dias_entrega" class="input-form" id="input-dias_entrega">
                   </div>
                   <div class="col-12 col-md-12">
                     <label for="codigo_sat_id" class="form-label">Clave SAT</label>
@@ -77,7 +82,8 @@
                   </div>
                   <div class="col-12 col-md-12">
                     <label for="indicaciones" class="form-label">Indicaciones</label>
-                    <textarea class="md-textarea input-form" name="indicaciones" cols="45" rows="2" di="input-indicaciones"></textarea>
+                    <textarea class="md-textarea input-form" name="indicaciones" cols="45" rows="2"
+                      id="input-indicaciones"></textarea>
                   </div>
                   <div class="col-12">
                     <label for="es_para" class="form-label select-contenedor">Dirigido a:</label>
@@ -120,14 +126,17 @@
                     <div class="row">
                       <div class="col-12 col-lg-12 col-xxl-6">
                         <label for="grupo_examen[0][grupo_id]" class="form-label">Grupo</label>
-                        <select name="grupo_examen[0][grupo_id]" class="input-form select-contenedor-Grupo" required=""></select>
+                        <select name="grupo_examen[0][grupo_id]" class="input-form select-contenedor-Grupo"
+                          required=""></select>
                       </div>
                       <div class="col-12 col-lg-8 col-xxl-4">
                         <label for="grupo_examen[0][orden]" class="form-label">Posicion del grupo</label>
-                        <input type="text" placerholder="Orden del servicio para el grupo" name="grupo_examen[0][orden]" required value="" class="form-control input-form">
+                        <input type="text" placerholder="Orden del servicio para el grupo" name="grupo_examen[0][orden]"
+                          required value="" class="form-control input-form">
                       </div>
                       <div class="col-2 d-flex justify-content-start align-items-center">
-                        <button type="button" class="btn btn-hover eliminarContenerMuestra1" data-bs-contenedor="2" style="margin-top: 20px;">
+                        <button type="button" class="btn btn-hover eliminarContenerMuestra1" data-bs-contenedor="2"
+                          style="margin-top: 20px;">
                           <i class="bi bi-trash"></i>
                         </button>
                       </div>
@@ -162,7 +171,8 @@
                   <p>Seleccione o agregue los metodos del estudio</p>
                   <div class="" id="div-select-metodo">
                     <div class="row">
-                      <div class="col-10 col-md-10"><label for="Método[0]" class="form-label select-contenedor">Método</label>
+                      <div class="col-10 col-md-10"><label for="Método[0]"
+                          class="form-label select-contenedor">Método</label>
                         <select name="Método[0]" class="input-form select-contenedor-Método">
 
                         </select>
@@ -219,7 +229,8 @@
                   <div class="row">
                     <div class="col-5 col-md-5">
                       <label for="contenedores[2]" class="form-label select-contenedor">Contenedor</label>
-                      <select name="contenedores[2][contenedor]" id="registrar-contenedor2-estudio" class="input-form" required="">
+                      <select name="contenedores[2][contenedor]" id="registrar-contenedor2-estudio" class="input-form"
+                        required="">
                         <option value="1">Frasco</option>
                         <option value="2">Tubo azul</option>
                         <option value="3">Tubo lila</option>
@@ -232,7 +243,8 @@
                     </div>
                     <div class="col-5 col-md-5">
                       <label for="contenedores[2]" class="form-label select-contenedor">Tipo o muestra</label>
-                      <select name="contenedores[2][muestra]" id="registrar-muestraCont2-estudio" class="input-form" required="" placeholder="Seleccione un contenedor">
+                      <select name="contenedores[2][muestra]" id="registrar-muestraCont2-estudio" class="input-form"
+                        required="" placeholder="Seleccione un contenedor">
                         <option value="1">EXPECTORACIÓN</option>
                         <option value="2">EXUDADO</option>
                         <option value="3">HECES</option>
@@ -243,7 +255,9 @@
                         <option value="8">UÑAS</option>
                       </select>
                     </div>
-                    <div class="col-2 d-flex justify-content-start align-items-center"><button type="button" class="btn btn-hover eliminarContenerMuestra1" data-bs-contenedor="2" style="margin-top: 20px;"><i class="bi bi-trash"></i></button></div>
+                    <div class="col-2 d-flex justify-content-start align-items-center"><button type="button"
+                        class="btn btn-hover eliminarContenerMuestra1" data-bs-contenedor="2"
+                        style="margin-top: 20px;"><i class="bi bi-trash"></i></button></div>
                   </div>
                 </div>
                 <div class="row">
@@ -260,7 +274,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
+        <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i>
+          Cancelar</button>
         <button type="submit" form="formRegistrarEstudio" class="btn btn-confirmar" id="submit-registrarEstudio">
           <i class="bi bi-plus-square"></i> Guardar
         </button>

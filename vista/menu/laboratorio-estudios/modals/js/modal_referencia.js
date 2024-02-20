@@ -134,12 +134,17 @@ selectTable('#TablaValoresReferencia', TablaValoresReferencia,
                 callback: function (data) {
                     // Data son los datos de la fila
                     console.log(data);
+                    let prefolio = $('#prefolio').val();
                     // Reiniciar el formulario con el ID formGuardarReferencia
                     const formulario = document.getElementById('formGuardarReferencia');
                     if (formulario) {
                         formulario.reset();
                         ChangeReferencias()
                     }
+
+
+                    $('#prefolio').val(prefolio);
+
                     // Genero
                     $('#select-genero-referencia').val(data.DIRIGIDO_A_ID)
                     // Edades
@@ -201,6 +206,7 @@ $('#reset_form').on('click', function () {
     if (formulario) {
         formulario.reset();
         ChangeReferencias()
+        $('#ID_VALORES_REFERENCIA').val(0);
     }
     //Reinicia la seleccion:
     TablaValoresReferencia.$('tr.selected').removeClass('selected');
@@ -259,7 +265,7 @@ $(document).on('submit', '#formGuardarReferencia', function (e) {
         }
 
         let api = 1;
-        if ($('#ID_VALORES_REFERENCIA').val()) {
+        if ($('#ID_VALORES_REFERENCIA').val() > 0) {
             api = 5;
         }
 

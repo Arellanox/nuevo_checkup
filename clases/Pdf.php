@@ -76,6 +76,7 @@ class Reporte
             case 'audiometria':
                 $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
                 break;
+           case 'envio_muestras':     
             default:
                 $barcode = null;
                 break;
@@ -234,6 +235,12 @@ class Reporte
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
                 break;
+
+            case 'envio_muestras':
+                $template = render_view('invoice/envio_muestras.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter', 'landscape');
+                break;    
 
             default:
                 $template = render_view('invoice/reportes.php', $view_vars);

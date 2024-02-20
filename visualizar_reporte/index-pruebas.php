@@ -31,9 +31,9 @@ $usuario_id = $_SESSION['id'];
 // decomentar las siguientes 3 lineas para hacer las pruebas
 
 
-$api = "receta";
-$area_id = -2;
-$turno_id = 2207;
+$api = "envio_muestras";
+$area_id = -5;
+$turno_id = 27;
 
 //$cliente_id = 19;
 // $id_cotizacion = 7;
@@ -94,6 +94,9 @@ switch ($api) {
         break;
     case 'temperatura':
         $r = $master->reportador($master, $turno_id, $area_id, 'temperatura', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
+        break;
+    case 'envio_muestras':
+        $r = $master->reportador($master, $turno_id, $area_id, 'envio_muestras', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
         break;
     default:
         echo '<script language="javascript">alert("¡URL invalida!"); window.close()</script>';

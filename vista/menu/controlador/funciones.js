@@ -67,6 +67,13 @@ function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = '
 }
 
 
+// Función para convertir un arreglo a texto
+function arrayATexto(arr) {
+  return arr.join(', '); // Usa ', ' como separador
+}
+
+
+
 // Reinicia los collapse para medicos tratantes
 function reset_email_inputs_medicos() {
   // Ocultar solo los collapses de confirmación de correo
@@ -200,7 +207,6 @@ async function ajaxAwait(dataJson, apiURL,
     //Configura la funcion misma
     config = setConfig(configAjaxAwait, config)
 
-
     $.ajax({
       url: `${http}${servidor}/${appname}/api/${apiURL}.php`,
       data: dataJson,
@@ -264,6 +270,7 @@ async function ajaxAwaitFormData(dataJson = { api: 0, }, apiURL, form = 'OnlyFor
     if (config.formJquery) {
       formID = config.formJquery[0];
     }
+
     let formData = new FormData(formID);
 
     for (const key in dataJson) {
@@ -410,7 +417,7 @@ function ifnull(data, siNull = '', values = [
   },
   'option4',
 ]) {
-
+  console.log(data)
   values = ((typeof values === 'object' && !Array.isArray(values)) || (typeof values === 'string'))
     ? [values]
     : values;
@@ -441,6 +448,7 @@ function ifnull(data, siNull = '', values = [
       return data;
     }
   }
+
   // Iterar a través de las claves en values
   for (const key of values) {
     if (typeof key === 'string' && key in data) {
@@ -457,9 +465,49 @@ function ifnull(data, siNull = '', values = [
     }
   }
 
+  // Verifica si el objeto esta lleno
+  for (const key in data) {
+    if (Object.hasOwnProperty.call(data, key)) {
+      return data;
+    }
+  }
 
   return siNull;
 }
+
+
+// Verifica si rellenó todo
+function requiredInputLeft(formId) {
+  let todosLlenos = false; // Asumiendo que los datos estan rellenados
+
+  // Almacenar los grupos de radio verificados para no repetir la verificación
+  let radioVerificados = {};
+
+  $(`#${formId} .required_input`).each(function () {
+    // Para campos de texto y número, verifica si están vacíos
+    if (this.type === 'text' || this.type === 'number') {
+      if (!ifnull(this, false, ['value'])) {
+        todosLlenos = true; // Marca si falta campos por marcar
+        return false; // Salir del bucle
+      }
+    }
+    // Para botones de radio, verifica si alguno del mismo grupo está seleccionado
+    else if (this.type === 'radio') {
+      // Si el grupo de radio ya fue verificado, saltarlo
+      if (radioVerificados[this.name]) return true;
+
+      if (!$(`input[name="${this.name}"]:checked`).length) {
+        todosLlenos = true; // Marca si falta campos por marcar
+        return false; // Salir del bucle
+      }
+      // Marcar el grupo de radio como verificado
+      radioVerificados[this.name] = true;
+    }
+  });
+
+  return todosLlenos;
+}
+
 
 
 function htmlCaracter(data) {
@@ -637,7 +685,6 @@ function setConfig(defaults, config) {
 // si hay mas de uno debe llamarse tantas veces sea posible
 let selectedFilesCount = 0;
 function InputDragDrop(divPadre, callback = () => { console.log('callback default') }, config = { /*Configuracion */ }) {
-
   // Setea para no perder configuracion
   config = setConfig(
     // nuevas configuraciones
@@ -812,6 +859,28 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
     // callback
     envioFiles() // <- Recordar que debes terminar el proceso de cargando a salida
   })
+
+
+
+  const resetInputDrag = function resetInputDrag() {
+
+    // Resetear los estilos al estado inicial
+    dropArea.removeClass('hover_dropDrag').css({
+      'border-color': 'rgb(0 79 90 / 17%)',
+      'background-color': 'transparent', // Suponiendo que el fondo inicial es transparente
+      'color': 'black', // Si el texto inicial es negro
+      // Restablecer cualquier otro estilo que sea necesario
+    });
+
+    // También debes asegurarte de que el contenido de la zona de arrastre se restablezca
+    const labelArea = dropArea.find('label');
+    labelArea.text('Sube tu archivo arrastrándolo aquí'); // O el texto inicial que desees
+  }
+
+  return {
+    resetInputDrag: resetInputDrag
+  };
+
 }
 
 
@@ -1570,37 +1639,24 @@ function alertMensaje(icon = 'success', title = '¡Completado!', text = 'Datos c
 
 function alertMsj(options, callback = function () { }) {
 
-  if (!options.hasOwnProperty('title'))
-    options['title'] = "¿Desea realizar esta acción?"
+  // Configuración predeterminada
+  options = setConfig(
+    {
+      "title": "¿Desea realizar esta acción?",
+      "text": "Probablemente no podrá revertirlo",
+      "icon": "warning",
+      "showCancelButton": true,
+      showConfirmButton: true,
+      "confirmButtonColor": "#3085d6",
+      "cancelButtonColor": "#d33",
+      "confirmButtonText": "Aceptar",
+      "cancelButtonText": "Cancelar",
+      "allowOutsideClick": false,
+      allowEscapeKey: true,
+    }
+    , options)
 
-  if (!options.hasOwnProperty('text'))
-    options['text'] = "Probablemente no podrá revertirlo"
 
-  if (!options.hasOwnProperty('icon'))
-    options['icon'] = 'warning'
-
-  if (!options.hasOwnProperty('showCancelButton'))
-    options['showCancelButton'] = true
-
-  if (!options.hasOwnProperty('confirmButtonColor'))
-    options['confirmButtonColor'] = '#3085d6'
-
-  if (!options.hasOwnProperty('cancelButtonColor'))
-    options['cancelButtonColor'] = '#d33'
-
-  if (!options.hasOwnProperty('confirmButtonText'))
-    options['confirmButtonText'] = 'Aceptar'
-
-  if (!options.hasOwnProperty('cancelButtonText'))
-    options['cancelButtonText'] = 'Cancelar'
-
-  if (!options.hasOwnProperty('allowOutsideClick'))
-    options['allowOutsideClick'] = false
-  // if (!options.hasOwnProperty('timer'))
-  //   options['timer'] = 4000
-  // if (!options.hasOwnProperty('timerProgressBar'))
-  //   options['timerProgressBar'] = true
-  //
   Swal.fire(options).then((result) => {
     callback(result);
   })
@@ -2446,10 +2502,12 @@ function selectTable(tablename, datatable,
 
     // let td = $(event.target).is('td')
 
-    // if (config.alwaySelected) {
-    //   datatable.$('tr.selected').removeClass('selected');
-    //   $(tr).addClass('selected');
-    // }
+    // Verifica si el clic se hizo en un enlace o dentro de un enlace
+    if ($(event.target).closest('a').length) {
+      // Si el clic fue dentro de un enlace, simplemente sal de la función.
+      // Esto permitirá que el comportamiento predeterminado del enlace se ejecute sin interferencias.
+      return;
+    }
 
 
     //Evalua si el objeto es correcto a su click
@@ -2486,14 +2544,18 @@ function selectTable(tablename, datatable,
     array_selected = row.data();
 
     selectTableClickCount++;
+
     if ($(tr).hasClass('selected')) {
+
       clearTimeout(selectTableTimeOutClick)
-      console.log(selectTableClickCount)
+
 
       selectTableTimeOutClick = setTimeout(function () {
         if (selectTableClickCount === 1 && config.unSelect === true) {
           //Manda a cargar la vista
-          selectTable_cargarVista()
+          if (!config.noColumns) {
+            selectTable_cargarVista()
+          }
 
           //Resetea los clicks:
           selectTableClickCount = 0;
@@ -2503,12 +2565,24 @@ function selectTable(tablename, datatable,
           selectTable_resetSelect(tr, false, true)
           //
 
-          //Desactivar otros tab
-          $(`.tab-select`).addClass('disabled')
+          if (config.multipleSelect) {
+            //Multiple Seleccion
+            //Hará el callback cada que seleccionan a uno nuevo
+            let row_length = datatable.rows('.selected').data().length
+            let data = datatable.rows('.selected').data()
 
-          //Regresa la funcion personalizada
-          callbackClick(0, null, callback, null, null);
-          //
+            callbackClick(row_length, data, null, null)
+
+          } else {
+
+
+            //Desactivar otros tab
+            $(`.tab-select`).addClass('disabled')
+
+            //Regresa la funcion personalizada
+            callbackClick(0, null, callback, null, null);
+            //
+          }
         } else if (selectTableClickCount === 2 && config.dblClick === true) {
           //Si esta haciendo dobleClick: 
           selectTableClickCount = 0;
@@ -2521,9 +2595,9 @@ function selectTable(tablename, datatable,
 
     } else {
       //Manda a cargar la vista
-      // if (!config.noColumns) {
-      selectTable_cargarVista()
-      // }
+      if (!config.noColumns) {
+        selectTable_cargarVista()
+      }
 
       //Si esta seleccionando:
       dataDobleSelect = tr;
@@ -2573,11 +2647,13 @@ function selectTable(tablename, datatable,
       console.log('Hola');
       $(`${config.divPadre} .tab-second`).fadeOut()
     } else {
+      console.log('Hola');
       $('.tab-second').fadeOut()
     }
 
     // console.log($(loader_selectTable))
-    $(loader_selectTable).fadeIn(0);
+    if (config.reload)
+      $(loader_selectTable).fadeIn(0);
   }
 
   function selectTable_resetSelect(tr, config, resetTR = false) {
@@ -3174,7 +3250,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     function crearDIV(grupo, id, row) {
                       let html = '';
                       html += '<a class="collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-' + id + '" aria-expanded="false">';
-                      html += '<div style = "display: block"><div style="margin:0px;background: rgb(0 0 0 / 25%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;""><h4 style="font-size: 20px !important;padding: 0px;margin: 0px;">' + grupo + '</h4></div></div>';
+                      html += '<div style = "display: block"><div class="collapse_estudio" style="margin:0px;background: rgb(0 0 0 / 25%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;""><h4 style="font-size: 20px !important;padding: 0px;margin: 0px;">' + grupo + '</h4></div></div>';
                       html += '</a>'
 
                       html += '<div class="collapse bg-white-canvas" id="board-' + id + '">'
