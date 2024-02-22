@@ -2394,7 +2394,7 @@ function resizeConfigMovil(config, loaderName) {
 }
 
 //selectDataTableMovilEdition
-let dataDobleSelect, selectTableTimeOutClick, selectTableClickCount = 0;
+let dataDobleSelect, selectTableTimeOutClick, selectTableClickCount = 0, selectCounTableTime = false;
 function selectTable(tablename, datatable,
   config = {
     dblClick: false,
@@ -2490,11 +2490,19 @@ function selectTable(tablename, datatable,
     }
     $(loader_selectTable).attr("style", "display: none !important");
 
+    // Termina el tiempo de espera de los objetos seegun lo programado
+    selectCounTableTime = false;
   }
 
 
   //Table Click Registro
   $(`${tablename}`).on(`click`, `tr`, function (event) {
+    if (selectCounTableTime)
+      return 'No action';
+    // Da un tiempo de espera
+    selectCounTableTime = true;
+
+
     //Obtener datos, tr, row e información del row
     let tr = this
     let row = datatable.row(tr);
@@ -2633,7 +2641,7 @@ function selectTable(tablename, datatable,
 
     //Reinicia y espera el dobleClick
     setTimeout(() => {
-      selectTableClickCount = 0;
+      selectTableClickCount = 0; selectCounTableTime = false;
     }, 600)
 
     return 'No action';
