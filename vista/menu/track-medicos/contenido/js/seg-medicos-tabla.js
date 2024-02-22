@@ -167,7 +167,7 @@ tablaPacientesMedicos = $('#tablaPacientesMedicos').DataTable({
   columnDefs: [
     { targets: 0, title: '#', className: "all", width: "10px" },
     { targets: 1, title: 'Paciente', className: "all" },
-    { targets: 2, title: 'Prefolio', className: "desktop" },
+    { targets: 2, title: 'Prefolio', className: "none" },
     { targets: 3, title: 'Procedencia', className: "desktop" },
     { targets: 4, title: 'Recepción', className: "all" },
     { targets: 5, title: 'Médico', className: "none" },
