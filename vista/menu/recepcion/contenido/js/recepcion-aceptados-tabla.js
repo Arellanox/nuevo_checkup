@@ -432,11 +432,15 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
       // } else {
       //   $('#buttonBeneficiario').attr('disabled', true);
       // }
-
+      selectCounTableTime = true
       await obtenerPanelInformacion(data['ID_TURNO'], 'paciente_api', 'paciente')
+      selectCounTableTime = true
       await obtenerPanelInformacion(data['ID_TURNO'], 'consulta_api', 'listado_resultados', '#panel-resultados')
+      selectCounTableTime = true
       await obtenerPanelInformacion(data['ID_TURNO'], false, 'area_faltantes', '#panel-areas-faltantes')
+      selectCounTableTime = true
       await obtenerPanelInformacion(1, false, 'Estudios_Estatus', '#estudios_concluir_paciente')
+      selectCounTableTime = true
 
       if (data['COMPLETADO'] == 1) {
         $('#contenedor-btn-cerrar-paciente').html(`
