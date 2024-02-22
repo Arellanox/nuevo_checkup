@@ -269,6 +269,7 @@ let input_ordenMedica = InputDragDrop('#dropPromocionalesBimo', (inputArea, sali
     var nombreArchivo = inputArea.val().split('\\').pop();
 
     $('#image-preview').hide();
+    $('#image-preview').html('');
     $('#pdf-canvas').hide();
     // Itera sobre todos los archivos seleccionados
     for (var i = 0; i < files.length; i++) {
