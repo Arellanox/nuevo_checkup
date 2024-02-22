@@ -551,7 +551,7 @@ $(document).on('click', '.control-pagina-interpretacion', async function (event)
         }
 
         if ($visiblePage.attr('actual-page') === "1") {
-            await setInfo();
+            await setInfo(action);
         }
 
         // Carga las muestras a cargar y cargadas del paciente
