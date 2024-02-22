@@ -3,7 +3,7 @@ TablaMedicos = $('#TablaMedicos').DataTable({
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
   },
   lengthChange: false,
-  info: true,
+  info: false,
   paging: false,
   scrollY: '61vh',
   scrollCollapse: true,
@@ -41,8 +41,8 @@ TablaMedicos = $('#TablaMedicos').DataTable({
   columnDefs: [
     { targets: 0, title: '#', className: "all", width: "10px" },
     { targets: 1, title: 'Médico', className: "all" },
-    { targets: 2, title: 'Pacientes', className: "desktop", type: 'natural' },
-    { targets: 3, title: 'Ultimo paciente:', className: 'none', type: 'natural' }
+    { targets: 2, title: 'Pacientes', className: "min-tablet", type: 'natural' },
+    { targets: 3, title: 'Ultimo paciente:', className: 'tablet', type: 'natural' }
   ],
 
 })
@@ -92,7 +92,7 @@ tablaPacientesMedicos = $('#tablaPacientesMedicos').DataTable({
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
   },
   lengthChange: false,
-  info: true,
+  info: false,
   paging: false,
   scrollY: '54vh',
   scrollCollapse: true,
@@ -167,7 +167,7 @@ tablaPacientesMedicos = $('#tablaPacientesMedicos').DataTable({
   columnDefs: [
     { targets: 0, title: '#', className: "all", width: "10px" },
     { targets: 1, title: 'Paciente', className: "all" },
-    { targets: 2, title: 'Prefolio', className: "none" },
+    { targets: 2, title: 'Prefolio', className: "tablet" },
     { targets: 3, title: 'Procedencia', className: "desktop" },
     { targets: 4, title: 'Recepción', className: "all" },
     { targets: 5, title: 'Médico', className: "none" },
@@ -212,24 +212,24 @@ tablaPacientesMedicos = $('#tablaPacientesMedicos').DataTable({
 //new selectDatatable:
 selectTable('#tablaPacientesMedicos', tablaPacientesMedicos, {
   unSelect: true, noColumns: true,
-  tabs: [
-    {
-      title: 'Pacientes',
-      element: '#tab-paciente',
-      class: 'active',
-    },
-    {
-      title: 'Pacientes',
-      element: '#tab-reporte',
-      class: 'disabled tab-select'
-    },
-    {
-      title: 'Información',
-      element: '#tab-informacion',
-      class: 'disabled tab-select'
-    },
-  ],
-  "tab-default": 'Pacientes',
+  // tabs: [
+  //   {
+  //     title: 'Pacientes',
+  //     element: '#tab-paciente',
+  //     class: 'active',
+  //   },
+  //   {
+  //     title: 'Pacientes',
+  //     element: '#tab-reporte',
+  //     class: 'disabled tab-select'
+  //   },
+  //   {
+  //     title: 'Información',
+  //     element: '#tab-informacion',
+  //     class: 'disabled tab-select'
+  //   },
+  // ],
+  // "tab-default": 'Pacientes',
   ClickClass: [
     {
       class: 'btn-vizu-reporte',
@@ -258,6 +258,9 @@ selectTable('#tablaPacientesMedicos', tablaPacientesMedicos, {
 },
   async function (select, data, callback) {
     if (select) {
+
+      $('#tab-btn-Información').click();
+
       obtenerPanelInformacion(data['ID_TURNO'], 'toma_de_muestra_api', 'estudios_muestras', '#panel-muestras-estudios')
       obtenerPanelInformacion(data['ID_TURNO'], 'paciente_api', 'paciente')
     } else {
