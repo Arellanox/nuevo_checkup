@@ -296,3 +296,26 @@ $(document).on('click', '#btn-ir-consulta-rapida', function (e) {
 })
 
 
+$(document).on('click', '#btn-cuestionarioDepresion', function (e) {
+  loader("In")
+  $("#titulo-js").html(''); //Vaciar la cabeza de titulo
+  $.post("contenido/cuestionarios/cuestionario_depresion.php", function (html) {
+    $("#body-js").html(html);
+    // pacienteActivo = new GuardarArreglo(pacienteActivo.array);
+
+    console.log(pacienteActivo.array)
+
+  }).done(function () {
+
+    //Cierra modal del listado de los cuestionarios
+    $('#modalListaCuestionarios').modal('hide')
+    // Obtener metodos para el dom
+    $.getScript("contenido/js/formCuestionarios.js").done(function () {
+      
+      metodoConsultaRapida(pacienteActivo.array)
+
+    })
+    // select2('#registrar-metodos-estudio', 'card-exploracion-clinica');
+  });
+})
+
