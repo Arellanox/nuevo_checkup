@@ -596,7 +596,7 @@ $(document).on('click', '.control-pagina-interpretacion', async function (event)
 
 function setInfo(action) {
     return new Promise(async (resolve, reject) => {
-        if (form_type === "2" && next === 'next') {
+        if (form_type === "2" && action === 'next') {
             alertToast('Buscando datos del paciente', 'info', 4000)
             await previewInfoPaciente();
         } else {
