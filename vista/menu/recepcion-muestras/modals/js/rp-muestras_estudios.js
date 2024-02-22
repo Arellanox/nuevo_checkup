@@ -1,6 +1,7 @@
 
 
 // Tabla de los estudios
+dataJsonMuestras = { api: 6, id_turno: 3123 }
 pacienteEstudios = $('#pacienteEstudios').DataTable({
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
@@ -10,22 +11,44 @@ pacienteEstudios = $('#pacienteEstudios').DataTable({
     paging: false,
     scrollY: "auto",
     scrollCollapse: true,
+    ajax: {
+        dataType: 'json',
+        data: function (d) {
+            return $.extend(d, dataJsonMuestras);
+        },
+        method: 'POST',
+        url: `${http}${servidor}/${appname}/api/recepcion_api.php`,
+        complete: function () {
+            loader("Out", 'bottom')
+        },
+        error: function (jqXHR, exception, data) {
+            alertErrorAJAX(jqXHR, exception, data)
+            // console.log('Error')
+        },
+        dataSrc: 'response.data'
+    },
     columns: [
-        { data: 'ESTUDIO' },
-        { data: 'MUESTRA' },
+        { data: 'GRUPO' },
+        {
+            data: null, render: function (data, type, row, meta) {
+                return `${row.CONTENEDOR} - ${row.MUESTRA}`;
+            }
+        },
         // Si
         {
             data: null, render: function (data, type, row, meta) {
-                return `<input type="checkbox" name="rechazar_value" value="1" class="dt-checkbox form-check-input" data-row-index="${meta.row}" onclick="selectOnlyThis(this, 1)">`;
+                return `<input type="checkbox" name="rechazar_value" id="si_rechazar_${meta.row}" value="1" class="dt-checkbox btn-check form-check-input" data-row-index="${meta.row}" onclick="selectOnlyThis(this, 1)">
+                <label class="btn btn-outline-success" for="si_rechazar_${meta.row}">Si</label>`;
             },
-            className: 'text-center'
+            className: 'text-center',
         },
         // No
         {
             data: null, render: function (data, type, row, meta) {
-                return `<input type="checkbox" name="rechazar_value" value="0" class="dt-checkbox form-check-input" data-row-index="${meta.row}" onclick="selectOnlyThis(this, 0)">`;
+                return `<input type="checkbox" name="rechazar_value" id="no_rechazar_${meta.row}" value="0" class="dt-checkbox  btn-check  form-check-input" data-row-index="${meta.row}" onclick="selectOnlyThis(this, 0)">
+                <label class="btn btn-outline-danger" for="no_rechazar_${meta.row}">No</label>`;
             },
-            className: 'text-center'
+            className: 'text-center',
         },
 
         // Observaciones

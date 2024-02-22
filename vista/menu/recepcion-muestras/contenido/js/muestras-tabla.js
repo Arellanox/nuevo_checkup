@@ -1,6 +1,6 @@
 // |------------------------------- Variables -------------------------------------------------------|
 let dataListaLotes = { api: 5, id_cliente: session.id_cliente }; //data de lista de lotes
-let dataListaPacientesLotes
+let dataListaPacientesLotes, dataPacientesLotes;
 
 
 // |-------------------------------- Tabla de lista de lotes -----------------------------------------|
@@ -214,18 +214,23 @@ TablaPacientesLotes = $('#TablaPacientesLotes').DataTable({
                     // En dado caso que no tenga nada se mostrara este boton
                     buttons.push(
                         '<span class="badge text-bg-warning">En proceso</span>'
-                        
+
                     );
                 }
 
                 return '<div class="d-flex justify-content-start align-items-center">' + buttons.join(' ') + '</div>';
+            }
+        },
+        {
+            data: null, render: function (data) {
+
             }
         }
 
 
     ],
     columnDefs: [
-        { "width": "10px", "targets": [0, 3] },
+        { "width": "10px", "targets": [0, 8, 9] },
     ],
 
 })
