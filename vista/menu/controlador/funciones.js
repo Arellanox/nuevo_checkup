@@ -465,11 +465,13 @@ function ifnull(data, siNull = '', values = [
     }
   }
 
-  // Verifica si el objeto esta lleno
-  for (const key in data) {
-    if (Object.hasOwnProperty.call(data, key)) {
-      return data;
+
+  try {
+    if (data.length) {
+      return data
     }
+  } catch (error) {
+    console.error('El objeto no es texto');
   }
 
   return siNull;
