@@ -72,8 +72,8 @@ switch ($menu) {
       // echo $fecha_sumada; // imprime la nueva fecha en formato 'año-mes-día'
 
       if (
-        false &&
-        $_SESSION['i_cliente'] == 15
+        true &&
+        $_SESSION['id_cliente'] == 15
       ) : ?>
 
         <img src="https://bimo-lab.com/nuevo_checkup/1724986_dbc8d.gif" style="width: 90px; z-index: 99; position: absolute; left: 40px; top: 12px; transform: rotate(0.04turn);" id="decoration-cumple" />
@@ -84,7 +84,7 @@ switch ($menu) {
           </a>
 
           <div class="modal fade" id="modalCardCumpleaños" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
-            <div class="modal-dialog modal-md modal-dialog-centered ">
+            <div class="modal-dialog modal-lg modal-dialog-centered ">
               <div class="modal-content">
                 <!-- <div class="modal-header header-modal">
                   <h5 class="modal-title" id="filtrador"></h5>
@@ -92,15 +92,32 @@ switch ($menu) {
               </div> -->
                 <div class="modal-body">
                   <div id="tsparticles"></div>
-                  <div style="position: relative; width: 100%; height: 0; padding-top: 177.7778%;
+                  <!-- <div style="position: relative; width: 100%; height: 0; padding-top: 177.7778%;
  padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
  border-radius: 8px; will-change: transform;">
                     <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;" src="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAFlxQzMVzU&#x2F;watch?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
                     </iframe>
+                  </div> -->
+
+
+                  <div class="row">
+                    <div class="col-12 col-lg-6">
+                      <div style="position: relative; width: 100%; height: 0; padding-top: 177.7778%;
+ padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+ border-radius: 8px; will-change: transform;">
+                        <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;" src="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAF7Ua8eJDI&#x2F;watch?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+                        </iframe>
+                      </div>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                      <div style="position: relative; width: 100%; height: 0; padding-top: 177.7778%;
+ padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+ border-radius: 8px; will-change: transform;">
+                        <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;" src="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAF9dxd8ZVI&#x2F;4QbixsXdjdBYkNxBKaaVdg&#x2F;watch?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+                        </iframe>
+                      </div>
+                    </div>
                   </div>
-
-
-
 
 
                   <!-- <a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAFhaaU2rcM&#x2F;watch?utm_content=DAFhaaU2rcM&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener">Tarjeta vertical felicitación cumpleaños empleado empresa elegante dorado</a> de Bimo Talento Humano -->
