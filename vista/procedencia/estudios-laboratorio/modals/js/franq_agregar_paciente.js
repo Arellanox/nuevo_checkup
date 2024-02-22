@@ -257,13 +257,13 @@ $(document).on('click', '#btn-etiquetas-pdf', function (e) {
 // |------------------------- Formulario -------------------------|
 
 // Drag and drop
+var archivosNoSoportados = []; // Lista para guardar los nombres de archivos no soportados
 let input_ordenMedica = InputDragDrop('#dropPromocionalesBimo', (inputArea, salidaInput) => {
 
 
 
     // Suponiendo que inputArea es un input de tipo file con el atributo "multiple" habilitado
     var files = inputArea.get(0).files;
-    var archivosNoSoportados = []; // Lista para guardar los nombres de archivos no soportados
 
     // Obten el nombre
     var nombreArchivo = inputArea.val().split('\\').pop();
@@ -680,13 +680,23 @@ var procesarArchivo = function (file) {
         };
         fileReader.readAsArrayBuffer(file);
     } else if (file.type.match('image.*')) {
-        // Procesamiento para imágenes, sin cambios
+        // Procesamiento para imágenes
         var reader = new FileReader();
         reader.onload = function (e) {
-            $('#image-preview').attr('src', e.target.result).show();
+            // Cambia aquí para añadir cada imagen al contenedor 'image-preview'
+            var imgContainer = document.getElementById('image-preview');
+            imgContainer.style.display = 'block'; // Asegura que el contenedor sea visible
+
+            var img = document.createElement('img');
+            img.className = 'img-thumbnail';
+            img.style.width = '100%';
+            img.style.height = 'auto';
+            img.src = e.target.result;
+
+            imgContainer.appendChild(img); // Agrega la imagen al contenedor
         };
         reader.readAsDataURL(file);
-        $('#image-preview').show();
+        // $('#image-preview').show();
     } else {
         // Archivos no soportados
         archivosNoSoportados.push(nombreArchivo);
