@@ -82,6 +82,7 @@ function resetForm() {
     // Llamar a esta función para reiniciar
     restartPages('page_control-agregar_paciente');
     btnEstatus(1); // Primera pagina
+    $('#btn-regresar-pagina-agregarForm').prop('disabled', true)
 }
 
 // Mostrar las muestras en lista (Pagina 2)
@@ -563,7 +564,7 @@ $(document).on('click', '.control-pagina-interpretacion', async function (event)
             })
 
             // Visualiza nuevamente el tipo de solicitud
-            await setInfo();
+            await setInfo(action);
             await getListMuestras();
 
             swal.close();
@@ -593,9 +594,9 @@ $(document).on('click', '.control-pagina-interpretacion', async function (event)
 });
 
 
-function setInfo() {
+function setInfo(action) {
     return new Promise(async (resolve, reject) => {
-        if (form_type === "2") {
+        if (form_type === "2" && next === 'next') {
             alertToast('Buscando datos del paciente', 'info', 4000)
             await previewInfoPaciente();
         } else {
