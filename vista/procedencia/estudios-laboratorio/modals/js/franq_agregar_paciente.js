@@ -245,9 +245,9 @@ $(document).on('click', '#btn-etiquetas-pdf', function (e) {
 
     const btn = $(this)
     // Obtener URL para abrir
-    api = encodeURIComponent(window.btoa('etiquetas'));
+    let api = encodeURIComponent(window.btoa('etiquetas'));
     // area = encodeURIComponent(window.btoa(-1));
-    turno = encodeURIComponent(window.btoa(btn.attr('data-bs-turno_guardado')));
+    let turno = encodeURIComponent(window.btoa(btn.attr('data-bs-turno_guardado')));
 
     var win = window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}`, '_blank')
 
