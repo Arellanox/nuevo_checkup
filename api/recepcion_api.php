@@ -3,6 +3,8 @@ include_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
 include_once "../clases/correo_class.php";
 
+$datos = json_decode(file_get_contents('php://input'), true);
+
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
@@ -487,6 +489,49 @@ switch ($api) {
     case 13:
         //Actualiza la procedencia en recepcion(aceptados)
         $response = $master->updateByProcedure("sp_actualizar_procedencia_g", [$idTurno, $cliente_id]);
+        break;
+    case 14:
+        # descargar masivamente reportes
+
+        $resultset = $master->getByProcedure("sp_recuperar_reportes_confirmados", [null, null, $cliente_id, $fecha_ingreso, null]);
+        
+        $ids = array_unique(array_map(function($item){
+            return $item['TURNO_ID'];
+        }, $resultset));
+
+        $response = [];
+
+        foreach($ids as $id){
+            # filtramos los reportes por el turno
+            $records = array_filter($resultset, function($item) use ($id){
+                return $item["TURNO_ID"] == $id;
+            });
+
+            # obtenemos el nombre de la carpeta
+            $firstElement = $records[array_key_first($records)];
+            $sinGuion = (explode('-',$firstElement['NOMBRE_ARCHIVO']))[0];
+            $sinGuionBajo = explode('_',$sinGuion);
+
+            $folder = implode(" ", array_slice($sinGuionBajo, 1));
+            $folder = str_replace(" ","_",$folder);
+            $urls = array();
+
+            foreach($records as $record){
+                $urls[] = [
+                    "url" => $record["RUTA"],
+                    "archivo" => $record["NOMBRE_ARCHIVO"]
+                ];
+            }
+           
+            $response[] = [
+                "folder" => $folder,
+                "urls" => $urls,
+                
+            ];
+        }
+
+        echo json_encode($response);
+        exit;
         break;
 
     default:
