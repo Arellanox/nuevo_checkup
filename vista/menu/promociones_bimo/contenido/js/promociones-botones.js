@@ -48,8 +48,8 @@ function getGalleryPromociones() {
     new CargadorProgresivo({
       contenedor: 'galeria_prmociones',
       datos: data.response.data,
-      itemsIniciales: 10,
-      itemsPorCarga: 50,
+      itemsIniciales: 6,
+      itemsPorCarga: 3,
       detalles: true,
       html_case: 'PROMOCIONES_BIMO', // Elije el formato a usar
     });

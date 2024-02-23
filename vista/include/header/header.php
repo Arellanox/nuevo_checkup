@@ -72,7 +72,7 @@ switch ($menu) {
       // echo $fecha_sumada; // imprime la nueva fecha en formato 'año-mes-día'
 
       if (
-        true &&
+        false &&
         $_SESSION['id_cliente'] == 15
       ) : ?>
 

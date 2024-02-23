@@ -2453,6 +2453,7 @@ function selectTable(tablename, datatable,
         }
       ],
       divPadre: false, //Busca dentro del div las clases, si no hay buscará cualquiera
+      timeOut: false // Mantiene un tiempo de espeera entre clicks ( {time: 1000} )
     }, config)
 
   //Nombrando para usarlo
@@ -2492,17 +2493,21 @@ function selectTable(tablename, datatable,
     }
     $(loader_selectTable).attr("style", "display: none !important");
 
-    // Termina el tiempo de espera de los objetos seegun lo programado
-    selectCounTableTime = false;
+    if (config.timeOut)
+      // Termina el tiempo de espera de los objetos seegun lo programado
+      selectCounTableTime = false;
   }
 
 
   //Table Click Registro
   $(`${tablename}`).on(`click`, `tr`, function (event) {
-    if (selectCounTableTime)
+
+    if (selectCounTableTime && config.timeOut)
       return 'No action';
-    // Da un tiempo de espera
-    selectCounTableTime = true;
+
+    if (config.timeOut)
+      // Da un tiempo de espera
+      selectCounTableTime = true;
 
 
     //Obtener datos, tr, row e información del row
@@ -2643,7 +2648,9 @@ function selectTable(tablename, datatable,
 
     //Reinicia y espera el dobleClick
     setTimeout(() => {
-      selectTableClickCount = 0; selectCounTableTime = false;
+      selectTableClickCount = 0;
+      if (config.timeOut)
+        selectCounTableTime = false;
     }, 600)
 
     return 'No action';
