@@ -27,6 +27,9 @@ if (validarVista('RECEPCIÓN')) {
 //Notificacion de reportes faltantes
 //animated-button
 notificacionReportesNoEnviados(null)
+detectCoincidence('#medico-aceptar-paciente')
+
+
 async function notificacionReportesNoEnviados(count) {
   let span = '#numReportes';
   let btn = '#btn-modalNotificacionesReportes';
@@ -41,15 +44,17 @@ async function notificacionReportesNoEnviados(count) {
         $(span).html(noti)
         $(btn).addClass('animated-button');
 
-        try { TablaReportesNoEnviados.ajax.reload(); } catch (error) { }
+        // try { TablaReportesNoEnviados.ajax.reload(); } catch (error) { }
 
       } else if (noti != count) {
         //Borramos si no existe
         $(span).fadeOut(0);
         $(btn).removeClass('animated-button')
 
-        try { TablaReportesNoEnviados.ajax.reload(); } catch (error) { }
+        // try { TablaReportesNoEnviados.ajax.reload(); } catch (error) { }
       }
+
+      resolve(1);
     });
   });
 
