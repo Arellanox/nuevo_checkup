@@ -46,6 +46,10 @@ switch ($api) {
         # puedes enviar cualquiera de las 2 variables para el filtro, o no enviar ninguna para recuperar todos.
         $response = $master->getByProcedure("sp_vendedores_comisionistas_b", [$id_vendedor, $correo]);
         break;
+    case 3:
+        # eliminar el vendedor
+        $response = $master->deleteByProcedure("sp_vendedores_comisionistas_e", [$id_vendedor]);
+        break;
     
     default:
         $response = "Api no definida";
