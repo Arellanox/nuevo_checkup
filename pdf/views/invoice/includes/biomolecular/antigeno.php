@@ -61,13 +61,13 @@
 
 <br>
 <br><br><br><br>
-<p>Lote de kit: <strong><?php echo $body[3]->resultado ?></strong> </p>
+<p>Lote de kit: <strong><?php echo "59032P3T1"/*$body[3]->resultado*/ ?></strong> </p>
 <p>Comentarios: Esta prueba identifica la presencia de antígeno del Coronavirus SARS-CoV-2,
     el resultado negativo de la prueba no significa inmunidad y el médico tratante es quien
     realiza la interpretación de este resultado de acuerdo a los datos clínicos que el
     paciente presente.
     <br>
-    Kit utilizado: <strong><?php echo $body[4]->resultado ?></strong>
+    Kit utilizado: <strong><?php echo "SARS-COV-2 RAPID ANTIGEN TEST/ROCHE";/*$body[4]->resultado*/ ?></strong>
 </p>
 <br>
 <p>
