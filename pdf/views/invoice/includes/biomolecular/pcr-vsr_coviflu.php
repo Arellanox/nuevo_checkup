@@ -1,23 +1,40 @@
 <style>
-    .bold {
+  bold {
         font-weight: bold;
     }
-
+  /* .
     .rojo {
         color: red;
     }
 
     .resultados_resp td {
         width: 33.3%;
+    } */
+
+    #table_antigeno th {
+        background-color: #d3d3d3;
+        padding: 10px 7px 10px 7px;
+        /* text-justify: left; */
+        text-align: left;
+        font-size: 16px;
     }
+
+    #table_antigeno td,
+    #table_antigeno strong {
+        padding: 10px 7px 10px 6px;
+        font-size: 16px;
+        text-align: left;
+    }
+
+    #table_antigeno {
+        margin-top: 80px;
+    }
+
 </style>
 
-<br>
-<br>
-<br>
 <p style="position:absolute;top:2px;left:548px;white-space:nowrap" class="ft00">Muestra: <strong style="font-size: 11px"><?php echo $body[8]->resultado ?></strong> </p>
 
-<table style="width: 100%;" cellspacing="0">
+<table id="table_antigeno" style="width: 90%; "ellspacing="0">
     <tr style="background-color: #d3d3d3;">
         <th style="font-size: 12px;text-align:left;padding: 6px 5px; background-color: #d3d3d3;"><strong style="font-size:12px">Prueba <?php echo $body[9]->resultado ?></strong></th>
         <th style="font-size: 12px;text-align:center; padding: 6px 12px; background-color: #d3d3d3;"><strong style="font-size:12px">Resultado</strong></th>
@@ -68,25 +85,19 @@
         }
     }
     ?>
-    <tr>
-        <td><br></td>
-    </tr>
+<!-- <tr>
+<td><br></td>
+</tr> -->
 </table>
 
-<br>
-<br>
-<br>
-
 <!-- Comentario -->
-<p style=" text-align: justify; font-size:14px">
-    <strong style="font-size:14px">Comentarios:</strong>
+<p style="width: 90%; margin-left: 45px;">
+    <strong>Comentarios:</strong>
     Esta prueba identifica en tiempo real la presencia de Virus Sincitial Respiratorio (VSR, incluidos los tipos A y B), SARS-CoV-2, Influenza A (incluidos los subtipos A (H3) y A (H1N1), Influenza B (incluidos los linajes Victoria y Yamagata), el resultado negativo de la prueba no significa inmunidad y el médico tratante es quien realiza la interpretación de este resultado de acuerdo a los datos clínicos que el paciente presente.
 </p>
-<br>
-<br>
 
 <!-- Tabla con la información del equipo utilzado, kit de diagnostico y lote -->
-<table style="width:100%;font-size:14px">
+<table style="width:100%;font-size:14px;  margin-left: 45px">
     <tr>
         <td><strong style="font-size:14px">Equipo utilizado: </strong>CFX96™ Real-Time System BIO-RAD</td>
     </tr>
