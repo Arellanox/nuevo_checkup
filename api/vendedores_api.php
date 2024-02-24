@@ -50,6 +50,11 @@ switch ($api) {
         # eliminar el vendedor
         $response = $master->deleteByProcedure("sp_vendedores_comisionistas_e", [$id_vendedor]);
         break;
+
+    case 4:
+        # ventas realizadas en una fecha determinada por vendedor comiisonista
+        $response = $master->getByProcedure("", []);
+        break;
     
     default:
         $response = "Api no definida";
