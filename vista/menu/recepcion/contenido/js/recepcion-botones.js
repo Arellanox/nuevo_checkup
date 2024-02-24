@@ -87,7 +87,8 @@ $(document).on('click', '#btn-concluir-paciente', function (e) {
         array_selected['CLIENTE_ID'] == 18 ||
         array_selected['CLIENTE_ID'] == 24 ||
         array_selected['CLIENTE_ID'] == '31' ||
-        array_selected['CLIENTE_ID'] == 35 
+        array_selected['CLIENTE_ID'] == 35 ||
+        array_selected['CLIENTE_ID'] == 37
         ) {
 
         //Abrir el modal de estudios, precios y detalle
