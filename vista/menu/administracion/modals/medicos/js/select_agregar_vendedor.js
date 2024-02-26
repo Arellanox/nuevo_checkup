@@ -11,8 +11,11 @@ $(document).on('submit', '#formSelectMedicoVendedor', function (event) {
         text: 'El vendedor asigando correspondrá a las ventas del médico',
         icon: 'warning'
     }, () => {
-        ajaxAwaitFormData({ api: 3 }, 'vendedores_api', 'formSelectMedicoVendedor', { calbackBefore: true }, false, (data) => {
-
+        console.log('si')
+        ajaxAwaitFormData({ api: 5, id_medico: SelectedMedicosTratantes.ID_MEDICO}, 'vendedores_api', 'formSelectMedicoVendedor', { callbackAfter: true }, false, (data) => {
+            $('#modalSelectVendedor').modal('hide');
+            alertToast('Se le a asigno correctamente', 'success');
+            TablaVistaMedicosTratantes.ajax.reload()
         })
     }, 1)
 })
