@@ -62,7 +62,7 @@ switch ($api) {
             $id_vendedor
         ]);
         break;
-    
+
     default:
         $response = "Api no definida";
         break;

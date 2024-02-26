@@ -11,3 +11,7 @@
 02/02/24 11:14:32 sp_promociones_b Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_capacitaciones.sp_promociones_b does not exist
 02/02/24 11:16:40 sp_promociones_b Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_capacitaciones.sp_promociones_b does not exist
 12/02/24 14:46:54 sp_maquilas_altas_pacientes_b Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_checkup.sp_maquilas_altas_pacientes_b does not exist
+26/02/24 11:31:08 sp_tracking_medicos_b Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_consultorio.sp_tracking_medicos_b does not exist
+26/02/24 12:14:33 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [2002] Se ha intentado una operación de socket en una red no accesible.
+
+26/02/24 12:15:22 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [2006] MySQL server has gone away

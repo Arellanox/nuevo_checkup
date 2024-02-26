@@ -79,9 +79,9 @@ TablaVistaMedicosTratantes = $("#TablaVistaMedicosTratantes").DataTable({
         {
             data: 'TIENE_VENDEDOR', render: function (data, type, row) {
                 if (data == '1') {
-                return `<span class="badge text-bg-success">Con vendedor</span>`
+                    return `<span class="badge text-bg-success">Con vendedor</span>`
                 } else {
-                    
+
                     return `<span class="badge text-bg-warning"  data-id = "${row.ID_MEDICO}" style = "cursor: pointer"
                     onclick="selectVendedorMedicoTratantes.call(this)">Sin vendedor</span>`
                 }
@@ -97,7 +97,7 @@ TablaVistaMedicosTratantes = $("#TablaVistaMedicosTratantes").DataTable({
         {
             data: 'VENDEDOR', render: function (data) {
                 if (data != null) {
-                return data;
+                    return data;
                 } else {
                     return 'Sin vendedor'
                 }
@@ -112,9 +112,9 @@ TablaVistaMedicosTratantes = $("#TablaVistaMedicosTratantes").DataTable({
         { target: 4, title: 'Usuario', className: 'all' },
         { target: 5, title: 'Teléfono: ', className: 'none' },
         { target: 6, title: 'Especialidad: ', className: 'none' },
-        { target: 7, title: 'Vendedor', className: 'all'},
+        { target: 7, title: 'Vendedor', className: 'all' },
         { target: 8, title: '<i class="bi bi-trash"></i>', className: 'all', width: '5px' },
-        { target: 9, title: 'Vendedor', className: 'none'}
+        { target: 9, title: 'Vendedor', className: 'none' }
     ],
     dom: 'Bfrtip',
     buttons: [
@@ -225,17 +225,22 @@ function desactivarTablaMedicosTratantes() {
     }, 1)
 }
 
-select2('#select-vendedores', 'modalSelectVendedor')
-rellenarSelect('#select-vendedores', 'vendedores_api', 2)
 
 
 
-function selectVendedorMedicoTratantes(){
-    // rellenarSelect('#area_list', 'areas_api', 2, 'ID_AREA', 'DESCRIPCION')
-    var selectVendedor = $(this).data("id");
+
+function selectVendedorMedicoTratantes() {
+
+    alertMensaje('info', 'Espera un momento', 'Estamos cargando los datos, espera un momento');
+
+    select2('#select-vendedores', 'modalSelectVendedor')
+
+    rellenarSelect('#select-vendedores', 'vendedores_api', 2, 'ID_VENDEDOR', 'VENDEDOR.TELEFONO.EMAIL', {}, () => {
+        $('#modalSelectVendedor').modal('show')
+        swal.close();
+    })
 
 
-    $('#modalSelectVendedor').modal('show')
 }
 
 // Function para enviar los datos de los medicos tratantes ya sea para agregar uno nuevo o actualizar

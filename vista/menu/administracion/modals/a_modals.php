@@ -22,7 +22,7 @@ include "oneValue_crear.html";
 include "user_form_usuario.html";
 
 // Select donde se eligira el vendedor para el medico seleccionado
-include "select_agregar_vendedor.html";
+include "medicos/select_agregar_vendedor.html";
 
 //Vista de los vendedores y donde se podran agregar
-include "agregar_vendedores.html";
+include "vendedores/agregar_vendedores.html";

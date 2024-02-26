@@ -1,0 +1,28 @@
+<div class="modal fade" id="modalSelectVendedor" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
+  <div class="modal-dialog modal-md modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header header-modal">
+        <h5 class="modal-title" id="filtrador">Lista de Vendedores</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="px-2">Vendedores disponibles para médicos</p>
+        <div class="p-4">
+
+          <form id="formSelectMedicoVendedor">
+            <label for="select-vendedores" class="form-label">Por favor, selecciona un vendedor a relacionar</label>
+            <select class="form-control p-3" id="select-vendedores"></select>
+          </form>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i>
+          Cancelar</button>
+        <button type="submit" form="formSelectMedicoVendedor" class="btn btn-confirmar">
+          <i class="bi bi-person-plus"></i> Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
