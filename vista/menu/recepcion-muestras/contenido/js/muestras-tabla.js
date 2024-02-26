@@ -1,6 +1,6 @@
 // |------------------------------- Variables -------------------------------------------------------|
 let dataListaLotes = { api: 5, id_cliente: session.id_cliente }; //data de lista de lotes
-let dataListaPacientesLotes, dataPacientesLotes;
+let dataListaPacientesLotes, dataPacientesLotes = { api: 7 };
 
 
 // |-------------------------------- Tabla de lista de lotes -----------------------------------------|
@@ -224,13 +224,70 @@ TablaPacientesLotes = $('#TablaPacientesLotes').DataTable({
         {
             data: null, render: function (data) {
 
+                let html = `
+                    <button type="button" class="btn btn-info btn_tomar_muestras">
+                        <i class="bi bi-droplet-half btn_tomar_muestras"></i>
+                    </button>
+                `;
+
+                return html;
             }
         }
 
 
     ],
     columnDefs: [
-        { "width": "10px", "targets": [0, 8, 9] },
+        { "width": "10px", "targets": [0, 3, 7, 8, 9] },
     ],
 
 })
+
+
+selectTable('#TablaPacientesLotes', TablaPacientesLotes, {
+    OnlyData: true,
+    ClickClass: [
+        {
+            class: 'btn_tomar_muestras',
+            callback: function (data) {
+                // Data siendo los datos del row
+                console.log(data);
+                // Carga nuevos datos
+                dataJsonMuestras['id_turno'] = data.ID_TURNO;
+
+                // Carga información del paciente
+
+                // recarga y recupera nuevos datos
+                pacienteEstudios.clear().draw();
+                pacienteEstudios.ajax.reload();
+
+                alertToast('Cargando estudios del paciente', 'info', 4000)
+
+                // Abrir modal una vez cargado los datos (o llamado)
+                $('#modalRecepcionMuestras').modal('show')
+
+            },
+            selected: true
+        },
+    ]
+})
+
+
+inputBusquedaTable('TablaPacientesLotes', TablaPacientesLotes, [{
+    msj: 'Filtra los pacientes con información clave.',
+    place: 'top'
+}], [], 'col-12')
+
+
+
+// Ingresa información del paciente
+function infoPacienteModal(data) {
+    $('#nombre-paciente').html(ifnull(data, '', ['1']));
+    $('#fecha_de_nacimiento-paciente').html(ifnull(data, '', ['1']));
+    $('#edad-paciente').html(ifnull(data, '', ['1']));
+    $('#curp-paciente').html(ifnull(data, '', ['1']));
+    $('#numero_cuenta-paciente').html(ifnull(data, '', ['1']));
+
+
+
+
+}

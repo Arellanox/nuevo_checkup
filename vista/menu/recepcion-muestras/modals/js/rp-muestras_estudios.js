@@ -1,7 +1,7 @@
 
 
 // Tabla de los estudios
-dataJsonMuestras = { api: 6, id_turno: 3123 }
+dataJsonMuestras = { api: 6, id_turno: 0 }
 pacienteEstudios = $('#pacienteEstudios').DataTable({
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
@@ -20,6 +20,8 @@ pacienteEstudios = $('#pacienteEstudios').DataTable({
         url: `${http}${servidor}/${appname}/api/recepcion_api.php`,
         complete: function () {
             loader("Out", 'bottom')
+
+            autosize($('textarea'));
         },
         error: function (jqXHR, exception, data) {
             alertErrorAJAX(jqXHR, exception, data)
@@ -99,7 +101,11 @@ pacienteEstudios = $('#pacienteEstudios').DataTable({
 });
 
 
-autosize($('textarea'));
+
+inputBusquedaTable('pacienteEstudios', pacienteEstudios, [{
+    msj: 'Filtra los pacientes con información clave.',
+    place: 'top'
+}], [], 'col-12')
 
 
 // Observa si un input es si o no
