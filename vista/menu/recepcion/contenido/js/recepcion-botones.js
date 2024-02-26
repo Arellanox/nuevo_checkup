@@ -80,12 +80,12 @@ $(document).on('click', '#btn-concluir-paciente', function (e) {
     }, function () {
 
       // 1,15,17,18,24,31,35
-      if (array_selected['CLIENTE_ID'] == 1 ||
-        array_selected['CLIENTE_ID'] == 15 ||
+      if (
+        array_selected['CLIENTE_ID'] == 1 ||
+        // array_selected['CLIENTE_ID'] == 15 ||
         array_selected['CLIENTE_ID'] == '16' ||
-        array_selected['CLIENTE_ID'] == 17 ||
+        // array_selected['CLIENTE_ID'] == 17 ||
         array_selected['CLIENTE_ID'] == 18 ||
-        array_selected['CLIENTE_ID'] == 24 ||
         array_selected['CLIENTE_ID'] == '31' ||
         array_selected['CLIENTE_ID'] == 35 ||
         array_selected['CLIENTE_ID'] == 37
