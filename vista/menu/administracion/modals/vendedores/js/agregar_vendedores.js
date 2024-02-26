@@ -11,6 +11,29 @@
 //     }, 350);
 // })
 
+$(document).ready(() => {
+    $('#fecha-vendedor').on('input', function() {
+        const fechaNacimiento = new Date($(this).val());
+        const edad = calcularEdad(fechaNacimiento);
+        $('#edad-vendedor').val(edad);
+    });
+});
+
+function calcularEdad(fechaNacimiento) {
+    const hoy = new Date();
+    const anioDiferencia = hoy.getFullYear() - fechaNacimiento.getFullYear();
+    const mesDiferencia = hoy.getMonth() - fechaNacimiento.getMonth();
+    const diaDiferencia = hoy.getDate() - fechaNacimiento.getDate();
+
+    // Calcula la edad basada en el año, luego ajusta basado en el mes y el día
+    let edad = anioDiferencia;
+    if (mesDiferencia < 0 || (mesDiferencia === 0 && diaDiferencia < 0)) {
+        edad--;
+    }
+
+    return edad;
+}
+
 
 $(document).on('submit', '#form-vendedores', function (e) {
     e.preventDefault();
