@@ -15,14 +15,14 @@ $api = $_POST['api'];
 
 # variables insert
 $id_vendedor = $_POST['id_vendedor'];
-$nombre = $_POST['nombre'];
-$paterno = $_POST['paterno'];
-$materno = $_POST['materno'];
-$nacimiento = $_POST['nacimiento'];
-$edad = $_POST['edad'];
-$telefono = $_POST['tel'];
-$correo = $_POST['email'];
-$comision = $_POST['comision']; # comision otorgada. Ganancia
+$nombre = $_POST['nombre-vendedor'];
+$paterno = $_POST['apellido-paterno_vendedor'];
+$materno = $_POST['apellido-materno_vendedor'];
+$nacimiento = $_POST['fecha-vendedor'];
+$edad = $_POST['edad-vendedor'];
+$telefono = $_POST['numero-vendedor'];
+$correo = $_POST['email-vendedor'];
+$comision = $_POST['comision-vendedor']; # comision otorgada. Ganancia
 
 
 switch ($api) {

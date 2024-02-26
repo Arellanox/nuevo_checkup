@@ -1,0 +1,90 @@
+<div class="modal fade" id="modalVistaVendedores" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <h5 class="modal-title" id="filtrador">Editar información</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="shadow p-3 my-3">
+                    <form id="form-vendedores">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="row">
+                                    <div class="col-6">
+
+                                        <div class="col-12 col-lg-12">
+                                            <label>Nombre:</label>
+                                            <input type="text" class="form-control input-form" name="nombre-vendedor"
+                                                id="nombre-vendedor">
+                                        </div>
+                                        <div class="col-12 col-lg-12">
+                                            <label>Apellido Materno:</label>
+                                            <input type="text" class="form-control input-form" name="apellido-materno_vendedor"
+                                                id="apellido-materno_vendedor">
+                                        </div>
+                                        <div class="col-12 col-lg-12">
+                                            <label>Fecha de nacimiento:</label>
+                                            <input type="date" class="form-control input-form" name="fecha-vendedor"
+                                                id="fecha-vendedor">
+                                        </div>
+                                        <div class="col-12 col-lg-12">
+                                            <label>Correo:</label>
+                                            <input type="email" class="form-control input-form" name="email-vendedor"
+                                                id="email-vendedor">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="col-12 col-lg-12">
+                                            <label>Apellido Paterno:</label>
+                                            <input type="text" class="form-control input-form" name="apellido-paterno_vendedor"
+                                                id="apellido-paterno_vendedor">
+                                        </div>
+                                        <div class="col-12 col-lg-12">
+                                            <label>Telefono:</label>
+                                            <input type="number" class="form-control input-form" name="numero-vendedor"
+                                                id="numero-vendedor">
+                                        </div>
+                                        <div class="col-12 col-lg-12">
+                                            <label>Edad:</label>
+                                            <input type="number" class="form-control input-form" name="edad-vendedor"
+                                                id="edad-vendedor">
+                                        </div>
+                                        <div class="col-12 col-lg-12">
+                                            <label>Comision:</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control input-form" name="comision-vendedor"
+                                                    id="comision-vendedor">
+                                                <span class="input-group-text input-span" id="basic-addon2">%</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-lg-12 text-end">
+                                            <button type="button" class="btn btn-confirmar" id="btn-guardar_vendedores">
+                                                <i class="bi bi-person-plus"></i> Guardar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-6">
+                                <table class="table mt-3 display responsive" id="tablaVistaVendedores"
+                                    style="width: 100%;"></table>
+                            </div>
+
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i
+                        class="bi bi-arrow-left-short"></i> Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

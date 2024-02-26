@@ -367,3 +367,9 @@ $menu = $_POST['menu']; ?>
   </span>
 
 <?php endif; ?>
+
+<?php if ($menu == "Médicos Tratantes") : ?>
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#modalVistaVendedores">
+    <i class="bi bi-person-lines-fill"></i> Administrar vendedores
+  </button>
+<?php endif; ?>

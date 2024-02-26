@@ -20,3 +20,9 @@ include "oneValue_crear.html";
 
 //Form nuevo usuario
 include "user_form_usuario.html";
+
+// Select donde se eligira el vendedor para el medico seleccionado
+include "select_agregar_vendedor.html";
+
+//Vista de los vendedores y donde se podran agregar
+include "agregar_vendedores.html";
