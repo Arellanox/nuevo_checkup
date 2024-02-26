@@ -68,6 +68,10 @@ switch ($api) {
         # recuperar los periodos de pago.
         $response = $master->getByProcedure("sp_vendedores_periodos_b", [$id_vendedor, $id_periodo]);
         break;
+    case 7:
+        # finalizar periodo/ pagar
+        $response = $master->updateByProcedure("sp_vendedores_periodos_pagar", [$id_periodo]);
+        break;
 
     default:
         $response = "Api no definida";
