@@ -23,6 +23,7 @@ $edad = $_POST['edad-vendedor'];
 $telefono = $_POST['numero-vendedor'];
 $correo = $_POST['email-vendedor'];
 $comision = $_POST['comision-vendedor']; # comision otorgada. Ganancia
+$id_medico = $_POST['id_medico'];
 
 
 switch ($api) {
