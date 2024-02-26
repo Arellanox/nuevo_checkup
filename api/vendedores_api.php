@@ -24,6 +24,7 @@ $telefono = $_POST['numero-vendedor'];
 $correo = $_POST['email-vendedor'];
 $comision = $_POST['comision-vendedor']; # comision otorgada. Ganancia
 $id_medico = $_POST['id_medico'];
+$id_periodo = $_POST['id_periodo'];
 
 
 switch ($api) {
@@ -62,6 +63,10 @@ switch ($api) {
             $id_medico,
             $id_vendedor
         ]);
+        break;
+    case 6:
+        # recuperar los periodos de pago.
+        $response = $master->getByProcedure("sp_vendedores_periodos_b", [$id_vendedor, $id_periodo]);
         break;
 
     default:
