@@ -60,7 +60,9 @@ tablaVistaVendedores = $('#tablaVistaVendedores').DataTable({
     columns: [
         { data: 'COUNT' },
         { data: 'VENDEDOR' },
-        { data: 'FECHA_NACIMIENTO' },
+        { data: 'FECHA_NACIMIENTO', render: function(data) {
+            return formatoFecha2(data, [0, 1, 4, 1, 0])
+        }},
         { data: 'EDAD' },
         { data: 'EMAIL' },
         { data: 'TELEFONO' },
