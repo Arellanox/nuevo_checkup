@@ -83,7 +83,7 @@ $(document).on('click', '#btn-concluir-paciente', function (e) {
       if (
         array_selected['CLIENTE_ID'] == 1 ||
         // array_selected['CLIENTE_ID'] == 15 ||
-        array_selected['CLIENTE_ID'] == '16' ||
+       // array_selected['CLIENTE_ID'] == '16' ||
         // array_selected['CLIENTE_ID'] == 17 ||
         array_selected['CLIENTE_ID'] == 18 ||
         array_selected['CLIENTE_ID'] == '31' ||
