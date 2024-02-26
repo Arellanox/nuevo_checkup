@@ -52,8 +52,15 @@ switch ($api) {
         break;
 
     case 4:
-        # ventas realizadas en una fecha determinada por vendedor comiisonista
-        $response = $master->getByProcedure("", []);
+        # ventas realizadas en una fecha determinada por vendedor comisionista
+        $response = $master->getByProcedure("sp_vendedores_comisionistas_ventas", [$id_vendedor, $fecha_inicial, $fecha_final]);
+        break;
+    case 5:
+        # asignar un vendedor a un medico
+        $response = $master->updateByProcedure("sp_vendedores_comisionistas_asignar_vendedor", [
+            $id_medico,
+            $id_vendedor
+        ]);
         break;
     
     default:
