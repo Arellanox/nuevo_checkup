@@ -5,6 +5,7 @@ $(window).on("hashchange", function (e) {
   hasLocation();
 });
 
+let tablaVistaVendedores, dataVistaVendedores = {api: 2}
 
 
 selectFormUsuario = 0;
