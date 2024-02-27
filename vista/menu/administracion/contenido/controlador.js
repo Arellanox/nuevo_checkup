@@ -103,7 +103,7 @@ function hasLocation() {
 
     case "VENDEDORES":
       $('.medicos_vendedores_menu').fadeIn(0);
-      // if (validarVista('MEDICOS_TRATANTES'));
+      if (validarVista('VENDEDORES_COMISIONADOS')); //PERMISO PARA ENTRAR
       obtenerContenidoVendedores();
       break;
     // case "Servicios":
