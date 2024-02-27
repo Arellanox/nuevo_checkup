@@ -70,7 +70,7 @@ switch ($api) {
         break;
     case 7:
         # finalizar periodo/ pagar
-        $response = $master->updateByProcedure("sp_vendedores_periodos_pagar", [$id_periodo]);
+        $response = $master->updateByProcedure("sp_vendedores_periodos_pagar", [$id_periodo, $_SESSION['id']]);
         break;
 
     default:
