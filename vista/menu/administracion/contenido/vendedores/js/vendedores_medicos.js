@@ -60,11 +60,9 @@ tablaVistaVendedores = $('#tablaVistaVendedores').DataTable({
                 <div class="d-flex d-lg-block align-items-center" style="max-width: max-content; padding: 0px;">
                     <div class="d-flex flex-wrap flex-lg-nowrap align-items-center">
 
-                        <i class="btn btn-pantone-7408 bi bi-cash-coin comisiones-vendedor"  style="cursor: pointer"
-                            onclick="desactivarVendedor.call(this)"></i>
+                        <i class="btn mx-2 btn-pantone-7408 bi bi-cash-coin comisiones-vendedor"  style="cursor: pointer"></i>
 
-                       <i class="btn btn-borrar bi bi-trash eliminar-diagnostico" style="cursor: pointer"
-                            onclick="desactivarVendedor.call(this)"></i>
+                       <i class="btn mx-2 btn-borrar bi bi-trash eliminar-diagnostico" style="cursor: pointer"></i>
                                                
                     </div>
                 </div>
@@ -113,6 +111,23 @@ selectTable('#tablaVistaVendedores', tablaVistaVendedores, {
             callback: function (data) {
                 // Recuperar ID del vendedor de la tabla
                 var id_vendedor = data.ID_VENDEDOR;
+
+                dataVistaPeriodos['id_vendedor'] = id_vendedor;
+                tablaPeriodosVendedor.ajax.reload();
+
+                setTimeout(() => {
+                    $('#modal_comisionesVendedor').modal('show')
+                }, 300);
+
+                // Arregla los encabezados de la tabla
+                setTimeout(() => {
+                    $.fn.dataTable
+                        .tables({
+                            visible: true,
+                            api: true
+                        })
+                        .columns.adjust();
+                }, 200);
             }
         }
     ],

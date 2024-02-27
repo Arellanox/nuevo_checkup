@@ -26,3 +26,5 @@ include "medicos/select_agregar_vendedor.html";
 
 //Vista de los vendedores y donde se podran agregar
 include "vendedores/agregar_vendedores.html";
+//Vista de los vendedores y donde se podran agregar
+include "vendedores/comisiones_vendedor.html";
