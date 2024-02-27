@@ -52,7 +52,7 @@ tablaPeriodosVendedor = $('#tablaPeriodosVendedor').DataTable({
         {
             data: 'TOTAL_ACUMULADO', render: function (data) {
                 try {
-                    let total = parseInt(data, 10);
+                    let total = parseFloat(data, 10);
                     if (typeof total === 'number') {
                         total = total.toFixed(2)
                         return `$${total}`;
@@ -195,7 +195,7 @@ tablaPacientesPeriodos = $('#tablaPacientesPeriodos').DataTable({
         {
             data: 'TOTAL', render: function (data) {
                 try {
-                    let total = parseInt(data, 10);
+                    let total = parseFloat(data, 10);
                     if (typeof total === 'number') {
                         total = total.toFixed(2)
                         return `$${total}`;
