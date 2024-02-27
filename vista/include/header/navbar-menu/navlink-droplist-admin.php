@@ -21,6 +21,15 @@ date_default_timezone_set('America/Mexico_City');
                     </a>
                 </li>
             <?php endif; ?>
+
+            <?php if ($_SESSION['vista']['VENDEDORES_COMISIONADOS'] == 1) : ?>
+                <li>
+                    <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/administracion/#VENDEDORES'; ?>">
+                        <i class="bi bi-dot"></i> Vendedores
+                    </a>
+                </li>
+            <?php endif; ?>
+            
             <?php if ($_SESSION['vista']['ADMIN_MEDICOS'] == 1) : ?>
                 <li>
                     <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/administracion/#MEDICOS'; ?>">
