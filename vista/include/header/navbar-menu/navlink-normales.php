@@ -74,41 +74,44 @@ if (
     // $menu == "Vendedores" ||
     // $menu == "Médicos Tratantes"
 ) : ?>
-    <?php #if ($menu == "Usuarios") : 
+    <?php if ($menu == "Usuarios") :
     ?>
-    <li class="nav-item usuarios_menu">
-        <div class="dropdown ">
-            <a class="dropdown-toggle" id="dropadmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-journals"></i> Catalogos
-            </a>
-            <ul class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropadmin">
-                <span>
-                    <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrarcargos">
-                        <i class="bi bi-person-badge"></i> Cargos
+        <li class="nav-item usuarios_menu">
+            <div class="dropdown ">
+                <a class="dropdown-toggle" id="dropadmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-journals"></i> Catalogos
+                </a>
+                <ul class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropadmin">
+                    <span>
+                        <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrarcargos">
+                            <i class="bi bi-person-badge"></i> Cargos
+                        </a>
+                    </span>
+                    <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrartitulos">
+                        <i class="bi bi-briefcase"></i> Titulos
                     </a>
-                </span>
-                <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrartitulos">
-                    <i class="bi bi-briefcase"></i> Titulos
-                </a>
-                <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistraruniversidades">
-                    <i class="bi bi-mortarboard"></i> Universidades
-                </a>
-                <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrarespecialidades">
-                    <i class="bi bi-postcard"></i> Especialidades
-                </a>
-            </ul>
-        </div>
-    </li>
-    <!-- <li class="nav-item">
+                    <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistraruniversidades">
+                        <i class="bi bi-mortarboard"></i> Universidades
+                    </a>
+                    <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrarespecialidades">
+                        <i class="bi bi-postcard"></i> Especialidades
+                    </a>
+                </ul>
+            </div>
+        </li>
+        <!-- <li class="nav-item">
         <a href="#Usuarios" class="">
             <i class="bi bi-person-lines-fill"></i> Usuarios
         </a>
     </li> -->
-    <?php #endif; 
+    <?php endif;
     ?>
 
     <?php #if ($menu == "Vendedores" || $menu == "MEDICOS") : 
     ?>
+    <a href="/nuevo_checkup/vista/menu/track-medicos/" class="medicos_vendedores_menu">
+        <i class="bi bi-person-lines-fill"></i> Tracking de Médicos
+    </a>
     <a href="#MEDICOS" class="medicos_vendedores_menu">
         <i class="bi bi-person-lines-fill"></i> Médicos Tratantes
     </a>
