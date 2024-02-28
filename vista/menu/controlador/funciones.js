@@ -3170,7 +3170,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       ]
                     };
 
-                    const signosHTML = generateHTMLSection(mappings.signosVitales, 'col-12 col-xxl-6', { first: 'col-6 col-xxl-8', second: 'col-6 col-xxl-4' });
+                    const signosHTML = generateHTMLSection(mapipngs.signosVitales, 'col-12 col-xxl-6', { first: 'col-6 col-xxl-8', second: 'col-6 col-xxl-4' });
                     const somatometriaHTML = generateHTMLSection(mappings.somatometria, 'col-12', { first: 'col-6 col-xxl-7', second: 'col-6 col-xxl-5' });
 
                     $('#signos_portada').html(signosHTML);
@@ -3186,8 +3186,8 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                             </div>
                             <div class="${col_class.second} text-start d-flex align-items-center">
                               <p class="none-p">
-                                ${ifnull(data, 'Sin tomar', [{ [item.row]: ['VALOR'] }])} <strong>
-                                ${ifnull(data, '', [{ [item.row]: ['UNIDAD_MEDIDA'] }])}</strong>
+                                ${ifnull(data, 'Sin tomar', [{ [item.row]: 'VALOR' }])} <strong>
+                                ${ifnull(data, '', [{ [item.row]: 'UNIDAD_MEDIDA' }])}</strong>
                               </p>
                             </div>
                           </div>
