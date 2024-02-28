@@ -327,7 +327,7 @@ class CargadorProgresivo {
         ${registro_html}
         <strong>Vigencia:</strong> </br>
           <!-- Campos de vigencia -->
-          <span class="edit_format" input-name="fecha_inicio" type-input="date" value-save="${dato.FECHA_INICIO}" data-width="45%">${formatoFecha2(ifnull(dato, '0000-00-00', ['FECHA_INICIO']), [0, 1, 5, 2, 0, 0, 0])}</span> - <span class="edit_format" input-name="fecha_fin" type-input="date" value-save="${dato.FECHA_FIN}" data-width="45%">${formatoFecha2(ifnull(dato, '0000-00-00', ['FECHA_FIN']), [0, 1, 5, 2, 0, 0, 0])}</span></br>
+          <span class="edit_format" input-name="fecha_inicio" type-input="date" value-save="${dato.FECHA_INICIO}" data-width="45%">${formatoFecha2(ifnull_class(dato, '0000-00-00', ['FECHA_INICIO']), [0, 1, 5, 2, 0, 0, 0])}</span> - <span class="edit_format" input-name="fecha_fin" type-input="date" value-save="${dato.FECHA_FIN}" data-width="45%">${formatoFecha2(ifnull_class(dato, '0000-00-00', ['FECHA_FIN']), [0, 1, 5, 2, 0, 0, 0])}</span></br>
         ${pausado_html}
       </p>
     `
@@ -358,7 +358,7 @@ class CargadorProgresivo {
     // estilosComoTexto(imagenes_css)
     var html = `<div class="${config.html.divElement.class} fadeIn ">
               <div class="bg-white rounded shadow-sm tarjeta-flexible">
-                <img src="${ifnull(dato, '', { ARCHIVOS: { '0': 'url' } })}" alt="" class="img-fluid card-img-top imagen-tarjeta" style="${this.estilosComoTexto(config.html.imagenes_css)}">
+                <img src="${ifnull_class(dato, '', { ARCHIVOS: { '0': 'url' } })}" alt="" class="img-fluid card-img-top imagen-tarjeta" style="${this.estilosComoTexto(config.html.imagenes_css)}">
                 <div class="p-4 contenido-tarjeta">
                   
                   <!-- Formulario por clase para editar -->
@@ -381,7 +381,7 @@ class CargadorProgresivo {
                     
                     <div class="pie-tarjeta">
                       <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                        <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">${ifnull(dato, '', { ARCHIVOS: { '0': 'tipo' } })}</span></p>
+                        <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">${ifnull_class(dato, '', { ARCHIVOS: { '0': 'tipo' } })}</span></p>
                         <div class="badge text-bg-${vigencia.span_color} px-3 rounded-pill font-weight-normal text-white">${vigencia.nombre}</div>
                       </div>
                     </div>

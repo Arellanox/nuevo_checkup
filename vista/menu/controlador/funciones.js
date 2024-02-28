@@ -507,13 +507,13 @@ function ifnull(data, siNull = '', values = [
   }
 
 
-  // try {
-  //   if (data.length) {
-  //     return data
-  //   }
-  // } catch (error) {
-  //   console.error('El objeto no es texto');
-  // }
+  try {
+    if (data.length) {
+      return data
+    }
+  } catch (error) {
+    console.error('El objeto no es texto');
+  }
 
   return siNull;
 }
