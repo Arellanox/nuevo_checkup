@@ -175,9 +175,14 @@ function muestraDataPaciente(data) {
     $('.fecha_de_nacimiento-paciente').html(formatoFecha(ifnull(data, $('#nacimiento-form-agregar').val(), ['NACIMIENTO'])))
 
     let edad = calcularEdad2($('#nacimiento-form-agregar').val());
-    $('.edad-paciente').html(ifnull(data, `${edad['numero']} ${edad['tipo']}`, ['EDAD']))
+    formatoEdad
+    si_edad = ifnull(data, false, ['NACIMIENTO']);
+    if (si_edad)
+        si_edad = calcularEdad2(si_edad);
 
-    // $('.edad-paciente').html(formatoEdad())
+    $('.edad-paciente').html(`${edad['numero']} ${edad['tipo']}`)
+
+    // $('.edad-paciente').html(())
     $('.curp-paciente').html(ifnull(data, $('#curp-form-agregar').val(), ['CURP']))
 
     $('.numero_cuenta-paciente').html($('#numero_cuenta-form-agregar').val())
