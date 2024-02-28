@@ -3170,7 +3170,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       ]
                     };
 
-                    const signosHTML = generateHTMLSection(mapipngs.signosVitales, 'col-12 col-xxl-6', { first: 'col-6 col-xxl-8', second: 'col-6 col-xxl-4' });
+                    const signosHTML = generateHTMLSection(mappings.signosVitales, 'col-12 col-xxl-6', { first: 'col-6 col-xxl-8', second: 'col-6 col-xxl-4' });
                     const somatometriaHTML = generateHTMLSection(mappings.somatometria, 'col-12', { first: 'col-6 col-xxl-7', second: 'col-6 col-xxl-5' });
 
                     $('#signos_portada').html(signosHTML);
