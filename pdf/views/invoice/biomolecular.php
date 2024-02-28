@@ -321,6 +321,7 @@ $areas = $resultados->areas[0];
         {
 
             $body_html = passdata($json->estudio);
+            // var_dump($body_html);
             if ($body_html) {
                 $body = $json->analitos; // Para obtener los resultados de cada uno
                 include $documentoRaiz . "/nuevo_checkup/pdf/views/invoice/includes/biomolecular/" . $body_html . ".php";
@@ -337,6 +338,7 @@ $areas = $resultados->areas[0];
         $estudiosOtros = $areas; // Asumiendo que $areas está definido en alguna parte
         $conteo = count($estudiosOtros->estudios);
 
+        $counts_pdfs = 0;
         foreach ($estudiosOtros->estudios as $key => $json) {
             $body_html = procesarEstudio($json, $documentoRaiz);
             if ($body_html) {
@@ -345,11 +347,14 @@ $areas = $resultados->areas[0];
                 if (($conteo - 1) > $key) {
                     realizarSaltoDePagina();
                 }
+
+                $counts_pdfs = 1;
             }
         }
 
         if (count($estudiosOtros->estudios)) {
-            realizarSaltoDePagina();
+            if ($counts_pdfs)
+                realizarSaltoDePagina();
             include $documentoRaiz . "/nuevo_checkup/pdf/views/invoice/includes/laboratorios_global.php";
         }
 
