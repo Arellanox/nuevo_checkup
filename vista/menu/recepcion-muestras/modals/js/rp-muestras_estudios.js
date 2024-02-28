@@ -1,6 +1,7 @@
 
 
 // Tabla de los estudios
+dataJsonMuestras = { api: 6, id_turno: 0 }
 pacienteEstudios = $('#pacienteEstudios').DataTable({
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
@@ -10,35 +11,64 @@ pacienteEstudios = $('#pacienteEstudios').DataTable({
     paging: false,
     scrollY: "auto",
     scrollCollapse: true,
+    ajax: {
+        dataType: 'json',
+        data: function (d) {
+            return $.extend(d, dataJsonMuestras);
+        },
+        method: 'POST',
+        url: `${http}${servidor}/${appname}/api/recepcion_api.php`,
+        complete: function () {
+            loader("Out", 'bottom')
+
+            autosize($('textarea'));
+        },
+        error: function (jqXHR, exception, data) {
+            alertErrorAJAX(jqXHR, exception, data)
+            // console.log('Error')
+        },
+        dataSrc: 'response.data'
+    },
     columns: [
-        { data: 'ESTUDIO' },
-        { data: 'MUESTRA' },
+        { data: 'GRUPO' },
+        {
+            data: null, render: function (data, type, row, meta) {
+                return `${row.CONTENEDOR} - ${row.MUESTRA}`;
+            }
+        },
         // Si
         {
             data: null, render: function (data, type, row, meta) {
-                return `<input type="checkbox" name="rechazar_value" value="1" class="dt-checkbox form-check-input" data-row-index="${meta.row}" onclick="selectOnlyThis(this, 1)">`;
+                return `<input type="checkbox" name="rechazar_value" id="si_rechazar_${meta.row}" value="1" class="dt-checkbox btn-check form-check-input" data-row-index="${meta.row}" onclick="selectOnlyThis(this, 1)">
+                <label class="btn btn-outline-success" for="si_rechazar_${meta.row}">Si</label>`;
             },
-            className: 'text-center'
+            className: 'text-center',
         },
         // No
         {
             data: null, render: function (data, type, row, meta) {
-                return `<input type="checkbox" name="rechazar_value" value="0" class="dt-checkbox form-check-input" data-row-index="${meta.row}" onclick="selectOnlyThis(this, 0)">`;
+                return `<input type="checkbox" name="rechazar_value" id="no_rechazar_${meta.row}" value="0" class="dt-checkbox  btn-check  form-check-input" data-row-index="${meta.row}" onclick="selectOnlyThis(this, 0)">
+                <label class="btn btn-outline-danger" for="no_rechazar_${meta.row}">No</label>`;
             },
-            className: 'text-center'
+            className: 'text-center',
         },
 
         // Observaciones
         {
             data: null, render: function (data, type, row, meta) {
-                let html = `<textarea name="comentario" class="md-textarea input-form" rows="1" data-row-index="${meta.row}"></textarea>`;
+                let html = `<textarea name="comentario" class="md-textarea input-form dt-checkbox" rows="1" data-row-index="${meta.row}"></textarea>`;
                 return html;
             }
         },
         // Evidencia
         {
             data: null, render: function (data, type, row, meta) {
-                let html = `<input class="form-control" name="evidencia" type="file" id="formFile" data-row-index="${meta.row}">`
+                let html = `
+                    <div class="input-group input_file_label">
+                        <input type="file" class="custom-file-input dt-checkbox" id="customFile" aria-describedby="inputGroupFileAddon04" onchange="updateLabel(this)" data-row-index="${meta.row}">
+                        <label class="custom-file-label text-center" for="customFile" data-browse="Seleccionar archivo">Subir Archivo</label>
+                    </div>
+                `
                 return html;
             }
         },
@@ -71,7 +101,11 @@ pacienteEstudios = $('#pacienteEstudios').DataTable({
 });
 
 
-autosize($('textarea'));
+
+inputBusquedaTable('pacienteEstudios', pacienteEstudios, [{
+    msj: 'Filtra los pacientes con información clave.',
+    place: 'top'
+}], [], 'col-12')
 
 
 // Observa si un input es si o no
@@ -85,3 +119,21 @@ function selectOnlyThis(checkbox, type) {
         if (item.value == type) item.checked = true;
     });
 }
+
+
+
+// |-------------------- Observa el modal --------------------|
+
+const modalRecepcionMuestras = document.getElementById("modalRecepcionMuestras"); // Declaramos una constante con el id del modal
+// recarga el diseño de la tabla antes de que se llegue abirir el modal
+modalRecepcionMuestras.addEventListener("show.bs.modal", (event) => {
+    setTimeout(() => {
+        $.fn.dataTable
+            .tables({
+                visible: true,
+                api: true
+            })
+            .columns.adjust();
+    }, 250);
+});
+

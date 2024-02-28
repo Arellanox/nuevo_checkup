@@ -447,6 +447,13 @@ function ifnull(data, siNull = '', values = [
 
       return data;
     }
+  } else {
+    // Verifica si el objeto esta lleno
+    for (const key in data) {
+      if (Object.hasOwnProperty.call(data, key)) {
+        return data;
+      }
+    }
   }
 
   // Iterar a través de las claves en values
