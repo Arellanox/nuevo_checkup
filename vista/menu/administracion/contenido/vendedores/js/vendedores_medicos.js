@@ -117,17 +117,19 @@ selectTable('#tablaVistaVendedores', tablaVistaVendedores, {
 
                 setTimeout(() => {
                     $('#modal_comisionesVendedor').modal('show')
+
+                    // Arregla los encabezados de la tabla
+                    setTimeout(() => {
+                        $.fn.dataTable
+                            .tables({
+                                visible: true,
+                                api: true
+                            })
+                            .columns.adjust();
+                    }, 300);
                 }, 300);
 
-                // Arregla los encabezados de la tabla
-                setTimeout(() => {
-                    $.fn.dataTable
-                        .tables({
-                            visible: true,
-                            api: true
-                        })
-                        .columns.adjust();
-                }, 200);
+
             }
         }
     ],
