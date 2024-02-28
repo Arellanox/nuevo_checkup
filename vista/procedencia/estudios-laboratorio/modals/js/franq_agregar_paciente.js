@@ -173,7 +173,11 @@ function muestraDataPaciente(data) {
     // Informacion del paciente
     $('.nombre-paciente').html(ifnull(data, nombreClass, ['NOMBRE_COMPLETO']))
     $('.fecha_de_nacimiento-paciente').html(formatoFecha(ifnull(data, $('#nacimiento-form-agregar').val(), ['NACIMIENTO'])))
-    $('.edad-paciente').html(formatoEdad(ifnull(data, $('#edad-form-agregar').val(), ['EDAD'])))
+
+    let edad = calcularEdad2($('#nacimiento-form-agregar').val());
+    $('.edad-paciente').html(ifnull(data, `${edad['numero']} ${edad['tipo']}`, ['EDAD']))
+
+    // $('.edad-paciente').html(formatoEdad())
     $('.curp-paciente').html(ifnull(data, $('#curp-form-agregar').val(), ['CURP']))
 
     $('.numero_cuenta-paciente').html($('#numero_cuenta-form-agregar').val())

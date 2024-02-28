@@ -100,6 +100,40 @@ function calcularEdad(fecha) {
   return edad;
 }
 
+function calcularEdad2(fecha) {
+  var hoy = new Date();
+  var cumpleanos = new Date(fecha);
+  var edadEnAnos = hoy.getFullYear() - cumpleanos.getFullYear();
+  var m = hoy.getMonth() - cumpleanos.getMonth();
+  var d = hoy.getDate() - cumpleanos.getDate();
+
+  if (m < 0 || (m === 0 && d < 0)) {
+    edadEnAnos--;
+    m += 12; // Ajusta los meses cuando el día de hoy es antes del día de cumpleaños.
+  }
+
+  if (edadEnAnos > 0) {
+    return { numero: edadEnAnos, tipo: 'año' + (edadEnAnos > 1 ? 's' : '') };
+  } else if (m > 0) {
+    return { numero: m, tipo: 'mes' + (m > 1 ? 'es' : '') };
+  } else {
+    // Calcular la diferencia en días si no hay diferencia en meses o años.
+    var fechaCumpleanosEsteAno = new Date(hoy.getFullYear(), cumpleanos.getMonth(), cumpleanos.getDate());
+    var diferenciaDias = Math.floor((hoy - fechaCumpleanosEsteAno) / (1000 * 60 * 60 * 24));
+    if (diferenciaDias < 0) {
+      diferenciaDias += new Date(hoy.getFullYear(), hoy.getMonth(), 0).getDate(); // Ajuste si el día de hoy es antes del día de cumpleaños en este mes.
+    }
+
+    var semanas = Math.floor(diferenciaDias / 7);
+    if (semanas > 0) {
+      return { numero: semanas, tipo: 'semana' + (semanas > 1 ? 's' : '') };
+    } else {
+      return { numero: diferenciaDias, tipo: 'día' + (diferenciaDias > 1 ? 's' : '') };
+    }
+  }
+}
+
+
 // Revisar sesión
 function validarVista(area, reload = true) {
   if (!area.length)
