@@ -177,10 +177,10 @@ function muestraDataPaciente(data) {
     let edad = calcularEdad2($('#nacimiento-form-agregar').val());
     formatoEdad
     si_edad = ifnull(data, false, ['NACIMIENTO']);
-    if (si_edad)
-        si_edad = calcularEdad2(si_edad);
+    nacimiento_back = calcularEdad2(si_edad);
+    edad = si_edad === false ? `${edad['numero']} ${edad['tipo']}` : `${nacimiento_back['numero']} ${nacimiento_back['tipo']}`;
 
-    $('.edad-paciente').html(`${edad['numero']} ${edad['tipo']}`)
+    $('.edad-paciente').html(edad)
 
     // $('.edad-paciente').html(())
     $('.curp-paciente').html(ifnull(data, $('#curp-form-agregar').val(), ['CURP']))
