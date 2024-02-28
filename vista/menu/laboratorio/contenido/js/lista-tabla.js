@@ -509,14 +509,14 @@ function generarFormularioPaciente(id) {
 
               classSelect = 'selectTipoMuestraPCRVirusRespiratorio';
 
-            tipo_resultado = {
-              0: {
-                'descripcion': 'rT-PCR de VSR - CoviFlu',
-              },
-              1: {
-                'descripcion': 'rT-PCR de CoviFlu',
+              tipo_resultado = {
+                0: {
+                  'descripcion': 'rT-PCR de VSR - CoviFlu',
+                },
+                1: {
+                  'descripcion': 'rT-PCR de CoviFlu',
+                }
               }
-            }
               muestras = {
                 0: {
                   'descripcion': 'Hisopado nasal',
@@ -560,6 +560,19 @@ function generarFormularioPaciente(id) {
                   'descripcion': 'Heterocitogo',
                 }
               }
+              break;
+
+            case '1599':
+              // PCR Basal Carga Virual de hepatitis C (HCV)
+              classSelect = 'selectTipoMuestraCargaVirualHepatitisC';
+
+              // ID muestra 695;
+              muestras = {
+                0: {
+                  'descripcion': 'Plasma EDTA',
+                },
+              }
+
               break;
 
 
@@ -686,7 +699,7 @@ function generarFormularioPaciente(id) {
 
                   onlyLabel = true; break;
 
-                  // PCR Virus Respiratorio - coviflu
+                // PCR Virus Respiratorio - coviflu
                 case '1555':
                   anotherInput = crearSelectCamposMolecular(tipo_resultado, nameInput, row[k]['RESULTADO']);
 
@@ -738,6 +751,9 @@ function generarFormularioPaciente(id) {
                 case '1142':
                 // Ag. Virus respiratorio
                 case '145':
+
+
+
                   console.log(row[k]['ID_SERVICIO'])
                   anotherInput = crearSelectCamposMolecular(muestras, nameInput, row[k]['RESULTADO']); break;
 
