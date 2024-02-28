@@ -22,7 +22,7 @@
     $kit = $body[8]->resultado;
     $NoLote = $body[9]->resultado;
 
-    $body = array_slice($body, 1, count($body) - 4);
+    $body = array_slice($body, 0, count($body) - 3);
     foreach ($body as $key => $value) {
         if (isset($value->resultado)) {
     ?>
