@@ -1495,7 +1495,7 @@ class Miscelaneus
                     "metodo"         => $metodo_grupo,
                     "equipo"         => $equipo_grupo,
                     "observaciones"  => isset($id_grupo) ? $observacionnes_generales : null,
-                    "muestra"        => $id_grupo == 972 ? "Plasma EDTA" : ""
+                    "muestra"        => $id_grupo == 972 ? "Plasma EDTA" : ($this->getmuestraGrupo($master, $id_grupo, $turno))['MUESTRA']
                 );
                 $analitos = array();
             }
@@ -1509,6 +1509,11 @@ class Miscelaneus
         );
 
         return $response;
+    }
+
+    function getMuestraGrupo($master, $grupo_id, $turno){
+        $muestra = $master->selectByProcedure("sp_recuperar_muestra", [$grupo_id]);
+        return $muestra[0];
     }
 
     function cleanAttachingFiles($files_array)
