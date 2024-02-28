@@ -367,3 +367,9 @@ $menu = $_POST['menu']; ?>
   </span>
 
 <?php endif; ?>
+
+<?php if ($menu == "Vendedores") : ?>
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" onclick="btnModal('nuevo_vendedor')">
+    <i class="bi bi-person-fill-add"></i> Nuevo vendedor
+  </button>
+<?php endif; ?>

@@ -17,6 +17,14 @@ $.post("modals/a_modals.php", function (html) {
    // $.getScript('modals/js/cargo_modal.js');
    // $.getScript('modals/js/modal_html.js');
 
+   // Modal para agregar y vizualizar los vendedores
+   $.getScript('modals/vendedores/js/agregar_vendedores.js');
+   // Modal para periodos del vendedor
+   $.getScript('modals/vendedores/js/comisiones_vendedor.js');
+
+
+   // Modal para agregar vendedores
+   $.getScript('modals/medicos/js/select_agregar_vendedor.js');
 
 
    // Modal para agregar o actualizar el usuario de un medico

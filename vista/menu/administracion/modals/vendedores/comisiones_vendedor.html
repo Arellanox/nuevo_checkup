@@ -1,0 +1,70 @@
+<div class="modal fade" id="modal_comisionesVendedor" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <h5 class="modal-title" id="filtrador">Periodos del vendedor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row" id="content-periodos">
+
+                    <!-- tabs para movil -->
+                    <div id="tab-button"></div>
+                    <!-- Columna 1 -tabla de periodos -->
+                    <div class="col-12 col-lg-4 tab-first" id="tab-paciente">
+                        <div class="rounded shadow p-3 my-3">
+                            <table class="table mt-3 display responsive" id="tablaPeriodosVendedor"
+                                style="width: 100%;">
+                            </table>
+
+                        </div>
+                    </div>
+
+                    <!-- Columna 2 - Información de periodo y pacientes -->
+                    <div class="col-12 col-lg-8 tab-second" id="tab-informacion">
+                        <!-- Información de periodo -->
+                        <div class="rounded shadow p-3 my-3">
+                            <div class="d-flex justify-content-around">
+                                <p>
+                                    Periodo: <br />
+                                    <strong class="none-p" id="info_periodo_fecha_inicial"
+                                        style="font-weight: bold;"></strong>
+                                </p>
+                                <p>
+                                    Pagado: <br />
+                                    <strong class="none-p" id="info_periodo_fecha_final"
+                                        style="font-weight: bold;"></strong>
+                                </p>
+                                <p>
+                                    Comisión total: <br />
+                                    <strong class="none-p" id="info_periodo_comsion_totals"
+                                        style="font-weight: bold;"></strong>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Tabla de pacientes (solo info) -->
+                        <div class="">
+                            <table class="table mt-3 display responsive" id="tablaPacientesPeriodos"
+                                style="width: 100%;">
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
+                    <i class="bi bi-arrow-left-short"></i> Cerrar
+                </button>
+
+                <button type="button" id="btn_pagar_periodo" class="btn btn-confirmar">
+                    <i class="bi bi-person-plus"></i> Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
