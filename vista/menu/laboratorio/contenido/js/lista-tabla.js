@@ -284,6 +284,9 @@ function generarFormularioPaciente(id) {
                 },
                 8: {
                   'descripcion': 'ESCROTO, GLANDE,<br> CORONA, PREPUSIO'
+                },
+                9: {
+                  'descripcion': 'PREPUSIO, GLANDE,<br> CORONA, URETRA'
                 }
               }
               break;
