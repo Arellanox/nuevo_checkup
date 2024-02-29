@@ -160,6 +160,11 @@
 
 
 
+<!-- WaveSufer (espectograma) -->
+<script src="https://unpkg.com/wavesurfer.js@7"></script>
+
+
+
 <script>
     var traducciones;
 
