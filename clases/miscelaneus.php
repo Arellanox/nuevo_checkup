@@ -2171,4 +2171,11 @@ class Miscelaneus
         
         return $generales;
     }
+
+    function token_api()
+    {
+        return [
+            'openAI' => "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",
+        ];
+    }
 }
