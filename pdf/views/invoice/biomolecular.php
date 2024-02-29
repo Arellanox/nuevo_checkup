@@ -126,7 +126,7 @@
         td {
             width: 100%;
             max-width: 100%;
-            word-break: break-all;
+            /* word-break: break-all; */
         }
 
         /* Para divisiones de 3 encabezado*/
@@ -299,7 +299,7 @@ $areas = $resultados->areas[0];
                 "PCR SARS-CoV-2/INFLUENZA A Y B" => 'pcr_influenza',
                 "PANEL RESPIRATORIO 21 POR PCR" => 'PANEL21',
                 "Ag. SARS-CoV-2" => 'antigeno',
-                "VPH" => 'vph',
+                "RT-PCR VPH-AR (VIRUS DEL PAPILOMA HUMANO)" => 'vph',
                 "CITOLOGÍA" => 'CITOLOGIA',
                 "rT-PCR-ETS" => 'PCR-ETS',
                 "FTD Fiebre Tropical Multiplex" => 'FTDMultiplex',
