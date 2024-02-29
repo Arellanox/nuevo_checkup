@@ -15,11 +15,16 @@ ajaxAwait({}, 'tts_api', { callbackAfter: true }, true, (data) => {
   key_api_openAI = data.response.data.openAI;
 })
 
-
+let text = '';
 $(document).on('submit', '#formSpeekText', function (e) {
   e.preventDefault();
 
-  getAudio($('#text_area_tts').val(), key_api_openAI)
+  if (text != $('#text_area_tts').val() && text != '') {
+    text = $('#text_area_tts').val();
+    getAudio($('#text_area_tts').val(), key_api_openAI)
+  } else {
+    wavesurfer.play();
+  }
 })
 
 
@@ -30,7 +35,7 @@ function getAudio(text, keyApi) {
   const apiKey = keyApi; // Reemplaza esto con tu clave API real
   const model = 'tts-1';
   const inputText = text;
-  const voice = 'alloy';
+  const voice = 'shimmer';
 
   // Configura los detalles de la solicitud
   const data = {
