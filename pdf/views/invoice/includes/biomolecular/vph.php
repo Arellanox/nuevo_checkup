@@ -3,7 +3,7 @@
 <br>
 <br>
 <p style="position:absolute;top:2px;left:548px;white-space:nowrap" class="ft00">Muestra: <strong style="font-size: 11px"><?php echo $body[7]->resultado ?></strong> </p>
-<table style="width: 100%; font-size: 13.4px">
+<table style="max-width: 100%; font-size: 13.4px">
     <tr style="background-color: darkgrey; padding-bottom: 7px; padding-top: 7px;">
         <td><strong style="font-size: 13.4px">Prueba</strong></td>
         <td><strong style="font-size: 13.4px">Resultado</strong></td>
