@@ -31,16 +31,16 @@
 </div>
 
 <script>
-  window.onload = function() {
-    var images = [
-      'https://bimo-lab.com/nuevo_checkup/archivos/sistema/ilustraciones/recuadro_1.jpg',
-      'https://bimo-lab.com/nuevo_checkup/archivos/sistema/ilustraciones/recuadro_2.jpg',
-      'https://bimo-lab.com/nuevo_checkup/archivos/sistema/ilustraciones/recuadro_3.jpg'
-    ];
+  // window.onload = function() {
+  var images = [
+    'https://bimo-lab.com/nuevo_checkup/archivos/sistema/ilustraciones/recuadro_1.jpg',
+    'https://bimo-lab.com/nuevo_checkup/archivos/sistema/ilustraciones/recuadro_2.jpg',
+    'https://bimo-lab.com/nuevo_checkup/archivos/sistema/ilustraciones/recuadro_3.jpg'
+  ];
 
-    var randomImage = images[Math.floor(Math.random() * images.length)];
-    document.querySelector('.login-image').style.backgroundImage = 'url(' + randomImage + ')';
-  };
+  var randomImage = images[Math.floor(Math.random() * images.length)];
+  document.querySelector('.login-image').style.backgroundImage = 'url(' + randomImage + ')';
+  // };
 </script>
 
 <style>
