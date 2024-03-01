@@ -19,9 +19,23 @@ let text = '';
 $(document).on('submit', '#formSpeekText', function (e) {
   e.preventDefault();
 
+
+
   if (text != $('#text_area_tts').val()) {
+
+    // Muestra el spinner y actualiza el texto del botón
+    var $button = $('#generateAudioButton');
+    $button.prop('disabled', true);
+    $button.find('.bi-mic-fill').hide(); // Oculta el ícono del micrófono
+    $button.find('.spinner-border').show(); // Muestra el spinner
+
     text = $('#text_area_tts').val();
-    getAudio($('#text_area_tts').val(), key_api_openAI)
+    getAudio($('#text_area_tts').val(), key_api_openAI, () => {
+      // Oculta el spinner y restaura el ícono y el texto del botón
+      $button.prop('disabled', false);
+      $button.find('.spinner-border').hide(); // Oculta el spinner
+      $button.find('.bi-mic-fill').show(); // Muestra el ícono del micrófono
+    })
   } else {
     if (text != '')
       wavesurfer.play();
@@ -30,7 +44,7 @@ $(document).on('submit', '#formSpeekText', function (e) {
 
 
 
-function getAudio(text, keyApi) {
+function getAudio(text, keyApi, callback) {
 
   // Define tus variables
   const apiKey = keyApi; // Reemplaza esto con tu clave API real
@@ -62,12 +76,25 @@ function getAudio(text, keyApi) {
       wavesurfer.load(url);
       wavesurfer.on('ready', function () {
         wavesurfer.play();
+
+        if (typeof callback === 'function') {
+          callback();
+        }
+      });
+
+      // Asegúrate de manejar los errores también
+      wavesurfer.on('error', function () {
+        if (typeof callback === 'function') {
+          callback();
+        }
       });
 
 
     }).catch((error) => {
 
       alertMensaje('warning', 'ha ocurrido un error al procesar el texto o audio', 'Revisa consola')
+
+      callback();
 
       console.error('Error:', error)
     });
