@@ -45,7 +45,7 @@
 
 <style>
   .login-image {
-    background-image: url('https://bimo-lab.com/nuevo_checkup/archivos/sistema/ilustraciones/recuadro_2.jpg');
+    /* background-image: url('https://bimo-lab.com/nuevo_checkup/archivos/sistema/ilustraciones/recuadro_2.jpg'); */
     /* Reemplaza con la ruta de tu imagen */
     height: 100vh;
     /* Ajusta la altura al 100% de la ventana gráfica */
