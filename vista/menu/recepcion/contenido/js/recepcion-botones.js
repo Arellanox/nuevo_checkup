@@ -81,14 +81,15 @@ $(document).on('click', '#btn-concluir-paciente', function (e) {
 
       // 1,15,17,18,24,31,35
       if (
-        array_selected['CLIENTE_ID'] == 1 ||
+        array_selected['CLIENTE_ID'] == 1 ||// PARTICULAR
         // array_selected['CLIENTE_ID'] == 15 ||
-       // array_selected['CLIENTE_ID'] == '16' ||
+        array_selected['CLIENTE_ID'] == '16' || // SLB CONTADO
         // array_selected['CLIENTE_ID'] == 17 ||
-        array_selected['CLIENTE_ID'] == 18 ||
-        array_selected['CLIENTE_ID'] == '31' ||
-        array_selected['CLIENTE_ID'] == 35 ||
-        array_selected['CLIENTE_ID'] == 37
+        // array_selected['CLIENTE_ID'] == 18 ||// UJAT
+        array_selected['CLIENTE_ID'] == '31' || //CLINICA DEL DR CASTILLO
+        array_selected['CLIENTE_ID'] == 35 || // DR JAVIER ALEJANDRO JIMENEZ TORRUCO
+        array_selected['CLIENTE_ID'] == 37|| //AMASFAC
+        array_selected['CLIENTE_ID'] == 21 // MANZUR
         ) {
 
         //Abrir el modal de estudios, precios y detalle
