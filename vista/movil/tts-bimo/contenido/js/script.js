@@ -19,11 +19,12 @@ let text = '';
 $(document).on('submit', '#formSpeekText', function (e) {
   e.preventDefault();
 
-  if (text != $('#text_area_tts').val() && text != '') {
+  if (text != $('#text_area_tts').val()) {
     text = $('#text_area_tts').val();
     getAudio($('#text_area_tts').val(), key_api_openAI)
   } else {
-    wavesurfer.play();
+    if (text != '')
+      wavesurfer.play();
   }
 })
 
