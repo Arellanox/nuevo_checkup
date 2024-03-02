@@ -88,8 +88,8 @@ $(document).on('click', '#btn-concluir-paciente', function (e) {
         // array_selected['CLIENTE_ID'] == 18 ||// UJAT
         array_selected['CLIENTE_ID'] == '31' || //CLINICA DEL DR CASTILLO
         array_selected['CLIENTE_ID'] == 35 || // DR JAVIER ALEJANDRO JIMENEZ TORRUCO
-        array_selected['CLIENTE_ID'] == 37|| //AMASFAC
-        array_selected['CLIENTE_ID'] == 21 // MANZUR
+        array_selected['CLIENTE_ID'] == 37 //AMASFAC
+       // array_selected['CLIENTE_ID'] == 21 // MANZUR
         ) {
 
         //Abrir el modal de estudios, precios y detalle
