@@ -268,6 +268,16 @@ if (!empty($_SESSION['id'])) {
             $servicios = explode(',', $servicios);
             $response = $master->getByProcedure("sp_maquilas_detalle_servicios", [json_encode($servicios)]);
             break;
+        
+        ############################################################
+        ############################################################
+        ######################ADMON MAQUILAS########################
+        ############################################################
+        ############################################################
+        case 13:
+            # recuperar el saldo actual (DEUDA_ACTUAL) de un cliente especificado.
+            $response = $master->getByProcedure("sp_franad_saldos_b", [$_SESSION['CLIENTE_ID']]);
+            break;
 
         default:
             $response = "Api no definida.";
