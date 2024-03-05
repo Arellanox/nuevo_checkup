@@ -280,9 +280,8 @@ if (!empty($_SESSION['id'])) {
             break;
         
         case 14:
-            # agregar pagos
-
-            $response = $master->insertByProcedure("", []);
+            # recuperar facturas.
+            $response = $master->insertByProcedure("sp_admon_grupos_b", [$_SESSION['id_cliente'], null]);
             break;
 
         default:
