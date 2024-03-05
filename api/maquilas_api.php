@@ -282,6 +282,7 @@ if (!empty($_SESSION['id'])) {
         case 14:
             # recuperar facturas.
             $response = $master->getByProcedure("sp_admon_grupos_b", [$_SESSION['id_cliente'], null]);
+            $response = $master->decodeJsonRecursively($response);
             break;
 
         default:
