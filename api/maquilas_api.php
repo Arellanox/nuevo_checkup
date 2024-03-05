@@ -236,7 +236,7 @@ if (!empty($_SESSION['id'])) {
 
         case 10:
             # buscar pacientes de la empresa.
-            $response = $master->getByProcedure("sp_maquilas_pacientes_b", [$_SESSION["CLIENTE_ID"]]);
+            $response = $master->getByProcedure("sp_maquilas_pacientes_b", [$_SESSION["id_cliente"]]);
             break;
         case 11:
             # rechazar servicios de una solicitud.
@@ -276,7 +276,13 @@ if (!empty($_SESSION['id'])) {
         ############################################################
         case 13:
             # recuperar el saldo actual (DEUDA_ACTUAL) de un cliente especificado.
-            $response = $master->getByProcedure("sp_franad_saldos_b", [$_SESSION['CLIENTE_ID']]);
+            $response = $master->getByProcedure("sp_franad_saldos_b", [$_SESSION['id_cliente']]);
+            break;
+        
+        case 14:
+            # agregar pagos
+
+            $response = $master->insertByProcedure("", []);
             break;
 
         default:
