@@ -281,7 +281,7 @@ if (!empty($_SESSION['id'])) {
         
         case 14:
             # recuperar facturas.
-            $response = $master->insertByProcedure("sp_admon_grupos_b", [$_SESSION['id_cliente'], null]);
+            $response = $master->getByProcedure("sp_admon_grupos_b", [$_SESSION['id_cliente'], null]);
             break;
 
         default:
