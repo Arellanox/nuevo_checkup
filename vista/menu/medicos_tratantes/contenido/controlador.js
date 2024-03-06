@@ -22,6 +22,10 @@ async function contenidoMedicosTratantes() {
 }
 
 var tablaPacientesTratantes, dataPacientesTratantes = { api: 4 }
+dataJsonTablaEstudiosPaciente = {
+    api: 6,
+
+}
 // console.log('Valida el paciente')
 // console.log(validarPermiso('filPacientes'))
 
