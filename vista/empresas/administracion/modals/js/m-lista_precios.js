@@ -47,9 +47,9 @@
                 data: 'COSTO', render: function(data, type, row){
                     if (type === 'display' || type === 'filter') {
                         if(data !== null && !isNaN(data)) {
-                            return parseFloat(data).toFixed(2);
+                            return `$${parseFloat(data).toFixed(2)}`;
                         }
-                        return '0.00'; // O algún valor predeterminado o indicación de que no hay datos.
+                        return '$0.00'; // O algún valor predeterminado o indicación de que no hay datos.
                     }
                     return data; // Retorna el dato sin modificar para otros tipos que no sean de display o filter.
                 }
