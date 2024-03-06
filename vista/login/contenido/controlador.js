@@ -60,13 +60,11 @@ function obtenerContenido(tabla) {
 
                 // medicos
                 case '1':
-                  switch (session.vista) {
-                    case 'TRACKER_MEDICOS':
-                      $(location).attr('href', `${http}${servidor}/${appname}/vista/menu/medicos_tratantes/`);
-                      break;
 
-                    default:
-                      break;
+                  if (session.vista['TRACKER_MEDICOS']) {
+                    $(location).attr('href', `${http}${servidor}/${appname}/vista/menu/medicos_tratantes/`);
+                  } else {
+                    $(location).attr('href', `${http}${servidor}/${appname}/vista/menu/principal/`);
                   }
 
                   break;
