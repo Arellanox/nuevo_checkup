@@ -1495,7 +1495,7 @@ class Miscelaneus
                     "metodo"         => $metodo_grupo,
                     "equipo"         => $equipo_grupo,
                     "observaciones"  => isset($id_grupo) ? $observacionnes_generales : null,
-                    "muestra"        => $id_grupo == 972 || $id_grupo == 1599 ? "Plasma EDTA" : ""
+                    "muestra"        => $id_grupo == 972 || $id_grupo == 1599 || $id_grupo = 1677 ? "Plasma EDTA" : ""
                 );
                 $analitos = array();
             }
