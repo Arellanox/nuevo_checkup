@@ -60,6 +60,33 @@ switch ($api) {
         # costo total de grupo por areas.
         $response = $master->getByProcedure("", []);
         break;
+    case 8:
+        # subir el archivo de la factura
+
+        # recuperar el numero de la factura.
+        $fac = $master->getByProcedure("sp_admon_recuperar_num_factura", [$id_grupo]);
+
+        $doc = "FACTURA_". $fac[0]["FACTURA"]."_".uniqid($_SESSION['id']);
+
+        # establecer la ruta de guardado
+        $dir = "../archivos/facturas_emitidas/".$fac[0]['FACTURA'];
+
+        # crear directorio si no existe
+        $r = $master->createDir($dir);
+
+        if($r){
+            $file = $master->guardarFiles($_FILES, 'factura', $dir, $doc);
+            $file = $file[0]['url'];
+
+            # cambiar el prefijo
+            $file = str_replace("../",$host, $file);
+
+            $response = $master->updateByProcedure("sp_admon_subir_factura", [ $file ]);
+        } else {
+            $response = "Imposible crear directorio. Llame al departamente de TI inmediatamente.";
+        }
+        
+        break;
     default:
         $response = "API no definida";
 }
