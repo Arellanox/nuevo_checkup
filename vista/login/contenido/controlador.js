@@ -61,7 +61,7 @@ function obtenerContenido(tabla) {
                 // medicos
                 case '1':
 
-                  if (ifnull(session, false, { vista: ["MEDICOS_TRATANTES"] })) {
+                  if (ifnull(session.vista, false, ["MEDICOS_TRATANTES"])) {
                     $(location).attr('href', `${http}${servidor}/${appname}/vista/menu/medicos_tratantes/`);
                   } else {
                     $(location).attr('href', `${http}${servidor}/${appname}/vista/menu/principal/`);
