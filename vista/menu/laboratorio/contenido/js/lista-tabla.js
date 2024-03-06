@@ -584,6 +584,11 @@ function generarFormularioPaciente(id) {
 
               break;
 
+            case '1688':
+              // PCR CARGA VIRAL DE CITOMEGALOVIRUS (CMV)
+              // Solo visual por ahora
+              break;
+
 
             default: input = null;
               if (areaActiva == 12) {
