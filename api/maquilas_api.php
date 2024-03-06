@@ -285,6 +285,11 @@ if (!empty($_SESSION['id'])) {
             $response = $master->decodeJsonRecursively($response);
             break;
 
+        case 15:
+            # detalle de las facturas,
+            $response = $master->getByProcedure("sp_admon_detalle_grupos_b", [$id_grupo]);
+            break;
+
         default:
             $response = "Api no definida.";
     }
