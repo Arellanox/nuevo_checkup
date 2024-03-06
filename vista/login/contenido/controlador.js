@@ -37,6 +37,7 @@ function obtenerContenido(tabla) {
             } else {
               // console.log(data.response.data)
 
+
               switch (session['cargo']) {
                 case '10': case 10:
                   $(location).attr('href', `${http}${servidor}/${appname}/vista/menu/recepcion/`);
@@ -55,8 +56,26 @@ function obtenerContenido(tabla) {
 
                   return true;
 
+                  break;
+
+                // medicos
+                case '1':
+                  switch (session.vista) {
+                    case 'TRACKER_MEDICOS':
+                      $(location).attr('href', `${http}${servidor}/${appname}/vista/menu/medicos_tratantes/`);
+                      break;
+
+                    default:
+                      break;
+                  }
+
+                  break;
+
 
                 default:
+
+
+
                   $(location).attr('href', `${http}${servidor}/${appname}/vista/menu/principal/`);
                   return false;
                 // break;
