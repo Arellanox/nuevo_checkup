@@ -62,7 +62,7 @@ function obtenerContenido(tabla) {
                 case '1':
 
                   if (ifnull(session.vista, false, ["MEDICOS_TRATANTES"])) {
-                    $(location).attr('href', `${http}${servidor}/${appname}/vista/menu/medicos_tratantes/`);
+                    $(location).attr('href', `${http}${servidor}/${appname}/vista/menu/medicos_tratantes/#PACIENTES`);
                   } else {
                     $(location).attr('href', `${http}${servidor}/${appname}/vista/menu/principal/`);
                   }
