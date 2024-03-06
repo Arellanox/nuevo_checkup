@@ -7,7 +7,7 @@ if (validarVista('LABORATORIO_MUESTRA_1')) {
 }
 async function contenidoRecepcionMuestras() {
   await obtenerTitulo("Recepción de muestras");
-  $.post("contenido/recepcion.php", function (html) {
+  $.post("contenido/recepcion.html", function (html) {
     $("#body-js").html(html);
   }).done(function () {
     dataListaPaciente = { api: 1, id_area: 6, fecha_agenda: $('#fechaListadoAreaMaster').val() };

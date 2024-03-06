@@ -33,18 +33,18 @@ TablaListaLotes = $('#TablaListaLotes').DataTable({
         {
             data: 'REGISTRADO', render: function (data) {
 
-                const formattedDate = formatoFecha2(data, [0, 1, 5, 2, 2, 2, 0], null); {
+                const formattedDate = formatoFecha2(data, [0, 1, 5, 2, 2, 2, 0], null);
 
-                    // Separar la fecha y la hora basado en la coma
-                    const parts = formattedDate.split(', ');
-                    const datePart = parts[0];
-                    const timePart = parts[1];
+                // Separar la fecha y la hora basado en la coma
+                const parts = formattedDate.split(', ');
+                const datePart = parts[0];
+                const timePart = parts[1];
 
-                    // Retornar la fecha y la hora envueltas en spans con las clases correspondientes
-                    return `
+                // Retornar la fecha y la hora envueltas en spans con las clases correspondientes
+                return `
                         <span class="d-block">${datePart}</span>
                         <span class="d-block">${timePart}</span>`;
-                }
+
             }
         },
         {
@@ -64,7 +64,7 @@ TablaListaLotes = $('#TablaListaLotes').DataTable({
                     case "7":
                         clas_listoLotes = `<span class="badge text-bg-info">${data}</span>`; break;
                     default:
-                        clas_listoLotes = `<span class="badge text-bg-danger">Error</span>`;
+                        clas_listoLotes = `<span class="badge text-bg-danger">Sin estatus</span>`;
                         break;
                 }
 
@@ -102,13 +102,16 @@ inputBusquedaTable('TablaListaLotes', TablaListaLotes, [{
 }], [], 'col-12')
 
 
-selectTable('#TablaListaLotes', TablaListaLotes, { unSelect: true, movil: true, reload: ['col-xl-9'] }, async function (select, data, callback) {
+selectTable('#TablaListaLotes', TablaListaLotes, { unSelect: true, movil: false, reload: ['col-xl-9'], divPadre: 'recepcion-TablasMenu' }, async function (select, data, callback) {
 
     if (select == 1) {
 
         dataPacientesLotes = { api: 7, id_lote: data.ID_LOTE }
         TablaPacientesLotes.clear().draw()
         TablaPacientesLotes.ajax.reload() // Recargamos la tabla cada vez que se seleecione un lote
+
+        // Informacion del lote
+        infoLoteMuestra(data)
 
         //Muestra las columnas
         callback('In')
@@ -191,7 +194,7 @@ TablaPacientesLotes = $('#TablaPacientesLotes').DataTable({
                     case "7":
                         clas_pacientesLotes = `<span class="badge text-bg-info">${data}</span>`; break;
                     default:
-                        clas_pacientesLotes = `<span class="badge text-bg-danger">Error</span>`;
+                        clas_pacientesLotes = `<span class="badge text-bg-danger">Sin estatus</span>`;
                         break;
                 }
 
@@ -255,6 +258,7 @@ selectTable('#TablaPacientesLotes', TablaPacientesLotes, {
                 dataJsonMuestras['id_turno'] = data.ID_TURNO;
 
                 // Carga información del paciente
+                infoPacienteModal(data);
 
                 // recarga y recupera nuevos datos
                 pacienteEstudios.clear().draw();
@@ -281,13 +285,28 @@ inputBusquedaTable('TablaPacientesLotes', TablaPacientesLotes, [{
 
 // Ingresa información del paciente
 function infoPacienteModal(data) {
-    $('#nombre-paciente').html(ifnull(data, '', ['1']));
-    $('#fecha_de_nacimiento-paciente').html(ifnull(data, '', ['1']));
-    $('#edad-paciente').html(ifnull(data, '', ['1']));
-    $('#curp-paciente').html(ifnull(data, '', ['1']));
-    $('#numero_cuenta-paciente').html(ifnull(data, '', ['1']));
+
+    // Informacion del paciente
+    $('#nombre-paciente').html(ifnull(data, '', ['PACIENTE']));
+    $('#fecha_de_nacimiento-paciente').html(ifnull(data, '', ['1'])); // Falta
+    $('#edad-paciente').html(ifnull(data, '', ['EDAD']));
+    $('#curp-paciente').html(ifnull(data, '', ['1'])); // Falta
+    $('#numero_cuenta-paciente').html(ifnull(data, '', ['SIHO_CUENTA']));
 
 
+    // Informacion adicional
+    $('#usuario-paciente').html(`${session.nombre} ${session.apellidos}`);
+    $('#folio-paciente').html(ifnull(data, '', ['FOLIO']));
+}
 
+function infoLoteMuestra(data) {
 
+    let fecha = ifnull(data, '', ['REGISTRADO']);
+
+    fecha = fecha ? formatoFecha2(fecha, [0, 1, 5, 2, 2, 2, 0]) : '';
+
+    // info de lote
+    $('#procedecia-lote_muestra').html(ifnull(data, '', ['PROCEDENCIA']))
+    $('#folio_lote-lote_muestra').html(ifnull(data, '', ['FOLIO']))
+    $('#enviado-lote_muestra').html(fecha)
 }
