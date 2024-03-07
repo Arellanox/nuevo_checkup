@@ -159,6 +159,10 @@ const resetInputDrag = function resetInputDrag() {
                 // $('#modalFacturarCuenta').modal('hide');
                 // tablaContados.ajax.reload()
                 alertToast('Paciente facturado', 'success', 4000)
+
+                setTimeout(() => {
+                    $('#modalSubirFacturas').modal('hide');
+                }, 700);
             })
         }, 1)
     }else{

@@ -248,6 +248,8 @@ TablaGrupoDetalle = $('#TablaGrupoDetalle').DataTable({
                 subirFactura = SelectedGruposCredito['ID_GRUPO'];
 
                 input_facturas.resetInputDrag();
+                $("#image-preview").html('');
+                $("#pdf-canvas").html('');
 
                 $('#modalSubirFacturas').modal('show');
             }
