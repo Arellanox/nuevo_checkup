@@ -76,7 +76,7 @@ inputBusquedaTable("TablaGrupos", TablaGrupos, [], {
     place: 'top'
 }, "col-12")
 
-
+let urlReporteFactura = false;
 
 selectTable('#TablaGrupos', TablaGrupos, {
     unSelect: true, reload: ['col-xl-9'], divPadre: '#vistaGruposFactura',
@@ -130,6 +130,16 @@ selectTable('#TablaGrupos', TablaGrupos, {
     } else {
         callback('Out')
     }
+
+    // Verificamos si el paciente tiene factura ya subida
+    if (data['RUTA_FACTURA'] == null) { //Si llega como null entonces desactiva el boton
+        $(".vizualizarFactura").prop("disabled", true);
+        urlReporteFactura = false
+    } else {
+        $(".vizualizarFactura").prop("disabled", false); // En dado caso que si tena el reporte entonces se activa el boton
+        urlReporteFactura = data['RUTA_FACTURA']
+    }
+
 })
 
 var DataGrupo = {
@@ -242,16 +252,32 @@ TablaGrupoDetalle = $('#TablaGrupoDetalle').DataTable({
             }
         },
         {
+            // boton para subir la factura del paciente que se haya seleccionado
             text: '<i class="bi bi-box-arrow-in-up"></i>  Subir factura',
             className: 'btn btn-confirmar',
             action: function () {
-                subirFactura = SelectedGruposCredito['ID_GRUPO'];
+                subirFactura = SelectedGruposCredito['ID_GRUPO']; // Guardamos su id grupo
 
-                input_facturas.resetInputDrag();
-                $("#image-preview").html('');
+                input_facturas.resetInputDrag(); // Reiniciamos el dragAndDrop (funcion)
+
+                // Si se cargo un reporte antes se borra
+                $("#image-preview").html(''); 
                 $("#pdf-canvas").html('');
 
-                $('#modalSubirFacturas').modal('show');
+                $('#modalSubirFacturas').modal('show'); //Abrimos modal para cargar la factura
+            }
+
+        },
+        {
+            // Boton para la vista del reporte ya cargado previamente
+            text: '<i class="bi bi-file-earmark-pdf"></i> Factura',
+            className: 'btn btn-borrar vizualizarFactura',
+            action: function () {
+                if(urlReporteFactura == "" || urlReporteFactura == null){
+                    alertToast('Reporte no cargado', 'warning', 4000);
+                }else{
+                    window.open(urlReporteFactura, '_blank');
+                }
             }
 
         }
