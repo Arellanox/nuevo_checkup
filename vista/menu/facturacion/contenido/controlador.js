@@ -21,7 +21,7 @@ function obtenerPacientesContado() {
 }
 
 //Globales
-SelectedPacienteCredito = {}, SelectedGruposCredito = {}, factura = null, grupoPacientesModificar = false;
+SelectedPacienteCredito = {}, SelectedGruposCredito = {}, factura = null, grupoPacientesModificar = false, subirFactura = false;
 var TablaGrupos = false, tablaDetallePrecio = false, dataDetallePrecio = { api: 0 };
 const detalles_grupo = {
     "subtotal": {

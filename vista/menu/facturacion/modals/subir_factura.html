@@ -1,0 +1,119 @@
+<!-- <style>
+    .btn-container {
+      display: flex !important;
+      justify-content: center !important;
+      margin-bottom: 20px !important;
+    }
+  
+    .btn-container a {
+      margin: -3px 15px 6px -11px !important;
+      font-size: 13px !important;
+    }
+  
+    .drop-zone {
+      width: 392px;
+      height: 85px;
+      border: 2px dashed rgb(0 79 90 / 17%);
+      text-align: center;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      margin-left: 8px;
+    }
+  
+    .drop-zone.hover_dropDrag {
+      border-color: #00bbb9 !important;
+      background-color: #c6cacc !important;
+    }
+  </style> -->
+
+<style>
+    .drop-zone {
+        width: 392px;
+        height: 85px;
+        border: 2px dashed rgb(0 79 90 / 17%);
+        text-align: center;
+        padding: 12px;
+        margin-bottom: 25px !important;
+        border-radius: 10px;
+        margin-left: 8px;
+    }
+
+    .drop-zone.hover_dropDrag {
+        border-color: #00bbb9 !important;
+        background-color: #c6cacc !important;
+    }
+
+    label.label-input_facturas {
+        background: transparent;
+    }
+</style>
+
+
+<div class="modal fade" id="modalSubirFacturas" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <h5 class="modal-title" id="title-paciente-facturar">Subir Factura </h5>
+                <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container" style="height: 100%;">
+                    <div class="row" style="height: 100%;">
+
+                        <div class="col-12 col-md-6">
+                            <div class="rounded p-3 shadow mx-2">
+                                <!-- Carga de orden médica -->
+                                <form id="formArchivoFacturas">
+                                    <div class="px-2">
+                                        <p>Carga o arrastra la factura aqui</p>
+                                        <div class="d-flex flex-column align-items-center pt-3 px-4">
+                                            <div id="dropFacturas" class="drop-zone mx-2">
+                                                <label for="input_facturas" style="cursor: pointer;"
+                                                    class="label-input_facturas">Sube tu
+                                                    archivo arrastrándolo aquí</label>
+
+                                                <input type="file" class="" id="input_facturas" name="factura[]"
+                                                    style="display: none;" multiple>
+                                                <br>
+                                                <div class="spinner-border text-primary carga-input_facturas"
+                                                    role="status" style="display: none;">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+
+                        <div class="col-12 col-md-6" style="height: 100%;">
+                            <!-- Vista previa del pdf -->
+                            <div class="overflow-auto px-2" style="height: 100%;">
+                                <!-- Canvas -->
+                                <div id="pdf-canvas" class="img-thumbnail"
+                                    style="width: 94%; height: auto; display: none;"></div>
+                                <!-- Imagenes contenedor -->
+                                <div id="image-preview" style="width: 94%; height: auto; display: none;">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
+                    <i class="bi bi-arrow-left-short"></i> Cancelar
+                </button>
+                <button type="submit" form="formArchivoFacturas" class="btn btn-confirmar">
+                    <i class="bi bi-archive"></i> Subir reporte
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

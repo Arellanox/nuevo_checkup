@@ -10,4 +10,6 @@ include("c_grupo_info.html");
 
 include('c_grupo_pacientes.html');
 
+include 'subir_factura.html';
+
 // include 'c_detalle_grupo.html';

@@ -240,6 +240,18 @@ TablaGrupoDetalle = $('#TablaGrupoDetalle').DataTable({
                 $('#modalFiltroPacientesFacturacion').modal('show');
 
             }
+        },
+        {
+            text: '<i class="bi bi-box-arrow-in-up"></i>  Subir factura',
+            className: 'btn btn-confirmar',
+            action: function () {
+                subirFactura = SelectedGruposCredito['ID_GRUPO'];
+
+                input_facturas.resetInputDrag();
+
+                $('#modalSubirFacturas').modal('show');
+            }
+
         }
     ]
 })
