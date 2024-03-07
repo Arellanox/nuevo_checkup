@@ -240,7 +240,7 @@ if (!empty($_SESSION['id'])) {
             break;
         case 11:
             # rechazar servicios de una solicitud.
-            $dir = "../archivos/maquilas/evidencias_rechazo/$id_turno";
+            $dir = "../archivos/maquilas/evidencias_rechazo/$id_turno"."_$id_servicio";
             $r = $master->createDir($dir);
 
             # si no se pueden guardar las evidencias, se retorna el error
