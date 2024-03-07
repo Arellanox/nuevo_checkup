@@ -81,7 +81,7 @@ switch ($api) {
             # cambiar el prefijo
             $file = str_replace("../",$host, $file);
 
-            $response = $master->updateByProcedure("sp_admon_subir_factura", [ $file ]);
+            $response = $master->updateByProcedure("sp_admon_subir_factura", [$id_grupo, $file ]);
         } else {
             $response = "Imposible crear directorio. Llame al departamente de TI inmediatamente.";
         }
