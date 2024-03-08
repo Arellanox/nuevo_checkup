@@ -797,6 +797,11 @@ function generarFormularioPaciente(id) {
                 html += endDiv;
                 html += colreStart;
                 html += '<div class="input-group">';
+                html += `
+                    <div class="input-group-text input-span" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Vacía el resultado" >
+                      <input class="form-check-input mt-0" name="servicios[${inputname}][BLANCO]" type="checkbox" aria-label="Checkbox for following text input">
+                    </div>
+                `
 
 
                 // Si es posible, crea otro tipo de input, como select o más
@@ -955,8 +960,19 @@ $(document).on('click', '.selectMolecular', function () {
 
 
 $(document).on('click', '.linearEstudiosLabs', function (event) {
+
+
+  const target = $(event.target);
+
+  // Verifica si el elemento clickeado es un checkbox.
+  if (target.is('input')) {
+    // Si es un checkbox, permite el comportamiento normal del checkbox y no ejecutes el resto del código.
+    return;
+  }
+
   event.stopPropagation();
   event.preventDefault();
+
 
   if (areaActiva == 12)
     return false;
