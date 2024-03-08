@@ -47,7 +47,7 @@ $bit_muestras  = $_POST['bit_muestras']; # 0 los que no 1 lo que si tienen muest
 #rechazar muestras 
 $id_servicio = $_POST['id_servicio'];
 $comentario_rechazo = $_POST['comentario_rechazo'];
-$rechazado = $_POST['rechazado']; # bit 0 rechazado, 1 aceptado.
+$aceptado = $_POST['aceptado']; # bit 0 rechazado, 1 aceptado.
 
 if (!empty($_SESSION['id'])) {
 
@@ -261,7 +261,7 @@ if (!empty($_SESSION['id'])) {
                 $imgs[] = $imagen;
             }
 
-            $response = $master->getByProcedure("sp_maquilas_historial_servicios_rechazados_g", [$id_turno, $id_servicio, json_encode($imgs), $comentario_rechazo]);
+            $response = $master->getByProcedure("sp_maquilas_historial_servicios_rechazados_g", [$id_turno, $id_servicio, json_encode($imgs), $comentario_rechazo, $aceptado]);
             break;
         case 12:
             # detalle de los servicios
