@@ -7,6 +7,8 @@ include "../clases/correo_class.php";
 $master = new Master();
 
 $api = $_POST['api'];
+
+
 $host = $master->selectHost($_SERVER['SERVER_NAME']);
 
 # variables
@@ -69,7 +71,7 @@ switch ($api) {
         $doc = "FACTURA_". $fac[0]["FACTURA"]."_".uniqid($_SESSION['id']);
 
         # establecer la ruta de guardado
-        $dir = "../archivos/facturas_emitidas/".$fac[0]['FACTURA'].'/';
+        $dir = "../archivos/facturas_emitidas/".$fac[0]['FACTURA'];
 
         # crear directorio si no existe
         $r = $master->createDir($dir);
@@ -77,11 +79,11 @@ switch ($api) {
         if($r){
             $file = $master->guardarFiles($_FILES, 'factura', $dir, $doc);
             $file = $file[0]['url'];
-           
+
             # cambiar el prefijo
             $file = str_replace("../",$host, $file);
-            
-            $response = $master->updateByProcedure("sp_admon_subir_factura", [$id_grupo, $file ]);
+
+            $response = $master->updateByProcedure("sp_admon_subir_factura", [ $file ]);
         } else {
             $response = "Imposible crear directorio. Llame al departamente de TI inmediatamente.";
         }
