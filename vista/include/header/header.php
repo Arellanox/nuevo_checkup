@@ -3,6 +3,8 @@ $menu = $_POST['menu'];
 $tip = $_POST['tip'];
 $appname = 'nuevo_checkup';
 session_start();
+
+$area_nav = 'interno';
 ?>
 <?php
 switch ($menu) {
@@ -43,8 +45,84 @@ switch ($menu) {
   </nav>
 <?php break;
 
-    // case 'procedencia': 
-    // break;
+  case 'administracion_empresas': ?>
+  <nav class="navbar navbar-expand-lg border-3 border-bottom border-dark bg-navbar navbar-menu" id="navbar_principal">
+    <div class="container-fluid">
+
+      <a href="https://bimo-lab.com/index.php" class="navbar-brand">
+        <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png" id="logo_empresa" />
+
+      </a>
+
+
+      <div class="d-lg-none">
+        <button class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop" style="color: white;border-color: #ffffff54;">
+          <!-- onclick="openNav()" -->
+          <i class="bi bi-list"></i>
+        </button>
+        <div class="promociones promociones-block promociones_btn" style="display: none;">
+          <span>%</span>
+        </div>
+      </div>
+      <div id="navbarCollapse" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav" id="navbar-js">
+
+
+          <?php
+          include "navbar-menu/empresas/navlink-nav.php";
+          ?>
+
+        </ul>
+        <ul class="nav navbar-nav ms-auto">
+
+          <li class="nav-item dropstart flex-grow-1">
+            <!-- <a data-bs-toggle="dropdown" type="button" class="dropdown-toggle"><i class="bi bi-person-circle" style="zoom:190%"></i></a> -->
+            <a data-bs-toggle="dropdown" type="button" class="promociones_event">
+              <div class=" container-avatar">
+                <img src="<?php echo $_SESSION['AVATAR']; ?>" alt="Avatar" class="image-avatar">
+                <div class="overlay-avatar">
+                  <div class="text-avatar"><?php echo strtok($_SESSION['nombre'], " "); ?></div>
+                </div>
+                <div class="promociones promociones-block" style="display: none;">
+                  <span class="span-lg">%</span>
+                </div>
+              </div>
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-lg-end bg-navbar-drop" style="background-color: #ffffff00; padding:0px">
+              <div class="" style="width: 100%">
+                <div class="profile-card-4"><img src="<?php echo $_SESSION['AVATAR']; ?>" class="img img-responsive">
+                  <div class="profile-content">
+                    <div class="profile-name text-center"> <?php echo "$_SESSION[nombre] $_SESSION[apellidos]"; ?>
+                      <p><?php echo "$_SESSION[cargo_descripcion]"; ?></p>
+                    </div>
+                    <div class="profile-description text-center">Hola, ¡buen día! :)</div>
+
+                    <a href="" class="btn-promociones promociones-block" style="display: none;" data-bs-toggle="modal" data-bs-target="#modalPromociones">
+                      <i class="bi bi-tag-fill"></i> Promociones
+                    </a>
+
+                    <div class="row" style="padding-right: 5%; padding-left: 5%;">
+                      <?php include "navbar-menu/navlink-dropuser.php"; ?>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ul>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </nav>
+
+<?php
+    // Define que tipo de usuario será
+    $area_nav = 'externo';
+
+    include "offcanvas.php";
+    include "menu-principal.php";
+    break;
 
   default:
 ?>
@@ -93,26 +171,26 @@ switch ($menu) {
                 <div class="modal-body">
                   <div id="tsparticles"></div>
                   <!-- <div style="position: relative; width: 100%; height: 0; padding-top: 177.7778%;
- padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
- border-radius: 8px; will-change: transform;">
-                    <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;" src="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAFlxQzMVzU&#x2F;watch?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
-                    </iframe>
-                  </div> -->
+              padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+              border-radius: 8px; will-change: transform;">
+                                  <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;" src="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAFlxQzMVzU&#x2F;watch?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+                                  </iframe>
+                                </div> -->
 
 
                   <div class="row">
                     <div class="col-12 col-lg-6">
                       <div style="position: relative; width: 100%; height: 0; padding-top: 177.7778%;
- padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
- border-radius: 8px; will-change: transform;">
+                      padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+                      border-radius: 8px; will-change: transform;">
                         <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;" src="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAF7Ua8eJDI&#x2F;watch?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
                         </iframe>
                       </div>
                     </div>
                     <div class="col-12 col-lg-6">
                       <div style="position: relative; width: 100%; height: 0; padding-top: 177.7778%;
- padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
- border-radius: 8px; will-change: transform;">
+                            padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+                            border-radius: 8px; will-change: transform;">
                         <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;" src="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAF9dxd8ZVI&#x2F;4QbixsXdjdBYkNxBKaaVdg&#x2F;watch?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
                         </iframe>
                       </div>
@@ -302,7 +380,7 @@ switch ($menu) {
 
 <!-- Modal de Bootstrap sin header ni footer -->
 <div class="modal fade modal-xl" id="modalPromociones" tabindex="-1" aria-labelledby="modalPromocionesLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
 
       <!-- Contenido del Modal -->
@@ -337,6 +415,11 @@ switch ($menu) {
 
         </div>
 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
+          <i class="bi bi-arrow-left-short"></i> Cerrar
+        </button>
       </div>
     </div>
   </div>

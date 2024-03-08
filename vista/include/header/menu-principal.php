@@ -18,7 +18,13 @@
             <?php
             // navlink-list
             #include "navbar-menu/navlink-droplist-areas.php";
-            include "areas-windows-float.php";
+            if ($area_nav == 'interno') {
+                include "areas-windows-float.php";
+                // Areas externas
+                include "areas-windows-float_externo.php";
+            } else {
+                include "areas-windows-float_externo.php";
+            }
             ?>
 
 
