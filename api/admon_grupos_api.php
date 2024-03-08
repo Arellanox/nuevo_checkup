@@ -83,11 +83,36 @@ switch ($api) {
             # cambiar el prefijo
             $file = str_replace("../",$host, $file);
 
-            $response = $master->updateByProcedure("sp_admon_subir_factura", [ $file ]);
+            $response = $master->updateByProcedure("sp_admon_subir_factura", [ $id_grupo, $file, null ]);
         } else {
             $response = "Imposible crear directorio. Llame al departamente de TI inmediatamente.";
         }
         
+        break;
+    case 9:
+        # subir xml de la factura
+
+        #recuperar num factura
+        $fac = $master->getByProcedure("sp_admon_recuperar_num_factura", [$id_grupo]);
+        $doc = "XML_".$fac[0]['FACTURA'].'_'.uniqid($_SESSION['id']);
+
+        # ruta de guardado
+        $dir = "../archivos/xmls_emitidos/".$fac[0]['FACTURA'];
+
+        # crear directorio si no existe
+        $r = $master->createDir($dir);
+
+        if($r){
+            $file = $master->guardarFiles($_FILES, "xml", $dir, $doc);
+            $file = $file[0]['url'];
+
+            #cambiar prefijo
+            $file = str_replace('../', $host, $file);
+
+            $response = $master->updateByProcedure("sp_admon_subir_factura", [$id_grupo, null, $file]);
+        } else {
+            $response = "Imposible crear directorio. Llame al departamento de TI inmediatamente.";
+        }
         break;
     default:
         $response = "API no definida";
