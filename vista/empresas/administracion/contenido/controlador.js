@@ -22,8 +22,10 @@ async function obtenerAdministracionEmpresasMain() {
 
 function saldoActual() {
   ajaxAwait({ api: 13 }, 'maquilas_api', { callbackAfter: true, WithoutResponseData: true }, false, function (data) {
-    saldo_actual = ifnull(data, 'No registrado', { 0: ['DEUDA_ACTUAL'] })
-    $('#saldoActual').html(`$${saldo_actual}`)
+    saldo_actual = ifnull(data, false, { 0: ['DEUDA_ACTUAL'] })
+    // Evita errores de configuración
+    saldo_actual = saldo_actual ? `$${saldo_actual}` : 'no registrado'
+    $('#saldoActual').html(`${saldo_actual}`)
     loader("Out")
   })
 
