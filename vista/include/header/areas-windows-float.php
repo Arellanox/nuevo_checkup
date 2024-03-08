@@ -226,6 +226,14 @@ if (
 <?php endif;
 ?>
 
+<?php if ($_SESSION['vista']['MENU_MAQUILA'] == 1) : ?>
+    <li class="nav-item">
+        <a href="<?php echo "$https$url/$appname/vista/empresas/administracion"; ?>">
+            <i class="bi bi-buildings"></i> Empresas
+        </a>
+    </li>
+<?php endif; ?>
+
 
 <?php if ($_SESSION['perfil'] == 1) : ?>
     <li class="nav-item Recepción">
