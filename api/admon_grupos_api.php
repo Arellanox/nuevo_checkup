@@ -3,6 +3,7 @@ require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
 include_once "../clases/Pdf.php";
 include "../clases/correo_class.php";
+include "../clases/xml_reader_class.php";
 
 $master = new Master();
 
@@ -106,10 +107,13 @@ switch ($api) {
             $file = $master->guardarFiles($_FILES, "xml", $dir, $doc);
             $file = $file[0]['url'];
 
+            $xml = new CustomXMLReader($file);
+            $total_factura = $xml->getAttributeValueWithoutNamespace("Comprobante", "Total");
+
             #cambiar prefijo
             $file = str_replace('../', $host, $file);
 
-            $response = $master->updateByProcedure("sp_admon_subir_factura", [$id_grupo, null, $file]);
+            $response = $master->updateByProcedure("sp_admon_subir_factura", [$id_grupo, null, $file, $total_factura]);
         } else {
             $response = "Imposible crear directorio. Llame al departamento de TI inmediatamente.";
         }
