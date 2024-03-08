@@ -107,7 +107,7 @@ TablaListaLotes = $('#TablaListaLotes').DataTable({
         { data: 'USUARIO' },
     ],
     columnDefs: [
-        { "width": "10px", "targets": [0, 3] },
+        { "width": "5px", "targets": [0, 3] },
     ],
 
 })
@@ -173,6 +173,23 @@ TablaDetalleLotes = $('#TablaDetalleLotes').DataTable({
         },
         dataSrc: 'response.data'
     },
+
+    createdRow: function (row, data, dataIndex) {
+        switch (row.TIPO_SOLICITUD) {
+            case "1":
+                // Ordinario
+                // $(row).addClass('bg-info');
+                break;
+            case "2":
+                // Urgente
+
+                $(row).addClass('bg-warning');
+            default:
+                return ''; break;
+        }
+
+    },
+
     columns: [
         { data: 'COUNT' },
         { data: 'PACIENTE' },
