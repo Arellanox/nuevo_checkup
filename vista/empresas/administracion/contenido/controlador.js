@@ -1,7 +1,7 @@
 obtenerAdministracionEmpresasMain()
 
-let tablaFacturas, dataFacturas = {api: 14}
-let tablaListaFacturas, dataListaFacturas = {api: 7, cliente_id: session.id_cliente}
+let tablaFacturas, dataFacturas = { api: 14 }
+let tablaListaFacturas, dataListaFacturas = { api: 7, cliente_id: session.id_cliente }
 let saldo_actual
 
 async function obtenerAdministracionEmpresasMain() {
@@ -21,11 +21,11 @@ async function obtenerAdministracionEmpresasMain() {
 
 
 function saldoActual() {
-    ajaxAwait({ api: 13 }, 'maquilas_api', { callbackAfter: true, WithoutResponseData: true }, false, function (data) {
-      saldo_actual = data[0]['DEUDA_ACTUAL']
-      $('#saldoActual').html(`$${saldo_actual}`)
-      loader("Out")
-    })
+  ajaxAwait({ api: 13 }, 'maquilas_api', { callbackAfter: true, WithoutResponseData: true }, false, function (data) {
+    saldo_actual = ifnull(data, 'No registrado', { 0: ['DEUDA_ACTUAL'] })
+    $('#saldoActual').html(`$${saldo_actual}`)
+    loader("Out")
+  })
 
 }
 
