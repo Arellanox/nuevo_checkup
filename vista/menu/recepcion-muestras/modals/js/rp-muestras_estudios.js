@@ -56,7 +56,7 @@ pacienteEstudios = $('#pacienteEstudios').DataTable({
         // Observaciones
         {
             data: null, render: function (data, type, row, meta) {
-                let html = `<textarea name="comentario" class="md-textarea input-form dt-checkbox" rows="1" data-row-index="${meta.row}"></textarea>`;
+                let html = `<textarea name="capturas_evidencia" class="md-textarea input-form dt-checkbox" rows="1" data-row-index="${meta.row}"></textarea>`;
                 return html;
             }
         },
@@ -65,7 +65,7 @@ pacienteEstudios = $('#pacienteEstudios').DataTable({
             data: null, render: function (data, type, row, meta) {
                 let html = `
                     <div class="input-group input_file_label">
-                        <input type="file" name="capturas_evidencia" class="custom-file-input dt-checkbox" id="customFile_${meta.row}" aria-describedby="inputGroupFileAddon04" onchange="updateLabel(this)" data-row-index="${meta.row}">
+                        <input type="file" multiple name="evidencias" class="custom-file-input dt-checkbox" id="customFile_${meta.row}" aria-describedby="inputGroupFileAddon04" onchange="updateLabel(this)" data-row-index="${meta.row}">
                         <label class="custom-file-label text-center" for="customFile_${meta.row}" data-browse="Seleccionar archivo">Subir Archivo</label>
                     </div>
                 `
@@ -127,32 +127,54 @@ selectTable('#pacienteEstudios', pacienteEstudios, {
             class: 'btn-save_dataMuestra',
             callback: function (data, elementClick, tr) {
                 // Data siendo los datos del row
-                // Obtenemos el índice de la fila del botón que se presionó
-                // let rowIndex = $(this).data('row-index');
 
                 let row = pacienteEstudios.row(tr);
                 let rowIndex = row.index(); // Obtiene el índice de la fila
 
                 // Inicializamos un objeto para almacenar los datos de la fila
-                let datosFila = {
-                    rowIndex: rowIndex,
-                };
+                let valor = [];
 
                 // Buscamos todos los inputs y textareas dentro de la fila
                 $(`[data-row-index="${rowIndex}"], [data-row-index="${rowIndex}"]`).each(function () {
                     let $elemento = $(this);
                     let nombre = $elemento.attr('name');
                     let tipo = $elemento.prop('type');
-                    let valor = null;
 
+                    switch (tipo) {
+                        case 'radio':
+                            // Verifica si el radio esta checado
+                            if ($elemento.prop("checked")) {
+                                valor[nombre] = $elemento.val();
+                            }
+                            break;
+
+                        case 'file':
+                            // obten los archivos
+                            valor[nombre] = $elemento.prop('files');
+                            break;
+
+                        default:
+                            valor[nombre] = $elemento.val();
+                            break;
+                    }
 
                 });
 
-                // Aquí puedes procesar los datos de la fila como necesites
-                console.log(datosFila);
+                // envio de datos adicionales
+                valor['id_turno'] = data.ID_TURNO;
+                valor['id_servicio'] = data.ID_SERVICIO;
+                valor['id_area'] = data.AREA_ID;
+
+                // Envio de datos a apis
+                ajaxAwait(valor, '', { callbackAfter: true }, false, () => {
+
+                })
+
+                // Datos finales
+                console.log(valor, data);
 
             },
-            selected: true
+            // selected: true
         },
     ]
 })

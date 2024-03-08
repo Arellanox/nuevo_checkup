@@ -287,6 +287,9 @@ function generarFormularioPaciente(id) {
                 },
                 9: {
                   'descripcion': 'PREPUSIO, GLANDE,<br> CORONA, URETRA'
+                },
+                10: {
+                  'descripcion': 'URETRAL Y GLANDE'
                 }
               }
               break;
@@ -373,6 +376,9 @@ function generarFormularioPaciente(id) {
                 },
                 6: {
                   'descripcion': 'CORONA,GLANDE, <br>URETRA Y PREPUCIO'
+                },
+                7: {
+                  'descripcion': 'URETRAL Y GLANDE'
                 }
               }
               break;
@@ -576,6 +582,11 @@ function generarFormularioPaciente(id) {
                 },
               }
 
+              break;
+
+            case '1677':
+              // PCR CARGA VIRAL DE CITOMEGALOVIRUS (CMV)
+              // Solo visual por ahora
               break;
 
 
