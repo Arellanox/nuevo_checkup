@@ -72,7 +72,7 @@ switch ($api) {
         $doc = "FACTURA_". $fac[0]["FACTURA"]."_".uniqid($_SESSION['id']);
 
         # establecer la ruta de guardado
-        $dir = "../archivos/facturas_emitidas/".$fac[0]['FACTURA'];
+        $dir = "../archivos/facturas_emitidas/".$fac[0]['FACTURA'].'/';
 
         # crear directorio si no existe
         $r = $master->createDir($dir);
@@ -98,7 +98,7 @@ switch ($api) {
         $doc = "XML_".$fac[0]['FACTURA'].'_'.uniqid($_SESSION['id']);
 
         # ruta de guardado
-        $dir = "../archivos/xmls_emitidos/".$fac[0]['FACTURA'];
+        $dir = "../archivos/xmls_emitidos/".$fac[0]['FACTURA'].'/';
 
         # crear directorio si no existe
         $r = $master->createDir($dir);
