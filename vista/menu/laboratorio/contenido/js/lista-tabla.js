@@ -799,7 +799,7 @@ function generarFormularioPaciente(id) {
                 html += '<div class="input-group">';
                 html += `
                     <div class="input-group-text input-span" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Vacía el resultado" >
-                      <input class="form-check-input mt-0" name="servicios[${inputname}][BLANCO]" type="checkbox" aria-label="Checkbox for following text input">
+                      <input class="form-check-input mt-0" value="1" name="servicios[${inputname}][BLANCO]" type="checkbox" aria-label="Checkbox for following text input">
                     </div>
                 `
 
