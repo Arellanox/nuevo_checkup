@@ -106,6 +106,13 @@ function hasLocation() {
       if (validarVista('VENDEDORES_COMISIONADOS'))//PERMISO PARA ENTRAR
         obtenerContenidoVendedores();
       break;
+
+
+    case "PROVEEDORES":
+      $('.medicos_vendedores_menu').fadeIn(0);
+      if (validarVista('VENDEDORES_COMISIONADOS'))//PERMISO PARA ENTRAR
+        obtenerContenidoVendedores();
+      break;
     // case "Servicios":
     //   obtenerContenidoServicios("servicios.php", "Servicios");
     //   break;
