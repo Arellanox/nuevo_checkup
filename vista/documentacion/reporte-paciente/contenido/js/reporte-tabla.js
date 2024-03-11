@@ -83,6 +83,7 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
     { data: 'METODO_DE_PAGO' },
     { data: 'FACTURA' },
     { data: 'SE_MAQUILA' },
+    {data: 'LABORATORIO_MAQUILA'},
     { data: 'NUM_TRABAJADOR'}
   ],
   columnDefs: [
@@ -116,7 +117,8 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
     { target: 27, className: 'none', title: 'Método de Pago' },
     { target: 28, className: 'none', title: 'No. Factura' },
     { target: 29, className: 'none', title: 'Maquilado' },
-    { target: 30, className: 'none', title: 'Num. Trabajador' },
+    { target: 30, className: 'none', title: 'Subrogado' },
+    { target: 31, className: 'none', title: 'Num. Trabajador' },
   ],
 
 
