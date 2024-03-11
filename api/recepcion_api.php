@@ -180,7 +180,11 @@ switch ($api) {
             }
         }
 
-        $response = array_merge((array) $response, (array) $etiqueta_turno);
+        #$response = array_merge((array) $response, (array) $etiqueta_turno);
+        $response = array(
+            0 => $response,
+            1 => $etiqueta_turno[0]
+        );
         break;
     case 3:
         # reagendar una cita

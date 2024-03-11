@@ -145,7 +145,7 @@ function recepciónPaciente(estatus, id) {
         case 'rechazar':
           Swal.fire(
             'Rechazado!',
-            'El paciente a sido rechazado.',
+            'El paciente ha sido rechazado.',
             'error'
           )
           // Ajax para cancelar registro del paciente
