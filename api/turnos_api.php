@@ -167,7 +167,7 @@ switch ($api) {
 
 
             #$a = array($id_turno, $servicio_id, $resultado, $confirmar, $confirmado_por, $valor_absoluto);
-            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $resultado['ID_SERVICIO'], $resultado['RESULTADO'], $confirmar, $confirmado_por, $valor_absoluto, $group));
+            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $resultado['ID_SERVICIO'], $resultado['RESULTADO'], $confirmar, $confirmado_por, $valor_absoluto, $group, $resultado['BLANCO']));
 
             #  print_r($response);
             if (!is_numeric($response)) {
