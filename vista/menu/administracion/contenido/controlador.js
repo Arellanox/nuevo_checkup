@@ -81,6 +81,21 @@ async function obtenerContenidoVendedores() {
 
 
 
+async function obtenerContenidoVendedores() {
+  await obtenerTitulo("Proveedores bimo");
+  $.post("contenido/proveedores/lista_proveedores.html", function (html) {
+    $("#body-js").html(html);
+  }).done(function () {
+
+    // Botones
+    $.getScript("contenido/proveedores/js/btn.js");
+
+    // Datatable
+    $.getScript("contenido/proveedores/js/tabla.js");
+
+  })
+
+}
 
 function hasLocation() {
   $('.usuarios_menu').fadeOut(0);
@@ -103,6 +118,13 @@ function hasLocation() {
 
     case "VENDEDORES":
       $('.medicos_vendedores_menu').fadeIn(0);
+      if (validarVista('VENDEDORES_COMISIONADOS'))//PERMISO PARA ENTRAR
+        obtenerContenidoVendedores();
+      break;
+
+
+    case "PROVEEDORES":
+      // $('.proveeedores_man').fadeIn(0);
       if (validarVista('VENDEDORES_COMISIONADOS'))//PERMISO PARA ENTRAR
         obtenerContenidoVendedores();
       break;
