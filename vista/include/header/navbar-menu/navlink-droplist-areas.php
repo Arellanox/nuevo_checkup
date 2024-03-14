@@ -1,4 +1,11 @@
 <?php
+if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
+  <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/pacientes-subrogados/'; ?>">
+    <i class="bi bi-building-fill-check"></i> Pacientes subrogados
+  </a>
+<?php endif; ?>
+
+<?php
 date_default_timezone_set('America/Mexico_City');
 if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
   <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/consultorio/'; ?>">
