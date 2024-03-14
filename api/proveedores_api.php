@@ -47,7 +47,15 @@ switch ($api) {
     case 2:
         $response = $master->getByProcedure('sp_proveedores_general_b', []);
         break;
-
+    case 3:
+        # busca los tipos de contactos que existen
+        $response = $master->getByProcedure("sp_proveedores_tipos_contactos_b", []);
+        break;
+    case 4:
+        # eliminar un proveedor
+        $response = $master->deleteByProcedure("sp_proveedores_e", [ $id_proveedores ]);
+        break;
+    
     default:
         $response = "API no definida";
         break;
