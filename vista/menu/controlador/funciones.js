@@ -107,31 +107,37 @@ function calcularEdad2(fecha) {
   var m = hoy.getMonth() - cumpleanos.getMonth();
   var d = hoy.getDate() - cumpleanos.getDate();
 
-  if (m < 0 || (m === 0 && d < 0)) {
-    edadEnAnos--;
-    m += 12; // Ajusta los meses cuando el día de hoy es antes del día de cumpleaños.
+  // Si el año ingresado es menor a 0, significa que la fecha aún no ha llegado.
+  if (edadEnAnos < 0) {
+    return { numero: 0, tipo: 'días' }; // Aun no hemos llegado a esa fecha
   }
 
-  if (edadEnAnos > 0) {
-    return { numero: edadEnAnos, tipo: 'año' + (edadEnAnos > 1 ? 's' : '') };
-  } else if (m > 0) {
-    return { numero: m, tipo: 'mes' + (m > 1 ? 'es' : '') };
-  } else {
-    // Calcular la diferencia en días si no hay diferencia en meses o años.
-    var fechaCumpleanosEsteAno = new Date(hoy.getFullYear(), cumpleanos.getMonth(), cumpleanos.getDate());
-    var diferenciaDias = Math.floor((hoy - fechaCumpleanosEsteAno) / (1000 * 60 * 60 * 24));
-    if (diferenciaDias < 0) {
-      diferenciaDias += new Date(hoy.getFullYear(), hoy.getMonth(), 0).getDate(); // Ajuste si el día de hoy es antes del día de cumpleaños en este mes.
-    }
-
-    var semanas = Math.floor(diferenciaDias / 7);
-    if (semanas > 0) {
-      return { numero: semanas, tipo: 'semana' + (semanas > 1 ? 's' : '') };
-    } else {
-      return { numero: diferenciaDias, tipo: 'día' + (diferenciaDias > 1 ? 's' : '') };
+  // Si el año es 0, calculamos por meses y días
+  if (edadEnAnos === 0) {
+    if (m < 0) { // Si el mes es menor que el actual, la fecha es futura.
+      return { numero: 0, tipo: 'días' };
+    } else if (m === 0) { // Si estamos en el mismo mes, calculamos los días
+      if (d < 0) { // Si el día es menor que el actual, la fecha es futura.
+        return { numero: 0, tipo: 'días' };
+      } else { // Calculamos la diferencia de días
+        if (d >= 7) {
+          var semanas = Math.floor(d / 7);
+          return { numero: semanas, tipo: 'semana' + (semanas > 1 ? 's' : '') };
+        } else {
+          return { numero: d, tipo: 'día' + (d > 1 ? 's' : '') };
+        }
+      }
+    } else { // Si el mes es mayor que 0, calculamos la edad en meses.
+      return { numero: m, tipo: 'mes' + (m > 1 ? 'es' : '') };
     }
   }
+
+  // Si hemos pasado todas las verificaciones anteriores, devolvemos la edad en años.
+  return { numero: edadEnAnos, tipo: 'año' + (edadEnAnos > 1 ? 's' : '') };
 }
+
+
+
 
 
 // Revisar sesión
@@ -3063,7 +3069,11 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     if (mensajeAjax(data)) {
                       row = data['response']['data'][0];
                       $('#nombre-persona').html(row.NOMBRE_COMPLETO);
-                      $('#edad-persona').html(formatoEdad(row.EDAD))
+
+
+                      $('#edad-persona').html(`${calcularEdad2(row.NACIMIENTO)['numero']} ${calcularEdad2(row.NACIMIENTO)['tipo']}`)
+
+
                       $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
                       $('#info-paquete_cargado').html(ifnull(row, '', ['PAQUETE_CARGADO']))
                       $('#info-vendedor').html(ifnull(row, '', ['VENDEDOR']))

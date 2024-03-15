@@ -22,7 +22,7 @@ $(document).on('submit', '#form-vendedores', function (e) {
 
         // Mandar los datos
         ajaxAwaitFormData({
-            api: 0,
+            api: 1,
         }, 'proveedores_api', 'form-vendedores', { callbackAfter: true }, false, (data) => {
 
             alertToast('Proveedor guardado', 'success');
