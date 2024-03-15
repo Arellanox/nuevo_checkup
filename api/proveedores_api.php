@@ -37,6 +37,28 @@ $paramPrincipal = $master->setToNull(array(
     $sitio_web
 ));
 
+// Informacion de la direccion del proveedor
+$proveedor_id = $_POST['proveedor_id'];
+$tipo_direccion = $_POST['tipo_direccion'];
+$calle = $_POST['calle'];
+$num_exterior = $_POST['num_exterior'];
+$num_interior = $_POST['num_interior'];
+$colonia = $_POST['colonia'];
+$municipio = $_POST['municipio'];
+$comprobante_domicilio = $_POST['comprobante_domicilio'];
+
+
+$paramDireccion = array(
+    $proveedor_id,
+    $tipo_direccion,
+    $calle,
+    $num_exterior,
+    $num_interior,
+    $colonia,
+    $municipio,
+    $comprobante_domicilio,
+);
+
 # datos de contactos
 $id_contacto = $_POST['id_contacto'];
 $nombre_contacto = $_POST['nombre_contacto'];
@@ -58,7 +80,7 @@ switch ($api) {
         break;
     case 4:
         # eliminar un proveedor
-        $response = $master->deleteByProcedure("sp_proveedores_e", [ $id_proveedores ]);
+        $response = $master->deleteByProcedure("sp_proveedores_e", [$id_proveedores]);
         break;
     case 5:
         # agregar un contacto de proveedor
@@ -73,11 +95,16 @@ switch ($api) {
         break;
     case 6:
         # eliminar un contacto de proveedor
-        $response = $master->deleteByProcedure("sp_proveedores_contactos_e", [ $id_contacto ]);
+        $response = $master->deleteByProcedure("sp_proveedores_contactos_e", [$id_contacto]);
         break;
     case 7:
         # buscar contactos
         $response = $master->getByProcedure("sp_proveedores_contactos_b", [$id_proveedores, $tipo_contacto]);
+        break;
+    case 8:
+        # guardar los datos de la direccion del proveedor
+        $response = $master->insertByProcedure('sp_proveedores_direccion_g', $paramDireccion);
+        break;    
     default:
         $response = "API no definida";
         break;
