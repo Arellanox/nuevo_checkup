@@ -12,13 +12,14 @@
 </div>
 <div class="col-6 col-lg-3">
   <label for="nacimiento" class="form-label">Fecha de nacimiento</label>
-  <input type="date" class="form-control input-form" name="nacimiento" placeholder="" required onchange="$(`input[class='form-control input-form edadPacienteRegistro']`).val(calcularEdad(this.value))">
+  <input type="date" class="form-control input-form" name="nacimiento" placeholder="" required onchange="$(`#edad-form-agregar`).val(calcularEdad2(this.value)['numero'])
+                                                $(`#span_formEdad`).html(calcularEdad2(this.value)['tipo'])">
 </div>
 <div class="col-6 col-lg-2">
   <label for="edad" class="form-label">Edad</label>
   <div class="input-group">
-    <input type="number" class="form-control input-form edadPacienteRegistro" step="0.01" name="edad" placeholder="" min="0" max="150" required>
-    <span class="input-span">años</span>
+    <input type="number" disabled class="form-control input-form edadPacienteRegistro" id="edad-form-agregar" step="0.01" name="edad" placeholder="" min="0" max="150" required>
+    <span class="input-span" id="span_formEdad">años</span>
   </div>
 </div>
 <div class="col-7 col-lg-4">

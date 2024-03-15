@@ -3,8 +3,13 @@ ModalEditarPaciente.addEventListener('show.bs.modal', event => {
   $('#editar-nombre').val(array_selected['NOMBRE']);
   $('#editar-paterno').val(array_selected['PATERNO']);
   $('#editar-materno').val(array_selected['MATERNO']);
-  $('#editar-edad').val(array_selected['EDAD']);
+  // $('#editar-edad').val(array_selected['EDAD']);
   $('#editar-nacimiento').val(array_selected['NACIMIENTO']);
+
+  // Calcular edad
+  $(`#editar-edad`).val(calcularEdad2(array_selected['NACIMIENTO'])['numero'])
+  $(`#span_formEdad_edit`).html(calcularEdad2(array_selected['NACIMIENTO'])['tipo'])
+
   $('#editar-curp').val(array_selected['CURP']);
   $('#editar-telefono').val(array_selected['CELULAR']);
   $('#editar-postal').val(array_selected['POSTAL']);
