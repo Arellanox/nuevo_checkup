@@ -92,6 +92,46 @@ function ifnull($variable, $msj = "N/A")
 }
 
 
+function calcularEdad2($fecha)
+{
+    $hoy = new DateTime(); // Fecha de hoy
+    $cumpleanos = new DateTime($fecha); // Fecha de nacimiento
+    $diferencia = $hoy->diff($cumpleanos); // Calcula la diferencia entre fechas
+    $edadEnAnos = $diferencia->y;
+    $m = $diferencia->m;
+    $d = $diferencia->d;
+
+    // Si el año es menor a 0, la fecha aún no ha llegado
+    if ($edadEnAnos < 0) {
+        return ['numero' => 0, 'tipo' => 'días']; // Aún no hemos llegado a esa fecha
+    }
+
+    // Si el año es 0, calculamos por meses y días
+    if ($edadEnAnos === 0) {
+        if ($m < 0) { // Si el mes es menor que el actual, la fecha es futura.
+            return ['numero' => 0, 'tipo' => 'días'];
+        } else if ($m === 0) { // Si estamos en el mismo mes, calculamos los días
+            if ($d < 0) { // Si el día es menor que el actual, la fecha es futura.
+                return ['numero' => 0, 'tipo' => 'días'];
+            } else { // Calculamos la diferencia de días
+                if ($d >= 7) {
+                    $semanas = floor($d / 7);
+                    return ['numero' => $semanas, 'tipo' => 'semana' . ($semanas > 1 ? 's' : '')];
+                } else {
+                    return ['numero' => $d, 'tipo' => 'día' . ($d > 1 ? 's' : '')];
+                }
+            }
+        } else { // Si el mes es mayor que 0, calculamos la edad en meses.
+            return ['numero' => $m, 'tipo' => 'mes' . ($m > 1 ? 'es' : '')];
+        }
+    }
+
+    // Si hemos pasado todas las verificaciones anteriores, devolvemos la edad en años.
+    return ['numero' => $edadEnAnos, 'tipo' => 'año' . ($edadEnAnos > 1 ? 's' : '')];
+}
+
+
+
 // Obtener solo la extensión
 $extension = ifnull($array['EXTENSION']);
 $ruta_reporte = ifnull($array['RUTA_REPORTE']);
@@ -126,7 +166,7 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                     <div class="row">
                         <div class="col-12">
                             <p class="" id="nombre-persona"> <?php echo ifnull($array['NOMBRE']) ?></p>
-                            <p class="none-p "> <strong id="edad-persona" class="none-p"><?php echo ifnull($array['EDAD']) ?></strong> años | <strong id="nacimiento-persona" class="none-p"><?php echo ifnull($array['NACIMIENTO']) ?></strong> </p>
+                            <p class="none-p "> <strong id="edad-persona" class="none-p"><?php echo calcularEdad2($array['NACIMIENTO'])['numero'] . " " . calcularEdad2($array['NACIMIENTO'])['tipo'] ?></strong> | <strong id="nacimiento-persona" class="none-p"><?php echo ifnull($array['NACIMIENTO']) ?></strong> </p>
                         </div>
 
                         <div class="col-12 row mt-3">

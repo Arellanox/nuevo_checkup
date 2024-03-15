@@ -56,7 +56,8 @@ switch ($api) {
             $id_cliente,
             $area_id
         ]);
-        $response = $master->getByProcedure("sp_reporte_ujat", $params);
+        #$response = $master->getByProcedure("sp_reporte_ujat", $params);
+        $response = $master->getByProcedure("sp_reporte_ujat_prueba", $params);
         break;
     case 4:
         # Crear un grupo de facturas
