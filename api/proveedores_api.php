@@ -40,7 +40,7 @@ $paramPrincipal = $master->setToNull(array(
 # datos de contactos
 $id_contacto = $_POST['id_contacto'];
 $nombre_contacto = $_POST['nombre_contacto'];
-$tipo_contacto = $_POST['tipo_contacto'];
+$tipo_contacto = $_POST['tipo_contacto']; #id del tipo de contacto
 
 switch ($api) {
         //insertar informacion del proveedor principal
@@ -75,6 +75,9 @@ switch ($api) {
         # eliminar un contacto de proveedor
         $response = $master->deleteByProcedure("sp_proveedores_contactos_e", [ $id_contacto ]);
         break;
+    case 7:
+        # buscar contactos
+        $response = $master->getByProcedure("sp_proveedores_contactos_b", [$id_proveedores, $tipo_contacto]);
     default:
         $response = "API no definida";
         break;
