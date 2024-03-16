@@ -116,18 +116,31 @@ switch ($api) {
         # subir un archivo de proveedores.
         switch($id_tipo_archivo){
             case 1:
+                $x = "CSF";
                 break;
             case 2:
+                $x = "Acta Constitutiva";
                 break;
             case 3:
+                $x = "Convenio";
                 break;
             default:
                 $x = "UNKNOWN";
         }
-
+        $nombre_archivo = $x."_".uniqid($_SESSION['id']);
         $dir = '../archivos/proveedores/'. $id_proveedores.'/';
+        
+        if($master->createDir($dir)){
+            $files = $master->guardarFiles($_FILES, "archivo", $dir, $nombre_archivo);
+            $response = $master->insertByProcedure('sp_proveedor_archivos_g', [
+                $id_proveedores,
+                
+            ]);
+        } else {
 
-        $files = $master->guardarFiles($_FILES, "archivo", )
+        }
+
+        
         break;
     default:
         $response = "API no definida";
