@@ -64,6 +64,9 @@ $id_contacto = $_POST['id_contacto'];
 $nombre_contacto = $_POST['nombre_contacto'];
 $tipo_contacto = $_POST['tipo_contacto']; #id del tipo de contacto
 
+# datos para archivos
+$id_tipo_archivo = $_POST['id_tipo_archivo'];
+
 switch ($api) {
         //insertar informacion del proveedor principal
     case 1:
@@ -105,6 +108,10 @@ switch ($api) {
         # guardar los datos de la direccion del proveedor
         $response = $master->insertByProcedure('sp_proveedores_direccion_g', $paramDireccion);
         break;    
+    case 9:
+        # recuperar los tipos de documentos [csf, convenio, etc]
+        $response = $master->getByProcedure("sp_proveedores_tipos_archivos_b", [$id_tipo_archivo]);
+        break;
     default:
         $response = "API no definida";
         break;
