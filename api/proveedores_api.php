@@ -112,6 +112,23 @@ switch ($api) {
         # recuperar los tipos de documentos [csf, convenio, etc]
         $response = $master->getByProcedure("sp_proveedores_tipos_archivos_b", [$id_tipo_archivo]);
         break;
+    case 10:
+        # subir un archivo de proveedores.
+        switch($id_tipo_archivo){
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                $x = "UNKNOWN";
+        }
+
+        $dir = '../archivos/proveedores/'. $id_proveedores.'/';
+
+        $files = $master->guardarFiles($_FILES, "archivo", )
+        break;
     default:
         $response = "API no definida";
         break;
