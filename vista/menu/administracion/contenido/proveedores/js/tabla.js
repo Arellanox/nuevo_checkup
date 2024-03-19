@@ -28,50 +28,53 @@ tablaVistaProveedores = $('#tablaVistaProveedores').DataTable({
         dataSrc: 'response.data'
     },
     columns: [
-        { data: 'COUNT' },
-        { data: 'NOMBRE_COMERCIAL' },
-        { data: 'OBJETO_SOCIAL' },
-        { data: 'RAZON_SOCIAL' },
-        { data: 'TELEFONO' },
-        { data: 'TIPO_PERSONA' },
+        { data: 'COUNT', },
+        { data: 'NOMBRE_COMERCIAL', },
+        { data: 'OBJETO_SOCIAL', },
+        { data: 'RAZON_SOCIAL', },
+        { data: 'TELEFONO', },
+        { data: 'TIPO_PERSONA', },
         // { data: 'RAZON_SOCIAL' },
-        { data: 'SITIO_WEB' },
+        { data: 'SITIO_WEB', },
         {
             data: 'ID_PROVEEDOR', render: function (data, type) {
                 if (type === 'display') {
                     return `
-                        <div class="d-flex d-lg-block align-items-center" style="max-width: max-content; padding: 0px;">
-                            <div class="d-flex flex-wrap flex-nowrap align-items-center">
+                        <div class="row" style="width: 50px">
 
+                            <div class="col-6"> 
                                 <!-- Direcciones -->
                                 <i class="bi bi-signpost-2-fill btn-direccion icons-btn d-block "
                                     data-bs-id="${data}">
                                 </i>
-                            
+                            </div>
+
+                            <div class="col-6"> 
                                 <!-- Contactos -->
                                 <i class="bi bi-person-lines-fill btn-contantos icons-btn d-block" 
                                     data-bs-id="${data}">
                                 </i>
-
-                                <br>
-
+                            </div>  
+                                
+                            <div class="col-6"> 
                                 <!-- Creditos -->
                                 <i class="bi bi-receipt btn-cargar-documentos icons-btn d-block" 
                                     data-bs-id="${data}">
                                 </i>
-                                
+                            </div>
+
+                            <div class="col-6">
                                 <!-- Archivos -->
                                 <i class="bi bi-file-earmark-pdf-fill btn-offcanva icons-btn d-block" 
                                     data-bs-id="${data}">
                                 </i>
-
-                            </div>
+                            </div>  
                         </div>
                         `;
                 } else {
                     return '';
                 }
-            }
+            },
         }
     ],
     columnDefs: [
@@ -83,7 +86,7 @@ tablaVistaProveedores = $('#tablaVistaProveedores').DataTable({
         { target: 5, title: 'Tipo', className: 'min-tablet' },
         // { target: 6, title: 'Razon Social', className: 'all' },
         { target: 6, title: 'Sitio Web', className: 'desktop', },
-        { target: 7, title: '#', className: 'all', width: '1%', }
+        { target: 7, title: '#', className: 'all', width: "50px" }
 
     ]
 
