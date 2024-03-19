@@ -13,6 +13,7 @@ if (!$tokenValido) {
 
 $master = new Master();
 $api = $_POST['api'];
+$host = $master->selectHost($_SERVER['SERVER_NAME']);
 
 // Informacion del proveedor (principal)
 $id_proveedores = $_POST['id_proveedores'];
@@ -132,12 +133,21 @@ switch ($api) {
         
         if($master->createDir($dir)){
             $files = $master->guardarFiles($_FILES, "archivo", $dir, $nombre_archivo);
+
+            # preparar el arreglo para recibir varios archivos
+            foreach($files as $file){
+                $uri = $file['url'];
+                $file['url'] = str_replace('../', $host, $uri);
+            }
+
             $response = $master->insertByProcedure('sp_proveedor_archivos_g', [
                 $id_proveedores,
+                json_encode($files),
+                $id_tipo_archivo
                 
             ]);
         } else {
-
+            $response = "Error al crear directorio.";
         }
 
         
