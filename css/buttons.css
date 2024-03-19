@@ -153,3 +153,17 @@
 .accordion-button {
     color: rgb(0 78 89) !important;
 }
+
+
+
+
+.icons-btn{
+  cursor: pointer; 
+  font-size: 21px;
+  padding: 2px 4px;
+}
+
+.icons-btn:hover{
+  color: rgb(236, 182, 000);
+  filter: drop-shadow(0 0 8px #ffefb9);
+}

@@ -1,17 +1,14 @@
 
 $(document).on('click', '#btn-NuevoProveedor', function (e) {
-
-    // Reinicia y abre nuevo modal
-
+    // Reinicia y abre nuevo modalw
+    document.getElementById('form-proveedores').reset();
     $('#modalVistaProveedores').modal('show');
-
 })
 
 
-$(document).on('submit', '#form-vendedores', function (e) {
+$(document).on('submit', '#form-proveedores', function (e) {
     e.preventDefault();
     e.stopPropagation();
-
 
     // Preguntar si esta todo bien
     alertMensajeConfirm({
@@ -23,11 +20,10 @@ $(document).on('submit', '#form-vendedores', function (e) {
         // Mandar los datos
         ajaxAwaitFormData({
             api: 1,
-        }, 'proveedores_api', 'form-vendedores', { callbackAfter: true }, false, (data) => {
+        }, 'proveedores_api', 'form-proveedores', { callbackAfter: true, resetForm: true }, false, (data) => {
 
             alertToast('Proveedor guardado', 'success');
-
-
+            $('#modalVistaProveedores').modal('hide');
         })
     }, 1)
 })

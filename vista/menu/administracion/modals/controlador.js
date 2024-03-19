@@ -32,8 +32,9 @@ $.post("modals/a_modals.php", function (html) {
 
 
 
-   // Modal para agregar o actualizar el usuario de un medico
+   // Js para proveedores
    $.getScript('modals/proveedores/js/nuevo_proveedor.js');
+   $.getScript('modals/proveedores/js/contatos.js');
 
 
 

@@ -125,9 +125,15 @@ function hasLocation() {
 
     case "PROVEEDORES":
       // $('.proveeedores_man').fadeIn(0);
-      if (validarVista('VENDEDORES_COMISIONADOS'))//PERMISO PARA ENTRAR
-        obtenerContenidoVendedores();
+      // if (validarVista('VENDEDORES_COMISIONADOS'))//PERMISO PARA ENTRAR
+      obtenerContenidoVendedores();
       break;
+
+    case 'CONTACTOS_PROVEEDORES':
+
+
+      break;
+
     // case "Servicios":
     //   obtenerContenidoServicios("servicios.php", "Servicios");
     //   break;
