@@ -32,3 +32,5 @@ include "vendedores/comisiones_vendedor.html";
 
 // Proveedores
 include "proveedores/nuevo_proveedor.html";
+include "proveedores/contactos.html";
+include "proveedores/direccion.html";

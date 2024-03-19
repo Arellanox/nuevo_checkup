@@ -1,6 +1,6 @@
 
 
-
+dataVistaVendedores = { api: 2 }
 tablaVistaProveedores = $('#tablaVistaProveedores').DataTable({
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
@@ -10,64 +10,81 @@ tablaVistaProveedores = $('#tablaVistaProveedores').DataTable({
     paging: false,
     scrollY: '73vh',
     scrollCollapse: true,
-    // ajax: {
-    //     dataType: 'json',
-    //     data: function (d) {
-    //         return $.extend(d, dataVistaVendedores);
-    //     },
-    //     method: 'POST',
-    //     url: '../../../api/vendedores_api.php',
-    //     complete: function () {
-    //         $.fn.dataTable
-    //             .tables({
-    //                 visible: true,
-    //                 api: true
-    //             })
-    //             .columns.adjust();
-    //     },
-    //     dataSrc: 'response.data'
-    // },
-    // columns: [
-    //     { data: 'COUNT' },
-    //     { data: 'VENDEDOR' },
-    //     {
-    //         data: 'FECHA_NACIMIENTO', render: function (data) {
-    //             return formatoFecha2(data, [0, 1, 4, 1, 0])
-    //         }
-    //     },
-    //     { data: 'EDAD' },
-    //     { data: 'EMAIL' },
-    //     { data: 'TELEFONO' },
-    //     {
-    //         data: 'COMISION_OTORGADA', render: function (data) {
-    //             return data + ' %'
-    //         }
-    //     },
+    ajax: {
+        dataType: 'json',
+        data: function (d) {
+            return $.extend(d, dataVistaVendedores);
+        },
+        method: 'POST',
+        url: '../../../api/proveedores_api.php',
+        complete: function () {
+            $.fn.dataTable
+                .tables({
+                    visible: true,
+                    api: true
+                })
+                .columns.adjust();
+        },
+        dataSrc: 'response.data'
+    },
+    columns: [
+        { data: 'COUNT' },
+        { data: 'NOMBRE_COMERCIAL' },
+        { data: 'OBJETO_SOCIAL' },
+        { data: 'RAZON_SOCIAL' },
+        { data: 'TELEFONO' },
+        { data: 'TIPO_PERSONA' },
+        // { data: 'RAZON_SOCIAL' },
+        { data: 'SITIO_WEB' },
+        {
+            data: 'ID_PROVEEDOR', render: function (data, type) {
+                if (type === 'display') {
+                    return `
+                        <div class="d-flex d-lg-block align-items-center" style="max-width: max-content; padding: 0px;">
+                            <div class="d-flex flex-wrap flex-nowrap align-items-center">
 
-    //     { data: null }
-    // ],
+                                <!-- Direcciones -->
+                                <i class="bi bi-signpost-2-fill btn-direccion icons-btn d-block "
+                                    data-bs-id="${data}">
+                                </i>
+                            
+                                <!-- Contactos -->
+                                <i class="bi bi-person-lines-fill btn-contantos icons-btn d-block" 
+                                    data-bs-id="${data}">
+                                </i>
+
+                                <br>
+
+                                <!-- Creditos -->
+                                <i class="bi bi-receipt btn-cargar-documentos icons-btn d-block" 
+                                    data-bs-id="${data}">
+                                </i>
+                                
+                                <!-- Archivos -->
+                                <i class="bi bi-file-earmark-pdf-fill btn-offcanva icons-btn d-block" 
+                                    data-bs-id="${data}">
+                                </i>
+
+                            </div>
+                        </div>
+                        `;
+                } else {
+                    return '';
+                }
+            }
+        }
+    ],
     columnDefs: [
         { target: 0, title: '#', className: 'all', width: '5px' },
-        { target: 1, title: 'Vendedor', className: 'all' },
-        { target: 2, title: 'Fecha de nacimiento', className: 'none' },
-        { target: 3, title: 'Edad', className: 'none' },
-        { target: 4, title: 'Correo', className: 'all' },
-        { target: 5, title: 'Telefono', className: 'all' },
-        { target: 6, title: 'Comision', className: 'all' },
-        {
-            target: 7, title: '<i class="bi bi-window-stack"></i>', className: 'all', width: '5px',
-            defaultContent: `
-                <div class="d-flex d-lg-block align-items-center" style="max-width: max-content; padding: 0px;">
-                    <div class="d-flex flex-wrap flex-lg-nowrap align-items-center">
+        { target: 1, title: 'Nombre Comercial', className: 'all' },
+        { target: 2, title: 'Objeto Social', className: 'desktop' },
+        { target: 3, title: 'Razón Social', className: 'desktop' },
+        { target: 4, title: 'Teléfono', className: 'min-tablet' },
+        { target: 5, title: 'Tipo', className: 'min-tablet' },
+        // { target: 6, title: 'Razon Social', className: 'all' },
+        { target: 6, title: 'Sitio Web', className: 'desktop', },
+        { target: 7, title: '#', className: 'all', width: '1%', }
 
-                        <i class="btn mx-2 btn-pantone-7408 bi bi-cash-coin comisiones-vendedor"  style="cursor: pointer"></i>
-
-                       <i class="btn mx-2 btn-borrar bi bi-trash eliminar-diagnostico" style="cursor: pointer"></i>
-                                               
-                    </div>
-                </div>
-            `
-        }
     ]
 
 })

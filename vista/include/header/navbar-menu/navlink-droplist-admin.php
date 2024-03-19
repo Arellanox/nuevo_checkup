@@ -29,7 +29,7 @@ date_default_timezone_set('America/Mexico_City');
                     </a>
                 </li>
             <?php endif; ?>
-            
+
             <?php if ($_SESSION['vista']['ADMIN_MEDICOS'] == 1) : ?>
                 <li>
                     <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/administracion/#MEDICOS'; ?>">
@@ -62,6 +62,36 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
             <?php endif; ?>
             <li><a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/pacientes/servicios-disponibles/'; ?>"><i class="bi bi-dot"></i> Precios (Particulares)</a></li>
 
+            <hr class="dropdown-divider">
+        </ul>
+    </div>
+
+<?php endif; ?>
+
+
+<?php if (
+    true
+) : ?>
+    <!-- Contaduria -->
+    <a class="dropdown-a align-items-center  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-EmpresasMaqulasProveedoress" aria-expanded="false">
+        <i class="bi bi-buildings"></i> Maquilas
+    </a>
+    <div class="collapse" id="board-EmpresasMaqulasProveedoress">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <?php if (true) : ?>
+                <li>
+                    <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/administracion/#PROVEEDORES'; ?>">
+                        <i class="bi bi-dot"></i> Proveedores
+                    </a>
+                </li>
+            <?php endif; ?>
+            <?php if (true) : ?>
+                <li>
+                    <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/administracion/#CONTACTOS_PROVEEDORES'; ?>">
+                        <i class="bi bi-dot"></i> Contactos
+                    </a>
+                </li>
+            <?php endif; ?>
             <hr class="dropdown-divider">
         </ul>
     </div>

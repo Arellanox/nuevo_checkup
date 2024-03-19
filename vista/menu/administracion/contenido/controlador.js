@@ -128,6 +128,12 @@ function hasLocation() {
       if (validarVista('VENDEDORES_COMISIONADOS'))//PERMISO PARA ENTRAR
         obtenerContenidoVendedores();
       break;
+
+    case 'CONTACTOS_PROVEEDORES':
+
+
+      break;
+
     // case "Servicios":
     //   obtenerContenidoServicios("servicios.php", "Servicios");
     //   break;

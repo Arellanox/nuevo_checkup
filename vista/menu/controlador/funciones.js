@@ -308,6 +308,7 @@ async function ajaxAwaitFormData(dataJson = { api: 0, }, apiURL, form = 'OnlyFor
     // Si mandas el form de jquery, mandalo a nativo
     let formID = document.getElementById(form);
     if (config.formJquery) {
+      console.log('FormJquery')
       formID = config.formJquery[0];
     }
 

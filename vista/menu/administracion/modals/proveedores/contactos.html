@@ -1,0 +1,71 @@
+<div class="modal fade" id="modalVistaContacto" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <h5 class="modal-title" id="filtrador">Información</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 col-lg-6 col-xl-4">
+                        <div class="rounded shadow p-3 m-3">
+                            <form id="form-Contacto" class="container col-10 pt-3">
+                                <div class="row">
+                                    <!-- <h4>Información</h4> -->
+
+                                    <div class="pb-3">
+                                        <!-- <label for="est_diagnostico" class="form-label">: </label> -->
+
+                                        <div class="text-center">
+                                            <div class="btn-group btn-group-lg" role="group">
+                                                <input type="radio" class="btn-check" name="tipo_persona"
+                                                    id="tipo_fisica" autocomplete="off" checked required>
+                                                <label class="btn btn-outline-warning" for="tipo_fisica">Persona
+                                                    Fisica</label>
+
+                                                <input type="radio" class="btn-check" name="tipo_persona"
+                                                    id="tipo_moral" autocomplete="off" required>
+                                                <label class="btn btn-outline-warning" for="tipo_moral">Persona
+                                                    Moral</label>
+
+                                                <!-- <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                                                                                                                                  <label class="btn btn-outline-primary" for="btnradio3">Radio 3</label> -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <!-- Sitio web -->
+                                    <div class="col-12">
+                                        <label>Sitio web:</label>
+                                        <input type="text" class="form-control input-form" name="sitio_web"
+                                            id="sitio_web-proveedor">
+                                    </div>
+
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 col-xl-8">
+                        <h5>Tabla de contactos del proveedor</h5>
+                        <table class="table mt-3 display responsive" id="tablaVistaContactos" style="width: 100%;">
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
+                    <i class="bi bi-arrow-left-short"></i> Cerrar
+                </button>
+
+                <button type="submit" form="form-Contacto" class="btn btn-confirmar">
+                    <i class="bi bi-person-plus"></i> Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
