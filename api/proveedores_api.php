@@ -152,7 +152,7 @@ switch ($api) {
                 $x = "Direccion";
                 break;
             case 5:
-                $x = "Caratula_de_Cuenta_Bancaría";
+                $x = "Caratula_de_Cuenta_Bancaria";
                 break;
             case 6:
                 $x = "Datos_de_Pago";
