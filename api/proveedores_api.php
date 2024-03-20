@@ -48,7 +48,7 @@ $num_interior = $_POST['num_interior'];
 $colonia = $_POST['colonia'];
 $ciudad = $_POST['ciudad'];
 $municipio = $_POST['municipio'];
-// $comprobante_domicilio = $_POST['comprobante_domicilio'];
+$comprobante_domicilio = $_POST['comprobante_domicilio'];
 
 
 $paramDireccion = array(
@@ -61,7 +61,7 @@ $paramDireccion = array(
     $colonia,
     $ciudad,
     $municipio,
-    // $comprobante_domicilio,
+    $comprobante_domicilio,
 );
 
 # datos de contactos
@@ -126,7 +126,7 @@ switch ($api) {
             $comprobante = str_replace('../', $host, $files[0]['url']);
 
             # reemplazamos el comprobante con el nuevo.
-            $paramDireccion[7] = $comprobante;
+            $paramDireccion[9] = $comprobante;
             $response = $master->insertByProcedure('sp_proveedores_direccion_g', $paramDireccion);
         } else {
             $response = "No se pudo crear el directorio.";
