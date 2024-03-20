@@ -167,11 +167,12 @@ switch ($api) {
             $files = $master->guardarFiles($_FILES, "archivo", $dir, $nombre_archivo);
 
             # preparar el arreglo para recibir varios archivos
+            $x = array();
             foreach ($files as $file) {
                 $uri = $file['url'];
                 $file['url'] = str_replace('../', $host, $uri);
+                $x[] = $file;
             }
-
             $response = $master->insertByProcedure('sp_proveedor_archivos_g', [
                 $id_proveedores,
                 json_encode($files),
@@ -206,6 +207,11 @@ switch ($api) {
         # buscar credito del proveedor
         $response = $master->getByProcedure("sp_proveedores_creditos_b", [$proveedor_id]);
         break;
+    case 14:
+        # buscar las direcciones de un proveedor
+        $response = $master->getByProcedure("", []);
+        break;
+
     default:
         $response = "API no definida";
         break;
