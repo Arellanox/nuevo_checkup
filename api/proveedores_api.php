@@ -39,7 +39,7 @@ $paramPrincipal = $master->setToNull(array(
 ));
 
 // Informacion de la direccion del proveedor
-$id_proveedor_direccion =$_POST['id_proveedor_direccion'];
+$id_proveedor_direccion = $_POST['id_proveedor_direccion'];
 $proveedor_id = $_POST['proveedor_id'];
 $tipo_direccion = $_POST['tipo_direccion'];
 $calle = $_POST['calle'];
@@ -120,7 +120,7 @@ switch ($api) {
         $dir = "../archivos/proveedores/$proveedor_id/comprobante_direccion/";
         $nombre_archivo = "TIPO_DIRECCION_" . $tipo_direccion . "_" . uniqid($_SESSION['id']);
 
-        if($master->createDir($dir)){
+        if ($master->createDir($dir)) {
             $files = $master->guardarFiles($_FILES, "comprobante", $dir, $nombre_archivo);
 
             $comprobante = str_replace('../', $host, $files[0]['url']);
@@ -128,17 +128,17 @@ switch ($api) {
             # reemplazamos el comprobante con el nuevo.
             $paramDireccion[7] = $comprobante;
             $response = $master->insertByProcedure('sp_proveedores_direccion_g', $paramDireccion);
-        }else {
+        } else {
             $response = "No se pudo crear el directorio.";
         }
-        break;    
+        break;
     case 9:
         # recuperar los tipos de documentos [csf, convenio, etc]
         $response = $master->getByProcedure("sp_proveedores_tipos_archivos_b", [$id_tipo_archivo]);
         break;
     case 10:
         # subir un archivo de proveedores.
-        switch($id_tipo_archivo){
+        switch ($id_tipo_archivo) {
             case 1:
                 $x = "CSF";
                 break;
@@ -147,18 +147,27 @@ switch ($api) {
                 break;
             case 3:
                 $x = "Convenio";
-                break;  
+                break;
+            case 4:
+                $x = "Direccion";
+                break;
+            case 5:
+                $x = "Caratula de Cuenta Bancaría";
+                break;
+            case 6:
+                $x = "Datos de Pago";
+                break;
             default:
                 $x = "UNKNOWN";
         }
-        $nombre_archivo = $x."_".uniqid($_SESSION['id']);
-        $dir = '../archivos/proveedores/'. $id_proveedores.'/';
-        
-        if($master->createDir($dir)){
+        $nombre_archivo = $x . "_" . uniqid($_SESSION['id']);
+        $dir = '../archivos/proveedores/' . $id_proveedores . '/';
+
+        if ($master->createDir($dir)) {
             $files = $master->guardarFiles($_FILES, "archivo", $dir, $nombre_archivo);
 
             # preparar el arreglo para recibir varios archivos
-            foreach($files as $file){
+            foreach ($files as $file) {
                 $uri = $file['url'];
                 $file['url'] = str_replace('../', $host, $uri);
             }
@@ -167,13 +176,13 @@ switch ($api) {
                 $id_proveedores,
                 json_encode($files),
                 $id_tipo_archivo
-                
+
             ]);
         } else {
             $response = "Error al crear directorio.";
         }
 
-        
+
         break;
     case 11:
         # recuperar los archivos de un proveedor

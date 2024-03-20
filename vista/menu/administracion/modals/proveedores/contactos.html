@@ -18,15 +18,18 @@
 
                                         <div class="text-center">
                                             <div class="btn-group btn-group-lg" role="group">
-                                                <input type="radio" class="btn-check" name="tipo_persona"
-                                                    id="tipo_fisica" autocomplete="off" checked required>
-                                                <label class="btn btn-outline-warning" for="tipo_fisica">Persona
-                                                    Fisica</label>
+                                                <input type="radio" class="btn-check" name="tipo_contacto"
+                                                    id="tipo_administrativo" value="1" autocomplete="off" checked
+                                                    required>
+                                                <label class="btn btn-outline-warning" for="tipo_administrativo">
+                                                    Administrativo
+                                                </label>
 
-                                                <input type="radio" class="btn-check" name="tipo_persona"
-                                                    id="tipo_moral" autocomplete="off" required>
-                                                <label class="btn btn-outline-warning" for="tipo_moral">Persona
-                                                    Moral</label>
+                                                <input type="radio" class="btn-check" name="tipo_contacto"
+                                                    id="tipo_adicional" value="2" autocomplete="off" required>
+                                                <label class="btn btn-outline-warning" for="tipo_adicional">
+                                                    Adicional
+                                                </label>
 
                                                 <!-- <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
                                                                                                                                   <label class="btn btn-outline-primary" for="btnradio3">Radio 3</label> -->
@@ -39,9 +42,23 @@
 
                                     <!-- Sitio web -->
                                     <div class="col-12">
-                                        <label>Sitio web:</label>
-                                        <input type="text" class="form-control input-form" name="sitio_web"
-                                            id="sitio_web-proveedor">
+                                        <label>Nombre:</label>
+                                        <input type="text" class="form-control input-form" name="nombre_contacto"
+                                            required id="nombre-proveedor">
+                                    </div>
+
+                                    <!-- Sitio web -->
+                                    <div class="col-12">
+                                        <label>Teléfono:</label>
+                                        <input type="text" class="form-control input-form" name="telefono"
+                                            id="telefono-proveedor">
+                                    </div>
+
+                                    <!-- Sitio web -->
+                                    <div class="col-12">
+                                        <label>Correo:</label>
+                                        <input type="text" class="form-control input-form" name="email"
+                                            id="correo-proveedor">
                                     </div>
 
                                 </div>
@@ -51,7 +68,7 @@
                     </div>
 
                     <div class="col-12 col-lg-6 col-xl-8">
-                        <h5>Tabla de contactos del proveedor</h5>
+                        <h5>Contactos del proveedor</h5>
                         <table class="table mt-3 display responsive" id="tablaVistaContactos" style="width: 100%;">
                         </table>
                     </div>

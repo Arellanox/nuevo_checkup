@@ -8,6 +8,8 @@ var estudiosEnviar = new Array();
 var PaquetesDatos;
 
 select2("#select-paquetes", "modalPacienteAceptar", 'Seleccione un paquete');
+select2("#select-proveedores-aceptar", "modalPacienteAceptar", 'Seleccione un proveedor');
+
 select2("#select-lab", "modalPacienteAceptar", 'Seleccione un estudio');
 select2("#select-labbio", "modalPacienteAceptar", 'Seleccione un estudio');
 select2("#select-rx", "modalPacienteAceptar", 'Seleccione un estudio');
@@ -44,6 +46,9 @@ modalPacienteAceptar.addEventListener('show.bs.modal', async event => {
   }, (data) => {
     PaquetesDatos = data
   })
+
+  // Proveedores
+  rellenarSelect('#select-proveedores-aceptar', 'proveedores_api', 2, 'ID_PROVEEDOR', 'NOMBRE_COMERCIAL.RAZON_SOCIAL')
 
   rellenarSelect('#select-segmento-aceptar', 'segmentos_api', 2, 0, 'DESCRIPCION', {
     cliente_id: array_selected['CLIENTE_ID']

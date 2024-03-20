@@ -1,0 +1,133 @@
+<div class="modal fade" id="modalVistaInfoCredito" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <h5 class="modal-title" id="filtrador">Información de Crédito</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item background-app">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                Nueva Información de crédito
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne">
+                            <div class="accordion-body">
+                                <!-- Formulario -->
+                                <div class="container d-flex justify-content-center">
+                                    <div class="col-11">
+                                        <div class="row">
+                                            <p>
+                                                Agrega o actualiza información de facturación y crédito del
+                                                proveedor
+                                            </p>
+
+                                            <div class="col-12 col-lg-6">
+                                                <!-- Formulario -->
+                                                <form id="form-info_credito">
+                                                    <!-- Crédito que asigna -->
+                                                    <label class="form-label">Crédito que asigna:</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control input-form"
+                                                            name="nombre_contacto" required id="nombre-proveedor">
+                                                        <span class="input-span" id="span_formEdad">días</span>
+                                                    </div>
+
+                                                    <label class="form-label">Monto a crédito:</label>
+                                                    <input type="text" class="form-control input-form" name="telefono"
+                                                        id="telefono-proveedor">
+                                                </form>
+
+                                                <!-- Drag and drop -->
+                                                <label class="form-label">
+                                                    Caratula de cuenta bancaria
+                                                </label>
+                                                <div id="dropCaratulaCuentaBancaria" class="drop-zone mx-2">
+                                                    <form id="formCaratulaCuentaBancaria">
+                                                        <label for="input_caratulaBancaria" style="cursor: pointer;"
+                                                            class="label-input_caratulaBancaria">
+                                                            Sube tu archivo arrastrándolo aquí
+                                                        </label>
+
+                                                        <input type="file" class="" id="input_caratulaBancaria"
+                                                            name="archivo[]" style="display: none;" multiple>
+                                                        <br>
+
+                                                        <div class="spinner-border text-primary carga-input_caratulaBancaria"
+                                                            role="status" style="display: none;">
+                                                            <span class="visually-hidden">Loading...</span>
+                                                        </div>
+                                                    </form>
+                                                </div>
+
+                                                <label class="form-label">
+                                                    Datos de pago
+                                                </label>
+                                                <div id="dropDatosPago" class="drop-zone mx-2">
+                                                    <form id="formDatosPado">
+                                                        <label for="input_DatosPago" style="cursor: pointer;"
+                                                            class="label-input_DatosPago">
+                                                            Sube tu archivo arrastrándolo aquí
+                                                        </label>
+
+                                                        <input type="file" class="" id="input_" name="archivo[]"
+                                                            style="display: none;" multiple>
+                                                        <br>
+
+                                                        <div class="spinner-border text-primary carga-input_"
+                                                            role="statusDatosPago" style="display: none;">
+                                                            <span class="visually-hidden">Loading...</span>
+                                                        </div>
+                                                    </form>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-12 col-lg-6">
+                                                <div class="rounded shadow p-3 m-3">
+                                                    <!-- Areas a seleccionar -->
+                                                    <h5>Servicios a prestar</h5>
+                                                    <table class="table mt-3 display responsive"
+                                                        id="servicio_table_select"></table>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                Información General del proveedor
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingOne">
+                            <div class="accordion-body">
+                                <!-- Información -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
+                    <i class="bi bi-arrow-left-short"></i> Cerrar
+                </button>
+
+                <button type="submit" form="form-Contacto" class="btn btn-confirmar">
+                    <i class="bi bi-person-plus"></i> Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

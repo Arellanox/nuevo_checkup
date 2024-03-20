@@ -98,7 +98,9 @@ html {
   opacity: 50%;
 }
 
-
+.background-app{
+    background-color: #f6fdff !important;
+}
 
 #ventana {
   background: rgb(96 96 96 / 4%);
