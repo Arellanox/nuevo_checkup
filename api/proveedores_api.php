@@ -78,6 +78,9 @@ $dias_credito = $_POST['dias_credito'];
 $monto_credito = $_POST['monto_credito'];
 $tipo_servicio_prestar = $_POST['tipo_servicio_prestar']; # area id
 
+# direcciones
+$tipo_direccion = $_POST['tipo_direccion'];
+
 switch ($api) {
         //insertar informacion del proveedor principal
     case 1:
@@ -209,7 +212,7 @@ switch ($api) {
         break;
     case 14:
         # buscar las direcciones de un proveedor
-        $response = $master->getByProcedure("", []);
+        $response = $master->getByProcedure("sp_proveedores_direccion_b", [$proveedor_id, $tipo_direccion]);
         break;
 
     default:
