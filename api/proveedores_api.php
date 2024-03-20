@@ -81,6 +81,11 @@ $tipo_servicio_prestar = $_POST['tipo_servicio_prestar']; # area id
 # direcciones
 $tipo_direccion = $_POST['tipo_direccion'];
 
+
+# turnos
+$fecha_inicial = $_POST['fecha_inicial'];
+$fecha_final - $_POST['fecha_final'];
+
 switch ($api) {
         //insertar informacion del proveedor principal
     case 1:
@@ -199,11 +204,13 @@ switch ($api) {
         break;
     case 12:
         # agregar credito al proveedor
+
+        $servicios = explode(',', $tipo_servicio_prestar);
         $response = $master->insertByProcedure("sp_proveedores_creditos_g", [
             $proveedor_id,
             $dias_credito,
             $monto_credito,
-            $tipo_servicio_prestar
+            json_encode($servicios)
         ]);
         break;
     case 13:
@@ -213,6 +220,10 @@ switch ($api) {
     case 14:
         # buscar las direcciones de un proveedor
         $response = $master->getByProcedure("sp_proveedores_direccion_b", [$proveedor_id, $tipo_direccion]);
+        break;
+    case 15:
+        # recuperar los pacientes que tiene proveedores externos.
+        $response = $master->getByProcedure("sp_proveedores_turnos_b", [$proveedor_id, $fecha_inicial, $fecha_final]);
         break;
 
     default:
