@@ -152,6 +152,15 @@ switch ($api) {
 
         
         break;
+    case 11:
+        # recuperar los archivos de un proveedor
+        $response = $master->getByProcedure("sp_proveedores_archivos_b", [
+            $id_proveedores,
+            $id_tipo_archivo
+        ]);
+
+        $response = $master->decodeJsonRecursively($response);
+        break;
     default:
         $response = "API no definida";
         break;
