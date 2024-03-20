@@ -175,7 +175,7 @@ switch ($api) {
             }
             $response = $master->insertByProcedure('sp_proveedor_archivos_g', [
                 $id_proveedores,
-                json_encode($files),
+                json_encode($x),
                 $id_tipo_archivo
 
             ]);
