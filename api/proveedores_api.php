@@ -39,25 +39,29 @@ $paramPrincipal = $master->setToNull(array(
 ));
 
 // Informacion de la direccion del proveedor
+$id_proveedor_direccion =$_POST['id_proveedor_direccion'];
 $proveedor_id = $_POST['proveedor_id'];
 $tipo_direccion = $_POST['tipo_direccion'];
 $calle = $_POST['calle'];
 $num_exterior = $_POST['num_exterior'];
 $num_interior = $_POST['num_interior'];
 $colonia = $_POST['colonia'];
+$ciudad = $_POST['ciudad'];
 $municipio = $_POST['municipio'];
-$comprobante_domicilio = $_POST['comprobante_domicilio'];
+// $comprobante_domicilio = $_POST['comprobante_domicilio'];
 
 
 $paramDireccion = array(
+    $id_proveedor_direccion,
     $proveedor_id,
     $tipo_direccion,
     $calle,
     $num_exterior,
     $num_interior,
     $colonia,
+    $ciudad,
     $municipio,
-    $comprobante_domicilio,
+    // $comprobante_domicilio,
 );
 
 # datos de contactos
@@ -138,6 +142,9 @@ switch ($api) {
             case 3:
                 $x = "Convenio";
                 break;
+            case 4:
+                $x = "Direccion";
+                break;    
             default:
                 $x = "UNKNOWN";
         }

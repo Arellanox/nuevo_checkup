@@ -281,6 +281,7 @@ async function ajaxAwait(dataJson, apiURL,
   });
 }
 
+
 //Ajax Async FormData (¡ Dejar de usar !)
 async function ajaxAwaitFormData(dataJson = { api: 0, }, apiURL, form = 'OnlyForm'  /* <-- Formulario sin # */,
   config = {
@@ -309,7 +310,9 @@ async function ajaxAwaitFormData(dataJson = { api: 0, }, apiURL, form = 'OnlyFor
     let formID = document.getElementById(form);
     if (config.formJquery) {
       console.log('FormJquery')
-      formID = config.formJquery[0];
+      if (!form) {
+        formID = config.formJquery[0];
+      }
     }
 
     let formData = new FormData(formID);
@@ -323,6 +326,17 @@ async function ajaxAwaitFormData(dataJson = { api: 0, }, apiURL, form = 'OnlyFor
       }
     }
 
+    if (!form) {
+      // Segundo formulario
+      let secondFormData = new FormData(config.formJquery[0]);
+
+      // Iterar sobre las entradas del segundo formulario y añadirlas al primer objeto FormData
+      for (let [key, value] of secondFormData.entries()) {
+        formData.append(key, value);
+      }
+
+
+    }
 
     $.ajax({
       url: `${http}${servidor}/${appname}/api/${apiURL}.php`,
@@ -336,6 +350,7 @@ async function ajaxAwaitFormData(dataJson = { api: 0, }, apiURL, form = 'OnlyFor
       },
       success: function (data) {
         config.resetForm ? formID.reset() : false;
+
         if (config.response) {
           if (mensajeAjax(data)) {
             config.callbackAfter ? callbackSuccess(config.WithoutResponseData ? data.response.data : data) : 1;
