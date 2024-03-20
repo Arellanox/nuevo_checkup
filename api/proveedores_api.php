@@ -121,7 +121,7 @@ switch ($api) {
         $nombre_archivo = "TIPO_DIRECCION_" . $tipo_direccion . "_" . uniqid($_SESSION['id']);
 
         if($master->createDir($dir)){
-            $files = $master->guardarFiles($_FILES, "comprobandte", $dir, $nombre_archivo);
+            $files = $master->guardarFiles($_FILES, "comprobante", $dir, $nombre_archivo);
 
             $comprobante = str_replace('../', $host, $files[0]['url']);
 
@@ -147,10 +147,7 @@ switch ($api) {
                 break;
             case 3:
                 $x = "Convenio";
-                break;
-            case 4:
-                $x = "Direccion";
-                break;    
+                break;  
             default:
                 $x = "UNKNOWN";
         }
