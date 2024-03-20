@@ -19,11 +19,10 @@
                                 </button>
                             </div>
 
-                            <label>Dirigido a:</label>
+                            <label>Dirección:</label>
                             <!-- <input type="text" class="form-control input-form" name="calle" id="calle-proveedor"> -->
                             <select name="tipo_direccion" class="form-control input-form">
-                                <option selected> Seleecione a que direccion va dirigido</option>
-                                <option value="1">Presencial</option>
+                                <option value="1">Pestación de servicios</option>
                                 <option value="2">Fiscal</option>
                             </select>
 
@@ -72,8 +71,7 @@
                             arrastrándolo
                             aquí</label>
 
-                        <input type="file" id="file-comprobanteDomicilio" name="comprobante[]"
-                            style="display: none;">
+                        <input type="file" id="file-comprobanteDomicilio" name="comprobante[]" style="display: none;">
                         <br>
                         <div class="spinner-border text-primary carga-captura-oido" role="status"
                             style="display: none;">
@@ -85,6 +83,9 @@
 
             <!-- Tarjetas -->
             <div class="col-8">
+                <div class="row" id="lista-DireccionProveedores">
+                </div>
+
 
             </div>
 
@@ -102,6 +103,13 @@
 </div>
 
 <style>
+    #lista-DireccionProveedores {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        grid-gap: 10px; /* Espaciado entre tarjetas */
+        padding-left: 10px;
+    }
+
     .drop-zone {
         width: 392px;
         height: 85px;

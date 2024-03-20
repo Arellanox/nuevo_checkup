@@ -6,8 +6,13 @@ $(document).on('click', '.btn-direccion', function (e) {
 
     // Reinicia y abre nuevo modalw
     document.getElementById('form-proveedores').reset();
+
+    // Buscamos las direcciones guardadas de ese proveedor
+    recargarDireccion(id_direccion)
+
     // Formulario y vista de contactos
     $('#modalVistaDirecciones').modal('show');
+
 })
 
 $(document).on('submit', '#form-proveedores_direccion', function (e) {
@@ -17,38 +22,24 @@ $(document).on('submit', '#form-proveedores_direccion', function (e) {
     // Preguntar si esta todo bien
     alertMensajeConfirm({
         icon: 'info',
-        title: '¿Deseas guardar un nuevo proveedor?',
-        text: 'Debes guardar un proveedor para agregar nueva información'
+        title: '¿Deseas guardar una nueva dirección?',
+        text: 'Asegurese que todos los campos son correctos'
     }, () => {
 
         // Mandar los datos
         ajaxAwaitFormData({
             api: 8,
-            proveedor_id : id_direccion
+            proveedor_id: id_direccion
         }, 'proveedores_api', 'form-proveedores_direccion', { formJquery: $('#subirComprobanteDomicilio'), callbackAfter: true, resetForm: true }, false, (data) => {
 
-            alertToast('Proveedor guardado', 'success');
-            // $('#modalVistaProveedores').modal('hide');
+            alertToast('Dirección guardada', 'success');
+
+            recargarDireccion(id_direccion)
         })
     }, 1)
 })
 
 InputDragDrop('#dropComprobanteDomicilio', (inputArea, salidaInput) => {
-
-
-
-    // Suponiendo que inputArea es un input de tipo file con el atributo "multiple" habilitado
-    // var files = inputArea.get(0).files;
-
-    // // Obten el nombre
-    // var nombreArchivo = inputArea.val().split('\\').pop();
-
-    // // Al finalizar, verifica si hay archivos no soportados para informar al usuario
-    // if (archivosNoSoportados.length > 0) {
-    //     var listaArchivosNoSoportados = "Archivos no soportados:\n" + archivosNoSoportados.join('\n');
-    //     alert(listaArchivosNoSoportados);
-    // }
-
 
     // Siempre se ejecuta al final del proceso
     salidaInput({
@@ -64,3 +55,34 @@ InputDragDrop('#dropComprobanteDomicilio', (inputArea, salidaInput) => {
 
     // Configuraciones
 }, { multiple: false })
+
+
+function recargarDireccion(data){
+    ajaxAwait(
+        { api: 14, proveedor_id: data }, 'proveedores_api', { callbackAfter: true }, false, function (row) {
+            //Llamamos una funcion donde se veran todos las tarjetas
+
+            $('#lista-DireccionProveedores').html('');
+
+            listaDireccionProveedores(row)
+        })
+}
+
+
+function listaDireccionProveedores(data) {
+    let listDirecciones = data.response.data
+
+    listDirecciones.forEach(direccion => {
+        
+        var tarjetaDireccion = `
+        <div class="rounded shadow p-3 my-3">
+            <h5>${direccion.TIPO_DIRECCION}</h5>
+            <p>Calle: ${direccion.CALLE}, ${direccion.NUM_EXTERIOR} ${direccion.NUM_INTERIOR ? 'Int. ' + direccion.NUM_INTERIOR : ''}</p>
+            <p>Colonia: ${direccion.COLONIA}, ${direccion.CIUDAD}, ${direccion.MUNICIPIO}</p>
+            ${direccion.COMPROBANTE_DOMICILIO ? '<p><a href="' + direccion.COMPROBANTE_DOMICILIO + '" target="_blank">Comprobante de Domicilio</a></p>' : ''}
+        </div>
+        `;
+    
+        $('#lista-DireccionProveedores').append(tarjetaDireccion);
+    });
+}
