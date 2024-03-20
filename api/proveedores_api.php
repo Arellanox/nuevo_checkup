@@ -143,7 +143,7 @@ switch ($api) {
                 $x = "CSF";
                 break;
             case 2:
-                $x = "Acta Constitutiva";
+                $x = "Acta_Constitutiva";
                 break;
             case 3:
                 $x = "Convenio";
@@ -152,10 +152,10 @@ switch ($api) {
                 $x = "Direccion";
                 break;
             case 5:
-                $x = "Caratula de Cuenta Bancaría";
+                $x = "Caratula_de_Cuenta_Bancaría";
                 break;
             case 6:
-                $x = "Datos de Pago";
+                $x = "Datos_de_Pago";
                 break;
             default:
                 $x = "UNKNOWN";
