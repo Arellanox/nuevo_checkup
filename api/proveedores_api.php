@@ -72,6 +72,12 @@ $tipo_contacto = $_POST['tipo_contacto']; #id del tipo de contacto
 # datos para archivos
 $id_tipo_archivo = $_POST['id_tipo_archivo'];
 
+
+# creditos de proveedores
+$dias_credito = $_POST['dias_credito'];
+$monto_credito = $_POST['monto_credito'];
+$tipo_servicio_prestar = $_POST['tipo_servicio_prestar']; # area id
+
 switch ($api) {
         //insertar informacion del proveedor principal
     case 1:
@@ -180,6 +186,19 @@ switch ($api) {
         ]);
 
         $response = $master->decodeJsonRecursively($response);
+        break;
+    case 12:
+        # agregar credito al proveedor
+        $response = $master->insertByProcedure("sp_proveedores_creditos_g", [
+            $proveedor_id,
+            $dias_credito,
+            $monto_credito,
+            $tipo_servicio_prestar
+        ]);
+        break;
+    case 13:
+        # buscar credito del proveedor
+        $response = $master->getByProcedure("sp_proveedores_creditos_b", [$proveedor_id]);
         break;
     default:
         $response = "API no definida";
