@@ -107,7 +107,20 @@ switch ($api) {
         break;
     case 8:
         # guardar los datos de la direccion del proveedor
-        $response = $master->insertByProcedure('sp_proveedores_direccion_g', $paramDireccion);
+        $dir = "../archivos/proveedores/$proveedor_id/comprobante_direccion/";
+        $nombre_archivo = "TIPO_DIRECCION_" . $tipo_direccion . "_" . uniqid($_SESSION['id']);
+
+        if($master->createDir($dir)){
+            $files = $master->guardarFiles($_FILES, "comprobandte", $dir, $nombre_archivo);
+
+            $comprobante = str_replace('../', $host, $files[0]['url']);
+
+            # reemplazamos el comprobante con el nuevo.
+            $paramDireccion[7] = $comprobante;
+            $response = $master->insertByProcedure('sp_proveedores_direccion_g', $paramDireccion);
+        }else {
+            $response = "No se pudo crear el directorio.";
+        }
         break;    
     case 9:
         # recuperar los tipos de documentos [csf, convenio, etc]
