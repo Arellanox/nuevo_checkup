@@ -326,7 +326,7 @@ async function ajaxAwaitFormData(dataJson = { api: 0, }, apiURL, form = 'OnlyFor
       }
     }
 
-    if (!form) {
+    if (form) {
       // Segundo formulario
       let secondFormData = new FormData(config.formJquery[0]);
 

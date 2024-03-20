@@ -1,5 +1,5 @@
 <div class="modal fade" id="modalVistaDirecciones" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-dialog modal-fullscreen modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header header-modal">
                 <h5 class="modal-title" id="filtrador">Información</h5>
@@ -7,100 +7,118 @@
             </div>
             <div class="modal-body">
                 <!-- <div class="rounded shadow p-3 m-3"> -->
-                <form id="form-proveedores" class="container col-10 pt-3">
+                <form id="form-proveedores_direccion">
                     <div class="row">
-                        <!-- <h4>Información</h4> -->
 
-                        <div class="pb-3">
-                            <!-- <label for="est_diagnostico" class="form-label">: </label> -->
+                        <div class="col-4 rounded shadow p-3 my-3">
 
-                            <div class="text-center">
-                                <div class="btn-group btn-group-lg" role="group">
-                                    <input type="radio" class="btn-check" name="tipo_persona" id="tipo_fisica"
-                                        autocomplete="off" checked required>
-                                    <label class="btn btn-outline-warning" for="tipo_fisica">Persona
-                                        Fisica</label>
+                            <div class="pb-4">
+                                <button type="submit" form="form-proveedores_direccion"
+                                    class="btn btn-confirmar float-end" id="form-proveedores_direccion">
+                                    <i class="bi bi-box-arrow-down"></i> Guardar
+                                </button>
+                            </div>
 
-                                    <input type="radio" class="btn-check" name="tipo_persona" id="tipo_moral"
-                                        autocomplete="off" required>
-                                    <label class="btn btn-outline-warning" for="tipo_moral">Persona
-                                        Moral</label>
+                            <label>Dirigido a:</label>
+                            <!-- <input type="text" class="form-control input-form" name="calle" id="calle-proveedor"> -->
+                            <select name="tipo_direccion" class="form-control input-form">
+                                <option selected> Seleecione a que direccion va dirigido</option>
+                                <option value="1">Presencial</option>
+                                <option value="2">Fiscal</option>
+                            </select>
 
-                                    <!-- <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                                                                                                          <label class="btn btn-outline-primary" for="btnradio3">Radio 3</label> -->
+                            <label>Calle:</label>
+                            <input type="text" class="form-control input-form" name="calle" id="calle-proveedor">
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <label>Numero exterior:</label>
+                                    <input type="text" class="form-control input-form" name="num_exterior"
+                                        id="num_exterior-proveedor">
+                                </div>
+
+                                <div class="col-6">
+                                    <label>Numero interior:</label>
+                                    <input type="text" class="form-control input-form" name="num_interior"
+                                        id="num_interior-proveedor">
                                 </div>
                             </div>
-                        </div>
 
+                            <label>Colonia:</label>
+                            <input type="text" class="form-control input-form" name="colonia" id="colonia-proveedor">
 
-                        <!-- Razón social -->
-                        <div class="col-12">
-                            <label>Razón social:</label>
-                            <input type="text" class="form-control input-form" name="razon_social"
-                                id="razon_social-proveedor">
-                        </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label>Ciudad:</label>
+                                    <input type="text" class="form-control input-form" name="ciudad"
+                                        id="ciudad-proveedor">
+                                </div>
 
-
-                        <!-- Nombre comercial -->
-                        <div class="col-12">
-                            <label>Nombre comercial:</label>
-                            <input type="text" class="form-control input-form" name="nombre_comercial"
-                                id="nombre_comercial-proveedor">
-                        </div>
-
-
-                        <!-- Representante legal -->
-                        <div class="col-12">
-                            <label>Representante legal:</label>
-                            <input type="text" class="form-control input-form" name="nombre_representante"
-                                id="representante_legal-proveedor">
-                        </div>
-
-
-                        <!-- Objeto social -->
-                        <div class="col-12">
-                            <label>Objeto social:</label>
-                            <input type="text" class="form-control input-form" name="objeto_social"
-                                id="objeto_social-proveedor">
-                        </div>
-
-                        <!-- Telefono -->
-                        <div class="col-12 col-lg-6">
-                            <label>Teléfono:</label>
-                            <input type="number" class="form-control input-form" name="telefono"
-                                id="telefono-proveedor">
-                        </div>
-
-                        <!-- Correo electronico -->
-                        <div class="col-12 col-lg-6">
-                            <label>Correo electrónico:</label>
-                            <input type="text" class="form-control input-form" name="email"
-                                id="correo_electronico-proveedor">
-                        </div>
-
-
-
-                        <!-- Sitio web -->
-                        <div class="col-12">
-                            <label>Sitio web:</label>
-                            <input type="text" class="form-control input-form" name="sitio_web"
-                                id="sitio_web-proveedor">
-                        </div>
-
-                    </div>
+                                <div class="col-6">
+                                    <label>Municipio:</label>
+                                    <input type="text" class="form-control input-form" name="municipio"
+                                        id="municipio-proveedor">
+                                </div>
+                            </div>
                 </form>
 
-                <!-- </div> -->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
-                    <i class="bi bi-arrow-left-short"></i> Cerrar
-                </button>
+                <label>Comprobante domicilio:</label>
+                <form id="subirComprobanteDomicilio" class="d-flex flex-column align-items-center">
+                    <div id="dropComprobanteDomicilio" class="drop-zone mx-2">
+                        <label for="file-comprobanteDomicilio" style="cursor: pointer;"
+                            class="label-comprobanteDomicilio">Sube
+                            tu
+                            archivo
+                            arrastrándolo
+                            aquí</label>
 
-                <button type="submit" form="form-proveedores" class="btn btn-confirmar">
-                    <i class="bi bi-person-plus"></i> Guardar
-                </button>
+                        <input type="file" id="file-comprobanteDomicilio" name="comprobante[]"
+                            style="display: none;">
+                        <br>
+                        <div class="spinner-border text-primary carga-captura-oido" role="status"
+                            style="display: none;">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+
             </div>
+
+            <!-- Tarjetas -->
+            <div class="col-8">
+
+            </div>
+
         </div>
+        </form>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
+            <i class="bi bi-arrow-left-short"></i> Cerrar
+        </button>
     </div>
 </div>
+</div>
+</div>
+
+<style>
+    .drop-zone {
+        width: 392px;
+        height: 85px;
+        border: 2px dashed rgb(0 79 90 / 17%);
+        text-align: center;
+        padding: 12px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        margin-left: 8px;
+    }
+
+    .drop-zone.hover_dropDrag {
+        border-color: #00bbb9 !important;
+        background-color: #c6cacc !important;
+    }
+
+    label.label-comprobanteDomicilio {
+        background: transparent;
+    }
+</style>

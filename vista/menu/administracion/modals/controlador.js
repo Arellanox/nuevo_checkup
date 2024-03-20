@@ -35,6 +35,7 @@ $.post("modals/a_modals.php", function (html) {
    // Js para proveedores
    $.getScript('modals/proveedores/js/nuevo_proveedor.js');
    $.getScript('modals/proveedores/js/contatos.js');
+   $.getScript('modals/proveedores/js/direccion.js');
 
 
 
