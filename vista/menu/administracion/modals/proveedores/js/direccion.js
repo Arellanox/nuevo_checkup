@@ -23,7 +23,7 @@ $(document).on('submit', '#form-proveedores_direccion', function (e) {
     alertMensajeConfirm({
         icon: 'info',
         title: '¿Deseas guardar una nueva dirección?',
-        text: 'Asegurese que todos los campos son correctos'
+        text: 'No podra actualizarlo'
     }, () => {
 
         // Mandar los datos

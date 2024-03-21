@@ -6,6 +6,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+
+
                 <div class="accordion" id="accordionExample">
                     <div class="accordion-item background-app">
                         <h2 class="accordion-header" id="headingOne">
@@ -14,72 +16,108 @@
                                 Nuevo documento
                             </button>
                         </h2>
+
                         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne">
                             <div class="accordion-body">
                                 <!-- Formulario -->
+                                <div class="container">
+                                    <div class="">
+                                        <div class="row">
+                                            <p>
+                                                Agrega un nuevo documento para el proveedor
+                                            </p>
+                                            <div class="col-5 rounded shadow p-3 my-3">
+                                                <form id="form-proveedores_documentos">
 
-                                <div class="row">
-                                    <p>
-                                        Agrega un nuevo documento para el proveedor
-                                    </p>
-                                    <div class="col-5 rounded shadow p-3 my-3">
-                                        <form id="form-proveedores_documentos">
+                                                    <label>Tipo de archivo a subir:</label>
+                                                    <select name="id_tipo_archivo" class="form-control input-form">
+                                                        <option value="1">CSF</option>
+                                                        <option value="2">Acta Constitutiva</option>
+                                                        <option value="3">Convenio</option>
+                                                        <option value="4">Caratula de Cuenta Bancaría</option>
+                                                        <option value="5">Datos de Pago</option>
+                                                    </select>
 
-                                            <label>Tipo de archivo a subir:</label>
-                                            <select name="tipo_direccion" class="form-control input-form">
-                                                <option value="1">CSF</option>
-                                                <option value="2">Acta Constitutiva</option>
-                                                <option value="3">Convenio</option>
-                                                <option value="5">Caratula de Cuenta Bancaría</option>
-                                                <option value="6">Datos de Pago</option>
-                                            </select>
+                                                </form>
 
-                                        </form>
+                                                <label>Documento a subir:</label>
+                                                <form id="subirDocumentoProveedor"
+                                                    class="d-flex flex-column align-items-center">
+                                                    <div id="dropProveedoresDocumentacion" class="drop-zone mx-2">
+                                                        <label for="file-documentacion" style="cursor: pointer;"
+                                                            class="label-documentacion">Sube
+                                                            tu
+                                                            archivo
+                                                            arrastrándolo
+                                                            aquí</label>
 
-                                        <label>Documento a subir:</label>
-                                        <form id="subirComprobanteDomicilio"
-                                            class="d-flex flex-column align-items-center">
-                                            <div id="dropComprobanteDomicilio" class="drop-zone mx-2">
-                                                <label for="file-comprobanteDomicilio" style="cursor: pointer;"
-                                                    class="label-comprobanteDomicilio">Sube
-                                                    tu
-                                                    archivo
-                                                    arrastrándolo
-                                                    aquí</label>
+                                                        <input type="file" id="file-documentacion" name="archivo[]"
+                                                            style="display: none;">
+                                                        <br>
+                                                        <div class="spinner-border text-primary carga-captura-oido"
+                                                            role="status" style="display: none;">
+                                                            <span class="visually-hidden">Loading...</span>
+                                                        </div>
+                                                    </div>
+                                                </form>
 
-                                                <input type="file" id="file-comprobanteDomicilio" name="comprobante[]"
-                                                    style="display: none;">
-                                                <br>
-                                                <div class="spinner-border text-primary carga-captura-oido"
-                                                    role="status" style="display: none;">
-                                                    <span class="visually-hidden">Loading...</span>
+                                                <div class="pb-4">
+                                                    <button type="submit" form="form-proveedores_documentos"
+                                                        class="btn btn-confirmar float-end"
+                                                        id="form-proveedores_documentos">
+                                                        <i class="bi bi-box-arrow-down"></i> Guardar
+                                                    </button>
+                                                </div>
+
+                                            </div>
+
+                                            <!-- Vista de archivo a subir -->
+                                            <div class="col-7">
+                                                <!-- Vista previa del pdf -->
+                                                <div class="overflow-auto px-2" style="height: 100%; max-height:70vh;">
+                                                    <!-- Canvas -->
+                                                    <div id="pdf-canvas" class="img-thumbnail"
+                                                        style="width: 94%; height: auto; display: none;  max-height: 100%;">
+                                                    </div>
+                                                    <!-- Imagenes contenedor -->
+                                                    <div id="image-preview"
+                                                        style="width: 94%; height: auto; display: none;">
+
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </form>
-                                        <div class="pb-4">
-                                            <button type="submit" form="form-proveedores_direccion"
-                                                class="btn btn-confirmar float-end" id="form-proveedores_direccion">
-                                                <i class="bi bi-box-arrow-down"></i> Guardar
-                                            </button>
-                                        </div>
-
-                                    </div>
-
-                                    <!-- Tarjetas -->
-                                    <div class="col-7">
-                                        <div class="row" id="lista-DireccionProveedores">
                                         </div>
                                     </div>
-
                                 </div>
 
-
-
                             </div>
+                        </div>
+                    </div>
 
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                Documentos guardados
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingOne">
+                            <div class="accordion-body">
+                                <!-- Información -->
+                                
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <table class="table mt-3 display responsive" id="TableDocumentosProveedor">
+                                            </table>
+                                        </div>
+                                    </div>
+                                
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
@@ -90,35 +128,8 @@
     </div>
 </div>
 
-
-
-
 <style>
-    /*
-    #lista-DireccionProveedores {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        grid-gap: 10px;
-        padding-left: 10px;
-    }
-*/
-    .drop-zone {
-        width: 392px;
-        height: 85px;
-        border: 2px dashed rgb(0 79 90 / 17%);
-        text-align: center;
-        padding: 12px;
-        margin-bottom: 20px;
-        border-radius: 10px;
-        margin-left: 8px;
-    }
-
-    .drop-zone.hover_dropDrag {
-        border-color: #00bbb9 !important;
-        background-color: #c6cacc !important;
-    }
-
-    label.label-comprobanteDomicilio {
+    label.label-documentacion {
         background: transparent;
     }
 </style>
