@@ -226,6 +226,11 @@ switch ($api) {
         # recuperar los pacientes que tiene proveedores externos.
         $response = $master->getByProcedure("sp_proveedores_turnos_b", [$proveedor_id, $fecha_inicial, $fecha_final]);
         break;
+    case 16:
+        # recuperar los archivos de un proveedor separado por rows para que lo pueda usar angel
+        # traiganle una falda a la nina
+        $response = $master->getByProcedure("sp_proveedores_archivos_b_splitted", [$id_proveedores, $id_tipo_archivo]);
+        break;
 
     default:
         $response = "API no definida";
