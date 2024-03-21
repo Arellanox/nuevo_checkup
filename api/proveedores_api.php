@@ -216,6 +216,7 @@ switch ($api) {
     case 13:
         # buscar credito del proveedor
         $response = $master->getByProcedure("sp_proveedores_creditos_b", [$proveedor_id]);
+        $response = $master->decodeJsonRecursively($response);
         break;
     case 14:
         # buscar las direcciones de un proveedor
