@@ -34,12 +34,14 @@ $.post("modals/a_modals.php", function (html) {
 
    // Js para proveedores
    $.getScript('modals/proveedores/js/nuevo_proveedor.js');
-   $.getScript('modals/proveedores/js/contatos.js');
+   $.getScript('modals/proveedores/js/contactos.js');
 
    $.getScript('modals/proveedores/js/direccion.js');
    $.getScript('modals/proveedores/js/documentos.js');
-   
+
    $.getScript('modals/proveedores/js/info_credito.js');
+
+   $.getScript('modals/proveedores/js/pacientes.js');
 
 
 

@@ -24,6 +24,7 @@ tablaVistaProveedores = $('#tablaVistaProveedores').DataTable({
                     api: true
                 })
                 .columns.adjust();
+            loader("Out");
         },
         dataSrc: 'response.data'
     },
@@ -86,7 +87,8 @@ tablaVistaProveedores = $('#tablaVistaProveedores').DataTable({
         { target: 5, title: 'Tipo', className: 'min-tablet' },
         // { target: 6, title: 'Razon Social', className: 'all' },
         { target: 6, title: 'Sitio Web', className: 'desktop', },
-        { target: 7, title: '#', className: 'all', width: "50px" }
+        { target: 7, title: '#', className: 'all', width: "50px" },
+        { className: "text-vertical-center", "targets": "_all" }
 
     ]
 
@@ -106,59 +108,15 @@ inputBusquedaTable('tablaVistaProveedores', tablaVistaProveedores, [
 ], [], 'col-12')
 
 
-// // Solo para eliminar o obtener comisiones
-// selectTable('#tablaVistaVendedores', tablaVistaVendedores, {
-//     OnlyData: true,
-//     ClickClass: [
-//         {
-//             class: 'eliminar-diagnostico',
-//             callback: function (data) {
-
-//                 // Recuperar ID del vendedor de la tabla
-//                 var id_vendedor = data.ID_VENDEDOR;
-
-//                 // Confirmacion del usuario
-//                 alertMensajeConfirm({
-//                     title: '¿Está seguro que desea desactivar el registro?',
-//                     text: 'No podrá modificarlo despues',
-//                     icon: 'warning',
-//                 }, function () {
-
-//                     // Envio a api
-//                     ajaxAwait({ api: 3, id_vendedor: id_vendedor }, 'vendedores_api', { callbackAfter: true }, false, function (data) {
-//                         alertToast('Vendedor eliminado!', 'success', 4000)
-
-//                         tablaVistaVendedores.ajax.reload();
-//                     })
-//                 }, 1)
-//             },
-//         },
-
-//         {
-//             class: 'comisiones-vendedor',
-//             callback: function (data) {
-//                 // Recuperar ID del vendedor de la tabla
-//                 var id_vendedor = data.ID_VENDEDOR;
-
-//                 dataVistaPeriodos['id_vendedor'] = id_vendedor;
-//                 tablaPeriodosVendedor.ajax.reload();
-
-//                 setTimeout(() => {
-//                     $('#modal_comisionesVendedor').modal('show')
-
-//                     // Arregla los encabezados de la tabla
-//                     setTimeout(() => {
-//                         $.fn.dataTable
-//                             .tables({
-//                                 visible: true,
-//                                 api: true
-//                             })
-//                             .columns.adjust();
-//                     }, 300);
-//                 }, 300);
-
-
-//             }
-//         }
-//     ],
-// })
+// Solo para eliminar o obtener comisiones
+selectTable('#tablaVistaProveedores', tablaVistaProveedores, {
+    noColumns: false, unSelect: true
+}, (select, data) => {
+    if (select) {
+        dataVistaPacientes['proveedor_id'] = data.ID_PROVEEDOR;
+        $('#label-table-pacientes').html(`Pacientes del proveedor ${data.NOMBRE_COMERCIAL}`)
+    } else {
+        dataVistaPacientes = { api: 15, }
+        $('#label-table-pacientes').html(``)
+    }
+})

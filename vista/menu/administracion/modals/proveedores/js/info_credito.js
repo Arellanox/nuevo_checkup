@@ -17,10 +17,12 @@ $(document).on('click', '.btn-cargar-documentos', function (e) {
     // Formulario y vista de contactos
     bsCollapse.hide();
 
+    // Recupera informaación  
     alertToast('Cargando datos previos...', 'info');
-
+    getInfoCredito();
     getArchivosInformacionCredito();
 
+    // Abre el modal de información de credito
     $('#modalVistaInfoCredito').modal('show');
 
 
@@ -188,7 +190,7 @@ function getInfoCredito() {
         // Dias que asignaron
         $('#credito_dias-info').html(dias)
         $('#monto_credito-info').html(ifnull(row, 'Sin agregar', ['MONTO_CREDITO'], (data) => {
-            data = parseFloat(data);
+            data = parseFloat(data).toFixed(2);
             return `$${data}`;
         }))
 

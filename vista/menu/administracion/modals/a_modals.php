@@ -35,5 +35,5 @@ include "proveedores/nuevo_proveedor.html";
 include "proveedores/contactos.html";
 include "proveedores/direccion.html";
 include "proveedores/documentos.html";
-
+include "proveedores/pacientes.html";
 include "proveedores/info_credito.html";

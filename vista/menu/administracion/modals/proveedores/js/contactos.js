@@ -50,7 +50,7 @@ $(document).on('submit', '#form-Contacto', function (e) {
 
 
 // Tabla de contactos por proveedor
-dataVistacontactos = { api: 7, proveedor_id : proveedor_id }
+dataVistacontactos = { api: 7, proveedor_id: proveedor_id }
 tablaVistaContactos = $('#tablaVistaContactos').DataTable({
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
