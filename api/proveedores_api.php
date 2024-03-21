@@ -121,7 +121,7 @@ switch ($api) {
         break;
     case 7:
         # buscar contactos
-        $response = $master->getByProcedure("sp_proveedores_contactos_b", [$id_proveedores, $tipo_contacto]);
+        $response = $master->getByProcedure("sp_proveedores_contactos_b", [$proveedor_id, $tipo_contacto]);
         break;
     case 8:
         # guardar los datos de la direccion del proveedor

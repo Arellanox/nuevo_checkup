@@ -23,6 +23,9 @@ $(document).on('submit', '#form-proveedores', function (e) {
         }, 'proveedores_api', 'form-proveedores', { callbackAfter: true, resetForm: true }, false, (data) => {
 
             alertToast('Proveedor guardado', 'success');
+            
+            tablaVistaProveedores.ajax.reload();
+
             $('#modalVistaProveedores').modal('hide');
         })
     }, 1)
