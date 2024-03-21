@@ -231,6 +231,9 @@ switch ($api) {
         # traiganle una falda a la nina
         $response = $master->getByProcedure("sp_proveedores_archivos_b_splitted", [$id_proveedores, $id_tipo_archivo]);
         break;
+    case 17:
+        $response = $master->deleteByProcedure("sp_proveedores_direccion_e", [$id_proveedor_direccion]);
+        break;
 
     default:
         $response = "API no definida";
