@@ -460,20 +460,30 @@ function checkNumber(x, transform = 0) {
 }
 
 
-function ifnull(data, siNull = '', values = [
-  'option1',
-  {
-    'option2': [
-      'suboption1',
-      {
-        'suboption2': ['valor']
-      }
-    ],
-    'option3': 'suboption1'
-  },
-  'option4',
-]) {
-  console.log(data)
+function ifnull(
+  data, siNull = '', values = [],
+  callbackData = (data) => {
+    return data
+  }
+) {
+
+  // values = [
+  //   'option1',
+  //   {
+  //     'option2': [
+  //       'suboption1',
+  //       {
+  //         'suboption2': ['valor']
+  //       }
+  //     ],
+  //     'option3': 'suboption1'
+  //   },
+  //   'option4',
+  // ]
+  // Retorna la data modificado
+
+  // console.log(data, siNull, values, callbackData)
+
   values = ((typeof values === 'object' && !Array.isArray(values)) || (typeof values === 'string'))
     ? [values]
     : values;
@@ -510,13 +520,13 @@ function ifnull(data, siNull = '', values = [
     if (typeof key === 'string' && key in data) {
       const result = ifnull(data[key], false);
       if (result) {
-        return result;
+        return callbackData(result);
       }
       // return result || siNull;
     } else if (typeof key === 'object') {
       for (const nestedKey in key) {
         const result = ifnull(data[nestedKey], siNull, [key[nestedKey]]);
-        if (result) return result
+        if (result) return callbackData(result) // <-- Modifica la data para enviar algo personalizado
       }
     }
   }
@@ -524,7 +534,7 @@ function ifnull(data, siNull = '', values = [
 
   try {
     if (data.length) {
-      return data
+      return callbackData(data)
     }
   } catch (error) {
     console.error('El objeto no es texto');
