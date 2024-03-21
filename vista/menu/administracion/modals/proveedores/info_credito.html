@@ -31,14 +31,14 @@
                                                     <!-- Crédito que asigna -->
                                                     <label class="form-label">Crédito que asigna:</label>
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control input-form"
-                                                            name="nombre_contacto" required id="nombre-proveedor">
+                                                        <input type="number" class="form-control input-form"
+                                                            name="dias_credito" required id="nombre-proveedor">
                                                         <span class="input-span" id="span_formEdad">días</span>
                                                     </div>
 
                                                     <label class="form-label">Monto a crédito:</label>
-                                                    <input type="text" class="form-control input-form" name="telefono"
-                                                        id="telefono-proveedor">
+                                                    <input type="number" class="form-control input-form"
+                                                        name="monto_credito" id="telefono-proveedor">
                                                 </form>
 
                                                 <!-- Drag and drop -->
@@ -56,8 +56,8 @@
                                                             name="archivo[]" style="display: none;" multiple>
                                                         <br>
 
-                                                        <div class="spinner-border text-primary carga-input_caratulaBancaria"
-                                                            role="status" style="display: none;">
+                                                        <div class="spinner-border text-primary" role="status"
+                                                            style="display: none;">
                                                             <span class="visually-hidden">Loading...</span>
                                                         </div>
                                                     </form>
@@ -73,12 +73,12 @@
                                                             Sube tu archivo arrastrándolo aquí
                                                         </label>
 
-                                                        <input type="file" class="" id="input_" name="archivo[]"
-                                                            style="display: none;" multiple>
+                                                        <input type="file" class="" id="input_DatosPago"
+                                                            name="archivo[]" style="display: none;" multiple>
                                                         <br>
 
-                                                        <div class="spinner-border text-primary carga-input_"
-                                                            role="statusDatosPago" style="display: none;">
+                                                        <div class="spinner-border text-primary " role="statusDatosPag"
+                                                            style="display: none;">
                                                             <span class="visually-hidden">Loading...</span>
                                                         </div>
                                                     </form>
@@ -114,6 +114,43 @@
                         <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingOne">
                             <div class="accordion-body">
                                 <!-- Información -->
+                                <div class="container d-flex justify-content-center">
+                                    <div class="col-11">
+                                        <!-- <p>Informacio</p> -->
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-end">
+                                                <div class="pt-3 my-2 w-75">
+
+                                                    <div class="row">
+                                                        <div class="col-12 col-lg-auto">
+                                                            <!-- Procedecia ACTUAL -->
+                                                            <strong>Crédito que asigna: <span class="none-p"
+                                                                    id="procedecia-lote_muestra"></span></strong>
+                                                        </div>
+                                                        <div class="col-12 col-lg-auto">
+                                                            <!-- Folio ACTUAL -->
+                                                            <strong>Monto a crédito: <span class="none-p"
+                                                                    id="folio_lote-lote_muestra"></span></strong>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <!-- Fecha de envio ACTUAL -->
+                                                            <strong>Servicios a prestar: <span class="none-p"
+                                                                    id="enviado-lote_muestra"></span></strong>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#modalRecepcionMuestras">
+              <i class="bi bi-plus-square"></i> Muestras (eliminar luego)
+            </button> -->
+                                                </div>
+                                            </div>
+
+                                            <div class="rounded shadow p-3 m-3">
+                                                <div id="contenedor_informacion_credito" class="row"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -124,10 +161,20 @@
                     <i class="bi bi-arrow-left-short"></i> Cerrar
                 </button>
 
-                <button type="submit" form="form-Contacto" class="btn btn-confirmar">
+                <button type="submit" form="form-info_credito" class="btn btn-confirmar">
                     <i class="bi bi-person-plus"></i> Guardar
                 </button>
             </div>
         </div>
     </div>
 </div>
+
+
+<script>
+    let myCollapse = document.getElementById('collapseOne');
+    let bsCollapse = new bootstrap.Collapse(myCollapse, {
+        toggle: false
+    });
+    bsCollapse.hide();
+
+</script>

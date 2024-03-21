@@ -13,18 +13,29 @@ $(document).on('click', '.btn-cargar-documentos', function (e) {
 
     // Reinicia y abre nuevo modalw
     document.getElementById('form-info_credito').reset();
+    resetInputLabel()
     // Formulario y vista de contactos
+    bsCollapse.hide();
+
+    alertToast('Cargando datos previos...', 'info');
+
+    getArchivosInformacionCredito();
+
     $('#modalVistaInfoCredito').modal('show');
 
-    setTimeout(() => {
-        $.fn.dataTable
-            .tables({
-                visible: true,
-                api: true
-            })
-            .columns.adjust();
-    }, 300);
+
 })
+
+$('.collapse').on('shown.bs.collapse', function () {
+    $.fn.dataTable
+        .tables({
+            visible: true,
+            api: true
+        })
+        .columns.adjust();
+});
+
+
 
 // Formulario
 $(document).on('submit', '#form-info_credito', function (e) {
@@ -33,16 +44,25 @@ $(document).on('submit', '#form-info_credito', function (e) {
     // Preguntar si esta todo bien
     alertMensajeConfirm({
         icon: 'info',
-        title: '¿Deseas guardar correctamente el contacto?',
-        text: 'Este nuevo contacto se guardará con el proveedor correspondiente'
+        title: '¿Deseas guardar correctamente la información?',
+        text: 'No podrá modificarlo más tarde'
     }, () => {
+        let servicios = TableAreasSelect.rows('.selected').data();
+        let ids = [];
+
+        for (let i = 0; i < servicios.length; i++) {
+            // Asumiendo que cada objeto de datos de la fila tiene una propiedad 'ID'
+            ids.push(servicios[i].ID_AREA);
+        }
+
+        let idText = ids.join(', ');
 
         // Mandar los datos
         ajaxAwaitFormData({
-            api: 5, id_proveedores: proveedor_id_credito
+            api: 12, proveedor_id: proveedor_id_credito, tipo_servicio_prestar: idText
         }, 'proveedores_api', 'form-info_credito', { callbackAfter: true, resetForm: true }, false, (data) => {
 
-            alertToast('Contacto guardado', 'success');
+            alertToast('Información guardada', 'success');
 
             // Reseteamos el formulario
             document.getElementById('form-info_credito').reset();
@@ -66,7 +86,7 @@ let TableAreasSelect = $('#servicio_table_select').DataTable({
     lengthChange: false,
     info: false,
     paging: false,
-    searching: false,
+    // searching: false,
     scrollY: '40vh',
     scrollCollapse: true,
     ajax: {
@@ -85,27 +105,33 @@ let TableAreasSelect = $('#servicio_table_select').DataTable({
         dataSrc: 'response.data'
     },
     columns: [
+        {
+            data: null, render: function () {
+                return '';
+            }
+        },
         { data: 'DESCRIPCION', },
     ],
     columnDefs: [
-        { target: 0, title: 'Areas', className: 'all' },
+        { target: 0, title: '', className: 'all', with: '1px' },
+        { target: 1, title: 'Areas', className: 'all' },
     ]
 
 })
 
 
-inputBusquedaTable('TableAreasSelect', servicio_table_select, [], [], 'col-12')
+inputBusquedaTable('servicio_table_select', TableAreasSelect, [], [], 'col-12')
 
 
 
 
 let areas_seleccionadas = [];
 selectTable('#servicio_table_select', TableAreasSelect, {
-    multipleSelect: true, noColumns: false
+    multipleSelect: true, noColumns: false, unSelect: true,
 }, async function (select, data, callback) {
-
+    console.log(data);
     if (select) {
-        areas_seleccionadas[data.ID_AREA];
+        areas_seleccionadas.push(data.ID_AREA);
     } else {
         areas_seleccionadas.splice(data.ID_AREA, 1)
     }
@@ -139,6 +165,103 @@ InputDragDrop('#dropDatosPago', (inputArea, salidaInput) => {
     })
 }, { multiple: true })
 
+
+
+
+
 function getArchivosInformacionCredito() {
-    ajaxAwait()
+    ajaxAwait({
+        api: 11, id_proveedores: proveedor_id_credito,
+    }, 'proveedores_api', { callbackAfter: true }, false, function (data) {
+        console.log(data);
+
+        const jsonData = data.response.data;
+        $('#contenedor_informacion_credito').html('')
+
+        jsonData.forEach(item => {
+            if (item.TIPO_ARCHIVO === "Caratula de Cuenta Bancaría" || item.TIPO_ARCHIVO === "Datos de Pago") {
+                let $div = $('<div>').addClass('col-12 col-lg-6 mb-4');
+                let $titulo = $('<h5>').text(item.TIPO_ARCHIVO).addClass('mb-3');
+                $div.append($titulo);
+
+                let $botones = $('<div>').addClass('d-flex justify-content-center mt-2');
+
+                item.RUTA_ARCHIVO.forEach(archivo => {
+                    let $boton = $('<a>')
+                        .attr('href', archivo.url)
+                        .attr('download', '')
+                        .addClass('btn btn-danger me-2 mb-2')
+                        .html('<i class="bi bi-file-earmark-pdf-fill"></i>');
+                    $botones.append($boton);
+                });
+
+                if (item.RUTA_ARCHIVO.length > 0) {
+                    let primerArchivo = item.RUTA_ARCHIVO[0];
+                    let archivoParaProcesar = {
+                        name: primerArchivo.url.split('/').pop(),
+                        type: primerArchivo.tipo === 'png' ? 'image/png' : 'application/pdf',
+                        url: primerArchivo.url
+                    };
+                    procesarArchivo(archivoParaProcesar, $div, $botones);
+                } else {
+                    $div.append($botones);
+                }
+
+                $('#contenedor_informacion_credito').append($div);
+            }
+        });
+
+
+    })
 }
+
+function procesarArchivo(file, $div, $botones) {
+
+    var $canvasContainer = $('<div>').addClass('d-flex justify-content-center my-2');
+
+    if (file.type === 'application/pdf') {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js';
+        var loadingTask = pdfjsLib.getDocument(file.url);
+        loadingTask.promise.then(function (pdf) {
+            pdf.getPage(1).then(function (page) {
+                // Calculamos el escalado necesario para ajustar la altura a 400px
+                var viewport = page.getViewport({ scale: 1.0 });
+                var scale = 400 / viewport.height;
+                var scaledViewport = page.getViewport({ scale: scale });
+
+                var canvas = $('<canvas></canvas>').get(0);
+                var context = canvas.getContext('2d');
+                canvas.height = scaledViewport.height;
+                canvas.width = scaledViewport.width;
+
+                // Creamos un div para contener el canvas y asegurarnos de que esté centrado
+                $canvasContainer.css('max-height', '400px').append($(canvas));
+
+                var renderContext = {
+                    canvasContext: context,
+                    viewport: scaledViewport
+                };
+                var renderTask = page.render(renderContext);
+                renderTask.promise.then(function () {
+                    // Añadimos el contenedor del canvas, no el canvas directamente
+                    $div.append($canvasContainer);
+                    $div.append($botones); // Aseguramos que los botones se agreguen después del contenedor del canvas
+                });
+            });
+        }, function (reason) {
+            console.error(reason);
+        });
+    } else if (file.type.match('image.*')) {
+        var $img = $('<img>', {
+            src: file.url,
+            class: 'img-fluid img-thumbnail my-2',
+            style: 'max-height: 400px; width: auto;' // Controla la altura máxima de las imágenes
+        });
+        $canvasContainer.append($img);
+        $div.append($canvasContainer);
+        $div.append($botones);
+    } else {
+        console.log('Archivo no soportado:', file.name);
+    }
+}
+
