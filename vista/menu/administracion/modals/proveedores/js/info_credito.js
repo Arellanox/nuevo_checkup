@@ -67,7 +67,8 @@ $(document).on('submit', '#form-info_credito', function (e) {
             // Reseteamos el formulario
             document.getElementById('form-info_credito').reset();
 
-            getArchivosInformacionCredito();
+            // getArchivosInformacionCredito();
+            getInfoCredito();
 
             // $('#modalVistaProveedores').modal('hide');
 
@@ -149,6 +150,7 @@ InputDragDrop('#dropCaratulaCuentaBancaria', (inputArea, salidaInput) => {
     }, 'proveedores_api', 'formCaratulaCuentaBancaria', { callbackAfter: true }, false, function () {
         // Siempre se ejecuta al final del proceso
         salidaInput();
+        getArchivosInformacionCredito();
 
     })
 }, { multiple: true })
@@ -162,6 +164,7 @@ InputDragDrop('#dropDatosPago', (inputArea, salidaInput) => {
     }, 'proveedores_api', 'formDatosPado', { callbackAfter: true }, false, function () {
         // Siempre se ejecuta al final del proceso
         salidaInput();
+        getArchivosInformacionCredito();
 
     })
 }, { multiple: true })
@@ -170,11 +173,44 @@ InputDragDrop('#dropDatosPago', (inputArea, salidaInput) => {
 
 
 
+function getInfoCredito() {
+    ajaxAwait({
+        api: 13, proveedor_id: proveedor_id_credito
+    }, 'proveedores_api', { callbackAfter: true }, false, function (data) {
+        console.log(data);
+
+        row = data.response.data[0]
+
+        let dias = ifnull(row, 'Sin agregar', ['DIAS_CREDITO'], (data) => {
+            data = parseInt(data);
+            return data == 1 ? `${data} día` : `${data} días`;
+        })
+        // Dias que asignaron
+        $('#credito_dias-info').html(dias)
+        $('#monto_credito-info').html(ifnull(row, 'Sin agregar', ['MONTO_CREDITO'], (data) => {
+            data = parseFloat(data);
+            return `$${data}`;
+        }))
+
+        let servicios = ifnull(row, 'Sin agregar', ['SERVICIOS_PRESTAR'], (data) => {
+
+            console.log(row[0]['SERVICIOS_PRESTAR'], data, 'servicios')
+            try {
+                return data.map(servicio => `${servicio.AREA}`).join(', ');;
+            } catch (error) {
+                return 1;
+            }
+        })
+
+        $('#servicios-info').html(servicios)
+    })
+}
+
 function getArchivosInformacionCredito() {
     ajaxAwait({
         api: 11, id_proveedores: proveedor_id_credito,
     }, 'proveedores_api', { callbackAfter: true }, false, function (data) {
-        console.log(data);
+        // console.log(data);
 
         const jsonData = data.response.data;
         $('#contenedor_informacion_credito').html('')
