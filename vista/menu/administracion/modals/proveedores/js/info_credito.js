@@ -66,7 +66,8 @@ $(document).on('submit', '#form-info_credito', function (e) {
 
             // Reseteamos el formulario
             document.getElementById('form-info_credito').reset();
-            tablaVistaContactos.ajax.reload();
+
+            getArchivosInformacionCredito();
 
             // $('#modalVistaProveedores').modal('hide');
 
