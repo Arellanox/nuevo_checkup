@@ -65,7 +65,7 @@ tablaVistaProveedores = $('#tablaVistaProveedores').DataTable({
 
                             <div class="col-6">
                                 <!-- Archivos -->
-                                <i class="bi bi-file-earmark-pdf-fill btn-offcanva icons-btn d-block" 
+                                <i class="bi bi-file-earmark-pdf-fill btn-offcanva btn-subir-documentos icons-btn d-block" 
                                     data-bs-id="${data}">
                                 </i>
                             </div>  

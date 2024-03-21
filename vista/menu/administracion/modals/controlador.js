@@ -37,7 +37,11 @@ $.post("modals/a_modals.php", function (html) {
    $.getScript('modals/proveedores/js/contatos.js');
 
    $.getScript('modals/proveedores/js/direccion.js');
+   $.getScript('modals/proveedores/js/documentos.js');
+   
    $.getScript('modals/proveedores/js/info_credito.js');
+
+
 
 
 
