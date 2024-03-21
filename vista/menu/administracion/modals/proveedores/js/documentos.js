@@ -1,22 +1,27 @@
 let id_documentos
 
 // Formulario para agregar direccion
-$(document).on('click', '.btn-subir-documentos', function (e) {
-    id_documentos = $(this).attr('data-bs-id')
+$(document).on('click', '#btn-subir-documentos', function (e) {
+    id_documentos = $('#btn-subir-documentos').attr('data-bs-id')
+    console.log(id_documentos)
+    if (id_documentos == '0' || typeof id_documentos == 'undefined') {
+        alertToast('Selecciona un proveedor', 'info');
+        return false;
+    }
 
     // Reinicia y abre nuevo modalw
     // document.getElementById('form-proveedores').reset();
 
     // Formulario y vista de contactos
     $('#modalVistaDocumentos').modal('show');
-    
+
     setTimeout(() => {
         $.fn.dataTable
-        .tables({
-            visible: true,
-            api: true
-        })
-        .columns.adjust();
+            .tables({
+                visible: true,
+                api: true
+            })
+            .columns.adjust();
     }, 300);
 
 })
@@ -180,7 +185,7 @@ let TableDocumentosProveedor = $('#TableDocumentosProveedor').DataTable({
     scrollCollapse: true,
     ajax: {
         dataType: 'json',
-        data: {api: 11,  id_proveedores: id_documentos},
+        data: { api: 11, id_proveedores: id_documentos },
         method: 'POST',
         url: '../../../api/proveedores_api.php',
         complete: function () {

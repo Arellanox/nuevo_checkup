@@ -66,7 +66,7 @@ tablaVistaProveedores = $('#tablaVistaProveedores').DataTable({
 
                             <div class="col-6">
                                 <!-- Archivos -->
-                                <i class="bi bi-file-earmark-pdf-fill btn-offcanva btn-subir-documentos icons-btn d-block" 
+                                <i class="bi bi-pencil-square btn-editar-proveedor icons-btn d-block" 
                                     data-bs-id="${data}">
                                 </i>
                             </div>  
@@ -110,13 +110,26 @@ inputBusquedaTable('tablaVistaProveedores', tablaVistaProveedores, [
 
 // Solo para eliminar o obtener comisiones
 selectTable('#tablaVistaProveedores', tablaVistaProveedores, {
-    noColumns: false, unSelect: true
+    noColumns: false, unSelect: true,
+    clickClass: [
+        {
+            class: 'btn-editar-proveedor',
+            callback: (data) => {
+                // para actualizar información del proveedor
+            },
+            selected: true
+        }
+    ]
 }, (select, data) => {
     if (select) {
         dataVistaPacientes['proveedor_id'] = data.ID_PROVEEDOR;
         $('#label-table-pacientes').html(`Pacientes del proveedor ${data.NOMBRE_COMERCIAL}`)
+
+        $('#btn-subir-documentos').attr('data-bs-id', data.ID_PROVEEDOR)
     } else {
         dataVistaPacientes = { api: 15, }
         $('#label-table-pacientes').html(``)
+        $('#btn-subir-documentos').attr('data-bs-id', 0)
+
     }
 })
