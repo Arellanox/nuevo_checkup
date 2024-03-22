@@ -232,7 +232,12 @@ switch ($api) {
         $response = $master->getByProcedure("sp_proveedores_archivos_b_splitted", [$id_proveedores, $id_tipo_archivo]);
         break;
     case 17:
+        # eliminar una direccion.
         $response = $master->deleteByProcedure("sp_proveedores_direccion_e", [$id_proveedor_direccion]);
+        break;
+    case 18:
+        # eliminar un archivo de proveedor.
+        $response = $master->deleteByProcedure("sp_proveedores_archivos_e", [ $id_proveedores, $id_tipo_archivo]);
         break;
 
     default:
