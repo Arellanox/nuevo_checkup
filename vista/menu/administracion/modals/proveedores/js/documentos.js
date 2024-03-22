@@ -9,11 +9,21 @@ $(document).on('click', '#btn-subir-documentos', function (e) {
         return false;
     }
 
+    //Limpia la vista cada vez que se entra al modal
+    $('#image-preview').hide();
+    $('#image-preview').html('');
+    $('#pdf-canvas').hide();
+
+    inputDropDocumentos.resetInputDrag();
+
     // Reinicia y abre nuevo modalw
     // document.getElementById('form-proveedores').reset();
+    dataDocumentosProveedor['id_proveedores'] = id_documentos
+    TableDocumentosProveedor.ajax.reload()
 
     // Formulario y vista de contactos
     $('#modalVistaDocumentos').modal('show');
+
 
     setTimeout(() => {
         $.fn.dataTable
@@ -27,7 +37,7 @@ $(document).on('click', '#btn-subir-documentos', function (e) {
 })
 
 var archivosNoSoportados = []; // Lista para guardar los nombres de archivos no soportados
-InputDragDrop('#dropProveedoresDocumentacion', (inputArea, salidaInput) => {
+let inputDropDocumentos = InputDragDrop('#dropProveedoresDocumentacion', (inputArea, salidaInput) => {
 
 
 
@@ -40,6 +50,8 @@ InputDragDrop('#dropProveedoresDocumentacion', (inputArea, salidaInput) => {
     $('#image-preview').hide();
     $('#image-preview').html('');
     $('#pdf-canvas').hide();
+
+    $('#pdfviewer').html('')
 
     // console.log(files);
     // Itera sobre todos los archivos seleccionados
@@ -66,6 +78,7 @@ InputDragDrop('#dropProveedoresDocumentacion', (inputArea, salidaInput) => {
             borderBottom: '1px solid'
         }
     });
+
 
     // Configuraciones
 }, { multiple: true })
@@ -164,6 +177,10 @@ $(document).on('submit', '#form-proveedores_documentos', function (e) {
             id_proveedores: id_documentos,
         }, 'proveedores_api', 'form-proveedores_documentos', { formJquery: $('#subirDocumentoProveedor'), callbackAfter: true, resetForm: true }, false, (data) => {
 
+            $('#image-preview').hide();
+            $('#image-preview').html('');
+            $('#pdf-canvas').hide();
+
             alertToast('Documento(s) guardado', 'success');
 
             TableDocumentosProveedor.ajax.reload()
@@ -173,7 +190,8 @@ $(document).on('submit', '#form-proveedores_documentos', function (e) {
 
 
 // Tabla de areas
-let TableDocumentosProveedor = $('#TableDocumentosProveedor').DataTable({
+dataDocumentosProveedor = {api: 16, id_proveedores: id_documentos}
+TableDocumentosProveedor = $('#TableDocumentosProveedor').DataTable({
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
     },
@@ -185,7 +203,9 @@ let TableDocumentosProveedor = $('#TableDocumentosProveedor').DataTable({
     scrollCollapse: true,
     ajax: {
         dataType: 'json',
-        data: { api: 11, id_proveedores: id_documentos },
+        data: function (d) {
+            return $.extend(d, dataDocumentosProveedor);
+        },
         method: 'POST',
         url: '../../../api/proveedores_api.php',
         complete: function () {
@@ -199,7 +219,8 @@ let TableDocumentosProveedor = $('#TableDocumentosProveedor').DataTable({
         dataSrc: 'response.data'
     },
     columns: [
-        { data: 'count' },
+        { data: 'COUNT'
+    },
         { data: 'TIPO_ARCHIVO', },
     ],
     columnDefs: [
@@ -212,17 +233,32 @@ let TableDocumentosProveedor = $('#TableDocumentosProveedor').DataTable({
 
 inputBusquedaTable('TableDocumentosProveedor', TableDocumentosProveedor, [], [], 'col-12')
 
+// Función que se ejecuta cuando se realiza una acción para obtener un nuevo PDF
+function getNewView(url, filename) {
+    // Destruir la instancia existente de AdobeDC.View
+    // Crear una instancia inicial de AdobeDC.View
+    let adobeDCView = new AdobeDC.View({ clientId: "cd0a5ec82af74d85b589bbb7f1175ce3", divId: "adobe-dc-view" });
+
+    var nuevaURL = url;
+
+    // Agregar un parámetro único a la URL para evitar la caché del navegador
+    nuevaURL += "?timestamp=" + Date.now();
+
+    // Cargar y mostrar el nuevo PDF en el visor
+    adobeDCView.previewFile({
+        content: { location: { url: nuevaURL } },
+        metaData: { fileName: filename }
+    });
+}
 
 
+selectTable('#TableDocumentosProveedor', TableDocumentosProveedor, {
+    multipleSelect: false, noColumns: false, unSelect: true,
+}, function (select, data, callback) {
 
-// let areas_seleccionadas = [];
-// selectTable('#TableDocumentosProveedor', TableAreasSelect, {
-//     multipleSelect: true, noColumns: false, unSelect: true,
-// }, async function (select, data, callback) {
-//     console.log(data);
-//     if (select) {
-//         areas_seleccionadas.push(data.ID_AREA);
-//     } else {
-//         areas_seleccionadas.splice(data.ID_AREA, 1)
-//     }
-// })
+    console.log(data);
+    if (select) {
+        getNewView(data.URL, data.NOMBRE);
+        
+    }
+})
