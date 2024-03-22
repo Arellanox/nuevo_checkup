@@ -190,7 +190,7 @@ $(document).on('submit', '#form-proveedores_documentos', function (e) {
 
 
 // Tabla de areas
-dataDocumentosProveedor = {api: 16, id_proveedores: id_documentos}
+dataDocumentosProveedor = { api: 16, id_proveedores: id_documentos }
 TableDocumentosProveedor = $('#TableDocumentosProveedor').DataTable({
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
@@ -219,13 +219,18 @@ TableDocumentosProveedor = $('#TableDocumentosProveedor').DataTable({
         dataSrc: 'response.data'
     },
     columns: [
-        { data: 'COUNT'
-    },
+        { data: 'COUNT' },
         { data: 'TIPO_ARCHIVO', },
+        {
+            data: 'PROVEEDOR_ID', render: function (data, row) {
+                return `<i class="bi bi-trash eliminar-documento" data-id = "${row}" style = "cursor: pointer"></i>`;
+            }
+        }
     ],
     columnDefs: [
         { target: 0, title: '#', className: 'all', with: '1px' },
         { target: 1, title: 'Tipo de archivo', className: 'all' },
+        { target: 2, title: '<i class="bi bi-trash"></i>', className: 'all' },
     ]
 
 })
@@ -254,11 +259,46 @@ function getNewView(url, filename) {
 
 selectTable('#TableDocumentosProveedor', TableDocumentosProveedor, {
     multipleSelect: false, noColumns: false, unSelect: true,
+    ClickClass: [
+        {
+            class: 'eliminar-documento',
+            callback: (data) => {
+                desactivarDocumentoProveedor(data)
+            },
+            selected: true
+        }
+    ]
 }, function (select, data, callback) {
 
     console.log(data);
     if (select) {
         getNewView(data.URL, data.NOMBRE);
-        
+
     }
 })
+
+function desactivarDocumentoProveedor(data) {
+    var id_proveedorDocumento = data
+    console.log(id_proveedorDocumento)
+
+    alertMensajeConfirm({
+        title: '¿Está seguro que desea desactivar este documento?',
+        text: 'No podrá modificarlo despues',
+        icon: 'warning',
+    }, function () {
+
+        ajaxAwait({
+            api: 18,
+            id_proveedores: id_proveedorDocumento['PROVEEDOR_ID'],
+            id_tipo_archivo: id_proveedorDocumento['ID_TIPO_ARCHIVO'],
+            posicion_archivo: id_proveedorDocumento['POSICION']
+        },
+            'proveedores_api', { callbackAfter: true }, false, function (data) {
+                alertToast('Documento eliminado!', 'success', 4000)
+
+                $('.adobe-dc-view').html('')
+
+                TableDocumentosProveedor.ajax.reload();
+            })
+    }, 1)
+}
