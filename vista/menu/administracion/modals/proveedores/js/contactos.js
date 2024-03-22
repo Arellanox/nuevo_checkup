@@ -74,12 +74,17 @@ tablaVistaContactos = $('#tablaVistaContactos').DataTable({
         { data: 'NOMBRE', },
         { data: 'TIPO_CONTACTO', },
         { data: 'TELEFONO', },
+        {data: 'ID_CONTACTO', render: function(data){
+            return `<i class="bi bi-trash eliminar-contacto" data-id = "${data}" style = "cursor: pointer"></i>`;
+        }}
     ],
     columnDefs: [
         { target: 0, title: '#', className: 'all', width: '5px' },
         { target: 1, title: 'Nombre', className: 'all' },
         { target: 2, title: 'Teléfono', className: 'desktop' },
         { target: 3, title: 'Correo', className: 'desktop' },
+        { target: 4, title: '<i class="bi bi-trash"></i>', className: 'all' },
+
 
     ]
 
@@ -97,9 +102,42 @@ inputBusquedaTable('tablaVistaContactos', tablaVistaContactos, [
 ], [], 'col-12')
 
 
+selectTable('#tablaVistaContactos', tablaVistaContactos, {
+    multipleSelect: false, noColumns: false, unSelect: true,
+    ClickClass: [
+        {
+            class: 'eliminar-contacto',
+            callback: (data) => {
+                desactivarContactoProveedor(data)
+            },
+            selected: true
+        }
+    ]
+})
+
 
 // --------------Funciones---------------------
 // --------------------------------------------
+
+function desactivarContactoProveedor(data) {
+
+    alertMensajeConfirm({
+        title: '¿Está seguro que desea desactivar este contacto?',
+        text: 'No podrá modificarlo despues',
+        icon: 'warning',
+    }, function () {
+
+        ajaxAwait({
+        api: 6,
+        id_contacto: data['ID_CONTACTO'],
+        },
+            'proveedores_api', { callbackAfter: true }, false, function (data) {
+                alertToast('Contacto eliminado!', 'success', 4000)
+
+                tablaVistaContactos.ajax.reload();
+            })
+    }, 1)
+}
 
 
 
