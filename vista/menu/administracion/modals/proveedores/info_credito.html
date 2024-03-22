@@ -25,6 +25,14 @@
                                                 proveedor
                                             </p>
 
+                                            <div class="text-end">
+                                                <button type="submit" form="form-info_credito"
+                                                    class="btn btn-confirmar">
+                                                    <i class="bi bi-person-plus"></i> Guardar
+                                                </button>
+
+                                            </div>
+
                                             <div class="col-12 col-lg-6">
                                                 <!-- Formulario -->
                                                 <form id="form-info_credito">
@@ -40,6 +48,7 @@
                                                     <input type="number" class="form-control input-form"
                                                         name="monto_credito" id="telefono-proveedor">
                                                 </form>
+
 
                                                 <!-- Drag and drop -->
                                                 <label class="form-label">
@@ -95,6 +104,14 @@
                                                 </div>
                                             </div>
 
+                                            <div class="text-end">
+                                                <button type="submit" form="form-info_credito"
+                                                    class="btn btn-confirmar">
+                                                    <i class="bi bi-person-plus"></i> Guardar
+                                                </button>
+
+                                            </div>
+
                                         </div>
 
 
@@ -125,17 +142,17 @@
                                                         <div class="col-12 col-lg-auto">
                                                             <!-- Procedecia ACTUAL -->
                                                             <strong>Crédito que asigna: <span class="none-p"
-                                                                    id="procedecia-lote_muestra"></span></strong>
+                                                                    id="credito_dias-info"></span></strong>
                                                         </div>
                                                         <div class="col-12 col-lg-auto">
                                                             <!-- Folio ACTUAL -->
                                                             <strong>Monto a crédito: <span class="none-p"
-                                                                    id="folio_lote-lote_muestra"></span></strong>
+                                                                    id="monto_credito-info"></span></strong>
                                                         </div>
                                                         <div class="col-12">
                                                             <!-- Fecha de envio ACTUAL -->
                                                             <strong>Servicios a prestar: <span class="none-p"
-                                                                    id="enviado-lote_muestra"></span></strong>
+                                                                    id="servicios-info"></span></strong>
                                                         </div>
                                                     </div>
 
@@ -159,10 +176,6 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
                     <i class="bi bi-arrow-left-short"></i> Cerrar
-                </button>
-
-                <button type="submit" form="form-info_credito" class="btn btn-confirmar">
-                    <i class="bi bi-person-plus"></i> Guardar
                 </button>
             </div>
         </div>
