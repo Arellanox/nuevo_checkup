@@ -37,6 +37,7 @@ tablaVistaProveedores = $('#tablaVistaProveedores').DataTable({
         { data: 'TIPO_PERSONA', },
         // { data: 'RAZON_SOCIAL' },
         { data: 'SITIO_WEB', },
+        { data: 'EMAIL' },
         {
             data: 'ID_PROVEEDOR', render: function (data, type) {
                 if (type === 'display') {
@@ -87,7 +88,8 @@ tablaVistaProveedores = $('#tablaVistaProveedores').DataTable({
         { target: 5, title: 'Tipo', className: 'min-tablet' },
         // { target: 6, title: 'Razon Social', className: 'all' },
         { target: 6, title: 'Sitio Web', className: 'desktop', },
-        { target: 7, title: '#', className: 'all', width: "50px" },
+        { target: 7, title: 'Correo', className: 'none', },
+        { target: 8, title: '#', className: 'all', width: "50px" },
         { className: "text-vertical-center", "targets": "_all" }
 
     ]
@@ -108,14 +110,23 @@ inputBusquedaTable('tablaVistaProveedores', tablaVistaProveedores, [
 ], [], 'col-12')
 
 
+
 // Solo para eliminar o obtener comisiones
 selectTable('#tablaVistaProveedores', tablaVistaProveedores, {
     noColumns: false, unSelect: true,
-    clickClass: [
+    ClickClass: [
         {
             class: 'btn-editar-proveedor',
             callback: (data) => {
                 // para actualizar información del proveedor
+                console.log(data);
+                setFormProveedores = data.ID_PROVEEDOR;
+
+                // Mostrar datos en el formulario
+                setProveedorForm(data);
+                $('#modalVistaProveedores').modal('show');
+
+
             },
             selected: true
         }

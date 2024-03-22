@@ -81,6 +81,10 @@ async function obtenerContenidoVendedores() {
 
 
 
+//-------------------------------------------//
+//--------------- Proveedores ---------------//
+//-------------------------------------------//
+setFormProveedores = 0;
 async function obtenerContenidoVendedores() {
   await obtenerTitulo("Proveedores bimo");
   $.post("contenido/proveedores/lista_proveedores.html", function (html) {
