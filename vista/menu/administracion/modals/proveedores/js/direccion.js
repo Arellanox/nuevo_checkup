@@ -57,7 +57,7 @@ InputDragDrop('#dropComprobanteDomicilio', (inputArea, salidaInput) => {
 }, { multiple: false })
 
 
-function recargarDireccion(data){
+function recargarDireccion(data) {
     ajaxAwait(
         { api: 14, proveedor_id: data }, 'proveedores_api', { callbackAfter: true }, false, function (row) {
             //Llamamos una funcion donde se veran todos las tarjetas
@@ -73,16 +73,51 @@ function listaDireccionProveedores(data) {
     let listDirecciones = data.response.data
 
     listDirecciones.forEach(direccion => {
-        
+
         var tarjetaDireccion = `
         <div class="rounded shadow p-3 my-3">
-            <h5>${direccion.TIPO_DIRECCION}</h5>
+            <div class="d-flex justify-content-between">
+                <h5>${direccion.TIPO_DIRECCION}</h5>
+                <i class="bi bi-pencil-square btn-delete-direccion icons-btn d-block" 
+                    data-bs-id="${direccion.ID_PROVEEDOR_DIRECCION}">
+                </i>
+            </div>
             <p>Calle: ${direccion.CALLE}, ${direccion.NUM_EXTERIOR} ${direccion.NUM_INTERIOR ? 'Int. ' + direccion.NUM_INTERIOR : ''}</p>
             <p>Colonia: ${direccion.COLONIA}, ${direccion.CIUDAD}, ${direccion.MUNICIPIO}</p>
             ${direccion.COMPROBANTE_DOMICILIO ? '<p><a href="' + direccion.COMPROBANTE_DOMICILIO + '" target="_blank">Comprobante de Domicilio</a></p>' : ''}
         </div>
         `;
-    
+
         $('#lista-DireccionProveedores').append(tarjetaDireccion);
     });
 }
+
+
+
+$(document).on('click', '.btn-delete-direccion', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    let btn = $(this);
+    let id_direccion_eliminar = btn.attr('data-bs-id');
+
+    // Preguntar si esta todo bien
+    alertMensajeConfirm({
+        icon: 'info',
+        title: '¿Deseas eliminar la dirección actual?',
+        text: 'No podrás recuperar esta dirección.'
+    }, () => {
+
+        // Mandar los datos
+        ajaxAwait({
+            api: 17, id_proveedor_direccion: id_direccion_eliminar
+        }, 'proveedores_api', { callbackAfter: true }, false, (data) => {
+
+            alertToast('Dirección eliminada', 'success');
+
+            // Recarga de nuevo las direcciones
+            recargarDireccion(id_direccion)
+        })
+    }, 1)
+
+})
