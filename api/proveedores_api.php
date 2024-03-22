@@ -85,7 +85,8 @@ $tipo_direccion = $_POST['tipo_direccion'];
 
 # turnos
 $fecha_inicial = $_POST['fecha_inicial'];
-$fecha_final - $_POST['fecha_final'];
+$fecha_final = $_POST['fecha_final'];
+$turno_id = $_POST['turno_id']; 
 
 switch ($api) {
         //insertar informacion del proveedor principal
