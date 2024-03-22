@@ -71,6 +71,7 @@ $tipo_contacto = $_POST['tipo_contacto']; #id del tipo de contacto
 
 # datos para archivos
 $id_tipo_archivo = $_POST['id_tipo_archivo'];
+$posicion_archivo = $_POST['posicion_archivo'];
 
 
 # creditos de proveedores
@@ -237,7 +238,7 @@ switch ($api) {
         break;
     case 18:
         # eliminar un archivo de proveedor.
-        $response = $master->deleteByProcedure("sp_proveedores_archivos_e", [ $id_proveedores, $id_tipo_archivo]);
+        $response = $master->deleteByProcedure("sp_proveedores_archivos_e", [ $id_proveedores, $id_tipo_archivo, $posicion_archivo]);
         break;
     
     case 19:
