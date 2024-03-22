@@ -245,6 +245,16 @@ switch ($api) {
         # eliminar un credito de proveedor.
         $response = $master->deleteByProcedure("sp_proveedores_creditos_e", [$id_proveedores]);
         break;
+    case 20:
+        # subir los resultados que envian los proveedores de servicios.
+        $dir = '../reportes/modulo/proveedores/'.$turno_id.'/';
+        $nombre_archivo = uniqid($_SESSION['id']);
+        
+        break;
+    case 21:
+        # recuperar las areas de los estudios cargados
+        $response = $master->getByProcedure('sp_proveedores_pacientes_areas', [$turno_id]);
+        break;
     default:
         $response = "API no definida";
         break;
