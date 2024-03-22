@@ -239,7 +239,11 @@ switch ($api) {
         # eliminar un archivo de proveedor.
         $response = $master->deleteByProcedure("sp_proveedores_archivos_e", [ $id_proveedores, $id_tipo_archivo]);
         break;
-
+    
+    case 19:
+        # eliminar un credito de proveedor.
+        $response = $master->deleteByProcedure("sp_proveedores_creditos_e", [$id_proveedores]);
+        break;
     default:
         $response = "API no definida";
         break;
