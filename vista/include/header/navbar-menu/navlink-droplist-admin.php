@@ -70,7 +70,7 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
 
 
 <?php if (
-    true
+    $_SESSION['vista']['PROVEEDORES_MAQUILA']
 ) : ?>
     <!-- Contaduria -->
     <a class="dropdown-a align-items-center  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-EmpresasMaqulasProveedoress" aria-expanded="false">
@@ -78,20 +78,20 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
     </a>
     <div class="collapse" id="board-EmpresasMaqulasProveedoress">
         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <?php if (true) : ?>
+            <?php if ($_SESSION['vista']['PROVEEDORES_MAQUILA']) : ?>
                 <li>
                     <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/administracion/#PROVEEDORES'; ?>">
                         <i class="bi bi-dot"></i> Proveedores
                     </a>
                 </li>
             <?php endif; ?>
-            <?php if (true) : ?>
+            <!-- <?php if (true) : ?>
                 <li>
                     <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/administracion/#CONTACTOS_PROVEEDORES'; ?>">
                         <i class="bi bi-dot"></i> Contactos
                     </a>
                 </li>
-            <?php endif; ?>
+            <?php endif; ?> -->
             <hr class="dropdown-divider">
         </ul>
     </div>
