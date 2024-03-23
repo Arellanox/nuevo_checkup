@@ -87,6 +87,7 @@ $tipo_direccion = $_POST['tipo_direccion'];
 $fecha_inicial = $_POST['fecha_inicial'];
 $fecha_final = $_POST['fecha_final'];
 $turno_id = $_POST['turno_id']; 
+$area_id = $_POST['area_id'];
 
 switch ($api) {
         //insertar informacion del proveedor principal
@@ -249,8 +250,24 @@ switch ($api) {
     case 20:
         # subir los resultados que envian los proveedores de servicios.
         $dir = '../reportes/modulo/proveedores/'.$turno_id.'/';
-        $nombre_archivo = uniqid($_SESSION['id']);
-        
+
+        $nombre_archivo = $master->getByPatientNameByTurno($master, $turno_id);
+
+        if($master->createDir($dir)){
+            $file = $master->guardarFiles($_FILES, "resultado", $dir, $nombre_archivo);
+
+            $url = str_replace("../", $host, $file[0]['url']);
+
+            $response = $master->insertByProcedure("sp_proveedores_subir_resultados", [
+                $turno_id,
+                $url,
+                $area_id,
+                $_SESSION['id']
+            ]);
+            
+        } else {
+            $response = "No se pudo crear el directorio";
+        }
         break;
     case 21:
         # recuperar las areas de los estudios cargados
