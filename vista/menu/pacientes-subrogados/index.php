@@ -9,7 +9,7 @@ $menu = "pacientes-subrogados";
 
 <head>
   <?php include "../../include/head.php"; ?>
-  <title>Pacientes subrogados | Bimo</title>
+  <title>Pacientes subrogados</title>
 </head>
 
 <body class="" id="body-controlador"> </body>
