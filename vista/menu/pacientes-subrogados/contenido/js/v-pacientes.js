@@ -59,26 +59,36 @@ TablaPacientesSubrogados = $('#TablaPacientesSubrogados').DataTable({
 inputBusquedaTable('TablaPacientesSubrogados', TablaPacientesSubrogados, [], [], 'col-12')
 
 selectTable('#TablaPacientesSubrogados', TablaPacientesSubrogados, {
-    multipleSelect: false, noColumns: false, unSelect: true, reload: ['col-xl-9']
-    // ClickClass: [
-    //     {
-    //         class: 'eliminar-documento',
-    //         callback: (data) => {
-    //             desactivarDocumentoProveedor(data)
-    //         },
-    //         selected: true
-    //     }
-    // ]
-}, function (select, data, callback) {
+    unSelect: true, reload: ['col-xl-8'], movil: true, "tab-default": 'Area',
+    tabs: [
+        {
+            title: 'Pacientes',
+            element: '#tab-paciente',
+            class: 'active',
+        },
+        {
+            title: 'Area',
+            element: '#tab-areas',
+            class: 'disabled tab-select'
+        },
+        {
+            title: 'Reporte',
+            element: '#tab-reporte',
+            class: 'disabled tab-select'
+        },
+    ],
+}, async function (select, data, callback) {
     pacienteSub = data
+    // Oculta el inputDrag
+    $('#panel-reporteInput').fadeOut(100);
 
     if (select == 1) {
-        //Muestra las columnas
-        callback('In')
 
         $('#panel-areas').html('')
+        await recuperarAreas(pacienteSub)
 
-        recuperarAreas(pacienteSub)
+        //Muestra las columnas
+        callback('In')
     } else {
 
         callback('Out')
@@ -87,31 +97,49 @@ selectTable('#TablaPacientesSubrogados', TablaPacientesSubrogados, {
 
 
 function recuperarAreas(data) {
-    ajaxAwait(
-        { api: 21, turno_id: data['ID_TURNO'] }, 'proveedores_api', { callbackAfter: true }, false, function (data) {
-            let dataAreas = data.response.data
+    return new Promise(function (resolve, reject) {
+        ajaxAwait(
+            { api: 21, turno_id: data['ID_TURNO'] }, 'proveedores_api', { callbackAfter: true }, false, function (data) {
+                let dataAreas = data.response.data
 
-            dataAreas.forEach(areas => {
-                var cardAreas = `
-                <div class="rounded card p-3 my-3" data-id-area="${areas.ID_AREA}" data-id-turno="${areas.ID_TURNO}">
+                dataAreas.forEach(areas => {
+                    var cardAreas = `
+                <div class="rounded card p-3 my-3 card-areas " data-id-area="${areas.ID_AREA}" data-id-turno="${areas.ID_TURNO}">
                     <p>${areas.AREA}</p>
                 </div>
                 `;
 
-                $('#panel-areas').append(cardAreas)
+                    $('#panel-areas').append(cardAreas)
+                })
+
+                resolve(1);
             })
-        })
+    })
+
 }
 
-$(document).ready(function () {
-    $('#panel-areas').on('click', '.card', function () {
-        // Obtiene los valores de los atributos de datos del elemento clickeado
-        id_area = $(this).data('id-area');
-        id_turno = $(this).attr('data-id-turno');
+$('#panel-areas').on('click', '.card-areas', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    $('#panel-reporteInput').fadeOut(200);
 
 
+    // Obtiene los valores de los atributos de datos del elemento clickeado
+    let $div = $(this)
+    id_area = $div.data('id-area');
+    id_turno = $div.attr('data-id-turno');
 
-    });
+    $('.card-areas').removeClass('selected');
+    $div.addClass('selected');
+
+    setTimeout(() => {
+        $('#panel-reporteInput').fadeIn(200);
+
+        // Envia a la ultima
+        $('#tab-btn-Reporte').click();
+    }, 200);
+
 });
 
 

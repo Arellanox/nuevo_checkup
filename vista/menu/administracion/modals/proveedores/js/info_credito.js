@@ -230,7 +230,7 @@ function getArchivosInformacionCredito() {
                         .attr('href', archivo.url)
                         .attr('download', '')
                         .addClass('btn btn-danger me-2 mb-2')
-                        .html('<i class="bi bi-file-earmark-pdf-fill"></i>');
+                        .html('<i class="bi bi-trash-fill"></i>');
                     $botones.append($boton);
                 });
 

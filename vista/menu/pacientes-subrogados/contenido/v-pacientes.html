@@ -1,6 +1,10 @@
 <div class="col-12 loader" id="loader">
   <div class="preloader" id="preloader"> </div>
 </div>
+
+<!-- tabs para movil -->
+<div id="tab-button"></div>
+
 <div class="row">
 
   <div class="col-12 col-xl-4 tab-first" id="tab-paciente" style="margin-right: -5px !important;">
@@ -11,33 +15,34 @@
     </div>
   </div>
 
-  <div class="col-12 col-xl-4 tab-second" id="tab-informacion"
-    style="margin-right: -5px !important;  display:none !important">
+  <div class="col-12 col-xl-4 tab-second" id="tab-areas" style="margin-right: -5px !important; display:none !important">
     <div class="rounded p-3 shadow-sm my-2" id="panel-areas">
 
     </div>
   </div>
 
-  <div class="col-12 col-xl-4 tab-reporte" id="tab-informacion"
-    style="margin-right: -5px !important;">
-    <div class="rounded p-3 shadow my-2" id="panel-informacion">
-      <p class="mb-2">Suba el reporte del area seleccionada</p>
+  <div class="col-12 col-xl-4 tab-second" id="tab-reporte"
+    style="margin-right: -5px !important; display:none !important">
+    <div class="rounded p-3 shadow my-2" id="panel-reporteInput" style="display: none;">
+      <div class="px-2 pt-3">
+        <p class="mb-2">Suba el reporte del area seleccionada</p>
 
-      <form id="subirDocumentoPaciente" class="d-flex flex-column align-items-center">
-        <div id="dropDocumentoPaciente" class="drop-zone mx-2">
-          <label for="file-documentoPaciente" style="cursor: pointer;" class="label-documentoPaciente">Sube
-            tu
-            archivo
-            arrastrándolo
-            aquí</label>
+        <form id="subirDocumentoPaciente" class="d-flex flex-column align-items-center">
+          <div id="dropDocumentoPaciente" class="drop-zone mx-2">
+            <label for="file-documentoPaciente" style="cursor: pointer;" class="label-documentoPaciente">Sube
+              tu
+              archivo
+              arrastrándolo
+              aquí</label>
 
-          <input type="file" id="file-documentoPaciente" name="resultado[]" style="display: none;">
-          <br>
-          <div class="spinner-border text-primary carga-captura-oido" role="status" style="display: none;">
-            <span class="visually-hidden">Loading...</span>
+            <input type="file" id="file-documentoPaciente" name="resultado[]" style="display: none;">
+            <br>
+            <div class="spinner-border text-primary carga-captura-oido" role="status" style="display: none;">
+              <span class="visually-hidden">Loading...</span>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 
@@ -56,7 +61,7 @@
 
 <style>
   .drop-zone {
-    width: 392px;
+    width: 90%;
     height: 85px;
     border: 2px dashed rgb(0 79 90 / 17%);
     text-align: center;
@@ -76,19 +81,25 @@
     background: transparent;
   }
 
-    /* Cambia el cursor a un puntero para los div dentro de #panel-informacion */
-    #panel-areas > div {
-      cursor: pointer;
-      transition: background-color 0.3s; /* Suaviza la transición del color de fondo */
-    }
-  
-    /* Cambia el color de fondo cuando se pasa el ratón por encima */
-    #panel-areas > div:hover {
-      background-color: #ffc966;
-    }
+  /* Cambia el cursor a un puntero para los div dentro de #panel-informacion */
+  #panel-areas>div {
+    cursor: pointer;
+    transition: background-color 0.3s;
+    /* Suaviza la transición del color de fondo */
+  }
 
-    #panel-areas {
-      max-height: 75vh; /* Ajusta esto según tus necesidades */
-      overflow-y: auto;
-    }
+  /* Cambia el color de fondo cuando se pasa el ratón por encima */
+  #panel-areas>div:hover {
+    background-color: #ffc966;
+  }
+
+  #panel-areas>div.selected {
+    background-color: #ffc966;
+  }
+
+  #panel-areas {
+    max-height: 75vh;
+    /* Ajusta esto según tus necesidades */
+    overflow-y: auto;
+  }
 </style>
