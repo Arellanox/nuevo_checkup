@@ -1,66 +1,94 @@
-<!-- <div class="col-12 loader" id="loader">
-    <div class="preloader" id="preloader"> </div>
-  </div> -->
-  <div class="row">
-    <div class="col-12 col-lg-3 info-detalle card pt-5 overflow-auto" style="max-width: 100%;"
-      id="panel-informacion-pacientesTurnos">
-      <div class="" id="panel-informacion">
-      </div>
-      <div class="" id="panel-resultados">
-      </div>
-      <div class="" id="estudios_concluir_paciente">
-      </div>
-  
-    </div>
-    <div class="col-12 col-lg-9 card">
-  
-      <div class="text-center" style="margin-top:4px;">
-  
-      </div>
-      <div class="table-responsive" style="margin: 25px 25px 5px 25px;">
-        <table class="table table-hover display responsive" id="TablaRecepcionPacientes-Ingresados" style="width: 100%;">
-          <thead class="">
-            <tr>
-              <th scope="col d-flex justify-content-center" class="all">#</th>
-              <th scope="col d-flex justify-content-center" class="all">Nombre</th>
-              <th scope="col d-flex justify-content-center" class="none">Prefolio</th>
-              <th scope="col d-flex justify-content-center" class="min-tablet">Procedencia</th>
-              <th scope="col d-flex justify-content-center" class="desktop">Segmento</th>
-              <th scope="col d-flex justify-content-center" class="none">Turno</th>
-              <th scope="col d-flex justify-content-center" class="min-tablet">Area Actual</th>
-  
-              <!-- <th scope="col d-flex justify-content-center" class="min-tablet">Análisis</th>
-              <th scope="col d-flex justify-content-center" class="min-tablet">Muestra</th> -->
-  
-              <th scope="col d-flex justify-content-center" class="min-tablet">Recepción</th>
-              <th scope="col d-flex justify-content-center" class="min-tablet">Agenda</th>
-              <th scope="col d-flex justify-content-center" class="none">Re-agenda</th>
-              <th scope="col d-flex justify-content-center" class="none">Sexo</th>
-              <th scope="col d-flex justify-content-center" class="min-tablet">Recepción</th>
-              <th scope="col d-flex justify-content-center" class="all"><i class="bi bi-three-dots"></i></th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
-      </div>
+<div class="col-12 loader" id="loader">
+  <div class="preloader" id="preloader"> </div>
+</div>
+<div class="row">
+
+  <div class="col-12 col-xl-4 tab-first" id="tab-paciente" style="margin-right: -5px !important;">
+    <div class="rounded p-3 shadow my-2" id="lista-pacientes">
+      <h4>Lista de pacientes subrogados</h4>
+
+      <table class="table table-hover display responsive" id="TablaPacientesSubrogados"></table>
     </div>
   </div>
-  
-  <!-- Off canvas -->
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasInfoPaciente"
-    aria-labelledby="offcanvasInfoPacienteLabel">
-    <div class="d-flex flex-column flex-shrink-0 p-3 off-canvas-container" style="width: 100%;height:100%">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title"><i class="bi bi-person-bounding-box"></i> Información
-        </h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <hr>
-      <div class="offcanvas-body">
-        <div class="" id="panel-documentos-paciente">
+
+  <div class="col-12 col-xl-4 tab-second" id="tab-informacion"
+    style="margin-right: -5px !important;  display:none !important">
+    <div class="rounded p-3 shadow-sm my-2" id="panel-areas">
+
+    </div>
+  </div>
+
+  <div class="col-12 col-xl-4 tab-reporte" id="tab-informacion"
+    style="margin-right: -5px !important;">
+    <div class="rounded p-3 shadow my-2" id="panel-informacion">
+      <p class="mb-2">Suba el reporte del area seleccionada</p>
+
+      <form id="subirDocumentoPaciente" class="d-flex flex-column align-items-center">
+        <div id="dropDocumentoPaciente" class="drop-zone mx-2">
+          <label for="file-documentoPaciente" style="cursor: pointer;" class="label-documentoPaciente">Sube
+            tu
+            archivo
+            arrastrándolo
+            aquí</label>
+
+          <input type="file" id="file-documentoPaciente" name="resultado[]" style="display: none;">
+          <br>
+          <div class="spinner-border text-primary carga-captura-oido" role="status" style="display: none;">
+            <span class="visually-hidden">Loading...</span>
+          </div>
         </div>
-        <div class="" id="panel-muestras-estudios"></div>
-      </div>
+      </form>
     </div>
   </div>
+
+  <!-- <div class="col-12 col-lg-3 info-detalle card pt-5 overflow-auto" style="max-width: 100%;">
+    <div class="rounded p-3 shadow my-2">
+
+
+    </div>
+  </div> -->
+
+  <!-- Tercera Columna visual -->
+  <div id="reload-selectable">
+
+  </div>
+</div>
+
+<style>
+  .drop-zone {
+    width: 392px;
+    height: 85px;
+    border: 2px dashed rgb(0 79 90 / 17%);
+    text-align: center;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    margin-left: 8px;
+  }
+
+  .drop-zone.hover_dropDrag {
+    border-color: #00bbb9 !important;
+    background-color: #c6cacc !important;
+  }
+
+
+  label.label-documentoPaciente {
+    background: transparent;
+  }
+
+    /* Cambia el cursor a un puntero para los div dentro de #panel-informacion */
+    #panel-areas > div {
+      cursor: pointer;
+      transition: background-color 0.3s; /* Suaviza la transición del color de fondo */
+    }
+  
+    /* Cambia el color de fondo cuando se pasa el ratón por encima */
+    #panel-areas > div:hover {
+      background-color: #ffc966;
+    }
+
+    #panel-areas {
+      max-height: 75vh; /* Ajusta esto según tus necesidades */
+      overflow-y: auto;
+    }
+</style>
