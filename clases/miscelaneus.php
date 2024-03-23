@@ -1421,6 +1421,8 @@ class Miscelaneus
                     $equipo_grupo = $current['EQUIPOS_GRUPO'];
                     $clasificacion_id = $current['CLASIFICACION_ID'];
 
+                    $current['RESULTADO'] = str_replace("<", "&lt;", $current['RESULTADO']);
+
                     $item = array(
                         "nombre"            => $current['DESCRIPCION_SERVICIO'],
                         "unidad"            => $current['MEDIDA'],
