@@ -1420,6 +1420,7 @@ class Miscelaneus
                     $metodo_grupo = $current['METODOS_GRUPO'];
                     $equipo_grupo = $current['EQUIPOS_GRUPO'];
                     $clasificacion_id = $current['CLASIFICACION_ID'];
+                    $muestra_grupo = $current['MUESTRA_GRUPO'];
 
                     $current['RESULTADO'] = str_replace("<", "&lt;", $current['RESULTADO']);
 
@@ -1497,7 +1498,8 @@ class Miscelaneus
                     "metodo"         => $metodo_grupo,
                     "equipo"         => $equipo_grupo,
                     "observaciones"  => isset($id_grupo) ? $observacionnes_generales : null,
-                    "muestra"        => $id_grupo == 972 || $id_grupo == 1599 || $id_grupo = 1677 ? "Plasma EDTA" : ""
+                    "muestra"        => $muestra_grupo
+                    //"muestra"        => $id_grupo == 972 || $id_grupo == 1599 || $id_grupo = 1677 ? "Plasma EDTA" : ""
                 );
                 $analitos = array();
             }
