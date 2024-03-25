@@ -258,12 +258,19 @@ switch ($api) {
 
             $url = str_replace("../", $host, $file[0]['url']);
 
-            $response = $master->insertByProcedure("sp_proveedores_subir_resultados", [
+            $response = $master->getByNext("sp_proveedores_subir_resultados", [
                 $turno_id,
                 $url,
                 $area_id,
                 $_SESSION['id']
             ]);
+
+            $response = array(
+                'last_insert' => $response[0],
+                'url' => $response[1]
+            );
+
+
             
         } else {
             $response = "No se pudo crear el directorio";
