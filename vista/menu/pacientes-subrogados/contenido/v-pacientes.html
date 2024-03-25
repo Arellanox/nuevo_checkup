@@ -25,7 +25,20 @@
     style="margin-right: -5px !important; display:none !important">
     <div class="rounded p-3 shadow my-2" id="panel-reporteInput" style="display: none;">
       <div class="px-2 pt-3">
-        <p class="mb-2">Suba el reporte del area seleccionada</p>
+
+        <div class="row">
+          <div class="col-8">
+            <p class="mb-2">Suba el reporte del area seleccionada</p>
+          </div>
+
+          <div class="col-4">
+            <div id="btn-ReporteArea" class="btn-container" style="display: none;">
+              <a href="" class="btn btn-borrar btnResultados" id="btn-ver-resultados-areas" data-bs-toggle="tooltip" data-bs-placement="top" title="La vista previa de la recetauna vez guardada">
+                <i class="bi bi-file-earmark-pdf"></i> Reporte
+              </a>
+            </div>
+          </div>
+        </div>
 
         <form id="subirDocumentoPaciente" class="d-flex flex-column align-items-center">
           <div id="dropDocumentoPaciente" class="drop-zone mx-2">
