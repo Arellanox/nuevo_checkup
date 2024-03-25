@@ -273,6 +273,11 @@ switch ($api) {
         # recuperar las areas de los estudios cargados
         $response = $master->getByProcedure('sp_proveedores_pacientes_areas', [$turno_id]);
         break;
+
+    case 22:
+        # recuperar los reportes de resultados
+        $response = $master->getByProcedure('sp_recuperar_reportes_confirmados', [$turno_id, $area_id, null, null, null]);
+        break;
     default:
         $response = "API no definida";
         break;
