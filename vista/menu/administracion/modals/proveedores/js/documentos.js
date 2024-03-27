@@ -51,7 +51,7 @@ let inputDropDocumentos = InputDragDrop('#dropProveedoresDocumentacion', (inputA
     $('#image-preview').html('');
     $('#pdf-canvas').hide();
 
-    $('#pdfviewer').html('')
+    // $('#pdfviewer').html('')
 
     // console.log(files);
     // Itera sobre todos los archivos seleccionados

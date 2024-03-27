@@ -589,6 +589,34 @@ function generarFormularioPaciente(id) {
               // Solo visual por ahora
               break;
 
+            case '1738':
+              // PCR Detección Mycobacterium tuberculosis
+              muestras = {
+                0: {
+                  'descripcion': 'Expectoración',
+                },
+                1: {
+                  'descripcion': 'Lavado bronquial',
+                },
+                2: {
+                  'descripcion': 'Orina',
+                },
+                3: {
+                  'descripcion': 'Líquidos orgánicos sin hemolisis',
+                },
+                4: {
+                  'descripcion': 'Sangre/EDTA',
+                },
+                5: {
+                  'descripcion': 'Biopsia',
+                },
+                6: {
+                  'descripcion': 'Bloques de parafina',
+                },
+              }
+
+              break;
+
 
             default: input = null;
               if (areaActiva == 12) {
@@ -761,7 +789,8 @@ function generarFormularioPaciente(id) {
                 case '695': case '700': case '708': case '736': case '756': case '994': case '1084':
                 // BlueFinder 22:
                 case '1135':
-                //rT-PCR para Mycobacterium tuberculosis MDR y XDR
+                // rT-PCR para Mycobacterium tuberculosis MDR y XDR
+                // PCR Detección Mycobacterium tuberculosis
                 case '1142':
                 // Ag. Virus respiratorio
                 case '145':
