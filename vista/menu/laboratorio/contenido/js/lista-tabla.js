@@ -589,6 +589,34 @@ function generarFormularioPaciente(id) {
               // Solo visual por ahora
               break;
 
+            case '1738':
+              // PCR Detección Mycobacterium tuberculosis
+              muestras = {
+                0: {
+                  'descripcion': 'Expectoración',
+                },
+                1: {
+                  'descripcion': 'Lavado bronquial',
+                },
+                2: {
+                  'descripcion': 'Orina',
+                },
+                3: {
+                  'descripcion': 'Líquidos orgánicos sin hemolisis',
+                },
+                4: {
+                  'descripcion': 'Sangre/EDTA',
+                },
+                5: {
+                  'descripcion': 'Biopsia',
+                },
+                6: {
+                  'descripcion': 'Bloques de parafina',
+                },
+              }
+
+              break;
+
 
             default: input = null;
               if (areaActiva == 12) {
