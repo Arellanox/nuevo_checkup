@@ -23,7 +23,7 @@ $(document).on('submit', '#form-proveedores_direccion', function (e) {
     alertMensajeConfirm({
         icon: 'info',
         title: '¿Deseas guardar una nueva dirección?',
-        text: 'No podra actualizarlo'
+        text: 'No podrá actualizarlo'
     }, () => {
 
         // Mandar los datos
@@ -39,7 +39,7 @@ $(document).on('submit', '#form-proveedores_direccion', function (e) {
     }, 1)
 })
 
-InputDragDrop('#dropComprobanteDomicilio', (inputArea, salidaInput) => {
+let inputDirecciones = InputDragDrop('#dropComprobanteDomicilio', (inputArea, salidaInput) => {
 
     // Siempre se ejecuta al final del proceso
     salidaInput({
@@ -61,6 +61,8 @@ function recargarDireccion(data) {
     ajaxAwait(
         { api: 14, proveedor_id: data }, 'proveedores_api', { callbackAfter: true }, false, function (row) {
             //Llamamos una funcion donde se veran todos las tarjetas
+
+            inputDirecciones.resetInputDrag();
 
             $('#lista-DireccionProveedores').html('');
 
