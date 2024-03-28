@@ -27,9 +27,9 @@ function text_bold($string)
 <!-- <p style="position:absolute;top:2px;left:548px;white-space:nowrap" class="ft00">Muestra: <strong style="font-size: 11px"><?php echo $body[9]->resultado ?></strong> </p> -->
 <table style="width: 100%;font-size: 13.4px">
     <tr style="background-color: darkgrey;">
-        <td style="font-size: 14px; padding: 3px;"><strong>Prueba</strong></td>
-        <td style="font-size: 14px; padding: 3px;"><strong>Resultado</strong></td>
-        <td style="font-size: 14px; padding: 3px;"><strong>Valor de Normalidad</strong></td>
+        <td style="font-size: 14px; padding: 6px;"><strong>Prueba</strong></td>
+        <td style="font-size: 14px; padding: 6px; text-align:center;"><strong>Resultado</strong></td>
+        <td style="font-size: 14px; padding: 6px; text-align:center;"><strong>Valor de Normalidad</strong></td>
     </tr>
     <tr>
         <td style="font-size: 16.4px"><strong> </strong></td>
