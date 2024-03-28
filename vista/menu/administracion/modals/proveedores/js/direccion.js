@@ -80,7 +80,7 @@ function listaDireccionProveedores(data) {
         <div class="rounded shadow p-3 my-3">
             <div class="d-flex justify-content-between">
                 <h5>${direccion.TIPO_DIRECCION}</h5>
-                <i class="bi bi-pencil-square btn-delete-direccion icons-btn d-block" 
+                <i class="bi bi-trash-fill btn-delete-direccion icons-btn d-block" 
                     data-bs-id="${direccion.ID_PROVEEDOR_DIRECCION}">
                 </i>
             </div>
