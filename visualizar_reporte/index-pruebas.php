@@ -33,7 +33,7 @@ $usuario_id = $_SESSION['id'];
 
 $api = "biomolecular";
 $area_id = 12;
-$turno_id = 3358;
+$turno_id = 3606;
 
 //$cliente_id = 19;
 // $id_cotizacion = 7;
