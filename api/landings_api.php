@@ -1,4 +1,7 @@
 <?php
+
+$datos = json_decode(file_get_contents('php://input'), true);
+
 header("Access-Control-Allow-Origin: https://bimo.com.mx");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
@@ -6,12 +9,12 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
 require_once "../clases/master_class.php";
 
 $master = new Master;
-$api = $_POST['api'];
-$codigo = $_POST['codigo'];
+$api = $datos['api'];
+$codigo = $datos['codigo'];
 
 switch($api){
     case 1:
-        $response = $_POST;
+        $response = $datos;
         break;
 
     default:
