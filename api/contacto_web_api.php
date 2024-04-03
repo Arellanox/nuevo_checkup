@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $correo = new Correo();
     $master = new Master();
 
-    $correo->sendEmail("formularioContacto", "Nuevo lead captado!",["josue.delacruz@bimo.com.mx"],$datos);
+    $correo->sendEmail("formularioContacto", "Nuevo lead captado!",["josue.delacruz@bimo.com.mx", "hola@bimo.com.mx"],$datos);
     
     # guardar los datos del lead.
     $r = $master->insertByProcedure("sp_formulario_contacto_g", [
