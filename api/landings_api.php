@@ -7,7 +7,7 @@ $codigo = $_POST['codigo'];
 
 switch($api){
     case 1:
-        $response = 1;
+        $response = $_POST;
         break;
 
     default:
