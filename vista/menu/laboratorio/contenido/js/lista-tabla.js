@@ -293,6 +293,14 @@ function generarFormularioPaciente(id) {
                 }
               }
               break;
+            // toxoplasma_gondii_tr
+            case '1682':
+              muestras = {
+                0: {
+                  'descripcion': 'Sangre',
+                }
+              }
+              break;
 
             case '709': // <-- PANEL21 -->
               kitDiag = {
