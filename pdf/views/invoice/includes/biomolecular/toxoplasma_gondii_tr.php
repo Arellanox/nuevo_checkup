@@ -41,7 +41,7 @@ function text_bold($string)
     </tr>
     <?php
 
-    $muestra = $body[0]->resultado;
+    $muestra = $body[1]->resultado;
 
 
     $body = array_slice($body, 0, count($body) - 1);
@@ -72,6 +72,6 @@ function text_bold($string)
 <!-- <p style="text-align:justify;"><strong>Comentarios: </strong>Esta prueba identifica en tiempo real la presencia de 9 tipos de Patógenos causantes de ETS (Enfermedades de Transmisión Sexual); el médico tratante es quien realiza la interpretación de este resultado considerando los datos clínicos del paciente.</p> -->
 <br>
 <p style="text-align:justify;font-size: 14px"><strong style="font-size: 14px">Método: </strong> PCR Tiempo Real<br>
-    <strong style="font-size: 14px">Tipo de muestra: </strong><?php echo $muestra; ?>
+    <strong style="font-size: 14px">Tipo de muestra: </strong><?php echo 'Sangre' ?>
 </p>
 <br>
