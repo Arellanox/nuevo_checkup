@@ -10,11 +10,19 @@ require_once "../clases/master_class.php";
 
 $master = new Master;
 $api = $datos['api'];
-$codigo = $datos['codigo'];
+$id_area = $datos['id_area'];
+$nombre = $datos['nombre'];
+$email = $datos['email'];
+$telefono = $datos['telefono'];
 
 switch($api){
     case 1:
-        $response = $datos;
+        $response = $master->insertByProcedure('sp_landings_g', [
+            $nombre,
+            $email,
+            $telefono,
+            $id_area
+        ]);
         break;
 
     default:
