@@ -215,6 +215,9 @@ class Correo
                 case "botOrdenMedica":
                     $mail->Body = $this->cuerpoOrdenMedica($token);
                     break;    
+                case "landings":
+                    $mail->Body = $this->cuerpoLandings($token);
+                    break;
             }
 
             # send email
@@ -251,6 +254,97 @@ class Correo
             $mis->setLog($e, "Clase correo [sendMail]");
             return false;
         }
+    }
+
+    # cuerpo de las landings
+    private function cuerpoLandings($data){
+        $html = '<!DOCTYPE html>
+        <html lang="es">
+        <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>¡Quiero una radiografía!!!</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+          }
+          
+          .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+          }
+          
+          h1 {
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+          }
+          
+          p {
+            color: #666;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+          }
+          
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+          }
+          
+          th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+          }
+          
+          th {
+            background-color: #f2f2f2;
+            color: #333;
+          }
+          
+          td {
+            background-color: #fff;
+            color: #666;
+          }
+        </style>
+        </head>
+        <body>
+          <div class="container">
+            <h1>¡¡¡Quiero una radiografía!!!</h1>
+            <p>Recibimos los datos de contacto de una persona interesada en nuestros servicios y estamos ansiosos por conectarnos con ella. ¡Espero que te sientas tan entusiasmado/a como yo! Recuerda mantener tu energía positiva y tu sonrisa lista, porque juntos haremos que esta experiencia sea inolvidable para nuestro nuevo contacto.</p>
+        
+            <p>¡Gracias por tu dedicación y entusiasmo en hacer crecer nuestro negocio!</p>
+            <table>
+              <tr>
+                <th>Nombre Completo</th>
+                <th>Teléfono</th>
+                <th>Email</th>
+              </tr>
+              <tr>
+                <td>'.$data['nombre'].'</td>
+                <td>'.$data['telefono'].'</td>
+                <td>'.$data['email'].'</td>
+              </tr>
+              
+              <!-- Puedes agregar más filas según sea necesario -->
+            </table>
+          </div>
+        </body>
+        </html>'
+        ;
+        return $html;
     }
 
     private function cuerpoFormularioContacto($data)

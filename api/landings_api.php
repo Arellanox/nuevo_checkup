@@ -7,8 +7,10 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 // Asegúrate de incluir cualquier otro método o cabecera que tu API necesite
 require_once "../clases/master_class.php";
+require_once "../clases/correo_class.php";
 
 $master = new Master;
+$mail = 
 $api = $datos['api'];
 $id_area = $datos['id_area'];
 $nombre = $datos['nombre'];
@@ -25,6 +27,14 @@ switch($api){
             $id_area,
             $clave
         ]);
+
+        # Enviar correos con los datos del nuevo lead captado.
+        $mail->sendEmail(
+            "landings",
+            "¡Quiero una radiografía!",
+            ["josue.delacruz@bimo.com.mx"],
+            $datos
+        );
         break;
 
     default:
