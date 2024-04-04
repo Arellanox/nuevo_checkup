@@ -10,7 +10,7 @@ require_once "../clases/master_class.php";
 require_once "../clases/correo_class.php";
 
 $master = new Master;
-$mail = 
+$mail = new Correo();
 $api = $datos['api'];
 $id_area = $datos['id_area'];
 $nombre = $datos['nombre'];
