@@ -32,7 +32,7 @@ switch($api){
         $mail->sendEmail(
             "landings",
             "¡Quiero una radiografía!",
-            ["josue.delacruz@bimo.com.mx"],
+            ["josue.delacruz@bimo.com.mx", "hola@bimo.com.mx"],
             $datos
         );
         break;
