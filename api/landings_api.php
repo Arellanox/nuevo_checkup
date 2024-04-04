@@ -14,6 +14,7 @@ $id_area = $datos['id_area'];
 $nombre = $datos['nombre'];
 $email = $datos['email'];
 $telefono = $datos['telefono'];
+$clave = $datos['clave'];
 
 switch($api){
     case 1:
@@ -21,7 +22,8 @@ switch($api){
             $nombre,
             $email,
             $telefono,
-            $id_area
+            $id_area,
+            $clave
         ]);
         break;
 
