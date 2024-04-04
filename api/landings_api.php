@@ -17,7 +17,7 @@ $telefono = $datos['telefono'];
 
 switch($api){
     case 1:
-        $response = $master->insertByProcedure('sp_landings_g', [
+        $response = $master->insertByProcedure('sp_landings_contactos_g', [
             $nombre,
             $email,
             $telefono,
