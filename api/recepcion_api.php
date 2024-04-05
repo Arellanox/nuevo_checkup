@@ -95,6 +95,14 @@ $ordenes = $master->checkArray($ordenes, 1);
 $cliente_id = $_POST['cliente_id'];
 $fecha_ingreso = $_POST['fecha_ingreso'];
 
+# para el levenshtein
+$estudio = $_POST['estudio'];
+
+# comprobar correos correctamente
+$id_paciente = $_POST['id_paciente'];
+$curp = $_POST['curp'];
+$pasaporte = $_POST['pasaporte'];
+
 switch ($api) {
     case 1:
         # recuperar pacientes por estado
@@ -535,6 +543,55 @@ switch ($api) {
         }
 
         echo json_encode($response);
+        exit;
+        break;
+    case 15:
+        # Detalle de los estudios
+        $estudios = $master->getByProcedure('sp_recepcion_estudios_b',[$area_id]);
+
+        $coincidencias = [];
+
+        $estudio = strtolower($estudio);
+        foreach($estudios as $item){
+            $base = strtolower($item['DESCRIPCION'] . ' ' . $item['ABREVIATURA'] . ' ' . $item['DIAS_DE_ENTREGA'] . $item['INDICACIONES'] . ' ' . $item['CLASIFICACION']);
+            $baseTokens = explode(' ', $base);
+            $userTokens = explode(' ', $estudio);
+
+            $matches = 0;
+
+            foreach($userTokens as $userToken){
+                foreach($baseTokens as $baseToken){
+                    if(levenshtein($userToken, $baseToken) <= 2){ # umbral de distancia
+                        $matches++;
+                        break;
+                    }
+                }
+
+            }
+
+            $score = $matches / count($userTokens); // Cambio clave aquí: ahora consideramos la proporción basada en el userInput
+
+            if ($score > 0.7) { // Puedes ajustar este umbral según lo necesites
+                $coincidencias[] = $item;
+            }
+        }
+
+        $response = $coincidencias;
+        break;
+    case 16:
+        # enviar correo de para comprobacion de datos del paciente
+        $response = $master->getByProcedure('sp_pacientes_b',[
+            $id_paciente, 
+            $curp, 
+            $pasaporte, 
+            null # esta variable es la id del turno, para este efecto no aplica.
+        ]);
+
+        $correo1 = $response[0]['CORREO'];
+        $correo2 = $response[0]['CORREO_2'];
+
+        print_r([$correo1, $correo2]);
+        print_r($master->checkArray([$correo1, $correo2]));
         exit;
         break;
 
