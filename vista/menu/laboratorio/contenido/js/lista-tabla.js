@@ -387,6 +387,12 @@ function generarFormularioPaciente(id) {
                 },
                 7: {
                   'descripcion': 'URETRAL Y GLANDE'
+                },
+                8: {
+                  'descripcion': 'EXUDADO OROFARÍNGEO'
+                },
+                9: {
+                  'descripcion': 'OCULAR'
                 }
               }
               break;
