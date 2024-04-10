@@ -30,7 +30,7 @@ switch($api){
 
 
         # Enviar correos con los datos del nuevo lead captado.
-        if (isset($id_area) && $id_area = 8){
+        if (isset($id_area) && $id_area == 8){
             $mail->sendEmail(
                 "landings",
                 "¡Quiero una radiografía!",
