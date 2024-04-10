@@ -28,13 +28,25 @@ switch($api){
             $clave
         ]);
 
+
         # Enviar correos con los datos del nuevo lead captado.
-        $mail->sendEmail(
-            "landings",
-            "¡Quiero una radiografía!",
-            ["josue.delacruz@bimo.com.mx", "hola@bimo.com.mx"],
-            $datos
-        );
+        if (isset($id_area) && $id_area = 8){
+            $mail->sendEmail(
+                "landings",
+                "¡Quiero una radiografía!",
+                ["josue.delacruz@bimo.com.mx", "hola@bimo.com.mx"],
+                $datos
+            );
+        } else {
+            $mail->sendEmail(
+                'landings_2',
+                '¡Nuevo lead captado!',
+                ['hola@bimo.com.mx', 'josue.delacruz@bimo.com.mx'],
+                $datos
+            );
+        }
+
+        
         break;
 
     default:
