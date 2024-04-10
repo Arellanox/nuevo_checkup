@@ -315,7 +315,7 @@
         }
         .signos {
             position: fixed;
-            top: 20px;
+            top: 28px;
             left: 25px;
             right: 25px;
             height: 160px;
@@ -383,10 +383,11 @@ $folio = ((array)($resultados[1][0]))['FOLIO'];
         <?php
         $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
 
-        include 'includes/footer_rece.php';
+        include 'includes/footer_receta.php';
         ?>
     </div>
     <!-- Signos vitales -->
+    <br>
     <div class="signos" style=" margin-bottom:100px;">
         <table class="signos-vitales">
             <tr>
