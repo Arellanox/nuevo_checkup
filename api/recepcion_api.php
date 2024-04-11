@@ -14,6 +14,7 @@ if (!$tokenValido) {
 
 $api = $_POST['api'];
 $master = new Master();
+$mail = new Correo;
 $host = $master->selectHost($_SERVER['SERVER_NAME']);
 $hoy = date("Ymd");
 
@@ -580,21 +581,36 @@ switch ($api) {
         break;
     case 16:
         # enviar correo de para comprobacion de datos del paciente
-        $response = $master->getByProcedure('sp_pacientes_b',[
+        $px = $master->getByProcedure('sp_pacientes_b',[
             $id_paciente, 
             $curp, 
             $pasaporte, 
             null # esta variable es la id del turno, para este efecto no aplica.
         ]);
 
-        $correo1 = $response[0]['CORREO'];
-        $correo2 = $response[0]['CORREO_2'];
+        # recuperamos los correos dados
+        $correo1 = $px[0]['CORREO'];
+        $correo2 = $px[0]['CORREO_2'];
 
-        print_r([$correo1, $correo2]);
-        print_r($master->checkArray([$correo1, $correo2]));
-        exit;
+        # los unimos en uun mismo arreglo para su posterior consumo.
+        $correos = $master->checkArray([$correo1, $correo2]);
+
+        # datos del paciente
+        $datos = $px[0];
+        
+        #enviar correo para confirmar
+        try{
+            $mail->sendEmail('corroborarCorreos', "¡Sus datos han sido confirmados!", $correos, $datos);
+            $response = 1;
+        } catch (Exception $e){
+            $response = "Ha ocurrido un error. No se ha enviado el correo.";
+            $master->setLog("Error al enviar correo de verificacion de datos. $e", '[recepcion_api case 16]');
+        }
         break;
-
+    case 17:
+        # lista de las personas agregadas en el dia
+        $response = $master->getByProcedure("sp_recepcion_pacientes_del_dia", [$id_paciente, null, null]);
+        break;
     default:
         $response = "Api no definida.";
         break;

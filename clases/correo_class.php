@@ -221,6 +221,9 @@ class Correo
                 case "landings_2":
                     $mail->Body = $this->cuerpoLandings2($token);
                     break;
+                case 'corroborarCorreos':
+                    $mail->Body = $this->cuerpoCorroborarDatos($token);
+                    break;
             }
 
             # send email
@@ -257,6 +260,115 @@ class Correo
             $mis->setLog($e, "Clase correo [sendMail]");
             return false;
         }
+    }
+
+    # cuerpo corroborar datos
+    private function cuerpoCorroborarDatos($data){
+        $html = '<!DOCTYPE html>
+        <html lang="es">
+        <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Corroboración de datos</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                max-width: 600px;
+                margin: 20px auto;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            }
+            h1 {
+                color: #333;
+                text-align: center;
+            }
+            p {
+                color: #666;
+                line-height: 1.6;
+            }
+            .logo {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 20px;
+            }
+            th, td {
+                padding: 10px;
+                border-bottom: 1px solid #ddd;
+                text-align: left;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+        </style>
+        </head>
+        <body>
+        <div class="container">
+            <div class="logo">
+                <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png" alt="Logo de la empresa" width="200">
+            </div>
+            <h1>Corroboración de datos</h1>
+            <p>Estimado/a '.$data['NOMBRE'].',</p>
+            <p>Hemos recibido los siguientes datos y estamos en proceso de corroboración:</p>
+            <table>
+                <tr>
+                    <th>Información</th>
+                    <th>Valor</th>
+                </tr>
+                <tr>
+                    <td>Nombre</td>
+                    <td>' . $data['NOMBRE'] . ' ' . $data['PATERNO'] . ' ' .$data['MATERNO'] . '</td>
+                </tr>
+                <tr>
+                    <td>Correo 1</td>
+                    <td>' . $data['CORREO'] . '</td>
+                </tr>
+                <tr>
+                    <td>Correo 2</td>
+                    <td>' . $data['CORREO_2'] . '</td>
+                </tr>
+                <tr>
+                    <td>Teléfono</td>
+                    <td>' . $data['CELULAR'] . '</td>
+                </tr>
+                <tr>
+                    <td>Fecha de nacimiento</td>
+                    <td>' . $data['NACIMIENTO'] . '</td>
+                </tr>
+                <tr>
+                    <td>CURP</td>
+                    <td>' . $data['CURP'] . '</td>
+                </tr>
+                <tr>
+                    <td>Pasaporte</td>
+                    <td>' . $data['PASAPORTE'] . '</td>
+                </tr>
+                <tr>
+                    <td>RFC</td>
+                    <td>' . $data['RFC'] . '</td>
+                </tr>
+                <!-- Agrega más filas según los datos -->
+            </table>
+            <p>Por favor, asegúrese de que la información proporcionada sea correcta y esté actualizada.</p>
+            <p>Si tiene alguna pregunta o necesita proporcionar información adicional, no dude en ponerse en contacto con nosotros.</p>
+            <p>Gracias por su colaboración.</p>
+            <p>Saludos cordiales,</p>
+            <p>bimo Checkups</p>
+        </div>
+        </body>
+        </html>
+        ';
+        return $html;
     }
 
     # cuerpo landiungs 2
