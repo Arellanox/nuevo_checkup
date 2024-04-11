@@ -14,7 +14,7 @@ if (!$tokenValido) {
 
 $api = $_POST['api'];
 $master = new Master();
-$mail = new Correo;
+
 $host = $master->selectHost($_SERVER['SERVER_NAME']);
 $hoy = date("Ymd");
 
@@ -124,7 +124,7 @@ switch ($api) {
             $medico_tratante_id = $response;
         }
         #
-        $response = $master->getByNext('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo, $alergias, $e_diagnostico, null, $medico_tratante_id, $_SESSION['id'],$vendedor_id,)); #<-- la id de segmento manda error si no se le envia algo
+        $response = $master->getByNext('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo, $alergias, $e_diagnostico, null, $medico_tratante_id, $_SESSION['id'], $vendedor_id,)); #<-- la id de segmento manda error si no se le envia algo
         $aleta = $response[0][0][0];
 
         #validacion de si esta en caja o hay un corte de ayer que no se haya cerrado
@@ -507,39 +507,39 @@ switch ($api) {
         # descargar masivamente reportes
 
         $resultset = $master->getByProcedure("sp_recuperar_reportes_confirmados", [null, null, $cliente_id, $fecha_ingreso, null]);
-        
-        $ids = array_unique(array_map(function($item){
+
+        $ids = array_unique(array_map(function ($item) {
             return $item['TURNO_ID'];
         }, $resultset));
 
         $response = [];
 
-        foreach($ids as $id){
+        foreach ($ids as $id) {
             # filtramos los reportes por el turno
-            $records = array_filter($resultset, function($item) use ($id){
+            $records = array_filter($resultset, function ($item) use ($id) {
                 return $item["TURNO_ID"] == $id;
             });
 
             # obtenemos el nombre de la carpeta
             $firstElement = $records[array_key_first($records)];
-            $sinGuion = (explode('-',$firstElement['NOMBRE_ARCHIVO']))[0];
-            $sinGuionBajo = explode('_',$sinGuion);
+            $sinGuion = (explode('-', $firstElement['NOMBRE_ARCHIVO']))[0];
+            $sinGuionBajo = explode('_', $sinGuion);
 
             $folder = implode(" ", array_slice($sinGuionBajo, 1));
-            $folder = str_replace(" ","_",$folder);
+            $folder = str_replace(" ", "_", $folder);
             $urls = array();
 
-            foreach($records as $record){
+            foreach ($records as $record) {
                 $urls[] = [
                     "url" => $record["RUTA"],
                     "archivo" => $record["NOMBRE_ARCHIVO"]
                 ];
             }
-           
+
             $response[] = [
                 "folder" => $folder,
                 "urls" => $urls,
-                
+
             ];
         }
 
@@ -548,26 +548,25 @@ switch ($api) {
         break;
     case 15:
         # Detalle de los estudios
-        $estudios = $master->getByProcedure('sp_recepcion_estudios_b',[$area_id]);
+        $estudios = $master->getByProcedure('sp_recepcion_estudios_b', [$area_id]);
 
         $coincidencias = [];
 
         $estudio = strtolower($estudio);
-        foreach($estudios as $item){
+        foreach ($estudios as $item) {
             $base = strtolower($item['DESCRIPCION'] . ' ' . $item['ABREVIATURA'] . ' ' . $item['DIAS_DE_ENTREGA'] . $item['INDICACIONES'] . ' ' . $item['CLASIFICACION']);
             $baseTokens = explode(' ', $base);
             $userTokens = explode(' ', $estudio);
 
             $matches = 0;
 
-            foreach($userTokens as $userToken){
-                foreach($baseTokens as $baseToken){
-                    if(levenshtein($userToken, $baseToken) <= 2){ # umbral de distancia
+            foreach ($userTokens as $userToken) {
+                foreach ($baseTokens as $baseToken) {
+                    if (levenshtein($userToken, $baseToken) <= 2) { # umbral de distancia
                         $matches++;
                         break;
                     }
                 }
-
             }
 
             $score = $matches / count($userTokens); // Cambio clave aquí: ahora consideramos la proporción basada en el userInput
@@ -580,11 +579,13 @@ switch ($api) {
         $response = $coincidencias;
         break;
     case 16:
+
+        $mail = new Correo();
         # enviar correo de para comprobacion de datos del paciente
-        $px = $master->getByProcedure('sp_pacientes_b',[
-            $id_paciente, 
-            $curp, 
-            $pasaporte, 
+        $px = $master->getByProcedure('sp_pacientes_b', [
+            $id_paciente,
+            $curp,
+            $pasaporte,
             null # esta variable es la id del turno, para este efecto no aplica.
         ]);
 
@@ -597,17 +598,18 @@ switch ($api) {
 
         # datos del paciente
         $datos = $px[0];
-        
+
         #enviar correo para confirmar
-        try{
+        try {
             $mail->sendEmail('corroborarCorreos', "¡Sus datos han sido confirmados!", $correos, $datos);
             $response = 1;
-        } catch (Exception $e){
+        } catch (Exception $e) {
             $response = "Ha ocurrido un error. No se ha enviado el correo.";
             $master->setLog("Error al enviar correo de verificacion de datos. $e", '[recepcion_api case 16]');
         }
         break;
     case 17:
+        $mail = new Correo();
         # lista de las personas agregadas en el dia
         $response = $master->getByProcedure("sp_recepcion_pacientes_del_dia", [$id_paciente, null, null]);
         break;

@@ -101,6 +101,10 @@ $menu = $_POST['menu']; ?>
     <i class="bi bi-qr-code"></i> QR
   </button>
 
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="EstudiosInfo" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Información de estudios">
+    <i class="bi bi-search"></i> Estudios
+  </button>
+
   <!-- Boton para recibir notificaciones de reportes no enviados(abre un modal a una vista previa de los reportes no enviados) -->
   <button type="button" class="btn btn-hover position-relative me-2" style="margin-bottom:4px" id="btn-modalNotificacionesReportes" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Notificacion de reportes no entregados">
     <i class="bi bi-bell-fill"></i> No entregado

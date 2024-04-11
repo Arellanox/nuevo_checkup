@@ -36,4 +36,10 @@ $.post("modals/m_recepcion.php", function (html) {
 
   //Modal de reportes no enviados
   $.getScript('modals/js/reportes-no-enviados.js');
+
+
+
+
+  // Para informacion de estudios
+  $.getScript('modals/estudios/tabla.js');
 });
