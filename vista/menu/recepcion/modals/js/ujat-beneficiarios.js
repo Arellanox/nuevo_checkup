@@ -12,6 +12,7 @@ ModalBeneficiario.addEventListener('show.bs.modal', event => {
     $('#datos-nuevo-trabajador').fadeOut(200)
 
     resetInputFile()
+    $('#diagnostico_beneficiado').val(ifnull(array_selected, '', ['DIAGNOSTICO_TURNO']));
 })
 
 async function cargarModal() {
