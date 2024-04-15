@@ -2,6 +2,7 @@
 include_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
 include_once "../clases/correo_class.php";
+include_once "../clases/Pdf.php";
 
 $datos = json_decode(file_get_contents('php://input'), true);
 
@@ -14,6 +15,7 @@ if (!$tokenValido) {
 
 $api = $_POST['api'];
 $master = new Master();
+$mail = new Correo;
 
 $host = $master->selectHost($_SERVER['SERVER_NAME']);
 $hoy = date("Ymd");
@@ -611,7 +613,11 @@ switch ($api) {
     case 17:
         $mail = new Correo();
         # lista de las personas agregadas en el dia
-        $response = $master->getByProcedure("sp_recepcion_pacientes_del_dia", [$id_paciente, null, null]);
+        $response = $master->getByProcedure("sp_recepcion_pacientes_del_dia", [ null, null ]);
+        break;
+
+    case 18:
+        # imprimir el formato de validacion de datos del paciente
         break;
     default:
         $response = "Api no definida.";

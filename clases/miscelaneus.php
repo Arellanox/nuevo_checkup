@@ -551,7 +551,8 @@ class Miscelaneus
                 $arregloPaciente = $this->getBodyFormatoEnvioLotesMaquila($master, $turno_id); # $turno_id es el id de lote que se quiere generar.
                 break;    
             case -6:
-                
+                # $turno_id para este caso seria el equivalente a ID_PACIENTE
+                $arregloPaciente = $this->getBodyFormDatos($master, $turno_id);
                 break;
         }
 
@@ -630,6 +631,12 @@ class Miscelaneus
             $master->insertByProcedure('sp_reportes_areas_g', [null, $turno_id, $area_id, $infoPaciente[0]['CLAVE_IMAGEN'], $renderpdf, null]);
         }
         return $renderpdf;
+    }
+
+    private function getBodyFormDatos($master, $id_paciente){
+        $response = $master->getByProcedure('sp_pacientes_b', [$id_paciente, null, null, null]);
+        $paciente = $response[0];
+        return $paciente;
     }
 
     private function getBodyInfoSoma($master, $id_turno)
