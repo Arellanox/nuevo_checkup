@@ -618,6 +618,11 @@ switch ($api) {
 
     case 18:
         # imprimir el formato de validacion de datos del paciente
+        $r = $master->reportador($master, $id_paciente, -6, 'form_datos', 'mostrar',0, 0, 0);
+        break;
+    case 19:
+        # Agregar los tipos de medios que quiere el paciente recibir sus resultados.
+        $response = $master->insertByProcedure("sp_recepcion_", []);
         break;
     default:
         $response = "Api no definida.";
