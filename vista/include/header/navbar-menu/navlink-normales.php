@@ -56,6 +56,13 @@ date_default_timezone_set('America/Mexico_City'); ?>
         </a>
     </li>
 
+    <li class="nav-item">
+        <a href="#pacientes" type="button">
+            <i class="bi bi-person-badge-fill"></i> Pacientes
+        </a>
+    </li>
+
+
     <?php if ($_SESSION['perfil'] ==  1) : ?>
         <li class="nav-item">
             <a href="<?php echo "$https$url/$appname/vista/menu/pacientes-completos/"; ?>" type="button">

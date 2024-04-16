@@ -451,7 +451,6 @@ function ifnull(data, siNull = '', values = [
   },
   'option4',
 ]) {
-  console.log(data)
   values = ((typeof values === 'object' && !Array.isArray(values)) || (typeof values === 'string'))
     ? [values]
     : values;
