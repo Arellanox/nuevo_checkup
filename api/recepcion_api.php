@@ -106,6 +106,10 @@ $id_paciente = $_POST['id_paciente'];
 $curp = $_POST['curp'];
 $pasaporte = $_POST['pasaporte'];
 
+# medios de entrega de resultados
+$id_medio = $_POST['id_medio'];
+$medios_entrega = $_POST['medios_entrega'];
+
 switch ($api) {
     case 1:
         # recuperar pacientes por estado
@@ -622,7 +626,21 @@ switch ($api) {
         break;
     case 19:
         # Agregar los tipos de medios que quiere el paciente recibir sus resultados.
-        $response = $master->insertByProcedure("sp_recepcion_", []);
+        # Este procedure recibe una lista separadas por comas de los ids de los medios de entrega
+
+        # solo envias la lista con las opciones que tendra el paciente, agrega o elimina segun la lista que reciba.
+
+        # convertimos en arreglo chido la lista separada por comas.
+        $medios = explode(',', $medios_entrega);
+
+        $response = $master->insertByProcedure("sp_pacientes_medios_entrega_g", [
+            $id_paciente, 
+            json_encode($medios)
+        ]);
+        break;
+    case 20:
+        # recuperar los tipos de medios de entrega.
+        $response = $master->getByProcedure("sp_pacientes_tipos_medio_entrega_b", [$id_medio]);
         break;
     default:
         $response = "Api no definida.";
