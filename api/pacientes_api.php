@@ -44,6 +44,10 @@ $genero = $_POST['genero'];
 $id_turno = $_POST['turno_id'];
 $correo2 = $_POST['correo_2'];
 
+
+# medios de entrega 
+$medios_entrega = $_POST['medios_entrega']; 
+
 $parametros = array(
     $id_paciente,
     $segmento_id,
@@ -78,6 +82,18 @@ $master = new Master();
 switch ($api) {
     case 1:
         # insertar un nuevo paciente
+        
+        # Agregar los tipos de medios que quiere el paciente recibir sus resultados.
+        # Este procedure recibe una lista separadas por comas de los ids de los medios de entrega
+
+        # solo envias la lista con las opciones que tendra el paciente, agrega o elimina segun la lista que reciba.
+
+        # convertimos en arreglo chido la lista separada por comas.
+        $medios = explode(',', $medios_entrega);
+        
+        # agregamos el json al arreglo del paciente
+        array_push($parametros, json_encode($medios));
+
         $response = $master->insertByProcedure("sp_pacientes_g", $parametros);
         break;
     case 2:
