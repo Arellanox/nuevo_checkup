@@ -111,7 +111,7 @@ $img64 = base64_encode(file_get_contents('https://bimo-lab.com/archivos/sistema/
         <input type="text" id="firma" name="firma" required>
     </div>
     <div class="footer">
-        <p>Fecha de impresión: <?php echo $fecha_impresion; ?></p>
+        <p>Fecha de impresión: <?php echo $fecha_actual; ?></p>
     </div>
 </div>
 </body>
