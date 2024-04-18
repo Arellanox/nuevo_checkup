@@ -3,7 +3,7 @@
 $fecha_actual = date('Y-m-d H:i:s');
 
 // Restar 6 horas
-$fecha_impresion = date('Y-m-d H:i:s', strtotime($fecha_actual . ' -6 hours'));
+// $fecha_impresion = date('Y-m-d H:i:s', strtotime($fecha_actual . ' -6 hours'));
 
 # codificar logo bimo
 $img64 = base64_encode(file_get_contents('https://bimo-lab.com/archivos/sistema/bimo_banner.png'));
