@@ -121,7 +121,7 @@ tablaPacientesActuales = $('#tablaPacientesActuales').DataTable({
     dom: 'Blfrtip',
     buttons: [
         {
-            text: '<i class="bi-email"></i> Confirmación',
+            text: '<i class="bi bi-envelope"></i> Confirmación',
             className: 'btn btn-success btn-confirmacion',
             action: () => {
                 var selectedRows = tablaPacientesActuales.rows('.selected').data();
@@ -136,6 +136,34 @@ tablaPacientesActuales = $('#tablaPacientesActuales').DataTable({
                             ajaxAwait({ api: 16, id_paciente: selectedRows['ID_PACIENTE'] }, 'recepcion_api', { callbackAfter: true }, false, () => {
                                 alertMensaje('success', 'Correo enviado', 'Los datos de paciente fueron enviarons correctamente a los correo de contactos');
                             });
+                        } else {
+                            alertToast('Parece que hubo un error con el registro, vuelve a intentarlo o reporta este error');
+                        }
+                    }, 1)
+
+
+                } else {
+                    alertToast('No ha seleccionado ningún registro')
+                }
+
+            }
+        },
+        {
+            text: '<i class="bi bi-layout-text-sidebar"></i> Confirmación',
+            className: 'btn btn-success btn-borrar',
+            action: () => {
+                var selectedRows = tablaPacientesActuales.rows('.selected').data();
+                selectedRows = selectedRows[0]
+
+                if (selectedRows) {
+                    alertMensajeConfirm({
+                        title: '¿Deseas Generar los datos del paciente?',
+                        text: 'Podrás imprimir el formato del sistema.'
+                    }, () => {
+                        if (ifnull(selectedRows, false, ['ID_PACIENTE'])) {
+                            api = encodeURIComponent(window.btoa('form_datos'));
+                            turno = encodeURIComponent(window.btoa(selectedRows['ID_PACIENTE']));
+                            window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}`, "_blank");
                         } else {
                             alertToast('Parece que hubo un error con el registro, vuelve a intentarlo o reporta este error');
                         }
