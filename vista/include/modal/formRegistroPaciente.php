@@ -141,6 +141,31 @@
     </div>
   </div>
 </div>
+
+<div class="col-12 pt-2" id="communicationOptions">
+  <div class="row">
+    <p class="fs-6">Preferencia de reporte de resultado que desea</p>
+    <div class="col-auto mb-3 form-check fs-4 mx-3">
+      <input type="checkbox" class="form-check-input" id="impreso" name="medios" value="1">
+      <label class="form-check-label" for="impreso">
+        <i class="fas fa-print"></i> Impreso
+      </label>
+    </div>
+    <div class="col-auto mb-3 form-check fs-4 mx-3">
+      <input type="checkbox" class="form-check-input" id="whatsapp" name="medios" value="2">
+      <label class="form-check-label" for="whatsapp">
+        <i class="fab fa-whatsapp"></i> Whatsapp
+      </label>
+    </div>
+    <div class="col-auto mb-3 form-check fs-4 mx-3">
+      <input type="checkbox" class="form-check-input" id="correo" name="medios" value="3">
+      <label class="form-check-label" for="correo">
+        <i class="fas fa-envelope"></i> Correo
+      </label>
+    </div>
+  </div>
+</div>
+
 <div class="col-12 col-lg-6 col-xxl-3 bd-callout bd-callout-warning" id="contenido-procedencia">
 
 </div>
