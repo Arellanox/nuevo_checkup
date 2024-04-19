@@ -10,10 +10,10 @@ tablaPacientesActuales = $('#tablaPacientesActuales').DataTable({
     ajax: {
         dataType: 'json',
         data: {
-            api: 2,
+            api: 17,
         },
         method: 'POST',
-        url: '../../../api/pacientes_api.php',
+        url: '../../../api/recepcion_api.php',
         beforeSend: function () {
             loader("In")
 
