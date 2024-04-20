@@ -111,6 +111,11 @@ switch ($api) {
         break;
     case 3:
         # actualizar pacientes
+        # convertimos en arreglo chido la lista separada por comas.
+        $medios = explode(',', $medios_entrega);
+
+        # agregamos el json al arreglo del paciente
+        array_push($parametros, json_encode($medios));
         $response = $master->updateByProcedure("sp_pacientes_g", $parametros);
         break;
     case 4:
