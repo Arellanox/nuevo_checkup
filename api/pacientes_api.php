@@ -46,7 +46,7 @@ $correo2 = $_POST['correo_2'];
 
 
 # medios de entrega 
-$medios_entrega = $_POST['medios_entrega']; 
+$medios_entrega = $_POST['medios_entrega'];
 
 $parametros = array(
     $id_paciente,
@@ -82,7 +82,7 @@ $master = new Master();
 switch ($api) {
     case 1:
         # insertar un nuevo paciente
-        
+
         # Agregar los tipos de medios que quiere el paciente recibir sus resultados.
         # Este procedure recibe una lista separadas por comas de los ids de los medios de entrega
 
@@ -90,7 +90,7 @@ switch ($api) {
 
         # convertimos en arreglo chido la lista separada por comas.
         $medios = explode(',', $medios_entrega);
-        
+
         # agregamos el json al arreglo del paciente
         array_push($parametros, json_encode($medios));
 
@@ -105,6 +105,8 @@ switch ($api) {
             $value['ordenes'] = $master->decodeJson([$value['ordenes']]);
             $response[$key]['ordenes'] = $value['ordenes'];
         }
+
+        $response = $master->decodeJsonRecursively($response);
 
         break;
     case 3:
