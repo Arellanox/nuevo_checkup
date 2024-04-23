@@ -166,7 +166,7 @@ $ruta_reporte = ifnull($array['RUTA_REPORTE']);
                     <div class="row">
                         <div class="col-12">
                             <p class="" id="nombre-persona"> <?php echo ifnull($array['NOMBRE']) ?></p>
-                            <p class="none-p "> <strong id="edad-persona" class="none-p"><?php echo calcularEdad2($array['NACIMIENTO'])['numero'] . " " . calcularEdad2($array['NACIMIENTO'])['tipo'] ?></strong> | <strong id="nacimiento-persona" class="none-p"><?php echo ifnull($array['NACIMIENTO']) ?></strong> </p>
+                            <p class="none-p "> <strong id="edad-persona" class="none-p"><?php echo ifnull($array['EDAD']); ?></strong> </p>
                         </div>
 
                         <div class="col-12 row mt-3">
