@@ -1341,13 +1341,13 @@ class Miscelaneus
     private function determinarTipo($parametro, $resultado)
     {
         $parametro = trim($parametro);
-        $resultado = trim($resultado);
+        $resultado = str_replace(",",'',trim($resultado));
 
         // Comprobar si el parámetro contiene un rango de valores
         if (strpos($parametro, '-') !== false) {
             $rango = explode('-', $parametro);
-            $minimo = trim($rango[0]);
-            $maximo = trim($rango[1]);
+            $minimo = str_replace(",", '', trim($rango[0]));
+            $maximo = str_replace(",","",trim($rango[1]));
 
             if ($resultado < $minimo) {
                 return $this->arrowDown;
