@@ -12,17 +12,21 @@
 @import "offcanvas.css?v=2";
 @import "buttons.css?v=-8";
 @import "fullscreen-click-img.css";
-@import "colors.css?v=2";
+@import "colors.css?v=3";
 @import "boostrap-new.css?v=2";
 @import "icono-flotante-cumple.css?v=1";
 @import "popper.css?v=2";
 @import "lightbox.css?v=1";
+@import "galeria_promociones.css?v=4";
+@import "cards.css?v=1";
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@1,300&display=swap');
+
 
 
 body {

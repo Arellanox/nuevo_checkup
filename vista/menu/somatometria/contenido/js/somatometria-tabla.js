@@ -84,7 +84,7 @@ async function obtenerResultadosSignos(id) {
                     'masaCorporal': 'ÍNDICE DE MASA CORPORAL',
                     'masaMuscular': 'MASA LIBRE DE GRASA',
                     'porcentajeGrasaVisceral': 'NIVEL DE GRASA VISCERAL',
-                    'huesos': 'MASA DE MÚSCULO ESQUELÉTICO',
+                    'huesos': 'MÚSCULO ESQUELÉTICO',
                     'metabolismo': 'TASA METABÓLICA BASAL',
                     'perimetroCefalico': 'PERIMETRO CEFALICO',
                     'porcentajeProteinas': 'PROTEÍNAS',
@@ -95,7 +95,8 @@ async function obtenerResultadosSignos(id) {
 
                 // Iterar sobre el mapeo para establecer los valores de los elementos
                 for (const [elementID, rowKey] of Object.entries(elementMap)) {
-                    $(`#${elementID}`).val(ifnull(row, '', { [rowKey]: ['VALOR'] }));
+                    // console.log($(`#${elementID}`), rowKey, row[`${rowKey}`][['VALOR']]);
+                    $(`#${elementID}`).val(ifnull(row, '', { [rowKey]: 'VALOR' }));
                 }
 
                 // Manejar el botón de reporte

@@ -15,9 +15,30 @@
 $("#formRegistrarPaciente").submit(function (event) {
   event.preventDefault();
   /*DATOS Y VALIDACION DEL REGISTRO*/
+
+
+  // Validar medio 
+  // Solo cuenta los checkboxes que están dentro del div#communicationOptions
+  selectedMedia = '';
+  var checkedCount = $('#communicationOptions input[type="checkbox"]:checked').length;
+  if (checkedCount === 0) {
+    alertToast('Por favor, seleccione al menos un medio de comunicación', 'info');
+    return false
+  } else {
+    // Recoge los valores de los checkboxes seleccionados y los une con comas
+    var selectedMedia = $('#communicationOptions input[type="checkbox"]:checked').map(function () {
+      return this.value;
+    }).get().join(', ');
+
+    // Aquí puedes hacer algo con la cadena 'selectedMedia', como almacenarla o enviarla.
+  }
+
+
+
   var form = document.getElementById("formRegistrarPaciente");
   var formData = new FormData(form);
   formData.set('api', 1);
+  formData.set('medios_entrega', selectedMedia);
   // console.log(formData);
   // $i=0;
   //  formData.forEach(element => {

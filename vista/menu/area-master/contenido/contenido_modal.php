@@ -367,7 +367,7 @@ session_start();
                 <div class="row">
                     <div class="col-12">
                         <form id="subirResultadosAudio">
-                            <h4>Seleccione el estudio que decea subir: </h4>
+                            <h4>Seleccione el estudio que desea subir: </h4>
                             <input type="file" class="form-control input-form mt-3" name="resultado_audio[]" accept=".pdf" id="resultado_audio">
                         </form>
                     </div>

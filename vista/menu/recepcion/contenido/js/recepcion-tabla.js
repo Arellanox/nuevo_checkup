@@ -211,7 +211,8 @@ selectTable('#TablaRecepcionPacientes', tablaRecepcionPacientes, {
       },
       selected: true,
     },
-  ]
+  ],
+  timeOut: { time: 600 } // estable tiempo de esperar [probablemente aun sin configurar pero funcional]
 }, async function (select, data, callback) {
   callback('In')
   if (select) {

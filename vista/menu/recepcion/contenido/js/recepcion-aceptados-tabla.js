@@ -101,6 +101,9 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
       data: 'FECHA_RECEPCION',
       render: function (data) {
 
+        if (!data)
+          return '';
+
         const formattedDate = formatoFecha2(data, [0, 1, 5, 2, 2, 2, 0], null);
 
         // Separar la fecha y la hora basado en la coma
@@ -275,7 +278,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
                   cliente_id: $('#select-cambioProcedencia').val()
                 },
                   'recepcion_api', { callbackAfter: true }, false, () => {
-                    alertToast('Se actualizo la procedecia', 'success', 4000)
+                    alertToast('Se actualizó la procendecia', 'success', 4000)
                     $('#modalActualizarProsedencia').modal('hide');
                     try { tablaRecepcionPacientes.ajax.reload(); } catch (e) { }
                     try { tablaRecepcionPacientesIngrersados.ajax.reload(); } catch (e) { }
@@ -432,11 +435,15 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
       // } else {
       //   $('#buttonBeneficiario').attr('disabled', true);
       // }
-
-      obtenerPanelInformacion(data['ID_TURNO'], 'paciente_api', 'paciente')
-      obtenerPanelInformacion(data['ID_TURNO'], 'consulta_api', 'listado_resultados', '#panel-resultados')
-      obtenerPanelInformacion(data['ID_TURNO'], false, 'area_faltantes', '#panel-areas-faltantes')
+      selectCounTableTime = true
+      await obtenerPanelInformacion(data['ID_TURNO'], 'paciente_api', 'paciente')
+      selectCounTableTime = true
+      await obtenerPanelInformacion(data['ID_TURNO'], 'consulta_api', 'listado_resultados', '#panel-resultados')
+      selectCounTableTime = true
+      await obtenerPanelInformacion(data['ID_TURNO'], false, 'area_faltantes', '#panel-areas-faltantes')
+      selectCounTableTime = true
       await obtenerPanelInformacion(1, false, 'Estudios_Estatus', '#estudios_concluir_paciente')
+      selectCounTableTime = true
 
       if (data['COMPLETADO'] == 1) {
         $('#contenedor-btn-cerrar-paciente').html(`

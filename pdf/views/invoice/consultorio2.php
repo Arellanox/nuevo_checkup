@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultado de interpretación de Historia Clinica</title>
+    <title>Resultado de Consulta Médica</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">  -->
@@ -441,7 +441,8 @@ if (isset($ruta_firma))
                 <div class="pregunta-row">Tratamiento:</div>
                 <?php
                 // print_r($resultados[3]);
-                $medicamentos = $resultados[3];
+                $medicamentos = $resultados[4];
+                if(count($medicamentos)>0){
                 // exit;
                     for ($i = 0; $i < count($medicamentos); $i++) {
                         $recetas = $medicamentos[$i];
@@ -454,6 +455,9 @@ if (isset($ruta_firma))
                             </div>';
                         // }
                     }
+                }else{
+                    echo '<p class="margin: 10px 15px; font-size: 14px">Ninguna </br></br></p>';
+                }
                 
                 ?>
             </div>

@@ -27,6 +27,9 @@ if (validarVista('RECEPCIÓN')) {
 //Notificacion de reportes faltantes
 //animated-button
 notificacionReportesNoEnviados(null)
+detectCoincidence('#medico-aceptar-paciente')
+
+
 async function notificacionReportesNoEnviados(count) {
   let span = '#numReportes';
   let btn = '#btn-modalNotificacionesReportes';
@@ -41,20 +44,68 @@ async function notificacionReportesNoEnviados(count) {
         $(span).html(noti)
         $(btn).addClass('animated-button');
 
-        try { TablaReportesNoEnviados.ajax.reload(); } catch (error) { }
+        // try { TablaReportesNoEnviados.ajax.reload(); } catch (error) { }
 
       } else if (noti != count) {
         //Borramos si no existe
         $(span).fadeOut(0);
         $(btn).removeClass('animated-button')
 
-        try { TablaReportesNoEnviados.ajax.reload(); } catch (error) { }
+        // try { TablaReportesNoEnviados.ajax.reload(); } catch (error) { }
       }
+
+      resolve(1);
     });
   });
 
 }
 
+
+
+// const secciones = {
+//   'pendientes': {
+//     url: 'contenido/recepcion.html',
+//     scripts: ['contenido/js/recepcion-tabla.js']
+//   },
+//   'ingresados': {
+//     url: 'contenido/recepcion-ingresados.html',
+//     scripts: ['contenido/js/common-script.js', 'contenido/js/recepcion-aceptados-tabla.js'],
+//     data: { api: 1, estado: 1 }
+//   },
+//   'rechazados': {
+//     url: 'contenido/recepcion-rechazados.html',
+//     scripts: ['contenido/js/recepcion-tabla.js', 'contenido/js/some-other-script.js'],
+//     data: { api: 1, estado: 0 }
+//   }
+// };
+
+
+
+// function cargarSeccion(seccion) {
+//   const config = secciones[seccion] || secciones['pendientes'];
+//   $('#titulo_area').html(`Recepción | ${seccion.charAt(0).toUpperCase() + seccion.slice(1)}`);
+//   $.post(config.url, function (html) {
+//     $("#body-js").html(html);
+//     if (config.data) {
+//       dataRecepcion = config.data;
+//     }
+//   }).done(function () {
+//     cargarScripts(config.scripts);
+//   });
+// }
+
+// function cargarScripts(scripts) {
+//   const scriptPromises = scripts.map(script => $.getScript(script));
+//   return Promise.all(scriptPromises);
+// }
+
+// function manejarHash() {
+//   const hash = window.location.hash.substring(1) || 'pendientes';
+//   $("a").removeClass("navlinkactive");
+//   $(`nav li a[href='#${hash}']`).addClass("navlinkactive");
+
+//   cargarSeccion(hash);
+// }
 
 
 // Botones
@@ -92,6 +143,16 @@ function obtenerContenidoRechazados() {
   });
 }
 
+function obtenerContenidoTodosPacientes() {
+  $('#titulo_area').html('Pacientes registrados'); //Aqui mandar el nombre de la area
+  $.post("contenido/pacientes/pacientes.html", function (html) {
+    $("#body-js").html(html);
+  }).done(function () {
+    // Datatable
+    $.getScript("contenido/pacientes/js/pacientes.js");
+  });
+}
+
 
 hash = ''
 obtenerTitulo('Recepción | Espera');
@@ -109,6 +170,10 @@ function hasLocation() {
     case "pendientes":
       obtenerContenidoEspera();
       dataRecepcion = { api: 1 };
+      break;
+
+    case 'pacientes':
+      obtenerContenidoTodosPacientes();
       break;
     default:
       window.location.hash = 'pendientes';
@@ -140,7 +205,7 @@ function recepciónPaciente(estatus, id) {
         case 'rechazar':
           Swal.fire(
             'Rechazado!',
-            'El paciente a sido rechazado.',
+            'El paciente ha sido rechazado.',
             'error'
           )
           // Ajax para cancelar registro del paciente

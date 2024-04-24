@@ -36,6 +36,7 @@ $titulo_id = $_POST['titulo'];
 $universidad = $_POST['universidad'];
 $profesion = $_POST['profesion'];
 $cedula = $_POST['cedula'];
+$cliente_id = $_POST['cliente_id'];
 
 
 
@@ -78,7 +79,8 @@ switch ($api) {
             $correo,
             $bloqueado,
             $titulo_id,
-            $universidad
+            $universidad,
+            $cliente_id
         );
 
         $last_id = $master->insertByProcedure('sp_usuarios_g', $params);

@@ -1,0 +1,65 @@
+<!-- style="max-height: 60vh" -->
+<div class="bg-image"></div>
+
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-xl-8">
+      <div class="card shadow">
+        <div class="card-body">
+          <h5 class="pantone-3165-color">Espectrograma</h5>
+          <div id="waveContainer" class="mt-3"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-xl-8 mt-4">
+      <div class="card shadow">
+        <div class="card-body">
+          <h5 class="pantone-3165-color">Texto a audio</h5>
+          <form id="formSpeekText">
+            <div class="text-end">
+              <button type="submit" class="btn btn-hover float-end mb-1" id="generateAudioButton">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                  style="display: none;"></span>
+                <i class="bi bi-mic-fill"></i> Generar Audio
+              </button>
+            </div>
+            <div class="mb-3">
+              <label for="text_area_tts" class="form-label">Texto a convertir</label>
+              <textarea id="text_area_tts" class="form-control input-form" rows="4"
+                placeholder="Escribe algo aquí..."></textarea>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  .bg-image {
+    background-image: url('https://bimo-lab.com/nuevo_checkup/archivos/sistema/ilustraciones/recuadro_2.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.7;
+    position: fixed;
+    /* or absolute */
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    margin-top: -9vh
+  }
+
+  #body-js {
+    padding: 0px;
+    margin: 0px;
+  }
+
+  #body-controlador {
+    background-color: #000000 !important;
+  }
+
+  .card {
+    background-color: rgb(246 253 255 / 97%) !important;
+  }
+</style>

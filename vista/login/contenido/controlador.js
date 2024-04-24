@@ -37,6 +37,7 @@ function obtenerContenido(tabla) {
             } else {
               // console.log(data.response.data)
 
+
               switch (session['cargo']) {
                 case '10': case 10:
                   $(location).attr('href', `${http}${servidor}/${appname}/vista/menu/recepcion/`);
@@ -50,8 +51,29 @@ function obtenerContenido(tabla) {
                   $(location).attr('href', `${http}${servidor}/${appname}/vista/menu/consultorio/`);
                   return true;
 
+                case '21': case 21:
+                  $(location).attr('href', `${http}${servidor}/${appname}/vista/procedencia/estudios-laboratorio/`); // Pronto por procedencia
+
+                  return true;
+
+                  break;
+
+                // medicos
+                case '1':
+
+                  if (ifnull(session.vista, false, ["MEDICOS_TRATANTES"])) {
+                    $(location).attr('href', `${http}${servidor}/${appname}/vista/menu/medicos_tratantes/#PACIENTES`);
+                  } else {
+                    $(location).attr('href', `${http}${servidor}/${appname}/vista/menu/principal/`);
+                  }
+
+                  break;
+
 
                 default:
+
+
+
                   $(location).attr('href', `${http}${servidor}/${appname}/vista/menu/principal/`);
                   return false;
                 // break;

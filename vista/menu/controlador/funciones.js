@@ -67,6 +67,13 @@ function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = '
 }
 
 
+// Función para convertir un arreglo a texto
+function arrayATexto(arr) {
+  return arr.join(', '); // Usa ', ' como separador
+}
+
+
+
 // Reinicia los collapse para medicos tratantes
 function reset_email_inputs_medicos() {
   // Ocultar solo los collapses de confirmación de correo
@@ -92,6 +99,40 @@ function calcularEdad(fecha) {
     edad--;
   return edad;
 }
+
+function calcularEdad2(fecha) {
+  var hoy = new Date();
+  var cumpleanos = new Date(fecha);
+  var edadEnAnos = hoy.getFullYear() - cumpleanos.getFullYear();
+  var m = hoy.getMonth() - cumpleanos.getMonth();
+  var d = hoy.getDate() - cumpleanos.getDate();
+
+  if (m < 0 || (m === 0 && d < 0)) {
+    edadEnAnos--;
+    m += 12; // Ajusta los meses cuando el día de hoy es antes del día de cumpleaños.
+  }
+
+  if (edadEnAnos > 0) {
+    return { numero: edadEnAnos, tipo: 'año' + (edadEnAnos > 1 ? 's' : '') };
+  } else if (m > 0) {
+    return { numero: m, tipo: 'mes' + (m > 1 ? 'es' : '') };
+  } else {
+    // Calcular la diferencia en días si no hay diferencia en meses o años.
+    var fechaCumpleanosEsteAno = new Date(hoy.getFullYear(), cumpleanos.getMonth(), cumpleanos.getDate());
+    var diferenciaDias = Math.floor((hoy - fechaCumpleanosEsteAno) / (1000 * 60 * 60 * 24));
+    if (diferenciaDias < 0) {
+      diferenciaDias += new Date(hoy.getFullYear(), hoy.getMonth(), 0).getDate(); // Ajuste si el día de hoy es antes del día de cumpleaños en este mes.
+    }
+
+    var semanas = Math.floor(diferenciaDias / 7);
+    if (semanas > 0) {
+      return { numero: semanas, tipo: 'semana' + (semanas > 1 ? 's' : '') };
+    } else {
+      return { numero: diferenciaDias, tipo: 'día' + (diferenciaDias > 1 ? 's' : '') };
+    }
+  }
+}
+
 
 // Revisar sesión
 function validarVista(area, reload = true) {
@@ -162,6 +203,21 @@ function avisoArea(tip = 0) {
   }
 }
 
+
+// Configuracion de ajax
+const configAjaxAwait = {
+  alertBefore: false, //Alerta por defecto, "Estamos cargando la solucitud" <- Solo si la api consume tiempo
+  response: true, //Si la api tiene la estructura correcta (response.code)
+  callbackBefore: false, //Activa la function antes de enviar datos, before
+  callbackAfter: false, //Activa una funcion para tratar datos enviados desde ajax, osea success
+  returnData: true, // regresa los datos o confirmado (1)
+  WithoutResponseData: false, //Manda los datos directos
+  resetForm: false, //Reinicia el formulario en ajaxAwaitFormData,
+  ajaxComplete: () => { }, //Mete una funcion para cuando se complete
+  ajaxError: () => { }, //Mete una funcion para cuando de error
+  formJquery: null, // Manda como variable el formulario ubicado, esto si el formulario esta por clases y lo mandas por jquery
+}
+
 //Ajax Async (NO FORM DATA SUPPORT)
 async function ajaxAwait(dataJson, apiURL,
   config = {
@@ -183,8 +239,7 @@ async function ajaxAwait(dataJson, apiURL,
 ) {
   return new Promise(function (resolve, reject) {
     //Configura la funcion misma
-    config = configAjaxAwait(config)
-
+    config = setConfig(configAjaxAwait, config)
 
     $.ajax({
       url: `${http}${servidor}/${appname}/api/${apiURL}.php`,
@@ -220,29 +275,7 @@ async function ajaxAwait(dataJson, apiURL,
   });
 }
 
-//
-function configAjaxAwait(config) {
-  //valores por defecto de la funcion ajaxAwait y ajaxAwaitFormData
-  const defaults = {
-    alertBefore: false, //Alerta por defecto, "Estamos cargando la solucitud" <- Solo si la api consume tiempo
-    response: true, //Si la api tiene la estructura correcta (response.code)
-    callbackBefore: false, //Activa la function antes de enviar datos, before
-    callbackAfter: false, //Activa una funcion para tratar datos enviados desde ajax, osea success
-    returnData: true, // regresa los datos o confirmado (1)
-    WithoutResponseData: false, //Manda los datos directos
-    resetForm: false, //Reinicia el formulario en ajaxAwaitFormData,
-    ajaxComplete: () => { }, //Mete una funcion para cuando se complete
-    ajaxError: () => { }, //Mete una funcion para cuando de error
-  }
-
-  Object.entries(defaults).forEach(([key, value]) => {
-    config[key] = config[key] ?? value;
-  });
-  return config;
-}
-
-
-//Ajax Async FormData
+//Ajax Async FormData (¡ Dejar de usar !)
 async function ajaxAwaitFormData(dataJson = { api: 0, }, apiURL, form = 'OnlyForm'  /* <-- Formulario sin # */,
   config = {
     alertBefore: false
@@ -264,9 +297,14 @@ async function ajaxAwaitFormData(dataJson = { api: 0, }, apiURL, form = 'OnlyFor
   // formData.set('api', 10);
   return new Promise(function (resolve, reject) {
     //Configura la funcion misma
-    config = configAjaxAwait(config)
+    config = setConfig(configAjaxAwait, config)
 
+    // Si mandas el form de jquery, mandalo a nativo
     let formID = document.getElementById(form);
+    if (config.formJquery) {
+      formID = config.formJquery[0];
+    }
+
     let formData = new FormData(formID);
 
     for (const key in dataJson) {
@@ -277,6 +315,7 @@ async function ajaxAwaitFormData(dataJson = { api: 0, }, apiURL, form = 'OnlyFor
         }
       }
     }
+
 
     $.ajax({
       url: `${http}${servidor}/${appname}/api/${apiURL}.php`,
@@ -412,7 +451,6 @@ function ifnull(data, siNull = '', values = [
   },
   'option4',
 ]) {
-
   values = ((typeof values === 'object' && !Array.isArray(values)) || (typeof values === 'string'))
     ? [values]
     : values;
@@ -443,20 +481,68 @@ function ifnull(data, siNull = '', values = [
       return data;
     }
   }
+
   // Iterar a través de las claves en values
   for (const key of values) {
     if (typeof key === 'string' && key in data) {
-      return data[key] || siNull;
+      const result = ifnull(data[key], false);
+      if (result) {
+        return result;
+      }
+      // return result || siNull;
     } else if (typeof key === 'object') {
       for (const nestedKey in key) {
-        const result = ifnull(data[nestedKey], siNull, key[nestedKey]);
-        if (result) return ifnull(result, siNull);
+        const result = ifnull(data[nestedKey], siNull, [key[nestedKey]]);
+        if (result) return result
       }
     }
   }
 
+
+  try {
+    if (data.length) {
+      return data
+    }
+  } catch (error) {
+    console.error('El objeto no es texto');
+  }
+
   return siNull;
 }
+
+
+// Verifica si rellenó todo
+function requiredInputLeft(formId) {
+  let todosLlenos = false; // Asumiendo que los datos estan rellenados
+
+  // Almacenar los grupos de radio verificados para no repetir la verificación
+  let radioVerificados = {};
+
+  $(`#${formId} .required_input`).each(function () {
+    // Para campos de texto y número, verifica si están vacíos
+    if (this.type === 'text' || this.type === 'number') {
+      if (!ifnull(this, false, ['value'])) {
+        todosLlenos = true; // Marca si falta campos por marcar
+        return false; // Salir del bucle
+      }
+    }
+    // Para botones de radio, verifica si alguno del mismo grupo está seleccionado
+    else if (this.type === 'radio') {
+      // Si el grupo de radio ya fue verificado, saltarlo
+      if (radioVerificados[this.name]) return true;
+
+      if (!$(`input[name="${this.name}"]:checked`).length) {
+        todosLlenos = true; // Marca si falta campos por marcar
+        return false; // Salir del bucle
+      }
+      // Marcar el grupo de radio como verificado
+      radioVerificados[this.name] = true;
+    }
+  });
+
+  return todosLlenos;
+}
+
 
 
 function htmlCaracter(data) {
@@ -609,16 +695,55 @@ function resetInputLabel() {
 
 // config = myfunctionconfig(config);
 
+function setConfig(defaults, config) {
+  // Función recursiva para manejar propiedades anidadas
+  function mergeDefaults(defaults, config) {
+    Object.entries(defaults).forEach(([key, defaultValue]) => {
+      if (typeof defaultValue === 'object' && defaultValue !== null && !Array.isArray(defaultValue)) {
+        // Si la propiedad es un objeto (y no un array), llama recursivamente
+        config[key] = config[key] || {}; // Asegúrate de que exista un objeto para mergear
+        mergeDefaults(defaultValue, config[key]);
+      } else {
+        // Si la propiedad no es un objeto, o es un array, simplemente la copiamos
+        config[key] = config.hasOwnProperty(key) ? config[key] : defaultValue;
+      }
+    });
+  }
+
+  // Copia superficial de config para evitar la modificación del objeto original
+  let configCopy = { ...config };
+  mergeDefaults(defaults, configCopy);
+  return configCopy;
+}
+
 // Esta funcion solo funciona para un solo input,
 // si hay mas de uno debe llamarse tantas veces sea posible
 let selectedFilesCount = 0;
-function InputDragDrop(divPadre, callback = () => { console.log('callback default') }, config = { multiple: false }) {
-
+function InputDragDrop(divPadre, callback = () => { console.log('callback default') }, config = { /*Configuracion */ }) {
+  // Setea para no perder configuracion
+  config = setConfig(
+    // nuevas configuraciones
+    {
+      multiple: false,
+      dropArea: {
+        background: '#ffffff00',
+        border: '2px dashed rgb(0 79 90 / 17%)'
+      }
+    }, config
+  )
 
   let dropArea = $(divPadre) // <- Recomendaible una ID tipo #divPadre
   let inputArea = $(divPadre).find('input'); // <- Deseable a que solo exista un input
   let labelArea = $(divPadre).find('label');// <- Si deseas modificar el texto del div añadelo
   let divCarga = $(divPadre).find('div')//<- Opcional se agrego para hacer un Spinners de bootraps
+
+
+  // Personalización 
+  if (ifnull(config, false, ['width'])) {
+    dropArea.css('width', config.width)
+    dropArea.css(config.dropArea); // <--
+  }
+
 
   // Antes de configurar la funcionalidad para el nuevo paciente, realiza la limpieza
   dropArea.off();
@@ -668,17 +793,38 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
 
   // Efecto de cargando e imagen subida lista;
   // Aviso que debe ejecutar callback para saber si ya se subió
-  let salidaInput = (msj = 'Archivo actualizado') => {
-    // Crear efecto de imagen subida
-    // console.log('Salida de input')
+  let salidaInput = (config = { /*Config de salida*/ }) => {
 
-    labelArea.html(`${msj}</br> <strong>¿Desea subir otro? </strong>`)
+    config = setConfig({
+      msj: {
+        msj: 'Archivo actualizado',
+        pregunta: '¿Deseas subir otro archivo?'
+      },
+      dropArea_css: {
+        background: '#f4fdff',
+        border: '2px dashed rgb(0 79 90 / 17%)',
+      },
+      strong: {
+        class: 'none-p',
+        style: `borderBottom: '1px solid'`
+      }
+    }, config)
+
+    // Crear efecto de imagen subida
+    // Previene errores y versionalidad
+    if (typeof config === 'string') {
+      // La variable es un string
+      msj = config;
+    } else {
+      msj = config.msj.msj;
+    }
+    // 
+
+    // console.log('Salida de input')
+    labelArea.html(`${msj} </br > <strong class="${config.strong.class}" style="${config.strong.style}">${config.msj.pregunta}</strong>`)
     divCarga.css({ 'display': 'none' })
 
-    dropArea.css({
-      'background': '#f4fdff',
-      'border': '2px dashed rgb(0 79 90 / 17%)'
-    })
+    dropArea.css(config.dropArea_css)
   }
 
 
@@ -686,7 +832,6 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
 
     const files = inputArea[0].files;
     if (config.multiple || files.length <= 1) {
-
       callback(inputArea, salidaInput);
     } else {
 
@@ -749,6 +894,28 @@ function InputDragDrop(divPadre, callback = () => { console.log('callback defaul
     // callback
     envioFiles() // <- Recordar que debes terminar el proceso de cargando a salida
   })
+
+
+
+  const resetInputDrag = function resetInputDrag() {
+
+    // Resetear los estilos al estado inicial
+    dropArea.removeClass('hover_dropDrag').css({
+      'border-color': 'rgb(0 79 90 / 17%)',
+      'background-color': 'transparent', // Suponiendo que el fondo inicial es transparente
+      'color': 'black', // Si el texto inicial es negro
+      // Restablecer cualquier otro estilo que sea necesario
+    });
+
+    // También debes asegurarte de que el contenido de la zona de arrastre se restablezca
+    const labelArea = dropArea.find('label');
+    labelArea.text('Sube tu archivo arrastrándolo aquí'); // O el texto inicial que desees
+  }
+
+  return {
+    resetInputDrag: resetInputDrag
+  };
+
 }
 
 
@@ -775,7 +942,7 @@ function resetInputFile() {
   $('input[type="file"]').each(function () {
     $(this).val('')
     var label = $(this).parent('div').find('label[class="input-file-label"]')
-    label.html(`<i class="bi bi-box-arrow-up"></i> Seleccione un archivo`)
+    label.html(`< i class= "bi bi-box-arrow-up" ></ > Seleccione un archivo`)
   });
 }
 
@@ -895,7 +1062,7 @@ function omitirPaciente(areaFisica) {
     cancelButtonColor: "#3085d6",
   }, function () {
     $.ajax({
-      url: `${http}${servidor}/${appname}/api/turnero_api.php`,
+      url: `${http}${servidor} / ${appname} / api / turnero_api.php`,
       type: 'POST',
       dataType: 'json',
       data: { api: 3, area_fisica_id: areaFisica },
@@ -1016,7 +1183,7 @@ function pasarPaciente() {
     cancelButtonColor: "#3085d6",
   }, function () {
     $.ajax({
-      url: `${http}${servidor}/${appname}/api/turnero_api.php`,
+      url: `${http}${servidor} / ${appname} / api / turnero_api.php`,
       type: 'POST',
       dataType: 'json',
       data: { api: 7 },
@@ -1507,37 +1674,24 @@ function alertMensaje(icon = 'success', title = '¡Completado!', text = 'Datos c
 
 function alertMsj(options, callback = function () { }) {
 
-  if (!options.hasOwnProperty('title'))
-    options['title'] = "¿Desea realizar esta acción?"
+  // Configuración predeterminada
+  options = setConfig(
+    {
+      "title": "¿Desea realizar esta acción?",
+      "text": "Probablemente no podrá revertirlo",
+      "icon": "warning",
+      "showCancelButton": true,
+      showConfirmButton: true,
+      "confirmButtonColor": "#3085d6",
+      "cancelButtonColor": "#d33",
+      "confirmButtonText": "Aceptar",
+      "cancelButtonText": "Cancelar",
+      "allowOutsideClick": false,
+      allowEscapeKey: true,
+    }
+    , options)
 
-  if (!options.hasOwnProperty('text'))
-    options['text'] = "Probablemente no podrá revertirlo"
 
-  if (!options.hasOwnProperty('icon'))
-    options['icon'] = 'warning'
-
-  if (!options.hasOwnProperty('showCancelButton'))
-    options['showCancelButton'] = true
-
-  if (!options.hasOwnProperty('confirmButtonColor'))
-    options['confirmButtonColor'] = '#3085d6'
-
-  if (!options.hasOwnProperty('cancelButtonColor'))
-    options['cancelButtonColor'] = '#d33'
-
-  if (!options.hasOwnProperty('confirmButtonText'))
-    options['confirmButtonText'] = 'Aceptar'
-
-  if (!options.hasOwnProperty('cancelButtonText'))
-    options['cancelButtonText'] = 'Cancelar'
-
-  if (!options.hasOwnProperty('allowOutsideClick'))
-    options['allowOutsideClick'] = false
-  // if (!options.hasOwnProperty('timer'))
-  //   options['timer'] = 4000
-  // if (!options.hasOwnProperty('timerProgressBar'))
-  //   options['timerProgressBar'] = true
-  //
   Swal.fire(options).then((result) => {
     callback(result);
   })
@@ -2072,64 +2226,6 @@ function createTooltipHtml(tooltipData) {
 //
 
 
-
-// Configuraciones por defecto para select table
-function configSelectTable(config) {
-  //valores por defecto de la funcion ajaxAwait y ajaxAwaitFormData
-  const defaults = {
-    dblClick: false, // Aceptar doble click
-    unSelect: false, // Deseleccionar un registro
-    anotherClass: 'other-for-table', //Cuando sea seleccionado, se agrega la clase, sino se quita
-    ignoreClass: '',
-    tabs: [
-      {
-        title: 'Pacientes',
-        element: '#tab-paciente',
-        class: 'active',
-      },
-      {
-        title: 'Información',
-        element: '#tab-informacion',
-        class: 'disabled tab-select'
-      },
-      {
-        title: 'Reporte',
-        element: '#tab-reporte',
-        class: 'disabled tab-select'
-      },
-    ],
-    "tab-id": '#tab-button',
-    "tab-default": 'Reporte',  //Por default, al dar click, abre aqui
-    reload: false, //Activa la rueda [Example:  reload: ['col-xl-9'] ]
-    movil: false, //Activa la version movil
-    multipleSelect: false,
-    OnlyData: false,
-    noColumns: false,
-    // alwaySelected: false,
-    ClickClass: [
-      {
-        class: '.',
-        callback: function (data) {
-
-        },
-        selected: true
-      },
-      {
-        class: '.',
-        callback: function (data) {
-
-        },
-        selected: false
-      }
-    ],
-    divPadre: false, //Busca dentro del div las clases, si no hay buscará cualquiera
-  }
-
-  Object.entries(defaults).forEach(([key, value]) => {
-    config[key] = config[key] ?? value;
-  });
-  return config;
-}
 //Detecta la dimension del dispositivo para saber si es movil o escritorio
 function isMovil(callback = (response) => { }) {
   var esTabletaVertical = /iPad/i.test(navigator.userAgent)
@@ -2333,7 +2429,7 @@ function resizeConfigMovil(config, loaderName) {
 }
 
 //selectDataTableMovilEdition
-let dataDobleSelect, selectTableTimeOutClick, selectTableClickCount = 0;
+let dataDobleSelect, selectTableTimeOutClick, selectTableClickCount = 0, selectCounTableTime = false;
 function selectTable(tablename, datatable,
   config = {
     dblClick: false,
@@ -2342,7 +2438,56 @@ function selectTable(tablename, datatable,
   callbackDblClick = (select = 1, dataRow = [], callback, tr = '1', row = []) => { }
 ) {
   //manda valores por defecto
-  config = configSelectTable(config)
+  config = setConfig(
+    {
+      dblClick: false, // Aceptar doble click
+      unSelect: false, // Deseleccionar un registro
+      anotherClass: 'other-for-table', //Cuando sea seleccionado, se agrega la clase, sino se quita
+      ignoreClass: '',
+      tabs: [
+        {
+          title: 'Pacientes',
+          element: '#tab-paciente',
+          class: 'active',
+        },
+        {
+          title: 'Información',
+          element: '#tab-informacion',
+          class: 'disabled tab-select'
+        },
+        {
+          title: 'Reporte',
+          element: '#tab-reporte',
+          class: 'disabled tab-select'
+        },
+      ],
+      "tab-id": '#tab-button',
+      "tab-default": 'Reporte',  //Por default, al dar click, abre aqui
+      reload: false, //Activa la rueda [Example:  reload: ['col-xl-9'] ]
+      movil: false, //Activa la version movil
+      multipleSelect: false,
+      OnlyData: false,
+      noColumns: false,
+      // alwaySelected: false,
+      ClickClass: [
+        {
+          class: '.',
+          callback: function (data) {
+
+          },
+          selected: true
+        },
+        {
+          class: '.',
+          callback: function (data) {
+
+          },
+          selected: false
+        }
+      ],
+      divPadre: false, //Busca dentro del div las clases, si no hay buscará cualquiera
+      timeOut: false // Mantiene un tiempo de espeera entre clicks ( {time: 1000} )
+    }, config)
 
   //Nombrando para usarlo
   let tableString = tablename.replace('#', '')
@@ -2381,11 +2526,23 @@ function selectTable(tablename, datatable,
     }
     $(loader_selectTable).attr("style", "display: none !important");
 
+    if (config.timeOut)
+      // Termina el tiempo de espera de los objetos seegun lo programado
+      selectCounTableTime = false;
   }
 
 
   //Table Click Registro
   $(`${tablename}`).on(`click`, `tr`, function (event) {
+
+    if (selectCounTableTime && config.timeOut)
+      return 'No action';
+
+    if (config.timeOut)
+      // Da un tiempo de espera
+      selectCounTableTime = true;
+
+
     //Obtener datos, tr, row e información del row
     let tr = this
     let row = datatable.row(tr);
@@ -2393,10 +2550,12 @@ function selectTable(tablename, datatable,
 
     // let td = $(event.target).is('td')
 
-    // if (config.alwaySelected) {
-    //   datatable.$('tr.selected').removeClass('selected');
-    //   $(tr).addClass('selected');
-    // }
+    // Verifica si el clic se hizo en un enlace o dentro de un enlace
+    if ($(event.target).closest('a').length) {
+      // Si el clic fue dentro de un enlace, simplemente sal de la función.
+      // Esto permitirá que el comportamiento predeterminado del enlace se ejecute sin interferencias.
+      return;
+    }
 
 
     //Evalua si el objeto es correcto a su click
@@ -2433,14 +2592,18 @@ function selectTable(tablename, datatable,
     array_selected = row.data();
 
     selectTableClickCount++;
+
     if ($(tr).hasClass('selected')) {
+
       clearTimeout(selectTableTimeOutClick)
-      console.log(selectTableClickCount)
+
 
       selectTableTimeOutClick = setTimeout(function () {
         if (selectTableClickCount === 1 && config.unSelect === true) {
           //Manda a cargar la vista
-          selectTable_cargarVista()
+          if (!config.noColumns) {
+            selectTable_cargarVista()
+          }
 
           //Resetea los clicks:
           selectTableClickCount = 0;
@@ -2450,12 +2613,24 @@ function selectTable(tablename, datatable,
           selectTable_resetSelect(tr, false, true)
           //
 
-          //Desactivar otros tab
-          $(`.tab-select`).addClass('disabled')
+          if (config.multipleSelect) {
+            //Multiple Seleccion
+            //Hará el callback cada que seleccionan a uno nuevo
+            let row_length = datatable.rows('.selected').data().length
+            let data = datatable.rows('.selected').data()
 
-          //Regresa la funcion personalizada
-          callbackClick(0, null, callback, null, null);
-          //
+            callbackClick(row_length, data, null, null)
+
+          } else {
+
+
+            //Desactivar otros tab
+            $(`.tab-select`).addClass('disabled')
+
+            //Regresa la funcion personalizada
+            callbackClick(0, null, callback, null, null);
+            //
+          }
         } else if (selectTableClickCount === 2 && config.dblClick === true) {
           //Si esta haciendo dobleClick: 
           selectTableClickCount = 0;
@@ -2468,9 +2643,9 @@ function selectTable(tablename, datatable,
 
     } else {
       //Manda a cargar la vista
-      // if (!config.noColumns) {
-      selectTable_cargarVista()
-      // }
+      if (!config.noColumns) {
+        selectTable_cargarVista()
+      }
 
       //Si esta seleccionando:
       dataDobleSelect = tr;
@@ -2507,6 +2682,8 @@ function selectTable(tablename, datatable,
     //Reinicia y espera el dobleClick
     setTimeout(() => {
       selectTableClickCount = 0;
+      if (config.timeOut)
+        selectCounTableTime = false;
     }, 600)
 
     return 'No action';
@@ -2520,11 +2697,13 @@ function selectTable(tablename, datatable,
       console.log('Hola');
       $(`${config.divPadre} .tab-second`).fadeOut()
     } else {
+      console.log('Hola');
       $('.tab-second').fadeOut()
     }
 
     // console.log($(loader_selectTable))
-    $(loader_selectTable).fadeIn(0);
+    if (config.reload)
+      $(loader_selectTable).fadeIn(0);
   }
 
   function selectTable_resetSelect(tr, config, resetTR = false) {
@@ -2883,7 +3062,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     if (mensajeAjax(data)) {
                       row = data['response']['data'][0];
                       $('#nombre-persona').html(row.NOMBRE_COMPLETO);
-                      $('#edad-persona').html(formatoEdad(row.EDAD))
+                      $('#edad-persona').html(`${calcularEdad2(row.NACIMIENTO)['numero']} ${calcularEdad2(row.NACIMIENTO)['tipo']}`)
                       $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
                       $('#info-paquete_cargado').html(ifnull(row, '', ['PAQUETE_CARGADO']))
                       $('#info-vendedor').html(ifnull(row, '', ['VENDEDOR']))
@@ -3040,8 +3219,8 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                             </div>
                             <div class="${col_class.second} text-start d-flex align-items-center">
                               <p class="none-p">
-                                ${ifnull(data, 'Sin tomar', [{ [item.row]: ['VALOR'] }])} <strong>
-                                ${ifnull(data, '', [{ [item.row]: ['UNIDAD_MEDIDA'] }])}</strong>
+                                ${ifnull(data, 'Sin tomar', [{ [item.row]: 'VALOR' }])} <strong>
+                                ${ifnull(data, '', [{ [item.row]: 'UNIDAD_MEDIDA' }])}</strong>
                               </p>
                             </div>
                           </div>
@@ -3121,7 +3300,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     function crearDIV(grupo, id, row) {
                       let html = '';
                       html += '<a class="collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-' + id + '" aria-expanded="false">';
-                      html += '<div style = "display: block"><div style="margin:0px;background: rgb(0 0 0 / 25%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;""><h4 style="font-size: 20px !important;padding: 0px;margin: 0px;">' + grupo + '</h4></div></div>';
+                      html += '<div style = "display: block"><div class="collapse_estudio" style="margin:0px;background: rgb(0 0 0 / 25%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;""><h4 style="font-size: 20px !important;padding: 0px;margin: 0px;">' + grupo + '</h4></div></div>';
                       html += '</a>'
 
                       html += '<div class="collapse bg-white-canvas" id="board-' + id + '">'

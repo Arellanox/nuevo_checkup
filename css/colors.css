@@ -21,3 +21,11 @@
 .bg-white a{
     color: black !important;
 }
+
+.badge-orange{
+    background-color: rgb(255, 140, 0) !important;
+}
+
+.badge-strongBlue{
+    background-color: rgb(42, 82, 190) !important;
+}

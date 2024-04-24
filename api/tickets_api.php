@@ -32,6 +32,7 @@ $rfc = $_POST['rfc'];
 $uso = $_POST['uso'];
 $metodo_pago = $_POST['metodo_pago'];
 $formas_pagos_ticket = $_POST['formas_pagos_ticket'];
+$conceptos = $_POST['conceptos'];
 
 
 
@@ -57,7 +58,8 @@ $params = array(
     $uso,
     $metodo_pago,
     $_SESSION['id'],
-    $formas_pagos_ticket
+    $formas_pagos_ticket,
+    json_encode($conceptos)
 
 );
 # datos de factura

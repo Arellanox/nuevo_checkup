@@ -540,6 +540,20 @@ class Miscelaneus
                 #Corte de caja
                 $arregloPaciente = $this->getBodyCorteCaja($master, $turno_id);
                 break;
+
+            case -5:
+                # Envio de Muestas
+                # reporte de lotes.
+                # pacientes que son enviado por maquila.
+                $carpeta_guardado = "envio_de_muestras";
+                $fecha_resultado = date("Ymd");
+                $nombre_paciente = "envio_muestras_$turno_id";
+                $arregloPaciente = $this->getBodyFormatoEnvioLotesMaquila($master, $turno_id); # $turno_id es el id de lote que se quiere generar.
+                break;    
+            case -6:
+                # $turno_id para este caso seria el equivalente a ID_PACIENTE
+                $arregloPaciente = $this->getBodyFormDatos($master, $turno_id);
+                break;
         }
 
 
@@ -617,6 +631,12 @@ class Miscelaneus
             $master->insertByProcedure('sp_reportes_areas_g', [null, $turno_id, $area_id, $infoPaciente[0]['CLAVE_IMAGEN'], $renderpdf, null]);
         }
         return $renderpdf;
+    }
+
+    private function getBodyFormDatos($master, $id_paciente){
+        $response = $master->getByProcedure('sp_pacientes_b', [$id_paciente, null, null, null]);
+        $paciente = $response[0];
+        return $paciente;
     }
 
     private function getBodyInfoSoma($master, $id_turno)
@@ -890,6 +910,20 @@ class Miscelaneus
                         # ANAMNESIS
                         #$productoFinal['ANAMNESIS'] = $master->checkArray($response[$i]);
                         $anamnesis = $master->checkArray($response[$i]);
+
+                        #Orden deseado
+                        $ordenDeseado = [
+                            'SISTEMA CARDIOVASCULAR',
+                            'APARATO RESPIRATORIO',
+                            'APARATO DIGESTIVO',
+                            'APARATO GENITOURINARIO',
+                            'SISTEMA NERVIOSO',
+                            'ENDOCRINOLOGIA Y METABOLISMO',
+                            'APARATO LOCOMOTOR',
+                            'TERMOREGULACION'
+                        ];
+
+
                         #obtenenmos la clase
                         $clase = array();
                         foreach ($anamnesis as $current) {
@@ -905,7 +939,18 @@ class Miscelaneus
                                 return $obj['CLASE'] == $current;
                             });
                         }
-                        $productoFinal['ANAMNESIS'] = $newAnamnesis;
+
+                        #Reordenar la consulta y arreglo
+                        $newAnamnesisOrdenado = array();
+                        foreach ($ordenDeseado as $claseOrdenada) {
+                            $claseConGuion = str_replace(" ", "_", $claseOrdenada);
+                            if (array_key_exists($claseConGuion, $newAnamnesis)) {
+                                $newAnamnesisOrdenado[$claseConGuion] = $newAnamnesis[$claseConGuion];
+                            }
+                        }
+
+                        $productoFinal['ANAMNESIS'] = $newAnamnesisOrdenado;
+                        # $productoFinal['ANAMNESIS'] = $newAnamnesis;
                         break;
                     case 3:
                         # ODONTOGRAMA
@@ -1296,13 +1341,13 @@ class Miscelaneus
     private function determinarTipo($parametro, $resultado)
     {
         $parametro = trim($parametro);
-        $resultado = trim($resultado);
+        $resultado = str_replace(",",'',trim($resultado));
 
         // Comprobar si el parámetro contiene un rango de valores
         if (strpos($parametro, '-') !== false) {
             $rango = explode('-', $parametro);
-            $minimo = trim($rango[0]);
-            $maximo = trim($rango[1]);
+            $minimo = str_replace(",", '', trim($rango[0]));
+            $maximo = str_replace(",","",trim($rango[1]));
 
             if ($resultado < $minimo) {
                 return $this->arrowDown;
@@ -1382,6 +1427,9 @@ class Miscelaneus
                     $metodo_grupo = $current['METODOS_GRUPO'];
                     $equipo_grupo = $current['EQUIPOS_GRUPO'];
                     $clasificacion_id = $current['CLASIFICACION_ID'];
+                    $muestra_grupo = $current['MUESTRA_GRUPO'];
+
+                    $current['RESULTADO'] = str_replace("<", "&lt;", $current['RESULTADO']);
 
                     $item = array(
                         "nombre"            => $current['DESCRIPCION_SERVICIO'],
@@ -1456,7 +1504,9 @@ class Miscelaneus
                     "analitos"       => $analitos,
                     "metodo"         => $metodo_grupo,
                     "equipo"         => $equipo_grupo,
-                    "observaciones"  => isset($id_grupo) ? $observacionnes_generales : null
+                    "observaciones"  => isset($id_grupo) ? $observacionnes_generales : null,
+                    "muestra"        => $muestra_grupo
+                    //"muestra"        => $id_grupo == 972 || $id_grupo == 1599 || $id_grupo = 1677 ? "Plasma EDTA" : ""
                 );
                 $analitos = array();
             }
@@ -1470,6 +1520,11 @@ class Miscelaneus
         );
 
         return $response;
+    }
+
+    function getMuestraGrupo($master, $grupo_id, $turno){
+        $muestra = $master->selectByProcedure("sp_recuperar_muestra", [$grupo_id]);
+        return $muestra[0];
     }
 
     function cleanAttachingFiles($files_array)
@@ -1682,7 +1737,7 @@ class Miscelaneus
 
         switch ($domain) {
             case "localhost":
-                $preUrl = "http://localhost/practicantes/";
+                $preUrl = "http://localhost/nuevo_checkup/";
                 break;
             case "bimo-lab.com":
                 $preUrl = "https://bimo-lab.com/nuevo_checkup/";
@@ -1907,7 +1962,7 @@ class Miscelaneus
         $datos = array(
             'api' => '1',
             'user' => 'TurneroUno',
-            'pass' => 'TurneroUno'
+            'pass' => 'I16E!H{fg7'
         );
 
         $url1 = "https://bimo-lab.com/nuevo_checkup/api/login_api.php";
@@ -2094,6 +2149,12 @@ class Miscelaneus
         return $response;
     }
 
+    public function getBodyEnvioMuestras($master, $turno_id)
+    {
+        # json para recuperar datos de envio de muestras
+        $respuestas = $master->getByProcedure("", [$turno_id]);
+    }
+
     public function setLogEmail(
         $master,
         $turno_id,
@@ -2108,5 +2169,24 @@ class Miscelaneus
         $response = $master->insertByProcedure("", []);
 
         return true;
+    }
+
+    
+    public function getBodyFormatoEnvioLotesMaquila($master, $id_lote){
+        $resultset = $master->getByNext("sp_maquilas_datos_reporte", [$id_lote]);
+
+        $detalle = $resultset[0];
+        $generales = $resultset[1][0];
+
+        $generales["DETALLE"] = $detalle;
+        
+        return $generales;
+    }
+
+    function token_api()
+    {
+        return [
+            'openAI' => "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",
+        ];
     }
 }

@@ -25,7 +25,7 @@ $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8')
 $id_cotizacion = mb_convert_encoding(base64_decode(urldecode($_GET['id_cotizacion'])), 'UTF-8');
 $usuario_id = $_SESSION['id'];
 
-
+// $api = 'biomolecular';
 // mb_convert_encoding($rePa['paterno'],'UTF-8'));
 // Imagenologia --> 8 para rayos y 11 para ultrasonido
 
@@ -92,6 +92,10 @@ switch ($api) {
         break;
     case 'audiometria':
         $r = $master->reportador($master, $turno_id, 4, 'audiometria', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
+        break;
+    case 'form_datos':
+        # para confirmar los datos del paciente de forma impresa.
+        $r = $master->reportador($master, $turno_id, -6, 'form_datos', 'mostrar', 0, 0, 0);
         break;
     default:
         echo '<script language="javascript">alert("¡URL invalida!"); window.close()</script>';

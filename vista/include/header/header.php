@@ -71,7 +71,10 @@ switch ($menu) {
 
       // echo $fecha_sumada; // imprime la nueva fecha en formato 'año-mes-día'
 
-      if (false && $menu != 'procedencia') : ?>
+      if (
+        false &&
+        $_SESSION['id_cliente'] == 15
+      ) : ?>
 
         <img src="https://bimo-lab.com/nuevo_checkup/1724986_dbc8d.gif" style="width: 90px; z-index: 99; position: absolute; left: 40px; top: 12px; transform: rotate(0.04turn);" id="decoration-cumple" />
         <div class="contenido-extra-cumple">
@@ -81,7 +84,7 @@ switch ($menu) {
           </a>
 
           <div class="modal fade" id="modalCardCumpleaños" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
-            <div class="modal-dialog modal-md modal-dialog-centered ">
+            <div class="modal-dialog modal-lg modal-dialog-centered ">
               <div class="modal-content">
                 <!-- <div class="modal-header header-modal">
                   <h5 class="modal-title" id="filtrador"></h5>
@@ -89,15 +92,32 @@ switch ($menu) {
               </div> -->
                 <div class="modal-body">
                   <div id="tsparticles"></div>
-                  <div style="position: relative; width: 100%; height: 0; padding-top: 177.7778%;
+                  <!-- <div style="position: relative; width: 100%; height: 0; padding-top: 177.7778%;
  padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
  border-radius: 8px; will-change: transform;">
                     <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;" src="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAFlxQzMVzU&#x2F;watch?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
                     </iframe>
+                  </div> -->
+
+
+                  <div class="row">
+                    <div class="col-12 col-lg-6">
+                      <div style="position: relative; width: 100%; height: 0; padding-top: 177.7778%;
+ padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+ border-radius: 8px; will-change: transform;">
+                        <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;" src="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAF7Ua8eJDI&#x2F;watch?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+                        </iframe>
+                      </div>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                      <div style="position: relative; width: 100%; height: 0; padding-top: 177.7778%;
+ padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+ border-radius: 8px; will-change: transform;">
+                        <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;" src="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAF9dxd8ZVI&#x2F;4QbixsXdjdBYkNxBKaaVdg&#x2F;watch?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+                        </iframe>
+                      </div>
+                    </div>
                   </div>
-
-
-
 
 
                   <!-- <a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAFhaaU2rcM&#x2F;watch?utm_content=DAFhaaU2rcM&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener">Tarjeta vertical felicitación cumpleaños empleado empresa elegante dorado</a> de Bimo Talento Humano -->
@@ -184,11 +204,15 @@ switch ($menu) {
       <?php
       endif; ?>
 
-
-      <button class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop" style="color: white;border-color: #ffffff54;">
-        <!-- onclick="openNav()" -->
-        <i class="bi bi-list"></i>
-      </button>
+      <div class="d-lg-none">
+        <button class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop" style="color: white;border-color: #ffffff54;">
+          <!-- onclick="openNav()" -->
+          <i class="bi bi-list"></i>
+        </button>
+        <div class="promociones promociones-block promociones_btn" style="display: none;">
+          <span>%</span>
+        </div>
+      </div>
       <div id="navbarCollapse" class="collapse navbar-collapse">
         <ul class="nav navbar-nav" id="navbar-js">
           <?php
@@ -205,21 +229,25 @@ switch ($menu) {
 
           <!-- Botones alado de los usuarios -->
           <li class="nav-item dropstart d-flex justify-content-center align-items-center m">
-            <?php
-            if ($menu != 'procedencia') {
+            <?php if (
+              $menu != 'procedencia' &&
+              $_SESSION['id_cliente'] == 15
+            ) {
               include "btn-user/buttons.php";
-            }
-            ?>
-          </li>
+            } ?>
 
+          </li>
 
           <li class="nav-item dropstart flex-grow-1">
             <!-- <a data-bs-toggle="dropdown" type="button" class="dropdown-toggle"><i class="bi bi-person-circle" style="zoom:190%"></i></a> -->
-            <a data-bs-toggle="dropdown" type="button" class="">
+            <a data-bs-toggle="dropdown" type="button" class="promociones_event">
               <div class=" container-avatar">
                 <img src="<?php echo $_SESSION['AVATAR']; ?>" alt="Avatar" class="image-avatar">
                 <div class="overlay-avatar">
                   <div class="text-avatar"><?php echo strtok($_SESSION['nombre'], " "); ?></div>
+                </div>
+                <div class="promociones promociones-block" style="display: none;">
+                  <span class="span-lg">%</span>
                 </div>
               </div>
             </a>
@@ -232,7 +260,15 @@ switch ($menu) {
                       <p><?php echo "$_SESSION[cargo_descripcion]"; ?></p>
                     </div>
                     <div class="profile-description text-center">Hola, ¡buen día! :)</div>
-                    <?php if ($menu != 'procedencia') { ?>
+
+                    <a href="" class="btn-promociones promociones-block" style="display: none;" data-bs-toggle="modal" data-bs-target="#modalPromociones">
+                      <i class="bi bi-tag-fill"></i> Promociones
+                    </a>
+
+                    <?php if (
+                      $menu != 'procedencia' &&
+                      $_SESSION['id_cliente'] == 15
+                    ) { ?>
                       <div class="profile-description text-center">
                         <a href="<?php echo $_SESSION['newsletter']['button_usuario']['url'] ?>" target="_blank" class="a-hover"><i class="bi bi-newspaper"></i> <?php echo $_SESSION['newsletter']['button_usuario']['tittle_button'] ?></a>
                       </div>
@@ -264,7 +300,79 @@ switch ($menu) {
   });
 </script>
 
+<!-- Modal de Bootstrap sin header ni footer -->
+<div class="modal fade modal-xl" id="modalPromociones" tabindex="-1" aria-labelledby="modalPromocionesLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
 
+      <!-- Contenido del Modal -->
+      <div class="modal-body contentPromociones">
+
+        <div class="row justify-content-center div-padre " id="vistaPromociones">
+          <!-- <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
+            <div class="bg-white rounded shadow-sm">
+
+              <img src="https://bootstrapious.com/i/snippets/sn-gallery/img-6.jpg" alt="" class="img-fluid card-img-top" style="width: 100%; height: 280px; object-fit: cover;">
+              <div class="p-4">
+                <h5> <a href="#" class="text-dark">Yellow banana</a></h5>
+                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                  <div class="badge text-bg-success px-3 rounded-pill font-weight-normal text-white">Activo</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
+            <div class="bg-white rounded shadow-sm">
+
+              <img src="https://bootstrapious.com/i/snippets/sn-gallery/img-6.jpg" alt="" class="img-fluid card-img-top" style="width: 100%; height: 280px; object-fit: cover;">
+              <div class="p-4">
+                <h5> <a href="#" class="text-dark">Yellow banana</a></h5>
+                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                  <div class="badge text-bg-success px-3 rounded-pill font-weight-normal text-white">Activo</div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  // $(document).ready(function() {
+  //     var imagenes = [
+  //         "https://bootstrapious.com/i/snippets/sn-gallery/img-1.jpg",
+  //         "https://bootstrapious.com/i/snippets/sn-gallery/img-2.jpg",
+  //         "https://bootstrapious.com/i/snippets/sn-gallery/img-3.jpg",
+  //         "https://bootstrapious.com/i/snippets/sn-gallery/img-4.jpg",
+  //         // Añade más URLs de imágenes aquí
+  //     ];
+
+  //     function insertarImagenes(imagenes) {
+  //         var $divPadre = $('.div-padre');
+  //         $divPadre.empty(); // Limpiar el contenido actual
+
+  //         for (var i = 0; i < imagenes.length; i++) {
+  //             var imagen = imagenes[i];
+  //             var $col = $('<div class="col-xl-6 col-lg-6 col-md-6 mb-4"></div>');
+  //             var $tarjeta = $('<div class="bg-white rounded shadow-sm"></div>');
+
+  //             $tarjeta.append('<img src="' + imagen + '" alt="" class="img-fluid card-img-top" style="width: 100%; height: 400px; object-fit: cover;">');
+  //             $tarjeta.append('<div class="p-4"><h5> <a href="#" class="text-dark">Titulo de imagen</a></h5><p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p><div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4"><div class="badge text-bg-success px-3 rounded-pill font-weight-normal text-white">Activo</div></div></div>');
+
+  //             $col.append($tarjeta);
+  //             $divPadre.append($col);
+  //         }
+  //     }
+
+  //     insertarImagenes(imagenes);
+  // });
+</script>
 
 <style>
   .card-container {
@@ -347,5 +455,86 @@ switch ($menu) {
   .profile-card-4:hover img {
     transform: rotate(2deg) scale(1.04, 1.04);
     filter: brightness(60%);
+  }
+
+
+  /* Promociones en la barra de usuario */
+  @keyframes vibrating {
+
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+
+    25% {
+      transform: translateX(-1px);
+    }
+
+    50% {
+      transform: translateX(1px);
+    }
+
+    75% {
+      transform: translateX(-1px);
+    }
+  }
+
+  .promociones {
+    background-color: #ffb400;
+    display: inline-block;
+    animation: vibrating 0.5s infinite;
+    /* crea animacion de temblor */
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 28px;
+    left: -8px;
+  }
+
+  .promociones.promociones_offcanva {
+    top: 40px;
+    left: -2px;
+    width: 26px;
+    height: 26px;
+  }
+
+  .promociones.promociones_btn {
+    background-color: #ffb400;
+    /* display: inline-block; */
+    animation: vibrating 0.5s infinite;
+    /* width: 23px; */
+    /* height: 23px; */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: unset;
+    /* top: 28px; */
+    /* left: -8px; */
+    margin: -13px -9px;
+  }
+
+  .promociones span {
+    color: #000;
+    font-weight: bold;
+  }
+
+  .btn-promociones {
+    background-color: #ffb400;
+    border-radius: 10px;
+    width: 118px;
+    margin-left: 92px;
+    margin-top: -1px;
+    margin-bottom: -4px;
+    animation: vibrating 0.6s infinite;
+  }
+
+  .contentPromociones {
+    max-height: calc(100vh - 50px);
+    overflow-y: auto;
   }
 </style>

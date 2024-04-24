@@ -39,7 +39,7 @@
     <tbody>
         <tr>
             <td class="col-left" style="border-bottom: none">
-                No. Folio: <strong style="font-size: 12px;"> <?php echo $pie['folio']; ?> </strong>
+                No. Folio: <strong style="font-size: 12px;"> <?php echo $folio; ?> </strong>
             </td>
             <td class="col-center" style="border-bottom: none">
                 Edad: <strong style="font-size: 12px;"> <?php echo $encabezado->EDAD; ?></strong>

@@ -1,0 +1,37 @@
+<div class="modal fade" id="ModalVisualizarDetallePacientes" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen modal-dialog-scrollable modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Estudios cargados del paciente: <strong id="estudios_nombre-paciente"></strong>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="height: 100%;max-height: 100%;">
+                    <div class="col-3">
+                        <div class="shadow p-3 rounded-3" id="modal-body-show_estudios">
+                            <!-- Estudios Cargados del paciente -->
+                            <h5 class="text-dark">Estudios cargados del paciente</h5>
+                            <table class="table table-hover" id="TablaDetallePacientesReportes" style="width: 100%;">
+
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <div class="shadow p-3 rounded-3" style="height: 100%;">
+                            <h5 class="text-dark">Visualizar el estudio</h5>
+
+                            <div id="pdfviewer" style="height: 95%;">
+                                <div id="adobe-dc-view"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
+                    <i class="bi bi-arrow-left-short"></i> Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

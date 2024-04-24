@@ -57,7 +57,7 @@
         /* Content */
         .invoice-content {
             position: relative;
-            top: 10px;
+            top: 60px;
             border-radius: 4px;
             padding-bottom: 5px;
             padding-right: 30px;
@@ -292,23 +292,60 @@
         }
 
         /* para la marca de agua */
-        .marca-agua::after {
-            content: "COPIA";
+        .marca-agua {
             position: fixed;
-            top: 50%;
+            top: 60%;
             left: 50%;
             transform: translate(-50%, -50%);
             opacity: 0.5;
             font-size: 100px;
             color: #cccccc;
-            z-index: 0 !important;
+            z-index: -1;
+            /* Detrás del contenido */
+        }
+
+        .contenido-sobre-marca {
+            position: relative;
+            z-index: 1;
+            /* Encima de la marca de agua */
+        }
+
+        .signos-vitales {
+            font-size: 12px;
+        }
+        .signos {
+            position: fixed;
+            top: 28px;
+            left: 25px;
+            right: 25px;
+            height: 160px;
+            margin-top: 0;
+           
             /* background-color: purple; */
+
         }
     </style>
 
 </head>
 
 <?php
+
+//Signos vitales
+$data = json_decode($resultados[2][0]->SIGNOS, true);
+foreach ($data as $signos){
+
+    $signos_edad = $signos['EDAD'];
+    $signos_sexo = $signos['SEXO'];
+    $signos_alergias = $signos['ALERGIAS'];
+    $signos_talla = $signos['TALLA'];
+    $signos_peso = $signos['PESO'];
+    $signos_imc = $signos['IMC'];
+    $signos_temperatura = $signos['TEMPERATURA'];
+    $signos_presionArterial = $signos['PRESION_ARTERIAL'];
+}
+
+
+
 
 // para el path del logo 
 $ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
@@ -322,12 +359,14 @@ $encode = base64_encode($ruta);
 $ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
 $encode_firma = base64_encode($ruta_firma);
 
+$folio = ((array)($resultados[1][0]))['FOLIO'];
 
 ?>
 
 <body>
     <!-- header -->
     <div class="header">
+
         <?php
         $titulo = 'Checkup Clínica y Prevención';
         $tituloPersonales = 'Información del paciente';
@@ -335,19 +374,42 @@ $encode_firma = base64_encode($ruta_firma);
         $encabezado->FECHA_RESULTADO = $encabezado->FECHA_RESULTADO_CONSULTA;
         include 'includes/header_receta.php';
         ?>
+
     </div>
+
 
     <!-- Footer 1 chido -->
     <div class="footer">
         <?php
         $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
 
-        include 'includes/footer.php';
+        include 'includes/footer_receta.php';
         ?>
     </div>
+    <!-- Signos vitales -->
     <br>
+    <div class="signos" style=" margin-bottom:100px;">
+        <table class="signos-vitales">
+            <tr>
+                <!-- <td>Edad: <strong><?php echo $signos_edad; ?> </strong></td> -->
+                <!-- <td>Sexo: <strong><?php echo $signos_sexo; ?> </strong></td> -->
+                <td>Alergias: <strong><?php echo $signos_alergias; ?> </strong></td>
+                <td>Talla: <strong><?php echo $signos_talla; ?> cm</strong></td>
+                <td>Peso: <strong><?php echo $signos_peso; ?> Kg</strong></td>
+            </tr>
+            <tr>
+                <td>IMC: <strong><?php echo $signos_imc; ?> </strong></td>
+                <td>Temperatura: <strong><?php echo $signos_temperatura; ?> °C</strong></td>
+                <td>Presión arterial: <strong><?php echo $signos_presionArterial; ?> </strong></td>
+            </tr>
+        </table>
+    </div>
+
+    <br>
+
     <!-- Body -->
     <?php
+
     $recetaPrincipal = '
             <div class="invoice-content row">
                 <div>
@@ -388,49 +450,56 @@ $encode_firma = base64_encode($ruta_firma);
 
     <!-- copia -->
     <div class="break"></div>
+    <br>
     <?php
-    $recetaCopia = ' 
-    
-                <div class="invoice-content row">
-                <div>
-                <div class="marca-agua">
-                  <table class="table">
-                    <thead>
-                    <tr>
-                          <td class="pregunta-row">Diagnóstico:</td>
-                    </tr>
-                     </thead>
-                     <tbody>
-                     <tr>
-                          <td class="respuesta-row" style = "z-index: 1;">' . $resultados[2][0]->DIAGNOSTICO . '</td>
-                     </tr>
-            </tbody>
-        </table>
-        </div>
-    </div>
+    $recetaCopia = '
+<div class="marca-agua">COPIA</div>
 
-    <div>
-    <div class="marca-agua">
-        <h4 class="tratamiento-titulo">Tratamiento:</h4>';
+<div class="contenido-sobre-marca">
+    <div class="invoice-content row">
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td class="pregunta-row">Diagnóstico:</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="respuesta-row">' . $resultados[2][0]->DIAGNOSTICO . '</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <h4 class="tratamiento-titulo">Tratamiento:</h4>
+            <table class="table">
+                <tbody>';
 
     foreach ($resultados[1] as $recetas) {
         if ($resultados[0][$i] != $recetas->ID_RECETA) {
             $recetaCopia .= '
-            <div class="tratamiento-cuerpo">
-                <p style = "z-index: 1;">' . $recetas->NOMBRE_GENERICO . ', ' . $recetas->FORMA_FARMACEUTICA . ', ' . $recetas->DOSIS . '</p>
-                <p style = "z-index: 1;">' . $recetas->FRECUENCIA . ', ' . $recetas->VIA_DE_ADMINISTRACION . ' ' . $recetas->DURACION_DEL_TRATAMIENTO . ', ' . $recetas->INDICACIONES_PARA_EL_USO . '</p>
-            </div>';
+                    <tr class="tratamiento-cuerpo">
+                        <td>
+                            <p>' . $recetas->NOMBRE_GENERICO . ', ' . $recetas->FORMA_FARMACEUTICA . ', ' . $recetas->DOSIS . '</p>
+                            <p>' . $recetas->FRECUENCIA . ', ' . $recetas->VIA_DE_ADMINISTRACION . ' ' . $recetas->DURACION_DEL_TRATAMIENTO . ', ' . $recetas->INDICACIONES_PARA_EL_USO . '</p>
+                        </td>
+                    </tr>';
         }
     }
 
     $recetaCopia .= '
+                </tbody>
+            </table>
+        </div>
     </div>
-    </div>
-    </div>';
+</div>';
 
     echo $recetaCopia;
-    ?>
 
+
+    ?>
 
 </body>
 

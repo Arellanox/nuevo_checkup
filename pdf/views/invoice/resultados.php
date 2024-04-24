@@ -221,6 +221,16 @@
 
                 <?php
 
+                function text_bold($string)
+                {
+                    $nombre_bold = ['N/A'];
+
+                    foreach ($nombre_bold as $string_search) {
+                        return $valor_ct = strpos($string, $string_search) !== false;
+                    }
+                }
+
+
                 // para el path del logo 
                 $ruta = file_get_contents('../pdf/public/assets/icono_reporte.png');
                 $encode = base64_encode($ruta);
@@ -409,11 +419,14 @@
                                                 ?>
                                                 <tr>
                                                     <?php
-                                                    if ($analito->resultado == 'N/A') {
+                                                    if (
+                                                        text_bold($analito->resultado)
+                                                    ) {
                                                     } else {
                                                     ?>
                                                         <td class="col-one">
-                                                            <?php echo ($analito->nombre != null) ? $analito->nombre : '';  ?>
+                                                            <?php #var_dump($analito->resultado);
+                                                            echo ($analito->nombre != null) ? $analito->nombre : '';  ?>
                                                         </td>
                                                         <td class="col-two">
                                                             <?php echo ($analito->resultado != null) ? $analito->resultado : ''; ?>

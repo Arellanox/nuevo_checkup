@@ -7,7 +7,14 @@
             border: 0px
         }
     </style>
-    <?php include 'include/extensiones.html' ?>
+    <?php
+    if (
+        $menu != 'procedencia' &&
+        $_SESSION['id_cliente'] == 15
+    ) :
+        include 'include/extensiones.html';
+    endif;
+    ?>
 </div>
 <!-- <a class="" id="" role="button">
     <i class="bi bi-calendar3"></i> Agenda.

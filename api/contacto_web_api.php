@@ -8,6 +8,7 @@ include "../clases/correo_class.php";
  if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     // Solicitudes preflight OPTIONS
     header('Access-Control-Allow-Origin: http://localhost:3000');
+    header('Access-Control-Allow-Origin: https://bimo.com.mx');
     header('Access-Control-Allow-Methods: POST, OPTIONS');
     header('Access-Control-Allow-Headers: Content-Type');
     header('Access-Control-Max-Age: 86400'); // 1 día
@@ -17,6 +18,7 @@ include "../clases/correo_class.php";
 
 // Para otras solicitudes, como POST
 header('Access-Control-Allow-Origin: http://localhost:3000');
+header('Access-Control-Allow-Origin: https://bimo.com.mx');
 header('Access-Control-Allow-Methods: POST');
 header('Content-Type: application/json');
  
@@ -31,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $correo = new Correo();
     $master = new Master();
 
-    $correo->sendEmail("formularioContacto", "Nuevo lead captado!",["josue.delacruz@bimo.com.mx"],$datos);
+    $correo->sendEmail("formularioContacto", "Nuevo lead captado!",["josue.delacruz@bimo.com.mx", "hola@bimo.com.mx"],$datos);
     
     # guardar los datos del lead.
     $r = $master->insertByProcedure("sp_formulario_contacto_g", [

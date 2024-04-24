@@ -192,6 +192,9 @@ function generarFormularioPaciente(id) {
             }
           }
 
+          let muestras = []
+          let tipo_resultado = []
+
           //Clinico
           let Tipo = '';
 
@@ -203,7 +206,7 @@ function generarFormularioPaciente(id) {
 
           //Creo valores por defecto para Biomolecular
           switch (row['ID_GRUPO']) {
-            case '685': case '684': // <-- PCR -->
+            case '685': case '684': case '1486': // <-- PCR -->
               kitDiag = {
                 0: {
                   'descripcion': 'CoviFlu Kit Multiplex',
@@ -230,11 +233,14 @@ function generarFormularioPaciente(id) {
                 },
                 4: {
                   'descripcion': 'HISOPADO NASOFARÍNGEO'
+                },
+                5: {
+                  'descripcion': 'EXPECTORACIÓN'
                 }
               }
               break;
 
-            case '697': // <-- ANTIGENO -->
+            case '697': // <-- ANTIGENO --> 
               muestras = {
                 0: {
                   'descripcion': 'HISOPADO NASAL',
@@ -266,6 +272,32 @@ function generarFormularioPaciente(id) {
                 },
                 4: {
                   'descripcion': 'HISOPADO NASOFARÍNGEO'
+                },
+                5: {
+                  'descripcion': 'SURCO BALANO-PREPUSIAL.'
+                },
+                6: {
+                  'descripcion': 'HISOPADO GLANDE Y PUBIS'
+                },
+                7: {
+                  'descripcion': 'URETRAL,SURCO Y CUERPO DE PENE'
+                },
+                8: {
+                  'descripcion': 'ESCROTO, GLANDE,<br> CORONA, PREPUCIO'
+                },
+                9: {
+                  'descripcion': 'PREPUSIO, GLANDE,<br> CORONA, URETRA'
+                },
+                10: {
+                  'descripcion': 'URETRAL Y GLANDE'
+                }
+              }
+              break;
+            // toxoplasma_gondii_tr
+            case '1682':
+              muestras = {
+                0: {
+                  'descripcion': 'Sangre',
                 }
               }
               break;
@@ -349,7 +381,16 @@ function generarFormularioPaciente(id) {
                 },
                 5: {
                   'descripcion': 'GLANDE, URETRA Y PREPUCIO'
-                }
+                },
+                6: {
+                  'descripcion': 'CORONA,GLANDE, <br>URETRA Y PREPUCIO'
+                },
+                7: {
+                  'descripcion': 'URETRAL Y GLANDE'
+                },
+                8: {
+                  'descripcion': 'EXUDADO OROFARÍNGEO Y OCULAR'
+                },
               }
               break;
             case '972': case '973':
@@ -380,6 +421,18 @@ function generarFormularioPaciente(id) {
                 },
                 4: {
                   'descripcion': 'Orina'
+                },
+                5: {
+                  'descripcion': 'Líquido pleural'
+                },
+                6: {
+                  'descripcion': 'Biopsia'
+                },
+                7: {
+                  'descripcion': 'Tejido Pleural'
+                },
+                8: {
+                  'descripcion': 'Secreción'
                 }
                 // 4: {
                 //   'descripcion': 'Lavado Bronquial'
@@ -440,9 +493,139 @@ function generarFormularioPaciente(id) {
 
               break;
 
+            case '1452':
+
+              // rT-PCR Entero-DR
+
+              classSelect = 'selectTipoMuestraEnteroDR';
+              muestras = {
+                0: {
+                  'descripcion': 'EXUDADO RECTAL',
+                },
+                1: {
+                  'descripcion': 'CULTIVO',
+                }
+              }
+
+              break
+
+
+            case '1462':
+
+              // Ag. Virus Respiratorio
+
+              classSelect = 'selectTipoMuestraVirusRespiratorio';
+              muestras = {
+                0: {
+                  'descripcion': 'Hisopado nasal',
+                },
+              }
+
+              break;
+
+            case '1463':
+              // PCR Virus Respiratorio
+
+
+              classSelect = 'selectTipoMuestraPCRVirusRespiratorio';
+
+              tipo_resultado = {
+                0: {
+                  'descripcion': 'rT-PCR de VSR - CoviFlu',
+                },
+                1: {
+                  'descripcion': 'rT-PCR de CoviFlu',
+                }
+              }
+              muestras = {
+                0: {
+                  'descripcion': 'Hisopado nasal',
+                },
+                1: {
+                  'descripcion': 'Hisopado Nasofaríngeo',
+                },
+                2: {
+                  'descripcion': 'Hisopado orofaríngeo'
+                },
+                3: {
+                  'descripcion': 'Expectoración'
+                }
+              }
+
+              break;
+            case '':
+              // pneumoBacter
+
+              break;
+
             //Laboratorio Clinico
             case '1':
               Tipo = '_BH'
+              break;
+
+            case '1516':
+              // rT-PCR Thrombosis SNP
+              classSelect = 'selectTipoMuestraThrombosisSNP';
+              muestras = {
+                0: {
+                  'descripcion': 'Sangre Total con EDTA',
+                },
+              }
+
+              resultado = {
+                0: {
+                  'descripcion': 'Homocigoto',
+                },
+                1: {
+                  'descripcion': 'Heterocitogo',
+                }
+              }
+              break;
+
+            case '1599':
+              // PCR Basal Carga Virual de hepatitis C (HCV)
+              classSelect = 'selectTipoMuestraCargaVirualHepatitisC';
+
+              // ID muestra 695;
+              muestras = {
+                0: {
+                  'descripcion': 'Plasma EDTA',
+                },
+              }
+
+              break;
+
+            case '1677':
+              // PCR CARGA VIRAL DE CITOMEGALOVIRUS (CMV)
+              // Solo visual por ahora
+              break;
+
+            case '1738':
+              // PCR Detección Mycobacterium tuberculosis
+              muestras = {
+                0: {
+                  'descripcion': 'Expectoración',
+                },
+                1: {
+                  'descripcion': 'Lavado bronquial',
+                },
+                2: {
+                  'descripcion': 'Orina',
+                },
+                3: {
+                  'descripcion': 'Líquidos orgánicos sin hemolisis',
+                },
+                4: {
+                  'descripcion': 'Sangre/EDTA',
+                },
+                5: {
+                  'descripcion': 'Biopsia',
+                },
+                6: {
+                  'descripcion': 'Bloques de parafina',
+                },
+              }
+
               break;
 
 
@@ -466,13 +649,42 @@ function generarFormularioPaciente(id) {
           var count = Object.keys(row).length;
           // console.log(count);
           html += '<ul class = "list-group hover-list info-detalle mt-3" style="padding: 3px;" >';
-          html += '<div style = "margin-bottom: 10px; display: block"><div style="border-radius: 8px;margin:0px;background: rgb(0 0 0 / 5%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;""><h4 style="font-size: 20px !important;font-weight: 600 !important;padding: 0px;margin: 0px;">' + row['NombreGrupo'] + '</h4> <p>' + row['CLASIFICACION'] + '</p> </div></div>';
+          if (row['ID_GRUPO']) {
+            html += `<div style = "margin-bottom: 10px; display: block">
+          <div style="border-radius: 8px;margin:0px;background: rgb(0 0 0 / 5%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;"">
+            <div class="row">
+              <div class="col-11">
+                <h4 style="font-size: 20px !important;font-weight: 600 !important;padding: 0px;margin: 0px;">
+                  ${row['NombreGrupo']}
+                </h4> 
+                <p>${row['CLASIFICACION']}</p> 
+              </div>
+              <div class="col-1" style="padding:0px;">
+                <i class="fas fa-microscope btn icon-hover btn-acciones" style="font-size: 20px; padding: 0px; margin-right: 14px;" data-bs-id="${row['ID_GRUPO']}"></i>
+              </div>
+            </div>
+          </div>
+          </div>`;
+          } else {
+            html += `<div style = "margin-bottom: 10px; display: block">
+          <div style="border-radius: 8px;margin:0px;background: rgb(0 0 0 / 5%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;"">
+            <div class="row">
+              <div class="col-12">
+                <h4 style="font-size: 20px !important;font-weight: 600 !important;padding: 0px;margin: 0px;">
+                  ${row['NombreGrupo']}
+                </h4> 
+                <p>${row['CLASIFICACION']}</p> 
+              </div>
+            </div>
+          </div>
+          </div>`;
+          }
           for (var k in row) { //Empieza cada estudio del grupo
             // console.log(k, row[k])
             let inputname = getRandomInt(1000000000000);
             if (Number.isInteger(parseInt(k))) {
               // console.log(2)
-              html += '<li class="list-group-item" style="zoom: 95%">';
+              html += `<li class="list-group-item linearEstudiosLabs" style="zoom: 95%" data-id_servicio="${row[k]['ID_SERVICIO']}" data-id_grupo="${row['ID_GRUPO']}">`;
               html += '<div class="row d-flex align-items-center">';
 
 
@@ -513,6 +725,14 @@ function generarFormularioPaciente(id) {
                 case '1130': case '1131': case '1132': case '1126': case '1127': case '1128': case '1121':
                 case '1122': case '1123': case '1124': case '1116': case '1117': case '1118': case '1119':
                 case '1112': case '1113': case '1114': case '1107': case '1108': case '1109': case '1110':
+                // Ag virus respiratorio
+                case '344':
+                // PCR SARS-CoV-2/INFLUENZA A Y B
+                case '1470': case '1472': case '1474': case '1523': case '1526': case '1529': case '1531':
+
+                // rT-PCR Thrombosis SNP
+                case '1519': case '1521':
+
                   anotherInput = crearSelectCamposMolecular(resultado, nameInput, row[k]['RESULTADO']); break;
 
                 // Panel 21
@@ -525,7 +745,18 @@ function generarFormularioPaciente(id) {
                 case '1391': case '1399': case '1405':
                 // PCR HELICOBACTER PYLORI CON RESISTENCIA A CLARITROMICINA
                 case '1436': case '1432':
+                // rT-PCR Entero-DR
+                case '1421': case '1427': case '1430':
+                // rT-PCR Thrombosis SNP
+                case '1517': case '1524': case '1527':
+
                   onlyLabel = true; break;
+
+                // PCR Virus Respiratorio - coviflu
+                case '1555':
+                  anotherInput = crearSelectCamposMolecular(tipo_resultado, nameInput, row[k]['RESULTADO']);
+
+                  break;
 
 
                 //FTD KIT DIAGNOSTICO
@@ -533,6 +764,19 @@ function generarFormularioPaciente(id) {
 
                 case '694': anotherValue = 'KCFMP110123'; break; // <-- PCR -->
                 case '737': anotherValue = 'E160-22071101'; break; // <-- PANEL RESPIRATORIO POR PCR -->
+
+                case '1039':
+                  switch (row['ID_GRUPO']) {
+                    case '1462':
+                      anotherValue = ifnull(row[k]['No. kit.'], 'RV-135-K')
+                      break;
+                  }; break;
+                case '1040':
+                  switch (row['ID_GRUPO']) {
+                    case '1462':
+                      anotherValue = ifnull(row[k]['Descripción kit'], 'CerTest RSV ')
+                      break;
+                  }; break;
 
                 case '692': case '706': case '734': case '991': case '1083':
                 // Bluefinder 22
@@ -558,6 +802,11 @@ function generarFormularioPaciente(id) {
                 case '1135':
                 //rT-PCR para Mycobacterium tuberculosis MDR y XDR
                 case '1142':
+                // Ag. Virus respiratorio
+                case '145':
+
+
+
                   console.log(row[k]['ID_SERVICIO'])
                   anotherInput = crearSelectCamposMolecular(muestras, nameInput, row[k]['RESULTADO']); break;
 
@@ -579,11 +828,22 @@ function generarFormularioPaciente(id) {
 
               if (!onlyLabel) {
                 html += colStart;
-                html += '<p><i class="bi bi-box-arrow-in-right" style=""></i> ' + row[k]['DESCRIPCION_SERVICIO'] + '</p>';
+                if (row['ID_GRUPO']) {
+                  html += `<p><i class="bi bi-box-arrow-in-right" style=""></i> ${row[k]['DESCRIPCION_SERVICIO']}</p>`;
+                } else {
+                  html += `<p class="btn-acciones" data-bs-id="${row[k]['ID_SERVICIO']}"><i class="bi bi-box-arrow-in-right" style=""></i> ${row[k]['DESCRIPCION_SERVICIO']}</p>`;
+                }
                 html += endDiv;
                 html += colreStart;
                 html += '<div class="input-group">';
+                html += `
+                    <div class="input-group-text input-span" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Vacía el resultado" >
+                      <input class="form-check-input mt-0" value="1" name="servicios[${inputname}][BLANCO]" type="checkbox" aria-label="Checkbox for following text input">
+                    </div>
+                `
 
+
+                // Si es posible, crea otro tipo de input, como select o más
                 if (anotherInput) {
                   html += anotherInput;
                   html += `<input type="text" style="display: none" name="servicios[${inputname}][ID_GRUPO]" value="${row['ID_GRUPO']}">`
@@ -596,7 +856,7 @@ function generarFormularioPaciente(id) {
 
 
 
-
+                // Muestra o no la medida
                 if (row[k]['MEDIDA']) {
                   if ((row[k]['TIENE_VALOR_ABSOLUTO'] == 1)) {
                     html += '<span class="input-span">%</span>';
@@ -627,7 +887,7 @@ function generarFormularioPaciente(id) {
                 }
 
               } else {
-                html += '<div class="col-12 col-lg-12 text-center">';
+                html += `<div class="col-12 col-lg-12 text-center">`;
                 html += '<p style="font-size: 19px; font-wieght: bolder">' + row[k]['DESCRIPCION_SERVICIO'] + '</p>';
                 html += `<input type="text" style="display: none" name="servicios[${inputname}][ID_GRUPO]" value="${row['ID_GRUPO']}">`
                 html += `<input type="text" style="display: none" name="servicios[${inputname}][ID_SERVICIO]" value="${row[k]['ID_SERVICIO']}">`
@@ -637,6 +897,7 @@ function generarFormularioPaciente(id) {
 
 
               html += endDiv;
+              html += `<div class="linearEstudiosLabs_${row[k]['ID_SERVICIO']}_${row['ID_GRUPO']}"></div>`
               html += '</li>';
 
               if (row[k]['LLEVA_COMENTARIO'] == true) {
@@ -736,3 +997,88 @@ $(document).on('click', '.selectMolecular', function () {
 });
 
 
+
+$(document).on('click', '.linearEstudiosLabs', function (event) {
+
+
+  const target = $(event.target);
+
+  // Verifica si el elemento clickeado es un checkbox.
+  if (target.is('input')) {
+    // Si es un checkbox, permite el comportamiento normal del checkbox y no ejecutes el resto del código.
+    return;
+  }
+
+  event.stopPropagation();
+  event.preventDefault();
+
+
+  if (areaActiva == 12)
+    return false;
+
+  let id = $(this).attr('data-id_servicio');
+  let grupo = $(this).attr('data-id_grupo');
+  let $element = $(`.linearEstudiosLabs_${id}_${grupo}`);
+
+  // Oculta todos los otros elementos de collapse
+  $('#formAnalisisLaboratorio .valores-referencia').collapse('hide');
+
+  // Verifica si el contenido ya ha sido cargado
+  if ($element.find('.valores-referencia').length === 0) {
+    // Si no existe, realiza la llamada AJAX y carga el contenido
+    reloadValoresRef($element, id);
+  } else {
+    $element.find('.valores-referencia').collapse('show');
+  }
+});
+
+// Evento de clic para el botón de recarga
+$(document).on('click', '.reload-button', function (event) {
+  event.stopPropagation();
+
+  // Desactiva la secuencia para biomolecular
+  if (areaActiva == 12)
+    return false;
+
+  let id = $(this).closest('.linearEstudiosLabs').attr('data-id_servicio');
+  let grupo = $(this).closest('.linearEstudiosLabs').attr('data-id_grupo');
+  let $element = $(`.linearEstudiosLabs_${id}_${grupo}`);
+
+  // Oculta todos los otros elementos de collapse
+  $('#formAnalisisLaboratorio .valores-referencia').collapse('hide');
+
+  // Recarga el contenido del collapse actual
+  reloadValoresRef($element, id);
+});
+
+function reloadValoresRef($element, id) {
+
+  // Desactiva la secuencia para biomolecular
+  if (areaActiva == 12)
+    return false;
+
+  ajaxAwait({
+    id_servicio: id,
+    genero: selectListaLab.GENERO,
+    fecha_nacimiento: selectListaLab.NACIMIENTO,
+    api: 1
+  }, 'valor_referencia_api', { callbackAfter: true }, false, (data) => {
+    console.log(data);
+    data = data.response.data;
+    let html = `
+      <div class="valores-referencia collapse">
+        <div class="d-flex justify-content-between align-items-center px-3 pb-2">
+          <h6 class="fw-bold text-primary m-0">Valores de referencia</h6>
+          <button class="btn btn-outline-secondary btn-sm reload-button" type="button">
+            <i class="bi bi-arrow-clockwise"></i>
+          </button>
+        </div>
+        <p class="px-3 none-p">${data[0]['VALORES']}</p>
+      </div>`;
+
+    // Inserta el contenido del collapse
+    $element.html(html);
+    // Muestra el collapse
+    $element.find('.valores-referencia').collapse('show');
+  });
+}

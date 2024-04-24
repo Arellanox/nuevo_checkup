@@ -212,42 +212,346 @@ class Correo
                 case "formularioContacto":
                     $mail->Body = $this->cuerpoFormularioContacto($token);
                     break;
+                case "botOrdenMedica":
+                    $mail->Body = $this->cuerpoOrdenMedica($token);
+                    break;    
+                case "landings":
+                    $mail->Body = $this->cuerpoLandings($token);
+                    break;
+                case "landings_2":
+                    $mail->Body = $this->cuerpoLandings2($token);
+                    break;
+                case 'corroborarCorreos':
+                    $mail->Body = $this->cuerpoCorroborarDatos($token);
+                    break;
             }
 
             # send email
             $mail->send();
-            // if (isset($id_turno)) {
+            if (isset($id_turno)) {
 
-            //     $response = $master->insertByProcedure("sp_correos_g", [
-            //         $id_turno,
-            //         $area_id,
-            //         $this->getCorreoSeleccionado(),
-            //         json_encode($emails),
-            //         null,
-            //         "CORRECTO",
-            //         1
-            //     ]);
-            // }
+                $response = $master->insertByProcedure("sp_correos_g", [
+                    $id_turno,
+                    $area_id,
+                    $this->getCorreoSeleccionado(),
+                    json_encode($emails),
+                    null,
+                    "CORRECTO",
+                    1
+                ]);
+            }
 
             return true;
         } catch (Exception $e) {
 
-            // if (isset($id_turno)) {
+            if (isset($id_turno)) {
 
-            //     $response = $master->insertByProcedure("sp_correos_g", [
-            //         $id_turno,
-            //         $area_id,
-            //         $this->getCorreoSeleccionado(),
-            //         json_encode($emails),
-            //         null,
-            //         "ERROR",
-            //         0
-            //     ]);
-            // }
+                $response = $master->insertByProcedure("sp_correos_g", [
+                    $id_turno,
+                    $area_id,
+                    $this->getCorreoSeleccionado(),
+                    json_encode($emails),
+                    null,
+                    "ERROR",
+                    0
+                ]);
+            }
 
             $mis->setLog($e, "Clase correo [sendMail]");
             return false;
         }
+    }
+
+    # cuerpo corroborar datos
+    private function cuerpoCorroborarDatos($data){
+        $html = '<!DOCTYPE html>
+        <html lang="es">
+        <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Corroboración de datos</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                max-width: 600px;
+                margin: 20px auto;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            }
+            h1 {
+                color: #333;
+                text-align: center;
+            }
+            p {
+                color: #666;
+                line-height: 1.6;
+            }
+            .logo {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 20px;
+            }
+            th, td {
+                padding: 10px;
+                border-bottom: 1px solid #ddd;
+                text-align: left;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+        </style>
+        </head>
+        <body>
+        <div class="container">
+            <div class="logo">
+                <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png" alt="Logo de la empresa" width="200">
+            </div>
+            <h1>Corroboración de datos</h1>
+            <p>Estimado/a '.$data['NOMBRE'].',</p>
+            <p>Hemos recibido los siguientes datos y estamos en proceso de corroboración:</p>
+            <table>
+                <tr>
+                    <th>Información</th>
+                    <th>Valor</th>
+                </tr>
+                <tr>
+                    <td>Nombre</td>
+                    <td>' . $data['NOMBRE'] . ' ' . $data['PATERNO'] . ' ' .$data['MATERNO'] . '</td>
+                </tr>
+                <tr>
+                    <td>Correo 1</td>
+                    <td>' . $data['CORREO'] . '</td>
+                </tr>
+                <tr>
+                    <td>Correo 2</td>
+                    <td>' . $data['CORREO_2'] . '</td>
+                </tr>
+                <tr>
+                    <td>Teléfono</td>
+                    <td>' . $data['CELULAR'] . '</td>
+                </tr>
+                <tr>
+                    <td>Fecha de nacimiento</td>
+                    <td>' . $data['NACIMIENTO'] . '</td>
+                </tr>
+                <tr>
+                    <td>CURP</td>
+                    <td>' . $data['CURP'] . '</td>
+                </tr>
+                <tr>
+                    <td>Pasaporte</td>
+                    <td>' . $data['PASAPORTE'] . '</td>
+                </tr>
+                <tr>
+                    <td>RFC</td>
+                    <td>' . $data['RFC'] . '</td>
+                </tr>
+                <!-- Agrega más filas según los datos -->
+            </table>
+            <p>Por favor, asegúrese de que la información proporcionada sea correcta y esté actualizada.</p>
+            <p>Si tiene alguna pregunta o necesita proporcionar información adicional, no dude en ponerse en contacto con nosotros.</p>
+            <p>Gracias por su colaboración.</p>
+            <p>Saludos cordiales,</p>
+            <p>bimo Checkups</p>
+        </div>
+        </body>
+        </html>
+        ';
+        return $html;
+    }
+
+    # cuerpo landiungs 2
+    private function cuerpoLandings2($data){
+        $html = '<!DOCTYPE html>
+        <html lang="es">
+        <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>¡Quiero una radiografía!!!</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+          }
+          
+          .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+          }
+          
+          h1 {
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+          }
+          
+          p {
+            color: #666;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+          }
+          
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+          }
+          
+          th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+          }
+          
+          th {
+            background-color: #f2f2f2;
+            color: #333;
+          }
+          
+          td {
+            background-color: #fff;
+            color: #666;
+          }
+        </style>
+        </head>
+        <body>
+          <div class="container">
+            <h1>¡¡¡Nuevo <strong>lead</strong> captado!!!</h1>
+            <p>Recibimos los datos de contacto de una persona interesada en nuestros servicios y estamos ansiosos por conectarnos con ella. ¡Espero que te sientas tan entusiasmado/a como yo! Recuerda mantener tu energía positiva y tu sonrisa lista, porque juntos haremos que esta experiencia sea inolvidable para nuestro nuevo contacto.</p>
+        
+            <p>¡Gracias por tu dedicación y entusiasmo en hacer crecer nuestro negocio!</p>
+            <table>
+              <tr>
+                <th>Nombre Completo</th>
+                <th>Teléfono</th>
+                <th>Email</th>
+                <th>Producto Interesado</th>
+              </tr>
+              <tr>
+                <td>'.$data['nombre'].'</td>
+                <td>'.$data['telefono'].'</td>
+                <td>'.$data['email'].'</td>
+                <td>'.$data['clave'].'</td>
+              </tr>
+              
+              <!-- Puedes agregar más filas según sea necesario -->
+            </table>
+          </div>
+        </body>
+        </html>';
+        return $html;
+    }
+
+    # cuerpo de las landings
+    private function cuerpoLandings($data){
+        $html = '<!DOCTYPE html>
+        <html lang="es">
+        <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>¡Quiero una radiografía!!!</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+          }
+          
+          .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+          }
+          
+          h1 {
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+          }
+          
+          p {
+            color: #666;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+          }
+          
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+          }
+          
+          th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+          }
+          
+          th {
+            background-color: #f2f2f2;
+            color: #333;
+          }
+          
+          td {
+            background-color: #fff;
+            color: #666;
+          }
+        </style>
+        </head>
+        <body>
+          <div class="container">
+            <h1>¡¡¡Quiero una radiografía!!!</h1>
+            <p>Recibimos los datos de contacto de una persona interesada en nuestros servicios y estamos ansiosos por conectarnos con ella. ¡Espero que te sientas tan entusiasmado/a como yo! Recuerda mantener tu energía positiva y tu sonrisa lista, porque juntos haremos que esta experiencia sea inolvidable para nuestro nuevo contacto.</p>
+        
+            <p>¡Gracias por tu dedicación y entusiasmo en hacer crecer nuestro negocio!</p>
+            <table>
+              <tr>
+                <th>Nombre Completo</th>
+                <th>Teléfono</th>
+                <th>Email</th>
+              </tr>
+              <tr>
+                <td>'.$data['nombre'].'</td>
+                <td>'.$data['telefono'].'</td>
+                <td>'.$data['email'].'</td>
+              </tr>
+              
+              <!-- Puedes agregar más filas según sea necesario -->
+            </table>
+          </div>
+        </body>
+        </html>'
+        ;
+        return $html;
     }
 
     private function cuerpoFormularioContacto($data)
@@ -532,6 +836,59 @@ class Correo
                     </div>
                 </body>
                     </html>';
+
+        return $html;
+    }
+    private function cuerpoOrdenMedica($data)
+    {
+        $html = '<!DOCTYPE html>
+        <html lang="es">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Información del Paciente</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    margin: 20px;
+                    padding: 20px;
+                }
+        
+                h1 {
+                    color: #054d60; /* Azul oscuro para el título */
+                }
+        
+                .patient-info {
+                    border: 1px solid #ccc;
+                    padding: 10px;
+                    border-radius: 5px;
+                    background-color: #fff;
+                    margin-top: 20px;
+                }
+        
+                img {
+                    max-width: 100%;
+                    height: auto;
+                    border-radius: 5px;
+                }
+        
+                strong {
+                    color: #1699c7; /* Azul claro para los elementos resaltados */
+                }
+            </style>
+        </head>
+        <body>
+            <h1>Información del Paciente</h1>
+        
+            <div class="patient-info">
+                <img src="' . $data['ordenMedica'] . '" alt="Imagen del Paciente">
+                <p><strong>Nombre:</strong> ' . $data['nombrePaciente'] . '</p>
+                <p><strong>Teléfono:</strong> ' . $data['telefono'] . '</p>
+                <p><strong>Fecha de Nacimiento:</strong> ' . $data['fechaNacimiento'] . '</p>
+            </div>
+        </body>
+        </html>
+        ';
 
         return $html;
     }

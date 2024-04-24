@@ -7,11 +7,41 @@ date_default_timezone_set('America/Mexico_City');
     </a>
 <?php endif; ?>
 
-<?php if ($_SESSION['vista']['MEDICOS_TRATANTES'] == 1) : ?>
-    <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/administracion/#MEDICOS'; ?>">
-        <i class="bi bi-person-hearts"></i> Médicos
+<?php if ($_SESSION['vista']['ADMIN_MEDICOS'] == 1 ||  $_SESSION['vista']['TRACKER_MEDICOS'] == 1) : ?>
+    <!-- Administrativos -->
+    <a class="dropdown-a align-items-center  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-medicos_tratantes" aria-expanded="false">
+        <i class="bi bi-person-lines-fill"></i> Médicos
     </a>
+    <div class="collapse" id="board-medicos_tratantes">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <?php if ($_SESSION['vista']['TRACKER_MEDICOS'] == 1) : ?>
+                <li>
+                    <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/track-medicos/'; ?>">
+                        <i class="bi bi-dot"></i> Tracking de Médicos
+                    </a>
+                </li>
+            <?php endif; ?>
+
+            <?php if ($_SESSION['vista']['VENDEDORES_COMISIONADOS'] == 1) : ?>
+                <li>
+                    <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/administracion/#VENDEDORES'; ?>">
+                        <i class="bi bi-dot"></i> Vendedores
+                    </a>
+                </li>
+            <?php endif; ?>
+            
+            <?php if ($_SESSION['vista']['ADMIN_MEDICOS'] == 1) : ?>
+                <li>
+                    <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/administracion/#MEDICOS'; ?>">
+                        <i class="bi bi-dot"></i> Médicos Tratantes
+                    </a>
+                </li>
+            <?php endif; ?>
+            <hr class="dropdown-divider">
+        </ul>
+    </div>
 <?php endif; ?>
+
 
 <?php if ($_SESSION['vista']['CLIENTES'] == 1) : ?>
     <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/clientes/'; ?>">
@@ -133,7 +163,11 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
 
 <?php endif; ?>
 
-
+<?php if ($_SESSION['vista']['PROMOCIONALES_BIMO'] == 1) : ?>
+    <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/promociones_bimo/'; ?>">
+        <i class="bi bi-percent"></i> Promociones
+    </a>
+<?php endif; ?>
 
 
 <?php if ($_SESSION['vista']['CURSOS BIMO'] == 1) : ?>

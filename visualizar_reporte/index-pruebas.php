@@ -23,7 +23,6 @@ $api = mb_convert_encoding(base64_decode(urldecode($_GET['api'])), 'UTF-8');
 $turno_id = mb_convert_encoding(base64_decode(urldecode($_GET['turno'])), 'UTF-8');
 $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8');
 $usuario_id = $_SESSION['id'];
-
 // mb_convert_encoding($rePa['paterno'],'UTF-8'));
 // Imagenologia --> 8 para rayos y 11 para ultrasonido
 
@@ -32,9 +31,9 @@ $usuario_id = $_SESSION['id'];
 // decomentar las siguientes 3 lineas para hacer las pruebas
 
 
-$api = "imagenologia";
-$area_id = 11;
-$turno_id = 1834;
+$api = "form_datos";
+$area_id = 12;
+$turno_id = 79;
 
 //$cliente_id = 19;
 // $id_cotizacion = 7;
@@ -95,6 +94,13 @@ switch ($api) {
         break;
     case 'temperatura':
         $r = $master->reportador($master, $turno_id, $area_id, 'temperatura', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
+        break;
+    case 'envio_muestras':
+        $r = $master->reportador($master, $turno_id, $area_id, 'envio_muestras', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
+        break;
+    case 'form_datos':
+        # para imprimir la confirmacion de los datos del paciente
+        $r = $master->reportador($master, $turno_id, -6, 'form_datos', 'mostrar',$preview, 0, 0);
         break;
     default:
         echo '<script language="javascript">alert("¡URL invalida!"); window.close()</script>';

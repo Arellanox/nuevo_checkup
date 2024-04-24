@@ -1,0 +1,140 @@
+<div class="modal fade" id="modalRecepcionMuestras" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <h5 class="modal-title" id="filtrador">Muestras del paciente</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="rounded p-2 shadow my-2">
+                        <div class="row">
+                            <!-- Información del paciente -->
+                            <div class="col-12 col-lg-9">
+                                <p>Paciente:
+                                    <span class="none-p" id="nombre-paciente"></span>
+                                </p>
+                                <p>Fecha de nacimiento:
+                                    <span class="none-p" id="fecha_de_nacimiento-paciente"></span>
+                                    &ensp;
+                                    Edad:
+                                    <span class="none-p" id="edad-paciente"></span>
+                                </p>
+                                <p>CURP:
+                                    <span class="none-p" id="curp-paciente"></span>
+                                </p>
+                                <p>Cuenta:
+                                    <span class="none-p" id="numero_cuenta-paciente"></span>
+                                </p>
+                            </div>
+
+                            <!-- Información de subida -->
+                            <div class="col-12 col-lg-3">
+                                <div class="rounded p-3 shadow my-2">
+                                    <!-- USARIO ACTUAL -->
+                                    <strong>USUARIO: <span class="none-p" id="usuario-paciente"></span></strong>
+                                    </br>
+                                    <!-- TEXTO PLANO DE AVISO -->
+                                    <strong>MUESTRAS DEL PACIENTE</strong> </br>
+                                    <!-- FOLIO DEL PACIENTE -->
+                                    <strong>CON EL FOLIO: <span class="none-p" id="folio-paciente"></span></strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="">
+                        <h5>Estudios cargados</h5>
+
+                        <table class="table responsive" id="pacienteEstudios">
+
+                            <tbody>
+                                <tr>
+                                    <td>Biometria Hematica</td>
+                                    <td>Tubo Lila</td>
+                                    <td>Si</td>
+                                    <td>No</td>
+                                    <td>Observaciones como campo</td>
+                                    <td>Drag&Drop</td>
+                                    <td> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
+                    <i class="bi bi-arrow-left-short"></i> Cancelar
+                </button>
+                <button type="submit" form="formEditarGrupo" class="btn btn-confirmar" id="submit-editarGrupo">
+                    <i class="bi bi-person-plus"></i> Crear
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <style>
+
+    #pacienteEstudios td {
+        text-align: center;
+        /* Centra el texto de los encabezados horizontalmente */
+        vertical-align: middle;
+        /* Centra el texto de los encabezados verticalmente */
+    }
+
+    #pacienteEstudios th {
+        vertical-align: middle;
+        /* Centra el texto de las celdas verticalmente */
+    }
+</style> -->
+
+<style>
+    .custom-file-input {
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .custom-file-label {
+        border: 1px solid #ced4da;
+        display: inline-block;
+        padding: 0.375rem 0.75rem;
+        margin-right: -1px;
+        /* Alinea el botón con el label */
+        border-radius: 0.25rem;
+        background-color: #c1c3c5;
+        /* Color del botón */
+        color: rgb(0, 0, 0);
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .custom-file-label:hover {
+        background-color: #4a4c4d;
+        color: rgb(255, 255, 255);
+    }
+</style>
+
+<script>
+    function updateLabel(inputElement) {
+        // Encuentra el contenedor div más cercano
+        var parentDiv = inputElement.closest('.input-group');
+
+        // Dentro del div contenedor, encuentra el label
+        var label = parentDiv.querySelector('.custom-file-label');
+
+        // Actualiza el texto del label con el nombre del archivo seleccionado
+        if (inputElement.files.length > 0) {
+            var fileName = inputElement.files[0].name;
+            label.textContent = fileName;
+        } else {
+            label.textContent = 'Ningún archivo seleccionado.'; // o cualquier texto que desees
+        }
+    }
+
+</script>
