@@ -13,11 +13,15 @@ if (!$tokenValido) {
 //Api
 $api = $_POST['api'];
 
-$response = "";
 $master = new Master();
+
+$antecedentes = $_POST['antecedentes'];
+$turno_id = $_POST['turno_id'];
 
 switch($api){
     case 1:
+        # insertar/actualizar antecedentes
+        $response = $master->insertByProcedure('sp_historia_pediatrica_g', [$turno_id, json_encode($antecedentes)]);
         break;
     default:
         $response = "api no reconocida " . $api;
