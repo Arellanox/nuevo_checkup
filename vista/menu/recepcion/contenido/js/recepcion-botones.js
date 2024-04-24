@@ -90,7 +90,9 @@ $(document).on('click', '#btn-concluir-paciente', function (e) {
         array_selected['CLIENTE_ID'] == 35 || // DR JAVIER ALEJANDRO JIMENEZ TORRUCO
         array_selected['CLIENTE_ID'] == 37 ||//AMASFAC
         array_selected['CLIENTE_ID'] == 39 // TRANE
-        ) {
+      ) {
+
+        $('descuento').val('');
 
         //Abrir el modal de estudios, precios y detalle
         configurarModal(array_selected);
