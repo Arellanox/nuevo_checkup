@@ -2,6 +2,7 @@
 include_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
 include_once "../clases/correo_class.php";
+include_once "../clases/Pdf.php";
 
 $datos = json_decode(file_get_contents('php://input'), true);
 
@@ -14,6 +15,8 @@ if (!$tokenValido) {
 
 $api = $_POST['api'];
 $master = new Master();
+$mail = new Correo;
+
 $host = $master->selectHost($_SERVER['SERVER_NAME']);
 $hoy = date("Ymd");
 
@@ -95,6 +98,18 @@ $ordenes = $master->checkArray($ordenes, 1);
 $cliente_id = $_POST['cliente_id'];
 $fecha_ingreso = $_POST['fecha_ingreso'];
 
+# para el levenshtein
+$estudio = $_POST['estudio'];
+
+# comprobar correos correctamente
+$id_paciente = $_POST['id_paciente'];
+$curp = $_POST['curp'];
+$pasaporte = $_POST['pasaporte'];
+
+# medios de entrega de resultados
+$id_medio = $_POST['id_medio'];
+$medios_entrega = $_POST['medios_entrega'];
+
 switch ($api) {
     case 1:
         # recuperar pacientes por estado
@@ -115,7 +130,7 @@ switch ($api) {
             $medico_tratante_id = $response;
         }
         #
-        $response = $master->getByNext('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo, $alergias, $e_diagnostico, null, $medico_tratante_id, $_SESSION['id'],$vendedor_id,)); #<-- la id de segmento manda error si no se le envia algo
+        $response = $master->getByNext('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo, $alergias, $e_diagnostico, null, $medico_tratante_id, $_SESSION['id'], $vendedor_id,)); #<-- la id de segmento manda error si no se le envia algo
         $aleta = $response[0][0][0];
 
         #validacion de si esta en caja o hay un corte de ayer que no se haya cerrado
@@ -180,7 +195,11 @@ switch ($api) {
             }
         }
 
-        $response = array_merge((array) $response, (array) $etiqueta_turno);
+        #$response = array_merge((array) $response, (array) $etiqueta_turno);
+        $response = array(
+            0 => $response,
+            1 => $etiqueta_turno[0]
+        );
         break;
     case 3:
         # reagendar una cita
@@ -494,46 +513,135 @@ switch ($api) {
         # descargar masivamente reportes
 
         $resultset = $master->getByProcedure("sp_recuperar_reportes_confirmados", [null, null, $cliente_id, $fecha_ingreso, null]);
-        
-        $ids = array_unique(array_map(function($item){
+
+        $ids = array_unique(array_map(function ($item) {
             return $item['TURNO_ID'];
         }, $resultset));
 
         $response = [];
 
-        foreach($ids as $id){
+        foreach ($ids as $id) {
             # filtramos los reportes por el turno
-            $records = array_filter($resultset, function($item) use ($id){
+            $records = array_filter($resultset, function ($item) use ($id) {
                 return $item["TURNO_ID"] == $id;
             });
 
             # obtenemos el nombre de la carpeta
             $firstElement = $records[array_key_first($records)];
-            $sinGuion = (explode('-',$firstElement['NOMBRE_ARCHIVO']))[0];
-            $sinGuionBajo = explode('_',$sinGuion);
+            $sinGuion = (explode('-', $firstElement['NOMBRE_ARCHIVO']))[0];
+            $sinGuionBajo = explode('_', $sinGuion);
 
             $folder = implode(" ", array_slice($sinGuionBajo, 1));
-            $folder = str_replace(" ","_",$folder);
+            $folder = str_replace(" ", "_", $folder);
             $urls = array();
 
-            foreach($records as $record){
+            foreach ($records as $record) {
                 $urls[] = [
                     "url" => $record["RUTA"],
                     "archivo" => $record["NOMBRE_ARCHIVO"]
                 ];
             }
-           
+
             $response[] = [
                 "folder" => $folder,
                 "urls" => $urls,
-                
+
             ];
         }
 
         echo json_encode($response);
         exit;
         break;
+    case 15:
+        # Detalle de los estudios
+        $estudios = $master->getByProcedure('sp_recepcion_estudios_b', [$area_id]);
 
+        $coincidencias = [];
+
+        $estudio = strtolower($estudio);
+        foreach ($estudios as $item) {
+            $base = strtolower($item['DESCRIPCION'] . ' ' . $item['ABREVIATURA'] . ' ' . $item['DIAS_DE_ENTREGA'] . $item['INDICACIONES'] . ' ' . $item['CLASIFICACION']);
+            $baseTokens = explode(' ', $base);
+            $userTokens = explode(' ', $estudio);
+
+            $matches = 0;
+
+            foreach ($userTokens as $userToken) {
+                foreach ($baseTokens as $baseToken) {
+                    if (levenshtein($userToken, $baseToken) <= 2) { # umbral de distancia
+                        $matches++;
+                        break;
+                    }
+                }
+            }
+
+            $score = $matches / count($userTokens); // Cambio clave aquí: ahora consideramos la proporción basada en el userInput
+
+            if ($score > 0.7) { // Puedes ajustar este umbral según lo necesites
+                $coincidencias[] = $item;
+            }
+        }
+
+        $response = $coincidencias;
+        break;
+    case 16:
+
+        $mail = new Correo();
+        # enviar correo de para comprobacion de datos del paciente
+        $px = $master->getByProcedure('sp_pacientes_b', [
+            $id_paciente,
+            $curp,
+            $pasaporte,
+            null # esta variable es la id del turno, para este efecto no aplica.
+        ]);
+
+        # recuperamos los correos dados
+        $correo1 = $px[0]['CORREO'];
+        $correo2 = $px[0]['CORREO_2'];
+
+        # los unimos en uun mismo arreglo para su posterior consumo.
+        $correos = $master->checkArray([$correo1, $correo2]);
+
+        # datos del paciente
+        $datos = $px[0];
+
+        #enviar correo para confirmar
+        try {
+            $mail->sendEmail('corroborarCorreos', "¡Sus datos han sido confirmados!", $correos, $datos);
+            $response = 1;
+        } catch (Exception $e) {
+            $response = "Ha ocurrido un error. No se ha enviado el correo.";
+            $master->setLog("Error al enviar correo de verificacion de datos. $e", '[recepcion_api case 16]');
+        }
+        break;
+    case 17:
+        $mail = new Correo();
+        # lista de las personas agregadas en el dia
+        $response = $master->getByProcedure("sp_recepcion_pacientes_del_dia", [ null, null ]);
+        break;
+
+    case 18:
+        # imprimir el formato de validacion de datos del paciente
+        $r = $master->reportador($master, $id_paciente, -6, 'form_datos', 'mostrar',0, 0, 0);
+        break;
+    case 19:
+        # Agregar los tipos de medios que quiere el paciente recibir sus resultados.
+        # Este procedure recibe una lista separadas por comas de los ids de los medios de entrega
+
+        # solo envias la lista con las opciones que tendra el paciente, agrega o elimina segun la lista que reciba.
+
+        # convertimos en arreglo chido la lista separada por comas.
+        $medios = explode(',', $medios_entrega);
+
+        $response = $master->insertByProcedure("sp_pacientes_medios_entrega_g", [
+            $id_paciente, 
+            json_encode($medios)
+        ]);
+        break;
+    case 20:
+        # recuperar los tipos de medios de entrega.
+        $response = $master->getByProcedure("sp_pacientes_tipos_medio_entrega_b", [$id_medio]);
+        break;
     default:
         $response = "Api no definida.";
         break;

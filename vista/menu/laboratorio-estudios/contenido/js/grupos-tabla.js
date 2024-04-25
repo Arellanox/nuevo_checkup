@@ -21,6 +21,24 @@ var tablaGrupos = $('#TablaGruposServicios').DataTable({
     { data: 'CLASIFICACION_EXAMEN' },
     { data: 'ES_PARA' },
     { data: 'DESCRIPCION_AREA' },
+    {
+      data: 'LABORATORIO', render: function (data, row, type) {
+        if (row.LABORATORIO_ID == null) {
+          return ''
+        } else {
+          return data
+        }
+      }
+    },
+    {
+      data: 'SE_MAQUILA', render: function (data) {
+        if (data === '0') {
+          return ''
+        } else {
+          return 'Maquilado'
+        }
+      }
+    },
     { data: 'INDICACIONES' },
     // {defaultContent: 'En progreso...'}
   ],
@@ -32,7 +50,9 @@ var tablaGrupos = $('#TablaGruposServicios').DataTable({
     { target: 3, title: 'Clasificación', className: 'min-tablet' },
     { target: 4, title: 'Dirigido', className: 'min-tablet' },
     { target: 5, title: 'Area', className: 'desktop' },
-    { target: 6, title: 'Indicaciones', className: 'none' }
+    { target: 6, title: 'Maquilado', className: 'all' },
+    { target: 7, title: 'Subrogado', className: 'all' },
+    { target: 8, title: 'Indicaciones', className: 'none' }
   ],
 
   dom: 'Blfrtip',
@@ -60,6 +80,22 @@ var tablaGrupos = $('#TablaGruposServicios').DataTable({
         }
       }
     },
+    {
+      extend: 'excelHtml5',
+      text: '<i class="fa fa-file-excel-o"></i> Excel',
+      className: 'btn btn-success',
+      titleAttr: 'Excel',
+      attr: {
+        'data-bs-toggle': "tooltip",
+        'data-bs-placement': "top",
+        title: "Genere el formato por toda la tabla de pacientes o filtrado (Filtrado por: Fecha, Procedencia...)"
+      }
+      // exportOptions: {
+      //   // Especifica las columnas que deseas exportar
+      //   columns: [0, 1, 8, 3, 2, 4, 6, 7, 5, 9, 10, 11]
+      // }
+
+    }
   ],
 
 })

@@ -312,7 +312,9 @@ $areas = $resultados->areas[0];
                 'Ag. Virus Sincitial Respiratorio' => 'Ag-Virus_Respiratorio',
                 'Prueba rT-PCR de VSR - CoviFlu' => 'pcr-vsr_coviflu',
                 'rT-PCR PneumoBacter' => 'rT-PCR PneumoBacter',
-                'rT-PCR Thrombosis SNP' => 'rT-PCR_Thrombosis_SNP'
+                'rT-PCR Thrombosis SNP' => 'rT-PCR_Thrombosis_SNP',
+                'PCR Detección Mycobacterium tuberculosis' => 'PCR_deteccion_mycobacterium',
+                'PCR DETECCIÓN DE TOXOPLASMA GONDII TR' => 'toxoplasma_gondii_tr'
             ];
             return $estudios[$indice] ?? null;
         }

@@ -278,7 +278,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
                   cliente_id: $('#select-cambioProcedencia').val()
                 },
                   'recepcion_api', { callbackAfter: true }, false, () => {
-                    alertToast('Se actualizo la procedecia', 'success', 4000)
+                    alertToast('Se actualizó la procendecia', 'success', 4000)
                     $('#modalActualizarProsedencia').modal('hide');
                     try { tablaRecepcionPacientes.ajax.reload(); } catch (e) { }
                     try { tablaRecepcionPacientesIngrersados.ajax.reload(); } catch (e) { }

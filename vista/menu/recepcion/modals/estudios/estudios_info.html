@@ -1,0 +1,122 @@
+<div class="modal fade" id="modalEstudiosInformacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <h5 class="modal-title">Información de estudios</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <!-- Input y listado -->
+                <form id="FormEstudioBuscar">
+                    <div class="row">
+                        <div class="col-12 col-md-4">
+                            <!-- Area del estudio a buscar -->
+                            <label for="area_id" class="form-label">Área: </label>
+                            <select class="form-control input-form" id="select-Areas" name="area_id"> </select>
+                        </div>
+
+                        <div class="col-12 col-md-8">
+                            <!-- Texto a coincidir -->
+                            <label for="estudio" class="form-label">Estudio: </label>
+                            <input type="text" name="estudio" placeholder="Coincidecias" class="form-control input-form"
+                                required>
+                        </div>
+                    </div>
+                    <div class="text-end">
+                        <button type="submit" form="FormEstudioBuscar" class="btn btn-confirmar">
+                            <i class="bi bi-search"></i> Buscar
+                        </button>
+                    </div>
+                </form>
+
+                <!-- información del estudio -->
+                <div class="container p-3">
+                    <div class="row">
+                        <div class="col-12 col-md-5">
+                            <!-- Coincidencias -->
+                            <div id="listEstudios" class="d-none">
+                                <span>Médicos Existentes:</span>
+                                <div id="suggestionsListEstudios"></div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-7" id="info_estudios-search" style="display: none;">
+                            <div class="info-header text-center mb-3">
+                                <h3 id="InfoModal_DESCRIPCION"></h3>
+                                <p class="lead" id="InfoModal_AREA"></p>
+                                <h5 id="InfoModal_CLASIFICACIOa"></h5>
+                            </div>
+                            <div class="rounded p-3 shadow mb-2">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h3>Información General</h3>
+                                        <p>
+                                            <strong>Activo:</strong>
+                                            <span class="pantone-3165-color" id="InfoModal_ACTIVO"></span>
+                                        </p>
+                                        <p>
+                                            <strong>Código SAT:</strong>
+                                            <span class="pantone-3165-color" id="InfoModal_CODIGO_SAT"></span>
+                                        </p>
+                                        <p>
+                                            <strong>Costo:</strong>
+                                            <span class="pantone-3165-color" id="InfoModal_COSTO"></span>
+                                        </p>
+                                        <p><strong>Días de Entrega:</strong>
+                                            <span class="pantone-3165-color" id="InfoModal_DIAS_DE_ENTREGA"></span>
+                                        </p>
+                                        <p>
+                                            <strong>Laboratorio Maquila:</strong>
+                                            <span class="pantone-3165-color" id="InfoModal_LABORATORIO_MAQUILA"></span>
+                                        </p>
+                                    </div>
+                                    <div class="col-12">
+                                        <h3>Detalles Adicionales</h3>
+                                        <p>
+                                            <strong>Es Producto:</strong>
+                                            <span class="pantone-3165-color" id="InfoModal_ES_PRODUCTO"></span>
+                                        </p>
+                                        <p>
+                                            <strong>Medida:</strong>
+                                            <span class="pantone-3165-color" id="InfoModal_MEDIDA"></span>
+                                        </p>
+                                        <p>
+                                            <strong>Muestra Valores Referencia:</strong>
+                                            <span class="pantone-3165-color"
+                                                id="InfoModal_MUESTRA_VALORES_REFERENCIA"></span>
+                                        </p>
+                                        <p>
+                                            <strong>Registrado Por:</strong>
+                                            <span class="pantone-3165-color" id="InfoModal_REGISTRADO_POR"></span>
+                                        </p>
+                                        <!-- Incluye más elementos aquí según sea necesario -->
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
+                    <i class="bi bi-arrow-left-short"></i>
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .estudios_encontrados {
+        cursor: pointer !important;
+    }
+</style>
+
+<script>
+    html_estudios_info = $('#info_estudios-search').html();
+</script>

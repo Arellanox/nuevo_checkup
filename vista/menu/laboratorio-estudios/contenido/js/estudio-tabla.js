@@ -22,6 +22,24 @@ var tablaServicio = $('#TablaEstudioServicio').DataTable({
     { data: 'ABREVIATURA' },
     { data: 'CLASIFICACION_EXAMEN' },
     { data: 'DESCRIPCION_AREA' },
+    {
+      data: 'LABORATORIO', render: function (data, row, type) {
+        if (row.LABORATORIO_ID == null) {
+          return ''
+        } else {
+          return data
+        }
+      }
+    },
+    {
+      data: 'SE_MAQUILA', render: function (data) {
+        if (data === '0') {
+          return ''
+        } else {
+          return 'Maquilado'
+        }
+      }
+    },
     { data: 'ACTIVO' },
     // {defaultContent: 'En progreso...'}
   ],
@@ -42,7 +60,8 @@ var tablaServicio = $('#TablaEstudioServicio').DataTable({
           alertSelectTable();
         }
       }
-    }, {
+    },
+    {
       text: '<i class="bi bi-rulers"></i> Referencia',
       className: 'btn btn-pantone-325 ',
       action: function () {
@@ -63,6 +82,22 @@ var tablaServicio = $('#TablaEstudioServicio').DataTable({
 
         $('#modalReferencia').modal('show');
       }
+    },
+    {
+      extend: 'excelHtml5',
+      text: '<i class="fa fa-file-excel-o"></i> Excel',
+      className: 'btn btn-success',
+      titleAttr: 'Excel',
+      attr: {
+        'data-bs-toggle': "tooltip",
+        'data-bs-placement': "top",
+        title: "Genere el formato por toda la tabla de pacientes o filtrado (Filtrado por: Fecha, Procedencia...)"
+      }
+      // exportOptions: {
+      //   // Especifica las columnas que deseas exportar
+      //   columns: [0, 1, 8, 3, 2, 4, 6, 7, 5, 9, 10, 11]
+      // }
+
     }
   ],
 })

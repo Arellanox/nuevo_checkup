@@ -37,3 +37,7 @@ include "modal_actualizar_procedencia.html";
 
 //Modal para los reportes no entregados
 include "m_reportes_no_entregados.html";
+
+
+// Para informacion de estudios
+include "estudios/estudios_info.html";

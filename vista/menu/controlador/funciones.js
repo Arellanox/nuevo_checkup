@@ -451,7 +451,6 @@ function ifnull(data, siNull = '', values = [
   },
   'option4',
 ]) {
-  console.log(data)
   values = ((typeof values === 'object' && !Array.isArray(values)) || (typeof values === 'string'))
     ? [values]
     : values;
@@ -3063,7 +3062,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     if (mensajeAjax(data)) {
                       row = data['response']['data'][0];
                       $('#nombre-persona').html(row.NOMBRE_COMPLETO);
-                      $('#edad-persona').html(formatoEdad(row.EDAD))
+                      $('#edad-persona').html(`${calcularEdad2(row.NACIMIENTO)['numero']} ${calcularEdad2(row.NACIMIENTO)['tipo']}`)
                       $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
                       $('#info-paquete_cargado').html(ifnull(row, '', ['PAQUETE_CARGADO']))
                       $('#info-vendedor').html(ifnull(row, '', ['VENDEDOR']))

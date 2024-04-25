@@ -31,9 +31,9 @@ $usuario_id = $_SESSION['id'];
 // decomentar las siguientes 3 lineas para hacer las pruebas
 
 
-$api = "biomolecular";
+$api = "form_datos";
 $area_id = 12;
-$turno_id = 3358;
+$turno_id = 79;
 
 //$cliente_id = 19;
 // $id_cotizacion = 7;
@@ -97,6 +97,10 @@ switch ($api) {
         break;
     case 'envio_muestras':
         $r = $master->reportador($master, $turno_id, $area_id, 'envio_muestras', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
+        break;
+    case 'form_datos':
+        # para imprimir la confirmacion de los datos del paciente
+        $r = $master->reportador($master, $turno_id, -6, 'form_datos', 'mostrar',$preview, 0, 0);
         break;
     default:
         echo '<script language="javascript">alert("¡URL invalida!"); window.close()</script>';

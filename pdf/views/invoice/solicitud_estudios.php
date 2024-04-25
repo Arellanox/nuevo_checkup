@@ -55,7 +55,7 @@
         /* Content */
         .invoice-content {
             position: relative;
-            top: 10px;
+            top: 20px;
             border-radius: 4px;
             padding-bottom: 5px;
             padding-right: 30px;

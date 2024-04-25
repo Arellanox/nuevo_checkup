@@ -293,6 +293,14 @@ function generarFormularioPaciente(id) {
                 }
               }
               break;
+            // toxoplasma_gondii_tr
+            case '1682':
+              muestras = {
+                0: {
+                  'descripcion': 'Sangre',
+                }
+              }
+              break;
 
             case '709': // <-- PANEL21 -->
               kitDiag = {
@@ -379,7 +387,10 @@ function generarFormularioPaciente(id) {
                 },
                 7: {
                   'descripcion': 'URETRAL Y GLANDE'
-                }
+                },
+                8: {
+                  'descripcion': 'EXUDADO OROFARÍNGEO Y OCULAR'
+                },
               }
               break;
             case '972': case '973':
@@ -587,6 +598,34 @@ function generarFormularioPaciente(id) {
             case '1677':
               // PCR CARGA VIRAL DE CITOMEGALOVIRUS (CMV)
               // Solo visual por ahora
+              break;
+
+            case '1738':
+              // PCR Detección Mycobacterium tuberculosis
+              muestras = {
+                0: {
+                  'descripcion': 'Expectoración',
+                },
+                1: {
+                  'descripcion': 'Lavado bronquial',
+                },
+                2: {
+                  'descripcion': 'Orina',
+                },
+                3: {
+                  'descripcion': 'Líquidos orgánicos sin hemolisis',
+                },
+                4: {
+                  'descripcion': 'Sangre/EDTA',
+                },
+                5: {
+                  'descripcion': 'Biopsia',
+                },
+                6: {
+                  'descripcion': 'Bloques de parafina',
+                },
+              }
+
               break;
 
 
@@ -797,6 +836,11 @@ function generarFormularioPaciente(id) {
                 html += endDiv;
                 html += colreStart;
                 html += '<div class="input-group">';
+                html += `
+                    <div class="input-group-text input-span" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Vacía el resultado" >
+                      <input class="form-check-input mt-0" value="1" name="servicios[${inputname}][BLANCO]" type="checkbox" aria-label="Checkbox for following text input">
+                    </div>
+                `
 
 
                 // Si es posible, crea otro tipo de input, como select o más
@@ -955,8 +999,19 @@ $(document).on('click', '.selectMolecular', function () {
 
 
 $(document).on('click', '.linearEstudiosLabs', function (event) {
+
+
+  const target = $(event.target);
+
+  // Verifica si el elemento clickeado es un checkbox.
+  if (target.is('input')) {
+    // Si es un checkbox, permite el comportamiento normal del checkbox y no ejecutes el resto del código.
+    return;
+  }
+
   event.stopPropagation();
   event.preventDefault();
+
 
   if (areaActiva == 12)
     return false;

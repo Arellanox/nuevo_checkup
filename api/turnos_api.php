@@ -165,9 +165,20 @@ switch ($api) {
             $valor_absoluto = isset($resultado['VALOR']) ? $resultado['VALOR'] : NULL;
             $group = strtolower($resultado['ID_GRUPO']) == "null" ? NULL : $resultado['ID_GRUPO'];
 
+            switch($resultado['BLANCO']){
+                case "on":
+                    $blanco = 1;
+                    break;
+                case null:
+                    $blanco = 0;
+                    break;
+                default:
+                    $blanco = $resultado['BLANCO'];
+                    break;
+            }
 
             #$a = array($id_turno, $servicio_id, $resultado, $confirmar, $confirmado_por, $valor_absoluto);
-            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $resultado['ID_SERVICIO'], $resultado['RESULTADO'], $confirmar, $confirmado_por, $valor_absoluto, $group));
+            $response = $master->updateByProcedure('sp_subir_resultados', array($id_turno, $resultado['ID_SERVICIO'], $resultado['RESULTADO'], $confirmar, $confirmado_por, $valor_absoluto, $group, $blanco));
 
             #  print_r($response);
             if (!is_numeric($response)) {

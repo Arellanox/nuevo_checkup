@@ -551,7 +551,8 @@ class Miscelaneus
                 $arregloPaciente = $this->getBodyFormatoEnvioLotesMaquila($master, $turno_id); # $turno_id es el id de lote que se quiere generar.
                 break;    
             case -6:
-                
+                # $turno_id para este caso seria el equivalente a ID_PACIENTE
+                $arregloPaciente = $this->getBodyFormDatos($master, $turno_id);
                 break;
         }
 
@@ -630,6 +631,12 @@ class Miscelaneus
             $master->insertByProcedure('sp_reportes_areas_g', [null, $turno_id, $area_id, $infoPaciente[0]['CLAVE_IMAGEN'], $renderpdf, null]);
         }
         return $renderpdf;
+    }
+
+    private function getBodyFormDatos($master, $id_paciente){
+        $response = $master->getByProcedure('sp_pacientes_b', [$id_paciente, null, null, null]);
+        $paciente = $response[0];
+        return $paciente;
     }
 
     private function getBodyInfoSoma($master, $id_turno)
@@ -1334,13 +1341,13 @@ class Miscelaneus
     private function determinarTipo($parametro, $resultado)
     {
         $parametro = trim($parametro);
-        $resultado = trim($resultado);
+        $resultado = str_replace(",",'',trim($resultado));
 
         // Comprobar si el parámetro contiene un rango de valores
         if (strpos($parametro, '-') !== false) {
             $rango = explode('-', $parametro);
-            $minimo = trim($rango[0]);
-            $maximo = trim($rango[1]);
+            $minimo = str_replace(",", '', trim($rango[0]));
+            $maximo = str_replace(",","",trim($rango[1]));
 
             if ($resultado < $minimo) {
                 return $this->arrowDown;
@@ -1420,6 +1427,9 @@ class Miscelaneus
                     $metodo_grupo = $current['METODOS_GRUPO'];
                     $equipo_grupo = $current['EQUIPOS_GRUPO'];
                     $clasificacion_id = $current['CLASIFICACION_ID'];
+                    $muestra_grupo = $current['MUESTRA_GRUPO'];
+
+                    $current['RESULTADO'] = str_replace("<", "&lt;", $current['RESULTADO']);
 
                     $item = array(
                         "nombre"            => $current['DESCRIPCION_SERVICIO'],
@@ -1495,7 +1505,8 @@ class Miscelaneus
                     "metodo"         => $metodo_grupo,
                     "equipo"         => $equipo_grupo,
                     "observaciones"  => isset($id_grupo) ? $observacionnes_generales : null,
-                    "muestra"        => $id_grupo == 972 || $id_grupo == 1599 || $id_grupo = 1677 ? "Plasma EDTA" : ""
+                    "muestra"        => $muestra_grupo
+                    //"muestra"        => $id_grupo == 972 || $id_grupo == 1599 || $id_grupo = 1677 ? "Plasma EDTA" : ""
                 );
                 $analitos = array();
             }
