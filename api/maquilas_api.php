@@ -36,7 +36,7 @@ $fecha_toma = $_POST['fecha_toma'];
 
 $pacientes = $_POST['pacientes']; # array
 
-$cliente_id = $_POST['cliente_id'];
+$cliente_id = $_POST['id_cliente'];
 $id_lote = $_POST['id_lote'];
 
 # vista principal maquila
