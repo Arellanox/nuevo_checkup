@@ -23,6 +23,10 @@ switch($api){
         # insertar/actualizar antecedentes
         $response = $master->insertByProcedure('sp_historia_pediatrica_g', [$turno_id, json_encode($antecedentes)]);
         break;
+    case 2:
+        # buscar los antecedentes
+        $response = $master->getByProcedure("sp_historia_pediatrica_b", []);
+        break;
     default:
         $response = "api no reconocida " . $api;
         break;    
