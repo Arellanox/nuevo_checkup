@@ -52,7 +52,7 @@ switch($api){
             
             if (!empty($attachment[0])) {
                 $mail = new Correo();
-                if ($mail->sendEmail('resultados', '[bimo] ESTUDIO DE COMPOSICION CORPORAL (InBody)', [$attachment[1]], null, $attachment[0], 1, $turno_id, 14, $master)) {
+                if ($mail->sendEmail('resultados', '[bimo] ESTUDIO DE COMPOSICION CORPORAL (InBody)', [$attachment[1]], null, $attachment[0], 1, null,$turno_id, 14, $master)) {
                     $master->setLog("Correo enviado.", "Inbody");
                     $response = ["Correo enviado."];
                     # cambiar el estado del campo enviado en la base de datos
