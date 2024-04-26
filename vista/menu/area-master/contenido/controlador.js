@@ -152,7 +152,7 @@ function hasLocation() {
         obtenerContenidoVistaMaster(18, 'Resultados de Ecocardiograma', 'contenido_modal.php', 'tomaCapturas');
         break;
       case "PEDIATRIA":
-        // control_turnos = 16
+        control_turnos = null;
         api_interpretacion = 1;
         formulario = "formAntecedentesPediatria";
         url_api = 'pediatria_api';
