@@ -25,7 +25,7 @@ switch($api){
         break;
     case 2:
         # buscar los antecedentes
-        $response = $master->getByProcedure("sp_historia_pediatrica_b", []);
+        $response = $master->getByNext("sp_historia_pediatrica_b", [$turno_id]);
         break;
     default:
         $response = "api no reconocida " . $api;
