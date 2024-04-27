@@ -1,3 +1,14 @@
+// Setea el tipo de cuenta en el campo
+switch (session.id_cliente) {
+    case 24: case '24':
+        $('#numero_cuenta_clientes').html('SIHO-No. Cuenta:')
+        break;
+
+    default:
+        $('#numero_cuenta_clientes').html('No. Cuenta')
+        break;
+}
+
 
 // |------------------------- Información del paciente -------------------------|
 // Arma los datos y formulario
