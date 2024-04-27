@@ -21,6 +21,7 @@ $turno_id = $_POST['id_turno'];
 switch($api){
     case 1:
         # insertar/actualizar antecedentes
+        $antecedentes = $master->getFormValues($antecedentes);
         $response = $master->insertByProcedure('sp_historia_pediatrica_g', [$turno_id, json_encode($antecedentes)]);
         break;
     case 2:
