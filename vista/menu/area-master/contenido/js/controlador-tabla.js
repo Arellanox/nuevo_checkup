@@ -152,8 +152,6 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
                 if (ifnull(selectEstudio, false, ['array']))
                     await obtenerResultadosAudio(selectEstudio);
 
-                // Inicializamos mostrando la primera página
-                updatePage($('.page').first());
 
                 if (datalist.CONFIRMADO_OFTAL == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
                 break;
