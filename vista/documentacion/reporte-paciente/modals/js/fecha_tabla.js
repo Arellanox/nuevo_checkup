@@ -4,18 +4,12 @@ $(document).on('click', '#actualizar_tabla', function (event) {
     dataList['fecha_inicial'] = $('#fecha_inicial').val();
     dataList['fecha_final'] = $('#fecha_final').val();
 
-    if ($('#checkFullClientes').is(':checked')) {
-        dataList['id_cliente'] = null;
-    } else {
-        dataList['id_cliente'] = $('#cliente').val();
-    }
 
-    if ($('#checkFullArea').is(':checked')) {
-        dataList['area_id'] = null;
-    } else {
-        dataList['area_id'] = $('#area_list').val();
-    }
-
+    // Asignación condicional de valores
+    dataList['id_cliente'] = setConditionalValue('#checkFullClientes', '#cliente');
+    dataList['area_id'] = setConditionalValue('#checkFullArea', '#area_list');
+    dataList['tipo_cliente'] = setConditionalValue('#checkFullTipCliente', '#tipo_cliente');
+    dataList['tiene_factura'] = setConditionalValue('#checkFullFacturado', '#tiene_factura');
 
 
     tablaPrincipal.ajax.reload();
@@ -42,3 +36,9 @@ rellenarSelect('#area_list', 'areas_api', 2, 'ID_AREA', 'DESCRIPCION')
 // Establecer los valores de los campos de fecha
 document.getElementById('fecha_inicial').value = fechaInicialFormatted;
 document.getElementById('fecha_final').value = fechaFinalFormatted;
+
+
+
+function setConditionalValue(checkSelector, valueSelector) {
+    return $(checkSelector).is(':checked') ? null : $(valueSelector).val();
+}

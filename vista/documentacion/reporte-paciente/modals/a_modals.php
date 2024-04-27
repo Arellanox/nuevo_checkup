@@ -39,6 +39,33 @@
                             </label>
                         </div>
                     </div>
+
+                    <div class="col-12">
+                        <label for="area" class="form-label">Tipo de cliente</label>
+                        <select name="tipo_cliente" id="tipo_cliente" class="form-select input-form">
+                            <option value="1">Contado</option>
+                            <option value="2">Crédito</option>
+                        </select>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="0" id="checkFullTipCliente" name="full_area">
+                            <label class="form-check-label" for="checkFullTipCliente">
+                                Ambos
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label for="area" class="form-label">Factura</label>
+                        <select name="tiene_factura" id="tiene_factura" class="form-select input-form">
+                            <option value="1">Con Factura</option>
+                            <option value="0">Sin Factura</option>
+                        </select>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="0" id="checkFullFacturado" name="full_area">
+                            <label class="form-check-label" for="checkFullFacturado">
+                                Ambos
+                            </label>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
