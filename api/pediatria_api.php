@@ -6,8 +6,8 @@ require_once "../clases/token_auth.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
+    // $tokenVerification->logout();
+    // exit;
 }
 
 //Api
@@ -16,7 +16,7 @@ $api = $_POST['api'];
 $master = new Master();
 
 $antecedentes = $_POST['antecedentes'];
-$turno_id = $_POST['turno_id'];
+$turno_id = $_POST['id_turno'];
 
 switch($api){
     case 1:
@@ -26,6 +26,10 @@ switch($api){
     case 2:
         # buscar los antecedentes
         $response = $master->getByNext("sp_historia_pediatrica_b", [$turno_id]);
+        break;
+    case 3:
+        # Iniciar historia pediatrica.
+        $response = $master->insertByProcedure('sp_historia_pediatrica_iniciar', []);
         break;
     default:
         $response = "api no reconocida " . $api;
