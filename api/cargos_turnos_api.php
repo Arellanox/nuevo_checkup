@@ -21,6 +21,8 @@ $ujat_inicial = $_POST['fecha_inicial'];
 $ujat_final = $_POST['fecha_final'];
 $id_cliente = $_POST['id_cliente'];
 $area_id    = $_POST['area_id'];
+$tipo_cliente = $_POST['tipo_cliente']; # 1 contado, 2 credito
+$tiene_factura = $_POST['tiene_factura']; #1 tiene, 0 no tiene, null todas
 
 switch ($api) {
     case 1:
@@ -54,7 +56,9 @@ switch ($api) {
             $ujat_inicial,
             $ujat_final,
             $id_cliente,
-            $area_id
+            $area_id,
+            $tipo_cliente,
+            $tiene_factura
         ]);
         #$response = $master->getByProcedure("sp_reporte_ujat", $params);
         $response = $master->getByProcedure("sp_reporte_ujat_prueba", $params);
