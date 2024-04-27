@@ -95,7 +95,7 @@
         // Vaciamos el contenedor antes de añadir nuevo contenido
         const $contenedor = $(contenedor).empty();
 
-        const clases = { 'opción': 'col-12 col-lg-8', 'comentario': 'col-12' }
+        const clases = { 'opción': 'col-12 col-md-8', 'comentario': 'col-12' }
         const placeholder = preguntas['placeholder'] || 'Por favor, especifique';
 
         preguntas.forEach(pregunta => {
@@ -111,13 +111,13 @@
             let $resupuesta = '';
             if (pregunta.tipo === "opción") {
                 $resupuesta = $(`
-                    <div class="col-12 col-lg-4 row d-flex align-items-start justify-content-center">
+                    <div class="col-12 col-md-4 row d-flex align-items-center justify-content-center">
                         <div class="col-auto">
-                            <input type="radio" required id="opción_${pregunta.id}_1" name="antecedentes[${pregunta.id}][option]" value="1">
+                            <input type="radio" id="opción_${pregunta.id}_1" name="antecedentes[${pregunta.id}][option]" value="1">
                             <label for="opción_${pregunta.id}_1">Sí</label>
                         </div>
                         <div class="col-auto">
-                            <input type="radio" required id="opción_${pregunta.id}_2" name="antecedentes[${pregunta.id}][option]" value="2">
+                            <input type="radio" id="opción_${pregunta.id}_2" name="antecedentes[${pregunta.id}][option]" value="2">
                             <label for="opción_${pregunta.id}_2">No</label>
                         </div>
                     </div>

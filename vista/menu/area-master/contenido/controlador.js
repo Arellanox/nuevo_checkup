@@ -266,6 +266,18 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
         }
         break;
 
+      case 21:
+        $('.btn-capturas-pdf').fadeOut(0)
+
+        $('#btn-analisis').fadeIn(0)
+        $('#formSubirInterpretacion').fadeIn(0)
+        // Subir resultado
+        $.getScript("modals/js/master_subir_interpretación.js");
+        // Visualizar la paginacion del formulario
+        $('#panel-paginacion').fadeIn(0);
+
+        break;
+
       // Versión anterior (Absoleta)
       // default:
       //   $('#btn-analisis-pdf').fadeIn(0)

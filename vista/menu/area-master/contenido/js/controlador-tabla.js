@@ -152,6 +152,7 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
                 if (ifnull(selectEstudio, false, ['array']))
                     await obtenerResultadosAudio(selectEstudio);
 
+                console.log('area 4')
                 // Inicializamos mostrando la primera página
                 updatePage($('.page').first());
 
@@ -273,6 +274,29 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
                     }
                 }
                 break;
+
+            // Pediatria
+            case 21:
+                // 
+                $('#btn-inter-areas').fadeIn(0);
+                // Subir audios y Tabla de equipos
+                // console.log(dataSelect['array'])
+
+                // Captura de oidos (real por activar)
+                // getFormOidosAudiometria(datalist);
+
+                // Recupera la info del reporte:
+                console.log(selectEstudio.array);
+                if (ifnull(selectEstudio, false, ['array']))
+                    // obtener y setear resultados
+                    // await obtenerResultadosAudio(selectEstudio);
+                    console.log('hola')
+
+                if (datalist.CONFIRMADO_PEDIATRIA == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
+
+
+                $('.page').first().fadeIn();
+                break;
             default:
                 botonesResultados('activar');
                 break;
@@ -371,6 +395,7 @@ async function obtenerServicios(area, turno) {
             case 5:
             case 18:
             case 9:
+            case 21:
                 data['api'] = 2
                 break;
             case 4:
@@ -435,6 +460,7 @@ async function obtenerServicios(area, turno) {
                     // if (area == 10) {
                     //     vistaPDF()
                     // }
+                    console.log(1);
                     botonesResultados('activar', area)
                 } else {
                     selectEstudio = new GuardarArreglo({ 0: {} });

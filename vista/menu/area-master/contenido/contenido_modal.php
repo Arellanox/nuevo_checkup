@@ -264,9 +264,9 @@ session_start();
 
                                 //<!--Formulario de Audiometria -->
                             case 'formAntecedentesPediatria':
-                                // echo '<form id="formAntecedentesPediatria">';
+                                echo '<form id="formAntecedentesPediatria">';
                                 include 'forms/formAntecedentesPediatria.html';
-                                // echo '</form>';
+                                echo '</form>';
                                 break;
 
                             default:
