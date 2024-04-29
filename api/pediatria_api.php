@@ -6,8 +6,8 @@ require_once "../clases/token_auth.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
+    // $tokenVerification->logout();
+    // exit;
 }
 
 //Api
@@ -35,6 +35,21 @@ switch($api){
     case 2:
         # buscar los antecedentes
         $response = $master->getByNext("sp_historia_pediatrica_b", [$turno_id]);
+        
+        $newResponse = [];
+        foreach($response[0][0] as $clave => $valor){
+            echo $clave;
+            $newResponse[$clave] = $valor;
+        }
+
+        $items = [];
+        for($i = 1; $i < count($response); $i++ ){
+            $items[] = $response[$i];
+        }
+        
+        $newResponse["ANTECEDENTES"]= $items;
+        $response = $newResponse;
+        
         break;
     case 3:
         # confirmar historia pediatrica.
