@@ -16,8 +16,8 @@ $api = $_POST['api'];
 $master = new Master();
 
 $antecedentes = $_POST['antecedentes'];
-$turno_id = $_POST['id_turno'];
-
+$turno_id = $_POST['turno_id'];
+$id_turno = $_POST['id_turno'];
 # confirmar historia
 $motivo_consulta = $_POST["motivo_consulta"];
 $conclusiones = $_POST['conclusiones']; # es el campo de notas_padecimiento
@@ -31,7 +31,7 @@ switch($api){
         # insertar/actualizar antecedentes
         $antecedentes = $master->getFormValues($antecedentes);
         $response = $master->insertByProcedure('sp_historia_pediatrica_g', [
-            $turno_id, 
+            $id_turno, 
             json_encode($antecedentes),
             # guardar datos generales de la historia pediatrica.
             $motivo_consulta,
@@ -65,12 +65,13 @@ switch($api){
         # confirmar historia pediatrica.
         $response = $master->insertByProcedure('sp_historia_pediatrica_terminar', [
             $turno_id,
-            $motivo_consulta,
-            $conclusiones,
-            $historia_subsecuente,
-            $consulta_terminada,
-            $registrado_por
+            $consulta_terminada
         ]);
+
+        if ($consulta_terminada == 1){
+            # actualizar el estado de la historia, y la ruta del reporte.
+
+        }
         break;
     case 4:
         # recuperar los datos de la consulta
