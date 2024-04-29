@@ -6,8 +6,8 @@ require_once "../clases/token_auth.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    // $tokenVerification->logout();
-    // exit;
+    $tokenVerification->logout();
+    exit;
 }
 
 //Api
@@ -17,6 +17,14 @@ $master = new Master();
 
 $antecedentes = $_POST['antecedentes'];
 $turno_id = $_POST['id_turno'];
+
+# confirmar historia
+$motivo_consulta = $_POST["motivo_consulta"];
+$conclusiones = $_POST['conclusiones']; # es el campo de notas_padecimiento
+$historia_subsecuente = $_POST['historia_subsecuente'];
+$diagnostico = $_POST['diagnostico'];
+$consulta_terminada = $_POST['consulta_terminada'];
+$registrado_por = $_SESSION['id'];
 
 switch($api){
     case 1:
@@ -29,8 +37,19 @@ switch($api){
         $response = $master->getByNext("sp_historia_pediatrica_b", [$turno_id]);
         break;
     case 3:
-        # Iniciar historia pediatrica.
-        $response = $master->insertByProcedure('sp_historia_pediatrica_iniciar', []);
+        # confirmar historia pediatrica.
+        $response = $master->insertByProcedure('sp_historia_pediatrica_terminar', [
+            $turno_id,
+            $motivo_consulta,
+            $conclusiones,
+            $historia_subsecuente,
+            $consulta_terminada,
+            $registrado_por
+        ]);
+        break;
+    case 4:
+        # recuperar los datos de la consulta
+        $response = $master->getByProcedure('sp_historia_pediatrica_consulta_b', [$turno_id]);
         break;
     default:
         $response = "api no reconocida " . $api;
