@@ -48,7 +48,6 @@ switch($api){
         
         $newResponse = [];
         foreach($response[0][0] as $clave => $valor){
-            echo $clave;
             $newResponse[$clave] = $valor;
         }
 
