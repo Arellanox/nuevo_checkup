@@ -30,7 +30,17 @@ switch($api){
     case 1:
         # insertar/actualizar antecedentes
         $antecedentes = $master->getFormValues($antecedentes);
-        $response = $master->insertByProcedure('sp_historia_pediatrica_g', [$turno_id, json_encode($antecedentes)]);
+        $response = $master->insertByProcedure('sp_historia_pediatrica_g', [
+            $turno_id, 
+            json_encode($antecedentes),
+            # guardar datos generales de la historia pediatrica.
+            $motivo_consulta,
+            $conclusiones,
+            $historia_subsecuente,
+            $consulta_terminada,
+            $registrado_por,
+            $diagnostico
+        ]);
         break;
     case 2:
         # buscar los antecedentes
