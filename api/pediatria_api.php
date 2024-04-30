@@ -62,12 +62,13 @@ switch($api){
     case 3:
         # confirmar historia pediatrica.
         $response = $master->insertByProcedure('sp_historia_pediatrica_terminar', [
-            $turno_id,
-            $consulta_terminada
+            $turno_id
         ]);
 
         if ($consulta_terminada == 1){
-            # actualizar el estado de la historia, y la ruta del reporte.
+            # crear y actualiar ruta del reporte.
+            $pdf = $master->reportador($master, $turno_id, 21, 'historia_pediatrica');
+            
 
         }
         break;

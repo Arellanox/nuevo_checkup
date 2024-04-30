@@ -514,6 +514,15 @@ class Miscelaneus
                 $fecha_resultado = $infoPaciente[array_key_last($infoPaciente)]['FECHA_CARPETA_CONSULTA2'];
                 $carpeta_guardado = "consulta_medica";
                 break;
+            case 21:
+                # historia pediatrica
+                $arregloPaciente = $this->getBodyHistoriaPediatrica($master, $turno_id);
+                $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
+                $datos_medicos = $this->getMedicalCarrier($info);
+                $folio = null; #pendiente
+                $fecha_resultado = null; #pendiente
+                $carpeta_guardado = 'historia_pediatrica';
+                break;
 
             case -1: #Formato de temperatura de equipos
                 // echo "si entro";
@@ -631,6 +640,11 @@ class Miscelaneus
             $master->insertByProcedure('sp_reportes_areas_g', [null, $turno_id, $area_id, $infoPaciente[0]['CLAVE_IMAGEN'], $renderpdf, null]);
         }
         return $renderpdf;
+    }
+
+    private function getBodyHistoriaPediatrica($master, $id_turno){
+        $result = $master->getByProcedure("sp_historia_pediatrica_b", [$id_turno]);
+        return $result;
     }
 
     private function getBodyFormDatos($master, $id_paciente){
