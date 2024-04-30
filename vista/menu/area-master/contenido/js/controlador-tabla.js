@@ -1255,6 +1255,8 @@ async function obtenerResultadosPediatria(row) {
         var $formulario = $('#formAntecedentesPediatria');
         $formulario.find('input[type="text"], textarea').val('');
         $formulario.find('input[type="radio"], input[type="checkbox"]').prop('checked', false);
+        const $collapse = $formulario.find('div.collapse').collapse("hide")
+        $collapse.find('textarea').val('');
 
         const antecedentes = row.array[0]['ANTECEDENTES']
 
@@ -1286,7 +1288,17 @@ function setInputPediatria(pregunta) {
 
     // Establecer el estado del botón de radio si existe ID_RESPUESTA
     if (respuestaId != null) {
-        $(`input[name='antecedentes[${idAntecedente}][option]'][value='${respuestaId}']`).prop('checked', true);
+        const $option = $(`input[name='antecedentes[${idAntecedente}][option]'][value='${respuestaId}']`).prop('checked', true);
+
+        if (respuestaId == 1) {
+            // Busca el div a donde quiere hacer collapse
+            const div = $option.closest("div[class='col-12 mb-4 row d-flex justify-content-center pregunta']");
+            const $collapse = div.find('div.collapse')
+            $collapse.collapse('show')
+
+            // Agrega valor al input
+            $collapse.find('textarea').val(pregunta.NOTAS)
+        }
     }
 
     // Establecer el valor del textarea si hay notas

@@ -6,12 +6,12 @@
             <div class="rounded px-5 py-3 shadow my-2 container">
                 <h4>Antecedentes Heredofamiliares</h4>
                 <div class="row">
-                    <div class="col-12 col-lg-6 row">
+                    <div class="col-12 col-lg-6 row align-content-start">
                         <p>Padre</p>
                         <div id="antecedentes_padre"></div>
                     </div>
 
-                    <div class="col-12 col-lg-6 row">
+                    <div class="col-12 col-lg-6 row align-content-start">
                         <p>Madre</p>
                         <div id="antecedentes_madre"></div>
                     </div>
@@ -121,6 +121,11 @@
                             <label for="opción_${pregunta.id}_2">No</label>
                         </div>
                     </div>
+                    <div class="collapse" id="collapse-pregunta${pregunta.id}">
+                        <textarea name="antecedentes[${pregunta.id}][comentario]" class="form-control input-form" rows="2" cols="2"
+                            placeholder="${placeholder}"></textarea>
+                    </div>
+                    
                 `);
 
             } else if (pregunta.tipo === "comentario") {
@@ -502,7 +507,23 @@
 
 
 
-
+    // Input textarea para cada si de cada opcion
+    $(document).on("change ,  keyup", "input[type='radio']", function () {
+        var parent_element = $(this).closest("div[class='col-12 mb-4 row d-flex justify-content-center pregunta']");
+        if (this.value == true) {
+            // Obtienes el collapse donde almacena el textarea
+            var collapID = $(parent_element).children("div[class='collapse']").attr("id");
+            // Muestra textarea
+            $('#' + collapID).collapse("show")
+        } else {
+            // Obtienes el collapse donde almacena el textarea
+            var collapID = $(parent_element).children("div[class='collapse show']").attr("id");
+            // Oculta el textarea
+            $('#' + collapID).collapse("hide")
+            // ELimina datos
+            $('#' + collapID).find(':textarea').val('')
+        }
+    });
 
 
 
