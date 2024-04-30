@@ -148,11 +148,11 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
                 // getFormOidosAudiometria(datalist);
 
                 // Recupera la info del reporte:
-                console.log(selectEstudio.array);
+                // console.log(selectEstudio.array);
                 if (ifnull(selectEstudio, false, ['array']))
                     await obtenerResultadosAudio(selectEstudio);
 
-                console.log('area 4')
+                // console.log('area 4')
                 // Inicializamos mostrando la primera página
                 updatePage($('.page').first());
 
@@ -286,11 +286,9 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
                 // getFormOidosAudiometria(datalist);
 
                 // Recupera la info del reporte:
-                console.log(selectEstudio.array);
-                if (ifnull(selectEstudio, false, ['array']))
-                    // obtener y setear resultados
-                    // await obtenerResultadosAudio(selectEstudio);
-                    console.log('hola')
+                // obtener y setear resultados
+                await obtenerResultadosPediatria(selectEstudio);
+
 
                 if (datalist.CONFIRMADO_PEDIATRIA == 1 || selectEstudio.getguardado() == 2) estadoFormulario(1)
 
@@ -437,7 +435,7 @@ async function obtenerServicios(area, turno) {
                     // console.log(selectEstudio)
                     for (const key in row[0]) {
                         if (Object.hasOwnProperty.call(row[0], key)) {
-                            // console.log(key, row[0][key]['GUARDADO'], row[0][key]['CONFIRMADO'])
+                            console.log(key, row[0][key]['GUARDADO'], row[0][key]['CONFIRMADO'])
                             if (row[0][key]['GUARDADO'] == 1)
                                 trueResultados = 1
 
@@ -462,6 +460,7 @@ async function obtenerServicios(area, turno) {
                     // }
                     console.log(1);
                     botonesResultados('activar', area)
+                    resolve(1)
                 } else {
                     selectEstudio = new GuardarArreglo({ 0: {} });
                 }
@@ -487,7 +486,7 @@ async function panelResultadoPaciente(row, area) {
     $('#mostrarResultado').fadeOut()
 
     switch (area) {
-        case 3: case 10: case 13: case 5: case 4:
+        case 3: case 10: case 13: case 5: case 4: case 21:
             if (row[0].length) {
                 // console.log(row[0])
                 for (const i in row) {
@@ -1249,3 +1248,49 @@ async function masterImagenología(confirm, datalist) {
 
 
 
+async function obtenerResultadosPediatria(row) {
+    return new Promise((resolve, reject) => {
+
+        // Reiniciar formulario
+        var $formulario = $('#formAntecedentesPediatria');
+        $formulario.find('input[type="text"], textarea').val('');
+        $formulario.find('input[type="radio"], input[type="checkbox"]').prop('checked', false);
+
+        const antecedentes = row.array[0]['ANTECEDENTES']
+
+        PediatriaLevelPregunta(antecedentes)
+
+        resolve(1)
+    })
+}
+
+function PediatriaLevelPregunta(data, nivel = 1) {
+    // Verifica si tiene inforacion de una pregunta
+    if (data && typeof data === 'object' && 'ID_ANTECEDENTE' in data) {
+        // console.log(data, 'pregunta');
+        setInputPediatria(data);
+    } else if (data && typeof data === 'object') {
+        // console.log(data, `Nivel ${nivel}`);
+        // Si data es un objeto pero no una pregunta directa, iteramos sobre cada propiedad
+        Object.values(data).forEach(item => {
+            PediatriaLevelPregunta(item, nivel + 1);
+        });
+    }
+}
+
+// Agrega automaticamente la info
+function setInputPediatria(pregunta) {
+    const idAntecedente = pregunta["ID_ANTECEDENTE"];
+    const respuestaId = pregunta["ID_RESPUESTA"];
+    const notas = pregunta["NOTAS"];
+
+    // Establecer el estado del botón de radio si existe ID_RESPUESTA
+    if (respuestaId != null) {
+        $(`input[name='antecedentes[${idAntecedente}][option]'][value='${respuestaId}']`).prop('checked', true);
+    }
+
+    // Establecer el valor del textarea si hay notas
+    if (notas) {
+        $(`textarea[name='antecedentes[${idAntecedente}][comentario]']`).val(notas);
+    }
+}

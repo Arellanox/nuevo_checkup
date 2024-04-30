@@ -64,6 +64,11 @@ $(`#${formulario}`).submit(function (event) {
 
 
                 break;
+
+            // Debido aque aqui se guarda los datos de pediatria
+            case 21:
+                api_interpretacion = 1
+                break;
         }
 
         alertMensajeConfirm({
@@ -137,10 +142,18 @@ $('#btn-confirmar-reporte').click(function (event) {
     /*DATOS Y VALIDACION DEL REGISTRO*/
     if (confirmado != 1 || session.permisos['Actualizar reportes'] == 1) {
 
-        if (areaActiva == 5) {
-            if (validarCuestionarioEspiro()) {
-                return false;
-            }
+
+        switch (areaActiva) {
+            case 5:
+                if (validarCuestionarioEspiro()) {
+                    return false;
+                }
+                break;
+
+            // Debido que aqui se confirma los datos de pediatria
+            case 21:
+                api_interpretacion = 3
+                break;
         }
 
 
@@ -300,18 +313,18 @@ $(document).on('click', '.control-pagina-interpretacion', function (event) {
     const $btn = $(this);
     const action = $btn.attr('target');
     const $visiblePage = $('.page:visible');
-    console.log($visiblePage)
+    // console.log($visiblePage)
     switch (action) {
         case 'back':
             const $prevPage = $visiblePage.prev('.page');
-            console.log($visiblePage.prev('.page'))
+            // console.log($visiblePage.prev('.page'))
             if ($prevPage.length) {
                 updatePage($prevPage, action);
             }
             break;
         case 'next':
             const $nextPage = $visiblePage.next('.page');
-            console.log($visiblePage.next('.page'))
+            // console.log($visiblePage.next('.page'))
             if ($nextPage.length) {
                 updatePage($nextPage, action);
             }

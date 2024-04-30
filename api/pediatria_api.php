@@ -25,12 +25,12 @@ $diagnostico = $_POST['diagnostico'];
 $consulta_terminada = $_POST['consulta_terminada'];
 $registrado_por = $_SESSION['id'];
 
-switch($api){
+switch ($api) {
     case 1:
         # insertar/actualizar antecedentes
         $antecedentes = $master->getFormValues($antecedentes);
         $response = $master->insertByProcedure('sp_historia_pediatrica_g', [
-            $turno_id, 
+            $turno_id,
             json_encode($antecedentes),
             # guardar datos generales de la historia pediatrica.
             $motivo_consulta,
@@ -44,20 +44,20 @@ switch($api){
     case 2:
         # buscar los antecedentes
         $response = $master->getByNext("sp_historia_pediatrica_b", [$turno_id]);
-        
+
         $newResponse = [];
-        foreach($response[0][0] as $clave => $valor){
+        foreach ($response[0][0] as $clave => $valor) {
             $newResponse[$clave] = $valor;
         }
 
         $items = [];
-        for($i = 1; $i < count($response); $i++ ){
+        for ($i = 1; $i < count($response); $i++) {
             $items[] = $response[$i];
         }
-        
-        $newResponse["ANTECEDENTES"]= $items;
-        $response = $newResponse;
-        
+
+        $newResponse["ANTECEDENTES"] = $items;
+        $response = [$newResponse];
+
         break;
     case 3:
         # confirmar historia pediatrica.
@@ -65,11 +65,9 @@ switch($api){
             $turno_id
         ]);
 
-        if ($consulta_terminada == 1){
+        if ($consulta_terminada == 1) {
             # crear y actualiar ruta del reporte.
             $pdf = $master->reportador($master, $turno_id, 21, 'historia_pediatrica');
-            
-
         }
         break;
     case 4:
@@ -78,7 +76,7 @@ switch($api){
         break;
     default:
         $response = "api no reconocida " . $api;
-        break;    
+        break;
 }
 
 echo $master->returnApi($response);
