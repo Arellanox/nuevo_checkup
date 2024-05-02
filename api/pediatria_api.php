@@ -22,7 +22,7 @@ $motivo_consulta = $_POST["motivo_consulta"];
 $conclusiones = $_POST['conclusiones']; # es el campo de notas_padecimiento
 $historia_subsecuente = $_POST['historia_subsecuente'];
 $diagnostico = $_POST['diagnostico'];
-$consulta_terminada = $_POST['consulta_terminada'];
+$consulta_terminada = $_POST['confirmado'];
 $registrado_por = $_SESSION['id'];
 
 switch ($api) {
@@ -66,8 +66,10 @@ switch ($api) {
         ]);
 
         if ($consulta_terminada == 1) {
-            # crear y actualiar ruta del reporte.
+            # crear y actualizar ruta del reporte.
             $pdf = $master->reportador($master, $turno_id, 21, 'historia_pediatrica');
+
+            # actuaizamo
         }
         break;
     case 4:

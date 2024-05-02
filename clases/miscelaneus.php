@@ -519,8 +519,8 @@ class Miscelaneus
                 $arregloPaciente = $this->getBodyHistoriaPediatrica($master, $turno_id);
                 $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
                 $datos_medicos = $this->getMedicalCarrier($info);
-                $folio = null; #pendiente
-                $fecha_resultado = null; #pendiente
+                $folio = $infoPaciente[array_key_last($infoPaciente)]['FOLIO_HISTORIA_PEDIATRICA'];
+                $fecha_resultado = $infoPaciente[array_key_last($infoPaciente)]['FECHA_CARPETA_HISTORIA_PED'];
                 $carpeta_guardado = 'historia_pediatrica';
                 break;
 
@@ -643,7 +643,7 @@ class Miscelaneus
     }
 
     private function getBodyHistoriaPediatrica($master, $id_turno){
-        $result = $master->getByProcedure("sp_historia_pediatrica_b", [$id_turno]);
+        $result = $master->getByNext("sp_historia_pediatrica_b", [$id_turno]);
         return $result;
     }
 

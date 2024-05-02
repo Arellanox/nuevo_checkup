@@ -31,9 +31,9 @@ $usuario_id = $_SESSION['id'];
 // decomentar las siguientes 3 lineas para hacer las pruebas
 
 
-$api = "form_datos";
-$area_id = 12;
-$turno_id = 79;
+$api = "historia_pediatrica";
+$area_id = 21;
+$turno_id = 3137;
 
 //$cliente_id = 19;
 // $id_cotizacion = 7;
@@ -101,6 +101,10 @@ switch ($api) {
     case 'form_datos':
         # para imprimir la confirmacion de los datos del paciente
         $r = $master->reportador($master, $turno_id, -6, 'form_datos', 'mostrar',$preview, 0, 0);
+        break;
+    case 'historia_pediatrica':
+        # reporte para la historia pediatrica
+        $r = $master->reportador($master, $turno_id, 21, 'historia_pediatrica','mostrar',$preview, 0, 0);
         break;
     default:
         echo '<script language="javascript">alert("¡URL invalida!"); window.close()</script>';

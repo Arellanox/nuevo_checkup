@@ -144,7 +144,9 @@ $('#btn-ver-reporte').click(function () {
     case 4: case '4':
       area_nombre = 'audiometria'
       break;
-
+    case 21:
+      area_nombre = 'historia_pediatrica'
+      break;
     default:
       break;
   }

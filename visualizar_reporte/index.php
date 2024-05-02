@@ -97,6 +97,10 @@ switch ($api) {
         # para confirmar los datos del paciente de forma impresa.
         $r = $master->reportador($master, $turno_id, -6, 'form_datos', 'mostrar', 0, 0, 0);
         break;
+    case 'historia_pediatrica':
+        # reporte para la historia pediatrica
+        $r = $master->reportador($master, $turno_id, 21, 'historia_pediatrica','mostrar',$preview, 0, 0);
+        break;
     default:
         echo '<script language="javascript">alert("¡URL invalida!"); window.close()</script>';
         break;

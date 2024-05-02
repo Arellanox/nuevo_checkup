@@ -78,6 +78,7 @@ class Reporte
                 break;
             case 'envio_muestras':    
             case 'form_datos':
+            case 'historia_pediatrica':
             default:
                 $barcode = null;
                 break;
@@ -246,6 +247,12 @@ class Reporte
                 # para confirmacion de datos del paciente
                 $template = render_view('invoice/form_datos.php', $view_vars);
                 $pdf->loadHtml($template);
+                $pdf->setPaper('letter', 'portrait');
+                break;
+            case 'historia_pediatrica':
+                # historia pediatrica
+                $template = render_view('invoice/res_historia_pediatrica.php', $view_vars);
+                $pdf->loadHTML($template);
                 $pdf->setPaper('letter', 'portrait');
                 break;
 
