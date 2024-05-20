@@ -40,7 +40,6 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
     { data: 'turno' },
     { data: 'GENERO' },
     { data: 'EXPEDIENTE' },
-    { data: 'CODIGOS' },
     // {defaultContent: 'En progreso...'}
   ],
   columnDefs: [
