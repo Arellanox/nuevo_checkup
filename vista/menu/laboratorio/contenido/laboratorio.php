@@ -21,6 +21,7 @@
             <th scope="col d-flex justify-content-center" class="none">Turno</th>
             <th scope="col d-flex justify-content-center" class="tablet">Sexo</th>
             <th scope="col d-flex justify-content-center" class="none">Expendiente</th>
+            <th scope="col d-flex justify-content-center" class="none">Estudios</th>
           </tr>
         </thead>
         <tbody>
