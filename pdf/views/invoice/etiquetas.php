@@ -1,4 +1,5 @@
 <?php
+require_once "../clases/QR_class.php";
 $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
 //  echo '<img src="data:image/png;base64,' . base64_encode($generator->getBarcode($encabezado->PREFOLIO, $generator::TYPE_CODE_128)) . '">';
 ?>
@@ -98,6 +99,10 @@ $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
         $i = 0;
 
         $recipientes = $resultados;
+
+        // Crear prefolio con QR
+        $qrObject = new QR($recipientes->PREFOLIO, 1);
+    
         foreach ($recipientes->CONTENEDORES as $a => $recipiente) {
             echo "<table>";
             echo "<tr>
@@ -110,10 +115,26 @@ $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
                     </tr>";
             echo " </table>";
 
-            echo "<div style='right:-80px; position:relative;'><img  width='100px' height='30px'  src='data:image/png;base64," . base64_encode($generator->getBarcode($recipientes->PREFOLIO, $generator::TYPE_CODE_128)) . "></div>";
+            // QRCODE
+            echo "<div style='
+            position:absolute; 
+            top:23px; 
+            left:10px; 
+            z-index: -9999;
+            width:20%;
+            '>";
+                echo "<img width='55px' height='55px' src='" . $qrObject->create() . "'>";
+            echo "</div>";
 
-            echo "<div style='top:20px; position:relative; right:10px; left:100px'><p>$recipientes->PREFOLIO</p> </div>";
+            // BARCODE
+            echo "<div style='
+            right:-80px; 
+            position:relative;
+            '><img  width='100px' height='30px'  src='data:image/png;base64," . base64_encode($generator->getBarcode($recipientes->PREFOLIO, $generator::TYPE_CODE_128)) . "></div>";
 
+            echo "<div style='top:20px; position:absolute; right:10px; left:100px'><p>$recipientes->PREFOLIO</p> </div>";
+
+            
             $etiqueta = '';
             foreach ($recipiente->ESTUDIOS as $b => $estudio) {
                 $etiqueta = $etiqueta . $estudio->ABREVIATURA . ", ";
