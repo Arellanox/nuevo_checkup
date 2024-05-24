@@ -118,12 +118,12 @@ $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
             // QRCODE
             echo "<div style='
             position:absolute; 
-            top:23px; 
+            top:35px; 
             left:10px; 
             z-index: -9999;
             width:20%;
             '>";
-                echo "<img width='55px' height='55px' src='" . $qrObject->create() . "'>";
+                echo "<img width='25px' height='25px' src='" . $qrObject->create() . "'>";
             echo "</div>";
 
             // BARCODE
