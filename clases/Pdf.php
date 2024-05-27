@@ -78,6 +78,9 @@ class Reporte
                 break;
             case 'envio_muestras':    
             case 'form_datos':
+            case 'lista-barras':
+                $generator = null;
+                $barcode = null;
             default:
                 $barcode = null;
                 break;
@@ -247,6 +250,12 @@ class Reporte
                 $template = render_view('invoice/form_datos.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
+                break;
+            case 'lista-barras':
+                # para imprimr la lista de trabajo de laboratorio clinico con codigos de barras
+                $template = render_view('invoice/lista-barras.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper("letter", 'portrait');
                 break;
 
             default:

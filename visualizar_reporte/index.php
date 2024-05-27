@@ -97,6 +97,9 @@ switch ($api) {
         # para confirmar los datos del paciente de forma impresa.
         $r = $master->reportador($master, $turno_id, -6, 'form_datos', 'mostrar', 0, 0, 0);
         break;
+    case 'lista-barras':
+        # imprimir lista de trabajo con codigo de barras
+        $r = $master->reportador($master, $turno_id, -7, 'lista-barras', 'mostrar', $preview, 0, 0);
     default:
         echo '<script language="javascript">alert("¡URL invalida!"); window.close()</script>';
         break;

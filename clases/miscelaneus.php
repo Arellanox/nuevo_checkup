@@ -554,6 +554,10 @@ class Miscelaneus
                 # $turno_id para este caso seria el equivalente a ID_PACIENTE
                 $arregloPaciente = $this->getBodyFormDatos($master, $turno_id);
                 break;
+            case -7:
+                # $turno_id corresponde a la fecha de la lista de trabajo que se quiere imprimir
+                $arregloPaciente = $master->getByProcedure("sp_lista_de_trabajo_barras", [$turno_id, 6, null, null, null]);
+                break;
         }
 
 

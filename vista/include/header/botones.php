@@ -261,8 +261,14 @@ $menu = $_POST['menu']; ?>
       <label class="form-check-label" for="checkDiaAnalisis">
         Todos
       </label>
-    </div>
-  </div>
+    </div> 
+      <!-- imprimir lista de trabajo con codigo de barras -->
+    <?php if ($menu == "Resultados de Laboratorio Clinico"): ?>
+        <div class="col-auto d-flex align-items-center" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Imprimir lista de trabajo">
+          <button type="button" id="btn-lista-trabajo-barras" class="btn btn-danger me-2">Imprimir LT</button>
+
+        </div>
+    <?php endif; ?>
 <?php endif; ?>
 
 <?php if (

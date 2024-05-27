@@ -180,3 +180,13 @@ $(document).on('click', '.obtenerPDF', function (event) {
     }
   })
 })
+
+
+// imprimr lista de trabajo con codigo de barras
+$('#btn-lista-trabajo-barras').click(function(){
+  api = encodeURIComponent(window.btoa('lista-barras'));
+  turno = encodeURIComponent(window.btoa($('#fechaListadoLaboratorio').val()));
+  area = encodeURIComponent(window.btoa(areaActiva));
+
+  window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, "_blank");
+})
