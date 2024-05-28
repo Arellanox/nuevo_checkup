@@ -795,7 +795,7 @@ function generarFormularioPaciente(id) {
                 // No. Lote: 
                 // Bluefinder 22
                 case '1136':
-                  anotherValue = 'KBFMP130723'
+                  anotherValue = 'KBFMP010324'
                   break;
 
                 case '695': case '700': case '708': case '736': case '756': case '994': case '1084':
