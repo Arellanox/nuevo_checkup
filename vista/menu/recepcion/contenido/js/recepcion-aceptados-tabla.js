@@ -325,6 +325,42 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
         id: "buttonBeneficiario",
         disabled: true
       },
+      
+    },
+    {
+      text: '<i class="fa-solid fa-key"></i> Abrir cuenta',
+      className: 'btn btn-danger',
+      attr: {
+        id: 'btn_abrir_cuenta',
+        disabled: true,
+        'data-bs-toggle': "tooltip",
+        'data-bs-placement': "top",
+        title: "Abre la cuenta de un paciente cerrado."
+      },
+      action: function () {
+        if (array_selected) {
+          console.log(array_selected);
+          alertMensajeConfirm({
+            title: '¿Abrir cuenta?',
+            text: "Le permite modificar las estudios.",
+            icon: 'info',
+          }, () => {
+            ajaxAwait({
+              api: 21,
+              id_turno: array_selected['ID_TURNO']
+            },
+              'recepcion_api', { callbackAfter: true }, false, () => {
+                alertToast('Cuenta abierta', 'success', 4000)
+               
+                try { tablaRecepcionPacientes.ajax.reload(); } catch (e) { }
+                try { tablaRecepcionPacientesIngrersados.ajax.reload(); } catch (e) { }
+              })
+          }, 1)
+
+        } else {
+          alertToast('Por favor, seleccione un paciente', 'info', 4000)
+        }
+      }
     },
   ],
 
@@ -429,6 +465,7 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
       // return false;
       $(`#${'buttonBeneficiario'}`).attr('disabled', ifnull(data, false, ['CLIENTE_ID']) == '18' ? false : true)
       $(`#${'btn_recepcionTicket'}`).attr('disabled', ifnull(data, false, ['COMPLETADO']) == '1' && ifnull(data, false, ['CLIENTE_ID']) == '1' ? false : true)
+      $(`#${'btn_abrir_cuenta'}`).attr('disabled', ifnull(data, false, ['COMPLETADO']) == '1' ? false : true);
 
       // if (select['CLIENTE_ID'] == 18) {
       //   $('#buttonBeneficiario').attr('disabled', false)
@@ -470,8 +507,11 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
       callback('In')
     } else {
       callback('Out')
+
       $(`#${'buttonBeneficiario'}`).attr('disabled', true);
       $(`#${'btn_recepcionTicket'}`).attr('disabled', true);
+      $(`#${'btn_abrir_cuenta'}`).attr('disabled', true);
+
       obtenerPanelInformacion(0, 'paciente_api', 'paciente')
       obtenerPanelInformacion(0, 'consulta_api', 'listado_resultados', '#panel-resultados')
       obtenerPanelInformacion(0, false, 'Estudios_Estatus', '#estudios_concluir_paciente')

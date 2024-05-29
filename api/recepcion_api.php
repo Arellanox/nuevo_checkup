@@ -642,6 +642,10 @@ switch ($api) {
         # recuperar los tipos de medios de entrega.
         $response = $master->getByProcedure("sp_pacientes_tipos_medio_entrega_b", [$id_medio]);
         break;
+    case 21:
+        # abrir la cuenta del paciente.
+        $response = $master->updateByProcedure('sp_abrir_cuenta_paciente', [$idTurno, $_SESSION['id']]);
+        break;
     default:
         $response = "Api no definida.";
         break;
