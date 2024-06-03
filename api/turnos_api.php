@@ -78,6 +78,11 @@ $parametros = array(
     $segmento_id
 );
 $response = "";
+
+// datos para reemplazar el reporte de los laboratorios
+$nuevo_reporte = $_POST['nuevo_reporte'];
+$ruta_reporte = $_POST['ruta_reporte'];
+
 // Angel estuvo aqui XD
 $master = new Master();
 switch ($api) {
@@ -311,6 +316,48 @@ switch ($api) {
     case 21:
         # agregra una categoria al paciente de empresas.
         $response = $master->insertByProcedure("sp_agregar_categoria_turno", [$id_turno, $categoria_turno]);
+        break;
+    case 22:
+        # reemplazar reporte de los laboratorio.
+        if(
+            isset($_FILES['file'])
+            && $_FILES['file']['error'] == UPLOAD_ERR_OK
+        ){
+            // Obtener información del archivo
+            $fileTmpPath = $_FILES['file']['tmp_name'];
+            $fileName = $_FILES['file']['name'];
+            $fileSize = $_FILES['file']['size'];
+            $fileType = $_FILES['file']['type'];
+            $fileNameCmps = explode(".", $fileName);
+            $fileExtension = strtolower(end($fileNameCmps));
+
+            // configurar la ruta del archivo y el nombre
+            $nombre_archivo = basename($ruta_reporte);
+            $ruta = explode('nuevo_checkup', $ruta_reporte);
+            $ruta = $ruta[1];
+
+            // Permitir ciertos tipos de archivo
+            $allowedfileExtensions = array('pdf');
+            
+            if (in_array($fileExtension, $allowedfileExtensions)) {
+                // Directorio de subida
+                $uploadFileDir = dirname($ruta);
+ 
+                if (!is_dir($uploadFileDir)) {
+                    mkdir($uploadFileDir, 0777, true);
+                }
+                $dest_path = ".." . $uploadFileDir . "/" . $nombre_archivo;
+    
+                if(move_uploaded_file($fileTmpPath, $dest_path)) {
+                    // Archivo subido con exito
+                    $response = 1;
+                } else {
+                    $response = 'Hubo un error moviendo el archivo al directorio de subida.';
+                }
+            } else {
+                $response = 'Tipo de archivo no permitido.';
+            }
+        }
         break;
     default:
         $response = "api no reconocida";

@@ -97,7 +97,8 @@ selectTable('#TablaLaboratorio', tablaListaPaciente, {
     dataSelect = new GuardarArreglo({
         select: true,
         nombre_paciente: datalist['NOMBRE_COMPLETO'],
-        turno: datalist['ID_TURNO']
+        turno: datalist['ID_TURNO'],
+        ruta: null
     })
     // console.log(dataSelect)
     if (selectTR == 1) {
@@ -113,7 +114,6 @@ selectTable('#TablaLaboratorio', tablaListaPaciente, {
                     alertMensaje('error', 'Error en recuperar registro', 'Hubo un problema en recuperar este resultado del paciente', 'Intente de nuevo o reporte el problema al soporte de TI')
                 } else {
                     selectEstudio = new GuardarArreglo(data.response.data);
-                    // console.log(selectEstudio)
                     let row = [data.response.data];
 
                     if (row['DOBLE_CHECK'])

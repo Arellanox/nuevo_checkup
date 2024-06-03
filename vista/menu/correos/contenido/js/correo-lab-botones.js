@@ -101,3 +101,50 @@ $('#btn-rechazar-resultado').click(function () {
         })
     }, 1)
 })
+
+
+// Reemplazar el reporte del paciente.
+$('#file-upload-rep-lab').on('change',function(){
+
+    var fileInput = $(this)[0];
+
+    if(fileInput.files && fileInput.files.length > 0 ){
+        var formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+        formData.append('api', 22);
+        formData.append('ruta_reporte', selectEstudio.array.RUTA)
+        
+
+        alertMensajeConfirm({
+            title: "¿Se actualizará el reporte del paciente " + dataSelect.array.nombre_paciente + "?",
+            text: "¡No podrá revertir esta acción!",
+            icon: "warning",
+        }, function () {
+            $.ajax({
+                url: `${http}${servidor}/${appname}/api/turnos_api.php/`,
+                type: "POST",
+                data: formData,
+                dataType: "json",
+                processData: false, // Asegúrate de incluir esto para evitar que jQuery procese los datos
+                contentType: false, // Asegúrate de incluir esto para enviar los datos en formato multipart/form-data
+                beforeSend: function () {
+                    alertMensaje('info', 'Sustituyendo reporte...', 'Espere un momento')
+                },
+                success: function (data) {
+                    if (mensajeAjax(data)) {
+                        alertMensaje('success', '¡Reporte actualizado!', 'Los cambios se han aplicado.')
+                        tablaListaPaciente.ajax.reaload()
+                    }
+                },
+                error: function (jqXHR, exception, data) {
+                    alertErrorAJAX(jqXHR, exception, data)
+                },
+            })
+        }, 1)
+    }
+
+});
+
+$('#file-upload-rep-lab').on('focus',function(){
+    $('#file-upload-rep-lab').val('');
+});
