@@ -67,7 +67,8 @@ const opcionesContenedor = [
   { value: '8', text: "TUBO AMARILLO" },
   { value: '9', text: "MEDIO DE TRANSPORTE UNIVERSAL" },
   { value: '10', text: "PAPEL FILTRO PARA TAMIZ" },
-  { value: '11', text: "FECAL SWAP" }
+  { value: '11', text: "FECAL SWAP" },
+  { value: '12', text: "BREATHCARD" }
 ];
 
 const opcionesMuestra = [
@@ -89,7 +90,8 @@ const opcionesMuestra = [
   { value: '17', text: 'Sangre Total con EDTA' },
   { value: '18', text: 'L.C.R.' },
   { value: '19', text: 'Biopsia' },
-  { value: '20', text: 'Líquido de lavado Bronquioalveolar' }
+  { value: '20', text: 'Líquido de lavado Bronquioalveolar' },
+  { value: '21', text: 'ALIENTO' }
 ];
 
 
