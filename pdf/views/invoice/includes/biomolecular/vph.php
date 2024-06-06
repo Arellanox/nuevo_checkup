@@ -49,7 +49,7 @@
 
 <p style="text-align:justify;font-size: 13.4px"><strong>Equipo utilizado: </strong>CFX96™ Real-Time System BIO-RAD<br>
     <strong>Kit Diagnóstico: </strong><?php echo $body[4]->resultado; ?> - Autorización COFEPRIS: <?php echo $body[6]->resultado; ?> <br>
-    <strong>No. lote: </strong> <?php echo $body[5]->resultado; ?>
+    <!-- <strong>No. lote: </strong> <?php echo $body[5]->resultado; ?> -->
 </p>
 
 <p class="text-sm-start" style="font-size: 13.4px"><small><strong>Encuentre el oficio de autorización InDre del kit diagnóstico usado para su estudio en:</strong></small></p>
