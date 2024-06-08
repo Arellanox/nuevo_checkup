@@ -11,8 +11,9 @@
 
     <style>
         @page {
-            margin: 165px 10px;
+            /* margin: 165px 10px; */
             /* size: 21.59cm 18cm; */
+            margin: 1.5cm;
 
         }
 
@@ -27,7 +28,7 @@
 
         .header {
             position: fixed;
-            top: -160px;
+            top: 0;
             left: 25px;
             right: 25px;
             height: 160px;
@@ -37,7 +38,7 @@
 
         .footer {
             position: fixed;
-            bottom: -192px;
+            bottom: 0;
             left: 25px;
             right: 25px;
             height: 200px;
@@ -57,13 +58,14 @@
         /* Content */
         .invoice-content {
             position: relative;
-            top: 35px;
+            top: 200px;
             border-radius: 4px;
             padding-bottom: 5px;
             padding-right: 30px;
             padding-left: 30px;
             text-align: justify;
             text-justify: inter-word;
+     
         }
 
 
@@ -311,20 +313,37 @@
             /* Encima de la marca de agua */
         }
 
-        .signos-vitales {
+        /* .signos-vitales {
             font-size: 12px;
         }
         .signos {
             position: fixed;
-            top: 15px; /* 28 */
-            left: 25px;
-            right: 25px;
+            top: 180px; 
+            left: 25;
+            right: 25;
             height: 160px;
             margin-top: 0;
-           
-            /* background-color: purple; */
 
+
+        } */
+
+        .signos-vitales {
+            font-size: 12px;
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px; /* Espacio entre los elementos */
         }
+
+        .signos {
+            position: fixed;
+            top: 190px; /* Ajusta según sea necesario */
+            left: 25px; /* Añadir 'px' para las unidades */
+            right: 25px; /* Añadir 'px' para las unidades */
+            margin-top: 0;
+        }
+
        
     </style>
 
@@ -396,11 +415,9 @@ $folio = ((array)($resultados[1][0]))['FOLIO'];
     </div>
     <!-- Signos vitales -->
     <br>
-    <div class="signos" style=" margin-bottom:100px;">
+    <!-- <div class="signos" style=" margin-bottom:100px;">
         <table class="signos-vitales">
             <tr>
-                <!-- <td>Edad: <strong><?php echo $signos_edad; ?> </strong></td> -->
-                <!-- <td>Sexo: <strong><?php echo $signos_sexo; ?> </strong></td> -->
                 <td>Alergias: <strong><?php echo $signos_alergias; ?> </strong></td>
                 <td>Talla: <strong><?php echo $signos_talla; ?> cm</strong></td>
                 <td>Peso: <strong><?php echo $signos_peso; ?> Kg</strong></td>
@@ -409,7 +426,18 @@ $folio = ((array)($resultados[1][0]))['FOLIO'];
                 <td>TA: <strong><?php echo $signos_presionArterial; ?> </strong></td>
             </tr>
         </table>
+    </div> -->
+    <div class="signos" style="margin-bottom: 100px;">
+        <div class="signos-vitales">
+            <span>Alergias: <strong><?php echo $signos_alergias; ?></strong></span>
+            <span>Talla: <strong><?php echo $signos_talla; ?> cm</strong></span>
+            <span>Peso: <strong><?php echo $signos_peso; ?> Kg</strong></span>
+            <span>IMC: <strong><?php echo $signos_imc; ?></strong></span>
+            <span>Temperatura: <strong><?php echo $signos_temperatura; ?> °C</strong></span>
+            <span>TA: <strong><?php echo $signos_presionArterial; ?></strong></span>
+        </div>
     </div>
+
 
     <br>
 
