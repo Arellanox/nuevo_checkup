@@ -217,7 +217,11 @@ class Reporte
             case 'receta':
                 $template = render_view('invoice/receta.php', $view_vars);
                 $pdf->loadHtml($template);
-                $pdf->setPaper('letter', 'portrait');
+                // $pdf->setPaper('letter', 'portrait');
+                // Convertir centímetros a puntos
+                $height = 13.97 * 28.3465; // 21.59 cm a puntos
+                $width = 21.59 * 28.3465;   // 18 cm a puntos
+                $pdf->setPaper([0, 0, $width, $height], 'portrait');
                 //Marca de agua
                 $pdf->getOptions()->setIsHtml5ParserEnabled(true); // Habilita el soporte para CSS3
                 $pdf->getOptions()->setIsFontSubsettingEnabled(true); // Habilita la subconjunción de fuentes

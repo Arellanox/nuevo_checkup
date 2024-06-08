@@ -12,7 +12,7 @@
     <style>
         @page {
             margin: 165px 10px;
-            size: 21.59cm 18cm;
+            /* size: 21.59cm 18cm; */
 
         }
 
@@ -57,7 +57,7 @@
         /* Content */
         .invoice-content {
             position: relative;
-            top: 60px;
+            top: 35px;
             border-radius: 4px;
             padding-bottom: 5px;
             padding-right: 30px;
@@ -283,7 +283,7 @@
 
         .tratamiento-cuerpo {
 
-            padding: 0.2em;
+            padding: 0.1em;
             border-bottom: 1px solid #ddd;
             border-top: 1px solid #ddd;
             font-size: 13px;
@@ -297,11 +297,12 @@
             top: 60%;
             left: 50%;
             transform: translate(-50%, -50%);
-            opacity: 0.5;
+            opacity: 0.2;
             font-size: 100px;
             color: #cccccc;
-            z-index: -1;
+            z-index: 999;
             /* Detrás del contenido */
+           
         }
 
         .contenido-sobre-marca {
@@ -315,7 +316,7 @@
         }
         .signos {
             position: fixed;
-            top: 28px;
+            top: 15px; /* 28 */
             left: 25px;
             right: 25px;
             height: 160px;
@@ -324,6 +325,7 @@
             /* background-color: purple; */
 
         }
+       
     </style>
 
 </head>
@@ -360,8 +362,8 @@ $encode = base64_encode($ruta);
 // echo '<img src="data:image/png;base64, '. $img_valido .'" alt="" height="75" >';
 
 // path firma
-$ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
-$encode_firma = base64_encode($ruta_firma);
+// $ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
+// $encode_firma = base64_encode($ruta_firma);
 
 $folio = ((array)($resultados[1][0]))['FOLIO'];
 
@@ -402,11 +404,9 @@ $folio = ((array)($resultados[1][0]))['FOLIO'];
                 <td>Alergias: <strong><?php echo $signos_alergias; ?> </strong></td>
                 <td>Talla: <strong><?php echo $signos_talla; ?> cm</strong></td>
                 <td>Peso: <strong><?php echo $signos_peso; ?> Kg</strong></td>
-            </tr>
-            <tr>
                 <td>IMC: <strong><?php echo $signos_imc; ?> </strong></td>
                 <td>Temperatura: <strong><?php echo $signos_temperatura; ?> °C</strong></td>
-                <td>Presión arterial: <strong><?php echo $signos_presionArterial; ?> </strong></td>
+                <td>TA: <strong><?php echo $signos_presionArterial; ?> </strong></td>
             </tr>
         </table>
     </div>
@@ -422,14 +422,14 @@ $folio = ((array)($resultados[1][0]))['FOLIO'];
                   <table class="table">
                     <thead>
                     <tr>
-                          <td class="pregunta-row">Diagnóstico:</td>
+                          <td class="pregunta-row">Diagnóstico: <span class="respuesta-row">'.$resultados[2][0]->DIAGNOSTICO.'</span></td>
                     </tr>
                      </thead>
-                     <tbody>
+                     <!--<tbody>
                      <tr>
                           <td class="respuesta-row">' . $resultados[2][0]->DIAGNOSTICO . '</td>
                      </tr>
-            </tbody>
+            </tbody>-->
         </table>
     </div>
 
@@ -459,22 +459,23 @@ $folio = ((array)($resultados[1][0]))['FOLIO'];
     <br>
     <?php
     $recetaCopia = '
-<div class="marca-agua">COPIA</div>
+
 
 <div class="contenido-sobre-marca">
+<div class="marca-agua">COPIA</div>
     <div class="invoice-content row">
         <div>
             <table class="table">
                 <thead>
                     <tr>
-                        <td class="pregunta-row">Diagnóstico:</td>
+                        <td class="pregunta-row">Diagnóstico:<span class="respuesta-row">'. $resultados[2][0]->DIAGNOSTICO .'</span></td>
                     </tr>
                 </thead>
-                <tbody>
+                <!-- <tbody>
                     <tr>
                         <td class="respuesta-row">' . $resultados[2][0]->DIAGNOSTICO . '</td>
                     </tr>
-                </tbody>
+                </tbody> -->
             </table>
         </div>
 
