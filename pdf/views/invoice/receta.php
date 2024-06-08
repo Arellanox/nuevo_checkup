@@ -329,6 +329,10 @@
 </head>
 
 <?php
+// print_r($pie);
+$dataDoc = $pie['datos_medicos'][0];
+$footerDoctor = $dataDoc['NOMBRE_COMPLETO'] . '<br>' . $dataDoc['UNIVERSIDAD'] . '- Cédula profesional: ' . $dataDoc['CEDULA'];
+
 
 //Signos vitales
 $data = json_decode($resultados[2][0]->SIGNOS, true);
@@ -381,7 +385,9 @@ $folio = ((array)($resultados[1][0]))['FOLIO'];
     <!-- Footer 1 chido -->
     <div class="footer">
         <?php
-        $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
+
+        #$footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
+        // $footerDoctor = $data['NOMBRE_COMPLETO'] . '<br>' . $data['UNIVERSIDAD'] . '- Cédula profesional: ' . $data['CEDULA'];
 
         include 'includes/footer_receta.php';
         ?>

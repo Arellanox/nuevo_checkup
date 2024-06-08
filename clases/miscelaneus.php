@@ -527,6 +527,8 @@ class Miscelaneus
                 $folio = $infoPaciente[array_key_last($infoPaciente)]['FOLIO_CONSULTA2'];
                 $fecha_resultado = $infoPaciente[array_key_last($infoPaciente)]['FECHA_CARPETA_CONSULTA2'];
                 $carpeta_guardado = "recetas";
+                $info = $master->getByProcedure("sp_info_medicos",[$turno_id, -2]);
+                $datos_medicos = $this->getMedicalCarrier($info);
                 break;
             case -3:
                 #SOLICITUD DE ESTUDIOS
