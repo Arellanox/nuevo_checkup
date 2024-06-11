@@ -16,6 +16,14 @@ async function obtenerContenidoLaboratorio(titulo) {
     $.getScript('contenido/js/lista-tabla.js')
     // Botones
     $.getScript('contenido/js/laboratorio-botones.js')
+    
+    // notificacion estudios pendientes
+    ajaxAwait({
+      api: 6
+    }, 'laboratorio_servicios_api', { callbackAfter: true }, false, function (data) {
+      $('#estudios-pendientes-notificacion').text(data.response.data);
+    });
+
   });
 }
 

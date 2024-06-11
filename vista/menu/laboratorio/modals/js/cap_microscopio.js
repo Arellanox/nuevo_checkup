@@ -10,7 +10,6 @@ $(document).on('click', '.btn-acciones', async function (event) {
 
 })
 
-
 async function getCapturas(servicio_id) {
     return new Promise(async function (resolve, reject) {
         await ajaxAwait({ api: 2, turno_id: selectListaLab['ID_TURNO'], servicio_id: servicio_id, area_id: selectListaLab['AREA_ID']}, 

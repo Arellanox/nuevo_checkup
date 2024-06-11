@@ -654,7 +654,21 @@ function generarFormularioPaciente(id) {
             html += `<div style = "margin-bottom: 10px; display: block">
           <div style="border-radius: 8px;margin:0px;background: rgb(0 0 0 / 5%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;"">
             <div class="row">
-              <div class="col-11">
+            <!--MARCAR ESTUDIO COMO PENDIENTE-->
+              <div class="col-1" style="margin-left:14px;">
+                <input type="checkbox" class="btn-check btn-estudios-pendientes" id="check${row['ID_GRUPO']}" autocomplete="off" data-bs-id="${row['ID_GRUPO']}" data-bs-text="${row['NombreGrupo']}" data-bs-pending="${row['PENDIENTE']}">`
+              
+              if(parseInt(row['PENDIENTE'])==1){
+                html+=`<label class="btn btn-danger" id="lbl${row['ID_GRUPO']}" for="check${row['ID_GRUPO']}">
+                <i class="fa fa-clock-o"></i>
+              </label>`
+              } else {
+                html+=` <label class="btn btn-outline-danger" id="lbl${row['ID_GRUPO']}" for="check${row['ID_GRUPO']}">
+                <i class="fa fa-clock-o"></i>
+              </label>`
+              }
+             
+             html+=`</div><div class="col-9">
                 <h4 style="font-size: 20px !important;font-weight: 600 !important;padding: 0px;margin: 0px;">
                   ${row['NombreGrupo']}
                 </h4> 
@@ -833,6 +847,24 @@ function generarFormularioPaciente(id) {
                   html += `<p><i class="bi bi-box-arrow-in-right" style=""></i> ${row[k]['DESCRIPCION_SERVICIO']}</p>`;
                 } else {
                   html += `<p class="btn-acciones" data-bs-id="${row[k]['ID_SERVICIO']}"><i class="bi bi-box-arrow-in-right" style=""></i> ${row[k]['DESCRIPCION_SERVICIO']}</p>`;
+
+                  // BOTON PARA MARCAR ESTUDIO COMO PENDIENTE
+                  if(parseInt(row[k]['PENDIENTE']) == 1){
+                    
+                    html+=`<div class="form-check form-switch">
+                    <input class="form-check-input btn-estudios-pendientes" type="checkbox" role="switch" id="check${row[k]['ID_SERVICIO']}" data-bs-id="${row[k]['ID_SERVICIO']}" data-bs-text="${row[k]['DESCRIPCION_SERVICIO']}" data-bs-pending="${row[k]['PENDIENTE']}" checked>
+                    <label class="form-check-label" for="check${row[k]['ID_SERVICIO']}">Pendiente</i></label>
+                  </div>`;
+
+                  } else {
+
+                    html+=`<div class="form-check form-switch">
+                    <input class="form-check-input btn-estudios-pendientes" type="checkbox" role="switch" id="check${row[k]['ID_SERVICIO']}" data-bs-id="${row[k]['ID_SERVICIO']}" data-bs-text="${row[k]['DESCRIPCION_SERVICIO']}" data-bs-pending="${row[k]['PENDIENTE']}">
+                    <label class="form-check-label" for="check${row[k]['ID_SERVICIO']}">Pendiente</i></label>
+                  </div>`;
+
+                  }
+      
                 }
                 html += endDiv;
                 html += colreStart;

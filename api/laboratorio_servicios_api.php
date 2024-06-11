@@ -70,6 +70,10 @@ $parametros = array(
     $precio_venta
 );
 
+# Datos para marcar un estudio como pendiente
+$turno_id = $_POST['turno_id'];
+$pendiente = $_POST['pendiente'];
+
 switch ($api) {
     case 1:
         $response = $master->insertByProcedure("sp_servicio_laboratorio_g", [
@@ -196,6 +200,18 @@ switch ($api) {
         // echo '</pre>';
         // exit;
 
+        break;
+    case 5:
+        # marcar como pendiente un estudio
+        $response = $master->insertByProcedure('sp_turnos_estudios_pendientes_g', [$turno_id, $id_servicio, $pendiente, $_SESSION['id']]);
+        break;
+    case 6:
+        # notificacion de estudios pendientes
+        $response = $master->insertByProcedure('sp_turnos_estudios_pendientes_notificacion', []);
+        break;
+    case 7:
+        # recuperar lista de estudios pendientes
+        $response = $master->getByProcedure("sp_turnos_estudios_pendientes_b", []);
         break;
     default:
 

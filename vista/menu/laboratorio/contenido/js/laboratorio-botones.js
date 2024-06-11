@@ -190,3 +190,97 @@ $('#btn-lista-trabajo-barras').click(function(){
 
   window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, "_blank");
 })
+
+//marcar un estuio como pendiente
+$(document).on('click', '.btn-estudios-pendientes', async function(event){
+
+  event.preventDefault();
+  var servicio_id = $(this).attr('data-bs-id');
+  var servicio = $(this).attr('data-bs-text');
+  var pending = $(this).attr('data-bs-pending');
+  
+
+  var msh;
+  var msh2;
+
+  if (parseInt(pending) == 1){
+    msh = "¿Quieres completar este estudio?";
+    pending = 0;
+    msh2 = `${servicio} COMPLETADO!`;
+  } else {
+    msh = "¿Quieres marcar este estudio como PENDIENTE?";
+    pending = 1;
+    msh2 = `${servicio} está PENDIENTE!`;
+  }
+
+  // volver a la posicion del estudio
+  $('html, body').animate({ scrollTop: 0 }, 'slow');
+
+  // enviar la solicitud
+  alertMensajeConfirm({
+        title: msh,
+        text: servicio,
+        icon: 'warning',
+        confirmButtonText: 'Sí'
+    }, function () {
+        //envio de datos
+        ajaxAwait({
+          api: 5,
+          turno_id: selectListaLab.ID_TURNO,
+          id_servicio: servicio_id,
+          pendiente: pending
+        }, 'laboratorio_servicios_api', { callbackAfter: true }, false, function (data) {
+          alertToast(msh2, 'success', 4000);
+          // recargarVistaLab();
+          
+          // cambiar atributo checked
+          if(parseInt(pending)==1){
+            $(`#lbl${servicio_id}`).removeClass('btn-outline-danger');
+            $(`#lbl${servicio_id}`).addClass('btn-danger');
+
+            $(`#check${servicio_id}`).prop('checked', true);
+          } else {
+            $(`#lbl${servicio_id}`).removeClass('btn-danger');
+            $(`#lbl${servicio_id}`).addClass('btn-outline-danger');
+
+            $(`#check${servicio_id}`).prop('checked', false);
+          }
+      });
+
+      // actualizar la notificacion de estudios pendientes
+      ajaxAwait({
+        api: 6
+      }, 'laboratorio_servicios_api', { callbackAfter: true }, false, function (data) {
+        $('#estudios-pendientes-notificacion').text(data.response.data);
+      });
+
+      tableEstudiosPendientes.ajax.reload();
+
+    }, 
+    1,
+    function () {
+      // en caso de que nieguen la accion
+      alert("has negado la accion");
+      $('html, body').animate({ scrollTop: 0 }, 'slow');
+    },
+    function (event) {
+      // volver a la posicion del estudio
+      // en caso de que cancelen la accion la accion
+      if (event) event.preventDefault();
+      setTimeout(() => {
+        document.documentElement.scrollTop = 0; // Para navegadores modernos
+        document.body.scrollTop = 0; // Para navegadores antiguos
+        return false; // Asegúrate de que la función no continúe
+        
+      }, 1500);
+    }
+  );
+  
+
+});
+
+
+//mostrar modal de estudios pendientes
+$('#btn-estudios-pendientes-notificacion').click(function(){
+  $('#modalEstudiosPendientes').modal("show");
+});

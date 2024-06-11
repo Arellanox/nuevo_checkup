@@ -146,6 +146,7 @@ switch ($api) {
                 $contenido_grupo['ID_GRUPO'] = $id_grupo;
                 $contenido_grupo['OBSERVACIONES'] = $obs;
                 $contenido_grupo['CLASIFICACION'] = $clasificacion;
+                $contenido_grupo['PENDIENTE'] = $grupos[$i]['PENDIENTE'];
 
                 if (!empty($contenido_grupo)) {
                     $array[] = $contenido_grupo;

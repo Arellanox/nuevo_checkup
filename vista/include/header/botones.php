@@ -251,6 +251,16 @@ $menu = $_POST['menu']; ?>
       </div>
     </div> -->
     <div class="col-auto d-flex align-items-center">
+      <button type="button" class="btn btn-primary position-relative" id="btn-estudios-pendientes-notificacion">
+                <i class="fa fa-clock-o"></i> Pendientes
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  <span id="estudios-pendientes-notificacion">...</span>
+                  <span class="visually-hidden">estudios pendientes</span>
+                </span>
+      </button>
+
+    </div>
+    <div class="col-auto d-flex align-items-center">
       <label for="fechaListadoLaboratorio" class="form-label">Día de análisis</label>
     </div>
     <div class="col-auto d-flex align-items-center">
