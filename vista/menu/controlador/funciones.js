@@ -3073,6 +3073,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       $('#info-paci-telefono').html(row.CELULAR);
                       $('#info-paci-correo').html(row.CORREO);
                       $('#info-paci-sexo').html(row.GENERO);
+                      $('#info-paci-metodo-entrega').text(row.MEDIOS_ENTREGA);
                       if (row.TURNO) {
                         $('#info-paci-turno').html(row.TURNO);
                       } else {
