@@ -289,6 +289,7 @@ if (
 <?php if (
     $menu == 'Laboratorio' ||
     $menu == 'muestras' ||
+    $menu == 'muestrasCheckups' ||
     $menu == 'ServiciosLab' ||
     $menu == 'Temperatura' || ($menu == 'PrincipalMenu' && $_SESSION['cargo'] == 4)
 ) :
@@ -315,11 +316,21 @@ if (
             </a>
         </li>
     <?php endif;
-
+    
+    // TOMA DE MUESTRA 1
     if ($_SESSION['vista']['LABORATORIO_MUESTRA_1'] == 1 && $menu != 'muestras') : ?>
         <li class="nav-item">
             <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/muestras/#LABORATORIO_MUESTRA_1'; ?>">
                 <i class="bi bi-droplet-half"></i> Toma de muestras
+            </a>
+        </li>
+    <?php endif;
+
+    // TOMA DE MUESTRAS CHECKUP
+    if ($_SESSION['vista']['LABORATORIO_MUESTRA_CHECKUPS'] == 1 && $menu != 'muestrasCheckups') : ?>
+        <li class="nav-item">
+            <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/muestras-checkups/#LABORATORIO_MUESTRA_CHECKUPS'; ?>">
+                <i class="bi bi-droplet-half"></i> Toma de muestras Checkups
             </a>
         </li>
     <?php endif;

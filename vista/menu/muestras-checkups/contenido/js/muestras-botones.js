@@ -71,7 +71,7 @@ function recargarVistaLab(fecha = 1) {
   dataListaPaciente = {
     api: 1,
     id_area: 6,
-    con_paquete: 0
+    con_paquete: 1
   }
   if (fecha) dataListaPaciente['fecha_agenda'] = $('#fechaListadoAreaMaster').val();
 

@@ -6,6 +6,14 @@
     </li>
 <?php endif; ?>
 
+<?php if ($_SESSION['vista']['LABORATORIO_MUESTRA_CHECKUPS'] == 1 && $menu != 'muestrasCheckups') : ?>
+    <li class="nav-item">
+        <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/muestras-checkups/#LABORATORIO_MUESTRA_CHECKUPS'; ?>">
+            <i class="bi bi-droplet-half"></i> Toma de muestras Checkups
+        </a>
+    </li>
+<?php endif; ?>
+
 <!-- Laboratorio clinico -->
 <?php if ($_SESSION['vista']['LABORATORIO'] == 1) : ?>
     <a class="dropdown-a align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-laboratorioClinico" aria-expanded="false">

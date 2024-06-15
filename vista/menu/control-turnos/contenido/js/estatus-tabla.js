@@ -80,7 +80,28 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
                     }
                 }
 
-                return html
+                let items = html.split(',');
+                items.pop();
+                let spans = items.map(item => `
+                <span style="
+                    display: inline-block;
+                    padding: 0.25em 0.4em;
+                    font-size: 75%;
+                    font-weight: 700;
+                    line-height: 1;
+                    color: #fff;
+                    text-align: center;
+                    white-space: nowrap;
+                    vertical-align: baseline;
+                    border-radius: 0.375rem;
+                    background-color: #ffc107;
+                    margin-right: 0.25em;
+                    margin-bottom: 0.25em;
+                ">${item.trim()}</span>`);
+                
+                
+                return spans.join(' ');
+                //return html
             }
         },
 
@@ -104,7 +125,28 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
                     }
                 }
 
-                return html
+                let items = html.split(',');
+                items.pop();
+
+                let spans = items.map(item => `
+                <span style="
+                    display: inline-block;
+                    padding: 0.25em 0.4em;
+                    font-size: 75%;
+                    font-weight: 700;
+                    line-height: 1;
+                    color: #fff;
+                    text-align: center;
+                    white-space: nowrap;
+                    vertical-align: baseline;
+                    border-radius: 0.375rem;
+                    background-color: #28a745;
+                    margin-right: 0.25em;
+                    margin-bottom: 0.25em;
+                ">${item.trim()}</span>`);
+                
+                return spans.join(' ');
+                //return html
             }
         },
 
