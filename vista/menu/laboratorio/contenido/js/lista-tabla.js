@@ -626,7 +626,7 @@ function generarFormularioPaciente(id) {
                   'descripcion': 'Bloques de parafina',
                 },
                 7: {
-                  'descriopcion': 'Líquido pleural',
+                  'descripcion': 'Líquido pleural',
                 },
               }
 

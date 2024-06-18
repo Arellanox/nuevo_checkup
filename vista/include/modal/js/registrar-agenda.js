@@ -212,11 +212,11 @@ function evaluarAntecedentes(div1, div2, div3, div4, div5, div6) {
     mostrarAntecedente('collapse-antNutri-Target', 'formAntNutricionales')
     return true;
   }
-  if (div6.length != 45) {
-    alertMensaje('info', `${traducir('Antecedentes medio laboral', language)}`, `${traducir('Formulario incompleto, favor de rellenar todos', language)}`)
-    mostrarAntecedente('collapse-MedLabo-Target', 'formMedioLaboral')
-    return true;
-  }
+  // if (div6.length != 45) {
+  //   alertMensaje('info', `${traducir('Antecedentes medio laboral', language)}`, `${traducir('Formulario incompleto, favor de rellenar todos', language)}`)
+  //   mostrarAntecedente('collapse-MedLabo-Target', 'formMedioLaboral')
+  //   return true;
+  // }
   return false;
 }
 
