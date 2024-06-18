@@ -290,6 +290,7 @@ if (
     $menu == 'Laboratorio' ||
     $menu == 'muestras' ||
     $menu == 'muestrasCheckups' ||
+    $menu == 'muestras2' ||
     $menu == 'ServiciosLab' ||
     $menu == 'Temperatura' || ($menu == 'PrincipalMenu' && $_SESSION['cargo'] == 4)
 ) :
