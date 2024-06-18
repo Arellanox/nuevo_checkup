@@ -144,7 +144,7 @@
 
 <div class="col-12 pt-2" id="communicationOptions">
   <div class="row">
-    <p class="fs-6">Preferencia de reporte de resultado que desea</p>
+    <p class="fs-6">Preferencia de entrega de resultados</p>
     <div class="col-auto mb-3 form-check fs-4 mx-3">
       <input type="checkbox" class="form-check-input" id="impreso" name="medios" value="1">
       <label class="form-check-label" for="impreso">
