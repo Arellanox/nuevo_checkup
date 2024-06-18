@@ -296,6 +296,7 @@ $menu = $_POST['menu']; ?>
   || $menu == 'Consultorio'
   || $menu == 'Estudio de Composición Corporal (InBody)'
   || $menu == 'Toma de muestras Checkups'
+  || $menu == 'Toma de muestras 2'
 ) : ?>
   <div class="row">
     <div class="col-auto d-flex align-items-center">

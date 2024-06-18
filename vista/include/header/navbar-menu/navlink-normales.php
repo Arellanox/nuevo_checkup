@@ -321,7 +321,17 @@ if (
     if ($_SESSION['vista']['LABORATORIO_MUESTRA_1'] == 1 && $menu != 'muestras') : ?>
         <li class="nav-item">
             <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/muestras/#LABORATORIO_MUESTRA_1'; ?>">
-                <i class="bi bi-droplet-half"></i> Toma de muestras
+                <i class="bi bi-droplet-half"></i> Toma de muestras 1
+            </a>
+        </li>
+    <?php endif;
+
+
+    // TOMA DE MUESTRA 2
+    if ($_SESSION['vista']['LABORATORIO_MUESTRA_2'] == 1 && $menu != 'muestras2') : ?>
+        <li class="nav-item">
+            <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/muestras2/#LABORATORIO_MUESTRA_2'; ?>">
+                <i class="bi bi-droplet-half"></i> Toma de muestras 2
             </a>
         </li>
     <?php endif;

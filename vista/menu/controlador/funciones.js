@@ -1062,7 +1062,7 @@ function omitirPaciente(areaFisica) {
     cancelButtonColor: "#3085d6",
   }, function () {
     $.ajax({
-      url: `${http}${servidor} / ${appname} / api / turnero_api.php`,
+      url: `${http}${servidor}/${appname}/api/turnero_api.php`,
       type: 'POST',
       dataType: 'json',
       data: { api: 3, area_fisica_id: areaFisica },
