@@ -220,6 +220,26 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
       }
     },
     {
+      text: '<i class="bi bi-list"></i> Detallado',
+      className: 'btn btn-outline-turquesa',
+      attr:{
+        id: 'btn-reporte-detallado',
+      },
+      extend: '',
+      action: function () {
+        if(dataList['detallado'] == 1){
+          dataList['detallado'] = 0;
+          $('#btn-reporte-detallado').removeClass('btn-turquesa').addClass('btn-outline-turquesa');
+          tablaPrincipal.ajax.reload();
+        } else {
+          dataList['detallado'] = 1;
+          $('#btn-reporte-detallado').removeClass('btn-outline-turquesa').addClass('btn-turquesa');
+          tablaPrincipal.ajax.reload();
+        }
+       
+      }
+    },
+    {
       text: '<i class="bi bi-eye-slash"></i> Ocultar',
       className: 'btn btn-secondary',
       action: function () {
@@ -239,6 +259,8 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
 
 
 })
+
+
 
 function parseDataTable(data) {
   let parsedData;

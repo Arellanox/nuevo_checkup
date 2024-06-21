@@ -24,6 +24,8 @@ $area_id    = $_POST['area_id'];
 $tipo_cliente = $_POST['tipo_cliente']; # 1 contado, 2 credito
 $tiene_factura = $_POST['tiene_factura']; #1 tiene, 0 no tiene, null todas
 
+$detallado = $_POST['detallado']; # indica el tipo de reporte que quieren ver
+
 switch ($api) {
     case 1:
         $response = $master->getByProcedure('sp_cargos_turnos_b', [$turno_id]);
@@ -60,8 +62,13 @@ switch ($api) {
             $tipo_cliente,
             $tiene_factura
         ]);
-        #$response = $master->getByProcedure("sp_reporte_ujat", $params);
-        $response = $master->getByProcedure("sp_reporte_ujat_prueba", $params);
+        if( $detallado == 1 ){
+
+            $response = $master->getByProcedure("sp_reporte_ujat", $params);
+        } else {
+
+            $response = $master->getByProcedure("sp_reporte_ujat_prueba", $params);
+        }
         break;
     case 4:
         # Crear un grupo de facturas
