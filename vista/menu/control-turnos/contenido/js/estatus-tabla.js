@@ -28,6 +28,7 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
         },
         complete: function () {
             carga = true
+            reloadTrackingPatients()
         },
         dataSrc: 'response.data'
     },
@@ -183,6 +184,12 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
         }
     ]
 })
+
+function reloadTrackingPatients(){
+    setTimeout(
+        tablaMenuPrincipal.ajax.reload(), 30000
+    );
+}
 
 
 // AREA_FISICA_ID
