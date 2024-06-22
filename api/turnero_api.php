@@ -77,7 +77,7 @@ switch ($api) {
             # 1. Que no haya pacientes para esa area el dia actual.
             # 2. Que aun los pacientes no hayan pasado a toma de muestras o somatometria.
             # Si sucede lo anterior, enviamos un mensaje coqueto.
-            $response = "Ya tienes un paciente en atención o no hay nada por aquí.";
+            $response = "No hay nada por aquí.";
             echo $master->returnApi($response, 3);
             exit;
         } else {
@@ -243,6 +243,7 @@ function llamarPaciente($master, $area_fisica_id)
 
         if (isset($response[0]['MSJ'])) {
             $response = $response[0]['MSJ'];
+            return;
         }
 
 
