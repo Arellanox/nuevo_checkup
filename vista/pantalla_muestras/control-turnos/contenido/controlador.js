@@ -1,6 +1,6 @@
 
 
-var tablaControlTurnos, dataTurnos = { api: 4, con_paquete: 1 };
+var tablaControlTurnos, dataTurnos = { api: 4, con_paquete: 0 };
 
 function obtenerVistaTurnero() {
     //obtenerTitulo("Usuarios"); //Aqui mandar el nombre de la area

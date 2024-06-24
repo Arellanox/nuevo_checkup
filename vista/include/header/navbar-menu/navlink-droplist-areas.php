@@ -207,7 +207,14 @@ if ($_SESSION['vista']['CONSULTORIO'] == 1) : ?>
       <?php if ($_SESSION['vista']['CONTROL_TURNOS_PANTALLA'] == 1) : ?>
         <li>
           <a href="<?php echo $https . $url . '/' . $appname . '/vista/pantalla/control-turnos/'; ?>" class="dropdown-a align-items-center" type="button">
-            <i class="bi bi-dot"></i> Pantalla
+            <i class="bi bi-dot"></i> Pantalla Checkups
+          </a>
+        </li>
+      <?php endif; ?>
+      <?php if ($_SESSION['vista']['CONTROL_TURNOS_PANTALLA'] == 1) : ?>
+        <li>
+          <a href="<?php echo $https . $url . '/' . $appname . '/vista/pantalla_muestras/control-turnos/'; ?>" class="dropdown-a align-items-center" type="button">
+            <i class="bi bi-dot"></i> Pantalla Toma de Muestras
           </a>
         </li>
       <?php endif; ?>

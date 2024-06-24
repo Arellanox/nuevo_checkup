@@ -10,9 +10,9 @@ include_once "../clases/turnero_class.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
-if (!$tokenValido) {
-    # $tokenVerification->logout();
-    # exit;
+if (!$tokenValido || empty($_SESSION['id'])) {
+    $tokenVerification->logout();
+    exit;
 }
 
 #api
@@ -20,6 +20,7 @@ $api = isset($_POST['api']) ? $_POST['api'] : $_GET['api'];
 
 $turno_id = $_POST['turno_id'];
 $area_fisica_id = $_POST['area_fisica_id'];
+$con_paquete = $_POST['con_paquete'];
 
 $master = new Master();
 $jsonData = new JsonData();
@@ -150,7 +151,7 @@ switch ($api) {
         break;
     case 4:
         # pantalla turnero
-        $response1 = $master->getByNext('sp_turnero_pantalla', [isset($_SESSION['pacientes_llamados']) ? $_SESSION['pacientes_llamados'] : 0]);
+        $response1 = $master->getByNext('sp_turnero_pantalla', [isset($_SESSION['pacientes_llamados']) ? $_SESSION['pacientes_llamados'] : 0 ,$con_paquete]);
 
         $response = $response1[0];
 
