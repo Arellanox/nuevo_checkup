@@ -631,6 +631,17 @@ function generarFormularioPaciente(id) {
               }
 
               break;
+            case "1799":
+              // PCR Infecciones de transmisión sexual (STI7)
+              muestras = {
+                0: {
+                  'descripcion': 'Exudado Vaginal',
+                },
+                1: {
+                  'descripcion': 'Exudado Uretral'
+                }
+              }
+              break;
 
 
             default: input = null;
