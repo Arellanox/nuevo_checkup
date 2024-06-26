@@ -751,6 +751,9 @@ function generarFormularioPaciente(id) {
                 // rT-PCR Thrombosis SNP
                 case '1519': case '1521':
 
+                // STI7
+                case '1800': case '1801':
+
                   anotherInput = crearSelectCamposMolecular(resultado, nameInput, row[k]['RESULTADO']); break;
 
                 // Panel 21
