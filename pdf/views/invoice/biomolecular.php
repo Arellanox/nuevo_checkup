@@ -314,7 +314,8 @@ $areas = $resultados->areas[0];
                 'rT-PCR PneumoBacter' => 'rT-PCR PneumoBacter',
                 'rT-PCR Thrombosis SNP' => 'rT-PCR_Thrombosis_SNP',
                 'PCR Detección Mycobacterium tuberculosis' => 'PCR_deteccion_mycobacterium',
-                'PCR DETECCIÓN DE TOXOPLASMA GONDII TR' => 'toxoplasma_gondii_tr'
+                'PCR DETECCIÓN DE TOXOPLASMA GONDII TR' => 'toxoplasma_gondii_tr',
+                'PCR Infecciones de transmisión sexual (STI7)' => 'PCR_STI7'
             ];
             return $estudios[$indice] ?? null;
         }
