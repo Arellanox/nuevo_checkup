@@ -1069,10 +1069,11 @@ function omitirPaciente(areaFisica) {
       success: function (data) {
         if (mensajeAjax(data)) {
           let row = data.response.data;
+          console.log(row);
           // miStorage.setItem('paciente_actual_turno', row['NEXT']['turno_id'])
           // miStorage.setItem('paciente_actual_nombre', row['NEXT']['paciente'])
-          pacienteTurnoActivo.selectID = row['NEXT']['ID_TURNO'];
-          pacienteTurnoActivo.setguardado(row['NEXT']['PACIENTE']);
+          pacienteTurnoActivo.selectID = row['NEXT']['turno_id'];
+          pacienteTurnoActivo.setguardado(row['NEXT']['paciente']);
           $('#paciente_turno').html(row['NEXT']['paciente'])
           alertMsj({
             title: row['NEXT']['paciente'],
@@ -1096,7 +1097,7 @@ function omitirPaciente(areaFisica) {
 function llamarPaciente(areaFisica) {
   //console.log(areaFisica)
   alertMensajeConfirm({
-    title: '¿Deseas liberar el área y llamar a un paciente?',
+    title: '¿Deseas llamar a un paciente?',
     text: "Un paciente llamado se mostrará en pantalla",
     icon: "info",
     showCancelButton: true,
