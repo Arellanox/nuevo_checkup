@@ -2,7 +2,7 @@
 <br>
 <br>
 <br>
-<p style="position:absolute;top:2px;left:548px;white-space:nowrap" class="ft00">Muestra: <strong style="font-size: 11px"><?php echo $body[7]->resultado ?></strong> </p>
+<!-- <p style="position:absolute;top:2px;left:548px;white-space:nowrap" class="ft00">Muestra: <strong style="font-size: 11px"><?php echo $body[7]->resultado ?></strong> </p> -->
 <table style="width: 100%;font-size: 13.4px">
     <tr style="background-color: darkgrey;">
         <td style="font-size: 13.4px"><strong>Prueba</strong></td>
@@ -47,9 +47,9 @@
 <br>
 <br>
 <br>
-<p style="text-align:justify;"><strong>Comentarios: </strong>Esta prueba identifica en tiempo real la presencia de 9 tipos de Patógenos causantes de ETS (Enfermedades de Transmisión Sexual); el médico tratante es quien realiza la interpretación de este resultado considerando los datos clínicos del paciente.</p>
+<p style="text-align:justify;"><strong>Comentarios: </strong>Esta prueba identifica en tiempo real la presencia de 7 tipos de Patógenos causantes de ETS (Enfermedades deTransmisión Sexual); el médico tratante es quien realiza la interpretación de este resultado considerando los datos clínicos del paciente.</p>
 <br>
-<p style="text-align:justify;"><strong>Equipo utilizado: </strong> CFX96™ Real-Time System BIO-RAD <br>
+<p style="text-align:justify;"><strong>Método: </strong>rT-PCR en Tiempo Real. <br>
     <!-- <strong>Kit Diagnóstico: </strong><?php echo $kit; ?> <br>
     <strong>No. Lote: </strong><?php echo $NoLote; ?> <br> -->
 </p>
