@@ -86,7 +86,8 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
     { data: 'LABORATORIO_MAQUILA' },
     { data: 'NUM_TRABAJADOR' },
     { data: 'TIENE_FACTURA' },
-    { data: 'TIPO_CLIENTE' }
+    { data: 'TIPO_CLIENTE' },
+    { data: 'US_INTERPRETADO_POR' }
   ],
   columnDefs: [
     { target: 0, className: 'all', title: 'No. Sistema', width: '7%', visible: false },
@@ -123,6 +124,7 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
     { target: 31, className: 'none', title: 'Num. Trabajador' },
     { target: 32, className: 'none', title: 'Factura' },
     { target: 33, className: 'none', title: 'Tipo Cliente' },
+    { target: 34, className: 'none', title: 'US Interpretado por' },
   ],
 
 
