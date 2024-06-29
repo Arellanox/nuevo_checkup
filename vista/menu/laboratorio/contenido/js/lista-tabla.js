@@ -573,6 +573,13 @@ function generarFormularioPaciente(id) {
                 },
               }
 
+              kitDiag = {
+                0: {
+                  'descripcion': ' Anyplex™ Thrombosis SNP Panel Assays',
+                  'clave': 'N/A'
+                }
+              }
+
               resultado = {
                 0: {
                   'descripcion': 'Homocigoto',
