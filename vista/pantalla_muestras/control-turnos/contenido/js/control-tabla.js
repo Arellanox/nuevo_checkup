@@ -237,7 +237,7 @@ let videoArray = [
     // "http://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_4.mp4",
     // "https://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_5.mp4",
     // "https://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_6.mp4",
-    "https://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/turnero_7.mp4",
+    "https://bimo-lab.com/nuevo_checkup/archivos/sistema/turnero/TM4JULVIDEOPANTALLAS.mp4",
 ]      // Almacena la lista de videos
 let currentIndex = 0;     // Índice del video que se está reproduciendo actualmente
 let videoElement = $("#videoPlayer").get(0);
