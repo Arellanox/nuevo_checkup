@@ -89,7 +89,8 @@ $(document).on('click', '#btn-concluir-paciente', function (e) {
         array_selected['CLIENTE_ID'] == '31' || //CLINICA DEL DR CASTILLO
         array_selected['CLIENTE_ID'] == 35 || // DR JAVIER ALEJANDRO JIMENEZ TORRUCO
         array_selected['CLIENTE_ID'] == 37 ||//AMASFAC
-        array_selected['CLIENTE_ID'] == 39 // TRANE
+        array_selected['CLIENTE_ID'] == 39 || // TRANE
+        array_selected['CLIENTE_ID'] == 20
       ) {
 
         $('descuento').val('');
