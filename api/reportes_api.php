@@ -14,9 +14,9 @@ $api = $_POST['api'];
 
 $fecha_inicio = $_POST['fecha_inicial'];
 $fecha_final = $_POST['fecha_final'];
-$cliente_id = $_POST['id_cliente'];
-$area_id = $_POST['area_id'];
-$servicio_id = $_POST['servicio_id'];
+$cliente_id = $master->setToNull($_POST['id_cliente']);
+$area_id = $master->setToNull($_POST['area_id']);
+$servicio_id = $master->setToNull($_POST['servicio_id']);
 
 switch ($api) {
     case 1:
