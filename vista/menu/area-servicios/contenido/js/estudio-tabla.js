@@ -32,7 +32,7 @@ var tablaServicio = $('#TablaEstudioServicio').DataTable({
     },
     {
       data: 'SELECCIONABLE', render: function (data) {
-        if (data === null || data === 1) {
+        if (data === null || data === 1 ||data ==='1') {
           return 'Seleccionable';
         } else {
           return 'Desactivado';
