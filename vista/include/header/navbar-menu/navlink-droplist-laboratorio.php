@@ -151,6 +151,15 @@ if ($_SESSION['vista']['CORREOSLAB'] == 1 || $_SESSION['vista']['CORREOSLABBIOMO
 <?php endif; ?>
 
 
+<?php if ($_SESSION['vista']['REPORTE_LABORATORIO'] == 1) : ?>
+    <li class="nav-item">
+        <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/documentacion/reporte-laboratorio/#REPORTE_LABORATORIO'; ?>">
+        <i class="bi bi-file-earmark-spreadsheet-fill"></i> Reporte
+        </a>
+    </li>
+<?php endif; ?>
+
+
 
 <?php if ($_SESSION['vista']['REGISTRO_TEMPERATURA'] == 1) : ?>
     <!-- <li class="nav-item">
