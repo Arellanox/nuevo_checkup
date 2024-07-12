@@ -8,16 +8,16 @@ $(document).on('click', '#actualizar_tabla', function (event) {
 
 
     // Asignación condicional de valores
-    if(setConditionalValue('#checkFullClientes', '#cliente')){
+    if(setConditionalValue('#checkFullClientes', '#cliente') == 0){
         dataList['id_cliente'] = setConditionalValue('#checkFullClientes', '#cliente');
     }
 
-    if(setConditionalValue('#checkFullArea', '#area_list')){
+    if(setConditionalValue('#checkFullArea', '#area_list') == 0){
 
         dataList['area_id'] = setConditionalValue('#checkFullArea', '#area_list');
     }
 
-    if(setConditionalValue('#checkFullServicios', '#servicios')){
+    if(setConditionalValue('#checkFullServicios', '#servicios')== 0){
 
         dataList['servicio_id'] = setConditionalValue('#checkFullServicios', '#servicios');
     }
