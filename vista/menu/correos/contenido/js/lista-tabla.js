@@ -21,6 +21,21 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
             loader("Out", 'bottom')
             //Para ocultar segunda columna
             reloadSelectTable()
+
+             // invalidar reporte
+            if(session.permisos['invalidarRep'] == 1){
+                $("#btn-rechazar-resultado").css("display","");
+            }
+
+            // validar reporte
+            if (session.permisos['validarRep'] == 1){
+                $("#btn-confirmarenviar-resultado").css("display","");
+            }
+
+            // Reemplazar pdf del reporte
+            if(session.permisos['ReemplazarRep'] == 1){
+                $("#file-upload-rep-lab").css("display", "");
+            }
         },
         dataSrc: 'response.data'
     },

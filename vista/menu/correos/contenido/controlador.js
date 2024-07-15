@@ -28,6 +28,9 @@ function hasLocation() {
     var hash = window.location.hash.substring(1);
     $("a").removeClass("navlinkactive");
     $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
+
+    // permisos de botones para manipular el reporte
+
     if (validarVista(hash)) {
         switch (hash) {
             case "CORREOSLAB":
