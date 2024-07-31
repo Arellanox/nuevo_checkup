@@ -25,6 +25,7 @@ $completado = $_POST['completado'];
 $comentarioRechazo = $_POST['comentario_rechazo'];
 $clienteId = $_POST['cliente_id'];
 $segmentoId = $_POST['segmento_id'];
+$tipo_conversion = $_POST['comoNosConociste'];
 
 #Datos extras
 $usuario_id = $_SESSION['id'];
@@ -70,7 +71,8 @@ switch ($api) {
             $completado,
             $comentarioRechazo,
             $clienteId,
-            $segmentoId
+            $segmentoId,
+            $tipo_conversion
         );
 
         #insertar antecedentes
