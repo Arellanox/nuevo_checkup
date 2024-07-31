@@ -51,6 +51,17 @@ modalPacienteAceptar.addEventListener('show.bs.modal', async event => {
     array_selected['ID_SEGMENTO'] ? $('#select-segmento-aceptar').val(array_selected['ID_SEGMENTO']).trigger('change') : false;
   });
 
+  if(array_selected['MOSTRAR_CAT_CONVERSION'] == "1"){
+    $('#comoNosConocisteDiv').html(`<div class="col-12 text-center">
+                  <h3>¿Cómo nos conociste?</h3>
+                  <select class="input-form" id="comoNosConociste">
+
+                  </select>
+                </div>`)
+    rellenarSelect('#comoNosConociste', 'clientes_api', 9, 'ID_CONVERSION', 'DESCRIPCION')
+  } else {
+    $('#comoNosConocisteDiv').html(``)
+  }
 
 
   //Pruebas
@@ -100,6 +111,8 @@ modalPacienteAceptar.addEventListener('show.bs.modal', async event => {
     $('#select-recepcion-medicos-tratantes').val(0).trigger('change');
   })
 
+  //mostrar el select de como nos conociste
+  
   // Convertir los objetos en arrays
   const lab = Object.values(estudiosLab);
   const bio = Object.values(estudiosLabBio);
@@ -174,6 +187,11 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
     nuevo_medico: 0,
     medico_tratante_id: 0
   }
+
+  if($("#comoNosConociste").length > 0){
+    dataJson['como_nos_conociste'] = $('#comoNosConociste').val()
+  }
+
 
   if ($("#checkBox-NewMedico").is(":checked")) {
     dataJson['medico_tratante'] = $('#medico-aceptar-paciente').val()

@@ -110,6 +110,8 @@ $pasaporte = $_POST['pasaporte'];
 $id_medio = $_POST['id_medio'];
 $medios_entrega = $_POST['medios_entrega'];
 
+$comoNosConociste = $_POST['como_nos_conociste'];
+
 switch ($api) {
     case 1:
         # recuperar pacientes por estado
@@ -130,7 +132,7 @@ switch ($api) {
             $medico_tratante_id = $response;
         }
         #
-        $response = $master->getByNext('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo, $alergias, $e_diagnostico, null, $medico_tratante_id, $_SESSION['id'], $vendedor_id,)); #<-- la id de segmento manda error si no se le envia algo
+        $response = $master->getByNext('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo, $alergias, $e_diagnostico, null, $medico_tratante_id, $_SESSION['id'], $vendedor_id, $comoNosConociste)); #<-- la id de segmento manda error si no se le envia algo
         $aleta = $response[0][0][0];
 
         #validacion de si esta en caja o hay un corte de ayer que no se haya cerrado

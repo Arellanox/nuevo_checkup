@@ -4,6 +4,7 @@ const modalPacienteAceptar = document.getElementById('modalPacienteAceptar')
 modalPacienteAceptar.addEventListener('show.bs.modal', event => {
   document.getElementById("title-paciente_aceptar").innerHTML = array_paciente[1];
   document.getElementById("btn-confirmar-paciente").disabled = true;
+  rellenarSelect()
 })
 
 $("#btn-obtenerID").click(function(){
