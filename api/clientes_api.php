@@ -144,6 +144,11 @@ switch ($api) {
         $response = $master->deleteByProcedure("sp_clientes_eliminar_descuentos", [$id_cliente, $area_id]);
         break;
 
+    case 9:
+        # catalogo de tipo de conversiones
+        $response = $master->getByProcedure('sp_tipo_conversiones_b',[]);
+        break;
+
     default:
         $response = "api no reconocida";
         break;

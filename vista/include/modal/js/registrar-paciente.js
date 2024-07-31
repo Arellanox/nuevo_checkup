@@ -85,6 +85,7 @@ $("#formRegistrarPaciente").submit(function (event) {
                 AgendaData.set('pacienteId', data.response.data);
 
                 AgendaData.set('cliente_id', $('#selectIngresoProcedencia').val())
+                AgendaData.set('comoNosConociste', $('#selectComoNosConociste').val())
                 // AgendaData.set('segmento_id', null) //$('#selectSegmentos').val()
                 // const tiempoTranscurrido = Date.now();
                 // const hoy = new Date(tempoTranscurrido);
@@ -185,12 +186,21 @@ $('#formRegistrarPaciente input[type=text]').on('change keyup', function () {
 
 
 if (registroAgendaRecepcion == 1) {
-  $('#contenido-procedencia').html(`</label for= "selectIngresoProcedencia" class= "form-label" > Selecciona procedencia</ >
-              <select class="form-control input-form dataIdProcedencias" id="selectIngresoProcedencia">
-              </select>`)
+  var html = `</label for= "selectIngresoProcedencia" class= "form-label" > Selecciona procedencia</ >
+  <select class="form-control input-form dataIdProcedencias" id="selectIngresoProcedencia">
+  </select>`
+
+  // para saber cual es la conversion o como supieron de bimo
+  html += `</label for= "selectComoNosConociste" class= "form-label" > ¿Cómo supiste de nosotros?</ >
+  <select class="form-control input-form dataIdProcedencias" id="selectComoNosConociste">
+  </select>`
+
+
+  $('#contenido-procedencia').html(html)
 
   select2('#selectIngresoProcedencia', "ModalRegistrarPaciente", 'Cargando...')
   rellenarSelect('#selectIngresoProcedencia', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
+  rellenarSelect("#selectComoNosConociste", 'clientes_api', 9, 'ID_CONVERSION', 'DESCRIPCION')
 
 }
 

@@ -43,7 +43,7 @@ $dosis = $_POST['inputDosis'];
 $genero = $_POST['genero'];
 $id_turno = $_POST['turno_id'];
 $correo2 = $_POST['correo_2'];
-
+$tipo_conversion = $_POST['comoNosConociste'];
 
 # medios de entrega 
 $medios_entrega = $_POST['medios_entrega'];
@@ -73,7 +73,8 @@ $parametros = array(
     $otravacuna,
     $dosis,
     $genero,
-    $correo2
+    $correo2,
+    $tipo_conversion
 );
 
 $response = "";
