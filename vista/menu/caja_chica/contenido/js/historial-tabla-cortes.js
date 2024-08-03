@@ -227,11 +227,7 @@ TablaPacientesCaja = $('#TablaPacientesCaja').DataTable({
 
 inputBusquedaTable("TablaPacientesCaja", TablaPacientesCaja, [
     {
-        msj: 'Tabla de los pacientes que estan en la caja',
-        place: 'top'
-    },
-    {
-        msj: "¡Los pacientes por pagar, se mostrarán en amarillo!",
+        msj: 'Escriba una palabra clave',
         place: 'top'
     }
 ], {
