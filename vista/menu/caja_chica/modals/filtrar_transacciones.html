@@ -1,0 +1,88 @@
+<div class="modal fade" id="filtrarTransaccionesModal" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false"
+    data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="liberarDiaTitle">Filtrar Movimientos de Caja Chica</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="container-fluid">
+                    <div class="row">
+                         <!-- Formulario para crear una nueva caja -->
+                         <div class="col-12">
+                            <div class="text-start">
+                                <div class="shadow-sm rounded p-3 card-body">
+                                    <div class="row align-items-end">
+                                        <h5 class="text-dark">Ingresa los siguientes datos</h5>
+                                        <div class="col-12">
+                                            <form id="filtrarTransaccionesForm" name="filtrarTransaccionesForm">
+                                                <div class="form-group">
+                                                    <!-- FECHA DE MOVIMIENTO -->
+                                                  <label for="fechaMovimiento">Fecha de movimiento:</label>
+                                                  <input type="date" class="form-control input-form" id="fechaMovimiento" name="fechaMovimiento" placeholder="Seleccione la fecha deseada">
+                                                </div>
+
+                                                  <!-- Checkbox para ignorar filtro de fecha de movimiento -->
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input" id="ignorarFechaMovimiento" name="ignorarFechaMovimiento">
+                                                    <label class="form-check-label" for="ignorarFechaMovimiento">Ignorar filtro de fecha de movimiento</label>
+                                                </div>
+
+
+                                                <!-- QUIEN AUTORIZA -->
+                                                <div class="form-group">
+                                                  <label for="quienAutoriza">Autorizado por:</label>
+                                                <select class="form-control input-form" name="quienAutoriza" id="quienAutoriza"></select>
+                                                </div>
+
+                                                <!-- Checkbox para ignorar filtro de quien autoriza -->
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input" id="ignorarQuienAutoriza" name="ignorarQuienAutoriza">
+                                                    <label class="form-check-label" for="ignorarQuienAutoriza">Ignorar filtro de autorizado por</label>
+                                                </div>
+
+                                                <!-- TIPO DE MOVIMIENTO -->
+                                                <div class="form-group">
+                                                    <label for="tipoMov">Autorizado por:</label>
+                                                  <select class="form-control input-form" name="tipoMov" id="tipoMov">
+                                                    <option value="1">Entrada</option>
+                                                    <option value="2">Salida</option>
+                                                  </select>
+                                                  </div>
+
+                                                  <!-- Checkbox para ignorar filtro de TIPO DE MOVIMIENTO -->
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input" id="ignorarTipoMov" name="ignorarTipoMov">
+                                                    <label class="form-check-label" for="ignorarTipoMov">Todos los movimientos</label>
+                                                </div>
+
+                                        </div>
+                                        <div class="col-12 d-flex justify-content-end">
+                                            <button type="submit" class="btn btn-confirmar"
+                                                form="filtrarTransaccionesForm">
+                                                <i class="bi bi-funnel"></i> Filtrar
+                                            </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i
+                        class="bi bi-arrow-left-short"></i>
+                    Cancelar</button>
+                </button>
+
+                <!-- <button type="button" class="btn btn-confirmar" id="guardarResponsablesCaja">
+                    <i class="bi bi-floppy"></i> Guardar cambios de la caja actual
+                </button> -->
+            </div>
+        </div>
+    </div>
+</div>

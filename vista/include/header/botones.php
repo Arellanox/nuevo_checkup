@@ -413,6 +413,12 @@ $menu = $_POST['menu']; ?>
   </button>
 <?php endif; ?>
 
+<?php if(strtolower($menu) == "caja chica" && $_SESSION["permisos"]["CrearCajaChica"]): ?>
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalAdministrarCajas">
+    <i class="bi bi-piggy-bank"></i> Administrar cajas
+  </button>
+<?php endif;  ?>
+
 
 
 
@@ -423,7 +429,7 @@ $menu = $_POST['menu']; ?>
   });
 
   // Opcional: Cerrar el dropdown al salir el mouse del menú
-  $('.dropdown-menu').on('mouseleave', function() {
+  $('.dropdown-menu').on('mouseleave', function() {""
     $(this).closest('.btn-group').find('.dropdown-toggle').dropdown('toggle');
   });
 </script>
