@@ -226,11 +226,11 @@ inputBusquedaTable("TablaUsuariosResponsables", TablaUsuariosResponsables, [{
 
 //----------------------------------------------------------------AGREGAR USUARIOS
 select2("#select-user", "ModalAdministrarCajas", 'Seleccione un responsable para esta caja');
-// rellenarSelect("#select-user", "corte_caja_api", 8, 'ID_USUARIO', 'nombrecompleto', {
+rellenarSelect("#select-user", "corte_caja_api", 8, 'ID_USUARIO', 'nombrecompleto', {
 
-// }, function (data) {
-//     estudiosLab = data;
-// });
+}, function (data) {
+    estudiosLab = data;
+});
 
 // Actualizar el responasable de la caja
 $("#btnAgregarResponsableCaja").on('click', function () {
