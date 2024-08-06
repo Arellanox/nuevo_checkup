@@ -3514,7 +3514,8 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     14: 'INBODY',
                     15: 'CERTIFICADO MÉDICO',
                     16: 'CONSULTORIO FASTCHECKUP',
-                    17: 'CERTIFICADO POE'
+                    17: 'CERTIFICADO POE',
+                    18: 'CERTIFICADO BIMO'
                   }
                   let row = data.response.data;
                   // $('#append-html-historial-estudios').html('');

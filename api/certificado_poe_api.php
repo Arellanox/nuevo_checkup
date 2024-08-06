@@ -6,8 +6,8 @@ include "../clases/correo_class.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) { //Preregistro necesita recuperar antecedentes
-    // $tokenVerification->logout();
-    // exit;
+    $tokenVerification->logout();
+    exit;
 }
 
 $master = new Master();
@@ -37,6 +37,20 @@ switch ($api) {
         //Buscar el certificado poe en la base de datos
         $response = $master->getByProcedure("sp_certificados_poe_b", [$turno_id]);
         break;
+    case 3:
+        #  SUBIR CERTIFICADO BIMO
+        $dir = "../reportes/modulo/certificados_bimo/";
+        $r = $master->createDir($dir);
+
+        echo $dir;
+        echo $r;
+
+        $certificado = $master->guardarFiles($_FILES, 'certificado-bimo', $dir, "CERTIFICADO_BIMO_$turno_id");
+
+        $ruta_certificado = str_replace("../", $host, $certificado[0]['url']);
+        $response = $master->insertByProcedure("sp_certificados_bimo_g", [$d_certificado, $turno_id, $_SESSION['id'], $ruta_certificado]);
+
+        break; 
 }
 
 

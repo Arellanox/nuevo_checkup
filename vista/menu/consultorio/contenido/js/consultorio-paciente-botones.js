@@ -206,7 +206,18 @@ InputDragDrop('#dropCertificadoPOE', (inputArea, salidaInput) => {
   })
 })
 
+// Subir certificado bimo
 
+InputDragDrop('#dropCertificadoBimo', (inputArea, salidaInput) => {
+  ajaxAwaitFormData({
+    turno_id: pacienteActivo.array['ID_TURNO'], api: 3
+  }, 'certificado_poe_api', 'subirResultadosCertificadoBimo', { callbackAfter: true }, false, function () {
+    obtenerPanelInformacion(pacienteActivo.array['ID_TURNO'], 'consulta_api', 'listado_resultados', '#listado-resultados')
+
+    salidaInput();
+
+  })
+})
 
 
 // $(document).ready(function () {

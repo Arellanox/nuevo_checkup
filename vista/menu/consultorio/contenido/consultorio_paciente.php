@@ -69,10 +69,6 @@ session_start();
       <h4>Conclusiones</h4>
     </div>
 
-
-
-    <div class="rounded p-3 shadow-sm my-2 mt-2 p-3 medico-coordinador">
-
       <!-- Agregar certificado medico -->
       <?php if ($_SESSION['permisos']['certificadoMedica'] == 1) : ?>
         <h4>Certificado médico del paciente</h4>
@@ -110,12 +106,27 @@ session_start();
             </div>
           </div>
         </form>
-
-
-
-
       <?php endif; ?>
 
+      <!-- Agregar certificado bimo  -->
+      <?php if($_SESSION['permisos']['certificadoBimo'] == 1):  ?>
+        <h4>Certificado BIMO</h4>
+        <form id="subirResultadosCertificadoBimo" class="d-flex flex-column align-items-center">
+          <div id="dropCertificadoBimo" class="drop-zone mx-2">
+            <label for="certificado-bimo" style="cursor: pointer;" class="label-captura-oido">Sube
+              tu
+              archivo
+              arrastrándolo
+              aquí</label>
+
+            <input type="file" id="certificado-bimo" name="certificado-bimo[]" style="display: none;">
+            <br>
+            <div class="spinner-border text-primary carga-certificado-POE" role="status" style="display: none;">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </form>
+      <?php endif;  ?>
       <!-- 
         <h4>Certificado POE</h4>
         <form id="subirResultadosCertificadoPOE">
