@@ -68,7 +68,7 @@ session_start();
     <div class="rounded p-3 shadow-sm my-2 mt-2 p-2" id="consultorio-conclusiones">
       <h4>Conclusiones</h4>
     </div>
-
+    <div class="rounded p-3 shadow-sm my-2 mt-2 p-3 medico-coordinador">
       <!-- Agregar certificado medico -->
       <?php if ($_SESSION['permisos']['certificadoMedica'] == 1) : ?>
         <h4>Certificado médico del paciente</h4>
