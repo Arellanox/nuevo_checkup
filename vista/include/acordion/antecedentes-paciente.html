@@ -690,27 +690,28 @@
             </div>
 
             <!-- <hr class="dropdown-divider m-2"> -->
-            <!--     <div class="row d-flex justify-content-center"
+            <div class="row d-flex justify-content-center"
       style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
                 <div class="col-12 col-lg-5 col-xl-7">
-                  <label>Otras: </label>
+                  <label>¿PADECE OTRAS ENFERMEDADES?: </label>
                   <input type="hidden" name="check-otra-padre[]" value="29">
                 </div>
                 <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
   
-                <div class="col-auto">
-                  <input type="radio" required id="checkSi-otra-padre" name="check-otra-padre[]" value="1" required >
-                  <label for="checkSi-otra-padre">Sí</label>
-                </div>
-                <div class="col-auto">
-                  <input type="radio" required  id="checkNo-otra-padre" name="check-otra-padre[]" value="2">
-                  <label for="checkNo-otra-padre" >No</label>
+                  <div class="col-auto">
+                    <input type="radio" required id="checkSi-otra-padre" name="check-otra-padre[]" value="1" required >
+                    <label for="checkSi-otra-padre">Sí</label>
+                  </div>
+                  <div class="col-auto">
+                    <input type="radio" required  id="checkNo-otra-padre" name="check-otra-padre[]" value="2">
+                    <label for="checkNo-otra-padre" >No</label>
+                  </div>
                 </div>
                 <div class="collapse" id="collapse-otra-padre">
-                  <textarea name="check-otra-padre[]" class="form-control input-form" rows="2" cols="2" placeholder="..."></textarea>
+                  <textarea name="check-otra-padre[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifíque"></textarea>
                 </div>
-              </div> -->
-            <br>
+            </div>
+
             <!-- <hr class="dropdown-divider m-2"> -->
             <div class="row d-flex justify-content-center"
               style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
@@ -797,10 +798,10 @@
                   placeholder="Especifique"></textarea>
               </div>
             </div>
-            <!--     <div class="row d-flex justify-content-center"
+            <div class="row d-flex justify-content-center"
       style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
                 <div class="col-12 col-lg-5 col-xl-7">
-                  <label>Otras: </label>
+                  <label>¿PADECE OTRAS ENFERMEDADES?: </label>
                   <input type="hidden" name="check-otra-madre[]" value="34">
                 </div>
                 <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
@@ -813,10 +814,10 @@
                   <input type="radio" required  id="checkNo-otra-madre" name="check-otra-madre[]" value="2">
                   <label for="checkNo-otra-madre" >No</label>
                 </div>
-                <div class="collapse" id="collapse-otra-madre">
-                  <textarea name="check-otra-madre[]" class="form-control input-form" rows="2" cols="2" placeholder="..."></textarea>
-                </div>
-              </div> -->
+              </div>
+              <div class="collapse" id="collapse-otra-madre">
+                <textarea name="check-otra-madre[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifíque"></textarea>
+              </div>
           </div>
           <div class="d-flex justify-content-end p-2 div-btn-guardarHeredoFami"> </div>
         </div>
@@ -1652,6 +1653,7 @@
 <script type="text/javascript">
   jQuery(document).on("change ,  keyup", "input[type='radio']", function () {
     var parent_element = jQuery(this).closest("div[class='row d-flex justify-content-center']");
+    console.warn("ELEMENTO PADRE")
     console.log(parent_element)
     if (this.value == true) {
       var collapID = jQuery(parent_element).children("div[class='collapse']").attr("id");
@@ -1663,7 +1665,7 @@
       }
       $('#' + collapID).collapse("show")
       $('#' + collapID).find(':input').prop('required', true);
-    } else {
+    } else { 
       var collapID = jQuery(parent_element).children("div[class='collapse show']").attr("id");
       if (typeof collapID === "undefined") {
         // alert('indefinido')
