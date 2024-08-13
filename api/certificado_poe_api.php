@@ -42,9 +42,6 @@ switch ($api) {
         $dir = "../reportes/modulo/certificados_bimo/";
         $r = $master->createDir($dir);
 
-        echo $dir;
-        echo $r;
-
         $certificado = $master->guardarFiles($_FILES, 'certificado-bimo', $dir, "CERTIFICADO_BIMO_$turno_id");
 
         $ruta_certificado = str_replace("../", $host, $certificado[0]['url']);
