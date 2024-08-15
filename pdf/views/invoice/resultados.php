@@ -216,6 +216,10 @@
                             max-width: 25%;
                             text-align: center;
                         }
+
+                        .fontSize10{
+                            font-size: 10px;
+                        }
                     </style>
                 </head>
 
@@ -409,7 +413,7 @@
                                                         <td class="col-three">
                                                             <?php echo ($absoluto->unidad != null) ? $absoluto->unidad : ''; ?>
                                                         </td>
-                                                        <td class="col-four">
+                                                        <td class="col-four fontSize10">
                                                             <?php echo ($absoluto->referencia != null) ? $absoluto->referencia : ''; ?>
                                                         </td>
                                                     </tr>
