@@ -373,6 +373,54 @@
 
                                 echo "<h4 style='padding-top: 9px'>" . $estudio->estudio . "</h4>";
 
+                                // IMPRIMIR TABLA DE VALORES DE REFERENCIAS PARA ESTUDIOS ESPECIALES./
+                                if($estudio->estudio == "PERIL DE ALERGIA INHALATORIO (40 ELEMENTOS)"
+                                    || $estudio->estudio == "PERFIL ALERGIA ALIMENTICIO (40 ELEMENTOS)"){
+                                    echo '
+                                        <div style="text-align: right;">
+                                            <div style="display: inline-block">
+                                            <table style="border-collapse: collapse; width: auto;">
+                                                <tr>
+                                                    <th colspan="2" style="text-align: center; padding: 8px; font-weight: bold;">Valores de referencia</th>
+                                                </tr>
+                                                <tr>
+                                                    <td style="">&lt; 0.10</td>
+                                                    <td style="">Clase 0 Ausencia o indetectable</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="">0.11 - 0.24</td>
+                                                    <td style="">Clase I/0 Muy bajo</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="">0.25 - 0.39</td>
+                                                    <td style="">Clase I Bajo</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="">0.40 - 1.29</td>
+                                                    <td style="">Clase II Moderado</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="">1.30 - 3.89</td>
+                                                    <td style="">Clase III Alto</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="">3.90 - 14.99</td>
+                                                    <td style="">Clase IV Muy alto</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="">15.00 - 24.99</td>
+                                                    <td style="">Clase V Muy alto</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="">&gt; 25.00</td>
+                                                    <td style="">Clase VI Muy alto</td>
+                                                </tr>
+                                            </table>
+                                            </div>
+                                        </div>
+                                        ';
+                                }
+
                         ?>
                                 <table class="result" style="padding-top: 1px;">
                                     <thead>
@@ -438,7 +486,7 @@
                                                         <td class="col-three">
                                                             <?php echo ($analito->unidad != null) ? $analito->unidad : ''; ?>
                                                         </td>
-                                                        <td class="col-four">
+                                                        <td class="col-four fontSize10">
                                                             <?php echo ($analito->referencia != null) ? $analito->referencia : ''; ?>
                                                         </td>
                                                     <?php
