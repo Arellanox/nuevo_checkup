@@ -241,8 +241,9 @@ $(document).on('click', '#actualizarForm', async function () {
   }
 
   if (ant) {
-    await obtenerVistaAntecenetesPaciente('#antecedentes-registro', $('#procedencia-registro').text(), 0)
+    await obtenerVistaAntecenetesPaciente('#antecedentes-registro', $('#procedencia-registro').text(), 0, pacienteActivo.array.GENERO)
     await obtenerAntecedentesPaciente(null, curp);
+ 
   } else {
     $('#cuestionadioRegistro').fadeOut(100);
     // $('input[type="radio"]').prop("checked", true)
@@ -256,9 +257,6 @@ $(document).on('click', '#actualizarForm', async function () {
   } else {
     $('#cuestionarioEspiro').fadeOut(100);
   }
-
-
-
 
   //Solicitar si la curp existe
   // window.location.hash = "formDIV";
@@ -421,5 +419,3 @@ $('#curp-paciente').css('text-transform', 'uppercase')
 $('#curp-paciente').val(function () {
   return this.value.toUpperCase();
 })
-
-// $("#formDIV").addClass("disable-div");

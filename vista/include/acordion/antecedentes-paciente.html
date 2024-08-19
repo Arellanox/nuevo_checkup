@@ -1,4 +1,4 @@
-<div class="">
+<div class="" id="antecedentes-registro">
   <h4 class="m-3">Antecedentes</h4>
   <hr class="dropdown-divider m-2">
   <div class="accordion m-2" id="accordionEstudios">
@@ -1291,6 +1291,166 @@
       </div>
     </form>
 
+    <form id="formAntGinecologicos">
+      <div class="accordion-item bg-acordion onlyFemenino onlyMedico">
+        <h2 class="accordion-header" id="collap-antGine">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            id="btnformAntGinecologicos" data-bs-target="#collapse-antGine-Target" aria-expanded="false"
+            aria-controls="accordionEstudios">
+            <i class="bi bi-plus-circle-fill" style="margin-right: 10px;"></i>ANTECEDENTES GINECOLÓGICOS
+          </button>
+        </h2>
+        <div id="collapse-antGine-Target" class="accordion-collapse collapse" aria-labelledby="collap-antGine">
+          <div class="d-flex justify-content-end p-2 div-btn-guardarAntGine"> </div>
+          <div class="accordion-body">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
+              <div class="col-6">
+                <label>EDAD DE MENARQUIA: </label>
+                <input type="hidden" name="check-antginecologicos-edadmenarquia[]" value="192">
+              </div>
+              <div class="" id="collapse-aparatoGenitourina-cantidadOrinaDia">
+                <textarea name="check-antginecologicos-edadmenarquia[]" class="form-control input-form" rows="2"
+                  cols="2" placeholder="28 años"></textarea>
+              </div>
+            </div>
+
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
+              <div class="col-6">
+                <label>FECHA DE ÚLTIMA MENSTRUACIÓN: </label>
+                <input type="hidden" name="check-antginecologicos-ultimamenstruacion[]" value="193">
+              </div>
+              <div class="" id="collapse-antginecologicos-ultimamenstruacion">
+                <textarea name="check-antginecologicos-ultimamenstruacion[]" class="form-control input-form" rows="2"
+                  cols="2" placeholder="28 de julio 2024"></textarea>
+              </div>
+            </div>
+       
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
+              <div class="col-6">
+                <label>EMBARAZOS: </label>
+                <input type="hidden" name="check-antginecologicos-embarazos[]" value="194">
+              </div>
+              <div class="" id="collapse-antginecologicos-embarazos">         
+                <input type="range" class="form-range" min="0" max="20" step="1" id="check-antginecologicos-embarazos" name="check-antginecologicos-embarazos[]" oninput="updateRangeValue(this.value, 1)" value="0">
+                <label id="rangeValueLabelEmbarazos" class="rangeValueLabel">0</label>
+              </div>
+            </div>
+  
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
+              <div class="col-6">
+                <label>PARTOS: </label>
+                <input type="hidden" name="check-antginecologicos-partos[]" value="195">
+              </div>
+              <div class="" id="collapse-antginecologicos-partos">         
+                <input type="range" class="form-range" min="0" max="20" step="1" id="check-antginecologicos-partos" name="check-antginecologicos-partos[]" oninput="updateRangeValue(this.value, 2)" value="0">
+                <label id="rangeValueLabelPartos" class="rangeValueLabel">0</label>
+              </div>
+            </div>
+
+
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
+              <div class="col-6">
+                <label>CESÁREAS: </label>
+                <input type="hidden" name="check-antginecologicos-cesareas[]" value="196">
+              </div>
+              <div class="" id="collapse-antginecologicos-cesareas">         
+                <input type="range" class="form-range" min="0" max="20" step="1" id="check-antginecologicos-cesareas" name="check-antginecologicos-cesareas[]" oninput="updateRangeValue(this.value, 3)" value="0">
+                <label id="rangeValueLabelCesareas" class="rangeValueLabel">0</label>
+              </div>
+            </div>
+
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
+              <div class="col-6">
+                <label>CICLO MENSTRUAL: </label>
+                <input type="hidden" name="check-antginecologicos-ciclomenstrual[]" value="197">
+              </div>
+              <div class="" id="collapse-antginecologicos-ciclomenstrual">
+                <textarea name="check-antginecologicos-ciclomenstrual[]" class="form-control input-form" rows="2"
+                  cols="2" placeholder="Escribe el ciclo menstrual"></textarea>
+              </div>
+            </div>
+
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
+              <div class="col-6">
+                <label>¿TRASTORNOS GINECOLÓGICOS?: </label>
+                <input type="hidden" name="check-antginecologicos-trastornos[]" value="198">
+              </div>
+              <div class="col-3">
+                <input type="radio" required id="checkSi-antginecologicos-trastornos"
+                  name="check-antginecologicos-trastornos[]" value="1" required>
+                <label for="checkSi-antginecologicos-trastornos">Sí</label>
+              </div>
+              <div class="col-3">
+                <input type="radio" required id="checkNo-antginecologicos-trastornos"
+                  name="check-antginecologicos-trastornos[]" value="2" required>
+                <label for="checkNo-antginecologicos-trastornos">No</label>
+              </div>
+              <div class="collapse" id="collapse-antginecologicos-trastornos">
+                <textarea name="check-antginecologicos-trastornos[]" class="form-control input-form" rows="2" cols="2"
+                  placeholder="Especifíque..."></textarea>
+              </div>
+            </div>
+
+
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
+              <div class="col-6">
+                <label>MÉTODOS ANTICONCEPTIVOS, PASADOS Y ACTUALES: </label>
+                <input type="hidden" name="check-antginecologicos-metodos[]" value="199">
+              </div>
+              <div class="col-3">
+                <input type="radio" required id="checkSi-antginecologicos-metodos"
+                  name="check-antginecologicos-metodos[]" value="1" required>
+                <label for="checkSi-antginecologicos-metodos">Sí</label>
+              </div>
+              <div class="col-3">
+                <input type="radio" required id="checkNo-antginecologicos-metodos"
+                  name="check-antginecologicos-metodos[]" value="2" required>
+                <label for="checkNo-antginecologicos-metodos">No</label>
+              </div>
+              <div class="collapse" id="collapse-antginecologicos-metodos">
+                <textarea name="check-antginecologicos-metodos[]" class="form-control input-form" rows="2" cols="2"
+                  placeholder="Especifíque..."></textarea>
+              </div>
+            </div>
+
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
+              <div class="col-6">
+                <label>FECHA DE ÚLTIMO PAPANICOLOU: </label>
+                <input type="hidden" name="check-antginecologicos-papanicolau[]" value="200">
+              </div>
+              <div class="" id="collapse-antginecologicos-papanicolau">
+                <textarea name="check-antginecologicos-papanicolau[]" class="form-control input-form" rows="2"
+                  cols="2" placeholder="Especifíque fecha"></textarea>
+              </div>
+            </div>
+
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
+              <div class="col-6">
+                <label>FECHA DE ÚLTIMO USG MAMARIO O MASTROGRAFÍA: </label>
+                <input type="hidden" name="check-antginecologicos-mastografia[]" value="201">
+              </div>
+              <div class="" id="collapse-antginecologicos-mastografia">
+                <textarea name="check-antginecologicos-mastografia[]" class="form-control input-form" rows="2"
+                  cols="2" placeholder="Especifíque"></textarea>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-end p-2 div-btn-guardarAntGine"> </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <!-- Formulario Antecedentes Ginecológicos -->
+   
 
     <form id="formMedioLaboral">
       <div class="accordion-item bg-acordion onlyProcedencia">
@@ -1653,8 +1813,6 @@
 <script type="text/javascript">
   jQuery(document).on("change ,  keyup", "input[type='radio']", function () {
     var parent_element = jQuery(this).closest("div[class='row d-flex justify-content-center']");
-    console.warn("ELEMENTO PADRE")
-    console.log(parent_element)
     if (this.value == true) {
       var collapID = jQuery(parent_element).children("div[class='collapse']").attr("id");
       console.log(collapID)
@@ -1676,4 +1834,24 @@
       $('#' + collapID).find(':input').prop('required', false);
     }
   });
+
+
+  function updateRangeValue(val, option){
+    var etiqueta;
+    switch (option) {
+      case 1:
+        etiqueta = "Embarazos"
+        break;
+      case 2:
+        etiqueta = "Partos"
+        break;
+      case 3:
+        etiqueta = "Cesareas"
+        break;
+    
+      default:
+        break;
+    }
+    document.getElementById(`rangeValueLabel${etiqueta}`).textContent = val;
+  }
 </script>

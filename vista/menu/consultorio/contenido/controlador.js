@@ -158,6 +158,7 @@ $(document).on('click', '#paciente_categoria', function (event) {
 async function obtenerValoracion(data, idconsulta) {
   // console.log(data, idconsulta)
   await obtenerVistaAntecenetesPaciente('#antecedentes-paciente', data['CLIENTE'])
+  await ocultarAntecedentesGinecologicos(data['GENERO']) 
   await obtenerPanelInformacion(data['ID_TURNO'], "signos-vitales_api", 'signos-vitales', '#signos-vitales');
   $('#descripcion-antecedentes').html('Antecedentes del paciente actual')
   $('.div-btn-guardarAntPato').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
@@ -166,6 +167,7 @@ async function obtenerValoracion(data, idconsulta) {
   $('.div-btn-guardarPsico').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
   $('.div-btn-guardarAntNutri').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
   $('.div-btn-guardarAntLabo').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
+  $('.div-btn-guardarAntGine').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
   await obtenerAntecedentesPaciente(data['ID_TURNO']);
   // console.log("si");
   await obtenerInformacionPaciente(data)

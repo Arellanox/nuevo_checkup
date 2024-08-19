@@ -2796,6 +2796,8 @@ function obtenerAntecedentesPaciente(id, curp, tipo = 1) {
     arrayDivs['ANTECEDENTES PSICOLOGICOS/PSIQUIATRICOS'] = divPsicologicos
     var divNutricionales = $('#collapse-antNutri-Target').find("div[class='row d-flex justify-content-center']")
     arrayDivs['ANTECEDENTES NUTRICIONALES'] = divNutricionales
+    var divGinecologidos = $('#collapse-antGine-Target').find("div[class='row']")
+    arrayDivs['ANTECEDENTES GINECOLÓGICOS'] = divGinecologidos
     var divLaboral = $('#collapse-MedLabo-Target').find("div[class='row d-flex justify-content-center']")
     arrayDivs['MEDIO LABORAL'] = divLaboral
 
@@ -2864,7 +2866,7 @@ function obtenerAntecedentesPaciente(id, curp, tipo = 1) {
 // }
 
 function setValuesAntAnnameMetodo(DIV, array, key) {
-  // //console.log(DIV)
+
   if (array) {
     try {
       if (DIV.length != array.length)
@@ -2886,6 +2888,11 @@ function setValuesAntAnnameMetodo(DIV, array, key) {
 
           if (array[i][0] == 1 || array[i][0] == null) {
             $(DIV[i]).find("textarea.form-control.input-form").val(array[i][1])
+
+            // para los input tipo range
+            $(DIV[i]).find("input[type='range']").val(array[i][1])
+            $(DIV[i]).find("label[class='rangeValueLabel']").text(array[i][1])
+
           } else {
             $(DIV[i]).find("textarea.form-control.input-form").val('')
           }
@@ -2904,12 +2911,25 @@ function setValuesAntAnnameMetodo(DIV, array, key) {
   }
 }
 
-function obtenerVistaAntecenetesPaciente(div, cliente, pagina = 1) {
+function ocultarAntecedentesGinecologicos(sexo){
+  return new Promise(resolve => {
+        if(sexo == 'MASCULINO'){
+          $('#formAntGinecologicos').fadeOut(0)
+        } else {
+          $("#formAntGinecologicos").fadeIn(0)
+        }
+        console.log(`este es el sexo ${sexo}`)
+        resolve(1)
+  })
+}
+
+function obtenerVistaAntecenetesPaciente(div, cliente, pagina = 1, sexo = 'MASCULINO') {
   return new Promise(resolve => {
     $.post(`${http}${servidor}/${appname}/vista/include/acordion/antecedentes-paciente${language}.html`, function (html) {
       setTimeout(function () {
         $(div).html(html);
         // //console.log(cliente)
+
         if (cliente == "Particular" || cliente == "PARTICULAR") {
           $('.onlyProcedencia').fadeOut(0);
         } else {
@@ -2926,7 +2946,6 @@ function obtenerVistaAntecenetesPaciente(div, cliente, pagina = 1) {
     });
   })
 }
-//
 
 function obtenerVistaEspiroPacientes(div) {
   return new Promise(resolve => {

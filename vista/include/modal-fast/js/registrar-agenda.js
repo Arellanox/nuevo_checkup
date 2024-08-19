@@ -74,7 +74,9 @@ $("#formCuestionarioRiesgo").submit(async function (event) {
     // var formMedioLaboral = document.getElementById('formMedioLaboral');
     var formMedioLaboral = jQuery(document.forms['formMedioLaboral']).serializeArray();
 
-    if (evaluarAntecedentes(formAntPersonalPato, formAntNoPatologicos, formAntHeredofamiliares, formAntPsicologico, formAntNutricionales, formMedioLaboral)) {
+    var formAntGinecologicos = jQuery(document.forms['formAntGinecologicos']).serializeArray();
+
+    if (evaluarAntecedentes(formAntPersonalPato, formAntNoPatologicos, formAntHeredofamiliares, formAntPsicologico, formAntNutricionales, formMedioLaboral, formAntGinecologicos)) {
       return false;
     }
 
@@ -100,6 +102,9 @@ $("#formCuestionarioRiesgo").submit(async function (event) {
 
     for (var i = 0; i < formMedioLaboral.length; i++)
       formData.append(formMedioLaboral[i].name, formMedioLaboral[i].value);
+
+    for(var i = 0; i < formAntGinecologicos.length; i++)
+      formData.append(formAntGinecologicos[i].name, formAntGinecologicos[i].value);
     // alert('form');
   }
   // var formData = new FormData(document.forms['form-ship']); // with the file input
@@ -266,7 +271,7 @@ $("#formCuestionarioRiesgo").submit(async function (event) {
 })
 
 //Revisa y alerta si falta algun campo
-function evaluarAntecedentes(div1, div2, div3, div4, div5, div6) {
+function evaluarAntecedentes(div1, div2, div3, div4, div5, div6, div7) {
   // console.log(div1.length)
   if (div1.length != 51) {
     alertMensaje('info', 'Antecedentes personales patológicos', 'Formulario incompleto, favor de rellenar todos')
@@ -315,9 +320,8 @@ var tipoPaciente = "0"; //Particular por defecto
 $('#actualizarForm').click(async function () {
   curp = $('#curp-paciente').val();
   if (ant) {
-    await obtenerVistaAntecenetesPaciente('#antecedentes-registro', $('#procedencia-registro').text(), 0)
+    await obtenerVistaAntecenetesPaciente('#antecedentes-registro', $('#procedencia-registro').text(), 0, pacienteActivo.array.GENERO)
     await obtenerAntecedentesPaciente(null, curp);
-    console.log(ant)
   } else {
     $('#cuestionadioRegistro').fadeOut(100);
     // $('input[type="radio"]').prop("checked", true)
