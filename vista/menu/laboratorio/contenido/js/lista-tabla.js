@@ -473,6 +473,10 @@ function generarFormularioPaciente(id) {
 
               break;
 
+            case '1609':
+              // PANEL GASTROINTESTINAL
+              break;
+
             case "1420":
               // PCR HELICOBACTER PYLORI CON RESISTENCIA A CLARITROMICINA
 
