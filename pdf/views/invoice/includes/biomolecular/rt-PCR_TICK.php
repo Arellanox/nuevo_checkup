@@ -67,7 +67,8 @@
 <table style="width:100%;">
     <tr>
         <td><strong>Equipo utilizado: </strong>CFX96™ Real-Time System BIO-RAD</td>
-        <td><strong>No. lote: </strong>TBD106L-222923</td>
+        <!-- <td><strong>No. lote: </strong>TBD106L-222923</td> dia del cambio: 31 de agosto 2024 -->
+        <td><strong>No. lote: </strong>TBD112L-253127</td>
     </tr>
     <tr>
         <td> <strong>Kit Diagnóstico: </strong>TICK BORNE DISEASES </td>

@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
 
     <style>
-        @page {
+        @page{
             margin: 165px 10px;
         }
 
@@ -315,7 +315,8 @@ $areas = $resultados->areas[0];
                 'rT-PCR Thrombosis SNP' => 'rT-PCR_Thrombosis_SNP',
                 'PCR Detección Mycobacterium tuberculosis' => 'PCR_deteccion_mycobacterium',
                 'PCR DETECCIÓN DE TOXOPLASMA GONDII TR' => 'toxoplasma_gondii_tr',
-                'PCR Infecciones de transmisión sexual (STI7)' => 'PCR_STI7'
+                'PCR Infecciones de transmisión sexual (STI7)' => 'PCR_STI7',
+                'PANEL GASTROINTESTINAL' => 'Panel_gastrointestinal'
             ];
             return $estudios[$indice] ?? null;
         }
