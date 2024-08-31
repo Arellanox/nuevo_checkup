@@ -431,19 +431,19 @@ switch ($idioma) {
                 <tbody>
                     <tr>
                         <td>Subtotal</td>
-                        <td>$ " . $resultados->SUBTOTAL_SIN_DESCUENTO . "</td>
+                        <td>$ " . number_format($resultados->SUBTOTAL_SIN_DESCUENTO, 2, '.',',') . "</td>
                     </tr>
                     <tr>
                         <td>Descuento (" . $resultados->PORCENTAJE_DESCUENTO . "%)</td>
-                        <td>$ " . $resultados->DESCUENTO . "</td>
+                        <td>$ " . number_format($resultados->DESCUENTO, 2, '.', ',') . "</td>
                     </tr>
                     <tr>
                         <td>IVA (16.00%)</td>
-                        <td>$ " . $resultados->IVA . "</td>
+                        <td>$ " . number_format($resultados->IVA, 2, '.', ',') . "</td>
                     </tr>
                     <tr style=\"background-color: darkgrey;\">
                         <td><b>Total</b></td>
-                        <td><b></p>$ " . $resultados->TOTAL_DETALLE . " </b></td>
+                        <td><b></p>$ " . number_format($resultados->TOTAL_DETALLE, 2, '.', ',') . " </b></td>
                     </tr>
                 </tbody>
             </table>
