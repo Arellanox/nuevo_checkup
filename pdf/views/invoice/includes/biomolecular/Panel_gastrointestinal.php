@@ -85,12 +85,12 @@ bacterianos.</em></p>
 <br>
 
 <!-- Tabla con la información del equipo utilzado, kit de diagnostico y lote -->
-<!-- <table style="width:100%;">
+<table style="width:100%;">
     <tr>
-        <td><strong>Equipo utilizado: </strong>CFX96™ Real-Time System BIO-RAD</td>
-        <td><strong>No. lote: </strong>TBD106L-222923</td>
+        <td><strong>Equipo utilizado: </strong>FilmArray® Panel Gastrointestinal</td>
+        <td><strong>Tipo de muestra: </strong>Heces</td>
     </tr>
     <tr>
-        <td> <strong>Kit Diagnóstico: </strong>TICK BORNE DISEASES </td>
+        <td> <strong>Método: </strong>PCR</td>
     </tr>
-</table> -->
+</table>
