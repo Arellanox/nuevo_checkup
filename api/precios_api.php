@@ -20,6 +20,7 @@ $cliente_id = $_POST['cliente_id'];
 $datos = $_POST['servicios']; #esta variable debe guardar el id del servicios, el margen de utilidad y el precio de venta
 $area_id = $_POST['area_id'];
 $paquete_id = $_POST['paquete_id'];
+$recepcion = $_POST['recepcion']; # evalua de donde estan haciendo la peticion. 1 desde el modulo de recepcion, null para otras areas.
 
 # esta variable guarda el margen cuando se quiere actualizar el precio de venta de todos los servicios
 # de un cliente dado.
@@ -133,7 +134,7 @@ switch ($api) {
         break;
     case 7:
         # recuperar la lista de precio de un cliente
-        $response = $master->getByProcedure('sp_precios_b', [$cliente_id, $area_id, $paquete_id]);
+        $response = $master->getByProcedure('sp_precios_b', [$cliente_id, $area_id, $paquete_id, $recepcion]);
         echo $master->returnApi($response);
         break;
     case 8:

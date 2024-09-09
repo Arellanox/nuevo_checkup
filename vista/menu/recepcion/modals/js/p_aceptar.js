@@ -68,6 +68,7 @@ modalPacienteAceptar.addEventListener('show.bs.modal', async event => {
   await rellenarSelect("#select-lab", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO.DIAS_DE_ENTREGA', {
     cliente_id: array_selected['CLIENTE_ID'],
     area_id: 6,
+    recepcion: 1
   }, function (data) {
     estudiosLab = data;
   });
@@ -76,6 +77,7 @@ modalPacienteAceptar.addEventListener('show.bs.modal', async event => {
   await rellenarSelect("#select-labbio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO.DIAS_DE_ENTREGA', {
     cliente_id: array_selected['CLIENTE_ID'],
     area_id: 12,
+    recepcion: 1,
   }, function (data) {
     // Se usa en el hover  de  detalle
     estudiosLabBio = data;
@@ -83,6 +85,7 @@ modalPacienteAceptar.addEventListener('show.bs.modal', async event => {
   await rellenarSelect('#select-us', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO.DIAS_DE_ENTREGA', {
     cliente_id: array_selected['CLIENTE_ID'],
     area_id: 11,
+    recepcion: 1,
   }, function (data) {
     // Se usa en el hover  de  detalle
     estudiosUltra = data;
@@ -90,6 +93,7 @@ modalPacienteAceptar.addEventListener('show.bs.modal', async event => {
   await rellenarSelect('#select-rx', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO.DIAS_DE_ENTREGA', {
     cliente_id: array_selected['CLIENTE_ID'],
     area_id: 8,
+    recepcion: 1,
   }, function (data) {
     // Se usa en el hover  de  detalle
     estudiosRX = data;
@@ -97,6 +101,7 @@ modalPacienteAceptar.addEventListener('show.bs.modal', async event => {
   await rellenarSelect('#select-otros', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO.DIAS_DE_ENTREGA', {
     cliente_id: array_selected['CLIENTE_ID'],
     area_id: 0,
+    recepcion: 1
   }, function (data) {
     // Se usa en el hover  de  detalle
     estudiosOtros = data;
