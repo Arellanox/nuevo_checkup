@@ -145,6 +145,8 @@ $("#formCuestionarioRiesgo").submit(async function (event) {
   if ($('#selectSegmentos').val() != null) {
     formData.set('segmento_id', $('#selectSegmentos').val()) //
   }
+
+  // fecha agenda fast-checkup
   formData.set('fechaAgenda', '2023-10-25')
   formData.set('api', 1);
 

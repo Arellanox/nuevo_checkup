@@ -194,3 +194,14 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
         <i class="bi bi-piggy-bank"></i> Caja chica
     </a>
 <?php endif; ?>
+
+
+<?php
+if ($_SESSION['vista']['INVENTARIOS'] == 1): 
+?>
+    <a class="dropdown-a align-items-center" type="button"  href="<?php echo $https . $url . '/' . $appname . '/vista/menu/inventarios/#INVENTARIOS'; ?>">
+        <i class="bi bi-box-seam"></i> Inventarios
+    </a>
+<?php
+endif;
+?>

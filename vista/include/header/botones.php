@@ -419,6 +419,14 @@ $menu = $_POST['menu']; ?>
   </button>
 <?php endif;  ?>
 
+<?php if(strtolower($menu) == "inventarios" && $_SESSION['permisos']['invRegArt']): ?>
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#registrarArticuloModal">
+    <i class="bi bi-plus"></i> Agregar Artículo
+  </button>
+<?php
+  endif;
+?>
+
 
 
 

@@ -1,0 +1,264 @@
+<div class="modal fade" id="registrarArticuloModal" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false"
+    data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="liberarDiaTitle">Registrar <strong>Nuevo artículo</strong></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="container-fluid">
+                    <div class="row">
+                        <form id="registrarArticuloForm" name="registrarArticuloForm">
+                         <!-- Formulario para crear una nueva caja -->
+                         <div class="col-12">
+                            <div class="text-start">
+                                <div class="shadow-sm rounded p-3 card-body">
+                                    <h5 class="text-dark">Ingresa los siguientes datos</h5>
+
+                                    <!-- Sección 1: Información General -->
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <h6 class="card-title">Información General</h6>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <!-- <div class="mb-3">
+                                                        <label for="no_art" class="form-label">No.</label>
+                                                        <input type="text" class="form-control input-form" id="no_art" name="no_art" required>
+                                                        <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                                        <small class="form-text text-muted">Ingrese el número del artículo.</small>
+                                                    </div> -->
+                                                    <div class="mb-3">
+                                                        <label for="clave_art" class="form-label">Clave</label>
+                                                        <input type="text" class="form-control input-form" id="clave_art" name="clave_art" required>
+                                                        <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                                        <small class="form-text text-muted">Ingrese la clave única del artículo.</small>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="nombre_comercial" class="form-label">Nombre Comercial</label>
+                                                        <input type="text" class="form-control input-form" id="nombre_comercial" name="nombre_comercial" required>
+                                                        <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                                        <small class="form-text text-muted">Ingrese el nombre comercial del artículo.</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Sección 2: Configuración del Artículo -->
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <h6 class="card-title">Configuración del Artículo</h6>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="mb-3">
+                                                        <label for="estatus" class="form-label">Estatus</label>
+                                                        <div class="form-check form-switch">
+                                                            <input class="form-check-input" type="checkbox" name="estatus" id="estatus" checked>
+                                                        </div>
+                                                        <small class="form-text text-muted">Indica si el artículo está activo.</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="mb-3">
+                                                        <label for="red_frio" class="form-label">Red Frío</label>
+                                                        <select class="form-select input-form" id="red_frio" name="red_frio">
+                                                            <option value="1">Sí</option>
+                                                            <option value="0">No</option>
+                                                        </select>
+                                                        <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                                        <small class="form-text text-muted">Seleccione si el artículo requiere red frío.</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="mb-3">
+                                                        <label for="tipo_articulo" class="form-label">Tipo Descripción</label>
+                                                        <select class="form-select tipo_articulo input-form" id="tipo_articulo" name="tipo_articulo">
+                                                            <!-- Agrega las opciones según sea necesario -->
+                                                        </select>
+                                                        <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                                        <small class="form-text text-muted">Seleccione el tipo de descripción del artículo.</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="mb-3">
+                                                        <label for="maneja_caducidad" class="form-label">Maneja Caducidad</label>
+                                                        <select class="form-select input-form" id="maneja_caducidad" name="maneja_caducidad">
+                                                            <option value="1">Sí</option>
+                                                            <option value="0">No</option>
+                                                        </select>
+                                                        <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                                        <small class="form-text text-muted">Seleccione si el artículo maneja caducidad.</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="mb-3">
+                                                        <label for="area_id" class="form-label">Área</label>
+                                                        <select class="form-select input-form" id="area_id" name="area_id">
+                                                            <!-- Agrega las opciones según sea necesario -->
+                                                            <option value="6">Laboratorio clínico</option>
+                                                            <option value="12">Laboratorio molecular</option>
+                                                        </select>
+                                                        <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                                        <small class="form-text text-muted">Seleccione a qué área pertenece  el artículo.</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Sección 3: Detalles del Artículo -->
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <h6 class="card-title">Detalles del Artículo</h6>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="mb-3">
+                                                        <label for="unidad_venta" class="form-label">Unidad de Venta</label>
+                                                        <input type="text" class="form-control input-form" id="unidad_venta" name="unidad_venta">
+                                                        <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                                        <small class="form-text text-muted">Ingrese la unidad de venta del artículo.</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="mb-3">
+                                                        <label for="unidad_minima" class="form-label">Unidad Mínima</label>
+                                                        <input type="number" class="form-control input-form" id="unidad_minima" name="unidad_minima">
+                                                        <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                                        <small class="form-text text-muted">Ingrese la unidad mínima del artículo.</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="mb-3">
+                                                        <label for="contenido" class="form-label">Contenido</label>
+                                                        <input type="text" class="form-control input-form" id="contenido" name="contenido">
+                                                        <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                                        <small class="form-text text-muted">Ingrese el contenido del artículo.</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="mb-3">
+                                                        <label for="costo_mas_alto" class="form-label">Costo Más Alto</label>
+                                                        <input type="text" class="form-control input-form" id="costo_mas_alto" name="costo_mas_alto">
+                                                        <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                                        <small class="form-text text-muted">Ingrese el costo más alto del artículo.</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="mb-3">
+                                                        <label for="rendimiento_estimado" class="form-label">Rendimiento Estimado (pruebas)</label>
+                                                        <input type="number" class="form-control input-form" id="rendimiento_estimado" name="rendimiento_estimado">
+                                                        <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                                        <small class="form-text text-muted">Pruebas efectivas según proveedor</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="mb-3">
+                                                        <label for="rendimiento_paciente" class="form-label">Rendimiento Paciente (pruebas)</label>
+                                                        <input type="number" class="form-control input-form" id="rendimiento_paciente" name="rendimiento_paciente">
+                                                        <small class="form-text text-muted">Pruebas efectivas reales</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Sección 4: Documentos -->
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <h6 class="card-title">Documentos</h6>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="mb-3">
+                                                        <label for="inserto" class="form-label">Inserto</label>
+                                                        <input type="file" class="form-control input-form id="inserto" name="inserto[]">
+                                                        <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                                        <small class="form-text text-muted">Adjunte el inserto del artículo.</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="mb-3">
+                                                        <label for="procedimiento" class="form-label">Procedimiento Prueba</label>
+                                                        <input type="file" class="form-control input-form" id="procedimiento" name="procedimiento[]">
+                                                        <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                                        <small class="form-text text-muted">Adjunte el procedimiento de prueba del artículo.</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="mb-3">
+                                                        <label for="protocolo" class="form-label">Imagen</label>
+                                                        <input type="file" class="form-control input-form" id="img_producto" name="img_producto[]">
+                                                        <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                                        <small class="form-text text-muted">Adjunte la imagen del artículo.</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Botones de Acción -->
+                                    <!-- <div class="d-flex justify-content-end mt-3">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-primary ms-2">Guardar</button>
+                                    </div> -->
+
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i
+                        class="bi bi-arrow-left-short"></i>
+                    Cancelar</button>
+                </button>
+
+                <button type="submit" class="btn btn-confirmar"
+                    form="registrarArticuloForm">
+                    <i class="bi bi-floppy-fill"></i> Guardar
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<script>
+// Validación en Tiempo Real
+$('#registrarArticuloForm input').on('input', function() {
+    if ($(this).val() === '') {
+        $(this).addClass('');
+    } else {
+        $(this).removeClass('is-invalid');
+    }
+});
+
+// Actualización del Progreso
+$('#registrarArticuloForm input, #registrarArticuloForm select').on('input change', function() {
+    let completedSections = 0;
+    if ($('#no_art').val() !== '' && $('#clave_art').val() !== '' && $('#nombre_comercial').val() !== '') {
+        completedSections++;
+    }
+    if ($('#estatus').is(':checked') || $('#red_frio').val() !== '') {
+        completedSections++;
+    }
+    if ($('#inserto').val() !== '' || $('#procedimiento').val() !== '' || $('#img_producto').val() !== '') {
+        completedSections++;
+    }
+    $('#formProgress').text(completedSections + ' de 3 secciones completadas');
+});
+
+// Manejo del estado del checkbox de estatus
+let estatusVariable = 1; // Ejemplo de valor recibido
+if (estatusVariable === 1) {
+    $('#estatus').prop('checked', true);
+} else {
+    $('#estatus').prop('checked', false);
+}
+</script>
