@@ -601,7 +601,7 @@
 
                                     // echo "salto de linea";
                                 ?>
-                                    <div class="break"></div>
+                                    <!-- <div class="break"></div> -->
                             <?php
                                 }
                                 // echo '<div class="break">';
