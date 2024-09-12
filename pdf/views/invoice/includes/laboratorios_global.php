@@ -2,6 +2,7 @@
 $areas = $resultados->areas;
 $count = count($areas);
 $i = 0;
+$nombre_estudio = '';
 foreach ($areas as $key => $area) {
     $a = 0;
 
@@ -10,6 +11,7 @@ foreach ($areas as $key => $area) {
     foreach ($area->estudios as $key => $estudio) {
 
         echo "<h4 style='padding-top: 9px'>" . $estudio->estudio . "</h4>";
+        $nombre_estudio = $estudio->estudio;
 
 ?>
         <table class="result" style="padding-top: 1px;">
@@ -223,4 +225,20 @@ foreach ($areas as $key => $area) {
 
 <?php
 }
+?>
+
+<?php
+    if($nombre_estudio == "PCR VIRUS DEL PAPILOMA HUMANO ALTO RIESGO (VPH-RT)"):
+?>
+    <p style=" text-align: justify;">
+    <strong>Comentarios:</strong>
+    Los genotipos del VPH incluidos en el “Grupo de alto riesgo” son 31, 33, 35, 39, 45, 51, 52, 56, 58, 59, 66 y 68. Un resultado positivo para este grupopuede significar la detección de las secuencias diana de uno o varios de estos genotipos.
+    <br>
+    Un resultado Negativo, no descarta la posibilidad de infección por otro(s) genotipo(s) de VPH (de alto o bajo riesgo) no contemplado(s) en esta pruebao por otras ITS.
+    La detección de ácidos nucleicos del VPH depende de la adecuada toma de muestra, manipulación, transporte y del almacenamiento correcto de lamisma.
+    <br>
+    Los resultados de esta prueba deberán correlacionarse con la anamnesis, datos epidemiológicos y otros datos de los que disponga el médico tratante.Esta prueba no sustituye a estudios histopatológicos, citológicos u otros.
+</p>
+<?php
+    endif;
 ?>
