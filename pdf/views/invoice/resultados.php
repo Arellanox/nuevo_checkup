@@ -497,15 +497,16 @@
                                                 if (isset($analito->metodo) && $analito->metodo != null || $analito->metodo != '') {
                                                 ?>
                                                     <tr>
-                                                        <td class="col-one" style="font-size: 12px">
+                                                        <td class="col-one" style="font-size: 12px" colspan="4">
                                                             <?php echo "<strong style='font-size: 12px'>Método: </strong>" . $analito->metodo ?>
                                                         </td>
-                                                        <td class="col-two">
+                                                        <!-- aqui modifique para ampliar la linea -->
+                                                        <!-- <td class="col-two">
                                                         </td>
                                                         <td class="col-three">
                                                         </td>
                                                         <td class="col-four">
-                                                        </td>
+                                                        </td> -->
                                                     </tr>
                                                 <?php
                                                 }
@@ -515,15 +516,16 @@
                                                 if (isset($analito->equipo) && $analito->equipo != null || $analito->equipo != '') {
                                                 ?>
                                                     <tr>
-                                                        <td class="col-one" style="font-size: 12px">
+                                                        <td class="col-one" style="font-size: 12px" colspan="4">
                                                             <?php echo "<strong style='font-size: 12px'>Equipo: </strong>" . $analito->equipo ?>
                                                         </td>
-                                                        <td class="col-two">
+                                                        <!-- aqui modifique para ampliar la linea -->
+                                                        <!-- <td class="col-two">
                                                         </td>
                                                         <td class="col-three">
                                                         </td>
                                                         <td class="col-four">
-                                                        </td>
+                                                        </td> -->
                                                     </tr>
                                                 <?php
                                                 }
@@ -531,15 +533,16 @@
                                                 if (isset($analito->observaciones) && $analito->observaciones != null || $analito->observaciones != '') {
                                                 ?>
                                                     <tr>
-                                                        <td class="col-one" style="font-size: 12px">
+                                                        <td class="col-one" style="font-size: 12px" colspan="4">
                                                             <?php echo "<strong style='font-size: 12px'>Observaciones:" . $analito->observaciones . " </strong>"; ?>
                                                         </td>
-                                                        <td class="col-two">
+                                                        <!-- aqui modifique para ampliar la linea -->
+                                                        <!-- <td class="col-two">
                                                         </td>
                                                         <td class="col-three">
                                                         </td>
                                                         <td class="col-four">
-                                                        </td>
+                                                        </td> -->
                                                     </tr>
                                         <?php
                                                 }
@@ -601,6 +604,7 @@
 
                                     // echo "salto de linea";
                                 ?>
+                                    <!-- comente este linea para evitar las hojas en blanco -->
                                     <!-- <div class="break"></div> -->
                             <?php
                                 }
