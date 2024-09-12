@@ -91,6 +91,8 @@ $(document).on('click', '#btn-concluir-paciente', function (e) {
         array_selected['CLIENTE_ID'] == 37 ||//AMASFAC
         array_selected['CLIENTE_ID'] == 39 || // TRANE
         array_selected['CLIENTE_ID'] == 20
+        || array_selected['CLIENTE_ID'] == 48 // DP CONSULTANCY & TRAINING
+        || array_selected['CLIENTE_ID'] == 49 // CES MARTIN
       ) {
 
         $('descuento').val('');
