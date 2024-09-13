@@ -605,7 +605,7 @@
                                     // echo "salto de linea";
                                 ?>
                                     <!-- comente este linea para evitar las hojas en blanco -->
-                                    <!-- <div class="break"></div> -->
+                                    <div class="break"></div>
                             <?php
                                 }
                                 // echo '<div class="break">';
