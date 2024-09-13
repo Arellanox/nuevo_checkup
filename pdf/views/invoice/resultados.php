@@ -12,7 +12,7 @@
                         body {
                             font-family: 'Roboto', sans-serif;
                             margin-top: 60px;
-                            margin-bottom: 40px;
+                            margin-bottom: 20px;
                             font-size: 10px;
                             /* background-color: gray; */
                         }
