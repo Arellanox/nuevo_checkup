@@ -38,23 +38,28 @@ async function getDataEstudiosFirst() {
     //Pruebas
     rellenarSelect("#select-edit-lab", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
         cliente_id: array_selected['CLIENTE_ID'],
-        area_id: 6
+        area_id: 6,
+        recepcion: 1
     });
     rellenarSelect("#select-edit-labbio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
         cliente_id: array_selected['CLIENTE_ID'],
-        area_id: 12
+        area_id: 12, 
+        recepcion: 1
     });
     rellenarSelect('#select-edit-us', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
         cliente_id: array_selected['CLIENTE_ID'],
-        area_id: 11
+        area_id: 11,
+        recepcion: 1
     });
     rellenarSelect('#select-edit-rx', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
         cliente_id: array_selected['CLIENTE_ID'],
-        area_id: 8
+        area_id: 8,
+        recepcion: 1
     });
     rellenarSelect('#select-edit-otros', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
         cliente_id: array_selected['CLIENTE_ID'],
-        area_id: 0
+        area_id: 0,
+        recepcion: 1
     });
     // rellenarSelect("#select-edit-lab", "servicios_api", 2, 'ID_SERVICIO', 'ABREVIATURA.DESCRIPCION', {
     //     id_area: 6,
