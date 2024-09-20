@@ -55,8 +55,9 @@ function getListaPrecios(id) { //Enviar ID_SERVICIO o ID_PAQUETE
         'utilidad': calculo[1],
         'total': calculo[2],
       }
-
-      listaPrecios.push(arregloPrecios)
+      // enviar solo los que tenga precio mayor a cero
+      if(calculo[2] > 0)
+        listaPrecios.push(arregloPrecios)
     }
   });
   return listaPrecios;

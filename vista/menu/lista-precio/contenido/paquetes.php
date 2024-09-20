@@ -32,6 +32,11 @@
                         <div class="col-auto">
                             <button class="btn btn-sm btn-borrar" type="button" id="CambiarPaquete" data-bs-toggle="tooltip" data-bs-placement="top" title="Borrará todo la tabla"><i class="bi bi-eraser"></i> Cambiar</button>
                         </div>
+                        <div class="col-auto">
+                            <button class="btn btn-sm btn-info" type="button" id="asignarPaquete" data-bs-toggle="tooltip" data-bs-placement="top" title="Asignar el paquete seleccionado a los clientes correspondientes">
+                                <i class="bi bi-pin-angle-fill"> </i>Asignar
+                            </button>
+                        </div>
                     </div>
                     <div class="text-start formContenidoPaquete" id="formPaqueteBotonesArea" style="margin-top:4px;zoom:95%;margin-bottom:5px;">
 

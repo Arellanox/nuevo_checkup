@@ -2,7 +2,7 @@ async function mantenimientoPaquete() {
   $('#btn-excel-previa').attr('disabled', false)
   $('#btn-vistaPrevia-cotizacion').attr('disabled', false)
   loader("In");
-  await rellenarSelect('#seleccion-paquete', 'paquetes_api', 2, 0, 'DESCRIPCION.CLIENTE', {
+  await rellenarSelect('#seleccion-paquete', 'paquetes_api', 2, 0, 'DESCRIPCION', {
     contenido: 1
   });
   tablaContenido();
@@ -23,7 +23,8 @@ async function contenidoPaquete(select = null) {
   loader("In");
   $('#btn-excel-previa').attr('disabled', true)
   $('#btn-vistaPrevia-cotizacion').attr('disabled', true)
-  await rellenarSelect('#seleccion-paquete', 'paquetes_api', 2, 0, 'DESCRIPCION.CLIENTE', {
+
+  await rellenarSelect('#seleccion-paquete', 'paquetes_api', 2, 0, 'DESCRIPCION', {
     contenido: 0
   });
   $('#seleccion-paquete').prop('disabled', false);
@@ -203,3 +204,102 @@ function checkNumber(x) {
     return 0
   }
 }
+
+
+// ASIGNAR PAQUETES A CLIENTES.
+rellenarSelect('#relacion-paquete','clientes_api', 2,'ID_CLIENTE','NOMBRE_COMERCIAL')
+$('#asignarPaquete').on('click', function(){
+  var paqueteEnAsignacion =$('#seleccion-paquete option:selected').text();
+  
+  if(!paqueteEnAsignacion){
+    alert("Necesita seleccionar un paquete");
+    $('#listaAsignada').html('');
+  } else{
+    //Cambiar el nombre del paquete en el modal
+    $('.titlePaqueteAsignado').text(paqueteEnAsignacion);
+    // mostrar los clientes que tiene asignado el paquete actual
+    ajaxAwait({
+      api: 12,
+      id_paquete: $('#seleccion-paquete').val()
+    }, "paquetes_api", { callbackAfter: true, WithoutResponseData: true }, false, function(data){
+    
+      $('#listaAsignada').html(mostrarClientesAsignados(data));
+      $.getScript('contenido/js/eliminar-relacion-paquete.js')
+
+    });
+
+    $('#ModalCrearRelacion').modal('show');
+  }
+})
+
+// $('#asignarBtn').on('click', function(event) {
+//   alert('presionaste el boton')
+//   $('#formCrearRelacion').submit();
+// });
+
+$(document).ready(function(){
+  $('#formCrearRelacion').on('submit',function(event){
+    event.preventDefault();
+    console.log(1)
+    var datos = {
+      id_paquete: $('#seleccion-paquete').val(),
+      cliente_id: $('#relacion-paquete').val(),
+      api: 11
+    }
+  
+    ajaxAwait(datos, 'paquetes_api',{ callbackAfter: true, WithoutResponseData: true }, false, function(data){
+      alertToast('¡Paquete asignado!', 'success', 4000);
+      ajaxAwait({
+        api: 12,
+        id_paquete: $('#seleccion-paquete').val()
+      }, "paquetes_api", { callbackAfter: true, WithoutResponseData: true }, false, function(d){
+      
+        $('#listaAsignada').html(mostrarClientesAsignados(d));
+        $.getScript('contenido/js/eliminar-relacion-paquete.js')
+  
+      });
+  
+    });
+    console.log(datos);
+  })
+
+})
+
+
+function mostrarClientesAsignados(data){
+  var item = '';
+
+  for (let index = 0; index < data.length; index++) {
+    item += `
+    <div class="col-auto cliente">
+      <div class="input-group mb-3">
+        <div class="input-group-text">
+          <label class="d-flex justify-content-center" for="">${data[index].CLIENTE}</label> 
+          <button class="badge text-bg-danger listaClientesPaquetes" data-bs-id="${data[index].ID_CLIENTE}">
+            <i class="bi bi-trash3-fill"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    `;
+  }
+
+  return item;
+}
+
+
+$('#filtroClientes').on('input', function() {
+  var filtro = $(this).val().toLowerCase(); // Obtener el texto del filtro en minúsculas
+  
+  // Iterar sobre los elementos con clase 'cliente'
+  $('#listaAsignada .cliente').each(function() {
+    var nombreCliente = $(this).find('label').text().toLowerCase(); // Obtener el texto del cliente
+    
+    // Comprobar si el nombre del cliente contiene el texto del filtro
+    if (nombreCliente.includes(filtro)) {
+      $(this).removeClass('hidden'); // Mostrar si coincide
+    } else {
+      $(this).addClass('hidden'); // Ocultar si no coincide
+    }
+  });
+});
