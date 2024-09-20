@@ -184,6 +184,14 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
                 </li>
             <?php endif; ?>
             <hr class="dropdown-divider">
+            <?php if($_SESSION['vista']['REPORTES TH'] == 1): ?>
+                <li>
+                    <a href="<?php echo $https . $url . '/' . $appname . '/vista/menu/reportes-th/#REPORTES_TH'; ?>" class="dropdown-a" type="button">
+
+                        <i class="bi bi-file-earmark-spreadsheet-fill"></i> Reportes
+                    </a>
+                </li>
+            <?php endif; ?>
         </ul>
     </div>
 

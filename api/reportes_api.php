@@ -21,13 +21,6 @@ $servicio_id = $master->setToNull([$_POST['servicio_id']])[0];
 switch ($api) {
     case 1:
         # reporte laboratorios
-        // var_dump( [
-        //     $fecha_inicio,
-        //     $fecha_final,
-        //     $cliente_id,
-        //     $area_id,
-        //     $servicio_id
-        // ]);
         $response = $master->getByProcedure('sp_reportes_laboratorio', [
             $fecha_inicio,
             $fecha_final,
@@ -35,6 +28,10 @@ switch ($api) {
             $area_id,
             $servicio_id
         ]);
+        break;
+    case 2:
+        # reporte de ventas para Talento humano
+        $response = $master->getByProcedure('sp_repth_ventas', [$fecha_inicio, $fecha_final]);
         break;
     
     default:
