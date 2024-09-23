@@ -238,7 +238,7 @@ $('#asignarPaquete').on('click', function(){
 // });
 
 $(document).ready(function(){
-  $('#formCrearRelacion').on('submit',function(event){
+  $('#formCrearRelacion').off('submit').on('submit',function(event){
     event.preventDefault();
     console.log(1)
     var datos = {
@@ -302,4 +302,45 @@ $('#filtroClientes').on('input', function() {
       $(this).addClass('hidden'); // Ocultar si no coincide
     }
   });
+});
+
+$('#editarInfoPaqueteBtn').on('click', function(){
+  var nombrePaquete =$('#seleccion-paquete option:selected').text();
+  var idPaquete = $('#seleccion-paquete').val();
+
+  ajaxAwait({
+    api: 2,
+    id: idPaquete
+  }, "paquetes_api", { callbackAfter: true, WithoutResponseData: true}, false, function(data){
+    $('#nombrePaqEditar').val(data[0].DESCRIPCION);
+    $('#tipoPaqEditar').val(data[0].TIPO_PAQUETE);
+  });
+
+  $('#ModalEditarPaquete').modal('show');
+});
+
+$('#formEditarPaquete').on('submit', function(e){
+  e.preventDefault();
+  var send = {
+    api: 1,
+    id: $('#seleccion-paquete').val(),
+    descripcion: $('#nombrePaqEditar').val(),
+    tipo_paquete: $('#tipoPaqEditar').val()
+  }
+
+  alertMensajeConfirm(
+    {
+      title: '¿Esta seguro que todos los datos están correctos',
+      text: '¡No puedes cambiar estos datos después!',
+      icon: 'warning',
+      confirmButtonText: 'Si, estoy seguro'
+    },
+    function(){
+      alert("enviando datos...");
+    },
+    1
+  );
+  
+
+
 });
