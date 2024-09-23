@@ -66,7 +66,7 @@ switch ($api) {
         break;
     case 4:
         # desactivar
-        $response = $master->updateByProcedure("sp_paquetes_e", $parametros);
+        $response = $master->updateByProcedure("sp_paquetes_e", [$id_paquete]);
         break;
 
     case 5:

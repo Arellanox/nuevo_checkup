@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body">
         <form class="" id="formEditarPaquete">
-          <p class="text-center">Estás editando <strong>Paquete</strong> </p>
+          <p class="text-center">Estás editando este paquete.</p>
           <br>
           <div class="row">
             <div class="col-12">
@@ -26,6 +26,9 @@
         <button type="submit" form="formEditarPaquete" class="btn btn-confirmar">
           <i class="bi bi-person-plus"></i> 
             Editar paquete
+        </button>
+        <button type="button" class="btn btn-danger" id="btnInhabilitarPaquete">
+          <i class="bi bi-exclamation-triangle-fill"></i> Inhabilitar
         </button>
       </div>
     </div>

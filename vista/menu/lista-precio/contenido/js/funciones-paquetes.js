@@ -261,9 +261,40 @@ $(document).ready(function(){
   
     });
     console.log(datos);
-  })
+  });
 
-})
+
+  $('#formEditarPaquete').off('submit').on('submit', function(e){
+    e.preventDefault();
+    var send = {
+      api: 1,
+      id: $('#seleccion-paquete').val(),
+      descripcion: $('#nombrePaqEditar').val(),
+      tipo_paquete: $('#tipoPaqEditar').val()
+    }
+  
+    alertMensajeConfirm(
+      {
+        title: `¿Realmente quieres modificar los datos del paquete ${$('#seleccion-paquete option:selected').text()}?`,
+        text: 'No te preocupes, puedes editar de nuevo la información',
+        icon: 'warning',
+        confirmButtonText: 'Sí, estoy seguro'
+      },
+      function(){
+        // enviar los nuevos datos del paquete
+        ajaxAwait(
+          send, 'paquetes_api', { callbackAfter: true, WithoutResponseData: true }, false, function(data){
+            alertToast('¡Paquete modificado!', 'success', 4000);
+            $('#ModalEditarPaquete').modal('hide');
+            $('#check-agregar').click();
+          }
+        )
+      },
+      1
+    );
+  });
+
+});
 
 
 function mostrarClientesAsignados(data){
@@ -319,28 +350,32 @@ $('#editarInfoPaqueteBtn').on('click', function(){
   $('#ModalEditarPaquete').modal('show');
 });
 
-$('#formEditarPaquete').on('submit', function(e){
-  e.preventDefault();
-  var send = {
-    api: 1,
-    id: $('#seleccion-paquete').val(),
-    descripcion: $('#nombrePaqEditar').val(),
-    tipo_paquete: $('#tipoPaqEditar').val()
-  }
 
+$("#btnInhabilitarPaquete").click(function(){
+  console.log('inhabilitado');
   alertMensajeConfirm(
     {
-      title: '¿Esta seguro que todos los datos están correctos',
-      text: '¡No puedes cambiar estos datos después!',
+      title: `Se inhabilitará el siguiente paquete: ${$('#seleccion-paquete option:selected').text()}`,
+      text: 'No podrás recuperar la información.',
       icon: 'warning',
-      confirmButtonText: 'Si, estoy seguro'
+      confirmButtonText: 'Sí, inhabilitar'
     },
     function(){
-      alert("enviando datos...");
-    },
-    1
+      // inhabilitar el paquete seleccionado
+      ajaxAwait(
+        {
+          api: 4,
+          id: $('#seleccion-paquete').val()
+        },
+        "paquetes_api",
+        { callbackAfter: true, WithoutResponseData: true },
+        false,
+        function(data){
+          alertToast('Paquete inhabilitado!', 'success', 4000);
+          $('#ModalEditarPaquete').modal('hide');
+          $('#check-agregar').click();
+        }
+      );
+    },1
   );
-  
-
-
 });

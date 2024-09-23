@@ -39,7 +39,7 @@
                         </div>
                         <div class="col-auto">
                             <button class="btn btn-sm btn-secondary" type="button" id="editarInfoPaqueteBtn" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar la información del paquete">
-                            <i class="bi bi-pencil-fill"></i> Editar
+                            <i class="bi bi-pencil-fill"></i> Acciones
                             </button>
                         </div>
                     </div>
