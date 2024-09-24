@@ -274,8 +274,8 @@ $('input[type=radio][name=selectTipLista]').change(function () {
 
 // opciones = obtenerDatosMostrar(menu)
 
-let exportColumns = [];
-let formatoExcel;
+var exportColumns = [];
+var formatoExcel;
 listaPreciosExelModal = $('#listaPreciosExel').DataTable({
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
@@ -376,7 +376,7 @@ inputBusquedaTable('listaPreciosExel', listaPreciosExelModal, [{
   place: 'top'
 }], [], 'col-12')
 
-const listaPreciosExel = document.getElementById('vistaPreviaExelModal')
+var listaPreciosExel = document.getElementById('vistaPreviaExelModal')
 listaPreciosExel.addEventListener('show.bs.modal', event => {
   setTimeout(() => {
     $.fn.dataTable

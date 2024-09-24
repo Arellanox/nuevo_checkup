@@ -66,7 +66,7 @@ switch ($api) {
         break;
     case 4:
         # desactivar
-        $response = $master->updateByProcedure("sp_paquetes_e", $parametros);
+        $response = $master->updateByProcedure("sp_paquetes_e", [$id_paquete]);
         break;
 
     case 5:
@@ -138,7 +138,7 @@ switch ($api) {
 
         foreach ($precioPaquetes as $paquete) {
 
-            $response = $master->updateByProcedure("sp_paquetes_actualizar_costo", [$paquete['id'], $paquete['costo'], $paquete['utilidad'], $paquete['total']]);
+            $response = $master->updateByProcedure("sp_paquetes_actualizar_costo", [$paquete['id'], $paquete['costo'], $paquete['utilidad'], $paquete['total'], $cliente_id]);
 
             if (is_numeric($response)) {
                 $oks++;
@@ -178,6 +178,19 @@ switch ($api) {
                 $fails[] = $e['servicio_id'];
             }
         }
+        break;
+    case 11:
+        # relacionar paquetes con clientes
+        $response = $master->insertByProcedure("sp_paquetes_clientes_g", [$paquete, $cliente_id, $_SESSION['id']]);
+       // $response = ['cliente 1', 'cliente 2', 'otro cliente mas', 'el cliente con el nombre mas largo que existe', 'cliente uno', 'cliente dos', 'ultimo cliente'];
+        break;
+    case 12:
+        # recuperar relacion de los clientes y paquetes
+        $response = $master->getByProcedure('sp_paquetes_clientes_b', [$paquete, $cliente_id]);
+        break;
+    case 13:
+        # eliminar relacion paquete-cliente
+        $response = $master->insertByProcedure('sp_paquetes_clientes_e', [$cliente_id, $paquete]);
         break;
 
     default:

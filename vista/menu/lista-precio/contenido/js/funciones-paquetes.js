@@ -2,7 +2,7 @@ async function mantenimientoPaquete() {
   $('#btn-excel-previa').attr('disabled', false)
   $('#btn-vistaPrevia-cotizacion').attr('disabled', false)
   loader("In");
-  await rellenarSelect('#seleccion-paquete', 'paquetes_api', 2, 0, 'DESCRIPCION.CLIENTE', {
+  await rellenarSelect('#seleccion-paquete', 'paquetes_api', 2, 0, 'DESCRIPCION', {
     contenido: 1
   });
   tablaContenido();
@@ -23,7 +23,8 @@ async function contenidoPaquete(select = null) {
   loader("In");
   $('#btn-excel-previa').attr('disabled', true)
   $('#btn-vistaPrevia-cotizacion').attr('disabled', true)
-  await rellenarSelect('#seleccion-paquete', 'paquetes_api', 2, 0, 'DESCRIPCION.CLIENTE', {
+
+  await rellenarSelect('#seleccion-paquete', 'paquetes_api', 2, 0, 'DESCRIPCION', {
     contenido: 0
   });
   $('#seleccion-paquete').prop('disabled', false);
@@ -203,3 +204,178 @@ function checkNumber(x) {
     return 0
   }
 }
+
+
+// ASIGNAR PAQUETES A CLIENTES.
+rellenarSelect('#relacion-paquete','clientes_api', 2,'ID_CLIENTE','NOMBRE_COMERCIAL')
+$('#asignarPaquete').on('click', function(){
+  var paqueteEnAsignacion =$('#seleccion-paquete option:selected').text();
+  
+  if(!paqueteEnAsignacion){
+    alert("Necesita seleccionar un paquete");
+    $('#listaAsignada').html('');
+  } else{
+    //Cambiar el nombre del paquete en el modal
+    $('.titlePaqueteAsignado').text(paqueteEnAsignacion);
+    // mostrar los clientes que tiene asignado el paquete actual
+    ajaxAwait({
+      api: 12,
+      id_paquete: $('#seleccion-paquete').val()
+    }, "paquetes_api", { callbackAfter: true, WithoutResponseData: true }, false, function(data){
+    
+      $('#listaAsignada').html(mostrarClientesAsignados(data));
+      $.getScript('contenido/js/eliminar-relacion-paquete.js')
+
+    });
+
+    $('#ModalCrearRelacion').modal('show');
+  }
+})
+
+// $('#asignarBtn').on('click', function(event) {
+//   alert('presionaste el boton')
+//   $('#formCrearRelacion').submit();
+// });
+
+$(document).ready(function(){
+  $('#formCrearRelacion').off('submit').on('submit',function(event){
+    event.preventDefault();
+    console.log(1)
+    var datos = {
+      id_paquete: $('#seleccion-paquete').val(),
+      cliente_id: $('#relacion-paquete').val(),
+      api: 11
+    }
+  
+    ajaxAwait(datos, 'paquetes_api',{ callbackAfter: true, WithoutResponseData: true }, false, function(data){
+      alertToast('¡Paquete asignado!', 'success', 4000);
+      ajaxAwait({
+        api: 12,
+        id_paquete: $('#seleccion-paquete').val()
+      }, "paquetes_api", { callbackAfter: true, WithoutResponseData: true }, false, function(d){
+      
+        $('#listaAsignada').html(mostrarClientesAsignados(d));
+        $.getScript('contenido/js/eliminar-relacion-paquete.js')
+  
+      });
+  
+    });
+    console.log(datos);
+  });
+
+
+  $('#formEditarPaquete').off('submit').on('submit', function(e){
+    e.preventDefault();
+    var send = {
+      api: 1,
+      id: $('#seleccion-paquete').val(),
+      descripcion: $('#nombrePaqEditar').val(),
+      tipo_paquete: $('#tipoPaqEditar').val()
+    }
+  
+    alertMensajeConfirm(
+      {
+        title: `¿Realmente quieres modificar los datos del paquete ${$('#seleccion-paquete option:selected').text()}?`,
+        text: 'No te preocupes, puedes editar de nuevo la información',
+        icon: 'warning',
+        confirmButtonText: 'Sí, estoy seguro'
+      },
+      function(){
+        // enviar los nuevos datos del paquete
+        ajaxAwait(
+          send, 'paquetes_api', { callbackAfter: true, WithoutResponseData: true }, false, function(data){
+            alertToast('¡Paquete modificado!', 'success', 4000);
+            $('#ModalEditarPaquete').modal('hide');
+            $('#check-agregar').click();
+          }
+        )
+      },
+      1
+    );
+  });
+
+});
+
+
+function mostrarClientesAsignados(data){
+  var item = '';
+
+  for (let index = 0; index < data.length; index++) {
+    item += `
+    <div class="col-auto cliente">
+      <div class="input-group mb-3">
+        <div class="input-group-text">
+          <label class="d-flex justify-content-center" for="">${data[index].CLIENTE}</label> 
+          <button class="badge text-bg-danger listaClientesPaquetes" data-bs-id="${data[index].ID_CLIENTE}">
+            <i class="bi bi-trash3-fill"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    `;
+  }
+
+  return item;
+}
+
+
+$('#filtroClientes').on('input', function() {
+  var filtro = $(this).val().toLowerCase(); // Obtener el texto del filtro en minúsculas
+  
+  // Iterar sobre los elementos con clase 'cliente'
+  $('#listaAsignada .cliente').each(function() {
+    var nombreCliente = $(this).find('label').text().toLowerCase(); // Obtener el texto del cliente
+    
+    // Comprobar si el nombre del cliente contiene el texto del filtro
+    if (nombreCliente.includes(filtro)) {
+      $(this).removeClass('hidden'); // Mostrar si coincide
+    } else {
+      $(this).addClass('hidden'); // Ocultar si no coincide
+    }
+  });
+});
+
+$('#editarInfoPaqueteBtn').on('click', function(){
+  var nombrePaquete =$('#seleccion-paquete option:selected').text();
+  var idPaquete = $('#seleccion-paquete').val();
+
+  ajaxAwait({
+    api: 2,
+    id: idPaquete
+  }, "paquetes_api", { callbackAfter: true, WithoutResponseData: true}, false, function(data){
+    $('#nombrePaqEditar').val(data[0].DESCRIPCION);
+    $('#tipoPaqEditar').val(data[0].TIPO_PAQUETE);
+  });
+
+  $('#ModalEditarPaquete').modal('show');
+});
+
+
+$("#btnInhabilitarPaquete").click(function(){
+  console.log('inhabilitado');
+  alertMensajeConfirm(
+    {
+      title: `Se inhabilitará el siguiente paquete: ${$('#seleccion-paquete option:selected').text()}`,
+      text: 'No podrás recuperar la información.',
+      icon: 'warning',
+      confirmButtonText: 'Sí, inhabilitar'
+    },
+    function(){
+      // inhabilitar el paquete seleccionado
+      ajaxAwait(
+        {
+          api: 4,
+          id: $('#seleccion-paquete').val()
+        },
+        "paquetes_api",
+        { callbackAfter: true, WithoutResponseData: true },
+        false,
+        function(data){
+          alertToast('Paquete inhabilitado!', 'success', 4000);
+          $('#ModalEditarPaquete').modal('hide');
+          $('#check-agregar').click();
+        }
+      );
+    },1
+  );
+});
