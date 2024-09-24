@@ -56,7 +56,9 @@ function getInfoEstadoCuenta(px, turno) {
 
         // $("#subtotal").html(`$${ifnull(subtotal.toFixed(2), 0)}`)
         // $("#Iva").html(`$${ifnull(subtotalconiva, 0)}`)
-        $("#total").html(`$${ifnull(subtotal.toFixed(2), 0)}`)
+        
+        //$("#total").html(`$${ifnull(subtotal.toFixed(2), 0)}`)
+        $('#total').html(`$${ifnull(data.response.data.TOTAL_CARGO, 0)}`)
 
         $("#ModalTicketCredito").modal('show');
 

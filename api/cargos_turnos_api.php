@@ -28,11 +28,15 @@ $detallado = $_POST['detallado']; # indica el tipo de reporte que quieren ver
 
 switch ($api) {
     case 1:
-        $response = $master->getByProcedure('sp_cargos_turnos_b', [$turno_id]);
+        $response = $master->getByNext('sp_cargos_turnos_b', [$turno_id]);
         $total_cargos = 0;
-
-        foreach ($response as $e) {
-            $total_cargos = $total_cargos + $e['PRECIO_VENTA'];
+        
+        if(!isset($response[1][0]) || empty($response[1])){
+            foreach ($response[0] as $e) {
+                $total_cargos = $total_cargos + $e['PRECIO_VENTA'];
+            }
+        } else {
+            $total_cargos = $response[1][0]['TOTAL'];
         }
 
         // $areas = array();
@@ -44,7 +48,7 @@ switch ($api) {
         //     $areas[$current['ID_AREA']] = $a;
         //         }
 
-        $response['estudios'] = $response;
+        $response['estudios'] = $response[0];
         $response['TOTAL_CARGO'] = $total_cargos;
 
         break;
