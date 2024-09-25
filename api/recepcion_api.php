@@ -126,6 +126,12 @@ switch ($api) {
         # enviar 1 para aceptarlos, 0 para rechazarlos, null para pacientes en espera
         // $response = $master->updateByProcedure('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo));
 
+        # esto es para prevenir duplicar el corte de cajas.
+        if (!isset($_SESSION['id'])){
+            $response = "Por favor, reinicie sesión";
+            break;
+        }
+
         # Agrega nuevo medico si es requerido
         if ($new_medico) {
             $response = $master->insertByProcedure('sp_medicos_tratantes_g', [null, $medico_tratante, $medico_correo, null, $medico_telefono, $medico_especialidad]);
