@@ -36,7 +36,7 @@ switch ($api) {
                 $total_cargos = $total_cargos + $e['PRECIO_VENTA'];
             }
         } else {
-            $total_cargos = $response[1][0]['TOTAL'];
+            $total_cargos = $response[1][0]['PRECIO_VENTA'];
         }
 
         // $areas = array();
