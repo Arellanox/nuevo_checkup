@@ -397,6 +397,7 @@ $array = convertirObjetoAArray($resultados);
                     <th style="width: 15%;">Total</th>
                     <!-- <th style="width: 15%;">Forma de pago</th> -->
                     <th style="width: 15%;">Factura</th>
+                    <th style="width: 15%">Procedencia</th>
                 </tr>
             </thead>
             <tbody style="height: 420px">
@@ -415,6 +416,7 @@ $array = convertirObjetoAArray($resultados);
                         </td>
                         <!-- <td class="my" style="width: 15%; text-align: center;"> <?php echo $e['FORMA_PAGO'] ?> </td> -->
                         <td class="my" style="width: 11%; text-align: right;"> <?php echo $e['FACTURA'] ?></td>
+                        <td class="my" style="width: 11%; text-align: left;"><?php echo $e['NOMBRE_COMERCIAL']; ?></td>
                     </tr>
                 <?php
                     $c += 1;

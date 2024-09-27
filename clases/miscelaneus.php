@@ -2072,6 +2072,7 @@ class Miscelaneus
             $monto_tipo_pago = $e['FORMA_PAGO_MONTO']; # Monto por tipo de pago;
 
             $nombre_caja = $e['NOMBRE_CAJA']; # nombre de la caja
+            $procedencia = $e['NOMBRE_COMERCIAL']; # procedencia del paciente
 
             $result[$i] =  array(
                 "PREFOLIO" => $prefolio,
@@ -2081,7 +2082,8 @@ class Miscelaneus
                 "TOTAL" => $total,
                 "FORMA_PAGO" => substr($forma_pago, 0, 4),
                 "MONTO_PAGO_TIPO" => $monto_tipo_pago,
-                "FACTURA" => $factura
+                "FACTURA" => $factura,
+                "PROCEDENCIA" => $procedencia
             );
 
             $i++;

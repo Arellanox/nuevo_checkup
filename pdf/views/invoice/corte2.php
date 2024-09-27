@@ -473,11 +473,12 @@ $array = convertirObjetoAArray($resultados);
                 <tr>
                     <th style="width: 10%;">Prefolio</th>
                     <th style="width: 15%;">Nombre</th>
-                    <th style="width: 15%;">Subtotal</th>
-                    <th style="width: 15%;">IVA (16%)</th>
-                    <th style="width: 15%;">Total</th>
+                    <th style="width: 10%;">Subtotal</th>
+                    <th style="width: 10%;">IVA (16%)</th>
+                    <th style="width: 10%;">Total</th>
                     <th style="width: 15%;">Forma de pago</th>
                     <th style="width: 15%;">Factura</th>
+                    <th style="width: 15%;">Procedencia</th>
                 </tr>
             </thead>
             <tbody style="height: 420px">
@@ -501,6 +502,7 @@ $array = convertirObjetoAArray($resultados);
                                 ?></b>
                         </td>
                         <td class="my" style="width: 11%; text-align: right;"> <?php echo $e['FACTURA'] ?></td>
+                        <td class="my" style="width: 11%; text-align: center;"><?php echo $e['PROCEDENCIA'] ?></td>
                     </tr>
                 <?php
                     if ($c > 19) {
