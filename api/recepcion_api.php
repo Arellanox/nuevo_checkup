@@ -654,6 +654,11 @@ switch ($api) {
         # abrir la cuenta del paciente.
         $response = $master->updateByProcedure('sp_abrir_cuenta_paciente', [$idTurno, $_SESSION['id']]);
         break;
+    case 22:
+        # marcar un paciente como pendiente de pago.
+        # ( solo aplica para clientes de contado, aunque tambien es posible marcar como pendiente un cliente de credito )
+        $response = $master->updateByProcedure('sp_marcar_paciente_pendiente_pago',[$idTurno, $_SESSION['id']]);
+        break;
     default:
         $response = "Api no definida.";
         break;
