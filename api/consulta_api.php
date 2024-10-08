@@ -250,15 +250,30 @@ switch ($api) {
         # actualizar los antecedentes del turno
         $antecedentes = array_slice($_POST, 0, count($_POST) - 2);
 
+        #log para las respuetas de los antecedentes de consultorio
+        $r= $master->createDir('../logs/consultorio');
+
+        $tipo = checkTipoAntecedente($antecedentes);
+
+        $log = "../logs/consultorio/antecedentes_$tipo-$turno_id.txt";
+
+        $data = [];
+
+
         foreach ($antecedentes as $current) {
             # ids de las preguntas de antecedentes ginecologicos
             $idsGinecologicos = [192, 193, 194, 195, 196, 197, 200, 201];
             if(in_array($current[0], $idsGinecologicos)){
                 $response = $master->updateByProcedure('sp_consultorio_antecedentes_a', [$turno_id, $current[0], null, $current[1]]);
+
+                array_push($data, [$turno_id, $current[0], null, $current[1]]);
             } else {
                 $response = $master->updateByProcedure('sp_consultorio_antecedentes_a', [$turno_id, $current[0], $current[1], $current[2]]);
+                array_push($data, [$turno_id, $current[0], $current[1], $current[2]]);
             }
         }
+
+        file_put_contents($log, json_encode($data));
 
         break;
     case 17:
@@ -346,3 +361,38 @@ function ordenarCuestionario($response, $anamnesis = 0)
     }
     return $antecedentes;
 }
+
+
+function checkTipoAntecedente($array){
+
+    $keys = array_keys($array);
+
+    switch(true){
+        case in_array('check-aler', $keys):
+            $x =  'patologicos';
+            break;
+        case in_array('check-tabaq', $keys):
+            $x =  'nopatologicos';
+            break;
+        case in_array('check-hero-padre', $keys):
+            $x =  'heredofamiliares';
+            break;
+        case in_array('check-enfpsicopsiq', $keys):
+            $x =  'patologicos';
+            break;
+        case in_array('check-Desayuno', $keys):
+            $x =  'nutricionales';
+            break;
+        case in_array('check-antginecologicos-ultimamenstruacion',$keys):
+            $x =  'ginecologicos';
+            break;
+        case in_array('check-incapaAccid', $keys):
+            $x =  'medio';
+            break;
+    
+    }
+
+    return $x;
+    
+}
+
