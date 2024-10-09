@@ -230,7 +230,7 @@ $encode = base64_encode($ruta);
 // echo '<img src="data:image/png;base64, '. $img_valido .'" alt="" height="75" >';
 
 // path firma
-$ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png');
+$ruta_firma = file_get_contents('https://bimo-lab.com/nuevo_checkup/pdf/public/assets/firma_marleny_marin.png');
 $encode_firma = base64_encode($ruta_firma);
 
 //Reportes hechos
@@ -273,7 +273,7 @@ $areas = $resultados->areas[0];
     <!-- Footer 1 chido -->
     <div class="footer">
         <?php
-        $footerDoctor = 'Q.F.B. NERY FABIOLA ORNELAS RESENDIZ <br>UPCH - Cédula profesional: 09291445';
+        $footerDoctor = 'Q.F.B. MARLENY MARÍN HERNÁNDEZ <br>UPCH - Cédula profesional: 10599625';
         include "includes/footer.php"; ?>
     </div>
 
