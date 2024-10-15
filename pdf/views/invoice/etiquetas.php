@@ -138,7 +138,7 @@ $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
 
             echo "<div style='top:20px; position:absolute; right:10px; left:100px; font-size: 40px'>
                 <p>
-                    <span style='font-size: 13px'>
+                    <span style='font-size: 12px'>
                     {$recipientes->PREFOLIO}
                     </span>
                 </p>
