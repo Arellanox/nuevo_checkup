@@ -86,9 +86,12 @@ switch ($api) {
             # enviar el correo con el reporte y las imagenes capturadas
             $attachment = $master->cleanAttachFilesImage($master, $turno_id, 8, 1);
 
+            $mails = $master->getEmailMedico($master, $turno_id);
+            array_push($mails, $attachment[1]);
+
             if (!empty($attachment[0])) {
                 $mail = new Correo();
-                if ($mail->sendEmail('resultados', 'Resultados Rayos X', [$attachment[1]], null, $attachment[0], 1, null, $turno_id, 8, $master)) {
+                if ($mail->sendEmail('resultados', 'Resultados Rayos X', $mails, null, $attachment[0], 1, null, $turno_id, 8, $master)) {
                     $master->setLog("Correo enviado. turno $turno_id.", "[rayos x]");
                 }
             }
