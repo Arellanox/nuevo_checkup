@@ -113,9 +113,15 @@ switch ($api) {
             //Enviamos correo
             $attachment = $master->cleanAttachFilesImage($master, $turno_id, 10, 1);
 
+            # obtenemos el segundo correo del paciente y del medico
+            $mails = $master->getEmailMedico($master, $turno_id);
+            #agregamos al arreglo mails el correo principal que trae $attachment
+            array_push($mails, $attachment[1]);
+
+            # enviamos $mails a la funcion de enviar correo
             if (!empty($attachment[0])) {
                 $mail = new Correo();
-                if ($mail->sendEmail('resultados', '[bimo] Resultados de electrocardiograma', [$attachment[1]], null, $attachment[0], 1)) {
+                if ($mail->sendEmail('resultados', '[bimo] Resultados de electrocardiograma', $mails, null, $attachment[0], 1)) {
                     $master->setLog("Correo enviado.", "Electrocardiograma captura");
                 }
             }
