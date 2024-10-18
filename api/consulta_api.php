@@ -262,7 +262,7 @@ switch ($api) {
 
         foreach ($antecedentes as $current) {
             # ids de las preguntas de antecedentes ginecologicos
-            $idsGinecologicos = [192, 193, 194, 195, 196, 197, 200, 201];
+            $idsGinecologicos = [192, 193, 194, 195, 196, 197, 200, 201, 202];
             if(in_array($current[0], $idsGinecologicos)){
                 $response = $master->updateByProcedure('sp_consultorio_antecedentes_a', [$turno_id, $current[0], null, $current[1]]);
 
@@ -378,7 +378,7 @@ function checkTipoAntecedente($array){
             $x =  'heredofamiliares';
             break;
         case in_array('check-enfpsicopsiq', $keys):
-            $x =  'patologicos';
+            $x =  'psiquiatricos';
             break;
         case in_array('check-Desayuno', $keys):
             $x =  'nutricionales';
