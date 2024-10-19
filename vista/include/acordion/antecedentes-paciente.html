@@ -1362,6 +1362,18 @@
                 <label id="rangeValueLabelCesareas" class="rangeValueLabel">0</label>
               </div>
             </div>
+            
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom: 110%;margin-left: 5%;width: 90%; margin-top: 10px;">
+              <div class="col-6">
+                <label>ABORTOS</label>
+                <input type="hidden" name="check-antginecologicos-abortos[]" value="202">
+              </div>
+              <div class="" id="collapse-antginecologicos-abortos">
+                <input type="range" class="form-range" min="0" max="'20" step="1" id="check-antginecologicos-abortos" name="check-antginecologicos-abortos[]" oninput="updateRangeValue(this.value, 4)" value="0">
+                <label id="rangeValueLabelAbortos" class="rangeValueLabel">0</label>
+              </div>
+            </div>
 
             <hr class="dropdown-divider m-2">
             <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
@@ -1848,7 +1860,9 @@
       case 3:
         etiqueta = "Cesareas"
         break;
-    
+      case 4:
+        etiqueta = "Abortos"
+        break;
       default:
         break;
     }
