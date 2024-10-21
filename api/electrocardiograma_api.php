@@ -31,6 +31,9 @@ $host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/nuevo_checkup
 $date = date("dmY_His");
 
 switch ($api) {
+    case 0:
+        reenviarCorreoElectro($turno_id);
+        break;
     case 1:
         # insertar la interpretacion
         if (isset($confirmado)) {
@@ -121,7 +124,7 @@ switch ($api) {
             # enviamos $mails a la funcion de enviar correo
             if (!empty($attachment[0])) {
                 $mail = new Correo();
-                if ($mail->sendEmail('resultados', '[bimo] Resultados de electrocardiograma', $mails, null, $attachment[0], 1)) {
+                if ($mail->sendEmail('resultados', '[bimo] Resultados de electrocardiograma', $mails, null, $attachment[0], 1, null, $turno_id, 10, $master)) {
                     $master->setLog("Correo enviado.", "Electrocardiograma captura");
                 }
             }
@@ -172,3 +175,33 @@ switch ($api) {
         break;
 }
 echo $master->returnApi($response);
+
+
+function reenviarCorreoElectro($turno_id){
+    # enviar solo la captura del electrocardiograma
+    # se enviaria solo la captura si no se ha reportado la interpretacion y confirmado.
+    # si ya tiene el reporte confirmado, se enviarian ambos (el reporte y la captura de electro);
+    # si no tiene el reporte confirmado, solo se envia la captura de electro.
+    global $master;
+
+    //Enviamos correo
+    $attachment = $master->cleanAttachFilesImage($master, $turno_id, 10, 1);
+
+    # obtenemos el segundo correo del paciente y del medico
+    $mails = $master->getEmailMedico($master, $turno_id);
+    #agregamos al arreglo mails el correo principal que trae $attachment
+    array_push($mails, $attachment[1]);
+
+    # enviamos $mails a la funcion de enviar correo
+    if (!empty($attachment[0])) {
+        $mail = new Correo();
+        if ($mail->sendEmail('resultados', '[bimo] Resultados de electrocardiograma', $mails, null, $attachment[0], 1, null, $turno_id, 10, $master)) {
+            $master->setLog("Correo enviado.", "Electrocardiograma captura");
+            echo "enviado";
+        } else {
+            echo "Error al enviar";
+        }
+    } else {
+        echo "No hay archivos para enviar";
+    }
+}
