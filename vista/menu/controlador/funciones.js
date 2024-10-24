@@ -2847,23 +2847,54 @@ function obtenerAntecedentesPaciente(id, curp, tipo = 1) {
         // //console.log(arrayDivs)
       },
       complete: function () {
-        resolve(1);
+        // resolve(1);
       },
       error: function (jqXHR, exception, data) {
         alertErrorAJAX(jqXHR, exception, data)
       },
     })
+
+    // Ficha admision 
+    $.ajax({
+      url: `${http}${servidor}/${appname}/api/ficha_admision_api.php`,
+      data:{
+        api: 2,
+        turno_id: id,
+      },
+      type: "POST",
+      dataType: "json",
+      success: function(data) {
+        data = data.response.data;
+        rellenarInputFichaAdmision("formFichaAdmision", data[0])
+      },
+      error: function(jqXHR, exception, data){
+        alertErrorAJAX(jqXHR, exception, data)
+      }
+    })
+    resolve(1)
   });
   // $('#collapse-Patologicos-Target').find("div[class='row']").each(function(){
   //   //console.log($(this).find("input[value='1']").val())
   // })
 }
 
-// function obtenerAnamnesisApartadosPaciente(id){
-//   return new Promise(resolve => {
+function rellenarInputFichaAdmision(formularioId, valores) {
 
-//   })
-// }
+  $(`#${formularioId} #religion`).val(valores['RELIGION']);
+  $(`#${formularioId} #lugar_nacimiento`).val(valores['LUGAR_NACIMIENTO']);
+  $(`#${formularioId} #estado_civil`).val(valores['ESTADO_CIVIL']);
+  $(`#${formularioId} #puesto_solicita`).val(valores['PUESTO_SOLICITA']);
+  $(`#${formularioId} #depto`).val(valores['AREA_DEPTO']);
+  $(`#${formularioId} #no_imss`).val(valores['NO_IMSS']);
+  $(`#${formularioId} #profesion`).val(valores['PROFESION']);
+  $(`#${formularioId} #escolaridad`).val(valores['ESCOLARIDAD']);
+  $(`#${formularioId} #umf`).val(valores['UMF']);
+  $(`#${formularioId} #nombre_contacto`).val(valores['ACCIDENTE_AVISAR']);
+  $(`#${formularioId} #parentesco`).val(valores['PARENTESCO']);
+  $(`#${formularioId} #tel1`).val(valores['TELEFONO1']);
+  $(`#${formularioId} #tel2`).val(valores['TELEFONO2']);
+
+}
 
 function setValuesAntAnnameMetodo(DIV, array, key) {
 
@@ -2920,6 +2951,21 @@ function ocultarAntecedentesGinecologicos(sexo){
         }
         console.log(`este es el sexo ${sexo}`)
         resolve(1)
+  })
+}
+
+function ocultarFichaAdmision(cliente){
+  return new Promise(resolve =>{
+    if(parseInt(cliente) != 15){
+      $('#li-fadmision').fadeOut(0);
+      $("#card-fadmision").fadeOut(0);
+      console.warn(cliente)
+    } else {
+      $.post(`${http}${servidor}/${appname}/vista/include/acordion/ficha-admision.html`, function(html){
+        $("#divFichaAdmision").html(html)
+      })
+    }
+    resolve(1)
   })
 }
 

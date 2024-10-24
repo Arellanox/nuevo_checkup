@@ -83,6 +83,7 @@ function obtenerContenidoConsulta(data, idvaloracion) {
     $("#body-js").html(html);
     pacienteActivo = new GuardarArreglo(data)
     pacienteActivo.selectID = idvaloracion;
+
     // Datatable
     // $.getScript("contenido/js/estudio-tabla.js");
     // select2('#citas-subsecuente', 'collapseAgendarConsultaTarget');
@@ -158,6 +159,7 @@ $(document).on('click', '#paciente_categoria', function (event) {
 async function obtenerValoracion(data, idconsulta) {
   // console.log(data, idconsulta)
   await obtenerVistaAntecenetesPaciente('#antecedentes-paciente', data['CLIENTE'])
+  await ocultarFichaAdmision(data['ID_CLIENTE'])
   await ocultarAntecedentesGinecologicos(data['GENERO']) 
   await obtenerPanelInformacion(data['ID_TURNO'], "signos-vitales_api", 'signos-vitales', '#signos-vitales');
   $('#descripcion-antecedentes').html('Antecedentes del paciente actual')

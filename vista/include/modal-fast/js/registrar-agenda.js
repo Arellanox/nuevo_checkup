@@ -76,6 +76,8 @@ $("#formCuestionarioRiesgo").submit(async function (event) {
 
     var formAntGinecologicos = jQuery(document.forms['formAntGinecologicos']).serializeArray();
 
+    
+
     if (evaluarAntecedentes(formAntPersonalPato, formAntNoPatologicos, formAntHeredofamiliares, formAntPsicologico, formAntNutricionales, formMedioLaboral, formAntGinecologicos)) {
       return false;
     }
