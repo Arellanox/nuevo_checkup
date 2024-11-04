@@ -2871,11 +2871,42 @@ function obtenerAntecedentesPaciente(id, curp, tipo = 1) {
         alertErrorAJAX(jqXHR, exception, data)
       }
     })
+
+    // historia familiar recuperar respuestas
+    $.ajax({
+      url: `${http}${servidor}/${appname}/api/ficha_admision_api.php`,
+      data: {
+        api: 5,
+        turno_id: id,
+      },
+      type: "POST",
+      dataType: "json",
+      success: function(data) {
+        llenarHistoriaFamiliar(data.response.data);
+      },
+      error: function(jqXHR, exception, data){
+        alertErrorAJAX(jqXHR, exception, data)
+      }
+    })
     resolve(1)
   });
   // $('#collapse-Patologicos-Target').find("div[class='row']").each(function(){
   //   //console.log($(this).find("input[value='1']").val())
   // })
+}
+
+function llenarHistoriaFamiliar(data) {
+  data.forEach(function(item) {
+      // Selector para los radios de "Vive" según el familiar
+      const viveSelector = `input[name='vive[${item.familiar}]'][value='${item.vive}']`;
+      $(viveSelector).prop('checked', true);
+
+      // Selector para checkboxes de enfermedades
+      item.enfermedades.forEach(function(enfermedad) {
+          const enfermedadSelector = `input[name='enfermedad[${item.familiar}][]'][value='${enfermedad}']`;
+          $(enfermedadSelector).prop('checked', true);
+      });
+  });
 }
 
 function rellenarInputFichaAdmision(formularioId, valores) {
@@ -2959,6 +2990,7 @@ function ocultarFichaAdmision(cliente){
     if(parseInt(cliente) != 15){
       $('#li-fadmision').fadeOut(0);
       $("#card-fadmision").fadeOut(0);
+      $("#historiaFamiliarForm").fadeOut(0);
       console.warn(cliente)
     } else {
       $.post(`${http}${servidor}/${appname}/vista/include/acordion/ficha-admision.html`, function(html){

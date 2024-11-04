@@ -65,6 +65,32 @@ $('#btn-regresar-vista').click(function () {
   })
 })
 
+$(document).on('click', '.guardarHistoriaFam', function(event){
+  event.stopPropagation();
+  event.stopImmediatePropagation();
+  button = $(this);
+  button.prop('disabled', true);
+  var parent_element = button.closest('form').attr('id');
+  console.log(parent_element);
+  let formData = new FormData(document.getElementById(parent_element));
+  formData.set('api', 4);
+  formData.set('turno_id', pacienteActivo.array['ID_TURNO']);
+  $.ajax({
+    data: formData,
+    url: `${http}${servidor}/${appname}/api/ficha_admision_api.php`,
+    type: 'POST',
+    processData: false, 
+    contentType: false,
+    dataType: 'json',
+    beforeSend: function(){
+      alertToast('Guardando...', 'info')
+    },
+    success: function(data){
+      button.prop('disabled', false);
+      alertToast('Guardado con éxito!', 'success');
+    }
+  })
+})
 
 // $('.').on
 $(document).on('click', '.guardarAnt ', function (event) {
@@ -92,7 +118,7 @@ $(document).on('click', '.guardarAnt ', function (event) {
     },
     success: function (data) {
       button.prop('disabled', false);
-      alertToast('Guardado con exito', 'success');
+      alertToast('Guardado con éxito', 'success');
     },
   });
   // eliminarElementoArray(id);
