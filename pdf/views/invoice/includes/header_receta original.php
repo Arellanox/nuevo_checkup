@@ -26,11 +26,15 @@
 <table>
     <tbody>
         <tr>
-            <td class="col-der" style="border-bottom: none;">
+            <td class="col-der" style="border-bottom: none; text-align: center">
                 <h4>
-                    <?php echo $nombre_doctor ?> <br>
-                    <?php echo $especialidades; ?> <br>
-                    <?php echo $cedulas; ?>
+                    DIAGNÓSTICO BIOMOLECULAR S.A.de C.V. <br>
+                    <?php echo $titulo; ?> <br>
+                    <?php if (isset($subtitulo)) {
+                        echo $subtitulo;
+                    } else {
+                        echo 'Resultado de exámenes';
+                    }; ?>
                 </h4>
             </td>
             <td class="col-izq" style="border-bottom: none; text-align:center;">

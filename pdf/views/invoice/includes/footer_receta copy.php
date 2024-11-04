@@ -7,6 +7,9 @@
 </style>
 <table style="margin-top:70px">
     <tbody>
+        <tr class="col-foot-one">
+            <td colspan="12" style="text-align: right; padding-right: 0;"><strong style="font-size: 12px;">Atentamente</strong></td>
+        </tr>
         <tr class="col-foot-two">
             <td colspan="10">
             </td>

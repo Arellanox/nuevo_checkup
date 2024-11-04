@@ -13,7 +13,7 @@
         @page {
             /* margin: 165px 10px; */
             /* size: 21.59cm 18cm; */
-            margin: 1.5cm;
+            margin: 1cm;
 
         }
 
@@ -41,7 +41,7 @@
             bottom: 0;
             left: 25px;
             right: 25px;
-            height: 200px;
+            height: 160px;
             /* background-color: pink; */
         }
 
@@ -58,13 +58,15 @@
         /* Content */
         .invoice-content {
             position: relative;
-            top: 200px;
+            top: 160px;
             border-radius: 4px;
             padding-bottom: 5px;
             padding-right: 30px;
             padding-left: 30px;
             text-align: justify;
             text-justify: inter-word;
+
+            /* background-color: red; */
      
         }
 
@@ -196,9 +198,10 @@
         }
 
         .col-der {
-            width: 70%;
-            max-width: 70%;
+            width: 100%;
+            max-width: 1000%;
             text-align: left;
+            /* background-color: red; */
         }
 
         /* Fivisiones de cinco */
@@ -234,6 +237,7 @@
             margin: auto;
             white-space: normal;
             word-break: break-all;
+            font-size: 12px;
         }
 
         .table>tr,
@@ -252,9 +256,9 @@
         .tratamiento-titulo {
             background-color: #f2f2f2;
             font-weight: bold;
-            padding: 10px;
+            padding: 1.5px;
             text-align: left;
-            font-size: 14px;
+            font-size: 12px;
             z-index: -1;
         }
 
@@ -280,16 +284,16 @@
         /* cuerpo del tratamiento */
         .tratamiento {
             background-color: #fff;
-            font-size: 13px;
+            font-size: 14px;
         }
 
         .tratamiento-cuerpo {
 
-            padding: 0.1em;
+            padding: 0.2em;
             border-bottom: 1px solid #ddd;
             border-top: 1px solid #ddd;
-            font-size: 13px;
-            z-index: -1;
+            font-size: 12px;
+            /* z-index: -1; */
 
         }
 
@@ -328,7 +332,7 @@
         } */
 
         .signos-vitales {
-            font-size: 12px;
+            font-size: 10px;
             display: flex;
             flex-wrap: nowrap;
             justify-content: space-between;
@@ -338,12 +342,17 @@
 
         .signos {
             position: fixed;
-            top: 190px; /* Ajusta según sea necesario */
-            left: 25px; /* Añadir 'px' para las unidades */
+            top: 137px; /* Ajusta según sea necesario */
+            left: 31px; /* Añadir 'px' para las unidades */
             right: 25px; /* Añadir 'px' para las unidades */
             margin-top: 0;
+            font-size: 10px;
         }
 
+        .bold{
+            font-size: 12px;
+            font-weight: bold;
+        }
        
     </style>
 
@@ -351,8 +360,11 @@
 
 <?php
 // print_r($pie);
+// exit;
 $dataDoc = $pie['datos_medicos'][0];
 $footerDoctor = $dataDoc['NOMBRE_COMPLETO'] . '<br>' . $dataDoc['UNIVERSIDAD'] . '- Cédula profesional: ' . $dataDoc['CEDULA'];
+
+$footerDoctor = "Dr. Ibis De la Cruz Hernández <br> UNAM Infectología - Cédula Profesional: 10532710";
 
 
 //Signos vitales
@@ -393,9 +405,10 @@ $folio = ((array)($resultados[1][0]))['FOLIO'];
     <div class="header">
 
         <?php
-        $titulo = 'Checkup Clínica y Prevención';
-        $tituloPersonales = 'Información del paciente';
-        $subtitulo = 'Receta de Medicamentos';
+        $nombre_doctor = "Dr. Ibis De la Cruz Hernández";
+        $especialidades = "Infectologia y Medicina Interna";
+        $cedulas = "UJAT Ced. Prof. 6118720. Med. Interna 09995591. UNAM Infectología 10532710";
+        $tituloPersonales = 'Receta de Medicamentos';
         $encabezado->FECHA_RESULTADO = $encabezado->FECHA_RESULTADO_CONSULTA;
         include 'includes/header_receta.php';
         ?>
@@ -414,19 +427,6 @@ $folio = ((array)($resultados[1][0]))['FOLIO'];
         ?>
     </div>
     <!-- Signos vitales -->
-    <br>
-    <!-- <div class="signos" style=" margin-bottom:100px;">
-        <table class="signos-vitales">
-            <tr>
-                <td>Alergias: <strong><?php echo $signos_alergias; ?> </strong></td>
-                <td>Talla: <strong><?php echo $signos_talla; ?> cm</strong></td>
-                <td>Peso: <strong><?php echo $signos_peso; ?> Kg</strong></td>
-                <td>IMC: <strong><?php echo $signos_imc; ?> </strong></td>
-                <td>Temperatura: <strong><?php echo $signos_temperatura; ?> °C</strong></td>
-                <td>TA: <strong><?php echo $signos_presionArterial; ?> </strong></td>
-            </tr>
-        </table>
-    </div> -->
     <div class="signos" style="margin-bottom: 100px;">
         <div class="signos-vitales">
             <span>Alergias: <strong><?php echo $signos_alergias; ?></strong></span>
@@ -438,98 +438,108 @@ $folio = ((array)($resultados[1][0]))['FOLIO'];
         </div>
     </div>
 
-
-    <br>
-
     <!-- Body -->
     <?php
 
-    $recetaPrincipal = '
-            <div class="invoice-content row">
-                <div>
-                  <table class="table">
-                    <thead>
-                    <tr>
-                          <td class="pregunta-row">Diagnóstico: <span class="respuesta-row">'.$resultados[2][0]->DIAGNOSTICO.'</span></td>
-                    </tr>
-                     </thead>
-                     <!--<tbody>
-                     <tr>
-                          <td class="respuesta-row">' . $resultados[2][0]->DIAGNOSTICO . '</td>
-                     </tr>
-            </tbody>-->
-        </table>
-    </div>
-
+######################################################
+$medicamentos = 0;
+$recetaPrincipal = '
+<div class="invoice-content row">
     <div>
-        <h4 class="tratamiento-titulo">Tratamiento:</h4>';
+      <table class="table">
+        <thead>
+        <tr>
+              <td class=""><strong>Diagnóstico:</strong> <span class="">'.$resultados[2][0]->DIAGNOSTICO.'</span></td>
+        </tr>
+         </thead>
+</table>
+</div>
+
+<div>
+    <h4 class="tratamiento-titulo">Tratamiento:</h4>';
 
     for ($i = 0; $i < count($resultados[1]); $i++) {
         $recetas = $resultados[1][$i];
+        $medicamentos++;
+        if ($medicamentos == 4){
+            $recetaPrincipal .= "<div class='break'></div>";
+            $medicamentos = 0;
+        }
 
         if ($resultados[0][$i] != $recetas->ID_RECETA) {
-            $recetaPrincipal .= '
-            <div class="tratamiento-cuerpo">
-                <p>' . $recetas->NOMBRE_GENERICO . ', ' . $recetas->FORMA_FARMACEUTICA . ', ' . $recetas->DOSIS . ', ' . $recetas->PRESENTACION . '</p>
-                <p>' . $recetas->FRECUENCIA . ', ' . $recetas->VIA_DE_ADMINISTRACION . ' ' . $recetas->DURACION_DEL_TRATAMIENTO . ', ' . $recetas->INDICACIONES_PARA_EL_USO . '</p>
-            </div>';
-        }
+        $recetaPrincipal .= '
+        <div class="tratamiento-cuerpo">
+            <span class="bold">' . $recetas->NOMBRE_GENERICO . '( '.$recetas->NOMBRE_COMERCIAL.'), ' . $recetas->FORMA_FARMACEUTICA . ' ' . $recetas->DOSIS .'. ' . $recetas->PRESENTACION . '</span><br>
+            <span>' . $recetas->FRECUENCIA . '. ' . $recetas->VIA_DE_ADMINISTRACION . '<br>' . $recetas->DURACION_DEL_TRATAMIENTO . '. ' . $recetas->INDICACIONES_PARA_EL_USO . '.</span>
+        </div>';
+        }      
     }
     $recetaPrincipal .= '
     </div>
-    </div>';
+</div>';
+
+
+
+
 
     echo $recetaPrincipal;
     ?>
 
     <!-- copia -->
     <div class="break"></div>
-    <br>
     <?php
+
+    $medicamentos = 0;
     $recetaCopia = '
-
-
-<div class="contenido-sobre-marca">
-<div class="marca-agua">COPIA</div>
-    <div class="invoice-content row">
-        <div>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <td class="pregunta-row">Diagnóstico:<span class="respuesta-row">'. $resultados[2][0]->DIAGNOSTICO .'</span></td>
-                    </tr>
-                </thead>
-                <!-- <tbody>
-                    <tr>
-                        <td class="respuesta-row">' . $resultados[2][0]->DIAGNOSTICO . '</td>
-                    </tr>
-                </tbody> -->
-            </table>
-        </div>
-
-        <div>
-            <h4 class="tratamiento-titulo">Tratamiento:</h4>
-            <table class="table">
-                <tbody>';
-
+    <div class="contenido-sobre-marca">
+        <div class="marca-agua">COPIA</div>
+        <div class="invoice-content row">
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td><strong>Diagnóstico:</strong> <span>' . $resultados[2][0]->DIAGNOSTICO . '</span></td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+    
+            <div>
+                <h4 class="tratamiento-titulo">Tratamiento:</h4>
+                <table class="table">
+                    <tbody>';
+    
+    $medicamentos = 0;
     foreach ($resultados[1] as $recetas) {
-        if ($resultados[0][$i] != $recetas->ID_RECETA) {
+        $medicamentos++;
+    
+        // Insertar salto de página después de cada 4 medicamentos
+        if ($medicamentos > 1 && $medicamentos == 4) {
             $recetaCopia .= '
-                    <tr class="tratamiento-cuerpo">
-                        <td>
-                            <p>' . $recetas->NOMBRE_GENERICO . ', ' . $recetas->FORMA_FARMACEUTICA . ', ' . $recetas->DOSIS . '</p>
-                            <p>' . $recetas->FRECUENCIA . ', ' . $recetas->VIA_DE_ADMINISTRACION . ' ' . $recetas->DURACION_DEL_TRATAMIENTO . ', ' . $recetas->INDICACIONES_PARA_EL_USO . '</p>
-                        </td>
-                    </tr>';
-        }
-    }
-
-    $recetaCopia .= '
                 </tbody>
-            </table>
+                </table>
+                <div class="break"></div> <!-- Salto de página -->
+                <div class="marca-agua">COPIA</div>
+                <table class="table">
+                    <tbody>';
+        }
+    
+        $recetaCopia .= '
+            <tr class="tratamiento-cuerpo">
+                <td>
+                    <span class="bold">' . $recetas->NOMBRE_GENERICO . ' (' . $recetas->NOMBRE_COMERCIAL . '), ' . $recetas->FORMA_FARMACEUTICA . ' ' . $recetas->DOSIS . '. ' . $recetas->PRESENTACION . '</span><br>
+                    <span>' . $recetas->FRECUENCIA . '. ' . $recetas->VIA_DE_ADMINISTRACION . '<br>' . $recetas->DURACION_DEL_TRATAMIENTO . '. ' . $recetas->INDICACIONES_PARA_EL_USO . '.</span>
+                </td>
+            </tr>';
+    }
+    
+    $recetaCopia .= '
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
-</div>';
+    </div>';
+    
 
     echo $recetaCopia;
 

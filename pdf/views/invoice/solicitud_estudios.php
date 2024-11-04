@@ -321,9 +321,10 @@ $encode_firma = base64_encode($ruta_firma);
     <!-- header -->
     <div class="header">
         <?php
-        $titulo = 'Checkup Clínica y Prevención';
-        $tituloPersonales = 'Información del paciente';
-        $subtitulo = 'Solicitud de estuidos';
+        $nombre_doctor = "Dr. Ibis De la Cruz Hernández";
+        $especialidades = "Infectologia y Medicina Interna";
+        $cedulas = "UJAT Ced. Prof. 6118720. Med. Interna 09995591. UNAM Infectología 10532710";
+        $tituloPersonales = 'Solicitud de Estudios';
         $encabezado->FECHA_RESULTADO = $encabezado->FECHA_RESULTADO_CONSULTA;
         include 'includes/header_receta.php';
         ?>
