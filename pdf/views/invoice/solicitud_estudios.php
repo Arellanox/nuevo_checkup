@@ -334,6 +334,7 @@ $encode_firma = base64_encode($ruta_firma);
         <!-- Footer 1 chido -->
         <?php
         $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
+        $footerDoctor = "Dr. Ibis De la Cruz Hernández <br> UNAM Infectología - Cédula Profesional: 10532710";
 
         include 'includes/footer_soli_estudios.php';
         ?>

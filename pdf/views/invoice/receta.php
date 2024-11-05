@@ -299,11 +299,11 @@
 
         /* para la marca de agua */
         .marca-agua {
-            position: fixed;
+            position: absolute;
             top: 60%;
             left: 50%;
             transform: translate(-50%, -50%);
-            opacity: 0.2;
+            opacity: 0.4;
             font-size: 100px;
             color: #cccccc;
             z-index: 999;
@@ -489,57 +489,64 @@ $recetaPrincipal = '
     <div class="break"></div>
     <?php
 
-    $medicamentos = 0;
-    $recetaCopia = '
-    <div class="contenido-sobre-marca">
-        <div class="marca-agua">COPIA</div>
-        <div class="invoice-content row">
-            <div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <td><strong>Diagnóstico:</strong> <span>' . $resultados[2][0]->DIAGNOSTICO . '</span></td>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-    
-            <div>
-                <h4 class="tratamiento-titulo">Tratamiento:</h4>
-                <table class="table">
-                    <tbody>';
-    
-    $medicamentos = 0;
-    foreach ($resultados[1] as $recetas) {
-        $medicamentos++;
-    
-        // Insertar salto de página después de cada 4 medicamentos
-        if ($medicamentos > 1 && $medicamentos == 4) {
-            $recetaCopia .= '
-                </tbody>
-                </table>
-                <div class="break"></div> <!-- Salto de página -->
-                <div class="marca-agua">COPIA</div>
-                <table class="table">
-                    <tbody>';
-        }
-    
-        $recetaCopia .= '
-            <tr class="tratamiento-cuerpo">
-                <td>
-                    <span class="bold">' . $recetas->NOMBRE_GENERICO . ' (' . $recetas->NOMBRE_COMERCIAL . '), ' . $recetas->FORMA_FARMACEUTICA . ' ' . $recetas->DOSIS . '. ' . $recetas->PRESENTACION . '</span><br>
-                    <span>' . $recetas->FRECUENCIA . '. ' . $recetas->VIA_DE_ADMINISTRACION . '<br>' . $recetas->DURACION_DEL_TRATAMIENTO . '. ' . $recetas->INDICACIONES_PARA_EL_USO . '.</span>
-                </td>
-            </tr>';
-    }
-    
-    $recetaCopia .= '
-                    </tbody>
-                </table>
-            </div>
+$medicamentos = 0;
+$recetaCopia = '
+<div class="contenido-sobre-marca">
+    <div class="marca-agua">COPIA</div>
+    <div class="invoice-content row">
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td><strong>Diagnóstico:</strong> <span>' . $resultados[2][0]->DIAGNOSTICO . '</span></td>
+                    </tr>
+                </thead>
+            </table>
         </div>
-    </div>';
-    
+
+        <div>
+            <h4 class="tratamiento-titulo">Tratamiento:</h4>
+            <table class="table">
+                <tbody>';
+
+$medicamentos = 0;
+foreach ($resultados[1] as $recetas) {
+    $medicamentos++;
+
+    // Insertar salto de página después de cada 4 medicamentos
+    if ($medicamentos > 1 && $medicamentos == 4) {
+        $recetaCopia .= '
+            </tbody>
+            </table>
+            </div>
+            </div>
+            </div>
+            <div class="break"></div> <!-- Salto de página -->
+            <div class="contenido-sobre-marca">
+            <div class="marca-agua">COPIA</div>
+            <div class="invoice-content row">
+            <div>
+            <table class="table">
+                <tbody>';
+    }
+
+    $recetaCopia .= '
+        <tr class="tratamiento-cuerpo">
+            <td>
+                <span class="bold">' . $recetas->NOMBRE_GENERICO . ' (' . $recetas->NOMBRE_COMERCIAL . '), ' . $recetas->FORMA_FARMACEUTICA . ' ' . $recetas->DOSIS . '. ' . $recetas->PRESENTACION . '</span><br>
+                <span>' . $recetas->FRECUENCIA . '. ' . $recetas->VIA_DE_ADMINISTRACION . '<br>' . $recetas->DURACION_DEL_TRATAMIENTO . '. ' . $recetas->INDICACIONES_PARA_EL_USO . '.</span>
+            </td>
+        </tr>';
+}
+
+$recetaCopia .= '
+                </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+</div>';
+
 
     echo $recetaCopia;
 
