@@ -11,6 +11,7 @@ $fecha_creacion = $_POST['fecha_creacion'];
 $creado_por_id = $_POST['creado_por_id'];
 $ruta_solicitud = $_POST['ruta_solicitud'];
 $folio = $_POST['folio'];
+$observaciones = $_POST['observaciones'];
 
 //tabla foranea 
 $servicio_id = $_POST['servicio_id'];
@@ -22,7 +23,8 @@ $parametros = $master->setToNull(array(
     $turno_id,
     $creado_por_id,
     $ruta_solicitud,
-    $servicio_id
+    $servicio_id,
+    $observaciones
 ));
 
 switch($api){

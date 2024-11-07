@@ -17,39 +17,6 @@
 
         }
 
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin-top: -2px;
-            margin-bottom: 1px;
-            font-size: 10px;
-            z-index: -1;
-            /* background-color: gray; */
-        }
-
-        .header {
-            position: fixed;
-            top: 0;
-            left: 25px;
-            right: 25px;
-            height: 160px;
-            margin-top: 0;
-            /* background-color: purple; */
-        }
-
-        .footer {
-            position: fixed;
-            bottom: 0;
-            left: 25px;
-            right: 25px;
-            height: 160px;
-            /* background-color: pink; */
-        }
-
-
-        .footer .page:after {
-            content: counter(page);
-        }
-
         /* Saltar a nueva pagina */
         .break {
             page-break-after: always;
@@ -105,10 +72,10 @@
             margin-bottom: 0px;
         }
 
-        p {
+        /* p {
             font-size: 12px;
             line-height: 1;
-        }
+        } */
 
         strong {
             font-size: 12px;
@@ -298,38 +265,11 @@
         }
 
         /* para la marca de agua */
-        .marca-agua {
-            position: absolute;
-            top: 60%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0.4;
-            font-size: 100px;
-            color: #cccccc;
-            z-index: 999;
-            /* Detrás del contenido */
-           
-        }
-
         .contenido-sobre-marca {
             position: relative;
             z-index: 1;
             /* Encima de la marca de agua */
         }
-
-        /* .signos-vitales {
-            font-size: 12px;
-        }
-        .signos {
-            position: fixed;
-            top: 180px; 
-            left: 25;
-            right: 25;
-            height: 160px;
-            margin-top: 0;
-
-
-        } */
 
         .signos-vitales {
             font-size: 10px;
@@ -340,20 +280,82 @@
             gap: 10px; /* Espacio entre los elementos */
         }
 
-        .signos {
-            position: fixed;
-            top: 137px; /* Ajusta según sea necesario */
-            left: 31px; /* Añadir 'px' para las unidades */
-            right: 25px; /* Añadir 'px' para las unidades */
-            margin-top: 0;
-            font-size: 10px;
+        .signos1 {
+          font-size: 12px;
         }
 
         .bold{
             font-size: 12px;
             font-weight: bold;
         }
-       
+        body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+}
+
+/* Cada contenedor ocupa la mitad de la página */
+.half-page {
+        position: relative;
+        height: 45%; /* Ajustado para que cada sección ocupe la mitad de la página */
+        margin-bottom: 1%;
+        padding: 10px;
+        border: 1px solid #000;
+    }
+
+/* Línea punteada que divide la receta de la copia */
+.linea-punteada {
+        border-top: 1px dashed black;
+        margin: 5px 0;
+    }
+
+/* Contenido del medicamento */
+.medicamento {
+    margin-bottom: 3px;
+}
+
+/* Estilo de la marca de agua para la copia */
+.marca-agua {
+        position: absolute;
+        font-size: 72px;
+        color: rgba(200, 200, 200, 0.4); /* Color gris claro con transparencia */
+        transform: rotate(-30deg);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-30deg); /* Centra y rota la marca de agua */
+        z-index: -1; /* Coloca la marca detrás del contenido */
+    }
+
+
+/* Salto de página para imprimir */
+.page-break {
+    page-break-after: always;
+}
+
+.page-number {
+        position: center;
+        bottom: 0;
+        text-align: center;
+    }
+    .content {
+        margin-bottom: 5px; /* Reduce el espacio inferior entre contenido y footer */
+        margin-left: 5px;
+    }
+    .footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 9px;
+        padding: 10px;
+        right: 0px;
+    }
+    .footer strong {
+        font-size: 9px;
+    }
+
+
     </style>
 
 </head>
@@ -401,158 +403,154 @@ $folio = ((array)($resultados[1][0]))['FOLIO'];
 ?>
 
 <body>
-    <!-- header -->
-    <div class="header">
-
-        <?php
-        $nombre_doctor = "Dr. Ibis De la Cruz Hernández";
-        $especialidades = "Infectologia y Medicina Interna";
-        $cedulas = "UJAT Ced. Prof. 6118720. Med. Interna 09995591. UNAM Infectología 10532710";
-        $tituloPersonales = 'Receta de Medicamentos';
-        $encabezado->FECHA_RESULTADO = $encabezado->FECHA_RESULTADO_CONSULTA;
-        include 'includes/header_receta.php';
-        ?>
-
-    </div>
-
-
-    <!-- Footer 1 chido -->
-    <div class="footer">
-        <?php
-
-        #$footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
-        // $footerDoctor = $data['NOMBRE_COMPLETO'] . '<br>' . $data['UNIVERSIDAD'] . '- Cédula profesional: ' . $data['CEDULA'];
-
-        include 'includes/footer_receta.php';
-        ?>
-    </div>
-    <!-- Signos vitales -->
-    <div class="signos" style="margin-bottom: 100px;">
-        <div class="signos-vitales">
-            <span>Alergias: <strong><?php echo $signos_alergias; ?></strong></span>
-            <span>Talla: <strong><?php echo $signos_talla; ?> cm</strong></span>
-            <span>Peso: <strong><?php echo $signos_peso; ?> Kg</strong></span>
-            <span>IMC: <strong><?php echo $signos_imc; ?></strong></span>
-            <span>Temperatura: <strong><?php echo $signos_temperatura; ?> °C</strong></span>
-            <span>TA: <strong><?php echo $signos_presionArterial; ?></strong></span>
-        </div>
-    </div>
-
-    <!-- Body -->
     <?php
+    $medicamentosPorPagina = 3;
+    $totalMedicamentos = count($resultados[1]);
+    $numPaginas = ceil($totalMedicamentos / $medicamentosPorPagina);
+    $medicamentoActual = 0;
 
-######################################################
-$medicamentos = 0;
-$recetaPrincipal = '
-<div class="invoice-content row">
-    <div>
-      <table class="table">
-        <thead>
-        <tr>
-              <td class=""><strong>Diagnóstico:</strong> <span class="">'.$resultados[2][0]->DIAGNOSTICO.'</span></td>
-        </tr>
-         </thead>
-</table>
-</div>
-
-<div>
-    <h4 class="tratamiento-titulo">Tratamiento:</h4>';
-
-    for ($i = 0; $i < count($resultados[1]); $i++) {
-        $recetas = $resultados[1][$i];
-        $medicamentos++;
-        if ($medicamentos == 4){
-            $recetaPrincipal .= "<div class='break'></div>";
-            $medicamentos = 0;
-        }
-
-        if ($resultados[0][$i] != $recetas->ID_RECETA) {
-        $recetaPrincipal .= '
-        <div class="tratamiento-cuerpo">
-            <span class="bold">' . $recetas->NOMBRE_GENERICO . '( '.$recetas->NOMBRE_COMERCIAL.'), ' . $recetas->FORMA_FARMACEUTICA . ' ' . $recetas->DOSIS .'. ' . $recetas->PRESENTACION . '</span><br>
-            <span>' . $recetas->FRECUENCIA . '. ' . $recetas->VIA_DE_ADMINISTRACION . '<br>' . $recetas->DURACION_DEL_TRATAMIENTO . '. ' . $recetas->INDICACIONES_PARA_EL_USO . '.</span>
-        </div>';
-        }      
-    }
-    $recetaPrincipal .= '
-    </div>
-</div>';
-
-
-
-
-
-    echo $recetaPrincipal;
-    ?>
-
-    <!-- copia -->
-    <div class="break"></div>
-    <?php
-
-$medicamentos = 0;
-$recetaCopia = '
-<div class="contenido-sobre-marca">
-    <div class="marca-agua">COPIA</div>
-    <div class="invoice-content row">
-        <div>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <td><strong>Diagnóstico:</strong> <span>' . $resultados[2][0]->DIAGNOSTICO . '</span></td>
-                    </tr>
-                </thead>
-            </table>
+    for ($pagina = 0; $pagina < $numPaginas; $pagina++) : ?>
+        
+        <!-- Contenedor de la Receta Original (mitad superior) -->
+        <div class="half-page" id="receta-original">
+            <div class="header">
+                <?php 
+                $nombre_doctor = "Dr. Ibis De la Cruz Hernández";
+                $especialidades = "Infectologia y Medicina Interna";
+                $cedulas = "UJAT Ced. Prof. 6118720. Med. Interna 09995591. UNAM Infectología 10532710";
+                $tituloPersonales = 'Receta de Medicamentos';
+                $encabezado->FECHA_RESULTADO = $encabezado->FECHA_RESULTADO_CONSULTA;
+                include 'includes/header_receta.php'; ?>
+            </div>
+            <div class="content">
+                
+                <div class="signos1">
+                    <div class="signos-vitales">
+                        <span>Alergias: <strong><?php echo $signos_alergias; ?></strong></span>
+                        <span>Talla: <strong><?php echo $signos_talla; ?> cm</strong></span>
+                        <span>Peso: <strong><?php echo $signos_peso; ?> Kg</strong></span>
+                        <span>IMC: <strong><?php echo $signos_imc; ?></strong></span>
+                        <span>Temperatura: <strong><?php echo $signos_temperatura; ?> °C</strong></span>
+                        <span>TA: <strong><?php echo $signos_presionArterial; ?></strong></span>
+                    </div>
+                </div>
+                <p><strong>Diagnóstico:</strong> <?php echo $resultados[2][0]->DIAGNOSTICO; ?></p>
+                
+                <?php for ($i = 0; $i < $medicamentosPorPagina && $medicamentoActual < $totalMedicamentos; $i++, $medicamentoActual++) :
+                    $medicamento = $resultados[1][$medicamentoActual];
+                ?>
+                    <div class="medicamento">
+                        <span class="bold"><?php echo $medicamento->NOMBRE_GENERICO . ' (' . $medicamento->NOMBRE_COMERCIAL . '), ' . $medicamento->FORMA_FARMACEUTICA . ' ' . $medicamento->DOSIS . '. ' . $medicamento->PRESENTACION; ?></span><br>
+                        <span><?php echo $medicamento->FRECUENCIA . '. ' . $medicamento->VIA_DE_ADMINISTRACION . '<br>' . $medicamento->DURACION_DEL_TRATAMIENTO . '. ' . $medicamento->INDICACIONES_PARA_EL_USO . '.'; ?></span>
+                    </div>
+                <?php endfor; ?>
+            </div>
+            <div class="footer">
+                <table style="margin-top:0px;">
+                    <tbody>
+                        <tr class="col-foot-two">
+                            <td colspan="10"></td>
+                            <td colspan="2" style="text-align: left;">
+                                <?php if (isset($encode_firma)) echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='20px'> " ?>
+                            </td>
+                        </tr>
+                        <tr class="col-foot-three" style="font-size: 13px;">
+                            <td colspan="6" style="text-align: center; width: 50%; height: 50px;" id="qr"></td>
+                            <td colspan="6" style="text-align: right; width: 50%;">
+                                <strong style="font-size: 12px;"><?php if (isset($footerDoctor)) echo $footerDoctor; ?></strong>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <span style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                    <small>
+                        <strong style="font-size: 9px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079</strong><br>
+                        <strong style="font-size: 9px;">Teléfonos: 993 634 0250, 993 634 6245</strong><br>
+                        <strong style="font-size: 9px;">Correo electrónico:</strong>
+                        <strong style="font-size: 9px;color: rgb(0, 78, 89);">resultados@bimo-lab.com</strong>
+                    </small>
+                    <br>
+                    <span class="page-number" style="font-size: 9px;">Página: <span class="page"><?php echo $pagina + 1; ?></span></span>
+                </span>
+            </div>
         </div>
 
-        <div>
-            <h4 class="tratamiento-titulo">Tratamiento:</h4>
-            <table class="table">
-                <tbody>';
+        <!-- Línea punteada para separar la receta de la copia -->
+        <div class="linea-punteada"></div>
 
-$medicamentos = 0;
-foreach ($resultados[1] as $recetas) {
-    $medicamentos++;
-
-    // Insertar salto de página después de cada 4 medicamentos
-    if ($medicamentos > 1 && $medicamentos == 4) {
-        $recetaCopia .= '
-            </tbody>
-            </table>
-            </div>
-            </div>
-            </div>
-            <div class="break"></div> <!-- Salto de página -->
-            <div class="contenido-sobre-marca">
+        <!-- Contenedor de la Copia (mitad inferior) -->
+        <div class="half-page" id="copia">
             <div class="marca-agua">COPIA</div>
-            <div class="invoice-content row">
-            <div>
-            <table class="table">
-                <tbody>';
-    }
-
-    $recetaCopia .= '
-        <tr class="tratamiento-cuerpo">
-            <td>
-                <span class="bold">' . $recetas->NOMBRE_GENERICO . ' (' . $recetas->NOMBRE_COMERCIAL . '), ' . $recetas->FORMA_FARMACEUTICA . ' ' . $recetas->DOSIS . '. ' . $recetas->PRESENTACION . '</span><br>
-                <span>' . $recetas->FRECUENCIA . '. ' . $recetas->VIA_DE_ADMINISTRACION . '<br>' . $recetas->DURACION_DEL_TRATAMIENTO . '. ' . $recetas->INDICACIONES_PARA_EL_USO . '.</span>
-            </td>
-        </tr>';
-}
-
-$recetaCopia .= '
-                </tbody>
-            </table>
+            <div class="header">
+                <?php 
+                $nombre_doctor = "Dr. Ibis De la Cruz Hernández";
+                $especialidades = "Infectologia y Medicina Interna";
+                $cedulas = "UJAT Ced. Prof. 6118720. Med. Interna 09995591. UNAM Infectología 10532710";
+                $tituloPersonales = 'Receta de Medicamentos';
+                $encabezado->FECHA_RESULTADO = $encabezado->FECHA_RESULTADO_CONSULTA;
+                include 'includes/header_receta.php'; ?>
+            </div>
+            <div class="content">
+                <div class="signos1">
+                        <div class="signos-vitales">
+                            <span>Alergias: <strong><?php echo $signos_alergias; ?></strong></span>
+                            <span>Talla: <strong><?php echo $signos_talla; ?> cm</strong></span>
+                            <span>Peso: <strong><?php echo $signos_peso; ?> Kg</strong></span>
+                            <span>IMC: <strong><?php echo $signos_imc; ?></strong></span>
+                            <span>Temperatura: <strong><?php echo $signos_temperatura; ?> °C</strong></span>
+                            <span>TA: <strong><?php echo $signos_presionArterial; ?></strong></span>
+                        </div>
+                </div>
+                <p><strong>Diagnóstico:</strong> <?php echo $resultados[2][0]->DIAGNOSTICO;?></p>
+                
+                <?php 
+                $inicioCopia = $medicamentoActual - $medicamentosPorPagina;
+                if ($medicamentoActual % 6 !=  0) {
+                    $inicioCopia+=$pagina;
+                } 
+                for ($j = $inicioCopia; $j < $medicamentoActual; $j++) :
+                    $medicamentoCopia = $resultados[1][$j];
+                ?>
+                    <div class="medicamento">
+                        <span class="bold"><?php echo $medicamentoCopia->NOMBRE_GENERICO . ' (' . $medicamentoCopia->NOMBRE_COMERCIAL . '), ' . $medicamentoCopia->FORMA_FARMACEUTICA . ' ' . $medicamentoCopia->DOSIS . '. ' . $medicamentoCopia->PRESENTACION; ?></span><br>
+                        <span><?php echo $medicamentoCopia->FRECUENCIA . '. ' . $medicamentoCopia->VIA_DE_ADMINISTRACION . '<br>' . $medicamentoCopia->DURACION_DEL_TRATAMIENTO . '. ' . $medicamentoCopia->INDICACIONES_PARA_EL_USO . '.'; ?></span>
+                    </div>
+                <?php endfor; ?>
+            </div>
+            <div class="footer">
+                <table style="margin-top:0px;">
+                    <tbody>
+                        <tr class="col-foot-two">
+                            <td colspan="10"></td>
+                            <td colspan="2" style="text-align: left;">
+                                <?php if (isset($encode_firma)) echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='20px'> " ?>
+                            </td>
+                        </tr>
+                        <tr class="col-foot-three" style="font-size: 13px;">
+                            <td colspan="6" style="text-align: center; width: 50%; height: 50px;" id="qr"></td>
+                            <td colspan="6" style="text-align: right; width: 50%;">
+                                <strong style="font-size: 12px;"><?php if (isset($footerDoctor)) echo $footerDoctor; ?></strong>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <span style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                    <small>
+                        <strong style="font-size: 9px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079</strong><br>
+                        <strong style="font-size: 9px;">Teléfonos: 993 634 0250, 993 634 6245</strong><br>
+                        <strong style="font-size: 9px;">Correo electrónico:</strong>
+                        <strong style="font-size: 9px;color: rgb(0, 78, 89);">resultados@bimo-lab.com</strong>
+                    </small>
+                    <br>
+                    <span class="page-number" style="font-size: 9px;">Página: <span class="page"><?php echo $pagina + 1; ?></span></span>
+                </span>
+            </div>
         </div>
-        </div>
-    </div>
-</div>';
 
+        <?php if ($pagina < $numPaginas - 1) : ?>
+            <div class="page-break"></div>
+        <?php endif; ?>
 
-    echo $recetaCopia;
-
-
-    ?>
-
+    <?php endfor; ?>
 </body>
-
 </html>

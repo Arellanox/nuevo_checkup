@@ -223,8 +223,8 @@ class Reporte
 
                 $height = 14 * 28.3465; // 21.59 cm a puntos
                 $width = 21.5 * 28.3465;   // 18 cm a puntos
-                $pdf->setPaper([0, 0, $width, $height], ' portrait');
-                // $pdf->setPaper('letter', 'portrait');
+                $pdf->setPaper([0, 0, $width, $height], 'portrait');
+                $pdf->setPaper('letter', 'portrait');
     
                 //Marca de agua
                 $pdf->getOptions()->setIsHtml5ParserEnabled(true); // Habilita el soporte para CSS3
@@ -235,6 +235,10 @@ class Reporte
                 $template = render_view('invoice/solicitud_estudios.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
+                
+                // $height = 14 * 28.3465; // 21.59 cm a puntos
+                // $width = 21.5 * 28.3465;   // 18 cm a puntos
+                // $pdf->setPaper([0, 0, $width, $height], 'portrait');
                 break;
 
             case 'temperatura':

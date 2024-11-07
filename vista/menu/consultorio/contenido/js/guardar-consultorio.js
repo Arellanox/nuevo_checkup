@@ -167,12 +167,14 @@ function guardarDatosConsultorio(btn) {
             dataJason_estudio = {
                 api: 1,
                 turno_id: pacienteActivo.array['ID_TURNO'],
-                servicio_id: id
+                servicio_id: id,
+                observaciones: $("#observaciones-solicitud").val()
             }
 
             ajaxAwait(dataJason_estudio, 'consultorio_2_solicitudes_api', { callbackAfter: true }, false, function (data) {
                 alertToast('Estudio cargado!', 'success', 4000)
                 TablaListaEstudios.ajax.reload();
+                $("#observaciones-solicitud").val('');
             })
             break;
 
@@ -382,7 +384,7 @@ TablaListaEstudios = $("#TablaListaEstudios").DataTable({
     columns: [
         { data: 'COUNT' },
         { data: 'DESCRIPCION' },
-        { data: 'ABREVIATURA' },
+        { data: 'OBSERVACIONES' },
         {
             data: 'SERVICIO_ID', render: function (data) {
 
@@ -397,7 +399,7 @@ TablaListaEstudios = $("#TablaListaEstudios").DataTable({
     columnDefs: [
         { target: 0, title: '#', className: 'all' },
         { target: 1, title: 'Descripcion', className: 'all' },
-        { target: 2, title: 'Abreviatura', className: 'all' }
+        { target: 2, title: 'Notas', className: 'all' }
     ]
 })
 inputBusquedaTable('TablaListaEstudios', TablaListaEstudios, [], [], 'col-18')

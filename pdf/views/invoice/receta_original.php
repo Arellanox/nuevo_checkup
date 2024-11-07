@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solicitud de estudios</title>
+    <title>Receta</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">  -->
@@ -12,8 +12,9 @@
     <style>
         @page {
             /* margin: 165px 10px; */
+            /* size: 21.59cm 18cm; */
             margin: 1cm;
-            size: 21.59cm 13.97cm;
+
         }
 
         body {
@@ -21,12 +22,13 @@
             margin-top: -2px;
             margin-bottom: 1px;
             font-size: 10px;
+            z-index: -1;
             /* background-color: gray; */
         }
 
         .header {
             position: fixed;
-            top: 0px;
+            top: 0;
             left: 25px;
             right: 25px;
             height: 160px;
@@ -36,12 +38,11 @@
 
         .footer {
             position: fixed;
-            bottom: 60px;
+            bottom: 0;
             left: 25px;
             right: 25px;
-            height: 100px;
+            height: 160px;
             /* background-color: pink; */
-            z-index: 3;
         }
 
 
@@ -57,13 +58,16 @@
         /* Content */
         .invoice-content {
             position: relative;
-            top: 140px;
+            top: 160px;
             border-radius: 4px;
             padding-bottom: 5px;
             padding-right: 30px;
             padding-left: 30px;
             text-align: justify;
             text-justify: inter-word;
+
+            /* background-color: red; */
+     
         }
 
 
@@ -194,9 +198,10 @@
         }
 
         .col-der {
-            width: 70%;
-            max-width: 70%;
+            width: 100%;
+            max-width: 1000%;
             text-align: left;
+            /* background-color: red; */
         }
 
         /* Fivisiones de cinco */
@@ -232,6 +237,7 @@
             margin: auto;
             white-space: normal;
             word-break: break-all;
+            font-size: 12px;
         }
 
         .table>tr,
@@ -250,18 +256,20 @@
         .tratamiento-titulo {
             background-color: #f2f2f2;
             font-weight: bold;
-            padding: 10px;
+            padding: 1.5px;
             text-align: left;
-            font-size: 14px;
+            font-size: 12px;
+            z-index: -1;
         }
 
         .respuesta-row,
         .comentario-row {
             background-color: #fff;
-            padding: 5px;
+            padding: 0.5em;
             border-bottom: 1px solid #ddd;
             border-top: 1px solid #ddd;
             font-size: 13px;
+            z-index: -1;
         }
 
         .respuesta2-row {
@@ -270,38 +278,111 @@
             border-bottom: 1px solid #ddd;
             border-top: 1px solid #ddd;
             font-size: 11px;
+            z-index: -1;
         }
 
         /* cuerpo del tratamiento */
         .tratamiento {
             background-color: #fff;
-            font-size: 13px;
+            font-size: 14px;
         }
 
         .tratamiento-cuerpo {
-            background-color: #fff;
-            padding: 5px;
+
+            padding: 0.2em;
             border-bottom: 1px solid #ddd;
             border-top: 1px solid #ddd;
-            font-size: 13px;
+            font-size: 12px;
+            /* z-index: -1; */
+
         }
 
         /* para la marca de agua */
-        /* .marca-agua {
-            position: fixed;
-            top: 50%;
+        .marca-agua {
+            position: absolute;
+            top: 60%;
             left: 50%;
             transform: translate(-50%, -50%);
-            opacity: 0.5;
-            font-size: 48px;
+            opacity: 0.4;
+            font-size: 100px;
             color: #cccccc;
-            z-index: 9999;
+            z-index: 999;
+            /* Detrás del contenido */
+           
+        }
+
+        .contenido-sobre-marca {
+            position: relative;
+            z-index: 1;
+            /* Encima de la marca de agua */
+        }
+
+        /* .signos-vitales {
+            font-size: 12px;
+        }
+        .signos {
+            position: fixed;
+            top: 180px; 
+            left: 25;
+            right: 25;
+            height: 160px;
+            margin-top: 0;
+
+
         } */
+
+        .signos-vitales {
+            font-size: 10px;
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px; /* Espacio entre los elementos */
+        }
+
+        .signos {
+            position: fixed;
+            top: 137px; /* Ajusta según sea necesario */
+            left: 31px; /* Añadir 'px' para las unidades */
+            right: 25px; /* Añadir 'px' para las unidades */
+            margin-top: 0;
+            font-size: 10px;
+        }
+
+        .bold{
+            font-size: 12px;
+            font-weight: bold;
+        }
+       
     </style>
 
 </head>
 
 <?php
+// print_r($pie);
+// exit;
+$dataDoc = $pie['datos_medicos'][0];
+$footerDoctor = $dataDoc['NOMBRE_COMPLETO'] . '<br>' . $dataDoc['UNIVERSIDAD'] . '- Cédula profesional: ' . $dataDoc['CEDULA'];
+
+$footerDoctor = "Dr. Ibis De la Cruz Hernández <br> UNAM Infectología - Cédula Profesional: 10532710";
+
+
+//Signos vitales
+$data = json_decode($resultados[2][0]->SIGNOS, true);
+foreach ($data as $signos){
+
+    $signos_edad = $signos['EDAD'];
+    $signos_sexo = $signos['SEXO'];
+    $signos_alergias = $signos['ALERGIAS'];
+    $signos_talla = $signos['TALLA'];
+    $signos_peso = $signos['PESO'];
+    $signos_imc = $signos['IMC'];
+    $signos_temperatura = $signos['TEMPERATURA'];
+    $signos_presionArterial = $signos['PRESION_ARTERIAL'];
+}
+
+
+
 
 // para el path del logo 
 $ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
@@ -312,69 +393,165 @@ $encode = base64_encode($ruta);
 // echo '<img src="data:image/png;base64, '. $img_valido .'" alt="" height="75" >';
 
 // path firma
-$ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
-$encode_firma = base64_encode($ruta_firma);
+// $ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
+// $encode_firma = base64_encode($ruta_firma);
 
+$folio = ((array)($resultados[1][0]))['FOLIO'];
 
 ?>
 
 <body>
-
     <!-- header -->
     <div class="header">
+
         <?php
         $nombre_doctor = "Dr. Ibis De la Cruz Hernández";
         $especialidades = "Infectologia y Medicina Interna";
         $cedulas = "UJAT Ced. Prof. 6118720. Med. Interna 09995591. UNAM Infectología 10532710";
-        $tituloPersonales = 'Solicitud de Estudios';
+        $tituloPersonales = 'Receta de Medicamentos';
         $encabezado->FECHA_RESULTADO = $encabezado->FECHA_RESULTADO_CONSULTA;
         include 'includes/header_receta.php';
         ?>
+
     </div>
 
+
+    <!-- Footer 1 chido -->
     <div class="footer">
-        <!-- Footer 1 chido -->
         <?php
-        $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
-        $footerDoctor = "Dr. Ibis De la Cruz Hernández <br> UNAM Infectología - Cédula Profesional: 10532710";
+
+        #$footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
+        // $footerDoctor = $data['NOMBRE_COMPLETO'] . '<br>' . $data['UNIVERSIDAD'] . '- Cédula profesional: ' . $data['CEDULA'];
 
         include 'includes/footer_receta.php';
         ?>
     </div>
-    <br>
-    <!-- Body -->
-    <div class="invoice-content row">
-    <table class="table">
-        <thead>
-            <tr>
-                <td class="pregunta-row">Solicitudes de estudios:</td>
-            </tr>
-        </thead>
-        <tbody>
-            <?php for ($i = 0; $i < count($resultados[2]); $i++) :?>
-                <tr>
-                    <td class="respuesta-row"><?php echo $resultados[2][$i]->DESCRIPCION . ' - ' . $resultados[2][$i]->ABREVIATURA . " <strong>[ ". $resultados[2][$i]->OBSERVACIONES. ' ]</strong>'; ?></td>
-                </tr>
+    <!-- Signos vitales -->
+    <div class="signos" style="margin-bottom: 100px;">
+        <div class="signos-vitales">
+            <span>Alergias: <strong><?php echo $signos_alergias; ?></strong></span>
+            <span>Talla: <strong><?php echo $signos_talla; ?> cm</strong></span>
+            <span>Peso: <strong><?php echo $signos_peso; ?> Kg</strong></span>
+            <span>IMC: <strong><?php echo $signos_imc; ?></strong></span>
+            <span>Temperatura: <strong><?php echo $signos_temperatura; ?> °C</strong></span>
+            <span>TA: <strong><?php echo $signos_presionArterial; ?></strong></span>
+        </div>
+    </div>
 
-                <?php if (($i + 1) % 7 == 0 && $i + 1 < count($resultados[2])): ?>
-                    </tbody>
-                    </table>
-                    </div>
-                    <div class="break"></div>
-                    <div class="invoice-content row">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <td class="pregunta-row">Solicitudes de estudios:</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                <?php endif; ?>
-            <?php endfor; ?>
-        </tbody>
-    </table>
+    <!-- Body -->
+    <?php
+
+######################################################
+$medicamentos = 0;
+$recetaPrincipal = '
+<div class="invoice-content row">
+    <div>
+      <table class="table">
+        <thead>
+        <tr>
+              <td class=""><strong>Diagnóstico:</strong> <span class="">'.$resultados[2][0]->DIAGNOSTICO.'</span></td>
+        </tr>
+         </thead>
+</table>
 </div>
 
+<div>
+    <h4 class="tratamiento-titulo">Tratamiento:</h4>';
+
+    for ($i = 0; $i < count($resultados[1]); $i++) {
+        $recetas = $resultados[1][$i];
+        $medicamentos++;
+        if ($medicamentos == 4){
+            $recetaPrincipal .= "<div class='break'></div>";
+            $medicamentos = 0;
+        }
+
+        if ($resultados[0][$i] != $recetas->ID_RECETA) {
+        $recetaPrincipal .= '
+        <div class="tratamiento-cuerpo">
+            <span class="bold">' . $recetas->NOMBRE_GENERICO . '( '.$recetas->NOMBRE_COMERCIAL.'), ' . $recetas->FORMA_FARMACEUTICA . ' ' . $recetas->DOSIS .'. ' . $recetas->PRESENTACION . '</span><br>
+            <span>' . $recetas->FRECUENCIA . '. ' . $recetas->VIA_DE_ADMINISTRACION . '<br>' . $recetas->DURACION_DEL_TRATAMIENTO . '. ' . $recetas->INDICACIONES_PARA_EL_USO . '.</span>
+        </div>';
+        }      
+    }
+    $recetaPrincipal .= '
+    </div>
+</div>';
+
+
+
+
+
+    echo $recetaPrincipal;
+    ?>
+
+    <!-- copia -->
+    <div class="break"></div>
+    <?php
+
+$medicamentos = 0;
+$recetaCopia = '
+<div class="contenido-sobre-marca">
+    <div class="marca-agua">COPIA</div>
+    <div class="invoice-content row">
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td><strong>Diagnóstico:</strong> <span>' . $resultados[2][0]->DIAGNOSTICO . '</span></td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+        <div>
+            <h4 class="tratamiento-titulo">Tratamiento:</h4>
+            <table class="table">
+                <tbody>';
+
+$medicamentos = 0;
+foreach ($resultados[1] as $recetas) {
+    $medicamentos++;
+
+    // Insertar salto de página después de cada 4 medicamentos
+    if ($medicamentos > 1 && $medicamentos == 4) {
+        $recetaCopia .= '
+            </tbody>
+            </table>
+            </div>
+            </div>
+            </div>
+            <div class="break"></div> <!-- Salto de página -->
+            <div class="contenido-sobre-marca">
+            <div class="marca-agua">COPIA</div>
+            <div class="invoice-content row">
+            <div>
+            <table class="table">
+                <tbody>';
+    }
+
+    $recetaCopia .= '
+        <tr class="tratamiento-cuerpo">
+            <td>
+                <span class="bold">' . $recetas->NOMBRE_GENERICO . ' (' . $recetas->NOMBRE_COMERCIAL . '), ' . $recetas->FORMA_FARMACEUTICA . ' ' . $recetas->DOSIS . '. ' . $recetas->PRESENTACION . '</span><br>
+                <span>' . $recetas->FRECUENCIA . '. ' . $recetas->VIA_DE_ADMINISTRACION . '<br>' . $recetas->DURACION_DEL_TRATAMIENTO . '. ' . $recetas->INDICACIONES_PARA_EL_USO . '.</span>
+            </td>
+        </tr>';
+}
+
+$recetaCopia .= '
+                </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+</div>';
+
+
+    echo $recetaCopia;
+
+
+    ?>
 
 </body>
 
