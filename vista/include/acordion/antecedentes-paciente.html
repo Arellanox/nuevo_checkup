@@ -1816,9 +1816,11 @@
             <i class="bi bi-plus-circle-fill" style="margin-right: 10px;"></i>MEDIO LABORAL
           </button>
         </h2>
+       
         <div id="collapse-MedLabo-Target" class="accordion-collapse collapse" aria-labelledby="collap-MedLabo">
           <div class="d-flex justify-content-end p-2 div-btn-guardarAntLabo"> </div>
           <div class="accordion-body">
+            <div class="card">
             <div class="row d-flex justify-content-center"
               style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
               <div class="col-12 col-lg-5 col-xl-7">
@@ -1840,6 +1842,22 @@
                   placeholder="Anotas las respuestas de cada pregunta se paradas por //"></textarea>
               </div>
             </div>
+            <!-- PREGUJNTAS EXTRAS PARA SIGMA -->
+            <div class="sigmaClass">
+              <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
+                <div class="col-6">
+                  <label>Ritmo intestinal: </label>
+                  <input type="hidden" name="check-aparatoDigestivo-ritmaIntestinal[]" value="94">
+                </div>
+                <div class="" id="collapse-aparatoDigestivo-ritmaIntestinal">
+                  <textarea name="check-aparatoDigestivo-ritmaIntestinal[]" class="form-control input-form" rows="2"
+                    cols="2" placeholder="¿Cuál?, tiempo, tratamiento"></textarea>
+                </div>
+              </div>
+            </div>
+            <!-- fin sigmaClass -->
+            </div> 
+            <!-- fin del card  -->
             <hr class="dropdown-divider m-2">
             <div class="row d-flex justify-content-center"
               style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
