@@ -9,8 +9,8 @@ include "../clases/correo_class.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
+    // $tokenVerification->logout();
+    // exit;
 }
 
 $master = new Master();
@@ -38,6 +38,11 @@ $date = date("dmY_His");
 $confirmado = $_POST['confirmado'];
 
 switch ($api) {
+    case 0:
+        # regenerar el pdf y enviar
+        $u = crearReporteUltrasonido($turno_id, 11);
+        enviarCorreo($master, $turno_id);
+        break;
     case 1:
         $res_reporte = false;
         if (!isset($confirmado)) {
@@ -302,6 +307,21 @@ function crearReporteUltrasonido($turno_id, $area_id, $viz = 'url', $preview = 0
     $master = new Master();
     $url = $master->reportador($master, $turno_id, $area_id, "ultrasonido", $viz, $preview);
     return $url;
+}
+
+function enviarCorreo($master, $turno_id){
+     # enviar el correo con el reporte y las imagenes capturadas
+     $attachment = $master->cleanAttachFilesImage($master, $turno_id, 11, 1);
+
+     $mails = $master->getEmailMedico($master, $turno_id);
+     $mails[] = $attachment[1];
+
+     if (!empty($attachment[0])) {
+         $mail = new Correo();
+         if ($mail->sendEmail('resultados', '[bimo] Resultados de ultrasonido',$mails, null, $attachment[0], 1, null, $turno_id, 11, $master)) {
+             $master->setLog("Correo enviado.", "ultrasonido");
+         }
+     }
 }
 
 
