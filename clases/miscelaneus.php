@@ -413,6 +413,10 @@ class Miscelaneus
                 $carpeta_guardado = 'consultorio';
                 $folio = $infoPaciente[0]['FOLIO_CONSULTA'];
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[0]['CLAVE_CONSULTA'];
+
+                # evaluar si el cliente es sigma y enviar las variables correspondientes.
+                # id cliente [15]
+
                 break;
             case 10:
             case '10':
@@ -643,6 +647,10 @@ class Miscelaneus
         $response = $master->getByProcedure('sp_pacientes_b', [$id_paciente, null, null, null]);
         $paciente = $response[0];
         return $paciente;
+    }
+
+    private function getSigmaHistoria(){
+        
     }
 
     private function getBodyInfoSoma($master, $id_turno)
