@@ -37,6 +37,9 @@ $fecha_admision = $_POST['fecha_admision'];
 $vive = $_POST['vive'];
 $enfermedad = $_POST['enfermedad'];
 
+# nutricion alimentos
+$nutricion = $_POST['nutalimentos'];
+
 switch($api){
     case 1:
         # agregar/editar ficha de admision
@@ -74,9 +77,21 @@ switch($api){
         // print_r($historia_object->crearJsonHistoFam($vive, $enfermedad));
         break;
     case 5:
+        # buscar historia familiar
         $response = $master->getByProcedure('sp_sigma_histofam_b', [$turno_id]);
         $object = new HistoriaFamiliar();
         $response = $object->crearJsonParaFormulario($response);
+        break;
+    case 6:
+        # guardar nutricion alimentos
+        $response = $master->insertByProcedure("sp_antecedentes_nutricion_alimentos_respuestas_g", [
+            $turno_id,
+            json_encode($nutricion)
+        ]);
+        break;
+    case 7:
+        # recuperar los alimentos que consume mas de 4 veces por semana
+        $response = $master->getByProcedure('sp_antecedentes_nutricion_alimentos_respuestas_b', [$turno_id]);
         break;
     default:
         $response = "api no definida.";

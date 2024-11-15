@@ -171,6 +171,7 @@ async function obtenerValoracion(data, idconsulta) {
   $('.div-btn-guardarAntLabo').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
   $('.div-btn-guardarAntGine').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
   $('.div-btn-guardarHistoriaFamiliar').append('<button type="button" class="btn btn-confirmar m-1 guardarHistoriaFam"><i class="bi bi-paperclip"></i> Guardar </button>')
+  $('.div-btn-guardarNutAlimentos').append('<button type="button" class="btn btn-confirmar m-1 guardarNutAlimentos"><i class=""></i> Guardar </button>')
   await obtenerAntecedentesPaciente(data['ID_TURNO']);
   // console.log("si");
   await obtenerInformacionPaciente(data)

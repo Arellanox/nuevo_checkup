@@ -2786,9 +2786,9 @@ function obtenerAntecedentesPaciente(id, curp, tipo = 1) {
     let arrayDivs = new Array;
     let api = 10;
     //Antecedentes
-    var divPatologicos = $('#collapse-Patologicos-Target').find("div[class='row d-flex justify-content-center']")
+    var divPatologicos = $('#collapse-Patologicos-Target').find("div[class='row d-flex justify-content-center'], div[class='row d-flex']")
     arrayDivs['ANTECEDENTES PERSONALES PATOLOGICOS'] = divPatologicos
-    var divNoPatologicos = $('#collapse-nopatologicos-Target').find("div[class='row d-flex justify-content-center']")
+    var divNoPatologicos = $('#collapse-nopatologicos-Target').find("div[class='row d-flex justify-content-center'], div[class='row d-flex']")
     arrayDivs['ANTECEDENTES NO PATOLOGICOS'] = divNoPatologicos
     var divHeredofamiliares = $('#collapse-anteHeredo-Target').find("div[class='row d-flex justify-content-center']")
     arrayDivs['ANTECEDENTES HEREDOFAMILIARES'] = divHeredofamiliares
@@ -2798,7 +2798,8 @@ function obtenerAntecedentesPaciente(id, curp, tipo = 1) {
     arrayDivs['ANTECEDENTES NUTRICIONALES'] = divNutricionales
     var divGinecologidos = $('#collapse-antGine-Target').find("div[class='row']")
     arrayDivs['ANTECEDENTES GINECOLÓGICOS'] = divGinecologidos
-    var divLaboral = $('#collapse-MedLabo-Target').find("div[class='row d-flex justify-content-center']")
+    // var divLaboral = $('#collapse-MedLabo-Target').find("div[class='row d-flex justify-content-center']")
+    var divLaboral = $('#collapse-MedLabo-Target').find("div[class='row d-flex justify-content-center'], div[class='row d-flex']")
     arrayDivs['MEDIO LABORAL'] = divLaboral
 
     var divsisteCardio = $('#collapse-sub-sisteCardio-Target').find("div[class='row']")
@@ -2888,12 +2889,43 @@ function obtenerAntecedentesPaciente(id, curp, tipo = 1) {
         alertErrorAJAX(jqXHR, exception, data)
       }
     })
+
+    // nutricion alimentos, recuperar respuestas nutAlimentos
+    $.ajax({
+      url: `${http}${servidor}/${appname}/api/ficha_admision_api.php`,
+      data: {
+        api: 7,
+        turno_id: id,
+      },
+      type: "POST",
+      dataType: "json",
+      success: function(data){
+        llenarNutricionAlimentos(data.response.data);
+      },
+      error: function(jqXHR, exception, data){
+        alertErrorAJAX(jqXHR, exception, data );
+      }
+    })
+
+
     resolve(1)
   });
-  // $('#collapse-Patologicos-Target').find("div[class='row']").each(function(){
-  //   //console.log($(this).find("input[value='1']").val())
-  // })
 }
+
+
+function llenarNutricionAlimentos(data) {
+  // Recorre cada objeto en el array de datos
+  data.forEach(item => {
+      // Selecciona el checkbox cuyo valor coincide con el ALIMENTO_ID del objeto
+      let checkbox = document.querySelector(`input[name="nutalimentos[]"][value="${item.ALIMENTO_ID}"]`);
+      // Si el checkbox existe, lo activa
+      if (checkbox) {
+          checkbox.checked = true;
+      }
+  });
+}
+
+
 
 function llenarHistoriaFamiliar(data) {
   data.forEach(function(item) {
@@ -2949,17 +2981,19 @@ function setValuesAntAnnameMetodo(DIV, array, key) {
           }
 
           if (array[i][0] == 1 || array[i][0] == null) {
-            $(DIV[i]).find("textarea.form-control.input-form").val(array[i][1])
 
-            // para los input tipo range
-            $(DIV[i]).find("input[type='range']").val(array[i][1])
-            $(DIV[i]).find("label[class='rangeValueLabel']").text(array[i][1])
+              $(DIV[i]).find("textarea.form-control.input-form").val(array[i][1])
+
+              // para los input tipo range
+              $(DIV[i]).find("input[type='range']").val(array[i][1])
+              $(DIV[i]).find("label[class='rangeValueLabel']").text(array[i][1])
+            
 
           } else {
             $(DIV[i]).find("textarea.form-control.input-form").val('')
           }
         } catch (error) {
-          //console.log(error);
+
         }
 
       }
@@ -2972,6 +3006,55 @@ function setValuesAntAnnameMetodo(DIV, array, key) {
     // alertSelectTable('La seccion ' + key + ' no cargó correctamente', 'info', 6000)
   }
 }
+
+function setValuesAntAnnameMetodo2(DIV, array, key) {
+  // Verificar si DIV y array son arrays
+  if (Array.isArray(DIV) && Array.isArray(array)) {
+    try {
+      if (DIV.length !== array.length) {
+        alertToast('Algunos datos de ' + key + ' se han cargado correctamente...', 'info');
+      }
+
+      for (var i = 0; i < DIV.length; i++) {
+        try {
+          // Verificar si array[i] es un array válido y contiene los valores esperados
+          if (array[i] && Array.isArray(array[i])) {
+            // Verificar si el DIV contiene un input radio
+            const hasRadio = $(DIV[i]).find("input[type='radio']").length > 0;
+            const hiddenInput = $(DIV[i]).find("input[type='hidden']");
+            const textarea = $(DIV[i]).find("textarea.form-control.input-form");
+
+            // Si hay radio buttons, asignar valor al input oculto y controlar el collapse
+            if (hasRadio) {
+              hiddenInput.val(array[i][0]);
+              if (array[i][0] == 1) {
+                const collapID = $(DIV[i]).find("div.collapse").attr("id");
+                if (collapID) {
+                  $('#' + collapID).collapse("show");
+                }
+              } else {
+                $(DIV[i]).find("div.collapse").collapse("hide");
+                textarea.val(''); // Limpiar el textarea si el radio no está seleccionado
+              }
+            }
+
+            // Asignar el valor al textarea independientemente de si hay radio buttons
+            textarea.val(array[i][1] || ''); // Si no hay valor en el array, asignar una cadena vacía
+          }
+        } catch (error) {
+          console.log("Error en la carga de valores:", error);
+        }
+      }
+    } catch (error) {
+      console.log("Error en el procesamiento de datos:", error);
+    }
+  } else {
+    alertSelectTable('La sección ' + key + ' no cargó correctamente', 'info', 6000);
+  }
+}
+
+
+
 
 function ocultarAntecedentesGinecologicos(sexo){
   return new Promise(resolve => {
@@ -2991,11 +3074,13 @@ function ocultarFichaAdmision(cliente){
       $('#li-fadmision').fadeOut(0);
       $("#card-fadmision").fadeOut(0);
       $("#historiaFamiliarForm").fadeOut(0);
+      $('.sigmaClass').fadeOut(0);
       console.warn(cliente)
     } else {
       $.post(`${http}${servidor}/${appname}/vista/include/acordion/ficha-admision.html`, function(html){
         $("#divFichaAdmision").html(html)
       })
+      $('.clientesClass').fadeOut(0);
     }
     resolve(1)
   })

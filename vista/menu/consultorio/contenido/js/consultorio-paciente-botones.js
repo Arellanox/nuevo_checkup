@@ -92,6 +92,35 @@ $(document).on('click', '.guardarHistoriaFam', function(event){
   })
 })
 
+// Nutricion alimentos, nutAlimentos
+$(document).on('click', '.guardarNutAlimentos', function(event){
+  event.stopPropagation();
+  event.stopImmediatePropagation();
+  button= $(this);
+  button.prop('disabled', true);
+  var parent_element = button.closest('form').attr('id');
+  let formData = new FormData(document.getElementById(parent_element));
+  formData.set('api', 6);
+  formData.set('turno_id', pacienteActivo.array['ID_TURNO']);
+
+  $.ajax({
+    data: formData,
+    url: `${http}${servidor}/${appname}/api/ficha_admision_api.php`,
+    type: 'POST',
+    processData: false,
+    contentType: false,
+    dataType: 'json',
+    beforeSend: function(){
+      alertToast('Guardando...Espere por favor', 'info')
+    },
+    success: function(){
+      button.prop('disabled', false);
+      alertToast('Guardado con éxito!', 'success')
+    }
+  })
+})
+
+
 // $('.').on
 $(document).on('click', '.guardarAnt ', function (event) {
   event.stopPropagation();
