@@ -1,0 +1,75 @@
+.logoSigma {
+  width: 200px;
+  height: auto;
+  max-width: 100%;
+  display: block;
+  margin: auto;
+}
+
+.tittleCenteredBold {
+  text-align: center;
+  font-weight: bold;
+}
+
+.tittleCenteredBoldBgP {
+  text-align: center;
+  font-weight: bold;
+  background-color: #e6b8b7;
+}
+
+.boldBgP {
+  font-weight: bold;
+  background-color: #e6b8b7;
+}
+
+.tittleCenteredBoldBgG {
+  text-align: center;
+  font-weight: bold;
+  background-color: darkgray;
+}
+
+.bgP {
+  background-color: #e6b8b7;
+}
+
+.textBold {
+  font-weight: bold;
+}
+
+.textBoldBgG {
+  font-weight: bold;
+  background-color: darkgray;
+}
+
+.textCenteredBgG {
+  text-align: center;
+  background-color: darkgray;
+}
+
+textarea {
+  resize: none;
+  border: none;
+  width: 80%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 7px;
+  font-family: Onest Variable, system-ui, sans-serif;
+}
+
+table {
+  width: 95%;
+  margin: auto;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+td, th {
+  padding: 2px;
+  font-size: 8px;
+  border: 1px solid #ddd;
+  word-wrap: break-word;
+  vertical-align: top;
+}

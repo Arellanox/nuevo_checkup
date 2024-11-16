@@ -1,0 +1,55 @@
+.logoSigma {
+  width: 25%;
+  height: 25%;
+}
+
+.tittleBoldCenteredBgG {
+  text-align: center;
+  font-weight: bold;
+  background-color: darkgray;
+}
+
+.tittleCentered {
+  text-align: center;
+}
+
+.imgc {
+  display: block;
+  margin: auto;
+  width: 649px;
+  height: auto;
+}
+
+.spaceBw {
+  text-align: center;
+  justify-content: space-between;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 8px;
+  font-family: Onest Variable, system-ui, sans-serif;
+}
+
+table {
+  width: 98%;
+  margin: auto;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+td, th {
+  padding: 3px;
+  font-size: 8px;
+  border: 0.5px solid #ddd;
+  word-wrap: break-word;
+  vertical-align: top;
+}
+
+.imgc {
+  display: block;
+  margin: auto;
+  width: 650px;
+  height: auto;
+}
