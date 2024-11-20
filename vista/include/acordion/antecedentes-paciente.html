@@ -458,7 +458,7 @@
 
             <hr class="dropdown-divider m-2">
             <div class="sigmaClass">
-              <div class="row d-flex justify-content-center" style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+              <!-- <div class="row d-flex justify-content-center" style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
                 <div class="col-12 col-lg-5 col-xl-7">
                   <label for="">¿USA LENTES?</label>
                   <input type="hidden" name="check-usaLentes[]" value="249">
@@ -477,7 +477,7 @@
                   <textarea name="check-usaLentes[]" class="form-control input-form" rows="2" cols="2"
                     placeholder="Registrar Motivo de Uso de Lentes"></textarea>
                 </div>
-              </div>
+              </div> -->
 
               <hr class="dropdown-divider m-2">
               <div class="row d-flex justify-content-center" style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
@@ -1316,6 +1316,7 @@
                   <label for="checkNo-diabe-padre">No</label>
                 </div>
               </div>
+              <input type="hidden" name="check-diabe-padre[]" value="">
               <!-- <div class="collapse" id="collapse-diabe-padre">
                   <textarea name="check-diabe-padre[]" class="form-control input-form" rows="2" cols="2" placeholder="..."></textarea>
                 </div> -->
@@ -1337,6 +1338,7 @@
                   <label for="checkNo-hisperArt-padre">No</label>
                 </div>
               </div>
+              <input type="hidden" name="check-hisperArt-padre[]" value="">
               <!-- <div class="collapse" id="collapse-hisperArt-padre">
                   <textarea name="check-hisperArt-padre[]" class="form-control input-form" rows="2" cols="2" placeholder="..."></textarea>
                 </div> -->
@@ -1461,7 +1463,7 @@
             style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
               <div class="col-12 col-lg-5 col-xl-7">
                 <label for="">¿PADECE O PADECIÓ ENFERMEDADES MENTALES O SUICIDIO?</label>
-                <input type="hidden" name="check-suic-padre" value="214">
+                <input type="hidden" name="check-suic-padre[]" value="214">
               </div>
               <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
                 <div class="col-auto">
@@ -1541,6 +1543,7 @@
                   <label for="checkNo-diabe-madre">No</label>
                 </div>
               </div>
+              <input type="hidden" name="check-diabe-madre[]" value="">
               <!-- <div class="collapse" id="collapse-diabe-madre">
                   <textarea name="check-diabe-madre[]" class="form-control input-form" rows="2" cols="2" placeholder="..."></textarea>
                 </div> -->
@@ -1562,6 +1565,7 @@
                   <label for="checkNo-hisperArt-madre">No</label>
                 </div>
               </div>
+              <input type="hidden" name="check-hisperArt-madre[]" value="">
               <!-- <div class="collapse" id="collapse-hisperArt-madre">
                   <textarea name="check-hisperArt-madre[]" class="form-control input-form" rows="2" cols="2" placeholder="..."></textarea>
                 </div> -->
@@ -1897,6 +1901,7 @@
                   <input type="radio" required id="check-noAplica-enfAfect" name="check-enfAfect[]" value="2">
                   <label for="check-noAplica-enfAfect">No aplica</label>
                 </div>
+                <input type="hidden" name="check-enfAfect[]" value="">
                 <!-- <div class="col-auto">
                     <input type="radio" required  id="check-Todas-enfAfect" name="check-enfAfect[]" value="5">
                     <label for="check-Todas-enfAfect">Todas</label>
@@ -1927,6 +1932,7 @@
                   <input type="radio" required id="check-Siempre-frecFeliz" name="check-frecFeliz[]" value="9">
                   <label for="check-Siempre-frecFeliz">Siempre</label>
                 </div>
+                <input type="hidden" name="check-frecFeliz[]" value="">
               </div>
             </div>
             <hr class="dropdown-divider m-2">
@@ -1945,6 +1951,7 @@
                   <input type="radio" required id="checkNo-sienRealiz" name="check-sienRealiz[]" value="2">
                   <label for="checkNo-sienRealiz">No</label>
                 </div>
+                <input type="hidden" name="check-sienRealiz[]" value="">
               </div>
               <!-- <div class="collapse" id="collapse-sienRealiz">
                   <textarea name="check-sienRealiz[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
@@ -1970,6 +1977,7 @@
                   <input type="radio" required id="check-Siempre-frecSolo" name="check-frecSolo[]" value="9">
                   <label for="check-Siempre-frecSolo">Siempre</label>
                 </div>
+                <input type="hidden" name="check-frecSolo[]" value="">
               </div>
             </div>
             <hr class="dropdown-divider m-2">
@@ -1992,6 +2000,7 @@
                   <input type="radio" required id="check-Siempre-frectris" name="check-frectris[]" value="9">
                   <label for="check-Siempre-frectris">Siempre</label>
                 </div>
+                <input type="hidden" name="check-frectris[]" value="">
               </div>
             </div>
             <hr class="dropdown-divider m-2">
@@ -2016,6 +2025,7 @@
                     value="9">
                   <label for="check-Siempre-situaciCotidia">Siempre</label>
                 </div>
+                <input type="hidden" name="check-situaciCotidia[]" value="">
               </div>
             </div>
           </div>
@@ -2054,6 +2064,7 @@
                   <label for="checkNo-Desayuno">No</label>
                 </div>
               </div>
+              <input type="hidden" name="check-Desayuno[]" value="">
               <!-- <div class="collapse" id="collapse-Desayuno">
                   <textarea name="check-Desayuno[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?"></textarea>
                 </div> -->
@@ -2075,6 +2086,7 @@
                   <label for="checkNo-colaMana">No</label>
                 </div>
               </div>
+              <input type="hidden" name="check-colaMana[]" value="">
               <!-- <div class="collapse" id="collapse-colaMana">
                   <textarea name="check-colaMana[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?"></textarea>
                 </div> -->
@@ -2096,6 +2108,7 @@
                   <label for="checkNo-Comida">No</label>
                 </div>
               </div>
+              <input type="hidden" name="check-Comida[]" value="">
               <!-- <div class="collapse" id="collapse-Comida">
                   <textarea name="check-Comida[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?"></textarea>
                 </div> -->
@@ -2117,6 +2130,7 @@
                   <label for="checkNo-colaTarde">No</label>
                 </div>
               </div>
+              <input type="hidden" name="check-colaTarde[]" value="">
               <!-- <div class="collapse" id="collapse-colaTarde">
                   <textarea name="check-colaTarde[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?"></textarea>
                 </div> -->
@@ -2139,6 +2153,7 @@
                   <label for="checkNo-colaCena">No</label>
                 </div>
               </div>
+              <input type="hidden" name="check-colaCena[]" value="">
               <!-- <div class="collapse" id="collapse-colaCena">
                   <textarea name="check-colaCena[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?"></textarea>
                 </div> -->
@@ -2161,6 +2176,7 @@
                   <label for="checkNo-alimePrepa">No</label>
                 </div>
               </div>
+              <input type="hidden" name="check-alimePrepa[]" value="">
               <!-- <div class="collapse" id="collapse-alimePrepa">
                   <textarea name="check-alimePrepa[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?"></textarea>
                 </div> -->
@@ -2185,6 +2201,7 @@
                   <input type="radio" required id="check-Siempre-frecAlimprepa" name="check-frecAlimprepa[]" value="9">
                   <label for="check-Siempre-frecAlimprepa">Siempre</label>
                 </div>
+                <input type="hidden" name="check-frecAlimprepa[]" value="">
               </div>
             </div>
             <hr class="dropdown-divider m-2">
@@ -2207,6 +2224,7 @@
                   <input type="radio" required id="check-Malo-nivelApeti" name="check-nivelApeti[]" value="12">
                   <label for="check-Malo-nivelApeti">Malo</label>
                 </div>
+                <input type="hidden" name="check-nivelApeti[]" value="">
               </div>
             </div>
             <hr class="dropdown-divider m-2">
@@ -2229,6 +2247,7 @@
                   <input type="radio" required id="check-Malo-nivelSacied" name="check-nivelSacied[]" value="12">
                   <label for="check-Malo-nivelSacied">Malo</label>
                 </div>
+                <input type="hidden" name="check-nivelSacied[]" value="">
               </div>
             </div>
             <hr class="dropdown-divider m-2">
@@ -2254,6 +2273,7 @@
                     value="15">
                   <label for="check-79-vasosAguaConsuem">7 a 9</label>
                 </div>
+                <input type="hidden" value="" name="check-vasosAguaConsuem[]">
               </div>
             </div>
             <hr class="dropdown-divider m-2">
@@ -2277,6 +2297,7 @@
                 <textarea name="check-PadeceEnfeAlime[]" class="form-control input-form" rows="2" cols="2"
                   placeholder="Especifique"></textarea>
               </div>
+              <input type="hidden" value="" name="check-PadeceEnfeAlime[]"">
             </div>
             <hr class="dropdown-divider m-2">
             <div class="row d-flex justify-content-center"
@@ -2299,6 +2320,7 @@
                 <textarea name="check-ConssupleAli[]" class="form-control input-form" rows="2" cols="2"
                   placeholder="Especifique"></textarea>
               </div>
+              <input type="hidden" name="check-ConssupleAli[]" value="">
             </div>
           </div>
           <div class="d-flex justify-content-end p-2 div-btn-guardarAntNutri"> </div>
