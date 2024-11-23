@@ -2820,6 +2820,8 @@ function obtenerAntecedentesPaciente(id, curp, tipo = 1) {
     arrayDivs['TERMOREGULACION'] = divTermoregulacin
     var divpiel = $('#collapse-sub-piel-Target').find("div[class='row']")
     arrayDivs['PIEL'] = divpiel
+    var divOrganoSentidos = $('#collapse-organo-sentidos-Target').find("div[class='row']")
+    arrayDivs['SENTIDOS'] = divOrganoSentidos;
     // //console.log(arrayDivs)
 
     // arrayDivs.push(divPatologicos, divNoPatologicos, divHeredofamiliares, divPsicologicos, divNutricionales, divLaboral)

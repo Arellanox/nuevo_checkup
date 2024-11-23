@@ -40,6 +40,9 @@ $enfermedad = $_POST['enfermedad'];
 # nutricion alimentos
 $nutricion = $_POST['nutalimentos'];
 
+# exploraciones fisicas
+$exploraciones = $_POST['sigma-exploracion'];
+
 switch($api){
     case 1:
         # agregar/editar ficha de admision
@@ -92,6 +95,10 @@ switch($api){
     case 7:
         # recuperar los alimentos que consume mas de 4 veces por semana
         $response = $master->getByProcedure('sp_antecedentes_nutricion_alimentos_respuestas_b', [$turno_id]);
+        break;
+    case 8:
+        # guardar las exploraciones de sigma
+        $response = $exploraciones;
         break;
     default:
         $response = "api no definida.";

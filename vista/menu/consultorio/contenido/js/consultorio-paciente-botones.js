@@ -155,6 +155,40 @@ $(document).on('click', '.guardarAnt ', function (event) {
 
 });
 
+//Guardar las exploraciones de sigma
+$(document).on('click', '.guardar-form-exploracion', function(event){
+  event.stopPropagation();
+  event.stopImmediatePropagation();
+  button = $(this)
+  button.prop('disabled', true);
+  var parent_element = button.closest("form").attr('id');
+  let formData = new FormData(document.getElementById(parent_element));
+  formData.set('api', 8);
+  formData.set('turno_id', pacienteActivo.array['ID_TURNO']);
+
+  $.ajax({
+    data: formData,
+    url: `${http}${servidor}/${appname}/api/ficha_admision_api.php`,
+    type: "POST",
+    processData: false,
+    contentType: false,
+    dataType: 'json',
+    beforeSend: function () {
+      // alert('Enviando')
+      alertToast('Guardando...', 'info')
+    },
+    success: function (data) {
+      button.prop('disabled', false);
+      alertToast('Guardado con éxito', 'success');
+    },
+    completed: function(){
+      button.prop('disable', false);
+    }
+  })
+
+  
+})
+
 //botones de pdf de vista previa
 //busca y muestra lso botones solo si tiene ya una receta y solicitud mientrtas que las url esten vacias no las mostrara
 // ajaxAwait({ api: 2, turno_id: pacienteActivo.array['ID_TURNO'] }, 'consultorio2_api', { callbackAfter: true }, false, function (data) {
