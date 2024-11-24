@@ -15,3 +15,19 @@
 26/02/24 12:14:33 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [2002] Se ha intentado una operación de socket en una red no accesible.
 
 26/02/24 12:15:22 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [2006] MySQL server has gone away
+19/11/24 10:34:08 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+
+19/11/24 10:35:06 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+
+19/11/24 10:35:40 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+
+19/11/24 10:36:25 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+
+19/11/24 10:37:04 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+
+19/11/24 10:37:25 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+
+19/11/24 10:39:12 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+
+19/11/24 10:44:41 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+

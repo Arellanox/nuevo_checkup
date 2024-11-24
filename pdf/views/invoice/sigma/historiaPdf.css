@@ -95,7 +95,6 @@ table {
   width: 90%;
   margin: auto;
   border-collapse: collapse;
-  table-layout: fixed;
 }
 
 td,

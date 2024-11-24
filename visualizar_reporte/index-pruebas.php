@@ -31,11 +31,10 @@ $usuario_id = $_SESSION['id'];
 // decomentar las siguientes 3 lineas para hacer las pruebas
 
 
-$api = "biomolecular";
-$area_id = 12;
-$turno_id = 5669;
-
-//$cliente_id = 19;
+$api = "consultorio";
+$area_id = 1;
+$turno_id = 3199;
+$id_cliente = 15;
 // $id_cotizacion = 7;
 
 $preview = 0; // <- debe estar activo, y la firma de quien interpreta no debe aparecer

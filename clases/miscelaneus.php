@@ -404,7 +404,107 @@ class Miscelaneus
             case 1:
             case '1':
                 # CONSULTORIO
-                $arregloPaciente = $this->getBodyInfoConsultorio($master, $turno_id, $id_consulta);
+                if ($cliente_id == 15) {
+                    $reporte = 'sigma_consultorio';
+                    $arregloPaciente = $this->getSigmaHistoria($master, $turno_id);
+                    $filteredArregloPaciente = [];
+                    $allowedKeys = [
+                        'ID_PACIENTE',
+                        'nombre_cliente',
+                        'EDAD',
+                        'NACIMIENTO',
+                        'CELULAR',
+                        'CORREO',
+                        'POSTAL',
+                        'MUNICIPIO',
+                        'COLONIA',
+                        'EXTERIOR',
+                        'INTERIOR',
+                        'CALLE',
+                        'domicilio_cliente',
+                        'GENERO'
+                    ];
+                    if (isset($arregloPaciente[0][0])) {
+                        $arregloPaciente = $arregloPaciente[0][0];
+                    }
+                    foreach ($arregloPaciente as $key => $value) {
+                        if (in_array($key, $allowedKeys) && is_string($key)) {
+                            $filteredArregloPaciente[$key] = $value;
+                        }
+                    }
+                    $result = $filteredArregloPaciente;
+
+                    //obtener los antecedentes del paciente
+                    $infoConsultorioAntecedentes = $master->getByProcedure("sp_consultorio_antecedentes_b", [$turno_id, null]);
+                    $infoHistoFam = $master->getByProcedure("sp_sigma_histofam_b", [$turno_id]);
+                    $infoAntecedentesNutri = $master->getByProcedure("sp_antecedentes_nutricion_alimentos_respuestas_b", [$turno_id]);
+                    $infoConsultorioAparatos = $master->getByProcedure("sp_consultorio_anamnesis_aparatos_b", [$turno_id]);
+                    $infoFichAdmi = $master->getByProcedure("sp_sigma_ficha_admision_b", [$turno_id, null, null]);
+
+                    $arregloAntecedentes = [];
+                    foreach ($infoConsultorioAntecedentes as $key => $value) {
+                        if (isset($value['ID_SUBTIPO'])) {
+                            $arregloAntecedentes[$value['ID_SUBTIPO']] = array_filter($value, function ($k) {
+                                $allowedKeys = ['NOTAS', 'RESPUESTA', 'SUBTIPO'];
+                                return in_array($k, $allowedKeys, true);
+                            }, ARRAY_FILTER_USE_KEY);
+                        }
+                    }
+
+                    $arregloHistofam = [];
+                    foreach ($infoHistoFam as $key => $value) {
+                        if (isset($value['ID_FAMILIAR'], $value['ID_PREGUNTA'])) {
+                            if (!isset($arregloHistofam[$value['ID_FAMILIAR']])) {
+                                $arregloHistofam[$value['ID_FAMILIAR']] = [
+                                    'FAMILIAR' => $value['FAMILIAR'], //cambiar familiar nombre
+                                    'PREGUNTAS' => []
+                                ];
+                            }
+                            $arregloHistofam[$value['ID_FAMILIAR']]['PREGUNTAS'][$value['ID_PREGUNTA']] = [
+                                'PREGUNTA' => $value['PREGUNTA'],
+                                'RESPUESTA' => $value['RESPUESTA']
+                            ];
+                        }
+                    }
+
+                    $arregloAntecedentesNutri = [];
+                    foreach ($infoAntecedentesNutri as $key => $value) {
+                        if (isset($value['ALIMENTO_ID'])) {
+                            $arregloAntecedentesNutri[$value['ALIMENTO_ID']] = array_filter($value, function ($k) {
+                                $allowedKeys = ['ALIMENTO'];
+                                return in_array($k, $allowedKeys, true);
+                            }, ARRAY_FILTER_USE_KEY);
+                        }
+                    }
+
+                    $arregloConsultorioAparatos = [];
+                    foreach ($infoConsultorioAparatos as $key => $value) {
+                        if (isset($value['ID_SUBTIPO'])) {
+                            $arregloConsultorioAparatos[$value['ID_SUBTIPO']] = array_filter($value, function ($k) {
+                                $allowedKeys = ['NOTAS', 'RESPUESTA', 'SUBTIPO'];
+                                return in_array($k, $allowedKeys, true);
+                            }, ARRAY_FILTER_USE_KEY);
+                        }
+                    }
+
+                    $arregloInfoFichAdmi = [];
+                    foreach ($infoFichAdmi as $key => $value) {
+                        if (isset($value['ID_ADMISION'])) {
+                            $arregloInfoFichAdmi = array_filter($value, function ($k) {
+                                $allowedKeys = ['FECHA_ADMISION', 'RELIGION', 'LUGAR_NACIMIENTO', 'ESTADO_CIVIL','TELEFONO_PACIENTE','PUESTO_SOLICITA','AREA_DEPTO','NO_IMSS','PROFESION','ESCOLARIDAD','UMF','ACCIDENTE_AVISAR','PARENTESCO', 'TELEFONO1','TELEFONO2','ACTIVO','COLONIA','CALLE','CELULAR','ESTADO','EXTERIOR','INTERIOR','POSTAL','MUNICIPIO','PX','EDAD'];
+                                return in_array($k, $allowedKeys, true);
+                            }, ARRAY_FILTER_USE_KEY);
+                        }
+                    }
+
+                    #echo "<pre>";
+                    $arregloPaciente = [$result, $arregloAntecedentes, $arregloHistofam, $arregloAntecedentesNutri, $arregloConsultorioAparatos, $arregloInfoFichAdmi];
+                    #print_r([$result, $arregloAntecedentes, $arregloHistofam, $arregloAntecedentesNutri, $arregloConsultorioAparatos, $arregloInfoFichAdmi]);
+                    #echo "</pre>";
+                    #exit;
+                    
+                } else {
+                    $arregloPaciente = $this->getBodyInfoConsultorio($master, $turno_id, $id_consulta);
                 $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
                 $datos_medicos = $this->getMedicalCarrier($info);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_CONSULTA'];
@@ -413,7 +513,8 @@ class Miscelaneus
                 $carpeta_guardado = 'consultorio';
                 $folio = $infoPaciente[0]['FOLIO_CONSULTA'];
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[0]['CLAVE_CONSULTA'];
-
+                }
+                
                 # evaluar si el cliente es sigma y enviar las variables correspondientes.
                 # id cliente [15]
 
@@ -649,8 +750,9 @@ class Miscelaneus
         return $paciente;
     }
 
-    private function getSigmaHistoria(){
-        
+    private function getSigmaHistoria($master, $id_turno){
+        $response = $master->getByNext('sp_sigma_historia_b', [$id_turno]);
+        return $response;
     }
 
     private function getBodyInfoSoma($master, $id_turno)
