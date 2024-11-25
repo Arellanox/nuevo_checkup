@@ -98,7 +98,8 @@ switch($api){
         break;
     case 8:
         # guardar las exploraciones de sigma
-        $response = $exploraciones;
+        // $response = $exploraciones;
+        $response = $master->insertByProcedure('sp_sigma_exploracion_g', [$turno_id, json_encode($exploraciones)]);
         break;
     default:
         $response = "api no definida.";
