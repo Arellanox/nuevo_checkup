@@ -41,7 +41,12 @@ $enfermedad = $_POST['enfermedad'];
 $nutricion = $_POST['nutalimentos'];
 
 # exploraciones fisicas
-$exploraciones = $_POST['sigma-exploracion'];
+$exploraciones = $_POST['sigma-exploracion']['exploraciones'];
+$exploraciones = array_values($exploraciones);
+$exploraciones = [
+    'parte_cuerpo' => $_POST['sigma-exploracion']['parte_cuerpo'],
+    'exploraciones' => $exploraciones
+];
 
 switch($api){
     case 1:
@@ -100,6 +105,11 @@ switch($api){
         # guardar las exploraciones de sigma
         // $response = $exploraciones;
         $response = $master->insertByProcedure('sp_sigma_exploracion_g', [$turno_id, json_encode($exploraciones)]);
+        // echo json_encode($exploraciones);
+        break;
+    case 9:
+        # recuperar las exploraciones sigma
+        $response = $master->getByProcedure('sp_sigma_exploracion_b', [$turno_id]);
         break;
     default:
         $response = "api no definida.";

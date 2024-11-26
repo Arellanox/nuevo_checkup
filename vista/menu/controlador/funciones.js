@@ -2909,6 +2909,23 @@ function obtenerAntecedentesPaciente(id, curp, tipo = 1) {
       }
     })
 
+    // recuperar las exploraciones de sigma
+    $.ajax({
+      url: `${http}${servidor}/${appname}/api/ficha_admision_api.php`,
+      data: {
+        api: 9,
+        turno_id: id,
+      },
+      type: "POST",
+      dataType: "json",
+      success: function(data){
+        llenarExploracionSigma(data.response.data);
+      },
+      error: function(jqXHR, exception, data){
+        alertErrorAJAX(jqXHR, exception, data );
+      }
+    })
+
 
     resolve(1)
   });
@@ -2925,6 +2942,33 @@ function llenarNutricionAlimentos(data) {
           checkbox.checked = true;
       }
   });
+}
+
+function llenarExploracionSigma(data){
+  // Recorre cada objeto en el array de datos
+  for (let index = 0; index < data.length; index++) {
+    const element = data[index];
+    // console.log('elemento')
+    // console.log(element.ID_CUERPO)
+    $('form.form-exploracion').filter(function(){
+      // buscar dentro de este formulario si existe un elemento con el name y valor deseado
+      return $(this).find('[name="sigma-exploracion[parte_cuerpo]"]').val() == element.ID_CUERPO;
+    }).each(function(){
+      // si existe pintar los valores en el formulario
+      var form = $(this).attr('id');
+      for (let i = 0; i < 10; i++) {
+
+        var input = $(`#${form}`).find(`[name="sigma-exploracion[exploraciones][${i}][tipo]"]`);
+
+        if(input.length && input.val() == element.ID_TIPO){
+          $(`#${form}`).find(`[name="sigma-exploracion[exploraciones][${i}][respuesta]"][value="${element.ID_RESPUESTA}"]`).prop('checked', true);
+          $(`#${form}`).find(`[name="sigma-exploracion[exploraciones][${i}][observaciones]"]`).val(`${element.OBSERVACIONES}`);
+          break;
+        }
+      }
+    })
+  }
+  
 }
 
 
