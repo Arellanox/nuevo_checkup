@@ -69,45 +69,47 @@ async function obtenerResultadosSignos(id) {
     return new Promise(resolve => {
         ajaxAwait({ id_turno: id, api: 2 }, 'somatometria_api', { callbackAfter: true }, false, (row) => {
             row = row.response.data;
-            if (Object.keys(row).length > 2) {
+            if (Object.keys(row).length > 17) {
                 bloquearBotones(1)
                 console.log(row);
-                const elementMap = {
-                    'frecuenciaCardiaca': 'FRECUENCIA CARDIACA',
-                    'frecuenciaRespiratoria': 'FRECUENCIA RESPIRATORIA',
-                    'sistolica': 'SISTOLICA',
-                    'diastolica': 'DIASTOLICA',
-                    'saturacionOxigeno': 'SATURACION DE OXIGENO',
-                    'temperatura': 'TEMPERATURA',
-                    'estatura': 'ESTATURA',
-                    'peso': 'PESO',
-                    'masaCorporal': 'ÍNDICE DE MASA CORPORAL',
-                    'masaMuscular': 'MASA LIBRE DE GRASA',
-                    'porcentajeGrasaVisceral': 'NIVEL DE GRASA VISCERAL',
-                    'huesos': 'MÚSCULO ESQUELÉTICO',
-                    'metabolismo': 'TASA METABÓLICA BASAL',
-                    'perimetroCefalico': 'PERIMETRO CEFALICO',
-                    'porcentajeProteinas': 'PROTEÍNAS',
-                    'porcentajeAgua': 'AGUA CORPORAL TOTAL',
-                    'masagrasaCorportal': 'MASA GRASA CORPORAL',
-                    'minerales': 'MINERALES'
-                };
-
-                // Iterar sobre el mapeo para establecer los valores de los elementos
-                for (const [elementID, rowKey] of Object.entries(elementMap)) {
-                    // console.log($(`#${elementID}`), rowKey, row[`${rowKey}`][['VALOR']]);
-                    $(`#${elementID}`).val(ifnull(row, '', { [rowKey]: 'VALOR' }));
-                }
-
-                // Manejar el botón de reporte
-                const reportPath = ifnull(row, '', ['RUTA_REPORTE']);
-                if (reportPath) {
-                    $('#button_reporte').html(`<a type="button" target="_blank" class="btn btn-borrar me-2" href="${reportPath}" style="margin-bottom:4px"><i class="bi bi-file-earmark-pdf"></i></a>`);
-                } else {
-                    $('#button_reporte').html('');
-                }
+               
             } else {
                 bloquearBotones(2)
+            }
+
+            const elementMap = {
+                'frecuenciaCardiaca': 'FRECUENCIA CARDIACA',
+                'frecuenciaRespiratoria': 'FRECUENCIA RESPIRATORIA',
+                'sistolica': 'SISTOLICA',
+                'diastolica': 'DIASTOLICA',
+                'saturacionOxigeno': 'SATURACION DE OXIGENO',
+                'temperatura': 'TEMPERATURA',
+                'estatura': 'ESTATURA',
+                'peso': 'PESO',
+                'masaCorporal': 'ÍNDICE DE MASA CORPORAL',
+                'masaMuscular': 'MASA LIBRE DE GRASA',
+                'porcentajeGrasaVisceral': 'NIVEL DE GRASA VISCERAL',
+                'huesos': 'MÚSCULO ESQUELÉTICO',
+                'metabolismo': 'TASA METABÓLICA BASAL',
+                'perimetroCefalico': 'PERIMETRO CEFALICO',
+                'porcentajeProteinas': 'PROTEÍNAS',
+                'porcentajeAgua': 'AGUA CORPORAL TOTAL',
+                'masagrasaCorportal': 'MASA GRASA CORPORAL',
+                'minerales': 'MINERALES'
+            };
+
+            // Iterar sobre el mapeo para establecer los valores de los elementos
+            for (const [elementID, rowKey] of Object.entries(elementMap)) {
+                // console.log($(`#${elementID}`), rowKey, row[`${rowKey}`][['VALOR']]);
+                $(`#${elementID}`).val(ifnull(row, '', { [rowKey]: 'VALOR' }));
+            }
+
+            // Manejar el botón de reporte
+            const reportPath = ifnull(row, '', ['RUTA_REPORTE']);
+            if (reportPath) {
+                $('#button_reporte').html(`<a type="button" target="_blank" class="btn btn-borrar me-2" href="${reportPath}" style="margin-bottom:4px"><i class="bi bi-file-earmark-pdf"></i></a>`);
+            } else {
+                $('#button_reporte').html('');
             }
 
             resolve(1);

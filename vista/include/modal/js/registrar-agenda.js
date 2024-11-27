@@ -241,7 +241,12 @@ $(document).on('click', '#actualizarForm', async function () {
   }
 
   if (ant) {
-    await obtenerVistaAntecenetesPaciente('#antecedentes-registro', $('#procedencia-registro').text(), 0, pacienteActivo.array.GENERO)
+
+    if(curp.length > 0){
+      await obtenerVistaAntecenetesPaciente('#antecedentes-registro', $('#procedencia-registro').text(), 0)
+    } else {
+      await obtenerVistaAntecenetesPaciente('#antecedentes-registro', $('#procedencia-registro').text(), 0, pacienteActivo.array.GENERO)
+    }
     await obtenerAntecedentesPaciente(null, curp);
  
   } else {

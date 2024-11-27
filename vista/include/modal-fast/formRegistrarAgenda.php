@@ -26,6 +26,24 @@
       <!-- <span class="input-span">años</span> -->
     </div>
   </div>
+  <!-- talla del paciente -->
+  <div class="col-4 col-lg-4">
+    <label for="talla" class="form-label">Talla</label>
+    <div class="input-group">
+      <input 
+        type="number" 
+        class="form-control required input-form" 
+        id="numericTalla" 
+        name="talla" 
+        placeholder="cm" 
+        min="0" 
+        max="300" 
+        step="1" 
+        onkeypress="if(event.key === '.' || event.key === ',') event.preventDefault();">
+    </div>
+    <small class="text-danger"><strong>La talla debe ingresarse en centímetros.</strong></small>
+  </div>
+
   <div class="col-12 col-lg-4">
     <label for="correo" class="form-label">Correo electronico</label>
     <input type="email" class="form-control input-form" name="correo" placeholder="@hotmail.com" required data-bs-toggle="tooltip" data-bs-placement="top" title="Se requiere un correo para envio de resultados">

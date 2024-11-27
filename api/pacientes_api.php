@@ -79,6 +79,10 @@ $parametros = array(
 
 $response = "";
 
+# Esta variable es enviada desde el formulario de fast checkup
+# hay que evaluarlo si tiene algo ingresarlo en somatometria. Talla
+$talla = $_POST['talla'];
+
 $master = new Master();
 switch ($api) {
     case 1:
@@ -94,6 +98,11 @@ switch ($api) {
 
         # agregamos el json al arreglo del paciente
         array_push($parametros, json_encode($medios));
+
+        # insertar la talla en el arreglo general ( esto es para fast checkup)
+        # luego al ser aceptado se guarda en somatometria (tabla)
+        array_push($parametros, $talla);
+    
 
         $response = $master->insertByProcedure("sp_pacientes_g", $parametros);
         break;
