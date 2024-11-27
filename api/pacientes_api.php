@@ -126,6 +126,7 @@ switch ($api) {
 
         # agregamos el json al arreglo del paciente
         array_push($parametros, json_encode($medios));
+        array_push($parametros, $talla);
         $response = $master->updateByProcedure("sp_pacientes_g", $parametros);
         break;
     case 4:
