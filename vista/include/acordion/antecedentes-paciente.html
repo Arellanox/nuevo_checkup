@@ -2536,6 +2536,53 @@
               </div>
             </div>
 
+            <div class="sigmaClass">
+              <hr class="dropdown-divider m-2">
+              <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
+                <div class="col-6">
+                  <label>MENSTRUACIÓN CON DOLOR: </label>
+                  <input type="hidden" name="check-antginecologicos-menstruaDolor[]" value="282">
+                </div>
+                <div class="col-3">
+                  <input type="radio" required id="checkSi-antginecologicos-menstruaDolor"
+                    name="check-antginecologicos-menstruaDolor[]" value="1" required>
+                  <label for="checkSi-antginecologicos-menstruaDolor">Sí</label>
+                </div>
+                <div class="col-3">
+                  <input type="radio" required id="checkNo-antginecologicos-menstruaDolor"
+                    name="check-antginecologicos-menstruaDolor[]" value="2" required>
+                  <label for="checkNo-antginecologicos-menstruaDolor">No</label>
+                </div>
+                <div class="collapse" id="collapse-antginecologicos-menstruaDolor">
+                  <textarea name="check-antginecologicos-menstruaDolor[]" class="form-control input-form" rows="2" cols="2"
+                    placeholder="Especifíque..."></textarea>
+                </div>
+              </div>
+              
+
+              <hr class="dropdown-divider m-2">
+              <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
+                <div class="col-6">
+                  <label>INCAPACIDAD POR CÓLICO: </label>
+                  <input type="hidden" name="check-antginecologicos-incapacidadColico[]" value="283">
+                </div>
+                <div class="col-3">
+                  <input type="radio" required id="checkSi-antginecologicos-incapacidadColico"
+                    name="check-antginecologicos-incapacidadColico[]" value="1" required>
+                  <label for="checkSi-antginecologicos-incapacidadColico">Sí</label>
+                </div>
+                <div class="col-3">
+                  <input type="radio" required id="checkNo-antginecologicos-incapacidadColico"
+                    name="check-antginecologicos-incapacidadColico[]" value="2" required>
+                  <label for="checkNo-antginecologicos-incapacidadColico">No</label>
+                </div>
+                <div class="collapse" id="collapse-antginecologicos-incapacidadColico">
+                  <textarea name="check-antginecologicos-incapacidadColico[]" class="form-control input-form" rows="2" cols="2"
+                    placeholder="Especifíque..."></textarea>
+                </div>
+              </div>
+            </div>
+
             <div class="d-flex justify-content-end p-2 div-btn-guardarAntGine"> </div>
           </div>
         </div>
@@ -2543,6 +2590,32 @@
     </form>
     <!-- Formulario Antecedentes Ginecológicos -->
    
+    <form id="formPuestosAnteriores">
+      <div class="accordion-item bg-acordion sigmaClass">
+        <h2 class="accordion-header" id="collap-puestoAnterior">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" id="btnformPuestosAnteriores" data-bs-target="#collapse-puestos-anteriores" aria-expanded="false" aria-controls="accordionEstudios">
+            <i class="bi bi-plus-circle-fill" style="margin-right: 10px;"></i>PUESTOS ANTERIORES
+          </button>
+        </h2>
+        <div id="collapse-puestos-anteriores" class="accordion-collapse collapse" aria-labelledby="collap-puestos-anteriores">
+          <div class="d-flex justify-content-end p-2 div-btn-guardarPuesAnte"></div>
+          <div class="accordion-body">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
+              <div class="col-6">
+                <label>: </label>
+                <input type="hidden" name="check-antginecologicos-mastografia[]" value="201">
+              </div>
+              <div class="" id="collapse-antginecologicos-mastografia">
+                <textarea name="check-antginecologicos-mastografia[]" class="form-control input-form" rows="2"
+                  cols="2" placeholder="Especifíque"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
 
     <form id="formMedioLaboral">
       <div class="accordion-item bg-acordion onlyProcedencia">
@@ -3195,6 +3268,117 @@
             </div>
 
 
+            <div class="sigmaClass">
+              <hr class="dropdown-divider m-2">
+              <div class="row">
+                <div class="col-6">
+                  <div class="row d-flex" style="zoom:110%; margin-left:5%; width:90%; margin-top:10px;">
+                    <!-- PUESTO -->
+                    <div class="col-6">
+                      <label for="puesto1">PUESTO 1:</label>
+                      <input type="hidden" name="check-medlab-puesto1[]" value="284">
+                      <input type="hidden" name="check-medlab-puesto1[]" value="">
+                      <textarea id="puesto1" name="check-medlab-puesto1[]" class="form-control input-form" rows="2" placeholder="Registrar puesto"></textarea>
+                    </div>               
+                  </div>     
+                </div>
+                <div class="col-6">
+                  <div class="row d-flex" style="zoom:110%; margin-left:5%; width:90%; margin-top:10px;">
+              
+                    <!-- AÑOS EN EL PUESTO -->
+                    <div class="col-6">
+                      <label for="aniosPuesto1">AÑOS EN EL PUESTO:</label>
+                      <input type="hidden" name="check-medlab-aniopuesto1[]" value="285">
+                      <input type="hidden" name="check-medlab-aniopuesto1[]" value="">
+                      <textarea id="aniosPuesto1" name="check-medlab-aniopuesto1[]" class="form-control input-form" rows="2" placeholder="Registrar años"></textarea>
+                    </div>
+                  </div>            
+                </div>
+              </div>
+                       
+                
+
+
+              <hr class="dropdown-divider m-2">
+              <div class="row">
+                <div class="col-6">
+                  <div class="row d-flex" style="zoom:110%; margin-left:5%; width:90%; margin-top:10px;">
+                    <!-- PUESTO -->
+                    <div class="col-6">
+                      <label for="puesto2">PUESTO 2:</label>
+                      <input type="hidden" name="check-medlab-puesto2[]" value="286">
+                      <input type="hidden" name="check-medlab-puesto2[]" value="">
+                      <textarea id="puesto2" name="check-medlab-puesto2[]" class="form-control input-form" rows="2" placeholder="Registrar puesto"></textarea>
+                    </div>
+                  </div>              
+                </div>
+                <div class="col-6">
+                  <div class="row d-flex" style="zoom:110%; margin-left:5%; width:90%; margin-top:10px;">
+                    <!-- AÑOS EN EL PUESTO -->
+                    <div class="col-6">
+                      <label for="aniosPuesto2">AÑOS EN EL PUESTO:</label>
+                      <input type="hidden" name="check-medlab-aniopuesto2[]" value="287">
+                      <textarea id="aniosPuesto2" name="check-medlab-aniopuesto2[]" class="form-control input-form" rows="2" placeholder="Registrar años"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+
+
+
+              <hr class="dropdown-divider m-2">
+              <div class="row">
+                <div class="col-6">
+                  <div class="row d-flex" style="zoom:110%; margin-left:5%; width:90%; margin-top:10px;">
+                    <!-- PUESTO -->
+                    <div class="col-6">
+                      <label for="puesto3">PUESTO 3:</label>
+                      <input type="hidden" name="check-medlab-puesto3[]" value="288">
+                      <textarea id="puesto3" name="check-medlab-puesto3[]" class="form-control input-form" rows="2" placeholder="Registrar puesto"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="row d-flex" style="zoom:110%; margin-left:5%; width:90%; margin-top:10px;">              
+                    <!-- AÑOS EN EL PUESTO -->
+                    <div class="col-6">
+                      <label for="aniosPuesto3">AÑOS EN EL PUESTO:</label>
+                      <input type="hidden" name="check-medlab-aniospuesto3[]" value="289">
+                      <textarea id="aniosPuesto3" name="check-medlab-aniospuesto3[]" class="form-control input-form" rows="2" placeholder="Registrar años"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              
+
+
+ 
+
+              <hr class="dropdown-divider m-2">
+              <div class="row">
+                <div class="col-6">
+                  <div class="row d-flex" style="zoom:110%; margin-left:5%; width:90%; margin-top:10px;">
+                    <!-- PUESTO -->
+                    <div class="col-6">
+                      <label for="puesto4">PUESTO 4:</label>
+                      <input type="hidden" name="check-medlab-puesto4[]" value="290">
+                      <textarea id="puesto4" name="check-medlab-puesto4[]" class="form-control input-form" rows="2" placeholder="Registrar puesto"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="row d-flex" style="zoom:110%; margin-left:5%; width:90%; margin-top:10px;">                
+                    <!-- AÑOS EN EL PUESTO -->
+                    <div class="col-6">
+                      <label for="aniosPuesto4">AÑOS EN EL PUESTO:</label>
+                      <input type="hidden" name="check-medlab-aniospuesto4[]" value="291">
+                      <textarea id="aniosPuesto4" name="check-medlab-aniospuesto4[]" class="form-control input-form" rows="2" placeholder="Registrar años"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
           </div>
           <div class="d-flex justify-content-end p-2 div-btn-guardarAntLabo"> </div>
         </div>
