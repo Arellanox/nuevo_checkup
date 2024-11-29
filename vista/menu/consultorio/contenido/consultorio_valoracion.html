@@ -125,7 +125,7 @@
         <!-- solo para el ancla
           -->
         <section id="card-exploracion-clinica"></section>
-        <section id="card-exploracion-sigma">
+        <section id="card-exploracion-sigma" class="rounded p-3 shadow-sm my-2 position-relative">
           <h4 class="m-3">EXPLORACIÓN FÍSICA</h4>
           <hr class="dropdown-divider m-2">
           <div class="">
@@ -832,7 +832,7 @@
                             <input type="radio" id="ritmo-anormal" name="sigma-exploracion[exploraciones][0][respuesta]" value="17">
                         </td>
                         <td>
-                            <input type="text" name="sigma-exploracion[exploraciones][0][observaciones" placeholder="Detalles" class="input-form">
+                            <input type="text" name="sigma-exploracion[exploraciones][0][observaciones]" placeholder="Detalles" class="input-form">
                         </td>
                     </tr>
         
@@ -877,7 +877,7 @@
                             No<input type="radio" id="soplos-no" name="sigma-exploracion[exploraciones][3][respuesta]" value="2">
                         </td>
                         <td>
-                            <input type="text" name="sigma-exploracion[exploraciones][3][especificaciones]" placeholder="Detalles" class="input-form">
+                            <input type="text" name="sigma-exploracion[exploraciones][3][observaciones]" placeholder="Detalles" class="input-form">
                         </td>
                     </tr>
                 </tbody>
@@ -926,7 +926,7 @@
                         <td colspan="2">
                             <label><input type="radio" name="sigma-exploracion[exploraciones][2][respuesta]" value="1"> Sí</label>
                             <label><input type="radio" name="sigma-exploracion[exploraciones][2][respuesta]" value="2"> No</label>
-                            <input type="text" name="sigma-exploracion[exploraciones][2][especificaciones]" placeholder="Detalles" class="input-form">
+                            <input type="text" name="sigma-exploracion[exploraciones][2][observaciones]" placeholder="Detalles" class="input-form">
                         </td>
                     </tr>
         
@@ -937,7 +937,7 @@
                         <td colspan="2">
                             <label><input type="radio" name="sigma-exploracion[exploraciones][3][respuesta]" value="1"> Sí</label>
                             <label><input type="radio" name="sigma-exploracion[exploraciones][3][respuesta]" value="2"> No</label>
-                            <input type="text" name="sigma-exploracion[exploraciones][3][especificaciones]" placeholder="Detalles" class="input-form">
+                            <input type="text" name="sigma-exploracion[exploraciones][3][observaciones]" placeholder="Detalles" class="input-form">
                         </td>
                     </tr>
         
@@ -946,7 +946,7 @@
                         <td>Otros</td>
                         <input type="hidden" name="sigma-exploracion[exploraciones][4][tipo]" value="39">
                         <td colspan="2">
-                            <input type="text" name="sigma-exploracion[exploraciones][4][especificaciones]" placeholder="Detalles" class="input-form" style="width: 100%;">
+                            <input type="text" name="sigma-exploracion[exploraciones][4][observaciones]" placeholder="Detalles" class="input-form" style="width: 100%;">
                         </td>
                     </tr>
                 </tbody>
@@ -1035,9 +1035,9 @@
                     <tr>
                         <td>Movilidad</td>
                         <input type="hidden" name="sigma-exploracion[exploraciones][1][tipo]" value="5">
-                        <td><input type="radio" name="sigma-exploracion[exploraciones][1][movilidad]" value="16"></td>
-                        <td><input type="radio" name="sigma-exploracion[exploraciones][1][movilidad]" value="17"></td>
-                        <td><input type="text" name="sigma-exploracion[exploraciones][1][especificaciones]" placeholder="Detalles" class="input-form"></td>
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][1][respuesta]" value="16"></td>
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][1][respuesta]" value="17"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][1][observaciones]" placeholder="Detalles" class="input-form"></td>
                     </tr>
         
                     <!-- R.O.T. -->
@@ -1046,7 +1046,7 @@
                         <input type="hidden" name="sigma-exploracion[exploraciones][2][tipo]" value="44">
                         <td><input type="radio" name="sigma-exploracion[exploraciones][2][respuesta]" value="16"></td>
                         <td><input type="radio" name="sigma-exploracion[exploraciones][2][respuesta]" value="17"></td>
-                        <td><input type="text" name="sigma-exploracion[exploraciones][2][observaciones" placeholder="Detalles" class="input-form"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][2][observaciones]" placeholder="Detalles" class="input-form"></td>
                     </tr>
         
                     <!-- Fuerza -->
@@ -1097,9 +1097,9 @@
                     <tr>
                         <td>Movilidad</td>
                         <input type="hidden" name="sigma-exploracion[exploraciones][1][tipo]" value="5">
-                        <td><input type="radio" name="sigma-exploracion[exploraciones][1][movilidad]" value="16"></td>
-                        <td><input type="radio" name="sigma-exploracion[exploraciones][1][movilidad]" value="17"></td>
-                        <td><input type="text" name="sigma-exploracion[exploraciones][1][especificaciones]" placeholder="Detalles" class="input-form"></td>
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][1][respuesta]" value="16"></td>
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][1][respuesta]" value="17"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][1][observaciones]" placeholder="Detalles" class="input-form"></td>
                     </tr>
         
                     <!-- R.O.T. -->
@@ -1108,7 +1108,7 @@
                         <input type="hidden" name="sigma-exploracion[exploraciones][2][tipo]" value="44">
                         <td><input type="radio" name="sigma-exploracion[exploraciones][2][respuesta]" value="16"></td>
                         <td><input type="radio" name="sigma-exploracion[exploraciones][2][respuesta]" value="17"></td>
-                        <td><input type="text" name="sigma-exploracion[exploraciones][2][observaciones" placeholder="Detalles" class="input-form"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][2][observaciones]" placeholder="Detalles" class="input-form"></td>
                     </tr>
         
                     <!-- Fuerza -->
@@ -1412,12 +1412,69 @@
             </div>
         </section>
 
-        <!-- <section id="card-odontograma" class="rounded p-3 shadow-sm my-2 position-relative">
-          <h4 class="m-3">ODONTOGRAMA</h4>
-          <hr class="dropdown-divider m-2">
-
+        <section id="interpretacionResultadosSigma" class="rounded p-3 shadow-sm my-2 position-relative sigmaClass">
+          <h4 class="m-3">INTERPRETACIÓN DE RESULTADOS</h4>
+          <form id="formResultadosLaboratorio">
+            <table cellpadding="5" cellspacing="0" border="1" width="90%" align="center">
+                <thead>
+                    <tr>
+                        <th colspan="2">INTERPRETACIÓN DE RESULTADOS DE LABORATORIO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="width: 40%;">Cuenta Roja (BH):</td>
+                        <td style="width: 60%;"><input type="text" name="cuenta_roja" placeholder="Ingrese resultados" class="input-form"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40%;">General de Orina:</td>
+                        <td style="width: 60%;"><input type="text" name="general_orina" placeholder="Ingrese resultados" class="input-form"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40%;">Quím. Sang. 6 elem.:</td>
+                        <td style="width: 60%;"><input type="text" name="quimica_sanguinea" placeholder="Ingrese resultados" class="input-form"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40%;">Radiografía de Tórax (AP y lateral de columna):</td>
+                        <td style="width: 60%;"><textarea name="radiografia_torax" placeholder="Detalles" class="input-form"></textarea></td>
+                    </tr>
+                    <tr class="highlight">
+                        <td style="width: 40%;">VIH:</td>
+                        <td style="width: 60%;"><input type="text" name="vih" placeholder="Ingrese resultados" class="input-form"></td>
+                    </tr>
+                    <tr class="highlight">
+                        <td style="width: 40%;">Antidoping 5 parámetros: Marihuana (THC), Cocaína (COC), Anfetaminas (AMP), Metanfetaminas (mAMP), Opioides (OPI) y Fenciclidina (PCP)</td>
+                        <td style="width: 60%;"><textarea name="antidoping" placeholder="Ingrese detalles" class="input-form"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40%;">Tipo de Sangre:</td>
+                        <td style="width: 60%;"><input type="text" name="tipo_sangre" placeholder="Ingrese resultados" class="input-form"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40%;">Reacciones Febriles:</td>
+                        <td style="width: 60%;"><textarea name="reacciones_febriles" placeholder="Detalles" class="input-form"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40%;">VDRL:</td>
+                        <td style="width: 60%;"><input type="text" name="vdrl" placeholder="Ingrese resultados" class="input-form"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40%;">COPRO:</td>
+                        <td style="width: 60%;"><input type="text" name="copro" placeholder="Ingrese resultados" class="input-form"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40%;">Exudado Faríngeo:</td>
+                        <td style="width: 60%;"><textarea name="exudado_faringeo" placeholder="Detalles" class="input-form"></textarea></td>
+                    </tr>
+                </tbody>
+              </table>
+              <div style="text-align: center; margin-top: 15px;">
+                  <button type="submit" style="padding: 10px 20px;">Guardar</button>
+              </div>
+          </form>
         </section>
--->
+
+
         <section id="card-nutricion" class="rounded p-3 shadow-sm my-2 position-relative p-3">
           <div class="accordion accordion-flush" id="accordionFlushExample">
             <div class="accordion-item">
