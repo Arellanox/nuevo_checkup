@@ -189,6 +189,34 @@ $(document).on('click', '.guardar-form-exploracion', function(event){
   
 })
 
+//guardar interpretacion de resultados de laboratorio sigma.
+$(document).on('click', '#btnGuardarInterpreracionSigma', function(event){
+  event.stopPropagation();
+  event.stopImmediatePropagation();
+  button = $(this);
+  var form = new FormData(document.getElementById(button.closest("form").attr("id")));
+  form.set('api', 10);
+  form.set('turno_id', pacienteActivo.array['ID_TURNO'])
+  $.ajax({
+    data: form,
+    url: `${http}${servidor}/${appname}/api/ficha_admision_api.php`,
+    type: "POST",
+    processData: false,
+    contentType: false,
+    dataType: 'json',
+    beforeSend: function () {
+      alertToast('Guardando...', 'info');
+    },
+    success: function (data) {
+      if (!isNaN(data.response.data)) {
+        alertToast('Guardado con éxito', 'success');
+    } else {
+        alertToast(`Error al guardar: ${data.response.data}`, 'danger');
+    }
+    }
+  })
+})
+
 //botones de pdf de vista previa
 //busca y muestra lso botones solo si tiene ya una receta y solicitud mientrtas que las url esten vacias no las mostrara
 // ajaxAwait({ api: 2, turno_id: pacienteActivo.array['ID_TURNO'] }, 'consultorio2_api', { callbackAfter: true }, false, function (data) {

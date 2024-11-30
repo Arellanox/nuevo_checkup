@@ -48,6 +48,19 @@ $exploraciones = [
     'exploraciones' => $exploraciones
 ];
 
+# sigma intepretaciones
+$cuenta_roja = $_POST['cuenta_roja'];
+$general_orina = $_POST['general_orina'];
+$quimica_sanguinea = $_POST['quimica_sanguinea'];
+$radiografia_torax  = $_POST['radiografia_torax'];
+$vih = $_POST['vih'];
+$antidoping = $_POST['antidoping'];
+$tipo_sangre = $_POST['tipo_sangre'];
+$reacciones_febriles = $_POST['reacciones_febriles'];
+$vdrl = $_POST['vdrl'];
+$copro = $_POST['copro'];
+$exudado_faringeo = $_POST['exudado_faringeo'];
+
 switch($api){
     case 1:
         # agregar/editar ficha de admision
@@ -110,6 +123,24 @@ switch($api){
     case 9:
         # recuperar las exploraciones sigma
         $response = $master->getByProcedure('sp_sigma_exploracion_b', [$turno_id]);
+        break;
+    case 10:
+        # insertar las interpretaciones de resultados
+        $response = $master->insertByProcedure('sp_sigma_interpretaciones_g', [
+            $turno_id,
+            $cuenta_roja,
+            $general_orina,
+            $quimica_sanguinea,
+            $radiografia_torax,
+            $vih,
+            $antidoping,
+            $tipo_sangre,
+            $reacciones_febriles,
+            $vdrl,
+            $copro,
+            $exudado_faringeo,
+            $_SESSION['id']
+        ]);
         break;
     default:
         $response = "api no definida.";
