@@ -28,7 +28,7 @@
         </colgroup>
         <tbody>
             <tr>
-                <td <?php $imagePath = 'assets/project/Imagen1.jpg';
+                <td <?php $imagePath = 'http://localhost/nuevo_checkup/pdf/views/invoice/sigma/Imagen1.jpg';
                     $imageData = base64_encode(file_get_contents($imagePath));
                     $src = 'data:image/jpeg;base64,' . $imageData;
                     ?> colspan="1" rowspan="1"><img class="logoSigma" src="<?= $src ?>" alt="SigmaLogo">
@@ -41,24 +41,52 @@
             </tr>
             <tr>
                 <td colspan="2"><strong>SIGNOS VITALES:</strong></td>
-                <td><strong>TA: /</strong></td>
-                <td><span id="signosTASpan"></span></td>
+                <td><strong>TA:</strong></td>
+                <td><span id="signosTASpan">
+                        <?php
+                        echo $resultados[6]->{6}->VALOR . ' / ' . $resultados[6]->{7}->VALOR;
+                        ?>
+                    </span></td>
                 <td><strong>FC:</strong></td>
-                <td><span id="signosFCSpan"></span></td>
+                <td><span id="signosFCSpan">
+                        <?php
+                        echo $resultados[6]->{8}->VALOR
+                        ?>
+                    </span></td>
                 <td><strong>FR:</strong></td>
-                <td><span id="signosFRSpan"></span></td>
+                <td><span id="signosFRSpan">
+                        <?php
+                        echo $resultados[6]->{5}->VALOR
+                        ?>
+                    </span></td>
                 <td><strong>TEMP:</strong></td>
-                <td colspan="1" rowspan="1"><span id="signosTEMPSpan"></span></td>
+                <td colspan="1" rowspan="1"><span id="signosTEMPSpan">
+                        <?php
+                        echo $resultados[6]->{4}->VALOR . ' ' . $resultados[6]->{4}->UNIDAD_MEDIDA;
+                        ?>
+                    </span></td>
             </tr>
             <tr>
                 <td colspan="2" rowspan="1"><strong>ANTOPOMETRICOS:</strong></td>
                 <td><span></span></td>
                 <td><strong>PESO:</strong></td>
-                <td><span></span id="antoPESOSpan"></td>
+                <td><span id="antoPESOSpan">
+                        <?php
+                        echo $resultados[6]->{2}->VALOR . ' ' . $resultados[6]->{2}->UNIDAD_MEDIDA;
+                        ?>
+                    </span></td>
                 <td><strong>ESTATURA:</strong></td>
-                <td><span id="antoPESOSpan"></span></td>
+                <td><span id="antoEstaturaSpan">
+                        <?php
+                        echo $resultados[6]->{1}->VALOR . ' ' . $resultados[6]->{1}->UNIDAD_MEDIDA;
+                        ?>
+                    </span></td>
                 <td style="background-color: #E6B8B7;"><strong>IMC:</strong></td>
-                <td colspan="2" rowspan="1"><span id="antoIMDSpan"></span></td>
+                <td colspan="2" rowspan="1"><span id="antoIMDSpan">
+                        <?php
+                        echo $resultados[6]->{3}->VALOR
+                        ?>
+                    </span></td>
             </tr>
             <tr>
                 <td colspan="10" rowspan="1" style="text-align: center; font-weight: bold; background-color: #C0C0C0;">INTERROGATORIO POR APARATOS Y SISTEMAS</td>
@@ -69,30 +97,73 @@
             </tr>
             <tr>
                 <td colspan="3" rowspan="1">Problemas de la vista (uso de Lentes)</td>
-                <td colspan="2" rowspan="1"><span id="problemasViSpan"></span></td>
+                <td class="cent" colspan="2" rowspan="1"><span id="problemasViSpan">
+                        <?php
+                        if ($resultados[4]->{249}->RESPUESTA == "Sí") {
+                            echo "x";
+                        }
+                        ?>
+                    </span></td>
                 <td colspan="3" rowspan="1">Antecedente de ASMA</td>
-                <td colspan="2" rowspan="1"><span id="anteAsmaSpan"></span></td>
+                <td class="cent" colspan="2" rowspan="1"><span id="anteAsmaSpan">
+                        <?php
+                        if ($resultados[4]->{81}->RESPUESTA == "Sí") {
+                            echo "x";
+                        }
+                        ?>
+                    </span></td>
             </tr>
             <tr>
                 <td colspan="3" rowspan="1">Infecciones Oculares Recurrentes</td>
-                <td colspan="2" rowspan="1"><span id="infecOcuSpan"></span></td>
+                <td class="cent" colspan="2" rowspan="1"><span id="infecOcuSpan">
+                        <?php
+                        if ($resultados[4]->{261}->RESPUESTA == "Sí") {
+                            echo "x";
+                        }
+                        ?>
+                    </span></td>
                 <td colspan="3" rowspan="1">Antecedente Rinitis Alérgica</td>
-                <td colspan="2" rowspan="1"><span id="antecRiniAlerSpan"></span></td>
+                <td class="cent" colspan="2" rowspan="1"><span id="antecRiniAlerSpan">
+                        <?php
+                        if ($resultados[4]->{265}->RESPUESTA == "Sí") {
+                            echo "x";
+                        }
+                        ?>
+                    </span></td>
             </tr>
             <tr>
                 <td colspan="5" rowspan="1">&nbsp;</td>
                 <td colspan="3" rowspan="1">Antecedente de Neumonías o Bronquitis</td>
-                <td colspan="2" rowspan="1"><span id="antecNeumBronqSpan"></span></td>
+                <td class="cent" colspan="2" rowspan="1"><span id="antecNeumBronqSpan">
+                        <?php
+                        if ($resultados[4]->{266}->RESPUESTA == "Sí") {
+                            echo "x";
+                        }
+                        ?>
+                    </span></td>
             </tr>
             <tr>
                 <td colspan="5" rowspan="1">&nbsp;</td>
                 <td colspan="3" rowspan="1">Antecedente de Influenza</td>
-                <td colspan="2" rowspan="1"><span id="antecInfuSpan"></span></td>
+                <td class="cent" colspan="2" rowspan="1"><span id="antecInfuSpan">
+                        <?php
+                        if ($resultados[4]->{267}->RESPUESTA == "Sí") {
+                            echo "x";
+                        }
+                        ?>
+                    </span></td>
+                </span></td>
             </tr>
             <tr>
                 <td colspan="5" rowspan="1">&nbsp;</td>
                 <td colspan="3" rowspan="1">Antecedente de Tuberculosis</td>
-                <td colspan="2" rowspan="1"><span id="antecTuberSpan"></span></td>
+                <td class="cent" colspan="2" rowspan="1"><span id="antecTuberSpan">
+                        <?php
+                        if ($resultados[4]->{268}->RESPUESTA == "Sí") {
+                            echo "x";
+                        }
+                        ?>
+                    </span></td>
             </tr>
             <tr>
                 <td colspan="5" rowspan="1">&nbsp;</td>
@@ -104,21 +175,57 @@
             </tr>
             <tr>
                 <td colspan="3" rowspan="1">Cirugías Cardiacas</td>
-                <td colspan="2" rowspan="1"><span id="cirCardSpan"></span></td>
+                <td class="cent" colspan="2" rowspan="1"><span id="cirCardSpan">
+                        <?php
+                        if ($resultados[4]->{262}->RESPUESTA == "Sí") {
+                            echo "x";
+                        }
+                        ?>
+                    </span></td>
                 <td colspan="3" rowspan="1">Antecedente de Gastritis</td>
-                <td colspan="2" rowspan="1"><span id="antecGrastSpan"></span></td>
+                <td class="cent" colspan="2" rowspan="1"><span id="antecGrastSpan">
+                        <?php
+                        if ($resultados[4]->{269}->RESPUESTA == "Sí") {
+                            echo "x";
+                        }
+                        ?>
+                    </span></td>
             </tr>
             <tr>
                 <td colspan="3" rowspan="1">Antecedente de Varices</td>
-                <td colspan="2" rowspan="1"><span id="antecVaricSpan"></span></td>
+                <td class="cent" colspan="2" rowspan="1"><span id="antecVaricSpan">
+                        <?php
+                        if ($resultados[4]->{263}->RESPUESTA == "Sí") {
+                            echo "x";
+                        }
+                        ?>
+                    </span></td>
                 <td colspan="3" rowspan="1">Antecedente de Colitis</td>
-                <td colspan="2" rowspan="1"><span id="antecColSpan"></span></td>
+                <td class="cent" colspan="2" rowspan="1"><span id="antecColSpan">
+                        <?php
+                        if ($resultados[4]->{270}->RESPUESTA == "Sí") {
+                            echo "x";
+                        }
+                        ?>
+                    </span></td>
             </tr>
             <tr>
                 <td colspan="3" rowspan="1">Dolor hormigueos o Adormecimiento de Piernas</td>
-                <td colspan="2" rowspan="1"><span id="dolHorAdoPierSpan"></span></td>
+                <td class="cent" colspan="2" rowspan="1"><span id="dolHorAdoPierSpan">
+                        <?php
+                        if ($resultados[4]->{264}->RESPUESTA == "Sí") {
+                            echo "x";
+                        }
+                        ?>
+                    </span></td>
                 <td colspan="3" rowspan="1">Antecedente de Enfermedades Diarreicas frecuentes</td>
-                <td colspan="2" rowspan="1"><span id="antecEnfDiarFrecSpan"></span></td>
+                <td class="cent" colspan="2" rowspan="1"><span id="antecEnfDiarFrecSpan">
+                        <?php
+                        if ($resultados[4]->{271}->RESPUESTA == "Sí") {
+                            echo "x";
+                        }
+                        ?>
+                    </span></td>
             </tr>
             <tr>
                 <td colspan="5" rowspan="1">&nbsp;</td>
@@ -138,43 +245,127 @@
             </tr>
             <tr>
                 <td colspan="3" rowspan="1">Infecciones Urinarias</td>
-                <td colspan="2" rowspan="1"><span id="infUrinSpan"></span></td>
+                <td class="cent" colspan="2" rowspan="1"><span id="infUrinSpan">
+                        <?php
+                        if ($resultados[4]->{272}->RESPUESTA == "Sí") {
+                            echo "x";
+                        }
+                        ?>
+                    </span></td>
                 <td colspan="3" rowspan="1">Dolor en Columna, (Lumbar o cuello)</td>
-                <td colspan="2" rowspan="1"><span id="dolColumSpan"></span></td>
+                <td class="cent" colspan="2" rowspan="1"><span id="dolColumSpan">
+                        <?php
+                        if ($resultados[4]->{275}->RESPUESTA == "Sí") {
+                            echo "x";
+                        }
+                        ?>
+                    </span></td>
             </tr>
             <tr>
                 <td colspan="3" rowspan="1">Cálculos o arenillas</td>
-                <td colspan="2" rowspan="1"><span id="calcArenilSpan"></span></td>
+                <td class="cent" colspan="2" rowspan="1"><span id="calcArenilSpan">
+                        <?php
+                        if ($resultados[4]->{273}->RESPUESTA == "Sí") {
+                            echo "x";
+                        }
+                        ?>
+                    </span></td>
                 <td colspan="3" rowspan="1">Desviación de Columna</td>
-                <td colspan="2" rowspan="1"><span id="desvColumSpan"></span></td>
+                <td class="cent" colspan="2" rowspan="1"><span id="desvColumSpan">
+                        <?php
+                        if ($resultados[4]->{276}->RESPUESTA == "Sí") {
+                            echo "x";
+                        }
+                        ?>
+                    </span></td>
             </tr>
             <tr>
                 <td colspan="3" rowspan="1">Problemas en ri&ntilde;ón</td>
-                <td colspan="2" rowspan="1"><span id="probRiñSpan"></span></td>
+                <td class="cent" colspan="2" rowspan="1"><span id="probRiñSpan">
+                        <?php
+                        if ($resultados[4]->{274}->RESPUESTA == "Sí") {
+                            echo "x";
+                        }
+                        ?>
+                    </span></td>
                 <td colspan="3" rowspan="1">Dolor, inflamación o crepitación de Hombro</td>
-                <td colspan="2" rowspan="1"><span id="dolInfCrepHombrSpan"></span></td>
+                <td class="cent" colspan="2" rowspan="1"><span id="dolInfCrepHombrSpan">
+                        <?php
+                        if ($resultados[4]->{277}->RESPUESTA == "Sí") {
+                            echo "x";
+                        }
+                        ?>
+                    </span></td>
             </tr>
             <tr">
-                <td colspan="2" rowspan="1" style="background-color: #CCFFFF; font-weight: bold;">S&Oacute;LO MUJERES: Menarquia:</td>
-                <td style="background-color: #CCFFFF;"><span id="menarquiaSpan"></span></td>
+                <td colspan="1" rowspan="1" style="background-color: #CCFFFF; font-weight: bold;">S&Oacute;LO MUJERES: Menarquia:</td>
+                <td class="cent" style="background-color: #CCFFFF;"><span id="menarquiaSpan">
+                        <?php
+                        if (isset($resultados[1]->{192}->NOTAS)) {
+                            echo $resultados[1]->{192}->NOTAS;
+                        }
+                        ?>
+                    </span></td>
                 <td style="background-color: #CCFFFF; font-weight: bold; font-size: 7px; text-align: center;">Ritmo Menstrual:</td>
-                <td style="background-color: #CCFFFF;"><span id="ritmoMenstrualSpan"></span></td>
+                <td colspan="2" style="background-color: #CCFFFF;"><span id="ritmoMenstrualSpan">
+                        <?php
+                        if (isset($resultados[4]->{94}->NOTAS)) {
+                            echo $resultados[4]->{94}->NOTAS;
+                        }
+                        ?>
+                    </span></td>
                 <td colspan="3" rowspan="1">Dolor, inflamación o crepitación de Rodillas</td>
-                <td colspan="2" rowspan="1"><span id="dolInflCrepRodiSpan"></span></td>
+                <td class="cent" colspan="2" rowspan="1"><span id="dolInflCrepRodiSpan">
+                        <?php
+                        if ($resultados[4]->{278}->RESPUESTA == "Sí") {
+                            echo "x";
+                        }
+                        ?>
+                    </span></td>
                 </tr>
                 <tr>
                     <td style="background-color: #CCFFFF; font-weight: bold;">Vida Sex Activa:</td>
-                    <td style="background-color: #CCFFFF;"><span id="vidaSexActSpan"></span></td>
+                    <td class="cent" style="background-color: #CCFFFF;"><span id="vidaSexActSpan">
+                            <?php
+                            if ($resultados[1]->{23}->RESPUESTA == "Sí") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
                     <td colspan="2" rowspan="1" style="background-color: #CCFFFF; font-weight: bold;">Fecha &Uacute;ltima Menstruaci&oacute;n:</td>
-                    <td style="background-color: #CCFFFF;"><span id="fechUltMensSpan"></span></td>
+                    <td style="background-color: #CCFFFF;"><span id="fechUltMensSpan">
+                            <?php
+                            if (isset($resultados[1]->{193}->NOTAS)) {
+                                echo $resultados[1]->{193}->NOTAS;
+                            }
+                            ?>
+                        </span></td>
                     <td colspan="3" rowspan="1">Dolor, inflamación o crepitación en Mu&ntilde;ecas</td>
-                    <td colspan="2" rowspan="1"><span id="dolorInfCrepMuñSpan"></span></td>
+                    <td class="cent" colspan="2" rowspan="1"><span id="dolorInfCrepMuñSpan">
+                            <?php
+                            if ($resultados[4]->{279}->RESPUESTA == "Sí") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
                 </tr>
                 <tr>
                     <td colspan="2" rowspan="1" style="background-color: #CCFFFF; font-weight: bold;">Fecha &Uacute;ltimo Papanicolau C V:</td>
-                    <td colspan="3" rowspan="1" style="background-color: #CCFFFF;"><span id="fechUltPapanicolauSpan"></span></td>
+                    <td colspan="3" rowspan="1" style="background-color: #CCFFFF;"><span id="fechUltPapanicolauSpan">
+                            <?php
+                            if (isset($resultados[1]->{200}->NOTAS)) {
+                                echo $resultados[1]->{200}->NOTAS;
+                            }
+                            ?>
+                        </span></td>
                     <td colspan="3" rowspan="1">Antecedente de Accidente Automovilístico</td>
-                    <td colspan="2" rowspan="1"><span id="antecedenAccAutoSpan"></span></td>
+                    <td class="cent" colspan="2" rowspan="1"><span id="antecedenAccAutoSpan">
+                            <?php
+                            if ($resultados[4]->{280}->RESPUESTA == "Sí") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
                 </tr>
                 <tr>
                     <td colspan="10" rowspan="1" style="text-align: center; background-color: #C0C0C0;">Marque <strong>X</strong> bajo la condici&oacute;n observada durante la <strong>Exploraci&oacute;n F&iacute;sica</strong>: Normal "N" vs. Anormal "A" o "S&iacute;" vs. "No".</td>
@@ -191,23 +382,95 @@
                 </tr>
                 <tr>
                     <td>Cr&aacute;neo</td>
-                    <td><span id="craneoNormalSpan"></span></td>
-                    <td><span id="craneoAnormalSpan"></span></td>
-                    <td colspan="2" rowspan="1"><span id="craneoEspecifiqueSpan"></span></td>
+                    <td class="cent"><span id="craneoNormalSpan">
+                            <?php
+                            if ($resultados[7]->{11}->RESPUESTA == "Normal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td class="cent"><span id="craneoAnormalSpan">
+                            <?php
+                            if ($resultados[7]->{11}->RESPUESTA == "Anormal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td colspan="2" rowspan="1"><span id="craneoEspecifiqueSpan">
+                            <?php
+                            if (isset($resultados[7]->{11}->OBSERVACIONES)) {
+                                echo $resultados[7]->{11}->OBSERVACIONES;
+                            }
+                            ?>
+                        </span></td>
                     <td style="vertical-align: middle;">Mucosa</td>
-                    <td><span id="mucosaNormalSpan"></span></td>
-                    <td><span id="mucosaAnormalSpan"></span></td>
-                    <td colspan="2" rowspan="1"><span id="mucosaEspecifiqueSpan"></span></td>
+                    <td class="cent"><span id="mucosaNormalSpan">
+                            <?php
+                            if ($resultados[7]->{412}->RESPUESTA == "Normal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td class="cent"><span id="mucosaAnormalSpan">
+                            <?php
+                            if ($resultados[7]->{412}->RESPUESTA == "Anormal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td colspan="2" rowspan="1"><span id="mucosaEspecifiqueSpan">
+                            <?php
+                            if (isset($resultados[7]->{412}->OBSERVACIONES)) {
+                                echo $resultados[7]->{412}->OBSERVACIONES;
+                            }
+                            ?>
+                        </span></td>
                 </tr>
                 <tr>
                     <td>Cara</td>
-                    <td><span id="caraNormalSpan"></span></td>
-                    <td><span id="caraAnormalSpan"></span></td>
-                    <td colspan="2" rowspan="1"><span id="caraEspecifiqueSpan"></span></td>
+                    <td class="cent"><span id="caraNormalSpan">
+                            <?php
+                            if ($resultados[7]->{12}->RESPUESTA == "Normal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td class="cent"><span id="caraAnormalSpan">
+                            <?php
+                            if ($resultados[7]->{12}->RESPUESTA == "Anormal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td colspan="2" rowspan="1"><span id="caraEspecifiqueSpan">
+                            <?php
+                            if (isset($resultados[7]->{12}->OBSERVACIONES)) {
+                                echo $resultados[7]->{12}->OBSERVACIONES;
+                            }
+                            ?>
+                        </span></td>
                     <td>Cornetes</td>
-                    <td><span id="cornetesNormalSpan"></span></td>
-                    <td><span id="cornetesAnormalSpan"></span></td>
-                    <td colspan="2" rowspan="1"><span id="cornetesEspecifiqueSpan"></span></td>
+                    <td class="cent"><span id="cornetesNormalSpan">
+                            <?php
+                            if ($resultados[7]->{413}->RESPUESTA == "Normal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td class="cent"><span id="cornetesAnormalSpan">
+                            <?php
+                            if ($resultados[7]->{413}->RESPUESTA == "Anormal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td class="cent" colspan="2" rowspan="1"><span id="cornetesEspecifiqueSpan">
+                            <?php
+                            if (isset($resultados[7]->{413}->OBSERVACIONES)) {
+                                echo $resultados[7]->{413}->OBSERVACIONES;
+                            }
+                            ?>
+                        </span></td>
                 </tr>
 
                 <tr>
@@ -216,24 +479,100 @@
                     <td style="background-color: #C0C0C0; text-align: center;">Anormal</td>
                     <td colspan="2" rowspan="1" style="background-color: #C0C0C0; text-align: center;">Especifique</td>
                     <td>P&oacute;lipos</td>
-                    <td colspan="2" rowspan="1" style="text-align: center;">S&iacute;<span id="poliposSiSpan">( )</span> No<span id="poliposNoSpan">( )</span></td>
-                    <td colspan="2" rowspan="1"><span id="poliposEspecifiqueSpan"></s></td>
+                    <td colspan="2" rowspan="1" style="text-align: center;">S&iacute;<span id="poliposSiSpan">
+                            <?php
+                            if ($resultados[7]->{414}->RESPUESTA == "Sí") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span> No<span id="poliposNoSpan">
+                            <?php
+                            if ($resultados[7]->{414}->RESPUESTA == "No") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span></td>
+                    <td colspan="2" rowspan="1"><span id="poliposEspecifiqueSpan">
+                            <?php
+                            if (isset($resultados[7]->{414}->OBSERVACIONES)) {
+                                echo $resultados[7]->{414}->OBSERVACIONES;
+                            }
+                            ?>
+                        </span></td>
                 </tr>
                 <tr>
                     <td>Cilíndrico</td>
-                    <td><span id="cilindricoNormalSpan"></span></td>
-                    <td><span id="cilindricoAnormalSpan"></span></td>
-                    <td colspan="2" rowspan="1"><span id="cilindricoEspecifiqueSpan"></span></td>
+                    <td class="cent"><span id="cilindricoNormalSpan">
+                            <?php
+                            if ($resultados[7]->{23}->RESPUESTA == "Normal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td class="cent"><span id="cilindricoAnormalSpan">
+                            <?php
+                            if ($resultados[7]->{23}->RESPUESTA == "Anormal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td class="cent" colspan="2" rowspan="1"><span id="cilindricoEspecifiqueSpan">
+                            <?php
+                            if (isset($resultados[7]->{23}->OBSERVACIONES)) {
+                                echo $resultados[7]->{23}->OBSERVACIONES;
+                            }
+                            ?>
+                        </span></td>
                     <td>Septum</td>
-                    <td><span id="septumNormalSpan"></span></td>
-                    <td><span id="septumAnormalSpan"></span></td>
-                    <td colspan="2" rowspan="1"><span id="septumEspecifiqueSpan"></span></td>
+                    <td class="cent"><span id="septumNormalSpan">
+                            <?php
+                            if ($resultados[7]->{415}->RESPUESTA == "Normal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td class="cent"><span id="septumAnormalSpan">
+                            <?php
+                            if ($resultados[7]->{415}->RESPUESTA == "Anormal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td colspan="2" rowspan="1"><span id="septumEspecifiqueSpan">
+                            <?php
+                            if (isset($resultados[7]->{415}->OBSERVACIONES)) {
+                                echo $resultados[7]->{415}->OBSERVACIONES;
+                            }
+                            ?>
+                        </span></td>
                 </tr>
                 <tr>
                     <td>Tráquea</td>
-                    <td><span id="traqueaNormalSpan"></span></td>
-                    <td><span id="traqueaAnormalSpan"></span></td>
-                    <td colspan="2" rowspan="1"><span id="traqueaEspecifiqueSpan"></span></td>
+                    <td class="cent"><span id="traqueaNormalSpan">
+                            <?php
+                            if ($resultados[7]->{24}->RESPUESTA == "Normal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td class="cent"><span id="traqueaAnormalSpan">
+                            <?php
+                            if ($resultados[7]->{24}->RESPUESTA == "Anormal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td class="cent" colspan="2" rowspan="1"><span id="traqueaEspecifiqueSpan">
+                            <?php
+                            if (isset($resultados[7]->{24}->OBSERVACIONES)) {
+                                echo $resultados[7]->{24}->OBSERVACIONES;
+                            }
+                            ?>
+                        </span></td>
                     <td style="font-weight: bold; background-color: #C0C0C0;">OIDOS</td>
                     <td style="background-color: #C0C0C0; text-align: center;">Der.</td>
                     <td style="background-color: #C0C0C0; text-align: center;">Izq.</td>
@@ -241,23 +580,139 @@
                 </tr>
                 <tr>
                     <td style="vertical-align: middle;">Movilidad</td>
-                    <td><span id="movilidadNormalSpan"></span></td>
-                    <td><span id="movilidadAnormalSpan"></span></td>
-                    <td colspan="2" rowspan="1"><span id="movilidadEspecifiqueSpan"></span></td>
+                    <td class="cent"><span id="movilidadNormalSpan">
+                            <?php
+                            if ($resultados[7]->{25}->RESPUESTA == "Normal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td class="cent"><span id="movilidadAnormalSpan">
+                            <?php
+                            if ($resultados[7]->{25}->RESPUESTA == "Anormal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td class="cent" colspan="2" rowspan="1"><span id="movilidadEspecifiqueSpan">
+                            <?php
+                            if (isset($resultados[7]->{25}->OBSERVACIONES)) {
+                                echo $resultados[7]->{25}->OBSERVACIONES;
+                            }
+                            ?>
+                        </span></td>
                     <td style="vertical-align: middle;">Membrana T&iacute;mpano</td>
-                    <td style="text-align: center; vertical-align: middle;">N<span id="membaranaTimpanoNDerSpan">( )</span> A <span id="membranaTimpanoADerSpan">( )</span></td>
-                    <td style="text-align: center; vertical-align: middle;">N<span id="membranaTimpanoNIzqSpan">( )</span> A <span id="membranaTimpanoAIzqSpan">( )</span></td>
-                    <td colspan="2" rowspan="1"><span id="membranaTimpanoEspecifiqueSpan"></span></td>
+                    <td style="text-align: center; vertical-align: middle;">N<span id="membaranaTimpanoNDerSpan">
+                            <?php
+                            if ($resultados[7]->{516}->RESPUESTA == "Normal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span> A <span id="membranaTimpanoADerSpan">
+                            <?php
+                            if ($resultados[7]->{516}->RESPUESTA == "Anormal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span></td>
+                    <td style="text-align: center; vertical-align: middle;">N<span id="membranaTimpanoNIzqSpan">
+                            <?php
+                            if ($resultados[7]->{616}->RESPUESTA == "Normal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span> A <span id="membranaTimpanoAIzqSpan">
+                            <?php
+                            if ($resultados[7]->{616}->RESPUESTA == "Anormal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span></td>
+                    <td colspan="2" rowspan="1"><span id="membranaTimpanoEspecifiqueSpan">
+                            <?php
+                            if (isset($resultados[7]->{516}->OBSERVACIONES) || isset($resultados[7]->{616}->OBSERVACIONES)) {
+                                echo (isset($resultados[7]->{516}->OBSERVACIONES) ? $resultados[7]->{516}->OBSERVACIONES : '') . ' ' . (isset($resultados[7]->{616}->OBSERVACIONES) ? $resultados[7]->{616}->OBSERVACIONES : '');
+                            }
+                            ?>
+                        </span></td>
                 </tr>
                 <tr>
                     <td style="background-color: #E6B8B7; vertical-align: middle;">Ganglios/ Tiroides</td>
-                    <td style="text-align: center; vertical-align: middle;">S&iacute;<span id="ganglTiroSiSpan">( )</span></td>
-                    <td style="text-align: center; vertical-align: middle;">No<span id="ganglTiroNoSpan">( )</span></td>
-                    <td colspan="2" rowspan="1"><span id="ganglTiroEspecifiqueSpan"></span></td>
+                    <td style="text-align: center; vertical-align: middle;">S&iacute;<span id="ganglTiroSiSpan">
+                            <?php
+                            if ($resultados[7]->{225}->RESPUESTA == "Sí") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span></td>
+                    <td style="text-align: center; vertical-align: middle;">No<span id="ganglTiroNoSpan">
+                            <?php
+                            if ($resultados[7]->{225}->RESPUESTA == "No") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span></td>
+                    <td colspan="2" rowspan="1"><span id="ganglTiroEspecifiqueSpan">
+                            <?php
+                            if (isset($resultados[7]->{225}->OBSERVACIONES)) {
+                                echo $resultados[7]->{225}->OBSERVACIONES;
+                            }
+                            ?>
+                        </span></td>
                     <td style="vertical-align: middle;">Conducto Aud Ext</td>
-                    <td style="text-align: center; vertical-align: middle;">N<span id="conducAudExtNDerSpan">( )</span> A <span id="conducAudExtADerSpan">( )</span></td>
-                    <td style="text-align: center; vertical-align: middle;">N<span id="conducAudExtNIzqSpan">( )</span> A <span id="conducAudExtAIzqSpan">( )</span></td>
-                    <td colspan="2" rowspan="1"><span id="conducAudExtEspecifiqueSpan"></span></td>
+                    <td style="text-align: center; vertical-align: middle;">N<span id="conducAudExtNDerSpan">
+                            <?php
+                            if ($resultados[7]->{517}->RESPUESTA == "Normal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span> A <span id="conducAudExtADerSpan">
+                            <?php
+                            if ($resultados[7]->{517}->RESPUESTA == "Anormal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span></td>
+                    <td style="text-align: center; vertical-align: middle;">N<span id="conducAudExtNIzqSpan">
+                            <?php
+                            if ($resultados[7]->{617}->RESPUESTA == "Normal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span> A <span id="conducAudExtAIzqSpan">
+                            <?php
+                            if ($resultados[7]->{617}->RESPUESTA == "Anormal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span></td>
+                    <td colspan="2" rowspan="1"><span id="conducAudExtEspecifiqueSpan">
+                            <?php
+                            if (isset($resultados[7]->{517}->OBSERVACIONES) || isset($resultados[7]->{617}->OBSERVACIONES)) {
+                                echo (isset($resultados[7]->{517}->OBSERVACIONES) ? $resultados[7]->{517}->OBSERVACIONES : '') . ' ' . (isset($resultados[7]->{617}->OBSERVACIONES) ? $resultados[7]->{617}->OBSERVACIONES : '');
+                            }
+                            ?>
+                        </span></td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold; background-color: #C0C0C0; vertical-align: middle;">OJOS</td>
@@ -265,15 +720,91 @@
                     <td style="background-color: #C0C0C0; text-align: center; vertical-align: middle;">Izq.</td>
                     <td colspan="2" rowspan="1" style="background-color: #C0C0C0; text-align: center; vertical-align: middle;">Especifique</td>
                     <td style="vertical-align: middle;">Pabell&oacute;n Auricular</td>
-                    <td style="text-align: center; vertical-align: middle;">N<span id="pabAuricNDerSpan">( )</span> A <span id="pabAuricADerSpan">( )</span></td>
-                    <td style="text-align: center; vertical-align: middle;">N<span id="pabAuricNIzqSpan">( )</span> A <span id="pabAuricAIzqSpan">( )</span></td>
-                    <td colspan="2" rowspan="1"><span id="pabAuricEspecifiqueSpan"></span></td>
+                    <td style="text-align: center; vertical-align: middle;">N<span id="pabAuricNDerSpan">
+                            <?php
+                            if ($resultados[7]->{518}->RESPUESTA == "Normal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span> A <span id="pabAuricADerSpan">
+                            <?php
+                            if ($resultados[7]->{518}->RESPUESTA == "Anormal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span></td>
+                    <td style="text-align: center; vertical-align: middle;">N<span id="pabAuricNIzqSpan">
+                            <?php
+                            if ($resultados[7]->{618}->RESPUESTA == "Normal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span> A <span id="pabAuricAIzqSpan">
+                            <?php
+                            if ($resultados[7]->{618}->RESPUESTA == "Anormal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span></td>
+                    <td colspan="2" rowspan="1"><span id="pabAuricEspecifiqueSpan">
+                            <?php
+                            if (isset($resultados[7]->{518}->OBSERVACIONES) || isset($resultados[7]->{618}->OBSERVACIONES)) {
+                                echo (isset($resultados[7]->{518}->OBSERVACIONES) ? $resultados[7]->{518}->OBSERVACIONES : '') . ' ' . (isset($resultados[7]->{618}->OBSERVACIONES) ? $resultados[7]->{618}->OBSERVACIONES : '');
+                            }
+                            ?>
+                        </span></td>
                 </tr>
                 <tr>
                     <td style="vertical-align: middle;">Pupila</td>
-                    <td style="text-align: center; vertical-align: middle;">N<span id="pupilaNDerSpan">( )</span> A <span id="pupilaADerSpan">( )</span></td>
-                    <td style="text-align: center; vertical-align: middle;">N<span id="pupilaNIzqSpan">( )</span> A <span id="pupilaAIzqSpan">( )</span></td>
-                    <td colspan="2" rowspan="1"><span id="pupilaEspecifiqueSpan"></span></td>
+                    <td style="text-align: center; vertical-align: middle;">N<span id="pupilaNDerSpan">
+                            <?php
+                            if ($resultados[7]->{36}->RESPUESTA == "Normal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span> A <span id="pupilaADerSpan">
+                            <?php
+                            if ($resultados[7]->{36}->RESPUESTA == "Anormal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span></td>
+                    <td style="text-align: center; vertical-align: middle;">N<span id="pupilaNIzqSpan">
+                            <?php
+                            if ($resultados[7]->{86}->RESPUESTA == "Normal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span> A <span id="pupilaAIzqSpan">
+                            <?php
+                            if ($resultados[7]->{86}->RESPUESTA == "Anormal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span></td>
+                    <td colspan="2" rowspan="1"><span id="pupilaEspecifiqueSpan">
+                            <?php
+                            if (isset($resultados[7]->{36}->OBSERVACIONES) || isset($resultados[7]->{86}->OBSERVACIONES)) {
+                                echo (isset($resultados[7]->{36}->OBSERVACIONES) ? $resultados[7]->{36}->OBSERVACIONES : '') . ' ' . (isset($resultados[7]->{86}->OBSERVACIONES) ? $resultados[7]->{86}->OBSERVACIONES : '');
+                            }
+                            ?>
+                        </span></td>
                     <td style="font-weight: bold; background-color: #C0C0C0;">CAVIDAD ORAL</td>
                     <td style="background-color: #C0C0C0; text-align: center;">Normal</td>
                     <td style="background-color: #C0C0C0; text-align: center;">Anormal</td>
@@ -281,13 +812,69 @@
                 </tr>
                 <tr>
                     <td style="vertical-align: middle;">C&oacute;rnea</td>
-                    <td style="text-align: center; vertical-align: middle;">N<span id="corneaNDerSpan">( )</span> A <span id="corneaADerSpan">( )</span></td>
-                    <td style="text-align: center; vertical-align: middle;">N<span id="corneaNIzqSpan">( )</span> A <span id="corneaAIzqSpan">( )</span></td>
-                    <td colspan="2" rowspan="1"><span id="corneaEspecifiqueSpan"></span></td>
+                    <td style="text-align: center; vertical-align: middle;">N<span id="corneaNDerSpan">
+                            <?php
+                            if ($resultados[7]->{37}->RESPUESTA == "Normal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span> A <span id="corneaADerSpan">
+                            <?php
+                            if ($resultados[7]->{37}->RESPUESTA == "Anormal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span></td>
+                    <td style="text-align: center; vertical-align: middle;">N<span id="corneaNIzqSpan">
+                            <?php
+                            if ($resultados[7]->{87}->RESPUESTA == "Normal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span> A <span id="corneaAIzqSpan">
+                            <?php
+                            if ($resultados[7]->{87}->RESPUESTA == "Anormal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span></td>
+                    <td colspan="2" rowspan="1"><span id="corneaEspecifiqueSpan">
+                            <?php
+                            if (isset($resultados[7]->{37}->OBSERVACIONES) || isset($resultados[7]->{87}->OBSERVACIONES)) {
+                                echo (isset($resultados[7]->{37}->OBSERVACIONES) ? $resultados[7]->{37}->OBSERVACIONES : '') . ' ' . (isset($resultados[7]->{87}->OBSERVACIONES) ? $resultados[7]->{87}->OBSERVACIONES : '');
+                            }
+                            ?>
+                        </span></td>
                     <td>Enc&iacute;as</td>
-                    <td><span id="enciasNormalSpan"></span></td>
-                    <td><span id="enciasAnormalSpan"></span></td>
-                    <td colspan="2" rowspan="1"><span id="enciasEspecifiqueSpan"></span></td>
+                    <td class="cent"><span id="enciasNormalSpan">
+                            <?php
+                            if ($resultados[7]->{719}->RESPUESTA == "Normal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td class="cent"><span id="enciasAnormalSpan">
+                            <?php
+                            if ($resultados[7]->{719}->RESPUESTA == "Anormal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td colspan="2" rowspan="1"><span id="enciasEspecifiqueSpan">
+                            <?php
+                            if (isset($resultados[7]->{719}->OBSERVACIONES)) {
+                                echo $resultados[7]->{719}->OBSERVACIONES;
+                            }
+                            ?>
+                        </span></td>
                 </tr>
                 <tr>
                     <td style="background-color: #E6B8B7; vertical-align: middle;">Agudeza Visual (sin lentes)</td>
@@ -295,9 +882,27 @@
                     <td style="background-color: #E6B8B7;">20/<span id="agudViSinSpan"></span></td>
                     <td colspan="2" rowspan="1" style="background-color: #E6B8B7;"><span id="agudViSinEspecifiqueSpan"></span></td>
                     <td style="vertical-align: middle;">Mucosa</td>
-                    <td><span id="mucosaNormalSpan"></span></td>
-                    <td><span id="mucosaAnormalSpan"></span></td>
-                    <td colspan="2" rowspan="1"><span id="mucosaEspecifiqueSpan"></span></td>
+                    <td class="cent"><span id="mucosaNormalSpan">
+                            <?php
+                            if ($resultados[7]->{712}->RESPUESTA == "Normal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td class="cent"><span id="mucosaAnormalSpan">
+                            <?php
+                            if ($resultados[7]->{712}->RESPUESTA == "Anormal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td colspan="2" rowspan="1"><span id="mucosaEspecifiqueSpan">
+                            <?php
+                            if (isset($resultados[7]->{712}->OBSERVACIONES)) {
+                                echo $resultados[7]->{712}->OBSERVACIONES;
+                            }
+                            ?>
+                        </span></td>
                 </tr>
                 <tr>
                     <td style="background-color: #E6B8B7; vertical-align: middle;">Agudeza Visual (con lentes)</td>
@@ -305,47 +910,277 @@
                     <td style="background-color: #E6B8B7;">20/<span id="agudViConSpan"></span></td>
                     <td colspan="2" rowspan="1" style="background-color: #E6B8B7;"><span id="agudViConEspecifiqueSpan"></span></td>
                     <td style="vertical-align: middle;">Paladar</td>
-                    <td><span id="paladarNormalSpan"></span></td>
-                    <td><span id="paladarAnormalSpan"></span></td>
-                    <td colspan="2" rowspan="1"><span id="paladarEspecifiqueSpan"></span></td>
+                    <td class="cent"><span id="paladarNormalSpan">
+                            <?php
+                            if ($resultados[7]->{720}->RESPUESTA == "Normal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td class="cent"><span id="paladarAnormalSpan">
+                            <?php
+                            if ($resultados[7]->{720}->RESPUESTA == "Anormal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td colspan="2" rowspan="1"><span id="paladarEspecifiqueSpan">
+                            <?php
+                            if (isset($resultados[7]->{720}->OBSERVACIONES)) {
+                                echo $resultados[7]->{720}->OBSERVACIONES;
+                            }
+                            ?>
+                        </span></td>
                 </tr>
                 <tr>
                     <td>Identifica Colores</td>
-                    <td style="text-align: center;">S&iacute;<span id="identColSiDerSpan">( )</span> No<span id="identColNoDerSpan">( )</span></td>
-                    <td style="text-align: center;">S&iacute;<span id="identColSiIzqSpan">( )</span> No<span id="identColNoIzqSpan">( )</span></td>
-                    <td colspan="2" rowspan="1"><span id="identColEspecifiqueSpan"></span></td>
+                    <td style="text-align: center;">S&iacute;<span id="identColSiDerSpan">
+                            <?php
+                            if ($resultados[7]->{38}->RESPUESTA == "Sí") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span> No<span id="identColNoDerSpan">
+                            <?php
+                            if ($resultados[7]->{38}->RESPUESTA == "No") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span></td>
+                    <td style="text-align: center;">S&iacute;<span id="identColSiIzqSpan">
+                            <?php
+                            if ($resultados[7]->{88}->RESPUESTA == "Sí") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span> No<span id="identColNoIzqSpan">
+                            <?php
+                            if ($resultados[7]->{88}->RESPUESTA == "No") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span></td>
+                    <td colspan="2" rowspan="1"><span id="identColEspecifiqueSpan">
+                            <?php
+                            if (isset($resultados[7]->{38}->OBSERVACIONES) || isset($resultados[7]->{88}->OBSERVACIONES)) {
+                                echo (isset($resultados[7]->{38}->OBSERVACIONES) ? $resultados[7]->{38}->OBSERVACIONES : '') . ' ' . (isset($resultados[7]->{88}->OBSERVACIONES) ? $resultados[7]->{88}->OBSERVACIONES : '');
+                            }
+                            ?>
+                        </span></td>
                     <td>Lengua</td>
-                    <td><span id="lenguaNormalSpan"></span></td>
-                    <td><span id="lenguaAnormalSpan"></span></td>
-                    <td colspan="2" rowspan="1"><span id="lenguaEspecifiqueSpan"></span></td>
+                    <td class="cent"><span id="lenguaNormalSpan">
+                            <?php
+                            if ($resultados[7]->{721}->RESPUESTA == "Normal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td class="cent"><span id="lenguaAnormalSpan">
+                            <?php
+                            if ($resultados[7]->{721}->RESPUESTA == "Anormal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td colspan="2" rowspan="1"><span id="lenguaEspecifiqueSpan">
+                            <?php
+                            if (isset($resultados[7]->{721}->OBSERVACIONES)) {
+                                echo $resultados[7]->{721}->OBSERVACIONES;
+                            }
+                            ?>
+                        </span></td>
                 </tr>
                 <tr>
                     <td>Movimiento Ocular</td>
-                    <td style="text-align: center;">N<span id="movOculNDerSpan">( )</span> A <span id="movOculADerSpan">( )</span></td>
-                    <td style="text-align: center;">N<span id="movOculNIzqSpan">( )</span> A <span id="movOculAIzqSpan">( )</span></td>
-                    <td colspan="2" rowspan="1"><span id="movOculEspecifiqueSpan"></span></td>
+                    <td style="text-align: center;">N<span id="movOculNDerSpan">
+                            <?php
+                            if ($resultados[7]->{39}->RESPUESTA == "Normal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span> A <span id="movOculADerSpan">
+                            <?php
+                            if ($resultados[7]->{39}->RESPUESTA == "Anormal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span></td>
+                    <td style="text-align: center;">N<span id="movOculNIzqSpan">
+                            <?php
+                            if ($resultados[7]->{89}->RESPUESTA == "Normal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span> A <span id="movOculAIzqSpan">
+                            <?php
+                            if ($resultados[7]->{89}->RESPUESTA == "Anormal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span></td>
+                    <td colspan="2" rowspan="1"><span id="movOculEspecifiqueSpan">
+                            <?php
+                            if (isset($resultados[7]->{39}->OBSERVACIONES) || isset($resultados[7]->{89}->OBSERVACIONES)) {
+                                echo (isset($resultados[7]->{39}->OBSERVACIONES) ? $resultados[7]->{39}->OBSERVACIONES : '') . ' ' . (isset($resultados[7]->{89}->OBSERVACIONES) ? $resultados[7]->{89}->OBSERVACIONES : '');
+                            }
+                            ?>
+                        </span></td>
                     <td>Am&iacute;gdalas</td>
-                    <td><span id="amigdalasNormalSpan"></span></td>
-                    <td><span id="amigdalasAnormalSpan"></span></td>
-                    <td colspan="2" rowspan="1"><span id="amigdalasEspecifiqueSpan"></span></td>
+                    <td class="cent"><span id="amigdalasNormalSpan">
+                            <?php
+                            if ($resultados[7]->{722}->RESPUESTA == "Normal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td class="cent"><span id="amigdalasAnormalSpan">
+                            <?php
+                            if ($resultados[7]->{722}->RESPUESTA == "Anormal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td colspan="2" rowspan="1"><span id="amigdalasEspecifiqueSpan">
+                            <?php
+                            if (isset($resultados[7]->{722}->OBSERVACIONES)) {
+                                echo $resultados[7]->{722}->OBSERVACIONES;
+                            }
+                            ?>
+                        </span></td>
                 </tr>
                 <tr>
                     <td>Reflejos Oculares</td>
-                    <td style="text-align: center;">N<span id="refOculNDerSpan">( )</span> A <span id="refOculADerSpan">( )</span></td>
-                    <td style="text-align: center;">N<span id="refOculNIzqSpan">( )</span> A <span id="refOculAIzqSpan">( )</span></td>
-                    <td colspan="2" rowspan="1"><span id="refOculEspecifiqueSpan"></span></td>
+                    <td style="text-align: center;">N<span id="refOculNDerSpan">
+                            <?php
+                            if ($resultados[7]->{310}->RESPUESTA == "Normal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span> A <span id="refOculADerSpan">
+                            <?php
+                            if ($resultados[7]->{310}->RESPUESTA == "Anormal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span></td>
+                    <td style="text-align: center;">N<span id="refOculNIzqSpan">
+                            <?php
+                            if ($resultados[7]->{810}->RESPUESTA == "Normal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span> A <span id="refOculAIzqSpan">
+                            <?php
+                            if ($resultados[7]->{810}->RESPUESTA == "Anormal") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span></td>
+                    <td colspan="2" rowspan="1"><span id="refOculEspecifiqueSpan">
+                            <?php
+                            if (isset($resultados[7]->{310}->OBSERVACIONES) || isset($resultados[7]->{810}->OBSERVACIONES)) {
+                                echo (isset($resultados[7]->{310}->OBSERVACIONES) ? $resultados[7]->{310}->OBSERVACIONES : '') . ' ' . (isset($resultados[7]->{810}->OBSERVACIONES) ? $resultados[7]->{810}->OBSERVACIONES : '');
+                            }
+                            ?>
+                        </span></td>
                     <td>Dentadura</td>
-                    <td><span id="dentaduraNormalSpan"></span></td>
-                    <td><span id="dentaduraAnormalSpan"></span></td>
-                    <td colspan="2" rowspan="1"><span id="dentaduraEspecifiqueSpan"></span></td>
+                    <td class="cent"><span id="dentaduraNormalSpan">
+                            <?php
+                            if ($resultados[7]->{723}->RESPUESTA == "Normal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td class="cent"><span id="dentaduraAnormalSpan">
+                            <?php
+                            if ($resultados[7]->{723}->RESPUESTA == "Anormal") {
+                                echo "x";
+                            }
+                            ?>
+                        </span></td>
+                    <td colspan="2" rowspan="1"><span id="dentaduraEspecifiqueSpan">
+                            <?php
+                            if (isset($resultados[7]->{723}->OBSERVACIONES)) {
+                                echo $resultados[7]->{723}->OBSERVACIONES;
+                            }
+                            ?>
+                        </span></td>
                 </tr>
                 <tr>
                     <td>Pterigión</td>
-                    <td style="text-align: center;">S&iacute;<span id="pterigionSiDerSpan">( )</span> No<span id="pterigionNoDerSpan">( )</span></td>
-                    <td style="text-align: center;">S&iacute;<span id="pterigionSiIzqSpan">( )</span> No<span id="pterigionNoIzqSpan">( )</span></td>
-                    <td colspan="2" rowspan="1"><span id="pterigionEspecifiqueSpan"></span></td>
+                    <td style="text-align: center;">S&iacute;<span id="pterigionSiDerSpan">
+                            <?php
+                            if ($resultados[7]->{311}->RESPUESTA == "Sí") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span> No<span id="pterigionNoDerSpan">
+                            <?php
+                            if ($resultados[7]->{311}->RESPUESTA == "No") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span></td>
+                    <td style="text-align: center;">S&iacute;<span id="pterigionSiIzqSpan">
+                            <?php
+                            if ($resultados[7]->{811}->RESPUESTA == "Sí") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span> No<span id="pterigionNoIzqSpan">
+                            <?php
+                            if ($resultados[7]->{811}->RESPUESTA == "No") {
+                                echo "( x )";
+                            } else {
+                                echo "( )";
+                            }
+                            ?>
+                        </span></td>
+                    <td colspan="2" rowspan="1"><span id="pterigionEspecifiqueSpan">
+                            <?php
+                            if (isset($resultados[7]->{311}->OBSERVACIONES) || isset($resultados[7]->{811}->OBSERVACIONES)) {
+                                echo (isset($resultados[7]->{311}->OBSERVACIONES) ? $resultados[7]->{311}->OBSERVACIONES : '') . ' ' . (isset($resultados[7]->{811}->OBSERVACIONES) ? $resultados[7]->{811}->OBSERVACIONES : '');
+                            }
+                            ?>
+                        </span></td>
                     <td style="background-color: #E6B8B7;">Otras Lesiones</td>
-                    <td colspan="4" rowspan="1"><span id="otrasLesionesEspecifiqueSpan"></span></td>
+                    <td colspan="4" rowspan="1"><span id="otrasLesionesEspecifiqueSpan">
+                            <?php
+                            if (isset($resultados[7]->{724}->OBSERVACIONES)) {
+                                echo $resultados[7]->{724}->OBSERVACIONES;
+                            }
+                            ?>
+                        </span></td>
                 </tr>
         </tbody>
     </table>
