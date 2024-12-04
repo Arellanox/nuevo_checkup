@@ -749,8 +749,14 @@ class Miscelaneus
         $recetas = $master->getByNext('sp_recetas', [$turno_id]);
 
 
-        $response = array_merge($response, $recetas);
-
+        $response = [
+            $response[0],
+            $response[1],
+            $response[2],
+            $recetas[0],
+            $recetas[1],
+            $recetas[2]
+        ];
         return $response;
     }
 
