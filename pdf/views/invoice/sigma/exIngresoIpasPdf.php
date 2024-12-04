@@ -878,9 +878,25 @@
                 </tr>
                 <tr>
                     <td style="background-color: #E6B8B7; vertical-align: middle;">Agudeza Visual (sin lentes)</td>
-                    <td style="background-color: #E6B8B7;">20/<span id="agudViSinSpan"></span></td>
-                    <td style="background-color: #E6B8B7;">20/<span id="agudViSinSpan"></span></td>
-                    <td colspan="2" rowspan="1" style="background-color: #E6B8B7;"><span id="agudViSinEspecifiqueSpan"></span></td>
+                    <td style="background-color: #E6B8B7; vertical-align: middle; text-align: center;"><span id="agudViDSinSpan">
+                            <?php
+                            if (isset($resultados[9]->OD)) {
+                                echo $resultados[9]->OD;
+                            }
+                            ?>
+                        </span></td>
+                    <td style="background-color: #E6B8B7; vertical-align: middle; text-align: center;"><span id="agudViISinSpan">
+                            <?php
+                            if (isset($resultados[9]->OI)) {
+                                echo $resultados[9]->OI;
+                            }
+                            ?>
+                        </span></td>
+                    <td colspan="2" rowspan="1" style="background-color: #E6B8B7;"><span id="agudViSinEspecifiqueSpan">
+                            <?php
+                            //preguntar por datos especifique con o sin lentes
+                            ?>
+                        </span></td>
                     <td style="vertical-align: middle;">Mucosa</td>
                     <td class="cent"><span id="mucosaNormalSpan">
                             <?php
@@ -906,9 +922,26 @@
                 </tr>
                 <tr>
                     <td style="background-color: #E6B8B7; vertical-align: middle;">Agudeza Visual (con lentes)</td>
-                    <td style="background-color: #E6B8B7;">20/<span id="agudViConSpan"></span></td>
-                    <td style="background-color: #E6B8B7;">20/<span id="agudViConSpan"></span></td>
-                    <td colspan="2" rowspan="1" style="background-color: #E6B8B7;"><span id="agudViConEspecifiqueSpan"></span></td>
+                    <td style="background-color: #E6B8B7; vertical-align: middle; text-align: center;"><span id="agudViDConSpan">
+                            <?php
+                            if (isset($resultados[9]->CON_OD)) {
+                                echo $resultados[9]->CON_OD;
+                            }
+                            ?>
+                        </span></td>
+                    <td style="background-color: #E6B8B7; vertical-align: middle; text-align: center;"><span id="agudViIConSpan">
+                            <?php
+                            if (isset($resultados[9]->CON_OI)) {
+                                echo $resultados[9]->CON_OI;
+                            }
+                            ?>
+                        </span></td>
+                    <td colspan="2" rowspan="1" style="background-color: #E6B8B7;"><span id="agudViConEspecifiqueSpan">
+                            <?php
+                            //preguntar por datos especifique con o sin lentes
+                            ?>
+                        </span></td>
+                    </span></td>
                     <td style="vertical-align: middle;">Paladar</td>
                     <td class="cent"><span id="paladarNormalSpan">
                             <?php

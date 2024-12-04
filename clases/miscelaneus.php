@@ -407,6 +407,7 @@ class Miscelaneus
                 if ($cliente_id == 15) {
                     $reporte = 'sigma_consultorio';
                     $arregloPaciente = $this->getSigmaHistoria($master, $turno_id);
+                    //$arregloOftalmoResultados = $master->getByProcedure("sp_sigma_historia_b", [$turno_id]);
                     $filteredArregloPaciente = [];
                     $allowedKeys = [
                         'ID_PACIENTE',
@@ -443,6 +444,8 @@ class Miscelaneus
                     $infoSignosVital = $master->getByProcedure("sp_mesometria_signos_vitales_b", [$turno_id]);
                     $infoSigmaExploracion = $master->getByProcedure("sp_sigma_exploracion_b", [$turno_id]);
                     $infoSigmaInterpretaciones = $master->getByProcedure("sp_sigma_interpretaciones_b", [$turno_id]);
+                    $infoOftalmoResultados = $master->getByProcedure("sp_oftalmo_resultados_b", [NULL, $turno_id]);
+                    $infoConsultorioConsulta = $master->getByProcedure("sp_consultorio_consulta_b", [NULL, $turno_id, NULL]);
 
                     $arregloAntecedentes = [];
                     foreach ($infoConsultorioAntecedentes as $key => $value) {
@@ -530,10 +533,26 @@ class Miscelaneus
                         }
                     }
 
+                    $arregloOftalmoResultados = [];
+                    foreach ($infoOftalmoResultados as $key => $value) {
+                            $arregloOftalmoResultados = array_filter($value, function ($k) {
+                                $allowedKeys = ['OD', 'OI', 'CON_OD', 'CON_OI'];
+                                return in_array($k, $allowedKeys, true);
+                            }, ARRAY_FILTER_USE_KEY);
+                    }
+
+                    $arregloConsultorioConsulta = [];
+                    foreach ($infoConsultorioConsulta as $key => $value) {
+                            $arregloConsultorioConsulta = array_filter($value, function ($k) {
+                                $allowedKeys = ['NOTAS_PADECIMIENTO', 'DIAGNOSTICO', 'OBSERVACIONES'];
+                                return in_array($k, $allowedKeys, true);
+                            }, ARRAY_FILTER_USE_KEY);    
+                    } 
+
                     //echo "<pre>";
                     //agregar nuevos arreglos
-                    $arregloPaciente = [$result, $arregloAntecedentes, $arregloHistofam, $arregloAntecedentesNutri, $arregloConsultorioAparatos, $arregloInfoFichAdmi, $arregloSignosVital, $arregloSigmaExploracion, $arregloSigmaInterpretaciones];
-                    //print_r([$result, $arregloAntecedentes, $arregloHistofam, $arregloAntecedentesNutri, $arregloConsultorioAparatos, $arregloInfoFichAdmi, $arregloSignosVital, $arregloSigmaExploracion, $arregloSigmaInterpretaciones]);
+                    $arregloPaciente = [$result, $arregloAntecedentes, $arregloHistofam, $arregloAntecedentesNutri, $arregloConsultorioAparatos, $arregloInfoFichAdmi, $arregloSignosVital, $arregloSigmaExploracion, $arregloSigmaInterpretaciones, $arregloOftalmoResultados, $arregloConsultorioConsulta];
+                    //print_r([$result, $arregloAntecedentes, $arregloHistofam, $arregloAntecedentesNutri, $arregloConsultorioAparatos, $arregloInfoFichAdmi, $arregloSignosVital, $arregloSigmaExploracion, $arregloSigmaInterpretaciones, $arregloOftalmoResultados, $arregloConsultorioConsulta]);
                     //echo "</pre>";
                     //exit;
                 } else {

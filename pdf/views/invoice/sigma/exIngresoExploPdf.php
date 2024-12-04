@@ -279,17 +279,23 @@
                 <td>Ventilaci&oacute;n</td>
                 <td class="cent"><span id="ventilacionNormalSpan">
                         <?php
-                        //preguntar por datos
+                        if ($resultados[7]->{930}->RESPUESTA == 'Normal') {
+                            echo 'x';
+                        }
                         ?>
                     </span></td>
                 <td class="cent"><span id="ventilacionAnormalSpan">
                         <?php
-                        //preguntar por datos
+                        if ($resultados[7]->{930}->RESPUESTA == 'Anormal') {
+                            echo 'x';
+                        }
                         ?>
                     </span></td>
                 <td><span id="ventilacionEspecifiqueSpan">
                         <?php
-                        //preguntar por datos
+                        if (isset($resultados[7]->{930}->OBSERVACIONES)) {
+                            echo $resultados[7]->{930}->OBSERVACIONES;
+                        }
                         ?>
                     </span></td>
                 <td>Fuerza</td>
@@ -389,8 +395,6 @@
                         <?php
                         if ($resultados[7]->{1031}->RESPUESTA == 'Normal') {
                             echo '( x )';
-                        } else {
-                            echo '( )';
                         }
                         ?>
                     </span></td>
@@ -398,8 +402,6 @@
                         <?php
                         if ($resultados[7]->{1031}->RESPUESTA == 'Anormal') {
                             echo '( x )';
-                        } else {
-                            echo '( )';
                         }
                         ?>
                     </span></td>
@@ -929,7 +931,7 @@
                         <?php
                         if (isset($resultados[7]->{1750}->OBSERVACIONES)) {
                             echo $resultados[7]->{1750}->OBSERVACIONES;
-                        } //preguntar si si va asi en una sola casilla
+                        }
                         ?>
                     </span></td>
             </tr>
@@ -1141,7 +1143,7 @@
                         <?php
                         if (isset($resultados[8]->AUDIOMETRIA)) {
                             echo $resultados[8]->AUDIOMETRIA;
-                        } //preguntar por datos
+                        } //PENDIENTE
                         ?>
                     </span></td>
             </tr>
@@ -1159,7 +1161,7 @@
                         <?php
                         if (isset($resultados[8]->OTROS)) {
                             echo $resultados[8]->OTROS;
-                        } //preguntar por datos
+                        } //PENDIENTE
                         ?>
                     </span></td>
             </tr>
@@ -1257,7 +1259,14 @@
                 <td class="tittleBoldCenterBgG" colspan="8" rowspan="1">DIAGN&Oacute;STICO Y OBSERVACIONES</td>
             </tr>
             <tr>
-                <td colspan="8" rowspan="1"><span id="diagObserSpan">&nbsp;</span></td>
+                <td colspan="8" rowspan="1"><span id="diagObserSpan">
+                        <?php
+                        if (isset($resultados[10]->NOTAS_PADECIMIENTO) || isset($resultados[10]->DIAGNOSTICO)) {
+                            echo $resultados[10]->DIAGNOSTICO . ' / ' . $resultados[10]->NOTAS_PADECIMIENTO;
+                        }
+                        ?>
+                    </span></td>
+                </span></td>
             </tr>
             <tr>
                 <td colspan="8" rowspan="1">&nbsp;</td>
