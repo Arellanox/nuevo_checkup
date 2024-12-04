@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <table dir="ltr" border="1" cellspacing="0" cellpadding="0" data-sheets-root="1" data-sheets-baot="1">
+    <table class="tableS" dir="ltr" border="1" cellspacing="0" cellpadding="0" data-sheets-root="1" data-sheets-baot="1">
         <colgroup>
             <col width="2092" />
             <col width="357" />
@@ -1143,7 +1143,7 @@
                         <?php
                         if (isset($resultados[8]->AUDIOMETRIA)) {
                             echo $resultados[8]->AUDIOMETRIA;
-                        } //PENDIENTE
+                        }
                         ?>
                     </span></td>
             </tr>
@@ -1161,7 +1161,7 @@
                         <?php
                         if (isset($resultados[8]->OTROS)) {
                             echo $resultados[8]->OTROS;
-                        } //PENDIENTE
+                        }
                         ?>
                     </span></td>
             </tr>

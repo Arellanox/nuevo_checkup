@@ -63,3 +63,26 @@ body {
   text-align: center;
   vertical-align: middle;
 }
+
+.tableS {
+  width: 95%;
+  margin: auto;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+tdS {
+  padding: 2px;
+  font-size: 8px;
+  border: 1px solid #ddd;
+  word-wrap: break-word;
+  vertical-align: top;
+}
+
+thS {
+  padding: 2px;
+  font-size: 8px;
+  border: 1px solid #ddd;
+  word-wrap: break-word;
+  vertical-align: top;
+}

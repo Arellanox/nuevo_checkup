@@ -527,7 +527,7 @@ class Miscelaneus
                     foreach ($infoSigmaInterpretaciones as $key => $value) {
                         if (isset($value['ID_INTERPRETACION'])) {
                             $arregloSigmaInterpretaciones = array_filter($value, function ($k) {
-                                $allowedKeys = ['CUENTA_ROJA', 'GENERAL_ORINA', 'QUIMICA_SANGUINEA', 'RADIOGRAFIA_TORAX', 'VIH', 'ANTIDOPING', 'TIPO_SANGRE', 'REACCIONES_FEBRILES', 'VDRL', 'COPRO', 'EXUDADO_FARINGEO'];
+                                $allowedKeys = ['CUENTA_ROJA', 'GENERAL_ORINA', 'QUIMICA_SANGUINEA', 'RADIOGRAFIA_TORAX', 'VIH', 'ANTIDOPING', 'TIPO_SANGRE', 'REACCIONES_FEBRILES', 'VDRL', 'COPRO', 'EXUDADO_FARINGEO', 'AUDIOMETRIA', 'OTROS'];
                                 return in_array($k, $allowedKeys, true);
                             }, ARRAY_FILTER_USE_KEY);
                         }

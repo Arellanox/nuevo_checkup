@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <table dir="ltr" border="1" cellspacing="0" cellpadding="0" data-sheets-root="1" data-sheets-baot="1">
+    <table class="tableS" dir="ltr" border="1" cellspacing="0" cellpadding="0" data-sheets-root="1" data-sheets-baot="1">
         <colgroup>
             <col width="670" />
             <col width="357" />
@@ -894,7 +894,7 @@
                         </span></td>
                     <td colspan="2" rowspan="1" style="background-color: #E6B8B7;"><span id="agudViSinEspecifiqueSpan">
                             <?php
-                            //preguntar por datos especifique con o sin lentes
+                            
                             ?>
                         </span></td>
                     <td style="vertical-align: middle;">Mucosa</td>
@@ -938,7 +938,7 @@
                         </span></td>
                     <td colspan="2" rowspan="1" style="background-color: #E6B8B7;"><span id="agudViConEspecifiqueSpan">
                             <?php
-                            //preguntar por datos especifique con o sin lentes
+                            
                             ?>
                         </span></td>
                     </span></td>

@@ -240,7 +240,7 @@
             </tr>
             <tr>
                 <td colspan="2" rowspan="2">
-                    <div class="cent">Familiar</div>
+                    <div style="vertical-align: middle;" class="cent">Familiar</div>
                 </td>
                 <td class="tittleCenterBgB" colspan="2" rowspan="1">Vive</td>
                 <td class="tittleCenterBgB" colspan="20" rowspan="1">Marque con una X si su familiar padece o ha padecido alguna de las siguientes enfermedades:</td>

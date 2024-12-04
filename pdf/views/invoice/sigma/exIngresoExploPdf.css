@@ -57,15 +57,22 @@ body {
   font-family: Onest Variable, system-ui, sans-serif;
 }
 
-table {
+.tableS {
   width: 95%;
   margin: auto;
   border-collapse: collapse;
   table-layout: fixed;
 }
 
-td,
-th {
+tdS {
+  padding: 2px;
+  font-size: 8px;
+  border: 1px solid #ddd;
+  word-wrap: break-word;
+  vertical-align: top;
+}
+
+thS {
   padding: 2px;
   font-size: 8px;
   border: 1px solid #ddd;
