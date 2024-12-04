@@ -1,0 +1,308 @@
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .human-body {
+    position: relative;
+    width: 200px;
+    height: 700px;
+    background-color: #e0e0e0;
+    border-radius: 50px;
+  }
+
+  .part {
+    position: absolute;
+    background-color: rgba(0, 123, 255, 0.3);
+    border: 1px solid #007bff;
+    cursor: pointer;
+  }
+
+  .part:hover {
+    background-color: rgba(0, 123, 255, 0.6);
+  }
+
+  /* Cabeza */
+  .head {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+  }
+
+  /* Cuello */
+  .neck {
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 30px;
+    border-radius: 10px;
+  }
+
+  /* Pecho */
+  .chest {
+    top: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 60px;
+    border-radius: 10px;
+  }
+
+  /* Área del diafragma */
+  .diaphragm {
+    top: 210px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+  }
+
+  /* Abdomen */
+  .abdomen {
+    top: 250px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90px;
+    height: 70px;
+    border-radius: 10px;
+  }
+
+  /* Región Inguinal */
+  .inguinal {
+    top: 320px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 0, 0, 0.3); /* Distinción visual */
+    border: 1px solid red;
+  }
+
+  /* Hombros */
+  .shoulder-left, .shoulder-right {
+    top: 140px;
+    width: 40px;
+    height: 30px;
+    border-radius: 10px;
+  }
+
+  .shoulder-left {
+    left: 10px;
+  }
+
+  .shoulder-right {
+    right: 10px;
+  }
+
+  /* Brazos */
+  .upper-arm-left, .upper-arm-right {
+    top: 175px;
+    width: 30px;
+    height: 50px;
+    border-radius: 10px;
+  }
+
+  .upper-arm-left {
+    left: 5px;
+  }
+
+  .upper-arm-right {
+    right: 5px;
+  }
+
+  /* Codos */
+  .elbow-left, .elbow-right {
+    top: 225px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+  }
+
+  .elbow-left {
+    left: 15px;
+  }
+
+  .elbow-right {
+    right: 15px;
+  }
+
+  /* Antebrazos */
+  .forearm-left, .forearm-right {
+    top: 245px;
+    width: 30px;
+    height: 50px;
+    border-radius: 10px;
+  }
+
+  .forearm-left {
+    left: 5px;
+  }
+
+  .forearm-right {
+    right: 5px;
+  }
+
+  /* Muñecas */
+  .wrist-left, .wrist-right {
+    top: 295px;
+    width: 20px;
+    height: 15px;
+    border-radius: 10px;
+  }
+
+  .wrist-left {
+    left: 15px;
+  }
+
+  .wrist-right {
+    right: 15px;
+  }
+
+  /* Manos */
+  .hand-left, .hand-right {
+    top: 310px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+
+  .hand-left {
+    left: 5px;
+  }
+
+  .hand-right {
+    right: 5px;
+  }
+
+  /* Muslos */
+  .thigh-left, .thigh-right {
+    top: 360px;
+    width: 50px;
+    height: 100px;
+    border-radius: 10px;
+  }
+
+  .thigh-left {
+    left: 20px;
+  }
+
+  .thigh-right {
+    right: 20px;
+  }
+
+  /* Rodillas */
+  .knee-left, .knee-right {
+    top: 460px;
+    width: 40px;
+    height: 30px;
+    border-radius: 10px;
+  }
+
+  .knee-left {
+    left: 25px;
+  }
+
+  .knee-right {
+    right: 25px;
+  }
+
+  /* Piernas */
+  .lower-leg-left, .lower-leg-right {
+    top: 490px;
+    width: 40px;
+    height: 90px;
+    border-radius: 10px;
+  }
+
+  .lower-leg-left {
+    left: 25px;
+  }
+
+  .lower-leg-right {
+    right: 25px;
+  }
+
+  /* Tobillos */
+  .ankle-left, .ankle-right {
+    top: 580px;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+  }
+
+  .ankle-left {
+    left: 35px;
+  }
+
+  .ankle-right {
+    right: 35px;
+  }
+
+  /* Pies */
+  .foot-left, .foot-right {
+    top: 600px;
+    width: 40px;
+    height: 20px;
+    border-radius: 20px;
+  }
+
+  .foot-left {
+    left: 20px;
+  }
+
+  .foot-right {
+    right: 20px;
+  }
+</style>
+</head>
+<body>
+<div class="human-body">
+  <!-- Cabeza y cuello -->
+  <div class="part head" title="Cabeza"></div>
+  <div class="part neck" title="Cuello"></div>
+
+  <!-- Torso -->
+  <div class="part chest" title="Pecho"></div>
+  <div class="part diaphragm" title="Área del Diafragma"></div>
+  <div class="part abdomen" title="Abdomen"></div>
+  <div class="part inguinal" title="Región Inguinal"></div>
+
+  <!-- Extremidades superiores -->
+  <div class="part shoulder-left" title="Hombro Izquierdo"></div>
+  <div class="part shoulder-right" title="Hombro Derecho"></div>
+  <div class="part upper-arm-left" title="Brazo Izquierdo"></div>
+  <div class="part upper-arm-right" title="Brazo Derecho"></div>
+  <div class="part elbow-left" title="Codo Izquierdo"></div>
+  <div class="part elbow-right" title="Codo Derecho"></div>
+  <div class="part forearm-left" title="Antebrazo Izquierdo"></div>
+  <div class="part forearm-right" title="Antebrazo Derecho"></div>
+  <div class="part wrist-left" title="Muñeca Izquierda"></div>
+  <div class="part wrist-right" title="Muñeca Derecha"></div>
+  <div class="part hand-left" title="Mano Izquierda"></div>
+  <div class="part hand-right" title="Mano Derecha"></div>
+
+  <!-- Extremidades inferiores -->
+  <div class="part thigh-left" title="Muslo Izquierdo"></div>
+  <div class="part thigh-right" title="Muslo Derecho"></div>
+  <div class="part knee-left" title="Rodilla Izquierda"></div>
+  <div class="part knee-right" title="Rodilla Derecha"></div>
+  <div class="part lower-leg-left" title="Pierna Izquierda"></div>
+  <div class="part lower-leg-right" title="Pierna Derecha"></div>
+  <div class="part ankle-left" title="Tobillo Izquierdo"></div>
+  <div class="part ankle-right" title="Tobillo Derecho"></div>
+  <div class="part foot-left" title="Pie Izquierdo"></div>
+  <div class="part foot-right" title="Pie Derecho"></div>
+</div>
+</body>

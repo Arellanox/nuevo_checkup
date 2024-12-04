@@ -99,6 +99,18 @@ function obtenerExploracion(turno) {
     });
 }
 
+//obtener la exploracion fisica de sigma, zona de marcaje
+function obtenerZonaMarcaje(turno){
+    return new Promise(resolve => {
+        $.post(`${http}${servidor}/${appname}/vista/include/acordion/antecedentes-exploracion-sigma.html`, function(html){
+            $('#divMarcacionAreas').html(html);
+        }).done(async function(){
+            resolve(1);
+        })
+        
+    })
+}
+
 //Obtiene los forms de anamnesis por aparatos
 function obtenerAnamnesisApartados(turno) {
     return new Promise(resolve => {

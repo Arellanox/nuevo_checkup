@@ -178,7 +178,9 @@ async function obtenerValoracion(data, idconsulta) {
   await obtenerNutricion(data['ID_TURNO'])
   await obtenerExploracion(data['ID_TURNO'])
   await obtenerAnamnesisApartados(data['ID_TURNO']);
-  await obtenerInformacionConsulta(idconsulta)
+  await obtenerInformacionConsulta(idconsulta);
+  //EXPLORACION SIGMA, MARCAR ZONAS CON LESIONES.
+  await obtenerZonaMarcaje(data['ID_TURNO']);
 
   autosize(document.querySelectorAll('textarea'))
 
