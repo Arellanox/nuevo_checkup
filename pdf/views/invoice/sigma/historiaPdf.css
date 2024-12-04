@@ -108,3 +108,8 @@ th {
   overflow: hidden;
   page-break-inside: avoid;
 }
+
+.cent {
+  text-align: center;
+  vertical-align: middle;
+}

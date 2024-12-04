@@ -407,6 +407,7 @@ class Miscelaneus
                 if ($cliente_id == 15) {
                     $reporte = 'sigma_consultorio';
                     $arregloPaciente = $this->getSigmaHistoria($master, $turno_id);
+                    //$arregloOftalmoResultados = $master->getByProcedure("sp_sigma_historia_b", [$turno_id]);
                     $filteredArregloPaciente = [];
                     $allowedKeys = [
                         'ID_PACIENTE',
@@ -440,6 +441,11 @@ class Miscelaneus
                     $infoAntecedentesNutri = $master->getByProcedure("sp_antecedentes_nutricion_alimentos_respuestas_b", [$turno_id]);
                     $infoConsultorioAparatos = $master->getByProcedure("sp_consultorio_anamnesis_aparatos_b", [$turno_id]);
                     $infoFichAdmi = $master->getByProcedure("sp_sigma_ficha_admision_b", [$turno_id, null, null]);
+                    $infoSignosVital = $master->getByProcedure("sp_mesometria_signos_vitales_b", [$turno_id]);
+                    $infoSigmaExploracion = $master->getByProcedure("sp_sigma_exploracion_b", [$turno_id]);
+                    $infoSigmaInterpretaciones = $master->getByProcedure("sp_sigma_interpretaciones_b", [$turno_id]);
+                    $infoOftalmoResultados = $master->getByProcedure("sp_oftalmo_resultados_b", [NULL, $turno_id]);
+                    $infoConsultorioConsulta = $master->getByProcedure("sp_consultorio_consulta_b", [NULL, $turno_id, NULL]);
 
                     $arregloAntecedentes = [];
                     foreach ($infoConsultorioAntecedentes as $key => $value) {
@@ -491,30 +497,76 @@ class Miscelaneus
                     foreach ($infoFichAdmi as $key => $value) {
                         if (isset($value['ID_ADMISION'])) {
                             $arregloInfoFichAdmi = array_filter($value, function ($k) {
-                                $allowedKeys = ['FECHA_ADMISION', 'RELIGION', 'LUGAR_NACIMIENTO', 'ESTADO_CIVIL','TELEFONO_PACIENTE','PUESTO_SOLICITA','AREA_DEPTO','NO_IMSS','PROFESION','ESCOLARIDAD','UMF','ACCIDENTE_AVISAR','PARENTESCO', 'TELEFONO1','TELEFONO2','ACTIVO','COLONIA','CALLE','CELULAR','ESTADO','EXTERIOR','INTERIOR','POSTAL','MUNICIPIO','PX','EDAD'];
+                                $allowedKeys = ['FECHA_ADMISION', 'RELIGION', 'LUGAR_NACIMIENTO', 'ESTADO_CIVIL', 'TELEFONO_PACIENTE', 'PUESTO_SOLICITA', 'AREA_DEPTO', 'NO_IMSS', 'PROFESION', 'ESCOLARIDAD', 'UMF', 'ACCIDENTE_AVISAR', 'PARENTESCO', 'TELEFONO1', 'TELEFONO2', 'ACTIVO', 'COLONIA', 'CALLE', 'CELULAR', 'ESTADO', 'EXTERIOR', 'INTERIOR', 'POSTAL', 'MUNICIPIO', 'PX', 'EDAD'];
                                 return in_array($k, $allowedKeys, true);
                             }, ARRAY_FILTER_USE_KEY);
                         }
                     }
 
-                    #echo "<pre>";
-                    $arregloPaciente = [$result, $arregloAntecedentes, $arregloHistofam, $arregloAntecedentesNutri, $arregloConsultorioAparatos, $arregloInfoFichAdmi];
-                    #print_r([$result, $arregloAntecedentes, $arregloHistofam, $arregloAntecedentesNutri, $arregloConsultorioAparatos, $arregloInfoFichAdmi]);
-                    #echo "</pre>";
-                    #exit;
-                    
+                    $arregloSignosVital = [];
+                    foreach ($infoSignosVital as $key => $value) {
+                        if (isset($value['ID_TIPO_MESO'])) {
+                            $arregloSignosVital[$value['ID_TIPO_MESO']] = array_filter($value, function ($k) {
+                                $allowedKeys = ['TIPO_SIGNO', 'VALOR', 'UNIDAD_MEDIDA'];
+                                return in_array($k, $allowedKeys, true);
+                            }, ARRAY_FILTER_USE_KEY);
+                        }
+                    }
+
+                    $arregloSigmaExploracion = [];
+                    foreach ($infoSigmaExploracion as $key => $value) {
+                        if (isset($value['ID_TIPO'])) {
+                            $arregloSigmaExploracion[$value['ID_CUERPO'] . $value['ID_TIPO']] = array_filter($value, function ($k) {
+                                $allowedKeys = ['PARTE_CUERPO', 'RESPUESTA', 'PARTE_CUERPO', 'OBSERVACIONES', 'TIPO_EXPLORACION'];
+                                return in_array($k, $allowedKeys, true);
+                            }, ARRAY_FILTER_USE_KEY);
+                        }
+                    }
+
+                    $arregloSigmaInterpretaciones = [];
+                    foreach ($infoSigmaInterpretaciones as $key => $value) {
+                        if (isset($value['ID_INTERPRETACION'])) {
+                            $arregloSigmaInterpretaciones = array_filter($value, function ($k) {
+                                $allowedKeys = ['CUENTA_ROJA', 'GENERAL_ORINA', 'QUIMICA_SANGUINEA', 'RADIOGRAFIA_TORAX', 'VIH', 'ANTIDOPING', 'TIPO_SANGRE', 'REACCIONES_FEBRILES', 'VDRL', 'COPRO', 'EXUDADO_FARINGEO'];
+                                return in_array($k, $allowedKeys, true);
+                            }, ARRAY_FILTER_USE_KEY);
+                        }
+                    }
+
+                    $arregloOftalmoResultados = [];
+                    foreach ($infoOftalmoResultados as $key => $value) {
+                            $arregloOftalmoResultados = array_filter($value, function ($k) {
+                                $allowedKeys = ['OD', 'OI', 'CON_OD', 'CON_OI'];
+                                return in_array($k, $allowedKeys, true);
+                            }, ARRAY_FILTER_USE_KEY);
+                    }
+
+                    $arregloConsultorioConsulta = [];
+                    foreach ($infoConsultorioConsulta as $key => $value) {
+                            $arregloConsultorioConsulta = array_filter($value, function ($k) {
+                                $allowedKeys = ['NOTAS_PADECIMIENTO', 'DIAGNOSTICO', 'OBSERVACIONES'];
+                                return in_array($k, $allowedKeys, true);
+                            }, ARRAY_FILTER_USE_KEY);    
+                    } 
+
+                    //echo "<pre>";
+                    //agregar nuevos arreglos
+                    $arregloPaciente = [$result, $arregloAntecedentes, $arregloHistofam, $arregloAntecedentesNutri, $arregloConsultorioAparatos, $arregloInfoFichAdmi, $arregloSignosVital, $arregloSigmaExploracion, $arregloSigmaInterpretaciones, $arregloOftalmoResultados, $arregloConsultorioConsulta];
+                    //print_r([$result, $arregloAntecedentes, $arregloHistofam, $arregloAntecedentesNutri, $arregloConsultorioAparatos, $arregloInfoFichAdmi, $arregloSignosVital, $arregloSigmaExploracion, $arregloSigmaInterpretaciones, $arregloOftalmoResultados, $arregloConsultorioConsulta]);
+                    //echo "</pre>";
+                    //exit;
                 } else {
                     $arregloPaciente = $this->getBodyInfoConsultorio($master, $turno_id, $id_consulta);
-                $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
-                $datos_medicos = $this->getMedicalCarrier($info);
-                $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_CONSULTA'];
-                $infoPaciente[0]['FECHA_RESULTADO'] =
-                    $infoPaciente[0]['FECHA_CONSULTA_HISTORIA'];
-                $carpeta_guardado = 'consultorio';
-                $folio = $infoPaciente[0]['FOLIO_CONSULTA'];
-                $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[0]['CLAVE_CONSULTA'];
+                    $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
+                    $datos_medicos = $this->getMedicalCarrier($info);
+                    $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_CONSULTA'];
+                    $infoPaciente[0]['FECHA_RESULTADO'] =
+                        $infoPaciente[0]['FECHA_CONSULTA_HISTORIA'];
+                    $carpeta_guardado = 'consultorio';
+                    $folio = $infoPaciente[0]['FOLIO_CONSULTA'];
+                    $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[0]['CLAVE_CONSULTA'];
                 }
-                
+
                 # evaluar si el cliente es sigma y enviar las variables correspondientes.
                 # id cliente [15]
 
@@ -632,7 +684,7 @@ class Miscelaneus
                 $folio = $infoPaciente[array_key_last($infoPaciente)]['FOLIO_CONSULTA2'];
                 $fecha_resultado = $infoPaciente[array_key_last($infoPaciente)]['FECHA_CARPETA_CONSULTA2'];
                 $carpeta_guardado = "recetas";
-                $info = $master->getByProcedure("sp_info_medicos",[$turno_id, -2]);
+                $info = $master->getByProcedure("sp_info_medicos", [$turno_id, -2]);
                 $datos_medicos = $this->getMedicalCarrier($info);
                 break;
             case -3:
@@ -656,7 +708,7 @@ class Miscelaneus
                 $fecha_resultado = date("Ymd");
                 $nombre_paciente = "envio_muestras_$turno_id";
                 $arregloPaciente = $this->getBodyFormatoEnvioLotesMaquila($master, $turno_id); # $turno_id es el id de lote que se quiere generar.
-                break;    
+                break;
             case -6:
                 # $turno_id para este caso seria el equivalente a ID_PACIENTE
                 $arregloPaciente = $this->getBodyFormDatos($master, $turno_id);
@@ -744,13 +796,15 @@ class Miscelaneus
         return $renderpdf;
     }
 
-    private function getBodyFormDatos($master, $id_paciente){
+    private function getBodyFormDatos($master, $id_paciente)
+    {
         $response = $master->getByProcedure('sp_pacientes_b', [$id_paciente, null, null, null]);
         $paciente = $response[0];
         return $paciente;
     }
 
-    private function getSigmaHistoria($master, $id_turno){
+    private function getSigmaHistoria($master, $id_turno)
+    {
         $response = $master->getByNext('sp_sigma_historia_b', [$id_turno]);
         return $response;
     }
@@ -1457,13 +1511,13 @@ class Miscelaneus
     private function determinarTipo($parametro, $resultado)
     {
         $parametro = trim($parametro);
-        $resultado = str_replace(",",'',trim($resultado));
+        $resultado = str_replace(",", '', trim($resultado));
 
         // Comprobar si el parámetro contiene un rango de valores
         if (strpos($parametro, '-') !== false) {
             $rango = explode('-', $parametro);
             $minimo = str_replace(",", '', trim($rango[0]));
-            $maximo = str_replace(",","",trim($rango[1]));
+            $maximo = str_replace(",", "", trim($rango[1]));
 
             if ($resultado < $minimo) {
                 return $this->arrowDown;
@@ -1638,7 +1692,8 @@ class Miscelaneus
         return $response;
     }
 
-    function getMuestraGrupo($master, $grupo_id, $turno){
+    function getMuestraGrupo($master, $grupo_id, $turno)
+    {
         $muestra = $master->selectByProcedure("sp_recuperar_muestra", [$grupo_id]);
         return $muestra[0];
     }
@@ -2289,15 +2344,16 @@ class Miscelaneus
         return true;
     }
 
-    
-    public function getBodyFormatoEnvioLotesMaquila($master, $id_lote){
+
+    public function getBodyFormatoEnvioLotesMaquila($master, $id_lote)
+    {
         $resultset = $master->getByNext("sp_maquilas_datos_reporte", [$id_lote]);
 
         $detalle = $resultset[0];
         $generales = $resultset[1][0];
 
         $generales["DETALLE"] = $detalle;
-        
+
         return $generales;
     }
 

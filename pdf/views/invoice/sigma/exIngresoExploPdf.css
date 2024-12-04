@@ -72,3 +72,8 @@ th {
   word-wrap: break-word;
   vertical-align: top;
 }
+
+.cent {
+  text-align: center;
+  vertical-align: middle;
+}
