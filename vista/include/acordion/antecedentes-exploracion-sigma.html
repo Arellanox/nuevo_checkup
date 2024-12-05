@@ -26,41 +26,86 @@
 </style>
 
 <body>
+    <!-- Modal de Bootstrap -->
+<div class="modal fade" id="bodyPartModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitle"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="injuryForm">
+            <div class="mb-3">
+              <label for="injuryDescription" class="form-label">Descripción de la lesión</label>
+              <textarea class="form-control" id="injuryDescription" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
 <div class="container">
-  <img src="silueta_frontal.jpg" usemap="#body-map" alt="Silueta Humana" id="body-image" class="img">
-  <div id="highlight" class="highlight"></div>
-  <div id="tooltip" class="tooltip"></div> <!-- Tooltip -->
+    <div class="row">
+        <div class="col-2 justify-content-center">
+            <img src="silueta_frontal.jpg" usemap="#body-map" alt="Silueta Humana" id="body-image" class="img">
+            <div id="highlight" class="highlight"></div>
+            <div id="tooltip" class="tooltip"></div> <!-- Tooltip -->
+        </div>
+        <div class="col-10">
+            <div class="row" id="lesionesCuerpo">
+                <div class="col">1</div>
+                <div class="col">2</div>
+                <div class="col">3</div>
+                <div class="col">4</div>
+                <div class="col">5</div>
+                <div class="col">6</div>
+                <div class="col">7</div>
+                <div class="col">8</div>
+                <div class="col">9</div>
+                <div class="col">0</div>
+                <div class="col">11</div>
+                <div class="col">12</div>
+                <div class="col">13</div>
+                <div class="col">14</div>
+                <div class="col">15</div>
+            </div>
+        </div>
+    </div>
+  
 </div>
 
 <map name="body-map">
   <!-- Define las áreas interactuables -->
-  <area shape="circle" coords="109,37,30" alt="Cabeza" data-part="Cabeza" data-bs-toggle="tooltip" data-bs-placement="top" title="Cabeza">
-  <area shape="circle" coords="107,92, 25" alt="Cuello" data-part="Cuello">
-  <area shape="circle" coords="35,117,25" alt="Hombro Derecho" data-part="Hombre Derecho">
-  <area shape="circle" coords="187,119,25" alt="Hombro Izquierdo" data-part="Hombre Izquierdo">
-  <area shape="circle" coords="110,153,45" alt="Pecho" data-part="Pecho">
-  <area shape="circle" coords="112,192,25" alt="Área del Diafragma" data-part="Área del Diafragma">
-  <area shape="circle" coords="112,250,50" alt="Abdomen" data-part="Abdomen">
-  <area shape="circle" coords="112,291,30"  alt="Zona Inguinal" data-part="Zona Inguinal">
-  <area shape="circle" coords="30,182,20" alt="Brazo Derecho" data-part="Brazo Derecho">
-  <area shape="circle" coords="28,257,20" alt="Antebrazo Derecho" data-part="Antebrazo Derecho">
-  <area shape="circle" coords="190,184,20" alt="Brazo Izquierdo" data-part="Brazo Izquierdo">
-  <area shape="circle" coords="195,257,20" alt="Antebrazo Izquierdo" data-part="Antebrazo Izquierdo">
-  <area shape="circle" coords="30,332,20" alt="Mano Derecha" data-part="Mano Derecha">
-  <area shape="circle" coords="190,333,20" alt="Mano Izquierda" data-part="Mano Izquierda">
-  <area shape="circle" coords="85,358,35" alt="Muslo Derecho">
-  <area shape="circle" coords="145,358,35" alt="Muslo Izquierdo">
-  <area shape="circle" coords="90,438,20" alt="Rodilla Derecha">
-  <area shape="circle" coords="135,438,20" alt="Rodilla Izquierda">
-  <area shape="circle" coords="90,496,30" alt="Pierna Derecha" data-part="Pierna Derecha">
-  <area shape="circle" coords="134,496,30" alt="Pierna Izquierda" data-part="Pierna Izquierda">
-  <area shape="circle" coords="100,549,12" alt="Tobillo Derecho" data-part="Tobillo Derecho">
-  <area shape="circle" coords="130,549,12" alt="Tobillo Izquierdo" data-part="Tobiilo Izquierdo">
-  <area shape="circle" coords="95,584,15" alt="Pie Derecho" data-part="Pie Derecho">
-  <area shape="circle" coords="130,584,15" alt="Pie Izquierdo" data-part="Pie Izquierdo">
+  <area shape="circle" coords="109,37,30" alt="Cabeza" data-part="Cabeza" data-bs-toggle="tooltip" data-bs-placement="top" title="Cabeza" data-part-id="1">
+  <area shape="circle" coords="107,92, 25" alt="Cuello" data-part="Cuello" data-part-id="2">
+  <area shape="circle" coords="35,117,25" alt="Hombro Derecho" data-part="Hombre Derecho" data-part-id="3">
+  <area shape="circle" coords="187,119,25" alt="Hombro Izquierdo" data-part="Hombre Izquierdo" data-part-id="4">
+  <area shape="circle" coords="110,153,45" alt="Pecho" data-part="Pecho" data-part-id="5">
+  <area shape="circle" coords="112,192,25" alt="Área del Diafragma" data-part="Área del Diafragma" data-part-id="6">
+  <area shape="circle" coords="112,250,50" alt="Abdomen" data-part="Abdomen" data-part-id="7">
+  <area shape="circle" coords="112,291,30"  alt="Zona Inguinal" data-part="Zona Inguinal" data-part-id="8">
+  <area shape="circle" coords="30,182,20" alt="Brazo Derecho" data-part="Brazo Derecho" data-part-id="9">
+  <area shape="circle" coords="28,257,20" alt="Antebrazo Derecho" data-part="Antebrazo Derecho" data-part-id="10">
+  <area shape="circle" coords="190,184,20" alt="Brazo Izquierdo" data-part="Brazo Izquierdo" data-part-id="11">
+  <area shape="circle" coords="195,257,20" alt="Antebrazo Izquierdo" data-part="Antebrazo Izquierdo" data-part-id="12">
+  <area shape="circle" coords="30,332,20" alt="Mano Derecha" data-part="Mano Derecha" data-part-id="13">
+  <area shape="circle" coords="190,333,20" alt="Mano Izquierda" data-part="Mano Izquierda" data-part-id="14">
+  <area shape="circle" coords="85,358,35" alt="Muslo Derecho" data-part-id="15">
+  <area shape="circle" coords="145,358,35" alt="Muslo Izquierdo" data-part-id="16">
+  <area shape="circle" coords="90,438,20" alt="Rodilla Derecha" data-part-id="17">
+  <area shape="circle" coords="135,438,20" alt="Rodilla Izquierda" data-part-id="18">
+  <area shape="circle" coords="90,496,30" alt="Pierna Derecha" data-part="Pierna Derecha" data-part-id="19">
+  <area shape="circle" coords="134,496,30" alt="Pierna Izquierda" data-part="Pierna Izquierda" data-part-id="20">
+  <area shape="circle" coords="100,549,12" alt="Tobillo Derecho" data-part="Tobillo Derecho" data-part-id="21">
+  <area shape="circle" coords="130,549,12" alt="Tobillo Izquierdo" data-part="Tobiilo Izquierdo" data-part-id="22">
+  <area shape="circle" coords="95,584,15" alt="Pie Derecho" data-part="Pie Derecho" data-part-id="23">
+  <area shape="circle" coords="130,584,15" alt="Pie Izquierdo" data-part="Pie Izquierdo" data-part-id="24">
 </map>
 
 <script>
+  var data_part_id;
   var tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
   var tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
   
@@ -101,5 +146,59 @@
           tooltip.style.display = 'none';  // Ocultar tooltip
       });
   });
+
+  $(document).ready(function(){
+    var areas = document.querySelectorAll('area');
+
+    // Añadir evento de clic a cada área
+    areas.forEach(area => {
+        area.addEventListener('click', function (event) {
+            // Evitar el comportamiento predeterminado del clic
+            event.preventDefault();
+
+            // Obtener el valor del atributo data-part
+            var partName = this.getAttribute('data-part');
+            data_part_id = this.getAttribute('data-part-id');
+
+            // Establecer el título del modal dinámicamente
+            document.getElementById('modalTitle').innerText = partName;
+
+
+            // Mostrar el modal
+            var modal = new bootstrap.Modal(document.getElementById('bodyPartModal'));
+            modal.show();
+        });
+    });
+  })
+
+  $('#injuryForm').on('submit', function(event){
+    alert(`id = ${data_part_id}. detalles ${document.getElementById('injuryDescription').value}. paciente ${pacienteActivo.array['ID_TURNO']}`)
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    $.ajax({
+        data: {
+            turno_id: pacienteActivo.array['ID_TURNO'],
+            part_id: data_part_id,
+            lesiones: $('#injuryDescription').val(),
+            api: 12
+        },
+        url: `${http}${servidor}/${appname}/api/ficha_admision_api.php`,
+        type: "POST",
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        beforeSend: function () {
+        alertToast('Guardando...', 'info');
+        },
+        success: function (data) {
+        if (!isNaN(data.response.data)) {
+            alertToast('Guardado con éxito', 'success');
+        } else {
+            alertToast(`Error al guardar: ${data.response.data}`, 'danger');
+        }
+        }
+    })
+  })
+
 </script>
 </body>

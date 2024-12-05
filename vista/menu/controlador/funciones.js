@@ -2926,11 +2926,63 @@ function obtenerAntecedentesPaciente(id, curp, tipo = 1) {
       }
     })
 
+    // recuperar interpretaciones sigma
+    $.ajax({
+      url: `${http}${servidor}/${appname}/api/ficha_admision_api.php`,
+      data: {
+        api: 11,
+        turno_id: id,
+      },
+      type: "POST",
+      dataType: "json",
+      success: function(data){
+        llenarInterpretacionesSigma(data.response.data);
+      },
+      error: function(jqXHR, exception, data){
+        alertErrorAJAX(jqXHR, exception, data );
+      }
+    })
+
 
     resolve(1)
   });
 }
 
+function llenarInterpretacionesSigma(data){
+  var resultados = [
+    {
+        "CUENTA_ROJA": data[0].CUENTA_ROJA,
+        "GENERAL_ORINA": data[0].GENERAL_ORINA,
+        "QUIMICA_SANGUINEA": data[0].QUIMICA_SANGUINEA,
+        "RADIOGRAFIA_TORAX": data[0].RADIOGRAFIA_TORAX,
+        "VIH": data[0].VIH,
+        "ANTIDOPING": data[0].ANTIDOPING,
+        "TIPO_SANGRE": data[0].TIPO_SANGRE,
+        "REACCIONES_FEBRILES": data[0].REACCIONES_FEBRILES,
+        "VDRL": data[0].VDRL,
+        "COPRO": data[0].COPRO,
+        "EXUDADO_FARINGEO": data[0].EXUDADO_FARINGEO,
+        "TURNO_ID": data[0].TURNO_ID,
+        "AUDIOMETRIA": data[0].AUDIOMETRIA,
+        "OTROS": data[0].OTROS,
+        "REGISTRADO_POR": data[0].REGISTRADO_POR,
+        "FECHA_REGISTRO": data[0].FECHA_REGISTRO,
+        "ACTIVO": data[0].ACTIVO
+    }
+  ];
+
+  var resultado = resultados[0];
+
+  // Recorrer los campos del formulario y asignarles los valores
+  for (let key in resultado) {
+    const field = document.querySelector(`[name="${key.toLowerCase()}"]`);
+    if (field) {
+        if (field.type === 'textarea' || field.type === 'text') {
+            field.value = resultado[key] || '';  // Si es un valor nulo, asigna vacío
+        }
+    }
+  }
+}
 
 function llenarNutricionAlimentos(data) {
   // Recorre cada objeto en el array de datos

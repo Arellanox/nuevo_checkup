@@ -60,6 +60,8 @@ $reacciones_febriles = $_POST['reacciones_febriles'];
 $vdrl = $_POST['vdrl'];
 $copro = $_POST['copro'];
 $exudado_faringeo = $_POST['exudado_faringeo'];
+$audiometria = $_POST['audiometria'];
+$otros = $_POST['otros'];
 
 switch($api){
     case 1:
@@ -139,8 +141,13 @@ switch($api){
             $vdrl,
             $copro,
             $exudado_faringeo,
+            $audiometria,
+            $otros,
             $_SESSION['id']
         ]);
+        break;
+    case 11:
+        $response = $master->getByProcedure('sp_sigma_interpretaciones_b', [$turno_id]);
         break;
     default:
         $response = "api no definida.";
