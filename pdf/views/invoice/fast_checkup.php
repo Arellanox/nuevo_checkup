@@ -285,7 +285,7 @@ $textoamarillo = "
 ";
 
 $textorojo = "
-<br>Es momento de revisar tu estado de salud, acude a tu médico, no dejes pasar el tiempo, tienes una elevada probabilidad de estar padeciendo en este momento una enfermedad crónico-degenerativa, mientras tanto te damos estas recomendaciones: 
+<br>Es momento de revisar tu estado de salud y tu estilo de vida, acude a tu médico, no dejes pasar el tiempo, tienes una elevada probabilidad de padecer una enfermedad crónico-degenerativa, mientras tanto te damos estas recomendaciones: 
 <br>1.- Visita a tu médico a la brevedad posible esto servirá para que él conozca tu estado actual de salud e inicie un plan de tratamiento adecuado.
 <br>2.- Es un buen momento para realizarte un checkup médico, recuerda incluir química sanguínea, examen general de orina, biometría hemática, electrocardiograma y rayos x de tórax, en bimo estamos encantados de recibirte.
 <br>3.-  Realiza actividad física aeróbica (caminar, trotar, correr o andar en bicicleta) por lo menos 30 minutos 3 veces a la semana, así ayudarás a mejorar tu sistema cardiovascular y a que tu cuerpo tenga mayor resistencia. 
