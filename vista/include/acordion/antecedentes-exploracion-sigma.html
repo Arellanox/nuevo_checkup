@@ -10,6 +10,13 @@
       pointer-events: none; /* No interfiere con el mouse */
       display: none; /* Oculto inicialmente */
   }
+  .highlight-selected {
+    position: absolute;
+    background: rgba(255, 0, 0, 0.5); /* Sombreado rojo */
+    pointer-events: none; /* No interfiere con el mouse */
+    display: none;
+    border-radius: 50%;
+  }
   .tooltip {
       position: absolute;
       background-color: rgba(0, 0, 0, 0.7);
@@ -48,7 +55,7 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-2 justify-content-center">
+        <div class="col-2 justify-content-center" id="silueta_frontal">
             <img src="silueta_frontal.jpg" usemap="#body-map" alt="Silueta Humana" id="body-image" class="img">
             <div id="highlight" class="highlight"></div>
             <div id="tooltip" class="tooltip"></div> <!-- Tooltip -->
@@ -105,7 +112,9 @@
 </map>
 
 <script>
+  var areaSelected;
   var data_part_id;
+  var modal;
   var tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
   var tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
   
@@ -155,17 +164,16 @@
         area.addEventListener('click', function (event) {
             // Evitar el comportamiento predeterminado del clic
             event.preventDefault();
-
             // Obtener el valor del atributo data-part
             var partName = this.getAttribute('data-part');
             data_part_id = this.getAttribute('data-part-id');
-
+            areaSelected = area;
             // Establecer el título del modal dinámicamente
             document.getElementById('modalTitle').innerText = partName;
 
 
             // Mostrar el modal
-            var modal = new bootstrap.Modal(document.getElementById('bodyPartModal'));
+            modal = new bootstrap.Modal(document.getElementById('bodyPartModal'));
             modal.show();
         });
     });
@@ -193,12 +201,33 @@
         if (!isNaN(data.response.data)) {
             alertToast('Guardado con éxito', 'success');
             $('#injuryDescription').val('');
+            modal.hide();
+            activarAreaSeleccionada(areaSelected)
         } else {
             alertToast(`Error al guardar: ${data.response.data}`, 'danger');
         }
         }
     })
   })
+
+
+  function activarAreaSeleccionada(area){
+    var $highlight = $('<div class="highlight-selected"></div>');
+    $('#silueta_frontal').append($highlight);
+
+    var $area = $(area);
+    var coords = $area.attr('coords').split(',').map(Number);
+
+    if ($area.attr('shape') === 'circle') {
+        var [x, y, r] = coords;
+        $highlight.css({
+            left: `${x - r}px`,
+            top: `${y - r}px`,
+            width: `${2 * r}px`,
+            height: `${2 * r}px`
+        }).show();
+    }
+  }
 
 </script>
 </body>
