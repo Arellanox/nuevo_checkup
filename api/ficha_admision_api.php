@@ -63,6 +63,10 @@ $exudado_faringeo = $_POST['exudado_faringeo'];
 $audiometria = $_POST['audiometria'];
 $otros = $_POST['otros'];
 
+# lesiones
+$part_id = $_POST['part_id'];
+$lesiones = $_POST['lesiones'];
+
 switch($api){
     case 1:
         # agregar/editar ficha de admision
@@ -148,6 +152,17 @@ switch($api){
         break;
     case 11:
         $response = $master->getByProcedure('sp_sigma_interpretaciones_b', [$turno_id]);
+        break;
+    case 12:
+        $response = $master->insertByProcedure('sp_sigma_lesiones_g', [
+            $turno_id,
+            $part_id,
+            $_SESSION['id'],
+            $lesiones
+        ]);
+        break;
+    case 13:
+        $response = $master->getByProcedure("sp_sigma_lesiones_b", [$turno_id]);
         break;
     default:
         $response = "api no definida.";
