@@ -2943,9 +2943,69 @@ function obtenerAntecedentesPaciente(id, curp, tipo = 1) {
       }
     })
 
-
     resolve(1)
   });
+}
+
+function mostrarDetalleLesionSigma(data){
+  var container = document.getElementById('divDetalleLesiones');
+  container.innerHTML = '';
+
+  for (let i = 0; i < data.length; i += 4) {
+    // Crear una fila
+    var row = document.createElement('div');
+    row.classList.add('row', 'mb-3');
+
+    // Crear hasta 4 columnas por fila
+    for (let j = 0; j < 4 && i + j < data.length; j++) {
+      var lesion = data[i + j];
+
+      // Crear columna con la tarjeta
+      var col = document.createElement('div');
+      col.classList.add('col');
+
+      var card = `
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">${lesion.DESCRIPCION}</h5>
+            <p class="card-text">${lesion.DETALLE_LESION}</p>
+            <a href="#" class="card-link">Ver detalle</a>
+          </div>
+        </div>
+      `;
+      col.innerHTML = card;
+      row.appendChild(col);
+    }
+
+    // Agregar la fila al contenedor
+    container.appendChild(row);
+  }
+}
+
+function llenarLesionesSigma(data){
+  for (let index = 0; index < data.length; index++) {
+    var data_part = data[index].CUERPO_ID;
+    var area = document.querySelector(`[data-part-id="${data_part}"]`);
+    activarAreaSeleccionadaCuerpo(area);
+  }
+}
+
+function activarAreaSeleccionadaCuerpo(area){
+  var $highlight = $('<div class="highlight-selected"></div>');
+  $('#silueta_frontal').append($highlight);
+
+  var $area = $(area);
+  var coords = $area.attr('coords').split(',').map(Number);
+
+  if ($area.attr('shape') === 'circle') {
+      var [x, y, r] = coords;
+      $highlight.css({
+          left: `${x - r}px`,
+          top: `${y - r}px`,
+          width: `${2 * r}px`,
+          height: `${2 * r}px`
+      }).show();
+  }
 }
 
 function llenarInterpretacionesSigma(data){
