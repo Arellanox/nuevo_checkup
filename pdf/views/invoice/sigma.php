@@ -15,3 +15,7 @@
 <?php
     include_once 'sigma/exIngresoExploPdf.php';
 ?>
+<!-- --> <div class=".break"></div>
+<?php
+    include_once 'sigma/esqDiagPdf.php';
+?>
