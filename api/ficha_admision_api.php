@@ -164,6 +164,9 @@ switch($api){
     case 13:
         $response = $master->getByProcedure("sp_sigma_lesiones_b", [$turno_id]);
         break;
+    case 14:
+        $response = $master->getByProcedure('sp_sigma_lesiones_e',[$turno_id, $part_id]);
+        break;
     default:
         $response = "api no definida.";
         break;

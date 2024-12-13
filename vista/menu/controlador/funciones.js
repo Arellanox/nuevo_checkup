@@ -2969,7 +2969,7 @@ function mostrarDetalleLesionSigma(data){
           <div class="card-body">
             <h5 class="card-title">${lesion.DESCRIPCION}</h5>
             <p class="card-text">${lesion.DETALLE_LESION}</p>
-            <a href="#" class="card-link">Ver detalle</a>
+            <a href="#" class="card-link" onclick="eliminarLesionSigma(${lesion.TURNO_ID},${lesion.CUERPO_ID},'${lesion.DESCRIPCION}')">Borrar</a>
           </div>
         </div>
       `;
@@ -2982,7 +2982,53 @@ function mostrarDetalleLesionSigma(data){
   }
 }
 
+function eliminarLesionSigma(turnoid, cuerpo_id, parte_cuerpo){
+  alertMensajeConfirm({
+    title: `¿Eliminar lesión de ${parte_cuerpo}?`,
+      text: "Se borrará todo la información introducida",
+      icon: 'warning',
+  }, function () {
+      $.ajax({
+          data: {
+            turno_id: turnoid,
+            part_id: cuerpo_id,
+            api: 14
+          },
+          url: `${http}${servidor}/${appname}/api/ficha_admision_api.php`,
+          type: "POST",
+          dataType: 'json',
+          success: function (data) {
+              if (mensajeAjax(data)) {
+                  alertToast('Lesión eliminada!', 'success')
+                  pintarAreasLesionadas()
+              }
+          },
+      });
+  }, 1);
+}
+
+
+// function pintarAreasLesionadas(){
+//   $.ajax({
+//     url: `${http}${servidor}/${appname}/api/ficha_admision_api.php`,
+//     data: {
+//       api: 13,
+//       turno_id: pacienteActivo.array['ID_TURNO'],
+//     },
+//     type: "POST",
+//     dataType: "json",
+//     success: function(data){
+//       llenarLesionesSigma(data.response.data);
+//       mostrarDetalleLesionSigma(data.response.data);
+//     },
+//     error: function(jqXHR, exception, data){
+//       alertErrorAJAX(jqXHR, exception, data );
+//     }
+//   })
+// }
+
 function llenarLesionesSigma(data){
+  $('.highlight-selected').remove();
   for (let index = 0; index < data.length; index++) {
     var data_part = data[index].CUERPO_ID;
     var area = document.querySelector(`[data-part-id="${data_part}"]`);
