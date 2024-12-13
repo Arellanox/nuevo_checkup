@@ -446,6 +446,7 @@ class Miscelaneus
                     $infoSigmaInterpretaciones = $master->getByProcedure("sp_sigma_interpretaciones_b", [$turno_id]);
                     $infoOftalmoResultados = $master->getByProcedure("sp_oftalmo_resultados_b", [NULL, $turno_id]);
                     $infoConsultorioConsulta = $master->getByProcedure("sp_consultorio_consulta_b", [NULL, $turno_id, NULL]);
+                    $infoSigmaLesiones = $master->getByProcedure("sp_sigma_lesiones_b", [$turno_id]);
 
                     $arregloAntecedentes = [];
                     foreach ($infoConsultorioAntecedentes as $key => $value) {
@@ -549,12 +550,23 @@ class Miscelaneus
                             }, ARRAY_FILTER_USE_KEY);    
                     } 
 
+                    $arregloSigmaLesiones = [];
+                    foreach ($infoSigmaLesiones as $key => $value) {
+                        if (isset($value['CUERPO_ID'])) {
+                            $arregloSigmaLesiones[$value['CUERPO_ID']] = array_filter($value, function ($k) {
+                                $allowedKeys = ['DESCRIPCION', 'DETALLE_LESION'];
+                                return in_array($k, $allowedKeys, true);
+                            }, ARRAY_FILTER_USE_KEY);
+                        }
+                    }
+
                     //echo "<pre>";
                     //agregar nuevos arreglos
-                    $arregloPaciente = [$result, $arregloAntecedentes, $arregloHistofam, $arregloAntecedentesNutri, $arregloConsultorioAparatos, $arregloInfoFichAdmi, $arregloSignosVital, $arregloSigmaExploracion, $arregloSigmaInterpretaciones, $arregloOftalmoResultados, $arregloConsultorioConsulta];
-                    //print_r([$result, $arregloAntecedentes, $arregloHistofam, $arregloAntecedentesNutri, $arregloConsultorioAparatos, $arregloInfoFichAdmi, $arregloSignosVital, $arregloSigmaExploracion, $arregloSigmaInterpretaciones, $arregloOftalmoResultados, $arregloConsultorioConsulta]);
+                    $arregloPaciente = [$result, $arregloAntecedentes, $arregloHistofam, $arregloAntecedentesNutri, $arregloConsultorioAparatos, $arregloInfoFichAdmi, $arregloSignosVital, $arregloSigmaExploracion, $arregloSigmaInterpretaciones, $arregloOftalmoResultados, $arregloConsultorioConsulta, $arregloSigmaLesiones];
+                    //print_r([$result, $arregloAntecedentes, $arregloHistofam, $arregloAntecedentesNutri, $arregloConsultorioAparatos, $arregloInfoFichAdmi, $arregloSignosVital, $arregloSigmaExploracion, $arregloSigmaInterpretaciones, $arregloOftalmoResultados, $arregloConsultorioConsulta, $arregloSigmaLesiones]);
                     //echo "</pre>";
                     //exit;
+                    
                 } else {
                     $arregloPaciente = $this->getBodyInfoConsultorio($master, $turno_id, $id_consulta);
                     $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);

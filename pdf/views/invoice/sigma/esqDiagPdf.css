@@ -1,6 +1,9 @@
 .logoSigma {
-  width: 25%;
-  height: 25%;
+  width: 200px;
+  height: auto;
+  max-width: 100%;
+  display: block;
+  margin: auto;
 }
 
 .tittleBoldCenteredBgG {
@@ -32,17 +35,25 @@ body {
   font-family: Onest Variable, system-ui, sans-serif;
 }
 
-table {
-  width: 98%;
+.tableS {
+  width: 95%;
   margin: auto;
   border-collapse: collapse;
   table-layout: fixed;
 }
 
-td, th {
-  padding: 3px;
+tdS {
+  padding: 2px;
   font-size: 8px;
-  border: 0.5px solid #ddd;
+  border: 1px solid #ddd;
+  word-wrap: break-word;
+  vertical-align: top;
+}
+
+thS {
+  padding: 2px;
+  font-size: 8px;
+  border: 1px solid #ddd;
   word-wrap: break-word;
   vertical-align: top;
 }
