@@ -155,6 +155,17 @@ $(document).on('click', '.guardarAnt ', function (event) {
 
 });
 
+// guardar la condiciones de valoracion
+$(document).on('click', '.guardarCondicion', function (event) {
+  event.stopPropagation();
+  event.stopImmediatePropagation();
+  button = $(this)
+  button.prop('disabled', true);
+  var parent_element = button.closest("form").attr('id');
+  var formData = new FormData(document.getElementsById(parent_element));
+  
+})
+
 //Guardar las exploraciones de sigma
 $(document).on('click', '.guardar-form-exploracion', function(event){
   event.stopPropagation();
