@@ -145,7 +145,7 @@ $("#formCuestionarioRiesgo").submit(async function (event) {
   if ($('#selectSegmentos').val() != null) {
     formData.set('segmento_id', $('#selectSegmentos').val()) //
   }
-  formData.set('fechaAgenda', '2024-12-05')
+  formData.set('fechaAgenda', '2024-12-20')
   formData.set('api', 1);
 
 
