@@ -1743,7 +1743,7 @@
 
         <section class="sigmaClass">
           <h4 class="m-3">Valoración de condición</h4>
-          <form>
+          <form id="formValoracionCondicion">
             <table style="width: 100%; border-collapse: collapse;">
               <tr>
                 <td colspan="3" style="border-bottom: 1px solid black; padding-bottom: 5px;">
@@ -1755,7 +1755,7 @@
               <tr>
                 <td style="border-top: 1px solid black; padding: 5px 0;">
                   <label>
-                    <input type="radio" name="condicion" value="Apto" style="margin-right: 10px;"> Apto
+                    <input type="radio" name="condicion" value="1" style="margin-right: 10px;"> Apto
                   </label>
                 </td>
                 <td style="border-top: 1px solid black;" colspan="2"></td>
@@ -1763,7 +1763,7 @@
               <tr>
                 <td style="border-top: 1px solid black; padding: 5px 0;">
                   <label>
-                    <input type="radio" name="condicion" value="No Apto" style="margin-right: 10px;"> No Apto
+                    <input type="radio" name="condicion" value="2" style="margin-right: 10px;"> No Apto
                   </label>
                 </td>
                 <td style="border-top: 1px solid black;" colspan="2"></td>
@@ -1771,7 +1771,7 @@
               <tr>
                 <td style="border-top: 1px solid black; padding: 5px 0;">
                   <label>
-                    <input type="radio" name="condicion" value="Apto Condicionado" style="margin-right: 10px;"> Apto Condicionado
+                    <input type="radio" name="condicion" value="3" style="margin-right: 10px;"> Apto Condicionado
                   </label>
                 </td>
                 <td style="border-top: 1px solid black;" colspan="2"></td>
@@ -1784,7 +1784,7 @@
               </tr>
             </table>
             <br>
-            <button type="button" class="btn btn-confirmar">Guardar</button>
+            <button type="button" class="btn btn-confirmar guardarCondicion">Guardar</button>
           </form>          
         </section>
 
@@ -1934,7 +1934,7 @@
         autoHeightDiv('#vista-valoracion', 157);
         $(window).resize(function () {
           autoHeightDiv('#vista-valoracion', 157);
-        })
+        })    
       </script>
     </div>
   </div>

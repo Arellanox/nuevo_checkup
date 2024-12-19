@@ -67,6 +67,12 @@ $otros = $_POST['otros'];
 $part_id = $_POST['part_id'];
 $lesiones = $_POST['lesiones'];
 
+
+# valoraciones de condicion
+$meses = $_POST["valoracion_condicion"];
+$condicion = $_POST["condicion"];
+$observaciones = $_POST["observaciones"];
+
 switch($api){
     case 1:
         # agregar/editar ficha de admision
@@ -166,6 +172,18 @@ switch($api){
         break;
     case 14:
         $response = $master->getByProcedure('sp_sigma_lesiones_e',[$turno_id, $part_id]);
+        break;
+    case 15:
+        $response = $master->insertByProcedure("sp_sigma_valoraciones_g", [
+            $turno_id,
+            $meses,
+            $condicion,
+            $observaciones,
+            $_SESSION["id"]
+        ]);
+        break;
+    case 16:
+        $response = $master->getByProcedure("sp_sigma_valoraciones_b", [$turno_id]);
         break;
     default:
         $response = "api no definida.";

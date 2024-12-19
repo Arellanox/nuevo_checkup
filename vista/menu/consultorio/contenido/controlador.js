@@ -181,6 +181,7 @@ async function obtenerValoracion(data, idconsulta) {
   await obtenerInformacionConsulta(idconsulta);
   //EXPLORACION SIGMA, MARCAR ZONAS CON LESIONES.
   await obtenerZonaMarcaje(data['ID_TURNO']);
+  await rellenarValoracionCondcion(data["ID_TURNO"]);
 
   autosize(document.querySelectorAll('textarea'))
 
