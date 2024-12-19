@@ -2948,42 +2948,7 @@ function obtenerAntecedentesPaciente(id, curp, tipo = 1) {
   });
 }
 
-function rellenarValoracionCondcion(id){
-   // recuperar las condiciones de valoracion
-   $.ajax({
-    url: `${http}${servidor}/${appname}/api/ficha_admision_api.php`,
-    data: {
-      api: 16,
-      turno_id: id,
-    },
-    type: "POST",
-    dataType: "json",
-    success: function(data){
-      dato = data.response.data;
-      $('input[name="valoracion_condicion"]').val(dato.VALORACION_MESES);
-  
-      // Mapeo entre texto de la base de datos y valores de los radio buttons
-      var mapeoCondicion = {
-        "APTO": "1",
-        "NO APTO": "2",
-        "APTO CONDICIONADO": "3"
-      };
-    
-      // Convertir el texto de condición al valor correspondiente
-      var valorCondicion = mapeoCondicion[dato.VALORACION];
-      if (valorCondicion) {
-        $('input[name="condicion"][value="' + valorCondicion + '"]').prop('checked', true);
-      }
-    
-      // Llenar el textarea de observaciones
-      $('#observaciones').val(dato.OBSERVACIONES);
-    },
-    error: function(jqXHR, exception, dato){
-      alertErrorAJAX(jqXHR, exception, dato );
-    }
-  })
- 
-}
+
 
 function mostrarDetalleLesionSigma(data){
   var container = document.getElementById('divDetalleLesiones');
