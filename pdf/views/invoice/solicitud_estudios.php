@@ -312,8 +312,8 @@ $encode = base64_encode($ruta);
 // echo '<img src="data:image/png;base64, '. $img_valido .'" alt="" height="75" >';
 
 // path firma
-$ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
-$encode_firma = base64_encode($ruta_firma);
+// $ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
+// $encode_firma = base64_encode($ruta_firma);
 
 
 ?>
@@ -323,9 +323,24 @@ $encode_firma = base64_encode($ruta_firma);
     <!-- header -->
     <div class="header">
         <?php
-        $nombre_doctor = "Dr. Ibis De la Cruz Hernández";
-        $especialidades = "Infectologia y Medicina Interna";
-        $cedulas = "UJAT Ced. Prof. 6118720. Med. Interna 09995591. UNAM Infectología 10532710";
+        $dataDoc = $pie['datos_medicos'][0];
+        switch ($dataDoc['ID_USUARIO']) {
+            case 84:
+                $nombre_doctor = "Dr. Ibis De la Cruz Hernández";
+                $especialidades = "Infectologia y Medicina Interna";
+                $cedulas = "UJAT Ced. Prof. 6118720. Med. Interna 09995591. UNAM Infectología 10532710";
+                $footerDoctor = "Dr. Ibis De la Cruz Hernández <br> UNAM Infectología - Cédula Profesional: 10532710";
+                break;
+            default:
+                $nombre_doctor = $dataDoc['NOMBRE_COMPLETO'];
+                $especialidades = $dataDoc['CARRERA'];
+                $cedulas = $dataDoc['UNIVERSIDAD'] . ' Ced. Prof. ' . $dataDoc['CEDULA'];
+                break;
+        }
+
+        // $nombre_doctor = "Dr. Ibis De la Cruz Hernández";
+        // $especialidades = "Infectologia y Medicina Interna";
+        // $cedulas = "UJAT Ced. Prof. 6118720. Med. Interna 09995591. UNAM Infectología 10532710";
         $tituloPersonales = 'Solicitud de Estudios';
         $encabezado->FECHA_RESULTADO = $encabezado->FECHA_RESULTADO_CONSULTA;
         include 'includes/header_receta.php';
@@ -336,8 +351,6 @@ $encode_firma = base64_encode($ruta_firma);
         <!-- Footer 1 chido -->
         <?php
         $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
-        $footerDoctor = "Dr. Ibis De la Cruz Hernández <br> UNAM Infectología - Cédula Profesional: 10532710";
-
         include 'includes/footer_receta.php';
         ?>
     </div>

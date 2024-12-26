@@ -366,7 +366,21 @@
 $dataDoc = $pie['datos_medicos'][0];
 $footerDoctor = $dataDoc['NOMBRE_COMPLETO'] . '<br>' . $dataDoc['UNIVERSIDAD'] . '- Cédula profesional: ' . $dataDoc['CEDULA'];
 
-$footerDoctor = "Dr. Ibis De la Cruz Hernández <br> UNAM Infectología - Cédula Profesional: 10532710";
+
+
+switch ($dataDoc['ID_USUARIO']) {
+    case 84:
+        $nombre_doctor = "Dr. Ibis De la Cruz Hernández";
+        $especialidades = "Infectologia y Medicina Interna";
+        $cedulas = "UJAT Ced. Prof. 6118720. Med. Interna 09995591. UNAM Infectología 10532710";
+        $footerDoctor = "Dr. Ibis De la Cruz Hernández <br> UNAM Infectología - Cédula Profesional: 10532710";
+        break;
+    default:
+        $nombre_doctor = $dataDoc['NOMBRE_COMPLETO'];
+        $especialidades = $dataDoc['CARRERA'];
+        $cedulas = $dataDoc['UNIVERSIDAD'] . ' Ced. Prof. ' . $dataDoc['CEDULA'];
+        break;
+}
 
 
 //Signos vitales
@@ -415,9 +429,9 @@ $folio = ((array)($resultados[1][0]))['FOLIO'];
         <div class="half-page" id="receta-original">
             <div class="header">
                 <?php 
-                $nombre_doctor = "Dr. Ibis De la Cruz Hernández";
-                $especialidades = "Infectologia y Medicina Interna";
-                $cedulas = "UJAT Ced. Prof. 6118720. Med. Interna 09995591. UNAM Infectología 10532710";
+                // $nombre_doctor = "Dr. Ibis De la Cruz Hernández";
+                // $especialidades = "Infectologia y Medicina Interna";
+                // $cedulas = "UJAT Ced. Prof. 6118720. Med. Interna 09995591. UNAM Infectología 10532710";
                 $tituloPersonales = 'Receta de Medicamentos';
                 $encabezado->FECHA_RESULTADO = $encabezado->FECHA_RESULTADO_CONSULTA;
                 include 'includes/header_receta.php'; ?>
@@ -483,9 +497,9 @@ $folio = ((array)($resultados[1][0]))['FOLIO'];
             <div class="marca-agua">COPIA</div>
             <div class="header">
                 <?php 
-                $nombre_doctor = "Dr. Ibis De la Cruz Hernández";
-                $especialidades = "Infectologia y Medicina Interna";
-                $cedulas = "UJAT Ced. Prof. 6118720. Med. Interna 09995591. UNAM Infectología 10532710";
+                // $nombre_doctor = "Dr. Ibis De la Cruz Hernández";
+                // $especialidades = "Infectologia y Medicina Interna";
+                // $cedulas = "UJAT Ced. Prof. 6118720. Med. Interna 09995591. UNAM Infectología 10532710";
                 $tituloPersonales = 'Receta de Medicamentos';
                 $encabezado->FECHA_RESULTADO = $encabezado->FECHA_RESULTADO_CONSULTA;
                 include 'includes/header_receta.php'; ?>
