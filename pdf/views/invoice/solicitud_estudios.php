@@ -13,7 +13,7 @@
         @page {
             /* margin: 165px 10px; */
             margin: 1cm;
-            size: 21.59cm 13.97cm;
+            /* size: 21.59cm 13.97cm; */
         }
 
         body {
@@ -364,11 +364,14 @@ $encode = base64_encode($ruta);
             </tr>
         </thead>
         <tbody>
-            <?php for ($i = 0; $i < count($resultados[2]); $i++) :?>
+            <?php for ($i = 0; $i < count($resultados[2]); $i++):
+            $indicaciones = isset($resultados[2][$i]->OBSERVACIONES) ? $resultados[2][$i]->OBSERVACIONES : "Sin indicaciones";
+                ?>
                 <tr>
-                    <td class="respuesta-row"><?php echo $resultados[2][$i]->DESCRIPCION . ' - ' . $resultados[2][$i]->ABREVIATURA . " <strong>[ ". $resultados[2][$i]->OBSERVACIONES. ' ]</strong>'; ?></td>
+                    
+                    <td class="respuesta-row"><?php echo $resultados[2][$i]->DESCRIPCION . ' - ' . $resultados[2][$i]->ABREVIATURA . " <strong>[ ". $indicaciones . ' ]</strong> - ' . $resultados[2][$i]->AREA; ?></td>
                 </tr>
-
+<!-- 
                 <?php if (($i + 1) % 7 == 0 && $i + 1 < count($resultados[2])): ?>
                     </tbody>
                     </table>
@@ -382,7 +385,7 @@ $encode = base64_encode($ruta);
                                 </tr>
                             </thead>
                             <tbody>
-                <?php endif; ?>
+                <?php endif; ?> -->
             <?php endfor; ?>
         </tbody>
     </table>
