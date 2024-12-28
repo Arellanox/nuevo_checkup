@@ -581,14 +581,14 @@ class Miscelaneus
                     
                 } else {
                     $arregloPaciente = $this->getBodyInfoConsultorio($master, $turno_id, $id_consulta);
-                    $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
-                    $datos_medicos = $this->getMedicalCarrier($info);
-                   
+                    
                 }
-
+                
+                $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
+                $datos_medicos = $this->getMedicalCarrier($info);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_CONSULTA'];
                 $infoPaciente[0]['FECHA_RESULTADO'] =
-                    $infoPaciente[0]['FECHA_CONSULTA_HISTORIA'];
+                $infoPaciente[0]['FECHA_CONSULTA_HISTORIA'];
                 $carpeta_guardado = 'consultorio';
                 $folio = $infoPaciente[0]['FOLIO_CONSULTA'];
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[0]['CLAVE_CONSULTA'];
