@@ -530,9 +530,30 @@
                 <td><span></span></td>
             </tr>
             <tr>
-                <td colspan="1" rowspan="1" style="text-align: center;"><span id="medicoResponsableSpan">____________</span></td>
-                <td colspan="1" rowspan="1" style="text-align: center;"><span id="cedulaProfesionalSpan">____________</span></td>
-                <td colspan="1" rowspan="1" style="text-align: center;"><span id="firmaSpan">____________</span></td>
+                <td colspan="1" rowspan="1" style="text-align: center; vertical-align: middle;"><span id="medicoResponsableSpan">
+                    <?php
+                    if (isset($pie['datos_medicos'][0]['NOMBRE_COMPLETO'])) {
+                        echo $pie['datos_medicos'][0]['NOMBRE_COMPLETO'];
+                    }
+                    ?>
+                </span></td>
+                <td colspan="1" rowspan="1" style="text-align: center; vertical-align: middle;"><span id="cedulaProfesionalSpan">
+                    <?php
+                    if (isset($pie['datos_medicos'][0]['CEDULA'])) {
+                        echo $pie['datos_medicos'][0]['CEDULA'];
+                    }
+                    ?>
+                </span></td>
+                <td colspan="1" rowspan="1" style="text-align: center; vertical-align: middle;"><span id="firmaSpan">
+                    <?php
+                    if (isset($pie['datos_medicos'][0]['FIRMA'])) {
+                        $firmaPath = $pie['datos_medicos'][0]['FIRMA'];
+                        $firmaData = base64_encode(file_get_contents($firmaPath));
+                        $firmaSrc = 'data:image/png;base64,' . $firmaData;
+                        echo '<img src="' . $firmaSrc . '" alt="Firma" style="width: 100px; height: auto;">';
+                    }
+                    ?>
+                </span></td>
             </tr>
             <tr>
                 <td colspan="1" rowspan="1" style="text-align: center;">Medico Responsable</td>
