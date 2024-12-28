@@ -404,7 +404,7 @@ class Miscelaneus
             case 1:
             case '1':
                 # CONSULTORIO
-                if ($cliente_id == 15) {
+                if ($cliente_id == 51) {
                     $reporte = 'sigma_consultorio';
                     $arregloPaciente = $this->getSigmaHistoria($master, $turno_id);
                     //$arregloOftalmoResultados = $master->getByProcedure("sp_sigma_historia_b", [$turno_id]);

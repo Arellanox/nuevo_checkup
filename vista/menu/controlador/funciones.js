@@ -3277,7 +3277,7 @@ function ocultarAntecedentesGinecologicos(sexo){
 
 function ocultarFichaAdmision(cliente){
   return new Promise(resolve =>{
-    if(parseInt(cliente) != 15){
+    if(parseInt(cliente) != 51){
       $('#li-fadmision').fadeOut(0);
       $("#card-fadmision").fadeOut(0);
       $("#historiaFamiliarForm").fadeOut(0);
