@@ -1,0 +1,115 @@
+.logoSigma {
+  width: 200px;
+  height: auto;
+  max-width: 100%;
+  display: block;
+  margin: auto;
+}
+
+.tittleBoldCenter {
+  text-align: center;
+  font-weight: bold;
+}
+
+.tittleCenterBgB {
+  text-align: center;
+  background-color: #ccffff;
+}
+
+.tittleBgB {
+  background-color: #ccffff;
+}
+
+.tittleBgBB {
+  background-color: #ccffff;
+  font-weight: bold;
+}
+
+.tittleCenterBgG {
+  text-align: center;
+  font-weight: bold;
+  background-color: darkgrey;
+}
+.tittleCenterBgP {
+  text-align: center;
+  font-weight: bold;
+  background-color: #e6b8b7;
+}
+
+.tittleBgP {
+  background-color: #e6b8b7;
+}
+
+.borderTop {
+  border-bottom: 1px solid #000;
+}
+
+.textCentered {
+  text-align: center;
+}
+
+.familiarCentered {
+  text-align: center;
+}
+
+.bbnone {
+  border-bottom: none;
+  border-right: none;
+}
+
+.bynone {
+  border-top: none;
+  border-bottom: none;
+  border-right: none;
+}
+
+.btnone {
+  border-top: none;
+  border-right: none;
+}
+
+.blrnone {
+  border-left: none;
+  border-right: none;
+  text-align: center;
+}
+
+.blnone {
+  border-left: none;
+}
+
+.textArea {
+  width: 50%;
+  resize: none;
+  border: none;
+}
+
+body {
+  margin: 0;
+  padding: 5px;
+  font-size: 6px;
+  font-family: Onest Variable, system-ui, sans-serif;
+}
+
+table {
+  width: 100%;
+  margin: auto;
+  border-collapse: collapse;
+  page-break-inside: avoid;
+}
+
+td,
+th {
+  padding: 1px;
+  font-size: 7.6px;
+  border: 0.5px solid #ddd;
+  word-wrap: break-word;
+  vertical-align: top;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+
+.cent {
+  text-align: center;
+  vertical-align: middle;
+}

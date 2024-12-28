@@ -56,6 +56,9 @@
     <div class="col-12 d-flex justify-content-center">
       <nav id="navbar-menu-consultorio" class="navbar">
         <ul class="nav nav-tabs nav-pills">
+          <li id="li-fadmision">
+            <a class="nav-link" href="#card-fadmision">FICHA ADMISIÓN</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="#card-antecedentes">ANTECEDENTES PERSONALES</a> <!-- active -->
           </li>
@@ -103,6 +106,12 @@
     <div class="overflow-auto" style="margin-bottom: 10px" id="vista-valoracion">
       <div class="">
 
+        <section id="card-fadmision" class="rounded p-3 shadow-sm my-2 position-relative">
+          <h4 class="m-3">FICHA ADMISIÓN</h4>
+          <hr class="dropdown-divider m-2">
+          <div id="divFichaAdmision"></div>
+        </section>
+
         <section id="card-antecedentes" class="rounded p-3 shadow-sm my-2 position-relative">
           <div id="antecedentes-paciente"> <!-- ANTECEDENTES PACIENTE (POR FUNCION) --> </div>
         </section>
@@ -113,7 +122,1227 @@
           <div id="divANAMNESISAPARATOS" class="p-3"> </div>
         </section>
 
-        <section id="card-exploracion-clinica" class="rounded p-3 shadow-sm my-2 position-relative">
+        <!-- solo para el ancla
+          -->
+        <section id="card-exploracion-clinica"></section>
+        <section id="card-exploracion-sigma" class="rounded p-3 shadow-sm my-2 position-relative">
+          <h4 class="m-3">EXPLORACIÓN FÍSICA</h4>
+          <hr class="dropdown-divider m-2">
+          <div class="">
+            <!-- CABEZA -->
+            <form id="formExpCabeza" class="form-exploracion">
+              <table cellpadding="5" cellspacing="0" border="1" width="90%" align="center">
+                <thead>
+                    <tr>
+                        <th>CABEZA</th>
+                        <th>Normal</th>
+                        <th>Anormal</th>
+                        <th>Especifique</th>
+                        <!-- parte del cuerpo -->
+                        <input type="hidden" name="sigma-exploracion[parte_cuerpo]" value="1">
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                      <td>Cráneo</td>
+                      <!-- tipo de exploracion -->
+                       <input type="hidden" name="sigma-exploracion[exploraciones][0][tipo]" value="1">
+                      <td><input type="radio" id="craneo-normal" name="sigma-exploracion[exploraciones][0][respuesta]" value="16"></td><!--normal-->
+                      <td><input type="radio" id="craneo-anormal" name="sigma-exploracion[exploraciones][0][respuesta]" value="17"></td><!--anormal-->
+                      <td><input type="text" name="sigma-exploracion[exploraciones][0][observaciones]" placeholder="Detalles" class="input-form"></td>
+                  </tr>
+                  <tr>
+                      <td>Cara</td>
+                      <!-- tipo exploracion -->
+                       <input type="hidden" name="sigma-exploracion[exploraciones][1][tipo]" value="2">
+                      <td><input type="radio" id="cara-normal" name="sigma-exploracion[exploraciones][1][respuesta]" value="16"></td>
+                      <td><input type="radio" id="cara-anormal" name="sigma-exploracion[exploraciones][1][respuesta]" value="17"></td>
+                      <td><input type="text" name="sigma-exploracion[exploraciones][1][observaciones]" placeholder="Detalles" class="input-form"></td>
+                  </tr>
+                </tbody>
+              </table>
+              <button type="button" class="btn btn-confirmar m-1 guardar-form-exploracion">
+                Guardar
+              </button>
+            </form>
+
+            <hr class="dropdown-divider m-2">
+            <form id="formExpCuello" class="form-exploracion">
+              <table cellpadding="5" cellspacing="0" border="1" width="90%" align="center">
+                  <thead>
+                      <tr>
+                          <th>CUELLO</th>
+                          <th>Normal</th>
+                          <th>Anormal</th>
+                          <th>Especifique</th>
+                          <input type="hidden" name="sigma-exploracion[parte_cuerpo]" value="2">
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <!-- Cilíndrico -->
+                      <tr>
+                          <td>Cilíndrico</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][0][tipo]" value="3">
+                          <td><input type="radio" id="exploracion-0-normal" name="sigma-exploracion[exploraciones][0][respuesta]" value="16"></td>
+                          <td><input type="radio" id="exploracion-0-anormal" name="sigma-exploracion[exploraciones][0][respuesta]" value="17"></td>
+                          <td><input type="text" name="sigma-exploracion[exploraciones][0][observaciones]" placeholder="Detalles" class="input-form"></td>
+                      </tr>
+          
+                      <!-- Tráquea -->
+                      <tr>
+                          <td>Tráquea</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][1][tipo]" value="4">
+                          <td><input type="radio" id="exploracion-1-normal" name="sigma-exploracion[exploraciones][1][respuesta]" value="16"></td>
+                          <td><input type="radio" id="exploracion-1-anormal" name="sigma-exploracion[exploraciones][1][respuesta]" value="17"></td>
+                          <td><input type="text" name="sigma-exploracion[exploraciones][1][observaciones]" placeholder="Detalles" class="input-form"></td>
+                      </tr>
+          
+                      <!-- Movilidad -->
+                      <tr>
+                          <td>Movilidad</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][2][tipo]" value="5">
+                          <td><input type="radio" id="exploracion-2-normal" name="sigma-exploracion[exploraciones][2][respuesta]" value="16"></td>
+                          <td><input type="radio" id="exploracion-2-anormal" name="sigma-exploracion[exploraciones][2][respuesta]" value="17"></td>
+                          <td><input type="text" name="sigma-exploracion[exploraciones][2][observaciones]" placeholder="Detalles" class="input-form"></td>
+                      </tr>
+          
+                      <!-- Ganglios / Tiroides -->
+                      <tr>
+                          <td>Ganglios / Tiroides</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][3][tipo]" value="25">
+                          <td>Si<input type="radio" id="exploracion-3-si" name="sigma-exploracion[exploraciones][3][respuesta]" value="1"></td> <!-- Sí -->
+                          <td>No<input type="radio" id="exploracion-3-no" name="sigma-exploracion[exploraciones][3][respuesta]" value="2"></td> <!-- No -->
+                          <td><input type="text" name="sigma-exploracion[exploraciones][3][observaciones]" placeholder="Detalles" class="input-form"></td>
+                      </tr>
+                  </tbody>
+              </table>
+              <button type="button" class="btn btn-confirmar m-1 guardar-form-exploracion">Guardar</button>
+             </form>
+
+             <hr class="dropdown-divider m-2">
+             <form id="formExpOjos" class="form-exploracion">
+              <table cellpadding="5" cellspacing="0" border="1" width="90%" align="center">
+                  <thead>
+                      <tr>
+                          <th>OJO DERECHO</th>
+                          <th>Normal</th>
+                          <th>Anormal</th>
+                          <th>Especifique</th>
+                          <input type="hidden" name="sigma-exploracion[parte_cuerpo]" value="3">
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <!-- Pupila -->
+                      <tr>
+                          <td>Pupila</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][0][tipo]" value="6">
+                          <td>
+                              <input type="radio" id="pupila-der-normal" name="sigma-exploracion[exploraciones][0][respuesta]" value="16">
+                          </td>
+                          <td>
+                              <input type="radio" id="pupila-izq-anormal" name="sigma-exploracion[exploraciones][0][respuesta]" value="17">
+                          </td>
+                          <td><input type="text" name="sigma-exploracion[exploraciones][0][observaciones]" placeholder="Detalles" class="input-form"></td>
+                      </tr>
+          
+                      <!-- Córnea -->
+                      <tr>
+                          <td>Córnea</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][1][tipo]" value="7">
+                          <td>
+                              <input type="radio" id="cornea-der-normal" name="sigma-exploracion[exploraciones][1][respuesta]" value="16">
+                          </td>
+                          <td>
+                              <input type="radio" id="cornea-izq-normal" name="sigma-exploracion[exploraciones][1][respuesta]" value="17">
+                          </td>
+                          <td><input type="text" name="sigma-exploracion[exploraciones][1][observaciones]" placeholder="Detalles" class="input-form"></td>
+                      </tr>
+          
+                      <!-- Identifica Colores -->
+                      <tr>
+                          <td>Identifica Colores</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][2][tipo]" value="8">
+                          <td>
+                              Sí<input type="radio" id="colores-der-si" name="sigma-exploracion[exploraciones][2][respuesta]" value="1">
+                          </td>
+                          <td>
+                              No<input type="radio" id="colores-izq-no" name="sigma-exploracion[exploraciones][2][respuesta]" value="2">
+                          </td>
+                          <td><input type="text" name="sigma-exploracion[exploraciones][2][observaciones]" placeholder="Detalles" class="input-form"></td>
+                      </tr>
+          
+                      <!-- Movimiento Ocular -->
+                      <tr>
+                          <td>Movimiento Ocular</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][3][tipo]" value="9">
+                          <td>
+                              <input type="radio" id="movimiento-der-normal" name="sigma-exploracion[exploraciones][3][respuesta]" value="16">
+                          </td>
+                          <td>
+                              <input type="radio" id="movimiento-izq-anormal" name="sigma-exploracion[exploraciones][3][respuesta]" value="17">
+                          </td>
+                          <td><input type="text" name="sigma-exploracion[exploraciones][3][observaciones]" placeholder="Detalles" class="input-form"></td>
+                      </tr>
+
+                      <!-- Reflejos oculares -->
+                      <tr>
+                        <td>Reflejos oculares</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][4][tipo]" value="10">
+                        <td>
+                          <input type="radio" name="sigma-exploracion[exploraciones][4][respuesta]" value="16">
+                        </td>
+                        <td>
+                          <input type="radio" name="sigma-exploracion[exploraciones][4][respuesta]" value="17">
+                        </td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][4][observaciones]" placeholder="Detalles" class="input-form"></td>
+                      </tr>
+
+                      <tr>
+                        <td>Ptregion</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][5][tipo]" value="11">
+                        <td>Sí<input type="radio" name="sigma-exploracion[exploraciones][5][respuesta]" value="1"></td>
+                        <td>No<input type="radio" name="sigma-exploracion[exploraciones][5][respuesta]" value="2"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][5][observaciones]" class="input-form"></td>
+                      </tr>
+                  </tbody>
+              </table>
+              <button type="button" class="btn btn-confirmar m-1 guardar-form-exploracion">Guardar</button>
+            </form>
+
+            <hr class="dropdown-divider m-2">
+            <form id="formExpOjosIzquierdo" class="form-exploracion">
+             <table cellpadding="5" cellspacing="0" border="1" width="90%" align="center">
+                 <thead>
+                     <tr>
+                         <th>OJO IZQUIERDO</th>
+                         <th>Normal</th>
+                         <th>Anormal</th>
+                         <th>Especifique</th>
+                         <input type="hidden" name="sigma-exploracion[parte_cuerpo]" value="8">
+                     </tr>
+                 </thead>
+                 <tbody>
+                     <!-- Pupila -->
+                     <tr>
+                         <td>Pupila</td>
+                         <input type="hidden" name="sigma-exploracion[exploraciones][0][tipo]" value="6">
+                         <td>
+                             <input type="radio" id="pupila-der-normal" name="sigma-exploracion[exploraciones][0][respuesta]" value="16">
+                         </td>
+                         <td>
+                             <input type="radio" id="pupila-izq-anormal" name="sigma-exploracion[exploraciones][0][respuesta]" value="17">
+                         </td>
+                         <td><input type="text" name="sigma-exploracion[exploraciones][0][observaciones]" placeholder="Detalles" class="input-form"></td>
+                     </tr>
+         
+                     <!-- Córnea -->
+                     <tr>
+                         <td>Córnea</td>
+                         <input type="hidden" name="sigma-exploracion[exploraciones][1][tipo]" value="7">
+                         <td>
+                             <input type="radio" id="cornea-der-normal" name="sigma-exploracion[exploraciones][1][respuesta]" value="16">
+                         </td>
+                         <td>
+                             <input type="radio" id="cornea-izq-normal" name="sigma-exploracion[exploraciones][1][respuesta]" value="17">
+                         </td>
+                         <td><input type="text" name="sigma-exploracion[exploraciones][1][observaciones]" placeholder="Detalles" class="input-form"></td>
+                     </tr>
+         
+                     <!-- Identifica Colores -->
+                     <tr>
+                         <td>Identifica Colores</td>
+                         <input type="hidden" name="sigma-exploracion[exploraciones][4][tipo]" value="8">
+                         <td>
+                             Sí<input type="radio" id="colores-der-si" name="sigma-exploracion[exploraciones][4][respuesta]" value="1">
+                         </td>
+                         <td>
+                             No<input type="radio" id="colores-izq-no" name="sigma-exploracion[exploraciones][4][respuesta]" value="2">
+                         </td>
+                         <td><input type="text" name="sigma-exploracion[exploraciones][4][observaciones]" placeholder="Detalles" class="input-form"></td>
+                     </tr>
+         
+                     <!-- Movimiento Ocular -->
+                     <tr>
+                         <td>Movimiento Ocular</td>
+                         <input type="hidden" name="sigma-exploracion[exploraciones][5][tipo]" value="9">
+                         <td>
+                             <input type="radio" id="movimiento-der-normal" name="sigma-exploracion[exploraciones][5][respuesta]" value="16">
+                         </td>
+                         <td>
+                             <input type="radio" id="movimiento-izq-anormal" name="sigma-exploracion[exploraciones][5][respuesta]" value="17">
+                         </td>
+                         <td><input type="text" name="sigma-exploracion[exploraciones][5][observaciones]" placeholder="Detalles" class="input-form"></td>
+                     </tr>
+
+                     <!-- Reflejos oculares -->
+                     <tr>
+                       <td>Reflejos oculares</td>
+                       <input type="hidden" name="sigma-exploracion[exploraciones][6][tipo]" value="10">
+                       <td>
+                         <input type="radio" name="sigma-exploracion[exploraciones][6][respuesta]" value="16">
+                       </td>
+                       <td>
+                         <input type="radio" name="sigma-exploracion[exploraciones][6][respuesta]" value="17">
+                       </td>
+                       <td><input type="text" name="sigma-exploracion[exploraciones][6][observaciones]" placeholder="Detalles" class="input-form"></td>
+                     </tr>
+
+                     <tr>
+                       <td>Ptregion</td>
+                       <input type="hidden" name="sigma-exploracion[exploraciones][7][tipo]" value="11">
+                       <td>Sí<input type="radio" name="sigma-exploracion[exploraciones][7][respuesta]" value="1"></td>
+                       <td>No<input type="radio" name="sigma-exploracion[exploraciones][7][respuesta]" value="2"></td>
+                       <td><input type="text" name="sigma-exploracion[exploraciones][7][observaciones]" class="input-form"></td>
+                     </tr>
+                 </tbody>
+             </table>
+             <button type="button" class="btn btn-confirmar m-1 guardar-form-exploracion">Guardar</button>
+           </form>
+          
+            <hr class="dropdown-divider m-2">
+            <form id="formNariz" class="form-exploracion">
+              <table cellpadding="5" cellspacing="0" border="1" width="90%" align="center">
+                  <thead>
+                      <tr>
+                          <th>NARIZ</th>
+                          <input type="hidden" name="sigma-exploracion[parte_cuerpo]"d value="4">
+                          <th>Normal</th>
+                          <th>Anormal</th>
+                          <th>Especifique</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <!-- Mucosa -->
+                      <tr>
+                          <td>Mucosa</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][0][tipo]" value="12">
+                          <td>
+                              <input type="radio" id="mucosa-normal" name="sigma-exploracion[exploraciones][0][respuesta]" value="16">
+                          </td>
+                          <td>
+                              <input type="radio" id="mucosa-anormal" name="sigma-exploracion[exploraciones][0][respuesta]" value="17">
+                          </td>
+                          <td><input type="text" name="sigma-exploracion[exploraciones][0][observaciones]" placeholder="Detalles" class="input-form"></td>
+                      </tr>
+          
+                      <!-- Cornetes -->
+                      <tr>
+                          <td>Cornetes</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][1][tipo]" value="13">
+                          <td>
+                              <input type="radio" id="cornetes-normal" name="sigma-exploracion[exploraciones][1][respuesta]" value="16">
+                          </td>
+                          <td>
+                              <input type="radio" id="cornetes-anormal" name="sigma-exploracion[exploraciones][1][respuesta]" value="17">
+                          </td>
+                          <td><input type="text" name="sigma-exploracion[exploraciones][1][observaciones]" placeholder="Detalles" class="input-form"></td>
+                      </tr>
+          
+                      <!-- Pólipos -->
+                      <tr>
+                          <td>Pólipos</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][2][tipo]" value="14">
+                          <td>
+                              Sí <input type="radio" id="polipos-si" name="sigma-exploracion[exploraciones][2][respuesta]" value="1">
+                          </td>
+                          <td>
+                              No <input type="radio" id="polipos-no" name="sigma-exploracion[exploraciones][2][respuesta]" value="2">
+                          </td>
+                          <td><input type="text" name="sigma-exploracion[exploraciones][2][observaciones]" placeholder="Detalles" class="input-form"></td>
+                      </tr>
+          
+                      <!-- Septum -->
+                      <tr>
+                          <td>Septum</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][3][tipo]" value="15">
+                          <td>
+                              <input type="radio" id="septum-normal" name="sigma-exploracion[exploraciones][3][respuesta]" value="16">
+                          </td>
+                          <td>
+                              <input type="radio" id="septum-anormal" name="sigma-exploracion[exploraciones][3][respuesta]" value="17">
+                          </td>
+                          <td><input type="text" name="sigma-exploracion[exploraciones][3][observaciones]" placeholder="Detalles" class="input-form"></td>
+                      </tr>
+                  </tbody>
+              </table>
+              <button type="button" class="btn btn-confirmar m-1 guardar-form-exploracion">Guardar</button>
+            </form>
+
+            <hr class="dropdown-divider m-2">
+            <form id="formOidoDerecho" class="form-exploracion">
+              <table cellpadding="5" cellspacing="0" border="1" width="90%" align="center">
+                  <thead>
+                      <tr>
+                          <th>OIDO DERECHO</th>
+                          <th>Normal</th>
+                          <th>Anormal</th>
+                          <th>Especifique</th>
+                      </tr>
+                      <input type="hidden" name="sigma-exploracion[parte_cuerpo]" value="5">
+                  </thead>
+                  <tbody>
+                      <!-- Membrana Tímpano -->
+                      <tr>
+                          <td>Membrana Tímpano</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][0][tipo]" value="16">
+                          <td>
+                              <input type="radio" id="membrana-timpano-i-normal" name="sigma-exploracion[exploraciones][0][respuesta]" value="16">
+                          </td>
+                          <td>
+                              <input type="radio" id="membrana-timpano-i-anormal" name="sigma-exploracion[exploraciones][0][respuesta]" value="17">
+                          </td>
+                          <td>
+                              <input type="text" name="sigma-exploracion[exploraciones][0][observaciones]" placeholder="Detalles" class="input-form">
+                          </td>
+                      </tr>
+          
+                      <!-- Conducto Auditivo Ext -->
+                      <tr>
+                          <td>Conducto Auditivo Ext</td>
+                           <input type="hidden" name="sigma-exploracion[exploraciones][1][tipo]" value="17">
+                          <td>
+                              <input type="radio" id="conducto-auditivo-i-normal" name="sigma-exploracion[exploraciones][1][respuesta]" value="16">
+                          </td>
+                          <td>
+                              <input type="radio" id="conducto-auditivo-i-anormal" name="sigma-exploracion[exploraciones][1][respuesta]" value="17">
+                          </td>
+                          <td>
+                              <input type="text" name="sigma-exploracion[exploraciones][1][observaciones]" placeholder="Detalles" class="input-form">
+                          </td>
+                      </tr>
+          
+                      <!-- Pabellón Auricular -->
+                      <tr>
+                          <td>Pabellón Auricular</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][2][tipo]" value="18">
+                          <td>
+                              <input type="radio" id="pabellon-auricular-i-normal" name="sigma-exploracion[exploraciones][2][respuesta]" value="16">
+                          </td>
+                          <td>
+                              <input type="radio" id="pabellon-auricular-i-anormal" name="sigma-exploracion[exploraciones][2][respuesta]" value="17">
+                          </td>
+                          <td>
+                              <input type="text" name="sigma-exploracion[exploraciones][2][observaciones]" placeholder="Detalles" class="input-form">
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+              <button type="button" class="btn btn-confirmar m-1 guardar-form-exploracion">Guardar</button>
+            </form>
+
+            <hr class="dropdown-divider m-2">
+            <form id="formOidoIzquierdo" class="form-exploracion">
+              <table cellpadding="5" cellspacing="0" border="1" width="90%" align="center">
+                  <thead>
+                      <tr>
+                          <th>OIDO IZQUIERDO</th>
+                          <th>Normal</th>
+                          <th>Anormal</th>
+                          <th>Especifique</th>
+                      </tr>
+                      <input type="hidden" name="sigma-exploracion[parte_cuerpo]" value="6">
+                  </thead>
+                  <tbody>
+                      <!-- Membrana Tímpano -->
+                      <tr>
+                          <td>Membrana Tímpano</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][0][tipo]" value="16">
+                          <td>
+                              <input type="radio" id="membrana-timpano-i-normal" name="sigma-exploracion[exploraciones][0][respuesta]" value="16">
+                          </td>
+                          <td>
+                              <input type="radio" id="membrana-timpano-i-anormal" name="sigma-exploracion[exploraciones][0][respuesta]" value="17">
+                          </td>
+                          <td>
+                              <input type="text" name="sigma-exploracion[exploraciones][0][observaciones]" placeholder="Detalles" class="input-form">
+                          </td>
+                      </tr>
+          
+                      <!-- Conducto Auditivo Ext -->
+                      <tr>
+                          <td>Conducto Auditivo Ext</td>
+                           <input type="hidden" name="sigma-exploracion[exploraciones][1][tipo]" value="17">
+                          <td>
+                              <input type="radio" id="conducto-auditivo-i-normal" name="sigma-exploracion[exploraciones][1][respuesta]" value="16">
+                          </td>
+                          <td>
+                              <input type="radio" id="conducto-auditivo-i-anormal" name="sigma-exploracion[exploraciones][1][respuesta]" value="17">
+                          </td>
+                          <td>
+                              <input type="text" name="sigma-exploracion[exploraciones][1][observaciones]" placeholder="Detalles" class="input-form">
+                          </td>
+                      </tr>
+          
+                      <!-- Pabellón Auricular -->
+                      <tr>
+                          <td>Pabellón Auricular</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][2][tipo]" value="18">
+                          <td>
+                              <input type="radio" id="pabellon-auricular-i-normal" name="sigma-exploracion[exploraciones][2][respuesta]" value="16">
+                          </td>
+                          <td>
+                              <input type="radio" id="pabellon-auricular-i-anormal" name="sigma-exploracion[exploraciones][2][respuesta]" value="17">
+                          </td>
+                          <td>
+                              <input type="text" name="sigma-exploracion[exploraciones][2][observaciones]" placeholder="Detalles" class="input-form">
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+              <button type="button" class="btn btn-confirmar m-1 guardar-form-exploracion">Guardar</button>
+            </form>
+
+            <hr class="dropdown-divider m-2">
+            <form id="formCavidadOral" class="form-exploracion">
+              <table cellpadding="5" cellspacing="0" border="1" width="90%" align="center">
+                  <thead>
+                      <tr>
+                          <th>CAVIDAD ORAL</th>
+                          <th>Normal</th>
+                          <th>Anormal</th>
+                          <th>Especifique</th>
+                          <input type="hidden" name="sigma-exploracion[parte_cuerpo]" value="7">
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <!-- Encías -->
+                      <tr>
+                          <td>Encías</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][0][tipo]" value="19">
+                          <td>
+                              <input type="radio" id="encias-normal" name="sigma-exploracion[exploraciones][0][respuesta]" value="16">
+                          </td>
+                          <td>
+                              <input type="radio" id="encias-anormal" name="sigma-exploracion[exploraciones][0][respuesta]" value="17">
+                          </td>
+                          <td>
+                              <input type="text" name="sigma-exploracion[0][observaciones]" placeholder="Detalles" class="input-form">
+                          </td>
+                      </tr>
+          
+                      <!-- Mucosa -->
+                      <tr>
+                          <td>Mucosa</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][1][tipo]" value="12">
+                          <td>
+                              <input type="radio" id="mucosa-normal" name="sigma-exploracion[exploraciones][1][respuesta]" value="16">
+                          </td>
+                          <td>
+                              <input type="radio" id="mucosa-anormal" name="sigma-exploracion[exploraciones][1][respuesta]" value="17">
+                          </td>
+                          <td>
+                              <input type="text" name="sigma-exploracion[exploraciones][1][observaciones]" placeholder="Detalles" class="input-form">
+                          </td>
+                      </tr>
+          
+                      <!-- Paladar -->
+                      <tr>
+                          <td>Paladar</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][2][tipo]" value="20">
+                          <td>
+                              <input type="radio" id="paladar-normal" name="sigma-exploracion[exploraciones][2][respuesta]" value="16">
+                          </td>
+                          <td>
+                              <input type="radio" id="paladar-anormal" name="sigma-exploracion[exploraciones][2][respuesta]" value="17">
+                          </td>
+                          <td>
+                              <input type="text" name="sigma-exploracion[exploraciones][2][observaciones]" placeholder="Detalles" class="input-form">
+                          </td>
+                      </tr>
+          
+                      <!-- Lengua -->
+                      <tr>
+                          <td>Lengua</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][3][tipo]" value="21">
+                          <td>
+                              <input type="radio" id="lengua-normal" name="sigma-exploracion[exploraciones][3][respuesta]" value="16">
+                          </td>
+                          <td>
+                              <input type="radio" id="lengua-anormal" name="sigma-exploracion[exploraciones][3][respuesta]" value="17">
+                          </td>
+                          <td>
+                              <input type="text" name="sigma-exploracion[exploraciones][3][observaciones]" placeholder="Detalles" class="input-form">
+                          </td>
+                      </tr>
+          
+                      <!-- Amígdalas -->
+                      <tr>
+                          <td>Amígdalas</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][4][tipo]" value="22">
+                          <td>
+                              <input type="radio" id="amigdalas-normal" name="sigma-exploracion[exploraciones][4][respuesta]" value="16">
+                          </td>
+                          <td>
+                              <input type="radio" id="amigdalas-anormal" name="sigma-exploracion[exploraciones][4][respuesta]" value="17">
+                          </td>
+                          <td>
+                              <input type="text" name="sigma-exploracion[exploraciones][4][observaciones]" placeholder="Detalles" class="input-form">
+                          </td>
+                      </tr>
+          
+                      <!-- Dentadura -->
+                      <tr>
+                          <td>Dentadura</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][5][tipo]" value="23">
+                          <td>
+                              <input type="radio" id="dentadura-normal" name="sigma-exploracion[exploraciones][5][respuesta]" value="16">
+                          </td>
+                          <td>
+                              <input type="radio" id="dentadura-anormal" name="sigma-exploracion[exploraciones][5][respuesta]" value="17">
+                          </td>
+                          <td>
+                              <input type="text" name="sigma-exploracion[exploraciones][5][observaciones]" placeholder="Detalles" class="input-form">
+                          </td>
+                      </tr>
+          
+                      <!-- Otras Lesiones -->
+                      <tr>
+                          <td>Otras Lesiones</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][6][tipo]" value="24">
+                          <td>
+                              <input type="hidden" name="sigma-exploracion[exploraciones][6][respuesta]" value="">
+                              <!-- <input type="radio" id="otras-lesiones-normal" name="sigma-exploracion[28][estado]" value="normal"> -->
+                          </td>
+                          <td>
+                              <!-- <input type="radio" id="otras-lesiones-anormal" name="sigma-exploracion[28][estado]" value="anormal"> -->
+                          </td>
+                          <td>
+                              <input type="text" name="sigma-exploracion[exploraciones][6][observaciones]" placeholder="Detalles" class="input-form">
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+              <button type="button" class="btn btn-confirmar m-1 guardar-form-exploracion">Guardar</button>
+          </form>
+          
+
+          <hr class="dropdown-divider m-2">
+          <form id="formTorax" class="form-exploracion">
+            <table cellpadding="5" cellspacing="0" border="1" width="90%" align="center">
+                <thead>
+                    <tr>
+                        <th>TÓRAX</th>
+                        <th>Normal</th>
+                        <th>Anormal</th>
+                        <th>Especifique</th>
+                    </tr>
+                    <input type="hidden" name="sigma-exploracion[parte_cuerpo]" value="9">
+                </thead>
+                <tbody>
+                    <!-- Simetría -->
+                    <tr>
+                        <td>Simetría</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][0][tipo]" value="26">
+                        <td>
+                            <input type="radio" id="simetria-normal" name="sigma-exploracion[exploraciones][0][respuesta]" value="16">
+                        </td>
+                        <td>
+                            <input type="radio" id="simetria-anormal" name="sigma-exploracion[exploraciones][0][respuesta]" value="17">
+                        </td>
+                        <td>
+                            <input type="text" name="sigma-exploracion[exploraciones][0][observaciones]" placeholder="Detalles" class="input-form">
+                        </td>
+                    </tr>
+        
+                    <!-- Amplexión -->
+                    <tr>
+                        <td>Amplexión</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][1][tipo]" value="27">
+                        <td>
+                            <input type="radio" id="amplexion-normal" name="sigma-exploracion[exploraciones][1][respuesta]" value="16">
+                        </td>
+                        <td>
+                            <input type="radio" id="amplexion-anormal" name="sigma-exploracion[exploraciones][1][respuesta]" value="17">
+                        </td>
+                        <td>
+                            <input type="text" name="sigma-exploracion[exploraciones][1][observaciones]" placeholder="Detalles" class="input-form">
+                        </td>
+                    </tr>
+        
+                    <!-- Amplexación -->
+                    <tr>
+                        <td>Amplexación</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][2][tipo]" value="28">
+                        <td>
+                            <input type="radio" id="amplexacion-normal" name="sigma-exploracion[exploraciones][2][respuesta]" value="16">
+                        </td>
+                        <td>
+                            <input type="radio" id="amplexacion-anormal" name="sigma-exploracion[exploraciones][2][respuesta]" value="17">
+                        </td>
+                        <td>
+                            <input type="text" name="sigma-exploracion[exploraciones][2][observaciones]" placeholder="Detalles" class="input-form">
+                        </td>
+                    </tr>
+        
+                    <!-- Murmullo -->
+                    <tr>
+                        <td>Murmullo</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][3][tipo]" value="29">
+                        <td>
+                            Si<input type="radio" id="murmullo-si" name="sigma-exploracion[exploraciones][3][respuesta]" value="1">
+                        </td>
+                        <td>
+                            No<input type="radio" id="murmullo-no" name="sigma-exploracion[exploraciones][3][respuesta]" value="2">
+                        </td>
+                        <td>
+                            <input type="text" name="sigma-exploracion[exploraciones][3][observaciones]" placeholder="Detalles" class="input-form">
+                        </td>
+                    </tr>
+        
+                    <!-- Ventilación -->
+                    <tr>
+                        <td>Ventilación</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][4][tipo]" value="30">
+                        <td>
+                            <input type="radio" id="ventilacion-normal" name="sigma-exploracion[exploraciones][4][respuesta]" value="16">
+                        </td>
+                        <td>
+                            <input type="radio" id="ventilacion-anormal" name="sigma-exploracion[exploraciones][4][respuesta]" value="17">
+                        </td>
+                        <td>
+                            <input type="text" name="sigma-exploracion[exploraciones][4][observaciones]" placeholder="Detalles" class="input-form">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-confirmar m-1 guardar-form-exploracion">Guardar</button>
+          </form>
+        
+          <hr class="dropdown-divider m-2">
+          <form id="formAreaCardiaca" class="form-exploracion">
+            <table cellpadding="5" cellspacing="0" border="1" width="90%" align="center">
+                <thead>
+                    <tr>
+                        <th>ÁREA CARDÍACA</th>
+                        <th>Normal</th>
+                        <th>Anormal</th>
+                        <th>Especifique</th>
+                        <input type="hidden" name="sigma-exploracion[parte_cuerpo]" value="10">
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Ritmo -->
+                    <tr>
+                        <td>Ritmo</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][0][tipo]" value="31">
+                        <td>
+                            <input type="radio" id="ritmo-normal" name="sigma-exploracion[exploraciones][0][respuesta]" value="16">
+                        </td>
+                        <td>
+                            <input type="radio" id="ritmo-anormal" name="sigma-exploracion[exploraciones][0][respuesta]" value="17">
+                        </td>
+                        <td>
+                            <input type="text" name="sigma-exploracion[exploraciones][0][observaciones]" placeholder="Detalles" class="input-form">
+                        </td>
+                    </tr>
+        
+                    <!-- Intensidad -->
+                    <tr>
+                        <td>Intensidad</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][1][tipo]" value="32">
+                        <td>
+                            <input type="radio" id="intensidad-normal" name="sigma-exploracion[exploraciones][1][respuesta]" value="16">
+                        </td>
+                        <td>
+                            <input type="radio" id="intensidad-anormal" name="sigma-exploracion[exploraciones][1][respuesta]" value="17">
+                        </td>
+                        <td>
+                            <input type="text" name="sigma-exploracion[exploraciones][1][observaciones]" placeholder="Detalles" class="input-form">
+                        </td>
+                    </tr>
+        
+                    <!-- Ruidos -->
+                    <tr>
+                        <td>Ruidos</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][2][tipo]" value="33">
+                        <td>
+                            <input type="radio" id="ruidos-normal" name="sigma-exploracion[exploraciones][2][respuesta]" value="16">
+                        </td>
+                        <td>
+                            <input type="radio" id="ruidos-anormal" name="sigma-exploracion[exploraciones][2][respuesta]" value="17">
+                        </td>
+                        <td>
+                            <input type="text" name="sigma-exploracion[exploraciones][2][observaciones]" placeholder="Detalles" class="input-form">
+                        </td>
+                    </tr>
+        
+                    <!-- Soplos -->
+                    <tr>
+                        <td>Soplos</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][3][tipo]" value="34">
+                        <td>
+                            Sí<input type="radio" id="soplos-si" name="sigma-exploracion[exploraciones][3][respuesta]" value="1">
+                        </td>
+                        <td>
+                            No<input type="radio" id="soplos-no" name="sigma-exploracion[exploraciones][3][respuesta]" value="2">
+                        </td>
+                        <td>
+                            <input type="text" name="sigma-exploracion[exploraciones][3][observaciones]" placeholder="Detalles" class="input-form">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-confirmar m-1 guardar-form-exploracion">Guardar</button>
+          </form>
+
+          <hr class="dropdown-divider m-2">
+          <form id="formAbdomen" class="form-exploracion">
+            <table cellpadding="5" cellspacing="0" border="1" width="90%" align="center">
+                <thead>
+                    <tr>
+                        <th>ABDOMEN</th>
+                        <th colspan="2">Especifique</th>
+                        <input type="hidden" name="sigma-exploracion[parte_cuerpo]" value="11">
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Conformación -->
+                    <tr>
+                        <td>Conformación</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][0][tipo]" value="35">
+                        <td colspan="2">
+                            <label><input type="radio" name="sigma-exploracion[exploraciones][0][respuesta]" value="18"> Plano</label>
+                            <label><input type="radio" name="sigma-exploracion[exploraciones][0][respuesta]" value="19"> Globoso</label>
+                            <label><input type="radio" name="sigma-exploracion[exploraciones][0][respuesta]" value="20"> Cóncavo</label>
+                            <input type="text" name="sigma-exploracion[exploraciones][0][observaciones]" placeholder="Detalles" class="input-form">
+                        </td>
+                    </tr>
+        
+                    <!-- Peristalsis -->
+                    <tr>
+                        <td>Peristalsis</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][1][tipo]" value="36">
+                        <td colspan="2">
+                            <label><input type="radio" name="sigma-exploracion[exploraciones][1][respuesta]" value="16"> Normal</label>
+                            <label><input type="radio" name="sigma-exploracion[exploraciones][1][respuesta]" value="17"> Anormal</label>
+                            <input type="text" name="sigma-exploracion[exploraciones][1][observaciones]" placeholder="Detalles" class="input-form">
+                        </td>
+                    </tr>
+        
+                    <!-- Visceromegalias -->
+                    <tr>
+                        <td>Visceromegalias</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][2][tipo]" value="37">
+                        <td colspan="2">
+                            <label><input type="radio" name="sigma-exploracion[exploraciones][2][respuesta]" value="1"> Sí</label>
+                            <label><input type="radio" name="sigma-exploracion[exploraciones][2][respuesta]" value="2"> No</label>
+                            <input type="text" name="sigma-exploracion[exploraciones][2][observaciones]" placeholder="Detalles" class="input-form">
+                        </td>
+                    </tr>
+        
+                    <!-- Hernias -->
+                    <tr>
+                        <td>Hernias umbilical/inguinal</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][3][tipo]" value="38">
+                        <td colspan="2">
+                            <label><input type="radio" name="sigma-exploracion[exploraciones][3][respuesta]" value="1"> Sí</label>
+                            <label><input type="radio" name="sigma-exploracion[exploraciones][3][respuesta]" value="2"> No</label>
+                            <input type="text" name="sigma-exploracion[exploraciones][3][observaciones]" placeholder="Detalles" class="input-form">
+                        </td>
+                    </tr>
+        
+                    <!-- Otros -->
+                    <tr>
+                        <td>Otros</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][4][tipo]" value="39">
+                        <td colspan="2">
+                            <input type="text" name="sigma-exploracion[exploraciones][4][observaciones]" placeholder="Detalles" class="input-form" style="width: 100%;">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-confirmar m-1 guardar-form-exploracion">Guardar</button>
+          </form>
+        
+          <hr class="dropdown-divider m-2">
+          <form id="formColumnaLumbosacra" class="form-exploracion">
+            <table cellpadding="5" cellspacing="0" border="1" width="90%" align="center">
+                <thead>
+                    <tr>
+                        <th>COLUMNA LUMBOSACRA</th>
+                        <th>Normal</th>
+                        <th>Anormal</th>
+                        <th>Especifique</th>
+                        <input type="hidden" name="sigma-exploracion[parte_cuerpo]" value="12">
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Conformación -->
+                    <tr>
+                        <td>Conformación</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][0][tipo]" value="35">
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][0][respuesta]" value="16"></td>
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][0][respuesta]" value="17"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][0][observaciones]" placeholder="Detalles" class="input-form"></td>
+                    </tr>
+        
+                    <!-- Arcos de movimiento -->
+                    <tr>
+                        <td>Arcos de mov.</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][1][tipo]" value="40">
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][1][respuesta]" value="16"></td>
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][1][respuesta]" value="17"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][1][observaciones]" placeholder="Detalles" class="input-form"></td>
+                    </tr>
+        
+                    <!-- Marcha -->
+                    <tr>
+                        <td>Marcha</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][2][tipo]" value="41">
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][2][respuesta]" value="16"></td>
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][2][respuesta]" value="17"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][2][observaciones]" placeholder="Detalles" class="input-form"></td>
+                    </tr>
+        
+                    <!-- Puntos dolorosos -->
+                    <tr>
+                        <td>Puntos dolorosos</td>
+                         <input type="hidden" name="sigma-exploracion[exploraciones][3][tipo]" value="42">
+                        <td colspan="2">
+                            <label><input type="radio" name="sigma-exploracion[exploraciones][3][respuesta]" value="1"> Sí</label>
+                            <label><input type="radio" name="sigma-exploracion[exploraciones][3][respuesta]" value="2"> No</label>
+                        </td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][3][observaciones]" placeholder="Detalles" class="input-form"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-confirmar m-1 guardar-form-exploracion">Guardar</button>
+          </form>
+
+          <hr class="dropdown-divider m-2">
+          <form id="formMiembroToracicoDerecho" class="form-exploracion">
+            <table cellpadding="5" cellspacing="0" border="1" width="90%" align="center">
+                <thead>
+                    <tr>
+                        <th>MIEM. TORÁCICOS (Derecho)</th>
+                        <th>Normal</th>
+                        <th>Anormal</th>
+                        <th>Especifique</th>
+                        <input type="hidden" name="sigma-exploracion[parte_cuerpo]" value="13">
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Integridad -->
+                    <tr>
+                        <td>Integridad</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][0][tipo]" value="43">
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][0][respuesta]" value="16"></td>
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][0][respuesta]" value="17"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][0][observaciones]" placeholder="Detalles" class="input-form"></td>
+                    </tr>
+        
+                    <!-- Movilidad -->
+                    <tr>
+                        <td>Movilidad</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][1][tipo]" value="5">
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][1][respuesta]" value="16"></td>
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][1][respuesta]" value="17"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][1][observaciones]" placeholder="Detalles" class="input-form"></td>
+                    </tr>
+        
+                    <!-- R.O.T. -->
+                    <tr>
+                        <td>R.O.T.</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][2][tipo]" value="44">
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][2][respuesta]" value="16"></td>
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][2][respuesta]" value="17"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][2][observaciones]" placeholder="Detalles" class="input-form"></td>
+                    </tr>
+        
+                    <!-- Fuerza -->
+                    <tr>
+                        <td>Fuerza</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][3][tipo]" value="45">
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][3][respuesta]" value="16"></td>
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][3][respuesta]" value="17"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][3][observaciones]" placeholder="Detalles" class="input-form"></td>
+                    </tr>
+        
+                    <!-- Pulsos -->
+                    <tr>
+                        <td>Pulsos</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][4][tipo]" value="46">
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][4][respuesta]" value="16"></td>
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][4][respuesta]" value="17"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][4][observaciones]" placeholder="Detalles" class="input-form"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-confirmar m-1 guardar-form-exploracion">Guardar</button>
+          </form>
+
+          <hr class="dropdown-divider m-2">
+          <form id="formMiembroToracicoIzquierdo" class="form-exploracion">
+            <table cellpadding="5" cellspacing="0" border="1" width="90%" align="center">
+                <thead>
+                    <tr>
+                        <th>MIEM. TORÁCICOS (Izquierdo)</th>
+                        <th>Normal</th>
+                        <th>Anormal</th>
+                        <th>Especifique</th>
+                        <input type="hidden" name="sigma-exploracion[parte_cuerpo]" value="14">
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Integridad -->
+                    <tr>
+                        <td>Integridad</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][0][tipo]" value="43">
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][0][respuesta]" value="16"></td>
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][0][respuesta]" value="17"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][0][observaciones]" placeholder="Detalles" class="input-form"></td>
+                    </tr>
+        
+                    <!-- Movilidad -->
+                    <tr>
+                        <td>Movilidad</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][1][tipo]" value="5">
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][1][respuesta]" value="16"></td>
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][1][respuesta]" value="17"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][1][observaciones]" placeholder="Detalles" class="input-form"></td>
+                    </tr>
+        
+                    <!-- R.O.T. -->
+                    <tr>
+                        <td>R.O.T.</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][2][tipo]" value="44">
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][2][respuesta]" value="16"></td>
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][2][respuesta]" value="17"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][2][observaciones]" placeholder="Detalles" class="input-form"></td>
+                    </tr>
+        
+                    <!-- Fuerza -->
+                    <tr>
+                        <td>Fuerza</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][3][tipo]" value="45">
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][3][respuesta]" value="16"></td>
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][3][respuesta]" value="17"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][3][observaciones]" placeholder="Detalles" class="input-form"></td>
+                    </tr>
+        
+                    <!-- Pulsos -->
+                    <tr>
+                        <td>Pulsos</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][4][tipo]" value="46">
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][4][respuesta]" value="16"></td>
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][4][respuesta]" value="17"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][4][observaciones]" placeholder="Detalles" class="input-form"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-confirmar m-1 guardar-form-exploracion">Guardar</button>
+          </form>
+
+          <hr class="dropdown-divider m-2">
+          <form id="formMiembroPelvicoDerecho" class="form-exploracion">
+            <table cellpadding="5" cellspacing="0" border="1" width="90%" align="center">
+                <thead>
+                    <tr>
+                        <th>MIEM. PÉLVICO (Derecho)</th>
+                        <th>Normal</th>
+                        <th>Anormal</th>
+                        <th>Especifique</th>
+                        <input type="hidden" name="sigma-exploracion[parte_cuerpo]" value="15">
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Integridad -->
+                    <tr>
+                        <td>Integridad</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][0][tipo]" value="43">
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][0][respuesta]" value="16"></td>
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][0][respuesta]" value="17"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][0][observaciones]" placeholder="Detalles" class="input-form"></td>
+                    </tr>
+        
+                    <!-- Movilidad -->
+                    <tr>
+                        <td>Movilidad</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][1][tipo]" value="5">
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][1][respuesta]" value="16"></td>
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][1][respuesta]" value="17"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][1][observaciones]" placeholder="Detalles" class="input-form"></td>
+                    </tr>
+        
+                    <!-- R.O.T. -->
+                    <tr>
+                        <td>R.O.T.</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][2][tipo]" value="44">
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][2][respuesta]" value="16"></td>
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][2][respuesta]" value="17"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][2][observaciones]" placeholder="Detalles" class="input-form"></td>
+                    </tr>
+        
+                    <!-- Fuerza -->
+                    <tr>
+                        <td>Fuerza</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][3][tipo]" value="45">
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][3][respuesta]" value="16"></td>
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][3][respuesta]" value="17"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][3][observaciones]" placeholder="Detalles" class="input-form"></td>
+                    </tr>
+        
+                    <!-- Pulsos / Hinchazón -->
+                    <tr>
+                        <td>Pulsos / Hinchazón</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][4][tipo]" value="46">
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][4][respuesta]" value="16"></td>
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][4][respuesta]" value="17"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][4][observaciones]" placeholder="Detalles" class="input-form"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-confirmar m-1 guardar-form-exploracion">Guardar</button>
+          </form>
+          
+          <hr class="dropdown-divider m-2">
+          <form id="formMiembroPelvicoIzquierdo" class="form-exploracion">
+            <table cellpadding="5" cellspacing="0" border="1" width="90%" align="center">
+                <thead>
+                    <tr>
+                        <th>MIEM. PÉLVICO (Izquierdo)</th>
+                        <th>Normal</th>
+                        <th>Anormal</th>
+                        <th>Especifique</th>
+                        <input type="hidden" name="sigma-exploracion[parte_cuerpo]" value="16">
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Integridad -->
+                    <tr>
+                        <td>Integridad</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][0][tipo]" value="43">
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][0][respuesta]" value="16"></td>
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][0][respuesta]" value="17"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][0][observaciones]" placeholder="Detalles" class="input-form"></td>
+                    </tr>
+        
+                    <!-- Movilidad -->
+                    <tr>
+                        <td>Movilidad</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][1][tipo]" value="5">
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][1][respuesta]" value="16"></td>
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][1][respuesta]" value="17"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][1][observaciones]" placeholder="Detalles" class="input-form"></td>
+                    </tr>
+        
+                    <!-- R.O.T. -->
+                    <tr>
+                        <td>R.O.T.</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][2][tipo]" value="44">
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][2][respuesta]" value="16"></td>
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][2][respuesta]" value="17"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][2][observaciones]" placeholder="Detalles" class="input-form"></td>
+                    </tr>
+        
+                    <!-- Fuerza -->
+                    <tr>
+                        <td>Fuerza</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][3][tipo]" value="45">
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][3][respuesta]" value="16"></td>
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][3][respuesta]" value="17"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][3][observaciones]" placeholder="Detalles" class="input-form"></td>
+                    </tr>
+        
+                    <!-- Pulsos / Hinchazón -->
+                    <tr>
+                        <td>Pulsos / Hinchazón</td>
+                        <input type="hidden" name="sigma-exploracion[exploraciones][4][tipo]" value="46">
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][4][respuesta]" value="16"></td>
+                        <td><input type="radio" name="sigma-exploracion[exploraciones][4][respuesta]" value="17"></td>
+                        <td><input type="text" name="sigma-exploracion[exploraciones][4][observaciones]" placeholder="Detalles" class="input-form"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-confirmar m-1 guardar-form-exploracion">Guardar</button>
+            </form>
+
+            <hr class="dropdown-divider m-2">
+            <form id="formPielYAnexos" class="form-exploracion">
+              <table cellpadding="5" cellspacing="0" border="1" width="90%" align="center">
+                  <thead>
+                      <tr>
+                          <th>PIEL Y ANEXOS</th>
+                          <th>Normal</th>
+                          <th>Anormal</th>
+                          <th>Especifique</th>
+                          <input type="hidden" name="sigma-exploracion[parte_cuerpo]" value="17">
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <!-- Dermis -->
+                      <tr>
+                          <td>Dermis</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][0][tipo]" value="47">
+                          <td><input type="radio" name="sigma-exploracion[exploraciones][0][respuesta]" value="16"></td>
+                          <td><input type="radio" name="sigma-exploracion[exploraciones][0][respuesta]" value="17"></td>
+                          <td><input type="text" name="sigma-exploracion[exploraciones][0][observaciones]" placeholder="Detalles" class="input-form"></td>
+                      </tr>
+          
+                      <!-- Cabello -->
+                      <tr>
+                          <td>Cabello</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][1][tipo]" value="48">
+                          <td><input type="radio" name="sigma-exploracion[exploraciones][1][respuesta]" value="16"></td>
+                          <td><input type="radio" name="sigma-exploracion[exploraciones][1][respuesta]" value="17"></td>
+                          <td><input type="text" name="sigma-exploracion[exploraciones][1][observaciones]" placeholder="Detalles" class="input-form"></td>
+                      </tr>
+          
+                      <!-- Uñas -->
+                      <tr>
+                          <td>Uñas</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][2][tipo]" value="49">
+                          <td><input type="radio" name="sigma-exploracion[exploraciones][2][respuesta]" value="16"></td>
+                          <td><input type="radio" name="sigma-exploracion[exploraciones][2][respuesta]" value="17"></td>
+                          <td><input type="text" name="sigma-exploracion[exploraciones][2][observaciones]" placeholder="Detalles" class="input-form"></td>
+                      </tr>
+          
+                      <!-- Dermatosis -->
+                      <tr>
+                          <td>Dermatosis</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][3][tipo]" value="50">
+                          <td><input type="radio" name="sigma-exploracion[exploraciones][3][respuesta]" value="1"></td>
+                          <td><input type="radio" name="sigma-exploracion[exploraciones][3][respuesta]" value="2"></td>
+                          <td><input type="text" name="sigma-exploracion[exploraciones][3][observaciones]" placeholder="Detalles" class="input-form"></td>
+                      </tr>
+          
+                      <!-- Dermatitis -->
+                      <tr>
+                          <td>Dermatitis</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][4][tipo]" value="51">
+                          <td><input type="radio" name="sigma-exploracion[exploraciones][4][respuesta]" value="1"></td>
+                          <td><input type="radio" name="sigma-exploracion[exploraciones][4][respuesta]" value="2"></td>
+                          <td><input type="text" name="sigma-exploracion[exploraciones][4][observaciones]" placeholder="Detalles" class="input-form"></td>
+                      </tr>
+          
+                      <!-- Tatuajes -->
+                      <tr>
+                          <td>Tatuajes</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][5][tipo]" value="52">
+                          <td><input type="radio" name="sigma-exploracion[exploraciones][5][respuesta]" value="1"></td>
+                          <td><input type="radio" name="sigma-exploracion[exploraciones][5][respuesta]" value="2"></td>
+                          <td><input type="text" name="sigma-exploracion[exploraciones][5][observaciones]" placeholder="Detalles" class="input-form"></td>
+                      </tr>
+          
+                      <!-- Cicatrices -->
+                      <tr>
+                          <td>Cicatrices</td>
+                          <input type="hidden" name="sigma-exploracion[exploraciones][6][tipo]" value="53">
+                          <td><input type="radio" name="sigma-exploracion[exploraciones][6][respuesta]" value="1"></td>
+                          <td><input type="radio" name="sigma-exploracion[exploraciones][6][respuesta]" value="2"></td>
+                          <td><input type="text" name="sigma-exploracion[exploraciones][6][observaciones]" placeholder="Detalles" class="input-form"></td>
+                      </tr>
+                  </tbody>
+              </table>
+              <button type="button" class="btn btn-confirmar m-1 guardar-form-exploracion">Guardar</button>
+            </form>
+          
+        
+          
+            
+          </div>
+        </section>
+        <section id="card-exploracion-clinica" class="rounded p-3 shadow-sm my-2 position-relative clientesClass">
           <h4 class="m-3">EXPLORACIÓN FÍSICA</h4>
           <hr class="dropdown-divider m-2">
           <div class="row" style="margin:0">
@@ -183,12 +1412,77 @@
             </div>
         </section>
 
-        <!-- <section id="card-odontograma" class="rounded p-3 shadow-sm my-2 position-relative">
-          <h4 class="m-3">ODONTOGRAMA</h4>
-          <hr class="dropdown-divider m-2">
-
+        <section id="interpretacionResultadosSigma" class="rounded p-3 shadow-sm my-2 position-relative sigmaClass">
+          <h4 class="m-3">INTERPRETACIÓN DE RESULTADOS</h4>
+          <form id="formResultadosLaboratorio">
+            <table cellpadding="5" cellspacing="0" border="1" width="90%" align="center">
+                <thead>
+                    <tr>
+                        <th colspan="2">INTERPRETACIÓN DE RESULTADOS DE LABORATORIO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="width: 40%;">Cuenta Roja (BH):</td>
+                        <td style="width: 60%;"><input type="text" name="cuenta_roja" placeholder="Ingrese resultados" class="input-form"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40%;">General de Orina:</td>
+                        <td style="width: 60%;"><input type="text" name="general_orina" placeholder="Ingrese resultados" class="input-form"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40%;">Quím. Sang. 6 elem.:</td>
+                        <td style="width: 60%;"><input type="text" name="quimica_sanguinea" placeholder="Ingrese resultados" class="input-form"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40%;">Radiografía de Tórax (AP y lateral de columna):</td>
+                        <td style="width: 60%;"><textarea name="radiografia_torax" placeholder="Detalles" class="input-form"></textarea></td>
+                    </tr>
+                    <tr class="highlight">
+                        <td style="width: 40%;">VIH:</td>
+                        <td style="width: 60%;"><input type="text" name="vih" placeholder="Ingrese resultados" class="input-form"></td>
+                    </tr>
+                    <tr class="highlight">
+                        <td style="width: 40%;">Antidoping 5 parámetros: Marihuana (THC), Cocaína (COC), Anfetaminas (AMP), Metanfetaminas (mAMP), Opioides (OPI) y Fenciclidina (PCP)</td>
+                        <td style="width: 60%;"><textarea name="antidoping" placeholder="Ingrese detalles" class="input-form"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40%;">Tipo de Sangre:</td>
+                        <td style="width: 60%;"><input type="text" name="tipo_sangre" placeholder="Ingrese resultados" class="input-form"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40%;">Reacciones Febriles:</td>
+                        <td style="width: 60%;"><textarea name="reacciones_febriles" placeholder="Detalles" class="input-form"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40%;">VDRL:</td>
+                        <td style="width: 60%;"><input type="text" name="vdrl" placeholder="Ingrese resultados" class="input-form"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40%;">COPRO:</td>
+                        <td style="width: 60%;"><input type="text" name="copro" placeholder="Ingrese resultados" class="input-form"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40%;">Exudado Faríngeo:</td>
+                        <td style="width: 60%;"><textarea name="exudado_faringeo" placeholder="Detalles" class="input-form"></textarea></td>
+                    </tr>
+                    <tr>
+                      <td style="width: 40%;">Audiometria:</td>
+                      <td style="width: 60%;"><textarea name="audiometria" placeholder="Detalles" class="input-form"></textarea></td>
+                    </tr>
+                    <tr>
+                      <td style="width: 40%;">Otros:</td>
+                      <td style="width: 60%;"><textarea name="otros" placeholder="Detalles" class="input-form"></textarea></td>
+                     </tr>
+                </tbody>
+              </table>
+              <div style="text-align: center; margin-top: 15px;">
+                  <button type="button" class="btn btn-confirmar" style="padding: 10px 20px;" id="btnGuardarInterpreracionSigma">Guardar</button>
+              </div>
+          </form>
         </section>
--->
+
+
         <section id="card-nutricion" class="rounded p-3 shadow-sm my-2 position-relative p-3">
           <div class="accordion accordion-flush" id="accordionFlushExample">
             <div class="accordion-item">
@@ -439,6 +1733,61 @@
 
         </section>
 
+        <section id="MarcacionAreas">
+          <h4 class="m-3">Exploración Física</h4>
+          <hr class="dropdown-divider m-2">
+          <div id="divMarcacionAreas">
+
+          </div>
+        </section>
+
+        <section class="sigmaClass">
+          <h4 class="m-3">Valoración de condición</h4>
+          <form id="formValoracionCondicion">
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr>
+                <td colspan="3" style="border-bottom: 1px solid black; padding-bottom: 5px;">
+                  Valoración de Condición: 
+                  <input type="number" class="input-form" name="valoracion_condicion" style="border: none; border-bottom: 1px solid black; width: 200px; text-align: center;"> 
+                  meses.
+                </td>
+              </tr>
+              <tr>
+                <td style="border-top: 1px solid black; padding: 5px 0;">
+                  <label>
+                    <input type="radio" name="condicion" value="1" style="margin-right: 10px;"> Apto
+                  </label>
+                </td>
+                <td style="border-top: 1px solid black;" colspan="2"></td>
+              </tr>
+              <tr>
+                <td style="border-top: 1px solid black; padding: 5px 0;">
+                  <label>
+                    <input type="radio" name="condicion" value="2" style="margin-right: 10px;"> No Apto
+                  </label>
+                </td>
+                <td style="border-top: 1px solid black;" colspan="2"></td>
+              </tr>
+              <tr>
+                <td style="border-top: 1px solid black; padding: 5px 0;">
+                  <label>
+                    <input type="radio" name="condicion" value="3" style="margin-right: 10px;"> Apto Condicionado
+                  </label>
+                </td>
+                <td style="border-top: 1px solid black;" colspan="2"></td>
+              </tr>
+              <tr>
+                <td colspan="3" style="padding-top: 10px;">
+                  <label for="observaciones">Observaciones:</label><br>
+                  <textarea class="input-form"  id="observaciones" name="observaciones" rows="4" style="width: 100%; border: 1px solid black;"></textarea>
+                </td>
+              </tr>
+            </table>
+            <br>
+            <button type="button" class="btn btn-confirmar guardarCondicion">Guardar</button>
+          </form>          
+        </section>
+
 
 
 
@@ -585,7 +1934,29 @@
         autoHeightDiv('#vista-valoracion', 157);
         $(window).resize(function () {
           autoHeightDiv('#vista-valoracion', 157);
-        })
+        })    
+
+        // $(document).ready(function(){
+        //   // Selecciona la sección específica
+        //   var targetSectionVAl = document.getElementById('MarcacionAreas');
+
+        //   // Crea un observador
+        //   var observerVal = new IntersectionObserver((entries) => {
+        //       entries.forEach(entry => {
+        //           if (entry.isIntersecting) {
+
+        //               rellenarValoracionCondcion(pacienteActivo.array['ID_TURNO']);
+        //           }
+        //       });
+        //   }, {
+        //       root: null, // Usa el viewport como referencia
+        //       threshold: 0.1 // La función se dispara cuando el 10% de la sección es visible
+        //   });
+
+        //   // Observa la sección
+        //   observerVal.observe(targetSectionVAl);
+        // })
+       
       </script>
     </div>
   </div>

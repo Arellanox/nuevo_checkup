@@ -201,27 +201,41 @@
             </div>
 
             <hr class="dropdown-divider m-2">
-            <div class="row d-flex justify-content-center"
+            <div class="card">
+              <div class="row d-flex justify-content-center"
               style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
-              <div class="col-12 col-lg-5 col-xl-7">
-                <label>¿HA TENIDO ALGUNA TRANSFUSIÓN SANGUINEA?: </label>
-                <input type="hidden" name="check-trans[]" value="9">
-              </div>
-              <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
-                <div class="col-auto">
-                  <input type="radio" required id="checkSi-trans" name="check-trans[]" value="1">
-                  <label for="checkSi-trans">Sí</label>
+                <div class="col-12 col-lg-5 col-xl-7">
+                  <label>¿HA TENIDO ALGUNA TRANSFUSIÓN SANGUINEA?: </label>
+                  <input type="hidden" name="check-trans[]" value="9">
                 </div>
-                <div class="col-auto">
-                  <input type="radio" required id="checkNo-trans" name="check-trans[]" value="2">
-                  <label for="checkNo-trans">No</label>
+                <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                  <div class="col-auto">
+                    <input type="radio" required id="checkSi-trans" name="check-trans[]" value="1">
+                    <label for="checkSi-trans">Sí</label>
+                  </div>
+                  <div class="col-auto">
+                    <input type="radio" required id="checkNo-trans" name="check-trans[]" value="2">
+                    <label for="checkNo-trans">No</label>
+                  </div>
+                </div>
+                <div class="collapse" id="collapse-trans">
+                  <textarea name="check-trans[]" class="form-control input-form" rows="2" cols="2"
+                    placeholder="Registrar Motivo de la TRANSFUSIÓN"></textarea>
                 </div>
               </div>
-              <div class="collapse" id="collapse-trans">
-                <textarea name="check-trans[]" class="form-control input-form" rows="2" cols="2"
-                  placeholder="Especifique"></textarea>
+              <div class="sigmaClass">
+                <div class="row d-flex" style="zoom:110%;margin-left:0%;/* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                  <div class="col-12 col-lg-5 col-xl-7">
+                    <label for="">FECHA DE LA TRANSFUSIÓN</label>
+                    <input type="hidden" name="check-fechaTransfucion[]" value="247">
+                  </div>
+                  <div>
+                    <textarea name="check-fechaTransfucion[]" id="" class="form-control input-form"></textarea>
+                  </div>
+                </div>
               </div>
             </div>
+            
 
             <hr class="dropdown-divider m-2">
             <div class="row d-flex justify-content-center"
@@ -368,49 +382,367 @@
             </div>
 
             <hr class="dropdown-divider m-2">
-            <div class="row d-flex justify-content-center"
+            <div class="card">
+              <div class="row d-flex justify-content-center"
               style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
-              <div class="col-12 col-lg-5 col-xl-7">
-                <label>¿HA ESTADO HOSPITALIZADO EN ESTE AÑO?: </label>
-                <input type="hidden" name="check-hospitaPrevia[]" value="16">
-              </div>
-              <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
-                <div class="col-auto">
-                  <input type="radio" required id="checkSi-hospitaPrevia" name="check-hospitaPrevia[]" value="1">
-                  <label for="checkSi-hospitaPrevia">Sí</label>
+                <div class="col-12 col-lg-5 col-xl-7">
+                  <label>¿HA ESTADO HOSPITALIZADO ALGUNA VEZ?: </label>
+                  <input type="hidden" name="check-hospitaPrevia[]" value="16">
                 </div>
-                <div class="col-auto">
-                  <input type="radio" required id="checkNo-hospitaPrevia" name="check-hospitaPrevia[]" value="2">
-                  <label for="checkNo-hospitaPrevia">No</label>
+                <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                  <div class="col-auto">
+                    <input type="radio" required id="checkSi-hospitaPrevia" name="check-hospitaPrevia[]" value="1">
+                    <label for="checkSi-hospitaPrevia">Sí</label>
+                  </div>
+                  <div class="col-auto">
+                    <input type="radio" required id="checkNo-hospitaPrevia" name="check-hospitaPrevia[]" value="2">
+                    <label for="checkNo-hospitaPrevia">No</label>
+                  </div>
+                </div>
+                <div class="collapse" id="collapse-hospitaPrevia">
+                  <textarea name="check-hospitaPrevia[]" class="form-control input-form" rows="2" cols="2"
+                    placeholder="Especifique"></textarea>
                 </div>
               </div>
-              <div class="collapse" id="collapse-hospitaPrevia">
-                <textarea name="check-hospitaPrevia[]" class="form-control input-form" rows="2" cols="2"
-                  placeholder="Especifique"></textarea>
+              <div class="sigmaClass">
+                <div class="row d-flex" style="zoom:110%;margin-left:0%;/* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                  <div class="col-12 col-lg-5 col-xl-7">
+                    <label for="">FECHA DE HOSPITALIZACIÓN</label>
+                    <input type="hidden" name="check-fechaHospitalizacion[]" value="248">
+                  </div>
+                  <div>
+                    <textarea name="check-fechaHospitalizacion[]" id="" class="form-control input-form"></textarea>
+                  </div>
+                </div>
               </div>
+            </div>
+            
+
+            <hr class="dropdown-divider m-2">
+            <div class="card">
+              <div class="row d-flex justify-content-center"
+                style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                <div class="col-12 col-lg-5 col-xl-7">
+                  <label>¿SE HA SOMETIDO A ALGUNA INTERVENCIÓN QUIRÚRGICA?: </label>
+                  <input type="hidden" name="check-ciruPrev[]" value="17">
+                </div>
+                <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                  <div class="col-auto">
+                    <input type="radio" required id="checkSi-ciruPrev" name="check-ciruPrev[]" value="1">
+                    <label for="checkSi-ciruPrev">Sí</label>
+                  </div>
+                  <div class="col-auto">
+                    <input type="radio" required id="checkNo-ciruPrev" name="check-ciruPrev[]" value="2">
+                    <label for="checkNo-ciruPrev">No</label>
+                  </div>
+                </div>
+                <div class="collapse" id="collapse-ciruPrev">
+                  <textarea name="check-ciruPrev[]" class="form-control input-form" rows="2" cols="2"
+                    placeholder="Registrar Motivo de la Cirugía"></textarea>
+                </div>
+              </div>
+
+              <div class="sigmaClass">
+                <div class="row d-flex" style="zoom:110%;margin-left:0%;/* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                  <div class="col-12 col-lg-5 col-xl-7">
+                    <label for="">FECHA DE LA CIRUGÍA</label>
+                    <input type="hidden" name="check-fechaCirugia[]" value="246">
+                  </div>
+                  <div>
+                    <textarea name="check-fechaCirugia[]" placeholder="Registrar la fecha de la cirugia" class="form-control input-form"></textarea>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
             <hr class="dropdown-divider m-2">
-            <div class="row d-flex justify-content-center"
-              style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
-              <div class="col-12 col-lg-5 col-xl-7">
-                <label>¿SE HA SOMETIDO A ALGUNA INTERVENCIÓN QUIRÚRGICA?: </label>
-                <input type="hidden" name="check-ciruPrev[]" value="17">
-              </div>
-              <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
-                <div class="col-auto">
-                  <input type="radio" required id="checkSi-ciruPrev" name="check-ciruPrev[]" value="1">
-                  <label for="checkSi-ciruPrev">Sí</label>
+            <div class="sigmaClass">
+              <!-- <div class="row d-flex justify-content-center" style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                <div class="col-12 col-lg-5 col-xl-7">
+                  <label for="">¿USA LENTES?</label>
+                  <input type="hidden" name="check-usaLentes[]" value="249">
                 </div>
-                <div class="col-auto">
-                  <input type="radio" required id="checkNo-ciruPrev" name="check-ciruPrev[]" value="2">
-                  <label for="checkNo-ciruPrev">No</label>
+                <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                  <div class="col-auto">
+                    <input type="radio" required id="checkSi-usaLentes" name="check-usaLentes[]" value="1">
+                    <label for="checkSi-usaLentes">Sí</label>
+                  </div>
+                  <div class="col-auto">
+                    <input type="radio" required id="checkNo-usaLentes" name="check-usaLentes[]" value="2">
+                    <label for="checkNo-usaLentes">No</label>
+                  </div>
+                </div>
+                <div class="collapse" id="collapse-usaLentes">
+                  <textarea name="check-usaLentes[]" class="form-control input-form" rows="2" cols="2"
+                    placeholder="Registrar Motivo de Uso de Lentes"></textarea>
+                </div>
+              </div> -->
+
+              <hr class="dropdown-divider m-2">
+              <div class="row d-flex justify-content-center" style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                <div class="col-12 col-lg-5 col-xl-7">
+                  <label for="">¿PADECE O HA PADECIDO HEPATITIS?</label>
+                  <input type="hidden" name="check-hepatitis[]" value="250">
+                </div>
+                <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                  <div class="col-auto">
+                    <input type="radio" required id="checkSi-hepatitis" name="check-hepatitis[]" value="1">
+                    <label for="checkSi-hepatitis">Sí</label>
+                  </div>
+                  <div class="col-auto">
+                    <input type="radio" required id="checkNo-hepatitis" name="check-hepatitis[]" value="2">
+                    <label for="checkNo-hepatitis">No</label>
+                  </div>
+                </div>
+                <div class="collapse" id="collapse-hepatitis">
+                  <textarea name="check-hepatitis[]" class="form-control input-form" rows="2" cols="2"
+                    placeholder="Registre información adicional"></textarea>
                 </div>
               </div>
-              <div class="collapse" id="collapse-ciruPrev">
-                <textarea name="check-ciruPrev[]" class="form-control input-form" rows="2" cols="2"
-                  placeholder="Especifique"></textarea>
+
+              <hr class="dropdown-divider m-2">
+              <div class="row d-flex justify-content-center" style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                <div class="col-12 col-lg-5 col-xl-7">
+                  <label for="">¿PADECE O HA PADECIDO CONJUNTIVITIS?</label>
+                  <input type="hidden" name="check-conjuntivitis[]" value="251">
+                </div>
+                <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                  <div class="col-auto">
+                    <input type="radio" required id="checkSi-conjuntivitis" name="check-conjuntivitis[]" value="1">
+                    <label for="checkSi-conjuntivitis">Sí</label>
+                  </div>
+                  <div class="col-auto">
+                    <input type="radio" required id="checkNo-conjuntivitis" name="check-conjuntivitis[]" value="2">
+                    <label for="checkNo-conjuntivitis">No</label>
+                  </div>
+                </div>
+                <div class="collapse" id="collapse-conjuntivitis">
+                  <textarea name="check-conjuntivitis[]" class="form-control input-form" rows="2" cols="2"
+                    placeholder="Registre información adicional"></textarea>
+                </div>
               </div>
+
+              <hr class="dropdown-divider m-2">
+              <div class="row d-flex justify-content-center" style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                <div class="col-12 col-lg-5 col-xl-7">
+                  <label for="">¿PADECE O HA PADECIDO EMBOLIA CEREBRAL?</label>
+                  <input type="hidden" name="check-embolia[]" value="252">
+                </div>
+                <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                  <div class="col-auto">
+                    <input type="radio" required id="checkSi-embolia" name="check-embolia[]" value="1">
+                    <label for="checkSi-embolia">Sí</label>
+                  </div>
+                  <div class="col-auto">
+                    <input type="radio" required id="checkNo-embolia" name="check-embolia[]" value="2">
+                    <label for="checkNo-embolia">No</label>
+                  </div>
+                </div>
+                <div class="collapse" id="collapse-embolia">
+                  <textarea name="check-embolia[]" class="form-control input-form" rows="2" cols="2"
+                    placeholder="Registre información adicional"></textarea>
+                </div>
+              </div>
+
+              <hr class="dropdown-divider m-2">
+              <div class="row d-flex justify-content-center" style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                <div class="col-12 col-lg-5 col-xl-7">
+                  <label for="">¿PADECE O HA PADECIDO DOLOR DE CABEZA INTENSO (MIGRAÑA)?</label>
+                  <input type="hidden" name="check-migrania[]" value="253">
+                </div>
+                <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                  <div class="col-auto">
+                    <input type="radio" required id="checkSi-migrania" name="check-migrania[]" value="1">
+                    <label for="checkSi-migrania">Sí</label>
+                  </div>
+                  <div class="col-auto">
+                    <input type="radio" required id="checkNo-migrania" name="check-migrania[]" value="2">
+                    <label for="checkNo-migrania">No</label>
+                  </div>
+                </div>
+                <div class="collapse" id="collapse-migrania">
+                  <textarea name="check-migrania[]" class="form-control input-form" rows="2" cols="2"
+                    placeholder="Registre información adicional"></textarea>
+                </div>
+              </div>
+
+              <hr class="dropdown-divider m-2">
+              <div class="row d-flex justify-content-center" style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                <div class="col-12 col-lg-5 col-xl-7">
+                  <label for="">¿PADECE O HA PADECIDO EPILEPSIA/CONVULSIONES?</label>
+                  <input type="hidden" name="check-epilepsia[]" value="254">
+                </div>
+                <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                  <div class="col-auto">
+                    <input type="radio" required id="checkSi-epilepsia" name="check-epilepsia[]" value="1">
+                    <label for="checkSi-epilepsia">Sí</label>
+                  </div>
+                  <div class="col-auto">
+                    <input type="radio" required id="checkNo-epilepsia" name="check-epilepsia[]" value="2">
+                    <label for="checkNo-epilepsia">No</label>
+                  </div>
+                </div>
+                <div class="collapse" id="collapse-epilepsia">
+                  <textarea name="check-epilepsia[]" class="form-control input-form" rows="2" cols="2"
+                    placeholder="Registre información adicional"></textarea>
+                </div>
+              </div>
+
+              <hr class="dropdown-divider m-2">
+              <div class="row d-flex justify-content-center" style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                <div class="col-12 col-lg-5 col-xl-7">
+                  <label for="">¿PADECE O HA PADECIDO DOLORES DE ESPALDA O CINTURA?</label>
+                  <input type="hidden" name="check-doloresEspalda[]" value="255">
+                </div>
+                <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                  <div class="col-auto">
+                    <input type="radio" required id="checkSi-doloresEspalda" name="check-doloresEspalda[]" value="1">
+                    <label for="checkSi-doloresEspalda">Sí</label>
+                  </div>
+                  <div class="col-auto">
+                    <input type="radio" required id="checkNo-doloresEspalda" name="check-doloresEspalda[]" value="2">
+                    <label for="checkNo-doloresEspalda">No</label>
+                  </div>
+                </div>
+                <div class="collapse" id="collapse-doloresEspalda">
+                  <textarea name="check-doloresEspalda[]" class="form-control input-form" rows="2" cols="2"
+                    placeholder="Registre información adicional"></textarea>
+                </div>
+              </div>
+
+              <hr class="dropdown-divider m-2">
+              <div class="row d-flex justify-content-center" style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                <div class="col-12 col-lg-5 col-xl-7">
+                  <label for="">¿PADECE O HA PADECIDO ALTERACIONES DE LA VISTA?</label>
+                  <input type="hidden" name="check-alteracionesVista[]" value="256">
+                </div>
+                <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                  <div class="col-auto">
+                    <input type="radio" required id="checkSi-alteracionesVista" name="check-alteracionesVista[]" value="1">
+                    <label for="checkSi-alteracionesVista">Sí</label>
+                  </div>
+                  <div class="col-auto">
+                    <input type="radio" required id="checkNo-alteracionesVista" name="check-alteracionesVista[]" value="2">
+                    <label for="checkNo-alteracionesVista">No</label>
+                  </div>
+                </div>
+                <div class="collapse" id="collapse-alteracionesVista">
+                  <textarea name="check-alteracionesVista[]" class="form-control input-form" rows="2" cols="2"
+                    placeholder="Registre información adicional"></textarea>
+                </div>
+              </div>
+
+              <hr class="dropdown-divider m-2">
+              <div class="row d-flex justify-content-center" style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                <div class="col-12 col-lg-5 col-xl-7">
+                  <label for="">¿PADECE O HA PADECIDO ENFERMEDADES DE LOS PULMONES?</label>
+                  <input type="hidden" name="check-enfermedadPulmones[]" value="257">
+                </div>
+                <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                  <div class="col-auto">
+                    <input type="radio" required id="checkSi-enfermedadPulmones" name="check-enfermedadPulmones[]" value="1">
+                    <label for="checkSi-enfermedadPulmones">Sí</label>
+                  </div>
+                  <div class="col-auto">
+                    <input type="radio" required id="checkNo-enfermedadPulmones" name="check-enfermedadPulmones[]" value="2">
+                    <label for="checkNo-enfermedadPulmones">No</label>
+                  </div>
+                </div>
+                <div class="collapse" id="collapse-enfermedadPulmones">
+                  <textarea name="check-enfermedadPulmones[]" class="form-control input-form" rows="2" cols="2"
+                    placeholder="Registre información adicional"></textarea>
+                </div>
+              </div>
+
+              <hr class="dropdown-divider m-2">
+              <div class="row d-flex justify-content-center" style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                <div class="col-12 col-lg-5 col-xl-7">
+                  <label for="">¿PADECE O HA PADECIDO FRACTURAS O TORCEDURAS?</label>
+                  <input type="hidden" name="check-fracturas[]" value="258">
+                </div>
+                <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                  <div class="col-auto">
+                    <input type="radio" required id="checkSi-fracturas" name="check-fracturas[]" value="1">
+                    <label for="checkSi-fracturas">Sí</label>
+                  </div>
+                  <div class="col-auto">
+                    <input type="radio" required id="checkNo-fracturas" name="check-fracturas[]" value="2">
+                    <label for="checkNo-fracturas">No</label>
+                  </div>
+                </div>
+                <div class="collapse" id="collapse-fracturas">
+                  <textarea name="check-fracturas[]" class="form-control input-form" rows="2" cols="2"
+                    placeholder="Registre información adicional"></textarea>
+                </div>
+              </div>
+
+              <hr class="dropdown-divider m-2">
+              <div class="row d-flex justify-content-center" style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                <div class="col-12 col-lg-5 col-xl-7">
+                  <label for="">¿PADECE O HA PADECIDO ENFERMEDAD DE LOS RIÑONES?</label>
+                  <input type="hidden" name="check-enfermedadRiniones[]" value="259">
+                </div>
+                <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                  <div class="col-auto">
+                    <input type="radio" required id="checkSi-enfermedadRiniones" name="check-enfermedadRiniones[]" value="1">
+                    <label for="checkSi-enfermedadRiniones">Sí</label>
+                  </div>
+                  <div class="col-auto">
+                    <input type="radio" required id="checkNo-enfermedadRiniones" name="check-enfermedadRiniones[]" value="2">
+                    <label for="checkNo-enfermedadRiniones">No</label>
+                  </div>
+                </div>
+                <div class="collapse" id="collapse-enfermedadRiniones">
+                  <textarea name="check-enfermedadRiniones[]" class="form-control input-form" rows="2" cols="2"
+                    placeholder="Registre información adicional"></textarea>
+                </div>
+              </div>
+
+              <hr class="dropdown-divider m-2">
+              <div class="row d-flex justify-content-center" style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                <div class="col-12 col-lg-5 col-xl-7">
+                  <label for="">¿PADECE O HA PADECIDO DIFICULTAD PARA OÍR?</label>
+                  <input type="hidden" name="check-dificultadOir[]" value="260">
+                </div>
+                <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                  <div class="col-auto">
+                    <input type="radio" required id="checkSi-dificultadOir" name="check-dificultadOir[]" value="1">
+                    <label for="checkSi-dificultadOir">Sí</label>
+                  </div>
+                  <div class="col-auto">
+                    <input type="radio" required id="checkNo-dificultadOir" name="check-dificultadOir[]" value="2">
+                    <label for="checkNo-dificultadOir">No</label>
+                  </div>
+                </div>
+                <div class="collapse" id="collapse-dificultadOir">
+                  <textarea name="check-dificultadOir[]" class="form-control input-form" rows="2" cols="2"
+                    placeholder="Registre información adicional"></textarea>
+                </div>
+              </div>
+
+              <hr class="dropdown-divider m-2">
+              <div class="row d-flex justify-content-center" style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                <div class="col-12 col-lg-5 col-xl-7">
+                  <label for="">¿PADECE O HA PADECIRO ALGUNA ENFERMEDAD GASTROINTESTINAL INFECCIOSA?</label>
+                  <input type="hidden" name="check-gastroInfecciosa[]" value="292">
+                </div>
+                <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                  <div class="col-auto">
+                    <input type="radio" required id="checkSi-gastroInfecciosa" name="check-gastroInfecciosa[]" value="1">
+                    <label for="checkSi-gastroInfecciosa">Sí</label>
+                  </div>
+                  <div class="col-auto">
+                    <input type="radio" required id="checkNo-gastroInfecciosa" name="check-gastroInfecciosa[]" value="2">
+                    <label for="checkNo-gastroInfecciosa">No</label>
+                  </div>
+                </div>
+                <div class="collapse" id="collapse-gastroInfecciosa">
+                  <textarea name="check-gastroInfecciosa[]" class="form-control input-form" rows="2" cols="2"
+                    placeholder="Registre información adicional"></textarea>
+                </div>
+              </div>
+              <!--  agregar mas preguntas si es necesario -->
             </div>
           </div>
           <div class="d-flex justify-content-end p-2 div-btn-guardarAntPato"> </div>
@@ -431,6 +763,8 @@
           aria-labelledby="collap-nopatologicos">
           <div class="d-flex justify-content-end p-2 div-btn-guardarAntNoPato"> </div>
           <div class="accordion-body">
+
+            <div class="card">
             <div class="row d-flex justify-content-center"
               style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
               <div class="col-12 col-lg-5 col-xl-7">
@@ -448,11 +782,53 @@
                 </div>
               </div>
               <div class="collapse" id="collapse-tabaq">
+                <div class="clientesClass">
+                  <small><i>Registrar la fecha de inicio, la fecha de fin y la cantidad de consumo por semana.</i></small>
                 <textarea name="check-tabaq[]" class="form-control input-form" rows="2" cols="2"
-                  placeholder="Frecuencia"></textarea>
+                  placeholder="¿cuándo inició? ¿cuándo terminó? ¿cuánto consume por semana?"></textarea>
+                </div>                
               </div>
             </div>
+
+            <div class="sigmaClass">
+              <!-- preguntas sigma -->
+              <div class="row d-flex" style="zoom:110%;margin-left:4%;width: 92%;margin-top: 10px;">
+                <div class="col-6">
+                  <label>Año de inicio: </label>
+                  <input type="hidden" name="check-fumaAnioInicio[]" value="230">
+                </div>
+                <div class="" id="">
+                  <textarea name="check-fumaAnioInicio[]" class="form-control input-form" rows="2"
+                    cols="2" placeholder="Registrar cuándo inició a fumar."></textarea>
+                </div>
+              </div>
+
+              <div class="row d-flex" style="zoom:110%;margin-left:4%;width: 92%;margin-top: 10px;">
+                <div class="col-6">
+                  <label>Año de fin: </label>
+                  <input type="hidden" name="check-fumaAniofin[]" value="231">
+                </div>
+                <div class="" id="">
+                  <textarea name="check-fumaAniofin[]" class="form-control input-form" rows="2"
+                    cols="2" placeholder="Registrar cuándo terminó de fumar."></textarea>
+                </div>
+              </div>
+
+              <div class="row d-flex" style="zoom:110%;margin-left:4%;width: 92%;margin-top: 10px;">
+                <div class="col-6">
+                  <label>Cantidad que consume por semana: </label>
+                  <input type="hidden" name="check-fumaCantidadSemana[]" value="232">
+                </div>
+                <div class="" id="">
+                  <textarea name="check-fumaCantidadSemana[]" class="form-control input-form" rows="2"
+                    cols="2" placeholder="Registrar Consumo"></textarea>
+                </div>
+              </div>
+            </div>
+            </div>
+
             <hr class="dropdown-divider m-2">
+            <div class="card">
             <div class="row d-flex justify-content-center"
               style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
               <div class="col-12 col-lg-5 col-xl-7">
@@ -470,11 +846,54 @@
                 </div>
               </div>
               <div class="collapse" id="collapse-alcoh">
-                <textarea name="check-alcoh[]" class="form-control input-form" rows="2" cols="2"
-                  placeholder="Frecuencia"></textarea>
+                <div class="clientesClass">
+                  <small><i>Registrar la fecha de inicio, la fecha de fin y la cantidad de consumo por semana.</i></small>
+                  <textarea name="check-alcoh[]" class="form-control input-form" rows="2" cols="2"
+                  placeholder="¿cuándo inició? ¿cuándo terminó? ¿cuánto consume por semana?"></textarea>
+                </div>
               </div>
             </div>
+            <div class="sigmaClass">
+              <!-- preguntas sigma -->
+              <div class="row d-flex" style="zoom:110%;margin-left:4%;width: 92%;margin-top: 10px;">
+                <div class="col-6">
+                  <label>Año de inicio: </label>
+                  <input type="hidden" name="check-tomaAnioInicio[]" value="233">
+                </div>
+                <div class="" id="">
+                  <textarea name="check-tomaAnioInicio[]" class="form-control input-form" rows="2"
+                    cols="2" placeholder="Registrar cuándo inició."></textarea>
+                </div>
+              </div>
+
+              <div class="row d-flex" style="zoom:110%;margin-left:4%;width: 92%;margin-top: 10px;">
+                <div class="col-6">
+                  <label>Año de fin: </label>
+                  <input type="hidden" name="check-tomaAnioFin[]" value="234">
+                </div>
+                <div class="" id="">
+                  <textarea name="check-tomaAnioFin[]" class="form-control input-form" rows="2"
+                    cols="2" placeholder="Registrar cuándo terminó."></textarea>
+                </div>
+              </div>
+
+              <div class="row d-flex" style="zoom:110%;margin-left:4%;width: 92%;margin-top: 10px;">
+                <div class="col-6">
+                  <label>Cantidad que consume por semana: </label>
+                  <input type="hidden" name="check-tomaCantidadSemana[]" value="235">
+                </div>
+                <div class="" id="">
+                  <textarea name="check-tomaCantidadSemana[]" class="form-control input-form" rows="2"
+                    cols="2" placeholder="Registrar Consumo"></textarea>
+                </div>
+              </div>
+
+            </div>
+            </div>
+            
+
             <hr class="dropdown-divider m-2">
+            <div class="card">
             <div class="row d-flex justify-content-center"
               style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
               <div class="col-12 col-lg-5 col-xl-7">
@@ -492,10 +911,53 @@
                 </div>
               </div>
               <div class="collapse" id="collapse-usDrog">
-                <textarea name="check-usDrog[]" class="onlyMedico form-control input-form" rows="2" cols="2"
-                  placeholder="Frecuencia y ¿Cuáles?"></textarea>
+                <div class="clientesClass">
+                  <small><i>Registrar la fecha de inicio, la fecha de fin, cuál y la cantidad de consumo por semana.</i></small>
+                  <textarea name="check-usDrog[]" class="onlyMedico form-control input-form" rows="2" cols="2"
+                  placeholder="¿Cuáles? ¿cuándo inició? ¿cuándo terminó? ¿cuánto consume por semana?"></textarea>
+                </div>                
               </div>
             </div>
+
+            <div class="sigmaClass">
+              <!-- preguntas sigma -->
+              <div class="row d-flex" style="zoom:110%;margin-left:4%;width: 92%;margin-top: 10px;">
+                <div class="col-6">
+                  <label>Año de inicio: </label>
+                  <input type="hidden" name="check-drogasAnioInicio[]" value="236">
+                </div>
+                <div class="" id="">
+                  <textarea name="check-drogasAnioInicio[]" class="form-control input-form" rows="2"
+                    cols="2" placeholder="Registrar cuándo inició."></textarea>
+                </div>
+              </div>
+
+              <div class="row d-flex" style="zoom:110%;margin-left:4%;width: 92%;margin-top: 10px;">
+                <div class="col-6">
+                  <label>Año de fin: </label>
+                  <input type="hidden" name="check-drogasAnioFin[]" value="237">
+                </div>
+                <div class="" id="">
+                  <textarea name="check-drogasAnioFin[]" class="form-control input-form" rows="2"
+                    cols="2" placeholder="Registrar cuándo terminó."></textarea>
+                </div>
+              </div>
+
+              <div class="row d-flex" style="zoom:110%;margin-left:4%;width: 92%;margin-top: 10px;">
+                <div class="col-6">
+                  <label>Cantidad que consume por semana: </label>
+                  <input type="hidden" name="check-drogasCantidadSemana[]" value="238">
+                </div>
+                <div class="" id="">
+                  <textarea name="check-drogasCantidadSemana[]" class="form-control input-form" rows="2"
+                    cols="2" placeholder="Registrar Consumo"></textarea>
+                </div>
+              </div>
+
+            </div>
+            </div>
+
+
             <hr class="dropdown-divider m-2">
             <div class="row d-flex justify-content-center"
               style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
@@ -514,8 +976,9 @@
                 </div>
               </div>
               <div class="collapse" id="collapse-actFisica">
+                <small><i>Registrar cuál y cuántas veces por semana lo practica.</i></small>
                 <textarea name="check-actFisica[]" class="form-control input-form" rows="2" cols="2"
-                  placeholder="Frecuencia"></textarea>
+                  placeholder="¿Cuál? ¿Cuántas veces por semana lo practica?"></textarea>
               </div>
             </div>
             <hr class="dropdown-divider m-2">
@@ -583,13 +1046,259 @@
                   placeholder="¿Cuál?, fecha"></textarea>
               </div>
             </div>
+
+            <div class="sigmaClass">
+              <hr class="dropdown-divider m-2">
+              <div class="row d-flex justify-content-center" style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                <div class="col-12 col-lg-5 col-xl-7">
+                  <label for="">¿SUS ESQUEMAS DE VACUNACIÓN HAN SIDO COMPLETOS?</label>
+                  <input type="hidden" name="check-esquemaVacunacion[]" value="239">
+                </div>
+                <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                  <div class="col-auto">
+                    <input type="radio" required id="checkSi-esquemaVacunacion" name="check-esquemaVacunacion[]" value="1">
+                    <label for="checkSi-esquemaVacunacion">Sí</label>
+                  </div>
+                  <div class="col-auto">
+                    <input type="radio" required id="checkNo-esquemaVacunacion" name="check-esquemaVacunacion[]" value="2">
+                    <label for="checkNo-esquemaVacunacion">No</label>
+                  </div>
+                </div>
+                <div class="collapse" id="collapse-esquemaVacunacion">
+                  <textarea name="check-esquemaVacunacion[]" class="form-control input-form" rows="2" cols="2"
+                    placeholder="Agregue alguna observación de ser necesario."></textarea>
+                </div>
+              </div>
+
+              <hr class="dropdown-divider m-2">
+
+              <div class="row d-flex" style="zoom:110%;margin-left:0%;width: 92%;margin-top: 10px;">
+                <div class="col-6">
+                  <label>MATERIAL DEL TECHO: </label>
+                  <input type="hidden" name="check-materialTecho[]" value="240">
+                </div>
+                <div class="" id="">
+                  <textarea name="check-materialTecho[]" class="form-control input-form" rows="2"
+                    cols="2" placeholder="Registrar cuándo inició a fumar."></textarea>
+                </div>
+              </div>
+              <hr class="dropdown-divider m2">
+  
+              <div class="row d-flex" style="zoom:110%;margin-left:0%;width: 92%;margin-top: 10px;">
+                <div class="col-6">
+                  <label>MATERIAL DEL PISO: </label>
+                  <input type="hidden" name="check-materialPiso[]" value="241">
+                </div>
+                <div class="" id="">
+                  <textarea name="check-materialPiso[]" class="form-control input-form" rows="2"
+                    cols="2" placeholder="Registrar cuándo inició a fumar."></textarea>
+                </div>
+              </div>
+  
+              <hr class="dropdown-divider m-2">
+              <div class="row d-flex" style="zoom:110%;margin-left:0%;width: 92%;margin-top: 10px;">
+                <div class="col-6">
+                  <label>MATERIAL PAREDES: </label>
+                  <input type="hidden" name="check-materialParedes[]" value="242">
+                </div>
+                <div class="" id="">
+                  <textarea name="check-materialParedes[]" class="form-control input-form" rows="2"
+                    cols="2" placeholder="Registrar cuándo inició a fumar."></textarea>
+                </div>
+              </div>
+  
+              <hr class="dropdown-divider m-2">
+              <div class="row d-flex justify-content-center" style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                <div class="col-12 col-lg-5 col-xl-7">
+                  <label for="">¿CUENTA CON LUZ?</label>
+                  <input type="hidden" name="check-cuentaConLuz[]" value="243">
+                </div>
+                <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                  <div class="col-auto">
+                    <input type="radio" required id="checkSi-cuentaConLuz" name="check-cuentaConLuz[]" value="1">
+                    <label for="checkSi-cuentaConLuz">Sí</label>
+                  </div>
+                  <div class="col-auto">
+                    <input type="radio" required id="checkNo-cuentaConLuz" name="check-cuentaConLuz[]" value="2">
+                    <label for="checkNo-cuentaConLuz">No</label>
+                  </div>
+                </div>
+                <div class="collapse" id="collapse-cuentaConLuz">
+                  <textarea name="check-cuentaConLuz[]" class="form-control input-form" rows="2" cols="2"
+                    placeholder="Agregue alguna observación de ser necesario."></textarea>
+                </div>
+              </div>
+  
+              <hr class="dropdown-divider m-2">
+              <div class="row d-flex justify-content-center" style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                <div class="col-12 col-lg-5 col-xl-7">
+                  <label for="">¿CUENTAN CON AGUA POTABLE?</label>
+                  <input type="hidden" name="check-cuentaConAgua[]" value="244">
+                </div>
+                <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                  <div class="col-auto">
+                    <input type="radio" required id="checkSi-cuentaConAgua" name="check-cuentaConAgua[]" value="1">
+                    <label for="checkSi-cuentaConAgua">Sí</label>
+                  </div>
+                  <div class="col-auto">
+                    <input type="radio" required id="checkNo-cuentaConAgua" name="check-cuentaConAgua[]" value="2">
+                    <label for="checkNo-cuentaConAgua">No</label>
+                  </div>
+                </div>
+                <div class="collapse" id="collapse-cuentaConAgua">
+                  <textarea name="check-cuentaConAgua[]" class="form-control input-form" rows="2" cols="2"
+                    placeholder="Agregue alguna observación de ser necesario."></textarea>
+                </div>
+              </div>
+  
+              <hr class="dropdown-divider m-2">
+              <div class="row d-flex justify-content-center" style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+                <div class="col-12 col-lg-5 col-xl-7">
+                  <label for="">¿CUENTA CON DRENAJE?</label>
+                  <input type="hidden" name="check-cuentaConDrenaje[]" value="245">
+                </div>
+                <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                  <div class="col-auto">
+                    <input type="radio" required id="checkSi-cuentaConDrenaje" name="check-cuentaConDrenaje[]" value="1">
+                    <label for="checkSi-cuentaConDrenaje">Sí</label>
+                  </div>
+                  <div class="col-auto">
+                    <input type="radio" required id="checkNo-cuentaConDrenaje" name="check-cuentaConDrenaje[]" value="2">
+                    <label for="checkNo-cuentaConDrenaje">No</label>
+                  </div>
+                </div>
+                <div class="collapse" id="collapse-cuentaConDrenaje">
+                  <textarea name="check-cuentaConDrenaje[]" class="form-control input-form" rows="2" cols="2"
+                    placeholder="Agregue alguna observación de ser necesario."></textarea>
+                </div>
+              </div>
+
+              <hr class="dropdown-divider m-2">
+              <div class="row d-flex" style="zoom:110%;margin-left:0%;width: 92%;margin-top: 10px;">
+                <div class="col-6">
+                  <label>¿CON CUÁNTAS HABITACIONES CUENTA SU VIVIENDA? </label>
+                  <input type="hidden" name="check-habitacionesVivienda[]" value="281">
+                </div>
+                <div class="" id="">
+                  <textarea name="check-habitacionesVivienda[]" class="form-control input-form" rows="2"
+                    cols="2" placeholder="Registrar el número de habitaciones."></textarea>
+                </div>
+              </div>
+            </div>
+            
+
           </div>
           <div class="d-flex justify-content-end p-2 div-btn-guardarAntNoPato"> </div>
         </div>
       </div>
 
     </form>
+    
+    <!-- CARACTERISTICAS DE LA VIVIENDA -->
+    <!-- <form id="formCaracteristicasVivienda">
+      <div class="accordion-item bg-acordion">
+        <h2 class="accordion-header" id="collap-vivienda">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" id="btnFormVivienda" data-bs-target="#collapse-vivienda-target" aria-expanded="false" aria-controls="accordionEstudios">
+            <i class="bi bi-plus-circle-fill" style="margin-right: 10px;"></i> CARACTERÍSTICAS DE LA VIVIENDA
+          </button>
+        </h2>
+        <div id="collapse-vivienda-target" class="accordion-collapse collapse" aria-labelledby="collap-vivienda">
+          <div class="d-flex justify-content-end p-2 div-btn-guardarVivienda"> </div>
+          <div class="accordion-body">
+            <div class="row" style="zoom:110%;margin-left:4%;width: 92%;margin-top: 10px;">
+              <div class="col-6">
+                <label>MATERIAL DEL TECHO: </label>
+                <input type="hidden" name="check-materialTecho[]" value="240">
+              </div>
+              <div class="" id="">
+                <textarea name="check-materialTecho[]" class="form-control input-form" rows="2"
+                  cols="2" placeholder="Registrar cuándo inició a fumar."></textarea>
+              </div>
+            </div>
+            <hr class="dropdown-divider m2">
 
+            <div class="row" style="zoom:110%;margin-left:4%;width: 92%;margin-top: 10px;">
+              <div class="col-6">
+                <label>MATERIAL DEL PISO: </label>
+                <input type="hidden" name="check-materialPiso[]" value="241">
+              </div>
+              <div class="" id="">
+                <textarea name="check-materialPiso[]" class="form-control input-form" rows="2"
+                  cols="2" placeholder="Registrar cuándo inició a fumar."></textarea>
+              </div>
+            </div>
+
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:4%;width: 92%;margin-top: 10px;">
+              <div class="col-6">
+                <label>MATERIAL PAREDES: </label>
+                <input type="hidden" name="check-materialParedes[]" value="242">
+              </div>
+              <div class="" id="">
+                <textarea name="check-materialParedes[]" class="form-control input-form" rows="2"
+                  cols="2" placeholder="Registrar cuándo inició a fumar."></textarea>
+              </div>
+            </div>
+
+            <hr class="dropdown-divider m-2">
+            <div class="row d-flex justify-content-center" style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+              <div class="col-12 col-lg-5 col-xl-7">
+                <label for="">¿CUENTA CON LUZ?</label>
+                <input type="hidden" name="check-cuentaConLuz[]" value="243">
+              </div>
+              <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                <div class="col-auto">
+                  <input type="radio" required id="checkSi-cuentaConLuz" name="check-cuentaConLuz[]" value="1">
+                  <label for="checkSi-cuentaConLuz">Sí</label>
+                </div>
+                <div class="col-auto">
+                  <input type="radio" required id="checkNo-cuentaConLuz" name="check-cuentaConLuz[]" value="2">
+                  <label for="checkNo-cuentaConLuz">No</label>
+                </div>
+              </div>
+            </div>
+
+            <hr class="dropdown-divider m-2">
+            <div class="row d-flex justify-content-center" style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+              <div class="col-12 col-lg-5 col-xl-7">
+                <label for="">¿CUENTAN CON AGUA POTABLE?</label>
+                <input type="hidden" name="check-cuentaConAgua[]" value="244">
+              </div>
+              <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                <div class="col-auto">
+                  <input type="radio" required id="checkSi-cuentaConAgua" name="check-cuentaConAgua[]" value="1">
+                  <label for="checkSi-cuentaConAgua">Sí</label>
+                </div>
+                <div class="col-auto">
+                  <input type="radio" required id="checkNo-cuentaConAgua" name="check-cuentaConAgua[]" value="2">
+                  <label for="checkNo-cuentaConAgua">No</label>
+                </div>
+              </div>
+            </div>
+
+            <hr class="dropdown-divider m-2">
+            <div class="row d-flex justify-content-center" style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+              <div class="col-12 col-lg-5 col-xl-7">
+                <label for="">¿CUENTA CON DRENAJE?</label>
+                <input type="hidden" name="check-cuentaConDrenaje[]" value="245">
+              </div>
+              <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                <div class="col-auto">
+                  <input type="radio" required id="checkSi-cuentaConDrenaje" name="check-cuentaConDrenaje[]" value="1">
+                  <label for="checkSi-cuentaConDrenaje">Sí</label>
+                </div>
+                <div class="col-auto">
+                  <input type="radio" required id="checkNo-cuentaConDrenaje" name="check-cuentaConDrenaje[]" value="2">
+                  <label for="checkNo-cuentaConDrenaje">No</label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </form> -->
 
     <form id="formAntHeredofamiliares">
       <div class="accordion-item bg-acordion">
@@ -641,6 +1350,7 @@
                   <label for="checkNo-diabe-padre">No</label>
                 </div>
               </div>
+              <input type="hidden" name="check-diabe-padre[]" value="">
               <!-- <div class="collapse" id="collapse-diabe-padre">
                   <textarea name="check-diabe-padre[]" class="form-control input-form" rows="2" cols="2" placeholder="..."></textarea>
                 </div> -->
@@ -662,6 +1372,7 @@
                   <label for="checkNo-hisperArt-padre">No</label>
                 </div>
               </div>
+              <input type="hidden" name="check-hisperArt-padre[]" value="">
               <!-- <div class="collapse" id="collapse-hisperArt-padre">
                   <textarea name="check-hisperArt-padre[]" class="form-control input-form" rows="2" cols="2" placeholder="..."></textarea>
                 </div> -->
@@ -685,6 +1396,121 @@
               </div>
               <div class="collapse" id="collapse-canc-padre">
                 <textarea name="check-canc-padre[]" class="form-control input-form" rows="2" cols="2"
+                  placeholder="Especifique"></textarea>
+              </div>
+            </div>
+
+            <hr class="dropdown-divider m-2">
+            <div class="row d-flex justify-content-center"
+            style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+              <div class="col-12 col-lg-5 col-xl-7">
+                <label for="">¿PADECE O PADECIÓ ENFERMEDADES DEL CORAZÓN COMO CARDIOPATÍA ISQUÉMICA?</label>
+                <input type="hidden" name="check-cardio-padre[]" value="210">
+              </div>
+              <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                <div class="col-auto">
+                  <input type="radio" required id="checkSi-cardio-padre" name="check-cardio-padre[]" value="1">
+                  <label for="checkSi-cardio-padre">Sí</label>
+                </div>
+                <div class="col-auto">
+                  <input type="radio" required id="checkNo-cardio-padre" name="check-cardio-padre[]" value="2">
+                  <label for="checkNo-cardio-padre">No</label>
+                </div>
+              </div>
+              <div class="collapse" id="collapse-cardio-padre">
+                <textarea name="check-cardio-padre[]" class="form-control input-form" rows="2" cols="2"
+                  placeholder="Especifique"></textarea>
+              </div>
+            </div>
+
+            <hr class="dropdown-divider m-2">
+            <div class="row d-flex justify-content-center"
+            style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+              <div class="col-12 col-lg-5 col-xl-7">
+                <label for="">¿PADECE O PADECIÓ ENFERMEDADES DE LOS PULMONES?</label>
+                <input type="hidden" name="check-pulmo-padre[]" value="211">
+              </div>
+              <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                <div class="col-auto">
+                  <input type="radio" required id="checkSi-pulmo-padre" name="check-pulmo-padre[]" value="1">
+                  <label for="checkSi-pulmo-padre">Sí</label>
+                </div>
+                <div class="col-auto">
+                  <input type="radio" required id="checkNo-pulmo-padre" name="check-pulmo-padre[]" value="2">
+                  <label for="checkNo-pulmo-padre">No</label>
+                </div>
+              </div>
+              <div class="collapse" id="collapse-pulmo-padre">
+                <textarea name="check-pulmo-padre[]" class="form-control input-form" rows="2" cols="2"
+                  placeholder="Especifique"></textarea>
+              </div>
+            </div>
+
+            <hr class="dropdown-divider m-2">
+            <div class="row d-flex justify-content-center"
+            style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+              <div class="col-12 col-xl-7 col-lg-5">
+                <label for="">¿PADECE O PADECIÓ LEUCEMIA?</label>
+                <input type="hidden" name="check-leuce-padre[]" value="212">
+              </div>
+              <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                <div class="col-auto">
+                  <input type="radio" required id="checkSi-leuce-padre" name="check-leuce-padre[]" value="1">
+                  <label for="checkSi-leuce-padre">Sí</label>
+                </div>
+                <div class="col-auto">
+                  <input type="radio" required id="checkNo-leuce-padre" name="check-leuce-padre[]" value="2">
+                  <label for="checkNo-leuce-padre">No</label>
+                </div>
+              </div>
+              <div class="collapse" id="collapse-leuce-padre">
+                <textarea name="check-leuce-padre[]" class="form-control input-form" rows="2" cols="2"
+                  placeholder="Especifique"></textarea>
+              </div>
+            </div>
+
+            <hr class="dropdown-divider m-2">
+            <div class="row d-flex justify-content-center"
+            style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+              <div class="col-12 col-lg-5 col-xl-7">
+                <label for="">¿PADECE O PADECIÓ EMBOLIA (ENFERMEDAD CEREBRAL ISQUÉMICA)?</label>
+                <input type="hidden" name="check-embo-padre[]" value="213">
+              </div>
+              <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                <div class="col-auto">
+                  <input type="radio" required id="checkSi-embo-padre" name="check-embo-padre[]" value="1">
+                  <label for="checkSi-embo-padre">Sí</label>
+                </div>
+                <div class="col-auto">
+                  <input type="radio" required id="checkNo-embo-padre" name="check-embo-padre[]" value="2">
+                  <label for="checkNo-embo-padre">No</label>
+                </div>
+              </div>
+              <div class="collapse" id="collapse-embo-padre">
+                <textarea name="check-embo-padre[]" class="form-control input-form" rows="2" cols="2"
+                  placeholder="Especifique"></textarea>
+              </div>
+            </div>
+
+            <hr class="dropdown-divider m-2">
+            <div class="row d-flex justify-content-center"
+            style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+              <div class="col-12 col-lg-5 col-xl-7">
+                <label for="">¿PADECE O PADECIÓ ENFERMEDADES MENTALES O SUICIDIO?</label>
+                <input type="hidden" name="check-suic-padre[]" value="214">
+              </div>
+              <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                <div class="col-auto">
+                  <input type="radio" required id="checkSi-suic-padre" name="check-suic-padre[]" value="1">
+                  <label for="checkSi-suic-padre">Sí</label>
+                </div>
+                <div class="col-auto">
+                  <input type="radio" required id="checkNo-suic-padre" name="check-suic-padre[]" value="2">
+                  <label for="checkNo-suic-padre">No</label>
+                </div>
+              </div>
+              <div class="collapse" id="collapse-suic-padre">
+                <textarea name="check-suic-padre[]" class="form-control input-form" rows="2" cols="2"
                   placeholder="Especifique"></textarea>
               </div>
             </div>
@@ -751,6 +1577,7 @@
                   <label for="checkNo-diabe-madre">No</label>
                 </div>
               </div>
+              <input type="hidden" name="check-diabe-madre[]" value="">
               <!-- <div class="collapse" id="collapse-diabe-madre">
                   <textarea name="check-diabe-madre[]" class="form-control input-form" rows="2" cols="2" placeholder="..."></textarea>
                 </div> -->
@@ -772,6 +1599,7 @@
                   <label for="checkNo-hisperArt-madre">No</label>
                 </div>
               </div>
+              <input type="hidden" name="check-hisperArt-madre[]" value="">
               <!-- <div class="collapse" id="collapse-hisperArt-madre">
                   <textarea name="check-hisperArt-madre[]" class="form-control input-form" rows="2" cols="2" placeholder="..."></textarea>
                 </div> -->
@@ -798,6 +1626,122 @@
                   placeholder="Especifique"></textarea>
               </div>
             </div>
+
+            <hr class="dropdown-divider m-2">
+            <div class="row d-flex justify-content-center"
+            style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+              <div class="col-12 col-lg-5 col-xl-7">
+                <label for="">¿PADECE O PADECIÓ ENFERMEDADES DEL CORAZÓN COMO CARDIOPATÍA ISQUÉMICA?</label>
+                <input type="hidden" name="check-cardio-madre[]" value="215">
+              </div>
+              <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                <div class="col-auto">
+                  <input type="radio" required id="checkSi-cardio-madre" name="check-cardio-madre[]" value="1">
+                  <label for="checkSi-cardio-madre">Sí</label>
+                </div>
+                <div class="col-auto">
+                  <input type="radio" required id="checkNo-cardio-madre" name="check-cardio-madre[]" value="2">
+                  <label for="checkNo-cardio-madre">No</label>
+                </div>
+              </div>
+              <div class="collapse" id="collapse-cardio-madre">
+                <textarea name="check-cardio-madre[]" class="form-control input-form" rows="2" cols="2"
+                  placeholder="Especifique"></textarea>
+              </div>
+            </div>
+
+            <hr class="dropdown-divider m-2">
+            <div class="row d-flex justify-content-center"
+            style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+              <div class="col-12 col-lg-5 col-xl-7">
+                <label for="">¿PADECE O PADECIÓ ENFERMEDADES DE LOS PULMONES?</label>
+                <input type="hidden" name="check-pulmo-madre[]" value="216">
+              </div>
+              <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                <div class="col-auto">
+                  <input type="radio" required id="checkSi-pulmo-madre" name="check-pulmo-madre[]" value="1">
+                  <label for="checkSi-pulmo-madre">Sí</label>
+                </div>
+                <div class="col-auto">
+                  <input type="radio" required id="checkNo-pulmo-madre" name="check-pulmo-madre[]" value="2">
+                  <label for="checkNo-pulmo-madre">No</label>
+                </div>
+              </div>
+              <div class="collapse" id="collapse-pulmo-madre">
+                <textarea name="check-pulmo-madre[]" class="form-control input-form" rows="2" cols="2"
+                  placeholder="Especifique"></textarea>
+              </div>
+            </div>
+
+            <hr class="dropdown-divider m-2">
+            <div class="row d-flex justify-content-center"
+            style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+              <div class="col-12 col-lg-5 col-xl-7">
+                <label for="">¿PADECE O PADECIÓ LEUCEMIA? (MADRE)</label>
+                <input type="hidden" name="check-leuce-madre[]" value="217">
+              </div>
+              <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                <div class="col-auto">
+                  <input type="radio" required id="checkSi-leuce-madre" name="check-leuce-madre[]" value="1">
+                  <label for="checkSi-leuce-madre">Sí</label>
+                </div>
+                <div class="col-auto">
+                  <input type="radio" required id="checkNo-leuce-madre" name="check-leuce-madre[]" value="2">
+                  <label for="checkNo-leuce-madre">No</label>
+                </div>
+              </div>
+              <div class="collapse" id="collapse-leuce-madre">
+                <textarea name="check-leuce-madre[]" class="form-control input-form" rows="2" cols="2"
+                  placeholder="Especifique"></textarea>
+              </div>
+            </div>
+
+            <hr class="dropdown-divider m-2">
+            <div class="row d-flex justify-content-center"
+            style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+              <div class="col-12 col-lg-5 col-xl-7">
+                <label for="">¿PADECE O PADECIÓ EMBOLIA (ENFERMEDAD CEREBRAL ISQUÉMICA)?</label>
+                <input type="hidden" name="check-embo-madre[]" value="218">
+              </div>
+              <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                <div class="col-auto">
+                  <input type="radio" required id="checkSi-embo-madre" name="check-embo-madre[]" value="1">
+                  <label for="checkSi-embo-madre">Sí</label>
+                </div>
+                <div class="col-auto">
+                  <input type="radio" required id="checkNo-embo-madre" name="check-embo-madre[]" value="2">
+                  <label for="checkNo-embo-madre">No</label>
+                </div>
+              </div>
+              <div class="collapse" id="collapse-embo-madre">
+                <textarea name="check-embo-madre[]" class="form-control input-form" rows="2" cols="2"
+                  placeholder="Especifique"></textarea>
+              </div>
+            </div>
+
+            <hr class="dropdown-divider m-2">
+            <div class="row d-flex justify-content-center"
+            style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+              <div class="col-12 col-lg-5 col-xl-7">
+                <label for="">¿PADECE O PADECIÓ ENFERMEDADES MENTALES O SUICIDIO?</label>
+                <input type="hidden" name="check-suici-madre[]" value="219">
+              </div>
+              <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                <div class="col-auto">
+                  <input type="radio" required id="checkSi-suici-madre" name="check-suici-madre[]" value="1">
+                  <label for="checkSi-suici-madre">Sí</label>
+                </div>
+                <div class="col-auto">
+                  <input type="radio" required id="checkNo-suici-madre" name="check-suici-madre[]" value="2">
+                  <label for="checkNo-suici-madre">No</label>
+                </div>
+              </div>
+              <div class="collapse" id="collapse-suici-madre">
+                <textarea name="check-suici-madre[]" class="form-control input-form" rows="2" cols="2"
+                  placeholder="Especifique"></textarea>
+              </div>
+            </div>
+
             <div class="row d-flex justify-content-center"
       style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
                 <div class="col-12 col-lg-5 col-xl-7">
@@ -823,6 +1767,115 @@
         </div>
       </div>
 
+    </form>
+
+    <form id="historiaFamiliarForm">
+      <div class="accordion-item bg-acordion">
+        <h2 class="accordion-header" id="collap-historiaFamiliar">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" id="btnformHistoriaFamiliar" data-bs-target="#collapse-historiaFamiliar-Target" aria-expanded="false" aria-controls="accordionEstudios">
+            <i class="bi bi-plus-circle-fill" style="margin-right: 10px;"></i> HISTORIA FAMILAR
+          </button>
+        </h2>
+        <div id="collapse-historiaFamiliar-Target" class="accordion-collapse collapse" align="center" aria-labelledby="collap-historiaFamiliar">
+          <div class="d-flex justify-content-end p-2 div-btn-guardarHistoriaFamiliar"> </div>
+          <table border="1" cellpadding="5" cellspacing="0" width="90%">
+            <thead>
+              <tr>
+                <th rowspan="2">Familiar</th>
+                <th colspan="2">Vive</th>
+                <th colspan="7">Marque con una X si su familiar padece o ha padecido alguna de las siguientes enfermedades:</th>
+              </tr>
+              <tr>
+                <th>Si</th>
+                <th>No</th>
+                <th>Diabetes</th>
+                <th>Hipertensión</th>
+                <th>Enf. del Corazón</th>
+                <th>Enf. de Pulmones</th>
+                <th>Cáncer o Leucemia</th>
+                <th>Embolia</th>
+                <th>Enf. Mentales</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Hermanos</td>
+                <td><input type="radio" name="vive[hermanos]" value="1"></td>
+                <td><input type="radio" name="vive[hermanos]" value="0"></td>
+                <td><input type="checkbox" name="enfermedad[hermanos][]" value="diabetes"></td>
+                <td><input type="checkbox" name="enfermedad[hermanos][]" value="hipertension"></td>
+                <td><input type="checkbox" name="enfermedad[hermanos][]" value="corazon"></td>
+                <td><input type="checkbox" name="enfermedad[hermanos][]" value="pulmones"></td>
+                <td><input type="checkbox" name="enfermedad[hermanos][]" value="cancer"></td>
+                <td><input type="checkbox" name="enfermedad[hermanos][]" value="embolia"></td>
+                <td><input type="checkbox" name="enfermedad[hermanos][]" value="mentales"></td>
+              </tr>
+              <tr>
+                <td>Abuelo Paterno</td>
+                <td><input type="radio" name="vive[abuelo_paterno]" value="1"></td>
+                <td><input type="radio" name="vive[abuelo_paterno]" value="0"></td>
+                <td><input type="checkbox" name="enfermedad[abuelo_paterno][]" value="diabetes"></td>
+                <td><input type="checkbox" name="enfermedad[abuelo_paterno][]" value="hipertension"></td>
+                <td><input type="checkbox" name="enfermedad[abuelo_paterno][]" value="corazon"></td>
+                <td><input type="checkbox" name="enfermedad[abuelo_paterno][]" value="pulmones"></td>
+                <td><input type="checkbox" name="enfermedad[abuelo_paterno][]" value="cancer"></td>
+                <td><input type="checkbox" name="enfermedad[abuelo_paterno][]" value="embolia"></td>
+                <td><input type="checkbox" name="enfermedad[abuelo_paterno][]" value="mentales"></td>
+              </tr>
+              <tr>
+                <td>Abuela Paterna</td>
+                <td><input type="radio" name="vive[abuela_paterna]" value="1"></td>
+                <td><input type="radio" name="vive[abuela_paterna]" value="0"></td>
+                <td><input type="checkbox" name="enfermedad[abuela_paterna][]" value="diabetes"></td>
+                <td><input type="checkbox" name="enfermedad[abuela_paterna][]" value="hipertension"></td>
+                <td><input type="checkbox" name="enfermedad[abuela_paterna][]" value="corazon"></td>
+                <td><input type="checkbox" name="enfermedad[abuela_paterna][]" value="pulmones"></td>
+                <td><input type="checkbox" name="enfermedad[abuela_paterna][]" value="cancer"></td>
+                <td><input type="checkbox" name="enfermedad[abuela_paterna][]" value="embolia"></td>
+                <td><input type="checkbox" name="enfermedad[abuela_paterna][]" value="mentales"></td>
+              </tr>
+              <tr>
+                <td>Abuelo Materno</td>
+                <td><input type="radio" name="vive[abuelo_materno]" value="1"></td>
+                <td><input type="radio" name="vive[abuelo_materno]" value="0"></td>
+                <td><input type="checkbox" name="enfermedad[abuelo_materno][]" value="diabetes"></td>
+                <td><input type="checkbox" name="enfermedad[abuelo_materno][]" value="hipertension"></td>
+                <td><input type="checkbox" name="enfermedad[abuelo_materno][]" value="corazon"></td>
+                <td><input type="checkbox" name="enfermedad[abuelo_materno][]" value="pulmones"></td>
+                <td><input type="checkbox" name="enfermedad[abuelo_materno][]" value="cancer"></td>
+                <td><input type="checkbox" name="enfermedad[abuelo_materno][]" value="embolia"></td>
+                <td><input type="checkbox" name="enfermedad[abuelo_materno][]" value="mentales"></td>
+              </tr>
+              <tr>
+                <td>Abuela Materna</td>
+                <td><input type="radio" name="vive[abuela_materna]" value="1"></td>
+                <td><input type="radio" name="vive[abuela_materna]" value="0"></td>
+                <td><input type="checkbox" name="enfermedad[abuela_materna][]" value="diabetes"></td>
+                <td><input type="checkbox" name="enfermedad[abuela_materna][]" value="hipertension"></td>
+                <td><input type="checkbox" name="enfermedad[abuela_materna][]" value="corazon"></td>
+                <td><input type="checkbox" name="enfermedad[abuela_materna][]" value="pulmones"></td>
+                <td><input type="checkbox" name="enfermedad[abuela_materna][]" value="cancer"></td>
+                <td><input type="checkbox" name="enfermedad[abuela_materna][]" value="embolia"></td>
+                <td><input type="checkbox" name="enfermedad[abuela_materna][]" value="mentales"></td>
+              </tr>
+              <tr>
+                <td>Hijos</td>
+                <td><input type="radio" name="vive[hijos]" value="1"></td>
+                <td><input type="radio" name="vive[hijos]" value="0"></td>
+                <td><input type="checkbox" name="enfermedad[hijos][]" value="diabetes"></td>
+                <td><input type="checkbox" name="enfermedad[hijos][]" value="hipertension"></td>
+                <td><input type="checkbox" name="enfermedad[hijos][]" value="corazon"></td>
+                <td><input type="checkbox" name="enfermedad[hijos][]" value="pulmones"></td>
+                <td><input type="checkbox" name="enfermedad[hijos][]" value="cancer"></td>
+                <td><input type="checkbox" name="enfermedad[hijos][]" value="embolia"></td>
+                <td><input type="checkbox" name="enfermedad[hijos][]" value="mentales"></td>
+              </tr>
+              <!-- Agrega más filas para los demás familiares -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+     
     </form>
 
 
@@ -882,6 +1935,7 @@
                   <input type="radio" required id="check-noAplica-enfAfect" name="check-enfAfect[]" value="2">
                   <label for="check-noAplica-enfAfect">No aplica</label>
                 </div>
+                <input type="hidden" name="check-enfAfect[]" value="">
                 <!-- <div class="col-auto">
                     <input type="radio" required  id="check-Todas-enfAfect" name="check-enfAfect[]" value="5">
                     <label for="check-Todas-enfAfect">Todas</label>
@@ -912,6 +1966,7 @@
                   <input type="radio" required id="check-Siempre-frecFeliz" name="check-frecFeliz[]" value="9">
                   <label for="check-Siempre-frecFeliz">Siempre</label>
                 </div>
+                <input type="hidden" name="check-frecFeliz[]" value="">
               </div>
             </div>
             <hr class="dropdown-divider m-2">
@@ -930,6 +1985,7 @@
                   <input type="radio" required id="checkNo-sienRealiz" name="check-sienRealiz[]" value="2">
                   <label for="checkNo-sienRealiz">No</label>
                 </div>
+                <input type="hidden" name="check-sienRealiz[]" value="">
               </div>
               <!-- <div class="collapse" id="collapse-sienRealiz">
                   <textarea name="check-sienRealiz[]" class="form-control input-form" rows="2" cols="2" placeholder="Especifique"></textarea>
@@ -955,6 +2011,7 @@
                   <input type="radio" required id="check-Siempre-frecSolo" name="check-frecSolo[]" value="9">
                   <label for="check-Siempre-frecSolo">Siempre</label>
                 </div>
+                <input type="hidden" name="check-frecSolo[]" value="">
               </div>
             </div>
             <hr class="dropdown-divider m-2">
@@ -977,6 +2034,7 @@
                   <input type="radio" required id="check-Siempre-frectris" name="check-frectris[]" value="9">
                   <label for="check-Siempre-frectris">Siempre</label>
                 </div>
+                <input type="hidden" name="check-frectris[]" value="">
               </div>
             </div>
             <hr class="dropdown-divider m-2">
@@ -1001,6 +2059,7 @@
                     value="9">
                   <label for="check-Siempre-situaciCotidia">Siempre</label>
                 </div>
+                <input type="hidden" name="check-situaciCotidia[]" value="">
               </div>
             </div>
           </div>
@@ -1039,6 +2098,7 @@
                   <label for="checkNo-Desayuno">No</label>
                 </div>
               </div>
+              <input type="hidden" name="check-Desayuno[]" value="">
               <!-- <div class="collapse" id="collapse-Desayuno">
                   <textarea name="check-Desayuno[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?"></textarea>
                 </div> -->
@@ -1060,6 +2120,7 @@
                   <label for="checkNo-colaMana">No</label>
                 </div>
               </div>
+              <input type="hidden" name="check-colaMana[]" value="">
               <!-- <div class="collapse" id="collapse-colaMana">
                   <textarea name="check-colaMana[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?"></textarea>
                 </div> -->
@@ -1081,6 +2142,7 @@
                   <label for="checkNo-Comida">No</label>
                 </div>
               </div>
+              <input type="hidden" name="check-Comida[]" value="">
               <!-- <div class="collapse" id="collapse-Comida">
                   <textarea name="check-Comida[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?"></textarea>
                 </div> -->
@@ -1102,6 +2164,7 @@
                   <label for="checkNo-colaTarde">No</label>
                 </div>
               </div>
+              <input type="hidden" name="check-colaTarde[]" value="">
               <!-- <div class="collapse" id="collapse-colaTarde">
                   <textarea name="check-colaTarde[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?"></textarea>
                 </div> -->
@@ -1124,6 +2187,7 @@
                   <label for="checkNo-colaCena">No</label>
                 </div>
               </div>
+              <input type="hidden" name="check-colaCena[]" value="">
               <!-- <div class="collapse" id="collapse-colaCena">
                   <textarea name="check-colaCena[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?"></textarea>
                 </div> -->
@@ -1146,6 +2210,7 @@
                   <label for="checkNo-alimePrepa">No</label>
                 </div>
               </div>
+              <input type="hidden" name="check-alimePrepa[]" value="">
               <!-- <div class="collapse" id="collapse-alimePrepa">
                   <textarea name="check-alimePrepa[]" class="form-control input-form" rows="2" cols="2" placeholder="¿Cuál?"></textarea>
                 </div> -->
@@ -1170,6 +2235,7 @@
                   <input type="radio" required id="check-Siempre-frecAlimprepa" name="check-frecAlimprepa[]" value="9">
                   <label for="check-Siempre-frecAlimprepa">Siempre</label>
                 </div>
+                <input type="hidden" name="check-frecAlimprepa[]" value="">
               </div>
             </div>
             <hr class="dropdown-divider m-2">
@@ -1192,6 +2258,7 @@
                   <input type="radio" required id="check-Malo-nivelApeti" name="check-nivelApeti[]" value="12">
                   <label for="check-Malo-nivelApeti">Malo</label>
                 </div>
+                <input type="hidden" name="check-nivelApeti[]" value="">
               </div>
             </div>
             <hr class="dropdown-divider m-2">
@@ -1214,6 +2281,7 @@
                   <input type="radio" required id="check-Malo-nivelSacied" name="check-nivelSacied[]" value="12">
                   <label for="check-Malo-nivelSacied">Malo</label>
                 </div>
+                <input type="hidden" name="check-nivelSacied[]" value="">
               </div>
             </div>
             <hr class="dropdown-divider m-2">
@@ -1239,6 +2307,7 @@
                     value="15">
                   <label for="check-79-vasosAguaConsuem">7 a 9</label>
                 </div>
+                <input type="hidden" value="" name="check-vasosAguaConsuem[]">
               </div>
             </div>
             <hr class="dropdown-divider m-2">
@@ -1262,6 +2331,7 @@
                 <textarea name="check-PadeceEnfeAlime[]" class="form-control input-form" rows="2" cols="2"
                   placeholder="Especifique"></textarea>
               </div>
+              <input type="hidden" value="" name="check-PadeceEnfeAlime[]"">
             </div>
             <hr class="dropdown-divider m-2">
             <div class="row d-flex justify-content-center"
@@ -1284,9 +2354,41 @@
                 <textarea name="check-ConssupleAli[]" class="form-control input-form" rows="2" cols="2"
                   placeholder="Especifique"></textarea>
               </div>
+              <input type="hidden" name="check-ConssupleAli[]" value="">
             </div>
           </div>
           <div class="d-flex justify-content-end p-2 div-btn-guardarAntNutri"> </div>
+        </div>
+      </div>
+    </form>
+
+    <form id="formNutrcionAlimentos">
+      <div class="accordion-item bg-acordion">
+        <h2 class="accordion-header" id="collap-NutAlimentos">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" id="btnformNutricionAlimentos" data-bs-target="#collapse-NutAlimentos-Target" aria-expanded="false" aria-controls="accordionEstudios">
+            <i class="bi bi-plus-circle-fill" style="margin-right: 10px"></i> NUTRICIÓN (ALIMENTOS QUE CONSUME)
+          </button>
+        </h2>
+        <div id="collapse-NutAlimentos-Target" class="accordion-collapse collapse" align="center" aria-labelledby="collap-NutAlimentos">
+          <div class="d-flex justify-content-end p-2 div-btn-guardarNutAlimentos"> </div>
+          <table class="table-alimentos">
+            <thead>
+                <tr>
+                    <th colspan="7">Marque los alimentos que consume más de 4 veces por semana:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>a. Frutas/Verduras <input type="checkbox" name="nutalimentos[]" value="1"></td>
+                    <td>b. Pan/Galletas <input type="checkbox" name="nutalimentos[]" value="2"></td>
+                    <td>c. Pollo/Pescado <input type="checkbox" name="nutalimentos[]" value="3"></td>
+                    <td>d. Carne <input type="checkbox" name="nutalimentos[]" value="4"></td>
+                    <td>e. Refrescos <input type="checkbox" name="nutalimentos[]" value="5"></td>
+                    <td>f. Tortillas <input type="checkbox" name="nutalimentos[]" value="6"></td>
+                    <td>g. Frituras <input type="checkbox" name="nutalimentos[]" value="7"></td>
+                </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </form>
@@ -1456,6 +2558,53 @@
               </div>
             </div>
 
+            <div class="sigmaClass">
+              <hr class="dropdown-divider m-2">
+              <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
+                <div class="col-6">
+                  <label>MENSTRUACIÓN CON DOLOR: </label>
+                  <input type="hidden" name="check-antginecologicos-menstruaDolor[]" value="282">
+                </div>
+                <div class="col-3">
+                  <input type="radio" required id="checkSi-antginecologicos-menstruaDolor"
+                    name="check-antginecologicos-menstruaDolor[]" value="1" required>
+                  <label for="checkSi-antginecologicos-menstruaDolor">Sí</label>
+                </div>
+                <div class="col-3">
+                  <input type="radio" required id="checkNo-antginecologicos-menstruaDolor"
+                    name="check-antginecologicos-menstruaDolor[]" value="2" required>
+                  <label for="checkNo-antginecologicos-menstruaDolor">No</label>
+                </div>
+                <div class="collapse" id="collapse-antginecologicos-menstruaDolor">
+                  <textarea name="check-antginecologicos-menstruaDolor[]" class="form-control input-form" rows="2" cols="2"
+                    placeholder="Especifíque..."></textarea>
+                </div>
+              </div>
+              
+
+              <hr class="dropdown-divider m-2">
+              <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
+                <div class="col-6">
+                  <label>INCAPACIDAD POR CÓLICO: </label>
+                  <input type="hidden" name="check-antginecologicos-incapacidadColico[]" value="283">
+                </div>
+                <div class="col-3">
+                  <input type="radio" required id="checkSi-antginecologicos-incapacidadColico"
+                    name="check-antginecologicos-incapacidadColico[]" value="1" required>
+                  <label for="checkSi-antginecologicos-incapacidadColico">Sí</label>
+                </div>
+                <div class="col-3">
+                  <input type="radio" required id="checkNo-antginecologicos-incapacidadColico"
+                    name="check-antginecologicos-incapacidadColico[]" value="2" required>
+                  <label for="checkNo-antginecologicos-incapacidadColico">No</label>
+                </div>
+                <div class="collapse" id="collapse-antginecologicos-incapacidadColico">
+                  <textarea name="check-antginecologicos-incapacidadColico[]" class="form-control input-form" rows="2" cols="2"
+                    placeholder="Especifíque..."></textarea>
+                </div>
+              </div>
+            </div>
+
             <div class="d-flex justify-content-end p-2 div-btn-guardarAntGine"> </div>
           </div>
         </div>
@@ -1463,6 +2612,32 @@
     </form>
     <!-- Formulario Antecedentes Ginecológicos -->
    
+    <form id="formPuestosAnteriores">
+      <div class="accordion-item bg-acordion sigmaClass">
+        <h2 class="accordion-header" id="collap-puestoAnterior">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" id="btnformPuestosAnteriores" data-bs-target="#collapse-puestos-anteriores" aria-expanded="false" aria-controls="accordionEstudios">
+            <i class="bi bi-plus-circle-fill" style="margin-right: 10px;"></i>PUESTOS ANTERIORES
+          </button>
+        </h2>
+        <div id="collapse-puestos-anteriores" class="accordion-collapse collapse" aria-labelledby="collap-puestos-anteriores">
+          <div class="d-flex justify-content-end p-2 div-btn-guardarPuesAnte"></div>
+          <div class="accordion-body">
+            <hr class="dropdown-divider m-2">
+            <div class="row" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
+              <div class="col-6">
+                <label>: </label>
+                <input type="hidden" name="check-antginecologicos-mastografia[]" value="201">
+              </div>
+              <div class="" id="collapse-antginecologicos-mastografia">
+                <textarea name="check-antginecologicos-mastografia[]" class="form-control input-form" rows="2"
+                  cols="2" placeholder="Especifíque"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
 
     <form id="formMedioLaboral">
       <div class="accordion-item bg-acordion onlyProcedencia">
@@ -1472,9 +2647,11 @@
             <i class="bi bi-plus-circle-fill" style="margin-right: 10px;"></i>MEDIO LABORAL
           </button>
         </h2>
+       
         <div id="collapse-MedLabo-Target" class="accordion-collapse collapse" aria-labelledby="collap-MedLabo">
           <div class="d-flex justify-content-end p-2 div-btn-guardarAntLabo"> </div>
           <div class="accordion-body">
+            <div class="card">
             <div class="row d-flex justify-content-center"
               style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
               <div class="col-12 col-lg-5 col-xl-7">
@@ -1492,15 +2669,63 @@
                 </div>
               </div>
               <div class="collapse" id="collapse-incapaAccid">
-                <textarea name="check-incapaAccid[]" class="form-control input-form" rows="2" cols="2"
-                  placeholder="Especifique"></textarea>
+                <div class="row clientesClass" style="zoom:110%;margin-left:5%;width: 90%;margin-top: 10px;">
+                  <label for="">¿CUÁL ACCIDENTE?</label>
+                  <textarea name="check-incapaAccid[]" class="form-control input-form" rows="2" cols="2"
+                    placeholder="Registrar el tipo de accidente ocurrido"></textarea>
+                </div>
+               
+   
               </div>
             </div>
+
+            <!-- PREGUJNTAS EXTRAS PARA SIGMA -->
+            <div class="sigmaClass">
+              <div class="row d-flex"
+                  style="zoom:110%; margin-left:4%; margin-top: 10px; margin-bottom: 10px; width: 92%;">
+                <div class="col-6">
+                  <label>¿Cuál accidente?: </label>
+                  <input type="hidden" name="check-cualAccidente[]" value="220">
+                </div>
+                
+                <div>
+                  <textarea name="check-cualAccidente[]" class="form-control input-form" rows="2" placeholder="Registrar el tipo de accidente sufrido."></textarea>
+                </div>
+              </div>
+
+
+            <div class="row d-flex" style="zoom:110%;margin-left:4%;width: 92%;margin-top: 10px;">
+              <div class="col-6">
+                <label for="">¿Cuáles fueron las secuelas del accidente?</label>
+                <input type="hidden" name="check-secuelasAccidente[]" value="221">
+              </div>
+              <div>
+                <textarea name="check-secuelasAccidente[]" id="" class="form-control input-form" rows="2" cols="2" placeholder="Registrar las secuelas padecidas por el accidente."></textarea>
+              </div>
+            </div>
+
+            <div class="row d-flex" style="zoom:110%;margin-left:4%;width: 92%;margin-top: 10px;">
+              <div class="col-6">
+                <label for="">%IPP del accidente</label>
+                <input type="hidden" name="check-ippAccidente[]" value="222">
+              </div>
+              <div>
+                <textarea name="check-ippAccidente[]" id="" class="form-control input-form" rows="2" cols="2" placeholder="Registrar la información solicitada."></textarea>
+              </div>
+            </div>
+
+          </div>
+          <!-- fin sigmaClass -->
+           
+            </div> 
+            <!-- fin del card  -->
             <hr class="dropdown-divider m-2">
+
+            <div class="card">
             <div class="row d-flex justify-content-center"
               style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
               <div class="col-12 col-lg-5 col-xl-7">
-                <label>¿HAZ TENIDO INCAPACIDAD POR ALGUNA ENFERMEDAD?: </label>
+                <label>¿HAZ TENIDO INCAPACIDAD POR ALGUNA ENFERMEDAD?¿CUÁL ENFERMEDAD? ¿SECUELAS? ¿%IPP?: </label>
                 <input type="hidden" name="check-incapaEnfer[]" value="55">
               </div>
               <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
@@ -1514,10 +2739,98 @@
                 </div>
               </div>
               <div class="collapse" id="collapse-incapaEnfer">
-                <textarea name="check-incapaEnfer[]" class="form-control input-form" rows="2" cols="2"
-                  placeholder="Especifique"></textarea>
+                <textarea name="check-incapaEnfer[]" class="form-control input-form clientesClass" rows="2" cols="2"
+                  placeholder="Anotas las respuestas de cada pregunta se paradas por //"></textarea>
               </div>
             </div>
+            <!-- PREGUJNTAS EXTRAS PARA SIGMA -->
+            <div class="sigmaClass">
+              <div class="row d-flex" style="zoom:110%;margin-left:4%;width: 92%;margin-top: 10px;">
+                <div class="col-6">
+                  <label>¿Cuál Enfermedad?: </label>
+                  <input type="hidden" name="check-cualEnfermedad[]" value="223">
+                </div>
+                <div class="" id="">
+                  <textarea name="check-cualEnfermedad[]" class="form-control input-form" rows="2"
+                    cols="2" placeholder="Registrar el tipo de accidente sufrido."></textarea>
+                </div>
+              </div>
+
+              <div class="row d-flex" style="zoom:110%;margin-left:4%;width: 92%;margin-top: 10px;">
+                <div class="col-6">
+                  <label for="">¿Cuáles fueron las secuelas de la enfermedad?</label>
+                  <input type="hidden" name="check-secuelasEnfermedad[]" value="224">
+                </div>
+                <div>
+                  <textarea name="check-secuelasEnfermedad[]" id="" class="form-control input-form" rows="2" cols="2" placeholder="Registrar las secuelas padecidas por el accidente."></textarea>
+                </div>
+              </div>
+
+              <div class="row d-flex" style="zoom:110%;margin-left:4%;width: 92%;margin-top: 10px;">
+                <div class="col-6">
+                  <label for="">%IPP de la enfermedad</label>
+                  <input type="hidden" name="check-ippEnfermedad[]" value="225">
+                </div>
+                <div>
+                  <textarea name="check-ippEnfermedad[]" id="" class="form-control input-form" rows="2" cols="2" placeholder="Registrar la información solicitada."></textarea>
+                </div>
+              </div>
+
+            </div>
+            <!-- fin sigmaClass -->
+            </div>
+
+            <hr class="dropdown-divider m-2">
+            <div class="card sigmaClass">
+            <div class="row d-flex" style="zoom:110%; margin-left:0%;/* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+              <div class="col-12 col-lg-5 col-xl-7">
+                <label for="">¿HAS TENIDO ACCIDENTES DE TRAYECTO O VIALES?</label>
+                <input type="hidden" name="check-accidenteTrayecto[]" value="229">
+              </div>
+              <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                <div class="col-auto">
+                  <input type="radio" required id="checkSi-accidenteTrayecto" name="check-accidenteTrayecto[]" value="1">
+                  <label for="checkSi-accidenteTrayecto">Sí</label>
+                </div>
+                <div class="col-auto">
+                  <input type="radio" required id="checkNo-accidenteTrayecto" name="check-accidenteTrayecto[]" value="2">
+                  <label for="checkNo-accidenteTrayecto">No</label>
+                </div>
+                <input type="hidden" name="check-accidenteTrayecto[]" value="">
+              </div>
+            </div>
+            <div class="row d-flex" style="zoom:110%;margin-left:4%;width: 92%;margin-top: 10px;">
+              <div class="col-6">
+                <label>¿Cuál Accidente de trayecto?: </label>
+                <input type="hidden" name="check-cualTrayecto[]" value="226">
+              </div>
+              <div class="" id="">
+                <textarea name="check-cualTrayecto[]" class="form-control input-form" rows="2"
+                  cols="2" placeholder="Registrar el tipo de accidente sufrido."></textarea>
+              </div>
+            </div>
+
+            <div class="row d-flex" style="zoom:110%;margin-left:4%;width: 92%;margin-top: 10px;">
+              <div class="col-6">
+                <label for="">¿Cuáles fueron las secuelas?</label>
+                <input type="hidden" name="check-secuelasTrayecto[]" value="227">
+              </div>
+              <div>
+                <textarea name="check-secuelasTrayecto[]" id="" class="form-control input-form" rows="2" cols="2" placeholder="Registrar las secuelas padecidas por el accidente."></textarea>
+              </div>
+            </div>
+
+            <div class="row d-flex" style="zoom:110%;margin-left:4%;width: 92%;margin-top: 10px;">
+              <div class="col-6">
+                <label for="">%IPP del accidente del trayecto</label>
+                <input type="hidden" name="check-ippTrayecto[]" value="228">
+              </div>
+              <div>
+                <textarea name="check-ippTrayecto[]" id="" class="form-control input-form" rows="2" cols="2" placeholder="Registrar la información solicitada."></textarea>
+              </div>
+            </div>
+            </div>
+
             <hr class="dropdown-divider m-2">
             <div class="row d-flex justify-content-center"
               style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
@@ -1635,6 +2948,8 @@
               style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
               <div class="col-12 col-lg-5 col-xl-7">
                 <label>¿ESTÁS EXPUESTO A SUSTANCIAS QUÍMICAS?: </label>
+                <br>
+                <small class="form-text text-muted">(polvos, humos, neblina, vapores, aerosoles)</small>
                 <input type="hidden" name="check-expoSustQuimi[]" value="61">
               </div>
               <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
@@ -1747,6 +3062,8 @@
               style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
               <div class="col-12 col-lg-5 col-xl-7">
                 <label>¿ESTÁS EXPUESTO A MATERIALES RADIOACTIVOS?: </label>
+                <br>
+                <small class="form-text text-muted">(polvos, humos, neblina, vapores, aerosoles)</small>
                 <input type="hidden" name="check-ExposimateRadio[]" value="66">
               </div>
               <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
@@ -1808,15 +3125,288 @@
                   placeholder="Especifique"></textarea>
               </div>
             </div>
+
+            <hr class="dropdown-divider m-2">
+            <div  class="row d-flex justify-content-center"
+            style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+              <div class="col-12 col-lg-5 col-xl-7">
+                <label>¿ESTÁS O ESTUVISTE EXPUESTO A TEMPERATURAS ELEVADAS EXTREMAS?:</label>
+                <input type="hidden" name="check-tempEleExtre[]" value="203">
+              </div>
+              <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                <div class="col-auto">
+                  <input type="radio" required id="checkSi-tempEleExtre" name="check-tempEleExtre[]" value="1">
+                  <label for="checkSi-tempEleExtre">Sí</label>
+                </div>
+                <div class="col-auto">
+                  <input type="radio" required id="checkNo-tempEleExtre" name="check-tempEleExtre[]" value="2">
+                  <label for="checkNo-tempEleExtre">No</label>
+                </div>
+              </div>
+              <div class="collapse" id="collapse-tempEleExtre">
+                <textarea name="check-tempEleExtre[]" class="form-control input-form" rows="2" cols="2"
+                  placeholder="Especifique"></textarea>
+              </div>
+            </div>
+
+            <hr class="dropdown-divider m-2">
+            <div class="row d-flex justify-content-center"
+            style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+              <div class="col-12 col-lg-5 col-xl-7">
+                <label for="">¿ESTÁS O ESTUVISTE EXPUESTO A TEMPERATURAS BAJAS EXTREMAS?:</label>
+                <input type="hidden" name="check-tempBajExtre[]" value="204">
+              </div>
+              <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                <div class="col-auto">
+                  <input type="radio" required id="checkSi-tempBajExtre" name="check-tempBajExtre[]" value="1">
+                  <label for="checkSi-tempBajExtre">Sí</label>
+                </div>
+                <div class="col-auto">
+                  <input type="radio" required id="checkNo-tempBajExtre" name="check-tempBajExtre[]" value="2">
+                  <label for="checkNo-tempBajExtre">No</label>
+                </div>
+              </div>
+              <div class="collapse" id="collapse-tempBajExtre">
+                <textarea name="check-tempBajExtre[]" class="form-control input-form" rows="2" cols="2"
+                  placeholder="Especifique"></textarea>
+              </div>
+            </div>
+
+            <hr class="dropdown-divider m-2">
+            <div class="row d-flex justify-content-center"
+            style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+              <div class="col-12 col-lg-5 col-xl-7">
+                <label for="">¿ESTÁS O HAS ESTADO EXPUESTO A VIBRACIONES?:</label>
+                <input type="hidden" name="check-expVibra[]" value="205">
+              </div>
+              <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                <div class="col-auto">
+                  <input type="radio" required id="checkSi-expVibra" name="check-expVibra[]" value="1">
+                  <label for="checkSi-expVibra">Sí</label>
+                </div>
+                <div class="col-auto">
+                  <input type="radio" required id="checkNo-expVibra" name="check-expVibra[]" value="2">
+                  <label for="checkNo-expVibra">No</label>
+                </div>
+              </div>
+              <div class="collapse" id="collapse-expVibra">
+                <textarea name="check-expVibra[]" class="form-control input-form" rows="2" cols="2"
+                  placeholder="Especifique"></textarea>
+              </div>
+            </div>
+
+            <hr class="dropdown-divider m-2">
+            <div class="row d-flex justify-content-center"
+            style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+              <div class="col-12 col-lg-5 col-xl-7">
+                <label for="">¿HAS TENIDO TRABAJOS DONDE TENGAS QUE LEVANTAR CARGAS PESADAS Y REPETITIVAS?:</label>
+                <input type="hidden" name="check-carPesadas[]" value="206">
+              </div>
+              <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                <div class="col-auto">
+                  <input type="radio" required id="checkSi-carPesadas" name="check-carPesadas[]" value="1">
+                  <label for="checkSi-carPesadas">Sí</label>
+                </div>
+                <div class="col-auto">
+                  <input type="radio" required id="checkNo-carPesadas" name="check-carPesadas[]" value="2">
+                  <label for="checkNo-carPesadas">No</label>
+                </div>
+              </div>
+              <div class="collapse" id="collapse-carPesadas">
+                <textarea name="check-carPesadas[]" class="form-control input-form" rows="2" cols="2"
+                  placeholder="Especifique"></textarea>
+              </div>
+            </div>
+
+            <hr class="dropdown-divider m-2">
+            <div class="row d-flex justify-content-center"
+            style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+              <div class="col-12 col-lg-5 col-xl-7">
+                <label for="">¿HAS REALIAZADO TRABAJOS MANUALES REPETITIVOS?:</label>
+                <input type="hidden" name="check-trabManual[]" value="207">
+              </div>
+              <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                <div class="col-auto">
+                  <input type="radio" required id="checkSi-trabManual" name="check-trabManual[]" value="1">
+                  <label for="checkSi-trabManual">Sí</label>
+                </div>
+                <div class="col-auto">
+                  <input type="radio" required id="checkNo-trabManual" name="check-trabManual[]" value="2">
+                  <label for="checkNo-trabManual">No</label>
+                </div>
+              </div>
+              <div class="collapse" id="collapse-trabManual">
+                <textarea name="check-trabManual[]" class="form-control input-form" rows="2" cols="2"
+                  placeholder="Especifique"></textarea>
+              </div>
+            </div>
+
+            <hr class="dropdown-divider m-2">
+            <div class="row d-flex justify-content-center"
+            style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+              <div class="col-12 col-lg-5 col-xl-7">
+                <label for="">¿HAS TRABAJADO CON AGENTES BIOLÓGICOS?</label>
+                <br>
+                <small class="form-text text-muted">(virus, bacterias, hongos u otros)</small>
+                <input type="hidden" name="check-agenBiolo[]" value="208">
+              </div>
+              <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                <div class="col-auto">
+                  <input type="radio" required id="checkSi-agenBiolo" name="check-agenBiolo[]" value="1">
+                  <label for="checkSi-agenBiolo">Sí</label>
+                </div>
+                <div class="col-auto">
+                  <input type="radio" required id="checkNo-agenBiolo" name="check-agenBiolo[]" value="2">
+                  <label for="checkNo-agenBiolo">No</label>
+                </div>
+              </div>
+              <div class="collapse" id="collapse-agenBiolo">
+                <textarea name="check-agenBiolo[]" class="form-control input-form" rows="2" cols="2"
+                  placeholder="Especifique"></textarea>
+              </div>
+            </div>
+
+            <hr class="dropdown-divider m-2">
+            <div class="row d-flex justify-content-center"
+            style="zoom:110%;/* margin-left:5%; *//* width: 95%; */margin-top: 10px;margin-bottom: 10px;/* font-size: 11px; */">
+              <div class="col-12 col-lg-5 col-xl-7">
+                <label for="">¿HAS TRABAJADO BAJO ESTRÉS COMO TRABAJO BAJO PRESIÓN, AMBIENTES CERRADOS, CAMBIAR CONSTANTEMENTE DE TURNOS, TIEMPOS EXTRAS O ALGÚN OTRO FACTOR DE ESTRÉS?</label>
+                <input type="hidden" name="check-estres[]" value="209">
+              </div>
+              <div class="col-12 col-lg-7 col-xl-5 row d-flex align-items-center justify-content-center">
+                <div class="col-auto">
+                  <input type="radio" required id="checkSi-estres" name="check-estres[]" value="1">
+                  <label for="checkSi-estres">Sí</label>
+                </div>
+                <div class="col-auto">
+                  <input type="radio" required id="checkNo-estres" name="check-estres[]" value="2">
+                  <label for="checkNo-estres">No</label>
+                </div>
+              </div>
+              <div class="collapse" id="collapse-estres">
+                <textarea name="check-estres[]" class="form-control input-form" rows="2" cols="2"
+                  placeholder="Especifique"></textarea>
+              </div>
+            </div>
+
+
+            <div class="sigmaClass">
+              <hr class="dropdown-divider m-2">
+              <div class="row">
+                <div class="col-6">
+                  <div class="row d-flex" style="zoom:110%; margin-left:5%; width:90%; margin-top:10px;">
+                    <!-- PUESTO -->
+                    <div class="col-6">
+                      <label for="puesto1">PUESTO 1:</label>
+                      <input type="hidden" name="check-medlab-puesto1[]" value="284">
+                      <input type="hidden" name="check-medlab-puesto1[]" value="">
+                      <textarea id="puesto1" name="check-medlab-puesto1[]" class="form-control input-form" rows="2" placeholder="Registrar puesto"></textarea>
+                    </div>               
+                  </div>     
+                </div>
+                <div class="col-6">
+                  <div class="row d-flex" style="zoom:110%; margin-left:5%; width:90%; margin-top:10px;">
+              
+                    <!-- AÑOS EN EL PUESTO -->
+                    <div class="col-6">
+                      <label for="aniosPuesto1">AÑOS EN EL PUESTO:</label>
+                      <input type="hidden" name="check-medlab-aniopuesto1[]" value="285">
+                      <input type="hidden" name="check-medlab-aniopuesto1[]" value="">
+                      <textarea id="aniosPuesto1" name="check-medlab-aniopuesto1[]" class="form-control input-form" rows="2" placeholder="Registrar años"></textarea>
+                    </div>
+                  </div>            
+                </div>
+              </div>
+                       
+                
+
+
+              <hr class="dropdown-divider m-2">
+              <div class="row">
+                <div class="col-6">
+                  <div class="row d-flex" style="zoom:110%; margin-left:5%; width:90%; margin-top:10px;">
+                    <!-- PUESTO -->
+                    <div class="col-6">
+                      <label for="puesto2">PUESTO 2:</label>
+                      <input type="hidden" name="check-medlab-puesto2[]" value="286">
+                      <input type="hidden" name="check-medlab-puesto2[]" value="">
+                      <textarea id="puesto2" name="check-medlab-puesto2[]" class="form-control input-form" rows="2" placeholder="Registrar puesto"></textarea>
+                    </div>
+                  </div>              
+                </div>
+                <div class="col-6">
+                  <div class="row d-flex" style="zoom:110%; margin-left:5%; width:90%; margin-top:10px;">
+                    <!-- AÑOS EN EL PUESTO -->
+                    <div class="col-6">
+                      <label for="aniosPuesto2">AÑOS EN EL PUESTO:</label>
+                      <input type="hidden" name="check-medlab-aniopuesto2[]" value="287">
+                      <textarea id="aniosPuesto2" name="check-medlab-aniopuesto2[]" class="form-control input-form" rows="2" placeholder="Registrar años"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+
+
+
+              <hr class="dropdown-divider m-2">
+              <div class="row">
+                <div class="col-6">
+                  <div class="row d-flex" style="zoom:110%; margin-left:5%; width:90%; margin-top:10px;">
+                    <!-- PUESTO -->
+                    <div class="col-6">
+                      <label for="puesto3">PUESTO 3:</label>
+                      <input type="hidden" name="check-medlab-puesto3[]" value="288">
+                      <textarea id="puesto3" name="check-medlab-puesto3[]" class="form-control input-form" rows="2" placeholder="Registrar puesto"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="row d-flex" style="zoom:110%; margin-left:5%; width:90%; margin-top:10px;">              
+                    <!-- AÑOS EN EL PUESTO -->
+                    <div class="col-6">
+                      <label for="aniosPuesto3">AÑOS EN EL PUESTO:</label>
+                      <input type="hidden" name="check-medlab-aniospuesto3[]" value="289">
+                      <textarea id="aniosPuesto3" name="check-medlab-aniospuesto3[]" class="form-control input-form" rows="2" placeholder="Registrar años"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              
+
+
+ 
+
+              <hr class="dropdown-divider m-2">
+              <div class="row">
+                <div class="col-6">
+                  <div class="row d-flex" style="zoom:110%; margin-left:5%; width:90%; margin-top:10px;">
+                    <!-- PUESTO -->
+                    <div class="col-6">
+                      <label for="puesto4">PUESTO 4:</label>
+                      <input type="hidden" name="check-medlab-puesto4[]" value="290">
+                      <textarea id="puesto4" name="check-medlab-puesto4[]" class="form-control input-form" rows="2" placeholder="Registrar puesto"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="row d-flex" style="zoom:110%; margin-left:5%; width:90%; margin-top:10px;">                
+                    <!-- AÑOS EN EL PUESTO -->
+                    <div class="col-6">
+                      <label for="aniosPuesto4">AÑOS EN EL PUESTO:</label>
+                      <input type="hidden" name="check-medlab-aniospuesto4[]" value="291">
+                      <textarea id="aniosPuesto4" name="check-medlab-aniospuesto4[]" class="form-control input-form" rows="2" placeholder="Registrar años"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
           </div>
           <div class="d-flex justify-content-end p-2 div-btn-guardarAntLabo"> </div>
         </div>
       </div>
 
     </form>
-
-
-
     <!-- </form> -->
     <!-- <div class="d-flex justify-content-end p-2" id="div-btn-guardarAntecedentes"> </div> -->
   </div>
@@ -1824,7 +3414,7 @@
 
 <script type="text/javascript">
   jQuery(document).on("change ,  keyup", "input[type='radio']", function () {
-    var parent_element = jQuery(this).closest("div[class='row d-flex justify-content-center']");
+    var parent_element = jQuery(this).closest("div[class='row d-flex justify-content-center']"); // quite la clase justify-content-center
     if (this.value == true) {
       var collapID = jQuery(parent_element).children("div[class='collapse']").attr("id");
       console.log(collapID)
@@ -1869,3 +3459,19 @@
     document.getElementById(`rangeValueLabel${etiqueta}`).textContent = val;
   }
 </script>
+<style>
+  .table-alimentos {
+      width: 90%;
+      border: 1px solid black;
+      border-collapse: collapse;
+      margin: 10px 0;
+  }
+  .table-alimentos th, .table-alimentos td {
+      padding: 5px;
+      text-align: left;
+      border: 1px solid black;
+  }
+  .table-alimentos td input[type="checkbox"] {
+      margin-left: 10px;
+  }
+</style>

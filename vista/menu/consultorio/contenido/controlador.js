@@ -83,6 +83,7 @@ function obtenerContenidoConsulta(data, idvaloracion) {
     $("#body-js").html(html);
     pacienteActivo = new GuardarArreglo(data)
     pacienteActivo.selectID = idvaloracion;
+
     // Datatable
     // $.getScript("contenido/js/estudio-tabla.js");
     // select2('#citas-subsecuente', 'collapseAgendarConsultaTarget');
@@ -158,6 +159,7 @@ $(document).on('click', '#paciente_categoria', function (event) {
 async function obtenerValoracion(data, idconsulta) {
   // console.log(data, idconsulta)
   await obtenerVistaAntecenetesPaciente('#antecedentes-paciente', data['CLIENTE'])
+  await ocultarFichaAdmision(data['ID_CLIENTE'])
   await ocultarAntecedentesGinecologicos(data['GENERO']) 
   await obtenerPanelInformacion(data['ID_TURNO'], "signos-vitales_api", 'signos-vitales', '#signos-vitales');
   $('#descripcion-antecedentes').html('Antecedentes del paciente actual')
@@ -168,13 +170,18 @@ async function obtenerValoracion(data, idconsulta) {
   $('.div-btn-guardarAntNutri').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
   $('.div-btn-guardarAntLabo').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
   $('.div-btn-guardarAntGine').append('<button type="button" class="btn btn-confirmar m-1 guardarAnt"> <i class="bi bi-paperclip"></i> Guardar </button>')
+  $('.div-btn-guardarHistoriaFamiliar').append('<button type="button" class="btn btn-confirmar m-1 guardarHistoriaFam"><i class="bi bi-paperclip"></i> Guardar </button>')
+  $('.div-btn-guardarNutAlimentos').append('<button type="button" class="btn btn-confirmar m-1 guardarNutAlimentos"><i class=""></i> Guardar </button>')
   await obtenerAntecedentesPaciente(data['ID_TURNO']);
   // console.log("si");
   await obtenerInformacionPaciente(data)
   await obtenerNutricion(data['ID_TURNO'])
   await obtenerExploracion(data['ID_TURNO'])
   await obtenerAnamnesisApartados(data['ID_TURNO']);
-  await obtenerInformacionConsulta(idconsulta)
+  await obtenerInformacionConsulta(idconsulta);
+  //EXPLORACION SIGMA, MARCAR ZONAS CON LESIONES.
+  await obtenerZonaMarcaje(data['ID_TURNO']);
+  await rellenarValoracionCondicion(data["ID_TURNO"]);
 
   autosize(document.querySelectorAll('textarea'))
 

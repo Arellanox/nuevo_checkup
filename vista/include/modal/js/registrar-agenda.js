@@ -200,6 +200,7 @@ function evaluarAntecedentes(div1, div2, div3, div4, div5, div6) {
   if (div3.length != 20) {
     alertMensaje('info', `${traducir('Antecedentes heredofamiliares', language)}`, `${traducir('Formulario incompleto, favor de rellenar todos', language)}`)
     mostrarAntecedente('collapse-anteHeredo-Target', 'formAntHeredofamiliares')
+    mostrarAntecedente('collapse-anteHeredo-Target', 'historiaFamiliarForm')
     return true;
   }
   if (div4.length != 15) {

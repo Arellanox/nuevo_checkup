@@ -76,6 +76,8 @@ $("#formCuestionarioRiesgo").submit(async function (event) {
 
     var formAntGinecologicos = jQuery(document.forms['formAntGinecologicos']).serializeArray();
 
+    
+
     if (evaluarAntecedentes(formAntPersonalPato, formAntNoPatologicos, formAntHeredofamiliares, formAntPsicologico, formAntNutricionales, formMedioLaboral, formAntGinecologicos)) {
       return false;
     }
@@ -286,6 +288,7 @@ function evaluarAntecedentes(div1, div2, div3, div4, div5, div6, div7) {
   if (div3.length != 20) {
     alertMensaje('info', 'Antecedentes heredofamiliares', 'Formulario incompleto, favor de rellenar todos')
     mostrarAntecedente('collapse-anteHeredo-Target', 'formAntHeredofamiliares')
+    mostrarAntecedente('collapse-anteHeredo-Target', 'historiaFamiliarForm')
     return true;
   }
   if (div4.length != 15) {

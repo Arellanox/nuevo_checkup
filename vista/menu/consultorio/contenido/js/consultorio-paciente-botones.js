@@ -65,6 +65,61 @@ $('#btn-regresar-vista').click(function () {
   })
 })
 
+$(document).on('click', '.guardarHistoriaFam', function(event){
+  event.stopPropagation();
+  event.stopImmediatePropagation();
+  button = $(this);
+  button.prop('disabled', true);
+  var parent_element = button.closest('form').attr('id');
+  console.log(parent_element);
+  let formData = new FormData(document.getElementById(parent_element));
+  formData.set('api', 4);
+  formData.set('turno_id', pacienteActivo.array['ID_TURNO']);
+  $.ajax({
+    data: formData,
+    url: `${http}${servidor}/${appname}/api/ficha_admision_api.php`,
+    type: 'POST',
+    processData: false, 
+    contentType: false,
+    dataType: 'json',
+    beforeSend: function(){
+      alertToast('Guardando...', 'info')
+    },
+    success: function(data){
+      button.prop('disabled', false);
+      alertToast('Guardado con éxito!', 'success');
+    }
+  })
+})
+
+// Nutricion alimentos, nutAlimentos
+$(document).on('click', '.guardarNutAlimentos', function(event){
+  event.stopPropagation();
+  event.stopImmediatePropagation();
+  button= $(this);
+  button.prop('disabled', true);
+  var parent_element = button.closest('form').attr('id');
+  let formData = new FormData(document.getElementById(parent_element));
+  formData.set('api', 6);
+  formData.set('turno_id', pacienteActivo.array['ID_TURNO']);
+
+  $.ajax({
+    data: formData,
+    url: `${http}${servidor}/${appname}/api/ficha_admision_api.php`,
+    type: 'POST',
+    processData: false,
+    contentType: false,
+    dataType: 'json',
+    beforeSend: function(){
+      alertToast('Guardando...Espere por favor', 'info')
+    },
+    success: function(){
+      button.prop('disabled', false);
+      alertToast('Guardado con éxito!', 'success')
+    }
+  })
+})
+
 
 // $('.').on
 $(document).on('click', '.guardarAnt ', function (event) {
@@ -92,13 +147,109 @@ $(document).on('click', '.guardarAnt ', function (event) {
     },
     success: function (data) {
       button.prop('disabled', false);
-      alertToast('Guardado con exito', 'success');
+      alertToast('Guardado con éxito', 'success');
     },
   });
   // eliminarElementoArray(id);
   // console.log(id);
 
 });
+
+// guardar la condiciones de valoracion
+$(document).on('click', '.guardarCondicion', function (event) {
+  event.stopPropagation();
+  event.stopImmediatePropagation();
+  button = $(this)
+  button.prop('disabled', true);
+  var parent_element = button.closest("form").attr('id');
+  var formData = new FormData(document.getElementById(parent_element));
+
+  formData.set("api", 15);
+  formData.set("turno_id", pacienteActivo.array['ID_TURNO']);
+
+  $.ajax({
+    data: formData,
+    url: `${http}${servidor}/${appname}/api/ficha_admision_api.php`,
+    type: "POST",
+    processData: false,
+    contentType: false,
+    dataType: 'json',
+    beforeSend: function () {
+      // alert('Enviando')
+      alertToast('Guardando...', 'info')
+    },
+    success: function (data) {
+      button.prop('disabled', false);
+      alertToast('Guardado con éxito', 'success');
+    },
+    completed: function(){
+      button.prop('disable', false);
+    }
+  })
+  
+})
+
+//Guardar las exploraciones de sigma
+$(document).on('click', '.guardar-form-exploracion', function(event){
+  event.stopPropagation();
+  event.stopImmediatePropagation();
+  button = $(this)
+  button.prop('disabled', true);
+  var parent_element = button.closest("form").attr('id');
+  let formData = new FormData(document.getElementById(parent_element));
+  formData.set('api', 8);
+  formData.set('turno_id', pacienteActivo.array['ID_TURNO']);
+
+  $.ajax({
+    data: formData,
+    url: `${http}${servidor}/${appname}/api/ficha_admision_api.php`,
+    type: "POST",
+    processData: false,
+    contentType: false,
+    dataType: 'json',
+    beforeSend: function () {
+      // alert('Enviando')
+      alertToast('Guardando...', 'info')
+    },
+    success: function (data) {
+      button.prop('disabled', false);
+      alertToast('Guardado con éxito', 'success');
+    },
+    completed: function(){
+      button.prop('disable', false);
+    }
+  })
+
+  
+})
+
+//guardar interpretacion de resultados de laboratorio sigma.
+$(document).on('click', '#btnGuardarInterpreracionSigma', function(event){
+  event.stopPropagation();
+  event.stopImmediatePropagation();
+  button = $(this);
+  var form = new FormData(document.getElementById(button.closest("form").attr("id")));
+  form.set('api', 10);
+  form.set('turno_id', pacienteActivo.array['ID_TURNO'])
+  $.ajax({
+    data: form,
+    url: `${http}${servidor}/${appname}/api/ficha_admision_api.php`,
+    type: "POST",
+    processData: false,
+    contentType: false,
+    dataType: 'json',
+    beforeSend: function () {
+      alertToast('Guardando...', 'info');
+    },
+    success: function (data) {
+      if (!isNaN(data.response.data)) {
+        alertToast('Guardado con éxito', 'success');
+    } else {
+        alertToast(`Error al guardar: ${data.response.data}`, 'danger');
+    }
+    }
+  })
+})
 
 //botones de pdf de vista previa
 //busca y muestra lso botones solo si tiene ya una receta y solicitud mientrtas que las url esten vacias no las mostrara

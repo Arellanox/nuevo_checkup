@@ -200,11 +200,35 @@ $(document).on('click', '.eliminarOdontograma', function () {
 })
 
 
+// Guardar ficha de admision para pacientes sigma
 
+$(document).on('click', '.guardarFicha', function (event) {
+  event.stopPropagation();
+  event.stopImmediatePropagation();
+  button = $(this)
+  button.prop('disabled', true);
+  var parent_element = button.closest("form").attr('id');
+  var formData = new FormData(document.getElementById(parent_element))
+  formData.set('api', 1)
+  formData.set('turno_id', pacienteActivo.array['ID_TURNO'])
 
+  $.ajax({
+    data: formData,
+    url: `${http}${servidor}/${appname}/api/ficha_admision_api.php`,
+    type: 'POST',
+    processData: false,
+    contentType: false,
+    dataType: 'json',
+    beforeSend: function () {
+      alertToast('Guardando...', 'info')
+    },
+    success: function(data){
+      alertToast('Guardado con éxito!', 'success')
+      button.prop('disabled', false);
+    }
+  })
 
-
-
+});
 
 //Guardar antecedentes
 $(document).on('click', '.guardarAnamn ', function (event) {

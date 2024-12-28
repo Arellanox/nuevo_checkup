@@ -268,7 +268,12 @@ switch ($api) {
 
                 array_push($data, [$turno_id, $current[0], null, $current[1]]);
             } else {
-                $response = $master->updateByProcedure('sp_consultorio_antecedentes_a', [$turno_id, $current[0], $current[1], $current[2]]);
+                $response = $master->updateByProcedure('sp_consultorio_antecedentes_a', [
+                    $turno_id, 
+                    $current[0], 
+                    isset($current[2]) ? $current[1] : null,
+                    $current[2] ?? ($current[1] ?? null)
+                ]);
                 array_push($data, [$turno_id, $current[0], $current[1], $current[2]]);
             }
         }
