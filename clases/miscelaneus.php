@@ -404,6 +404,7 @@ class Miscelaneus
             case 1:
             case '1':
                 # CONSULTORIO
+                $cliente_id = $master->insertByProcedure('sp_get_cliente', [$turno_id]);
                 if ($cliente_id == 15) {
                     $reporte = 'sigma_consultorio';
                     $arregloPaciente = $this->getSigmaHistoria($master, $turno_id);
