@@ -476,7 +476,15 @@
             </tr>
             <tr>
                 <td colspan="1" rowspan="1">Valoración de Condición:</td>
-                <td style="text-align: center;"><span id="valorCondicionMesesSpan">______</span> meses.</td>
+                <td style="text-align: center;"><span id="valorCondicionMesesSpan">
+                        <?php
+                        if (isset($resultados[12]->VALORACION_MESES)) {
+                            echo $resultados[12]->VALORACION_MESES;
+                        } else
+                            echo "______";
+                        ?>
+                    </span> meses.</td>
+                </span> meses.</td>
                 <td><span></span></td>
             </tr>
             <tr>
@@ -484,17 +492,41 @@
             </tr>
             <tr>
                 <td colspan="1" rowspan="1">Apto</td>
-                <td class="tittleCentered"><span id="aptoSpan">( )</span></td>
+                <td class="tittleCentered"><span id="aptoSpan">
+                        <?php
+                        if ($resultados[12]->VALORACION == "APTO") {
+                            echo "(x)";
+                        } else {
+                            echo "( )";
+                        }
+                        ?>
+                    </span></td>
                 <td><span></span></td>
             </tr>
             <tr>
                 <td colspan="1" rowspan="1">No Apto</td>
-                <td class="tittleCentered"><span id="noAptoSpan">( )</span></td>
+                <td class="tittleCentered"><span id="noAptoSpan">
+                        <?php
+                        if ($resultados[12]->VALORACION == "NO APTO") {
+                            echo "(x)";
+                        } else {
+                            echo "( )";
+                        }
+                        ?>
+                    </span></td>
                 <td><span></span></td>
             </tr>
             <tr>
                 <td colspan="1" rowspan="1">Apto Condicionado</td>
-                <td class="tittleCentered"><span id="condicionadoSpan">( )</span></td>
+                <td class="tittleCentered"><span id="condicionadoSpan">
+                        <?php
+                        if ($resultados[12]->VALORACION == "APTO CONDICIONADO") {
+                            echo "(x)";
+                        } else {
+                            echo "( )";
+                        }
+                        ?>
+                    </span></td>
                 <td><span></span></td>
             </tr>
             <tr>

@@ -447,6 +447,7 @@ class Miscelaneus
                     $infoOftalmoResultados = $master->getByProcedure("sp_oftalmo_resultados_b", [NULL, $turno_id]);
                     $infoConsultorioConsulta = $master->getByProcedure("sp_consultorio_consulta_b", [NULL, $turno_id, NULL]);
                     $infoSigmaLesiones = $master->getByProcedure("sp_sigma_lesiones_b", [$turno_id]);
+                    $infoSigmaValoraviones = $master->getByProcedure("sp_sigma_valoraciones_b", [$turno_id]);
 
                     $arregloAntecedentes = [];
                     foreach ($infoConsultorioAntecedentes as $key => $value) {
@@ -560,10 +561,20 @@ class Miscelaneus
                         }
                     }
 
+                    $arregloSigmaValoraciones = [];
+                    foreach ($infoSigmaValoraviones as $key => $value) {
+                        if (isset($value['ID_VALORACION'])) {
+                            $arregloSigmaValoraciones = array_filter($value, function ($k) {
+                                $allowedKeys = ['VALORACION_MESES', 'VALORACION', 'OBSERVACIONES'];
+                                return in_array($k, $allowedKeys, true);
+                            }, ARRAY_FILTER_USE_KEY);
+                        }
+                    }
+
                     //echo "<pre>";
                     //agregar nuevos arreglos
-                    $arregloPaciente = [$result, $arregloAntecedentes, $arregloHistofam, $arregloAntecedentesNutri, $arregloConsultorioAparatos, $arregloInfoFichAdmi, $arregloSignosVital, $arregloSigmaExploracion, $arregloSigmaInterpretaciones, $arregloOftalmoResultados, $arregloConsultorioConsulta, $arregloSigmaLesiones];
-                    //print_r([$result, $arregloAntecedentes, $arregloHistofam, $arregloAntecedentesNutri, $arregloConsultorioAparatos, $arregloInfoFichAdmi, $arregloSignosVital, $arregloSigmaExploracion, $arregloSigmaInterpretaciones, $arregloOftalmoResultados, $arregloConsultorioConsulta, $arregloSigmaLesiones]);
+                    $arregloPaciente = [$result, $arregloAntecedentes, $arregloHistofam, $arregloAntecedentesNutri, $arregloConsultorioAparatos, $arregloInfoFichAdmi, $arregloSignosVital, $arregloSigmaExploracion, $arregloSigmaInterpretaciones, $arregloOftalmoResultados, $arregloConsultorioConsulta, $arregloSigmaLesiones, $arregloSigmaValoraciones];
+                    //print_r([$result, $arregloAntecedentes, $arregloHistofam, $arregloAntecedentesNutri, $arregloConsultorioAparatos, $arregloInfoFichAdmi, $arregloSignosVital, $arregloSigmaExploracion, $arregloSigmaInterpretaciones, $arregloOftalmoResultados, $arregloConsultorioConsulta, $arregloSigmaLesiones, $arregloSigmaValoraciones]);
                     //echo "</pre>";
                     //exit;
                     
