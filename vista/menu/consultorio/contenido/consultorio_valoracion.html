@@ -1741,6 +1741,53 @@
           </div>
         </section>
 
+        <section class="sigmaClass">
+          <h4 class="m-3">Valoración de condición</h4>
+          <form id="formValoracionCondicion">
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr>
+                <td colspan="3" style="border-bottom: 1px solid black; padding-bottom: 5px;">
+                  Valoración de Condición: 
+                  <input type="number" class="input-form" name="valoracion_condicion" style="border: none; border-bottom: 1px solid black; width: 200px; text-align: center;"> 
+                  meses.
+                </td>
+              </tr>
+              <tr>
+                <td style="border-top: 1px solid black; padding: 5px 0;">
+                  <label>
+                    <input type="radio" name="condicion" value="1" style="margin-right: 10px;"> Apto
+                  </label>
+                </td>
+                <td style="border-top: 1px solid black;" colspan="2"></td>
+              </tr>
+              <tr>
+                <td style="border-top: 1px solid black; padding: 5px 0;">
+                  <label>
+                    <input type="radio" name="condicion" value="2" style="margin-right: 10px;"> No Apto
+                  </label>
+                </td>
+                <td style="border-top: 1px solid black;" colspan="2"></td>
+              </tr>
+              <tr>
+                <td style="border-top: 1px solid black; padding: 5px 0;">
+                  <label>
+                    <input type="radio" name="condicion" value="3" style="margin-right: 10px;"> Apto Condicionado
+                  </label>
+                </td>
+                <td style="border-top: 1px solid black;" colspan="2"></td>
+              </tr>
+              <tr>
+                <td colspan="3" style="padding-top: 10px;">
+                  <label for="observaciones">Observaciones:</label><br>
+                  <textarea class="input-form"  id="observaciones" name="observaciones" rows="4" style="width: 100%; border: 1px solid black;"></textarea>
+                </td>
+              </tr>
+            </table>
+            <br>
+            <button type="button" class="btn btn-confirmar guardarCondicion">Guardar</button>
+          </form>          
+        </section>
+
 
 
 
@@ -1887,7 +1934,29 @@
         autoHeightDiv('#vista-valoracion', 157);
         $(window).resize(function () {
           autoHeightDiv('#vista-valoracion', 157);
-        })
+        })    
+
+        // $(document).ready(function(){
+        //   // Selecciona la sección específica
+        //   var targetSectionVAl = document.getElementById('MarcacionAreas');
+
+        //   // Crea un observador
+        //   var observerVal = new IntersectionObserver((entries) => {
+        //       entries.forEach(entry => {
+        //           if (entry.isIntersecting) {
+
+        //               rellenarValoracionCondcion(pacienteActivo.array['ID_TURNO']);
+        //           }
+        //       });
+        //   }, {
+        //       root: null, // Usa el viewport como referencia
+        //       threshold: 0.1 // La función se dispara cuando el 10% de la sección es visible
+        //   });
+
+        //   // Observa la sección
+        //   observerVal.observe(targetSectionVAl);
+        // })
+       
       </script>
     </div>
   </div>

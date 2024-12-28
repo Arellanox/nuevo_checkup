@@ -2943,9 +2943,12 @@ function obtenerAntecedentesPaciente(id, curp, tipo = 1) {
       }
     })
 
+
     resolve(1)
   });
 }
+
+
 
 function mostrarDetalleLesionSigma(data){
   var container = document.getElementById('divDetalleLesiones');
