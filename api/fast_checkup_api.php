@@ -81,6 +81,21 @@ switch ($api) {
                 if ($mail->sendEmail('fastck', '[bimo] Fast Checkup', [$attachment[1]], null, $attachment[0], 1, $nombre_paciente, $turno_id,1, $master )) {
                     $master->setLog("Correo enviado.", "fast - checkup");
                 }
+            } else {
+              # intentar con los pacientes que son de fast checkup pero se dieron de alta como particulares
+              $attachment = $master->cleanAttachFilesImage($master, $turno_id,null,1);
+              
+              if(!empty($attachment[0])){
+                $mail = new Correo();
+                if ($mail->sendEmail('fastck', '[bimo] Fast Checkup', [$attachment[1]], null, $attachment[0], 1, $nombre_paciente, $turno_id,1, $master )) {
+
+                    $master->setLog("Correo enviado.", "fast - checkup");
+
+                } else {
+
+                    $master->setLog("Error al enviar correo. No se encontraron archivos", "fast - checkup / particulares. turno ". $turno_id);
+                }
+              }
             }
 
         } else {
