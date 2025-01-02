@@ -364,7 +364,7 @@ $(document).on('submit', '#formAgregarPaciente', function (event) {
         }
 
         // Verificamos si estamos agregando un nuevo usuario o ya existente
-        if (form_type) {
+        if (form_type == 2) {
             data_json['id_paciente'] = $('#paciente_existente').val(); // <-- el que seleccionó el usuario
         }
 
