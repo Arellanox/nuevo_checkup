@@ -368,6 +368,11 @@ $(document).on('submit', '#formAgregarPaciente', function (event) {
             data_json['id_paciente'] = $('#paciente_existente').val(); // <-- el que seleccionó el usuario
         }
 
+        // if ($('#paciente_existente').is(':visible')) {
+        //     // El elemento es visible
+        //     data_json['id_paciente'] = $('#paciente_existente').val(); // <-- el que seleccionó el usuario
+        // } 
+
         // Envia fotos para guardarlo
         ajaxAwaitFormData(data_json, 'maquilas_api', 'formAgregarPaciente', { callbackAfter: true }, false, async (data) => {
 
@@ -653,11 +658,11 @@ function controlFormsPages(page, action) {
             break;
         case "2":
             // Verificar la orden medica
-            const ordenM = $('#input_ordenMedica').val();
-            if (ordenM === null || ordenM === undefined || ordenM === '') {
-                alertToast('¡No olvide cargar la orden médica!', 'info', 4000)
-                return true;
-            }
+            // const ordenM = $('#input_ordenMedica').val();
+            // if (ordenM === null || ordenM === undefined || ordenM === '') {
+            //     alertToast('¡No olvide cargar la orden médica!', 'info', 4000)
+            //     return true;
+            // }
 
             break;
 
