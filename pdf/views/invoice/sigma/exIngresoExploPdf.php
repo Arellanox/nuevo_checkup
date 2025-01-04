@@ -26,7 +26,7 @@
         </colgroup>
         <tbody>
             <tr>
-                <td <?php $imagePath = 'http://localhost/nuevo_checkup/pdf/views/invoice/sigma/Imagen1.jpg';
+                <td <?php $imagePath = 'https://bimo-lab.com/nuevo_checkup/pdf/views/invoice/sigma/Imagen1.jpg';
                     $imageData = base64_encode(file_get_contents($imagePath));
                     $src = 'data:image/jpeg;base64,' . $imageData;
                     ?> colspan="1" rowspan="1"><img class="logoSigma" src="<?= $src ?>" alt="SigmaLogo">

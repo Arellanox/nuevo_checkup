@@ -32,7 +32,7 @@
             <tr>
                 <td colspan="3" rowspan="1" style="text-align: center;">
                     <?php
-                    $imagePath = 'http://localhost/nuevo_checkup/pdf/views/invoice/sigma/Imagen2.png';
+                    $imagePath = 'https://bimo-lab.com/nuevo_checkup/pdf/views/invoice/sigma/Imagen2.png';
                     $imageData = base64_encode(file_get_contents($imagePath));
                     $src = 'data:image/jpeg;base64,' . $imageData;
                     ?>
