@@ -94,6 +94,7 @@ $(document).on('click', '#btn-concluir-paciente', function (e) {
         || array_selected['CLIENTE_ID'] == 48 // DP CONSULTANCY & TRAINING
         || array_selected['CLIENTE_ID'] == 49 // CES MARTIN
         || array_selected['CLIENTE_ID'] == 44 // LABORATORIO BALDERAS
+        || array_selected['CLIENTE_ID'] == 19 // FAST CHEKCUP
       ) {
 
         $('descuento').val('');
