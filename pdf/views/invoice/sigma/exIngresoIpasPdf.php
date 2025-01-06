@@ -309,8 +309,8 @@
                 <td style="background-color: #CCFFFF; font-weight: bold; font-size: 7px; text-align: center;">Ritmo Menstrual:</td>
                 <td colspan="2" style="background-color: #CCFFFF;"><span id="ritmoMenstrualSpan">
                         <?php
-                        if (isset($resultados[4]->{94}->NOTAS)) {
-                            echo $resultados[4]->{94}->NOTAS;
+                        if (isset($resultados[1]->{197}->NOTAS)) {
+                            echo $resultados[1]->{197}->NOTAS;
                         }
                         ?>
                     </span></td>
