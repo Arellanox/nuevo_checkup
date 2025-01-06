@@ -99,17 +99,19 @@
                 <td colspan="3" rowspan="1">Problemas de la vista (uso de Lentes)</td>
                 <td class="cent" colspan="2" rowspan="1"><span id="problemasViSpan">
                         <?php
-                        if ($resultados[4]->{249}->RESPUESTA == "Sí") {
-                            echo "x";
-                        }
+                        // if ($resultados[4]->{249}->RESPUESTA == "Sí") {
+                        //     echo "x";
+                        // }
+                        echo $resultados[4]->{249}->RESPUESTA;
                         ?>
                     </span></td>
                 <td colspan="3" rowspan="1">Antecedente de ASMA</td>
                 <td class="cent" colspan="2" rowspan="1"><span id="anteAsmaSpan">
                         <?php
-                        if ($resultados[4]->{81}->RESPUESTA == "Sí") {
-                            echo "x";
-                        }
+                        // if ($resultados[4]->{81}->RESPUESTA == "Sí") {
+                        //     echo "x";
+                        // }
+                        echo $resultados[4]->{81}->RESPUESTA;
                         ?>
                     </span></td>
             </tr>
@@ -117,17 +119,19 @@
                 <td colspan="3" rowspan="1">Infecciones Oculares Recurrentes</td>
                 <td class="cent" colspan="2" rowspan="1"><span id="infecOcuSpan">
                         <?php
-                        if ($resultados[4]->{261}->RESPUESTA == "Sí") {
-                            echo "x";
-                        }
+                        // if ($resultados[4]->{261}->RESPUESTA == "Sí") {
+                        //     echo "x";
+                        // }
+                        echo $resultados[4]->{261}->RESPUESTA;
                         ?>
                     </span></td>
                 <td colspan="3" rowspan="1">Antecedente Rinitis Alérgica</td>
                 <td class="cent" colspan="2" rowspan="1"><span id="antecRiniAlerSpan">
                         <?php
-                        if ($resultados[4]->{265}->RESPUESTA == "Sí") {
-                            echo "x";
-                        }
+                        // if ($resultados[4]->{265}->RESPUESTA == "Sí") {
+                        //     echo "x";
+                        // }
+                        echo $resultados[4]->{265}->RESPUESTA;
                         ?>
                     </span></td>
             </tr>
@@ -136,9 +140,10 @@
                 <td colspan="3" rowspan="1">Antecedente de Neumonías o Bronquitis</td>
                 <td class="cent" colspan="2" rowspan="1"><span id="antecNeumBronqSpan">
                         <?php
-                        if ($resultados[4]->{266}->RESPUESTA == "Sí") {
-                            echo "x";
-                        }
+                        // if ($resultados[4]->{266}->RESPUESTA == "Sí") {
+                        //     echo "x";
+                        // }
+                        echo $resultados[4]->{266}->RESPUESTA;
                         ?>
                     </span></td>
             </tr>
@@ -147,9 +152,10 @@
                 <td colspan="3" rowspan="1">Antecedente de Influenza</td>
                 <td class="cent" colspan="2" rowspan="1"><span id="antecInfuSpan">
                         <?php
-                        if ($resultados[4]->{267}->RESPUESTA == "Sí") {
-                            echo "x";
-                        }
+                        // if ($resultados[4]->{267}->RESPUESTA == "Sí") {
+                        //     echo "x";
+                        // }
+                        echo $resultados[4]->{267}->RESPUESTA;
                         ?>
                     </span></td>
                 </span></td>
@@ -159,9 +165,11 @@
                 <td colspan="3" rowspan="1">Antecedente de Tuberculosis</td>
                 <td class="cent" colspan="2" rowspan="1"><span id="antecTuberSpan">
                         <?php
-                        if ($resultados[4]->{268}->RESPUESTA == "Sí") {
-                            echo "x";
-                        }
+                        // if ($resultados[4]->{268}->RESPUESTA == "Sí") {
+                        //     echo "x";
+                        // }
+
+                        echo $resultados[4]->{268}->RESPUESTA;
                         ?>
                     </span></td>
             </tr>
@@ -177,17 +185,19 @@
                 <td colspan="3" rowspan="1">Cirugías Cardiacas</td>
                 <td class="cent" colspan="2" rowspan="1"><span id="cirCardSpan">
                         <?php
-                        if ($resultados[4]->{262}->RESPUESTA == "Sí") {
-                            echo "x";
-                        }
+                        // if ($resultados[4]->{262}->RESPUESTA == "Sí") {
+                        //     echo "x";
+                        // }
+                        echo $resultados[4]->{262}->RESPUESTA;
                         ?>
                     </span></td>
                 <td colspan="3" rowspan="1">Antecedente de Gastritis</td>
                 <td class="cent" colspan="2" rowspan="1"><span id="antecGrastSpan">
                         <?php
-                        if ($resultados[4]->{269}->RESPUESTA == "Sí") {
-                            echo "x";
-                        }
+                        // if ($resultados[4]->{269}->RESPUESTA == "Sí") {
+                        //     echo "x";
+                        // }
+                        $resultados[4]->{269}->RESPUESTA
                         ?>
                     </span></td>
             </tr>
@@ -195,17 +205,19 @@
                 <td colspan="3" rowspan="1">Antecedente de Varices</td>
                 <td class="cent" colspan="2" rowspan="1"><span id="antecVaricSpan">
                         <?php
-                        if ($resultados[4]->{263}->RESPUESTA == "Sí") {
-                            echo "x";
-                        }
+                        // if ($resultados[4]->{263}->RESPUESTA == "Sí") {
+                        //     echo "x";
+                        // }
+                        $resultados[4]->{263}->RESPUESTA
                         ?>
                     </span></td>
                 <td colspan="3" rowspan="1">Antecedente de Colitis</td>
                 <td class="cent" colspan="2" rowspan="1"><span id="antecColSpan">
                         <?php
-                        if ($resultados[4]->{270}->RESPUESTA == "Sí") {
-                            echo "x";
-                        }
+                        // if ($resultados[4]->{270}->RESPUESTA == "Sí") {
+                        //     echo "x";
+                        // }
+                        echo $resultados[4]->{270}->RESPUESTA;
                         ?>
                     </span></td>
             </tr>
@@ -213,17 +225,19 @@
                 <td colspan="3" rowspan="1">Dolor hormigueos o Adormecimiento de Piernas</td>
                 <td class="cent" colspan="2" rowspan="1"><span id="dolHorAdoPierSpan">
                         <?php
-                        if ($resultados[4]->{264}->RESPUESTA == "Sí") {
-                            echo "x";
-                        }
+                        // if ($resultados[4]->{264}->RESPUESTA == "Sí") {
+                        //     echo "x";
+                        // }
+                        echo $resultados[4]->{264}->RESPUESTA;
                         ?>
                     </span></td>
                 <td colspan="3" rowspan="1">Antecedente de Enfermedades Diarreicas frecuentes</td>
                 <td class="cent" colspan="2" rowspan="1"><span id="antecEnfDiarFrecSpan">
                         <?php
-                        if ($resultados[4]->{271}->RESPUESTA == "Sí") {
-                            echo "x";
-                        }
+                        // if ($resultados[4]->{271}->RESPUESTA == "Sí") {
+                        //     echo "x";
+                        // }
+                        echo $resultados[4]->{271}->RESPUESTA;
                         ?>
                     </span></td>
             </tr>
@@ -247,17 +261,19 @@
                 <td colspan="3" rowspan="1">Infecciones Urinarias</td>
                 <td class="cent" colspan="2" rowspan="1"><span id="infUrinSpan">
                         <?php
-                        if ($resultados[4]->{272}->RESPUESTA == "Sí") {
-                            echo "x";
-                        }
+                        // if ($resultados[4]->{272}->RESPUESTA == "Sí") {
+                        //     echo "x";
+                        // }
+                        echo $resultados[4]->{272}->RESPUESTA;
                         ?>
                     </span></td>
                 <td colspan="3" rowspan="1">Dolor en Columna, (Lumbar o cuello)</td>
                 <td class="cent" colspan="2" rowspan="1"><span id="dolColumSpan">
                         <?php
-                        if ($resultados[4]->{275}->RESPUESTA == "Sí") {
-                            echo "x";
-                        }
+                        // if ($resultados[4]->{275}->RESPUESTA == "Sí") {
+                        //     echo "x";
+                        // }
+                        echo $resultados[4]->{275}->RESPUESTA;
                         ?>
                     </span></td>
             </tr>
@@ -265,17 +281,20 @@
                 <td colspan="3" rowspan="1">Cálculos o arenillas</td>
                 <td class="cent" colspan="2" rowspan="1"><span id="calcArenilSpan">
                         <?php
-                        if ($resultados[4]->{273}->RESPUESTA == "Sí") {
-                            echo "x";
-                        }
+                        // if ($resultados[4]->{273}->RESPUESTA == "Sí") {
+                        //     echo "x";
+                        // }
+                        echo $resultados[4]->{273}->RESPUESTA;
                         ?>
                     </span></td>
                 <td colspan="3" rowspan="1">Desviación de Columna</td>
                 <td class="cent" colspan="2" rowspan="1"><span id="desvColumSpan">
                         <?php
-                        if ($resultados[4]->{276}->RESPUESTA == "Sí") {
-                            echo "x";
-                        }
+                        // if ($resultados[4]->{276}->RESPUESTA == "Sí") {
+                        //     echo "x";
+                        // }
+
+                        echo $resultados[4]->{276}->RESPUESTA;
                         ?>
                     </span></td>
             </tr>
@@ -283,17 +302,19 @@
                 <td colspan="3" rowspan="1">Problemas en ri&ntilde;ón</td>
                 <td class="cent" colspan="2" rowspan="1"><span id="probRiñSpan">
                         <?php
-                        if ($resultados[4]->{274}->RESPUESTA == "Sí") {
-                            echo "x";
-                        }
+                        // if ($resultados[4]->{274}->RESPUESTA == "Sí") {
+                        //     echo "x";
+                        // }
+                        echo $resultados[4]->{274}->RESPUESTA;
                         ?>
                     </span></td>
                 <td colspan="3" rowspan="1">Dolor, inflamación o crepitación de Hombro</td>
                 <td class="cent" colspan="2" rowspan="1"><span id="dolInfCrepHombrSpan">
                         <?php
-                        if ($resultados[4]->{277}->RESPUESTA == "Sí") {
-                            echo "x";
-                        }
+                        // if ($resultados[4]->{277}->RESPUESTA == "Sí") {
+                        //     echo "x";
+                        // }
+                        echo $resultados[4]->{277}->RESPUESTA;
                         ?>
                     </span></td>
             </tr>
@@ -317,9 +338,10 @@
                 <td colspan="3" rowspan="1">Dolor, inflamación o crepitación de Rodillas</td>
                 <td class="cent" colspan="2" rowspan="1"><span id="dolInflCrepRodiSpan">
                         <?php
-                        if ($resultados[4]->{278}->RESPUESTA == "Sí") {
-                            echo "x";
-                        }
+                        // if ($resultados[4]->{278}->RESPUESTA == "Sí") {
+                        //     echo "x";
+                        // }
+                        echo $resultados[4]->{278}->RESPUESTA;
                         ?>
                     </span></td>
                 </tr>
@@ -327,9 +349,10 @@
                     <td style="background-color: #CCFFFF; font-weight: bold;">Vida Sex Activa:</td>
                     <td class="cent" style="background-color: #CCFFFF;"><span id="vidaSexActSpan">
                             <?php
-                            if ($resultados[1]->{23}->RESPUESTA == "Sí") {
-                                echo "x";
-                            }
+                            // if ($resultados[1]->{23}->RESPUESTA == "Sí") {
+                            //     echo "x";
+                            // }
+                            echo $resultados[1]->{23}->RESPUESTA;
                             ?>
                         </span></td>
                     <td colspan="2" rowspan="1" style="background-color: #CCFFFF; font-weight: bold;">Fecha &Uacute;ltima Menstruaci&oacute;n:</td>
@@ -343,9 +366,11 @@
                     <td colspan="3" rowspan="1">Dolor, inflamación o crepitación en Mu&ntilde;ecas</td>
                     <td class="cent" colspan="2" rowspan="1"><span id="dolorInfCrepMuñSpan">
                             <?php
-                            if ($resultados[4]->{279}->RESPUESTA == "Sí") {
-                                echo "x";
-                            }
+                            // if ($resultados[4]->{279}->RESPUESTA == "Sí") {
+                            //     echo "x";
+                            // }
+
+                            echo $resultados[4]->{279}->RESPUESTA;
                             ?>
                         </span></td>
                 </tr>
@@ -361,9 +386,10 @@
                     <td colspan="3" rowspan="1">Antecedente de Accidente Automovilístico</td>
                     <td class="cent" colspan="2" rowspan="1"><span id="antecedenAccAutoSpan">
                             <?php
-                            if ($resultados[4]->{280}->RESPUESTA == "Sí") {
-                                echo "x";
-                            }
+                            // if ($resultados[4]->{280}->RESPUESTA == "Sí") {
+                            //     echo "x";
+                            // }
+                            echo $resultados[4]->{280}->RESPUESTA;
                             ?>
                         </span></td>
                 </tr>
