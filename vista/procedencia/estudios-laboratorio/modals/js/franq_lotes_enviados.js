@@ -47,6 +47,15 @@ TablaListaLotes = $('#TablaListaLotes').DataTable({
     columns: [
         { data: 'COUNT' },
         { data: 'FOLIO' },
+        { data: 'TOTAL', render: function(data, type, row){
+
+                if(data){
+                    return `$ ${data}`
+                } else {
+                    return 'S/D';
+                }
+            } 
+        },
         {
             data: 'ESTATUS', render: function (data, type, row) {
                 switch (row.ID_ESTATUS) {
