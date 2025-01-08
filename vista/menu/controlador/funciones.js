@@ -3281,13 +3281,14 @@ function ocultarFichaAdmision(cliente){
       $('#li-fadmision').fadeOut(0);
       $("#card-fadmision").fadeOut(0);
       $("#historiaFamiliarForm").fadeOut(0);
-      $('.sigmaClass').fadeOut(0);
+      $('.sigmaClass').fadeOut(0).find('input, textarea, select').prop('disabled', true);;
       console.warn(cliente)
     } else {
       $.post(`${http}${servidor}/${appname}/vista/include/acordion/ficha-admision.html`, function(html){
         $("#divFichaAdmision").html(html)
       })
       $('.clientesClass').fadeOut(0);
+      $('.sigmaClass').fadeIn(0).find('input, textarea, select').prop('disabled', false);
     }
     resolve(1)
   })
