@@ -716,6 +716,8 @@ class Miscelaneus
             case -3:
                 #SOLICITUD DE ESTUDIOS
                 $arregloPaciente = $this->getBodySoliEstudios($master, $turno_id);
+                $info = $master->getByProcedure("sp_info_medicos", [$turno_id, 19]);
+                $datos_medicos = $this->getMedicalCarrier($info);
                 $folio = $infoPaciente[array_key_last($infoPaciente)]['FOLIO_SOLICITUD_ESTUDIOS'];
                 $fecha_resultado = $infoPaciente[array_key_last($infoPaciente)]['FECHA_CARPETA_CONSULTA2'];
                 $carpeta_guardado = "solicitud_estudios";
