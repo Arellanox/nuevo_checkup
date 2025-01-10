@@ -3175,13 +3175,21 @@ function setValuesAntAnnameMetodo(DIV, array, key) {
     } catch (error) {
 
     }
-
+  
     try {
-      for (var i = 0; i < DIV.length; i++) {
+      for (var i = 0, j=0; j < DIV.length; i++,j++) {
+
+        var collapID = $(DIV[j]).find("div[class='collapse']").attr("id");
+        console.warn(`${DIV[j]} ${array[i][2]}`)
+        if(typeof collapID == 'undefined'){
+          i--;
+          console.log('entra al indefinicio');
+          continue;
+        }
 
         try {
-          $(DIV[i]).find("input[value='" + array[i][0] + "']").prop("checked", true);
-          var collapID = $(DIV[i]).find("div[class='collapse']").attr("id");
+          $(DIV[j]).find("input[value='" + array[i][0] + "']:not([disabled])").prop("checked", true);
+          var collapID = $(DIV[j]).find("div[class='collapse']").attr("id");
           // //console.log(collapID)
           if (array[i][0] == 1) {
             $('#' + collapID).collapse("show")
@@ -3189,23 +3197,23 @@ function setValuesAntAnnameMetodo(DIV, array, key) {
 
           if (array[i][0] == 1 || array[i][0] == null) {
 
-              $(DIV[i]).find("textarea.form-control.input-form").val(array[i][1])
+              $(DIV[j]).find("textarea.form-control.input-form:not([disabled])").val(`${array[i][1]}`)
 
               // para los input tipo range
-              $(DIV[i]).find("input[type='range']").val(array[i][1])
-              $(DIV[i]).find("label[class='rangeValueLabel']").text(array[i][1])
+              $(DIV[j]).find("input[type='range']").val(array[i][1])
+              $(DIV[j]).find("label[class='rangeValueLabel']").text(array[i][1])
             
 
           } else {
-            $(DIV[i]).find("textarea.form-control.input-form").val('')
+            $(DIV[j]).find("textarea.form-control.input-form").val('')
           }
         } catch (error) {
-
+          console.log(error);
         }
 
       }
     } catch (error) {
-
+      console.warn(error);
     }
   } else {
     // //console.log(DIV)
