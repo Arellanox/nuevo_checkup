@@ -259,7 +259,7 @@ switch ($api) {
 
         $data = [];
 
-
+        $id_cliente = $master->insertByProcedure('sp_get_cliente',[$turno_id]);
         foreach ($antecedentes as $current) {
             # ids de las preguntas de antecedentes ginecologicos
             $idsGinecologicos = [192, 193, 194, 195, 196, 197, 200, 201, 202];
@@ -268,12 +268,12 @@ switch ($api) {
 
                 array_push($data, [$turno_id, $current[0], null, $current[1]]);
             } else {
-                $response = $master->updateByProcedure('sp_consultorio_antecedentes_a', [
-                    $turno_id, 
-                    $current[0], 
+                $response = ($id_cliente == 51) ? $master->updateByProcedure('sp_consultorio_antecedentes_a', [
+                    $turno_id,
+                    $current[0],
                     isset($current[2]) ? $current[1] : null,
                     $current[2] ?? ($current[1] ?? null)
-                ]);
+                ]) : $master->updateByProcedure('sp_consultorio_antecedentes_a', [$turno_id, $current[0], $current[1], $current[2]]);
                 array_push($data, [$turno_id, $current[0], $current[1], $current[2]]);
             }
         }
