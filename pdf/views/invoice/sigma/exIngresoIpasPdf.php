@@ -197,7 +197,7 @@
                         // if ($resultados[4]->{269}->RESPUESTA == "Sí") {
                         //     echo "x";
                         // }
-                        $resultados[4]->{269}->RESPUESTA
+                        echo $resultados[4]->{269}->RESPUESTA
                         ?>
                     </span></td>
             </tr>
@@ -208,7 +208,7 @@
                         // if ($resultados[4]->{263}->RESPUESTA == "Sí") {
                         //     echo "x";
                         // }
-                        $resultados[4]->{263}->RESPUESTA
+                        echo $resultados[4]->{263}->RESPUESTA
                         ?>
                     </span></td>
                 <td colspan="3" rowspan="1">Antecedente de Colitis</td>
