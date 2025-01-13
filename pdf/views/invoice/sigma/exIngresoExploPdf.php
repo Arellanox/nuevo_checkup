@@ -1261,9 +1261,10 @@
             <tr>
                 <td colspan="8" rowspan="1"><span id="diagObserSpan">
                         <?php
-                        if (isset($resultados[10]->NOTAS_PADECIMIENTO) || isset($resultados[10]->DIAGNOSTICO)) {
-                            echo $resultados[10]->DIAGNOSTICO . ' / ' . $resultados[10]->NOTAS_PADECIMIENTO;
-                        }
+                        // if (isset($resultados[10]->NOTAS_PADECIMIENTO) || isset($resultados[10]->DIAGNOSTICO)) {
+                        //     echo $resultados[10]->DIAGNOSTICO . ' / ' . $resultados[10]->NOTAS_PADECIMIENTO;
+                        // }
+                        echo $resultados[12]->OBSERVACIONES;
                         ?>
                     </span></td>
                 </span></td>
