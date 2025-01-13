@@ -95,6 +95,7 @@ $(document).on('click', '#btn-concluir-paciente', function (e) {
         || array_selected['CLIENTE_ID'] == 49 // CES MARTIN
         || array_selected['CLIENTE_ID'] == 44 // LABORATORIO BALDERAS
         || array_selected['CLIENTE_ID'] == 19 // FAST CHEKCUP
+        || array_selected['CLIENTE_ID'] == 53 // VIRIDIANA MORALES VIZUET
       ) {
 
         $('descuento').val('');
