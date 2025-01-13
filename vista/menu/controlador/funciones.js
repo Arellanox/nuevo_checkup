@@ -3182,31 +3182,44 @@ function setValuesAntAnnameMetodo(DIV, array, key) {
         var collapID = $(DIV[j]).find("div[class='collapse']").attr("id");
         console.warn(`${DIV[j]} ${array[i][2]}`)
         if(typeof collapID == 'undefined'){
-          i--;
-          console.log('entra al indefinicio');
-          continue;
+          
+          console.log(`entra al indefinicio ${collapID} ${array[i][2]}`);
         }
 
         try {
-          $(DIV[j]).find("input[value='" + array[i][0] + "']:not([disabled])").prop("checked", true);
-          var collapID = $(DIV[j]).find("div[class='collapse']").attr("id");
-          // //console.log(collapID)
-          if (array[i][0] == 1) {
-            $('#' + collapID).collapse("show")
+          $(DIV[j]).find("input[value='" + array[i][0] + "']:not(.sigmaClass input)").prop("checked", true);
+
+          // Verifica si el div con la clase 'collapse' existe
+          var collapseDiv = $(DIV[j]).find("div[class='collapse']:not(.sigmaClass .collapse)");
+          if (collapseDiv.length > 0) {
+              var collapID = collapseDiv.attr("id");
+              if (array[i][0] == 1) {
+                  $('#' + collapID).collapse("show");
+              }
           }
+
+          // var collapID = $(DIV[j]).find("div[class='collapse']").attr("id");
+          // if (array[i][0] == 1) {
+          //   $('#' + collapID).collapse("show")
+          // }
 
           if (array[i][0] == 1 || array[i][0] == null) {
 
-              $(DIV[j]).find("textarea.form-control.input-form:not([disabled])").val(`${array[i][1]}`)
+              $(DIV[j]).find("textarea.form-control.input-form:not(.sigmaClass .form-control.input-form)").val(`${array[i][1]}`)
 
               // para los input tipo range
-              $(DIV[j]).find("input[type='range']").val(array[i][1])
+              $(DIV[j]).find("input[type='range']:not(.sigmaClass input)").val(array[i][1])
               $(DIV[j]).find("label[class='rangeValueLabel']").text(array[i][1])
             
 
           } else {
-            $(DIV[j]).find("textarea.form-control.input-form").val('')
+            $(DIV[j]).find("textarea.form-control.input-form:not(.sigmaClass .form-control.input-form)").val('')
           }
+          $(DIV[j]).find("input").each(function() {
+            if ($(this).val() == array[i][0]) {
+                $(this).prop("checked", true);
+            }
+        });
         } catch (error) {
           console.log(error);
         }
@@ -3232,32 +3245,43 @@ function setValuesAntAnnameMetodo2(DIV, array, key) {
 
       for (var i = 0; i < DIV.length; i++) {
         try {
-          // Verificar si array[i] es un array válido y contiene los valores esperados
-          if (array[i] && Array.isArray(array[i])) {
-            // Verificar si el DIV contiene un input radio
-            const hasRadio = $(DIV[i]).find("input[type='radio']").length > 0;
-            const hiddenInput = $(DIV[i]).find("input[type='hidden']");
-            const textarea = $(DIV[i]).find("textarea.form-control.input-form");
-
-            // Si hay radio buttons, asignar valor al input oculto y controlar el collapse
-            if (hasRadio) {
-              hiddenInput.val(array[i][0]);
-              if (array[i][0] == 1) {
-                const collapID = $(DIV[i]).find("div.collapse").attr("id");
-                if (collapID) {
-                  $('#' + collapID).collapse("show");
+            // Procesar inputs
+            $(DIV[j]).find("input[value='" + array[i][0] + "']").each(function () {
+                if ($(this).closest('.sigmaClass').length === 0) { // Excluir si tiene un ancestro sigmaClass
+                    $(this).prop("checked", true);
                 }
-              } else {
-                $(DIV[i]).find("div.collapse").collapse("hide");
-                textarea.val(''); // Limpiar el textarea si el radio no está seleccionado
-              }
-            }
-
-            // Asignar el valor al textarea independientemente de si hay radio buttons
-            textarea.val(array[i][1] || ''); // Si no hay valor en el array, asignar una cadena vacía
-          }
+            });
+        
+            // Procesar collapse
+            $(DIV[j]).find("div.collapse").each(function () {
+                if ($(this).closest('.sigmaClass').length === 0) { // Excluir si tiene un ancestro sigmaClass
+                    var collapID = $(this).attr("id");
+                    if (array[i][0] == 1) {
+                        $('#' + collapID).collapse("show");
+                    }
+                }
+            });
+        
+            // Procesar textareas
+            $(DIV[j]).find("textarea.form-control.input-form").each(function () {
+                if ($(this).closest('.sigmaClass').length === 0) { // Excluir si tiene un ancestro sigmaClass
+                    if (array[i][0] == 1 || array[i][0] == null) {
+                        $(this).val(`${array[i][1]}`);
+                    } else {
+                        $(this).val('');
+                    }
+                }
+            });
+        
+            // Procesar inputs tipo range
+            $(DIV[j]).find("input[type='range']").each(function () {
+                if ($(this).closest('.sigmaClass').length === 0) { // Excluir si tiene un ancestro sigmaClass
+                    $(this).val(array[i][1]);
+                    $(this).siblings("label.rangeValueLabel").text(array[i][1]);
+                }
+            });
         } catch (error) {
-          console.log("Error en la carga de valores:", error);
+            console.log(error);
         }
       }
     } catch (error) {
@@ -3289,7 +3313,8 @@ function ocultarFichaAdmision(cliente){
       $('#li-fadmision').fadeOut(0);
       $("#card-fadmision").fadeOut(0);
       $("#historiaFamiliarForm").fadeOut(0);
-      $('.sigmaClass').fadeOut(0).find('input, textarea, select').prop('disabled', true);;
+      $('.sigmaClass').fadeOut(0).find('input, textarea, select').prop('disabled', true);
+      $('.sigmaClass').html('');
       console.warn(cliente)
     } else {
       $.post(`${http}${servidor}/${appname}/vista/include/acordion/ficha-admision.html`, function(html){
