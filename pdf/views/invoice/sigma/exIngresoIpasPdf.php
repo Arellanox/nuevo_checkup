@@ -906,9 +906,10 @@
                     <td style="background-color: #E6B8B7; vertical-align: middle;">Agudeza Visual (sin lentes)</td>
                     <td style="background-color: #E6B8B7; vertical-align: middle; text-align: center;"><span id="agudViDSinSpan">
                             <?php
-                            if (isset($resultados[9]->OD)) {
-                                echo $resultados[9]->OD;
-                            }
+                            // if (isset($resultados[9]->OD)) {
+                            //     echo $resultados[9]->OD;
+                            // }
+                            echo $resultados[7]->{878}->OBSERVACIONES;
                             ?>
                         </span></td>
                     <td style="background-color: #E6B8B7; vertical-align: middle; text-align: center;"><span id="agudViISinSpan">
@@ -950,9 +951,10 @@
                     <td style="background-color: #E6B8B7; vertical-align: middle;">Agudeza Visual (con lentes)</td>
                     <td style="background-color: #E6B8B7; vertical-align: middle; text-align: center;"><span id="agudViDConSpan">
                             <?php
-                            if (isset($resultados[9]->CON_OD)) {
-                                echo $resultados[9]->CON_OD;
-                            }
+                            // if (isset($resultados[9]->CON_OD)) {
+                            //     echo $resultados[9]->CON_OD;
+                            // }
+                            echo $resultados[7]->{879}->OBSERVACIONES;
                             ?>
                         </span></td>
                     <td style="background-color: #E6B8B7; vertical-align: middle; text-align: center;"><span id="agudViIConSpan">
