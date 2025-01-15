@@ -909,14 +909,15 @@
                             // if (isset($resultados[9]->OD)) {
                             //     echo $resultados[9]->OD;
                             // }
-                            echo $resultados[7]->{878}->OBSERVACIONES;
+                            echo $resultados[7]->{378}->OBSERVACIONES;
                             ?>
                         </span></td>
                     <td style="background-color: #E6B8B7; vertical-align: middle; text-align: center;"><span id="agudViISinSpan">
                             <?php
-                            if (isset($resultados[9]->OI)) {
-                                echo $resultados[9]->OI;
-                            }
+                            // if (isset($resultados[9]->OI)) {
+                            //     echo $resultados[9]->OI;
+                            // }
+                            echo $resultados[7]->{878}->OBSERVACIONES;
                             ?>
                         </span></td>
                     <td colspan="2" rowspan="1" style="background-color: #E6B8B7;"><span id="agudViSinEspecifiqueSpan">
@@ -954,14 +955,15 @@
                             // if (isset($resultados[9]->CON_OD)) {
                             //     echo $resultados[9]->CON_OD;
                             // }
-                            echo $resultados[7]->{879}->OBSERVACIONES;
+                            echo $resultados[7]->{379}->OBSERVACIONES;
                             ?>
                         </span></td>
                     <td style="background-color: #E6B8B7; vertical-align: middle; text-align: center;"><span id="agudViIConSpan">
                             <?php
-                            if (isset($resultados[9]->CON_OI)) {
-                                echo $resultados[9]->CON_OI;
-                            }
+                            // if (isset($resultados[9]->CON_OI)) {
+                            //     echo $resultados[9]->CON_OI;
+                            // }
+                            echo $resultados[7]->{879}->OBSERVACIONES;
                             ?>
                         </span></td>
                     <td colspan="2" rowspan="1" style="background-color: #E6B8B7;"><span id="agudViConEspecifiqueSpan">
