@@ -303,6 +303,21 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
             }
           }
         },
+        // boton de filtro de tabla pacientes aceptados
+        // abre el modal para ampliar la seleccion
+        {
+          text: '<i class="bi bi-funnel-fill"></i> Filtrar tabla',
+          className: 'btn btn-warning',
+          attr: {
+            id: 'btn_filtrar_tabla',
+            'data-bs-toggle': "tooltip",
+            'data-bs-placement': 'top',
+            title: "Filtra la tabla de pacientes aceptados"
+          },
+          action: function(){
+            $("#filtroPacientesModal").modal("show");
+          }
+        }
       ]// fin de acciones
     },
     
@@ -420,6 +435,33 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
 //     </div>
 //   </div>`)
 // }, 200);
+
+$(document).on('click','#aplicarFiltro', function(){
+  var meses = $('#mesesAtras').val().trim();
+  var paciente = $('#paciente').val().trim(); //recibe el prefolio del paciente
+
+
+
+  dataRecepcion = {
+    api: 1, 
+    // prefolio: paciente,
+    // mesesAtras: meses,
+    estado: 1
+  }
+
+  if(meses){
+    dataRecepcion.mesesAtras = meses;
+  }
+  
+  if(paciente){
+    dataRecepcion.prefolio = paciente;
+  }
+    
+  $("#filtroPacientesModal").modal("hide");
+  tablaRecepcionPacientesIngrersados.ajax.reload();
+
+
+})
 
 inputBusquedaTable('TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrersados, [
   {

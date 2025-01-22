@@ -220,3 +220,5 @@ function recepciónPaciente(estatus, id) {
 obtenerPanelInformacion(0, 0, 0)
 
 //Detener animacionde boton de los reportes no entregados
+
+//filtrar tabla de pacientes aceptados

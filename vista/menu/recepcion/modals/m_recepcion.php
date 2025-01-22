@@ -41,3 +41,7 @@ include "m_reportes_no_entregados.html";
 
 // Para informacion de estudios
 include "estudios/estudios_info.html";
+
+
+// filtro de la tabla de pacientes
+include 'modal_filtro_aceptados.html';

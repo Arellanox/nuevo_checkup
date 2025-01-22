@@ -21,6 +21,10 @@ $host = $master->selectHost($_SERVER['SERVER_NAME']);
 $hoy = date("Ymd");
 
 $estado_paciente = $_POST['estado'];
+$mesesAtras = $_POST['mesesAtras'];
+$prefolio = $_POST['prefolio'];
+
+
 $idTurno = $_POST['id_turno'];
 $idPaquete = $_POST['id_paquete']; #
 $comentarioRechazo = $_POST['comentario_rechazo'];
@@ -118,7 +122,7 @@ switch ($api) {
         # 1 para pacientes aceptados
         # 0 para pacientes rechazados
         # null o no enviar nada, para pacientes en espera
-        $response = $master->getByProcedure('sp_buscar_paciente_por_estado', array($estado_paciente));
+        $response = $master->getByProcedure('sp_buscar_paciente_por_estado', array($estado_paciente, $mesesAtras, $prefolio));
 
         break;
     case 2:

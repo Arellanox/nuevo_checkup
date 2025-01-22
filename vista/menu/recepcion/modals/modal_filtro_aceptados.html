@@ -1,0 +1,33 @@
+<!-- Modal para filtrar pacientes -->
+<div class="modal fade" id="filtroPacientesModal" tabindex="-1" aria-labelledby="filtroPacientesLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="filtroPacientesLabel">Filtrar Pacientes</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <form id="filtroPacientesForm">
+            <p class="text-muted">Puede filtrar por paciente, por meses atrás o ambas opciones.</p>
+            <div class="mb-3">
+              <label for="paciente" class="form-label">Folio del Paciente</label>
+              <input type="text" class="form-control input-form" id="paciente" placeholder="Ingrese el folio del paciente">
+            </div>
+            <div class="mb-3">
+              <label for="mesesAtras" class="form-label">Meses atrás</label>
+              <input type="number" class="form-control input-form" id="mesesAtras" min="1">
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="usarMesesAtras" checked>
+              <label class="form-check-label" for="usarMesesAtras">Aplicar filtro de meses</label>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" id="aplicarFiltro">Aplicar Filtro</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
