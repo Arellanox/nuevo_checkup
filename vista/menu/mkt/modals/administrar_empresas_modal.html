@@ -1,0 +1,56 @@
+<!-- Modal -->
+<div class="modal fade" id="modalAdministrarEmpresas" tabindex="-1" aria-labelledby="modalAdministrarEmpresasLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalAdministrarEmpresasLabel">Administrar Empresas</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Sección para agregar una nueva empresa -->
+          <div class="row mb-4">
+            <div class="col-12">
+              <h5 class="mb-3">Agregar Nueva Empresa</h5>
+              <form id="formNuevaEmpresa">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="nombreEmpresa" class="form-label">Nombre de la Empresa</label>
+                    <input type="text" class="form-control input-form" id="nombreEmpresa" name="nombreEmpresa" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="tipoEmpresa" class="form-label">Tipo</label>
+                    <select class="form-select input-form" id="tipoEmpresa" name="tipoEmpresa" required>
+                      <option value="">Seleccione una opción</option>
+                      <option value="1">Empresa</option>
+                      <option value="2">Médico</option>
+                    </select>
+                  </div>
+                </div>
+              </form>
+                <div class="d-flex justify-content-end mt-3">
+                  <button type="submit" class="btn btn-primary" form="formNuevaEmpresa">Guardar</button>
+                  <button type="button" class="btn btn-light" id="btnCancelarEdicion">Cancelar Edición</button>
+                </div>
+              
+            </div>
+          </div>
+  
+          <hr>
+  
+          <!-- Sección para ver empresas registradas -->
+          <div class="row">
+            <div class="col-12">
+              <h5 class="mb-3">Empresas Registradas</h5>
+              <table class="table table-striped mt-3" id="tablaEmpresas" style="width: 100%;">
+                
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

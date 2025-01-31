@@ -1,0 +1,81 @@
+<!-- Modal para agregar nueva oportunidad -->
+<div class="modal fade" id="modalNuevaOportunidad" tabindex="-1" aria-labelledby="modalNuevaOportunidadLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalNuevaOportunidadLabel">Agregar Nueva Oportunidad</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Formulario para agregar nueva oportunidad -->
+        <form id="formNuevaOportunidad">
+          <div class="row mb-4">
+            <!-- Declaración de oportunidad -->
+            <div class="col-12">
+              <label for="declaracionOportunidad" class="form-label">Declaración de Oportunidad <span class="text-danger">*</span></label>
+              <textarea class="form-control" id="declaracionOportunidad" name="declaracionOportunidad" rows="4" placeholder="Describe la oportunidad de negocio de manera clara y concisa." required></textarea>
+              <div class="form-text">Breve descripción de la oportunidad, incluyendo detalles clave como el objetivo y los beneficios.</div>
+            </div>
+          </div>
+
+          <div class="row mb-4">
+            <!-- Nombre de la oportunidad -->
+            <div class="col-12">
+              <label for="nombreOportunidad" class="form-label">Nombre de la Oportunidad <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="nombreOportunidad" name="nombreOportunidad" placeholder="Ej. Expansión de mercado" required>
+              <div class="form-text">Escribe un nombre único para esta oportunidad, que permita identificarla fácilmente.</div>
+            </div>
+          </div>
+
+          <div class="row mb-4">
+            <!-- Cuenta asignada a (Select) -->
+            <div class="col-md-6">
+              <label for="cuentaAsignada" class="form-label">Cuenta Asignada A <span class="text-danger">*</span></label>
+              <select class="form-select" id="cuentaAsignada" name="cuentaAsignada" required>
+                <option value="">Seleccione una cuenta</option>
+                <!-- Aquí puedes agregar las opciones dinámicamente -->
+                
+              </select>
+              <div class="form-text">Selecciona la cuenta que será responsable de esta oportunidad.</div>
+            </div>
+
+            <!-- Empresa (Select) -->
+            <div class="col-md-6">
+              <label for="empresa" class="form-label">Empresa <span class="text-danger">*</span></label>
+              <select class="form-select" id="empresa" name="empresa" required>
+                <option value="">Seleccione una empresa</option>
+                <!-- Aquí puedes agregar las opciones dinámicamente -->
+                <option value="empresa1">Empresa 1</option>
+                <option value="empresa2">Empresa 2</option>
+                <option value="empresa3">Empresa 3</option>
+              </select>
+              <div class="form-text">Selecciona la empresa asociada a esta oportunidad.</div>
+            </div>
+          </div>
+
+          <div class="row mb-4">
+            <!-- Monto Estimado (Moneda) -->
+            <div class="col-12">
+              <label for="montoEstimado" class="form-label">Monto Estimado <span class="text-danger">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="number" class="form-control" id="montoEstimado" name="montoEstimado" min="0" placeholder="Ingrese el monto estimado en dólares" required>
+              </div>
+              <div class="form-text">Ingresa el monto aproximado que se espera obtener de esta oportunidad.</div>
+            </div>
+          </div>
+
+          <!-- Botón Guardar -->
+          <div class="d-flex justify-content-end mt-3">
+            <!-- <button type="submit" class="btn btn-primary">Guardar</button> -->
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" form="">Guardar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+

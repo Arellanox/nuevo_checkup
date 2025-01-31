@@ -420,6 +420,20 @@ $menu = $_POST['menu']; ?>
 <?php endif;  ?>
 
 
+<!-- MARKETING Y VENTAS -->
+<?php if (strtolower($menu) == "marketing y ventas" && $_SESSION['permisos']['oportunidades_empresas_crear']): ?>
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom: 4px;" data-bs-toggle="modal" data-bs-target="#modalAdministrarEmpresas">
+    <i class="bi bi-building-add"></i> Empresa/Médico
+  </button>
+<?php endif; ?>
+
+<?php if (strtolower($menu) == "marketing y ventas" && $_SESSION['permisos']['OportunidadesAgregar']): ?>
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom: 4px;" data-bs-toggle="modal" data-bs-target="#modalNuevaOportunidad">
+  <i class="bi bi-plus"></i> Oportunidad
+  </button>
+<?php endif; ?>
+
+
 
 
 <script>
