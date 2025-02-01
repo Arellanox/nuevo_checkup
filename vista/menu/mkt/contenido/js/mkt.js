@@ -170,7 +170,8 @@ setTimeout(() => {
     // tableListaEmpresas.ajax.reload();
 }, 2000);
 
-rellenarSelect('#cuentaAsignada', 'oportunidades_api', )
+rellenarSelect('#empresa', 'oportunidades_api', 3, 'ID_EMPRESA', "EMPRESA");
+rellenarSelect("#cuentaAsignada", "oportunidades_api", 5, 'ID_USUARIO', "USUARIO");
 
 $("#btnCancelarEdicion").click(function(){
     rowSelected = null;

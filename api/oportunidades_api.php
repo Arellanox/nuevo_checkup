@@ -39,6 +39,10 @@ switch($api){
         #eliminar empresas
         $response = $master->deleteByProcedure("sp_oportunidades_empresas_e", [$id_empresa, $_SESSION['id']]);
         break;
+    case 5:
+        # buscar cuentas
+        $response = $master->getByProcedure("sp_oportunidades_cuentas_b", []);
+        break;
     default:
         $response = "Api no definida";
         break;
