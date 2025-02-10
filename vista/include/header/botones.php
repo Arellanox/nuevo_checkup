@@ -247,7 +247,7 @@ $menu = $_POST['menu']; ?>
   $menu == 'Resultados de Laboratorio Biomolecular' ||
   $menu == 'Laboratorio Biomolecular'
 ) : ?>
-  <div class="row">
+  < class="row">
     <!-- <div class="col-auto">
       <div class="form-floating">
         <input type="date" class="form-control input-form" placeholder="fecha" id="fechaListadoLaboratorio" value="<?php echo date('Y-m-d') ?>">
@@ -419,6 +419,18 @@ $menu = $_POST['menu']; ?>
   </button>
 <?php endif;  ?>
 
+
+<?php if(strtolower($menu) == "requisición maquilas" && $_SESSION['permisos']['MaquilasEnviarReq']): ?>
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal">
+    <i class="bi bi-send-fill"></i> Enviar
+  </button>
+<?php endif; ?>
+
+<?php if (strtolower($menu) == "requisición maquilas" && $_SESSION['permisos']['MaquilasAgregarReq']): ?>
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalAgregarRequisicion">
+  <i class="bi bi-plus-lg"></i> Agregar
+  </button>
+ <?php endif; ?>
 
 
 

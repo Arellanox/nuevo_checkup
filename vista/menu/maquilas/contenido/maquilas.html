@@ -1,0 +1,64 @@
+
+
+<!-- tabs para movil -->
+<div id="tab-button"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <table class="table" id="tableRequisiciones" style="width: 100%;">
+                <!-- <thead>
+                  <tr>
+                    <th>Requisición #</th>
+                    <th>Prueba</th>
+                    <th>Proveedor</th>
+                    <th>Estado de Envío</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>001</td>
+                    <td>Prueba de sangre</td>
+                    <td>Laboratorio XYZ</td>
+                    <td><span class="badge bg-warning">Pendiente</span></td>
+                    <td>
+                      <button class="btn btn-success" data-bs-toggle="tooltip" title="Aprobar requisición">Aprobar</button>
+                      <button class="btn btn-danger" data-bs-toggle="tooltip" title="Rechazar requisición">Rechazar</button>
+                      <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#detalleModal" title="Ver detalles">Ver</button>
+                    </td>
+                  </tr>
+                  <!-- Más filas -->
+                </tbody> 
+              </table>
+              
+              <!-- Modal de Detalle -->
+              <div class="modal fade" id="detalleModal" tabindex="-1" aria-labelledby="detalleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="detalleModalLabel">Detalles de la Requisición</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                      <!-- Formulario o detalles de la requisición -->
+                      <form>
+                        <div class="mb-3">
+                          <label for="proveedor" class="form-label">Proveedor</label>
+                          <input type="text" class="form-control" id="proveedor" placeholder="Ingrese el proveedor" required>
+                          <div class="form-text">Ingrese el nombre del laboratorio o lugar donde se enviará la prueba.</div>
+                        </div>
+                        <!-- Más campos -->
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                      <button type="button" class="btn btn-primary">Guardar cambios</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+        </div>
+    </div>
+</div>
