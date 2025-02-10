@@ -653,6 +653,17 @@ function generarFormularioPaciente(id) {
                 }
               }
               break;
+            case 1838:
+              // PCR PANEL VIRAL RESPIRATORIO (16 VIRUS)
+              muestras = {
+                0: {
+                  'descripcion': "Exudado Nasofaríngeo",
+                },
+                1: {
+                  'descripcion': "Exudado Orofaríngeo",
+                }
+              }
+              break;
 
 
             default: input = null;
