@@ -53,11 +53,20 @@ tableRequisiciones = $('#tableRequisiciones').DataTable({
         {
             data: null,
             render: function(data, type, row){
-                return `
-                    <button class="btn btn-success btn-sm" onclick="cambiarEstadoReq(${row.ID_REQUISICION}, 1)">Enviar</button>
-                    <button class="btn btn-danger btn-sm" onclick="cambiarEstadoReq(${row.ID_REQUISICION}, 2)">Rechazar</button>
-                    <button class="btn btn-info btn-sm" onclick="ver(${row.ID_REQUISICION})">Ver</button>
-                `;
+                if(row.ESTADO){
+                    return `
+                        <button class="btn btn-success btn-sm disabled" onclick="cambiarEstadoReq(${row.ID_REQUISICION}, 1)">Enviar</button>
+                        <button class="btn btn-danger btn-sm disabled" onclick="cambiarEstadoReq(${row.ID_REQUISICION}, 0)">Rechazar</button>
+                        <button class="btn btn-info btn-sm" onclick="ver(${row.ID_REQUISICION})">Ver</button>
+                    `;
+                } else {
+                    return `
+                        <button class="btn btn-success btn-sm" onclick="cambiarEstadoReq(${row.ID_REQUISICION}, 1)">Enviar</button>
+                        <button class="btn btn-danger btn-sm" onclick="cambiarEstadoReq(${row.ID_REQUISICION}, 0)">Rechazar</button>
+                        <button class="btn btn-info btn-sm" onclick="ver(${row.ID_REQUISICION})">Ver</button>
+                    `;
+                }
+                
             },
             title: 'Acciones',
             orderable: false
@@ -75,12 +84,41 @@ tableRequisiciones = $('#tableRequisiciones').DataTable({
     ],
     dom: 'Bl<"dataTables_toolbar">frtip',
     buttons: [
-
     ]
 
 });
 
 
 function cambiarEstadoReq(idReq, estado){
-    
+
+    var mensaje = "Estás rechazando la requisición";
+
+    if(estado == 1){
+        mensaje = "Estás enviando la requisición";
+    }
+
+    alertMensajeConfirm({
+        title: `¿${mensaje}?`,
+        text: "¿Desea continuar?.",
+        icon: "warning"
+    },
+    function(){
+      ajaxAwait(
+        { 
+            api: 2,
+            id_requisicion: idReq,
+            estado: estado
+        },
+        'requisiciones_api', 
+        { callbackAfter: true },
+        false,
+        function(data){
+            if(data.response.code == 1){
+                alertToast("Estado actualizado!", "success", 4000)
+                tableRequisiciones.ajax.reload();
+            }
+        }
+
+    );
+    },1);
 }
