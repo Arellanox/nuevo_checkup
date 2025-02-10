@@ -653,7 +653,7 @@ function generarFormularioPaciente(id) {
                 }
               }
               break;
-            case 1838:
+            case '1838':
               // PCR PANEL VIRAL RESPIRATORIO (16 VIRUS)
               muestras = {
                 0: {
