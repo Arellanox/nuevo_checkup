@@ -18,10 +18,21 @@ async function contenidoMaquilas(){
 
 
 var tableRequisiciones;
+var tableDetalleRequisicion;
 var dataTableRequisiciones;
+var dataTableDetalleRequisicion;
 var requisicionSelected;
+
+var estadoGlobal;
+var tipoGlobal; // 1 para requisicion, 2 para detalle de requisicion
+var idReqGlobal;
+var idServicioGlobal;
 
 
 dataTableRequisiciones = {
     api: 1
+}
+
+dataTableDetalleRequisicion = {
+    
 }

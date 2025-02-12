@@ -57,13 +57,13 @@ tableRequisiciones = $('#tableRequisiciones').DataTable({
                     return `
                         <button class="btn btn-success btn-sm disabled" onclick="cambiarEstadoReq(${row.ID_REQUISICION}, 1)">Enviar</button>
                         <button class="btn btn-danger btn-sm disabled" onclick="cambiarEstadoReq(${row.ID_REQUISICION}, 0)">Rechazar</button>
-                        <button class="btn btn-info btn-sm" onclick="ver(${row.ID_REQUISICION})">Ver</button>
+                        <button class="btn btn-info btn-sm" onclick="verDetalleRequisicion(${row.ID_REQUISICION})">Ver</button>
                     `;
                 } else {
                     return `
                         <button class="btn btn-success btn-sm" onclick="cambiarEstadoReq(${row.ID_REQUISICION}, 1)">Enviar</button>
                         <button class="btn btn-danger btn-sm" onclick="cambiarEstadoReq(${row.ID_REQUISICION}, 0)">Rechazar</button>
-                        <button class="btn btn-info btn-sm" onclick="ver(${row.ID_REQUISICION})">Ver</button>
+                        <button class="btn btn-info btn-sm" onclick="verDetalleRequisicion(${row.ID_REQUISICION})">Ver</button>
                     `;
                 }
                 
@@ -90,8 +90,15 @@ tableRequisiciones = $('#tableRequisiciones').DataTable({
 
 
 function cambiarEstadoReq(idReq, estado){
-
     var mensaje = "Estás rechazando la requisición";
+
+    if(estado == 0 ){
+        $("#modalRechazo").modal('show');
+        estadoGlobal = estado;
+        tipoGlobal = 1;
+        idReqGlobal= idReq;
+        return;
+    }
 
     if(estado == 1){
         mensaje = "Estás enviando la requisición";
@@ -121,4 +128,14 @@ function cambiarEstadoReq(idReq, estado){
 
     );
     },1);
+}
+
+
+function verDetalleRequisicion(idReq){
+    dataTableDetalleRequisicion = {
+        api: 3,
+        id_requisicion: idReq
+    }
+    tableDetalleRequisicion.ajax.reload();
+    $("#modalDetalleRequisicion").modal('show');
 }

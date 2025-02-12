@@ -1,0 +1,25 @@
+<!-- Modal pequeño para motivo de rechazo -->
+<div class="modal fade" id="modalRechazo" tabindex="-1" aria-labelledby="modalRechazoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalRechazoLabel">Motivo de Rechazo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Formulario con textarea para el motivo de rechazo -->
+          <form id="formRechazo">
+            <div class="mb-3">
+              <label for="motivoRechazo" class="form-label">Escribe el motivo del rechazo</label>
+              <textarea class="form-control" id="motivoRechazo" rows="4" placeholder="Escribe el motivo aquí..." required></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger" id="btnRechazar">Rechazar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -14,6 +14,8 @@ $api = $_POST['api'];
 
 $id_requisicion = $_POST['id_requisicion'];
 $estado = $_POST['estado'];
+$servicio_id = $_POST['servicio_id'];
+$motivo_rechazo = $_POST['motivo_rechazo'];
 
 switch($api){
     case 1:
@@ -22,7 +24,20 @@ switch($api){
         break;
     case 2:
         # cambiar estado de una requisicion
-        $response = $master->updateByProcedure("sp_reqmaquilas_requisiciones_cambiar_estado",[$id_requisicion, $estado, $_SESSION['id']]);
+        $response = $master->updateByProcedure("sp_reqmaquilas_requisiciones_cambiar_estado",[$id_requisicion, $estado, $_SESSION['id'], $motivo_rechazo]);
+        break;
+    case 3:
+        # recuperar el detalle de las requisiciones
+        $response = $master->getByProcedure('sp_reqmquilas_detalle_requisicion_b',[ $id_requisicion]);
+        break;
+    case 4:
+        # cambiar estado detalle requisicion
+        $response = $master->updateByProcedure('sp_reqmaquilas_detalle_requisicion_cambiar_estado', [
+            $id_requisicion, 
+            $servicio_id, 
+            $estado,
+            $_SESSION['id']
+        ]);
         break;
 
     default:
