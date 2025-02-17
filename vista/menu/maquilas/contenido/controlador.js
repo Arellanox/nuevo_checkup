@@ -27,6 +27,7 @@ var estadoGlobal;
 var tipoGlobal; // 1 para requisicion, 2 para detalle de requisicion
 var idReqGlobal;
 var idServicioGlobal;
+var idTurnoGlobal;
 
 
 dataTableRequisiciones = {

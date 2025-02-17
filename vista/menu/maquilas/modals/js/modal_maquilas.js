@@ -95,7 +95,8 @@ $("#btnRechazar").click(function(){
         estado: estadoGlobal,
         id_requisicion: idReqGlobal,
         servicio_id: idServicioGlobal,
-        motivo_rechazo: motivoRechazo
+        motivo_rechazo: motivoRechazo,
+        turno_id: idTurnoGlobal
     }
 
     alertMensajeConfirm({
@@ -125,3 +126,11 @@ $("#btnRechazar").click(function(){
     $("#modalRechazo").modal('hide');
 
 })
+
+// asignamos las variables blobales para el metodo que se comparte.
+function cambiarEstadoDetReq(req, serv, turn){
+    tipoGlobal = 2;
+    idReqGlobal = req;
+    idServicioGlobal = serv;
+    idTurnoGlobal = turn;
+}
