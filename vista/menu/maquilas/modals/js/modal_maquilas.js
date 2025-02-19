@@ -35,15 +35,17 @@ tableDetalleRequisicion = $('#tableDetalleRequisicion').DataTable({
         { data: 'PREFOLIO' },
         { data: 'PACIENTE' },
         { data: 'SERVICIO' },
+        { data: 'LABORATORIO' },
         { data: 'MOTIVO_RECHAZO' },
         { data: 'USUARIO' },
         {
             data: null,
             render: function(data, type, row){
                 if(row.ESTADO){
-                    return `
-                        <button class="btn btn-danger btn-sm disabled">Rechazar</button>
-                    `;
+                    if (row.ESTADO == 1)
+                        return `<span class="badge text-bg-success">Aceptado</span>`
+                    else
+                        return `<span class="badge text-bg-danger">Rechazado</span>`
                 } else {
                     return `
                         <button class="btn btn-danger btn-sm" onclick="cambiarEstadoDetReq(${row.ID_REQUISICION}, ${row.ID_SERVICIO}, ${row.ID_TURNO})">Rechazar</button>
@@ -61,9 +63,10 @@ tableDetalleRequisicion = $('#tableDetalleRequisicion').DataTable({
         { target: 2, title: 'Prefolio', className: 'all'},
         { target: 3, title: 'Paciente', className: 'all' },
         { target: 4, title: 'Servicio', className: 'all' },
-        { target: 5, title: 'Motivo Rechazo', className: 'all' },
-        { target: 6, title: 'Responsable', className: 'all' },
-        { target: 7, title: "Acciones",  className: 'all', orderable: false }
+        { target: 5, title: 'Laboratorio', className: 'all' },
+        { target: 6, title: 'Motivo Rechazo', className: 'all' },
+        { target: 7, title: 'Responsable', className: 'all' },
+        { target: 8, title: "Acciones",  className: 'all', orderable: false }
 
     ],
     dom: 'Bl<"dataTables_toolbar">frtip',
@@ -119,7 +122,6 @@ $("#btnRechazar").click(function(){
                     tableDetalleRequisicion.ajax.reload();
             }
         }
-
     );
     },1);
 
@@ -133,4 +135,53 @@ function cambiarEstadoDetReq(req, serv, turn){
     idReqGlobal = req;
     idServicioGlobal = serv;
     idTurnoGlobal = turn;
+    estadoGlobal = 0;
+
+    $("#modalRechazo").modal('show');
 }
+
+$("#btnGuardarRequisicion").click(function(){
+    var prefolio = $("#prefolio").val();
+    var servicio = $("#servicio").val();
+    var observaciones = $("#observaciones").val();
+
+    var data;
+    data = {
+        id_servicio: servicio,
+        prefolio: prefolio,
+        observaciones: observaciones,
+        api: 5
+    }
+
+    alertMensajeConfirm({
+        title: `¿Está agregando una maquila?`,
+        text: "¿Desea continuar?.",
+        icon: "warning"
+    },
+    function(){
+      ajaxAwait(
+        data,
+        'requisiciones_api', 
+        { callbackAfter: true },
+        false,
+        function(data){
+            if(data.response.code == 1){
+                alertToast("Maquila agregada!", "success", 4000)
+                if(tipoGlobal==1)
+                    tableRequisiciones.ajax.reload();
+                else
+                    tableDetalleRequisicion.ajax.reload();
+                    $('#formRequisicion')[0].reset();
+            }
+        }
+    );
+    },1);
+
+})
+
+
+// rellenar el select para la nueva requisicion
+select2("#formRequisicion #servicio", "ModalAgregarRequisicion", 'Seleccione un estudio');
+rellenarSelect('#formRequisicion #servicio', 'servicios_api', 3, "ID_SERVICIO", "DESCRIPCION", {
+    id_area: 6
+});

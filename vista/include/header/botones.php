@@ -419,16 +419,16 @@ $menu = $_POST['menu']; ?>
   </button>
 <?php endif;  ?>
 
-
-<?php if(strtolower($menu) == "requisición maquilas" && $_SESSION['permisos']['MaquilasEnviarReq']): ?>
+<!-- este boton quedo inservible, porque cada requisicion tiene su propio boton de enviar en la tabla. -->
+<!-- <?php if(strtolower($menu) == "requisición maquilas" && $_SESSION['permisos']['MaquilasEnviarReq']): ?>
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal">
     <i class="bi bi-send-fill"></i> Enviar
   </button>
-<?php endif; ?>
+<?php endif; ?> -->
 
 <?php if (strtolower($menu) == "requisición maquilas" && $_SESSION['permisos']['MaquilasAgregarReq']): ?>
   <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalAgregarRequisicion">
-  <i class="bi bi-plus-lg"></i> Agregar
+    <i class="bi bi-plus-lg"></i> Agregar maquila
   </button>
  <?php endif; ?>
 

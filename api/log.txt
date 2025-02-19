@@ -22,3 +22,9 @@
 14/01/25 10:20:20  Area: 1
 14/01/25 11:02:32  Area: 1
 14/01/25 11:06:58  Area: 1
+17/02/25 15:29:58 reqmaquilas_requisicion_agregar Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'ABIERTA' in 'WHERE'
+17/02/25 15:29:58 [Reproduce el error en la base] call reqmaquilas_requisicion_agregar(,,,1)
+17/02/25 15:31:47 reqmaquilas_requisicion_agregar Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'ABIERTA' in 'WHERE'
+17/02/25 15:31:47 [Reproduce el error en la base] call reqmaquilas_requisicion_agregar(,,,1)
+17/02/25 15:33:08 reqmaquilas_requisicion_agregar Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'ABIERTA' in 'WHERE'
+17/02/25 15:33:08 [Reproduce el error en la base] call reqmaquilas_requisicion_agregar(1,20241014MGV133,asdfa afsdfa sd,1)

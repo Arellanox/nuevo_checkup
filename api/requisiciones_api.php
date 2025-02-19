@@ -17,6 +17,10 @@ $estado = $_POST['estado'];
 $servicio_id = $_POST['servicio_id'];
 $motivo_rechazo = $_POST['motivo_rechazo'];
 
+$prefolio = $_POST['prefolio'];
+$id_servicio = $_POST['id_servicio'];
+$observaciones = $_POST['observaciones'];
+
 switch($api){
     case 1:
         # recuperara todas las requisiciones
@@ -36,8 +40,13 @@ switch($api){
             $id_requisicion, 
             $servicio_id, 
             $estado,
-            $_SESSION['id']
+            $_SESSION['id'],
+            $motivo_rechazo
         ]);
+        break;
+    case 5:
+        # agregar una maquila nueva a la requisicion abierta
+        $response = $master->insertByProcedure("reqmaquilas_requisicion_agregar", [$id_servicio, $prefolio, $observaciones, $_SESSION['id']]);
         break;
 
     default:

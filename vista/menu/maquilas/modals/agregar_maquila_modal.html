@@ -1,0 +1,48 @@
+<!-- Modal para agregar datos de la requisición -->
+<div class="modal fade" id="ModalAgregarRequisicion" tabindex="-1" aria-labelledby="modalRequisicionLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalRequisicionLabel">Agregar Requisición</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Formulario para agregar requisición -->
+          <form id="formRequisicion">
+            <!-- Campo Servicio -->
+            <div class="mb-3">
+              <label for="servicio" class="form-label">Servicio</label>
+              <select class="form-select" id="servicio" required>
+                <option value="">Seleccionar servicio</option>
+                <option value="Laboratorio">Laboratorio</option>
+                <option value="Radiología">Radiología</option>
+                <option value="Ultrasonido">Ultrasonido</option>
+                <option value="Tomografía">Tomografía</option>
+              </select>
+              <div class="form-text">Seleccione el servicio requerido para el paciente.</div>
+            </div>
+  
+            <!-- Campo Prefolio del Paciente -->
+            <div class="mb-3">
+              <label for="prefolio" class="form-label">Prefolio del Paciente</label>
+              <input type="text" class="form-control" id="prefolio" placeholder="Ingrese el prefolio del paciente" required>
+              <div class="form-text">Ingrese el prefolio que se le asignó al paciente en su registro.</div>
+            </div>
+  
+            <!-- Campo Observaciones -->
+            <div class="mb-3">
+              <label for="observaciones" class="form-label">Observaciones</label>
+              <textarea class="form-control" id="observaciones" rows="4" placeholder="Escriba las observaciones del caso" required></textarea>
+              <div class="form-text">Añada cualquier detalle relevante sobre la requisición o el paciente.</div>
+            </div>
+  
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="btnGuardarRequisicion">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
