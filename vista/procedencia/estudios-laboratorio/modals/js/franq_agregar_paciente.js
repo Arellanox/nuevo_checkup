@@ -105,19 +105,39 @@ async function getListMuestras() {
             servicios: arrayATexto(estudiosEnviar)
         }, 'maquilas_api', { callbackAfter: true }, false, (data) => {
             let row = data.response.data;
-            console.log(row);
 
             let html = '';
             for (var i = 0; i < row.length; i++) {
                 // console.log(row[i]);
-                html += '<li class="list-group-item">';
-                html += row[i]['NOMBRE'];
-                html += `<i class="bi bi-arrow-right-short"></i><strong>${row[i]['TUBO']}</strong> - <strong>${row[i]['MUESTRA']}</strong> - <strong>${row[i]['DURACION']} <br/> <strong>${row[i]['INDICACIONES']}</strong>
-                </li>`;
-
+                html += `<div class="card">
+                  <div class="card-header">
+                    <h5 class="card-title">
+                      <i class="bi bi-heart-pulse"></i> ${row[i]['NOMBRE']}
+                    </h5>
+                  </div>
+                  <div class="card-body">
+                    <p><strong><i class="bi bi-droplet"></i> Tipo de muestra:</strong> <span class="none-p">${ifnull(row[i]['MUESTRA'])}</span></p>
+                    <p><strong><i class="bi bi-box"></i> Contenedor:</strong> <span class="none-p">${row[i]['CONTENEDOR']}</span></p>
+                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#moreInfo${row[i]['ID']}" aria-expanded="false" aria-controls="moreInfo">
+                      <i class="bi bi-chevron-down"></i> Más información
+                    </button>
+                    <div class="collapse" id="moreInfo${row[i]['ID']}">
+                      <p><strong><i class="bi bi-clock"></i> Tiempo de entrega:</strong> <span class="none-p">${ifnull(row[i]['ENTREGA'])}</span></p>
+                      <p><strong><i class="bi bi-file-earmark-medical"></i> Indicaciones para el laboratorio:</strong> <span class="none-p">${ifnull(row[i]['INDICACIONES_LABORATORIO'])}</span></p>
+                      <p><strong><i class="bi bi-file-earmark-medical"></i> Motivos para rechazo de muestras:</strong> <span class="none-p">${ifnull(row[i]['MOTIVO_RECHAZO'])}</span></p>
+                      <p><strong><i class="bi bi-person-lines-fill"></i> Indicaciones para el paciente:</strong> <span class="none-p">${ifnull(row[i]['INDICACIONES'])}</span></p>
+                      <p><strong><i class="bi bi-thermometer-half"></i> Conservación:</strong> <span class="none-p">${ifnull(row[i]['CONSERVACION'])}</span></p>
+                      <p><strong><i class="bi bi-building"></i> Área:</strong> <span class="none-p">${ifnull(row[i]['AREA'])}</span></p>
+                      <p><strong><i class="bi bi-activity"></i> Metodología:</strong> <span class="none-p">${ifnull(row[i]['METODOLOGIA'])}</span></p>
+                    </div>
+                  </div>
+                </div>
+                `;
             }
-            $('.lista-estudios-paciente').html(html);
 
+            $("#lista-estudios-paciente-div").html(html);
+            
+            loaderDiv("Out", null, "#loader-muestras", "#loaderDivmuestras");
             resolve(1);
         })
 
@@ -220,8 +240,6 @@ function muestraDataPaciente(data) {
 
 }
 
-
-
 // Cancela el proceso y reinicia todo
 $(document).on('click', '.btn-cerrar_modal', function (event) {
     event.preventDefault();
@@ -280,9 +298,6 @@ $(document).on('click', '#btn-etiquetas-pdf', function (e) {
 // Drag and drop
 var archivosNoSoportados = []; // Lista para guardar los nombres de archivos no soportados
 let input_ordenMedica = InputDragDrop('#dropPromocionalesBimo', (inputArea, salidaInput) => {
-
-
-
     // Suponiendo que inputArea es un input de tipo file con el atributo "multiple" habilitado
     var files = inputArea.get(0).files;
 
@@ -324,9 +339,6 @@ let input_ordenMedica = InputDragDrop('#dropPromocionalesBimo', (inputArea, sali
 
     // Configuraciones
 }, { multiple: true })
-
-
-
 
 // Submit de formulario
 let turno;
