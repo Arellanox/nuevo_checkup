@@ -53,6 +53,7 @@
           <ul class="list-group overflow-auto" id="lista-estudios-paciente" style="max-width: 100%; max-height: 70vh;margin-bottom:10px;">
 
           </ul>
+          <div id="lista-estudios-paciente-div"></div>
         </div>
       </div>
     </div>
