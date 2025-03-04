@@ -105,18 +105,18 @@ function obtenerListaEstudiosContenedores(idturno = null) {
                     </h5>
                   </div>
                   <div class="card-body">
-                    <p><strong><i class="bi bi-droplet"></i> Tipo de muestra:</strong> <span class="none-p">${row[i]['MUESTRA']}</span></p>
+                    <p><strong><i class="bi bi-droplet"></i> Tipo de muestra:</strong> <span class="none-p">${ifnull(row[i]['MUESTRA'])}</span></p>
                     <p><strong><i class="bi bi-box"></i> Contenedor:</strong> <span class="none-p">${row[i]['CONTENEDOR']}</span></p>
                     <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#moreInfo${row[i]['ID']}" aria-expanded="false" aria-controls="moreInfo">
                       <i class="bi bi-chevron-down"></i> Más información
                     </button>
                     <div class="collapse" id="moreInfo${row[i]['ID']}">
-                      <p><strong><i class="bi bi-clock"></i> Tiempo de entrega:</strong> <span class="none-p">${row[i]['ENTREGA']}</span></p>
-                      <p><strong><i class="bi bi-file-earmark-medical"></i> Indicaciones para el laboratorio:</strong> <span class="none-p">${row[i]['INDICACIONES_LABORATORIO']}</span></p>
-                      <p><strong><i class="bi bi-person-lines-fill"></i> Indicaciones para el paciente:</strong> <span class="none-p">${row[i]['INDICACIONES']}</span></p>
-                      <p><strong><i class="bi bi-thermometer-half"></i> Conservación:</strong> <span class="none-p">${row[i]['CONSERVACION']}</span></p>
-                      <p><strong><i class="bi bi-building"></i> Área:</strong> <span class="none-p">${row[i]['AREA']}</span></p>
-                      <p><strong><i class="bi bi-activity"></i> Metodología:</strong> <span class="none-p">${row[i]['METODOLOGIA']}</span></p>
+                      <p><strong><i class="bi bi-clock"></i> Tiempo de entrega:</strong> <span class="none-p">${ifnull(row[i]['ENTREGA'])}</span></p>
+                      <p><strong><i class="bi bi-file-earmark-medical"></i> Indicaciones para el laboratorio:</strong> <span class="none-p">${ifnull(row[i]['INDICACIONES_LABORATORIO'])}</span></p>
+                      <p><strong><i class="bi bi-person-lines-fill"></i> Indicaciones para el paciente:</strong> <span class="none-p">${ifnull(row[i]['INDICACIONES'])}</span></p>
+                      <p><strong><i class="bi bi-thermometer-half"></i> Conservación:</strong> <span class="none-p">${ifnull(row[i]['CONSERVACION'])}</span></p>
+                      <p><strong><i class="bi bi-building"></i> Área:</strong> <span class="none-p">${ifnull(row[i]['AREA'])}</span></p>
+                      <p><strong><i class="bi bi-activity"></i> Metodología:</strong> <span class="none-p">${ifnull(row[i]['METODOLOGIA'])}</span></p>
                     </div>
                   </div>
                 </div>
