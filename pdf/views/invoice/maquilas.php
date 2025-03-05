@@ -28,13 +28,13 @@
             top: -165px;
             left: 25px;
             right: 25px;
-            height: 220px;
+            height: auto;
             margin-top: 0;
         }
 
         .footer {
             position: fixed;
-            bottom: -165px;
+            bottom: -300px;
             left: 25px;
             right: 25px;
             height: 220px;
@@ -229,11 +229,14 @@
 </head>
 
 <?php
-$ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
-$encode = base64_encode($ruta);
+    $ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
+    $encode = base64_encode($ruta);
 
-$ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
-$encode_firma = base64_encode($ruta_firma);
+    $ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
+    $encode_firma = base64_encode($ruta_firma);
+
+    $REPOSICION = $resultados[0];
+    $DETALLES = $resultados[1];
 ?>
 
 <body>
@@ -241,55 +244,47 @@ $encode_firma = base64_encode($ruta_firma);
         <?php
             $titulo = 'DIAGNOSTICO BIOMOLECULAR';
             $tituloPersonales = 'Laboratorio de Biología Molecular';
-            $subtitulo = 'Requesición Maquilas';
-            $encabezado->FECHA_RESULTADO = $resultados->fecha_creacion;
-            include 'includes/header.php';
+            $subtitulo = 'Requisición Maquilas';
+            $encabezado->CREACION = $REPOSICION[0]->FECHA_REQUISICION;
+            $encabezado->FOLIO = $REPOSICION[0]->FOLIO;
+            $encabezado->ESTADO = $REPOSICION[0]->ESTADO;
+            $encabezado->RESPONSABLE = $REPOSICION[0]->RESPONSABLE;
+
+            include 'includes/header_requisicion.php';
         ?>
     </div>
     
-    <table style="width: 100%; border-spacing: 4px;">
-        <tr>
-            <td colspan="2">Folio: <?= $resultados->folio ?></td>
-            <td colspan="2">Estado: <?= $resultados->estado_envio ?></td>
-            <td colspan="4">Responsable: <?= $resultados->responsable ?></td>
-            <td colspan="2">Fecha: <?= $resultados->fecha_creacion ?></td>
-        </tr>
-    </table>
-
     <div class="invoice-content">
-        <?php if (isset($resultados->REQUISICIONES)): ?>
-            <table class='result' style='padding-top: 1px; white-space:break-spaces; border-collapse: separate; border-spacing: 0 5px;'>
+        <?php if (isset($DETALLES) && !empty($DETALLES)): ?>
+            <table class="result" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                <thead>
+                    <tr style="text-align: left; border-top: 1.7px solid #000 ; border-bottom: 1.7px solid #000;">
+                        <th style="padding: 8px; text-align: left;">Paciente</th>
+                        <th style="padding: 8px; text-align: left">Servicio</th>
+                        <th style="padding: 8px; text-align: left">Laboratorio</th>
+                        <th style="padding: 8px; text-align: left">Motivo de Rechazo</th>
+                        <th style="padding: 8px; text-align: left">Responsable</th>
+                    </tr>
+                </thead>
                 <tbody>
-                    <?php foreach ($resultados->REQUISICIONES as $item): ?>
-                        <tr>
-                            <td class="col-one" style="padding-top: 1px; padding-bottom: 1px;">
-                                <?= $item->PACIENTE ?>
-                            </td>
-                            <td class="col-two" style="padding-top: 1px; padding-bottom: 1px;">
-                                <?= $item->SERVICIO ?>
-                            </td>
-                            <td class="col-three" style="padding-top: 1px; padding-bottom: 1px;">
-                                <?= $item->LABORATORIO ?>
-                            </td>
-                            <td class="col-four" style="padding-top: 1px; padding-bottom: 1px;">
-                                <?= $item->MOTIVO_RECHAZO ?>
-                            </td>
-                            <td class="col-four" style="padding-top: 1px; padding-bottom: 1px;">
-                                <?= $item->RESPONSABLE ?>
-                            </td>
+                    <?php foreach ($DETALLES as $item): ?>
+                        <tr style="border-bottom: .2px solid #000;">
+                            <td style="padding: 10px;"><?= htmlspecialchars($item->PACIENTE) ?></td>
+                            <td style="padding: 10px;"><?= htmlspecialchars($item->SERVICIO) ?></td>
+                            <td style="padding: 10px;"><?= htmlspecialchars($item->LABORATORIO) ?></td>
+                            <td style="padding: 10px;"><?= htmlspecialchars($item->MOTIVO_RECHAZO) ?></td>
+                            <td style="padding: 10px;"><?= htmlspecialchars($item->RESPONSABLE) ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
+        <?php else: ?>
+            <p style="text-align: center; color: #000;">No hay detalles disponibles.</p>
         <?php endif; ?>
     </div>
 
     <div class="footer">
-        <?php
-        $footerDoctor = 'XXXX <br>XXXX - Cédula Profesional: XXXX';
-
-        include 'includes/footer.php';
-        ?>
+        <?php include 'includes/footer_simple.php'; ?>
     </div>
 </body>
 
