@@ -117,12 +117,12 @@ async function getListMuestras() {
                   </div>
                   <div class="card-body">
                     <p><strong><i class="bi bi-droplet"></i> Tipo de muestra:</strong> <span class="none-p">${ifnull(row[i]['MUESTRA'])}</span></p>
-                    <p><strong><i class="bi bi-box"></i> Contenedor:</strong> <span class="none-p">${row[i]['CONTENEDOR']}</span></p>
-                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#moreInfo${row[i]['ID']}" aria-expanded="false" aria-controls="moreInfo">
+                    <p><strong><i class="bi bi-box"></i> Contenedor:</strong> <span class="none-p">${row[i]['TUBO']}</span></p>
+                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#moreInfo${row[i]['ID_SERVICIO']}" aria-expanded="false" aria-controls="moreInfo">
                       <i class="bi bi-chevron-down"></i> Más información
                     </button>
-                    <div class="collapse" id="moreInfo${row[i]['ID']}">
-                      <p><strong><i class="bi bi-clock"></i> Tiempo de entrega:</strong> <span class="none-p">${ifnull(row[i]['ENTREGA'])}</span></p>
+                    <div class="collapse" id="moreInfo${row[i]['ID_SERVICIO']}">
+                      <p><strong><i class="bi bi-clock"></i> Tiempo de entrega:</strong> <span class="none-p">${ifnull(row[i]['DURACION'])}</span></p>
                       <p><strong><i class="bi bi-file-earmark-medical"></i> Indicaciones para el laboratorio:</strong> <span class="none-p">${ifnull(row[i]['INDICACIONES_LABORATORIO'])}</span></p>
                       <p><strong><i class="bi bi-file-earmark-medical"></i> Motivos para rechazo de muestras:</strong> <span class="none-p">${ifnull(row[i]['MOTIVO_RECHAZO'])}</span></p>
                       <p><strong><i class="bi bi-person-lines-fill"></i> Indicaciones para el paciente:</strong> <span class="none-p">${ifnull(row[i]['INDICACIONES'])}</span></p>
