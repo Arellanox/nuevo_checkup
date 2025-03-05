@@ -100,6 +100,9 @@ switch ($api) {
     case 'lista-barras':
         # imprimir lista de trabajo con codigo de barras
         $r = $master->reportador($master, $turno_id, -7, 'lista-barras', 'mostrar', $preview, 0, 0);
+    case 'requisicion_maquilas':
+        $r = $master->reportador($master, $turno_id, -8, 'requisicion_maquilas', 'mostrar', $preview, 0, 0);
+        break;
     default:
         echo '<script language="javascript">alert("¡URL invalida!"); window.close()</script>';
         break;

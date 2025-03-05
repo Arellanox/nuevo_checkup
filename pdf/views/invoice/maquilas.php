@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultado de interpretación de Historia Clinica</title>
+    <title>Resultado de Requisición Maquilas</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">  -->
@@ -17,15 +17,14 @@
 
         body {
             font-family: 'Roboto', sans-serif;
-            /* margin-top: 80px; */
+            /*margin-top: 80px;*/
             margin-bottom: 40px;
             font-size: 10px;
-            /* background-color: gray; */
         }
 
         .header {
             position: fixed;
-            top: -165px;
+            top: -160px;
             left: 25px;
             right: 25px;
             height: auto;
@@ -60,6 +59,7 @@
         /* Content */
         .invoice-content {
             border-radius: 4px;
+            margin-top: -20px;
             padding-bottom: 10px;
             padding-right: 30px;
             padding-left: 30px;
@@ -229,14 +229,14 @@
 </head>
 
 <?php
-    $ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
-    $encode = base64_encode($ruta);
+$ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
+$encode = base64_encode($ruta);
 
-    $ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
-    $encode_firma = base64_encode($ruta_firma);
+$ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
+$encode_firma = base64_encode($ruta_firma);
 
-    $REPOSICION = $resultados[0];
-    $DETALLES = $resultados[1];
+$REPOSICION = $resultados[0];
+$DETALLES = $resultados[1];
 ?>
 
 <body>
@@ -253,12 +253,12 @@
             include 'includes/header_requisicion.php';
         ?>
     </div>
-    
+
     <div class="invoice-content">
         <?php if (isset($DETALLES) && !empty($DETALLES)): ?>
-            <table class="result" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+            <table class="result" style="width: 100%; border-collapse: collapse;">
                 <thead>
-                    <tr style="text-align: left; border-top: 1.7px solid #000 ; border-bottom: 1.7px solid #000;">
+                    <tr style="text-align: left; border-bottom: 1.7px solid #000;">
                         <th style="padding: 8px; text-align: left;">Paciente</th>
                         <th style="padding: 8px; text-align: left">Servicio</th>
                         <th style="padding: 8px; text-align: left">Laboratorio</th>
@@ -266,7 +266,7 @@
                         <th style="padding: 8px; text-align: left">Responsable</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody style="margin-top: 10px;">
                     <?php foreach ($DETALLES as $item): ?>
                         <tr style="border-bottom: .2px solid #000;">
                             <td style="padding: 10px;"><?= htmlspecialchars($item->PACIENTE) ?></td>

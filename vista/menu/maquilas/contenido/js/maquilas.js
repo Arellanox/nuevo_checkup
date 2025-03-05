@@ -52,6 +52,18 @@ tableRequisiciones = $('#tableRequisiciones').DataTable({
         { data: 'RESPONSABLE' },
         {
             data: null,
+            render: function(data, type, row) {
+                if (data) {
+                    if(row.ESTADO === "1"){
+                        return `<button class="btn btn-danger btn-sm btn-lista-trabajo-barras" onclick="obtener_reporte(${row.ID_REQUISICION})">Generar PDF</button>`;
+                    }
+                    
+                    return `<button class="btn btn-danger btn-sm" disabled>PDF</button>`;
+                }
+            }
+        },
+        {
+            data: null,
             render: function(data, type, row){
                 if(row.ESTADO){
                     return `
@@ -79,7 +91,8 @@ tableRequisiciones = $('#tableRequisiciones').DataTable({
         { target: 3, title: 'Estado del envío', className: 'all' },
         { target: 4, title: 'Motivo rechazo', className: 'all' },
         { target: 5, title: 'Responsable', className: 'all' },
-        { target: 6, title: 'Acciones', className: 'all', orderable: false }
+        { target: 6, title: 'PDF', className: 'all', orderable: false },
+        { target: 7, title: 'Acciones', className: 'all', orderable: false }
 
     ],
     dom: 'Bl<"dataTables_toolbar">frtip',
@@ -130,6 +143,13 @@ function cambiarEstadoReq(idReq, estado){
     },1);
 }
 
+function obtener_reporte(turno_id){
+    api = encodeURIComponent(window.btoa("requisicion_maquilas"));
+    turno = encodeURIComponent(window.btoa(turno_id));
+    area = encodeURIComponent(window.btoa('1'));
+
+    window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, "_blank");
+}
 
 function verDetalleRequisicion(idReq){
     dataTableDetalleRequisicion = {
