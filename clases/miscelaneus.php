@@ -745,6 +745,10 @@ class Miscelaneus
                 # $turno_id corresponde a la fecha de la lista de trabajo que se quiere imprimir
                 $arregloPaciente = $master->getByProcedure("sp_lista_de_trabajo_barras", [$turno_id, 6, null, null, null]);
                 break;
+            case -8:
+                # turno_id es la id de la requisicion
+                $arregloPaciente = $this->getBodyRequisicionMaquilas($master, $turno_id);
+                break;
         }
 
 
@@ -822,6 +826,13 @@ class Miscelaneus
             $master->insertByProcedure('sp_reportes_areas_g', [null, $turno_id, $area_id, $infoPaciente[0]['CLAVE_IMAGEN'], $renderpdf, null]);
         }
         return $renderpdf;
+    }
+
+    private function getBodyRequisicionMaquilas($master, $id_requisicion){
+        $requisicion = $master->getByProcedure('sp_reqmaquilas_requisiciones_b', [ $id_requisicion]);
+        $detalle = $master->getByProcedure('sp_reqmquilas_detalle_requisicion_b', [$id_requisicion]);
+
+        return [$requisicion, $detalle];
     }
 
     private function getBodyFormDatos($master, $id_paciente)
