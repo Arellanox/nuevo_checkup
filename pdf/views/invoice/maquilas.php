@@ -242,15 +242,15 @@ $DETALLES = $resultados[1];
 <body>
     <div class="header">
         <?php
-            $titulo = 'DIAGNOSTICO BIOMOLECULAR';
-            $tituloPersonales = 'Laboratorio de Biología Molecular';
-            $subtitulo = 'Requisición Maquilas';
-            $encabezado->CREACION = $REPOSICION[0]->FECHA_REQUISICION;
-            $encabezado->FOLIO = $REPOSICION[0]->FOLIO;
-            $encabezado->ESTADO = $REPOSICION[0]->ESTADO;
-            $encabezado->RESPONSABLE = $REPOSICION[0]->RESPONSABLE;
+        $titulo = 'DIAGNOSTICO BIOMOLECULAR';
+        $tituloPersonales = 'Laboratorio de Biología Molecular';
+        $subtitulo = 'Requisición Maquilas';
+        $encabezado->CREACION = $REPOSICION[0]->FECHA_REQUISICION;
+        $encabezado->FOLIO = $REPOSICION[0]->FOLIO;
+        $encabezado->ESTADO = $REPOSICION[0]->ESTADO;
+        $encabezado->RESPONSABLE = $REPOSICION[0]->RESPONSABLE;
 
-            include 'includes/header_requisicion.php';
+        include 'includes/header_requisicion.php';
         ?>
     </div>
 
