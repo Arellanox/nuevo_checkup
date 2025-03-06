@@ -199,7 +199,7 @@ date_default_timezone_set('America/Mexico_City');
                 exec = true; // Evitar que se ejecute más de una vez
 
                 $.post("/nuevo_checkup/api/requisiciones_api.php", {
-                        api: 1
+                        api: 3
                     }, function(response) {
                         let parsedResponse = JSON.parse(response);
                         let data = parsedResponse.response && Array.isArray(parsedResponse.response.data) ?

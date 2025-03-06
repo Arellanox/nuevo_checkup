@@ -1,3 +1,4 @@
+
 tableDetalleRequisicion = $('#tableDetalleRequisicion').DataTable({
     autoWidth: true,
     language: {
@@ -116,6 +117,7 @@ $("#btnRechazar").click(function(){
         function(data){
             if(data.response.code == 1){
                 alertToast("Estado actualizado!", "success", 4000)
+                updateBadgetMenuRequisicion();
                 if(tipoGlobal==1)
                     tableRequisiciones.ajax.reload();
                 else
@@ -167,6 +169,7 @@ $("#btnGuardarRequisicion").click(function(){
         function(data){
             if(data.response.code == 1){
                 alertToast("Maquila agregada!", "success", 4000)
+                updateBadgetMenuRequisicion();
                 if(tipoGlobal==1)
                     tableRequisiciones.ajax.reload();
                 else
@@ -185,3 +188,36 @@ select2("#formRequisicion #servicio", "ModalAgregarRequisicion", 'Seleccione un 
 rellenarSelect('#formRequisicion #servicio', 'servicios_api', 3, "ID_SERVICIO", "DESCRIPCION", {
     id_area: 6
 });
+
+async function updateBadgetMenuRequisicion() {
+  $.post(
+      "/nuevo_checkup/api/requisiciones_api.php",
+      {
+        api: 3,
+      },
+      function (response) {
+        let parsedResponse = JSON.parse(response);
+        let data =
+          parsedResponse.response && Array.isArray(parsedResponse.response.data)
+            ? parsedResponse.response.data
+            : [];
+
+        if (data.length > 0) {
+          pendientes = data.filter(
+            (requisicion) => requisicion.ESTADO === null
+          );
+
+          console.log(data);
+
+          $(".alert_requisiciones")
+            .css("display", "inline-block")
+            .text(pendientes?.length ?? 0);
+        } else {
+          $(".alert_requisiciones").css("display", "none");
+        }
+      }
+    ).fail(function (error) {
+      console.error("Error obteniendo los datos:", error);
+      exec = false; // Resetear `exec` si la solicitud falla
+    });
+}
