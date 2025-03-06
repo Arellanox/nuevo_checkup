@@ -136,6 +136,7 @@ function cambiarEstadoReq(idReq, estado){
             if(data.response.code == 1){
                 alertToast("Estado actualizado!", "success", 4000)
                 tableRequisiciones.ajax.reload();
+                updateBadgetMenuRequisicion();
             }
         }
 
@@ -158,4 +159,36 @@ function verDetalleRequisicion(idReq){
     }
     tableDetalleRequisicion.ajax.reload();
     $("#modalDetalleRequisicion").modal('show');
+}
+
+async function updateBadgetMenuRequisicion() {
+  $.post(
+    "/nuevo_checkup/api/requisiciones_api.php",
+    {
+      api: 3,
+    },
+    function (response) {
+      let parsedResponse = JSON.parse(response);
+      let data =
+        parsedResponse.response && Array.isArray(parsedResponse.response.data)
+          ? parsedResponse.response.data
+          : [];
+
+      if (data.length > 0) {
+        pendientes = data.filter((requisicion) => requisicion.ESTADO === null);
+        if (pendientes.length > 0) {
+          $(".alert_requisiciones")
+            .css("display", "inline-block")
+            .text(pendientes?.length ?? 0);
+        } else {
+          $(".alert_requisiciones").css("display", "none");
+        }
+      } else {
+        $(".alert_requisiciones").css("display", "none");
+      }
+    }
+  ).fail(function (error) {
+    console.error("Error obteniendo los datos:", error);
+    exec = false; // Resetear `exec` si la solicitud falla
+  });
 }

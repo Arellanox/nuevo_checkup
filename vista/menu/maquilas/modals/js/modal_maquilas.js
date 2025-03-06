@@ -206,12 +206,13 @@ async function updateBadgetMenuRequisicion() {
           pendientes = data.filter(
             (requisicion) => requisicion.ESTADO === null
           );
-
-          console.log(data);
-
-          $(".alert_requisiciones")
-            .css("display", "inline-block")
-            .text(pendientes?.length ?? 0);
+          if (pendientes.length > 0) {
+            $(".alert_requisiciones")
+              .css("display", "inline-block")
+              .text(pendientes?.length ?? 0);
+          } else {
+            $(".alert_requisiciones").css("display", "none");
+          }
         } else {
           $(".alert_requisiciones").css("display", "none");
         }

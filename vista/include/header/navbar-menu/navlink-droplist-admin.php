@@ -204,13 +204,14 @@ date_default_timezone_set('America/Mexico_City');
                         let parsedResponse = JSON.parse(response);
                         let data = parsedResponse.response && Array.isArray(parsedResponse.response.data) ?
                             parsedResponse.response.data : [];
-                        
+
                         if (data.length > 0) {
                             pendientes = data.filter((requisicion) => requisicion.ESTADO === null);
-
-                            console.log(data);
-
-                            $(".alert_requisiciones").css("display", "inline-block").text(pendientes?.length ?? 0);
+                            if (pendientes.length > 0) {
+                                $(".alert_requisiciones").css("display", "inline-block").text(pendientes?.length ?? 0);
+                            } else {
+                                $(".alert_requisiciones").css("display", "none");
+                            }
                         } else {
                             $(".alert_requisiciones").css("display", "none");
                         }
