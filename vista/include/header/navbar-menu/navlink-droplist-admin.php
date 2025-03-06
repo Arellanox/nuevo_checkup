@@ -1,6 +1,8 @@
 <?php
+include_once "../clases/master_class.php";
 date_default_timezone_set('America/Mexico_City');
 ?>
+
 <?php if ($_SESSION['vista']['CAJA'] == 1) : ?>
     <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/corte_caja/#CORTECAJA'; ?>">
         <i class="bi bi-cash-stack"></i> Corte de caja
@@ -29,7 +31,7 @@ date_default_timezone_set('America/Mexico_City');
                     </a>
                 </li>
             <?php endif; ?>
-            
+
             <?php if ($_SESSION['vista']['ADMIN_MEDICOS'] == 1) : ?>
                 <li>
                     <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/administracion/#MEDICOS'; ?>">
@@ -176,14 +178,50 @@ date_default_timezone_set('America/Mexico_City');
 
 <?php endif; ?>
 
-<?php if($_SESSION['vista']['CAJA_CHICA'] == 1):  ?>
+<?php if ($_SESSION['vista']['CAJA_CHICA'] == 1):  ?>
     <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/caja_chica/#CAJACHICA'; ?>">
         <i class="bi bi-piggy-bank"></i> Caja chica
     </a>
 <?php endif; ?>
 
-<?php if($_SESSION['vista']['maquilas'] == 1):  ?>
-    <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/maquilas/'; ?>">
-        <i class="bi bi-piggy-bank"></i> Maquilas
+<?php if ($_SESSION['vista']['REQUISICION_MAQUILAS'] == 1):  ?>
+    <a class="dropdown-a align-items-center position-relative" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/maquilas/'; ?>">
+        <i class="bi bi-clipboard2-check"></i> Requisición de maquilas
+        <span class="badge text-bg-danger text-center alert_requisiciones" style="font-weight: normal; font-size: 13px; border-radius: 100px; display: none;">
+            1
+        </span>
     </a>
+
+    <script>
+        let exec = false;
+        async function obtenerContenidoRequisiciones() {
+            if (!exec) {
+                exec = true; // Evitar que se ejecute más de una vez
+
+                $.post("/nuevo_checkup/api/requisiciones_api.php", {
+                        api: 1
+                    }, function(response) {
+                        let parsedResponse = JSON.parse(response);
+                        let data = parsedResponse.response && Array.isArray(parsedResponse.response.data) ?
+                            parsedResponse.response.data : [];
+                        
+                        if (data.length > 0) {
+                            pendientes = data.filter((requisicion) => requisicion.ESTADO === null);
+
+                            console.log(data);
+
+                            $(".alert_requisiciones").css("display", "inline-block").text(pendientes?.length ?? 0);
+                        } else {
+                            $(".alert_requisiciones").css("display", "none");
+                        }
+                    })
+                    .fail(function(error) {
+                        console.error("Error obteniendo los datos:", error);
+                        exec = false; // Resetear `exec` si la solicitud falla
+                    });
+            }
+        }
+
+        obtenerContenidoRequisiciones();
+    </script>
 <?php endif; ?>

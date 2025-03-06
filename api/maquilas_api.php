@@ -65,7 +65,7 @@ if (!empty($_SESSION['id'])) {
                 $userTokens  = explode(' ', $paciente);
 
                 $matches = 0;
-
+                
                 foreach ($userTokens as $userToken) {
                     foreach ($baseTokens as $baseToken) {
                         if (levenshtein($userToken, $baseToken) <= 2) {
