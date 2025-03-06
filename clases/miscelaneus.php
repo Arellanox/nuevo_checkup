@@ -747,7 +747,7 @@ class Miscelaneus
                 break;
             case -9:
                 # crea el certificado medico de bimo
-                exit;
+                
                 break;
         }
 
