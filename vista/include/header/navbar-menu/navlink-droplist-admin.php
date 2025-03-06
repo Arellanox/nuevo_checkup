@@ -42,15 +42,13 @@ date_default_timezone_set('America/Mexico_City');
     </div>
 <?php endif; ?>
 
-
 <?php if ($_SESSION['vista']['CLIENTES'] == 1) : ?>
     <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/clientes/'; ?>">
         <i class="bi bi-people-fill"></i> Clientes
     </a>
 <?php endif; ?>
 
-<?php
-if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
+<?php if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
     <!-- Administrativos -->
     <a class="dropdown-a align-items-center  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-servicios" aria-expanded="false">
         <i class="bi bi-clipboard-heart"></i> Servicios
@@ -68,15 +66,7 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
 
 <?php endif; ?>
 
-
-
-
-<?php if (
-    $_SESSION['vista']['FACTURACIÓN'] == 1 ||
-    $_SESSION['vista']['FACTURACION_EXCEL'] ==
-    1 ||
-    $_SESSION['vista']['COTIZACIONES_ESTUDIOS'] == 1
-) : ?>
+<?php if ($_SESSION['vista']['FACTURACIÓN'] == 1 || $_SESSION['vista']['FACTURACION_EXCEL'] == 1 || $_SESSION['vista']['COTIZACIONES_ESTUDIOS'] == 1) : ?>
     <!-- Facturacion -->
     <a class="dropdown-a align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-facturacion" aria-expanded="false">
         <i class="bi bi-calculator"></i> Facturación
@@ -133,10 +123,7 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
 <?php endif; ?>
 
 
-<?php if (
-    $_SESSION['vista']['LISTA_PRECIOS'] == 1 ||
-    $_SESSION['vista']['PAQUETES_ESTUDIOS'] == 1
-) : ?>
+<?php if ($_SESSION['vista']['LISTA_PRECIOS'] == 1 || $_SESSION['vista']['PAQUETES_ESTUDIOS'] == 1) : ?>
     <!-- Contaduria -->
     <a class="dropdown-a align-items-center  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-listaprecios" aria-expanded="false">
         <i class="bi bi-tag"></i> Lista de Estudios
@@ -192,5 +179,11 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
 <?php if($_SESSION['vista']['CAJA_CHICA'] == 1):  ?>
     <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/caja_chica/#CAJACHICA'; ?>">
         <i class="bi bi-piggy-bank"></i> Caja chica
+    </a>
+<?php endif; ?>
+
+<?php if($_SESSION['vista']['maquilas'] == 1):  ?>
+    <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/maquilas/'; ?>">
+        <i class="bi bi-piggy-bank"></i> Maquilas
     </a>
 <?php endif; ?>

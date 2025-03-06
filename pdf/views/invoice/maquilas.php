@@ -273,16 +273,8 @@ $DETALLES = $resultados[1];
                                 <td style="padding: 10px;"><?= htmlspecialchars($item->PACIENTE) ?></td>
                                 <td style="padding: 10px;"><?= htmlspecialchars($item->SERVICIO) ?></td>
                                 <td style="padding: 10px;"><?= htmlspecialchars($item->LABORATORIO) ?></td>
-                                <td style="padding: 10px;"></td>
-                                <td style="padding: 10px;"><?= htmlspecialchars($item->USUARIO) ?></td>
-                            </tr>
-                        <?php else: ?>
-                            <tr style="border-bottom: .2px solid #000;">
-                                <td style="padding: 10px;"></td>
-                                <td style="padding: 10px;"><?= htmlspecialchars($item->SERVICIO) ?></td>
-                                <td style="padding: 10px;"></td>
                                 <td style="padding: 10px;"><?= htmlspecialchars($item->PREFOLIO) ?></td>
-                                <td style="padding: 10px;"></td>
+                                <td style="padding: 10px;"><?= htmlspecialchars($item->USUARIO) ?></td>
                             </tr>
                         <?php endif; ?>
                     <?php endforeach; ?>
