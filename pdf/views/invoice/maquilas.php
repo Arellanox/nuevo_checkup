@@ -262,19 +262,29 @@ $DETALLES = $resultados[1];
                         <th style="padding: 8px; text-align: left;">Paciente</th>
                         <th style="padding: 8px; text-align: left">Servicio</th>
                         <th style="padding: 8px; text-align: left">Laboratorio</th>
-                        <th style="padding: 8px; text-align: left">Motivo de Rechazo</th>
+                        <th style="padding: 8px; text-align: left">Prefolio</th>
                         <th style="padding: 8px; text-align: left">Responsable</th>
                     </tr>
                 </thead>
                 <tbody style="margin-top: 10px;">
                     <?php foreach ($DETALLES as $item): ?>
-                        <tr style="border-bottom: .2px solid #000;">
-                            <td style="padding: 10px;"><?= htmlspecialchars($item->PACIENTE) ?></td>
-                            <td style="padding: 10px;"><?= htmlspecialchars($item->SERVICIO) ?></td>
-                            <td style="padding: 10px;"><?= htmlspecialchars($item->LABORATORIO) ?></td>
-                            <td style="padding: 10px;"><?= htmlspecialchars($item->MOTIVO_RECHAZO) ?></td>
-                            <td style="padding: 10px;"><?= htmlspecialchars($item->RESPONSABLE) ?></td>
-                        </tr>
+                        <?php if ($item->ESTADO): ?>
+                            <tr style="border-bottom: .2px solid #000;">
+                                <td style="padding: 10px;"><?= htmlspecialchars($item->PACIENTE) ?></td>
+                                <td style="padding: 10px;"><?= htmlspecialchars($item->SERVICIO) ?></td>
+                                <td style="padding: 10px;"><?= htmlspecialchars($item->LABORATORIO) ?></td>
+                                <td style="padding: 10px;"></td>
+                                <td style="padding: 10px;"><?= htmlspecialchars($item->USUARIO) ?></td>
+                            </tr>
+                        <?php else: ?>
+                            <tr style="border-bottom: .2px solid #000;">
+                                <td style="padding: 10px;"></td>
+                                <td style="padding: 10px;"><?= htmlspecialchars($item->SERVICIO) ?></td>
+                                <td style="padding: 10px;"></td>
+                                <td style="padding: 10px;"><?= htmlspecialchars($item->PREFOLIO) ?></td>
+                                <td style="padding: 10px;"></td>
+                            </tr>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 </tbody>
             </table>

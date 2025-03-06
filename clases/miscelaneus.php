@@ -748,6 +748,8 @@ class Miscelaneus
             case -8:
                 # turno_id es la id de la requisicion
                 $arregloPaciente = $this->getBodyRequisicionMaquilas($master, $turno_id);
+                // print_r($arregloPaciente[1][4]['ESTADO']);
+                // exit;
                 break;
         }
 
