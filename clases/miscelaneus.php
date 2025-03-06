@@ -745,6 +745,10 @@ class Miscelaneus
                 # $turno_id corresponde a la fecha de la lista de trabajo que se quiere imprimir
                 $arregloPaciente = $master->getByProcedure("sp_lista_de_trabajo_barras", [$turno_id, 6, null, null, null]);
                 break;
+            case -9:
+                # crea el certificado medico de bimo
+                exit;
+                break;
         }
 
 
