@@ -2,7 +2,7 @@ async function mantenimientoPaquete() {
   $('#btn-excel-previa').attr('disabled', false)
   $('#btn-vistaPrevia-cotizacion').attr('disabled', false)
   loader("In");
-  await rellenarSelect('#seleccion-paquete', 'clientes_api', 2, 0, 'NOMBRE_SISTEMA.NOMBRE_COMERCIAL');
+  await rellenarSelect('#seleccion-paquete', 'clientes_api', 2, 0, 'NOMBRE_COMERCIAL');
   $('#container-select-presupuesto').fadeIn('slow')
 
   await rellenarSelect("#select-presupuestos", 'cotizaciones_api', 4, 'ID_COTIZACION', 'FOLIO_FECHA', {

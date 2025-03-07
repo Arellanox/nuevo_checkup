@@ -17,6 +17,7 @@
                     <label for="inputBuscarPaquetes">Cotización:</label>
                     <select name="seleccionpaquete" id="select-presupuestos" class="input-form" required data-bs-toggle="tooltip" data-bs-placement="top" title="Seleccione/Busque un presupuesto ya guardado"> </select>
                 </div>
+                    <input type="hidden" id="folio-cotizacion">
                 <div class="col-12 col-lg-2 d-flex justify-content-end align-items-center" style="padding: 0px 19px 0px 0px">
                     <div class="row">
                         <div class="" style="padding: 0px">

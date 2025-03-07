@@ -55,8 +55,8 @@ $('#UsarPaquete').on('click', function () {
       alertToast('Necesitas seleccionar un presupuesto de este cliente', 'error', '5000')
       return false;
     } else {
-      SelectedFolio = $('#select-presupuestos').val()
-      SelectedFolio = lpad(SelectedFolio, 4, '0')
+      SelectedFolio = $('#folio-cotizacion').val()
+      // SelectedFolio = lpad(SelectedFolio, 4, '0')
     }
   }
 
@@ -102,6 +102,7 @@ $('#UsarPaquete').on('click', function () {
         $('#input-observaciones-cortizaciones').val(row2['OBSERVACIONES']);
         $('#input-domicilio_fiscal').val(row2['DOMICILIO_FISCAL'])
 
+        SelectedFolio = row2['FOLIO'];
 
 
         // var datosUsuarioCotizacion = $('#datosUsuarioCotizacion')
