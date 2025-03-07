@@ -74,11 +74,7 @@ session_start();
         <h4>Certificado médico del paciente</h4>
         <form id="subirResultadosCertificadoMedico" class="d-flex flex-column align-items-center">
           <div id="dropCertificadoMedico" class="drop-zone mx-2">
-            <label for="certificado-medico" style="cursor: pointer;" class="label-certificado-medico">Sube tu
-              archivo
-              arrastrándolo
-              aquí</label>
-
+            <label for="certificado-medico" style="cursor: pointer;" class="label-certificado-medico">Sube tu archivo arrastrándolo aquí</label>
             <input type="file" id="certificado-medico" name="certificado-medico[]" style="display: none;">
             <br>
             <div class="spinner-border text-primary carga-certificado-medico" role="status" style="display: none;">
@@ -93,12 +89,7 @@ session_start();
         <h4>Certificado POE</h4>
         <form id="subirResultadosCertificadoPOE" class="d-flex flex-column align-items-center">
           <div id="dropCertificadoPOE" class="drop-zone mx-2">
-            <label for="certificado-POE" style="cursor: pointer;" class="label-captura-oido">Sube
-              tu
-              archivo
-              arrastrándolo
-              aquí</label>
-
+            <label for="certificado-POE" style="cursor: pointer;" class="label-captura-oido">Sube tu archivo arrastrándolo aquí</label>
             <input type="file" id="certificado-POE" name="certificado-POE[]" style="display: none;">
             <br>
             <div class="spinner-border text-primary carga-certificado-POE" role="status" style="display: none;">
@@ -111,14 +102,19 @@ session_start();
       <!-- Agregar certificado bimo  -->
       <?php if($_SESSION['permisos']['certificadoBimo'] == 1):  ?>
         <h4>Certificado BIMO</h4>
+         <div id="btn-crearCertificadoBimo" class="medico-coordinador">
+            <button 
+              type="button" 
+              class="btn btn-hover me-2" style="margin: 15px 60px 20px 60px !important;font-size: 21px;" 
+              data-bs-toggle="modal" data-bs-target="#modalCrearCertificadoBimo"
+            >
+              <i class="bi bi-file-earmark-plus-fill"></i> Crear Certificado BIMO
+            </button>
+          </div>
+
         <form id="subirResultadosCertificadoBimo" class="d-flex flex-column align-items-center">
           <div id="dropCertificadoBimo" class="drop-zone mx-2">
-            <label for="certificado-bimo" style="cursor: pointer;" class="label-captura-oido">Sube
-              tu
-              archivo
-              arrastrándolo
-              aquí</label>
-
+            <label for="certificado-bimo" style="cursor: pointer;" class="label-captura-oido">Sube tu archivo arrastrándolo aquí</label>
             <input type="file" id="certificado-bimo" name="certificado-bimo[]" style="display: none;">
             <br>
             <div class="spinner-border text-primary carga-certificado-POE" role="status" style="display: none;">
@@ -162,7 +158,6 @@ session_start();
           <i class="bi bi-file-earmark-pdf"></i> Guardar
         </button>
       </div> -->
-
       <!-- <button type="button" class="btn btn-borrar btnResultados" data-bs-placement="top"
             id="recuperarPDfCerticicadoMedico" style="margin: 20px 17px 20px 17px !important;font-size: 16px;">
             <i class="bi bi-file-earmark-pdf"></i> Vista previa

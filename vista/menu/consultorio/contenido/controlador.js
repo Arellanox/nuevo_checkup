@@ -1,10 +1,8 @@
 //Menú principal para consultorio
-var id, idturno, idconsulta, dataConsulta = new Array,
-  tablaMain
+var id, idturno, idconsulta, dataConsulta = new Array, tablaMain;
 var selectPaciente;
 var dataListaPaciente;
 obtenerConsultorioMain()
-
 
 var activoConsultadorTurnero = true;
 
@@ -33,9 +31,6 @@ async function obtenerConsultorioMain() {
     // $.getScript('contenido/js/consultorio-paciente.js')
   });
 }
-//
-
-
 
 // Obtener el perfil del paciente (antecedentes);
 var pacienteActivo = new GuardarArreglo()
@@ -68,11 +63,9 @@ function obtenerContenidoAntecedentes(data) {
     select2('#citas-subsecuente', 'collapseAgendarConsultaTarget', 'No tiene consultas anteriores');
   });
 }
-//
 
-
-var tablaRecetas;
 // obtenerContenidoConsulta() --- Valoracion medica ---
+var tablaRecetas;
 function obtenerContenidoConsulta(data, idvaloracion) {
   activoConsultadorTurnero = false;
   loader("In")
@@ -99,11 +92,6 @@ function obtenerContenidoConsulta(data, idvaloracion) {
     // select2('#registrar-metodos-estudio', 'card-exploracion-clinica');
   })
 }
-//
-
-
-
-
 
 // METODOS PARA PERFIL DEL PACIENTE
 // Rellena la plantilla con metodos de espera Async Await
@@ -151,10 +139,6 @@ $(document).on('click', '#paciente_categoria', function (event) {
     })
   }, 1)
 })
-
-
-
-
 
 async function obtenerValoracion(data, idconsulta) {
   // console.log(data, idconsulta)
@@ -212,14 +196,20 @@ function agregarNotaConsulta(tittle, date = null, text, appendDiv, id = null, cl
   $(appendDiv).append(html);
 }
 
+function obtenerContenidoCrearCertificadoBimo(data) {
+  activoConsultadorTurnero = false;
+  loader("In")
+  $.post("modals/html/crear-certificado-bimo.html", function (html) {  
 
+   }).done(function () {
+    $.getScript("modals/js/crear-certificado-bimo.js").done(function () { 
 
-
-
-
-
-
-
+      console.log('cargado')
+    })
+    console.log("finalizado")
+  })
+}
+obtenerContenidoCrearCertificadoBimo(null);
 
 //AREA CONSULTA MEDICA
 //Posible solucion en ios
@@ -228,9 +218,6 @@ function agregarNotaConsulta(tittle, date = null, text, appendDiv, id = null, cl
 //   event.preventDefault();
 //   obtenerConsultorioConsultaMedica(pacienteActivo.array, idConsultaMedica);
 // });
-
-
-
 function obtenerConsultorioConsultaMedica(data, idconsulta) {
   loader("In")
   $("#titulo-js").html(''); //Vaciar la cabeza de titulo
@@ -269,23 +256,8 @@ async function obtenerConsultaMedica(data, idconsulta) {
   loader("Out", 'bottom')
 }
 
-
-
-
-
-
-
-
-
-function obtenerConsultaRapida(data) {
-
-}
-
-function ObtenerVistaConsultaRapida(data) {
-  loader("In")
-}
-
-
+function obtenerConsultaRapida(data) { }
+function ObtenerVistaConsultaRapida(data) { loader("In") }
 
 $(document).on('click', '#btn-ir-consulta-rapida', function (e) {
   loader("In")
@@ -303,5 +275,3 @@ $(document).on('click', '#btn-ir-consulta-rapida', function (e) {
     // select2('#registrar-metodos-estudio', 'card-exploracion-clinica');
   });
 })
-
-

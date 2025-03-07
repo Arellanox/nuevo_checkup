@@ -52,3 +52,67 @@
 04/03/25 12:11:41  Area: 12
 04/03/25 12:13:06  Area: 12
 04/03/25 12:15:06  Area: 12
+07/03/25 09:35:18  Area: 1
+07/03/25 09:40:57  Area: 1
+07/03/25 09:44:18  Area: 1
+07/03/25 09:45:14  Area: 1
+07/03/25 09:47:58  Area: 1
+07/03/25 09:57:27  Area: 1
+07/03/25 10:06:05  Area: 1
+07/03/25 10:06:48  Area: 1
+07/03/25 10:07:06  Area: 1
+07/03/25 10:07:20  Area: 1
+07/03/25 10:08:49  Area: 1
+07/03/25 10:23:07  Area: 1
+07/03/25 10:29:53  Area: 1
+07/03/25 10:38:17  Area: 1
+07/03/25 10:39:26  Area: 1
+07/03/25 10:40:41  Area: 1
+07/03/25 10:41:17  Area: 1
+07/03/25 10:49:46  Area: 1
+07/03/25 10:50:19  Area: 1
+07/03/25 10:52:27  Area: 1
+07/03/25 10:53:17  Area: 1
+07/03/25 10:54:14  Area: 1
+07/03/25 10:55:40  Area: 1
+07/03/25 10:56:41  Area: 1
+07/03/25 11:06:44  Area: 1
+07/03/25 11:08:36  Area: 1
+07/03/25 11:40:23  Area: 1
+07/03/25 11:41:07  Area: 1
+07/03/25 11:42:12  Area: 1
+07/03/25 11:43:16  Area: 1
+07/03/25 11:43:47  Area: 1
+07/03/25 11:44:17  Area: 1
+07/03/25 11:44:55  Area: 1
+07/03/25 11:45:28  Area: 1
+07/03/25 11:46:18  Area: 1
+07/03/25 11:47:44  Area: 1
+07/03/25 11:49:27  Area: 1
+07/03/25 11:50:21  Area: 1
+07/03/25 11:50:46  Area: 1
+07/03/25 11:52:00  Area: 1
+07/03/25 11:53:22  Area: 1
+07/03/25 11:53:58  Area: 1
+07/03/25 11:54:37  Area: 1
+07/03/25 11:57:34  Area: 1
+07/03/25 11:59:45  Area: 1
+07/03/25 12:02:05  Area: 1
+07/03/25 12:02:12 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+07/03/25 12:02:12 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+07/03/25 12:03:40 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+07/03/25 12:04:19 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+07/03/25 12:11:05 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+07/03/25 12:11:28 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+07/03/25 12:12:24 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+07/03/25 12:22:04 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+07/03/25 12:22:10 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+07/03/25 12:22:28 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+07/03/25 12:24:25 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+07/03/25 12:24:30 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+07/03/25 12:27:51 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+07/03/25 12:31:59 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+07/03/25 12:34:14 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+07/03/25 12:37:04 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+07/03/25 12:38:50 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+07/03/25 12:42:29  Area: 1

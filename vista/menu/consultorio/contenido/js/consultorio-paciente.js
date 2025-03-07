@@ -67,7 +67,7 @@ function consultarConsulta(id) {
       success: function (data) {
         if (mensajeAjax(data)) {
           let row = data.response.data
-          console.log(row)
+
           if (row.length) {
             // for (let i = 0; i < row.length; i++) {
             if (row[0]['COMPLETADO'] == 0) {
