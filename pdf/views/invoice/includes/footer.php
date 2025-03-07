@@ -22,7 +22,12 @@
                 <a target="_blank" href="<?= $qr[0] ?>"> <img src='<?= $qr[1] ?>' alt='QR Code' width='110' height='110'> </a>
             </td>
             <td colspan="6" style="text-align: right; width: 50%; padding-top: 30px; margin-bottom: -25px">
-                <strong style="font-size: 12px;"><?php if (isset($footerDoctor)) echo $footerDoctor; ?></strong>
+                <strong style="font-size: 12px;"><tr>
+                    <td colspan="3"><strong>Valoración visual</strong></td>
+                    <td colspan="3">Normal</td>
+                    <td colspan="3"><strong>Biometría hemática completa</strong></td>
+                    <td colspan="3">Normal</td>
+                </tr></strong>
             </td>
         </tr>
     </tbody>
