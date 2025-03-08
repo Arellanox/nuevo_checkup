@@ -9,7 +9,6 @@
     <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">  -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
     <title>Cotización</title>
-
     <style>
         body {
             font-family: 'Roboto', sans-serif;

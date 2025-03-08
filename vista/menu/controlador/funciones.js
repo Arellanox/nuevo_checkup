@@ -1521,7 +1521,6 @@ function rellenarSelect(select = false, api, apinum, v, c, values = {}, callback
   });
 }
 
-
 function setSelectContent(array, select, v, c, reset = 1, selected) {
   //console.log(array);
   if (reset) $(select).find('option').remove().end()

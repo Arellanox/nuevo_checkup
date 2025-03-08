@@ -2,7 +2,7 @@ async function mantenimientoPaquete() {
   $('#btn-excel-previa').attr('disabled', false)
   $('#btn-vistaPrevia-cotizacion').attr('disabled', false)
   loader("In");
-  await rellenarSelect('#seleccion-paquete', 'paquetes_api', 2, 0, 'DESCRIPCION', {
+  await fetchAndFillSelect('#seleccion-paquete', 'paquetes_api', 2, 0, 'DESCRIPCION', {
     contenido: 1
   });
   tablaContenido();
@@ -24,7 +24,7 @@ async function contenidoPaquete(select = null) {
   $('#btn-excel-previa').attr('disabled', true)
   $('#btn-vistaPrevia-cotizacion').attr('disabled', true)
 
-  await rellenarSelect('#seleccion-paquete', 'paquetes_api', 2, 0, 'DESCRIPCION', {
+  await fetchAndFillSelect('#seleccion-paquete', 'paquetes_api', 2, 0, 'DESCRIPCION', {
     contenido: 0
   });
   $('#seleccion-paquete').prop('disabled', false);
@@ -207,7 +207,7 @@ function checkNumber(x) {
 
 
 // ASIGNAR PAQUETES A CLIENTES.
-rellenarSelect('#relacion-paquete','clientes_api', 2,'ID_CLIENTE','NOMBRE_COMERCIAL')
+fetchAndFillSelect('#relacion-paquete','clientes_api', 2,'ID_CLIENTE','NOMBRE_COMERCIAL')
 $('#asignarPaquete').on('click', function(){
   var paqueteEnAsignacion =$('#seleccion-paquete option:selected').text();
   

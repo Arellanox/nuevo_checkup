@@ -2,10 +2,10 @@ async function mantenimientoPaquete() {
   $('#btn-excel-previa').attr('disabled', false)
   $('#btn-vistaPrevia-cotizacion').attr('disabled', false)
   loader("In");
-  await rellenarSelect('#seleccion-paquete', 'clientes_api', 2, 0, 'NOMBRE_COMERCIAL');
+  await fetchAndFillSelect('#seleccion-paquete', 'clientes_api', 2, 0, 'NOMBRE_COMERCIAL');
   $('#container-select-presupuesto').fadeIn('slow')
 
-  await rellenarSelect("#select-presupuestos", 'cotizaciones_api', 4, 'ID_COTIZACION', 'FOLIO_FECHA', {
+  await fetchAndFillSelect("#select-presupuestos", 'cotizaciones_api', 4, 'ID_COTIZACION', 'FOLIO_FECHA', {
     cliente_id: $('#seleccion-paquete').val()
   }, function (data) {
     detalle_paquetes = data;
@@ -45,7 +45,7 @@ async function contenidoPaquete(select = null) {
   $('#btn-excel-previa').attr('disabled', true)
   $('#btn-vistaPrevia-cotizacion').attr('disabled', true)
   loader("In");
-  await rellenarSelect('#seleccion-paquete', 'clientes_api', 2, 0, 'NOMBRE_COMERCIAL');
+  await fetchAndFillSelect('#seleccion-paquete', 'clientes_api', 2, 0, 'NOMBRE_COMERCIAL');
 
   $('#container-select-presupuesto').fadeOut();
 

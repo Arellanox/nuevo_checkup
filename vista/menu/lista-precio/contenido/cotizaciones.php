@@ -17,7 +17,6 @@
                     <label for="inputBuscarPaquetes">Cotización:</label>
                     <select name="seleccionpaquete" id="select-presupuestos" class="input-form" required data-bs-toggle="tooltip" data-bs-placement="top" title="Seleccione/Busque un presupuesto ya guardado"> </select>
                 </div>
-                    <input type="hidden" id="folio-cotizacion">
                 <div class="col-12 col-lg-2 d-flex justify-content-end align-items-center" style="padding: 0px 19px 0px 0px">
                     <div class="row">
                         <div class="" style="padding: 0px">
@@ -72,15 +71,6 @@
         </div>
     </div>
 
-    <!-- <div class="col-12 col-lg-2">
-        <div class="d-flex justify-content-end align-items-center">
-            <div class="" style="padding: 0px">
-                <button class="btn btn-sm btn-borrar" type="button" id="CambiarPaquete" data-bs-toggle="tooltip" data-bs-placement="top" title="Borrará todo la tabla"><i class="bi bi-eraser"></i> Cambiar</button>
-                <button class="btn btn-sm btn-pantone-7408" type="button" id="UsarPaquete"><i class="bi bi-binoculars"></i> Usar</button>
-
-            </div>
-        </div>
-    </div> -->
     <div class="col-12 disable-element" id="card_paq" style="margin-bottom:5px;">
         <div class="card shadow my-2 p-2">
             <!-- Botones de los paquetes -->
@@ -133,9 +123,8 @@
     </div>
 </div>
 
-
+<!-- CALCULO DEL PAQUETE Y DATOS DEL CLIENTE -->
 <div class="row" id="paq">
-
     <!-- Calculo de paquete -->
     <div class=" col-12 col-xl-12 col-md-12 ">
         <div class="row gap-3 mx-2 mb-2">
@@ -149,7 +138,6 @@
                         <div class="col-12 col-lg-6 col-xl-4">
                             <p>Nombre: </p>
                             <span id="nombreCotizacionCliente"></span>
-
                         </div>
                         <div class="col-12 col-lg-6 col-xl-4">
                             <p>Correo: </p>
@@ -165,25 +153,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="row d-flex justify-content-center">
-                    <div class="col-12 text-center">
-                        <h4 class="pt-3">Seleccione una acción</h4>
-                    </div>
-                    <div class="col-auto">
-                        <input type="radio" class="btn-check" name="selectPaquete" id="check-agregar" value="1" checked autocomplete="off">
-                        <label class="btn btn-outline-success" for="check-agregar"><i class="bi bi-list"></i>
-                            Nuevo</label>
-                    </div>
-                    <div class="col-auto d-flex align-items-center d-flex justify-content-center">
-                        <input type="radio" class="btn-check" name="selectPaquete" id="check-editar" value="2" autocomplete="off">
-                        <label class="btn btn-outline-success" for="check-editar"><i class="bi bi-list"></i>
-                            Mantenimiento</label>
-                    </div>
-
-                </div> -->
-                <!-- <div class="p-3" id="form-select-paquetes">
-
-                </div> -->
             </div>
 
             <!-- Calculo del paquete -->
@@ -216,10 +185,6 @@
                         </div>
                     </div>
                     <div class="row" style="display: none;" id="precios-con-descuento">
-                        <!-- <div class="col-6 text-end info-detalle">
-              <p>Subtotal (Costo):</p>
-            </div>
-            <div class="col-6" id="subtotal-costo-paquete"></div> -->
                         <div class="col-8 text-end info-detalle">
                             <p>Subtotal:</p>
                         </div>

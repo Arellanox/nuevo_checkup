@@ -34,8 +34,11 @@ $domicilio_fiscal = $_POST['domicilio_fiscal'];
 switch ($api) {
     case 1:
         # guardar cotizacion
-
-        $response = $master->insertByProcedure("sp_cotizaciones_g", [$id_cotizacion, $cliente_id, $atencion, $correo, $subtotal, $iva, $descuento, $descuento_porcentaje, $observaciones, $total, $_SESSION['id'], json_encode($detalle), $subtotal_sin_descuento, $fecha_vigencia,$domicilio_fiscal]);
+        $response = $master->insertByProcedure("sp_cotizaciones_g", [
+            $id_cotizacion, $cliente_id, $atencion, $correo, $subtotal, $iva, $descuento, 
+            $descuento_porcentaje, $observaciones, $total, $_SESSION['id'], 
+            json_encode($detalle), $subtotal_sin_descuento, $fecha_vigencia, $domicilio_fiscal
+        ]);
 
         #Obtemos el ID_COTIZACION para crear el poder crear el PDF
         $id_cotizacion_pdf = $master->getByProcedure('sp_cotizaciones_info_b', [$id_cotizacion]);

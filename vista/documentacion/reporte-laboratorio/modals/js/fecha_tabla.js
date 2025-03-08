@@ -31,8 +31,8 @@ $(document).on('click', '#actualizar_tabla', function (event) {
 
 // rellenarSelect('#cliente', 'clientes_api',)
 
-rellenarSelect('#cliente', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
-rellenarSelect('#servicios', 'servicios_api', 2, 'ID_SERVICIO', 'DESCRIPCION')
+fetchAndFillSelect('#cliente', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
+fetchAndFillSelect('#servicios', 'servicios_api', 2, 'ID_SERVICIO', 'DESCRIPCION')
 
 select2("#servicios", 'modalFiltrarTabla', 'Espere un momento...')
 

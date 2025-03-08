@@ -27,17 +27,11 @@ $(document).on('click', '#actualizar_tabla', function (event) {
     $('#modalFiltrarTabla').modal('hide');
 })
 
-// rellenarSelect('#cliente', 'clientes_api',)
+fetchAndFillSelect('#cliente', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
+fetchAndFillSelect('#area_list', 'areas_api', 2, 'ID_AREA', 'DESCRIPCION')
 
-rellenarSelect('#cliente', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
-rellenarSelect('#area_list', 'areas_api', 2, 'ID_AREA', 'DESCRIPCION')
-
-
-// Establecer los valores de los campos de fecha
 document.getElementById('fecha_inicial').value = fechaInicialFormatted;
 document.getElementById('fecha_final').value = fechaFinalFormatted;
-
-
 
 function setConditionalValue(checkSelector, valueSelector) {
     return $(checkSelector).is(':checked') ? null : $(valueSelector).val();
