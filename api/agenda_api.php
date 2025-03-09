@@ -111,8 +111,6 @@ switch ($api) {
 
 echo $master->returnApi($response);
 
-
-
 function crearHorarios($inicial, $final, $intervalo)
 {
     # verificvar si el $intervalo es un valor entero.

@@ -330,7 +330,7 @@ function getResumen(tableDetalle) {
 
     }
     let datos = tableDetalle.rows().data().toArray();
-    console.log(datos)
+    // console.log(datos)
     // calculo = calculoDef;
     for (const key in calculo) {
         if (Object.hasOwnProperty.call(calculo, key)) {

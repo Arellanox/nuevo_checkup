@@ -12,6 +12,7 @@ class Master extends Miscelaneus
     public $urlEquiposLaboratorio;
     public $urlPases;
     public $database;
+
     function Master()
     {
         $this->mis = new Miscelaneus();
@@ -24,27 +25,12 @@ class Master extends Miscelaneus
         $this->urlPases = "archivos/pases/";
     }
 
-    function connection()
-    {
-        $conexion = new mysqli("localhost", "root", "12345678", "checkup");
-
-        if ($conexion->connect_errno) {
-            echo "La conexion falló. " . $conexion->connect_error;
-        }
-
-        $conexion->set_charset('utf8');
-
-        return $conexion;
-    }
-
     function connectDb()
     {
-
         $host = $this->database->host;
         $dbname = $this->database->dbname;
         $username = $this->database->username;
         $password = $this->database->password;
-
 
         try {
             $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
@@ -82,7 +68,6 @@ class Master extends Miscelaneus
             $conexion = null;
             return $resultSet;
         } catch (Exception $e) {
-
             echo $e->getMessage();
         }
     }

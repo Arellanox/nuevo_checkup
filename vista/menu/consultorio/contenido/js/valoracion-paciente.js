@@ -12,7 +12,7 @@ function obtenerInformacionConsulta(id) {
             success: function (data) {
                 if (mensajeAjax(data)) {
                     let row = data.response.data[0]
-                    console.log(row)
+                    //  console.log(row)
                     $('#motivo-consulta').html(row.MOTIVO_CONSULTA)
                     $('#fechaConsulta-consulta').html(formatoFecha2(row.FECHA_CONSULTA, [0, 1, 2, 2, 0, 0, 0]))
                     if (row.NOTAS_PADECIMIENTO) $('#nota-notas-padecimiento').val(row.NOTAS_PADECIMIENTO);

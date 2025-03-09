@@ -2165,7 +2165,6 @@ function inputBusquedaTable(
     const select = $(`#${tablename}_length label select`).first();
     const filterDiv = $(`#${tablename}_filter`).first();
     const input = $(`#${tablename}_filter label input`).first();
-    console.log(input);
     const label = $(`#${tablename}_filter label`).first();
 
     // Configurar tooltips

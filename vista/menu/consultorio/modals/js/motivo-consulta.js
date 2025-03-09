@@ -40,7 +40,7 @@ $('#formMotivoConsulta').submit(function (event) {
         processData: false,
         contentType: false,
         success: function (data) {
-          console.log(data);
+          // console.log(data);
 
           // Llamar la vista de consulta
           obtenerContenidoConsulta(pacienteActivo.array, data['response']['data'])

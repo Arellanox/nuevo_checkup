@@ -13,7 +13,6 @@ $("#formRechazarPaciente").submit(function(event){
    var form = document.getElementById("formRechazados");
    var formData = new FormData(form);
    formData.set('api', 3);
-   console.log(formData);
    // $.ajax({
    //   data: formData,
    //   url: "php/api/cursos_conferencia_api.php",

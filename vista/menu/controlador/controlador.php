@@ -221,7 +221,6 @@
               // console.log(session)
               // <!-- Aqui controlar e incluir las modals -->
               $.getScript('contenido/controlador.js').done(function(data) {
-                console.log(validar);
                 if (validar == true) {
                   // <!-- Aqui controlar e incluir los tablas -->
                   $.getScript('modals/controlador.js').done(function() {}); // !!Algunos modals de algunas areas no usan la calse GuardarArreglo.!!

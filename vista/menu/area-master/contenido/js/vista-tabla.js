@@ -87,7 +87,7 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
   let url;
   botonesResultados('desactivar')
   selectPacienteArea = array;
-  console.log(selectPacienteArea)
+  // console.log(selectPacienteArea)
   if (selectTR == 1) {
     obtenerPanelInformacion(selectPacienteArea['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab')
     if (areaActiva == 3) {
@@ -111,7 +111,7 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
       datatype: 'json',
       success: function (data) {
         data = jQuery.parseJSON(data)
-        console.log(data);
+        // console.log(data);
         selectEstudio = new GuardarArreglo(data.response.data);
         panelResultadoPaciente(data.response.data);
         botonesResultados('activar', areaActiva)
@@ -183,7 +183,7 @@ function limpiarCampos() {
 
 async function panelResultadoPaciente(row, area = areaActiva) {
   await obtenerPanelInformacion(1, null, 'resultados-areaMaster', '#panel-resultadosMaster')
-  console.log(row)
+  // console.log(row)
   if (row['area_id'] == 3) {
     let html = '<hr> <div class="row" style="padding-left: 15px;padding-right: 15px;">' + +
       '<p style="padding-bottom: 10px">Of:</p>' + //'+row[i]['SERVICIO']+'
@@ -196,7 +196,7 @@ async function panelResultadoPaciente(row, area = areaActiva) {
     $('#resultadosServicios-areas').append(html);
   } else {
     for (var i = 0; i < row.length; i++) {
-      console.log(row)
+      // console.log(row)
       if (row[i]['INTERPRETACION']) {
         let html = '<hr> <div class="row" style="padding-left: 15px;padding-right: 15px;">' +
           '<p style="padding-bottom: 10px">' + row[i]['SERVICIO'] + ':</p>' +

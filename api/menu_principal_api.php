@@ -19,11 +19,7 @@ switch($api){
     case 1:
         #recuperar el status del paciente
         $response= $master->getByProcedure('sp_status_paciente',[$fecha]);
-
         $decoded = array();
-
-        
-     
         foreach($response as $item){
             $decoded[] = $master->decodeJson($item);
         }

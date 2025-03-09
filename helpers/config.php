@@ -21,7 +21,9 @@
  */
 ?>
 <script type="text/javascript">
-    $.getScript("<?= $https . $url . '/' . $appname . '/helpers/js/fetchAndFillSelect.js'; ?>").done(function() {
-        console.log("fetchAndFillSelect.js cargado correctamente");
-    });
+    const scripts = [
+        "<?= $https . $url . '/' . $appname . '/helpers/js/fetchAndFillSelect.js'; ?>",
+    ]
+
+    scripts.map(script => {$.getScript(script);})
 </script>

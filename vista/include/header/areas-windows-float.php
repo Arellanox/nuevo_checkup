@@ -89,20 +89,6 @@ if (
     </li>
 <?php endif; ?>
 
-<!-- Imagenologia -->
-<?php ?>
-<!-- <li class="nav-item Recepción">
-         <div class="dropdown ">
-             <a class="dropdown-toggle" id="dropImagenologia" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                 <i class="bi bi-person-bounding-box"></i> Imagenología
-             </a>
-             <ul style="padding-left: 15px;" class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropImagenologia">
-
-             </ul>
-         </div>
-     </li> -->
-<?php  ?>
-
 <?php if (
     $_SESSION['vista']['ELECTROCARDIOGRAMA'] == 1 || $_SESSION['vista']['ELECTROCARDIOGRAMA_CAPTURAS'] == 1 ||
     $_SESSION['vista']['ESPIROMETRIA'] == 1 ||
@@ -199,7 +185,6 @@ if (
     </li>
 <?php endif; ?>
 
-
 <?php if ($_SESSION['vista']['FRANQUICIAS'] == 1) :
 ?>
     <li class="nav-item Recepción">
@@ -227,14 +212,9 @@ if (
 <?php endif;
 ?>
 
-
 <?php if ($_SESSION['perfil'] == 1) : ?>
     <li class="nav-item Recepción">
         <div class="dropdown ">
-            <!-- <a class="dropdown-toggle" id="dropTI" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-
-             </a> -->
-
             <a class="dropdown-toggle align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-menu-ti" aria-expanded="false">
                 <i class="bi bi-motherboard"></i> TI
             </a>
@@ -249,10 +229,6 @@ if (
                     <a class="dropdown-a text-white align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/soporte_ti/#SoporteTI'; ?>">
                         <i class="bi bi-wrench-adjustable-circle"></i> Soporte TI
                     </a>
-                    <!-- <a class="dropdown-a text-white align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/administracion/#MEDICOS'; ?>">
-                        <i class="bi bi-person-hearts"></i> Médicos
-                    </a> -->
-
                 </ul>
             </div>
             <!-- </ul> -->

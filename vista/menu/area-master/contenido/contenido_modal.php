@@ -388,7 +388,7 @@ session_start();
         let aviso = 0;
         for (file of fileList) { //una iteración de toda la vida
             ext = file.name.split('.').pop()
-            console.log('>ARCHIVO: ', file.name)
+            //console.log('>ARCHIVO: ', file.name)
             switch (ext) {
                 case 'pdf':
                     //console.log('>>TIPO DE ARCHIVO CORRECTO: ')
