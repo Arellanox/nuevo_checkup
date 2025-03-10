@@ -692,16 +692,58 @@ function generarFormularioPaciente(id) {
             <div class="row">
             <!--MARCAR ESTUDIO COMO PENDIENTE-->
               <div class="col-1" style="margin-left:14px;">
-                <input type="checkbox" class="btn-check btn-estudios-pendientes" id="check${row['ID_GRUPO']}" autocomplete="off" data-bs-id="${row['ID_GRUPO']}" data-bs-text="${row['NombreGrupo']}" data-bs-pending="${row['PENDIENTE']}">`
+                <input type="checkbox" class="btn-check btn-estudios-pendientes" 
+                id="check${row['ID_GRUPO']}" autocomplete="off" data-bs-id="${row['ID_GRUPO']}" 
+                data-bs-text="${row['NombreGrupo']}" data-bs-pending="${row['PENDIENTE']}">`
               
-              if(parseInt(row['PENDIENTE'])==1){
-                html+=`<label class="btn btn-danger" id="lbl${row['ID_GRUPO']}" for="check${row['ID_GRUPO']}">
-                <i class="fa fa-clock-o"></i>
-              </label>`
+              if(parseInt(row['PENDIENTE']) === 1){
+                html+=`
+                    <div class="dropdown">
+                      <span class="btn btn-outline-danger dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          <i class="bi bi-three-dots"></i>
+                      </span>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <label class="dropdown-item" 
+                            style="color: #d58512; display: flex; justify-content: space-between; align-items: center" 
+                            id="lbl${row['ID_GRUPO']}" for="check${row['ID_GRUPO']}"
+                          >
+                            <span>Completar</span>
+                            <i class="fa fa-check-circle" style="color: #d58512"></i>
+                          </label>
+                        </li>
+                        <li>
+                          <div class="dropdown-item btn-maquila-estudios" role="button">
+                            Maquilar 1
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                `
               } else {
-                html+=` <label class="btn btn-outline-danger" id="lbl${row['ID_GRUPO']}" for="check${row['ID_GRUPO']}">
-                <i class="fa fa-clock-o"></i>
-              </label>`
+                html+=`
+                    <div class="dropdown">
+                      <span class="btn btn-outline-danger dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          <i class="bi bi-three-dots"></i>
+                      </span>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <label class="dropdown-item" 
+                            style="color: #d58512; display: flex; justify-content: space-between; align-items: center" 
+                            id="lbl${row['ID_GRUPO']}" for="check${row['ID_GRUPO']}"
+                          >
+                            <span>Posponer</span>
+                            <i class="fa fa-clock-o" style="color: #d58512"></i>
+                          </label>
+                        </li>
+                        <li>
+                          <div class="dropdown-item btn-maquila-estudios" role="button" style="background-color: #d58512">
+                            Maquilar 2
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                `
               }
              
              html+=`</div><div class="col-9">
@@ -888,22 +930,46 @@ function generarFormularioPaciente(id) {
                   html += `<p class="btn-acciones" data-bs-id="${row[k]['ID_SERVICIO']}"><i class="bi bi-box-arrow-in-right" style=""></i> ${row[k]['DESCRIPCION_SERVICIO']}</p>`;
 
                   // BOTON PARA MARCAR ESTUDIO COMO PENDIENTE
-                  if(parseInt(row[k]['PENDIENTE']) == 1){
-                    
-                    html+=`<div class="form-check form-switch">
-                    <input class="form-check-input btn-estudios-pendientes" type="checkbox" role="switch" id="check${row[k]['ID_SERVICIO']}" data-bs-id="${row[k]['ID_SERVICIO']}" data-bs-text="${row[k]['DESCRIPCION_SERVICIO']}" data-bs-pending="${row[k]['PENDIENTE']}" checked>
-                    <label class="form-check-label" for="check${row[k]['ID_SERVICIO']}">Pendiente</i></label>
-                  </div>`;
-
+                  if(parseInt(row[k]['PENDIENTE']) === 1){
+                    html+=`
+                        <div class="dropdown">
+                          <span class="btn btn-outline-danger dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              <i class="bi bi-three-dots"></i>
+                          </span>
+                          <ul class="dropdown-menu">
+                            <li>
+                                  <label class="dropdown-item  btn-estudios-pendientes" 
+                                    style="color: #d58512; display: flex; justify-content: space-between; align-items: center" 
+                                    for="check${row[k]['ID_SERVICIO']}" data-bs-id="${row[k]['ID_SERVICIO']}" 
+                                    data-bs-text="${row[k]['DESCRIPCION_SERVICIO']}" 
+                                    data-bs-pending="${row[k]['PENDIENTE']}"
+                                  >
+                                    <input class="form-check-input" style="display: none;" type="checkbox" role="switch"
+                                        id="check${row[k]['ID_SERVICIO']}" checked>
+                                    <span>Pendiente</span>
+                                    <i class="fa fa-clock-o" style="color: #d58512"></i>
+                                  </label>
+                            </li>
+                            <li>
+                              <span class="dropdown-item" >
+                                    Maquilars
+                              </span>
+                            </li>
+                          </ul>
+                        </div>
+                    `;
                   } else {
-
-                    html+=`<div class="form-check form-switch">
-                    <input class="form-check-input btn-estudios-pendientes" type="checkbox" role="switch" id="check${row[k]['ID_SERVICIO']}" data-bs-id="${row[k]['ID_SERVICIO']}" data-bs-text="${row[k]['DESCRIPCION_SERVICIO']}" data-bs-pending="${row[k]['PENDIENTE']}">
-                    <label class="form-check-label" for="check${row[k]['ID_SERVICIO']}">Pendiente</i></label>
-                  </div>`;
-
+                    html+=`
+                        <div class="form-check form-switch">
+                            <input class="form-check-input btn-estudios-pendientes" type="checkbox" role="switch" 
+                                id="check${row[k]['ID_SERVICIO']}" 
+                                data-bs-id="${row[k]['ID_SERVICIO']}" data-bs-text="${row[k]['DESCRIPCION_SERVICIO']}" 
+                                data-bs-pending="${row[k]['PENDIENTE']}"
+                            >
+                            <label class="form-check-label" for="check${row[k]['ID_SERVICIO']}">Pendiente</i></label>
+                        </div>
+                    `;
                   }
-      
                 }
                 html += endDiv;
                 html += colreStart;

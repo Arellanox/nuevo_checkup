@@ -32,7 +32,6 @@ while (true) {
         //echo "Error en la solicitud cURL: " . curl_error($ch);
         echo "{$current_url}/api/notificaciones_api.php";
         flushAndCloseCurls($ch);
-        break;
     }
 
     // Decodificar la respuesta JSON obtenida de la API
@@ -40,14 +39,13 @@ while (true) {
     if (json_last_error() !== JSON_ERROR_NONE) {
         echo "Error al decodificar JSON: " . $response;
         flushAndCloseCurls($ch);
-        break;
     }
 
     // Enviar los datos de la notificación al cliente si existen registros nuevos
     echo "data: " . json_encode($notificacion) . "\n\n";
     flushAndCloseCurls($ch);
 
-    sleep(120); // Esperar 120 segundos
+    sleep(10); // Esperar 120 segundos //temporal
 }
 
 function flushAndCloseCurls($ch){

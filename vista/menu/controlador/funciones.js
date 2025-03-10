@@ -2693,10 +2693,8 @@ function selectTable(tablename, datatable,
 
   function selectTable_cargarVista() {
     if (config.divPadre) {
-      console.log('Hola');
       $(`${config.divPadre} .tab-second`).fadeOut()
     } else {
-      console.log('Hola');
       $('.tab-second').fadeOut()
     }
 
