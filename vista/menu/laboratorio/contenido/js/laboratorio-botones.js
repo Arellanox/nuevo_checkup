@@ -1,7 +1,7 @@
 $('#formAnalisisLaboratorio').submit(function (event) {
   event.preventDefault();
 
-  if (selectListaLab['CONFIRMADO'] == 0) {
+  if (selectListaLab['CONFIRMADO'] === 0) {
     let confirmar = 0;
     var form = document.getElementById("formAnalisisLaboratorio");
     var formData = new FormData(form);
@@ -9,7 +9,7 @@ $('#formAnalisisLaboratorio').submit(function (event) {
     formData.set('id_area', areaActiva)
     formData.set('api', 9);
     // console.log(formData);
-    if ($('.subir-resultado-lab:focus').attr('data-attribute') == 'confirmar') {
+    if ($('.subir-resultado-lab:focus').attr('data-attribute') === 'confirmar') {
       formData.set('confirmar', 1);
       title = "¿Está seguro de confirmar los resultados?";
       text = "¡No podrá revertir esta acción!";
@@ -100,28 +100,6 @@ $('#btn-confirmar-formulario').click(function (e) {
 
 })
 
-// $('#btn-guardar-resultados').click(function(){
-//   alert("button guardar")
-//   console.log($(this))
-//   $('#formAnalisisLaboratorio').submit()
-//
-// })
-
-// $('#btn-confirmar-resultados').click(function(){
-//   alert("button confirmar")
-//   console.log($(this))
-//   // enviarInformacion(1)
-//   $('#formAnalisisLaboratorio').submit()
-// })
-//
-//
-// $('#formAnalisisLaboratorio').on('submit')
-
-function enviarInformacion(tip) {
-
-}
-
-
 
 
 function formpassword() {
@@ -172,7 +150,6 @@ $(document).on('click', '.obtenerPDF', function (event) {
       alertMensaje('info', 'Espere un momento', 'Generando')
     },
     success: function (data) {
-      console.log(data);
       alertMensaje(null, null, null, null,
         `<div class="d-flex justify-content-center"> <a href="` + data + `" class="btn btn-borrar" target="_blank" style="width: 50%"> <i class="bi bi-image"></i> Descargar</a></div></div>`
       )
@@ -195,15 +172,15 @@ $('#btn-lista-trabajo-barras').click(function(){
 $(document).on('click', '.btn-estudios-pendientes', async function(event){
 
   event.preventDefault();
-  var servicio_id = $(this).attr('data-bs-id');
-  var servicio = $(this).attr('data-bs-text');
-  var pending = $(this).attr('data-bs-pending');
-  
+  const servicio_id = $(this).attr('data-bs-id');
+  const servicio = $(this).attr('data-bs-text');
+  let pending = $(this).attr('data-bs-pending');
 
-  var msh;
-  var msh2;
 
-  if (parseInt(pending) == 1){
+  let msh;
+  let msh2;
+
+  if (parseInt(pending) === 1){
     msh = "¿Quieres completar este estudio?";
     pending = 0;
     msh2 = `${servicio} COMPLETADO!`;
@@ -234,7 +211,7 @@ $(document).on('click', '.btn-estudios-pendientes', async function(event){
           // recargarVistaLab();
           
           // cambiar atributo checked
-          if(parseInt(pending)==1){
+          if(parseInt(pending)===1){
             $(`#lbl${servicio_id}`).removeClass('btn-outline-danger');
             $(`#lbl${servicio_id}`).addClass('btn-danger');
 
@@ -283,6 +260,6 @@ $('#btn-estudios-pendientes-notificacion').click(function(){
   $('#modalEstudiosPendientes').modal("show");
 });
 
-$('.btn-maquila-estudios').click(function () {
+$(document).on('click', '.btn-maquila-estudios', function (event){
   $('#modalMaquilaEstudios').modal('show');
 });

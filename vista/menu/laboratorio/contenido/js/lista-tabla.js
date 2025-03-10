@@ -737,8 +737,8 @@ function generarFormularioPaciente(id) {
                           </label>
                         </li>
                         <li>
-                          <div class="dropdown-item btn-maquila-estudios" role="button" style="background-color: #d58512">
-                            Maquilar 2
+                          <div class="dropdown-item btn-maquila-estudios" role="button">
+                            Maquilar
                           </div>
                         </li>
                       </ul>
