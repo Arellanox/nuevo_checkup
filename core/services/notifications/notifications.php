@@ -14,13 +14,8 @@
 
     document.addEventListener("click", habilitarSonidoNotificaciones, { once: true });
     eventSource.onmessage = manejarNotificacion;
-    eventSource.onopen = function() {
-        console.log('Conexión establecida con el servidor de notificaciones');
-    };
-    eventSource.onerror = function() {
-        console.log('error de conexión');
-    };
-
+    eventSource.onopen = () => { console.log('🚀 Server is ready 🚀') }
+    
     function manejarNotificacion(event)
     {
         const data = JSON.parse(event.data);
@@ -44,8 +39,13 @@
     }
 
     function manejarVibracionCapana(activar){
-        activar ? document.querySelector(".bi-bell-fill")?.classList.add("vibrating");
-            :  document.querySelector(".bi-bell-fill")?.classList.remove("vibrating");
+        let bell = document.querySelector(".bi-bell-fill");
+
+        if(bell){
+            if(activar){
+                bell.classList.add("vibrating");
+            } else bell.classList.remove("vibrating");
+        }
     }
 
     function mostrarConteoNotificaciones(count)
