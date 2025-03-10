@@ -280,10 +280,9 @@ $(document).on('click', '.btn-estudios-pendientes', async function(event){
 
 //mostrar modal de estudios pendientes
 $('#btn-estudios-pendientes-notificacion').click(function(){
-  alert('a');
   $('#modalEstudiosPendientes').modal("show");
 });
 
-$('#btn-maquila-estudios').click(function () {
+$('.btn-maquila-estudios').click(function () {
   $('#modalMaquilaEstudios').modal('show');
 });

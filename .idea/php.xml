@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< Updated upstream
   <component name="MessDetector">
     <phpmd_settings>
       <MessDetectorConfiguration asDefaultInterpreter="true" />
@@ -10,6 +11,8 @@
       <PhpCSConfiguration asDefaultInterpreter="true" />
     </phpcs_settings>
   </component>
+=======
+>>>>>>> Stashed changes
   <component name="PhpIncludePathManager">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/composer" />
@@ -30,6 +33,7 @@
       <path value="$PROJECT_DIR$/lib/libmergpdf/vendor/tecnickcom/tcpdf" />
     </include_path>
   </component>
+<<<<<<< Updated upstream
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3">
     <option name="suggestChangeDefaultLanguageLevel" value="false" />
   </component>
@@ -38,4 +42,6 @@
       <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/lib/excel/vendor/phpoffice/phpspreadsheet/phpunit.xml.dist" custom_loader_path="$PROJECT_DIR$/vendor/autoload.php" use_configuration_file="true" />
     </phpunit_settings>
   </component>
+=======
+>>>>>>> Stashed changes
 </project>
