@@ -5,7 +5,9 @@
         <!--Head-->
         <div class="header">
             <span>Mis Notificaciones</span>
-            <span class="checked-notification-marked" role="button">Marcar Lectura</span>
+            <span class="checked-notification-marked" role="button" onclick="onLimpiarBandejaNotificaciones()">
+                Marcar Lectura
+            </span>
         </div>
         <!-- Body -->
         <div class="body">
@@ -21,10 +23,32 @@
     </div>
 </ul>
 <style>
+    .user-profile-navbar{
+        min-width: max-content;
+    }
     .toggle-notification-header{
         position: relative;
         user-select: none;
     }
+    .notification-bell-display{
+        position: absolute;
+        background-color: #d58512;
+        border-radius: 100%;
+        color: white;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 1px;
+        width: 18px;
+        height: 18px;
+        top: -4px;
+        right: -5px;
+        text-align: center;
+    }
+
+    .notification-bell-display.hidden{
+        display: none;
+    }
+
     .vibrating {
         display: inline-block;
         animation: vibrate 0.3s infinite alternate;

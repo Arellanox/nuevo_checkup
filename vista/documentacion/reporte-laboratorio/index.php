@@ -1,9 +1,6 @@
 <?php
-//Variables dinamicas;
-
-session_start();
-include "../../variables.php";
-$menu = "documentacion";
+    include "../../variables.php";
+    $menu = "documentacion";
 ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">

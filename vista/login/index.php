@@ -1,10 +1,8 @@
 <?php
-//Variables dinamicas;
-include "../variables.php";
-$menu = "Login";
-session_start();
-session_unset();
-session_destroy();
+    include "../variables.php";
+    $menu = "Login";
+    session_unset();
+    session_destroy();
 ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">

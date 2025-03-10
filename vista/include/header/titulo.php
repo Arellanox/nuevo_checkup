@@ -1,10 +1,8 @@
 <?php
     $menu = $_POST['menu'];
-    $tipo = isset($_POST['tipo']) ? $_POST['tipo'] : 0
+    $tipo = $_POST['tipo'] ?? 0;
 ?>
 <div class="px-3 pt-2 border-bottom portada_imag" id="Titulo-Contenido">
-    <!-- <div class=""></div> -->
-
     <div class="container d-flex flex-wrap mb-1">
         <div class="col-12 col-lg-auto mb-lg-0 me-lg-auto">
             <div class="row">

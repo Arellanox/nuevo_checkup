@@ -1,7 +1,5 @@
 <?php
 //Variables dinamicas;
-
-session_start();
 include "../../variables.php";
 
 // Configuración de areas

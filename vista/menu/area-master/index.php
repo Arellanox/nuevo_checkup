@@ -1,8 +1,6 @@
 <?php
-//Variables dinamicas;
-session_start();
-include "../../variables.php";
-$menu = "AreaMaster";
+    include "../../variables.php";
+    $menu = "AreaMaster";
 ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">

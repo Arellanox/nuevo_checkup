@@ -1,14 +1,5 @@
 <?php
-
-// include_once '../../vista/variables.php';
-
-
-
 date_default_timezone_set('America/Mexico_City');
-// session_start();
-// session_unset();
-// session_destroy();
-
 
 $clave = isset($_GET['clave']) ? $_GET['clave'] : null;
 // echo $clave;

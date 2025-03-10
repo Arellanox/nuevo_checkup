@@ -269,7 +269,7 @@ async function ajaxAwait(dataJson, apiURL,
       },
       error: function (jqXHR, exception, data) {
         alertErrorAJAX(jqXHR, exception, data)
-        // console.log('Error')
+        console.log('Error')
       },
     })
   });

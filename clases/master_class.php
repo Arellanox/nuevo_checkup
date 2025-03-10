@@ -125,11 +125,11 @@ class Master extends Miscelaneus
         } else {
             $error_msj = "Ha ocurrido un error(" . $sentencia->errorCode() . "). " . implode(" ", $sentencia->errorInfo());
             $this->mis->setLog($error_msj, $nombreProcedimiento);
-            // parent::setLog("Esto recibió","call $nombreProcedimiento(".implode(",",$parametros).")");
+            $this->mis->setLog("Esto recibió", "call $nombreProcedimiento(" . implode(",", $parametros) . ")");
             $this->mis->setLog("call " . $nombreProcedimiento . "(" . implode(",", $parametros) . ")", "[Reproduce el error en la base]");
 
             # return "ERROR. No se pudieron recuperar los datos.";
-            $retorno = "Alerta: la consulta al servidor no se realizó correctamente";
+            $retorno = "Alerta: la consulta al servidor no se realizó correctamente".$sentencia->errorInfo();
         }
 
 
@@ -436,42 +436,4 @@ class Master extends Miscelaneus
         }
         return true;
     }
-
-    // function procesarImagen($files, $carpeta, $area, $nombre){
-    //   $ruta = "archivos/" . $carpeta . "/" . $area;
-    //   $move = "../" . $ruta;
-    //   $cont = 0;
-    //   foreach ($files as $key => $value) {
-    //       if (!empty($files['name'][$key])) {
-    //           $extension = pathinfo($files['name'][$key], PATHINFO_EXTENSION);
-    //           if ($files['size'][$key] > 0 && $files['error'][$key] == 0) {
-    //               $filerenombrar = sha1($_FILES['name'][$key]).$cont.time();
-    //               $name
-    //               if (!is_dir($move)) {
-    //                   mkdir($move);
-    //               }
-    //               try {
-    //                   $move = $move . "/" . $nombre;
-    //                   move_uploaded_file($files['tmp_name'][$key], $move);
-    //                   return $return = array('code' => 1, 'data' => $move);
-    //               } catch (\Exception $e) {
-    //                   $msj = "Error: archivo no se ha podido mover el archivo";
-    //                   $return = array('code' => 2, 'msj' => $msj);
-    //               }
-    //           } else {
-    //               $msj = "Error: Archivo dañado";
-    //               $return = array('code' => 2, 'msj' => $msj);
-    //           }
-    //       } else {
-    //           return array('code' => 1, 'data' => null);
-    //       }
-    //       $cont++;
-    //
-    //   }
-    //
-    //
-    //
-    //     $this->mis->setLog($msj, 'Imagen cargada de' + $area + ', en la carpeta: ' + $carpeta);
-    //     return $return;
-    // }
 }

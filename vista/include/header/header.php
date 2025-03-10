@@ -178,7 +178,7 @@ switch ($menu) {
           ?>
 
         </ul>
-        <ul class="nav navbar-nav ms-auto">
+        <ul class="nav navbar-nav ms-auto user-profile-navbar">
 
           <!-- Botones alado de los usuarios -->
           <li class="nav-item dropstart d-flex justify-content-center align-items-center m">
@@ -234,7 +234,6 @@ switch ($menu) {
             </ul>
           </li>
         </ul>
-
       </div>
     </div>
   </nav>

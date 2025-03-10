@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Server-Sent Events (SSE) para el envío de notificaciones en tiempo real.
  *
@@ -7,15 +8,14 @@
  * de la API y los transmite mediante eventos SSE.
  */
 
-include_once __DIR__.'/../app.php'; // Incluir configuración y variables globales del servidor
-
+include __DIR__.'/config.php';
 header('Content-Type: text/event-stream'); // Indica que el contenido es de eventos SSE
 header('Cache-Control: no-cache'); // Evita el almacene en caché
 header('Connection: keep-alive'); // Mantiene la conexión abierta
 
 while (true) {
     // Inicializar una solicitud cURL
-    $ch = curl_init("{$URL_SERVER}/api/notificaciones_api.php");
+    $ch = curl_init("{$current_url}/api/notificaciones_api.php");
     curl_setopt_array($ch, [
         CURLOPT_RETURNTRANSFER => true, // Retornar la respuesta
         CURLOPT_POST => true, // Solicitud es de tipo POST
@@ -29,7 +29,8 @@ while (true) {
     $response = curl_exec($ch);
 
     if ($response === false) {
-        echo "Error en la solicitud cURL: " . curl_error($ch);
+        //echo "Error en la solicitud cURL: " . curl_error($ch);
+        echo "{$current_url}/api/notificaciones_api.php";
         flushAndCloseCurls($ch);
         break;
     }
