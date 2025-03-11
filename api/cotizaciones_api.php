@@ -100,6 +100,10 @@ switch ($api) {
         # obtenemos solo el set que trae el detalle de la cotizacion
         $response = $set[1];
         break;
+    case 7:
+        # obtener la url de la cotizacion para la descarga
+        $response = $master->getByProcedure('sp_cotizaciones_get_pdf', [$id_cotizacion]);
+        break;
 
     default:
         $response = "Api no definida. Api " . $api;

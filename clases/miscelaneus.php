@@ -630,9 +630,7 @@ class Miscelaneus
                 $carpeta_guardado = "cotizacion";
                 // $arregloPaciente = [$arregloPaciente[count($arregloPaciente) - 1]];
                 $folio = $arregloPaciente['FOLIO'];
-                $nombre_paciente = 'COTIZACION_' . $folio;
-                // print_r($arregloPaciente);
-                // exit;
+                $nombre_paciente = 'COT_' . $folio . '_' . $arregloPaciente['ABREVIATURA'] ;
                 break;
             case 16:
             case "16":
@@ -924,6 +922,7 @@ class Miscelaneus
             'FECHA_CREACION' => $response[0][0]['FECHA_CREACION'],
             'FECHA_VENCIMIENTO' => $response[0][0]['FECHA_VENCIMIENTO'],
             'FOLIO' => $infoCliente[0]['FOLIO'],
+            'ABREVIATURA' => $infoCliente[0]['ABREVIATURA'],
             'CANTIDAD' => $cantidad,
             'PORCENTAJE_DESCUENTO' => $infoCliente[0]['PORCENTAJE_DESCUENTO']
 

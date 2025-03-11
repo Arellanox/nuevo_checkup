@@ -145,14 +145,14 @@ $('input[type=radio][name=selectChecko]').change(function () {
 
   if ($(this).val() != 0) {
     // selectData = null;
-    fetchAndFillSelect("#seleccion-estudio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+    rellenarSelect("#seleccion-estudio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
       area_id: this.value,
       cliente_id: $('#seleccion-paquete').val()
     }, function (listaEstudios) {
       selectEstudio = new GuardarArreglo(listaEstudios);
     }); //Mandar cliente para lista personalizada
   } else {
-    fetchAndFillSelect("#seleccion-estudio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+    rellenarSelect("#seleccion-estudio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
       area_id: this.value,
       cliente_id: $('#seleccion-paquete').val()
     }, function (listaEstudios) {
@@ -312,3 +312,33 @@ $('#btn-enviarCorreo-cotizaciones').click(function (e) {
   }, 1)
 
 })
+
+$('#btn-descargar-cotizacion').click(function (e){
+  ajaxAwait({ api: 7, id_cotizacion: $('#select-presupuestos').val() }, 'cotizaciones_api', { callbackAfter: true }, false, (data) => {
+    // hacer lo que quieras con el url
+    downloadFromUrl(data.response.data[0]['RUTA_REPORTE']);
+  })
+})
+
+
+
+function downloadFromUrl(url) {
+  // Extraer el nombre del archivo desde la URL
+  const filename = url.split('/').pop();
+
+  fetch(url)
+      .then(response => response.blob()) // Convertir la respuesta en Blob
+      .then(blob => {
+          const a = document.createElement("a");
+          const objectURL = URL.createObjectURL(blob);
+          a.href = objectURL;
+          a.download = filename; // Usar el nombre extraído
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(objectURL); // Limpiar memoria
+      })
+      .catch(error => console.error("Error al descargar:", error));
+}
+
+

@@ -234,6 +234,9 @@
                 <button type="button" class="btn btn-pantone-7408" id="btn-enviarCorreo-cotizaciones">
                     <i class="bi bi-box-arrow-down"></i> Enviar
                 </button>
+                <button type="button" class="btn btn-danger" id="btn-descargar-cotizacion">
+                    <i class="bi bi-file-earmark-arrow-down-fill"></i> Descargar Cotización
+                </button>
             </div>
         </div>
     </div>
