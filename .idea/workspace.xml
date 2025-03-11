@@ -6,11 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="af65b511-fae7-4667-83bd-cb6ca4b438cc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/laboratorio_estudios_maquila_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/laboratorio_estudios_maquila_api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/notificaciones_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/notificaciones_api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/requests/notifications.js" beforeDir="false" afterPath="$PROJECT_DIR$/core/requests/notifications.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/js/laboratorio-botones.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/js/laboratorio-botones.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/clientes/modals/cliente-agregar.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/clientes/modals/cliente-agregar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/clientes/modals/cliente-editar.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/clientes/modals/cliente-editar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/clientes/modals/js/cl_editar_cliente.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/clientes/modals/js/cl_editar_cliente.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,7 +134,7 @@
       <workItem from="1741444934768" duration="81670000" />
       <workItem from="1741615485966" duration="13925000" />
       <workItem from="1741639018231" duration="3740000" />
-      <workItem from="1741702817301" duration="19186000" />
+      <workItem from="1741702817301" duration="21741000" />
     </task>
     <servers />
   </component>

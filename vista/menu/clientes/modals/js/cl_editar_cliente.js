@@ -2,13 +2,7 @@ const ModalActualizarCliente = document.getElementById("ModalActualizarCliente")
 ModalActualizarCliente.addEventListener("show.bs.modal", (event) => {
 
   cargarDatos()
-
-
-
 });
-
-// select2('#selectRegimenFiscal-editar', 'ModalActualizarCliente');
-// select2('#select-cfdi-editar', 'ModalActualizarCliente');
 
 async function cargarDatos() {
   await rellenarSelect('#select-cfdi-editar', 'cfdi_api', 1, 'ID_CFDI', 'CLAVE.DESCRIPCION')
@@ -80,3 +74,55 @@ $("#formActualizarCliente").submit(function (event) {
   });
   event.preventDefault();
 });
+
+//Controlar cambios del modal
+let countFormStep = 0;
+const btnStepBack = $("#btn-form-setps-back");
+const btnStepNext = $("#btn-form-setps-next");
+const btnStepCancel = $("#btn-form-cancel");
+const btnSubmit = $("#submit-actualizarcliente");
+
+const panel0 = $("#panel-step-0");
+const panel1 = $("#panel-step-1");
+const panel2 = $("#panel-step-2");
+
+btnStepBack.on('click', function (){
+  updateStepsForm(-1);
+  console.log('Retroceder');
+});
+
+btnStepNext.on('click', function (){
+  updateStepsForm(1);
+  console.log('Avanzar');
+});
+
+function updateStepsForm(number){
+  countFormStep += number;
+
+  switch (countFormStep) {
+    case 0:
+      btnStepBack.addClass('hidden');
+      btnStepCancel.removeClass('hidden');
+      panel0.removeClass('hidden');
+      panel1.addClass('hidden');
+      break;
+    case 1:
+      panel0.addClass('hidden');
+      panel2.addClass('hidden');
+      panel1.removeClass('hidden');
+      btnStepCancel.addClass('hidden');
+      btnSubmit.addClass('hidden');
+      btnStepBack.removeClass('hidden');
+      btnStepNext.removeClass('hidden');
+      break;
+    case 2:
+      btnStepNext.addClass('hidden');
+      btnSubmit.removeClass('hidden');
+      panel2.removeClass('hidden');
+      panel1.addClass('hidden');
+
+      break;
+    default:
+      break;
+  }
+}

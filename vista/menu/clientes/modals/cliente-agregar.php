@@ -71,58 +71,7 @@
                             </div>
                         </form>
                     </div>
-
-                    <!-- <div class="col-12 col-md-6">
-                        <div class="accordion" id="accordionDescuentoClientes">
-
-
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        Descuento
-                                    </button>
-                                </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionDescuentoClientes">
-                                    <div class="accordion-body">
-
-
-                                        <div class="d-flex align-items-center">
-                                            <p class="mr-3">¿Desea un descuento?</p>
-                                            <div class="form-check m-2">
-
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="checkDescuentoSi">
-                                                <label class="form-check-label" for="checkDescuentoSi">
-                                                    Si
-                                                </label>
-                                            </div>
-                                            <div class="form-check m-2">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="checkDescuentoNo">
-                                                <label class="form-check-label" for="checkDescuentoNo">
-                                                    No
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div id="contentDescuento" style="display: none;">
-                                            <hr>
-                                            <p>Areas</p>
-                                            <select name="" id="selectDescuentoCliente" class="form-select input-form">
-                                                <option value="13">Sistema hemolinfopoyético</option>
-                                                <option value="14">Aparato osteomuscular</option>
-                                                <option value="15">Sistema nervioso central</option>
-                                            </select>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-
-                    </div> -->
                 </div>
-
             </div>
 
             <div class="modal-footer">
