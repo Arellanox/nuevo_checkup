@@ -1291,9 +1291,6 @@ function isJson(str) {
   // return true;
 }
 
-
-
-
 // Obtener segmentos por procedencia en select
 function getSegmentoByProcedencia(id, select) {
   return new Promise(resolve => {

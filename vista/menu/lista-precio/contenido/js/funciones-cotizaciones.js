@@ -2,10 +2,10 @@ async function mantenimientoPaquete() {
   $('#btn-excel-previa').attr('disabled', false)
   $('#btn-vistaPrevia-cotizacion').attr('disabled', false)
   loader("In");
-  await fetchAndFillSelect('#seleccion-paquete', 'clientes_api', 2, 0, 'NOMBRE_COMERCIAL');
+  await orderAndFillSelects('#seleccion-paquete', 'clientes_api', 2, 0, 'NOMBRE_COMERCIAL');
   $('#container-select-presupuesto').fadeIn('slow')
 
-  await fetchAndFillSelect("#select-presupuestos", 'cotizaciones_api', 4, 'ID_COTIZACION', 'FOLIO_FECHA', {
+  await orderAndFillSelects("#select-presupuestos", 'cotizaciones_api', 4, 'ID_COTIZACION', 'FOLIO_FECHA', {
     cliente_id: $('#seleccion-paquete').val()
   }, function (data) {
     detalle_paquetes = data;
@@ -45,7 +45,7 @@ async function contenidoPaquete(select = null) {
   $('#btn-excel-previa').attr('disabled', true)
   $('#btn-vistaPrevia-cotizacion').attr('disabled', true)
   loader("In");
-  await fetchAndFillSelect('#seleccion-paquete', 'clientes_api', 2, 0, 'NOMBRE_COMERCIAL');
+  await orderAndFillSelects('#seleccion-paquete', 'clientes_api', 2, 0, 'NOMBRE_COMERCIAL');
 
   $('#container-select-presupuesto').fadeOut();
 
@@ -219,26 +219,7 @@ function caluloFila(parent_element) {
   return data = [costoTotal, subtotal, cantidad, costo, precioventa, descuento, descuento_precio, subtotal_sin_descuento]
 }
 
-// Precargar listado
-function cargarpaquetes() {
-  tablaPrecio.ajax.url('../../../api/paquetes_api.php').load();
-  data = {
-    api: 2,
-    cliente_id: $('#seleccion-cliente').val()
-  };
-  tablaPrecio.ajax.reload();
-}
-
-// Precargar tabla
-function cargarTabla(dataSet) {
-  tablaContenidoPaquete.clear();
-  tablaContenidoPaquete.rows.add(dataSet);
-  tablaContenidoPaquete.draw();
-  calcularFilasTR();
-}
-
 function checkNumber(x) {
-
   // check if the passed value is a number
   if (typeof x == 'number' && !isNaN(x)) {
 

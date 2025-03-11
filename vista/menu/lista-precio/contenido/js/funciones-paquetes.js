@@ -1,19 +1,18 @@
 async function mantenimientoPaquete() {
   $('#btn-excel-previa').attr('disabled', false)
   $('#btn-vistaPrevia-cotizacion').attr('disabled', false)
+
   loader("In");
-  await fetchAndFillSelect('#seleccion-paquete', 'paquetes_api', 2, 0, 'DESCRIPCION', {
+  await orderAndFillSelects('#seleccion-paquete', 'paquetes_api', 2, 0, 'DESCRIPCION', {
     contenido: 1
   });
   tablaContenido();
-
 
   $('#seleccion-paquete').prop('disabled', false);
   $("#selectDisabled").removeClass("disable-element");
   $("#formPaqueteBotonesArea").addClass("disable-element");
   $("#formPaqueteSelectEstudio").addClass("disable-element");
   $("#informacionPaquete").addClass("disable-element");
-
   $('input[type=radio][name=selectChecko]:checked').prop('checked', false);
   $("#seleccion-estudio").find('option').remove().end()
   loader("Out");
@@ -24,9 +23,8 @@ async function contenidoPaquete(select = null) {
   $('#btn-excel-previa').attr('disabled', true)
   $('#btn-vistaPrevia-cotizacion').attr('disabled', true)
 
-  await fetchAndFillSelect('#seleccion-paquete', 'paquetes_api', 2, 0, 'DESCRIPCION', {
-    contenido: 0
-  });
+  await orderAndFillSelects('#seleccion-paquete', 'paquetes_api', 2, 0, 'DESCRIPCION', {contenido: 0});
+
   $('#seleccion-paquete').prop('disabled', false);
   $("#selectDisabled").removeClass("disable-element");
   $("#formPaqueteBotonesArea").addClass("disable-element");
@@ -52,7 +50,7 @@ function meterDato(DESCRIPCION, CVE, costo_total, precio_venta, CANTIDAD, ID_SER
   } else {
     precio_venta = precio_venta;
   }
-  console.log(ID_SERVICIO)
+
   tablaContenidoPaquete.row.add([
     DESCRIPCION,
     CVE,
@@ -62,15 +60,8 @@ function meterDato(DESCRIPCION, CVE, costo_total, precio_venta, CANTIDAD, ID_SER
     `<div class="precioventa-paquete text-center">$${precio_venta}</div>`,
     `<div class="subtotal-paquete text-center">$0</div>`, ID_SERVICIO
   ]).draw();
-  // $('#TablaListaPaquetes tbody').append(html);
-
-
 }
 
-
-
-
-// Calular toda la tabla y filas
 function calcularFilasTR() {
   subtotalCosto = 0, subtotalPrecioventa = 0, iva = 0, total = 0;
   var paqueteEstudios = new Array();
@@ -170,26 +161,7 @@ function caluloFila(parent_element) {
   return data = [costoTotal, subtotal, cantidad, costo, precioventa]
 }
 
-// Precargar listado
-function cargarpaquetes() {
-  tablaPrecio.ajax.url('../../../api/paquetes_api.php').load();
-  data = {
-    api: 2,
-    cliente_id: $('#seleccion-cliente').val()
-  };
-  tablaPrecio.ajax.reload();
-}
-
-// Precargar tabla
-function cargarTabla(dataSet) {
-  tablaContenidoPaquete.clear();
-  tablaContenidoPaquete.rows.add(dataSet);
-  tablaContenidoPaquete.draw();
-  calcularFilasTR();
-}
-
 function checkNumber(x) {
-
   // check if the passed value is a number
   if (typeof x == 'number' && !isNaN(x)) {
 
@@ -205,12 +177,12 @@ function checkNumber(x) {
   }
 }
 
-
 // ASIGNAR PAQUETES A CLIENTES.
-fetchAndFillSelect('#relacion-paquete','clientes_api', 2,'ID_CLIENTE','NOMBRE_COMERCIAL')
+orderAndFillSelects('#relacion-paquete', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL');
+
 $('#asignarPaquete').on('click', function(){
-  var paqueteEnAsignacion =$('#seleccion-paquete option:selected').text();
-  
+  const paqueteEnAsignacion = $('#seleccion-paquete option:selected').text();
+
   if(!paqueteEnAsignacion){
     alert("Necesita seleccionar un paquete");
     $('#listaAsignada').html('');
@@ -221,32 +193,26 @@ $('#asignarPaquete').on('click', function(){
     ajaxAwait({
       api: 12,
       id_paquete: $('#seleccion-paquete').val()
-    }, "paquetes_api", { callbackAfter: true, WithoutResponseData: true }, false, function(data){
-    
+    }, "paquetes_api", { callbackAfter: true, WithoutResponseData: true }, false, function(data)
+    {
       $('#listaAsignada').html(mostrarClientesAsignados(data));
       $.getScript('contenido/js/eliminar-relacion-paquete.js')
-
     });
 
     $('#ModalCrearRelacion').modal('show');
   }
 })
 
-// $('#asignarBtn').on('click', function(event) {
-//   alert('presionaste el boton')
-//   $('#formCrearRelacion').submit();
-// });
-
 $(document).ready(function(){
   $('#formCrearRelacion').off('submit').on('submit',function(event){
     event.preventDefault();
-    console.log(1)
-    var datos = {
+
+    const datos = {
       id_paquete: $('#seleccion-paquete').val(),
       cliente_id: $('#relacion-paquete').val(),
       api: 11
-    }
-  
+    };
+
     ajaxAwait(datos, 'paquetes_api',{ callbackAfter: true, WithoutResponseData: true }, false, function(data){
       alertToast('¡Paquete asignado!', 'success', 4000);
       ajaxAwait({
@@ -260,19 +226,18 @@ $(document).ready(function(){
       });
   
     });
-    console.log(datos);
   });
 
 
   $('#formEditarPaquete').off('submit').on('submit', function(e){
     e.preventDefault();
-    var send = {
+    const send = {
       api: 1,
       id: $('#seleccion-paquete').val(),
       descripcion: $('#nombrePaqEditar').val(),
       tipo_paquete: $('#tipoPaqEditar').val()
-    }
-  
+    };
+
     alertMensajeConfirm(
       {
         title: `¿Realmente quieres modificar los datos del paquete ${$('#seleccion-paquete option:selected').text()}?`,
@@ -296,9 +261,8 @@ $(document).ready(function(){
 
 });
 
-
 function mostrarClientesAsignados(data){
-  var item = '';
+  let item = '';
 
   for (let index = 0; index < data.length; index++) {
     item += `
@@ -318,7 +282,6 @@ function mostrarClientesAsignados(data){
   return item;
 }
 
-
 $('#filtroClientes').on('input', function() {
   var filtro = $(this).val().toLowerCase(); // Obtener el texto del filtro en minúsculas
   
@@ -336,8 +299,7 @@ $('#filtroClientes').on('input', function() {
 });
 
 $('#editarInfoPaqueteBtn').on('click', function(){
-  var nombrePaquete =$('#seleccion-paquete option:selected').text();
-  var idPaquete = $('#seleccion-paquete').val();
+  const idPaquete = $('#seleccion-paquete').val();
 
   ajaxAwait({
     api: 2,
@@ -350,9 +312,7 @@ $('#editarInfoPaqueteBtn').on('click', function(){
   $('#ModalEditarPaquete').modal('show');
 });
 
-
 $("#btnInhabilitarPaquete").click(function(){
-  console.log('inhabilitado');
   alertMensajeConfirm(
     {
       title: `Se inhabilitará el siguiente paquete: ${$('#seleccion-paquete option:selected').text()}`,

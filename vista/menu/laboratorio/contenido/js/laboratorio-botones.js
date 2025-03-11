@@ -3,8 +3,8 @@ $('#formAnalisisLaboratorio').submit(function (event) {
 
   if (selectListaLab['CONFIRMADO'] === 0) {
     let confirmar = 0;
-    var form = document.getElementById("formAnalisisLaboratorio");
-    var formData = new FormData(form);
+    const form = document.getElementById("formAnalisisLaboratorio");
+    const formData = new FormData(form);
     formData.set('id_turno', selectListaLab['ID_TURNO']);
     formData.set('id_area', areaActiva)
     formData.set('api', 9);
@@ -32,12 +32,7 @@ $('#formAnalisisLaboratorio').submit(function (event) {
       confirmButtonText: 'Confirmar',
       cancelButtonText: 'Cancelar',
       showLoaderOnConfirm: true,
-      // inputAttributes: {
-      //   autocomplete: false
-      // },
-      // input: 'password',
       html: '<form autocomplete="off" onsubmit="formpassword(); return false;"><input type="password" id="password-confirmar" class="form-control input-color" autocomplete="off" placeholder=""></form>',
-      // confirmButtonText: 'Sign in',
       focusConfirm: false,
       preConfirm: () => {
         const password = Swal.getPopup().querySelector('#password-confirmar').value;
@@ -96,15 +91,10 @@ $('.subir-resultado-lab').click(function () {
   $("#btnConfirmarResultados").click();
 })
 
-$('#btn-confirmar-formulario').click(function (e) {
+$('#btn-confirmar-formulario').click(function (e) {})
 
-})
-
-
-
-function formpassword() {
-  //No submit form with enter
-}
+//No submit form with enter
+function formpassword() { }
 
 // cambiar fecha de la Lista
 $('#fechaListadoLaboratorio').change(function () {
@@ -132,16 +122,26 @@ function recargarVistaLab(fecha = 1) {
   getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', selectListaLab, 'Out')
 }
 
-// obtenerPDF
+//Imprimr lista de trabajo con codigo de barras
+$('#btn-lista-trabajo-barras').click(function(){
+  api = encodeURIComponent(window.btoa('lista-barras'));
+  turno = encodeURIComponent(window.btoa($('#fechaListadoLaboratorio').val()));
+  area = encodeURIComponent(window.btoa(areaActiva));
+
+  window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, "_blank");
+})
+$('#btn-estudios-pendientes-notificacion').click(function(){
+  $('#modalEstudiosPendientes').modal("show");
+});
+
+//ObtenerPDF
 $(document).on('click', '.obtenerPDF', function (event) {
-  // alert('si')
   event.stopPropagation();
   event.stopImmediatePropagation();
   let id = $(this).attr('data-bs-id');
   $.ajax({
     url: `${http}${servidor}/${appname}/api/servicios_api.php`,
     type: "POST",
-    // dataType: 'json',
     data: {
       id_turno: id,
       api: 13
@@ -151,115 +151,111 @@ $(document).on('click', '.obtenerPDF', function (event) {
     },
     success: function (data) {
       alertMensaje(null, null, null, null,
-        `<div class="d-flex justify-content-center"> <a href="` + data + `" class="btn btn-borrar" target="_blank" style="width: 50%"> <i class="bi bi-image"></i> Descargar</a></div></div>`
+          `<div class="d-flex justify-content-center"> <a href="` + data + `" class="btn btn-borrar" target="_blank" style="width: 50%"> <i class="bi bi-image"></i> Descargar</a></div></div>`
       )
-
     }
   })
-})
+});
 
-
-// imprimr lista de trabajo con codigo de barras
-$('#btn-lista-trabajo-barras').click(function(){
-  api = encodeURIComponent(window.btoa('lista-barras'));
-  turno = encodeURIComponent(window.btoa($('#fechaListadoLaboratorio').val()));
-  area = encodeURIComponent(window.btoa(areaActiva));
-
-  window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, "_blank");
-})
-
-//marcar un estuio como pendiente
-$(document).on('click', '.btn-estudios-pendientes', async function(event){
-
+//Marcar un estuio como pendiente
+$(document).on('click', '.btn-estudios-pendientes', async function(event) {
   event.preventDefault();
+
   const servicio_id = $(this).attr('data-bs-id');
   const servicio = $(this).attr('data-bs-text');
   let pending = $(this).attr('data-bs-pending');
+  let msh, msh2;
 
-
-  let msh;
-  let msh2;
-
-  if (parseInt(pending) === 1){
+  if (parseInt(pending) === 1)
+  {
     msh = "¿Quieres completar este estudio?";
     pending = 0;
     msh2 = `${servicio} COMPLETADO!`;
-  } else {
+  }
+  else
+  {
     msh = "¿Quieres marcar este estudio como PENDIENTE?";
     pending = 1;
     msh2 = `${servicio} está PENDIENTE!`;
   }
 
-  // volver a la posicion del estudio
+  //Volver a la posicion del estudio
   $('html, body').animate({ scrollTop: 0 }, 'slow');
 
-  // enviar la solicitud
-  alertMensajeConfirm({
-        title: msh,
-        text: servicio,
-        icon: 'warning',
-        confirmButtonText: 'Sí'
-    }, function () {
-        //envio de datos
-        ajaxAwait({
-          api: 5,
-          turno_id: selectListaLab.ID_TURNO,
-          id_servicio: servicio_id,
-          pendiente: pending
-        }, 'laboratorio_servicios_api', { callbackAfter: true }, false, function (data) {
-          alertToast(msh2, 'success', 4000);
-          // recargarVistaLab();
-          
-          // cambiar atributo checked
-          if(parseInt(pending)===1){
-            $(`#lbl${servicio_id}`).removeClass('btn-outline-danger');
-            $(`#lbl${servicio_id}`).addClass('btn-danger');
+  //Enviar la solicitud
+  alertMensajeConfirm({title: msh, text: servicio, icon: 'warning', confirmButtonText: 'Sí'}, function ()
+  {
+     ajaxAwait({ api: 5, turno_id: selectListaLab.ID_TURNO, id_servicio: servicio_id, pendiente: pending },
+         'laboratorio_servicios_api', { callbackAfter: true }, false, function ()
+         {
+           alertToast(msh2, 'success', 4000);
 
-            $(`#check${servicio_id}`).prop('checked', true);
-          } else {
-            $(`#lbl${servicio_id}`).removeClass('btn-danger');
-            $(`#lbl${servicio_id}`).addClass('btn-outline-danger');
+           if(parseInt(pending) === 1) //Cambiar atributo checked
+           {
+             $(`#lbl${servicio_id}`).removeClass('btn-outline-danger');
+             $(`#lbl${servicio_id}`).addClass('btn-danger');
+             $(`#check${servicio_id}`).prop('checked', true);
+           }
+           else
+           {
+             $(`#lbl${servicio_id}`).removeClass('btn-danger');
+             $(`#lbl${servicio_id}`).addClass('btn-outline-danger');
+             $(`#check${servicio_id}`).prop('checked', false);
+           }
+         });
 
-            $(`#check${servicio_id}`).prop('checked', false);
-          }
-      });
+     //Actualizar la notificacion de estudios pendientes
+     ajaxAwait({api: 6}, 'laboratorio_servicios_api', { callbackAfter: true }, false, function (data)
+     {
+       $('#estudios-pendientes-notificacion').text(data.response.data);
+     });
 
-      // actualizar la notificacion de estudios pendientes
-      ajaxAwait({
-        api: 6
-      }, 'laboratorio_servicios_api', { callbackAfter: true }, false, function (data) {
-        $('#estudios-pendientes-notificacion').text(data.response.data);
-      });
-
-      tableEstudiosPendientes.ajax.reload();
-
-    }, 
-    1,
-    function () {
-      // en caso de que nieguen la accion
+     tableEstudiosPendientes.ajax.reload();
+  }, 1, function ()
+  {
       alert("has negado la accion");
       $('html, body').animate({ scrollTop: 0 }, 'slow');
-    },
-    function (event) {
-      // volver a la posicion del estudio
-      // en caso de que cancelen la accion la accion
+  }, function (event)
+  { //Volver a la posicion del estudio en caso de que cancelen la accion la accion
       if (event) event.preventDefault();
       setTimeout(() => {
         document.documentElement.scrollTop = 0; // Para navegadores modernos
         document.body.scrollTop = 0; // Para navegadores antiguos
         return false; // Asegúrate de que la función no continúe
-        
       }, 1500);
-    }
-  );
+  }
+  )
 });
 
+//Maquilación
+$(document).on('click', '.btn-modal-maquila-confirm', function (event) {
+  event.preventDefault();
+  const laboratorio_texto = $('#select-laboratorios-maquila option:selected').text();
+  const laboratorio_id = $('#select-laboratorios-maquila').val();
 
-//mostrar modal de estudios pendientes
-$('#btn-estudios-pendientes-notificacion').click(function(){
-  $('#modalEstudiosPendientes').modal("show");
+  alertMensajeConfirm({
+    title: '¿Quieres completar esta acción?',
+    text: `Sera maquilado por ${laboratorio_texto}`,
+    icon: 'warning',
+    confirmButtonText: 'Sí'
+  }, function () {
+    //GUARDAR MAQUILACIÓN
+    const servicio_id = $('.btn-estudios-pendientes').attr('data-bs-id');
+
+    ajaxAwait({
+      api: 1,
+      LABORATORIO_MAQUILA_ID: laboratorio_id,
+      TURNO_ID: selectListaLab.ID_TURNO,
+      SERVICIO_ID: servicio_id
+    }, 'laboratorio_estudios_maquila_api', {callbackAfter: true}, false, function (data) {
+      alertToast('Se registro la maquila exiotsamente.', 'success', 4000);
+      $('#modalMaquilaEstudios').modal('hide');
+    }).then(r => {});
+  }, 1, function () { alert("Acción cancelada."); }, () => {});
 });
 
 $(document).on('click', '.btn-maquila-estudios', function (event){
+  event.preventDefault();
   $('#modalMaquilaEstudios').modal('show');
+  orderAndFillSelects('#select-laboratorios-maquila', 'laboratorio_maquila_api', 2, 'ID_LABORATORIO', 'DESCRIPCION');
 });

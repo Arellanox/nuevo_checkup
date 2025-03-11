@@ -169,20 +169,10 @@ function generarFormularioPaciente(id) {
         let colreStart = '<div class="col-12 col-lg-6 d-flex justify-content-end align-items-center">';
         let html = '';
 
-
-
-        // <ul class = "list-group m-4 overflow-auto hover-list info-detalle"
-        // style = "max-width: 100%; max-height: 70vh;margin-bottom:10px;"
-        // id = "list-group-form-resultado-laboro" >
-
-        //   </ul>
-
         //Lee cada grupo
-        for (var i = 0; i < data.length; i++) {
-          // console.log('FOR')
+        for (let i = 0; i < data.length; i++) {
           let row = data[i]
-
-          //Biomolecular 
+          //Biomolecular
           let kitDiag = null;
           resultado = {
             0: {
@@ -198,12 +188,6 @@ function generarFormularioPaciente(id) {
 
           //Clinico
           let Tipo = '';
-
-          // equipo = {
-          //   0: {
-
-          //   }
-          // }
 
           //Creo valores por defecto para Biomolecular
           switch (row['ID_GRUPO']) {
@@ -240,7 +224,6 @@ function generarFormularioPaciente(id) {
                 }
               }
               break;
-
             case '697': // <-- ANTIGENO --> 
               muestras = {
                 0: {
@@ -249,7 +232,6 @@ function generarFormularioPaciente(id) {
               }
               classSelect = 'selectTipoAntigeno';
               break;
-
             case '698': // <-- VPH -->
               kitDiag = {
                 0: {
@@ -302,7 +284,6 @@ function generarFormularioPaciente(id) {
                 }
               }
               break;
-
             case '709': // <-- PANEL21 -->
               kitDiag = {
                 0: {
@@ -355,7 +336,6 @@ function generarFormularioPaciente(id) {
               }
 
               break;
-
             case '980': // <!-- rT-PCR-ETS -->
               classSelect = 'selectTipoMuestraETS';
               kitDiag = {
@@ -397,7 +377,6 @@ function generarFormularioPaciente(id) {
             case '972': case '973':
               //Sin cambios
               break;
-
             //rT-PCR para Mycobacterium tuberculosis MDR y XDR
             case '1139':
               kitDiag = {
@@ -464,19 +443,15 @@ function generarFormularioPaciente(id) {
               }
 
               break;
-
             case '1353':
 
               break
-
             case '1390':
 
               break;
-
             case '1609':
               // PANEL GASTROINTESTINAL
               break;
-
             case "1420":
               // PCR HELICOBACTER PYLORI CON RESISTENCIA A CLARITROMICINA
 
@@ -497,7 +472,6 @@ function generarFormularioPaciente(id) {
               }
 
               break;
-
             case '1452':
 
               // rT-PCR Entero-DR
@@ -513,8 +487,6 @@ function generarFormularioPaciente(id) {
               }
 
               break
-
-
             case '1462':
 
               // Ag. Virus Respiratorio
@@ -527,11 +499,8 @@ function generarFormularioPaciente(id) {
               }
 
               break;
-
             case '1463':
               // PCR Virus Respiratorio
-
-
               classSelect = 'selectTipoMuestraPCRVirusRespiratorio';
 
               tipo_resultado = {
@@ -560,14 +529,11 @@ function generarFormularioPaciente(id) {
               break;
             case '':
               // pneumoBacter
-
               break;
-
             //Laboratorio Clinico
             case '1':
               Tipo = '_BH'
               break;
-
             case '1516':
               // rT-PCR Thrombosis SNP
               classSelect = 'selectTipoMuestraThrombosisSNP';
@@ -593,7 +559,6 @@ function generarFormularioPaciente(id) {
                 }
               }
               break;
-
             case '1599':
               // PCR Basal Carga Virual de hepatitis C (HCV)
               classSelect = 'selectTipoMuestraCargaVirualHepatitisC';
@@ -606,12 +571,10 @@ function generarFormularioPaciente(id) {
               }
 
               break;
-
             case '1677':
               // PCR CARGA VIRAL DE CITOMEGALOVIRUS (CMV)
               // Solo visual por ahora
               break;
-
             case '1738':
               // PCR Detección Mycobacterium tuberculosis
               muestras = {
@@ -664,27 +627,13 @@ function generarFormularioPaciente(id) {
                 }
               }
               break;
-
-
             default: input = null;
-              if (areaActiva == 12) {
+              if (areaActiva === 12) {
                 alert('El paciente no tiene estudios compatibles, hay un problema con la compatibilidad de los estudios con biomolecular, presente el error con el area de TI para solucionar este problema con el  paciente');
               }
               break;
           }
 
-
-
-
-
-
-
-
-
-
-          // console.log(row)
-          var count = Object.keys(row).length;
-          // console.log(count);
           html += '<ul class = "list-group hover-list info-detalle mt-3" style="padding: 3px;" >';
           if (row['ID_GRUPO']) {
             html += `<div style = "margin-bottom: 10px; display: block">
@@ -699,22 +648,24 @@ function generarFormularioPaciente(id) {
               if(parseInt(row['PENDIENTE']) === 1){
                 html+=`
                     <div class="dropdown">
-                      <span class="btn btn-outline-danger dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <span class="btn btn-outline-danger dropdown-toggle" role="button" 
+                        data-bs-toggle="dropdown" aria-expanded="false"
+                      >
                           <i class="bi bi-three-dots"></i>
                       </span>
                       <ul class="dropdown-menu">
                         <li>
-                          <label class="dropdown-item" 
-                            style="color: #d58512; display: flex; justify-content: space-between; align-items: center" 
+                          <label class="dropdown-item btn-posponer-estudios" 
                             id="lbl${row['ID_GRUPO']}" for="check${row['ID_GRUPO']}"
                           >
                             <span>Completar</span>
-                            <i class="fa fa-check-circle" style="color: #d58512"></i>
+                            <i class="fa fa-check-circle"></i>
                           </label>
                         </li>
                         <li>
                           <div class="dropdown-item btn-maquila-estudios" role="button">
-                            Maquilar 1
+                            Maquilar
+                            <i class="bi bi-file-earmark-break-fill"></i>
                           </div>
                         </li>
                       </ul>
@@ -723,22 +674,24 @@ function generarFormularioPaciente(id) {
               } else {
                 html+=`
                     <div class="dropdown">
-                      <span class="btn btn-outline-danger dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <span class="btn btn-outline-danger dropdown-toggle" role="button" 
+                        data-bs-toggle="dropdown" aria-expanded="false"
+                      >
                           <i class="bi bi-three-dots"></i>
                       </span>
                       <ul class="dropdown-menu">
                         <li>
-                          <label class="dropdown-item" 
-                            style="color: #d58512; display: flex; justify-content: space-between; align-items: center" 
+                          <label class="dropdown-item btn-posponer-estudios" 
                             id="lbl${row['ID_GRUPO']}" for="check${row['ID_GRUPO']}"
                           >
                             <span>Posponer</span>
-                            <i class="fa fa-clock-o" style="color: #d58512"></i>
+                            <i class="fa fa-clock-o"></i>
                           </label>
                         </li>
                         <li>
                           <div class="dropdown-item btn-maquila-estudios" role="button">
                             Maquilar
+                            <i class="bi bi-file-earmark-break-fill"></i>
                           </div>
                         </li>
                       </ul>
@@ -900,18 +853,12 @@ function generarFormularioPaciente(id) {
                 case '1142':
                 // Ag. Virus respiratorio
                 case '145':
-
-
-
-                  console.log(row[k]['ID_SERVICIO'])
                   anotherInput = crearSelectCamposMolecular(muestras, nameInput, row[k]['RESULTADO']); break;
-
                 //Laboratorio Clinico:
                 case '70':
                   anotherClassInput = `LEUCOCITOS_VALUE${Tipo}`;
                   // typeInput = 'number'
                   break;
-
                 case '71': case '72': case '73': case '74': case '75': case '76': case '77': case '78': case '79':
                   // typeInput = 'number'
                   anotherClassInput = `VALOR_ABSOLUTO${Tipo}`;

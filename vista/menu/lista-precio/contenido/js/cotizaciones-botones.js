@@ -3,8 +3,8 @@ select2('#seleccion-estudio', 'form-select-paquetes')
 select2('#select-presupuestos', 'form-select-paquetes')
 
 //Declarar variable para la clase
-var selectEstudio, SelectedFolio;
-var datosUsuarioCotizacion = $('#datosUsuarioCotizacion');
+let selectEstudio, SelectedFolio;
+const datosUsuarioCotizacion = $('#datosUsuarioCotizacion');
 
 $('#agregar-estudio-paquete').click(function () {
   selectData = selectEstudio.array[$("#seleccion-estudio").prop('selectedIndex')]
@@ -143,16 +143,17 @@ $('input[type="radio"][name="selectPaquete"]').change(function () {
 
 $('input[type=radio][name=selectChecko]').change(function () {
 
-  if ($(this).val() != 0) {
+  if ($(this).val() !== 0) {
     // selectData = null;
-    fetchAndFillSelect("#seleccion-estudio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+    rellenarSelect("#seleccion-estudio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
       area_id: this.value,
       cliente_id: $('#seleccion-paquete').val()
     }, function (listaEstudios) {
+      console.log(listaEstudios)
       selectEstudio = new GuardarArreglo(listaEstudios);
     }); //Mandar cliente para lista personalizada
   } else {
-    fetchAndFillSelect("#seleccion-estudio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+    rellenarSelect("#seleccion-estudio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
       area_id: this.value,
       cliente_id: $('#seleccion-paquete').val()
     }, function (listaEstudios) {
@@ -259,7 +260,7 @@ $(document).on(
 );
 
 $('#seleccion-paquete').on('change', async function (e) {
-  await fetchAndFillSelect("#select-presupuestos", 'cotizaciones_api', 4, 'ID_COTIZACION', 'FOLIO_FECHA', {
+  await orderAndFillSelects("#select-presupuestos", 'cotizaciones_api', 4, 'ID_COTIZACION', 'FOLIO_FECHA', {
     cliente_id: $('#seleccion-paquete').val()
   });
 })

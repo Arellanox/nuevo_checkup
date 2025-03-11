@@ -1,4 +1,4 @@
-function fetchAndFillSelect(
+function orderAndFillSelects(
   select = false,
   api,
   apinum,

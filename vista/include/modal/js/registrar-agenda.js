@@ -10,7 +10,7 @@ setTimeout(() => {
   if (nombreCliente != null) {
     $("#procedencia-registro").html(nombreCliente)
     if (clienteRegistro != 17) {
-      fetchAndFillSelect('#selectSegmentos', 'segmentos_api', 2, 0, 'DESCRIPCION', {
+      orderAndFillSelects('#selectSegmentos', 'segmentos_api', 2, 0, 'DESCRIPCION', {
         cliente_id: clienteRegistro
       });
     } else {

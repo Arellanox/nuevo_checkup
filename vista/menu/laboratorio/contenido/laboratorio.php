@@ -86,6 +86,16 @@
       cursor: pointer;
       color: rgb(247, 190, 000) !important;
     }
+
+    .btn-maquila-estudios, .btn-posponer-estudios{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+    }
+    .btn-maquila-estudios:hover, .btn-posponer-estudios:hover{
+        color: #d58512;
+    }
   </style>
 
 

@@ -83,14 +83,14 @@ tablaContenido = $('#TablaContenidoResultados').DataTable({
 })
 
 selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function (selectTR = null, array = null) {
-  let dataajax;
   let url;
   botonesResultados('desactivar')
+
   selectPacienteArea = array;
-  // console.log(selectPacienteArea)
-  if (selectTR == 1) {
+
+  if (selectTR === 1) {
     obtenerPanelInformacion(selectPacienteArea['ID_TURNO'], 'pacientes_api', 'paciente', '#panel-informacion', '_lab')
-    if (areaActiva == 3) {
+    if (areaActiva === 3) {
       url = 'oftalmologia_api';
       data = {
         turno_id: selectPacienteArea['ID_TURNO'],
@@ -111,7 +111,6 @@ selectDatatable('TablaContenidoResultados', tablaContenido, 0, 0, 0, 0, function
       datatype: 'json',
       success: function (data) {
         data = jQuery.parseJSON(data)
-        // console.log(data);
         selectEstudio = new GuardarArreglo(data.response.data);
         panelResultadoPaciente(data.response.data);
         botonesResultados('activar', areaActiva)
@@ -132,54 +131,6 @@ function limpiarCampos() {
   obtenerPanelInformacion(0, null, 'resultados-areaMaster', '#panel-resultadosMaster')
   $('#TablaContenidoResultados').removeClass('selected');
 }
-
-// function tablaVistaMaster(data) {
-//   // tablaContenido.destroy();
-//   // $('#TablaContenidoResultados').empty();
-//
-//   // console.log(selectrue)
-//   selectTableMaster(tablaContenido)
-//   if (selectrue != 1) {
-//     // alert('primera vez')
-//     selectrue = 1;
-//   }else{
-//     // alert('segunda vez')
-//     // location.reload();
-//   }
-// }
-
-// function selectTableMaster(datatable){
-//
-// }
-//
-//
-// function recargartabla(){
-//   dataListaPaciente = {api:5, fecha_busqueda: $('#fechaListadoAreaMaster').val(), area_id: areaActiva}
-//   tablaVistaMaster(dataListaPaciente)
-//   botonesResultados('desactivar')
-//   obtenerPanelInformacion(0, 0, 'paciente')
-//   obtenerPanelInformacion(0, null, 'resultados-areaMaster', '#panel-resultadosMaster')
-//   var selectEstudio = new GuardarArreglo();
-//   // tablaContenido.ajax.reload();
-//   return 1;
-// }
-
-// $('#TablaContenidoResultadosa tbody').on('click', 'tr', function () {
-//   alert('oajnsdnji')
-//    if ($(this).hasClass('selected')) {
-//        $(this).removeClass('selected');
-//        selectListaLab = null;
-//        obtenerPanelInformacion(0, 'pacientes_api', 'paciente')
-//        // getPanelLab('Out', 0)
-//    } else {
-//        tablaContenido.$('tr.selected').removeClass('selected');
-//        $(this).addClass('selected');
-//        selectListaLab = tablaContenido.row( this ).data();
-//        obtenerPanelInformacion(selectListaLab['ID_PACIENTE'], 'pacientes_api', 'paciente')
-//    }
-// });
-
-
 
 async function panelResultadoPaciente(row, area = areaActiva) {
   await obtenerPanelInformacion(1, null, 'resultados-areaMaster', '#panel-resultadosMaster')
