@@ -5,29 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="af65b511-fae7-4667-83bd-cb6ca4b438cc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/api/laboratorio_estudios_maquila_api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/laboratorio_estudios_maquila_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/laboratorio_estudios_maquila_api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/log.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/notificaciones_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/notificaciones_api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/helpers/inputs/order-fill-selects.js" beforeDir="false" afterPath="$PROJECT_DIR$/core/helpers/inputs/order-fill-selects.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/documentacion/reporte-laboratorio/modals/js/fecha_tabla.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/documentacion/reporte-laboratorio/modals/js/fecha_tabla.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/documentacion/reporte-paciente/modals/js/fecha_tabla.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/documentacion/reporte-paciente/modals/js/fecha_tabla.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/include/head.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/include/head.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/include/modal/js/registrar-agenda.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/include/modal/js/registrar-agenda.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/area-master/contenido/js/vista-tabla.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/area-master/contenido/js/vista-tabla.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/control-turnos/contenido/js/estatus-tabla.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/control-turnos/contenido/js/estatus-tabla.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/controlador/funciones.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/controlador/funciones.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/facturacion_old/contenido/js/estado-controlador-vistas.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/facturacion_old/contenido/js/estado-controlador-vistas.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/requests/notifications.js" beforeDir="false" afterPath="$PROJECT_DIR$/core/requests/notifications.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/js/laboratorio-botones.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/js/laboratorio-botones.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/js/lista-tabla.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/js/lista-tabla.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/laboratorio.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/laboratorio.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/laboratorio/modals/estudios_pendientes.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/laboratorio/modals/estudios_pendientes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/laboratorio/modals/maquila_estudios.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/laboratorio/modals/maquila_estudios.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/lista-precio/contenido/js/cotizaciones-botones.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/lista-precio/contenido/js/cotizaciones-botones.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/lista-precio/contenido/js/funciones-cotizaciones.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/lista-precio/contenido/js/funciones-cotizaciones.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/lista-precio/contenido/js/funciones-paquetes.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/lista-precio/contenido/js/funciones-paquetes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/lista-precio/contenido/js/paquete-botones.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/lista-precio/contenido/js/paquete-botones.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/lista-precio/contenido/js/precio-botones.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/lista-precio/contenido/js/precio-botones.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +135,7 @@
       <workItem from="1741444934768" duration="81670000" />
       <workItem from="1741615485966" duration="13925000" />
       <workItem from="1741639018231" duration="3740000" />
-      <workItem from="1741702817301" duration="16824000" />
+      <workItem from="1741702817301" duration="19186000" />
     </task>
     <servers />
   </component>

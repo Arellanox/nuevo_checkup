@@ -16,6 +16,6 @@ async function crearNotificacion(usuarioId, mensaje, vinculo, cargos_id){
         vinculo: vinculo,
         cargos: cargos_id
     }, 'notificaciones_api', { callbackAfter: true }, false, () => {
-
+        alertToast('Notificación de aprovación enviada.', 'success', 4000);
     });
 }

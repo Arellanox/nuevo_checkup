@@ -242,6 +242,10 @@ $(document).on('click', '.btn-modal-maquila-confirm', function (event) {
     //GUARDAR MAQUILACIÓN
     const servicio_id = $('.btn-estudios-pendientes').attr('data-bs-id');
 
+    //crearNotificacion(session['id'],
+    //    `Solicitud de Revisión de Maquilación de ${session['nombre']}`, '#', [15, 2, 20]
+    //).then(r => '');
+
     ajaxAwait({
       api: 1,
       LABORATORIO_MAQUILA_ID: laboratorio_id,

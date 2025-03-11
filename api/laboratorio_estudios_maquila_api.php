@@ -23,6 +23,18 @@ switch ($api) {
             $turno_id, $servicio_id, $id_laboratorio_maquila, $usuario_id
         ]);
 
+        try {
+            $vinculo = '#';
+            $procedureName = "sp_notificaciones_generar_g";
+            $mensaje =  "Solicitud de aprobación de maquilación generada por ".$_SESSION['nombre'];
+
+            $master->insertByProcedure($procedureName, [$usuario_id, $mensaje, $vinculo, 15]);
+            $master->insertByProcedure($procedureName, [$usuario_id, $mensaje, $vinculo, 2]);
+            $master->insertByProcedure($procedureName, [$usuario_id, $mensaje, $vinculo, 20]);
+        } catch (Exception $exception){
+            $this->mis->setLog('Error al generar notificación', 'sp_notificaciones_generar_g');
+        }
+
         break;
     default:
         $response = "API no definida";;

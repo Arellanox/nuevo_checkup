@@ -5,11 +5,6 @@ require_once "../clases/token_auth.php";
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 
-if (!$tokenValido) {
-    $tokenVerification->logout();
-    exit;
-}
-
 $json_data = json_decode(file_get_contents("php://input"), true);
 
 $master = new Master();
@@ -48,11 +43,23 @@ switch ($api){
 
         break;
     case 3: //Registrar una nueva notificación
-        $result = $master->insertByProcedure("sp_notificaciones_generar_g", [
-            $remitente_user_id, $mensaje, $vinculo, is_array($cargos_id) ? $cargos_id : [$cargos_id]
-        ]);
+        $success = true;
+        $ids = !is_array($cargos_id) ? [$cargos_id] : $cargos_id;
 
-        $response = $result ?? [];
+        foreach($ids as $id){
+            $insertResult = $response = $master->insertByProcedure("sp_notificaciones_generar_g", [
+                $remitente_user_id, $mensaje, $vinculo, $id
+            ]);
+
+            if (!$insertResult) {
+                $success = false;
+                break;
+            }
+        }
+
+        $response  = $success
+            ? ['status' => 'success', 'message' => 'Notificaciones marcadas correctamente.']
+            :['status' => 'error', 'message' => 'Hubo un error al marcar las notificaciones.'];
         break;
     default:
         $response = "API no definida";;
