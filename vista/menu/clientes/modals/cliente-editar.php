@@ -6,117 +6,187 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form class="" id="formActualizarCliente">
-                    <p class="text-center">Actualizar datos de <strong>Cliente</strong> </p>
-                    <div class="row" id="panel-step-0">
+                <form class="" id="formActualizarCliente" novalidate>
+                    <div class="panel-step-0 row">
+                        <p class="text-center col-12 subtitle">Datos Generales</p>
+
                         <div class="col-6">
-                            <label for="nombre_comercial" class="form-label">Nombre</label>
+                            <label for="nombre_cliente" class="form-label">Nombre</label>
                             <input type="text" name="nombre_comercial" id="nombre_cliente" class="form-control input-form" required>
                         </div>
                         <div class="col-6">
-                            <label for="cve_cliente" class="form-label">Razon Social</label>
-                            <input type="text" name="razon_social" id="razon_social" class="form-control input-form" required>
+                            <label for="tipo_contribuyente" class="form-label">Tipo de contribuyente </label>
+                            <select class="input-form" name="tipo_contribuyente" id="tipo_contribuyente" required>
+                                <option value="Persona Física">Persona Física</option>
+                                <option value="Persona Moral">Persona Moral</option>
+                            </select>
                         </div>
-                        <div class="col-6 col-md-6" style="display: none">
-                            <label for="grupo" class="form-label">Nombre del Sistema</label>
-                            <input name="nombre_sistema" id="nombre_sistema" value="none" class="form-control input-form" required>
-                        </div>
-                        <div class="col-6 col-md-6">
-                            <label for="rfc" class="form-label">RFC</label>
+                        <div class="col-3">
+                            <label for="rfc_cliente" class="form-label">RFC</label>
                             <input type="text" name="rfc" id="rfc_cliente" class="form-control input-form" required>
                         </div>
-                        <div class="col-6 col-md-6">
-                            <label for="curp" class="form-label">CURP</label>
-                            <input type="text" name="curp" id="curp_cliente" class="form-control input-form" required>
-                        </div>
-                        <div class="col-6 col-md-6">
-                            <label for="abreviatura" class="form-label">Abreviatura</label>
-                            <input type="text" name="abreviatura" id="abreviatura_cliente" class="form-control input-form" required>
-                        </div>
-                        <div class="col-6 col-md-6">
-                            <label for="limite" class="form-label">Limite de Credito</label>
-                            <input type="number" name="limite" id="limite_credito_cliente" class="form-control input-form" required>
-                        </div>
-                    </div>
-                    <div class="row hidden" id="panel-step-1">
-                        <div class="col-3 col-md-3">
-                            <label for="tiempo_credito" class="form-label">Temporalidad de Credito</label>
-                            <input type="text" name="tiempo_credito" class="form-control input-form" id="tiempo_credito_cliente" required>
-
-                        </div>
-                        <div class="col-3 col-md-3">
-                            <label for="cuenta_contable" class="form-label">Cuenta Contable</label>
-                            <input type="text" name="cuenta_contable" id="cuenta_contable_cliente" class="form-control input-form" required>
+                        <div class="col-3">
+                            <label for="curp_cliente" class="form-label">CURP</label>
+                            <input type="text" name="curp" id="curp_cliente" class="form-control input-form">
                         </div>
                         <div class="col-6">
-                            <label for="regimen" class="form-label">Régimen fiscal</label>
+                            <label for="razon_social" class="form-label">Razon Social</label>
+                            <input type="text" name="razon_social" id="razon_social" class="form-control input-form" required>
+                        </div>
+                        <div class="col-6">
+                            <label for="selectRegimenFiscal-editar" class="form-label">Régimen fiscal</label>
                             <select class="form-control input-form" name="regimen" id="selectRegimenFiscal-editar" required>
-
                             </select>
                         </div>
                         <div class="col-6">
-                            <label for="cfdi" class="form-label">Uso de CFDI</label>
+                            <label for="select-cfdi-editar" class="form-label">Uso de CFDI</label>
                             <select class="form-control input-form" name="cfdi" id="select-cfdi-editar" required>
 
                             </select>
                         </div>
                         <div class="col-6">
-                            <label for="convenio" class="form-label">Convenio</label>
-                            <select class="form-control input-form" name="convenio" id="selectConvenio-editar" required>
+                            <label for="selectConvenio-editar" class="form-label">Convenio</label>
+                            <select class="form-control input-form" name="convenio" id="selectConvenio-editar">
                                 <option value="1">ASEGURADORAS </option>
                                 <option value="2">INSTITUCIONES PUBLICAS </option>
                                 <option value="3">INSTITUCIONES PRIVADAS </option>
                                 <option value="4">CORTESIAS </option>
                             </select>
                         </div>
-                    </div>
-                    <div class="row hidden" id="panel-step-2">
+                        <div class="col-6 col-md-6" style="display: none">
+                            <label for="nombre_sistema" class="form-label">Nombre del Sistema</label>
+                            <input name="nombre_sistema" id="nombre_sistema" value="none" class="form-control input-form" required>
+                        </div>
                         <div class="col-6 col-md-6">
-                            <label for="confac" class="form-label">Pagina Web</label>
+                            <label for="abreviatura_cliente" class="form-label">Abreviatura</label>
+                            <input type="text" name="abreviatura" id="abreviatura_cliente" class="form-control input-form" required>
+                        </div>
+                        <div class="col-6 col-md-6">
+                            <label for="limite_credito_cliente" class="form-label">Limite de Credito</label>
+                            <input type="number" name="limite" id="limite_credito_cliente" class="form-control input-form" required>
+                        </div>
+                        <div class="col-3 col-md-3">
+                            <label for="tiempo_credito_cliente" class="form-label">Temporalidad de Credito</label>
+                            <input type="text" name="tiempo_credito" class="form-control input-form" id="tiempo_credito_cliente" required>
+                        </div>
+                        <div class="col-3 col-md-3">
+                            <label for="cuenta_contable_cliente" class="form-label">Cuenta Contable</label>
+                            <input type="text" name="cuenta_contable" id="cuenta_contable_cliente" class="form-control input-form" required>
+                        </div>
+                    </div>
+                    <div class="panel-step-1 row hidden">
+                        <p class="text-center col-12 subtitle">Datos Fiscales</p>
+
+                        <div class="col-6">
+                            <label for="calle_fiscal" class="form-label">Calle</label>
+                            <input type="text" name="calle_fiscal" id="calle_fiscal" class="form-control input-form" required>
+                        </div>
+                        <div class="col-2">
+                            <label for="numero_exterior" class="form-label">Número ext.</label>
+                            <input type="text" name="numero_exterior" id="numero_exterior" class="form-control input-form" required>
+                        </div>
+                        <div class="col-2">
+                            <label for="numero_interior" class="form-label">Número int.</label>
+                            <input type="text" name="numero_interior" id="numero_interior" class="form-control input-form">
+                        </div>
+                        <div class="col-2">
+                            <label for="codigo_postal" class="form-label">Codigo postal</label>
+                            <input type="number" name="codigo_postal" id="codigo_postal" class="form-control input-form" required>
+                        </div>
+                        <div class="col-6">
+                            <label for="colonia_fiscal" class="form-label">Colonia</label>
+                            <input type="text" name="colonia_fiscal" id="colonia_fiscal" class="form-control input-form" required>
+                        </div>
+
+                        <div class="col-6">
+                            <label for="estado_fiscal" class="form-label">Estado</label>
+                            <select name="estado_fiscal" id="estado_fiscal" class="form-control input-form" required>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label for="municipio_fiscal" class="form-label">Municipio</label>
+                            <input type="text" name="municipio_fiscal" id="municipio_fiscal" class="form-control input-form" required>
+                        </div>
+                        <div class="col-6">
+                            <label for="referencia_direccion" class="form-label">Referencias</label>
+                            <input type="text" name="referencia_direccion" id="referencia_direccion" class="form-control input-form">
+                        </div>
+                        <div class="col-6">
+                            <label for="corre_fiscal" class="form-label">Correo electrónico</label>
+                            <input type="text" name="corre_fiscal" id="corre_fiscal" class="form-control input-form" required>
+                        </div>
+                        <div class="col-2">
+                            <label for="lada_numero_fiscal" class="form-label">Lada</label>
+                            <input type="number" name="lada_numero_fiscal" id="lada_numero_fiscal" class="form-control input-form" required>
+                        </div>
+                        <div class="col-4">
+                            <label for="numero_fiscal" class="form-label">Teléfono de contacto</label>
+                            <input type="number" name="numero_fiscal" id="numero_fiscal" class="form-control input-form" required>
+                        </div>
+                    </div>
+                    <div class="panel-step-2 row hidden">
+                        <p class="text-center col-12 subtitle">Archivos Variados</p>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="pdf_situacion_fiscal" class="form-label">PDF Situación Fiscal</label>
+                                <input type="file" name="pdf_situacion_fiscal" accept="application/pdf" id="pdf_situacion_fiscal" class="form-control input-form">
+                            </div>
+                            <div class="col-6">
+                                <label for="pdf_convenios" class="form-label">PDF Conveio</label>
+                                <input type="file" name="pdf_convenios" accept="application/pdf" id="pdf_convenios" class="form-control input-form">
+                            </div>
+                            <div class="col-6">
+                                <label for="pdf_lista_precio" class="form-label">PDF Lista de Precios</label>
+                                <input type="file" name="pdf_lista_precio" accept="application/pdf" id="pdf_lista_precio" class="form-control input-form">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-step-3 row hidden">
+                        <p class="text-center col-12 subtitle">Otros Datos</p>
+
+                        <div class="col-12">
+                            <label for="comentarios_cliente" class="form-label">Comentarios</label>
+                            <input type="text" name="comentarios_cliente" id="comentarios_cliente" class="form-control input-form">
+                        </div>
+                        <div class="col-6 col-md-6">
+                            <label for="pagina_web" class="form-label">Pagina Web</label>
                             <input name="confac" id="pagina_web" placeholder="www.ejemplo.com" class="form-control input-form" required>
 
                         </div>
                         <div class="col-6 col-md-6">
-                            <label for="Facebook" class="form-label">Facebook</label>
-                            <input class="md-textarea input-form" name="indicaciones" id="facebook" cols="45" rows="2" placeholder=""></input>
+                            <label for="facebook" class="form-label">Facebook</label>
+                            <input class="md-textarea input-form" name="indicaciones" id="facebook" cols="45" rows="2" placeholder="" />
                         </div>
                         <div class="col-6 col-md-6">
-                            <label for="Twitter" class="form-label">Twitter</label>
-                            <input class="md-textarea input-form" type="text" id="twitter" name="indicaciones" cols="45" rows="2" placeholder=""></input>
+                            <label for="twitter" class="form-label">Twitter</label>
+                            <input class="md-textarea input-form" type="text" id="twitter" name="indicaciones" cols="45" rows="2" placeholder="" />
                         </div>
                         <div class="col-6 col-md-6">
-                            <label for="Instagram" class="form-label">Instagram</label>
-                            <input class="md-textarea input-form" type="text" id="instagram" name="indicaciones" cols="45" rows="2" placeholder=""></input>
+                            <label for="instagram" class="form-label">Instagram</label>
+                            <input class="md-textarea input-form" type="text" id="instagram" name="indicaciones" cols="45" rows="2" placeholder="" />
                         </div>
                         <div class="col-6 col-md-6">
-                            <label for="Codigo" class="form-label">Codigo</label>
-                            <input class="md-textarea input-form" name="indicaciones" type="text" id="codigo" cols="45" rows="2" placeholder=""></input>
+                            <label for="codigo" class="form-label">Codigo</label>
+                            <input class="md-textarea input-form" name="indicaciones" type="text" id="codigo" cols="45" rows="2" placeholder="" />
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal" id="btn-form-cancel">
+                <button type="button" class="btn btn-cancelar btn-form-cancel"  data-bs-dismiss="modal">
                     <i class="bi bi-arrow-left-short"></i> Cancelar
                 </button>
-
-                <button type="button" class="btn btn-cancelar hidden" id="btn-form-setps-back">
+                <button type="button" class="btn btn-cancelar hidden btn-form-setps-back">
                     <i class="bi bi-arrow-left-short"></i> Volver
                 </button>
-                <button type="button" class="btn btn-confirmar" id="btn-form-setps-next">
+                <button type="button" class="btn btn-confirmar btn-form-setps-next">
                     <i class="bi bi-person-plus"></i> Siguiente
                 </button>
-
-                <button type="submit" form="formActualizarCliente" class="btn btn-confirmar hidden" id="submit-actualizarcliente">
+                <button type="submit" form="formActualizarCliente" class="btn btn-confirmar hidden submit-formulario-modal">
                     <i class="bi bi-person-plus"></i> Actualizar
                 </button>
-            </div>
+                </div>
         </div>
     </div>
 </div>
-
-<style>
-    .hidden{
-        display: none;
-    }
-</style>

@@ -7,8 +7,18 @@ $menu = "Clientes";
 
 <head>
   <?php include "../../include/head.php"; ?>
-  <title><?php echo $menu; ?> | Bimo</title>ñ
-
+  <title><?php echo $menu; ?> | Bimo</title>
+    <style>
+        .hidden{
+            display: none;
+        }
+        .subtitle{
+            color: #004f5a !important;
+            font-weight: 600 !important;
+            font-size: 20px !important;
+            margin-bottom: 2px;
+        }
+    </style>
 </head>
 
 <body class="" id="body-controlador"> </body>
