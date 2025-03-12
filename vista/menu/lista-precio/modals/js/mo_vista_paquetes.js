@@ -149,8 +149,13 @@ TablaVistaListaPaquetes = $("#TablaVistaListaPaquetes").DataTable({
             text: '<i class="fa fa-file-excel-o"></i> Excel',
             className: 'btn btn-success',
             titleAttr: 'Excel',
-            filename: filename,
-            title: title,
+            filename: function() { return filename },
+            title: function() { return title },
+            exportOptions: {
+                modifier: {
+                    page: 'all'
+                }
+            },
             footer: true,
             customize: function (xlsx, row) {
                 var sheet = xlsx.xl.worksheets['sheet1.xml'];
@@ -215,13 +220,28 @@ ModalVistaPaquetes.addEventListener("show.bs.modal", (event) => {
 
         dataVistaPq = { id_cotizacion: $('#select-presupuestos').val(), api: 6 }
 
-        select = '#select-presupuestos:selected';
-        selectTitle = '#select-presupuestos option:selected';
+        select = $('#select-presupuestos option:selected');
+        selectTitle = $('#select-presupuestos option:selected');
 
     }
 
-    filename = $(select).text().split(' - ')[0]
-    title = $(selectTitle).text()
+    // dividimos el title para obtener los valores que nos interesan
+    var infoCot = selectTitle.text().split(' - ');
+    /** infoCot
+     * 0 : folio
+     * 1 : fecha
+     * 2 : cliente
+     * 3 : la persona a la que va dirigido
+     */
+
+    // CODIGO ORIGINAL
+    // filename = select.text().split(' - ')[0]
+    // title = selectTitle.text()
+
+    // CODIGO MODIFICADO 12/03/2025. JOSUE
+    //tratamos la fecha para quitarle los espacios
+    filename = `COT ${infoCot[0]} ${infoCot[2]} ${infoCot[1].replace(/\//g, "")}`;
+    title = `COTIZACIÓN ${infoCot[0]} ${infoCot[2]}`;
 
     TablaVistaListaPaquetes.clear().draw();
 
