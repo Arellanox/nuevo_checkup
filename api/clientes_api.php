@@ -20,6 +20,22 @@ $codigo = $_POST['codigo'];
 #insertar
 $id_cliente = $_POST['id_cliente'];
 $nombre_comercial = $_POST['nombre_comercial'];
+$tipo_contribuyente = $_POST['tipo_contribuyente'];
+$calle = $_POST['calle_fiscal'];
+$numero_exterior = $_POST['numero_exterior'];
+$numero_interior = $_POST['numero_interior'];
+$colonia = $_POST['colonia_fiscal'];
+$codigo_postal = $_POST['codigo_postal'];
+$estado = $_POST['estado_fiscal'];
+$municipio = $_POST['municipio_fiscal'];
+$referencias = $_POST['referencia_direccion'];
+$correo_electronico = $_POST['correo_fiscal'];
+$telefono_lada = $_POST['lada_numero_fiscal'];
+$telefono = $_POST['numero_fiscal'];
+$pdf_cif = $_POST['pdf_situacion_fiscal'];
+$pdf_convenio = $_POST['pdf_convenios'];
+$pdf_lista_precios = $_POST['pdf_lista_precio'];
+$comentarios = $_POST['comentarios_cliente'];
 $razon_social = $_POST['razon_social'];
 $nombre_sistema = $_POST['nombre_sistema'];
 $rfc = $_POST['rfc'];
@@ -28,20 +44,35 @@ $abreviatura = $_POST['abreviatura'];
 $limite_credito = $_POST['limite'];
 $temporalidad_de_credito = $_POST['tiempo_credito'];
 $cuenta_contable = $_POST['cuenta_contable'];
-$pagina_web = $_POST['confac'];
-$facebook = $_POST['Facebook'];
-$twitter = $_POST['Twitter'];
-$instagram = $_POST['Instagram'];
+$pagina_web = $_POST['pagina_web'];
+$facebook = $_POST['facebook'];
+$twitter = $_POST['twitter'];
+$instagram = $_POST['instagram'];
 $regimen = $_POST['regimen'];
 $convenio = $_POST['convenio'];
 $qr = $_POST['qr'];
+$codigo = $_POST['indicaciones'];
 $cfdi = $_POST['cfdi'];
 
 $parametros = array(
     $id_cliente,
-    $regimen,
-    $convenio,
     $nombre_comercial,
+    $tipo_contribuyente,
+    $calle,
+    $numero_exterior,
+    $numero_interior,
+    $colonia,
+    $codigo_postal,
+    $estado,
+    $municipio,
+    $referencias,
+    $correo_electronico,
+    $telefono_lada,
+    $telefono,
+    $pdf_cif,
+    $pdf_convenio,
+    $pdf_lista_precios,
+    $comentarios,
     $razon_social,
     $nombre_sistema,
     $rfc,
@@ -54,6 +85,8 @@ $parametros = array(
     $facebook,
     $twitter,
     $instagram,
+    $regimen,
+    $convenio,
     $codigo,
     $cfdi
 );

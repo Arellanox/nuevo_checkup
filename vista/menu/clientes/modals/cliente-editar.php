@@ -53,23 +53,23 @@
                                 <option value="4">CORTESIAS </option>
                             </select>
                         </div>
-                        <div class="col-6 col-md-6" style="display: none">
+                        <div class="col-6" style="display: none">
                             <label for="nombre_sistema" class="form-label">Nombre del Sistema</label>
                             <input name="nombre_sistema" id="nombre_sistema" value="none" class="form-control input-form" required>
                         </div>
-                        <div class="col-6 col-md-6">
+                        <div class="col-6">
                             <label for="abreviatura_cliente" class="form-label">Abreviatura</label>
                             <input type="text" name="abreviatura" id="abreviatura_cliente" class="form-control input-form" required>
                         </div>
-                        <div class="col-6 col-md-6">
+                        <div class="col-6">
                             <label for="limite_credito_cliente" class="form-label">Limite de Credito</label>
                             <input type="number" name="limite" id="limite_credito_cliente" class="form-control input-form" required>
                         </div>
-                        <div class="col-3 col-md-3">
+                        <div class="col-3">
                             <label for="tiempo_credito_cliente" class="form-label">Temporalidad de Credito</label>
                             <input type="text" name="tiempo_credito" class="form-control input-form" id="tiempo_credito_cliente" required>
                         </div>
-                        <div class="col-3 col-md-3">
+                        <div class="col-3">
                             <label for="cuenta_contable_cliente" class="form-label">Cuenta Contable</label>
                             <input type="text" name="cuenta_contable" id="cuenta_contable_cliente" class="form-control input-form" required>
                         </div>
@@ -112,8 +112,8 @@
                             <input type="text" name="referencia_direccion" id="referencia_direccion" class="form-control input-form">
                         </div>
                         <div class="col-6">
-                            <label for="corre_fiscal" class="form-label">Correo electrónico</label>
-                            <input type="text" name="corre_fiscal" id="corre_fiscal" class="form-control input-form" required>
+                            <label for="correo_fiscal" class="form-label">Correo electrónico</label>
+                            <input type="text" name="correo_fiscal" id="correo_fiscal" class="form-control input-form" required>
                         </div>
                         <div class="col-2">
                             <label for="lada_numero_fiscal" class="form-label">Lada</label>
@@ -151,20 +151,20 @@
                         </div>
                         <div class="col-6 col-md-6">
                             <label for="pagina_web" class="form-label">Pagina Web</label>
-                            <input name="confac" id="pagina_web" placeholder="www.ejemplo.com" class="form-control input-form" required>
+                            <input name="pagina_web" id="pagina_web" placeholder="www.ejemplo.com" class="form-control input-form" required>
 
                         </div>
                         <div class="col-6 col-md-6">
                             <label for="facebook" class="form-label">Facebook</label>
-                            <input class="md-textarea input-form" name="indicaciones" id="facebook" cols="45" rows="2" placeholder="" />
+                            <input class="md-textarea input-form" name="facebook" id="facebook" cols="45" rows="2" placeholder="" />
                         </div>
                         <div class="col-6 col-md-6">
                             <label for="twitter" class="form-label">Twitter</label>
-                            <input class="md-textarea input-form" type="text" id="twitter" name="indicaciones" cols="45" rows="2" placeholder="" />
+                            <input class="md-textarea input-form" type="text" id="twitter" name="twitter" cols="45" rows="2" placeholder="" />
                         </div>
                         <div class="col-6 col-md-6">
                             <label for="instagram" class="form-label">Instagram</label>
-                            <input class="md-textarea input-form" type="text" id="instagram" name="indicaciones" cols="45" rows="2" placeholder="" />
+                            <input class="md-textarea input-form" type="text" id="instagram" name="instagram" cols="45" rows="2" placeholder="" />
                         </div>
                         <div class="col-6 col-md-6">
                             <label for="codigo" class="form-label">Codigo</label>

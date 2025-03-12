@@ -19,10 +19,10 @@ ModalActualizarCliente.addEventListener("hide.bs.modal", (event) => { restablece
 
 const formularioActualizarCliente = document.getElementById("formActualizarCliente");
 formularioActualizarCliente.addEventListener("submit", function(event) {
-    if (!validarFormulario()) {
+    //if (!validarFormulario()) {
       event.preventDefault();
-      return;
-    }
+    //  return;
+    //}
 
     const form = document.getElementById("formActualizarCliente");
     const formData = new FormData(form);
@@ -50,7 +50,6 @@ formularioActualizarCliente.addEventListener("submit", function(event) {
                     if (mensajeAjax(data)) {
                         Toast.fire({icon: "success", title: "Datos de Cliente Actualizados Correctamente!", timer: 2000});
 
-                        //document.getElementById("formActualizarCliente").reset();
                         $('#formActualizarCliente').reset();
                         $("#ModalActualizarCliente").modal("hide");
 
@@ -82,14 +81,30 @@ async function cargarDatos() {
     $("#instagram").val(array_selected["INSTAGRAM"]);
     $("#twitter").val(array_selected["TWITTER"]);
     $("#codigo").val(array_selected["CODIGO"]);
-
     $('#selectRegimenFiscal-editar').val(array_selected["REGIMEN_ID"]);
     $('#select-cfdi-editar').val(array_selected["CFDI_ID"]);
-    $('#selectConvenio-editar').val(array_selected["CONVENIO_ID"])
+    $('#selectConvenio-editar').val(array_selected["CONVENIO_ID"]);
+    $('#tipo_contribuyente').val(array_selected["TIPO_CONTRIBUYENTE"]);
+    $('#calle_fiscal').val(array_selected["CALLE"]);
+    $('#numero_exterior').val(array_selected["NUMERO_EXTERIOR"]);
+    $('#numero_interior').val(array_selected["NUMERO_INTERIOR"]);
+    $('#codigo_postal').val(array_selected["CODIGO_POSTAL"]);
+    $('#colonia_fiscal').val(array_selected["COLONIA"]);
+    $('#estado_fiscal').val(array_selected["ESTADO"]);
+    $('#municipio_fiscal').val(array_selected["MUNICIPIO"]);
+    $('#referencia_direccion').val(array_selected["REFERENCIAS"]);
+    $('#correo_fiscal').val(array_selected["CORREO_ELECTRONICO"]);
+    $('#lada_numero_fiscal').val(array_selected["TELEFONO_LADA"]);
+    $('#numero_fiscal').val(array_selected["TELEFONO"]);
+    $('#comentarios_cliente').val(array_selected["COMENTARIOS"]);
+
+    const pdf1 = $('#pdf_situacion_fiscal').val(array_selected["PDF_CIF"]);
+    const pdf2 = $('#pdf_convenios').val(array_selected["PDF_CONVENIO"]);
+    const pdf3 = $('#pdf_lista_precio').val(array_selected["PDF_LISTA_PRECIOS"]);
 }
 
-function validarFormulario() {
-  let form = document.getElementById("formActualizarCliente");
+function validarFormulario(formId =  "formActualizarCliente") {
+  let form = document.getElementById(formId);
   let camposRequeridos = form.querySelectorAll("[required]");
   let errores = [];
 

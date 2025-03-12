@@ -113,7 +113,7 @@
                         </div>
                         <div class="col-6">
                             <label for="corre_fiscal-registrar" class="form-label">Correo electrónico</label>
-                            <input type="text" name="corre_fiscal" id="corre_fiscal-registrar" class="form-control input-form" required>
+                            <input type="text" name="correo_fiscal" id="corre_fiscal-registrar" class="form-control input-form" required>
                         </div>
                         <div class="col-2">
                             <label for="lada_numero_fiscal-registrar" class="form-label">Lada</label>
@@ -151,20 +151,19 @@
                         </div>
                         <div class="col-6 col-md-6">
                             <label for="pagina_web-registrar" class="form-label">Pagina Web</label>
-                            <input name="confac" id="pagina_web-registrar" placeholder="www.ejemplo.com" class="form-control input-form" required>
-
+                            <input name="pagina_web" id="pagina_web-registrar" placeholder="www.ejemplo.com" class="form-control input-form" required>
                         </div>
                         <div class="col-6 col-md-6">
                             <label for="facebook-registrar" class="form-label">Facebook</label>
-                            <input class="md-textarea input-form" name="indicaciones" id="facebook-registrar" cols="45" rows="2" placeholder="" />
+                            <input class="md-textarea input-form" name="facebook" id="facebook-registrar" cols="45" rows="2" placeholder="" />
                         </div>
                         <div class="col-6 col-md-6">
                             <label for="twitter-registrar" class="form-label">Twitter</label>
-                            <input class="md-textarea input-form" type="text" id="twitter-registrar" name="indicaciones" cols="45" rows="2" placeholder="" />
+                            <input class="md-textarea input-form" type="text" id="twitter-registrar" name="twitter" cols="45" rows="2" placeholder="" />
                         </div>
                         <div class="col-6 col-md-6">
                             <label for="instagram-registrar" class="form-label">Instagram</label>
-                            <input class="md-textarea input-form" type="text" id="instagram-registrar" name="indicaciones" cols="45" rows="2" placeholder="" />
+                            <input class="md-textarea input-form" type="text" id="instagram-registrar" name="instagram" cols="45" rows="2" placeholder="" />
                         </div>
                         <div class="col-6 col-md-6">
                             <label for="codigo-registrar" class="form-label">Codigo</label>
@@ -172,6 +171,7 @@
                         </div>
                     </div>
                 </form>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-cancelar btn-form-cancel"  data-bs-dismiss="modal">
