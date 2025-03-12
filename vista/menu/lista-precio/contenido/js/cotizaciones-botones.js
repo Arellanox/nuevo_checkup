@@ -58,6 +58,10 @@ $("#UsarPaquete").on("click", function () {
       { callbackAfter: true },
       false,
       (data) => {
+
+        row = data.response.data[0]['DETALLE'];
+        row2 = data.response.data[0];
+
         detalles = data.response.data[0]["DETALLE"];
         response = data.response.data[0];
 

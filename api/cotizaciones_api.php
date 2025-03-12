@@ -81,13 +81,12 @@ switch ($api) {
         $response = $master->getByProcedure("sp_cotizaciones_info_b", [$id_cotizacion]);
         $correo = $response[0]['CORREO'];
         $reporte = $response[0]['RUTA_REPORTE'];
-        // echo $correo;
-        // echo $reporte;
-        // exit;
+
+        $correos = obtenerCorreosValidos($correo);
 
         if (!empty($response[0])) {
             $mail = new Correo();
-            if ($mail->sendEmail('cotizacion', '[bimo] Cotización', [$correo], null, [$reporte])) {
+            if ($mail->sendEmail('cotizacion', '[bimo] Cotización', $correos, null, [$reporte])) {
                 $master->setLog("Correo enviado.", "Reporte de Cotización enviado");
             }
         }
@@ -111,3 +110,24 @@ switch ($api) {
 }
 
 echo $master->returnApi($response);
+
+
+
+function obtenerCorreosValidos($input) {
+    // Reemplazar comas por punto y coma
+    $input = str_replace(',', ';', $input);
+    
+    // Dividir en un array por ';'
+    $emails = explode(';', $input);
+    
+    // Limpiar espacios y filtrar correos válidos
+    $correosValidos = [];
+    foreach ($emails as $email) {
+        $email = trim($email); // Eliminar espacios en blanco
+        if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $correosValidos[] = $email;
+        }
+    }
+
+    return $correosValidos;
+}
