@@ -9,6 +9,14 @@ $menu = "Clientes";
   <?php include "../../include/head.php"; ?>
   <title><?php echo $menu; ?> | Bimo</title>
     <style>
+        .pdf-uploads > label {
+            width: 100%;
+            color: #5a5a5a;
+        }
+        .view-pdf-btn{
+            margin-top: 2px;
+            border: 2px solid #004f5a !important;
+        }
         .hidden{
             display: none !important;
         }

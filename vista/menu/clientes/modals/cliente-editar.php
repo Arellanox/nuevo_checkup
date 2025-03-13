@@ -128,32 +128,35 @@
                         <p class="text-center col-12 subtitle">Archivos Variados</p>
 
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12 pdf-uploads">
                                 <label for="pdf_situacion_fiscal" class="form-label">PDF Situación Fiscal</label>
-                                <a href="#" id="visualizar_pdf_situacion_fiscal" target="_blank" class="d-block py-4 text-center hidden">
+                                <a href="#" id="visualizar_pdf_situacion_fiscal" target="_blank"
+                                   class="d-block py-4 text-center hidden view-pdf-btn">
                                     <i class="bi bi-file-earmark-pdf"></i>
                                     Visualizar PDF de Situación Fiscal
                                 </a>
-                                <input type="file" name="pdf_situacion_fiscal[]" accept="application/pdf" id="pdf_situacion_fiscal"
-                                       class="form-control input-form">
+                                <input type="file" name="pdf_situacion_fiscal[]" accept="application/pdf"
+                                       id="pdf_situacion_fiscal" class="form-control input-form">
                             </div>
-                            <div class="col-6">
+                            <div class="col-12 pdf-uploads">
                                 <label for="pdf_convenios" class="form-label">PDF Convenio</label>
-                                <a href="#" id="visualizar_pdf_convenios" target="_blank" class="d-block py-4 text-center hidden">
+                                <a href="#" id="visualizar_pdf_convenios" target="_blank"
+                                   class="d-block py-4 text-center hidden view-pdf-btn">
                                     <i class="bi bi-file-earmark-pdf"></i>
                                     Visualizar PDF de Convenio
                                 </a>
                                 <input type="file" name="pdf_convenios[]" accept="application/pdf" id="pdf_convenios"
                                        class="form-control input-form">
                             </div>
-                            <div class="col-6">
+                            <div class="col-12 pdf-uploads">
                                 <label for="pdf_lista_precios" class="form-label">PDF Lista de Precios</label>
-                                <a href="#" id="visualizar_pdf_lista_precios" target="_blank" class="d-block py-4 text-center hidden">
+                                <a href="#" id="visualizar_pdf_lista_precios" target="_blank"
+                                   class="d-block py-4 text-center hidden view-pdf-btn">
                                     <i class="bi bi-file-earmark-pdf"></i>
                                     Visualizar PDF de Lista de Precios
                                 </a>
-                                <input type="file" name="pdf_lista_precio[]" accept="application/pdf" id="pdf_lista_precios"
-                                       class="form-control input-form">
+                                <input type="file" name="pdf_lista_precio[]" accept="application/pdf"
+                                       id="pdf_lista_precios" class="form-control input-form">
                             </div>
                         </div>
                     </div>
