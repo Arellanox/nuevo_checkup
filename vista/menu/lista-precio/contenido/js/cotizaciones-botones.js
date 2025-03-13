@@ -58,44 +58,42 @@ $("#UsarPaquete").on("click", function () {
       { callbackAfter: true },
       false,
       (data) => {
-        detalles = data.response.data[0]["DETALLE"];
-        response = data.response.data[0];
+        row = data.response.data[0]["DETALLE"];
+        row2 = data.response.data[0];
 
-        var datetimeString = response["FECHA_VENCIMIENTO"];
+        var datetimeString = row2["FECHA_VENCIMIENTO"];
         var fechaFormateada = moment(datetimeString).format("YYYY-MM-DD");
 
-        $("#input-atencion-cortizaciones").val(response["ATENCION"]);
-        $("#input-correo-cortizaciones").val(response["CORREO"]);
+        $("#input-atencion-cortizaciones").val(row2["ATENCION"]);
+        $("#input-correo-cortizaciones").val(row2["CORREO"]);
         $("#input-fecha-vigencia").val(fechaFormateada);
-        $("#input-observaciones-cortizaciones").val(response["OBSERVACIONES"]);
-        $("#input-domicilio_fiscal").val(response["DOMICILIO_FISCAL"]);
+        $("#input-observaciones-cortizaciones").val(row2["OBSERVACIONES"]);
+        $("#input-domicilio_fiscal").val(row2["DOMICILIO_FISCAL"]);
 
-        SelectedFolio = response["FOLIO"];
+        SelectedFolio = row2["FOLIO"];
 
         //DATOS DEL CLIENTE Y CALCULO DEL PAQUETE
-        if (detalles) {
-          console.log("detalles", detalles);
-          console.log("response", response);
+        if (row) {
           //ASIGNAR DATOS DE CLIENTE
-          $("#nombreCotizacionCliente").html(response["ATENCION"]);
-          $("#correoCotizacionCliente").html(response["CORREO"]);
-          $("#fiscalCotizacionCliente").html(response["DOMICILIO_FISCAL"]);
-          $("#observacionesCotizacionCliente").html(response["OBSERVACIONES"]);
+          $("#nombreCotizacionCliente").html(row2["ATENCION"]);
+          $("#correoCotizacionCliente").html(row2["CORREO"]);
+          $("#fiscalCotizacionCliente").html(row2["DOMICILIO_FISCAL"]);
+          $("#observacionesCotizacionCliente").html(row2["OBSERVACIONES"]);
 
           //ASIGNAR CALCULO DE PAQUETE
-          $("#descuento-paquete").val(response["PORCENTAJE_DESCUENTO"]);
+          $("#descuento-paquete").val(row2["PORCENTAJE_DESCUENTO"]);
 
-          for (const key in detalles) {
-            if (Object.hasOwnProperty.call(detalles, key)) {
-              const element = detalles[key];
+          for (const key in row) {
+            if (Object.hasOwnProperty.call(row, key)) {
+              const element = row[key];
               meterDato(
-                detalles[key]["PRODUCTO"],
-                detalles[key]["ABREVIATURA"],
-                detalles[key]["COSTO_BASE"],
-                detalles[key]["SUBTOTAL_BASE"],
-                detalles[key]["CANTIDAD"],
-                detalles[key]["DESCUENTO_PORCENTAJE"],
-                detalles[key]["ID_SERVICIO"],
+                row[key]["PRODUCTO"],
+                row[key]["ABREVIATURA"],
+                row[key]["COSTO_BASE"],
+                row[key]["SUBTOTAL_BASE"],
+                row[key]["CANTIDAD"],
+                row[key]["DESCUENTO_PORCENTAJE"],
+                row[key]["ID_SERVICIO"],
                 null,
                 tablaContenidoPaquete
               );

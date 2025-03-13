@@ -111,7 +111,6 @@ async function cargarDatos() {
     mostrarPDF("#visualizar_pdf_convenios", array_selected["PDF_CONVENIO"]);
     mostrarPDF("#visualizar_pdf_lista_precios", array_selected["PDF_LISTA_PRECIOS"]);
 
-    console.log(array_selected);
 }
 
 function mostrarPDF(selector, url) {
