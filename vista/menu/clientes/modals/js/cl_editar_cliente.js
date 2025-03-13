@@ -21,8 +21,9 @@ ModalActualizarCliente.addEventListener("hide.bs.modal", () => { restablecerPaso
 const formularioActualizarCliente = document.getElementById("formActualizarCliente");
 
 formularioActualizarCliente.addEventListener("submit", function(event) {
+    event.preventDefault();
+
     if (!validarFormulario()) {
-        event.preventDefault();
         return;
     }
 

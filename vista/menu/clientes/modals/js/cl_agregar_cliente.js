@@ -9,10 +9,11 @@ ModalRegistrarCliente.addEventListener("hide.bs.modal", (event) => { restablecer
 //Formulario Para agregar interpretacion
 const formulariorRegistrarCliente = document.getElementById("formRegistrarCliente");
 formulariorRegistrarCliente.addEventListener("submit", function(event) {
-    //if (!validarFormulario("formRegistrarCliente")) {
-        event.preventDefault();
-    //    return;
-    //}
+    event.preventDefault();
+
+    if (!validarFormulario("formRegistrarCliente")) {
+        return;
+    }
 
     const form = document.getElementById("formRegistrarCliente");
     const formData = new FormData(form);
