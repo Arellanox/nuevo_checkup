@@ -115,11 +115,10 @@ async function cargarDatos() {
 }
 
 function mostrarPDF(selector, url) {
-    console.log(url)
     if (url) {
         $(selector).removeClass('hidden').attr("href", current_url + url);
-        console.log('entro al mostrat pdf')
-        console.log(selector)
+    }else{
+        $(selector).addClass('hidden').attr("href", current_url + url);
     }
 }
 
