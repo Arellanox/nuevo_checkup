@@ -925,7 +925,6 @@ class Miscelaneus
             'ABREVIATURA' => $infoCliente[0]['ABREVIATURA'],
             'CANTIDAD' => $cantidad,
             'PORCENTAJE_DESCUENTO' => $infoCliente[0]['PORCENTAJE_DESCUENTO']
-
         );
 
 
