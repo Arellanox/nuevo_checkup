@@ -10,7 +10,7 @@ $menu = "Clientes";
   <title><?php echo $menu; ?> | Bimo</title>
     <style>
         .hidden{
-            display: none;
+            display: none !important;
         }
         .subtitle{
             color: #004f5a !important;

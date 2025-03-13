@@ -8,9 +8,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/clientes_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/clientes_api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/clientes/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/clientes/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/menu/clientes/modals/cliente-agregar.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/clientes/modals/cliente-agregar.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/menu/clientes/modals/cliente-editar.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/clientes/modals/cliente-editar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/clientes/modals/js/cl_agregar_cliente.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/clientes/modals/js/cl_agregar_cliente.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/menu/clientes/modals/js/cl_editar_cliente.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/clientes/modals/js/cl_editar_cliente.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -69,7 +69,7 @@
     </include_path>
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -140,7 +140,8 @@
       <workItem from="1741615485966" duration="13925000" />
       <workItem from="1741639018231" duration="3740000" />
       <workItem from="1741702817301" duration="23415000" />
-      <workItem from="1741789310979" duration="22906000" />
+      <workItem from="1741789310979" duration="23174000" />
+      <workItem from="1741875803819" duration="13374000" />
     </task>
     <servers />
   </component>

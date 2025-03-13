@@ -15,4 +15,6 @@ function cargarDireccionEstadosSelect(id) {
         option.textContent = estado;
         selectEstado.appendChild(option);
     });
+
+    return true;
 }
