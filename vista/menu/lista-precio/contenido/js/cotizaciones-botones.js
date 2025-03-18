@@ -5,6 +5,7 @@ select2('#select-presupuestos', 'form-select-paquetes')
 //Declarar variable para la clase
 var selectEstudio, SelectedFolio;
 var datosUsuarioCotizacion = $('#datosUsuarioCotizacion');
+let correos;
 
 $('#agregar-estudio-paquete').click(function () {
   selectData = selectEstudio.array[$("#seleccion-estudio").prop('selectedIndex')]
@@ -70,6 +71,8 @@ $("#UsarPaquete").on("click", function () {
 
         $("#input-atencion-cortizaciones").val(response["ATENCION"]);
         $("#input-correo-cortizaciones").val(response["CORREO"]);
+        // $("#hidden-correos").val(response["CORREO"]);
+        // cargarCorreos(response)
         $("#input-fecha-vigencia").val(fechaFormateada);
         $("#input-observaciones-cortizaciones").val(response["OBSERVACIONES"]);
         $("#input-domicilio_fiscal").val(response["DOMICILIO_FISCAL"]);
@@ -78,8 +81,6 @@ $("#UsarPaquete").on("click", function () {
 
         //DATOS DEL CLIENTE Y CALCULO DEL PAQUETE
         if (detalles) {
-          console.log("detalles", detalles);
-          console.log("response", response);
           //ASIGNAR DATOS DE CLIENTE
           $("#nombreCotizacionCliente").html(response["ATENCION"]);
           $("#correoCotizacionCliente").html(response["CORREO"]);
@@ -197,10 +198,12 @@ $("#guardar-contenido-paquete").on("click", function () {
             dataAjaxDetalleCotizacion["descuento_porcentaje"],
           cliente_id: dataAjaxDetalleCotizacion["cliente_id"],
           atencion: $("#input-atencion-cortizaciones").val(),
-          correo: $("#input-correo-cortizaciones").val(),
+          //correo: $("#input-correo-cortizaciones").val(),
+          correo: $("#hidden-correos").val(),
           observaciones: $("#input-observaciones-cortizaciones").val(),
           fecha_vigencia: $("#input-fecha-vigencia").val(),
           domicilio_fiscal: $("#input-domicilio_fiscal").val(),
+
         };
 
         if ($("input[type=radio][name=selectPaquete]:checked").val() == 2) {
@@ -344,5 +347,3 @@ function downloadFromUrl(url) {
       })
       .catch(error => console.error("Error al descargar:", error));
 }
-
-
