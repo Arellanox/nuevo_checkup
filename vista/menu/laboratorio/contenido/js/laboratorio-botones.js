@@ -129,9 +129,13 @@ $('#btn-lista-trabajo-barras').click(function(){
   area = encodeURIComponent(window.btoa(areaActiva));
 
   window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, "_blank");
-})
+});
+
 $('#btn-estudios-pendientes-notificacion').click(function(){
   $('#modalEstudiosPendientes').modal("show");
+});
+$('#btn-maquilas-pendientes-notificacion').click(function(){
+  $('#modalMaquilasPendientes').modal("show");
 });
 
 //ObtenerPDF

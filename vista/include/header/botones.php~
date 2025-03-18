@@ -249,7 +249,7 @@ $menu == 'Laboratorio Biomolecular'
 ) : ?>
     <div class="row">
         <div class="col-auto d-flex gap-3 align-items-center">
-            <button type="button" class="btn btn-primary position-relative gap-2" id="btn-maquilas-pendientes-notificacion"
+            <button type="button" class="btn btn-primary position-relative" id="btn-maquilas-pendientes-notificacion"
                     data-bs-toggle="tooltip" data-bs-placement="bottom" title="Estudio envido a mquilar por aprobar"
             >
                 <i class="fa fa-clock-o"></i> Maquilas
@@ -258,7 +258,7 @@ $menu == 'Laboratorio Biomolecular'
                       <span class="visually-hidden">maquilas pendientes</span>
                     </span>
             </button>
-            <button type="button" class="btn btn-primary position-relative gap-2" id="btn-estudios-pendientes-notificacion"
+            <button type="button" class="btn btn-primary position-relative" id="btn-estudios-pendientes-notificacion"
                     data-bs-toggle="tooltip" data-bs-placement="bottom" title="Estudios pendientes por realizar"
             >
                 <i class="fa fa-clock-o"></i> Pendientes

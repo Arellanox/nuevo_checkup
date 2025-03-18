@@ -11,7 +11,7 @@
             </div>
             <div class="modal-body">
                 <div id="modal-body-maquila-estudios">
-                    <label class="form-label">Laboratorios</label>
+                    <label class="form-label">Laboratorios <?= $_SESSION ?></label>
                     <select id="select-laboratorios-maquila" class="input-form" >
                     </select>
                 </div>
