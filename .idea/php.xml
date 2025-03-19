@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PhpCodeSniffer">
+    <phpcs_settings>
+      <PhpCSConfiguration asDefaultInterpreter="true" />
+    </phpcs_settings>
+  </component>
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/kwn/number-to-words" />
+      <path value="$PROJECT_DIR$/php/codeqr/vendor/chillerlan/php-settings-container" />
+      <path value="$PROJECT_DIR$/php/codeqr/vendor/composer" />
+      <path value="$PROJECT_DIR$/php/codeqr/vendor/chillerlan/php-qrcode" />
+      <path value="$PROJECT_DIR$/php/dompdf/vendor/phenx/php-font-lib" />
+      <path value="$PROJECT_DIR$/php/dompdf/vendor/phenx/php-svg-lib" />
+      <path value="$PROJECT_DIR$/php/dompdf/vendor/dompdf/dompdf" />
+      <path value="$PROJECT_DIR$/php/dompdf/vendor/sabberworm/php-css-parser" />
+      <path value="$PROJECT_DIR$/php/dompdf/vendor/composer" />
+      <path value="$PROJECT_DIR$/php/dompdf/vendor/masterminds/html5" />
+      <path value="$PROJECT_DIR$/php/dompdf/vendor/picqer/php-barcode-generator" />
+      <path value="$PROJECT_DIR$/lib/libmergpdf/vendor/composer" />
+      <path value="$PROJECT_DIR$/lib/libmergpdf/vendor/iio/libmergepdf" />
+      <path value="$PROJECT_DIR$/lib/libmergpdf/vendor/setasign/fpdi" />
+      <path value="$PROJECT_DIR$/lib/libmergpdf/vendor/tecnickcom/tcpdf" />
+    </include_path>
+  </component>
+  <component name="PhpProjectSharedConfiguration" php_language_level="7.3">
+    <option name="suggestChangeDefaultLanguageLevel" value="false" />
+  </component>
+</project>
