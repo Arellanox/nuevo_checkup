@@ -195,8 +195,8 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
 <?php endif; ?>
 
 
-<?php if($_SESSION['vista']['maquilas'] == 1):  ?>
+<?php if($_SESSION['vista']['MAQUILAS'] == 1):  ?>
     <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/maquilas/'; ?>">
-        <i class="bi bi-piggy-bank"></i> Maquilas
+        <i class="bi bi-file-earmark-break"></i> Maquilas
     </a>
 <?php endif; ?>

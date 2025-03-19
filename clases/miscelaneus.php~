@@ -745,6 +745,9 @@ class Miscelaneus
                 # $turno_id corresponde a la fecha de la lista de trabajo que se quiere imprimir
                 $arregloPaciente = $master->getByProcedure("sp_lista_de_trabajo_barras", [$turno_id, 6, null, null, null]);
                 break;
+            case -8:
+                $arregloPaciente = $this->getBodyRequisicionMaquilas($master, $turno_id);
+                break;
         }
 
 
@@ -761,7 +764,6 @@ class Miscelaneus
         );
 
         switch ($area_id) {
-
                 # para reportes que no usan $turno_id para su creacion.
             case 15:
                 $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/";
