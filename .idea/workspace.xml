@@ -5,19 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="af65b511-fae7-4667-83bd-cb6ca4b438cc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/vista/menu/laboratorio/modals/js/maquilas_pendientes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vista/menu/laboratorio/modals/maquilas_pendientes.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/nuevo_checkup.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/nuevo_checkup.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/laboratorio_estudios_maquila_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/laboratorio_estudios_maquila_api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/services/notifications/server.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/services/notifications/server.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/include/header/botones.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/include/header/botones.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/js/laboratorio-botones.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/js/laboratorio-botones.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/controlador.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/controlador.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/laboratorio.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/laboratorio.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/laboratorio/modals/controlador.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/laboratorio/modals/controlador.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/laboratorio/modals/m_laboratorio.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/laboratorio/modals/m_laboratorio.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/laboratorio/modals/maquila_estudios.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/laboratorio/modals/maquila_estudios.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +85,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "com.codeium.enabled": "true",
-    "git-widget-placeholder": "notificaciones__server__sent__events",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "F:/AppServ/www/nuevo_checkup/core/modules/notifications",
     "node.js.detected.package.eslint": "true",

@@ -1,13 +1,11 @@
 var areaActiva;
 var tablaListaPaciente, dataListaPaciente;
 var idsEstudiosa, selectListaLab;
-
-
-
-
+var totalNotificacionesDisponibles = 0;
 
 async function obtenerContenidoLaboratorio(titulo) {
   await obtenerTitulo(titulo);
+
   $.post("contenido/laboratorio.php", function (html) {
     $("#body-js").html(html);
   }).done(function () {
@@ -16,22 +14,45 @@ async function obtenerContenidoLaboratorio(titulo) {
     $.getScript('contenido/js/lista-tabla.js')
     // Botones
     $.getScript('contenido/js/laboratorio-botones.js')
-    
     // notificacion estudios pendientes
     ajaxAwait({
-      api: 6
+      api: 7
     }, 'laboratorio_servicios_api', { callbackAfter: true }, false, function (data) {
-      $('#estudios-pendientes-notificacion').text(data.response.data);
+        if(data.response.data?.length > 0){
+          $('#badge-maquila-icon').removeClass('hidden');
+          $('#estudios-pendientes-notificacion').text(data.response.data?.length);
+          totalNotificacionesDisponibles += data.response.data?.length;
+        }else {
+          $('#badge-maquila-icon').addClass('hidden');
+        }
     });
 
+    ajaxAwait({
+      api: 2, MOSTRAR_OCULTOS: 1
+    }, 'laboratorio_estudios_maquila_api', { callbackAfter: true }, false, function (data) {
+      if(data.response.data?.length > 0){
+        $('#badge-maquila-icon').removeClass('hidden');
+        $('#maquilas-pendientes-notificacion').text(data.response.data?.length);
+        totalNotificacionesDisponibles += data.response.data?.length;
+      } else {
+        $('#badge-maquila-icon').addClass('hidden');
+      }
+
+      if(totalNotificacionesDisponibles > 0){
+        $('#base-pendientes-notificacion').removeClass('hidden');
+        $('#base-pendientes-notificacion').text(totalNotificacionesDisponibles);
+      }else {
+        $('#base-pendientes-notificacion').addClass('hidden');
+      }
+    });
   });
 }
 
 
 hasLocation()
-$(window).on("hashchange", function (e) {
-  hasLocation();
-});
+
+$(window).on("hashchange", function (e) { hasLocation(); });
+
 function hasLocation() {
   var hash = window.location.hash.substring(1);
   $("a").removeClass("navlinkactive");
