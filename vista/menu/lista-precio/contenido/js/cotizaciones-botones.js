@@ -120,20 +120,24 @@ $("#UsarPaquete").on("click", function () {
   } else {
     ajaxAwait({id_cotizacion: id_cotizacion, api: 2}, "cotizaciones_api", {callbackAfter: true}, false,
         (data) => {
-          const response_register = data.response.data[0];
+          if(data.response.data.length > 0){
+            const response_register = data.response.data[0];
 
-          const domicilio_fiscal =
-              (response_register['DOMICILIO_FISCAL'] && response_register['DOMICILIO_FISCAL'].trim() !== '')
-                  ? response_register['DOMICILIO_FISCAL'] :
-                  `${response_register["ESTADO"] ?? 'Estado'}, ` +
-                  `${response_register["MUNICIPIO"] ?? 'Municipio'}, ` +
-                  `Col. ${response_register["COLONIA"] ?? 'Colonia'}, ` +
-                  `C. ${response_register["CALLE"] ?? 'Calle'}, ` +
-                  `No. Ext. ${response_register["NUMERO_EXTERIOR"] ?? 'SN'}, ` +
-                  `No. Int. ${response_register["NUMERO_INTERIOR"] ?? 'SN'}`;
+            const domicilio_fiscal =
+                (response_register['DOMICILIO_FISCAL'] && response_register['DOMICILIO_FISCAL'].trim() !== '')
+                    ? response_register['DOMICILIO_FISCAL'] :
+                    `${response_register["ESTADO"] ?? 'Estado'}, ` +
+                    `${response_register["MUNICIPIO"] ?? 'Municipio'}, ` +
+                    `Col. ${response_register["COLONIA"] ?? 'Colonia'}, ` +
+                    `C. ${response_register["CALLE"] ?? 'Calle'}, ` +
+                    `No. Ext. ${response_register["NUMERO_EXTERIOR"] ?? 'SN'}, ` +
+                    `No. Int. ${response_register["NUMERO_INTERIOR"] ?? 'SN'}`;
 
-          $("#input-domicilio_fiscal").val(domicilio_fiscal);
-          $("#fiscalCotizacionCliente").html(domicilio_fiscal);
+            $("#input-domicilio_fiscal").val(domicilio_fiscal);
+            $("#fiscalCotizacionCliente").html(domicilio_fiscal);
+          } else {
+            $("#fiscalCotizacionCliente").html('Completa los datos del cliente, para autorellenar esta sección.');
+          }
         }
     ).then(r => {});
   }
