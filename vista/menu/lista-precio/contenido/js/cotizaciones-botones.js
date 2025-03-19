@@ -3,8 +3,9 @@ select2('#seleccion-estudio', 'form-select-paquetes')
 select2('#select-presupuestos', 'form-select-paquetes')
 
 //Declarar variable para la clase
-let selectEstudio, SelectedFolio;
-const datosUsuarioCotizacion = $('#datosUsuarioCotizacion');
+var selectEstudio, SelectedFolio;
+var datosUsuarioCotizacion = $('#datosUsuarioCotizacion');
+let correos;
 
 $('#agregar-estudio-paquete').click(function () {
   selectData = selectEstudio.array[$("#seleccion-estudio").prop('selectedIndex')]
@@ -58,17 +59,29 @@ $("#UsarPaquete").on("click", function () {
       { callbackAfter: true },
       false,
       (data) => {
-        row = data.response.data[0]["DETALLE"];
+
+        row = data.response.data[0]['DETALLE'];
         row2 = data.response.data[0];
 
-        var datetimeString = row2["FECHA_VENCIMIENTO"];
-        var fechaFormateada = moment(datetimeString).format("YYYY-MM-DD");
+        const datetimeString = row2["FECHA_VENCIMIENTO"];
+        const fechaFormateada = moment(datetimeString).format("YYYY-MM-DD");
+        const domicilio_fiscal =
+            (row2['DOMICILIO_FISCAL'] && row2['DOMICILIO_FISCAL'].trim() !== '')
+                ? row2['DOMICILIO_FISCAL'] :
+                `${row2["ESTADO"] ?? 'Estado'}, ` +
+                `${row2["MUNICIPIO"] ?? 'Municipio'}, ` +
+                `Col. ${row2["COLONIA"] ?? 'Colonia'}, ` +
+                `C. ${row2["CALLE"] ?? 'Calle'}, ` +
+                `No. Ext. ${row2["NUMERO_EXTERIOR"] ?? 'SN'}, ` +
+                `No. Int. ${row2["NUMERO_INTERIOR"] ?? 'SN'}`;
 
         $("#input-atencion-cortizaciones").val(row2["ATENCION"]);
         $("#input-correo-cortizaciones").val(row2["CORREO"]);
+        // $("#hidden-correos").val(response["CORREO"]);
+        // cargarCorreos(response)
         $("#input-fecha-vigencia").val(fechaFormateada);
         $("#input-observaciones-cortizaciones").val(row2["OBSERVACIONES"]);
-        $("#input-domicilio_fiscal").val(row2["DOMICILIO_FISCAL"]);
+        $("#input-domicilio_fiscal").val(domicilio_fiscal);
 
         SelectedFolio = row2["FOLIO"];
 
@@ -77,7 +90,7 @@ $("#UsarPaquete").on("click", function () {
           //ASIGNAR DATOS DE CLIENTE
           $("#nombreCotizacionCliente").html(row2["ATENCION"]);
           $("#correoCotizacionCliente").html(row2["CORREO"]);
-          $("#fiscalCotizacionCliente").html(row2["DOMICILIO_FISCAL"]);
+          $("#fiscalCotizacionCliente").html(domicilio_fiscal);
           $("#observacionesCotizacionCliente").html(row2["OBSERVACIONES"]);
 
           //ASIGNAR CALCULO DE PAQUETE
@@ -104,11 +117,33 @@ $("#UsarPaquete").on("click", function () {
         }
       }
     );
+  } else {
+    ajaxAwait({id_cotizacion: id_cotizacion, api: 2}, "cotizaciones_api", {callbackAfter: true}, false,
+        (data) => {
+          if(data.response.data.length > 0){
+            const response_register = data.response.data[0];
+
+            const domicilio_fiscal =
+                (response_register['DOMICILIO_FISCAL'] && response_register['DOMICILIO_FISCAL'].trim() !== '')
+                    ? response_register['DOMICILIO_FISCAL'] :
+                    `${response_register["ESTADO"] ?? 'Estado'}, ` +
+                    `${response_register["MUNICIPIO"] ?? 'Municipio'}, ` +
+                    `Col. ${response_register["COLONIA"] ?? 'Colonia'}, ` +
+                    `C. ${response_register["CALLE"] ?? 'Calle'}, ` +
+                    `No. Ext. ${response_register["NUMERO_EXTERIOR"] ?? 'SN'}, ` +
+                    `No. Int. ${response_register["NUMERO_INTERIOR"] ?? 'SN'}`;
+
+            $("#input-domicilio_fiscal").val(domicilio_fiscal);
+            $("#fiscalCotizacionCliente").html(domicilio_fiscal);
+          } else {
+            $("#fiscalCotizacionCliente").html('Completa los datos del cliente, para autorellenar esta sección.');
+          }
+        }
+    ).then(r => {});
   }
 });
 
-
-$('#CambiarPaquete').on('click', function () {
+$( '#CambiarPaquete').on('click', function () {
   $('#nombreCotizacionCliente').html('')
   $('#correoCotizacionCliente').html('')
   $('#fiscalCotizacionCliente').html('')
@@ -141,13 +176,12 @@ $('input[type="radio"][name="selectPaquete"]').change(function () {
 
 $('input[type=radio][name=selectChecko]').change(function () {
 
-  if ($(this).val() !== 0) {
+  if ($(this).val() != 0) {
     // selectData = null;
     rellenarSelect("#seleccion-estudio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
       area_id: this.value,
       cliente_id: $('#seleccion-paquete').val()
     }, function (listaEstudios) {
-      console.log(listaEstudios)
       selectEstudio = new GuardarArreglo(listaEstudios);
     }); //Mandar cliente para lista personalizada
   } else {
@@ -192,10 +226,12 @@ $("#guardar-contenido-paquete").on("click", function () {
             dataAjaxDetalleCotizacion["descuento_porcentaje"],
           cliente_id: dataAjaxDetalleCotizacion["cliente_id"],
           atencion: $("#input-atencion-cortizaciones").val(),
-          correo: $("#input-correo-cortizaciones").val(),
+          //correo: $("#input-correo-cortizaciones").val(),
+          correo: $("#hidden-correos").val(),
           observaciones: $("#input-observaciones-cortizaciones").val(),
           fecha_vigencia: $("#input-fecha-vigencia").val(),
           domicilio_fiscal: $("#input-domicilio_fiscal").val(),
+
         };
 
         if ($("input[type=radio][name=selectPaquete]:checked").val() == 2) {
@@ -258,7 +294,7 @@ $(document).on(
 );
 
 $('#seleccion-paquete').on('change', async function (e) {
-  await orderAndFillSelects("#select-presupuestos", 'cotizaciones_api', 4, 'ID_COTIZACION', 'FOLIO_FECHA', {
+  await rellenarSelect("#select-presupuestos", 'cotizaciones_api', 4, 'ID_COTIZACION', 'FOLIO_FECHA', {
     cliente_id: $('#seleccion-paquete').val()
   });
 })
@@ -311,3 +347,31 @@ $('#btn-enviarCorreo-cotizaciones').click(function (e) {
   }, 1)
 
 })
+
+$('#btn-descargar-cotizacion').click(function (e){
+  ajaxAwait({ api: 7, id_cotizacion: $('#select-presupuestos').val() }, 'cotizaciones_api', { callbackAfter: true }, false, (data) => {
+    // hacer lo que quieras con el url
+    downloadFromUrl(data.response.data[0]['RUTA_REPORTE']);
+  })
+})
+
+
+
+function downloadFromUrl(url) {
+  // Extraer el nombre del archivo desde la URL
+  const filename = url.split('/').pop();
+
+  fetch(url)
+      .then(response => response.blob()) // Convertir la respuesta en Blob
+      .then(blob => {
+          const a = document.createElement("a");
+          const objectURL = URL.createObjectURL(blob);
+          a.href = objectURL;
+          a.download = filename; // Usar el nombre extraído
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(objectURL); // Limpiar memoria
+      })
+      .catch(error => console.error("Error al descargar:", error));
+}

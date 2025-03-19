@@ -426,3 +426,69 @@ $(document).on('click', 'button.toggle-vis', function (e) {
   if (column_costo.visible())
     $(this).addClass('span-info');
 });
+
+
+
+
+
+// function cargarCorreos(response) {
+//   correos = response["CORREO"] ? response["CORREO"].split(";").map(correo => correo.trim()) : [];
+//   $("#correo-container").empty(); // Limpiar badges anteriores
+
+//   correos.forEach(correo => {
+//       if (correo !== "" && validarCorreo(correo)) {
+//           agregarEtiquetaCorreo(correo);
+//       }
+//   });
+
+//   // Volver a agregar el input para que sea editable
+//   $("#correo-container").append('<input type="text" id="input-correo-cortizaciones" class="border-0" style="outline: none; width: auto;" placeholder="Escriba correos separados por ;">');
+
+//   actualizarHidden();
+//   configurarInputCorreo(); // Reconfigurar eventos del input
+// }
+
+// function agregarEtiquetaCorreo(correo) {
+//   let badge = $(`
+//       <span class="badge bg-primary me-1">
+//           ${correo} <span class="ms-2 cursor-pointer" style="cursor:pointer;" data-correo="${correo}">x</span>
+//       </span>
+//   `);
+//   badge.find("span").on("click", function () {
+//       let correoEliminar = $(this).data("correo");
+//       correos = correos.filter(c => c !== correoEliminar);
+//       $(this).parent().remove();
+//       actualizarHidden();
+//   });
+
+//   $("#correo-container").prepend(badge);
+// }
+
+// function actualizarHidden() {
+//   $("#hidden-correos").val(correos.join(";"));
+// }
+
+// function validarCorreo(email) {
+//   let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//   return regex.test(email);
+// }
+
+// function configurarInputCorreo() {
+//   $("#input-correo-cortizaciones").on("keyup", function (event) {
+//       let input = $(this);
+//       let correo = input.val().trim();
+
+//       if (correo.endsWith(";")) {
+//           correo = correo.slice(0, -1).trim(); // Elimina el ';' final
+
+//           if (correo !== "" && validarCorreo(correo) && !correos.includes(correo)) {
+//               correos.push(correo);
+//               agregarEtiquetaCorreo(correo);
+//               input.val(""); // Limpia el campo después de agregar el correo
+//               actualizarHidden();
+//           }
+//       }
+//   });
+// }
+
+

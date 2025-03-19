@@ -6,17 +6,6 @@
 <!-- tabs para movil -->
 <div id="tab-button"></div>
 
-<!-- imprimir lista de trabajo con codigo de barras -->
-<div class="row d-flex justify-content-center align-items-center py-2">
-    <div
-         class="col-auto d-flex align-items-center" data-bs-toggle="tooltip" data-bs-placement="bottom"
-         title="Imprimir lista de trabajo"
-    >
-        <button type="button" id="btn-lista-trabajo-barras" class="btn btn-danger me-2">Imprimir LT</button>
-    </div>
-</div>
-<!-- imprimir lista de trabajo con codigo de barras -->
-
 <div class="row">
       <div class="col-12 col-xl-4 tab-first " id="tab-paciente" style="margin-right: -5px !important;">
         <div class="rounded p-3 shadow my-2" id="lista-pacientes">
@@ -98,14 +87,22 @@
           color: rgb(247, 190, 000) !important;
         }
 
-        .btn-maquila-estudios, .btn-posponer-estudios{
+        .btn-maquila-estudios,
+        .btn-posponer-estudios,
+        #btn-maquilas-pendientes-notificacion,
+        #btn-estudios-pendientes-notificacion{
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
         }
-        .btn-maquila-estudios:hover, .btn-posponer-estudios:hover{
+
+        .btn-maquila-estudios:hover,
+        .btn-posponer-estudios:hover,
+        #btn-maquilas-pendientes-notificacion:hover,
+        #btn-estudios-pendientes-notificacion:hover{
             color: #d58512;
+            cursor: pointer !important;
         }
       </style>
 

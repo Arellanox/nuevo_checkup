@@ -429,12 +429,16 @@ switch ($idioma) {
             <table style=\" width: 180px; text-align: right; border-bottom: transparent; align-items:right; \">
                 <tbody>
                     <tr>
-                        <td>Subtotal</td>
-                        <td>$ " . number_format($resultados->SUBTOTAL_SIN_DESCUENTO, 2, '.',',') . "</td>
+                        <td>Total de cargos</td>
+                        <td>$ ". number_format($resultados->SUBTOTAL_SIN_DESCUENTO, 2, '.', ',')  ."</td>
                     </tr>
                     <tr>
                         <td>Descuento (" . $resultados->PORCENTAJE_DESCUENTO . "%)</td>
                         <td>$ " . number_format($resultados->DESCUENTO, 2, '.', ',') . "</td>
+                    </tr>
+                    <tr>
+                        <td>Subtotal</td>
+                        <td>$ " . number_format($resultados->SUBTOTAL, 2, '.',',') . "</td>
                     </tr>
                     <tr>
                         <td>IVA (16.00%)</td>

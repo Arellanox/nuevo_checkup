@@ -9,14 +9,6 @@ clases/credenciales_access/email_connect.php
 api/archivos/splittedSql
 api/archivos/sql
 api/log.txt
+.idea
 .idea/*.xml
 .idea/*.iml
-.idea/inspectionProfiles/*.xml
-.idea/workspace.xml
-.idea/vcs.xml
-.idea/encodings.xml
-.idea/misc.xml
-.idea/dictionaries/*.dic
-.idea/dictionaries/*.aff
-.idea/inspectionProfiles
-.idea
