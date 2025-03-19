@@ -1,53 +1,45 @@
 <?php
+date_default_timezone_set('America/Mexico_City');
+session_start();
 
-// $url = "bimo-lab.com";
-// $https = 'https://';
-// $url = "localhost";
+$menu = $_POST['menu'];
+$tip = $_POST['tip'];
+$tipoUrl = $_POST['tipoUrl'] ?? 1;
+
+$current_host = $_SERVER['HTTP_HOST'];
+$servidores = [
+    'bimo-lab.com' => ['https' => 'http://', 'url' => 'bimo-lab.com'],
+    'drjb.com.mx' => ['https' => 'https://', 'url' => 'drjb.com.mx', 'session' => true],
+    'helicebiologicos.com' => ['https' => 'http://', 'url' => 'helicebiologicos.com'],
+    'localhost' => ['https' => 'http://', 'url' => 'localhost'],
+];
+
 $https = 'http://';
-
-// $url = $_SERVER['HTTP_HOST'];
-switch ($_SERVER['HTTP_HOST']) {
-    case 'bimo-lab.com':
-        $url = 'bimo-lab.com';
-        break;
-    case 'localhost':
-        $url = 'localhost';
-        break;
-    case 'drjb.com.mx':
-        $url = 'drjb.com.mx';
-        $_SESSION['URLACTUAL'] = 'drjb.com.mx';
-        break;
-    case 'helicebiologicos.com':
-        $url = 'helicebiologicos.com';
-        break;
-
-    default:
-        $url = 'localhost';
-        break;
-}
-
+$url = 'localhost';
 $appname = "nuevo_checkup";
-// echo $appname;
 
-// echo $url;
-// exit;
+if (isset($servidores[$current_host])) {
+    $config = $servidores[$current_host];
+    $https = $config['https'];
+    $url = $config['url'];
 
-
-if ($url == "drjb.com.mx") {
-?>
-    <style>
-        table thead {
-            background-color: #10ADA6 !important;
-        }
-
-        .bg-navbar {
-            /* background-color: rgb(000, 078, 089); */
-            background-color: #00958e !important;
-        }
-    </style>
-
-<?php
+    // Si el dominio es 'drjb.com.mx', establecer la variable de sesión
+    if (isset($config['session']) && $config['session'] === true) {
+        $_SESSION['URLACTUAL'] = $url;
+    }
 }
 
+$current_url = $https . $url . '/' . $appname;
+$session_data = $_SESSION;
 
-?>
+// Quitamos variable del frontend
+unset($session_data['token']);
+unset($session_data['permisos']);
+//
+
+if ($url == "drjb.com.mx"): ?>
+    <style>
+        table thead {background-color: #10ADA6 !important; }
+        .bg-navbar { background-color: #00958e !important; }
+    </style>
+<?php endif; ?>

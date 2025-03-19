@@ -269,7 +269,7 @@ async function ajaxAwait(dataJson, apiURL,
       },
       error: function (jqXHR, exception, data) {
         alertErrorAJAX(jqXHR, exception, data)
-        // console.log('Error')
+        console.log('Error')
       },
     })
   });
@@ -1291,9 +1291,6 @@ function isJson(str) {
   // return true;
 }
 
-
-
-
 // Obtener segmentos por procedencia en select
 function getSegmentoByProcedencia(id, select) {
   return new Promise(resolve => {
@@ -2165,7 +2162,6 @@ function inputBusquedaTable(
     const select = $(`#${tablename}_length label select`).first();
     const filterDiv = $(`#${tablename}_filter`).first();
     const input = $(`#${tablename}_filter label input`).first();
-    console.log(input);
     const label = $(`#${tablename}_filter label`).first();
 
     // Configurar tooltips
@@ -2694,10 +2690,8 @@ function selectTable(tablename, datatable,
 
   function selectTable_cargarVista() {
     if (config.divPadre) {
-      console.log('Hola');
       $(`${config.divPadre} .tab-second`).fadeOut()
     } else {
-      console.log('Hola');
       $('.tab-second').fadeOut()
     }
 

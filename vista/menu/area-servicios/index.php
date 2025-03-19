@@ -1,9 +1,6 @@
 <?php
-//Variables dinamicas;
-session_start();
-include "../../variables.php";
-// $area = isset($_GET['var']) ? $_GET['var'] : 0;
-$menu = "ServiciosAreas";
+    include "../../variables.php";
+    $menu = "ServiciosAreas";
 ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">

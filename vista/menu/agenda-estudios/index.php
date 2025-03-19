@@ -1,8 +1,6 @@
 <?php
-//Variables dinamicas;
-
-include "../../variables.php";
-$menu = "Correos";
+    include "../../variables.php";
+    $menu = "Correos";
 ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">

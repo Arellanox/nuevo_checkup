@@ -1,4 +1,4 @@
-<?php 
+<?php
 include_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
 
@@ -36,7 +36,7 @@ switch($api){
         $response = $master->getByProcedure('sp_modulos_b',[$id_modulo,$area_id]);
         break;
     case 3:
-        # actualizar 
+        # actualizar
         $response = $master->updateByProcedure("sp_modulos_g",$params);
         break;
     case 4:
@@ -45,7 +45,7 @@ switch($api){
         break;
     case 5:
         #insertar relacion modulos usuarios
-        
+
         $response = $master->insertByProcedure('sp_usuarios_modulos_g',[$id_modulo,$usuario]);
         break;
     case 6:

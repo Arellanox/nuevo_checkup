@@ -1,6 +1,5 @@
 <?php
 //Variables dinamicas;
-
 include "../../variables.php";
 $menu = "Laboratorio";
 ?>

@@ -294,7 +294,7 @@ $(document).on(
 );
 
 $('#seleccion-paquete').on('change', async function (e) {
-  await fetchAndFillSelect("#select-presupuestos", 'cotizaciones_api', 4, 'ID_COTIZACION', 'FOLIO_FECHA', {
+  await rellenarSelect("#select-presupuestos", 'cotizaciones_api', 4, 'ID_COTIZACION', 'FOLIO_FECHA', {
     cliente_id: $('#seleccion-paquete').val()
   });
 })

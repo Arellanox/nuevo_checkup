@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="af65b511-fae7-4667-83bd-cb6ca4b438cc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/vista/menu/laboratorio/modals/js/maquilas_pendientes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/menu/laboratorio/modals/maquilas_pendientes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/nuevo_checkup.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/nuevo_checkup.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/laboratorio_estudios_maquila_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/laboratorio_estudios_maquila_api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/include/header/botones.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/include/header/botones.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/js/laboratorio-botones.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/js/laboratorio-botones.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/laboratorio.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/laboratorio.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/laboratorio/modals/controlador.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/laboratorio/modals/controlador.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/laboratorio/modals/m_laboratorio.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/laboratorio/modals/m_laboratorio.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/laboratorio/modals/maquila_estudios.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/laboratorio/modals/maquila_estudios.php" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerConfigs">
+    <option name="configs">
+      <option value="$PROJECT_DIR$/pdf/dompdf/lib/php-svg-lib/composer.json" />
+      <option value="$PROJECT_DIR$/pdf/dompdf/composer.json" />
+      <option value="$PROJECT_DIR$/php/dompdf/composer.json" />
+      <option value="$PROJECT_DIR$/php/codeqr/composer.json" />
+      <option value="$PROJECT_DIR$/pdf/dompdf/lib/php-css-parser/composer.json" />
+      <option value="$PROJECT_DIR$/clases/PHPMailer/composer.json" />
+      <option value="$PROJECT_DIR$/pdf/dompdf/lib/php-font-lib/composer.json" />
+      <option value="$PROJECT_DIR$/lib/libmergpdf/composer.json" />
+    </option>
+  </component>
+  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/css/master.css" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\Users\pascu\.config\herd-lite\bin\php.exe">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/kwn/number-to-words" />
+      <path value="$PROJECT_DIR$/php/codeqr/vendor/chillerlan/php-settings-container" />
+      <path value="$PROJECT_DIR$/php/codeqr/vendor/composer" />
+      <path value="$PROJECT_DIR$/php/codeqr/vendor/chillerlan/php-qrcode" />
+      <path value="$PROJECT_DIR$/php/dompdf/vendor/phenx/php-font-lib" />
+      <path value="$PROJECT_DIR$/php/dompdf/vendor/phenx/php-svg-lib" />
+      <path value="$PROJECT_DIR$/php/dompdf/vendor/dompdf/dompdf" />
+      <path value="$PROJECT_DIR$/php/dompdf/vendor/sabberworm/php-css-parser" />
+      <path value="$PROJECT_DIR$/php/dompdf/vendor/composer" />
+      <path value="$PROJECT_DIR$/php/dompdf/vendor/masterminds/html5" />
+      <path value="$PROJECT_DIR$/php/dompdf/vendor/picqer/php-barcode-generator" />
+      <path value="$PROJECT_DIR$/lib/libmergpdf/vendor/composer" />
+      <path value="$PROJECT_DIR$/lib/libmergpdf/vendor/iio/libmergepdf" />
+      <path value="$PROJECT_DIR$/lib/libmergpdf/vendor/setasign/fpdi" />
+      <path value="$PROJECT_DIR$/lib/libmergpdf/vendor/tecnickcom/tcpdf" />
+    </include_path>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2u2RxfWXLSFiEpgn921FeS4lFE9" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.codeium.enabled": "true",
+    "git-widget-placeholder": "notificaciones__server__sent__events",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "F:/AppServ/www/nuevo_checkup/core/modules/notifications",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.2.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\AppServ\www\nuevo_checkup\core\modules\notifications" />
+      <recent name="F:\AppServ\www\nuevo_checkup\core\assets" />
+      <recent name="F:\AppServ\www\nuevo_checkup\core\helpers\inputs" />
+      <recent name="F:\AppServ\www\nuevo_checkup\core\includes" />
+      <recent name="F:\AppServ\www\nuevo_checkup\core\helpers\menu" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\AppServ\www\nuevo_checkup\core\requests" />
+      <recent name="F:\AppServ\www\nuevo_checkup\core\includes\app" />
+      <recent name="F:\AppServ\www\nuevo_checkup\core\includes\app\js" />
+      <recent name="F:\AppServ\www\nuevo_checkup\core\controllers\menu-controller\js" />
+      <recent name="F:\AppServ\www\nuevo_checkup\core" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner configuration_file="$PROJECT_DIR$/lib/excel/vendor/phpoffice/phpspreadsheet/phpunit.xml.dist" scope="XML" use_alternative_configuration_file="true" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.59" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.59" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="af65b511-fae7-4667-83bd-cb6ca4b438cc" name="Changes" comment="" />
+      <created>1741444932759</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1741444932759</updated>
+      <workItem from="1741444934768" duration="81670000" />
+      <workItem from="1741615485966" duration="13925000" />
+      <workItem from="1741639018231" duration="3740000" />
+      <workItem from="1741702817301" duration="23415000" />
+      <workItem from="1741789310979" duration="23174000" />
+      <workItem from="1741875803819" duration="13374000" />
+      <workItem from="1741890188109" duration="7631000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

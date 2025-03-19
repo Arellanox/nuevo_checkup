@@ -102,7 +102,7 @@ selectTable('#TablaTotaldeCajas', TablaTotaldeCajas, {
 
             class: 'borarCaja',
             callback: async function (data) {
-                console.log(data)
+                // console.log(data)
                 data = {
                     api: 4,
                     id_caja: data['ID_CAJAS']

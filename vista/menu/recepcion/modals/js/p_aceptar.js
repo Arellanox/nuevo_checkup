@@ -450,7 +450,7 @@ function eliminarElementoArray(id) {
   estudiosEnviar = jQuery.grep(estudiosEnviar, function (value) {
     return value != id;
   });
-  console.log(estudiosEnviar);
+  // console.log(estudiosEnviar);
 }
 
 
@@ -528,10 +528,10 @@ $('.pagination-aceptar').on('click', function (e) {
 let totalAcumulado = 0;
 
 function actualizarTotal(id, servicios, sumar = true) {
-  console.log(servicios);
+  // console.log(servicios);
   const servicio = servicios.find(servicio => servicio.ID_SERVICIO == id);
   if (servicio) {
-    console.log(servicio);
+    // console.log(servicio);
     totalAcumulado += sumar ? parseFloat(servicio.PRECIO_VENTA) : -parseFloat(servicio.PRECIO_VENTA);
   }
   // Actualizar el elemento HTML con el total acumulado
@@ -544,7 +544,7 @@ $('#checkPaqueteAceptar, #select-paquetes').on('change', function () {
   const id = $('#select-paquetes').val();
   const paquete = PaquetesDatos.find(paquete => paquete.ID_PAQUETE == id);
   const total = parseFloat(paquete.PRECIO_VENTA);
-  console.log(PaquetesDatos, id, paquete, total)
+  // console.log(PaquetesDatos, id, paquete, total)
 
   // return productoSeleccionado ? productoSeleccionado.PRECIO_VENTA : 0;
 

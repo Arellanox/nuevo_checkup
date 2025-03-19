@@ -1,6 +1,4 @@
 <?php
-//Variables dinamicas;
-session_start();
 include "../../variables.php";
 $menu = "Clientes";
 ?>
@@ -9,8 +7,26 @@ $menu = "Clientes";
 
 <head>
   <?php include "../../include/head.php"; ?>
-  <title><?php echo $menu; ?> | Bimo</title>ñ
-
+  <title><?php echo $menu; ?> | Bimo</title>
+    <style>
+        .pdf-uploads > label {
+            width: 100%;
+            color: #5a5a5a;
+        }
+        .view-pdf-btn{
+            margin-top: 2px;
+            border: 2px solid #004f5a !important;
+        }
+        .hidden{
+            display: none !important;
+        }
+        .subtitle{
+            color: #004f5a !important;
+            font-weight: 600 !important;
+            font-size: 20px !important;
+            margin-bottom: 2px;
+        }
+    </style>
 </head>
 
 <body class="" id="body-controlador"> </body>

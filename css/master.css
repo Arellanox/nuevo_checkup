@@ -176,6 +176,7 @@ p {
   text-decoration: underline !important;
 }
 
+.dropdownNotBorder::before { border: none !important; }
 
 @media (min-height: 500px) and (max-height: 800px) {
   #navbar_principal {
@@ -190,4 +191,5 @@ p {
   .container-avatar {
     zoom: 120%
   }
+
 }

@@ -147,34 +147,21 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
                 ">${item.trim()}</span>`);
                 
                 return spans.join(' ');
-                //return html
             }
         },
-
-        // {defaultContent: 'En progreso...'}
     ],
     columnDefs: [
         { targets: 0, title: 'Paciente', width: '40%' },
         { targets: 1, title: 'Turno', width: '10%' },
         { targets: 2, title: 'Area Actual', width: '10%' },
-        // { targets: 3, title: '', width: '5%' },
         //Pendientes
         { target: 3, title: 'Pendiente', width: '20%' },
         //Terminadas
         { target: 4, title: 'Finalizado', width: '20%' },
-
-        // { width: "5px", targets: 0 },
-        // { visible: false, title: "AreaActual", targets: 20, searchable: false }
     ],
     dom: 'Bfrtip',
     buttons: [
-        // {
-        //   extend: 'copyHtml5',
-        //   text: '<i class="fa fa-files-o"></i>',
-        //   titleAttr: 'Copy'
-        // },
         {
-            // extend: 'excelHtml5',
             text: '<i class="bi bi-arrow-clockwise"></i> Actualizar',
             className: 'btn btn-success',
             action: function () {
@@ -190,71 +177,6 @@ function reloadTrackingPatients(){
         tablaMenuPrincipal.ajax.reload(), 30000
     );
 }
-
-
-// AREA_FISICA_ID
-// :
-// null
-// MODULO
-// :
-// "EN ESPERA"
-// PACIENTE
-// :
-// "CUEVAS GONZÁLEZ LUIS GERARDO"
-// TURNO_ID
-// :
-// "291"
-
-// tablaMenuPrincipal.columns().every(function () {
-//     var that = this;
-
-//     $('input', this.footer()).on('keyup change', function () {
-//         if (that.search() !== this.value) {
-//             that
-//                 .search(this.value)
-//                 .draw();
-//         }
-//     });
-// });
-
-
-
-// //Activa o desactiva una columna
-// $('a.toggle-vis').on('click', function (e) {
-//     e.preventDefault();
-//     // Get the column API object
-//     var column = tablaMenuPrincipal.column($(this).attr('data-column'));
-
-//     // Toggle the visibility
-//     column.visible(!column.visible());
-//     tablaMenuPrincipal.ajax.reload();
-//     $.fn.dataTable
-//         .tables({
-//             visible: true,
-//             api: true
-//         })
-//         .columns.adjust();
-
-//     $(this).removeClass('span-info');
-//     if (column.visible())
-//         $(this).addClass('span-info');
-// });
-// $('a.toggle-vis').each(function () {
-//     var column = tablaMenuPrincipal.column($(this).attr('data-column'));
-//     if (column.visible())
-//         $(this).addClass('span-info');
-// })
-
-// selectDatatabledblclick(async function (select, data) {
-//     let dataInfo = data;
-//     if (select) {
-//         await obtenerPanelInformacion(1, 'toma_de_muestra_api', 'estudios_muestras', '#panel-muestras-estudios')
-//         var myOffcanvas = document.getElementById('offcanvasInfoPrincipal')
-//         var bsOffcanvas = new bootstrap.Offcanvas(myOffcanvas)
-//         bsOffcanvas.show()
-
-//     }
-// }, '#TablaEstatusTurnos', tablaMenuPrincipal)
 
 selectTable('#TablaEstatusTurnos', tablaMenuPrincipal, { dblClick: true, unSelect: true }, (select, data, callback, row, tr) => { }, async (select, data) => {
     let dataInfo = data;
@@ -274,57 +196,3 @@ inputBusquedaTable('TablaEstatusTurnos', tablaMenuPrincipal, [
         place: 'right'
     }
 ], false, 'col-12')
-
-// setTimeout(() => {
-//     $('#TablaEstatusTurnos_filter').html(
-//         '<div class="text-center mt-2">' +
-//         '<div class="input-group flex-nowrap">' +
-//         '<span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="left"' +
-//         'title="Filtra la tabla con palabras u oraciones que coincidan">' +
-//         '<i class="bi bi-info-circle"></i>' +
-//         '</span>' +
-//         '<span class="input-group-text" id="addon-wrapping" data-bs-toggle="tooltip" data-bs-placement="left"' +
-//         'title="Existe un delay de 4 segundos para visualizar algun cambio de estatus">' +
-//         '<i class="bi bi-info-circle"></i>' +
-//         '</span>' +
-//         '<input type="search" class="form-control input-color" aria-controls="TablaEstatusTurnos" style="display: unset !important; margin-left: 0px !important"' +
-//         'name="inputBuscarTableListaNuevos" placeholder="Filtrar coincidencias" id="BuscarTablaListaTurnos"' +
-//         'data-bs-toggle="tooltip" data-bs-placement="top" title="Filtra la lista por coincidencias">' +
-
-//         '</div>' +
-//         '</div>'
-//     )
-
-//     //Zoom table
-//     $('#TablaEstatusTurnos_wrapper').children('div [class="row"]').eq(1).css('zoom', '90%')
-
-//     //Diseño de registros
-//     $('#TablaEstatusTurnos_wrapper').children('div [class="row"]').eq(0).addClass('d-flex align-items-end')
-
-
-//     $("#BuscarTablaListaTurnos").keyup(function () {
-//         tablaMenuPrincipal.search($(this).val()).draw();
-//     });
-
-// }, 200);
-
-
-
-// var carga = false;
-// cargarTabla();
-// function cargarTabla() {
-//     setTimeout(() => {
-//         if (carga) {
-//             tablaMenuPrincipal.ajax.reload()
-//             carga = false
-//         }
-
-//         cargarTabla()
-//         return 1;
-
-//     }, 4000);
-// }
-
-// $('#recargarTabla').click(function () {
-
-// })

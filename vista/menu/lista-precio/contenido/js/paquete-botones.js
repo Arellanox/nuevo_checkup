@@ -1,37 +1,18 @@
 select2('#seleccion-paquete', 'form-select-paquetes')
 select2('#seleccion-estudio', 'form-select-paquetes')
 
-//Declarar variable para la clase
-var selectEstudio;
-
-$('#agregar-estudio-paquete').click(function () {
-  // console.log(selectEstudio.array)
-  // console.log($("#seleccion-estudio").prop('selectedIndex'))
-  // console.log(selectData)
-  selectData = selectEstudio.array[$("#seleccion-estudio").prop('selectedIndex')]
-  meterDato(selectData['SERVICIO'], selectData['ABREVIATURA'], selectData['COSTO'], selectData['PRECIO_VENTA'], 1, selectData['ID_SERVICIO'], selectData['ABREVIATURA'], tablaContenidoPaquete);
-  calcularFilasTR();
-})
-
-
-// $('#agregar-estudio-paquete').click(function() {
-//   $.ajax({
-//     url: http + servidor + "/"+appname+"/api/servicios_api.php",
-//     type: "POST",
-//       dataType: 'json',
-//       data: { id: $('#seleccion-estudio').val(), api: 3},
-//       success: function (data) {
-//             data = data.response.data[0];
-//             meterDato(data.DESCRIPCION, data.ABREVIATURA, data.COSTO, data.PRECIO_VENTA, data.ID_SERVICIO, data.ABREVIATURA, tablaPaquete);
-//         }
-//       }
-//     );
-// })
-
 // Controlar el formulario
 $("#formPaqueteBotonesArea").addClass("disable-element");
 $("#formPaqueteSelectEstudio").addClass("disable-element");
 $("#informacionPaquete").addClass("disable-element");
+
+let selectEstudio;
+
+$('#agregar-estudio-paquete').click(function () {
+  selectData = selectEstudio.array[$("#seleccion-estudio").prop('selectedIndex')]
+  meterDato(selectData['SERVICIO'], selectData['ABREVIATURA'], selectData['COSTO'], selectData['PRECIO_VENTA'], 1, selectData['ID_SERVICIO'], selectData['ABREVIATURA'], tablaContenidoPaquete);
+  calcularFilasTR();
+})
 
 $('#UsarPaquete').on('click', function () {
   $('#seleccion-paquete').prop('disabled', true);
@@ -55,7 +36,7 @@ $('#UsarPaquete').on('click', function () {
         success: function (data) {
           console.log(data);
           row = data.response.data;
-          for (var i = 0; i < row.length; i++) {
+          for (let i = 0; i < row.length; i++) {
             meterDato(row[i]['SERVICIO'], row[i].ABREVIATURA, row[i].COSTO_UNITARIO, row[i].PRECIO_VENTA_UNITARIO, row[i].CANTIDAD, row[i].ID_SERVICIO, row[i].ABREVIATURA, tablaContenidoPaquete)
           }
           calcularFilasTR();
@@ -64,7 +45,7 @@ $('#UsarPaquete').on('click', function () {
       break;
   }
 })
-//
+
 $('#CambiarPaquete').on('click', function () {
   $('#seleccion-paquete').prop('disabled', false);
   $("#selectDisabled").removeClass("disable-element");
@@ -75,9 +56,7 @@ $('#CambiarPaquete').on('click', function () {
   $('input[type=radio][name=selectChecko]:checked').prop('checked', false);
   $("#seleccion-estudio").find('option').remove().end()
   tablaContenido()
-  // $('.formContenidoPaquete').prop('disabled', true);
 })
-//
 
 $('input[type="radio"][name="selectPaquete"]').change(function () {
   switch ($(this).val()) {
@@ -92,9 +71,7 @@ $('input[type="radio"][name="selectPaquete"]').change(function () {
 });
 
 $('input[type=radio][name=selectChecko]').change(function () {
-
-  if ($(this).val() != 0) {
-    // selectData = null;
+  if ($(this).val() !== 0) {
     rellenarSelect("#seleccion-estudio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
       area_id: this.value,
       paquete_id: $('#seleccion-paquete').val()
@@ -105,9 +82,7 @@ $('input[type=radio][name=selectChecko]').change(function () {
     rellenarSelect("#seleccion-estudio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
       area_id: this.value,
       paquete_id: $('#seleccion-paquete').val()
-    }, function (listaEstudios) {
-      selectEstudio = new GuardarArreglo(listaEstudios);
-    });
+    }, function (listaEstudios) { selectEstudio = new GuardarArreglo(listaEstudios); });
   }
 });
 
@@ -148,8 +123,8 @@ $('#guardar-contenido-paquete').on('click', function () {
       allowOutsideClick: () => !Swal.isLoading()
     }).then((result) => {
       if (result.isConfirmed) {
-        if (result.value.status == 1) {
-          if ($('input[type=radio][name=selectPaquete]:checked').val() == 1) {
+        if (result.value.status === 1) {
+          if ($('input[type=radio][name=selectPaquete]:checked').val() === 1) {
             ajaxDataSend = {
               api: 6,
               paquete_detalle: dataAjax
@@ -191,10 +166,9 @@ $('#guardar-contenido-paquete').on('click', function () {
   // console.log()
 })
 
-function formpassword() {
-  //No submit form with enter
-}
-
 $(document).on("change", "input[name='cantidad-paquete']", function (event) {
   calcularFilasTR()
 });
+
+//No submit form with enter
+function formpassword() { }

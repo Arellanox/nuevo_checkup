@@ -11,7 +11,7 @@ async function cargarDatosGrupoEdit() {
 
 
   if (await rellenarSelect('#edit-concepto-facturacion-grupo', 'sat_catalogo_api', 2, 0, 'COMPLETO')) {
-    console.log(array_selected)
+    // console.log(array_selected)
 
     $('#edit-clasificacion-grupo').val(null).trigger('change');
     $('#edit-nombre-grupo').val(array_selected['DESCRIPCION']);

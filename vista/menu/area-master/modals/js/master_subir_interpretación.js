@@ -3,7 +3,7 @@ $('#inputFilesInterpreArea').on('change', function () {
     let aviso = 0;
     for (file of fileList) { //una iteración de toda la vida
         ext = file.name.split('.').pop()
-        console.log('>ARCHIVO: ', file.name)
+        // console.log('>ARCHIVO: ', file.name)
         switch (ext) {
             case 'pdf':
                 // console.log('>>TIPO DE ARCHIVO CORRECTO: ')
@@ -300,18 +300,18 @@ $(document).on('click', '.control-pagina-interpretacion', function (event) {
     const $btn = $(this);
     const action = $btn.attr('target');
     const $visiblePage = $('.page:visible');
-    console.log($visiblePage)
+    // console.log($visiblePage)
     switch (action) {
         case 'back':
             const $prevPage = $visiblePage.prev('.page');
-            console.log($visiblePage.prev('.page'))
+            // console.log($visiblePage.prev('.page'))
             if ($prevPage.length) {
                 updatePage($prevPage, action);
             }
             break;
         case 'next':
             const $nextPage = $visiblePage.next('.page');
-            console.log($visiblePage.next('.page'))
+            //  console.log($visiblePage.next('.page'))
             if ($nextPage.length) {
                 updatePage($nextPage, action);
             }

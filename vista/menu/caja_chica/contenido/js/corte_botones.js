@@ -86,7 +86,7 @@ $(document).on('click', '#btnVisualizarReporte', function (e) {
     area = encodeURIComponent(window.btoa(-4));
     id_cortes = encodeURIComponent(window.btoa(id_corte));
 
-    console.log(id_cortes)
+    // console.log(id_cortes)
 
     var win = window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${id_cortes}&area=${area}`, '_blank')
 

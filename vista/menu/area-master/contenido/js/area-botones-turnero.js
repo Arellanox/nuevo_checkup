@@ -1,3 +1,3 @@
 
-console.log()
-console.log('js turnero')
+//console.log()
+//console.log('js turnero')

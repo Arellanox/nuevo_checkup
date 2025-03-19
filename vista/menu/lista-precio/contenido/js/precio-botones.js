@@ -400,14 +400,8 @@ $('#vistaPreviaExel').on('click', function () {
 });
 
 function cargarTablaExcel(intento = 0) {
-
   if ((tablaPrecio.rows().any())) {
     listaPreciosExelModal.rows.add(tablaPrecio.data()).draw();
-    // alertMensaje('Cargando, espere un momento', '')
-    // alertToast('Cargando, espera un momento', 'info', 3000)
-    // setTimeout(() => {
-    //   $('#vistaPreviaExelModal').modal('show')
-    // }, 300);
   } else {
     if (!intento) {
       alertToast('Espere un momento...', 'info', 4000)
@@ -416,8 +410,6 @@ function cargarTablaExcel(intento = 0) {
     setTimeout(() => {
       cargarTablaExcel(1);
     }, 500);
-
-
   }
 }
 

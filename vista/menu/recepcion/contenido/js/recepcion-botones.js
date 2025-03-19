@@ -181,8 +181,8 @@ $(document).on('click', '.btn-agregar-estudios-admin', function (event) {
   let tipo = $(this).attr('data-bs-tipo');
   let id = $(`#${tipo}`).val()
   let name = $(`#${tipo} option:selected`).html()
-  console.log(id)
-  console.log(tipo)
+  // console.log(id)
+  // console.log(tipo)
 
   statusEstudiosPaciente(id, 18, 'agregar', name)
 
