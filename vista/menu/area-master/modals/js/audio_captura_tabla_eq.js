@@ -30,7 +30,7 @@ $(document).on('submit', '#formCapturaResultados', function (e) {
 // LIMITARLO A 1
 
 function SubirCapturasAudiometria() {
-    console.log(1)
+    // console.log(1)
     let jsonData = {} // <- Json vacio
     jsonData['id_turno'] = dataSelect.array['turno'] // <- se llama el turno (revisar si asi se llama)
     jsonData['id_area'] = areaActiva // <- revisar de donde viene
@@ -41,7 +41,7 @@ function SubirCapturasAudiometria() {
     $(audiometria_tablas).each(function () {
         capturasArray.push($(this).attr('src'))
     })
-    console.log(capturasArray)
+    // console.log(capturasArray)
     jsonData['tabla_reporte'] = JSON.stringify(capturasArray)
 
     // ajaxAwaitFormData(jsonData, 'audiometria_api', 'formCapturaResultados', { callbackAfter: true }, false,

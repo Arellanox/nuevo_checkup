@@ -1,9 +1,7 @@
 <?php
 //Variables dinamicas;
-session_start();
 include "../../variables.php";
 $menu = "Caja";
-
 ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">

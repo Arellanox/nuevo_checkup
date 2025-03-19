@@ -76,7 +76,7 @@ var tablaRecetas;
 function obtenerContenidoConsulta(data, idvaloracion) {
   activoConsultadorTurnero = false;
   loader("In")
-  console.log(data)
+  // console.log(data)
   // obtenerTitulo('Menú principal'); //Aqui mandar el nombre de la area
   $("#titulo-js").html(''); //Vaciar la cabeza de titulo
   $.post("contenido/consultorio_valoracion.html", function (html) {

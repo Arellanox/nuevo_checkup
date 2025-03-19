@@ -1,10 +1,4 @@
-<?php
-header("Location: vista/login/");
-// die();
-?>
-
-
+<?php header("Location: vista/login/"); ?>
 <head>
-    <?php include "../include/head.php"; ?>
-    <title>Hola | bimo</title>
+    <title>BIMO - REDIRIGIENDO</title>
 </head>

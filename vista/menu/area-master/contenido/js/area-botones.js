@@ -1,10 +1,10 @@
 $('#fechaListadoAreaMaster').change(function () {
-  console.log(1)
+  //console.log(1)
   recargarVistaLab();
 })
 
 $('#checkDiaAnalisis').click(function () {
-  console.log(1)
+  //console.log(1)
   if ($(this).is(':checked')) {
     recargarVistaLab(0)
     $('#fechaListadoAreaMaster').prop('disabled', true)
@@ -160,7 +160,7 @@ $('#btn-ver-reporte').click(function () {
 function chooseEstudio(row, modal, tip) {
   let html = '';
 
-  console.log(row)
+  //console.log(row)
   try {
     switch (tip) {
       case 1:

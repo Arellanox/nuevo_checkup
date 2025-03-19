@@ -7,7 +7,6 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-       
         <div class="row">
             <table class="table table-hover display responsive" id="TablaEstudiosPendientes" style="width: 100%;">
                 <thead class="">
@@ -42,14 +41,11 @@
                 </tbody>
             </table>
         </div>
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i>
-          Cancelar</button>
-        <!-- <button type="submit" form="formEditarEquipo" class="btn btn-confirmar">
-          <i class="bi bi-person-plus"></i> Actualizar
-        </button> -->
+          Cancelar
+        </button>
       </div>
     </div>
   </div>

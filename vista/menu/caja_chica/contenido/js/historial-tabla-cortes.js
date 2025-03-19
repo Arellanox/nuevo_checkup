@@ -105,7 +105,7 @@ selectTable('#ListaCajasChicas', TablaListaCajasChicas, {
         {
             callback: async function (data) {
 
-                console.log(data)
+                // console.log(data)
 
 
             }, selected: true
@@ -297,7 +297,7 @@ function getResumen(tableDetalle) {
 
     }
     let datos = tableDetalle.rows().data().toArray();
-    console.log(datos)
+    // console.log(datos)
     // calculo = calculoDef;
     for (const key in calculo) {
         if (Object.hasOwnProperty.call(calculo, key)) {
@@ -313,7 +313,7 @@ function getResumen(tableDetalle) {
         }
     }
 
-    console.log(calculo)
+    // console.log(calculo)
 
     for (const key in calculo) {
         if (Object.hasOwnProperty.call(calculo, key)) {

@@ -27,7 +27,7 @@ $('#FormEstudioBuscar').submit(function (e) {
         ajaxAwaitFormData({
             api: 15
         }, 'recepcion_api', 'FormEstudioBuscar', { callbackAfter: true }, false, (data) => {
-            console.log(data);
+            // console.log(data);
             buscar_estudio = 0;
 
             rows_estudios = data.response.data;
@@ -63,7 +63,7 @@ $(document).on('click', '.estudios_encontrados', function (e) {
     $id_servicio = $span.attr('data-id_servicio')
     const info_estudio = rows_estudios.find(element => element.ID_SERVICIO === $id_servicio);
 
-    console.log($id_servicio, info_estudio)
+    // console.log($id_servicio, info_estudio)
     setInformation(info_estudio)
 });
 
@@ -87,7 +87,7 @@ function resetModal() {
 }
 
 function setInformation(datosServicio) {
-    console.log(datosServicio)
+    // console.log(datosServicio)
     // Ingresar información del estudio por los elementos
     // Asignación de datos a los elementos por ID usando un ciclo
     $.each(datosServicio, function (clave, valor) {

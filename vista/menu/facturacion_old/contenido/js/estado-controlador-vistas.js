@@ -55,8 +55,6 @@ async function menu(vista) {
 
 }
 
-
-
 async function cargarDatosCuenta(data){ //Las 3 vistas
   getPanel('#vistaCargosFacturar', '#loader-estadoCuenta', '#loaderDivestadoCuenta', 1, 'In', async function(divClass){
     await obtenerPanelInformacion(34, 'pacientes_api', 'paciente', '#panel-informacion', '_facturar')
@@ -65,12 +63,3 @@ async function cargarDatosCuenta(data){ //Las 3 vistas
     bugGetPanel('#vistaCargosFacturar', '#loader-estadoCuenta', '#loaderDivestadoCuenta') // <-- Soluciona el problema de mostrar el panel y quita el loaderDiv
   })
 }
-
-
-// cargarTabla
-function obtenerTablaListaCargos(){
-  
-}
-
-
-

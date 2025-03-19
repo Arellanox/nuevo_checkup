@@ -3,18 +3,18 @@ CapturasdeArea.addEventListener('show.bs.modal', event => {
     // $('#capturasIMG').html('')
     $('#NombrePacienteCapturas').html(dataSelect.array['nombre_paciente']);
     // let rowImg = selectEstudio.array[0]['IMAGENES'], htmlImg = '', htmlPdf = '';
-    console.log(selectEstudio.array);
+    // console.log(selectEstudio.array);
     let html = '';
     for (const i in selectEstudio.array) {
         let row = selectEstudio.array[i]
         if (row.CAPTURAS.length) {
             html += '<h4>' + row.SERVICIO + '</h4>';
-            console.log(row);
+            // console.log(row);
             let rowInf = row.CAPTURAS[0]
             let rowImg = row.CAPTURAS[0].CAPTURAS[0]
             let htmlPDF = '';
             let htmlimg = '';
-            console.log(rowImg)
+            // console.log(rowImg)
             let pdf = 0;
             let img = 0;
 

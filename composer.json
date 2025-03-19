@@ -1,10 +1,4 @@
 {
-    "authors": [
-        {
-            "name": "osezca",
-            "email": "osezca@gmail.com"
-        }
-    ],
     "require": {
         "kwn/number-to-words": "^2.6"
     }

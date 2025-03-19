@@ -6,31 +6,36 @@ session_start();
 ?>
 <?php
 switch ($menu) {
-  case 'Pre-registro': ?>
+    case 'Pre-registro': ?>
     <nav class="navbar border-3 border-bottom border-dark bg-navbar">
       <div class="container-fluid d-flex justify-content-center">
         <a href="#" class="navbar-brand" id="img"> <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png" id="logo_empresa_login" /> </a>
       </div>
     </nav>
 
-  <?php break;
-  case 'Login':
-  case 'Temperatura_movil': ?>
+<?php
+     break;
+     case 'Login': case 'Temperatura_movil':
+?>
     <nav class="navbar border-3 border-bottom border-dark bg-navbar">
       <div class="container-fluid d-flex justify-content-center">
         <a href="#" class="navbar-brand" id="img"> <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png" id="logo_empresa_login" /> </a>
       </div>
     </nav>
-  <?php break;
-  case 'validador':
-  case 'lista_servicios' ?>
+<?php
+    break;
+    case 'validador':
+    case 'lista_servicios':
+?>
   <nav class="navbar border-3 border-bottom border-dark bg-navbar">
     <div class="container-fluid d-flex justify-content-center">
       <a href="#" class="navbar-brand" id="img"> <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png" id="logo_empresa_login" /> </a>
     </div>
   </nav>
-<?php break;
-  case 'TURNERO': ?>
+<?php
+    break;
+    case 'TURNERO':
+?>
   <nav class="navbar border-dark row">
 
     <div class="col-5 text-center">
@@ -41,41 +46,21 @@ switch ($menu) {
 
     </div>
   </nav>
-<?php break;
-
-    // case 'procedencia': 
-    // break;
-
-  default:
+<?php
+    break;
+    default:
 ?>
   <nav class="navbar navbar-expand-lg border-3 border-bottom border-dark bg-navbar navbar-menu" id="navbar_principal">
     <div class="container-fluid">
-
-      <?php
-      if ($menu != 'procedencia') { ?>
+      <?php if ($menu != 'procedencia'): ?>
         <a href="https://bimo-lab.com/index.php" class="navbar-brand">
           <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png" id="logo_empresa" />
-          <?php
-          if ($_SESSION['URLACTUAL'] == 'drjb.com.mx' && $menu != 'procedencia')
-            echo "| Vista de Capacitación";
-          ?>
+          <?= ($_SESSION['URLACTUAL'] == 'drjb.com.mx' && $menu != 'procedencia') ? "| Vista de Capacitación" : ''; ?>
         </a>
-      <?php } else { ?>
+      <?php else: ?>
         <img src="https://bimo-lab.com/archivos/sistema/bimo_banner.png" id="logo_empresa" width="" />
-      <?php } ?>
-      <?php
-
-      // $fecha_actual = new DateTime(); // obtiene la fecha actual en formato 'año-mes-día'
-      // $fecha_sumada = $fecha_actual->add(new DateInterval('P2D')); // suma 2 días a la fecha actual
-      // $fecha_sumada_string = $fecha_actual->format('Y-m-d'); // convierte la fecha sumada en una cadena de texto en formato 'año-mes-día'
-
-      // echo $fecha_sumada; // imprime la nueva fecha en formato 'año-mes-día'
-
-      if (
-        false &&
-        $_SESSION['id_cliente'] == 15
-      ) : ?>
-
+      <?php endif; ?>
+      <?php if (false && $_SESSION['id_cliente'] == 15) : ?>
         <img src="https://bimo-lab.com/nuevo_checkup/1724986_dbc8d.gif" style="width: 90px; z-index: 99; position: absolute; left: 40px; top: 12px; transform: rotate(0.04turn);" id="decoration-cumple" />
         <div class="contenido-extra-cumple">
           <a href="#" class="btn-flotante-cumple" id="btn-flotante-cumple" data-bs-toggle="modal" data-bs-target="#modalCardCumpleaños">
@@ -86,21 +71,9 @@ switch ($menu) {
           <div class="modal fade" id="modalCardCumpleaños" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered ">
               <div class="modal-content">
-                <!-- <div class="modal-header header-modal">
-                  <h5 class="modal-title" id="filtrador"></h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div> -->
                 <div class="modal-body">
                   <div id="tsparticles"></div>
-                  <!-- <div style="position: relative; width: 100%; height: 0; padding-top: 177.7778%;
- padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
- border-radius: 8px; will-change: transform;">
-                    <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;" src="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAFlxQzMVzU&#x2F;watch?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
-                    </iframe>
-                  </div> -->
-
-
-                  <div class="row">
+                    <div class="row">
                     <div class="col-12 col-lg-6">
                       <div style="position: relative; width: 100%; height: 0; padding-top: 177.7778%;
  padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
@@ -118,16 +91,7 @@ switch ($menu) {
                       </div>
                     </div>
                   </div>
-
-
-                  <!-- <a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAFhaaU2rcM&#x2F;watch?utm_content=DAFhaaU2rcM&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener">Tarjeta vertical felicitación cumpleaños empleado empresa elegante dorado</a> de Bimo Talento Humano -->
                 </div>
-                <!-- <div class="modal-footer">
-                  <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"> Cancelar</button>
-                  <button type="submit" form="formNuevaBase" class="btn btn-confirmar" id="submit-registrarGrupo">
-                    Crear
-                  </button>
-                </div> -->
               </div>
             </div>
           </div>
@@ -164,7 +128,6 @@ switch ($menu) {
           const opacidadActual = parseFloat(getComputedStyle(contenedor).opacity);
           const opacidadPaso = (opacidadFinal - opacidadActual) / 50;
 
-
           // Función para reducir gradualmente el tamaño de la imagen
           function reducirImagen() {
             const altura = imagen.offsetHeight;
@@ -182,14 +145,6 @@ switch ($menu) {
             }
           }
 
-          // Llamar a la función de reducción de tamaño en intervalos regulares
-          // setTimeout(() => {
-          // const intervalo = setInterval(reducirImagen, 10);
-          // }, 500);
-
-
-
-
           $(document).ready(async function() {
             await loadFull(tsParticles);
 
@@ -201,9 +156,7 @@ switch ($menu) {
               });
           });
         </script>
-      <?php
-      endif; ?>
-
+      <?php endif; ?>
       <div class="d-lg-none">
         <button class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop" style="color: white;border-color: #ffffff54;">
           <!-- onclick="openNav()" -->
@@ -216,26 +169,24 @@ switch ($menu) {
       <div id="navbarCollapse" class="collapse navbar-collapse">
         <ul class="nav navbar-nav" id="navbar-js">
           <?php
-          if ($menu != 'procedencia') {
-            include "navbar-menu/navlink-normales.php";
-            $tip = 'floting';
-            include "navbar-menu/navlink-areas.php";
-            // include "areas-windows-float.php";
-          }
+              if ($menu != 'procedencia') {
+                  include "navbar-menu/navlink-normales.php";
+                  $tip = 'floting';
+                  include "navbar-menu/navlink-areas.php";
+                  // include "areas-windows-float.php";
+              }
           ?>
 
         </ul>
-        <ul class="nav navbar-nav ms-auto">
+        <ul class="nav navbar-nav ms-auto user-profile-navbar">
 
           <!-- Botones alado de los usuarios -->
           <li class="nav-item dropstart d-flex justify-content-center align-items-center m">
-            <?php if (
-              $menu != 'procedencia' &&
-              $_SESSION['id_cliente'] == 15
-            ) {
-              include "btn-user/buttons.php";
-            } ?>
-
+            <?php
+                if ($menu != 'procedencia' && $_SESSION['id_cliente'] == 15) {
+                    include "header-menu/buttons.php";
+                }
+            ?>
           </li>
 
           <li class="nav-item dropstart flex-grow-1">
@@ -265,24 +216,24 @@ switch ($menu) {
                       <i class="bi bi-tag-fill"></i> Promociones
                     </a>
 
-                    <?php if (
-                      $menu != 'procedencia' &&
-                      $_SESSION['id_cliente'] == 15
-                    ) { ?>
-                      <div class="profile-description text-center">
-                        <a href="<?php echo $_SESSION['newsletter']['button_usuario']['url'] ?>" target="_blank" class="a-hover"><i class="bi bi-newspaper"></i> <?php echo $_SESSION['newsletter']['button_usuario']['tittle_button'] ?></a>
+                      <?php if ($menu != 'procedencia' && $_SESSION['id_cliente'] == 15) : ?>
+                          <div class="profile-description text-center">
+                              <a href="<?php echo $_SESSION['newsletter']['button_usuario']['url'] ?>"
+                                 target="_blank" class="a-hover">
+                                  <i class="bi bi-newspaper"></i>
+                                  <?php echo $_SESSION['newsletter']['button_usuario']['tittle_button'] ?>
+                              </a>
+                          </div>
+                      <?php endif; ?>
+                      <div class="row" style="padding-right: 5%; padding-left: 5%;">
+                          <?php include "navbar-menu/navlink-dropuser.php"; ?>
                       </div>
-                    <?php } ?>
-                    <div class="row" style="padding-right: 5%; padding-left: 5%;">
-                      <?php include "navbar-menu/navlink-dropuser.php"; ?>
-                    </div>
                   </div>
                 </div>
               </div>
             </ul>
           </li>
         </ul>
-
       </div>
     </div>
   </nav>
@@ -307,73 +258,15 @@ switch ($menu) {
 
       <!-- Contenido del Modal -->
       <div class="modal-body contentPromociones">
-
         <div class="row justify-content-center div-padre " id="vistaPromociones">
-          <!-- <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-            <div class="bg-white rounded shadow-sm">
-
-              <img src="https://bootstrapious.com/i/snippets/sn-gallery/img-6.jpg" alt="" class="img-fluid card-img-top" style="width: 100%; height: 280px; object-fit: cover;">
-              <div class="p-4">
-                <h5> <a href="#" class="text-dark">Yellow banana</a></h5>
-                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                  <div class="badge text-bg-success px-3 rounded-pill font-weight-normal text-white">Activo</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-            <div class="bg-white rounded shadow-sm">
-
-              <img src="https://bootstrapious.com/i/snippets/sn-gallery/img-6.jpg" alt="" class="img-fluid card-img-top" style="width: 100%; height: 280px; object-fit: cover;">
-              <div class="p-4">
-                <h5> <a href="#" class="text-dark">Yellow banana</a></h5>
-                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                  <div class="badge text-bg-success px-3 rounded-pill font-weight-normal text-white">Activo</div>
-                </div>
-              </div>
-            </div>
-          </div> -->
 
         </div>
-
       </div>
     </div>
   </div>
 </div>
 
-
-<script type="text/javascript">
-  // $(document).ready(function() {
-  //     var imagenes = [
-  //         "https://bootstrapious.com/i/snippets/sn-gallery/img-1.jpg",
-  //         "https://bootstrapious.com/i/snippets/sn-gallery/img-2.jpg",
-  //         "https://bootstrapious.com/i/snippets/sn-gallery/img-3.jpg",
-  //         "https://bootstrapious.com/i/snippets/sn-gallery/img-4.jpg",
-  //         // Añade más URLs de imágenes aquí
-  //     ];
-
-  //     function insertarImagenes(imagenes) {
-  //         var $divPadre = $('.div-padre');
-  //         $divPadre.empty(); // Limpiar el contenido actual
-
-  //         for (var i = 0; i < imagenes.length; i++) {
-  //             var imagen = imagenes[i];
-  //             var $col = $('<div class="col-xl-6 col-lg-6 col-md-6 mb-4"></div>');
-  //             var $tarjeta = $('<div class="bg-white rounded shadow-sm"></div>');
-
-  //             $tarjeta.append('<img src="' + imagen + '" alt="" class="img-fluid card-img-top" style="width: 100%; height: 400px; object-fit: cover;">');
-  //             $tarjeta.append('<div class="p-4"><h5> <a href="#" class="text-dark">Titulo de imagen</a></h5><p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p><div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4"><div class="badge text-bg-success px-3 rounded-pill font-weight-normal text-white">Activo</div></div></div>');
-
-  //             $col.append($tarjeta);
-  //             $divPadre.append($col);
-  //         }
-  //     }
-
-  //     insertarImagenes(imagenes);
-  // });
-</script>
-
+<script type="text/javascript"></script>
 <style>
   .card-container {
     padding: 100px 0px;

@@ -15,7 +15,7 @@ MostrarCapturasElectro.addEventListener('show.bs.modal', event => {
                 for (const key in row) {
                     if (Object.hasOwnProperty.call(row, key)) {
                         const element = row[key];
-                        console.log(element);
+                        // console.log(element);
                         let html = '<div class="col-6">' +
                             '<div class="form-check">' +
                             '<input class="form-check-input" type="radio" name="RadioSelectElectro" id="RadioSelectElectro1' + key + '" data="' + element[0] + '">' +

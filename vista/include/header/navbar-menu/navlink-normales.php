@@ -1,6 +1,4 @@
-<?php
-include "../../../variables.php";
-date_default_timezone_set('America/Mexico_City'); ?>
+<?php include "../../../variables.php"; ?>
 
 <?php if ($_SESSION['cargo'] != 19 || $_SESSION['cargo'] != 18) ?>
 <li class="nav-item">

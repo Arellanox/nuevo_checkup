@@ -14,7 +14,6 @@ $("#formPerfilPaciente").submit(function(event){
    var formData = new FormData(form);
    formData.set('api', array_paciente['DT_RowId']);
    formData.set('api', 3);
-   console.log(formData);
    $.ajax({
      data: formData,
      url: "",

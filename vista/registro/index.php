@@ -20,7 +20,6 @@ $language = isset($_GET['language']) && !empty($_GET['language']) ? '-' . $_GET[
 $ant = isset($_GET['ant']) ? $_GET['ant'] : 0;
 $espiro = isset($_GET['']) ? $_GET[''] : 0;
 
-
 include "../variables.php";
 $menu = "Pre-registro";
 ?>

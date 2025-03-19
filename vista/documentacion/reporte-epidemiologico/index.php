@@ -1,9 +1,6 @@
 <?php
-//Variables dinamicas;
-
-session_start();
-include "../../variables.php";
-$menu = "reporte_epidemiologico";
+    include "../../variables.php";
+    $menu = "reporte_epidemiologico";
 ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">

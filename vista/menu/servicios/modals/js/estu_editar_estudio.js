@@ -16,7 +16,7 @@ async function cargarDatosEstuEdit() {
     $('#edit-nombre-estudio').val(array_selected['DESCRIPCION']);
     $('#edit-cve-estudio').val(array_selected['ABREVIATURA']);
     // $('#').val(array_selected['PADRE']).trigger('change');
-    console.log(array_selected['DETALLE_GRUPOS'])
+    // console.log(array_selected['DETALLE_GRUPOS'])
     for (var i = 0; i < array_selected['DETALLE_GRUPOS'].length; i++) {
       padre = new Array()
       padre[i] = array_selected['DETALLE_GRUPOS'][i]['ID_SERVICIO']
