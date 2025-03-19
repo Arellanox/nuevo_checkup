@@ -381,6 +381,19 @@ $menu == 'Laboratorio Biomolecular'
         </button>
     <?php endif; ?>
 
+
+    <?php if(strtolower($menu) == "maquilas" && $_SESSION['permisos']['MaquilasEnviarReq']): ?>
+        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal">
+            <i class="bi bi-send-fill"></i> Enviar
+        </button>
+    <?php endif; ?>
+
+    <?php if (strtolower($menu) == "maquilas" && $_SESSION['permisos']['MaquilasAgregarReq']): ?>
+        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#ModalAgregarRequisicion">
+            <i class="bi bi-plus-lg"></i> Agregar
+        </button>
+    <?php endif; ?>
+
     <?php if ($menu == "Pacientes | Empresas") : ?>
 
         <span data-bs-toggle="modal" data-bs-target="#ModalRegistrarPaciente">

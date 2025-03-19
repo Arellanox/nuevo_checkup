@@ -257,16 +257,37 @@ $menu == 'Laboratorio Biomolecular'
                       <span id="maquilas-pendientes-notificacion">...</span>
                       <span class="visually-hidden">maquilas pendientes</span>
                     </span>
-            </button>
-            <button type="button" class="btn btn-primary position-relative" id="btn-estudios-pendientes-notificacion"
-                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Estudios pendientes por realizar"
-            >
-                <i class="fa fa-clock-o"></i> Pendientes
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                      <span id="estudios-pendientes-notificacion">...</span>
-                      <span class="visually-hidden">estudios pendientes</span>
-                    </span>
-            </button>
+                </button>
+
+                <ul class="dropdown-menu">
+                    <li>
+                        <button class="dropdown-item gap-2"
+                             id="btn-maquilas-pendientes-notificacion"
+                             data-bs-toggle="tooltip" data-bs-placement="bottom"
+                             title="Maquilas enviadas para aprobación"
+                        >
+                            <span>Maquilas enviadas</span>
+                            <span id="badge-maquila-icon" class="block badge rounded-pill bg-danger">
+                                <span id="maquilas-pendientes-notificacion">...</span>
+                                <span class="visually-hidden">maquilas enviadas</span>
+                            </span>
+                        </button>
+                    </li>
+                    <li>
+                        <div class="dropdown-item gap-2"
+                             id="btn-estudios-pendientes-notificacion"
+                             data-bs-toggle="tooltip" data-bs-placement="bottom"
+                             title="Estudios pendientes por realizar"
+                        >
+                            <span>Estudios pendientes</span>
+                            <span id="badge-estudios-icon" class="block badge rounded-pill bg-danger">
+                                <span id="estudios-pendientes-notificacion">...</span>
+                                <span class="visually-hidden">estudios pendientes</span>
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
         <div class="col-auto d-flex align-items-center">
             <label for="fechaListadoLaboratorio" class="form-label">Día de análisis</label>
@@ -380,6 +401,8 @@ $menu == 'Laboratorio Biomolecular'
             <i class="bi bi-box-seam"></i> Administrar cajas
         </button>
     <?php endif; ?>
+
+        
 
     <?php if ($menu == "Pacientes | Empresas") : ?>
 

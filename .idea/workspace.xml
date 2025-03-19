@@ -5,8 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="af65b511-fae7-4667-83bd-cb6ca4b438cc" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/menu/maquilas/contenido/controlador.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/menu/maquilas/contenido/js/maquilas.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/menu/maquilas/contenido/maquilas.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/menu/maquilas/index.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/menu/maquilas/modals/controlador.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/menu/maquilas/modals/js/mosal_maquilas.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/menu/maquilas/modals/modals.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/include/header/botones.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/include/header/botones.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/include/header/navbar-menu/navlink-droplist-admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/include/header/navbar-menu/navlink-droplist-admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/administracion/contenido/usuarios.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/administracion/contenido/usuarios.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,9 +90,9 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;com.codeium.enabled&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;notificaciones__server__sent__events&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/AppServ/www/nuevo_checkup/core/modules/notifications&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/AppServ/www/nuevo_checkup/vista/menu/maquilas/modals&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -96,11 +105,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\AppServ\www\nuevo_checkup\vista\menu\maquilas\modals" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\modules\notifications" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\assets" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\helpers\inputs" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\includes" />
-      <recent name="F:\AppServ\www\nuevo_checkup\core\helpers\menu" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="F:\AppServ\www\nuevo_checkup\core\requests" />
