@@ -32,7 +32,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php for($i = 0; $i < 20; $i++): ?>
+                    <?php for($i = 0; $i < 27; $i++): ?>
                         <tr>
                             <td colspan="1"><?= $i ?></td>
                             <td colspan="4">JIMENEZ RUIZ MAYRA LETICIA</td>
