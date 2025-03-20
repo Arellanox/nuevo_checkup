@@ -11,3 +11,4 @@ async function contenidoMaquilas(){
         $.getScript("contenido/js/maquilas.js");
     })
 }
+

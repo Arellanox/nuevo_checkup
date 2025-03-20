@@ -5,17 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="af65b511-fae7-4667-83bd-cb6ca4b438cc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/vista/menu/maquilas/contenido/controlador.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vista/menu/maquilas/contenido/js/maquilas.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vista/menu/maquilas/contenido/maquilas.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vista/menu/maquilas/index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vista/menu/maquilas/modals/controlador.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vista/menu/maquilas/modals/js/mosal_maquilas.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vista/menu/maquilas/modals/modals.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/include/header/botones.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/include/header/botones.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/include/header/navbar-menu/navlink-droplist-admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/include/header/navbar-menu/navlink-droplist-admin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/administracion/contenido/usuarios.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/administracion/contenido/usuarios.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/laboratorio_estudios_maquila_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/laboratorio_estudios_maquila_api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/maquilas/contenido/controlador.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/maquilas/contenido/controlador.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/maquilas/contenido/js/maquilas.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/maquilas/contenido/js/maquilas.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/maquilas/contenido/maquilas.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/maquilas/contenido/maquilas.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,25 +79,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/AppServ/www/nuevo_checkup/vista/menu/maquilas/modals&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.2.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.codeium.enabled": "true",
+    "git-widget-placeholder": "notificaciones__server__sent__events",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "F:/AppServ/www/nuevo_checkup/vista/menu/maquilas/modals",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.2.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\AppServ\www\nuevo_checkup\vista\menu\maquilas\modals" />

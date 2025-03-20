@@ -145,7 +145,7 @@ function aprobarMaquila(id) {
             MAQUILA_ESTATUS: 1
         }, 'laboratorio_estudios_maquila_api', {callbackAfter: true}, false, function (response) {
             if (response.response.code) {
-                Toast.fire({icon: 'success', title: '¡Maquila aprobada!', timer: 2000});
+                Toast.fire({icon: 'success', title: '¡Maquila aprobada!'});
                 tablaMaquilaasPorAprobar.ajax.reload();
             }
         }).then(r => {});
@@ -170,7 +170,7 @@ function rechazarMaquila(id) {
             MAQUILA_ESTATUS: 2
         }, 'laboratorio_estudios_maquila_api', {callbackAfter: true}, false, function (response) {
             if (response.response.code) {
-                Toast.fire({icon: 'success', title: '¡Maquila rechazada!', timer: 2000});
+                Toast.fire({icon: 'success', title: '¡Maquila rechazada!'});
                 tablaMaquilaasPorAprobar.ajax.reload();
             }
         }).then(r => {});

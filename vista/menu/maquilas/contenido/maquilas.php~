@@ -51,8 +51,8 @@
         border-radius: 8px;
     }
 
-    .btn-aprobar-all:hover{ color: #004f5a; }
-    .btn-generar-reporte:hover{ color: #761c19; }
+    .btn-aprobar-all:hover{color: #004f5a;}
+    .btn-generar-reporte:hover{color: #761c19;}
     .btn-aprobar-all, .btn-generar-reporte{ color: #2b2b2b; }
 
     .btnRechazar{ background-color: #761c19; }

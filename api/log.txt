@@ -1,3 +1,2 @@
-18/03/25 12:50:53 sp_laboratorio_estudios_maquila_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_laboratorio_estudios_maquila_b; expected 2, got 1
-18/03/25 12:53:36 sp_laboratorio_estudios_maquila_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_laboratorio_estudios_maquila_b; expected 2, got 1
-18/03/25 12:54:17 sp_laboratorio_estudios_maquila_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_laboratorio_estudios_maquila_b; expected 2, got 1
+20/03/25 09:10:41  Area: 7
+20/03/25 09:11:04  Area: 12
