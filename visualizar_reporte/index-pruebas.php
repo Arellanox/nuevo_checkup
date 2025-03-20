@@ -31,8 +31,8 @@ $usuario_id = $_SESSION['id'];
 // decomentar las siguientes 3 lineas para hacer las pruebas
 
 
-$api = "cotizacion";
-$area_id = 15;
+$api = "maquilas";
+$area_id = 1;
 $turno_id = 821;
 $id_cliente = 15;
 // $id_cotizacion = 7;
@@ -105,6 +105,9 @@ switch ($api) {
     case 'lista-barras':
         # imprimir lista de trabajo con codigo de barras
         $r = $master->reportador($master, $turno_id, -7, 'lista-barras', 'mostrar', $preview, 0, 0);
+        break;
+    case 'maquilas':
+        $r = $master->reportador($master, $turno_id, -8, 'maquilas', 'mostrar', $preview, 0, 0);
         break;
     default:
         echo '<script language="javascript">alert("¡URL invalida!"); window.close()</script>';

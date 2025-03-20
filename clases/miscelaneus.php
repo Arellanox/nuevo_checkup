@@ -743,6 +743,9 @@ class Miscelaneus
                 # $turno_id corresponde a la fecha de la lista de trabajo que se quiere imprimir
                 $arregloPaciente = $master->getByProcedure("sp_lista_de_trabajo_barras", [$turno_id, 6, null, null, null]);
                 break;
+            case -8:
+                $arregloPaciente = $master->getByProcedure("sp_laboratorio_estudios_maquila_b", [null, null]);
+                break;
         }
 
 
