@@ -35,11 +35,10 @@ $api = "maquilas";
 $area_id = 1;
 $turno_id = 821;
 $id_cliente = 15;
-// $id_cotizacion = 7;
+$id_cotizacion = 7;
 
 
 $preview = 0; // <- debe estar activo, y la firma de quien interpreta no debe aparecer
-
 
 switch ($api) {
     case 'imagenologia':

@@ -5,12 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="af65b511-fae7-4667-83bd-cb6ca4b438cc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/vista/menu/maquilas/modals/contenido/generar_pdf.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/laboratorio_estudios_maquila_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/laboratorio_estudios_maquila_api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/maquilas/contenido/controlador.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/maquilas/contenido/controlador.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clases/miscelaneus.php" beforeDir="false" afterPath="$PROJECT_DIR$/clases/miscelaneus.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/services/notifications/notifications.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/services/notifications/notifications.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pdf/views/invoice/maquilas.php" beforeDir="false" afterPath="$PROJECT_DIR$/pdf/views/invoice/maquilas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/js/laboratorio-botones.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/js/laboratorio-botones.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/js/lista-tabla.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/js/lista-tabla.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/menu/maquilas/contenido/js/maquilas.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/maquilas/contenido/js/maquilas.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/menu/maquilas/contenido/maquilas.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/maquilas/contenido/maquilas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/maquilas/modals/controlador.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/maquilas/modals/controlador.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/maquilas/modals/js/mosal_maquilas.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/maquilas/modals/js/generar_pdf.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/maquilas/modals/modals.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/maquilas/modals/modals.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizar_reporte/index-pruebas.php" beforeDir="false" afterPath="$PROJECT_DIR$/visualizar_reporte/index-pruebas.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,39 +88,39 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "com.codeium.enabled": "true",
-    "git-widget-placeholder": "notificaciones__server__sent__events",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "F:/AppServ/www/nuevo_checkup/vista/menu/maquilas/modals",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.2.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;notificaciones__server__sent__events&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/AppServ/www/nuevo_checkup/pdf/public/assets&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.2.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\AppServ\www\nuevo_checkup\pdf\public\assets" />
       <recent name="F:\AppServ\www\nuevo_checkup\vista\menu\maquilas\modals" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\modules\notifications" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\assets" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\helpers\inputs" />
-      <recent name="F:\AppServ\www\nuevo_checkup\core\includes" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\AppServ\www\nuevo_checkup\pdf\public\assets" />
+      <recent name="F:\AppServ\www\nuevo_checkup\pdf\views\invoice\assets" />
+      <recent name="F:\AppServ\www\nuevo_checkup\pdf\views\invoice" />
+      <recent name="F:\AppServ\www\nuevo_checkup\pdf\views\invoice\layouts\footer" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\requests" />
-      <recent name="F:\AppServ\www\nuevo_checkup\core\includes\app" />
-      <recent name="F:\AppServ\www\nuevo_checkup\core\includes\app\js" />
-      <recent name="F:\AppServ\www\nuevo_checkup\core\controllers\menu-controller\js" />
-      <recent name="F:\AppServ\www\nuevo_checkup\core" />
     </key>
   </component>
   <component name="RunManager">
@@ -124,7 +133,6 @@
     <attachedChunks>
       <set>
         <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.59" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.59" />
       </set>
     </attachedChunks>
   </component>

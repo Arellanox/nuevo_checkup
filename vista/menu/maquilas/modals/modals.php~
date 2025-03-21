@@ -1,0 +1,2 @@
+<?php
+include "contenido/GenerarPDF.php";

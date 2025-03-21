@@ -100,7 +100,6 @@
     }
 
     function onLimpiarBandejaNotificaciones(){
-        Toast.fire({icon: 'info', title: 'Processando solicitud, espere un momento', timer: 2000});
         marcarNotificaciones(notificationsIds, <?= $user_id ?>);
     }
 

@@ -692,8 +692,7 @@ function generarFormularioPaciente(id) {
                                         </label>
                                     </li>
                                     <li>
-                                        <div class="dropdown-item btn-maquila-estudios" 
-                                        data-bs-id="${row['ID_GRUPO']}" role="button">
+                                        <div class="dropdown-item btn-maquila-estudios" role="button">
                                             Maquilar
                                             <i class="bi bi-file-earmark-break-fill"></i>
                                         </div>

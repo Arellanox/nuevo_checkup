@@ -737,10 +737,9 @@ class Miscelaneus
                 $arregloPaciente = $master->getByProcedure("sp_lista_de_trabajo_barras", [$turno_id, 6, null, null, null]);
                 break;
             case -8:
-                $laboratorio_id = $_GET['laboratorio_id'];
-                $arregloPaciente = $master->getByProcedure("sp_laboratorio_estudios_maquila_b", [
-                    null, null, $laboratorio_id, 1
-                ]);
+                $lab_id = $_GET['laboratorio_id'];
+                $this->setLog($lab_id, "laboratorio_id");
+                $arregloPaciente = $master->getByProcedure("sp_laboratorio_estudios_maquila_b", [null, null, $lab_id]);
                 break;
         }
 

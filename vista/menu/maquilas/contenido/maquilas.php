@@ -2,7 +2,11 @@
     <table class="table table-hover display" id="TablaMaquilaasPorAprobar">
         <thead>
         <tr>
+            <th>Folio</th>
+            <th>Prefolio</th>
             <th>Laboratorio</th>
+            <th>Servicio</th>
+            <th>Paciente</th>
             <th>Solicitado Por</th>
             <th>Estado</th>
             <th>Fecha de Registro</th>
@@ -38,6 +42,7 @@
     }
 
     .btnRechazar,
+    .btnEliminar,
     .btnAprobar,
     .btn-generar-reporte,
     .btn-aprobar-all{
@@ -55,6 +60,7 @@
     .btn-generar-reporte:hover{ color: #761c19; }
     .btn-aprobar-all, .btn-generar-reporte{ color: #2b2b2b; }
 
-    .btnRechazar{ background-color: #761c19; }
+    .btnEliminar{ background-color: #761c19; }
     .btnAprobar{ background-color: #004f5a; }
+    .btnRechazar{ background-color: #dc3545; }
 </style>

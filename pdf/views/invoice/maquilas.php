@@ -1,3 +1,35 @@
+<?php
+    $pacientes = []; // Inicializamos un array para almacenar los pacientes agrupados con sus estudios
+    $numeracion = 1; // Contador para la columna de numeración en la tabla
+
+
+    foreach ($resultados as $resultado) {
+        // Construimos el nombre completo del paciente
+        $nombreCompleto = trim($resultado->PACIENTE_NOMBRE . " " .
+            $resultado->PACIENTE_APELLIDO_PATERNO . " " . $resultado->PACIENTE_APELLIDO_MATERNO);
+
+        // Generamos una clave única basada en el nombre completo para evitar duplicados
+        $pacienteKey = md5($nombreCompleto);
+
+        // Si el paciente aún no está en la lista, lo agregamos con su información básica
+        if (!isset($pacientes[$pacienteKey])) {
+            $pacientes[$pacienteKey] = [
+                'nombre' => $nombreCompleto,
+                'sexo' => $resultado->PACIENTE_GENERO,
+                'edad' => intval($resultado->PACIENTE_EDAD),
+                'estudios' => [] // Inicializamos un array para almacenar sus estudios
+            ];
+        }
+
+        // Agregamos el estudio a la lista de estudios del paciente
+        $pacientes[$pacienteKey]['estudios'][] = [
+            'servicio' => $resultado->SERVICIO, // Nombre del estudio
+            'servicio_clave' => $resultado->SERVICIO_CLAVE, // Clave del estudio
+            'precio' => "$ 485.00" // Puedes reemplazar esto con el precio real si está disponible en los datos
+        ];
+    }
+?>
+
 <html lang="es">
     <head>
         <meta charset="UTF-8">
@@ -32,19 +64,35 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php for($i = 0; $i < 20; $i++): ?>
-                        <tr>
-                            <td colspan="1"><?= $i ?></td>
-                            <td colspan="4">JIMENEZ RUIZ MAYRA LETICIA</td>
-                            <td colspan="1">F</td>
-                            <td colspan="1"></td>
-                            <td colspan="1">31</td>
-                            <td colspan="1"></td>
-                            <td colspan="4">Vitamina D (25 Hidroxivitamina D)</td>
-                            <td colspan="2">VITD</td>
-                            <td colspan="3"> $ 485.00</td>
-                        </tr>
-                    <?php endfor; ?>
+
+                    <?php foreach ($pacientes as $paciente): ?>
+                        <!-- Iteramos sobre los estudios de cada paciente -->
+                        <?php foreach ($paciente['estudios'] as $index => $estudio): ?>
+                            <tr>
+                                <?php if ($index === 0): ?>
+                                    <!-- En la primera fila mostramos los datos del paciente -->
+                                    <td colspan="1"><?= $numeracion ?></td>
+                                    <td colspan="4"><?= $paciente['nombre'] ?></td>
+                                    <td colspan="1"><?= $paciente['sexo'] === 'FEMENINO' ? 'F': '' ?></td>
+                                    <td colspan="1"><?= $paciente['sexo'] === 'MASCULINO' ? 'M': '' ?></td>
+                                    <td colspan="1"><?= $paciente['edad'] ?></td> <!-- Edad -->
+                                <?php else: ?>
+                                    <!-- Dejamos vacíos los datos ya mostrados en la primera fila -->
+                                    <td colspan="1"></td>
+                                    <td colspan="4"></td>
+                                    <td colspan="1"></td>
+                                    <td colspan="1"></td>
+                                    <td colspan="1"></td>
+                                <?php endif; ?>
+                                <td colspan="1"></td> <!-- Columna vacía según el formato -->
+                                <td colspan="4"><?= $estudio['servicio'] ?></td> <!-- Nombre del estudio -->
+                                <td colspan="2"><?= $estudio['servicio_clave'] ?></td> <!-- Clave del estudio -->
+                                <td colspan="3"><?= $estudio['precio'] ?></td> <!-- Precio del estudio -->
+                            </tr>
+                        <?php endforeach; ?>
+                        <?php $numeracion++; ?>
+                    <?php endforeach; ?>
+
                     <tr>
                         <td colspan="18" style="font-size: 8px">
                             <strong>
@@ -61,6 +109,7 @@
                             <span>Documento: RE-CC-08</span>
                         </td>
                     </tr>
+
                     <tr class="table_footer_firma">
                         <td colspan="9">
                             <br>
