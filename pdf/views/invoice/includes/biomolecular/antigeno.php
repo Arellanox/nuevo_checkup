@@ -61,13 +61,13 @@
 
 <br>
 <br><br><br><br>
-<p>Lote de kit: <strong><?php echo "5834CB1AC"/*$body[3]->resultado*/ ?></strong> </p>
+<p>Lote de kit: <strong><?php echo "SC39K1107119"/*$body[3]->resultado*/ ?></strong> </p>
 <p>Comentarios: Esta prueba identifica la presencia de antígeno del Coronavirus SARS-CoV-2,
     el resultado negativo de la prueba no significa inmunidad y el médico tratante es quien
     realiza la interpretación de este resultado de acuerdo a los datos clínicos que el
     paciente presente.
     <br>
-    Kit utilizado: <strong><?php echo "STANDARD Q COVID-19 Ag Test";/*$body[4]->resultado*/ ?></strong>
+    Kit utilizado: <strong><?php echo "CerTest SARS-CoV-2 Ag Test";/*$body[4]->resultado*/ ?></strong>
 </p>
 <br>
 <p>
