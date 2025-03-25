@@ -177,11 +177,6 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
 
   dom: 'Bfrtip',
   buttons: [
-    // {
-    //   extend: 'copyHtml5',
-    //   text: '<i class="fa fa-files-o"></i>',
-    //   titleAttr: 'Copy'
-    // },
     {
       extend: 'excelHtml5',
       text: '<i class="fa fa-file-excel-o"></i> Excel',
@@ -257,6 +252,13 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
 
       }
     },
+    {
+      text: '<i class="bi bi-download"></i> Formato Excel',
+      className: 'btn btn-secondary',
+      action: function(){
+        
+      }
+    }
   ],
 
 
