@@ -165,3 +165,4 @@
 25/03/25 15:10:04 sp_notificaciones_obtener_b Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_capacitaciones.sp_notificaciones_obtener_b does not exist
 25/03/25 15:12:08 sp_notificaciones_obtener_b Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_capacitaciones.sp_notificaciones_obtener_b does not exist
 25/03/25 15:14:11 sp_notificaciones_obtener_b Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_capacitaciones.sp_notificaciones_obtener_b does not exist
+26/03/25 14:51:06 sp_tracking_medicos_b Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_consultorio.sp_tracking_medicos_b does not exist

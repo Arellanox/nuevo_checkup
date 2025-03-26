@@ -5,12 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="af65b511-fae7-4667-83bd-cb6ca4b438cc" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/nuevo_checkup.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/nuevo_checkup.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pdf/views/invoice/assets/Estado_Cuentas.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pdf/views/invoice/estado_cuenta.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pdf/views/invoice/layouts/footer/footer_estado_cuenta.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pdf/views/invoice/layouts/header/header_estado_cuenta.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/services/notifications/server.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/services/notifications/server.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/include/header/botones.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/include/header/botones.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/controlador.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/controlador.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/laboratorio.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/laboratorio.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clases/Pdf.php" beforeDir="false" afterPath="$PROJECT_DIR$/clases/Pdf.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clases/miscelaneus.php" beforeDir="false" afterPath="$PROJECT_DIR$/clases/miscelaneus.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/excel/vendor/phpoffice/phpspreadsheet/.php_cs.dist" beforeDir="false" afterPath="$PROJECT_DIR$/lib/excel/vendor/phpoffice/phpspreadsheet/.php_cs.dist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/documentacion/reporte-paciente/contenido/reporte_excel.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/documentacion/reporte-paciente/contenido/reporte_excel.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizar_reporte/index-pruebas.php" beforeDir="false" afterPath="$PROJECT_DIR$/visualizar_reporte/index-pruebas.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +43,7 @@
       <list>
         <option value="HTML File" />
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -79,25 +85,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/AppServ/www/nuevo_checkup/core/modules/notifications&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.2.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.codeium.enabled": "true",
+    "git-widget-placeholder": "mejoras__contadora",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "F:/AppServ/www/nuevo_checkup/core/modules/notifications",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.2.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\AppServ\www\nuevo_checkup\core\modules\notifications" />
@@ -148,6 +155,9 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
