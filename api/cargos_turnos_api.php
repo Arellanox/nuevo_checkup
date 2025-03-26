@@ -1,6 +1,7 @@
 <?php
 include "../clases/master_class.php";
 require_once "../clases/token_auth.php";
+include_once "../clases/ExcelReport_class.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
@@ -82,6 +83,43 @@ switch ($api) {
         # recuperar el paquete que se le cargo al turno.
         $response = $master->getByProcedure("sp_recuperar_nombre_paquete", [$turno_id]);
         break;
+    case 6:
+        # descargar reporte excel con subtotales
+        $params = $master->setToNull([
+            $ujat_inicial,
+            $ujat_final,
+            $id_cliente,
+            $area_id,
+            $tipo_cliente,
+            $tiene_factura
+        ]);
+        $response = ($detallado == 1) ? $master->getByProcedure("sp_reporte_ujat", $params) : $master->getByProcedure("sp_reporte_ujat_prueba", $params);
+         #Seleccionamos la columnas para el reporte
+         $columnas =[
+            "PACIENTE"=>"Paciente",
+            "AREA" => "Área",
+            "SERVICIOS" => "Servicios",
+            "PREFOLIO" => "Prefolio",
+            "CANTIDAD" => "Cantidad",
+            "PRECIO_UNITARIO" => "Unitario",
+            "SUBTOTAL" => "Subtotal",
+            "IVA" => "IVA",
+            "TOTAL" => "Total",
+            "FECHA_RECEPCION" => "Fecha Recepción",
+            "FACTURA" => "Factura"
+        ];
+
+
+        #creamos instancia de excel
+        $reporte = new ExcelReport('DIAGNOSTICO BIOMOLECULAR SA DE CV', 'ESTADO DE CUENTA', $columnas, $response);
+        $reporte->generar();
+        
+
+        // Descargar el reporte
+        ExcelFileManager::descargar($reporte->getSpreadsheet(), 'reporte.xlsx');
+        
+        break;
+
     default:
         $response = "Apino definida";
 }

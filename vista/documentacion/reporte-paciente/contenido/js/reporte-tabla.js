@@ -177,22 +177,39 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
 
   dom: 'Bfrtip',
   buttons: [
+    // {
+    //   extend: 'excelHtml5',
+    //   text: '<i class="fa fa-file-excel-o"></i> Excel',
+    //   className: 'btn btn-success',
+    //   titleAttr: 'Excel',
+    //   customizeData: function (data) {
+    //     // Eliminar encabezados de columnas ocultas
+    //     for (var i = data.header.length - 1; i >= 0; i--) {
+    //       if (!$('#tablaPrincipal').DataTable().column(i).visible()) {
+    //         data.header.splice(i, 1);
+    //         for (var j = 0; j < data.body.length; j++) {
+    //           data.body[j].splice(i, 1);
+    //         }
+    //       }
+    //     }
+    //   }
+    // },
     {
-      extend: 'excelHtml5',
-      text: '<i class="fa fa-file-excel-o"></i> Excel',
-      className: 'btn btn-success',
-      titleAttr: 'Excel',
-      customizeData: function (data) {
-        // Eliminar encabezados de columnas ocultas
-        for (var i = data.header.length - 1; i >= 0; i--) {
-          if (!$('#tablaPrincipal').DataTable().column(i).visible()) {
-            data.header.splice(i, 1);
-            for (var j = 0; j < data.body.length; j++) {
-              data.body[j].splice(i, 1);
-            }
-          }
+        text: '<i class="fa fa-file-excel-o"></i> Excel',
+        className: 'btn btn-success',
+        titleAttr: 'Descargar Excel',
+        action: function () {
+            // Obtener los datos necesarios para la petición
+            let params = new URLSearchParams(dataList).toString();
+    
+            // Crear un enlace temporal para la descarga
+            let link = document.createElement('a');
+            link.href = 'cargos_turnos_api.php?' + params;
+            link.target = '_blank'; // Abre en una nueva pestaña
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
-      }
     },
     {
       text: '<i class="bi bi-box-arrow-in-down"></i> Incluir Campos Beneficiarios',
