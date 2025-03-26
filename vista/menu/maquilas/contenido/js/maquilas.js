@@ -104,8 +104,8 @@ function guardarMaquilasPorEstatus(response) {
     return response.reduce(
         (acc, maquila) => {
             const estatus = maquila.ESTATUS?.toString(); // Convierte a string para evitar inconsistencias
-
-            if (estatus === null || estatus === "0") {
+            console.log(maquila.ESTATUS?.toString())
+            if (estatus === null || estatus === undefined || estatus === "0") {
                 acc.maquilasPendientes.push(maquila.ID_MAQUILA);
             } else if (estatus === "1") {
                 acc.maquilasCompletadas.push(maquila.ID_MAQUILA);
@@ -124,6 +124,8 @@ function guardarMaquilasPorEstatus(response) {
 $('#btn-aprobar-todos').on('click', function () { aprobarTodasMaquilas(maquilasPendientes); });
 
 function aprobarTodasMaquilas(ids){
+    console.log('aprobarTodasMaquilas')
+    console.log(ids);
     alertMensajeConfirm({
         title: '¿Está seguro de aprobar todas las maquilas?',
         text: 'No podrá revertir los cambios',
@@ -134,27 +136,30 @@ function aprobarTodasMaquilas(ids){
         confirmButtonText: 'Aceptar',
         cancelButtonText: 'Cancelar'
     }, function () {
-
-        // Array de promesas para aprobar cada maquila
-        const promises = ids.map(id => {
-            return ajaxAwait({
-                api: 5,
-                ID_MAQUILA: id,
-                MAQUILA_ESTATUS: 1
-            }, 'laboratorio_estudios_maquila_api', { callbackAfter: true }, false);
-        });
-
-        Toast.fire({ icon: 'info', title: 'Espere un momento, estamos procesando su solicitud.' });
-
-        // Esperar a que todas las solicitudes terminen antes de continuar
-        Promise.all(promises)
-            .then(() => {
-                Toast.fire({ icon: 'success', title: '¡Maquilas aprobadas!', timer: 2000});
-                tablaMaquilaasPorAprobar.ajax.reload();
-            })
-            .catch(() => {
-                Toast.fire({ icon: 'error', title: '¡Ocurrió un error en el proceso de aprobación de maquilas!' });
+        if (ids && ids.length > 0) {
+            // Array de promesas para aprobar cada maquila
+            const promises = ids.map(id => {
+                return ajaxAwait({
+                    api: 5,
+                    ID_MAQUILA: id,
+                    MAQUILA_ESTATUS: 1
+                }, 'laboratorio_estudios_maquila_api', { callbackAfter: true }, false);
             });
+
+            console.log(promises)
+
+            Toast.fire({ icon: 'info', title: 'Espere un momento, estamos procesando su solicitud.' });
+
+            // Esperar a que todas las solicitudes terminen antes de continuar
+            Promise.all(promises)
+                .then(() => {
+                    Toast.fire({ icon: 'success', title: '¡Maquilas aprobadas!', timer: 2000});
+                    tablaMaquilaasPorAprobar.ajax.reload();
+                })
+                .catch(() => {
+                    Toast.fire({ icon: 'error', title: '¡Ocurrió un error en el proceso de aprobación de maquilas!' });
+                });
+        }
     });
 }
 //---

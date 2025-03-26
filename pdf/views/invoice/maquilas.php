@@ -21,13 +21,33 @@
             ];
         }
 
+
         // Agregamos el estudio a la lista de estudios del paciente
         $pacientes[$pacienteKey]['estudios'][] = [
             'servicio' => $resultado->SERVICIO, // Nombre del estudio
             'servicio_clave' => $resultado->SERVICIO_CLAVE, // Clave del estudio
-            'precio' => "$ 485.00" // Puedes reemplazar esto con el precio real si está disponible en los datos
+            'precio' => formatCurrency($resultado->PRECIO) ?? 'No definido' // Puedes reemplazar esto con el precio real si está disponible en los datos
         ];
     }
+
+
+    function formatCurrency($amount): string
+    {
+        if (!is_numeric($amount)) {
+            return 'Monto invalido o no registrado';
+        }
+
+        $amount = floatval($amount);
+
+        $formattedAmount = number_format($amount, 2, '.', '');
+
+        $parts = explode('.', $formattedAmount);
+
+        $parts[0] = number_format($parts[0]);
+
+        return '$' . implode('.', $parts);
+    }
+
 ?>
 
 <html lang="es">
@@ -64,7 +84,6 @@
                     </tr>
                 </thead>
                 <tbody>
-
                     <?php foreach ($pacientes as $paciente): ?>
                         <!-- Iteramos sobre los estudios de cada paciente -->
                         <?php foreach ($paciente['estudios'] as $index => $estudio): ?>
@@ -84,15 +103,16 @@
                                     <td colspan="1"></td>
                                     <td colspan="1"></td>
                                 <?php endif; ?>
-                                <td colspan="1"></td> <!-- Columna vacía según el formato -->
-                                <td colspan="4"><?= $estudio['servicio'] ?></td> <!-- Nombre del estudio -->
-                                <td colspan="2"><?= $estudio['servicio_clave'] ?></td> <!-- Clave del estudio -->
-                                <td colspan="3"><?= $estudio['precio'] ?></td> <!-- Precio del estudio -->
+                                    <td colspan="1"></td> <!-- Columna vacía según el formato -->
+                                    <td colspan="4"><?= $estudio['servicio'] ?></td> <!-- Nombre del estudio -->
+                                    <td colspan="2"><?= $estudio['servicio_clave'] ?></td> <!-- Clave del estudio -->
+                                    <td colspan="3"><?= $estudio['precio'] ?></td> <!-- Precio del estudio -->
                             </tr>
                         <?php endforeach; ?>
                         <?php $numeracion++; ?>
                     <?php endforeach; ?>
 
+                    <!--
                     <tr>
                         <td colspan="18" style="font-size: 8px">
                             <strong>
@@ -126,6 +146,7 @@
                             </div>
                         </td>
                     </tr>
+                    -->
                 </tbody>
             </table>
         </main>

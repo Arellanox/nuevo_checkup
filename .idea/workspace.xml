@@ -5,21 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="af65b511-fae7-4667-83bd-cb6ca4b438cc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/vista/menu/maquilas/modals/contenido/generar_pdf.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/laboratorio_estudios_maquila_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/laboratorio_estudios_maquila_api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clases/miscelaneus.php" beforeDir="false" afterPath="$PROJECT_DIR$/clases/miscelaneus.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/services/notifications/notifications.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/services/notifications/notifications.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pdf/views/invoice/assets/Diagnostica.css" beforeDir="false" afterPath="$PROJECT_DIR$/pdf/views/invoice/assets/Diagnostica.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pdf/views/invoice/layouts/footer/footer-diagnostica.php" beforeDir="false" afterPath="$PROJECT_DIR$/pdf/views/invoice/layouts/footer/footer-diagnostica.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pdf/views/invoice/maquilas.php" beforeDir="false" afterPath="$PROJECT_DIR$/pdf/views/invoice/maquilas.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/js/laboratorio-botones.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/js/laboratorio-botones.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/js/lista-tabla.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/js/lista-tabla.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/include/header/modals/modal-notifications-user.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/include/header/modals/modal-notifications-user.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/menu/maquilas/contenido/js/maquilas.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/maquilas/contenido/js/maquilas.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/maquilas/contenido/maquilas.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/maquilas/contenido/maquilas.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/maquilas/modals/controlador.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/maquilas/modals/controlador.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/maquilas/modals/js/mosal_maquilas.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/maquilas/modals/js/generar_pdf.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/maquilas/modals/modals.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/maquilas/modals/modals.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualizar_reporte/index-pruebas.php" beforeDir="false" afterPath="$PROJECT_DIR$/visualizar_reporte/index-pruebas.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
