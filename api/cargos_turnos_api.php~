@@ -110,8 +110,7 @@ switch ($api) {
             'DIAGNOSTICO BIOMOLECULAR SA DE CV', 'ESTADO DE CUENTA', $columnas, $response
         );
         $reporte->generar();
-
-        # Se requiere esperficar una ruta o desencadena un error
+        
         $rutaArchivo = '../reportes/excel/pacientes/pacientes.xlsx';
 
         # Guardar archivo en la carpeta

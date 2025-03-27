@@ -7,13 +7,9 @@
     <list default="true" id="af65b511-fae7-4667-83bd-cb6ca4b438cc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/cargos_turnos_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/cargos_turnos_api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clases/Pdf.php" beforeDir="false" afterPath="$PROJECT_DIR$/clases/Pdf.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clases/miscelaneus.php" beforeDir="false" afterPath="$PROJECT_DIR$/clases/miscelaneus.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pdf/views/invoice/assets/Estado_Cuentas.css" beforeDir="false" afterPath="$PROJECT_DIR$/pdf/views/invoice/assets/Estado_Cuentas.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pdf/views/invoice/estado_cuenta.php" beforeDir="false" afterPath="$PROJECT_DIR$/pdf/views/invoice/estado_cuenta.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pdf/views/invoice/layouts/footer/footer_estado_cuenta.php" beforeDir="false" afterPath="$PROJECT_DIR$/pdf/views/invoice/layouts/footer/footer_estado_cuenta.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/documentacion/reporte-paciente/contenido/js/reporte-tabla.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/documentacion/reporte-paciente/contenido/js/reporte-tabla.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualizar_reporte/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/visualizar_reporte/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clases/ExcelReport_class.php" beforeDir="false" afterPath="$PROJECT_DIR$/clases/ExcelReport_class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/controlador/funciones.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/controlador/funciones.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

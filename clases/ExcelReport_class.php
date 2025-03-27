@@ -72,6 +72,9 @@ class ExcelReport {
 
 
 class ExcelFileManager {
+    /**
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     */
     public static function guardar($spreadsheet, $rutaArchivo) {
         $writer = new Xlsx($spreadsheet);
         $writer->save($rutaArchivo);
