@@ -129,7 +129,6 @@ class Reporte
                 // $path    = 'pdf/public/etiquetas/00001.pdf';
 
                 break;
-
             case 'resultados':
                 $template = render_view('invoice/resultados.php', $view_vars);
                 $pdf->loadHtml($template);

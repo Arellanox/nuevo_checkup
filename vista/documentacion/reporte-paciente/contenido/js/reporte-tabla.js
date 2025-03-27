@@ -71,8 +71,6 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
     { data: 'PROCEDENCIA' },
     { data: 'VENDEDOR' },
     { data: 'EQUIPO' },
-    // { data: '' },
-
     { data: 'TRABAJADOR' },
     { data: 'VERIFICACION' },
     { data: 'CATEGORIA' },
@@ -126,8 +124,6 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
     { target: 33, className: 'none', title: 'Tipo Cliente' },
     { target: 34, className: 'none', title: 'US Interpretado por' },
   ],
-
-
   rowGroup: {
     dataSrc: 'PREFOLIO', // Columna utilizada para la agrupación
     startRender: function (rows, group) {
@@ -172,9 +168,6 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
       // .append('<td>' + diagnostico + '</td>');
     }
   },
-
-
-
   dom: 'Bfrtip',
   buttons: [
     // {
@@ -210,6 +203,24 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
             link.click();
             document.body.removeChild(link);
         }
+    },
+    {
+      text: '<i class="fa fa-file-pdf-o"></i> PDF',
+      className: 'btn btn-danger',
+      titleAttr: 'Descargar PDF',
+      action: function () {
+        const customDataList = dataList;
+        customDataList.api = "estados_cuentas";
+
+        const params = new URLSearchParams(customDataList).toString();
+        const link = document.createElement('a');
+        link.href = current_url+'/visualizar_reporte/index-pruebas.php?' + params;
+        link.target = '_blank';
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
     },
     {
       text: '<i class="bi bi-box-arrow-in-down"></i> Incluir Campos Beneficiarios',

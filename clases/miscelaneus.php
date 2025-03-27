@@ -745,7 +745,23 @@ class Miscelaneus
                 break;
 
             case -9:{
-                $arregloPaciente = [];
+                $ujat_inicial = $_GET['fecha_inicial'];
+                $ujat_final = $_GET['fecha_final'];
+                $id_cliente = $_GET['id_cliente'];
+                $area_id    = $_GET['area_id'];
+                $tipo_cliente = $_GET['tipo_cliente'];
+                $tiene_factura = $_GET['tiene_factura'];
+                $detallado = $_GET['detallado'];
+
+                $params = $master->setToNull([
+                    $ujat_inicial, $ujat_final, $id_cliente, $area_id, $tipo_cliente, $tiene_factura
+                ]);
+
+                $arregloPaciente = $detallado === 1
+                    ? $master->getByProcedure("sp_reporte_ujat", $params)
+                    : $master->getByProcedure("sp_reporte_ujat_prueba", $params);
+
+                //$arregloPaciente = $ujat_final;
             }
         }
 

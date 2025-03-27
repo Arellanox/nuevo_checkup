@@ -1,3 +1,35 @@
+<?php
+    $fecha_inicial = $_GET['fecha_inicial'];
+    $fecha_final = $_GET['fecha_final'];
+
+    /**
+     * @throws DateMalformedStringException
+     */
+    function formatFecha($fecha): string
+    {
+        setlocale(LC_TIME, 'es_ES.UTF-8', 'es_ES', 'esp'); // Forzar español en diferentes sistemas
+        $date = new DateTime($fecha);
+        return strtoupper(strftime('%e DE %B DEL %Y', $date->getTimestamp()));
+    }
+
+    function formatCurrency($amount): string
+    {
+        if (!is_numeric($amount)) {
+            return 'Monto invalido o no registrado';
+        }
+
+        $amount = floatval($amount);
+
+        $formattedAmount = number_format($amount, 2, '.', '');
+
+        $parts = explode('.', $formattedAmount);
+
+        $parts[0] = number_format($parts[0]);
+
+        return '$' . implode('.', $parts);
+    }
+
+?>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -13,7 +45,7 @@
 <header>
     <?php
         $titulo = 'DIAGNOSTICO BIOMOLECULAR SA DE CV';
-        $subtitle = 'ESTADO DE CUENTA  | HOSPITAL NUESTRA SEÑORA DE GUADALUPE | DEL 27 DE FEBRERO AL 2 DE MARZO DEL 2025';
+        $subtitle = 'ESTADO DE CUENTA  | HOSPITAL NUESTRA SEÑORA DE GUADALUPE | DEL '.formatFecha($fecha_inicial) .' AL '.formatFecha($fecha_final);
         include 'layouts/header/header_estado_cuenta.php';
     ?>
 </header>
@@ -26,54 +58,62 @@
             <th colspan="3">Area</th>
             <th colspan="4">Servicios</th>
             <th colspan="2">Prefolio</th>
-            <th colspan="2">Cantidad</th>
-            <th colspan="2">Unitario</th>
-            <th colspan="2">Subtotal</th>
-            <th colspan="2">Iva</th>
-            <th colspan="2">Total</th>
+            <th colspan="2"">Cantidad</th>
+            <th colspan="3"">Unitario</th>
+            <th colspan="3">Subtotal</th>
+            <th colspan="3">Iva</th>
+            <th colspan="3">Total</th>
             <th colspan="3">Fecha de Recepción</th>
             <th colspan="2">Factura</th>
         </tr>
         </thead>
         <tbody>
             <!-- CONTENIDO -->
-            <tr>
-                <td colspan="3">ALBERTO SOTO TEJERO</td>
-                <td colspan="3">LABORATORIO CLÍNICO</td>
-                <td colspan="4">UROCULTIVO</td>
-                <td colspan="2">2025227AST661</td>
-                <td colspan="2">1</td>
-                <td colspan="2">$387.10</td>
-                <td colspan="2">$360.00</td>
-                <td colspan="2">$57.60</td>
-                <td colspan="2">$417.60</td>
-                <td colspan="3">27/02/2025, 8:29 a.m.</td>
-                <td colspan="2">HNSG</td>
-            </tr>
+            <?php foreach($resultados as $item): ?>
+                <!-- OBTENCIÓN DE RESULTADOS -->
+                <?php
+                    $subtotal += floatval($item->SUBTOTAL);
+                    $iva += floatval($item->IVA);
+                    $total += floatval($item->TOTAL);
+                ?>
+
+                <tr>
+                    <td colspan="3"><?= $item->PACIENTE ?></td>
+                    <td colspan="3"><?= $item->AREA ?></td>
+                    <td colspan="4"><?= $item->SERVICIOS ?></td>
+                    <td colspan="2"><?= $item->PREFOLIO ?></td>
+                    <td colspan="2"><?= $item->CANTIDAD ?></td>
+                    <td colspan="3"><?= formatCurrency($item->PRECIO_UNITARIO) ?></td>
+                    <td colspan="3"><?= formatCurrency($item->SUBTOTAL) ?></td>
+                    <td colspan="3"><?= formatCurrency($item->IVA) ?></td>
+                    <td colspan="3"><?= formatCurrency($item->TOTAL) ?></td>
+                    <td colspan="3"><?= $item->FECHA_RECEPCION ?></td>
+                    <td colspan="2"><?= $item->FACTURA ?></td>
+                </tr>
+            <?php endforeach; ?>
 
             <!-- RESULTADOS -->
             <tr class="salto_linea">
-                <td colspan="27" class="space-white"></td>
+                <td colspan="31" class="space-white"></td>
             </tr>
             <tr class="resultado">
-                <td colspan="22" class="space-white"></td>
+                <td colspan="26" class="space-white"></td>
                 <td colspan="2">Subtotal</td>
-                <td colspan="3">$ 360.00</td>
+                <td colspan="3"><?= formatCurrency($subtotal) ?></td>
             </tr>
             <tr class="resultado">
-                <td colspan="22" class="space-white"></td>
+                <td colspan="26" class="space-white"></td>
                 <td colspan="2">IVA</td>
-                <td colspan="3">$ 57.60</td>
+                <td colspan="3"><?= formatCurrency($iva) ?></td>
             </tr>
             <tr class="resultado">
-                <td colspan="22" class="space-white"></td>
+                <td colspan="26" class="space-white"></td>
                 <td colspan="2">TOTAL</td>
-                <td colspan="3">$ 417.60</td>
+                <td colspan="3"><?= formatCurrency($total) ?></td>
             </tr>
         </tbody>
     </table>
 </main>
-
 <footer>
     <?php include 'layouts/footer/footer_estado_cuenta.php'; ?>
 </footer>

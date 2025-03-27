@@ -2,6 +2,7 @@
 include "../clases/master_class.php";
 require_once "../clases/token_auth.php";
 include_once "../clases/ExcelReport_class.php";
+include_once "../clases/Pdf.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
@@ -67,11 +68,10 @@ switch ($api) {
             $tipo_cliente,
             $tiene_factura
         ]);
-        if( $detallado == 1 ){
 
+        if( $detallado == 1 ){
             $response = $master->getByProcedure("sp_reporte_ujat", $params);
         } else {
-
             $response = $master->getByProcedure("sp_reporte_ujat_prueba", $params);
         }
         break;
@@ -94,8 +94,8 @@ switch ($api) {
             $tiene_factura
         ]);
         $response = ($detallado == 1) ? $master->getByProcedure("sp_reporte_ujat", $params) : $master->getByProcedure("sp_reporte_ujat_prueba", $params);
-         #Seleccionamos la columnas para el reporte
-         $columnas =[
+        #Seleccionamos la columnas para el reporte
+        $columnas =[
             "PACIENTE"=>"Paciente",
             "AREA" => "Área",
             "SERVICIOS" => "Servicios",
@@ -109,16 +109,13 @@ switch ($api) {
             "FACTURA" => "Factura"
         ];
 
-
         #creamos instancia de excel
         $reporte = new ExcelReport('DIAGNOSTICO BIOMOLECULAR SA DE CV', 'ESTADO DE CUENTA', $columnas, $response);
         $reporte->generar();
-        
 
         // Descargar el reporte
-            ExcelFileManager::descargar($reporte->getSpreadsheet(), 'reporte.xlsx');
+        ExcelFileManager::descargar($reporte->getSpreadsheet(), 'reporte.xlsx');
         break;
-
     default:
         $response = "Apino definida";
 }

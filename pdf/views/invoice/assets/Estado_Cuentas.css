@@ -5,7 +5,7 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    margin-top: -54px;
+    margin-top: -70px;
     margin-bottom: -80px;
     font-size: 10px;
 }
@@ -61,6 +61,23 @@ table { border-collapse: collapse; }
     background: #e4e4e4;
     text-align: left;
 }
+.tb-estado-cuenta tbody tr td:nth-child(3),
+.tb-estado-cuenta tbody tr td:nth-child(1),
+.tb-estado-cuenta tbody tr td:nth-child(2)
+{
+    max-width: 130px;
+}
+.tb-estado-cuenta tbody tr td:nth-child(5),
+.tb-estado-cuenta tbody tr td:nth-child(6),
+.tb-estado-cuenta tbody tr td:nth-child(7),
+.tb-estado-cuenta tbody tr td:nth-child(8),
+.tb-estado-cuenta tbody tr td:nth-child(9){
+    min-width: 70px;
+}
+
+.tb-estado-cuenta tbody tr td:nth-child(11){
+    min-width: 60px;
+}
 
 .tb-estado-cuenta tbody tr.salto_linea td.space-white,
 .tb-estado-cuenta tbody tr.resultado td.space-white{
@@ -97,10 +114,14 @@ footer .page:after { content: counter(page); }
 }
 .header table thead tr.titulo .float-logo{
     position: absolute;
-    top: 25px;
+    top: 10px;
     left: 30px;
     bottom: 0;
     right: 0;
     margin: auto;
 }
 /*=============[FIN]=============*/
+.minMaxContent{
+    min-width: max-content !important;
+    width: max-content !important;
+}
