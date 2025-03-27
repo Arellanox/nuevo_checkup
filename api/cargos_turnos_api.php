@@ -116,8 +116,7 @@ switch ($api) {
         
 
         // Descargar el reporte
-        ExcelFileManager::descargar($reporte->getSpreadsheet(), 'reporte.xlsx');
-        
+            ExcelFileManager::descargar($reporte->getSpreadsheet(), 'reporte.xlsx');
         break;
 
     default:

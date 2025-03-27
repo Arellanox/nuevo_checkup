@@ -3,13 +3,13 @@ require_once 'PhpSpreadsheet/vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class ExcelReport {
-    private Spreadsheet $spreadsheet;
-    private string $titulo;
-    private string $subtitulo;
-    private array $columnas;
-    private array $data;
+    private $spreadsheet;
+    private $titulo;
+    private $subtitulo;
+    private $columnas;
+    private $data;
 
-    public function __construct(string $titulo, string $subtitulo, array $columnas, array $data) {
+    public function __construct($titulo, $subtitulo, $columnas, $data) {
         $this->spreadsheet = new Spreadsheet();
         $this->titulo = $titulo;
         $this->subtitulo = $subtitulo;
@@ -17,7 +17,7 @@ class ExcelReport {
         $this->data = $data;
     }
 
-    public function generar(): void {
+    public function generar() {
         $sheet = $this->spreadsheet->getActiveSheet();
 
         // Agregar título
@@ -49,7 +49,7 @@ class ExcelReport {
         foreach ($this->data as $fila) {
             $colIndex = 1;
             foreach ($this->columnas as $campo => $nombre) {
-                $sheet->setCellValueByColumnAndRow($colIndex, $filaActual, $fila[$campo] ?? '');
+                $sheet->setCellValueByColumnAndRow($colIndex, $filaActual, isset($fila[$campo]) ? $fila[$campo] : '');
                 $colIndex++;
             }
             $filaActual++;
@@ -61,27 +61,28 @@ class ExcelReport {
         }
     }
 
-    public function getSpreadsheet(): Spreadsheet {
+    public function getSpreadsheet() {
         return $this->spreadsheet;
     }
 
-    private function columnaLetra($num): string {
+    private function columnaLetra($num) {
         return \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($num);
     }
 }
 
+
 class ExcelFileManager {
-    public static function guardar(Spreadsheet $spreadsheet, string $rutaArchivo): void {
-        $writer = new Xlsx($spreadsheet);
+    public static function guardar($spreadsheet, $rutaArchivo) {
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
         $writer->save($rutaArchivo);
     }
 
-    public static function descargar(Spreadsheet $spreadsheet, string $nombreArchivo): void {
+    public static function descargar($spreadsheet, $nombreArchivo) {
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="' . $nombreArchivo . '"');
         header('Cache-Control: max-age=0');
 
-        $writer = new Xlsx($spreadsheet);
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
         $writer->save('php://output');
         exit;
     }
