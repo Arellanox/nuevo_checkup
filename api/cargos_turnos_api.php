@@ -11,12 +11,13 @@ if (!$tokenValido) {
     // exit;
 }
 
+
 $master = new Master();
 
 $api = $_POST['api'];
 $turno_id = $_POST['turno_id'];
 $num_factura = $_POST['num_factura'];
-
+$host = $master->selectHost($_SERVER['SERVER_NAME']);
 
 #variables para el reporte de la ujat
 $ujat_inicial = $_POST['fecha_inicial'];
@@ -113,8 +114,15 @@ switch ($api) {
         $reporte = new ExcelReport('DIAGNOSTICO BIOMOLECULAR SA DE CV', 'ESTADO DE CUENTA', $columnas, $response);
         $reporte->generar();
 
-        // Descargar el reporte
-        ExcelFileManager::descargar($reporte->getSpreadsheet(), 'reporte.xlsx');
+
+        # Guardar archivo en la carpeta
+        ExcelFileManager::guardar($reporte->getSpreadsheet(), $rutaArchivo);
+
+
+        $urlBase = "{$host}api";  // Reemplaza con tu dominio o IP pública
+        $urlArchivo = "$urlBase/$rutaArchivo";
+        $response = [ $urlArchivo ];
+
         break;
     default:
         $response = "Apino definida";
