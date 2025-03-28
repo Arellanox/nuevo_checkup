@@ -112,7 +112,7 @@ switch ($api) {
         $reporte->generar();
 
         # Se requiere esperficar una ruta o desencadena un error
-        $rutaArchivo = '../reportes/excel/pacientes/pacientes.xlsx';
+        $rutaArchivo = 'ReportesExcel/reporte_pacientes_'.$_SESSION['id'].".xlsx";
 
         # Guardar archivo en la carpeta
         try {
