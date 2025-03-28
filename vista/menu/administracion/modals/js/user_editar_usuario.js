@@ -5,6 +5,7 @@ modalEditarRegistroUsuario.addEventListener('show.bs.modal', event => {
   $("#edit-usuario-contraseña").removeAttr("name");
   rellenarSelect('#usuario-cargos-edit', 'tipos_usuarios_api', 2, 0, 1);
   rellenarSelect('#usuario-tipo-edit', 'tipos_usuarios_api', 2, 0, 1);
+  rellenarSelect('#cliente-edit', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL');
   // Colocar ajax
   $.ajax({
     url: "../../../api/usuarios_api.php",
@@ -24,6 +25,7 @@ modalEditarRegistroUsuario.addEventListener('show.bs.modal', event => {
         $('#edit-usuario-cedula').val(data['response']['data'][0]['CEDULA'])
         $('#edit-usuario-telefono').val(data['response']['data'][0]['TELEFONO'])
         $('#edit-usuario-correo').val(data['response']['data'][0]['CORREO'])
+        $('#cliente-edit').val(data['response']['data'][0]['CLIENTE_ID'])
       }
     }
   })

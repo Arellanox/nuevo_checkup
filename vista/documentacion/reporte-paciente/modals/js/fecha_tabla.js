@@ -27,8 +27,8 @@ $(document).on('click', '#actualizar_tabla', function (event) {
     $('#modalFiltrarTabla').modal('hide');
 })
 
-orderAndFillSelects('#cliente', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
-orderAndFillSelects('#area_list', 'areas_api', 2, 'ID_AREA', 'DESCRIPCION')
+rellenarOrdenarSelect('#cliente', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
+rellenarOrdenarSelect('#area_list', 'areas_api', 2, 'ID_AREA', 'DESCRIPCION')
 
 document.getElementById('fecha_inicial').value = fechaInicialFormatted;
 document.getElementById('fecha_final').value = fechaFinalFormatted;

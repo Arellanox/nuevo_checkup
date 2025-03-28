@@ -265,5 +265,5 @@ $(document).on('click', '.btn-modal-maquila-confirm', function (event) {
 $(document).on('click', '.btn-maquila-estudios', function (event){
   event.preventDefault();
   $('#modalMaquilaEstudios').modal('show');
-  orderAndFillSelects('#select-laboratorios-maquila', 'laboratorio_maquila_api', 2, 'ID_LABORATORIO', 'DESCRIPCION');
+  rellenarOrdenarSelect('#select-laboratorios-maquila', 'laboratorio_maquila_api', 2, 'ID_LABORATORIO', 'DESCRIPCION');
 });

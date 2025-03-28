@@ -3,7 +3,7 @@ async function mantenimientoPaquete() {
   $('#btn-vistaPrevia-cotizacion').attr('disabled', false)
 
   loader("In");
-  await orderAndFillSelects('#seleccion-paquete', 'paquetes_api', 2, 0, 'DESCRIPCION', {
+  await rellenarOrdenarSelect('#seleccion-paquete', 'paquetes_api', 2, 0, 'DESCRIPCION', {
     contenido: 1
   });
   tablaContenido();
@@ -23,7 +23,7 @@ async function contenidoPaquete(select = null) {
   $('#btn-excel-previa').attr('disabled', true)
   $('#btn-vistaPrevia-cotizacion').attr('disabled', true)
 
-  await orderAndFillSelects('#seleccion-paquete', 'paquetes_api', 2, 0, 'DESCRIPCION', {contenido: 0});
+  await rellenarOrdenarSelect('#seleccion-paquete', 'paquetes_api', 2, 0, 'DESCRIPCION', {contenido: 0});
 
   $('#seleccion-paquete').prop('disabled', false);
   $("#selectDisabled").removeClass("disable-element");
@@ -178,7 +178,7 @@ function checkNumber(x) {
 }
 
 // ASIGNAR PAQUETES A CLIENTES.
-orderAndFillSelects('#relacion-paquete', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL');
+rellenarOrdenarSelect('#relacion-paquete', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL');
 
 $('#asignarPaquete').on('click', function(){
   const paqueteEnAsignacion = $('#seleccion-paquete option:selected').text();
