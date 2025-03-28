@@ -23,7 +23,6 @@ modalEditarRegistroUsuario.addEventListener('show.bs.modal', event => {
 
         if (mensajeAjax(data)) {
           let usuario = data['response']['data'][0];
-          console.log(usuario)
 
           $('#usuario-cargos-edit').val(usuario['CARGO_ID']).trigger('change');
           $('#usuario-tipo-edit').val(usuario['TIPO_ID']).trigger('change');

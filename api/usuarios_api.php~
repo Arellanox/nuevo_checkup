@@ -149,7 +149,7 @@ switch ($api) {
         //     echo json_encode(array("response" => array("code" => 2, "msj" => $response)));
         // }
         // break;
-    break;
+
     case 4:
         $array_slice = array_slice($_POST, 0, 11);
         $a = $usuario->master->mis->getFormValues($array_slice);
