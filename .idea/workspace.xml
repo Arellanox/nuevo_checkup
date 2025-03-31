@@ -5,12 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="af65b511-fae7-4667-83bd-cb6ca4b438cc" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/nuevo_checkup.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/nuevo_checkup.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/services/notifications/server.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/services/notifications/server.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/clientes_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/clientes_api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/login_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/login_api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/pacientes_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/pacientes_api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/usuarios_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/usuarios_api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/include/header/botones.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/include/header/botones.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/controlador.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/controlador.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/laboratorio.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/laboratorio.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/include/modal/js/editar-paciente.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/include/modal/js/editar-paciente.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/include/modal/js/registrar-agenda.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/include/modal/js/registrar-agenda.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/recepcion/modals/js/p_registro.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/recepcion/modals/js/p_registro.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/recepcion/modals/p_aceptar_paciente.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/recepcion/modals/p_aceptar_paciente.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +90,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;com.codeium.enabled&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;nueva__franquicia&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;F:/AppServ/www/nuevo_checkup/core/modules/notifications&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -124,7 +129,6 @@
     <attachedChunks>
       <set>
         <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.59" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.59" />
       </set>
     </attachedChunks>
   </component>

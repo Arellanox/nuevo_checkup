@@ -84,6 +84,8 @@ switch ($api) {
         );
 
         $last_id = $master->insertByProcedure('sp_usuarios_g', $params);
+
+        $master->mis->setLog($last_id, 'id_usuario');
         if (count($especialidades) > 0) {
             foreach ($especialidades as $current) {
                 $response = $master->insertByProcedure("sp_u_especialidades_g", [null, $last_id, $current['especialidad'], $current['cedula'], $current['universidad'], $current['certificado'], $current['certificado_num']]);

@@ -411,8 +411,15 @@ if (registroAgendaRecepcion == 1) {
     '<div class="form-check">' +
     '<input class="form-check-input" type="checkbox" value="" id="checkCurpPasaporte-agenda">' +
     '<label class="form-check-label" for="checkCurpPasaporte-agenda"> Soy extranjero </label></div>')
+
   select2('#curp-paciente', "ModalRegistrarPrueba", 'Cargando...')
-  rellenarSelect('#curp-paciente', 'pacientes_api', 2, 'ID_PACIENTE', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.EXPEDIENTE')
+
+  if(isFranquisiario){
+    rellenarSelect('#curp-paciente', 'pacientes_api', 6, 'ID_PACIENTE', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.EXPEDIENTE')
+  }else{
+    rellenarSelect('#curp-paciente', 'pacientes_api', 2, 'ID_PACIENTE', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.EXPEDIENTE')
+  }
+
   $('#checkCurpPasaporte-agenda').prop('disabled', true)
 }
 // else{

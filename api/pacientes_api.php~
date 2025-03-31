@@ -111,7 +111,7 @@ switch ($api) {
         # buscar pacientes
         // echo $id_paciente;
         $response = $master->getByProcedure("sp_pacientes_b", [
-            $id_paciente, $curp, $pasaporte, $id_turno, null
+            $id_paciente, $curp, $pasaporte, $id_turno
         ]);
 
         foreach ($response as $key => $value) {
@@ -142,7 +142,7 @@ switch ($api) {
     case 6:
         # buscar pacientes para franquicias
         $response = $master->getByProcedure("sp_pacientes_b", [
-            $id_paciente, $curp, $pasaporte, $id_turno, $_SESSION['id']
+            $id_paciente, $curp, $pasaporte, $id_turno
         ]);
 
         foreach ($response as $key => $value) {

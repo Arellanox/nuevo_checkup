@@ -67,14 +67,6 @@ $menu = $_POST['menu']; ?>
 <?php endif; ?>
 
 <?php if ($menu == "Recepción | Espera" || $menu == "Recepción | Aceptados" || $menu == "Recepción | Rechazados") : ?>
-    <!-- <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-editar">
-      <i class="bi bi-pencil-square"></i> Actualizar información del paciente
-    </button> -->
-    <!-- <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-perfil" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Visualiza todos los pacientes del area">
-      <i class="bi bi-image"></i> Subir imagen
-    </button> -->
-
-    <!-- Example single danger button -->
     <div class="btn-group">
         <button type="button" class="btn btn-hover dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-toggle="tooltip" data-bs-placement="top" title="Registra o Agenda un nuevo paciente">
             <i class="bi bi-person-square"></i> Registrar | Agendar | Solicitar
@@ -107,9 +99,7 @@ $menu = $_POST['menu']; ?>
         </ul>
     </div>
 
-
-
-
+    <?php if(!$_SESSION["franquiciario"]): ?>
     <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" onclick="pasarPaciente()" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Manda a un paciente a una area disponible">
         <i class="bi bi-arrow-repeat"></i> Optimizar Turnero
     </button>
@@ -130,6 +120,7 @@ $menu = $_POST['menu']; ?>
       </span>
     </span>
     </button>
+    <?php endif; ?>
 
 <?php endif; ?>
 
