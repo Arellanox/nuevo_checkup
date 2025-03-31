@@ -299,13 +299,6 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
         tablaPrincipal.rows().nodes().to$().removeClass('d-none');
 
       }
-    },
-    {
-      text: '<i class="bi bi-download"></i> Formato Excel',
-      className: 'btn btn-secondary',
-      action: function(){
-        
-      }
     }
   ],
 
