@@ -1,4 +1,3 @@
-const isFranquisiario = session['franquiciario'];
 const modalRegistrarPrueba = document.getElementById('ModalRegistrarPrueba')
 
 modalRegistrarPrueba.addEventListener('show.bs.modal', event => {

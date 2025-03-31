@@ -50,6 +50,7 @@ $parametros = [
     $_POST['convenio'] ?? null,
     $_POST['indicaciones'] ?? null,
     $_POST['cfdi'] ?? null,
+    $_SESSION['id']
 ];
 
 // Carpeta de destino para archivos
@@ -92,7 +93,7 @@ switch ($api) {
         break;
 
     case 2: // Buscar cliente
-        $response = $master->getByProcedure("sp_clientes_b", [$id, $codigo, $qr]);
+        $response = $master->getByProcedure("sp_clientes_b", [$id, $codigo, $qr, null]);
 
         // Si solo se encuentra un cliente, añadir segmentos y cuestionarios
         agregarSegmentosCuestionarios($response);
@@ -137,7 +138,7 @@ switch ($api) {
         break;
 
     case 10: // Clientes para franquicias
-        $response = $master->getByProcedure("sp_clientes_b", [1, null, null]);
+        $response = $master->getByProcedure("sp_clientes_b", [null, null, null, $_SESSION['id']]);
 
         // Si solo se encuentra un cliente, añadir segmentos y cuestionarios
         //agregarSegmentosCuestionarios($response);

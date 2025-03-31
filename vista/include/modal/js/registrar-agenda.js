@@ -422,10 +422,6 @@ if (registroAgendaRecepcion == 1) {
 
   $('#checkCurpPasaporte-agenda').prop('disabled', true)
 }
-// else{
-//   $('#procedencia-agenda').html('<p id="procedencia-registro">PARTICULAR</p>')
-// }
-
 
 //Mayus
 $('#curp-paciente').css('text-transform', 'uppercase')

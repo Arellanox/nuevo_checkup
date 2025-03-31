@@ -19,7 +19,7 @@
     let array_user;
     let validar;
 
-    const isFranquisiario = session['franquiciario'];
+    const isFranquisiario = <?= $isFranquiciario ?>;
 
     $.getScript("<?= $current_url . '/core/helpers/menu/tooltip.js' ?>").done(function () {
         $.getScript("<?= $current_url . '/core/helpers/menu/site.js' ?>").done(function () {

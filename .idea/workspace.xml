@@ -8,14 +8,12 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/clientes_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/clientes_api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/login_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/login_api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/pacientes_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/pacientes_api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/usuarios_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/usuarios_api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/include/header/botones.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/include/header/botones.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/include/modal/js/editar-paciente.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/include/modal/js/editar-paciente.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/includes/menu_includes.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/includes/menu_includes.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/include/modal/js/registrar-agenda.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/include/modal/js/registrar-agenda.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/clientes/contenido/controlador.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/clientes/contenido/controlador.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/clientes/contenido/js/cliente-tabla.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/clientes/contenido/js/cliente-tabla.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/menu/recepcion/modals/js/p_registro.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/recepcion/modals/js/p_registro.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/recepcion/modals/p_aceptar_paciente.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/recepcion/modals/p_aceptar_paciente.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/variables.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/variables.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
