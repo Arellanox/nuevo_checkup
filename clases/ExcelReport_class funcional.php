@@ -2,25 +2,19 @@
 require_once 'PhpSpreadsheet/vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
-
 class ExcelReport {
     private $spreadsheet;
     private $titulo;
     private $subtitulo;
     private $columnas;
     private $data;
-    private $columnasMoneda;
-    private $columnasSumar;
 
-    public function __construct($titulo, $subtitulo, $columnas, $data, $columnasMoneda = [], $columnasSumar = []) {
+    public function __construct($titulo, $subtitulo, $columnas, $data) {
         $this->spreadsheet = new Spreadsheet();
         $this->titulo = $titulo;
         $this->subtitulo = $subtitulo;
         $this->columnas = $columnas;
         $this->data = $data;
-        $this->columnasMoneda = $columnasMoneda;
-        $this->columnasSumar = $columnasSumar;
     }
 
     public function generar() {
@@ -51,18 +45,11 @@ class ExcelReport {
         }
 
         // Agregar datos
-        $filaInicioDatos = $filaActual + 1;
-        $filaActual = $filaInicioDatos;
-
+        $filaActual++;
         foreach ($this->data as $fila) {
             $colIndex = 1;
             foreach ($this->columnas as $campo => $nombre) {
                 $sheet->setCellValueByColumnAndRow($colIndex, $filaActual, isset($fila[$campo]) ? $fila[$campo] : '');
-                // Aplicar formato de moneda si está en la lista
-                if (in_array($campo, $this->columnasMoneda)) {
-                    $sheet->getStyleByColumnAndRow($colIndex, $filaActual)
-                          ->getNumberFormat()->setFormatCode('"$"#,##0.00');
-                }
                 $colIndex++;
             }
             $filaActual++;
@@ -72,44 +59,6 @@ class ExcelReport {
         foreach (range(1, count($this->columnas)) as $col) {
             $sheet->getColumnDimensionByColumn($col)->setAutoSize(true);
         }
-
-        // Agregar filas de sumatorias después de una fila en blanco
-        $filaSumatoria = $filaActual + 1; // Primera fila de sumatoria
-
-        foreach ($this->columnas as $campo => $nombre) {
-            if (in_array($campo, $this->columnasSumar)) {
-                // Obtener la letra correcta de la columna que contiene los valores a sumar
-                $colLetra = $this->columnaLetra(array_search($campo, array_keys($this->columnas)) + 1); 
-
-                // Colocar el nombre de la columna en la primera celda
-                $sheet->setCellValue("E" . $filaSumatoria, $nombre);
-                $sheet->getStyle("E" . $filaSumatoria)->getFont()->setBold(true)->setSize(14);
-
-                // Calcular correctamente la sumatoria usando la columna adecuada
-                $sheet->setCellValue("F" . $filaSumatoria, "=SUM(" . $colLetra . $filaInicioDatos . ":" . $colLetra . ($filaActual - 1) . ")");
-                $sheet->getStyle("F" . $filaSumatoria)->getFont()->setBold(true)->setSize(14);
-
-                // Aplicar formato de moneda si es necesario
-                if (in_array($campo, $this->columnasMoneda)) {
-                    $sheet->getStyle("F" . $filaSumatoria)->getNumberFormat()->setFormatCode('"$"#,##0.00');
-                }
-
-                // Aplicar fondo de color D6DCE4 a las celdas B y C
-                $sheet->getStyle("E" . $filaSumatoria . ":F" . $filaSumatoria)->getFill()
-                    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-                    ->getStartColor()->setARGB('D6DCE4');
-
-                // Pasar a la siguiente fila para la siguiente sumatoria
-                $filaSumatoria++;
-            }
-        }
-
-
-        // Ajustar tamaño de columnas
-        foreach (range(1, count($this->columnas)) as $col) {
-            $sheet->getColumnDimensionByColumn($col)->setAutoSize(true);
-        }
-
     }
 
     public function getSpreadsheet() {

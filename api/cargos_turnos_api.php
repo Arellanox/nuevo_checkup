@@ -105,9 +105,27 @@ switch ($api) {
             "FACTURA" => "Factura"
         ];
 
+        $columnasMoneda = [
+            'PRECIO_UNITARIO',
+            'SUBTOTAL',
+            'IVA',
+            'TOTAL'
+        ];
+
+        $columnasSumatorias = [
+            'SUBTOTAL',
+            'IVA',
+            'TOTAL'
+        ];
+
         #creamos instancia de excel
         $reporte = new ExcelReport(
-            'DIAGNOSTICO BIOMOLECULAR SA DE CV', 'ESTADO DE CUENTA', $columnas, $response
+            'DIAGNOSTICO BIOMOLECULAR SA DE CV', 
+            'ESTADO DE CUENTA', 
+            $columnas, 
+            $response,
+            $columnasMoneda,
+            $columnasSumatorias
         );
         $reporte->generar();
 
