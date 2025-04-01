@@ -1,175 +1,53 @@
+const apiByFranquisiario = isFranquisiario ? -1 : 1;
 
+let tablaRecepcionPacientes, dataRecepcion = {api: apiByFranquisiario};
+let TablaReportesNoEnviados, dataReporteNoEnviados = {api: 2, enviado: 0};
 
-// ObtenerTabla o cambiar
-// obtenerContenidoRecepcion();
-var tablaRecepcionPacientes, dataRecepcion = { api: 1 };
-var TablaReportesNoEnviados, dataReporteNoEnviados = { api: 2, enviado: 0 }
+let estudiosLab = [], estudiosLabBio = [], estudiosRX = [], estudiosUltra = [], estudiosOtros = [];
+let hash = '';
 
-var estudiosLab = [], estudiosLabBio = [], estudiosRX = [], estudiosUltra = [], estudiosOtros = [];
-var hash, btn_alerta_reporte;
+validaciones()
 
+console.log(apiByFranquisiario)
 
-//Validacion de usuario
-switch (session['cargo']) {
-  case '18': case 18:
-    $(location).attr('href', `${http}${servidor}/${appname}/vista/procedencia/pacientes/#UJAT`);
-    destroySession();
-    break;
-}
-
-if (validarVista('RECEPCIÓN')) {
-  hasLocation()
-  $(window).on("hashchange", function (e) {
-    hasLocation();
-  });
-}
-
-//Notificacion de reportes faltantes
-//animated-button
-notificacionReportesNoEnviados(null)
-detectCoincidence('#medico-aceptar-paciente')
-
-
-async function notificacionReportesNoEnviados(count) {
-  let span = '#numReportes';
-  let btn = '#btn-modalNotificacionesReportes';
-
-  return new Promise((resolve) => {
-    ajaxAwait({ api: 1 }, 'correos_api', { callbackAfter: true }, false, function (data) {
-      // resolve(data);
-      const noti = ifnull(data.response.data, false, { 0: 'NOTIFICACION' });
-      // Verificamos si existe una nueva notificacion
-      if (noti > 0 && noti != count) {
-        $(span).fadeIn('fast');
-        $(span).html(noti)
-        $(btn).addClass('animated-button');
-
-        // try { TablaReportesNoEnviados.ajax.reload(); } catch (error) { }
-
-      } else if (noti != count) {
-        //Borramos si no existe
-        $(span).fadeOut(0);
-        $(btn).removeClass('animated-button')
-
-        // try { TablaReportesNoEnviados.ajax.reload(); } catch (error) { }
-      }
-
-      resolve(1);
-    });
-  });
-
-}
-
-
-
-// const secciones = {
-//   'pendientes': {
-//     url: 'contenido/recepcion.html',
-//     scripts: ['contenido/js/recepcion-tabla.js']
-//   },
-//   'ingresados': {
-//     url: 'contenido/recepcion-ingresados.html',
-//     scripts: ['contenido/js/common-script.js', 'contenido/js/recepcion-aceptados-tabla.js'],
-//     data: { api: 1, estado: 1 }
-//   },
-//   'rechazados': {
-//     url: 'contenido/recepcion-rechazados.html',
-//     scripts: ['contenido/js/recepcion-tabla.js', 'contenido/js/some-other-script.js'],
-//     data: { api: 1, estado: 0 }
-//   }
-// };
-
-
-
-// function cargarSeccion(seccion) {
-//   const config = secciones[seccion] || secciones['pendientes'];
-//   $('#titulo_area').html(`Recepción | ${seccion.charAt(0).toUpperCase() + seccion.slice(1)}`);
-//   $.post(config.url, function (html) {
-//     $("#body-js").html(html);
-//     if (config.data) {
-//       dataRecepcion = config.data;
-//     }
-//   }).done(function () {
-//     cargarScripts(config.scripts);
-//   });
-// }
-
-// function cargarScripts(scripts) {
-//   const scriptPromises = scripts.map(script => $.getScript(script));
-//   return Promise.all(scriptPromises);
-// }
-
-// function manejarHash() {
-//   const hash = window.location.hash.substring(1) || 'pendientes';
-//   $("a").removeClass("navlinkactive");
-//   $(`nav li a[href='#${hash}']`).addClass("navlinkactive");
-
-//   cargarSeccion(hash);
-// }
-
-
-// Botones
 $.getScript("contenido/js/recepcion-botones.js");
-
-function obtenerContenidoEspera() {
-  $('#titulo_area').html('Recepción | Espera'); //Aqui mandar el nombre de la area
-  $.post("contenido/recepcion.html", function (html) {
-    $("#body-js").html(html);
-  }).done(function () {
-    // Datatable
-    $.getScript("contenido/js/recepcion-tabla.js");
-  });
-}
-
-function obtenerContenidoAceptados() {
-  $('#titulo_area').html('Recepción | Aceptados'); //Aqui mandar el nombre de la area
-  $.post("contenido/recepcion-ingresados.html", function (html) {
-    $("#body-js").html(html);
-    dataRecepcion = { api: 1, estado: 1 };
-  }).done(function () {
-    // Datatable
-    $.getScript("contenido/js/recepcion-aceptados-tabla.js");
-  });
-}
-
-function obtenerContenidoRechazados() {
-  $('#titulo_area').html('Recepción | Rechazados'); //Aqui mandar el nombre de la area
-  $.post("contenido/recepcion-rechazados.html", function (html) {
-    $("#body-js").html(html);
-    dataRecepcion = { api: 1, estado: 0 };
-  }).done(function () {
-    // Datatable
-    $.getScript("contenido/js/recepcion-tabla.js");
-  });
-}
-
-function obtenerContenidoTodosPacientes() {
-  $('#titulo_area').html('Pacientes registrados'); //Aqui mandar el nombre de la area
-  $.post("contenido/pacientes/pacientes.html", function (html) {
-    $("#body-js").html(html);
-  }).done(function () {
-    // Datatable
-    $.getScript("contenido/pacientes/js/pacientes.js");
-  });
-}
-
-
-hash = ''
 obtenerTitulo('Recepción | Espera');
+obtenerPanelInformacion(0, 0, 0)
+notificacionReportesNoEnviados(null).then(r => {}) //Notificacion de reportes faltantes
+detectCoincidence('#medico-aceptar-paciente').then(r => {})
+
+function validaciones(){
+  //Validacion de usuario
+  switch (session['cargo']) {
+    case '18': case 18:
+      $(location).attr('href', `${http}${servidor}/${appname}/vista/procedencia/pacientes/#UJAT`);
+      destroySession();
+      break;
+  }
+
+  if (validarVista('RECEPCIÓN')) {
+    hasLocation()
+    $(window).on("hashchange", function (e) { hasLocation(); });
+  }
+}
+
 function hasLocation() {
   hash = window.location.hash.substring(1);
   $("a").removeClass("navlinkactive");
   $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
+
   switch (hash) {
     case "rechazados":
       obtenerContenidoRechazados();
+      dataRecepcion = { api: apiByFranquisiario, estado: 0 };
       break;
     case "ingresados":
       obtenerContenidoAceptados();
+      dataRecepcion = { api: apiByFranquisiario, estado: 1 };
       break;
     case "pendientes":
       obtenerContenidoEspera();
-      dataRecepcion = { api: 1 };
+      dataRecepcion = { api: apiByFranquisiario };
       break;
 
     case 'pacientes':
@@ -181,7 +59,54 @@ function hasLocation() {
   }
 }
 
-function recepciónPaciente(estatus, id) {
+function obtenerContenidoEspera() {
+  $('#titulo_area').html('Recepción | Espera');
+  $.post("contenido/recepcion.html", function (html) { $("#body-js").html(html); })
+      .done(function () { $.getScript("contenido/js/recepcion-tabla.js"); });
+}
+
+function obtenerContenidoAceptados() {
+  $('#titulo_area').html('Recepción | Aceptados');
+  $.post("contenido/recepcion-ingresados.html", function (html) { $("#body-js").html(html); })
+      .done(function () { $.getScript("contenido/js/recepcion-aceptados-tabla.js"); });
+}
+
+function obtenerContenidoRechazados() {
+  $('#titulo_area').html('Recepción | Rechazados');
+  $.post("contenido/recepcion-rechazados.html", function (html) { $("#body-js").html(html); })
+      .done(function () { $.getScript("contenido/js/recepcion-tabla.js"); });
+}
+
+function obtenerContenidoTodosPacientes() {
+  $('#titulo_area').html('Pacientes registrados');
+  $.post("contenido/pacientes/pacientes.html", function (html) { $("#body-js").html(html); })
+      .done(function () { $.getScript("contenido/pacientes/js/pacientes.js"); });
+}
+
+async function notificacionReportesNoEnviados(count) {
+  let span = '#numReportes';
+  let btn = '#btn-modalNotificacionesReportes';
+
+  return new Promise((resolve) => {
+    ajaxAwait({ api: 1 }, 'correos_api', { callbackAfter: true }, false, function (data) {
+      // resolve(data);
+      const noti = ifnull(data.response.data, false, { 0: 'NOTIFICACION' });
+      // Verificamos si existe una nueva notificacion
+      if (noti > 0 && noti !== count) {
+        $(span).fadeIn('fast');
+        $(span).html(noti)
+        $(btn).addClass('animated-button');
+      } else if (noti !== count) {
+        $(span).fadeOut(0);
+        $(btn).removeClass('animated-button')
+      }
+
+      resolve(1);
+    });
+  });
+}
+
+/*function recepciónPaciente(estatus, id) {
   Swal.fire({
     title: '¿Estás seguro de ' + estatus + ' este paciente?',
     text: "",
@@ -215,10 +140,4 @@ function recepciónPaciente(estatus, id) {
       }
     }
   })
-}
-
-obtenerPanelInformacion(0, 0, 0)
-
-//Detener animacionde boton de los reportes no entregados
-
-//filtrar tabla de pacientes aceptados
+}*/
