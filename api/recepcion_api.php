@@ -123,17 +123,9 @@ switch ($api) {
         # 0 para pacientes rechazados
         # null o no enviar nada, para pacientes en espera
 
-        $master->mis->setLog('buscando pacientes para franquicias', 'recepcion_api [case -1]');
-
         $response = $master->getByProcedure('sp_buscar_paciente_por_estado', [
             $estado_paciente, $mesesAtras, $prefolio, $_SESSION['id']
         ]);
-
-        $master->mis->setLog(json_encode($response), 'sp_buscar_paciente_por_estado');
-        $master->mis->setLog('parametros', json_encode([
-            $estado_paciente, $mesesAtras, $prefolio, $_SESSION['id']
-        ]));
-
         break;
     case 1:
         # recuperar pacientes por estado
