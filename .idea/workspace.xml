@@ -5,15 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="af65b511-fae7-4667-83bd-cb6ca4b438cc" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/clientes_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/clientes_api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/corte_caja_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/corte_caja_api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/includes/menu_includes.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/includes/menu_includes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/include/modal/js/registrar-agenda.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/include/modal/js/registrar-agenda.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/clientes/contenido/controlador.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/clientes/contenido/controlador.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/clientes/contenido/js/cliente-tabla.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/clientes/contenido/js/cliente-tabla.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/recepcion/modals/js/p_registro.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/recepcion/modals/js/p_registro.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/variables.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/variables.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/clientes/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/clientes/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/corte_caja/modals/js/admin_cajas.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/corte_caja/modals/js/admin_cajas.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,6 +148,32 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/vista/menu/recepcion/contenido/js/recepcion-aceptados-tabla.js</url>
+          <line>97</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint type="javascript">
+          <url>file://$PROJECT_DIR$/vista/menu/recepcion/contenido/js/recepcion-aceptados-tabla.js</url>
+          <line>497</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="temporary" value="true" />
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint type="javascript">
+          <url>file://$PROJECT_DIR$/vista/menu/recepcion/contenido/js/recepcion-aceptados-tabla.js</url>
+          <line>496</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="temporary" value="true" />
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

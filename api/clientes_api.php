@@ -99,7 +99,7 @@ switch ($api) {
         ]);
 
         // Si solo se encuentra un cliente, añadir segmentos y cuestionarios
-        agregarSegmentosCuestionarios($response);
+        //agregarSegmentosCuestionarios($response);
         break;
 
     case 3: // Actualizar cliente
