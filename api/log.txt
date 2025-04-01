@@ -1,3 +1,27 @@
 01/04/25 13:21:24 1 id_franquicia
 01/04/25 13:21:26 1 id_franquicia
 01/04/25 13:21:27 1 id_franquicia
+01/04/25 14:24:16 1 id_franquicia
+01/04/25 14:27:11 1 id_franquicia
+01/04/25 14:27:14 1 id_franquicia
+01/04/25 14:27:15 1 id_franquicia
+01/04/25 14:27:17 1 id_franquicia
+01/04/25 14:28:39 1 id_franquicia
+01/04/25 14:28:42 1 id_franquicia
+01/04/25 14:28:42 1 id_franquicia
+01/04/25 14:29:54  Area: 7
+01/04/25 14:30:29  Area: 11
+01/04/25 14:31:36 1 id_franquicia
+01/04/25 14:31:38 1 id_franquicia
+01/04/25 14:31:39 1 id_franquicia
+01/04/25 14:33:17  Area: 7
+01/04/25 14:33:24  Area: 12
+01/04/25 14:34:16  Area: 12
+01/04/25 14:36:24  Area: 11
+01/04/25 14:39:16 sp_usuarios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_usuarios_b; expected 3, got 2
+01/04/25 14:39:31 sp_usuarios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_usuarios_b; expected 3, got 2
+01/04/25 14:39:48 sp_usuarios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_usuarios_b; expected 3, got 2
+01/04/25 14:41:23 sp_usuarios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_usuarios_b; expected 3, got 2
+01/04/25 14:42:33 sp_usuarios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_usuarios_b; expected 3, got 2
+01/04/25 14:46:37 sp_usuarios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_usuarios_b; expected 3, got 2
+01/04/25 14:46:59 sp_usuarios_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_usuarios_b; expected 3, got 2

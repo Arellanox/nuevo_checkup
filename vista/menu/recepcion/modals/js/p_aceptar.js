@@ -1,11 +1,11 @@
 // Obtener datos del paciente seleccionado
-var url_paciente = null,
+let url_paciente = null,
   validarEstudiosLab = 0,
   validarEstudiosRX = 0,
   validarEstudiosImg = 0,
   validarEstudiosOtros = 0;
-var estudiosEnviar = new Array();
-var PaquetesDatos;
+let estudiosEnviar = new Array();
+let PaquetesDatos;
 
 select2("#select-paquetes", "modalPacienteAceptar", 'Seleccione un paquete');
 select2("#select-lab", "modalPacienteAceptar", 'Seleccione un estudio');

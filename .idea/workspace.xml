@@ -5,13 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="af65b511-fae7-4667-83bd-cb6ca4b438cc" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/clientes_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/clientes_api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/corte_caja_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/corte_caja_api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/clientes/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/clientes/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/corte_caja/modals/js/admin_cajas.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/corte_caja/modals/js/admin_cajas.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/recepcion/contenido/js/recepcion-aceptados-tabla.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/recepcion/contenido/js/recepcion-aceptados-tabla.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/recepcion/modals/js/p_aceptar.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/recepcion/modals/js/p_aceptar.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
