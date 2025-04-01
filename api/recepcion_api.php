@@ -115,27 +115,18 @@ $id_medio = $_POST['id_medio'];
 $medios_entrega = $_POST['medios_entrega'];
 
 $comoNosConociste = $_POST['como_nos_conociste'];
+$usuario_franquicia_id = $_SESSION['franquiciario'] ? $_SESSION['id'] : null;
 
 switch ($api) {
-    case -1:
-        # buscar pacientes por estado para franquicias
-        # 1 para pacientes aceptados
-        # 0 para pacientes rechazados
-        # null o no enviar nada, para pacientes en espera
-
-        $response = $master->getByProcedure('sp_buscar_paciente_por_estado', [
-            $estado_paciente, $mesesAtras, $prefolio, $_SESSION['id']
-        ]);
-        break;
     case 1:
         # recuperar pacientes por estado
         # 1 para pacientes aceptados
         # 0 para pacientes rechazados
         # null o no enviar nada, para pacientes en espera
 
-        $response = $master->getByProcedure('sp_buscar_paciente_por_estado', array(
-            $estado_paciente, $mesesAtras, $prefolio, null
-        ));
+        $response = $master->getByProcedure('sp_buscar_paciente_por_estado', [
+            $estado_paciente, $mesesAtras, $prefolio, $usuario_franquicia_id
+        ]);
         break;
     case 2:
         # aceptar o rechazar pacientes [tambien regresar a la vida]

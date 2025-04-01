@@ -10,7 +10,7 @@ let tablaClientes = $("#TablaClientes").DataTable({
   ],
   ajax: {
     dataType: "json",
-    data: {api: isFranquisiario ? 10 : 2},
+    data: {api: 2},
     method: "POST",
     url: "../../../api/clientes_api.php",
     beforeSend: function () {

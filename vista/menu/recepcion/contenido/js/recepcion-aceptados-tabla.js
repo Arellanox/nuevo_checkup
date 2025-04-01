@@ -361,7 +361,7 @@ $(document).on('click','#aplicarFiltro', function(){
   const meses = $('#mesesAtras').val().trim();
   const paciente = $('#paciente').val().trim(); //recibe el prefolio del paciente
 
-  dataRecepcion = {api: apiByFranquisiario, estado: 1};
+  dataRecepcion = {api: 1, estado: 1};
 
   if(meses){
     dataRecepcion.mesesAtras = meses;

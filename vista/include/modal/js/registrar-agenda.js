@@ -414,11 +414,7 @@ if (registroAgendaRecepcion == 1) {
 
   select2('#curp-paciente', "ModalRegistrarPrueba", 'Cargando...')
 
-  if(isFranquisiario){
-    rellenarSelect('#curp-paciente', 'pacientes_api', 6, 'ID_PACIENTE', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.EXPEDIENTE')
-  }else{
-    rellenarSelect('#curp-paciente', 'pacientes_api', 2, 'ID_PACIENTE', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.EXPEDIENTE')
-  }
+  rellenarSelect('#curp-paciente', 'pacientes_api', 2, 'ID_PACIENTE', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.EXPEDIENTE')
 
   $('#checkCurpPasaporte-agenda').prop('disabled', true)
 }

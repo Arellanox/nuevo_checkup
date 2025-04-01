@@ -83,6 +83,7 @@ $response = "";
 # Esta variable es enviada desde el formulario de fast checkup
 # hay que evaluarlo si tiene algo ingresarlo en somatometria. Talla
 $talla = $_POST['talla'];
+$usuario_franquicia_id = $_SESSION['franquiciario'] ? $_SESSION['id'] : null;
 
 $master = new Master();
 switch ($api) {
@@ -111,7 +112,7 @@ switch ($api) {
         # buscar pacientes
         // echo $id_paciente;
         $response = $master->getByProcedure("sp_pacientes_b", [
-            $id_paciente, $curp, $pasaporte, $id_turno, null
+            $id_paciente, $curp, $pasaporte, $id_turno, $usuario_franquicia_id
         ]);
 
         foreach ($response as $key => $value) {
@@ -138,19 +139,6 @@ switch ($api) {
         break;
     case 5:
         $response = $master->getByProcedure("sp_ordenes_medicas_b", [$turno_id, $area_id]);
-        break;
-    case 6:
-        # buscar pacientes para franquicias
-        $response = $master->getByProcedure("sp_pacientes_b", [
-            $id_paciente, $curp, $pasaporte, $id_turno, $_SESSION['id']
-        ]);
-
-        foreach ($response as $key => $value) {
-            $value['ordenes'] = $master->decodeJson([$value['ordenes']]);
-            $response[$key]['ordenes'] = $value['ordenes'];
-        }
-
-        $response = $master->decodeJsonRecursively($response);
         break;
     default:
         $response = "api no reconocida";

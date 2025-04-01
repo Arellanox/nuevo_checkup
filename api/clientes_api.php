@@ -85,6 +85,7 @@ $descuentos = $master->setToNull([
 ]);
 
 $response = "";
+$usuario_franquicia_id = $_SESSION['franquiciario'] ? $_SESSION['id'] : null;
 
 // Procesar la API solicitada
 switch ($api) {
@@ -93,7 +94,9 @@ switch ($api) {
         break;
 
     case 2: // Buscar cliente
-        $response = $master->getByProcedure("sp_clientes_b", [$id, $codigo, $qr, null]);
+        $response = $master->getByProcedure("sp_clientes_b", [
+            $id, $codigo, $qr, $usuario_franquicia_id
+        ]);
 
         // Si solo se encuentra un cliente, añadir segmentos y cuestionarios
         agregarSegmentosCuestionarios($response);
@@ -135,13 +138,6 @@ switch ($api) {
 
     case 9: // Obtener catálogo de conversiones
         $response = $master->getByProcedure('sp_tipo_conversiones_b', []);
-        break;
-
-    case 10: // Clientes para franquicias
-        $response = $master->getByProcedure("sp_clientes_b", [null, null, null, $_SESSION['id']]);
-
-        // Si solo se encuentra un cliente, añadir segmentos y cuestionarios
-        //agregarSegmentosCuestionarios($response);
         break;
 
     default:

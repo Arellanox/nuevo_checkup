@@ -1,14 +1,10 @@
-const apiByFranquisiario = isFranquisiario ? -1 : 1;
-
-let tablaRecepcionPacientes, dataRecepcion = {api: apiByFranquisiario};
+let tablaRecepcionPacientes, dataRecepcion = {api: 1};
 let TablaReportesNoEnviados, dataReporteNoEnviados = {api: 2, enviado: 0};
 
 let estudiosLab = [], estudiosLabBio = [], estudiosRX = [], estudiosUltra = [], estudiosOtros = [];
 let hash = '';
 
 validaciones()
-
-console.log(apiByFranquisiario)
 
 $.getScript("contenido/js/recepcion-botones.js");
 obtenerTitulo('Recepción | Espera');
@@ -39,15 +35,15 @@ function hasLocation() {
   switch (hash) {
     case "rechazados":
       obtenerContenidoRechazados();
-      dataRecepcion = { api: apiByFranquisiario, estado: 0 };
+      dataRecepcion = { api: 1, estado: 0 };
       break;
     case "ingresados":
       obtenerContenidoAceptados();
-      dataRecepcion = { api: apiByFranquisiario, estado: 1 };
+      dataRecepcion = { api: 1, estado: 1 };
       break;
     case "pendientes":
       obtenerContenidoEspera();
-      dataRecepcion = { api: apiByFranquisiario };
+      dataRecepcion = { api: 1 };
       break;
 
     case 'pacientes':

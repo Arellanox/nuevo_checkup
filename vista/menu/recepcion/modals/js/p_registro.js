@@ -1,11 +1,7 @@
 const modalRegistrarPrueba = document.getElementById('ModalRegistrarPrueba')
 
 modalRegistrarPrueba.addEventListener('show.bs.modal', event => {
-    if(isFranquisiario){
-        rellenarSelect('#selectProcedencia', 'clientes_api', 10, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
-    }else {
-        rellenarSelect('#selectProcedencia', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
-    }
+    rellenarSelect('#selectProcedencia', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
 
     select2('#selectSegmentos', "ModalRegistrarPrueba")
     $('#selectProcedencia').change(function () {
