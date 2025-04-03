@@ -44,7 +44,7 @@ switch ($api) {
         # recuperar password olvidada
         $master = new Master();
         $correo = $_POST['correo'];
-        $response = $master->getByProcedure("sp_usuarios_b", [null, $correo]);
+        $response = $master->getByProcedure("sp_usuarios_b", [null, $correo, null]);
 
         if (is_array($response)) {
             $mail = new Correo();

@@ -48,17 +48,6 @@ $especialidades = $_POST['especialidades']; #especialidad,universidad,cedula,cer
 
 switch ($api) {
     case 1:
-        // $array_slice = array_slice($_POST, 0, 13);
-        // $a = $usuario->master->mis->getFormValues($array_slice);
-        // // $newRecord = array(4,1,"Josue","De la Cruz","Arellano","Arellanox","arditas","Ingeniero en TI");
-        // $response = $usuario->insert($a);
-
-        // if (is_numeric($response)) {
-        //     echo json_encode(array("response" => array("code" => 1, "lastId" => $response)));
-        // } else {
-        //     echo json_encode(array("response" => array("code" => 2, "msj" => $response)));
-        // }
-
         $opciones = [
             'cost' => 12,
         ];
@@ -88,7 +77,10 @@ switch ($api) {
         $master->mis->setLog($last_id, 'id_usuario');
         if (count($especialidades) > 0) {
             foreach ($especialidades as $current) {
-                $response = $master->insertByProcedure("sp_u_especialidades_g", [null, $last_id, $current['especialidad'], $current['cedula'], $current['universidad'], $current['certificado'], $current['certificado_num']]);
+                $response = $master->insertByProcedure("sp_u_especialidades_g", [
+                    null, $last_id, $current['especialidad'], $current['cedula'], $current['universidad'],
+                    $current['certificado'], $current['certificado_num']
+                ]);
             }
         } else {
             $response = $last_id;
@@ -97,60 +89,16 @@ switch ($api) {
         echo $master->returnApi($response); 
         break;
     case 2:
-        $response = $master->getByProcedure("sp_usuarios_b", [$id_usuario, $correo]);
+        $master->mis->setLog($id_usuario, 'id_usuario');
+        $master->mis->setLog($correo, 'correo');
+        $response = $master->getByProcedure("sp_usuarios_b", [$id_usuario, $correo, null]);
         echo $master->returnApi($response);
-        // $response = $usuario->getAll();
-
-        // if (is_array($response)) {
-        //     $completedUser = array();
-        //     $i = 1;
-        //     foreach ($response as $user) {
-        //         $cargo = new Cargos();
-        //         $tipo = new TiposUsuarios();
-        //         $labelCargo = $cargo->getById($user["CARGO_ID"]);
-        //         $labelTipo = $tipo->getById($user['TIPO_ID']);
-
-        //         $user['cargo'] = $labelCargo;
-        //         $user['tipo'] = $labelTipo;
-        //         $user['nombrecompleto'] = $user['NOMBRE'] . " " . $user['PATERNO'] . " " . $user['MATERNO'];
-        //         $user['count'] = $i;
-        //         $user['ACTIVO'] = $user['BLOQUEADO'] ? "INACTIVO" : "ACTIVO";
-        //         $i++;
-        //         $completedUser[] = $user;
-        //     }
-        //     echo json_encode($completedUser);
-        // } else {
-        //     echo json_encode(array("response" => array("code" => 2, "msj" => $response)));
-        // }
-
-        // $response = $master->getByProcedure('', []);
         break;
 
     case 3:
         # eliminar especialidad de una usuario
         $response = $master->deleteByProcedure("sp_usuarios_especialidades_e", [$id_usuario, $id_especialidad]);
         echo $master->returnApi($response);
-
-        // $response  = $usuario->getById($_POST['id']);
-        // if (is_array($response)) {
-        //     $completedUser = array();
-
-        //     foreach ($response as $user) {
-        //         $cargo = new Cargos();
-        //         $tipo = new TiposUsuarios();
-        //         $labelCargo = $cargo->getById($user["CARGO_ID"]);
-        //         $labelTipo = $tipo->getById($user['TIPO_ID']);
-
-        //         $user['cargo'] = $labelCargo;
-        //         $user['tipo'] = $labelTipo;
-
-        //         $completedUser[] = $user;
-        //     }
-        //     echo json_encode(array("response" => array("code" => 1, "data" => $completedUser)));
-        // } else {
-        //     echo json_encode(array("response" => array("code" => 2, "msj" => $response)));
-        // }
-        // break;
     break;
     case 4:
         $array_slice = array_slice($_POST, 0, 11);
@@ -252,6 +200,6 @@ switch ($api) {
         echo $master->returnApi($response);
         break;
     default:
-        # code...
+        echo $response = "API no definida";
         break;
 }

@@ -9,8 +9,8 @@ validaciones()
 $.getScript("contenido/js/recepcion-botones.js");
 obtenerTitulo('Recepción | Espera');
 obtenerPanelInformacion(0, 0, 0)
-notificacionReportesNoEnviados(null).then(r => {}) //Notificacion de reportes faltantes
-detectCoincidence('#medico-aceptar-paciente').then(r => {})
+notificacionReportesNoEnviados(null) //Notificacion de reportes faltantes
+detectCoincidence('#medico-aceptar-paciente')
 
 function validaciones(){
   //Validacion de usuario

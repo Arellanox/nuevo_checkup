@@ -131,8 +131,6 @@ switch ($api) {
     case 2:
         # aceptar o rechazar pacientes [tambien regresar a la vida]
         # enviar 1 para aceptarlos, 0 para rechazarlos, null para pacientes en espera
-        // $response = $master->updateByProcedure('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo));
-
         # esto es para prevenir duplicar el corte de cajas.
         if (!isset($_SESSION['id'])){
             $response = "Por favor, reinicie sesión";
@@ -141,11 +139,16 @@ switch ($api) {
 
         # Agrega nuevo medico si es requerido
         if ($new_medico) {
-            $response = $master->insertByProcedure('sp_medicos_tratantes_g', [null, $medico_tratante, $medico_correo, null, $medico_telefono, $medico_especialidad]);
+            $response = $master->insertByProcedure('sp_medicos_tratantes_g', [
+                null, $medico_tratante, $medico_correo, null, $medico_telefono, $medico_especialidad
+            ]);
             $medico_tratante_id = $response;
         }
         #
-        $response = $master->getByNext('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo, $alergias, $e_diagnostico, null, $medico_tratante_id, $_SESSION['id'], $vendedor_id, $comoNosConociste)); #<-- la id de segmento manda error si no se le envia algo
+        $response = $master->getByNext('sp_recepcion_cambiar_estado_paciente', array(
+            $idTurno, $estado_paciente, $comentarioRechazo, $alergias, $e_diagnostico, null, $medico_tratante_id, $_SESSION['id'], $vendedor_id,
+            $comoNosConociste
+        )); #<-- la id de segmento manda error si no se le envia algo
         $aleta = $response[0][0][0];
 
         #validacion de si esta en caja o hay un corte de ayer que no se haya cerrado
@@ -204,13 +207,29 @@ switch ($api) {
                 foreach ($servicios as $key => $value) {
                     $response2 = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', array($idTurno, null, $value, $_SESSION['id']));
                 }
-
-                // $response3 = $master->insertByProcedure('sp_corte_caja_iniciar_g', [$idTurno, $_SESSION['id']]);
-                // var_dump($response3);
             }
         }
 
-        #$response = array_merge((array) $response, (array) $etiqueta_turno);
+        if($_SESSION['franquiciario'] && $estado_paciente == 1){
+            $getPaciente = $master->getByProcedure("sp_pacientes_b", [
+                null, null, null, $idTurno, $usuario_franquicia_id
+            ]);
+
+            if (empty($getPaciente)) {
+                $master->mis->setLog(
+                    "Error: No se encontró el paciente con turno: $idTurno", "recepcion_api.php [case 2]"
+                );
+            }
+
+            $paciente = $getPaciente[0];
+
+            $master->getByProcedure("sp_maquilas_alta_paciente", [
+                $paciente['ID_PACIENTE'], $paciente['NOMBRE'], $paciente['PATERNO'], $paciente['MATERNO'],
+                $paciente['CURP'],$paciente['FECHA_NACIMIENTO'], $paciente['EDAD'], $paciente['GENERO'],
+                "FRANQUICIA", NULL, 1, [], "", $_SESSION['id'], ""
+            ]);
+        }
+
         $response = array(
             0 => $response,
             1 => $etiqueta_turno[0]
@@ -218,7 +237,7 @@ switch ($api) {
         break;
     case 3:
         # reagendar una cita
-        $response = $master->updateByProcedure('sp_recepcion_reagendar', array($idTurno, $fecha_reagenda));
+        $response = $master->updateByProcedure('s', array($idTurno, $fecha_reagenda));
         break;
     case 4:
         # reenviar reportes e imagenes por correo de todas las areas.

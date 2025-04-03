@@ -101,4 +101,3 @@ function ListaEstudiosShow(select, estudioData) {
     })
 
 }
-

@@ -111,12 +111,6 @@ if (!empty($_SESSION['id'])) {
                     $orden_medica
                 ]);
 
-                # si el primer elemento 
-                // if (!is_numeric($resultset[0][0])){
-                //     $response = $resultset[0][0];
-                //     break;
-                // }
-
                 $count = 0;
                 $errores = array();
                 foreach ($resultset as $current) {

@@ -71,6 +71,13 @@ modalPacienteAceptar.addEventListener('show.bs.modal', async event => {
     recepcion: 1
   }, function (data) {
     estudiosLab = data;
+
+      if(data.length <= 0){
+        Toast.fire({
+          icon: 'warning',
+          title: 'No se encontraron estudios para este paciente, añade un precio para poder verlos.'
+        })
+      }
   });
 
 

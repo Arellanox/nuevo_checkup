@@ -5,10 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="af65b511-fae7-4667-83bd-cb6ca4b438cc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/api/franquicias_api.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/procedencia/solicitud-franquicia-laboratorio/contenido/controlador.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/procedencia/solicitud-franquicia-laboratorio/contenido/js/botones.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/procedencia/solicitud-franquicia-laboratorio/contenido/js/tabla.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/procedencia/solicitud-franquicia-laboratorio/contenido/main.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/procedencia/solicitud-franquicia-laboratorio/contenido/page.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/procedencia/solicitud-franquicia-laboratorio/index.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/procedencia/solicitud-franquicia-laboratorio/modals/controlador.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/procedencia/solicitud-franquicia-laboratorio/modals/js/muestras.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/procedencia/solicitud-franquicia-laboratorio/modals/modals.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/procedencia/solicitud-franquicia-laboratorio/modals/muestras.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/recepcion/contenido/js/recepcion-aceptados-tabla.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/recepcion/contenido/js/recepcion-aceptados-tabla.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/login_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/login_api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/maquilas_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/maquilas_api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/recepcion_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/recepcion_api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/usuarios_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/usuarios_api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/include/header/areas-windows-float.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/include/header/areas-windows-float.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/recepcion/contenido/controlador.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/recepcion/contenido/controlador.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/menu/recepcion/modals/js/p_aceptar.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/recepcion/modals/js/p_aceptar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/recepcion/modals/js/vista-servicios.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/recepcion/modals/js/vista-servicios.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/procedencia/estudios-laboratorio/modals/franq_envio_muestras.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/procedencia/estudios-laboratorio/modals/franq_envio_muestras.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +103,7 @@
     &quot;com.codeium.enabled&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;nueva__franquicia&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/AppServ/www/nuevo_checkup/core/modules/notifications&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/AppServ/www/nuevo_checkup/vista/menu/solicitud-franquicia-laboratorio/modals&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -98,18 +116,18 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\AppServ\www\nuevo_checkup\vista\menu\solicitud-franquicia-laboratorio\modals" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\modules\notifications" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\assets" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\helpers\inputs" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\includes" />
-      <recent name="F:\AppServ\www\nuevo_checkup\core\helpers\menu" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\AppServ\www\nuevo_checkup\vista\procedencia" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\requests" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\includes\app" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\includes\app\js" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\controllers\menu-controller\js" />
-      <recent name="F:\AppServ\www\nuevo_checkup\core" />
     </key>
   </component>
   <component name="RunManager">
@@ -152,20 +170,17 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/vista/menu/recepcion/contenido/js/recepcion-aceptados-tabla.js</url>
           <line>97</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint type="javascript">
           <url>file://$PROJECT_DIR$/vista/menu/recepcion/contenido/js/recepcion-aceptados-tabla.js</url>
           <line>497</line>
-          <properties lambdaOrdinal="-1" />
           <option name="temporary" value="true" />
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint type="javascript">
           <url>file://$PROJECT_DIR$/vista/menu/recepcion/contenido/js/recepcion-aceptados-tabla.js</url>
           <line>496</line>
-          <properties lambdaOrdinal="-1" />
           <option name="temporary" value="true" />
           <option name="timeStamp" value="9" />
         </line-breakpoint>
