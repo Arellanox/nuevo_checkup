@@ -85,81 +85,75 @@ if (!empty($_SESSION['id'])) {
             $response = $coincidencias;
 
             break;
+
         case 2:
             # Alta/registro paciente.
+            $servicios = explode(',', $servicios);
 
-            # si existe una sesion activa.
+            $resultset = $master->getByNext("sp_maquilas_alta_paciente", [
+                $id_paciente,
+                $nombre,
+                $paterno,
+                $materno,
+                $curp,
+                $fecha_nacimiento,
+                $edad,
+                $genero,
+                $area_encuentra,
+                $siho_cuenta,
+                $tipo,
+                json_encode($servicios),
+                $comentarios_orden,
+                $_SESSION['id'],
+                $orden_medica
+            ]);
 
-            if (!empty($_SESSION['id'])) {
-                $servicios = explode(',', $servicios);
+            $count = 0;
+            $errores = array();
 
-                $resultset = $master->getByNext("sp_maquilas_alta_paciente", [
-                    $id_paciente,
-                    $nombre,
-                    $paterno,
-                    $materno,
-                    $curp,
-                    $fecha_nacimiento,
-                    $edad,
-                    $genero,
-                    $area_encuentra,
-                    $siho_cuenta,
-                    $tipo,
-                    json_encode($servicios),
-                    $comentarios_orden,
-                    $_SESSION['id'],
-                    $orden_medica
-                ]);
-
-                $count = 0;
-                $errores = array();
-                foreach ($resultset as $current) {
-                    switch ($count) {
-                        case 0:
-                            # es el turno
-                            $id_turno = $current[0]['TURNO'];
-                            break;
-                        case 1:
-                            # es folio
-                            $folio = $current[0]['FOLIO'];
-                            break;
-                        case 2:
-                            # otros datos
-                            $nombre = $current[0]['NOMBRE'];
-                            $nacimiento = $current[0]['NACIMIENTO'];
-                            $edad = $current[0]['EDAD'];
-                            $curp = $current[0]['CURP'];
-                            $cuenta = $current[0]['CUENTA'];
-                        default:
-                            $errores[] = $current[0]['@mensaje'];
-                            break;
-                    }
-                    $count++;
+            foreach ($resultset as $current) {
+                switch ($count) {
+                    case 0:
+                        # es el turno
+                        $id_turno = $current[0]['TURNO'];
+                        break;
+                    case 1:
+                        # es folio
+                        $folio = $current[0]['FOLIO'];
+                        break;
+                    case 2:
+                        # otros datos
+                        $nombre = $current[0]['NOMBRE'];
+                        $nacimiento = $current[0]['NACIMIENTO'];
+                        $edad = $current[0]['EDAD'];
+                        $curp = $current[0]['CURP'];
+                        $cuenta = $current[0]['CUENTA'];
+                        break;
+                    default:
+                        $errores[] = $current[0]['@mensaje'];
+                        break;
                 }
-
-                # subimos la orden medica al turno que acabmos de generar.
-                $dir = '../archivos/ordenes_medicas/' . $id_turno . '/';
-                $r = $master->createDir($dir);
-                $orden = $master->guardarFiles($_FILES, 'orden_medica', $dir, 'ORDEN_MEDICA_LABORATORIO_' . $id_turno);
-                $url = str_replace("../", $host, $orden[0]['url']);
-
-                $ordenes = $master->insertByProcedure('sp_ordenes_medicas_g', [null, $id_turno, $url, $orden[0]['tipo'], 6]);
-
-                $response = [
-                    "ID_TURNO"  => $id_turno,
-                    "FOLIO"     => $folio,
-                    "NOMBRE"    => $nombre,
-                    "NACIMIENTO" => $nacimiento,
-                    "EDAD"      => $edad,
-                    "CURP"      => $curp,
-                    "CUENTA"    => $cuenta,
-                    "ERRORES"   => $errores
-                ];
-            } else {
-                $response = "Su sesión ha expirado. Regrese al login.";
+                $count++;
             }
 
+            # subimos la orden medica al turno que acabmos de generar.
+            $dir = '../archivos/ordenes_medicas/' . $id_turno . '/';
+            $r = $master->createDir($dir);
+            $orden = $master->guardarFiles(
+                $_FILES, 'orden_medica', $dir, 'ORDEN_MEDICA_LABORATORIO_' . $id_turno
+            );
+
+            $url = str_replace("../", $host, $orden[0]['url']);
+            $ordenes = $master->insertByProcedure('sp_ordenes_medicas_g', [
+                null, $id_turno, $url, $orden[0]['tipo'], 6
+            ]);
+
+            $response = [
+                "ID_TURNO" => $id_turno, "FOLIO" => $folio, "NOMBRE" => $nombre, "NACIMIENTO" => $nacimiento,
+                "EDAD" => $edad, "CURP" => $curp, "CUENTA" => $cuenta, "ERRORES" => $errores
+            ];
             break;
+
         case 3:
             # recuperar solicitudes.
             # que no esten dentro de un lote de envio.
@@ -196,6 +190,7 @@ if (!empty($_SESSION['id'])) {
             # folio
             # ruta del reporte
             break;
+
         case 5:
             # recuperar los lotes creados.
 
@@ -208,6 +203,7 @@ if (!empty($_SESSION['id'])) {
             $response = $master->getByProcedure('sp_maquilas_detalles_b', [$fecha, $_SESSION['id_cliente']]);
             $response = $master->decodeJsonRecursively($response);
             break;
+
         case 7:
             # recuperar el detalle de los lotes
             $response = $master->getByProcedure('sp_maquilas_lotes_detalle_b', [$id_lote]);
@@ -232,6 +228,7 @@ if (!empty($_SESSION['id'])) {
             # buscar pacientes de la empresa.
             $response = $master->getByProcedure("sp_maquilas_pacientes_b", [$_SESSION["CLIENTE_ID"]]);
             break;
+
         case 11:
             # rechazar servicios de una solicitud.
             $dir = "../archivos/maquilas/evidencias_rechazo/$id_turno";
@@ -257,6 +254,7 @@ if (!empty($_SESSION['id'])) {
 
             $response = $master->getByProcedure("sp_maquilas_historial_servicios_rechazados_g", [$id_turno, $id_servicio, json_encode($imgs), $comentario_rechazo]);
             break;
+
         case 12:
             # detalle de los servicios
             $servicios = explode(',', $servicios);
@@ -272,9 +270,7 @@ if (!empty($_SESSION['id'])) {
 
 echo $master->returnApi($response);
 
-#;laksjdf
-
-function crearReporteEnvioMuestras($id_lote)
+function crearReporteEnvioMuestras($id_lote): ?string
 {
     global $master;
     $url = $master->reportador($master, $id_lote, -5, "envio_muestras");

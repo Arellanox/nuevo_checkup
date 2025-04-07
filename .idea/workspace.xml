@@ -5,28 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="af65b511-fae7-4667-83bd-cb6ca4b438cc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/api/franquicias_api.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vista/procedencia/solicitud-franquicia-laboratorio/contenido/controlador.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vista/procedencia/solicitud-franquicia-laboratorio/contenido/js/botones.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vista/procedencia/solicitud-franquicia-laboratorio/contenido/js/tabla.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vista/procedencia/solicitud-franquicia-laboratorio/contenido/main.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vista/procedencia/solicitud-franquicia-laboratorio/contenido/page.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vista/procedencia/solicitud-franquicia-laboratorio/index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vista/procedencia/solicitud-franquicia-laboratorio/modals/controlador.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vista/procedencia/solicitud-franquicia-laboratorio/modals/js/muestras.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vista/procedencia/solicitud-franquicia-laboratorio/modals/modals.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vista/procedencia/solicitud-franquicia-laboratorio/modals/muestras.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/login_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/login_api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/maquilas_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/maquilas_api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/recepcion_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/recepcion_api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/usuarios_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/usuarios_api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/include/header/areas-windows-float.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/include/header/areas-windows-float.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/recepcion/contenido/controlador.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/recepcion/contenido/controlador.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/recepcion/modals/js/p_aceptar.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/recepcion/modals/js/p_aceptar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/recepcion/modals/js/vista-servicios.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/recepcion/modals/js/vista-servicios.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/procedencia/estudios-laboratorio/modals/franq_envio_muestras.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/procedencia/estudios-laboratorio/modals/franq_envio_muestras.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

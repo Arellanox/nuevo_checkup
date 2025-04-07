@@ -7,7 +7,6 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
     [10, 15, 20, 25, 30, 35, 40, 45, 50, -1],
     [10, 15, 20, 25, 30, 35, 40, 45, 50, "All"]
   ],
-  deferRender: true,
   ajax: {
     dataType: 'json',
     data: function (d) {

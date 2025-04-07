@@ -43,9 +43,8 @@ function hasLocation() {
       break;
     case "pendientes":
       obtenerContenidoEspera();
-      dataRecepcion = { api: 1 };
+      dataRecepcion = { api: 1};
       break;
-
     case 'pacientes':
       obtenerContenidoTodosPacientes();
       break;
@@ -101,39 +100,3 @@ async function notificacionReportesNoEnviados(count) {
     });
   });
 }
-
-/*function recepciónPaciente(estatus, id) {
-  Swal.fire({
-    title: '¿Estás seguro de ' + estatus + ' este paciente?',
-    text: "",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Aceptar',
-    cancelButtonText: 'Cancelar'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      switch (estatus) {
-        case 'aceptar':
-          Swal.fire({
-            icon: 'success',
-            title: 'Aceptado!',
-            text: 'El pase del paciente se está generando...'
-          })
-          // Ajax para generar TURNO y generar pase
-          break;
-        case 'rechazar':
-          Swal.fire(
-            'Rechazado!',
-            'El paciente ha sido rechazado.',
-            'error'
-          )
-          // Ajax para cancelar registro del paciente
-          break;
-        default:
-
-      }
-    }
-  })
-}*/

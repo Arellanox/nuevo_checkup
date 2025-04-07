@@ -74,7 +74,7 @@ switch ($api) {
 
         $last_id = $master->insertByProcedure('sp_usuarios_g', $params);
 
-        $master->mis->setLog($last_id, 'id_usuario');
+        //$master->mis->setLog($last_id, 'id_usuario');
         if (count($especialidades) > 0) {
             foreach ($especialidades as $current) {
                 $response = $master->insertByProcedure("sp_u_especialidades_g", [
@@ -89,8 +89,8 @@ switch ($api) {
         echo $master->returnApi($response); 
         break;
     case 2:
-        $master->mis->setLog($id_usuario, 'id_usuario');
-        $master->mis->setLog($correo, 'correo');
+        //$master->mis->setLog($id_usuario, 'id_usuario');
+        //$master->mis->setLog($correo, 'correo');
         $response = $master->getByProcedure("sp_usuarios_b", [$id_usuario, $correo, null]);
         echo $master->returnApi($response);
         break;

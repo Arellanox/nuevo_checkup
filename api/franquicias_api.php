@@ -17,7 +17,7 @@ $usuario_franquicia_id = $_SESSION['franquiciario'] ? $_SESSION['id'] : null;
 switch ($api) {
     case 1:
         # recuperar pacientes por estado
-            $response = $master->getByProcedure('sp_franquicia_maquilas_detalles_b', [
+        $response = $master->getByProcedure('sp_franquicia_maquilas_detalles_b', [
             $fecha, $_SESSION['id_cliente'], $usuario_franquicia_id
         ]);
         $response = $master->decodeJsonRecursively($response);
