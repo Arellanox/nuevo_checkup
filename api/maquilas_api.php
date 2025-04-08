@@ -170,7 +170,6 @@ if (!empty($_SESSION['id'])) {
             $id_lote = $master->insertByProcedure("sp_maquilas_lotes_g", [
                 json_encode($pacientes),
                 $_SESSION['id']
-
             ]);
 
             # si ocurreo algun error, nos salidmos del procedimiento
@@ -183,8 +182,10 @@ if (!empty($_SESSION['id'])) {
 
             # crear el reporte y guardarlo en la tabla.
 
-            $url = $master->reportador($master, $id_lote, -5, "envio_muestras");
-            $responseUpdate = $master->updateByProcedure("sp_reportes_actualizar_ruta", ['maquilas_lotes', "RUTA_REPORTE", $url, $id_lote, -5]);
+            $url = $master->reportador($master, $id_lote, -5, "envio_muestras", 'url', $id_turno);
+            $responseUpdate = $master->updateByProcedure("sp_reportes_actualizar_ruta", [
+                'maquilas_lotes', "RUTA_REPORTE", $url, $id_lote, -5
+            ]);
 
             $response = $master->getByProcedure("sp_maquilas_lotes_b", [null, $id_lote]);
             # folio
