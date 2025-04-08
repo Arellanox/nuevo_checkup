@@ -13,3 +13,4 @@ api/log.txt
 .idea/*.xml
 .idea/*.iml
 vista/menu/administracion/modals/user_agregar_usuario.html~
+*~

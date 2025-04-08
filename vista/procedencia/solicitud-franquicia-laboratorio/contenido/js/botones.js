@@ -1,10 +1,17 @@
-$(document).on('click', '#btn-envio_muestras', function (eveto) {
-    eveto.preventDefault();
-    eveto.stopPropagation();
+//EnvioLotesPacientes
 
-    alertToast('Espere un momento...', 'info') // Mandamos una pequeña alerta
+$(document).on('click', '#btn-envio_muestras', async function (event) {
+    event.preventDefault();
+    event.stopPropagation();
 
-    setTimeout(() => {
-        $('#EnvioLotesPacientes').modal('show');
-    }, 1000);
-});
+    restartPages('page_control-envio_lotes');
+    btnCambioPages(1);
+
+    $('#folio_de_solicitud_muestras').html('');
+    $('#formato_de_envio').attr('href', '#SinRellenar');
+
+    tablaPacientesFaltantes.ajax.reload();
+    TablaPacientesNewGrupo.clear().draw();
+
+    $('#EnvioLotesPacientes').modal('show');
+})

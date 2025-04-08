@@ -1,20 +1,19 @@
-tablaRecepcionPacientes = $('#TablaRecepcionPacientes')
-    ?.DataTable({
-        language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json", },
+    tablaPacientes = $('#tablaPacientes')?.DataTable({
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+        },
         lengthChange: false,
         info: true,
         paging: false,
         scrollY: '47vh',
         scrollCollapse: true,
-        deferRender: true,
         ajax: {
             dataType: 'json',
             data: { api: 1 },
             method: 'POST',
             url: '../../../api/franquicias_api.php',
             complete: function (response) {
-                tablaRecepcionPacientes.columns.adjust().draw();
-                console.log(response);
+                tablaPacientes.columns.adjust().draw();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alertErrorAJAX(jqXHR, textStatus, errorThrown);
@@ -32,13 +31,12 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes')
                     switch (row.TIPO_SOLICITUD) {
                         case "1":
                             // Ordinario
-                            return `<span class="badge text-bg-info">${data}</span>`; break;
+                            return `<span class="badge text-bg-info">${data}</span>`;
                         case "2":
                             // Urgente
-                            return `<span class="badge text-bg-warning">${data}</span>`; break;
-
+                            return `<span class="badge text-bg-warning">${data}</span>`;
                         default:
-                            return ''; break;
+                            return '';
                     }
                 }
             }, // Descripcion de solicitud (color de letra)
@@ -66,31 +64,23 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes')
                         return `<span class="d-block">${datePart}</span>`;
                     }
 
-                    let html = `
+                    return `
                         <div class="col-12">
                             <button type="button" class="btn btn-info btn_tomar_muestra">
                                 <i class="bi bi-droplet-half btn_tomar_muestra"></i>
                             </button>
                         </div>
-                    `;
-                    return html
+                    `
                 }
             }, // Fecha de muestra (formato)
-
             { data: 'TOMADOR_MUESTRA' }, // texto
             {
                 dat: "ID_TURNO", render: function (data) {
-
-                    // Obtener URL para abrir
                     api = encodeURIComponent(window.btoa('etiquetas'));
-                    // Obtener turno para abrir
                     data = encodeURIComponent(window.btoa(data));
 
-
-                    url = `${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${data}`
-
-                    // Inicializar un arreglo vacío para contener nuestros botones
-                    var buttons = [];
+                    let url = `${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${data}`
+                    let buttons = [];
 
                     buttons.push(
                         '<a href="' + url + '" target="_blank" class="btn btn-borrar me-2">' +
@@ -98,18 +88,14 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes')
                         '</a>'
                     );
 
-
                     return '<div class="d-flex justify-content-start align-items-center">' + buttons.join(' ') + '</div>';
-
                 }
             },
             {
                 data: 'REPORTES',
                 render: function (data) {
-                    // Inicializar un arreglo vacío para contener nuestros botones
-                    var buttons = [];
+                    let buttons = [];
 
-                    // Asegurarse de que 'data' es un array antes de intentar usar 'length'
                     if (data) {
                         // Recorrer cada reporte en los datos
                         for (const key in data) {
@@ -136,7 +122,7 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes')
             {
                 data: 'ORDEN_MEDICA', render: function (data) {
                     // Inicializar un arreglo vacío para contener nuestros botones
-                    var buttons = [];
+                    let buttons = [];
 
                     buttons.push(
                         '<a href="' + data + '" target="_blank" class="btn btn-borrar me-2">' +
@@ -168,11 +154,22 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes')
             { "targets": 13, "className": "none", "title": "Orden médica" }, // Orden médica (boton)
             { "targets": 14, "className": "none", "title": "Comentarios" } // Comentarios de la orden médica
         ]
-    });
+    })
 
-    inputBusquedaTable('TablaRecepcionPacientes', tablaRecepcionPacientes, [
-        {
-            msj: 'Filtra la tabla con palabras u oraciones que coincidan en el campo de busqueda',
-            place: 'left'
-        },
-    ]);
+    inputBusquedaTable('tablaPacientes', tablaPacientes, [], false, 'col-12')
+
+    selectTable('#tablaPacientes', tablaPacientes, {
+        onlyData: true,
+        ClickClass: [
+            {
+                class: 'btn_tomar_muestra',
+                callback: function (data) {
+                    turno = data.ID_TURNO
+                    $('#form_toma_muestra_tablet').val('');
+
+                    $('#ModalTomarMuestra').modal('show');
+                },
+                selected: false
+            }
+        ],
+    })

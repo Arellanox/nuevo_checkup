@@ -176,9 +176,7 @@ tablaPacientes = $('#tablaPacientes').DataTable({
         { "targets": 13, "className": "none", "title": "Orden médica" }, // Orden médica (boton)
         { "targets": 14, "className": "none", "title": "Comentarios" } // Comentarios de la orden médica
     ]
-
 })
-
 
 inputBusquedaTable('tablaPacientes', tablaPacientes, [], false, 'col-12')
 
