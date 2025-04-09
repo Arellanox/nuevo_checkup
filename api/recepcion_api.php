@@ -161,6 +161,8 @@ switch ($api) {
 
         if($estado_paciente == 1) {
             if($_SESSION['franquiciario']) {
+                $master->mis->setLog('Ingresando paciente a franquicia, con turno: ', $idTurno);
+
                 $paciente = $master->getByProcedure("sp_pacientes_b", [
                     null, null, null, $idTurno, $usuario_franquicia_id
                 ]);
@@ -169,7 +171,8 @@ switch ($api) {
                     $master->getByProcedure("sp_franquicia_maquilas_altas_pacientes", [
                         $paciente[0]['ID_PACIENTE'], $paciente[0]['NOMBRE'], $paciente[0]['PATERNO'],
                         $paciente[0]['MATERNO'], $paciente[0]['CURP'],$paciente[0]['FECHA_NACIMIENTO'],
-                        $paciente[0]['EDAD'], $paciente[0]['GENERO'], "FRANQUICIA", NULL, 1, [], "", $_SESSION['id'], ""
+                        $paciente[0]['EDAD'], $paciente[0]['GENERO'], "FRANQUICIA", NULL, 1, [], "",
+                        $_SESSION['id'], "", $idTurno
                     ]);
                 } else {
                     $master->mis->setLog(

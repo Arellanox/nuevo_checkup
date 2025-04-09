@@ -1,0 +1,2 @@
+09/04/25 13:17:40 3362 Ingresando paciente a franquicia, con turno: 
+09/04/25 13:21:16 3363 Ingresando paciente a franquicia, con turno: 
