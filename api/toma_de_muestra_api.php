@@ -39,6 +39,12 @@ switch ($api) {
     case 3:
         # actualizar toma de muestra
         # indicar que la muestra ya ha sido tomada.
+        if($_SESSION['franquiciario']){
+            $master->updateByProcedure('sp_maquilas_altas_pacientes_a', [
+                date('dd/mm/yyyy'), $id_turno, $_SESSION['id']
+            ]);
+        }
+
         $response = $master->updateByProcedure("sp_toma_de_muestra_servicios_g", [$id_turno]);
         $_SESSION['turnero'] = null;
         break;

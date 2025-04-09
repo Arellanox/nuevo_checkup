@@ -728,7 +728,6 @@ class Miscelaneus
                 $carpeta_guardado = "envio_de_muestras";
                 $fecha_resultado = date("Ymd");
                 $nombre_paciente = "envio_muestras_$turno_id";  # $turno_id es el id de lote que se quiere generar.
-                $real_turno_id = $preview;
 
                 $arregloPaciente = $this->getBodyFormatoEnvioLotesMaquila($master, $turno_id);
                 break;

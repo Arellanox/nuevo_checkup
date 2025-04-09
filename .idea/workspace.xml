@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="af65b511-fae7-4667-83bd-cb6ca4b438cc" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/log.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/maquilas_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/maquilas_api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/recepcion_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/recepcion_api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/usuarios_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/usuarios_api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/toma_de_muestra_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/toma_de_muestra_api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clases/miscelaneus.php" beforeDir="false" afterPath="$PROJECT_DIR$/clases/miscelaneus.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data.json" beforeDir="false" afterPath="$PROJECT_DIR$/data.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,32 +78,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;nueva__franquicia&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/AppServ/www/nuevo_checkup/vista/menu/solicitud-franquicia-laboratorio/modals&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.2.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.codeium.enabled": "true",
+    "git-widget-placeholder": "nueva__franquicia",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "F:/AppServ/www/nuevo_checkup/vista/procedencia/solicitud-franquicia-laboratorio/modals/html",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.2.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\AppServ\www\nuevo_checkup\vista\procedencia\solicitud-franquicia-laboratorio\modals\html" />
       <recent name="F:\AppServ\www\nuevo_checkup\vista\menu\solicitud-franquicia-laboratorio\modals" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\modules\notifications" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\assets" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\helpers\inputs" />
-      <recent name="F:\AppServ\www\nuevo_checkup\core\includes" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="F:\AppServ\www\nuevo_checkup\vista\procedencia" />
@@ -166,6 +166,18 @@
           <line>496</line>
           <option name="temporary" value="true" />
           <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/vista/procedencia/solicitud-franquicia-laboratorio/contenido/controlador.js</url>
+          <line>35</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/vista/procedencia/estudios-laboratorio/contenido/controlador.js</url>
+          <line>24</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

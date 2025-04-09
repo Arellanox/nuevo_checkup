@@ -182,7 +182,7 @@ if (!empty($_SESSION['id'])) {
 
             # crear el reporte y guardarlo en la tabla.
 
-            $url = $master->reportador($master, $id_lote, -5, "envio_muestras", 'url', $id_turno);
+            $url = $master->reportador($master, $id_lote, -5, "envio_muestras", 'url');
             $responseUpdate = $master->updateByProcedure("sp_reportes_actualizar_ruta", [
                 'maquilas_lotes', "RUTA_REPORTE", $url, $id_lote, -5
             ]);

@@ -142,7 +142,6 @@ switch ($api) {
             ]);
 
             $medico_tratante_id = $response;
-            $master->mis->setLog("Nuevo Medico: ", json_encode($response));
         }
 
         # Cambia el estado del paciente
@@ -150,37 +149,28 @@ switch ($api) {
             $idTurno, $estado_paciente, $comentarioRechazo, $alergias, $e_diagnostico, null, $medico_tratante_id,
             $_SESSION['id'], $vendedor_id, $comoNosConociste
         ]);
-
-        $master->mis->setLog("Estado paciente: ", json_encode($estado_paciente));
-        $master->mis->setLog("Cambio de estado de paciente: ", json_encode($response));
         $aleta = $response[0][0][0];
 
         # Validacion de si esta en caja o hay un corte de ayer que no se haya cerrado
         if (in_array($aleta, $mensajesErrorCaja)) {
-            $master->mis->setLog('Alertas: ', json_encode($aleta));
             $response = $aleta;
             break;
         }
 
         $etiqueta_turno = $response[1];
-        $master->mis->setLog("Etiqueta del Turno", json_encode($etiqueta_turno));
-
 
         if($estado_paciente == 1) {
             if($_SESSION['franquiciario']) {
                 $paciente = $master->getByProcedure("sp_pacientes_b", [
                     null, null, null, $idTurno, $usuario_franquicia_id
                 ]);
-                $master->mis->setLog("Es franquicia, busqueda de paciente: ", json_encode($paciente));
 
                 if (!empty($paciente)) {
-                    $response_alta = $master->getByProcedure("sp_maquilas_alta_paciente", [
+                    $master->getByProcedure("sp_franquicia_maquilas_altas_pacientes", [
                         $paciente[0]['ID_PACIENTE'], $paciente[0]['NOMBRE'], $paciente[0]['PATERNO'],
                         $paciente[0]['MATERNO'], $paciente[0]['CURP'],$paciente[0]['FECHA_NACIMIENTO'],
                         $paciente[0]['EDAD'], $paciente[0]['GENERO'], "FRANQUICIA", NULL, 1, [], "", $_SESSION['id'], ""
                     ]);
-
-                    $master->mis->setLog("Alta Paciente: ", json_encode($response_alta));
                 } else {
                     $master->mis->setLog(
                         "Error: No se encontró el paciente con turno: $idTurno", "recepcion_api.php [case 2]"
@@ -194,8 +184,6 @@ switch ($api) {
             $response = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', [
                 $idTurno, $idPaquete, null, $_SESSION['id']
             ]);
-
-            $master->mis->setLog("Detalle paciente: ", json_encode($response));
 
             # Aqui subir las ordenes medicas si las hay y crear la carpeta de tunos dentro de
             if (count($ordenes) > 0) {
@@ -214,8 +202,6 @@ switch ($api) {
                             ]);
                         }
                     }
-
-                    $master->mis->setLog("Ordenes medicas: ", json_encode($responseOrden));
                 }
             }
         } else {
@@ -224,21 +210,15 @@ switch ($api) {
                     null, null, null, $idTurno, $usuario_franquicia_id
                 ]);
 
-                $master->mis->setLog("Es franquicia, busqueda de paciente: ", json_encode($paciente));
-
                 if(!empty($paciente)) {
                     $response_desactivar = $master->updateByProcedure('sp_franquicia_maquilas_desactivar', [
                         null, $paciente->ID_PACIENTE, $_SESSION['id']
                     ]);
-
-                    $master->mis->setLog("Es franquicia, desactivar de maquila: ", json_encode($response_desactivar));
                 }
             }
 
             # si el paciente es rechazado, se desactivan los resultados de su turno.
             $response = $master->updateByProcedure('sp_recepcion_desactivar_servicios', [$idTurno]);
-            $master->mis->setLog("Invalidación de resultados: ", json_encode($response));
-
         }
 
         # Insertar servicios extrar para pacientes empresas o servicios para particulares
@@ -250,12 +230,9 @@ switch ($api) {
                     $idTurno, null, $value, $_SESSION['id']
                 ]);
             }
-
-            $master->mis->setLog("Servicios: ", json_encode($detalles));
         }
 
         $response = [0 => $response, 1 => $etiqueta_turno[0]];
-        $master->mis->setLog("Response: ", json_encode($response));
         break;
     case 3:
         # reagendar una cita

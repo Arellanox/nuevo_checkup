@@ -402,8 +402,6 @@ $encode_firma = base64_encode($ruta_firma);
                     <?php endforeach; ?>
                 </tbody>
             </table>
-
-            <?php var_dump(json_encode($resultados)); ?>
         </div>
 
 
