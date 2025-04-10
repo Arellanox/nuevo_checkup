@@ -53,6 +53,7 @@
                 data: 'FECHA_TOMA_MUESTRA', render: function (data) {
                     // return 1;
                     if (ifnull(data)) {
+                        console.log(data)
                         // Si la muestra ha sido tomada, aparcerá la fecha
                         const formattedDate = formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0], null);
 

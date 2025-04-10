@@ -221,8 +221,9 @@ if (!empty($_SESSION['id'])) {
 
         case 9:
             #Actualizar el MUESTRA_TOMADA de la tabla maquilas_altas_pacientes
-            $response = $master->getByProcedure('sp_maquilas_altas_pacientes_a', [$fecha_toma, $id_turno, $_SESSION['id']]);
-
+            $response = $master->getByProcedure('sp_maquilas_altas_pacientes_a', [
+                $fecha_toma, $id_turno, $_SESSION['id']
+            ]);
             break;
 
         case 10:
