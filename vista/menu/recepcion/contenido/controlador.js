@@ -2,7 +2,7 @@ let tablaRecepcionPacientes, dataRecepcion = {api: 1};
 let TablaReportesNoEnviados, dataReporteNoEnviados = {api: 2, enviado: 0};
 
 let estudiosLab = [], estudiosLabBio = [], estudiosRX = [], estudiosUltra = [], estudiosOtros = [];
-let hash = '';
+var hash = '';
 
 validaciones()
 
