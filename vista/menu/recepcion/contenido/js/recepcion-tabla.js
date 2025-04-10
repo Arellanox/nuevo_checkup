@@ -150,27 +150,27 @@ selectTable('#TablaRecepcionPacientes', tablaRecepcionPacientes, {
     {
       class: 'btn-pendiente',
       callback: function (data) {
-          if (!validarPermiso('RepIngPaci', 1)) return false;
+        //if (!validarPermiso('RepIngPaci', 1)) return false;
 
-          array_selected = data
+        array_selected = data
 
-          alertMensajeConfirm({
-              title: '¿Está Seguro de regresar al paciente en espera?',
-              text: "¡Sus estudios anteriores no se cargarán!",
-              icon: 'warning',
-              confirmButtonText: 'Si, colocarlo en espera',
-          }, () => {
-              ajaxAwait({id_turno: data['ID_TURNO'], api: 2}, 'recepcion_api', { callbackAfter: true }, false, () => {
-                alertMensaje('info', '¡Paciente en espera!', 'El paciente se cargó en espera.');
-                  try {
-                    tablaRecepcionPacientes.ajax.reload();
-                  } catch (e) { console.log(e.message); }
+        alertMensajeConfirm({
+          title: '¿Está Seguro de regresar al paciente en espera?',
+          text: "¡Sus estudios anteriores no se cargarán!",
+          icon: 'warning',
+          confirmButtonText: 'Si, colocarlo en espera',
+        }, () => {
+          ajaxAwait({id_turno: data['ID_TURNO'], api: 2}, 'recepcion_api', { callbackAfter: true }, false, () => {
+            alertMensaje('info', '¡Paciente en espera!', 'El paciente se cargó en espera.');
+            try {
+              tablaRecepcionPacientes.ajax.reload();
+            } catch (e) { console.log(e.message); }
 
-                  try {
-                    tablaRecepcionPacientesIngrersados.ajax.reload();
-                  } catch (e) { console.log(e.message); }
-              })
-          }, 1)
+            try {
+              tablaRecepcionPacientesIngrersados.ajax.reload();
+            } catch (e) { console.log(e.message); }
+          })
+        }, 1);
       }
     },
     {

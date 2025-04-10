@@ -1,7 +1,7 @@
-let tablaRecepcionPacientes, dataRecepcion = {api: 1};
-let TablaReportesNoEnviados, dataReporteNoEnviados = {api: 2, enviado: 0};
+var tablaRecepcionPacientes, dataRecepcion = {api: 1};
+var TablaReportesNoEnviados, dataReporteNoEnviados = {api: 2, enviado: 0};
 
-let estudiosLab = [], estudiosLabBio = [], estudiosRX = [], estudiosUltra = [], estudiosOtros = [];
+var estudiosLab = [], estudiosLabBio = [], estudiosRX = [], estudiosUltra = [], estudiosOtros = [];
 var hash = '';
 
 validaciones()
@@ -79,13 +79,13 @@ function obtenerContenidoTodosPacientes() {
 }
 
 async function notificacionReportesNoEnviados(count) {
-  let span = '#numReportes';
-  let btn = '#btn-modalNotificacionesReportes';
+  var span = '#numReportes';
+  var btn = '#btn-modalNotificacionesReportes';
 
   return new Promise((resolve) => {
     ajaxAwait({ api: 1 }, 'correos_api', { callbackAfter: true }, false, function (data) {
       // resolve(data);
-      const noti = ifnull(data.response.data, false, { 0: 'NOTIFICACION' });
+      var noti = ifnull(data.response.data, false, { 0: 'NOTIFICACION' });
       // Verificamos si existe una nueva notificacion
       if (noti > 0 && noti !== count) {
         $(span).fadeIn('fast');
