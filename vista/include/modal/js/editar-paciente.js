@@ -7,7 +7,7 @@ ModalEditarPaciente.addEventListener('show.bs.modal', event => {
   $('#editar-nacimiento').val(array_selected['NACIMIENTO']);
 
   // Calcular edad
-  $(`#editar-edad`).val(calcularEdad2(array_selected['NACIMIENTO'])['numero'])
+  $(`#editar-edad`).val(calcularEdad2(array_selected['NACIMIENTO'])['numero|'])
   $(`#span_formEdad_edit`).html(calcularEdad2(array_selected['NACIMIENTO'])['tipo'])
 
   $('#editar-curp').val(array_selected['CURP']);

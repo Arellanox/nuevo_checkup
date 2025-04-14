@@ -31,6 +31,7 @@ if (isset($servidores[$current_host])) {
 
 $current_url = $https . $url . '/' . $appname;
 $session_data = $_SESSION;
+$isFranquisiario = $_SESSION['franquiciario'];
 
 // Quitamos variable del frontend
 unset($session_data['token']);

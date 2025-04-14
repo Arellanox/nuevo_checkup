@@ -49,6 +49,7 @@ $tipo_conversion = $_POST['comoNosConociste'];
 $medios_entrega = $_POST['medios_entrega'];
 
 $parametros = array(
+    $_SESSION['id'],
     $id_paciente,
     $segmento_id,
     $nombre,
@@ -82,6 +83,7 @@ $response = "";
 # Esta variable es enviada desde el formulario de fast checkup
 # hay que evaluarlo si tiene algo ingresarlo en somatometria. Talla
 $talla = $_POST['talla'];
+$usuario_franquicia_id = $_SESSION['franquiciario'] ? $_SESSION['id'] : null;
 
 $master = new Master();
 switch ($api) {
@@ -109,7 +111,9 @@ switch ($api) {
     case 2:
         # buscar pacientes
         // echo $id_paciente;
-        $response = $master->getByProcedure("sp_pacientes_b", [$id_paciente, $curp, $pasaporte, $id_turno]);
+        $response = $master->getByProcedure("sp_pacientes_b", [
+            $id_paciente, $curp, $pasaporte, $id_turno, $usuario_franquicia_id
+        ]);
 
         foreach ($response as $key => $value) {
             $value['ordenes'] = $master->decodeJson([$value['ordenes']]);

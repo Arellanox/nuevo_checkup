@@ -620,7 +620,6 @@ class Miscelaneus
                 $folio = $infoPaciente[0]['FOLIO_SOMA'];
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[0]['CLAVE_SOMA'];
                 break;
-
             case 15:
             case "15":
                 # COTIZACIONES
@@ -656,8 +655,8 @@ class Miscelaneus
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_FASTCK'];
                 $carpeta_guardado = "fast_checkup";
                 $folio = $infoPaciente[0]['FOLIO_FASTCK'];
-
                 break;
+
             case 4:
             case "4":
                 #AUDIOMETRIA
@@ -671,7 +670,6 @@ class Miscelaneus
                 $folio = $infoPaciente[0]['FOLIO_AUDIO'];
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[0]['CLAVE_AUDIO'];
                 break;
-
             case 5:
             case "5":
                 #ESPIROMETRIA
@@ -683,8 +681,6 @@ class Miscelaneus
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[array_key_last($infoPaciente)]['CLAVE_ESPIRO'];
 
                 break;
-
-
             case 19:
             case "19":
                 #CONSULTORIO2
@@ -701,7 +697,6 @@ class Miscelaneus
                 // exit;
                 $arregloPaciente = $this->getBodyTemperatura($master, $turno_id);
                 break;
-
             case -2:
                 #RECETA
                 $arregloPaciente = $this->getBodyRecetas($master, $turno_id);
@@ -732,8 +727,9 @@ class Miscelaneus
                 # pacientes que son enviado por maquila.
                 $carpeta_guardado = "envio_de_muestras";
                 $fecha_resultado = date("Ymd");
-                $nombre_paciente = "envio_muestras_$turno_id";
-                $arregloPaciente = $this->getBodyFormatoEnvioLotesMaquila($master, $turno_id); # $turno_id es el id de lote que se quiere generar.
+                $nombre_paciente = "envio_muestras_$turno_id";  # $turno_id es el id de lote que se quiere generar.
+
+                $arregloPaciente = $this->getBodyFormatoEnvioLotesMaquila($master, $turno_id);
                 break;
             case -6:
                 # $turno_id para este caso seria el equivalente a ID_PACIENTE

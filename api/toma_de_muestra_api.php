@@ -30,7 +30,9 @@ $response = "";
 $master = new Master();
 switch ($api) {
     case 1:
-        $response = $master->getByProcedure("sp_toma_de_muestra_lista_de_trabajo", [$fecha_agenda, $id_area, $con_paquete]);
+        $response = $master->getByProcedure("sp_toma_de_muestra_lista_de_trabajo", [
+            $fecha_agenda, $id_area, $con_paquete, $_SESSION['franquiciario'] ? $_SESSION['id'] : null
+        ]);
         break;
     case 2:
         # buscar_servicios de toma de muestra
@@ -39,6 +41,12 @@ switch ($api) {
     case 3:
         # actualizar toma de muestra
         # indicar que la muestra ya ha sido tomada.
+        if ($_SESSION['franquiciario']) {
+            $response = $master->getByProcedure('sp_maquilas_altas_pacientes_a', [
+                date('Y-m-d H:i:s'), $id_turno, $_SESSION['id']
+            ]);
+        }
+
         $response = $master->updateByProcedure("sp_toma_de_muestra_servicios_g", [$id_turno]);
         $_SESSION['turnero'] = null;
         break;

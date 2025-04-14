@@ -10,6 +10,10 @@
       <change beforePath="$PROJECT_DIR$/api/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/log.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clases/ExcelReport_class.php" beforeDir="false" afterPath="$PROJECT_DIR$/clases/ExcelReport_class.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/menu/controlador/funciones.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/controlador/funciones.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/recepcion/contenido/controlador.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/recepcion/contenido/controlador.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/recepcion/contenido/js/recepcion-tabla.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/recepcion/contenido/js/recepcion-tabla.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/recepcion/contenido/recepcion-rechazados.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/recepcion/contenido/recepcion-rechazados.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +93,9 @@
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;F:/AppServ/www/nuevo_checkup/core/modules/notifications&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;nueva__franquicia&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/AppServ/www/nuevo_checkup/vista/procedencia/solicitud-franquicia-laboratorio/modals/html&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -101,18 +108,18 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\AppServ\www\nuevo_checkup\vista\procedencia\solicitud-franquicia-laboratorio\modals\html" />
+      <recent name="F:\AppServ\www\nuevo_checkup\vista\menu\solicitud-franquicia-laboratorio\modals" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\modules\notifications" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\assets" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\helpers\inputs" />
-      <recent name="F:\AppServ\www\nuevo_checkup\core\includes" />
-      <recent name="F:\AppServ\www\nuevo_checkup\core\helpers\menu" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\AppServ\www\nuevo_checkup\vista\procedencia" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\requests" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\includes\app" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\includes\app\js" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\controllers\menu-controller\js" />
-      <recent name="F:\AppServ\www\nuevo_checkup\core" />
     </key>
   </component>
   <component name="RunManager">
@@ -125,7 +132,6 @@
     <attachedChunks>
       <set>
         <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.59" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.59" />
       </set>
     </attachedChunks>
   </component>
@@ -152,6 +158,38 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="LAST_COMMIT_MESSAGE" value="" />
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/vista/menu/recepcion/contenido/js/recepcion-aceptados-tabla.js</url>
+          <line>97</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint type="javascript">
+          <url>file://$PROJECT_DIR$/vista/menu/recepcion/contenido/js/recepcion-aceptados-tabla.js</url>
+          <line>497</line>
+          <option name="temporary" value="true" />
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint type="javascript">
+          <url>file://$PROJECT_DIR$/vista/menu/recepcion/contenido/js/recepcion-aceptados-tabla.js</url>
+          <line>496</line>
+          <option name="temporary" value="true" />
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/vista/procedencia/solicitud-franquicia-laboratorio/contenido/controlador.js</url>
+          <line>35</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/vista/procedencia/estudios-laboratorio/contenido/controlador.js</url>
+          <line>24</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
