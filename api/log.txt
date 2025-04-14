@@ -86,3 +86,5 @@
 10/04/25 12:00:58 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
 10/04/25 12:03:01 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
 10/04/25 12:05:04 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+14/04/25 14:32:16 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [2006] MySQL server has gone away
+14/04/25 14:43:43 Reporte de Cotización enviado Correo enviado.
