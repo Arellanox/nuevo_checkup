@@ -185,7 +185,7 @@ var cliente_id;
 async function obtenerContenidoCotizaciones() {
   await obtenerTitulo("Cotizaciones de estudios"); //Aqui mandar el nombre de la area
   // Funciones js
-  $.post("contenido/cotizaciones.php", function (html) {
+  $.post("contenido/cotizaciones.php",  {franquicia: isFranquisiario}, function (html) {
     $("#body-js").html(html);
   }).done(function () {
     VistaExcelurl = `${http}${servidor}/${appname}/api/cotizaciones_api.php`

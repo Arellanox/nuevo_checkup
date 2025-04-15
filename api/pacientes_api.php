@@ -93,7 +93,7 @@ switch ($api) {
         $medios = array_map('intval', explode(',', $medios_entrega));
         $parametros[26] = json_encode($medios); //Se asgina a la posición 26 directamente
         $parametros[28] = $talla; //Se asgina a la posición 28 directamente
-    
+
         $response = $master->insertByProcedure("sp_pacientes_g", $parametros);
         break;
     case 2:

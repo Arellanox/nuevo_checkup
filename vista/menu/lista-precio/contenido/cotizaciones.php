@@ -31,22 +31,37 @@
         <div class="card shadow my-1" id="form-select-paquetes">
             <div class='row p-2'>
                 <div class="col-12 col-lg-6 text-center formContenidoPaquete" id="formPaqueteBotonesArea" style="margin-top:4px;margin-bottom:5px;">
+                    <?php if(filter_var($_POST['franquicia'], FILTER_VALIDATE_BOOLEAN) === false): ?>
 
-                    <label for="inputBuscarPaquetes">Pulse el area del estudio:</label> <br>
-                    <input type="radio" class="btn-check" name="selectChecko" id="check-img" value="11" autocomplete="off">
-                    <label class="btn btn-outline-success" for="check-img"><i class="bi bi-list"></i>
-                        Ultrasonido</label>
+                        <label for="inputBuscarPaquetes">Pulse el area del estudio:</label> <br>
+                        <input type="radio" class="btn-check" name="selectChecko" id="check-img" value="11" autocomplete="off">
+                        <label class="btn btn-outline-success" for="check-img"><i class="bi bi-list"></i>
+                            Ultrasonido
+                        </label>
 
-                    <input type="radio" class="btn-check" name="selectChecko" id="check-rx" value="8" autocomplete="off">
-                    <label class="btn btn-outline-success" for="check-rx"><i class="bi bi-list"></i> Rayos X</label>
+                        <input type="radio" class="btn-check" name="selectChecko" id="check-rx" value="8" autocomplete="off">
+                        <label class="btn btn-outline-success" for="check-rx"><i class="bi bi-list"></i> Rayos X</label>
 
+                    <?php endif; ?>
+                    
                     <input type="radio" class="btn-check" name="selectChecko" id="check-lab" value="6" autocomplete="off">
                     <label class="btn btn-outline-success" for="check-lab"><i class="bi bi-list"></i>
-                        Laboratorio</label>
+                        Laboratorio
+                    </label>
 
-                    <input type="radio" class="btn-check" name="selectChecko" id="check-otros" value="0" autocomplete="off">
-                    <label class="btn btn-outline-success" for="check-otros"><i class="bi bi-list"></i>Otros
-                        Servicios</label>
+                    <input type="radio" class="btn-check" name="selectChecko" id="check-bio" value="12" autocomplete="off">
+                    <label class="btn btn-outline-success" for="check-bio"><i class="bi bi-list"></i>
+                        Laboratorio Bíomolecular
+                    </label>
+
+                    <?php if(filter_var($_POST['franquicia'], FILTER_VALIDATE_BOOLEAN) === false): ?>
+
+                        <input type="radio" class="btn-check" name="selectChecko" id="check-otros" value="0" autocomplete="off">
+                        <label class="btn btn-outline-success" for="check-otros"><i class="bi bi-list"></i>
+                            Otros Servicios
+                        </label>
+
+                    <?php endif; ?>
 
                 </div>
                 <div class="col-12 col-lg-6">
@@ -75,6 +90,7 @@
         <div class="card shadow my-2 p-2">
             <!-- Botones de los paquetes -->
             <div class="d-flex justify-content-center aling-item-center">
+
                 <button type="button" class="btn btn-pantone-7408 me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#modalInfoDetalleCotizacion" id="btn-info-detaelle-cotizacion">
                     <i class="bi bi-save2"></i>
                     <span class="d-none d-xl-inline d-sm-inline"> Guardar Cotización</span>

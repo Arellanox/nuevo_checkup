@@ -23,6 +23,7 @@
         </select>
       </div>
       <p class="none-p vista_estudios-precios">Seleccione area:</p>
+
       <style media="screen">
         .btn-outline-success {
           border-color: transparent;
