@@ -91,11 +91,16 @@
                         <span class="d-none d-xl-inline d-sm-inline">Cotización (Vista previa)</span>
                     </button>
                 </span>
-                <span data-bs-toggle="tooltip" data-bs-placement="top" title="Muestra/Oculta las columnas">
-                    <button type="button" class="btn btn-hover me-2 toggle-vis" style="margin-bottom:4px">
-                        <i class="bi bi-eye"></i> Ver/Ocultar
-                    </button>
-                </span>
+
+                <?php if(filter_var($_POST['franquicia'], FILTER_VALIDATE_BOOLEAN) === false): ?>
+
+                    <span data-bs-toggle="tooltip" data-bs-placement="top" title="Muestra/Oculta las columnas">
+                        <button type="button" class="btn btn-hover me-2 toggle-vis" style="margin-bottom:4px">
+                            <i class="bi bi-eye"></i> Ver/Ocultar
+                        </button>
+                    </span>
+
+                <?php endif; ?>
             </div>
 
             <!-- Tabla de paquetes -->
