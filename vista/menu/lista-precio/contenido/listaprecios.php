@@ -50,53 +50,35 @@
         <input type="radio" class="btn-check" name="selectChecko" title="Otros Servicios" id="check-otros" value="0" autocomplete="off">
         <label class="btn btn-outline-success" for="check-otros"><i class="bi bi-list"></i>Otros Servicios</label>
       </div>
-
-
-      <!-- <div class="col-12 m-1" id="vista_paquetes-precios">
-        <label for="inputBuscarTableListaNuevos">Seleccione un paquete:</label>
-        <select name="metodo" id="seleccion-paquete" required>
-        </select>
-      </div> -->
     </div>
   </div>
   <div class="col-8 card">
-    <div class="text-center" style="margin-top:4px;margin-bottom:5px;">
-      <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-guardar-lista">
-        <i class="bi bi-save"></i> Guardar
-      </button>
-      <span data-bs-toggle="tooltip" data-bs-placement="top" title="Selecciona una opción de lista a mostrar...">
-        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="vistaPreviaExel" data-bs-toggle="modal" disabled data-bs-target="#vistaPreviaExelModal">
-          <i class="bi bi-filetype-exe"></i> Excel (Vista previa)
-        </button>
-      </span>
+    <div class="text-center" style="margin-top:4px; margin-bottom:5px;">
+        <?php  if(filter_var($_POST['franquicia'], FILTER_VALIDATE_BOOLEAN) === false):  ?>
+          <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-guardar-lista">
+            <i class="bi bi-save"></i> Guardar
+          </button>
+          <span data-bs-toggle="tooltip" data-bs-placement="top" title="Selecciona una opción de lista a mostrar...">
+            <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="vistaPreviaExel" data-bs-toggle="modal" disabled data-bs-target="#vistaPreviaExelModal">
+              <i class="bi bi-filetype-exe"></i> Excel (Vista previa)
+            </button>
+          </span>
 
 
-      <span data-bs-toggle="tooltip" data-bs-placement="top" title="Muestra/Oculta las columnas">
-        <button type="button" class="btn btn-hover me-2 toggle-vis" style="margin-bottom:4px">
-          <i class="bi bi-eye"></i> Ver/Ocultar
-        </button>
-      </span>
-
-      <!-- <a href="" class="toggle-vis" data-column="4">Laboratorio</a> -->
+          <span data-bs-toggle="tooltip" data-bs-placement="top" title="Muestra/Oculta las columnas">
+            <button type="button" class="btn btn-hover me-2 toggle-vis" style="margin-bottom:4px">
+              <i class="bi bi-eye"></i> Ver/Ocultar
+            </button>
+          </span>
+        <?php endif; ?>
     </div>
 
     <div class="" style="margin-left: 30px; margin-right: 30px;">
       <table class="table table-hover display responsive " id="TablaListaPrecios" style="width: 100%">
         <thead style="width: 100%">
-          <!-- <tr>
-            <th scope="col d-flex justify-content-center" class="all">#</th>
-            <th scope="col d-flex justify-content-center" class="all">Ab</th>
-            <th scope="col d-flex justify-content-center" class="all">Nombre</th>
-            <th scope="col d-flex justify-content-center" class="min-tablet">Costo</th>
-            <th scope="col d-flex justify-content-center" class="min-tablet">Margen</th>
-            <th scope="col d-flex justify-content-center" class="min-tablet">Total</th>
-          </tr> -->
         </thead>
         <tbody id="contenido-lista-precios"> </tbody>
       </table>
-      <!-- <div class="d-flex justify-content-center">
-        <div class="preloader" id="loader-tabla-precios" style="display:none"></div>
-      </div> -->
     </div>
   </div>
 </div>

@@ -24,8 +24,10 @@ function getListaConcepto() {
   let costo = 0;
   let listaCosto = new Array();
   $('#TablaListaPrecios tbody tr').each(function () {
-    var arregloEstudios = new Array();
-    let costo = $(this).find("input[name='costoConcepto']").val();
+    var arregloEstudios;
+    var input = $(this).find("input[name='costoConcepto']");
+    let costo = input.val();
+
     tabledata = tablaPrecio.row(this).data();
 
 
@@ -56,6 +58,7 @@ function getListaPrecios(id) { //Enviar ID_SERVICIO o ID_PAQUETE
         'total': calculo[2],
       }
       // enviar solo los que tenga precio mayor a cero
+
       if(calculo[2] > 0)
         listaPrecios.push(arregloPrecios)
     }
@@ -68,12 +71,6 @@ function calcularFilaPrecios(parent_element) {
   let utilidad = parseFloat($(parent_element).find("input[name='utilidad']").val());
   let total = parseFloat($(parent_element).find("input[name='total']").val());
   return data = [costo, utilidad, total];
-  // if (costo > 0 && utilidad != 0 && total != 0) {
-  //     return data = [costo, utilidad, total];
-  // }else{
-  //   return false;
-  // }
-
 }
 
 
@@ -95,9 +92,12 @@ function obtenerColumnasTabla(tipo) {
         {
           data: 'COSTO',
           render: function (data, type, full, meta) {
-            rturn = `<div class="input-group"><span class="input-span">$</span><input type="number" class="form-control input-form costoConcepto" name="costoConcepto" placeholder="" value="${ifnull(parseFloat(data).toFixed(2), 0)}"></div>`;
-
-            return rturn;
+            return `<div class="input-group">
+                        <span class="input-span">$</span>
+                        <input type="number" class="form-control input-form costoConcepto" name="costoConcepto"
+                           placeholder="" value="${ifnull(parseFloat(data).toFixed(2), 0)}" 
+                           ${isFranquisiario ? 'disabled' : ''}>
+                    </div>`;
           },
         },
       ];
@@ -121,31 +121,42 @@ function obtenerColumnasTabla(tipo) {
           data: 'COSTO',
           render: function (data, type, full, meta) {
             numero = getRandomInt(300);
-            rturn = `<label class="form-check-label" for="costo${numero}"> <div class="form-check"> <div class="costo text-center">$${ifnull(parseFloat(data).toFixed(2), 'number')}<input class="form-check-input" type="checkbox" value="" id="costo${numero}" checked></div> </div> </label>`;
-
-            return rturn;
+            return `<label class="form-check-label" for="costo${numero}"> 
+                      <div class="form-check"> 
+                          <div class="costo text-center">$${ifnull(parseFloat(data).toFixed(2), 'number')}
+                              <input class="form-check-input" type="checkbox" value="" id="costo${numero}" checked>
+                          </div> 
+                      </div>
+                    </label>`;
           },
         },
         {
           data: 'UTILIDAD',
           render: function (data, type, full, meta) {
             utilidadInput = data;
-            console.log(full)
+
             if (full['COSTO'] && full['PRECIO_VENTA']) {
               utilidadInput = (full['PRECIO_VENTA'] - full['COSTO']) / full['COSTO'] * 100;
             }
 
-            rturn = `<div class="input-group"><input type="number" class="form-control input-form utilidad" name="utilidad" placeholder="" value="${ifnull(parseFloat(utilidadInput).toFixed(2), 'number')}"><span class="input-span">%</span></div>`;
-
-            return rturn;
+            return `
+                <div class="input-group">
+                    <input type="number" class="form-control input-form utilidad" name="utilidad" placeholder="" 
+                        value="${ifnull(parseFloat(utilidadInput).toFixed(2), 'number')}" 
+                        ${isFranquisiario ? 'disabled' : ''}>
+                    <span class="input-span">%</span>
+                </div>`;
           },
         },
         {
           data: 'PRECIO_VENTA',
           render: function (data, type, full, meta) {
-            rturn = `<div class="input-group"><span class="input-span">$</span><input type="number" class="form-control input-form total" name="total" placeholder="" value="${ifnull(parseFloat(data).toFixed(2), 'number')}"></div>`;
-
-            return rturn;
+            return `<div class="input-group">
+                        <span class="input-span">$</span>
+                        <input type="number" class="form-control input-form total" name="total" placeholder="" 
+                            value="${ifnull(parseFloat(data).toFixed(2), 'number')}" 
+                            ${isFranquisiario ? 'disabled' : ''}>
+                    </div>`;
           },
         },
       ];
@@ -178,17 +189,22 @@ function obtenerColumnasTabla(tipo) {
             if (full['COSTO'] && full['PRECIO_VENTA']) {
               utilidadInput = (full['PRECIO_VENTA'] - full['COSTO']) / full['COSTO'] * 100;
             }
-            rturn = `<div class="input-group"><input type="number" class="form-control input-form utilidad" name="utilidad" placeholder="" value="${ifnull(parseFloat(utilidadInput).toFixed(2), 'number')}"><span class="input-span">%</span></div>`;
-
-            return rturn;
+            return `<div class="input-group">
+                        <input type="number" class="form-control input-form utilidad" name="utilidad" placeholder="" 
+                            value="${ifnull(parseFloat(utilidadInput).toFixed(2), 'number')}">
+                        <span class="input-span">%</span>
+                     </div>`;
           },
         },
         {
           data: 'PRECIO_VENTA',
           render: function (data, type, full, meta) {
-            rturn = `<div class="input-group"><span class="input-span">$</span><input type="number" class="form-control input-form total" name="total" placeholder="" value="${ifnull(parseFloat(data).toFixed(2), 'number')}"></div>`;
-
-            return rturn;
+            return `<div class="input-group">
+                        <span class="input-span">$</span>
+                        <input type="number" class="form-control input-form total" name="total" placeholder="" 
+                            value="${ifnull(parseFloat(data).toFixed(2), 'number')}" 
+                            ${isFranquisiario ? 'disabled' : ''}>
+                   </div>`;
           },
         }
       ];
