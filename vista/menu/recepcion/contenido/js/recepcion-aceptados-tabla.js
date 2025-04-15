@@ -1,3 +1,246 @@
+var tableCollectionButtons = [
+    {
+        text: '<i class="bi bi-receipt"></i> Ticket',
+        className: 'btn btn-secondary',
+        attr: {
+            disabled: true,
+            id: 'btn_recepcionTicket',
+            'data-bs-toggle': "tooltip",
+            'data-bs-placement': "top",
+            title: "Generar el ticket del paciente particular finalizado"
+        },
+        action: function () {
+            if (array_selected) {
+                alertMensaje('info', 'Generando Ticket', 'Podrás visualizar el ticket en una nueva ventana', 'Si la ventana no fue abierta, usted tiene bloqueada las ventanas emergentes')
+
+                api = encodeURIComponent(window.btoa('ticket'));
+                turno = encodeURIComponent(window.btoa(array_selected['ID_TURNO']));
+                area = encodeURIComponent(window.btoa(16));
+
+                window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, "_blank");
+            } else {
+                alertToast('Por favor, seleccione un paciente', 'info', 4000)
+            }
+        }
+    },
+    {
+        text: '<i class="bi bi-calendar2-event"></i> Re-agendar paciente',
+        className: 'btn btn-pantone-325',
+        attr: {
+            'data-bs-toggle': "tooltip",
+            'data-bs-placement': "top",
+            title: "Cambie la fecha de agenda del paciente si es necesario"
+        },
+        action: function () {
+            setTimeout(() => {
+                if (array_selected != null) {
+                    $("#modalPacienteReagendar").modal('show');
+                } else {
+                    alertSelectTable('No ha seleccionado ningún paciente', 'error')
+                }
+            }, 300);
+        }
+    },
+    {
+        text: '<i class="bi bi-person-lines-fill"></i> Deshacer ingreso',
+        className: 'btn btn-option',
+        attr: {
+            'data-bs-toggle': "tooltip",
+            'data-bs-placement': "top",
+            title: "Mande en espera al paciente y elimina la carga de estudios"
+        },
+        action: function () {
+            setTimeout(() => {
+                if (array_selected) {
+                    alertMensajeConfirm({
+                        title: '¿Está Seguro de regresar al paciente en espera?',
+                        text: "¡Sus estudios anteriores no se cargarán!",
+                        icon: 'warning', confirmButtonText: 'Si, colocarlo en espera',
+                    }, () => {
+                        ajaxAwait({
+                            id_turno: array_selected['ID_TURNO'], api: 2,// estado: null
+                        }, 'recepcion_api', { callbackAfter: true }, false, () => {
+                            alertMensaje('info', '¡Paciente en espera!', 'El paciente se cargó en espera.');
+                            try { tablaRecepcionPacientes.ajax.reload(); } catch (e) { }
+                            try { tablaRecepcionPacientesIngrersados.ajax.reload(); } catch (e) { }
+                        })
+                    }, 1)
+                } else { alertSelectTable('No ha seleccionado ningún paciente', 'error') }
+            }, 300);
+        }
+    },
+]
+
+if(!isFranquisiario){
+    tableCollectionButtons.push(
+        {
+            extend: 'excelHtml5',
+            text: '<i class="fa fa-file-excel-o"></i> Excel',
+            className: 'btn btn-success',
+            titleAttr: 'Excel',
+            attr: {
+                'data-bs-toggle': "tooltip",
+                'data-bs-placement': "top",
+                title: "Genere el formato por toda la tabla de pacientes o filtrado (Filtrado por: Fecha, Procedencia...)"
+            },
+            exportOptions: {
+                // Especifica las columnas que deseas exportar
+                columns: [1, 2, 3, 4, 6, 7, 9, 10]
+            }
+        }
+    );
+}
+
+tableCollectionButtons.push(
+    {
+        text: '<i class="fa-solid fa-key"></i> Abrir cuenta',
+        className: 'btn btn-danger',
+        attr: {
+            id: 'btn_abrir_cuenta',
+            disabled: true,
+            'data-bs-toggle': "tooltip",
+            'data-bs-placement': "top",
+            title: "Abre la cuenta de un paciente cerrado."
+        },
+        action: function () {
+            if (array_selected) {
+                // console.log(array_selected);
+                alertMensajeConfirm({
+                    title: '¿Abrir cuenta?',
+                    text: "Le permite modificar las estudios.",
+                    icon: 'info',
+                }, () => {
+                    ajaxAwait({
+                            api: 21,
+                            id_turno: array_selected['ID_TURNO']
+                        },
+                        'recepcion_api', { callbackAfter: true }, false, () => {
+                            alertToast('Cuenta abierta', 'success', 4000)
+
+                            try { tablaRecepcionPacientes.ajax.reload(); } catch (e) { }
+                            try { tablaRecepcionPacientesIngrersados.ajax.reload(); } catch (e) { }
+                        })
+                }, 1)
+
+            } else {
+                alertToast('Por favor, seleccione un paciente', 'info', 4000)
+            }
+        }
+    },
+    {
+        text: '<i class="bi bi-funnel-fill"></i> Filtrar tabla',
+        className: 'btn btn-warning',
+        attr: {
+            id: 'btn_filtrar_tabla',
+            'data-bs-toggle': "tooltip",
+            'data-bs-placement': 'top',
+            title: "Filtra la tabla de pacientes aceptados"
+        },
+        action: function(){
+            $("#filtroPacientesModal").modal("show");
+        }
+    }
+);
+
+var tableButtons = [
+    {
+        extend: 'collection',
+        text: 'Acciones',
+        className: 'btn btn-light',
+        buttons: tableCollectionButtons
+    }
+]
+
+if(!isFranquisiario){
+    tableButtons.push(
+        {
+            text: '<i class="bi bi-arrow-repeat"></i> Actualizar procedencia',
+            className: 'btn btn-pantone-7408',
+            attr: {
+                'data-bs-toggle': "tooltip",
+                'data-bs-placement': "top",
+                title: "Actualice la procedencia de un paciente que esté en proceso."
+            },
+            action: function () {
+                setTimeout(() => {
+
+                    if (array_selected.COMPLETADO !== 1) {
+                        $('#modalActualizarProsedencia').modal('show');
+                        select2('#select-cambioProcedencia', 'modalActualizarProsedencia')
+                        rellenarSelect('#select-cambioProcedencia', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
+
+                        $('#btn-actualizarProcedencia').on('click', function () {
+
+                            $('#select-cambioProcedencia').val()
+
+                            alertMensajeConfirm({
+                                title: '¿Está Seguro que desea cambiar la procedencia de este paciente?',
+                                text: "Podra volver a modificarlo despues",
+                                icon: 'info',
+                            }, () => {
+                                ajaxAwait({
+                                        api: 13,
+                                        id_turno: array_selected['ID_TURNO'],
+                                        cliente_id: $('#select-cambioProcedencia').val()
+                                    },
+                                    'recepcion_api', { callbackAfter: true }, false, () => {
+                                        alertToast('Se actualizó la procendecia', 'success', 4000)
+                                        $('#modalActualizarProsedencia').modal('hide');
+                                        try { tablaRecepcionPacientes.ajax.reload(); } catch (e) { }
+                                        try { tablaRecepcionPacientesIngrersados.ajax.reload(); } catch (e) { }
+                                    })
+                            }, 1)
+                        })
+
+                    } else {
+                        alertSelectTable('No puede actualizar la procedencia a pacientes finalizados.', 'error')
+                    }
+                }, 300);
+            }
+        },
+        {
+            text: '<i class="bi bi-save"></i> Beneficiario',
+            className: 'btn btn-success',
+            attr: {
+                'data-bs-toggle': "modal",
+                'data-bs-target': "#ModalBeneficiario",
+                id: "buttonBeneficiario",
+                disabled: true
+            },
+
+        },
+        {
+            text: '<i class="bi bi-clock"></i> Pago pendiente',
+            className: 'btn btn-warning',
+            attr: {
+                id: 'btn_pendiente_turno',
+                'data-bs-toggle': 'tooltip',
+                'data-bs-placement': 'top',
+                title: 'Marca un paciente como pendiente para poder cerrar el corte'
+            },
+            action: function(){
+                if(array_selected){
+                    alertMensajeConfirm(
+                        {
+                            title: '¿No ha pagado el paciente?',
+                            text: 'Podrás cerrar el corte al marcarlo como pendiente.',
+                            icon: 'info'
+                        },
+                        () => {
+                            ajaxAwait({ api: 22, id_turno: array_selected['ID_TURNO']}, 'recepcion_api', { callbackAfter: true }, false, () => {
+                                alertMensaje('info', '¡Paciente pendiente!', 'El paciente se marcó como pendiente. Ahora sí, ¡Cerremos el corte!')
+                            })
+                        },
+                        1
+                    )
+                } else {
+                    alertToast('Paciente no seleccionado.', 'info', 4000)
+                }
+            }
+        }
+    )
+}
+
 tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').DataTable({
     language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json", },
     scrollY: '56vh', //347px
@@ -124,237 +367,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
       }
     ],
     dom: 'Bl<"dataTables_toolbar">frtip',
-    buttons: [
-      {
-        extend: 'collection',
-        text: 'Acciones',
-        className: 'btn btn-light',
-        buttons: [
-          {
-            text: '<i class="bi bi-receipt"></i> Ticket',
-            className: 'btn btn-secondary',
-            attr: {
-              disabled: true,
-              id: 'btn_recepcionTicket',
-              'data-bs-toggle': "tooltip",
-              'data-bs-placement': "top",
-              title: "Generar el ticket del paciente particular finalizado"
-            },
-            action: function () {
-              if (array_selected) {
-                alertMensaje('info', 'Generando Ticket', 'Podrás visualizar el ticket en una nueva ventana', 'Si la ventana no fue abierta, usted tiene bloqueada las ventanas emergentes')
-
-                api = encodeURIComponent(window.btoa('ticket'));
-                turno = encodeURIComponent(window.btoa(array_selected['ID_TURNO']));
-                area = encodeURIComponent(window.btoa(16));
-
-                window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, "_blank");
-              } else {
-                alertToast('Por favor, seleccione un paciente', 'info', 4000)
-              }
-            }
-          },
-          {
-            text: '<i class="bi bi-calendar2-event"></i> Re-agendar paciente',
-            className: 'btn btn-pantone-325',
-            attr: {
-              'data-bs-toggle': "tooltip",
-              'data-bs-placement': "top",
-              title: "Cambie la fecha de agenda del paciente si es necesario"
-            },
-            action: function () {
-              setTimeout(() => {
-                if (array_selected != null) {
-                  $("#modalPacienteReagendar").modal('show');
-                } else {
-                  alertSelectTable('No ha seleccionado ningún paciente', 'error')
-                }
-              }, 300);
-            }
-          },
-          {
-            text: '<i class="bi bi-person-lines-fill"></i> Deshacer ingreso',
-            className: 'btn btn-option',
-            attr: {
-              'data-bs-toggle': "tooltip",
-              'data-bs-placement': "top",
-              title: "Mande en espera al paciente y elimina la carga de estudios"
-            },
-            action: function () {
-              setTimeout(() => {
-                if (array_selected) {
-                  alertMensajeConfirm({
-                    title: '¿Está Seguro de regresar al paciente en espera?',
-                    text: "¡Sus estudios anteriores no se cargarán!",
-                    icon: 'warning', confirmButtonText: 'Si, colocarlo en espera',
-                  }, () => {
-                    ajaxAwait({
-                      id_turno: array_selected['ID_TURNO'], api: 2,// estado: null
-                    }, 'recepcion_api', { callbackAfter: true }, false, () => {
-                      alertMensaje('info', '¡Paciente en espera!', 'El paciente se cargó en espera.');
-                      try { tablaRecepcionPacientes.ajax.reload(); } catch (e) { }
-                      try { tablaRecepcionPacientesIngrersados.ajax.reload(); } catch (e) { }
-                    })
-                  }, 1)
-                } else { alertSelectTable('No ha seleccionado ningún paciente', 'error') }
-              }, 300);
-            }
-          },
-          {
-            extend: 'excelHtml5',
-            text: '<i class="fa fa-file-excel-o"></i> Excel',
-            className: 'btn btn-success',
-            titleAttr: 'Excel',
-            attr: {
-              'data-bs-toggle': "tooltip",
-              'data-bs-placement': "top",
-              title: "Genere el formato por toda la tabla de pacientes o filtrado (Filtrado por: Fecha, Procedencia...)"
-            },
-            exportOptions: {
-              // Especifica las columnas que deseas exportar
-              columns: [1, 2, 3, 4, 6, 7, 9, 10]
-            }
-          },
-          {
-            text: '<i class="fa-solid fa-key"></i> Abrir cuenta',
-            className: 'btn btn-danger',
-            attr: {
-              id: 'btn_abrir_cuenta',
-              disabled: true,
-              'data-bs-toggle': "tooltip",
-              'data-bs-placement': "top",
-              title: "Abre la cuenta de un paciente cerrado."
-            },
-            action: function () {
-              if (array_selected) {
-                // console.log(array_selected);
-                alertMensajeConfirm({
-                  title: '¿Abrir cuenta?',
-                  text: "Le permite modificar las estudios.",
-                  icon: 'info',
-                }, () => {
-                  ajaxAwait({
-                    api: 21,
-                    id_turno: array_selected['ID_TURNO']
-                  },
-                    'recepcion_api', { callbackAfter: true }, false, () => {
-                      alertToast('Cuenta abierta', 'success', 4000)
-
-                      try { tablaRecepcionPacientes.ajax.reload(); } catch (e) { }
-                      try { tablaRecepcionPacientesIngrersados.ajax.reload(); } catch (e) { }
-                    })
-                }, 1)
-
-              } else {
-                alertToast('Por favor, seleccione un paciente', 'info', 4000)
-              }
-            }
-          },
-          // boton de filtro de tabla pacientes aceptados
-          // abre el modal para ampliar la seleccion
-          {
-            text: '<i class="bi bi-funnel-fill"></i> Filtrar tabla',
-            className: 'btn btn-warning',
-            attr: {
-              id: 'btn_filtrar_tabla',
-              'data-bs-toggle': "tooltip",
-              'data-bs-placement': 'top',
-              title: "Filtra la tabla de pacientes aceptados"
-            },
-            action: function(){
-              $("#filtroPacientesModal").modal("show");
-            }
-          }
-        ]// fin de acciones
-      },
-
-      {
-        text: '<i class="bi bi-arrow-repeat"></i> Actualizar procedencia',
-        className: 'btn btn-pantone-7408',
-        attr: {
-          'data-bs-toggle': "tooltip",
-          'data-bs-placement': "top",
-          title: "Actualice la procedencia de un paciente que esté en proceso."
-        },
-        action: function () {
-          setTimeout(() => {
-
-            if (array_selected.COMPLETADO !== 1) {
-              $('#modalActualizarProsedencia').modal('show');
-              select2('#select-cambioProcedencia', 'modalActualizarProsedencia')
-              rellenarSelect('#select-cambioProcedencia', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
-
-              $('#btn-actualizarProcedencia').on('click', function () {
-
-                $('#select-cambioProcedencia').val()
-
-                alertMensajeConfirm({
-                  title: '¿Está Seguro que desea cambiar la procedencia de este paciente?',
-                  text: "Podra volver a modificarlo despues",
-                  icon: 'info',
-                }, () => {
-                  ajaxAwait({
-                    api: 13,
-                    id_turno: array_selected['ID_TURNO'],
-                    cliente_id: $('#select-cambioProcedencia').val()
-                  },
-                    'recepcion_api', { callbackAfter: true }, false, () => {
-                      alertToast('Se actualizó la procendecia', 'success', 4000)
-                      $('#modalActualizarProsedencia').modal('hide');
-                      try { tablaRecepcionPacientes.ajax.reload(); } catch (e) { }
-                      try { tablaRecepcionPacientesIngrersados.ajax.reload(); } catch (e) { }
-                    })
-                }, 1)
-              })
-
-            } else {
-              alertSelectTable('No puede actualizar la procedencia a pacientes finalizados.', 'error')
-            }
-          }, 300);
-        }
-      },
-      {
-        text: '<i class="bi bi-save"></i> Beneficiario',
-        className: 'btn btn-success',
-        attr: {
-          'data-bs-toggle': "modal",
-          'data-bs-target': "#ModalBeneficiario",
-          id: "buttonBeneficiario",
-          disabled: true
-        },
-
-      },
-      // marcar a un wey como pendiente porque no ha pagado y necesitan cerrar el corte
-      {
-        text: '<i class="bi bi-clock"></i> Pago pendiente',
-        className: 'btn btn-warning',
-        attr: {
-          id: 'btn_pendiente_turno',
-          'data-bs-toggle': 'tooltip',
-          'data-bs-placement': 'top',
-          title: 'Marca un paciente como pendiente para poder cerrar el corte'
-        },
-        action: function(){
-          if(array_selected){
-            alertMensajeConfirm(
-              {
-                title: '¿No ha pagado el paciente?',
-                text: 'Podrás cerrar el corte al marcarlo como pendiente.',
-                icon: 'info'
-              },
-              () => {
-                ajaxAwait({ api: 22, id_turno: array_selected['ID_TURNO']}, 'recepcion_api', { callbackAfter: true }, false, () => {
-                  alertMensaje('info', '¡Paciente pendiente!', 'El paciente se marcó como pendiente. Ahora sí, ¡Cerremos el corte!')
-                })
-              },
-              1
-            )
-          } else {
-            alertToast('Paciente no seleccionado.', 'info', 4000)
-          }
-        }
-      }
-    ]
+    buttons: tableButtons
 })
 
 $(document).on('click','#aplicarFiltro', function(){
