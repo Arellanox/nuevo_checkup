@@ -301,12 +301,15 @@ $('#seleccion-paquete').on('change', async function (e) {
 
 
 // Función que se ejecuta cuando se realiza una acción para obtener un nuevo PDF
+//LOCAL HOST: 3867b556792e429084f3e9253d3ea45c
+//PRODUCTION: cd0a5ec82af74d85b589bbb7f1175ce3
 function getNewView(url, filename) {
-  let adobeDCView = new AdobeDC.View({ clientId: "cd0a5ec82af74d85b589bbb7f1175ce3", divId: "adobe-dc-view" });
-  var nuevaURL = url;
+  var clientId = isLocalHost ? '3867b556792e429084f3e9253d3ea45c' : 'cd0a5ec82af74d85b589bbb7f1175ce3';
+  let adobeDCView = new AdobeDC.View({ clientId: clientId, divId: "adobe-dc-view" });
+  var nuevaURL = url + "?timestamp=" + Date.now();
 
-  // Agregar un parámetro único a la URL para evitar la caché del navegador
-  nuevaURL += "?timestamp=" + Date.now();
+  console.log('LocalHost: ' + isLocalHost)
+
   adobeDCView.previewFile({
     content: { location: { url: nuevaURL } },
     metaData: { fileName: filename }

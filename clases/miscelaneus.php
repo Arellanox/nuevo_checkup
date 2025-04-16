@@ -624,6 +624,13 @@ class Miscelaneus
             case "15":
                 # COTIZACIONES
                 $arregloPaciente = $this->getBodyInfoCotizacion($master, $id_cotizacion, $cliente_id);
+                $idFranquicia = $_SESSION['franquiciario'] ? $_SESSION['id'] : null;
+
+                if($idFranquicia){
+                    $getDatosFiscales = $master->getByProcedure('sp_datos_fiscales_franquicia', [$idFranquicia]);
+                    $arregloPaciente['franquicia'] = $getDatosFiscales;
+                }
+
                 $fecha_resultado = $arregloPaciente['FECHA_CREACION'];
                 $fecha_resultado = date('dmY', strtotime($fecha_resultado));
                 $carpeta_guardado = "cotizacion";
@@ -886,13 +893,10 @@ class Miscelaneus
 
     private function getBodyInfoCotizacion($master, $id_cotizacion, $cliente_id)
     {
-        $infoCliente = $master->getByProcedure('sp_cotizaciones_b', [$id_cotizacion, $cliente_id]);
-        $response = $master->getByNext("sp_cotizaciones_b", [$id_cotizacion, $cliente_id]);
-        // print_r($response);
+        $infoCliente = $master->getByProcedure('sp_cotizaciones_b', [$id_cotizacion, $cliente_id, null]);
+        $response = $master->getByNext("sp_cotizaciones_b", [$id_cotizacion, $cliente_id, null]);
         $arrayDetalle = [];
-        // $number = ["TOTAL" => $response[0][0]['TOTAL']];
-        // $NumbersToLetters = new NumbersToLetters($number['TOTAL']);
-        // $cantidad = $NumbersToLetters->letters;
+
         $subTotalCal = 0;
         for ($i = 0; $i < count($response[1]); $i++) {
 

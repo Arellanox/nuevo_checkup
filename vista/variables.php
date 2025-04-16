@@ -13,10 +13,15 @@ $servidores = [
     'helicebiologicos.com' => ['https' => 'http://', 'url' => 'helicebiologicos.com'],
     'localhost' => ['https' => 'http://', 'url' => 'localhost'],
 ];
+$servidorLocal = [
+    'localhost' => ['https' => 'http://', 'url' => 'localhost'],
+];
 
 $https = 'http://';
 $url = 'localhost';
 $appname = "nuevo_checkup";
+$isLocalHost = isset($servidorLocal[$current_host]);
+
 
 if (isset($servidores[$current_host])) {
     $config = $servidores[$current_host];
@@ -44,3 +49,4 @@ if ($url == "drjb.com.mx"): ?>
         .bg-navbar { background-color: #00958e !important; }
     </style>
 <?php endif; ?>
+

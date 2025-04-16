@@ -85,19 +85,22 @@ $descuentos = $master->setToNull([
 ]);
 
 $response = "";
-$usuario_franquicia_id = $_SESSION['franquiciario'] ? $_SESSION['id'] : null;
+$franquiciaID = $_SESSION['franquiciario'] ? $_SESSION['id'] : null;
 
 // Procesar la API solicitada
 switch ($api) {
     case 1: // Insertar cliente
         $response = $master->insertByProcedure("sp_clientes_g", $parametros);
-        break;
 
+        if($franquiciaID){
+
+        }
+
+        break;
     case 2: // Buscar cliente
         $response = $master->getByProcedure("sp_clientes_b", [
-            $id, $codigo, $qr, $usuario_franquicia_id
+            $id, $codigo, $qr, $franquiciaID
         ]);
-
         // Si solo se encuentra un cliente, añadir segmentos y cuestionarios
         //agregarSegmentosCuestionarios($response);
         break;
