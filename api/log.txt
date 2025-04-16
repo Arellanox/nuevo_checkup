@@ -29,3 +29,20 @@
 15/04/25 15:32:46 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
 15/04/25 15:34:49 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
 15/04/25 15:36:53 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+15/04/25 15:48:55 sp_cotizaciones_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_cotizaciones_b; expected 3, got 2
+15/04/25 15:49:04 sp_cotizaciones_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_cotizaciones_b; expected 3, got 2
+15/04/25 15:49:16 sp_cotizaciones_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_cotizaciones_b; expected 3, got 2
+15/04/25 15:49:28 sp_cotizaciones_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_cotizaciones_b; expected 3, got 2
+15/04/25 15:49:28 sp_cotizaciones_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_cotizaciones_b; expected 3, got 2
+15/04/25 15:49:36 sp_cotizaciones_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_cotizaciones_b; expected 3, got 2
+15/04/25 15:49:55 sp_cotizaciones_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_cotizaciones_b; expected 3, got 2
+15/04/25 15:50:11 sp_cotizaciones_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_cotizaciones_b; expected 3, got 2
+15/04/25 15:51:24  id_franquicia
+15/04/25 15:51:25  id_franquicia
+15/04/25 15:51:26  id_franquicia
+15/04/25 15:53:16  id_franquicia
+15/04/25 15:53:19  id_franquicia
+15/04/25 15:53:20  id_franquicia
+16/04/25 09:33:58 sp_clientes_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_clientes_b; expected 4, got 3
+16/04/25 09:34:15 sp_clientes_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_clientes_b; expected 4, got 3
+16/04/25 09:39:22 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [2006] MySQL server has gone away

@@ -43,7 +43,7 @@
                         <label class="btn btn-outline-success" for="check-rx"><i class="bi bi-list"></i> Rayos X</label>
 
                     <?php endif; ?>
-                    
+
                     <input type="radio" class="btn-check" name="selectChecko" id="check-lab" value="6" autocomplete="off">
                     <label class="btn btn-outline-success" for="check-lab"><i class="bi bi-list"></i>
                         Laboratorio
