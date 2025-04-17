@@ -37,7 +37,7 @@ switch ($api) {
         $response = $master->insertByProcedure("sp_cotizaciones_g", [
             $id_cotizacion, $cliente_id, $atencion, $correo, $subtotal, $iva, $descuento, 
             $descuento_porcentaje, $observaciones, $total, $_SESSION['id'], 
-            json_encode($detalle), $subtotal_sin_descuento, $fecha_vigencia, $domicilio_fiscal
+            json_encode($detalle), $subtotal_sin_descuento, $fecha_vigencia, $domicilio_fiscal, $idFranquicia
         ]);
 
         #Obtemos el ID_COTIZACION para crear el poder crear el PDF

@@ -216,22 +216,16 @@ $("#guardar-contenido-paquete").on("click", function () {
           detalle: dataAjax,
           total: dataAjaxDetalleCotizacion["total"].toFixed(2),
           subtotal: dataAjaxDetalleCotizacion["subtotal"].toFixed(2),
-
-          subtotal_sin_descuento:
-            dataAjaxDetalleCotizacion["subtotal_sindescuento"].toFixed(2),
-
+          subtotal_sin_descuento: dataAjaxDetalleCotizacion["subtotal_sindescuento"].toFixed(2),
           iva: dataAjaxDetalleCotizacion["iva"].toFixed(2),
           descuento: dataAjaxDetalleCotizacion["descuento"],
-          descuento_porcentaje:
-            dataAjaxDetalleCotizacion["descuento_porcentaje"],
+          descuento_porcentaje: dataAjaxDetalleCotizacion["descuento_porcentaje"],
           cliente_id: dataAjaxDetalleCotizacion["cliente_id"],
           atencion: $("#input-atencion-cortizaciones").val(),
           correo: $("#input-correo-cortizaciones").val(),
-          //correo: $("#hidden-correos").val(),
           observaciones: $("#input-observaciones-cortizaciones").val(),
           fecha_vigencia: $("#input-fecha-vigencia").val(),
           domicilio_fiscal: $("#input-domicilio_fiscal").val(),
-
         };
 
         if ($("input[type=radio][name=selectPaquete]:checked").val() == 2) {
@@ -243,6 +237,7 @@ $("#guardar-contenido-paquete").on("click", function () {
         if (data) {
           tablaContenidoPaquete.clear().draw();
           dataEliminados = new Array();
+
           alertMsj({
             //${data.response.data}
             title: "Cotización guardada",
@@ -357,8 +352,6 @@ $('#btn-descargar-cotizacion').click(function (e){
     downloadFromUrl(data.response.data[0]['RUTA_REPORTE']);
   })
 })
-
-
 
 function downloadFromUrl(url) {
   // Extraer el nombre del archivo desde la URL
