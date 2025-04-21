@@ -399,7 +399,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
         if(array_selected){
           alertMensajeConfirm(
             {
-              title: '¿No ha pagado este Wey?',
+              title: '¿No ha pagado?',
               text: 'Podrás cerrar el corte al marcarlo como pendiente.',
               icon: 'info'
             },
