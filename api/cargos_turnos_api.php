@@ -6,11 +6,6 @@ include_once "../clases/Pdf.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
-if (!$tokenValido) {
-    // $tokenVerification->logout();
-    // exit;
-}
-
 
 $master = new Master();
 
@@ -30,8 +25,9 @@ $tiene_factura = $_POST['tiene_factura']; #1 tiene, 0 no tiene, null todas
 $detallado = $_POST['detallado']; # indica el tipo de reporte que quieren ver
 
 switch ($api) {
+    case "estados_cuentas":
     case 1:
-        $response = $master->getByNext('sp_cargos_turnos_b', [$turno_id]);
+        $response = $master->getByNext('sp_cargos_turnos_b', [$turno_id, $id_cliente ?? $_SESSION['id_cliente']]);
         $total_cargos = 0;
         
         if(!isset($response[1][0]) || empty($response[1])){
@@ -41,15 +37,6 @@ switch ($api) {
         } else {
             $total_cargos = $response[1][0]['SUBTOTAL'];
         }
-
-        // $areas = array();
-        // foreach($response[1] as $current){
-        //     $filtro = $current['ID_AREA'];
-        //     $a = array_filter($response[0], function($obj) use($filtro){
-        //         return $obj['ID_AREA'] == $filtro;
-        //     });
-        //     $areas[$current['ID_AREA']] = $a;
-        //         }
 
         $response['estudios'] = $response[0];
         $response['TOTAL_CARGO'] = $total_cargos;

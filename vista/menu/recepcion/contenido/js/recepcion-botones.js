@@ -50,11 +50,13 @@ $(document).on('click', '#btn-concluir-paciente', function (e) {
             text: `El paciente, ${array_selected['NOMBRE_COMPLETO']}, ya no se podrán hacer mas modificaciones.`,
             icon: 'warning'
         }, function () {
-            const ClientesIDs = [1, 16, 31, 35, 37, 39, 20, 48, 49, 44, 19, 53]
+            const ClientesIDs = [1, 16, 31, 35, 37, 39, 20, 48, 49, 44, 19, 53];
 
-            if (array_selected['CLIENTE_ID'].includes(ClientesIDs)) {
-              $('descuento').val('');
-              configurarModal(array_selected); //Abrir el modal de estudios, precios y detalle
+            if (array_selected['CLIENTE_ID'].includes(ClientesIDs) || isFranquisiario) {
+                $('descuento').val('');
+                console.log('as')
+                configurarModal(array_selected); //Abrir el modal de estudios, precios y detalle
+                console.log(array_selected);
             } else finalizarProcesoRecepcion(array_selected); //Termina el proceso sin factura y credito
         }, 1)
     } else alertSelectTable();

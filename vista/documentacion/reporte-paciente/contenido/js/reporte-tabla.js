@@ -170,58 +170,19 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
   },
   dom: 'Bfrtip',
   buttons: [
-    // {
-    //   extend: 'excelHtml5',
-    //   text: '<i class="fa fa-file-excel-o"></i> Excel',
-    //   className: 'btn btn-success',
-    //   titleAttr: 'Excel',
-    //   customizeData: function (data) {
-    //     // Eliminar encabezados de columnas ocultas
-    //     for (var i = data.header.length - 1; i >= 0; i--) {
-    //       if (!$('#tablaPrincipal').DataTable().column(i).visible()) {
-    //         data.header.splice(i, 1);
-    //         for (var j = 0; j < data.body.length; j++) {
-    //           data.body[j].splice(i, 1);
-    //         }
-    //       }
-    //     }
-    //   }
-    // },
+
     {
         text: '<i class="fa fa-file-excel-o"></i> Excel',
         className: 'btn btn-success',
         titleAttr: 'Descargar Excel',
         action: function () {
           dataList['api'] = 6;
+
           ajaxAwait(dataList, 'cargos_turnos_api', { callbackAfter: true }, false, function (data) {
               console.warn(data.response.data[0]);
               window.location.href = data.response.data[0]
               dataList['api'] = 3;
           })
-            // var formData = new FormData();
-
-            // formData.append('api', 6);
-            // formData.append('fecha_inicial', dataList['fecha_inicial']);
-            // formData.append('fecha_final', dataList['fecha_final']);
-            // formData.append('id_cliente', ifnull(dataList['id_cliente']));
-            // formData.append('area_id', ifnull(dataList['area_id']));
-            // formData.append('tipo_cliente', ifnull(dataList['tipo_cliente']));
-            // formData.append('tiene_factura', ifnull(dataList['tiene_factura']));
-
-            // fetch('cargos_turnos_api.php', {
-            //     method: 'POST',
-            //     body: formData
-            // })
-            // .then(response => response.blob())
-            // .then(blob => {
-            //     // let link = document.createElement('a');
-            //     // link.href = window.URL.createObjectURL(blob);
-            //     // link.download = 'reporte.xlsx';
-            //     // document.body.appendChild(link);
-            //     // link.click();
-            //     // document.body.removeChild(link);
-            // })
-            // .catch(error => console.error('Error al descargar el archivo:', error));
         }
     },
     {

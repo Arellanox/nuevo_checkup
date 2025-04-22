@@ -4,10 +4,12 @@
       <h4>Seleccione una area</h4>
       <p class="none-p">Tipo de lista a mostrar:</p>
       <div class="d-flex justify-content-center">
-        <div class="col-auto m-1">
-          <input type="radio" class="btn-check" name="selectTipLista" title="Costo" id="check-Costo" value="1" autocomplete="off" checked>
-          <label class="btn btn-outline-primary" for="check-Costo"><i class="bi bi-list"></i> Costo</label>
-        </div>
+          <?php  if(filter_var($_POST['franquicia'], FILTER_VALIDATE_BOOLEAN) === false):  ?>
+            <div class="col-auto m-1">
+              <input type="radio" class="btn-check" name="selectTipLista" title="Costo" id="check-Costo" value="1" autocomplete="off" checked>
+              <label class="btn btn-outline-primary" for="check-Costo"><i class="bi bi-list"></i> Costo</label>
+            </div>
+          <?php endif;  ?>
         <div class="col-auto m-1">
           <input type="radio" class="btn-check" name="selectTipLista" title="Precios" id="check-Precios" value="2" autocomplete="off">
           <label class="btn btn-outline-primary" for="check-Precios"><i class="bi bi-list"></i> Precios</label>

@@ -980,39 +980,8 @@ class Miscelaneus
         # recuperamos los datos del paciente
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$id_turno]);
         $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
-        $response = $master->getByNext("sp_cargos_turnos_b", [$id_turno]);
-        // $infoDetalle = $master->getByNext('sp_cargos_turnos_b', [$id_turno]);
-        //print_r($infoDetalle);
+        $response = $master->getByNext("sp_cargos_turnos_b", [$id_turno, $_SESSION['id_cliente']]);
 
-        $arrayServicios = [];
-        // for ($i = 0; $i < count($response); $i++) {
-
-        //     $cargosT = [
-        //         "PRODUCTO" => $response[$i]['PAQUETES'] == "" ? $response[$i]['SERVICIOS'] : $response[$i]['PAQUETES'],
-        //         "PRECIO" => $response[$i]['PRECIO_VENTA'],
-        //         "CANTIDAD" => $response[$i]['CANTIDAD'],
-        //         "TOTAL" => (($response[$i]['CANTIDAD'] * $response[$i]['PRECIO_VENTA']) - (($infoDetalle[1][0]['DESCUENTO']) / ($response[$i]['CANTIDAD'] * $response[$i]['PRECIO_VENTA']) * 100))
-        //     ];
-        //     array_push($arrayServicios, $cargosT);
-        // }
-
-
-
-        // $servicios = $response[0];
-        // foreach ($servicios as $key => $value) {
-        //     $cargosT = [
-        //         "PRODUCTO" => $value['PAQUETES'] == "" ? $value['SERVICIOS'] : $value['PAQUETES'],
-        //         "PRECIO" => $value['PRECIO_VENTA'],
-        //         "CANTIDAD" => $value['CANTIDAD'],
-        //         "TOTAL" => (($value['CANTIDAD'] * $value['PRECIO_VENTA']) - (($response[1][0]['DESCUENTO']) / ($value['CANTIDAD'] * $value['PRECIO_VENTA']) * 100))
-        //     ];
-
-        //     array_push($arrayServicios, json_encode($cargosT));
-        // }
-
-        // $arrayTckt = array_merge($locales, $subroga);
-        # declaramos el array final 
-        //echo "Aquiiiii " . $infoDetalle[1][0]['SUBTOTAL'];
         $arregloTicket = array(
             'NOMBRE' => $infoPaciente[0]['NOMBRE'],
             "FOLIO" => $infoPaciente[0]['FOLIO_TICKET'],

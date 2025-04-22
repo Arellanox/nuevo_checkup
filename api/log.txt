@@ -1,1 +1,6 @@
-22/04/25 10:36:42 sp_cotizaciones_get_pdf Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_consultorio.sp_cotizaciones_get_pdf does not exist
+sp_cotizaciones_get_pdf22/04/25 13:13:37 sp_cargos_turnos_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_cargos_turnos_b; expected 1, got 2
+22/04/25 13:13:46 sp_cargos_turnos_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_cargos_turnos_b; expected 1, got 2
+22/04/25 13:15:45 sp_cargos_turnos_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_cargos_turnos_b; expected 1, got 2
+22/04/25 13:16:12 sp_cargos_turnos_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_cargos_turnos_b; expected 1, got 2
+22/04/25 13:16:49 sp_cargos_turnos_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_cargos_turnos_b; expected 1, got 2
+22/04/25 13:18:23 sp_cargos_turnos_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_cargos_turnos_b; expected 1, got 2
