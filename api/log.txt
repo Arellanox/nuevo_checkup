@@ -1,0 +1,1 @@
+22/04/25 10:36:42 sp_cotizaciones_get_pdf Ha ocurrido un error(42000). 42000 1305 PROCEDURE u808450138_consultorio.sp_cotizaciones_get_pdf does not exist

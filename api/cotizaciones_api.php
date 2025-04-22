@@ -29,7 +29,7 @@ $observaciones = $_POST['observaciones'];
 $subtotal_sin_descuento = $_POST['subtotal_sin_descuento'];
 $fecha_vigencia = $_POST['fecha_vigencia'];
 $domicilio_fiscal = $_POST['domicilio_fiscal'];
-$idFranquicia = $_SESSION['franquiciario'] ? $_SESSION['id'] : null;
+$idFranquicia = $_SESSION['franquiciario'] ? $_SESSION['id_cliente'] : null;
 
 switch ($api) {
     case 1:
@@ -37,7 +37,7 @@ switch ($api) {
         $response = $master->insertByProcedure("sp_cotizaciones_g", [
             $id_cotizacion, $cliente_id, $atencion, $correo, $subtotal, $iva, $descuento, 
             $descuento_porcentaje, $observaciones, $total, $_SESSION['id'], 
-            json_encode($detalle), $subtotal_sin_descuento, $fecha_vigencia, $domicilio_fiscal, $idFranquicia
+            json_encode($detalle), $subtotal_sin_descuento, $fecha_vigencia, $domicilio_fiscal
         ]);
 
         #Obtemos el ID_COTIZACION para crear el poder crear el PDF
@@ -52,7 +52,7 @@ switch ($api) {
     case 2:
         # buscar informacion de las cotizaciones
         $dataset = $master->getByNext("sp_cotizaciones_b", [
-            $id_cotizacion, $cliente_id, $idFranquicia
+            $id_cotizacion, $cliente_id
         ]);
         $response = array();
 

@@ -122,11 +122,10 @@
     </style>
 </head>
 <?php
-// para el path del logo 
-$ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
-$encode = base64_encode($ruta);
-$idioma = 1;
-// ../pdf/public/assets/icono_reporte_checkup.png
+    $ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
+    $encode = base64_encode($ruta);
+    $idioma = 1;
+
 ?>
 <body>
     <div class="container-fluid body">
@@ -142,7 +141,7 @@ $idioma = 1;
                             <br>
                             RFC DBI2012084N2
                             <br>
-                            Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas,
+                            Avenida José Pagés Llergo No. 150, Colonia Arboledas,
                             Villahermosa Tabasco, C.P. 86079
                             <br>
                             9936340250
@@ -208,9 +207,9 @@ $idioma = 1;
                 </tr>
             </tbody>
         </table>
-        <!--FIN DE TABLA INFORMACIÓN-->
+
         <p style="line-height: 1"></p>
-        <!---INICIO DE LA TABLA DE PRODUCTOS--->
+
         <table style="text-align: center; width: 100%; min-height: 500px;" class="rounded2">
             <thead style="text-align: center; background-color: darkgrey; font-size: 9px;">
                 <tr>
@@ -225,6 +224,10 @@ $idioma = 1;
             </thead>
             <tbody>
             <?php
+                if(!isset($resultados->ESTUDIOS_DETALLE)){
+                    return;
+                }
+
                 $resultArray = $resultados->ESTUDIOS_DETALLE;
                 $count = count((array)$resultArray);
 
@@ -243,17 +246,18 @@ $idioma = 1;
                     </td>
                     <td style="width: 11%; text-align: left;">E48 -Service unit</td>
                     <td style="width: 11%; text-align: right;">
-                        <?= json_decode(json_encode($resultArray[$i]), true)['PRECIO_UNITARIO'] ?>
+                        $<?= json_decode(json_encode($resultArray[$i]), true)['PRECIO_UNITARIO'] ?>
                     </td>
                     <td style="width: 11%; text-align: center;">
-                        <?= json_decode(json_encode($resultArray[$i]), true)['CANTIDAD']?>.00
+                        $<?= json_decode(json_encode($resultArray[$i]), true)['CANTIDAD']?>.00
                     </td>
-                    <td style="width: 11%; text-align: right;"><?= $descuento ?> 16%</td>
+                    <td style="width: 11%; text-align: right;"><?= $descuento ?> %</td>
                     <td style="width: 11%; text-align: center;">16% </td>
-                    <td style="width: 11%; text-align: right;"><?= $formateado ?>
+                    <td style="width: 11%; text-align: right;">
+                        $<?= $formateado ?>
                         <?php if($descuento != 0) : ?>
                             <br>
-                            <span class='tachado-doble'><?= $formateado2 ?></span>
+                            <span class='tachado-doble'>$<?= $formateado2 ?></span>
                         <?php endif;?>
                     </td>
                 </tr>
@@ -264,40 +268,40 @@ $idioma = 1;
         <table class="esquina-inferior">
             <tbody>
                 <tr style="background-color: darkgrey; ">
-                    <td colspan="12"><?= $resultados->CANTIDAD ?></td>
+                    <td colspan="12"><?= $resultados->CANTIDAD ?> M.N</td>
                 </tr>
             </tbody>
         </table>
         <p><strong>Comentarios:</strong><br><?=  $resultados->OBSERVACIONES?></p>
-        <!--Inicio tabla totales -->
+
         <p style="line-height: 2.5"></p>
-        <div style=" float: right;width: 30%;">
+
+            <div style=" float: right;width: 30%;">
             <table style=" width: 180px; text-align: right; border-bottom: transparent; align-items: right;">
                 <tbody>
                     <tr>
                         <td>Total de cargos</td>
-                        <td><?= number_format($resultados->SUBTOTAL_SIN_DESCUENTO, 2, '.', ',') ?></td>
+                        <td>$<?= number_format($resultados->SUBTOTAL_SIN_DESCUENTO, 2, '.', ',') ?></td>
                     </tr>
                     <tr>
-                        <td>Descuento (<?= $resultados->PORCENTAJE_DESCUENTO ?>%)</td>
-                        <td><?= number_format($resultados->DESCUENTO, 2, '.', ',') ?></td>
+                        <td>Descuento <br>(<?= $resultados->PORCENTAJE_DESCUENTO ?>%) </td>
+                        <td style="color: #ba2929">-$<?= number_format($resultados->DESCUENTO, 2, '.', ',') ?></td>
                     </tr>
                     <tr>
                         <td>Subtotal</td>
-                        <td><?= number_format($resultados->SUBTOTAL, 2, '.',',') ?></td>
+                        <td>$<?= number_format($resultados->SUBTOTAL, 2, '.',',') ?></td>
                     </tr>
                     <tr>
                         <td>IVA (16.00%)</td>
-                        <td><?= number_format($resultados->IVA, 2, '.', ',') ?></td>
+                        <td>$<?= number_format($resultados->IVA, 2, '.', ',') ?></td>
                     </tr>
                     <tr style="background-color: darkgrey;">
                         <td><b>Total</b></td>
-                        <td><b></p><?= number_format($resultados->TOTAL_DETALLE, 2, '.', ',')?> </b></td>
+                        <td><b>$</p><?= number_format($resultados->TOTAL_DETALLE, 2, '.', ',')?> </b></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <!---FIN DE LA TABLA DE PRODUCTOS--->
         <div style="float: left;width: 70%;">
             <table style="width: 100%; padding-top: 16%; border-collapse: collapse;" align="left">
                 <tr>
@@ -350,7 +354,7 @@ $idioma = 1;
         $linea2 = [];
 
         if (!empty($franquicia->ESTADO)) {
-            $linea2[] = $franquicia->ESTADO;
+            $linea2[] = ' '.$franquicia->ESTADO;
         }
 
         if (!empty($franquicia->MUNICIPIO)) {

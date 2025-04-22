@@ -107,7 +107,7 @@ $id_medio = $_POST['id_medio'];
 $medios_entrega = $_POST['medios_entrega'];
 
 $comoNosConociste = $_POST['como_nos_conociste'];
-$usuario_franquicia_id = $_SESSION['franquiciario'] ? $_SESSION['id'] : null;
+$franquiciaID = $_SESSION['franquiciario'] ? $_SESSION['id_cliente'] : null;
 
 # Mensajes de error para corte de cajas
 $mensajesErrorCaja = [
@@ -123,7 +123,7 @@ switch ($api) {
         # null o no enviar nada, para pacientes en espera
 
         $response = $master->getByProcedure('sp_buscar_paciente_por_estado', [
-            $estado_paciente, $mesesAtras, $prefolio, $usuario_franquicia_id
+            $estado_paciente, $mesesAtras, $prefolio, $franquiciaID
         ]);
         break;
     case 2:
@@ -161,23 +161,19 @@ switch ($api) {
 
         if($estado_paciente == 1) {
             if($_SESSION['franquiciario']) {
-                $master->mis->setLog('Ingresando paciente a franquicia, con turno: ', $idTurno);
-
                 $paciente = $master->getByProcedure("sp_pacientes_b", [
-                    null, null, null, $idTurno, $usuario_franquicia_id
+                    null, null, null, $idTurno, $franquiciaID
                 ]);
 
                 if (!empty($paciente)) {
-                    $master->getByProcedure("sp_franquicia_maquilas_altas_pacientes", [
+                    $response1 = $master->getByProcedure("sp_franquicia_maquilas_altas_pacientes", [
                         $paciente[0]['ID_PACIENTE'], $paciente[0]['NOMBRE'], $paciente[0]['PATERNO'],
                         $paciente[0]['MATERNO'], $paciente[0]['CURP'],$paciente[0]['FECHA_NACIMIENTO'],
                         $paciente[0]['EDAD'], $paciente[0]['GENERO'], "FRANQUICIA", NULL, 1, [], "",
                         $_SESSION['id'], "", $idTurno
                     ]);
-                } else {
-                    $master->mis->setLog(
-                        "Error: No se encontró el paciente con turno: $idTurno", "recepcion_api.php [case 2]"
-                    );
+
+                    $master->mis->setLog(json_encode($response1), 'Maquilas: ');
                 }
             }
 
@@ -187,6 +183,8 @@ switch ($api) {
             $response = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', [
                 $idTurno, $idPaquete, null, $_SESSION['id']
             ]);
+
+            $master->mis->setLog(json_encode($response), 'INSERTAR DETALLE DEL PAQUETE EN CUESTION: ');
 
             # Aqui subir las ordenes medicas si las hay y crear la carpeta de tunos dentro de
             if (count($ordenes) > 0) {
@@ -210,7 +208,7 @@ switch ($api) {
         } else {
             if($_SESSION['franquiciario']) {
                 $paciente = $master->getByProcedure("sp_pacientes_b", [
-                    null, null, null, $idTurno, $usuario_franquicia_id
+                    null, null, null, $idTurno, $franquiciaID
                 ]);
 
                 if(!empty($paciente)) {
@@ -232,6 +230,8 @@ switch ($api) {
                 $detalles= $master->insertByProcedure('sp_recepcion_detalle_paciente_g', [
                     $idTurno, null, $value, $_SESSION['id']
                 ]);
+
+                $master->mis->setLog(json_encode($detalles), ' sp_recepcion_detalle_paciente_g: ');
             }
         }
 
@@ -253,10 +253,7 @@ switch ($api) {
             $mail = new Correo();
             $r = $mail->sendEmail("resultados", "[bimo] Resultados", [$reportes[1]], null, $reportes[0], 1);
             if ($r) {
-                $master->setLog("Correo global enviado.", "[recepcion api, case 4]");
                 $response = 1;
-            } else {
-                $master->setLog("Falla al enviar correo.", "[recepcion api, case 4]");
             }
         } else {
             $response = "Paciente sin resultados o imágenes.";

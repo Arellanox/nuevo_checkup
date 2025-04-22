@@ -12,13 +12,13 @@ if (!$tokenValido) {
 
 $master = new Master();
 $api = $_POST['api'];
-$usuario_franquicia_id = $_SESSION['franquiciario'] ? $_SESSION['id'] : null;
+$franquiciaID = $_SESSION['franquiciario'] ? $_SESSION['id_cliente'] : null;
 $fecha = $_POST['fecha'];
 
 switch($api){
     case 1:
         #recuperar el status del paciente
-        $response= $master->getByProcedure('sp_status_paciente',[$fecha, $usuario_franquicia_id]);
+        $response= $master->getByProcedure('sp_status_paciente',[$fecha, $franquiciaID]);
         $decoded = array();
         foreach($response as $item){
             $decoded[] = $master->decodeJson($item);

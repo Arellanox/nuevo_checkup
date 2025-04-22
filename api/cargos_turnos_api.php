@@ -143,8 +143,6 @@ switch ($api) {
         $urlBase = "{$host}api";  // Reemplaza con tu dominio o IP pública
         $urlArchivo = "$urlBase/$rutaArchivo";
         $response = [ $urlArchivo ];
-
-        $master->mis->setLog('6', 'API_6');
         break;
     default:
         $response = "Apino definida";

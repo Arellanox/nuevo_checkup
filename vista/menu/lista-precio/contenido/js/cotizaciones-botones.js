@@ -318,11 +318,8 @@ $('#btn-vistaPrevia-cotizacion').click(function () {
   var area = encodeURIComponent(window.btoa(15));
   var id_cotizacion = encodeURIComponent(window.btoa($('#select-presupuestos').val()));
 
-  // window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&id_cotizacion=${id_cotizacion}&area=${area}`, "_blank");
-  // Construye la vista y se almacena en la variable url
+  // Construye la url se manda y se agrega un titulo donde se cargara la vista del pdf
   var url = `${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&area=${area}&id_cotizacion=${id_cotizacion}`;
-  //Se manda la url y se agrega un titulo donde se cargara la vista del pdf
-  console.log(url, $('#select-presupuestos').val());
   getNewView(url, 'Vista prevía cotización')
 
   // Muestra el modal

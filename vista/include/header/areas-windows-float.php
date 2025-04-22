@@ -21,7 +21,7 @@ if (
     </li>
 <?php endif; ?>
 
-<?php if ($_SESSION['vista']['MENU_MAQUILA'] == 1) : ?>
+<?php if ($_SESSION['vista']['MENU_MAQUILA'] == 1 && !$_SESSION['franquiciario']) : ?>
     <li class="nav-item">
         <a href="<?php echo "$https$url/$appname/vista/procedencia/pacientes/#UJAT"; ?>">
             <i class=" bi bi-thunderbolt"></i> UJAT

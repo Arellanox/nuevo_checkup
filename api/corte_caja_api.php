@@ -89,8 +89,6 @@ switch ($api) {
         $response = $master->insertByProcedure("sp_cajas_g", $cajas_g);
         break;
     case 2:
-        $master->mis->setLog('id_franquicia', $esFranquicia);
-
         # Mostrar las cajas asignadas a usuarios
         $response = $master->getByProcedure("sp_cajas_b", [
             $id_caja, $usuario, $esFranquicia

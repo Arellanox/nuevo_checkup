@@ -1,12 +1,8 @@
 <?php
-
-use Masterminds\HTML5\Parser\CharacterReference;
-
 require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
 include_once "../clases/Pdf.php";
 include_once "../clases/turnero_class.php";
-
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
@@ -32,17 +28,12 @@ $listaGlobal;
 switch ($api) {
     case 1:
         # Liberar paciente.
-
-        // $infoPaciente = $master->getByProcedure('sp_pantalla_turnero', [null]);
-        // print_r($infoPaciente);
-
         $response = $master->updateByProcedure("sp_turnero_liberar_paciente", [$turno_id, $area_fisica_id]);
         $jsonData->removeArea($turno_id);
         $_SESSION['turnero'] = null;
         break;
     case 2:
         # llamar paciente
-
         # si la listaGlobal$listaGlobal esta vacia, la llenamos
         $request = llamarPaciente($master, $area_fisica_id);
 
@@ -151,7 +142,9 @@ switch ($api) {
         break;
     case 4:
         # pantalla turnero
-        $response1 = $master->getByNext('sp_turnero_pantalla', [isset($_SESSION['pacientes_llamados']) ? $_SESSION['pacientes_llamados'] : 0 ,$con_paquete]);
+        $response1 = $master->getByNext('sp_turnero_pantalla', [
+            isset($_SESSION['pacientes_llamados']) ? $_SESSION['pacientes_llamados'] : 0 ,$con_paquete
+        ]);
 
         $response = $response1[0];
 
@@ -247,15 +240,8 @@ function llamarPaciente($master, $area_fisica_id)
             return;
         }
 
-
         # verificar si ya existe, lo reemplazamos
         $jsonData->setData($area_fisica_id, $object->getTurnoId());
-        // if(isset($_SESSION['turnero'])){
-        //     $_SESSION['turnero'][$area_fisica_id] = array("turno" => $object->getTurnoId());
-        // } else {
-        //     $_SESSION['turnero'] = array($area_fisica_id => array("turno" => $object->getTurnoId()));
-        // }
-
     }
     return $response;
 }
@@ -345,7 +331,6 @@ function changeStatusOptimizador($param, $area)
     $data = file_get_contents("../archivos/sistema/json/turnero_optimizador.json");
     $request = json_decode($data, true);
     $master = new Master();
-    $master->setLog("Area: $area", null);
     $request['Optimizador'][$area] = $param;
     file_put_contents("../archivos/sistema/json/turnero_optimizador.json", json_encode($request));
 }

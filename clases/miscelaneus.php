@@ -572,16 +572,14 @@ class Miscelaneus
                         }
                     }
 
-                    //echo "<pre>";
-                    //agregar nuevos arreglos
-                    $arregloPaciente = [$result, $arregloAntecedentes, $arregloHistofam, $arregloAntecedentesNutri, $arregloConsultorioAparatos, $arregloInfoFichAdmi, $arregloSignosVital, $arregloSigmaExploracion, $arregloSigmaInterpretaciones, $arregloOftalmoResultados, $arregloConsultorioConsulta, $arregloSigmaLesiones, $arregloSigmaValoraciones];
-                    //print_r([$result, $arregloAntecedentes, $arregloHistofam, $arregloAntecedentesNutri, $arregloConsultorioAparatos, $arregloInfoFichAdmi, $arregloSignosVital, $arregloSigmaExploracion, $arregloSigmaInterpretaciones, $arregloOftalmoResultados, $arregloConsultorioConsulta, $arregloSigmaLesiones, $arregloSigmaValoraciones]);
-                    //echo "</pre>";
-                    //exit;
-                    
+                    $arregloPaciente = [
+                        $result, $arregloAntecedentes, $arregloHistofam, $arregloAntecedentesNutri,
+                        $arregloConsultorioAparatos, $arregloInfoFichAdmi, $arregloSignosVital,
+                        $arregloSigmaExploracion, $arregloSigmaInterpretaciones, $arregloOftalmoResultados,
+                        $arregloConsultorioConsulta, $arregloSigmaLesiones, $arregloSigmaValoraciones
+                    ];
                 } else {
                     $arregloPaciente = $this->getBodyInfoConsultorio($master, $turno_id, $id_consulta);
-                    
                 }
                 
                 $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
@@ -592,10 +590,6 @@ class Miscelaneus
                 $carpeta_guardado = 'consultorio';
                 $folio = $infoPaciente[0]['FOLIO_CONSULTA'];
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[0]['CLAVE_CONSULTA'];
-
-                # evaluar si el cliente es sigma y enviar las variables correspondientes.
-                # id cliente [15]
-
                 break;
             case 10:
             case '10':
@@ -624,10 +618,12 @@ class Miscelaneus
             case "15":
                 # COTIZACIONES
                 $arregloPaciente = $this->getBodyInfoCotizacion($master, $id_cotizacion, $cliente_id);
-                $idFranquicia = $_SESSION['franquiciario'] ? $_SESSION['id'] : null;
 
-                if($idFranquicia){
-                    $getDatosFiscales = $master->getByProcedure('sp_datos_fiscales_franquicia', [$idFranquicia]);
+                if($_SESSION['franquiciario']){
+                    $getDatosFiscales = $master->getByProcedure('sp_datos_fiscales_franquicia', [
+                        $_SESSION['id_cliente']]
+                    );
+
                     $arregloPaciente['franquicia'] = $getDatosFiscales;
                 }
 
@@ -891,10 +887,10 @@ class Miscelaneus
         return $arregloPaciente;
     }
 
-    private function getBodyInfoCotizacion($master, $id_cotizacion, $cliente_id)
+    private function getBodyInfoCotizacion($master, $id_cotizacion, $cliente_id): array
     {
-        $infoCliente = $master->getByProcedure('sp_cotizaciones_b', [$id_cotizacion, $cliente_id, null]);
-        $response = $master->getByNext("sp_cotizaciones_b", [$id_cotizacion, $cliente_id, null]);
+        $infoCliente = $master->getByProcedure('sp_cotizaciones_b', [$id_cotizacion, $cliente_id]);
+        $response = $master->getByNext("sp_cotizaciones_b", [$id_cotizacion, $cliente_id]);
         $arrayDetalle = [];
 
         $subTotalCal = 0;
@@ -1949,7 +1945,7 @@ class Miscelaneus
         return $files;
     }
 
-    public function selectHost($domain)
+    public function selectHost($domain): string
     {
 
         switch ($domain) {

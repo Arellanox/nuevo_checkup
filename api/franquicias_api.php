@@ -17,13 +17,11 @@ $id_turno = $_POST['id_turno'];
 $bit_solitudes = $_POST['bit_solitudes'];
 $bit_muestras = $_POST['bit_muestras'];
 
-$usuario_franquicia_id = $_SESSION['franquiciario'] ? $_SESSION['id'] : null;
-
 switch ($api) {
     case 1:
         # recuperar pacientes por estado
         $response = $master->getByProcedure('sp_franquicia_maquilas_detalles_b', [
-            $fecha, $_SESSION['id_cliente'], $usuario_franquicia_id
+            $fecha, $_SESSION['id_cliente']
         ]);
         $response = $master->decodeJsonRecursively($response);
         break;
@@ -34,7 +32,7 @@ switch ($api) {
         #$bit_solicitudes: 0 es los que no tienen lote, 1 para los que si tienen lote
 
         $response = $master->getByProcedure("sp_franquicia_maquilas_altas_pacientes_b", [
-            $id_alta, $id_turno, $bit_solitudes, $bit_muestras, $_SESSION['id_cliente'], $usuario_franquicia_id
+            $id_alta, $id_turno, $bit_solitudes, $bit_muestras, $_SESSION['id_cliente']
         ]);
         $response = $master->decodeJsonRecursively($response);
         break;

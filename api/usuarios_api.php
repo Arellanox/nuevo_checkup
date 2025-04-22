@@ -18,8 +18,6 @@ $master = new Master();
 
 $api = isset($_POST['api']) ? $_POST['api'] : $_GET['api'];
 
-
-
 #Datos insertar usuario
 $id_usuario = $_POST['id_usuario'];
 $cargo_id = $_POST['cargo'];
@@ -37,8 +35,6 @@ $universidad = $_POST['universidad'];
 $profesion = $_POST['profesion'];
 $cedula = $_POST['cedula'];
 $cliente_id = $_POST['cliente_id'];
-
-
 
 # especialidades
 $id_especialidad = $_POST['id_especialidad'];
@@ -74,7 +70,6 @@ switch ($api) {
 
         $last_id = $master->insertByProcedure('sp_usuarios_g', $params);
 
-        //$master->mis->setLog($last_id, 'id_usuario');
         if (count($especialidades) > 0) {
             foreach ($especialidades as $current) {
                 $response = $master->insertByProcedure("sp_u_especialidades_g", [
@@ -89,8 +84,6 @@ switch ($api) {
         echo $master->returnApi($response); 
         break;
     case 2:
-        //$master->mis->setLog($id_usuario, 'id_usuario');
-        //$master->mis->setLog($correo, 'correo');
         $response = $master->getByProcedure("sp_usuarios_b", [$id_usuario, $correo, null]);
         echo $master->returnApi($response);
         break;

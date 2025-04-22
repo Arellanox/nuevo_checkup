@@ -2,8 +2,10 @@
 require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
 
+$master = new Master();
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
+
 if (!$tokenValido) {
     // $tokenVerification->logout();
     // exit;
@@ -13,7 +15,6 @@ if (!$tokenValido) {
 $api = $_POST['api'];
 
 #buscar
-#$id = $_POST['id'];
 $curp = $_POST['curp'];
 
 #insertar
@@ -45,10 +46,15 @@ $id_turno = $_POST['turno_id'];
 $correo2 = $_POST['correo_2'];
 $tipo_conversion = $_POST['comoNosConociste'];
 
-# medios de entrega 
+# medios de entrega
 $medios_entrega = $_POST['medios_entrega'];
+# Esta variable es enviada desde el formulario de fast checkup
+# hay que evaluarlo si tiene algo ingresarlo en somatometria. Talla
+$talla = $_POST['talla'];
+$idFranquicia = $_SESSION['franquiciario'] ? $_SESSION['id_cliente'] : null;
+$response = "";
 
-$parametros = array(
+$parametros = [
     $_SESSION['id'],   // 0 _usuario_id
     $id_paciente,      // 1 _id_paciente
     $segmento_id,      // 2 _segmento_id
@@ -77,17 +83,10 @@ $parametros = array(
     $correo2,          // 25 _correo2
     $medios_entrega,      // 26 _medios (JSON string)
     $tipo_conversion,  // 27 _tipo_conversion
-    $talla             // 28 _talla
-);
+    $talla,             // 28 _talla
+    $idFranquicia
+];
 
-$response = "";
-
-# Esta variable es enviada desde el formulario de fast checkup
-# hay que evaluarlo si tiene algo ingresarlo en somatometria. Talla
-$talla = $_POST['talla'];
-$usuario_franquicia_id = $_SESSION['franquiciario'] ? $_SESSION['id'] : null;
-
-$master = new Master();
 switch ($api) {
     case 1:
         $medios = array_map('intval', explode(',', $medios_entrega));
@@ -100,7 +99,7 @@ switch ($api) {
         # buscar pacientes
         // echo $id_paciente;
         $response = $master->getByProcedure("sp_pacientes_b", [
-            $id_paciente, $curp, $pasaporte, $id_turno, $usuario_franquicia_id
+            $id_paciente, $curp, $pasaporte, $id_turno, $idFranquicia
         ]);
 
         foreach ($response as $key => $value) {

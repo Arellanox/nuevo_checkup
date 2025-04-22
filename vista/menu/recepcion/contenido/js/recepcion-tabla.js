@@ -1,3 +1,69 @@
+const columnasRecepcionPacientesFranquicia = [
+  { data: 'COUNT' },
+  { data: 'NOMBRE_COMPLETO' },
+  {
+    data: null, render: function () {
+      let html = '';
+      if (hash === 'pendientes') {
+        html = `<div class="row">
+          <div class="col-6" style="padding: 0px">
+            <button type="button" class="btn-aceptar btn btn-pantone-7408" style="font-size: 20px;margin: 0px;padding: 1px 8px 1px 8px;">
+              <i class="bi bi-person-check-fill btn-aceptar"></i> 
+            </button>
+          </div>
+          <div class="col-6" style="padding: 0px">
+            <button type="button" class="btn-rechazar btn btn-borrar" style="font-size: 20px; margin: 0px; padding: 1px 8px 1px 8px;">
+             <i class="bi bi-person-dash-fill btn-rechazar"></i>
+            </button>
+          </div>
+        </div>`;
+      } else {
+        html = `<div class="row">
+          <div class="col-6" style="padding: 0px">
+            <button type="button" class="btn-pendiente btn btn-pantone-7408" style="font-size: 20px; margin: 0px; padding: 1px 8px 1px 8px;">
+             <i class="bi bi-person-lines-fill btn-pendiente"></i>
+            </button>
+          </div>
+        </div>`;
+      }
+
+      return html;
+    }
+  },
+  { data: 'PREFOLIO' },
+  { data: 'NOMBRE_COMERCIAL' },
+  {
+    data: 'FECHA_AGENDA',
+    render: function (data) {
+      return formatoFecha2(data, [0, 1, 5, 1, 0, 0, 0], null);
+    }
+  },
+  {
+    data: null, render: function () {
+      let html = `
+          <div class="row">
+            <div class="col-12" style="max-width: max-content; padding: 0px;">
+              <i class="bi bi-pencil-square btn-editar" style="cursor: pointer; font-size:18px;padding: 2px 5px;"></i>
+            </div>
+        `;
+      html += `</div>`;
+      return html
+    }
+  },
+  { data: 'GENERO' }
+];
+
+const columasDefRecepcionPacientesFranquicia = [
+  { target: 0, title: '#', width: '1%', class: 'all' },
+  { target: 1, title: 'Nombre', width: '13%', class: 'all' },
+  { target: 2, title: 'Ingreso', width: '1%', class: 'all' },
+  { target: 3, title: 'Prefolio', width: '8%', class: 'min-tablet' },
+  { target: 4, title: 'Procedencia', width: '14%', class: 'min-tablet' },
+  { target: 5, title: 'Agenda', width: '6%', class: 'min-tablet' },
+  { target: 6, title: '...', width: '1%', class: 'all' },
+  { target: 7, title: 'Genero', width: '6%', class: 'none' },
+]
+
 tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
   language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json", },
   scrollY: '65vh',
@@ -29,7 +95,7 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
     },
     dataSrc: 'response.data'
   },
-  columns: [
+  columns: isFranquisiario ? columnasRecepcionPacientesFranquicia : [
     { data: 'COUNT' },
     { data: 'NOMBRE_COMPLETO' },
     {
@@ -82,11 +148,9 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
         return html
       }
     },
-
     { data: 'GENERO' }
-    // {defaultContent: 'En progreso...'}
   ],
-  columnDefs: [
+  columnDefs:  isFranquisiario ? columasDefRecepcionPacientesFranquicia : [
     { target: 0, title: '#', width: '1%', class: 'all' },
     { target: 1, title: 'Nombre', width: '13%', class: 'all' },
     { target: 2, title: 'Ingreso', width: '1%', class: 'all' },
@@ -98,8 +162,6 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
     { target: 8, title: 'Genero', width: '6%', class: 'none' },
   ],
 });
-
-
 
 inputBusquedaTable('TablaRecepcionPacientes', tablaRecepcionPacientes, [
   {

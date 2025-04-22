@@ -241,6 +241,96 @@ if(!isFranquisiario){
     )
 }
 
+const columnasIngresadosFranquicia = [
+    { data: 'COUNT' },
+    { data: 'NOMBRE_COMPLETO' },
+    { data: 'PREFOLIO' },
+    {
+        data: 'NOMBRE_COMERCIAL',
+        render: function (data) {
+            switch (data) {
+                case 'Particular': case 'PARTICULAR':
+                    return `<p class="fw-bold" style="letter-spacing: normal !important;">${data}</p>`;
+                default:
+                    return data;
+            }
+        }
+    },
+    { data: 'TURNO' },
+    {
+        data: 'FECHA_RECEPCION',
+        render: function (data) {
+
+            if (!data)
+                return '';
+
+            const formattedDate = formatoFecha2(data, [0, 1, 5, 2, 2, 2, 0], null);
+
+            // Separar la fecha y la hora basado en la coma
+            const parts = formattedDate.split(', ');
+            const datePart = parts[0];
+            const timePart = parts[1];
+
+            // Retornar la fecha y la hora envueltas en spans con las clases correspondientes
+            return `
+                <span class="d-block">${datePart}</span>
+                <span class="d-block">${timePart}</span>
+            `;
+        }
+    },
+    {
+        data: 'FECHA_AGENDA',
+        render: function (data) {
+            return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0], null);
+        }
+    },
+    {
+        data: 'FECHA_REAGENDA',
+        render: function (data) {
+            return '<p class="text-primary fw-bold" style="letter-spacing: normal !important;">' + formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0], null) + '</p>';
+
+        }
+    },
+    { data: 'GENERO' },
+    {
+        data: 'COMPLETADO', render: function (data) {
+            if (servidor === 'drjb.com.mx' && data === 1)
+                return '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizade</p>'
+
+            return data === 1 ? '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizado</p>' : `<p class="fw-bold ${data == 2 ? '' : 'text-warning'}" style="letter-spacing: normal !important;">En proceso</p>`;
+        }
+    },
+    { data: null },
+];
+const columnasDefIngresadosFranquicia = [
+    { targets: 0, title: '#', className: 'all', width: '1%' },
+    { targets: 1, title: 'Nombre', className: 'all nombre', width: '30%' },
+    { targets: 2, title: 'Prefolio', className: 'none' },
+    { targets: 3, title: 'Procedencia', className: 'min-tablet', width: '15%' },
+    { targets: 4, title: 'Turno', className: 'none' },
+    { targets: 5, title: 'Recepción', className: 'all', width: '8%' },
+    { targets: 6, title: 'Agenda', className: 'min-tablet', width: '8%' },
+    { targets: 7, title: 'Re-agenda', className: 'none' },
+    { targets: 8, title: 'Sexo', className: 'none' },
+    { targets: 9, title: 'Recepción', className: 'desktop', width: '8%' },
+    {
+        targets: 10,
+        title: '#',
+        className: 'all actions',
+        width: '1%',
+        data: null,
+        defaultContent: `
+          <div class="d-flex d-lg-block align-items-center" style="max-width: max-content; padding: 0px;">
+              <div class="d-flex flex-wrap flex-lg-nowrap align-items-center">
+                  <i class="bi bi-pencil-square btn-editar d-block" style="cursor: pointer; font-size:16px;padding: 2px 4px;"></i>
+                  <i class="bi bi-card-heading btn-cargar-documentos d-block" style="cursor: pointer; font-size:16px;padding: 2px 4px;"></i>
+                  <i class="bi bi-info-circle btn-offcanva d-block" style="cursor: pointer; font-size:16px;padding: 2px 4px;"></i>
+              </div>
+          </div>
+      `
+    }
+]
+
 tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').DataTable({
     language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json", },
     scrollY: '56vh', //347px
@@ -274,7 +364,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
         if (data.REAGENDADO?.toString() === "1") $(row).addClass('bg-info');
         if (data.REAGENDADO?.toString() === "2") $(row).addClass('bg-warning');
     },
-    columns: [
+    columns: isFranquisiario ? columnasIngresadosFranquicia : [
         { data: 'COUNT' },
         { data: 'NOMBRE_COMPLETO' },
         { data: 'PREFOLIO' },
@@ -337,7 +427,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
         { data: null },
       // {defaultContent: 'En progreso...'}
     ],
-    columnDefs: [
+    columnDefs: isFranquisiario ? columnasDefIngresadosFranquicia : [
       { targets: 0, title: '#', className: 'all', width: '1%' },
       { targets: 1, title: 'Nombre', className: 'all nombre', width: '30%' },
       { targets: 2, title: 'Prefolio', className: 'none' },
