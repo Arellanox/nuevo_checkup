@@ -27,7 +27,7 @@ $detallado = $_POST['detallado']; # indica el tipo de reporte que quieren ver
 switch ($api) {
     case "estados_cuentas":
     case 1:
-        $response = $master->getByNext('sp_cargos_turnos_b', [$turno_id, $id_cliente ?? $_SESSION['id_cliente']]);
+        $response = $master->getByNext('sp_cargos_turnos_b', [$turno_id, $id_cliente]);
         $total_cargos = 0;
         
         if(!isset($response[1][0]) || empty($response[1])){
@@ -51,7 +51,7 @@ switch ($api) {
         $params = $master->setToNull([
             $ujat_inicial,
             $ujat_final,
-            $id_cliente,
+            $id_cliente !== 0 ?? $_SESSION['id_cliente'],
             $area_id,
             $tipo_cliente,
             $tiene_factura
