@@ -328,7 +328,7 @@ class Miscelaneus
     } // fin de checkArray
 
 
-    public function reportador($master, $turno_id, $area_id, $reporte, $tipo = 'url', $preview = 0, $lab = 0, $id_consulta = 0, $cliente_id = 1, $id_cotizacion = 8)
+    public function reportador($master, $turno_id, $area_id, $reporte, $tipo = 'url', $preview = 0, $lab = 0, $id_consulta = 0, $cliente_id = 1, $id_cotizacion = 8, $params = [])
     {
         #Recupera la información personal del paciente
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
@@ -742,30 +742,41 @@ class Miscelaneus
                 # $turno_id corresponde a la fecha de la lista de trabajo que se quiere imprimir
                 $arregloPaciente = $master->getByProcedure("sp_lista_de_trabajo_barras", [$turno_id, 6, null, null, null]);
                 break;
-
+            case 'estados_cuentas':
             case -9:{
-                $ujat_inicial = $_GET['fecha_inicial'];
-                $ujat_final = $_GET['fecha_final'];
-                $id_cliente = $_GET['id_cliente'];
-                $area_id    = $_GET['area_id'];
-                $tipo_cliente = $_GET['tipo_cliente'];
-                $tiene_factura = $_GET['tiene_factura'];
-                $detallado = $_GET['detallado'];
+                $ujat_inicial = $_POST['fecha_inicial'];
+                $ujat_final = $_POST['fecha_final'];
+                $id_cliente = $_POST['id_cliente'];
+                $area_id    = $_POST['area_id'];
+                $tipo_cliente = $_POST['tipo_cliente']; # 1 contado, 2 credito
+                $tiene_factura = $_POST['tiene_factura'];
+                $detallado = $_POST['detallado']; # indica el tipo de reporte que quieren ver
 
                 $params = $master->setToNull([
-                    $ujat_inicial, $ujat_final, $id_cliente, $area_id, $tipo_cliente, $tiene_factura
+                    $ujat_inicial,
+                    $ujat_final,
+                    $id_cliente,
+                    $area_id,
+                    $tipo_cliente,
+                    $tiene_factura,
+                    'es_franquiciario' => $_SESSION['franquiciario'] ? $_SESSION['id'] : null
                 ]);
 
-                $arregloPaciente = $detallado === 1
+                $arregloPaciente['reporte'] = ($detallado == 1)
                     ? $master->getByProcedure("sp_reporte_ujat", $params)
                     : $master->getByProcedure("sp_reporte_ujat_prueba", $params);
 
-                //$arregloPaciente = $ujat_final;
+                $arregloPaciente['franquicia'] = $_SESSION['franquiciario']
+                    ? $master->getByProcedure("sp_datos_fiscales_franquicia", [$_SESSION['id_cliente']])
+                    : null;
+
+                $carpeta_guardado = 'pacientes';
+                $fecha_resultado = date('Y-m-d');
+                $turno_id = $_SESSION['id'];
+                $nombre_paciente = 'Reporte-de';
+                $infoPaciente[0]['ETIQUETA_TURNO'] = 'Pacientes';
             }
         }
-
-
-
 
         if ($area_id == 0) {
             $area_id = 6;

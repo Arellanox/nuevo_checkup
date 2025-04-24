@@ -1,6 +1,6 @@
 <?php
-    $fecha_inicial = $_GET['fecha_inicial'];
-    $fecha_final = $_GET['fecha_final'];
+    $fecha_inicial = $_POST['fecha_inicial'];
+    $fecha_final = $_POST['fecha_final'];
 
     /**
      * @throws DateMalformedStringException
@@ -45,7 +45,18 @@
 <header>
     <?php
         $titulo = 'DIAGNOSTICO BIOMOLECULAR SA DE CV';
-        $subtitle = 'ESTADO DE CUENTA  | HOSPITAL NUESTRA SEÑORA DE GUADALUPE | DEL '.formatFecha($fecha_inicial) .' AL '.formatFecha($fecha_final);
+
+        if(isset($resultados->franquicia)) {
+            $franquicia = $resultados->franquicia;
+            $franquicia = $franquicia[0];
+
+            $subtitle = 'ESTADO DE CUENTA  | '.$franquicia->RAZON_SOCIAL.' | DEL '
+                .formatFecha($fecha_inicial) .' AL '.formatFecha($fecha_final);
+        }else {
+            $subtitle = 'ESTADO DE CUENTA  | HOSPITAL NUESTRA SEÑORA DE GUADALUPE | DEL '
+                .formatFecha($fecha_inicial) .' AL '.formatFecha($fecha_final);
+        }
+
         include 'layouts/header/header_estado_cuenta.php';
     ?>
 </header>
@@ -69,28 +80,30 @@
         </thead>
         <tbody>
             <!-- CONTENIDO -->
-            <?php foreach($resultados as $item): ?>
-                <!-- OBTENCIÓN DE RESULTADOS -->
-                <?php
-                    $subtotal += floatval($item->SUBTOTAL);
-                    $iva += floatval($item->IVA);
-                    $total += floatval($item->TOTAL);
-                ?>
+            <?php if(isset($resultados->reporte)): ?>
+                <?php foreach($resultados->reporte as $item): ?>
+                    <!-- OBTENCIÓN DE RESULTADOS -->
+                    <?php
+                        $subtotal += floatval($item->SUBTOTAL);
+                        $iva += floatval($item->IVA);
+                        $total += floatval($item->TOTAL);
+                    ?>
 
-                <tr>
-                    <td colspan="3"><?= $item->PACIENTE ?></td>
-                    <td colspan="3"><?= $item->AREA ?></td>
-                    <td colspan="4"><?= $item->SERVICIOS ?></td>
-                    <td colspan="2"><?= $item->PREFOLIO ?></td>
-                    <td colspan="2"><?= $item->CANTIDAD ?></td>
-                    <td colspan="3"><?= formatCurrency($item->PRECIO_UNITARIO) ?></td>
-                    <td colspan="3"><?= formatCurrency($item->SUBTOTAL) ?></td>
-                    <td colspan="3"><?= formatCurrency($item->IVA) ?></td>
-                    <td colspan="3"><?= formatCurrency($item->TOTAL) ?></td>
-                    <td colspan="3"><?= $item->FECHA_RECEPCION ?></td>
-                    <td colspan="2"><?= $item->FACTURA ?></td>
-                </tr>
-            <?php endforeach; ?>
+                    <tr>
+                        <td colspan="3"><?= $item->PACIENTE ?></td>
+                        <td colspan="3"><?= $item->AREA ?></td>
+                        <td colspan="4"><?= $item->SERVICIOS ?></td>
+                        <td colspan="2"><?= $item->PREFOLIO ?></td>
+                        <td colspan="2"><?= $item->CANTIDAD ?></td>
+                        <td colspan="3"><?= formatCurrency($item->PRECIO_UNITARIO) ?></td>
+                        <td colspan="3"><?= formatCurrency($item->SUBTOTAL) ?></td>
+                        <td colspan="3"><?= formatCurrency($item->IVA) ?></td>
+                        <td colspan="3"><?= formatCurrency($item->TOTAL) ?></td>
+                        <td colspan="3"><?= $item->FECHA_RECEPCION ?></td>
+                        <td colspan="2"><?= $item->FACTURA ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
 
             <!-- RESULTADOS -->
             <tr class="salto_linea">
@@ -99,17 +112,17 @@
             <tr class="resultado">
                 <td colspan="26" class="space-white"></td>
                 <td colspan="2">Subtotal</td>
-                <td colspan="3"><?= formatCurrency($subtotal) ?></td>
+                <td colspan="3"><?= formatCurrency($subtotal ?? 0) ?></td>
             </tr>
             <tr class="resultado">
                 <td colspan="26" class="space-white"></td>
                 <td colspan="2">IVA</td>
-                <td colspan="3"><?= formatCurrency($iva) ?></td>
+                <td colspan="3"><?= formatCurrency($iva ?? 0) ?></td>
             </tr>
             <tr class="resultado">
                 <td colspan="26" class="space-white"></td>
                 <td colspan="2">TOTAL</td>
-                <td colspan="3"><?= formatCurrency($total) ?></td>
+                <td colspan="3"><?= formatCurrency($total ?? 0) ?></td>
             </tr>
         </tbody>
     </table>

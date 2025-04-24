@@ -278,6 +278,7 @@ class Reporte
                 $template = render_view('invoice/estado_cuenta.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'landscape');
+                //$path    = 'pdf/public/oftalmologia/E00001.pdf';
                 break;
             default:
                 $template = render_view('invoice/reportes.php', $view_vars);

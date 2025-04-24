@@ -47,9 +47,6 @@ switch ($api) {
         $response = $master->insertByProcedure("sp_facturados_g", [$turno_id, $num_factura, $_SESSION['id']]);
         break;
     case 3:
-        $master->mis->setLog($id_cliente, 'CLIENTE ID: ');
-        $master->mis->setLog($ujat_inicial, 'FECHA INICIAL: ');
-        $master->mis->setLog($ujat_final, 'FECHA FINAL: ');
         # reporte de ujat
         $params = $master->setToNull([
             $ujat_inicial,
@@ -64,9 +61,6 @@ switch ($api) {
         $response = ($detallado == 1)
             ? $master->getByProcedure("sp_reporte_ujat", $params)
             : $master->getByProcedure("sp_reporte_ujat_prueba", $params);
-
-        $master->mis->setLog(json_encode($params), 'Paramas: ');
-        $master->mis->setLog(json_encode($response), 'Response: ');
         break;
     case 4:
         # Crear un grupo de facturas
@@ -137,6 +131,11 @@ switch ($api) {
         $urlBase = "{$host}api";  // Reemplaza con tu dominio o IP pública
         $urlArchivo = "$urlBase/$rutaArchivo";
         $response = [ $urlArchivo ];
+        break;
+    case 9:
+        #Generar PDF
+        $url = $master->reportador($master, $turno_id, -9, 'estados_cuentas', 'url');
+        $response = ['url' => $url];
         break;
     default:
         $response = "Apino definida";
