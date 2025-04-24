@@ -178,8 +178,22 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
               dataList['api'] = 6;
 
               ajaxAwait(dataList, 'cargos_turnos_api', { callbackAfter: true }, false, function (data) {
-                  console.warn(data.response.data[0]);
-                  window.location.href = data.response.data[0]
+                  let url = data.response.data.url;
+
+                  // Verificar si estás en localhost y si la URL contiene "bimo-lab.com"
+                  if (servidor === 'localhost' && url.includes('bimo-lab.com')) {
+                      // Reemplazar "https://bimo-lab.com" por el origen actual (http://localhost)
+                      const localOrigin = window.location.origin;
+                      url = url.replace(/^https?:\/\/bimo-lab\.com/, localOrigin);
+                  }
+
+                  const link = document.createElement('a');
+                  link.href = url;
+                  link.target = '_blank';
+
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
               })
 
               dataList['api'] = 3;

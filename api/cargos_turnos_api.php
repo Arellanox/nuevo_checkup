@@ -72,7 +72,15 @@ switch ($api) {
         break;
     case 6:
         # descargar reporte excel con subtotales
-        $params = $master->setToNull([$ujat_inicial, $ujat_final, $id_cliente, $area_id, $tipo_cliente, $tiene_factura]);
+        $params = $master->setToNull([
+            $ujat_inicial,
+            $ujat_final,
+            $id_cliente,
+            $area_id,
+            $tipo_cliente,
+            $tiene_factura,
+            'es_franquiciario' => $_SESSION['franquiciario'] ? $_SESSION['id'] : null
+        ]);
 
         $response = ($detallado == 1)
             ? $master->getByProcedure("sp_reporte_ujat", $params)
@@ -115,22 +123,24 @@ switch ($api) {
             $columnasMoneda,
             $columnasSumatorias
         );
+
         $reporte->generar();
 
         # Se requiere esperficar una ruta o desencadena un error
-        $rutaArchivo = 'ReportesExcel/reporte_pacientes_'.$_SESSION['id'].".xlsx";
+        $nombreArchivo = 'reporte_pacientes_' . $_SESSION['id'] . ".xlsx";
+        $rutaFisica = '../reportes/excel/reporte_pacientes/' . $nombreArchivo;
 
         # Guardar archivo en la carpeta
         try {
-            ExcelFileManager::guardar($reporte->getSpreadsheet(), $rutaArchivo);
+            ExcelFileManager::guardar($reporte->getSpreadsheet(), $rutaFisica);
+
+            $urlDescarga = $host . 'reportes/excel/reporte_pacientes/' . $nombreArchivo;
+            $response = ['url' => $urlDescarga];
         } catch (\PhpOffice\PhpSpreadsheet\Writer\Exception $e) {
-            $response = $e->getMessage();
+            $response = ['msj' => $e->getMessage()];
+            $master->mis->setLog($response, 'Error de Generación de reporte: ');
             return;
         }
-
-        $urlBase = "{$host}api";  // Reemplaza con tu dominio o IP pública
-        $urlArchivo = "$urlBase/$rutaArchivo";
-        $response = [ $urlArchivo ];
         break;
     case 9:
         #Generar PDF
