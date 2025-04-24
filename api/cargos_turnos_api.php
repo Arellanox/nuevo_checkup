@@ -47,19 +47,26 @@ switch ($api) {
         $response = $master->insertByProcedure("sp_facturados_g", [$turno_id, $num_factura, $_SESSION['id']]);
         break;
     case 3:
+        $master->mis->setLog($id_cliente, 'CLIENTE ID: ');
+        $master->mis->setLog($ujat_inicial, 'FECHA INICIAL: ');
+        $master->mis->setLog($ujat_final, 'FECHA FINAL: ');
         # reporte de ujat
         $params = $master->setToNull([
             $ujat_inicial,
             $ujat_final,
-            $id_cliente !== 0 ?? $_SESSION['id_cliente'],
+            $id_cliente,
             $area_id,
             $tipo_cliente,
-            $tiene_factura
+            $tiene_factura,
+            'es_franquiciario' => $_SESSION['franquiciario'] ? $_SESSION['id'] : null
         ]);
 
         $response = ($detallado == 1)
             ? $master->getByProcedure("sp_reporte_ujat", $params)
             : $master->getByProcedure("sp_reporte_ujat_prueba", $params);
+
+        $master->mis->setLog(json_encode($params), 'Paramas: ');
+        $master->mis->setLog(json_encode($response), 'Response: ');
         break;
     case 4:
         # Crear un grupo de facturas
