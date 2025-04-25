@@ -242,7 +242,10 @@
             ?>
                 <tr>
                     <td style="width: 34%; text-align: left;">
-                        <?=  json_decode(json_encode($resultArray[$i]), true)['PRODUCTO'] ?>
+                        <?=
+                            json_decode(json_encode($resultArray[$i]), true)['PRODUCTO'] ??
+                            json_decode(json_encode($resultArray[$i]), true)['PAQUETE']
+                        ?>
                     </td>
                     <td style="width: 11%; text-align: left;">E48 -Service unit</td>
                     <td style="width: 11%; text-align: right;">

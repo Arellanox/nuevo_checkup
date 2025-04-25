@@ -120,7 +120,6 @@ function hasLocation() {
         break;
       case "OFTALMOLOGIA":
         control_turnos = 4;
-        // console.log(control_turnos)
         url_api = 'oftalmologia_api';
         api_interpretacion = 1;
         formulario = "formSubirInterpretacionOftalmo";

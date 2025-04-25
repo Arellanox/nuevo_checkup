@@ -909,6 +909,7 @@ class Miscelaneus
 
             $cargosDetalle = [
                 "PRODUCTO" => $response[1][$i]['PRODUCTO'],
+                "PAQUETE" => $response[1][$i]['PAQUETE'],
                 "PRECIO_UNITARIO" => $response[1][$i]['SUBTOTAL_BASE'],
                 "CANTIDAD" => $response[1][$i]['CANTIDAD'],
                 "TOTAL" => $response[1][$i]['SUBTOTAL'],

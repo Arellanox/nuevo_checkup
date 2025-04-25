@@ -5,10 +5,6 @@ include_once "../clases/correo_class.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
-if (!$tokenValido) {
-    // $tokenVerification->logout();
-    // exit;
-}
 
 $master = new Master();
 $api = $_POST['api'];
@@ -63,6 +59,8 @@ switch ($api) {
 
             $response[] = $set;
         }
+
+        $master->setLog(json_encode($response), 'RESULTADO: ');
         break;
     case 3:
         # eliminar cotizacion

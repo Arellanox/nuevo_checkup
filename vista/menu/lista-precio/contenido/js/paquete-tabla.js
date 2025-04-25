@@ -1,12 +1,7 @@
-// $(tablePaquetesHTML).on('dblclick, taphold, doubletap', 'tr', function () {
-//     alert(1);
-
-// });
-
 var touchtime = 0;
 
 $(tablePaquetesHTML).on("click", 'tr', function (event) {
-    if (touchtime == 0) {
+    if (touchtime === 0) {
         // Primer toque, esperar 300 ms para un segundo toque
         touchtime = new Date().getTime();
     } else {

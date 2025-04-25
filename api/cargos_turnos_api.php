@@ -18,7 +18,7 @@ $host = $master->selectHost($_SERVER['SERVER_NAME']);
 $ujat_inicial = $_POST['fecha_inicial'];
 $ujat_final = $_POST['fecha_final'];
 $id_cliente = $_POST['id_cliente'];
-$area_id    = $_POST['area_id'];
+$area_id = $_POST['area_id'];
 $tipo_cliente = $_POST['tipo_cliente']; # 1 contado, 2 credito
 $tiene_factura = $_POST['tiene_factura']; #1 tiene, 0 no tiene, null todas
 
@@ -29,8 +29,8 @@ switch ($api) {
     case 1:
         $response = $master->getByNext('sp_cargos_turnos_b', [$turno_id, $id_cliente]);
         $total_cargos = 0;
-        
-        if(!isset($response[1][0]) || empty($response[1])){
+
+        if (!isset($response[1][0]) || empty($response[1])) {
             foreach ($response[0] as $e) {
                 $total_cargos = $total_cargos + $e['PRECIO_VENTA'];
             }
@@ -87,8 +87,8 @@ switch ($api) {
             : $master->getByProcedure("sp_reporte_ujat_prueba", $params);
 
         #Seleccionamos la columnas para el reporte
-        $columnas =[
-            "PACIENTE"=>"Paciente",
+        $columnas = [
+            "PACIENTE" => "Paciente",
             "AREA" => "Área",
             "SERVICIOS" => "Servicios",
             "PREFOLIO" => "Prefolio",
@@ -116,9 +116,9 @@ switch ($api) {
 
         #creamos instancia de excel
         $reporte = new ExcelReport(
-            'DIAGNOSTICO BIOMOLECULAR SA DE CV', 
-            'ESTADO DE CUENTA', 
-            $columnas, 
+            'DIAGNOSTICO BIOMOLECULAR SA DE CV',
+            'ESTADO DE CUENTA',
+            $columnas,
             $response,
             $columnasMoneda,
             $columnasSumatorias

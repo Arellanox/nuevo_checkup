@@ -104,7 +104,6 @@ tableCollectionButtons.push(
         },
         action: function () {
             if (array_selected) {
-                // console.log(array_selected);
                 alertMensajeConfirm({
                     title: '¿Abrir cuenta?',
                     text: "Le permite modificar las estudios.",

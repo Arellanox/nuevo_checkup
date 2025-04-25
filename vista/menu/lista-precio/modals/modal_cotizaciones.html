@@ -10,49 +10,37 @@
                     <div class="col-12">
                         <label for="atencion" class="form-label">Dirigido a</label>
                         <input type="text" name="atencion" id="input-atencion-cortizaciones" value=""
-                            class="form-control input-form">
+                               class="form-control input-form">
                     </div>
                     <div class="col-12">
                         <label for="correo" class="form-label">Correo</label>
                         <input type="text" name="correo" id="input-correo-cortizaciones" value=""
-                            class="form-control input-form" placeholder="Use ; para separar múltiples correos.">
+                               class="form-control input-form" placeholder="Use ; para separar múltiples correos.">
                     </div>
-                    <!-- <div class="container mt-3">
-                        <label for="correo" class="form-label">Correos</label>
-                        <div class="form-control p-2 d-flex flex-wrap" id="correo-container">
-                            <input type="text" id="input-correo-cortizaciones" class="border-0 flex-grow-1"
-                                style="outline: none; min-width: 100px;" placeholder="Escriba correos separados por ;">
-                        </div>
-                        <input type="hidden" name="correo" id="hidden-correos">
-                    </div> -->
-                    
 
                     <div class="col-12">
                         <label for="domicilio_fiscal" class="form-label">Domicilio Fiscal</label>
                         <input type="text" name="domicilio_fiscal" id="input-domicilio_fiscal" value=""
-                            class="form-control input-form">
+                               class="form-control input-form">
                     </div>
-
-                    
 
                     <div class="col-12">
                         <label for="fecha-vigencia" class="form-label">Fecha de vencimiento</label>
                         <input type="date" name="fecha-vigencia" id="input-fecha-vigencia" value=""
-                            class="form-control input-form">
+                               class="form-control input-form">
                     </div>
-
-
 
                     <div class="col-12 col-md-12 col-lg-12 col-xl-12">
                         <label for="observaciones" class="form-label">Comentarios</label>
                         <textarea name="observaciones" id="input-observaciones-cortizaciones" class="input-form"
-                            rows="4" cols="40" placeholder="" required></textarea>
+                                  rows="4" cols="40" placeholder="" required></textarea>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i
-                        class="bi bi-arrow-left-short"></i> Cancelar</button>
+                        class="bi bi-arrow-left-short"></i> Cancelar
+                </button>
                 <button type="button" class="btn btn-pantone-7408" id="guardar-contenido-paquete">
                     <i class="bi bi-save2"></i> Guardar
                 </button>
@@ -61,14 +49,7 @@
     </div>
 </div>
 <script>
-    // jQuery('#modalInfoDetalleCotizacion').on('shown.bs.modal', function () {
-    //     jQuery(document).off('focusin.modal');
-    // });
-
     const myModal = new bootstrap.Modal('#modalInfoDetalleCotizacion', {
         focus: false
     })
-    
-
-
 </script>

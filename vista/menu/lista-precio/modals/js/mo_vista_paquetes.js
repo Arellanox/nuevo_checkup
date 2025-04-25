@@ -1,6 +1,5 @@
 // Vista tabla de paquetes
 
-// TablaVistaListaPaquetes.ajax.url(nuevaConfiguracion.url).load();
 var filename, title
 
 let costo_total = 0;
@@ -32,10 +31,9 @@ TablaVistaListaPaquetes = $("#TablaVistaListaPaquetes").DataTable({
         dataSrc: 'response.data'
     },
     columns: [
-        // { data: 'COUNT' },
         {
             data: null, render: function (meta) {
-                return ifnull(meta, '0', ['SERVICIO', 'PRODUCTO']);
+                return ifnull(meta, '0', ['SERVICIO', 'PRODUCTO', 'PAQUETE']);
             }
         },
         { data: 'ABREVIATURA' },
@@ -48,7 +46,7 @@ TablaVistaListaPaquetes = $("#TablaVistaListaPaquetes").DataTable({
         },
         {
             data: 'COSTO_TOTAL', render: function (data) {
-                return `$${parseFloat(data).toFixed(2)}`
+                return `$${parseFloat(data ?? 0).toFixed(2)}`
             }
         },
         {
@@ -68,12 +66,8 @@ TablaVistaListaPaquetes = $("#TablaVistaListaPaquetes").DataTable({
                 return `$${parseFloat(valor).toFixed(2)}`
             }
         },
-        // data: 'TERMINO_ATENCION', render: function (data) {
-        //     return formatoFecha2(data, [3, 1, 4, 2, 1, 1, 1])
-        // }
     ],
     columnDefs: [
-        // { target: 0, title: '#', className: 'all' },
         { target: 0, title: 'Descripción', className: 'all' },
         { target: 1, title: 'CVE', className: 'min-tablet' },
         { target: 2, title: 'Cantidad', className: 'min-tablet' },
@@ -102,9 +96,9 @@ TablaVistaListaPaquetes = $("#TablaVistaListaPaquetes").DataTable({
             .column(4)
             .data()
             .reduce(function (a, b) {
-                // Eliminar el símbolo "$" y los separadores de miles antes de sumar
-                var num = parseFloat(b.replace(/[^0-9.-]+/g, ""));
-                return a + num;
+                var num = parseFloat(b?.replace(/[^0-9.-]+/g, ""));
+                num = isNaN(num) ? 0 : num;
+                return (a ?? 0) + num;
             }, 0);
 
         //Precio de venta
@@ -122,19 +116,12 @@ TablaVistaListaPaquetes = $("#TablaVistaListaPaquetes").DataTable({
             .column(7)
             .data()
             .reduce(function (a, b) {
-                console.log(b);
                 b = ifnull(b, '0', ['PRECIO_VENTA_UNITARIO', 'SUBTOTAL'])
                 // Eliminar el símbolo "$" y los separadores de miles antes de sumar
                 var num = parseFloat(b.replace(/[^0-9.-]+/g, ""));
-                console.log(b, num);
                 return a + num;
             }, 0);
 
-
-        // Mostrar los totales en la fila de pie de página
-        // $(api.column(3).footer()).html(`Costo: $${parseFloat(costo).toFixed(2)}`);
-        // $(api.column(2).footer()).html(`<p>Subtotal costo: </p>`);
-        // $(api.column(3).footer()).html(`$${parseFloat(costo_total).toFixed(2)}`);
 
         $(api.column(4).footer()).html(`<p>Subtotal costo: </p>`);
         $(api.column(5).footer()).html(`$${parseFloat(precio_venta).toFixed(2)}`);
