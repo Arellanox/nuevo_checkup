@@ -46,11 +46,14 @@ async function obtenerContenidoSoma() {
   $.post("contenido/somatometria.html", function (html) {
     $("#body-js").html(html);
   }).done(function () {
-    dataListaPaciente = { api: 5, area_id: 2, fecha_busqueda: $('#fechaListadoAreaMaster').val() };
-    // Botones
-    $.getScript("contenido/js/somatometria-botones.js");
-    // Botones
-    $.getScript("contenido/js/somatometria-tabla.js");
+    dataListaPaciente = { api: 5,
+      area_id: 2,
+      fecha_busqueda: $('#fechaListadoAreaMaster').val(),
+      //fecha_busqueda_final: $('#fechaFinalListadoAreaMaster').val()
+    };
+
+    $.getScript("contenido/js/somatometria-botones.js");// Botones
+    $.getScript("contenido/js/somatometria-tabla.js");// Botones
   });
 }
 

@@ -116,6 +116,9 @@ $mensajesErrorCaja = [
 ];
 
 switch ($api) {
+    case 0:
+        $response = [];
+        break;
     case 1:
         # recuperar pacientes por estado
         # 1 para pacientes aceptados
@@ -638,7 +641,9 @@ switch ($api) {
     case 17:
         $mail = new Correo();
         # lista de las personas agregadas en el dia
-        $response = $master->getByProcedure("sp_recepcion_pacientes_del_dia", [ null, null ]);
+        $response = $master->getByProcedure("sp_recepcion_pacientes_del_dia", [
+            $_SESSION['franquiciario'] ? $_SESSION['id_cliente'] : null, null, null
+        ]);
         break;
     case 18:
         # imprimir el formato de validacion de datos del paciente

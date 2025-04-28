@@ -46,6 +46,7 @@ function hasLocation() {
       dataRecepcion = { api: 1};
       break;
     case 'pacientes':
+      dataRecepcion = { api: 17};
       obtenerContenidoTodosPacientes();
       break;
     default:

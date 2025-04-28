@@ -87,10 +87,10 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
     },
     complete: function () {
       loader("Out")
-
       tablaRecepcionPacientes.columns.adjust().draw()
     },
     error: function (jqXHR, textStatus, errorThrown) {
+      loader("Out")
       alertErrorAJAX(jqXHR, textStatus, errorThrown);
     },
     dataSrc: 'response.data'
@@ -249,7 +249,6 @@ selectTable('#TablaRecepcionPacientes', tablaRecepcionPacientes, {
   timeOut: { time: 600 } // estable tiempo de esperar [probablemente aun sin configurar pero funcional]
 }, async function (select, data, callback) {
     callback('In')
-
     if (select) {
         obtenerPanelInformacion(data['ID_TURNO'], 'pacientes_api', 'paciente')
     } else obtenerPanelInformacion(0, 'pacientes_api', 'paciente')

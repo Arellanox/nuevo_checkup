@@ -55,7 +55,7 @@
                     <label class="btn btn-outline-success" for="check-bio"><i class="bi bi-list"></i>
                         Laboratorio Bíomolecular
                     </label>
-                    
+
                     <?php if (filter_var($_POST['franquicia'], FILTER_VALIDATE_BOOLEAN) === false): ?>
                         <input type="radio" class="btn-check" name="selectChecko" id="check-paq" value="13"
                                autocomplete="off">

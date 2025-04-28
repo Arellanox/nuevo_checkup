@@ -1,5 +1,5 @@
 //Menú principal para consultorio
-var id, idturno, idconsulta, dataConsulta = new Array,
+var id, idturno, idconsulta, dataConsulta = [],
   tablaMain
 var selectPaciente;
 var dataListaPaciente;
@@ -19,6 +19,7 @@ async function obtenerConsultorioMain() {
     dataListaPaciente = {
       api: 5,
       fecha_busqueda: $('#fechaListadoAreaMaster').val(),
+      //fecha_final: $('#fechaFinalListadoAreaMaster').val(),
       area_id: 1
     }
 
@@ -27,15 +28,8 @@ async function obtenerConsultorioMain() {
 
     // Datatable
     $.getScript("contenido/js/main-tabla.js");
-    // // Botones
-    // $.getScript("contenido/js/consultorio-paciente-botones.js");
-    // // Funciones
-    // $.getScript('contenido/js/consultorio-paciente.js')
   });
 }
-//
-
-
 
 // Obtener el perfil del paciente (antecedentes);
 var pacienteActivo = new GuardarArreglo()

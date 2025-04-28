@@ -17,6 +17,7 @@ $id_turno = $_POST['id_turno'];
 $id_paciente = $_POST['id_paciente'];
 $id_area = $_POST['id_area'];
 $fecha_agenda = $_POST['fecha_agenda'];
+$fecha_agenda_final = $_POST['fecha_agenda_final'];
 $con_paquete = $_POST['con_paquete'];
 $franquiciaID = $_SESSION['franquiciario'] ? $_SESSION['id_cliente'] : null;
 
@@ -26,7 +27,7 @@ $master = new Master();
 switch ($api) {
     case 1:
             $response = $master->getByProcedure("sp_toma_de_muestra_lista_de_trabajo", [
-                $fecha_agenda, $id_area, $con_paquete, $franquiciaID
+                $fecha_agenda, $fecha_agenda_final, $id_area, $con_paquete, $franquiciaID
             ]);
         break;
     case 2:
