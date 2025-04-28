@@ -69,7 +69,6 @@ $('input[type="radio"][name="selectPaquete"]').change(function () {
         case '2':
             mantenimientoPaquete();
             break;
-
     }
 });
 

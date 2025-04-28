@@ -84,16 +84,15 @@ function calcularFilasTR() {
                 'precioventa': calculo[4],
                 'subtotal': calculo[1]
             }
-            // console.log(arregloEstudios)
             paqueteEstudios.push(arregloEstudios)
         });
     } catch (error) {
-
+        console.warn(error)
     }
-    // console.log(paqueteEstudios);
+
     iva = (subtotalPrecioventa * 16) / 100;
     total = subtotalPrecioventa + iva;
-    console.log(subtotalCosto)
+
     if (!checkNumber(subtotalCosto)) {
         subtotalCosto = 0;
     } else {

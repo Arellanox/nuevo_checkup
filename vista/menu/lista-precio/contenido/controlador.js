@@ -36,9 +36,6 @@ function obtenerContenidoPrecios() {
                 language: {
                     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
                 },
-                // lengthChange: false,
-                // info: false,
-                // paging: true,
                 columnDefs: columnsDefinidas,
             });
 
@@ -146,7 +143,7 @@ function tablaContenido(descuento = false) {
 
     tablaContenidoPaquete.destroy();
     $('#TablaListaPaquetes').empty();
-    dataEliminados = new Array()
+    dataEliminados = []
     tablaContenidoPaquete = $("#TablaListaPaquetes").DataTable({
         lengthChange: false,
         // info: false,
