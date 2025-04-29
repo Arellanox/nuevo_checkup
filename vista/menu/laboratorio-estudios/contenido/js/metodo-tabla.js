@@ -35,18 +35,6 @@ var TablaMetodos = $('#TablaMetodos').DataTable({
 
 })
 
-// $('#TablaMetodos tbody').on('click', 'tr', function () {
-//    if ($(this).hasClass('selected')) {
-//        $(this).removeClass('selected');
-//        array_selected = null;
-//    } else {
-//        TablaMetodos.$('tr.selected').removeClass('selected');
-//        $(this).addClass('selected');
-//        array_selected = TablaMetodos.row( this ).data();
-//    }
-// });
-
-
 $('#TablaMetodos tbody').on('dblclick', 'tr', function () {
   if ($(this).hasClass('selected')) {
     $(this).removeClass('selected');
