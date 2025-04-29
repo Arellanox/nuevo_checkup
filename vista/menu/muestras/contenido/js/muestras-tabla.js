@@ -92,10 +92,7 @@ function obtenerListaEstudiosContenedores(idturno = null) {
     ajaxAwait({ api: 2, id_turno: idturno }, 'toma_de_muestra_api', { callbackAfter: true, WithoutResponseData: true }, false, (row) => {
       let html = '';
       for (var i = 0; i < row.length; i++) {
-        // console.log(row[i]);
-        // html += '<li class="list-group-item">';
-        // html += row[i]['GRUPO'];
-        // html += '<i class="bi bi-arrow-right-short"></i><strong>' + row[i]['MUESTRA'] + '</strong> - <strong>' + row[i]['CONTENEDOR'] + '</strong></li>';
+        console.log(row)
 
         /* codigo nuevo */
         html += `<div class="card">
@@ -111,13 +108,13 @@ function obtenerListaEstudiosContenedores(idturno = null) {
                       <i class="bi bi-chevron-down"></i> Más información
                     </button>
                     <div class="collapse" id="moreInfo${row[i]['ID']}">
-                      <p><strong><i class="bi bi-clock"></i> Tiempo de entrega:</strong> <span class="none-p">${ifnull(row[i]['ENTREGA'])}</span></p>
-                      <p><strong><i class="bi bi-file-earmark-medical"></i> Indicaciones para el laboratorio:</strong> <span class="none-p">${ifnull(row[i]['INDICACIONES_LABORATORIO'])}</span></p>
-                      <p><strong><i class="bi bi-file-earmark-medical"></i> Motivos para rechazo de muestras:</strong> <span class="none-p">${ifnull(row[i]['MOTIVO_RECHAZO'])}</span></p>
-                      <p><strong><i class="bi bi-person-lines-fill"></i> Indicaciones para el paciente:</strong> <span class="none-p">${ifnull(row[i]['INDICACIONES'])}</span></p>
-                      <p><strong><i class="bi bi-thermometer-half"></i> Conservación:</strong> <span class="none-p">${ifnull(row[i]['CONSERVACION'])}</span></p>
-                      <p><strong><i class="bi bi-building"></i> Área:</strong> <span class="none-p">${ifnull(row[i]['AREA'])}</span></p>
-                      <p><strong><i class="bi bi-activity"></i> Metodología:</strong> <span class="none-p">${ifnull(row[i]['METODOLOGIA'])}</span></p>
+                      <p><strong><i class="bi bi-clock"></i> Tiempo de entrega:</strong> <span class="none-p">${ifnull(row[i]['ENTREGA']) ?? 'S/N'}</span></p>
+                      <p><strong><i class="bi bi-file-earmark-medical"></i> Indicaciones para el laboratorio:</strong> <span class="none-p">${ifnull(row[i]['INDICACIONES_LABORATORIO']) ?? 'S/N'}</span></p>
+                      <p><strong><i class="bi bi-file-earmark-medical"></i> Motivos para rechazo de muestras:</strong> <span class="none-p">${ifnull(row[i]['MOTIVO_RECHAZO']) ?? 'S/N'}</span></p>
+                      <p><strong><i class="bi bi-person-lines-fill"></i> Indicaciones para el paciente:</strong> <span class="none-p">${ifnull(row[i]['INDICACIONES']) ?? 'S/N'}</span></p>
+                      <p><strong><i class="bi bi-thermometer-half"></i> Conservación:</strong> <span class="none-p">${ifnull(row[i]['CONSERVACION']) ?? 'S/N'}</span></p>
+                      <p><strong><i class="bi bi-building"></i> Área:</strong> <span class="none-p">${ifnull(row[i]['AREA']) ?? 'S/N'}</span></p>
+                      <p><strong><i class="bi bi-activity"></i> Metodología:</strong> <span class="none-p">${ifnull(row[i]['METODOLOGIA']) ?? 'S/N'}</span></p>
                     </div>
                   </div>
                 </div>

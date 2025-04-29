@@ -24,7 +24,7 @@ tablaMuestras = $('#TablaMuestras').DataTable({
     dataSrc: 'response.data'
   },
   createdRow: function (row, data, dataIndex) {
-    if (data.MUESTRA_TOMADA == 1) {
+    if (data.MUESTRA_TOMADA === 1) {
       $(row).addClass('bg-success text-white');
     }
   },
@@ -47,10 +47,6 @@ tablaMuestras = $('#TablaMuestras').DataTable({
 })
 
 loaderDiv("Out", null, "#loader-muestras", '#loaderDivmuestras');
-// selectDatatable('TablaMuestras', tablaMuestras, 0, 0, 0, 0, function (selectTR = null, array = null) {
-
-// })
-
 
 //new selectDatatable:
 selectTable('#TablaMuestras', tablaMuestras, { unSelect: true, movil: true, reload: ['col-xl-9'] }, async function (select, data, callback) {
@@ -59,7 +55,7 @@ selectTable('#TablaMuestras', tablaMuestras, { unSelect: true, movil: true, relo
   if (select == 1) {
 
     //Activa o desactiva el boton
-    if (selectListaMuestras.MUESTRA_TOMADA == 1) {
+    if (selectListaMuestras.MUESTRA_TOMADA === 1) {
       $('#muestra-tomado').prop('disabled', true)
     } else {
       $('#muestra-tomado').prop('disabled', false)
@@ -91,6 +87,7 @@ function obtenerListaEstudiosContenedores(idturno = null) {
 
     ajaxAwait({ api: 2, id_turno: idturno }, 'toma_de_muestra_api', { callbackAfter: true, WithoutResponseData: true }, false, (row) => {
       let html = '';
+      console.log(row)
       for (var i = 0; i < row.length; i++) {
         html += `<div class="card">
                   <div class="card-header">
