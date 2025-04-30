@@ -265,12 +265,12 @@ $menu == 'Laboratorio Biomolecular'
                         <button class="dropdown-item gap-2"
                              id="btn-maquilas-pendientes-notificacion"
                              data-bs-toggle="tooltip" data-bs-placement="bottom"
-                             title="Maquilas enviadas para aprobación"
+                             title="Estudio envido a mquilar por aprobar"
                         >
-                            <span>Maquilas enviadas</span>
+                            <span>Maquilas pendientes</span>
                             <span id="badge-maquila-icon" class="block badge rounded-pill bg-danger">
                                 <span id="maquilas-pendientes-notificacion">...</span>
-                                <span class="visually-hidden">maquilas enviadas</span>
+                                <span class="visually-hidden">maquilas pendientes</span>
                             </span>
                         </button>
                     </li>

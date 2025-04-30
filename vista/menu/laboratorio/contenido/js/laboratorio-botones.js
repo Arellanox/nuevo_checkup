@@ -248,28 +248,33 @@ $(document).on('click', '.btn-modal-maquila-confirm', function (event) {
     const laboratorio_texto = $('#select-laboratorios-maquila option:selected').text();
     const laboratorio_id = $('#select-laboratorios-maquila').val();
 
-    alertMensajeConfirm({
-        title: '¿Quieres completar esta acción?',
-        text: `Sera maquilado por ${laboratorio_texto}`,
-        icon: 'warning',
-        confirmButtonText: 'Sí'
-    }, function () {
-        //crearNotificacion(session['id'],
-        //    `Solicitud de Revisión de Maquilación de ${session['nombre']}`, '#', [15, 2, 20]
-        //).then(r => '');
+  alertMensajeConfirm({
+    title: '¿Quieres completar esta acción?',
+    text: `Sera maquilado por ${laboratorio_texto}`,
+    icon: 'warning',
+    confirmButtonText: 'Sí'
+  }, function () {
+    //GUARDAR MAQUILACIÓN
+    const servicio_id = $('.btn-estudios-pendientes').attr('data-bs-id');
 
-        ajaxAwait({
-            api: 1,
-            LABORATORIO_MAQUILA_ID: laboratorio_id,
-            TURNO_ID: selectListaLab.ID_TURNO,
-            SERVICIO_ID: servicio_id_by_maquila
-        }, 'laboratorio_estudios_maquila_api', {callbackAfter: true}, false, function (data) {
-            alertToast('Se registro la maquila exiotsamente.', 'success', 4000);
-            $('#modalMaquilaEstudios').modal('hide');
-        }).then(r => {
-        });
-    }, 1, function () {
-        alert("Acción cancelada.");
-    }, () => {
-    });
+    //crearNotificacion(session['id'],
+    //    `Solicitud de Revisión de Maquilación de ${session['nombre']}`, '#', [15, 2, 20]
+    //).then(r => '');
+
+    ajaxAwait({
+      api: 1,
+      LABORATORIO_MAQUILA_ID: laboratorio_id,
+      TURNO_ID: selectListaLab.ID_TURNO,
+      SERVICIO_ID: servicio_id
+    }, 'laboratorio_estudios_maquila_api', {callbackAfter: true}, false, function (data) {
+      alertToast('Se registro la maquila exiotsamente.', 'success', 4000);
+      $('#modalMaquilaEstudios').modal('hide');
+    }).then(r => {});
+  }, 1, function () { alert("Acción cancelada."); }, () => {});
+});
+
+$(document).on('click', '.btn-maquila-estudios', function (event){
+  event.preventDefault();
+  $('#modalMaquilaEstudios').modal('show');
+  orderAndFillSelects('#select-laboratorios-maquila', 'laboratorio_maquila_api', 2, 'ID_LABORATORIO', 'DESCRIPCION');
 });
