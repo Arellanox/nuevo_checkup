@@ -75,7 +75,6 @@ function obtenerContenido(tabla) {
 
 
                   $(location).attr('href', `${http}${servidor}/${appname}/vista/menu/principal/`);
-                  console.warn(session);
                   return false;
                 // break;
               }
