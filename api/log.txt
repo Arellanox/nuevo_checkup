@@ -1,3 +1,41 @@
-18/03/25 12:50:53 sp_laboratorio_estudios_maquila_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_laboratorio_estudios_maquila_b; expected 2, got 1
-18/03/25 12:53:36 sp_laboratorio_estudios_maquila_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_laboratorio_estudios_maquila_b; expected 2, got 1
-18/03/25 12:54:17 sp_laboratorio_estudios_maquila_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_consultorio.sp_laboratorio_estudios_maquila_b; expected 2, got 1
+21/03/25 11:46:24  Area: 7
+21/03/25 12:13:54 sp_laboratorio_estudios_maquila_g Ha ocurrido un error(23000). 23000 1048 Column 'SERVICIO_ID' cannot be null
+21/03/25 12:13:54 call sp_laboratorio_estudios_maquila_g(3247,,9,105) Esto recibió
+21/03/25 12:13:54 [Reproduce el error en la base] call sp_laboratorio_estudios_maquila_g(3247,,9,105)
+21/03/25 12:16:27 sp_laboratorio_estudios_maquila_g Ha ocurrido un error(23000). 23000 1048 Column 'SERVICIO_ID' cannot be null
+21/03/25 12:16:27 call sp_laboratorio_estudios_maquila_g(3246,,5,105) Esto recibió
+21/03/25 12:16:27 [Reproduce el error en la base] call sp_laboratorio_estudios_maquila_g(3246,,5,105)
+21/03/25 12:22:35 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+21/03/25 12:22:35 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+21/03/25 12:23:26 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+21/03/25 12:24:38 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+21/03/25 12:25:20 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+21/03/25 12:25:20 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+21/03/25 13:54:00 sp_notificaciones_marcar_e Ha ocurrido un error(23000). 23000 1048 Column 'ID_NOTIFICACION' cannot be null
+21/03/25 13:54:00 call sp_notificaciones_marcar_e(105,) Esto recibió
+21/03/25 13:54:00 [Reproduce el error en la base] call sp_notificaciones_marcar_e(105,)
+21/03/25 13:54:02 sp_notificaciones_marcar_e Ha ocurrido un error(23000). 23000 1048 Column 'ID_NOTIFICACION' cannot be null
+21/03/25 13:54:02 call sp_notificaciones_marcar_e(105,) Esto recibió
+21/03/25 13:54:02 [Reproduce el error en la base] call sp_notificaciones_marcar_e(105,)
+21/03/25 14:07:06 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+21/03/25 14:07:06 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+21/03/25 14:07:12 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+21/03/25 14:07:12 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+26/03/25 10:36:18 sp_laboratorio_estudios_maquila_b Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'lbml.ID_LABORATORIO_ESTUDIO_MAQUILA' in 'GROUP BY'
+26/03/25 10:51:44 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+26/03/25 10:53:13 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+26/03/25 10:53:16 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+26/03/25 10:53:16 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+26/03/25 10:55:19 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+26/03/25 10:57:22 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+26/03/25 10:59:25 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+26/03/25 11:01:29 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+26/03/25 11:03:32 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+26/03/25 11:05:35 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+26/03/25 11:07:39 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+26/03/25 11:09:42 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+26/03/25 11:11:41 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+26/03/25 11:11:41 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+26/03/25 11:11:49 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+26/03/25 11:17:32 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+26/03/25 11:18:48 fn_connect_db Could not connect to the database u808450138_consultorio :SQLSTATE[HY000] [1226] User 'u808450138_consultorio' has exceeded the 'max_connections_per_hour' resource (current value: 500)
