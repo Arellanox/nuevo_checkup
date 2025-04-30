@@ -21,7 +21,7 @@ $maquila_estatus = $_POST['MAQUILA_ESTATUS']; // 0: PENDIENTE, 1: APROBADO, 2: R
 $activo = $_POST['ACTIVO']; // 0: INACTIVO, 1: ACTIVO, 2: OCULTO, 3: ELIMINADO
 $mostrar_ocultos = $_POST['MOSTRAR_OCULTOS'];
 $mostrar_aprobados = $_POST['MOSTRAR_APROBADOS'];
-
+//
 switch ($api) {
     case 1:
         $response = $master->insertByProcedure('sp_laboratorio_estudios_maquila_g', [
