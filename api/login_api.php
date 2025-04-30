@@ -15,6 +15,7 @@ switch ($api) {
             $token = generarToken($_SESSION['id']);
             // echo json_encode([$token]);
             if (!is_null($token)) {
+                $master->setLog('session', json_encode($_SESSION));
                 echo json_encode(array("response" => array("code" => 1, "data" => $response, "token" => $token, "session" => $_SESSION)));
             } else {
                 echo json_encode(array("response" => array("code" => 'login', "msj" => "token no generado")));
@@ -145,9 +146,6 @@ function login($user, $password)
                 $permisos[$result[$i]['permiso']] = $result[$i]['activo']; //ABREVIATURA COMO IDENTIFICADOR DEL PERMISO
             }
             $_SESSION['permisos'] = $permisos;
-            $master->setLog(
-                "este es el login", json_encode($permisos)
-            );
 
             // Areas
             $sql = "SELECT areatip.DESCRIPCION, modulo.activo
