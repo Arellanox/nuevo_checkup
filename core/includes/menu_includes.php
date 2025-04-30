@@ -3,7 +3,7 @@
     const appname = "<?= $appname ?>";
     const current_url = "<?= $current_url ?>"
     const isLocalHost = "<?= $isLocalHost ?>"
-    const session = <?= json_encode($session_data); ?>;
+    const session = <?= json_encode($_SESSION); ?>;
     let http = "<?= $https ?>";
     let servidor = "<?= $current_host ?>";
     let dominio = "<?= $url ?>";

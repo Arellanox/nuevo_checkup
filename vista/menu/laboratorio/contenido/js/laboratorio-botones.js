@@ -1,7 +1,7 @@
 $('#formAnalisisLaboratorio').submit(function (event) {
     event.preventDefault();
 
-    if (selectListaLab['CONFIRMADO'] === 0) {
+    if (selectListaLab['CONFIRMADO'] === 0 || selectListaLab['CONFIRMADO'] === "0") {
         let confirmar = 0;
         const form = document.getElementById("formAnalisisLaboratorio");
         const formData = new FormData(form);
