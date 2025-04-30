@@ -136,7 +136,7 @@ function login($user, $password)
                     LEFT JOIN permisos as pertip ON pertip.ID_PERMISO = permisos.PERMISO_ID
                     WHERE permisos.USUARIO_ID = ?";
             $stmt = $conn->prepare($sql);
-            $stmt->bindParam(1, $_SESSION['id']);
+            $stmt->bindParam(1,$_SESSION['id']);
             $stmt->execute();
             $permisos = array();
             $result = $stmt->fetchAll();
@@ -145,6 +145,9 @@ function login($user, $password)
                 $permisos[$result[$i]['permiso']] = $result[$i]['activo']; //ABREVIATURA COMO IDENTIFICADOR DEL PERMISO
             }
             $_SESSION['permisos'] = $permisos;
+            $master->setLog(
+                "este es el login", json_encode($permisos)
+            );
 
             // Areas
             $sql = "SELECT areatip.DESCRIPCION, modulo.activo
