@@ -17,11 +17,10 @@ $turno_id = $_POST['TURNO_ID'];
 $servicio_id = $_POST['SERVICIO_ID'];
 $usuario_id = $_SESSION['id'];
 $id_maquila = $_POST['ID_MAQUILA'];
-// ESTATUS => NULL: PENDIENTE, 1: APROBADO, 2: RECHAZADO
-$maquila_estatus = $_POST['MAQUILA_ESTATUS'];
-// 0: INACTIVO, 1: ACTIVO, 2: OCULTO, 3: ELIMINADO
-$activo = $_POST['ACTIVO'];
+$maquila_estatus = $_POST['MAQUILA_ESTATUS']; // 0: PENDIENTE, 1: APROBADO, 2: RECHAZADO
+$activo = $_POST['ACTIVO']; // 0: INACTIVO, 1: ACTIVO, 2: OCULTO, 3: ELIMINADO
 $mostrar_ocultos = $_POST['MOSTRAR_OCULTOS'];
+$mostrar_aprobados = $_POST['MOSTRAR_APROBADOS'];
 
 switch ($api) {
     case 1:
@@ -44,7 +43,7 @@ switch ($api) {
         break;
     case 2: // Recuperar información del estudio pendiente a maquilar
         $response = $master->getByProcedure('sp_laboratorio_estudios_maquila_b', [
-            $id_maquila, $mostrar_ocultos
+            $id_maquila, $mostrar_ocultos, $id_laboratorio_maquila, $mostrar_aprobados
         ]);
         break;
     CASE 3: // Actualizar campo "activo" del estudio a maquilar
@@ -55,6 +54,11 @@ switch ($api) {
     case 4: // Eliminar estudio a maquilar
         $response = $master->deleteByProcedure('sp_laboratorio_estudios_maquila_e', [
             $id_maquila
+        ]);
+        break;
+    case 5: // Actualizar campo "estatus" del estudio a maquilar
+        $response = $master->updateByProcedure('sp_laboratorio_estudios_maquila_a2', [
+            $id_maquila, $maquila_estatus
         ]);
         break;
     default:

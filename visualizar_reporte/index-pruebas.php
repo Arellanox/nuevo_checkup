@@ -87,6 +87,7 @@ switch ($api) {
         break;
     case 'maquilas':
         $r = $master->reportador($master, $turno_id, -8, 'maquilas', 'mostrar', $preview, 0, 0);
+        break;
     case "certificado_bimo":
         $r = $master->reportador($master, $turno_id, -10, 'certificado_bimo', 'mostrar', $preview, 0, 0);
         break;
