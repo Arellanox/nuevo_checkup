@@ -33,6 +33,13 @@
       <change beforePath="$PROJECT_DIR$/vista/menu/consultorio/modals/motivo-consulta.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/consultorio/modals/html/motivo-consulta.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/js/laboratorio-botones.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/laboratorio/contenido/js/laboratorio-botones.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/visualizar_reporte/index-pruebas.php" beforeDir="false" afterPath="$PROJECT_DIR$/visualizar_reporte/index-pruebas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pdf/views/invoice/assets/Diagnostica.css" beforeDir="false" afterPath="$PROJECT_DIR$/pdf/views/invoice/assets/Diagnostica.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pdf/views/invoice/layouts/footer/footer-diagnostica.php" beforeDir="false" afterPath="$PROJECT_DIR$/pdf/views/invoice/layouts/footer/footer-diagnostica.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pdf/views/invoice/maquilas.php" beforeDir="false" afterPath="$PROJECT_DIR$/pdf/views/invoice/maquilas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/include/header/modals/modal-notifications-user.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/include/header/modals/modal-notifications-user.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/maquilas/contenido/js/maquilas.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/maquilas/contenido/js/maquilas.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,6 +125,23 @@
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.2.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;notificaciones__server__sent__events&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/AppServ/www/nuevo_checkup/pdf/public/assets&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.2.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }]]></component>
   <component name="RecentsManager">

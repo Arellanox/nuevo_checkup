@@ -230,18 +230,14 @@ $(document).on('click', '.btn-estudios-pendientes', async function (event) {
 //                                          Maquilación
 //-------------------------------------------------------------------------------------------------------------------//
 let servicio_id_by_maquila;
-
 $(document).on('click', '.btn-maquila-estudios', function (event) {
     event.preventDefault();
     servicio_id_by_maquila = $(this).attr('data-bs-id');
 
     $('#modalMaquilaEstudios').modal('show');
 
-    orderAndFillSelects('#select-laboratorios-maquila', 'laboratorio_maquila_api', 2, 'ID_LABORATORIO', 'DESCRIPCION')
-        .then(r => {
-        });
+    orderAndFillSelects('#select-laboratorios-maquila', 'laboratorio_maquila_api', 2, 'ID_LABORATORIO', 'DESCRIPCION');
 });
-
 
 $(document).on('click', '.btn-modal-maquila-confirm', function (event) {
     event.preventDefault();
@@ -254,9 +250,6 @@ $(document).on('click', '.btn-modal-maquila-confirm', function (event) {
     icon: 'warning',
     confirmButtonText: 'Sí'
   }, function () {
-    //GUARDAR MAQUILACIÓN
-    const servicio_id = $('.btn-estudios-pendientes').attr('data-bs-id');
-
     //crearNotificacion(session['id'],
     //    `Solicitud de Revisión de Maquilación de ${session['nombre']}`, '#', [15, 2, 20]
     //).then(r => '');
@@ -265,16 +258,10 @@ $(document).on('click', '.btn-modal-maquila-confirm', function (event) {
       api: 1,
       LABORATORIO_MAQUILA_ID: laboratorio_id,
       TURNO_ID: selectListaLab.ID_TURNO,
-      SERVICIO_ID: servicio_id
+      SERVICIO_ID: servicio_id_by_maquila
     }, 'laboratorio_estudios_maquila_api', {callbackAfter: true}, false, function (data) {
       alertToast('Se registro la maquila exiotsamente.', 'success', 4000);
       $('#modalMaquilaEstudios').modal('hide');
     }).then(r => {});
   }, 1, function () { alert("Acción cancelada."); }, () => {});
-});
-
-$(document).on('click', '.btn-maquila-estudios', function (event){
-  event.preventDefault();
-  $('#modalMaquilaEstudios').modal('show');
-  orderAndFillSelects('#select-laboratorios-maquila', 'laboratorio_maquila_api', 2, 'ID_LABORATORIO', 'DESCRIPCION');
 });
