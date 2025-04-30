@@ -89,7 +89,7 @@
         padding: 6px 0;
         overflow-y: auto;
         overflow-x: hidden;
-        max-height: 350px;
+        max-height: 700px;
     }
     #notifications-content .body .notification-item:hover{
         background-color: rgba(213, 133, 18, 0.1);

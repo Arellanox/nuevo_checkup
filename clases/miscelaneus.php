@@ -620,6 +620,7 @@ class Miscelaneus
                 $folio = $infoPaciente[0]['FOLIO_SOMA'];
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[0]['CLAVE_SOMA'];
                 break;
+
             case 15:
             case "15":
                 # COTIZACIONES
@@ -670,6 +671,7 @@ class Miscelaneus
                 $folio = $infoPaciente[0]['FOLIO_AUDIO'];
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[0]['CLAVE_AUDIO'];
                 break;
+
             case 5:
             case "5":
                 #ESPIROMETRIA
@@ -681,6 +683,8 @@ class Miscelaneus
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[array_key_last($infoPaciente)]['CLAVE_ESPIRO'];
 
                 break;
+
+
             case 19:
             case "19":
                 #CONSULTORIO2
@@ -697,6 +701,7 @@ class Miscelaneus
                 // exit;
                 $arregloPaciente = $this->getBodyTemperatura($master, $turno_id);
                 break;
+
             case -2:
                 #RECETA
                 $arregloPaciente = $this->getBodyRecetas($master, $turno_id);
@@ -714,11 +719,13 @@ class Miscelaneus
                 $folio = $infoPaciente[array_key_last($infoPaciente)]['FOLIO_SOLICITUD_ESTUDIOS'];
                 $fecha_resultado = $infoPaciente[array_key_last($infoPaciente)]['FECHA_CARPETA_CONSULTA2'];
                 $carpeta_guardado = "solicitud_estudios";
+
                 break;
             case -4:
                 #Corte de caja
                 $arregloPaciente = $this->getBodyCorteCaja($master, $turno_id);
                 break;
+
             case -5:
                 # Envio de Muestas
                 # reporte de lotes.
@@ -736,13 +743,9 @@ class Miscelaneus
                 # $turno_id corresponde a la fecha de la lista de trabajo que se quiere imprimir
                 $arregloPaciente = $master->getByProcedure("sp_lista_de_trabajo_barras", [$turno_id, 6, null, null, null]);
                 break;
-            case -8:
-                $laboratorio_id = $_GET['laboratorio_id'];
-                $arregloPaciente = $master->getByProcedure("sp_laboratorio_estudios_maquila_b", [
-                    null, null, $laboratorio_id, 1
-                ]);
-                break;
         }
+
+
 
 
         if ($area_id == 0) {
