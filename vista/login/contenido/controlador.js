@@ -28,6 +28,7 @@ function obtenerContenido(tabla) {
           console.log(data);
           if (mensajeAjax(data)) {
             let session = data.response['session'];
+            console.warn(session);
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             const page = urlParams.get('page')
