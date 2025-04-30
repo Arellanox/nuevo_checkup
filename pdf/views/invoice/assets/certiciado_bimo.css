@@ -1,0 +1,153 @@
+
+@page {
+    margin: 165px 40px;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 0px;
+    font-size: 10px;
+}
+
+main {
+    margin-top: -35px;
+    text-justify: inter-word;
+}
+
+.header {
+    width: 100%;
+    height: auto;
+    position: fixed;
+    margin-top: 0;
+    top: -160px;
+}
+
+.footer {
+    position: fixed;
+    bottom: -300px;
+    width: 100%;
+    height: 280px;
+}
+
+.break {
+    page-break-after: always;
+}
+
+.logotipo {
+    position: relative;
+}
+
+.logotipo>img {
+    position: absolute;
+    right: 2px;
+    top: -4px;
+}
+
+ table {
+     width: 100%;
+     font-size: 13px;
+     border-collapse: collapse;
+     word-break: break-all;
+ }
+
+th,
+td {
+    width: 100%;
+    max-width: 100%;
+    word-break: break-all;
+}
+
+.tb-datos-personales-header {
+    border: 1px solid black;
+    background-color: #e7e6e6;
+    font-style: italic;
+    font-size: 15px;
+    word-break: break-all;
+}
+
+.tb-tipo-examen-header,
+.tb-diagnostico-header,
+.tb-clasificacion-header,
+.tb-actitud-laboral-header {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    background-color: #e7e6e6;
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+    font-size: 15px;
+    word-break: break-all;
+}
+
+
+.tb-datos-personales-header th {
+    padding: 2px;
+    background-color: #e7e6e6;
+}
+
+.header-base th {
+    background-color: #e7e6e6;
+    font-style: italic;
+    font-size: 15px;
+    word-break: break-all;
+    padding: 4px;
+}
+
+.subheader .title {
+    border: 1px solid black;
+    max-width: 90px;
+    font-size: 14px;
+    background-color: gray;
+    color: #fff !important;
+}
+
+.subheader .empty {
+    border: 1px solid black;
+    background-color: gray
+}
+
+.tb-tipo-examen-header th,
+.tb-diagnostico-header th,
+.tb-clasificacion-header th,
+.tb-actitud-laboral-header th,
+.tb-estudios-header th {
+    padding: 2px;
+}
+
+/* TBODY */
+.tb-datos-personales td,
+.tb-tipo-examen td,
+.tb-diagnostico td,
+.tb-clasificacion td,
+.tb-actitud-laboral td,
+.tb-estudios td {
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.tb-diagnostico tbody tr td,
+.tb-clasificacion tbody tr td,
+.tb-estudios tbody tr td {
+    text-align: center;
+}
+
+.tb-actitud-laboral tbody tr td.not-border {
+    border: none !important;
+}
+
+.tb-actitud-laboral tbody tr td.vigencia {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.tb-actitud-laboral tbody tr td.vigencia.title {
+    background-color: #e7e6e6;
+}
+
+.tb-tipo-examen td.not-label {
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+}

@@ -265,6 +265,11 @@ class Reporte
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'portrait');
                 break;
+            case "certificado_bimo":
+                $template = render_view('invoice/certificado_bimo.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter', 'portrait');
+                break;
             default:
                 $template = render_view('invoice/reportes.php', $view_vars);
                 $pdf->loadHtml($template);

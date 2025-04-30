@@ -92,7 +92,7 @@ switch ($api) {
         break;
 
     case 2: // Buscar cliente
-        $response = $master->getByProcedure("sp_clientes_b", [$id, $codigo, $qr]);
+        $response = $master->getByProcedure("sp_clientes_b", [$id, $codigo, $qr, $_SESSION['id']]);
 
         // Si solo se encuentra un cliente, añadir segmentos y cuestionarios
         if (count($response) == 1) {
@@ -111,7 +111,7 @@ switch ($api) {
         break;
 
     case 5: // Generar QR para cliente
-        $cliente = [$id, $codigo, $qr];
+        $cliente = [$id, $codigo, $qr, $_SESSION['id']];
         $result = $master->getByProcedure('sp_clientes_b', $cliente);
         if (!empty($result)) {
             $nombreCliente = $result[0]['NOMBRE_COMERCIAL'];

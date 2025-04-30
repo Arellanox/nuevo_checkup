@@ -1,0 +1,122 @@
+<div class="modal fade" id="modalCrearCertificadoBimo" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <h5 class="modal-title" id="filtrador">Crear certificado BIMO</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="" id="formCrearCertificadoBimo">
+                    <!-- CLASIFICACIÓN DE GRADO DE SALUD  -->
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="clasificacion_grado_salud" class="form-label">Clasificación de Grado de Salud</label>
+                            <input type="text" name="clasificacion_grado_salud" class="form-control input-form" required>
+                        </div>
+                    </div>
+                    <!-- TIPO DE EXAMEN MÉDICO & ACTITUD DE TRABAJO -->
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="tipo_examen_medico" class="form-label">Tipo de Examen Médico</label>
+                            <div>
+                                <label for="tipo_examen_medico" class="form-label">
+                                    <span style="display: block; margin-right: 4px; margin-top: 4px; margin-bottom: 4px; color: #939393">Ingreso</span>
+                                    <div style="width: 100%; display: flex; justify-content: center;">
+                                        <input type="checkbox" name="tipo_examen_medico" style="height: 20px; width: 20px;" value="Ingreso">
+                                    </div>
+                                </label>
+                                <label for="tipo_examen_medico" class="form-label">
+                                    <span style="display: block; margin-right: 4px; margin-top: 4px; margin-bottom: 4px; color: #939393">Periodico</span>
+                                    <div style="width: 100%; display: flex; justify-content: center;">
+                                        <input type="checkbox" name="tipo_examen_medico" style="height: 20px; width: 20px;" value="Periodico">
+                                    </div>
+                                </label>
+                                <label for="tipo_examen_medico" class="form-label">
+                                    <span style="display: block; margin-right: 4px; margin-top: 4px; margin-bottom: 4px; color: #939393">Egreso</span>
+                                    <div style="width: 100%; display: flex; justify-content: center;">
+                                        <input type="checkbox" name="tipo_examen_medico" style="height: 20px; width: 20px;" value="Egreso">
+                                    </div>
+                                </label>
+                                <label for="tipo_examen_medico" class="form-label">
+                                    <span style="display: block; margin-right: 4px; margin-top: 4px; margin-bottom: 4px; color: #939393">Otro</span>
+                                    <div style="width: 100%; display: flex; justify-content: center;">
+                                        <input type="checkbox" name="tipo_examen_medico" style="height: 20px; width: 20px;" value="Otro">
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="aptidud_trabajo" class="form-label">Aptitud de Trabajo</label>
+                            <div>
+                                <label for="aptidud_trabajo" class="form-label">
+                                    <span style="display: block; margin-right: 4px; margin-top: 4px; margin-bottom: 4px; color: #939393">Apto</span>
+                                    <div style="width: 100%; display: flex; justify-content: center;">
+                                        <input type="checkbox" name="aptidud_trabajo"  style="height: 20px; width: 20px;" value="Apto">
+                                    </div>
+                                </label>
+                                <label for="aptidud_trabajo" class="form-label">
+                                    <span style="display: block; margin-right: 4px; margin-top: 4px; margin-bottom: 4px; color: #939393">No Apto</span>
+                                    <div style="width: 100%; display: flex; justify-content: center;">
+                                        <input type="checkbox" name="aptidud_trabajo"  style="height: 20px; width: 20px;" value="No Apto">
+                                    </div>
+                                </label>
+                                <label for="aptidud_trabajo" class="form-label">
+                                    <span style="display: block; margin-right: 4px; margin-top: 4px; margin-bottom: 4px; color: #939393">Apto con Restricciones</span>
+                                    <div style="width: 100%; display: flex; justify-content: center;">
+                                        <input type="checkbox" name="aptidud_trabajo"  style="height: 20px; width: 20px;" value="Apto con Restricciones">
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- VIGENCIA X & FECHA VENCIMIENTO -->
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="vigencia" class="form-label">Vigencia</label>
+                            <input type="text" name="vigencia" class="form-control input-form" required>
+                        </div>
+                        <div class="col-6">
+                            <label for="fecha_vencimiento" class="form-label">Fecha de Vencimiento</label>
+                            <input type="date" name="fecha_vencimiento" class="form-control input-form" required>
+                        </div>
+                    </div>
+                    <!-- AGREGAR ESTUDIOS -->
+                    <button id="btnAgregarEstudio" type="button" class="btn btn-confirmar">
+                        <i class="bi bi-file-medical"></i>
+                        <span>Agregar Estudios</span>
+                    </button>
+                    <!-- LISTA DE DIAGNÓSTICOS -->
+                    <div id="listaEstudios" style="max-height: 100%; scroll-behavior: auto; overflow-y: auto;">
+                        <!-- Plantillas de Estudios
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="estudios" class="form-label">Seleccionar Estudio</label>
+                                    <select name="estudios" class="form-select-estudios form-select input-form" required>
+                                        <option value="1">Estudio 1</option>
+                                        <option value="2">Estudio 2</option>
+                                        <option value="3">Estudio 3</option>
+                                        <option value="4">Estudio 4</option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <label for="diagnosticos" class="form-label">Diagnósticos</label>
+                                    <input type="text" name="diagnosticos" class="form-set-diagnostico form-control input-form" required>
+                                </div>
+                            </div>
+                        -->
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
+                    <i class="bi bi-arrow-left-short"></i>
+                    <span>Cancelar</span>
+                </button>
+                <button type="submit" form="formCrearCertificadoBimo" class="btn btn-confirmar">
+                    <i class="bi bi-file-earmark-plus"></i>
+                    <span>Crear Certificado</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

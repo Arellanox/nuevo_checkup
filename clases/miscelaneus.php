@@ -140,7 +140,7 @@ class Miscelaneus
 
         $splitted[$position] = array();
 
-        foreach ($source as  $value) {
+        foreach ($source as $value) {
 
             if (isset($split[$position_split])) {
                 if (count($splitted[$position]) < $split[$position_split]) {
@@ -538,19 +538,19 @@ class Miscelaneus
 
                     $arregloOftalmoResultados = [];
                     foreach ($infoOftalmoResultados as $key => $value) {
-                            $arregloOftalmoResultados = array_filter($value, function ($k) {
-                                $allowedKeys = ['OD', 'OI', 'CON_OD', 'CON_OI'];
-                                return in_array($k, $allowedKeys, true);
-                            }, ARRAY_FILTER_USE_KEY);
+                        $arregloOftalmoResultados = array_filter($value, function ($k) {
+                            $allowedKeys = ['OD', 'OI', 'CON_OD', 'CON_OI'];
+                            return in_array($k, $allowedKeys, true);
+                        }, ARRAY_FILTER_USE_KEY);
                     }
 
                     $arregloConsultorioConsulta = [];
                     foreach ($infoConsultorioConsulta as $key => $value) {
-                            $arregloConsultorioConsulta = array_filter($value, function ($k) {
-                                $allowedKeys = ['NOTAS_PADECIMIENTO', 'DIAGNOSTICO', 'OBSERVACIONES'];
-                                return in_array($k, $allowedKeys, true);
-                            }, ARRAY_FILTER_USE_KEY);    
-                    } 
+                        $arregloConsultorioConsulta = array_filter($value, function ($k) {
+                            $allowedKeys = ['NOTAS_PADECIMIENTO', 'DIAGNOSTICO', 'OBSERVACIONES'];
+                            return in_array($k, $allowedKeys, true);
+                        }, ARRAY_FILTER_USE_KEY);
+                    }
 
                     $arregloSigmaLesiones = [];
                     foreach ($infoSigmaLesiones as $key => $value) {
@@ -578,17 +578,17 @@ class Miscelaneus
                     //print_r([$result, $arregloAntecedentes, $arregloHistofam, $arregloAntecedentesNutri, $arregloConsultorioAparatos, $arregloInfoFichAdmi, $arregloSignosVital, $arregloSigmaExploracion, $arregloSigmaInterpretaciones, $arregloOftalmoResultados, $arregloConsultorioConsulta, $arregloSigmaLesiones, $arregloSigmaValoraciones]);
                     //echo "</pre>";
                     //exit;
-                    
+
                 } else {
                     $arregloPaciente = $this->getBodyInfoConsultorio($master, $turno_id, $id_consulta);
-                    
+
                 }
-                
+
                 $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
                 $datos_medicos = $this->getMedicalCarrier($info);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_CONSULTA'];
                 $infoPaciente[0]['FECHA_RESULTADO'] =
-                $infoPaciente[0]['FECHA_CONSULTA_HISTORIA'];
+                    $infoPaciente[0]['FECHA_CONSULTA_HISTORIA'];
                 $carpeta_guardado = 'consultorio';
                 $folio = $infoPaciente[0]['FOLIO_CONSULTA'];
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[0]['CLAVE_CONSULTA'];
@@ -629,7 +629,7 @@ class Miscelaneus
                 $carpeta_guardado = "cotizacion";
                 // $arregloPaciente = [$arregloPaciente[count($arregloPaciente) - 1]];
                 $folio = $arregloPaciente['FOLIO'];
-                $nombre_paciente = 'COT_' . $folio . '_' . $arregloPaciente['ABREVIATURA'] ;
+                $nombre_paciente = 'COT_' . $folio . '_' . $arregloPaciente['ABREVIATURA'];
                 break;
             case 16:
             case "16":
@@ -741,6 +741,8 @@ class Miscelaneus
                 $arregloPaciente = $master->getByProcedure("sp_laboratorio_estudios_maquila_b", [
                     null, null, $laboratorio_id, 1
                 ]);
+            case -10:    
+                # crea el certificado medico de bimo
                 break;
         }
 
@@ -759,7 +761,7 @@ class Miscelaneus
 
         switch ($area_id) {
 
-                # para reportes que no usan $turno_id para su creacion.
+            # para reportes que no usan $turno_id para su creacion.
             case 15:
                 $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/";
 
@@ -796,7 +798,6 @@ class Miscelaneus
         }
 
 
-
         # Seteamos la ruta del reporte para poder recuperarla despues con el atributo $ruta_reporte.
         $this->setRutaReporte($ruta_saved);
 
@@ -821,7 +822,7 @@ class Miscelaneus
 
     private function getBodyFormDatos($master, $id_paciente)
     {
-        $response = $master->getByProcedure('sp_pacientes_b', [$id_paciente, null, null, null]);
+        $response = $master->getByProcedure('sp_pacientes_b', [$id_paciente, null, null, null, $_SESSION['id_cliente']]);
         $paciente = $response[0];
         return $paciente;
     }
@@ -955,7 +956,6 @@ class Miscelaneus
     }
 
 
-
     private function getBodyInfoTicket($master, $id_turno)
     {
         # recuperamos los datos del paciente
@@ -976,7 +976,6 @@ class Miscelaneus
         //     ];
         //     array_push($arrayServicios, $cargosT);
         // }
-
 
 
         // $servicios = $response[0];
@@ -1211,9 +1210,9 @@ class Miscelaneus
         }
 
 
-
         return $arrayEtiqueta;
     }
+
     private function getBodyInfoLabels2($master, $id_turno)
     {
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$id_turno]);
@@ -1239,6 +1238,7 @@ class Miscelaneus
 
         return $arregloPaciente;
     }
+
     private function getBodyInfoLabels($master, $id_turno)
     {
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$id_turno]);
@@ -1341,8 +1341,6 @@ class Miscelaneus
         // print_r($response2[0]['CAPTURAS']);
 
 
-
-
         for ($i = 0; $i < count($response2); $i++) {
             // print_r($decodedResponse2);
             $decodedResponse2 = $master->decodeJsonRecursively($response2[$i]);
@@ -1440,7 +1438,7 @@ class Miscelaneus
                 "OD" => $od,
                 "OI" => $oi,
                 "JAEGER" => $jaeger,
-                "REFRACCION" =>  $refraccion,
+                "REFRACCION" => $refraccion,
                 "PRUEBA" => $prueba,
                 "EXPLORACION_OFTALMOLOGICA" => $exploracion_oftalmologica,
                 "FORIAS" => $forias,
@@ -1558,6 +1556,7 @@ class Miscelaneus
             return "";
         }
     }
+
     private function ordernarBodyLab($servicios, $clasificacion, $turno, $area_id)
     {
         #obtener los valores absolutos
@@ -1625,14 +1624,14 @@ class Miscelaneus
                     $current['RESULTADO'] = str_replace("<", "&lt;", $current['RESULTADO']);
 
                     $item = array(
-                        "nombre"            => $current['DESCRIPCION_SERVICIO'],
-                        "unidad"            => $current['MEDIDA'],
-                        "resultado"         => $current['RESULTADO'] . $current['DEMONMARK'],
-                        "referencia"        => $current['VALOR_DE_REFERENCIA'],
+                        "nombre" => $current['DESCRIPCION_SERVICIO'],
+                        "unidad" => $current['MEDIDA'],
+                        "resultado" => $current['RESULTADO'] . $current['DEMONMARK'],
+                        "referencia" => $current['VALOR_DE_REFERENCIA'],
                         # "observaciones"     => isset($id_grupo) ? null : $current['OBSERVACIONES'],
-                        "observaciones"     => $nombre_grupo != "OTROS SERVICIOS" ? null : $current['OBSERVACIONES'],
-                        "metodo"     => $nombre_grupo != "OTROS SERVICIOS" ? null : $current['METODOS_ESTUDIO'],
-                        "equipo"     => $nombre_grupo != "OTROS SERVICIOS" ? null : $current['EQUIPOS_ESTUDIO'],
+                        "observaciones" => $nombre_grupo != "OTROS SERVICIOS" ? null : $current['OBSERVACIONES'],
+                        "metodo" => $nombre_grupo != "OTROS SERVICIOS" ? null : $current['METODOS_ESTUDIO'],
+                        "equipo" => $nombre_grupo != "OTROS SERVICIOS" ? null : $current['EQUIPOS_ESTUDIO'],
                         #"metodo"            => isset($metodo_grupo) ? null : $current['METODOS_ESTUDIO'],
                         #"equipo"            => isset($equipo_grupo) ? null : $current['EQUIPOS_ESTUDIO']
                     );
@@ -1642,7 +1641,7 @@ class Miscelaneus
 
                 # para los valorse absolutos
                 switch ($id_grupo) {
-                        #biometria hematica
+                    #biometria hematica
                     case 1:
                         $last_position = count($analitos) - 1;
                         $aux = $analitos[$last_position];
@@ -1656,7 +1655,7 @@ class Miscelaneus
                         $analitos[$last_position] = $absoluto_array_b;
                         $analitos[] = $aux;
                         break;
-                        #perfil reumatico
+                    #perfil reumatico
                     case 35:
                         if ($clasificacion_id == 1) {
                             # 1 para la clasificacion de hematologia. 
@@ -1693,12 +1692,12 @@ class Miscelaneus
 
                 # llenar arreglo estudios
                 $estudios[] = array(
-                    "estudio"        => $nombre_grupo,
-                    "analitos"       => $analitos,
-                    "metodo"         => $metodo_grupo,
-                    "equipo"         => $equipo_grupo,
-                    "observaciones"  => isset($id_grupo) ? $observacionnes_generales : null,
-                    "muestra"        => $muestra_grupo
+                    "estudio" => $nombre_grupo,
+                    "analitos" => $analitos,
+                    "metodo" => $metodo_grupo,
+                    "equipo" => $equipo_grupo,
+                    "observaciones" => isset($id_grupo) ? $observacionnes_generales : null,
+                    "muestra" => $muestra_grupo
                     //"muestra"        => $id_grupo == 972 || $id_grupo == 1599 || $id_grupo = 1677 ? "Plasma EDTA" : ""
                 );
                 $analitos = array();
@@ -1797,7 +1796,6 @@ class Miscelaneus
 
         return $decodedArray;
     }
-
 
 
     function str_ends_with($haystack, $needle)
@@ -1903,7 +1901,7 @@ class Miscelaneus
     //     }
     // }
 
-    public function  scanDirectory($directory)
+    public function scanDirectory($directory)
     {
         #enviar los dos puntos [../] basandose en el archivo de miscelaneus
         $files = array();
@@ -1997,6 +1995,7 @@ class Miscelaneus
             return strlen($item) > 0;
         });
     }
+
     public function getBodyAudio($master, $id_turno)
     {
 
@@ -2004,6 +2003,7 @@ class Miscelaneus
         $response = $master->getByProcedure("sp_audiometria_resultados_b", [$id_turno, null, null, null]);
         return $this->decodeJsonRecursively($response[0]);
     }
+
     public function getBodyEspiro($master, $turno_id)
     {
         # json para el reporte de espirometria.
@@ -2036,7 +2036,7 @@ class Miscelaneus
                 "id_pregunta" => $res_pregunta[array_key_first($res_pregunta)]['ID_P'],
                 "pregunta" => $res_pregunta[array_key_first($res_pregunta)]['PREGUNTA'],
                 "respuestas" => $master->getFormValues(array_map(function ($item) {
-                    return array("respuesta"  => $item['RESPUESTA'], "comentario" => $item['COMENTARIO']);
+                    return array("respuesta" => $item['RESPUESTA'], "comentario" => $item['COMENTARIO']);
                 }, $res_pregunta))
             );
         }
@@ -2061,7 +2061,7 @@ class Miscelaneus
             $hora = $e['HORA'];
             $anho = $e['ANHO'];
             $mes = $e['MES'];
-            $color = $e['MODIFICADO'] == 0 ?  "blue" : "mostaza";
+            $color = $e['MODIFICADO'] == 0 ? "blue" : "mostaza";
             $id_registro = $e['ID_REGISTRO_TEMPERATURA'];
             if (!isset($result[$dia])) {
                 $result[$dia] = array();
@@ -2122,7 +2122,7 @@ class Miscelaneus
         $response['EQUIPO']['URL_TABLA'] = is_null($url_tabla) ? 'N/A' : $url_tabla;
         $response['EQUIPO']['EQUIPO_NOMBRE'] = is_null($equipo) ? 'N/A' : $equipo;
         $response['EQUIPO']['EQUIPO_MARCA'] = is_null($equipo_marca) ? 'N/A' : $equipo_marca;
-        $response['EQUIPO']['EQUIPO_MODELO'] =  is_null($equipo_modelo) ? 'N/A' : $equipo_modelo;
+        $response['EQUIPO']['EQUIPO_MODELO'] = is_null($equipo_modelo) ? 'N/A' : $equipo_modelo;
         $response['EQUIPO']['EQUIPO_NUMERO_SERIE'] = is_null($equipo_numero_serie) ? 'N/A' : $equipo_numero_serie;
         $response['EQUIPO']['TERMOMETRO_MARCA'] = is_null($termometro_marca) ? 'N/A' : $termometro_marca;
         $response['EQUIPO']['TERMOMETRO_ID'] = is_null($termometro_id) ? 'N/A' : $termometro_id;
@@ -2243,7 +2243,7 @@ class Miscelaneus
         $resumen_credito = 0;
         $resumen_contado = 0;
         $resumen_cortesia = 0;
-        $resumen_BIMO =  0; # CONCEPTO BIMO  
+        $resumen_BIMO = 0; # CONCEPTO BIMO
 
         // Datos de todos los pacientes que entraron en el cierre de caja
         $array_prefolios = array();
@@ -2262,7 +2262,7 @@ class Miscelaneus
             $nombre_caja = $e['NOMBRE_CAJA']; # nombre de la caja
             $procedencia = $e['NOMBRE_COMERCIAL']; # procedencia del paciente
 
-            $result[$i] =  array(
+            $result[$i] = array(
                 "PREFOLIO" => $prefolio,
                 "NOMBRE_PACIENTE" => $nombre_paciente,
                 "SUBTOTAL" => $subtotal,
@@ -2281,8 +2281,8 @@ class Miscelaneus
                 $iva_general += $iva;
                 $total_general += $total;
 
-                $resumen_contado += in_array($e['CLIENTE_ID'], [1, 16, 31]) ? $total :  0;
-                $resumen_credito += !in_array($e['CLIENTE_ID'], [1, 16, 17, 31, 15]) ? $total :  0;
+                $resumen_contado += in_array($e['CLIENTE_ID'], [1, 16, 31]) ? $total : 0;
+                $resumen_credito += !in_array($e['CLIENTE_ID'], [1, 16, 17, 31, 15]) ? $total : 0;
                 $resumen_cortesia += in_array($e['CLIENTE_ID'], [17]) ? $total : 0;
                 $resumen_BIMO += in_array($e['CLIENTE_ID'], [15]) ? $total : 0;
             }
@@ -2312,7 +2312,7 @@ class Miscelaneus
                 "IGNORAR" => $ignorar
             );
 
-            $cortador = is_null($value1['HECHO_POR']) ?  "CORTE SIN FINALIZAR" : $value1['HECHO_POR'];
+            $cortador = is_null($value1['HECHO_POR']) ? "CORTE SIN FINALIZAR" : $value1['HECHO_POR'];
 
 
             $x++;
@@ -2360,7 +2360,8 @@ class Miscelaneus
         $tipo_correo,
         $notas,
         $enviado
-    ) {
+    )
+    {
         # Guarda el comportamiento de los correo de resultados o cualquier otro correo enviado por bimo.
         $response = $master->insertByProcedure("", []);
 
