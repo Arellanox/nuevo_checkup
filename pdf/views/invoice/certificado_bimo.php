@@ -16,28 +16,35 @@
 <body>
 
 <?php
-$ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
-$encode = base64_encode($ruta);
+    $ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
+    $encode = base64_encode($ruta);
 
-$ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
-$encode_firma = base64_encode($ruta_firma);
+    $ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
+    $encode_firma = base64_encode($ruta_firma);
 ?>
 
 <header class="header">
     <?php
-    $titulo = 'DIAGNOSTICO BIOMOLECULAR';
-    $tituloPersonales = 'Laboratorio de Biología Molecular';
-    $subtitulo = 'Requisición Maquilas';
-    $encabezado->CREACION = $REPOSICION[0]->FECHA_REQUISICION;
-    $encabezado->FOLIO = $REPOSICION[0]->FOLIO;
-    $encabezado->ESTADO = $REPOSICION[0]->ESTADO;
-    $encabezado->RESPONSABLE = $REPOSICION[0]->RESPONSABLE;
+        $titulo = 'DIAGNOSTICO BIOMOLECULAR';
+        $tituloPersonales = 'Laboratorio de Biología Molecular';
+        $subtitulo = 'Requisición Maquilas';
+        $encabezado->CREACION = $REPOSICION[0]->FECHA_REQUISICION;
+        $encabezado->FOLIO = $REPOSICION[0]->FOLIO;
+        $encabezado->ESTADO = $REPOSICION[0]->ESTADO;
+        $encabezado->RESPONSABLE = $REPOSICION[0]->RESPONSABLE;
 
-    include 'layouts/header/certificado_bimo.php';
+        include 'layouts/header/certificado_bimo.php';
     ?>
 </header>
 
 <main>
+    <?php
+        $paciente = $resultados->PACIENTE[0] ?? [];
+        $servicios = $resultados->SERVICIOS ?? [];
+
+        $array_aptitud = json_decode($paciente->APTITUD ?? "[]");
+        $array_tipo_exam = json_decode($paciente->TIPO_EXAMEN_MEDICO ?? "[]");
+    ?>
     <table class="tb-datos-personales">
         <thead class="tb-datos-personales-header">
         <tr>
@@ -55,13 +62,13 @@ $encode_firma = base64_encode($ruta_firma);
         </tr>
         <tr>
             <td colspan="6">NOMBRE:
-                <strong>Edwin Rafael Colina Landa</strong>
+                <strong><?= $paciente->NOMBRE_COMPLETO ?></strong>
             </td>
             <td colspan="3">EDAD:
-                <strong>38 años</strong>
+                <strong><?= $paciente->EDAD ?? 'X' ?> años</strong>
             </td>
             <td colspan="3">NACIONALIDAD:
-                <strong>Mexicana</strong>
+                <strong><?= $paciente->NACIONALIDAD ?? 'X' ?></strong>
             </td>
         </tr>
         </tbody>
@@ -76,19 +83,27 @@ $encode_firma = base64_encode($ruta_firma);
         <tr>
             <td class="label" colspan="2">INGRESO</td>
             <td class="not-label" colspan="2">
-                <strong>X</strong>
+                <strong>
+                    <?php imprimirTipoExamenMedico($array_tipo_exam, 'Ingreso'); ?>
+                </strong>
             </td>
             <td class="label" colspan="2">PEIODICO</td>
             <td class="not-label" colspan="2">
-                <strong>X</strong>
+                <strong>
+                    <?php imprimirTipoExamenMedico($array_tipo_exam, 'Periodico'); ?>
+                </strong>
             </td>
             <td class="label" colspan="2">EGRESO</td>
             <td class="not-label" colspan="2">
-                <strong>X</strong>
+                <strong>
+                    <?php imprimirTipoExamenMedico($array_tipo_exam, 'Egreso'); ?>
+                </strong>
             </td>
             <td class="label" colspan="2">OTRO</td>
             <td class="not-lab" colspan="10">
-                <strong>X</strong>
+                <strong>
+                    <?php imprimirTipoExamenMedico($array_tipo_exam, 'Otro'); ?>
+                </strong>
             </td>
         </tr>
         <tr>
@@ -113,8 +128,7 @@ $encode_firma = base64_encode($ruta_firma);
         <tr>
             <td colspan="24">
                 <strong>
-                    MIOPÍA/ ASTIGMATISMO/ DATOS INCIPIENTES DE HIPERMETROPIA/ ESPONDILOARTROSIS INCIPIENTE/
-                    ANTEROLISTESISL5-S1/ DISMINUCION DE ESPACIO INTERVERTEBRAL L5-S1
+                    <?= $paciente->DIAGNOSTICO ?>
                 </strong>
             </td>
         </tr>
@@ -122,14 +136,14 @@ $encode_firma = base64_encode($ruta_firma);
     </table>
     <table class="tb-clasificacion">
         <thead class="tb-clasificacion-header">
-        <tr>
-            <th colspan="24">CLASIFICACIÓN EN GRADO DE SALUD</th>
-        </tr>
+            <tr>
+                <th colspan="24">CLASIFICACIÓN EN GRADO DE SALUD</th>
+            </tr>
         </thead>
         <tbody>
         <tr>
             <td colspan="24">
-                <strong>2 EG</strong>
+                <strong><?= obtenerDescripcionGradoSalud($paciente->GRADO_SALUD) ?></strong>
             </td>
         </tr>
         </tbody>
@@ -143,20 +157,20 @@ $encode_firma = base64_encode($ruta_firma);
         <tbody>
         <tr>
             <td colspan="3" rowspan="2"></td>
-            <td colspan="3"></td>
+            <td colspan="3"><?php imprimirAptitudTrabajo($array_aptitud, 'No Apto') ?></td>
             <td colspan="18">
                 <span>APTO PARA TRABAJAR</span>
             </td>
         </tr>
         <tr>
-            <td colspan="3"></td>
+            <td colspan="3"><?php imprimirAptitudTrabajo($array_aptitud, 'Apto con Restricciones') ?></td>
             <td colspan="18">
                 <span>APTO PARA TRABAJAR CON RESTRICCIONES</span>
             </td>
         </tr>
         <tr>
             <td colspan="3"></td>
-            <td colspan="3"></td>
+            <td colspan="3"><?php imprimirAptitudTrabajo($array_aptitud, 'No Apto') ?></td>
             <td colspan="18">
                 <span>NO APTO PARA TRABAJAR</span>
             </td>
@@ -165,11 +179,11 @@ $encode_firma = base64_encode($ruta_firma);
             <td class="not-border" colspan="16"></td>
             <td class="vigencia title" colspan="2"><i><strong>VIGENCIA</strong></i></td>
             <td class="vigencia" colspan="2">
-                <strong>1 AÑO</strong>
+                <strong><?= describirVigencia($paciente->VIGENCIA) ?></strong>
             </td>
             <td class="vigencia title" colspan="2"><strong>FECHA DE VENCIMIENTO</strong></td>
             <td class="vigencia" colspan="2">
-                <strong>06/03/2025</strong>
+                <strong><?= $paciente->FECHA_VIGENCIA ?></strong>
             </td>
         </tr>
         </tbody>
@@ -191,21 +205,101 @@ $encode_firma = base64_encode($ruta_firma);
         </tr>
         </thead>
         <tbody>
-        <?php for ($i = 0; $i < 5; $i++): ?>
-            <tr>
-                <td colspan="3"><strong>Valoración visual</strong></td>
-                <td colspan="3">Normal</td>
-                <td colspan="3"><strong>Biometría hemática completa</strong></td>
-                <td colspan="3">Normal</td>
-            </tr>
-        <?php endfor; ?>
+            <?php
+                $servicios_area6 = array_filter($servicios, function($item) {
+                    return $item->AREA_ID == 6;
+                });
+
+                $servicios_area6 = array_values($servicios_area6); // Reindexar el array
+                $count = count($servicios_area6);
+
+                for ($i = 0; $i < $count; $i += 2): ?>
+                    <tr>
+                        <td colspan="3"><strong><?= $servicios_area6[$i]->SERVICIO ?></strong></td>
+                        <td colspan="3"></td>
+                        <?php if (isset($servicios_area6[$i + 1])): ?>
+                            <td colspan="3"><strong><?= $servicios_area6[$i + 1]->SERVICIO ?></strong></td>
+                            <td colspan="3"></td>
+                        <?php else: ?>
+                            <td colspan="6"></td>
+                        <?php endif; ?>
+                    </tr>
+            <?php endfor; ?>
+
         </tbody>
     </table>
 </main>
 
 <footer class="footer">
-    <?php include 'layouts/footer/certificado_bimo.php'; ?>
+    <?php
+        $ruta_qr = preg_replace(
+            '#https?://[^/]+/nuevo_checkup/#',
+            './../', $paciente->RUTA_QR
+        );
+
+        $ruta_validacion = file_get_contents($ruta_qr);
+        $encode_validacion = base64_encode($ruta_validacion);
+
+        include 'layouts/footer/certificado_bimo.php';
+    ?>
 </footer>
 </body>
 
 </html>
+
+<?php
+function describirVigencia($meses): string
+{
+    if ($meses == 1) {
+        return "1 MES";
+    } elseif ($meses == 12) {
+        return "1 AÑO";
+    } elseif ($meses % 12 == 0) {
+        $años = $meses / 12;
+        return $años . " AÑOS";
+    } else {
+        return $meses . " MESES";
+    }
+}
+
+function obtenerDescripcionGradoSalud($valor): string
+{
+    $descripciones = [
+        "0"     => "GRADO 0 - No presenta datos clínicos.",
+        "1"     => "GRADO 1 - Enfermedad reversible.",
+        "1 RT"  => "GRADO 1 RT - Sin lesiones, secuelas ni limitaciones laborales.",
+        "1 EG"  => "GRADO 1 EG - Requiere evaluación general inicial.",
+        "2"     => "GRADO 2 - Enfermedad Irreversible (Permanente)",
+        "2 RT"  => "GRADO 2 RT - Lesiones leves, sin incapacidad permanente.",
+        "2 EG"  => "GRADO 2 EG - Evaluación general y seguimiento necesario.",
+        "3"     => "GRADO 3 - Enfermedad Irreversible (Permanente) No controlada con limitantes temporales para el puesto de Trabajo",
+        "3 RT"  => "GRADO 3 RT - Lesiones moderadas, puede requerir reubicación.",
+        "3 EG"  => "GRADO 3 EG - Evaluación especializada requerida.",
+        "4"     => "GRADO 4 - Enfermedad Irreversible (Permanante) que produce Estado de Salud no compatible con puesto de Trabajo",
+        "4 RT"  => "GRADO 4 RT - Lesiones graves o discapacidad significativa.",
+        "4 EG"  => "GRADO 4 EG - Evaluación exhaustiva y planificación terapéutica."
+    ];
+
+    return $descripciones[$valor] ?? "Grado desconocido";
+}
+
+function imprimirTipoExamenMedico($array_tipo_exam, $tipo){
+    if (count($array_tipo_exam) > 0) {
+        foreach ($array_tipo_exam as $item) {
+            if ($item === $tipo) {
+                echo 'X';
+            }
+        }
+    }
+}
+
+function imprimirAptitudTrabajo($array_aptitud, $desc){
+    if (count($array_aptitud) > 0) {
+        foreach ($array_aptitud as $item) {
+            if ($item === $desc) {
+                echo '<div style="background: #0c0c0c; width: 100%; height: 10px"> </div>';
+            }
+        }
+    }
+}
+?>

@@ -120,8 +120,6 @@ $equipos_termometros = array(
     $factor_correcion
 );
 
-
-
 switch ($api) {
 
     case 1:
@@ -164,19 +162,9 @@ switch ($api) {
             $observaciones = $e['OBSERVACIONES'];
             $color = $e['MODIFICADO'] == 0 ?  "blue" : "mostaza";
             $id_registro = $e['ID_REGISTRO_TEMPERATURA'];
-            if (!isset($result[$dia])) {
-                $result[$dia] = array();
-            }
 
-            // if ($i === 3) {
-            //     $i = 1;
-            // }
-
-            if ($turno === "MATUTINO") {
-                $i = 1;
-            } else {
-                $i = 2;
-            }
+            if (!isset($result[$dia])) $result[$dia] = array();
+            if ($turno === "MATUTINO") $i = 1; else $i = 2;
 
             $result[$dia][$i] = array("valor" => $valor, "color" => $color, "id" => $id_registro, "hora" => $hora, "FIRMA" => $firma_usuario);
             $i++;
@@ -236,8 +224,6 @@ switch ($api) {
         $response['USUARIO']['RUBRICA'] = is_null($usuario_rubrica) ? 'N/A' : $usuario_rubrica;
 
         $response['DIAS'] = $result;
-
-
         break;
     case 8:
         #Agregar Comentarios Superivisor 

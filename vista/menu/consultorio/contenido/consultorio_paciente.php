@@ -114,38 +114,23 @@ session_start();
             <!-- Agregar certificado bimo  -->
             <?php if ($_SESSION['permisos']['certificadoBimo'] == 1): ?>
                 <h4>Certificado BIMO</h4>
+                <!-- Crear certificado bimo  -->
+                <div id="btn-crearCertificadoBimo" class="medico-coordinador" style="width: 100%; display: flex; justify-content: center">
+                    <button
+                            type="button"
+                            class="btn btn-hover me-2" style="margin: 15px auto 20px auto !important; font-size: 21px;"
+                            data-bs-toggle="modal" data-bs-target="#modalCrearCertificadoBimo"
+                    >
+                        <i class="bi bi-file-earmark-plus-fill"></i> Crear Certificado BIMO
+                    </button>
+                </div>
+                <!-- Agregar certificado bimo  -->
                 <form id="subirResultadosCertificadoBimo" class="d-flex flex-column align-items-center">
                     <div id="dropCertificadoBimo" class="drop-zone mx-2">
                         <label for="certificado-bimo" style="cursor: pointer;" class="label-captura-oido">
                             Sube tu archivo arrastrándolo aquí
                         </label>
 
-                        <input type="file" id="certificado-bimo" name="certificado-bimo[]" style="display: none;">
-                        <br>
-                        <div class="spinner-border text-primary carga-certificado-POE" role="status"
-                             style="display: none;">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </div>
-                </form>
-            <?php endif; ?>
-            <!-- Crear certificado bimo  -->
-            <?php if ($_SESSION['permisos']['certificadoBimo'] == 1): ?>
-                <h4>Certificado BIMO</h4>
-                <div id="btn-crearCertificadoBimo" class="medico-coordinador">
-                    <button
-                            type="button"
-                            class="btn btn-hover me-2" style="margin: 15px 60px 20px 60px !important;font-size: 21px;"
-                            data-bs-toggle="modal" data-bs-target="#modalCrearCertificadoBimo"
-                    >
-                        <i class="bi bi-file-earmark-plus-fill"></i> Crear Certificado BIMO
-                    </button>
-                </div>
-
-                <form id="subirResultadosCertificadoBimo" class="d-flex flex-column align-items-center">
-                    <div id="dropCertificadoBimo" class="drop-zone mx-2">
-                        <label for="certificado-bimo" style="cursor: pointer;" class="label-captura-oido">Sube tu
-                            archivo arrastrándolo aquí</label>
                         <input type="file" id="certificado-bimo" name="certificado-bimo[]" style="display: none;">
                         <br>
                         <div class="spinner-border text-primary carga-certificado-POE" role="status"
@@ -167,7 +152,7 @@ session_start();
             <div class="rounded p-3 shadow-sm my-2">
 
                 <?php if ($_SESSION['permisos']['histoClinico'] == 1) : ?>
-                    <div id="btn-ir-consulta" class="medico-coordinador">
+                    <div id="btn-ir-consulta" class="medico-coordinador" style="width: 100%; display: flex; justify-content: center">
                         <button type="button" class="btn btn-hover me-2"
                                 style="margin: 15px 60px 10px 60px !important;font-size: 21px;" data-bs-toggle="modal"
                                 data-bs-target="#modalMotivoConsulta">
@@ -177,7 +162,7 @@ session_start();
                 <?php endif; ?>
 
                 <?php if ($_SESSION['permisos']['consulMedica'] == 1) : ?>
-                    <div id="btn-ir-consulta-medica">
+                    <div id="btn-ir-consulta-medica" style="width: 100%; display: flex; justify-content: center">
                         <button type="button" class="btn btn-hover me-2"
                                 style="margin: 15px 60px 10px 60px !important;font-size: 21px;" data-bs-toggle="modal"
                                 data-bs-target="#modalMotivoConsultaMedica">
@@ -200,7 +185,7 @@ session_start();
                 </div>
 
                 <?php if ($_SESSION['permisos']['fastCheckup'] == 1) : ?>
-                    <div class="medico-coordinador">
+                    <div class="medico-coordinador" style="width: 100%; display: flex; justify-content: center">
                         <button type="button" class="btn btn-hover me-2"
                                 style="margin: 15px 60px 10px 60px !important;font-size: 21px;"
                                 id="btn-ir-consulta-rapida">

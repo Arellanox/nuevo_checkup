@@ -16,8 +16,17 @@
         text-align: center;
         font-weight: 700;
     }
+
+    .firma a{
+        position: absolute;
+        bottom: 220px;
+    }
 </style>
 <div class="firma" style="position: relative;">
+    <a href="<?= $paciente->RUTA_VALIDAR_CERTIFICADO ?>">
+        <?= "<img src='data:image/png;base64, " . $encode_validacion . "' height='80' >"; ?>
+    </a>
+
     <p class="detalles"><?= isset($footerDoctor) ? $footerDoctor : 'Dr. Nombre del doctor' ?></p>
     <p class="detalles">Cédula profesional: <?= isset($cedula) ? $cedula : '########' ?></p>
     <p class="detalles">Certificación NIOSH SP-000515-23</p>

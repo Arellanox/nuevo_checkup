@@ -113,6 +113,7 @@ switch ($api) {
     case 5: // Generar QR para cliente
         $cliente = [$id, $codigo, $qr, $_SESSION['id']];
         $result = $master->getByProcedure('sp_clientes_b', $cliente);
+
         if (!empty($result)) {
             $nombreCliente = $result[0]['NOMBRE_COMERCIAL'];
             $qr = "https://bimo-lab.com/nuevo_checkup/vista/registro/?codigo=" . $result[0]['QR'];

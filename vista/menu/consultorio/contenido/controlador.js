@@ -2,16 +2,72 @@
 var id, idturno, idconsulta, dataConsulta = new Array, tablaMain;
 var selectPaciente;
 var dataListaPaciente;
+var activoConsultadorTurnero = true;
+
+// Obtener el perfil del paciente (antecedentes);
+var pacienteActivo = new GuardarArreglo()
+var infoConsultaActivo = new GuardarArreglo();
+var tablaRecetas;
+
 obtenerConsultorioMain()
 
-var activoConsultadorTurnero = true;
+function obtenerContenidoAntecedentes(data) {
+    activoConsultadorTurnero = false;
+    loader("In")
+    obtenerTitulo('Perfil del paciente', 'btn-regresar-vista'); //Aqui mandar el nombre de la area
+    $.post("contenido/consultorio_paciente.php", function (html) {
+        $("#body-js").html(html)
+    });
+
+    $.getScript("contenido/js/crear-certificado.js");
+
+    if (session.cargo == 19) {
+        $('.medico-coordinador').remove('')
+    }
+
+    pacienteActivo = new GuardarArreglo(data)
+    // $.getScript("modals/controlador-perfilPaciente.js");
+    // Funciones
+    $.getScript("contenido/js/funciones_globales.js").done(function () {
+        $.getScript('contenido/js/consultorio-paciente.js').done(function () {
+            obtenerConsultorio(
+                data['ID_PACIENTE'], data['ID_TURNO'],
+                pacienteActivo.array['CLIENTE'], pacienteActivo.array['CURP']
+            )
+            // Botones
+            $.getScript("contenido/js/consultorio-paciente-botones.js");
+        });
+    })
+
+    select2('#citas-subsecuente', 'collapseAgendarConsultaTarget', 'No tiene consultas anteriores');
+}
+
+function obtenerContenidoConsulta(data, idvaloracion) {
+    activoConsultadorTurnero = false;
+    loader("In")
+    // obtenerTitulo('Menú principal'); //Aqui mandar el nombre de la area
+    $("#titulo-js").html(''); //Vaciar la cabeza de titulo
+    $.post("contenido/consultorio_valoracion.html", function (html) {
+        $("#body-js").html(html);
+        pacienteActivo = new GuardarArreglo(data)
+        pacienteActivo.selectID = idvaloracion;
+    }).done(function () {
+        $.getScript("contenido/js/funciones_globales.js").done(function () {
+            $.getScript("contenido/js/valoracion-paciente.js").done(function () {
+                // Botones
+                $.getScript("contenido/js/valoracion-paciente-botones.js");
+                obtenerValoracion(data, idvaloracion);
+            });
+        })
+    })
+}
 
 async function obtenerConsultorioMain() {
     activoConsultadorTurnero = true;
     // loader("In")
     await obtenerTitulo('Consultorio');
     $.post("contenido/consultorio_main.html", function (html) {
-        var idrow;
+        let idrow;
         $("#body-js").html(html) // Rellenar la plantilla de consulta
     }).done(function () {
         dataListaPaciente = {
@@ -20,77 +76,11 @@ async function obtenerConsultorioMain() {
             area_id: 1
         }
 
-        if (session.cargo == 19)
-            dataListaPaciente['cliente_id'] = 16
+        if (session.cargo == 19) dataListaPaciente['cliente_id'] = 16
 
         // Datatable
         $.getScript("contenido/js/main-tabla.js");
     });
-}
-
-// Obtener el perfil del paciente (antecedentes);
-var pacienteActivo = new GuardarArreglo()
-var infoConsultaActivo = new GuardarArreglo();
-
-function obtenerContenidoAntecedentes(data) {
-    activoConsultadorTurnero = false;
-    loader("In")
-    obtenerTitulo('Perfil del paciente', 'btn-regresar-vista'); //Aqui mandar el nombre de la area
-    $.post("contenido/consultorio_paciente.php", function (html) {
-        var idrow;
-        $("#body-js").html(html) // Rellenar la plantilla de consulta
-    }).done(function () {
-
-        if (session.cargo == 19)
-            $('.medico-coordinador').remove('')
-
-
-        pacienteActivo = new GuardarArreglo(data)
-        // $.getScript("modals/controlador-perfilPaciente.js");
-        // Funciones
-        $.getScript("contenido/js/funciones_globales.js").done(function () {
-        })
-
-        $.getScript('contenido/js/consultorio-paciente.js').done(function () {
-            obtenerConsultorio(data['ID_PACIENTE'], data['ID_TURNO'], pacienteActivo.array['CLIENTE'], pacienteActivo.array['CURP'])
-            // Botones
-            $.getScript("contenido/js/consultorio-paciente-botones.js");
-
-            // getFormOidosAudiometria(data);
-        });
-        select2('#citas-subsecuente', 'collapseAgendarConsultaTarget', 'No tiene consultas anteriores');
-    });
-}
-
-// obtenerContenidoConsulta() --- Valoracion medica ---
-var tablaRecetas;
-
-function obtenerContenidoConsulta(data, idvaloracion) {
-    activoConsultadorTurnero = false;
-    loader("In")
-    console.log(data)
-    // obtenerTitulo('Menú principal'); //Aqui mandar el nombre de la area
-    $("#titulo-js").html(''); //Vaciar la cabeza de titulo
-    $.post("contenido/consultorio_valoracion.html", function (html) {
-        $("#body-js").html(html);
-        pacienteActivo = new GuardarArreglo(data)
-        pacienteActivo.selectID = idvaloracion;
-
-        // Datatable
-        // $.getScript("contenido/js/estudio-tabla.js");
-        // select2('#citas-subsecuente', 'collapseAgendarConsultaTarget');
-    }).done(function () {
-        $.getScript("contenido/js/funciones_globales.js").done(function () {
-        })
-
-        // Obtener metodos para el dom
-        $.getScript("contenido/js/valoracion-paciente.js").done(function () {
-            // Botones
-            $.getScript("contenido/js/valoracion-paciente-botones.js");
-            obtenerValoracion(data, idvaloracion);
-        });
-        // select2('#registrar-metodos-estudio', 'card-exploracion-clinica');
-    })
 }
 
 // METODOS PARA PERFIL DEL PACIENTE
@@ -102,20 +92,12 @@ async function obtenerConsultorio(id, turno, cliente, curp) {
     await obtenerPanelInformacion(turno, 'consulta_api', 'listado_resultados', '#listado-resultados')
 
     getConclusionesHistoria(turno);
-    // alert("Antes de antecedentes")
-    // setValues(turno) //llamar los valores para los antecedentes
 
-    // alert("Antes de notas historial")
     await obtenerNotasHistorial(id);
-
-    //Verificar si hay consulta actual
     await consultarConsulta(turno);
     await consultarConsultaMedica(turno);
-
     await obtenerHistorialConsultas(id);
-    // alert("Funcion terminada")
     await obtenerHistorialConsultaMedica(turno);
-
 
     loader("Out")
 }
@@ -169,8 +151,6 @@ async function obtenerValoracion(data, idconsulta) {
     autosize(document.querySelectorAll('textarea'))
 
     loader("Out", 'bottom')
-
-
 }
 
 function agregarNotaConsulta(tittle, date = null, text, appendDiv, id = null, clase, classTittle = 'card mt-3', style = 'margin: -1px 30px 20px 30px;') {
@@ -208,13 +188,6 @@ function obtenerContenidoCrearCertificadoBimo(data) {
 
 obtenerContenidoCrearCertificadoBimo(null);
 
-//AREA CONSULTA MEDICA
-//Posible solucion en ios
-// $('#entrarConsultaMedica').css('cursor', 'pointer');
-// $(document).on('click', '#entrarConsultaMedica', function (event) {
-//   event.preventDefault();
-//   obtenerConsultorioConsultaMedica(pacienteActivo.array, idConsultaMedica);
-// });
 function obtenerConsultorioConsultaMedica(data, idconsulta) {
     loader("In")
     $("#titulo-js").html(''); //Vaciar la cabeza de titulo
@@ -237,8 +210,6 @@ function obtenerConsultorioConsultaMedica(data, idconsulta) {
 }
 
 async function obtenerConsultaMedica(data, idconsulta) {
-    // await obtenerVistaAntecenetesPaciente('#antecedentes-paciente', data['CLIENTE'])
-
     // Recuperar datos de la consulta
     await recuperarDatosCampos(idconsulta)
     // Mostrar informacion del paciente en panel  superior (data, dataConsulta)
@@ -271,10 +242,7 @@ $(document).on('click', '#btn-ir-consulta-rapida', function (e) {
     }).done(function () {
         // Obtener metodos para el dom
         $.getScript("contenido/js/consulta-rapida-paciente.js").done(function () {
-
             metodoConsultaRapida(pacienteActivo.array)
-
         })
-        // select2('#registrar-metodos-estudio', 'card-exploracion-clinica');
     });
 })

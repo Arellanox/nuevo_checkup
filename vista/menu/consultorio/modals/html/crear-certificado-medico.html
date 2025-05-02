@@ -6,113 +6,102 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form class="" id="formCrearCertificadoBimo">
-                    <!-- CLASIFICACIÓN DE GRADO DE SALUD  -->
-                    <div class="row">
-                        <div class="col-12">
-                            <label for="clasificacion_grado_salud" class="form-label">Clasificación de Grado de Salud</label>
-                            <input type="text" name="clasificacion_grado_salud" class="form-control input-form" required>
-                        </div>
+                <!-- CLASIFICACIÓN DE GRADO DE SALUD  -->
+                <div class="row">
+                    <div class="col-12">
+                        <label for="clasificacion_grado_salud" class="form-label">Clasificación de Grado de Salud</label>
+                        <select id="clasificacion_grado_salud" name="clasificacion_grado_salud" class="form-control input-form" required>
+                            <option value="0">GRADO 0 - No presenta datos clínicos.</option>
+                            <option value="1">GRADO 1 - Enfermedad reversible.</option>
+                            <option value="1 RT">GRADO 1 RT - Sin lesiones, secuelas ni limitaciones laborales.</option>
+                            <option value="1 EG">GRADO 1 EG - Requiere evaluación general inicial.</option>
+                            <option value="2">GRADO 2 - Enfermedad Irreversible (Permanente)</option>
+                            <option value="2 RT">GRADO 2 RT - Lesiones leves, sin incapacidad permanente.</option>
+                            <option value="2 EG">GRADO 2 EG - Evaluación general y seguimiento necesario.</option>
+                            <option value="3">GRADO 3 - Enfermedad Irreversible (Permanente) No controlada  con limitantes temporales para el puesto de Trabajo</option>
+                            <option value="3 RT">GRADO 3 RT - Lesiones moderadas, puede requerir reubicación.</option>
+                            <option value="3 EG">GRADO 3 EG - Evaluación especializada requerida.</option>
+                            <option value="4">GRADO 4 - Enfermedad Irreversible (Permanante) que produce Estado de Salud no compatible con puesto de Trabajo</option>
+                            <option value="4 RT">GRADO 4 RT - Lesiones graves o discapacidad significativa.</option>
+                            <option value="4 EG">GRADO 4 EG - Evaluación exhaustiva y planificación terapéutica.</option>
+                        </select>
                     </div>
-                    <!-- TIPO DE EXAMEN MÉDICO & ACTITUD DE TRABAJO -->
-                    <div class="row">
-                        <div class="col-6">
-                            <label for="tipo_examen_medico" class="form-label">Tipo de Examen Médico</label>
-                            <div>
-                                <label for="tipo_examen_medico" class="form-label">
-                                    <span style="display: block; margin-right: 4px; margin-top: 4px; margin-bottom: 4px; color: #939393">Ingreso</span>
-                                    <div style="width: 100%; display: flex; justify-content: center;">
-                                        <input type="checkbox" name="tipo_examen_medico" style="height: 20px; width: 20px;" value="Ingreso">
-                                    </div>
-                                </label>
-                                <label for="tipo_examen_medico" class="form-label">
-                                    <span style="display: block; margin-right: 4px; margin-top: 4px; margin-bottom: 4px; color: #939393">Periodico</span>
-                                    <div style="width: 100%; display: flex; justify-content: center;">
-                                        <input type="checkbox" name="tipo_examen_medico" style="height: 20px; width: 20px;" value="Periodico">
-                                    </div>
-                                </label>
-                                <label for="tipo_examen_medico" class="form-label">
-                                    <span style="display: block; margin-right: 4px; margin-top: 4px; margin-bottom: 4px; color: #939393">Egreso</span>
-                                    <div style="width: 100%; display: flex; justify-content: center;">
-                                        <input type="checkbox" name="tipo_examen_medico" style="height: 20px; width: 20px;" value="Egreso">
-                                    </div>
-                                </label>
-                                <label for="tipo_examen_medico" class="form-label">
-                                    <span style="display: block; margin-right: 4px; margin-top: 4px; margin-bottom: 4px; color: #939393">Otro</span>
-                                    <div style="width: 100%; display: flex; justify-content: center;">
-                                        <input type="checkbox" name="tipo_examen_medico" style="height: 20px; width: 20px;" value="Otro">
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <label for="aptidud_trabajo" class="form-label">Aptitud de Trabajo</label>
-                            <div>
-                                <label for="aptidud_trabajo" class="form-label">
-                                    <span style="display: block; margin-right: 4px; margin-top: 4px; margin-bottom: 4px; color: #939393">Apto</span>
-                                    <div style="width: 100%; display: flex; justify-content: center;">
-                                        <input type="checkbox" name="aptidud_trabajo"  style="height: 20px; width: 20px;" value="Apto">
-                                    </div>
-                                </label>
-                                <label for="aptidud_trabajo" class="form-label">
-                                    <span style="display: block; margin-right: 4px; margin-top: 4px; margin-bottom: 4px; color: #939393">No Apto</span>
-                                    <div style="width: 100%; display: flex; justify-content: center;">
-                                        <input type="checkbox" name="aptidud_trabajo"  style="height: 20px; width: 20px;" value="No Apto">
-                                    </div>
-                                </label>
-                                <label for="aptidud_trabajo" class="form-label">
-                                    <span style="display: block; margin-right: 4px; margin-top: 4px; margin-bottom: 4px; color: #939393">Apto con Restricciones</span>
-                                    <div style="width: 100%; display: flex; justify-content: center;">
-                                        <input type="checkbox" name="aptidud_trabajo"  style="height: 20px; width: 20px;" value="Apto con Restricciones">
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- VIGENCIA X & FECHA VENCIMIENTO -->
-                    <div class="row">
-                        <div class="col-6">
-                            <label for="vigencia" class="form-label">Vigencia</label>
-                            <input type="text" name="vigencia" class="form-control input-form" required>
-                        </div>
-                        <div class="col-6">
-                            <label for="fecha_vencimiento" class="form-label">Fecha de Vencimiento</label>
-                            <input type="date" name="fecha_vencimiento" class="form-control input-form" required>
-                        </div>
-                    </div>
-                    <!-- AGREGAR ESTUDIOS -->
-                    <button id="btnAgregarEstudio" type="button" class="btn btn-confirmar">
-                        <i class="bi bi-file-medical"></i>
-                        <span>Agregar Estudios</span>
-                    </button>
-                    <!-- LISTA DE DIAGNÓSTICOS -->
-                    <div id="listaEstudios" style="max-height: 100%; scroll-behavior: auto; overflow-y: auto;">
-                        <!-- Plantillas de Estudios
-                            <div class="row">
-                                <div class="col-6">
-                                    <label for="estudios" class="form-label">Seleccionar Estudio</label>
-                                    <select name="estudios" class="form-select-estudios form-select input-form" required>
-                                        <option value="1">Estudio 1</option>
-                                        <option value="2">Estudio 2</option>
-                                        <option value="3">Estudio 3</option>
-                                        <option value="4">Estudio 4</option>
-                                    </select>
+                </div>
+                <!-- TIPO DE EXAMEN MÉDICO & ACTITUD DE TRABAJO -->
+                <div class="row">
+                    <div class="col-6">
+                        <label for="tipo_examen_medico" class="form-label">Tipo de Examen Médico</label>
+                        <div style="display: flex; justify-content: space-between; align-items: center">
+                            <label for="tipo_examen_medico" class="form-label" >
+                                <span class="label-span">Ingreso</span>
+                                <div class="label-check">
+                                    <input type="checkbox" name="tipo_examen_medico" style="height: 20px; width: 20px;" value="Ingreso">
                                 </div>
-                                <div class="col-6">
-                                    <label for="diagnosticos" class="form-label">Diagnósticos</label>
-                                    <input type="text" name="diagnosticos" class="form-set-diagnostico form-control input-form" required>
+                            </label>
+                            <label for="tipo_examen_medico" class="form-label">
+                                <span class="label-span">Periodico</span>
+                                <div class="label-check">
+                                    <input type="checkbox" name="tipo_examen_medico" style="height: 20px; width: 20px;" value="Periodico">
                                 </div>
-                            </div>
-                        -->
+                            </label>
+                            <label for="tipo_examen_medico" class="form-label">
+                                <span class="label-span">Egreso</span>
+                                <div class="label-check">
+                                    <input type="checkbox" name="tipo_examen_medico" style="height: 20px; width: 20px;" value="Egreso">
+                                </div>
+                            </label>
+                            <label for="tipo_examen_medico" class="form-label">
+                                <span class="label-span">Otro</span>
+                                <div class="label-check">
+                                    <input type="checkbox" name="tipo_examen_medico" style="height: 20px; width: 20px;" value="Otro">
+                                </div>
+                            </label>
+                        </div>
                     </div>
-                </form>
+                    <div class="col-6">
+                        <label for="aptidud_trabajo" class="form-label">Aptitud de Trabajo</label>
+                        <div style="display: flex; justify-content: space-between; align-items: center">
+                            <label for="aptidud_trabajo" class="form-label">
+                                <span style="display: block; margin-right: 4px; margin-top: 4px; margin-bottom: 4px; color: #939393">Apto</span>
+                                <div style="width: 100%; display: flex; justify-content: center;">
+                                    <input type="checkbox" name="aptidud_trabajo"  style="height: 20px; width: 20px;" value="Apto">
+                                </div>
+                            </label>
+                            <label for="aptidud_trabajo" class="form-label">
+                                <span style="display: block; margin-right: 4px; margin-top: 4px; margin-bottom: 4px; color: #939393">No Apto</span>
+                                <div style="width: 100%; display: flex; justify-content: center;">
+                                    <input type="checkbox" name="aptidud_trabajo"  style="height: 20px; width: 20px;" value="No Apto">
+                                </div>
+                            </label>
+                            <label for="aptidud_trabajo" class="form-label">
+                                <span style="display: block; margin-right: 4px; margin-top: 4px; margin-bottom: 4px; color: #939393">Apto con Restricciones</span>
+                                <div style="width: 100%; display: flex; justify-content: center;">
+                                    <input type="checkbox" name="aptidud_trabajo"  style="height: 20px; width: 20px;" value="Apto con Restricciones">
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!-- VIGENCIA X & FECHA VENCIMIENTO -->
+                <div class="row">
+                    <div class="col-6">
+                        <label for="vigencia" class="form-label">Vigencia</label>
+                        <select name="vigencia" class="form-control input-form" required>
+                            <option value="1">1 Mes</option>
+                            <option value="3">3 Meses</option>
+                            <option value="6">6 Meses</option>
+                            <option value="12">1 Año</option>
+                        </select>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
                     <i class="bi bi-arrow-left-short"></i>
                     <span>Cancelar</span>
                 </button>
-                <button type="submit" form="formCrearCertificadoBimo" class="btn btn-confirmar">
+
+                <button id="btn-crear-certificado" class="btn btn-confirmar">
                     <i class="bi bi-file-earmark-plus"></i>
                     <span>Crear Certificado</span>
                 </button>
@@ -120,3 +109,13 @@
         </div>
     </div>
 </div>
+
+<style>
+    .label-span{
+        display: block; margin-right: 4px; margin-top: 4px; margin-bottom: 4px; color: #7c7c7c
+    }
+    .label-check{
+        width: 100%; display: flex; justify-content: center;
+    }
+
+</style>

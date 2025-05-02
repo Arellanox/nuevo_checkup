@@ -741,50 +741,51 @@ class Miscelaneus
                 $arregloPaciente = $master->getByProcedure("sp_laboratorio_estudios_maquila_b", [
                     null, null, $laboratorio_id, 1
                 ]);
-            case -10:    
-                # crea el certificado medico de bimo
+                break;
+            case -10:
+                #Recuperar certificado medico
+                $servicios = $master->getByProcedure("sp_paciente_servicios_cargados", [$turno_id, null]);
+                $paciente = $master->getByProcedure("sp_consultorio_certificado_b", [$turno_id]);
+
+                $arregloPaciente = ['SERVICIOS' => $servicios, 'PACIENTE' => $paciente];
                 break;
         }
-
 
         if ($area_id == 0) {
             $area_id = 6;
         }
+
         $infoPaciente[0]['SUBTITULO'] = 'Datos del paciente';
 
         #Crear directorio
-        $nombre = str_replace(
-            " ",
-            "_",
-            $nombre_paciente
-        );
+        $nombre = str_replace(" ", "_", $nombre_paciente);
 
         switch ($area_id) {
-
-            # para reportes que no usan $turno_id para su creacion.
+            #CERTIFICADOS
+            case -10:
+                $fecha_resultado = date("Ymd");
+                $nombre = "CertificadoMedico";
+                $ruta_saved = "reportes/certificados/$turno_id/$fecha_resultado/";
+                break;
+            #Para reportes que no usan $turno_id para su creacion.
             case 15:
                 $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/";
 
                 # Seteamos la ruta del reporte para poder recuperarla despues con el atributo $ruta_reporte.
                 $this->setRutaReporte($ruta_saved);
 
-
                 # Crear el directorio si no existe
                 $r = $master->createDir("../" . $ruta_saved);
 
                 if ($r === 1) {
-
                     $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre_paciente);
                     $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
                 } else {
-
                     $this->setLog("Imposible crear la ruta del archivo", "[cotizaciones, reportador]");
                     exit;
                 }
-
-
                 break;
-
+            #DEFAULT
             default:
                 $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/$turno_id/";
 
@@ -795,21 +796,16 @@ class Miscelaneus
                 $r = $master->createDir("../" . $ruta_saved);
                 $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
                 $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
+            break;
         }
-
 
         # Seteamos la ruta del reporte para poder recuperarla despues con el atributo $ruta_reporte.
         $this->setRutaReporte($ruta_saved);
 
         # Crear el directorio si no existe
-        $r = $master->createDir("../" . $ruta_saved);
+        $master->createDir("../" . $ruta_saved);
         $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
         $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
-
-        // echo (1);
-        // print_r($arregloPaciente);
-        // // print_r(json_encode($infoPaciente[0]));
-        // exit;
 
         $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview, $area_id);
         $renderpdf = $pdf->build();
@@ -817,6 +813,7 @@ class Miscelaneus
         if ($lab == 1 && $tipo == 'url') {
             $master->insertByProcedure('sp_reportes_areas_g', [null, $turno_id, $area_id, $infoPaciente[0]['CLAVE_IMAGEN'], $renderpdf, null]);
         }
+
         return $renderpdf;
     }
 

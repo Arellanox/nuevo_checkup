@@ -144,6 +144,7 @@ td {
 
 .tb-actitud-laboral tbody tr td.vigencia.title {
     background-color: #e7e6e6;
+    position: relative;
 }
 
 .tb-tipo-examen td.not-label {

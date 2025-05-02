@@ -15,7 +15,7 @@ $usuario_id = $_SESSION['id'];
 
 $api = "certificado_bimo";
 $area_id = 1;
-$turno_id = 3199;
+$turno_id = 3458;
 $id_cliente = 15;
 $preview = 0;
 // $id_cotizacion = 7;
