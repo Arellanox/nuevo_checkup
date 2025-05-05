@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ee84d9a-bbaf-4dfb-bf9f-89f7eb0c67aa" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/paquetes_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/paquetes_api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/menu/lista-precio/contenido/js/funciones-paquetes.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/lista-precio/contenido/js/funciones-paquetes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/menu/lista-precio/contenido/js/paquete-botones.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/lista-precio/contenido/js/paquete-botones.js" afterDir="false" />
     </list>
