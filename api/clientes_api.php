@@ -1,7 +1,7 @@
 <?php
 require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
-
+session_start();
 // Autenticación del token
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();

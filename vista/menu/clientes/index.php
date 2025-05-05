@@ -1,7 +1,6 @@
-
 <?php
-include "../../variables.php";
-$menu = "Clientes";
+    include "../../variables.php";
+    $menu = "Clientes";
 ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
@@ -31,6 +30,7 @@ $menu = "Clientes";
 </head>
 
 <body class="" id="body-controlador"> </body>
+
 <script type="text/javascript">
   vista('<?php echo $menu; ?>', '<?php echo $https . $url . '/' . $appname . '/vista/menu/controlador/controlador.php'; ?>')
 
