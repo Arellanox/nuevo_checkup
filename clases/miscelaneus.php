@@ -745,8 +745,7 @@ class Miscelaneus
             case -10:
                 #Recuperar certificado medico
                 $servicios = $master->getByProcedure("sp_paciente_servicios_cargados", [$turno_id, null]);
-                $paciente = $master->getByProcedure("sp_consultorio_certificado_b", [$turno_id]);
-
+                $paciente = $master->getByProcedure("sp_consultorio_certificado_b", [$turno_id, null]);
                 $arregloPaciente = ['SERVICIOS' => $servicios, 'PACIENTE' => $paciente];
                 break;
         }

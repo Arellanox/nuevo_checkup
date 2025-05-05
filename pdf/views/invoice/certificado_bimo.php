@@ -157,7 +157,7 @@
         <tbody>
         <tr>
             <td colspan="3" rowspan="2"></td>
-            <td colspan="3"><?php imprimirAptitudTrabajo($array_aptitud, 'No Apto') ?></td>
+            <td colspan="3"><?php imprimirAptitudTrabajo($array_aptitud, 'Apto') ?></td>
             <td colspan="18">
                 <span>APTO PARA TRABAJAR</span>
             </td>
@@ -297,7 +297,7 @@ function imprimirAptitudTrabajo($array_aptitud, $desc){
     if (count($array_aptitud) > 0) {
         foreach ($array_aptitud as $item) {
             if ($item === $desc) {
-                echo '<div style="background: #0c0c0c; width: 100%; height: 10px"> </div>';
+                echo '<div style="background: #0c0c0c; width: 100%; height: 10px"></div>';
             }
         }
     }

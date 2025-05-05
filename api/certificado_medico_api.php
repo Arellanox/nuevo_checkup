@@ -1,4 +1,5 @@
 <?php
+
 require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
 include "../clases/correo_class.php";
@@ -10,6 +11,7 @@ $master = new Master();
 
 $api = $_POST['api'];
 $turno_id = $_POST['turno_id'];
+$hash = $_POST['hash'];
 $fecha_vigencia = $_POST['fecha_vigencia'];
 
 $host = $_SERVER['SERVER_NAME'] == "localhost"
@@ -36,14 +38,15 @@ switch ($api) {
         break;
     case 3:
         #CREAR CERTIFICADO
-        $CODIGO_ID = 'CertificadoMedico-' . $turno_id . '-' . date('Y-m-d');
-        $QR_URL = $host."vista/certificado/?codigo=".$CODIGO_ID;
+        $QR_NAME = 'CertificadoMedico-' . $turno_id . '-' . date('Y-m-d');
+        $HASH = generarHashCertificado($turno_id, 'Pruebas');
+        $QR_URL = $host."vista/certificado/?codigo=".$HASH;
         $PDF_URL = $master->reportador($master, $turno_id, -10, "certificado_bimo", 'url');
-        $QR_IMG_LOCATION = $master->generarQRURL("CertificadoMedico", $QR_URL, $CODIGO_ID, QR_ECLEVEL_H);
+        $QR_IMG_LOCATION = $master->generarQRURL("CertificadoMedico", $QR_URL, $QR_NAME, QR_ECLEVEL_H);
 
         $master->insertByProcedure("sp_consultorio_certificado_g", [
             $turno_id, $QR_IMG_LOCATION, $PDF_URL, $QR_URL, $vigencia, $fecha_vigencia,
-            $grado_salud, $tipo_examen_medico, $aptitud_trabajo, $_SESSION['id']
+            $grado_salud, $tipo_examen_medico, $aptitud_trabajo, $_SESSION['id'], $HASH
         ]);
 
         $attachment = $master->cleanAttachFilesImage($master, $turno_id, 10, 1);
@@ -55,11 +58,26 @@ switch ($api) {
             }
         }
 
-        $response = $master->getByProcedure("sp_consultorio_certificado_b", [$turno_id]);
+        $response = $master->getByProcedure("sp_consultorio_certificado_b", [$turno_id, null]);
+        break;
+    case 4:
+        #Recuperar certificado
+        $response = $master->getByProcedure("sp_consultorio_certificado_b", [null, $hash]);
         break;
     default:
         $response = "Api no definida.";
 }
 
+function generarHashCertificado($idTurno, $nombrePaciente, $fechaActual = null): string
+{
+    if (!$fechaActual) {
+        $fechaActual = date('Y-m-d H:i:s');
+    }
+
+    $cadena = $idTurno . '|' . $nombrePaciente . '|' . $fechaActual . '|' . bin2hex(random_bytes(4));
+    return hash('sha256', $cadena);
+}
 
 echo $master->returnApi($response);
+
+

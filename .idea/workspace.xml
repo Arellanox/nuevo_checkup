@@ -5,29 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ee84d9a-bbaf-4dfb-bf9f-89f7eb0c67aa" name="Changes" comment="Merge pull request #2 from Arellanox/notificaciones_server_sent_events&#10;&#10;Notificaciones server sent events&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;api/log.txt&#10;#&#9;clases/Pdf.php&#10;#&#9;clases/miscelaneus.php&#10;#&#9;vista/menu/laboratorio/contenido/js/laboratorio-botones.js&#10;#&#9;visualizar_reporte/index-pruebas.php">
-      <change afterPath="$PROJECT_DIR$/vista/menu/consultorio/contenido/js/crear-certificado.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/certificado/contenido/certificado.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/certificado/contenido/controlador.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/certificado/contenido/js/certificado.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/certificado/index.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/certificado/modals/controlador.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/certificado_medico_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/certificado_medico_api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/clientes_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/clientes_api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/consulta_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/consulta_api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/maquilas_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/maquilas_api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/pacientes_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/pacientes_api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/prerregistro_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/prerregistro_api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/recepcion_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/recepcion_api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/temperatura_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/temperatura_api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/turnos_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/turnos_api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clases/Pdf.php" beforeDir="false" afterPath="$PROJECT_DIR$/clases/Pdf.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/archivos/sistema/temp/qr/CertificadoMedico/CertificadoMedico-3458-2025-05-02.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/clases/miscelaneus.php" beforeDir="false" afterPath="$PROJECT_DIR$/clases/miscelaneus.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pdf/views/invoice/assets/certiciado_bimo.css" beforeDir="false" afterPath="$PROJECT_DIR$/pdf/views/invoice/assets/certiciado_bimo.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/includes/menu_includes.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/includes/menu_includes.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pdf/views/invoice/certificado_bimo.php" beforeDir="false" afterPath="$PROJECT_DIR$/pdf/views/invoice/certificado_bimo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pdf/views/invoice/layouts/footer/certificado_bimo.php" beforeDir="false" afterPath="$PROJECT_DIR$/pdf/views/invoice/layouts/footer/certificado_bimo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/consultorio/contenido/consultorio_main.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/consultorio/contenido/consultorio_main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/consultorio/contenido/consultorio_paciente.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/consultorio/contenido/consultorio_paciente.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/consultorio/contenido/controlador.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/consultorio/contenido/controlador.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/consultorio/contenido/js/consulta-paciente-botones.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/consultorio/contenido/js/consulta-paciente-botones.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/consultorio/modals/html/crear-certificado-medico.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/consultorio/modals/html/crear-certificado-medico.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualizar_reporte/index-pruebas.php" beforeDir="false" afterPath="$PROJECT_DIR$/visualizar_reporte/index-pruebas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/include/header/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/include/header/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/login/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/login/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/variables.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/variables.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,9 +99,15 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RunOnceActivity.git.unshallow": "true",
+    "com.codeium.enabled": "true",
     "git-widget-placeholder": "main",
     "last_opened_file_path": "C:/AppServ/www/nuevo_checkup/archivos/sistema/temp/qr/CertificadoMedico",
-    "node.js.selected.package.tslint": "(autodetect)"
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -129,10 +132,18 @@
       <method v="2" />
     </configuration>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="af65b511-fae7-4667-83bd-cb6ca4b438cc" name="Changes" comment="" />
+      <changelist id="0ee84d9a-bbaf-4dfb-bf9f-89f7eb0c67aa" name="Changes" comment="Merge pull request #2 from Arellanox/notificaciones_server_sent_events&#10;&#10;Notificaciones server sent events&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;api/log.txt&#10;#&#9;clases/Pdf.php&#10;#&#9;clases/miscelaneus.php&#10;#&#9;vista/menu/laboratorio/contenido/js/laboratorio-botones.js&#10;#&#9;visualizar_reporte/index-pruebas.php" />
       <created>1741444932759</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
