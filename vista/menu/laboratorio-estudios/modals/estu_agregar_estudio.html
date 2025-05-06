@@ -6,6 +6,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+
         <form class="" id="formRegistrarEstudio">
           <p class="text-center">Rellene todos los datos necesarios para un nuevo <strong>Estudio</strong> </p>
           <div class="row">
@@ -28,16 +29,6 @@
                       title="Abreviatura que se visualizará en etiquetas si es necesario"
                       style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
                   </div>
-                  <!-- <div class="col-12 col-md-12">
-                    <label for="grupo" class="form-label">Grupo de exámen</label>
-                    <select name="grupo[]" multiple="multiple" id="registrar-grupo-estudio" required>
-                    </select>
-                  </div> -->
-                  <!-- <div class="col-6 col-md-6">
-                    <label for="area" class="form-label">Área</label>
-                    <select name="area" id="registrar-area-estudio" required>
-                    </select>
-                  </div> -->
                   <div class="col-12 col-md-12">
                     <label for="clasificacion_id" class="form-label">Clasificación de exámen</label>
                     <select name="clasificacion_id" class="input-form" id="registrar-clasificacion-estudio" required>
@@ -49,17 +40,6 @@
                       </label>
                     </div>
                   </div>
-                  <!-- <div class="col-6 col-md-6">
-                    <label for="metodo_id" class="form-label">Método</label>
-                    <select name="metodo_id" id="registrar-metodos-estudio" required>
-                    </select>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="sin_metodo">
-                      <label class="form-check-label" for="sin_metodo">
-                        Sin método
-                      </label>
-                    </div>
-                  </div> -->
                   <div class="col-6 col-md-6">
                     <label for="medida_id" class="form-label">Medida</label>
                     <select name="medida_id" class="input-form" id="registrar-medidas-estudio">
@@ -75,15 +55,21 @@
                     <label for="dias_entrega" class="form-label">Día de entrega</label>
                     <input type="text" name="dias_entrega" class="input-form" id="input-dias_entrega">
                   </div>
+
                   <div class="col-12 col-md-12">
-                    <label for="codigo_sat_id" class="form-label">Clave SAT</label>
+                    <label for="registrar-concepto-facturacion" class="form-label">Clave SAT</label>
                     <select name="codigo_sat_id" class="input-form" id="registrar-concepto-facturacion" required>
                     </select>
                   </div>
                   <div class="col-12 col-md-12">
-                    <label for="indicaciones" class="form-label">Indicaciones</label>
+                    <label for="input-indicaciones" class="form-label">Indicaciones</label>
                     <textarea class="md-textarea input-form" name="indicaciones" cols="45" rows="2"
                       id="input-indicaciones"></textarea>
+                  </div>
+                  <div class="col-12 col-md-12">
+                    <label for="input-indicaciones-laboratorio" class="form-label">Indicaciones de Laboratorio</label>
+                    <textarea class="md-textarea input-form" name="indicaciones_laboratorio" cols="45" rows="2"
+                              id="input-indicaciones-laboratorio"></textarea>
                   </div>
                   <div class="col-12">
                     <label for="es_para" class="form-label select-contenedor">Dirigido a:</label>
@@ -111,7 +97,6 @@
                     <select name="maquila_lab_id" class="input-form" id="maquila_agregar_estudio">
                     </select>
                   </div>
-
                 </div>
 
               </div>
@@ -149,8 +134,6 @@
                       </button>
                     </div>
                   </div>
-
-
                   <div class="row mb-2" style="zoom:100%;">
                     <div class="col-6">
                       <label for="">¿Es un estudio o un grupo de estudios?</label>
@@ -194,11 +177,13 @@
                 </div>
               </div>
             </div>
+            <!-- --------------------------------  -->
             <div class="col-12 col-xl-4">
               <div class="rounded p-3 shadow my-1">
                 <h5>Equipo de laboratorio</h5>
                 <p>Seleccione o agregue los equipos del estudio</p>
-                <div class="" id="div-select-equipo">
+
+                <div id="div-select-equipo">
                   <div class="row">
                     <div class="col-10 col-md-10">
                       <label for="Equipo[0]" class="form-label select-contenedor">Equipo</label>
@@ -206,6 +191,7 @@
 
                       </select>
                     </div>
+
                     <div class="col-2 d-flex justify-content-start align-items-center">
                       <button type="button" class="btn btn-hover eliminarContenerMuestra1" style="margin-top: 20px;">
                         <i class="bi bi-trash"></i>
@@ -225,7 +211,17 @@
 
                 <h5>Muestra</h5>
                 <p>Seleccione los contenedores que necesite esté estudio</p>
-                <div class="" id="div-select-contenedores">
+                <div class="col-12 col-md-12">
+                  <label for="input-modo-conservacion" class="form-label">Modo de Conservación</label>
+                  <textarea class="md-textarea input-form" name="modo_conservacion" cols="45" rows="2"
+                            id="input-modo-conservacion"></textarea>
+                </div>
+                <div class="col-12 col-md-12">
+                  <label for="input-motivo-rechazo" class="form-label">Motivos de Rechazo</label>
+                  <textarea class="md-textarea input-form" name="motivo_rechazo" cols="45" rows="2"
+                            id="input-motivo-rechazo"></textarea>
+                </div>
+                <div id="div-select-contenedores">
                   <div class="row">
                     <div class="col-5 col-md-5">
                       <label for="contenedores[2]" class="form-label select-contenedor">Contenedor</label>
@@ -267,15 +263,18 @@
                     </button>
                   </div>
                 </div>
-
               </div>
             </div>
+
+            <!-- --------------------------------  -->
           </div>
         </form>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i>
-          Cancelar</button>
+          Cancelar
+        </button>
         <button type="submit" form="formRegistrarEstudio" class="btn btn-confirmar" id="submit-registrarEstudio">
           <i class="bi bi-plus-square"></i> Guardar
         </button>
