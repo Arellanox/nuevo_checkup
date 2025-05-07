@@ -27,7 +27,7 @@ $master = new Master();
 switch ($api) {
     case 1:
         $response = $master->getByProcedure("sp_toma_de_muestra_lista_de_trabajo", [
-            $fecha_agenda, $fecha_agenda, $id_area, $con_paquete, $_SESSION['id_cliente']
+            $fecha_agenda, $id_area, $con_paquete
         ]);
         break;
     case 2:
