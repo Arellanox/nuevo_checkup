@@ -20,11 +20,8 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
 
       array_selected = null
     },
-    complete: function () {
+    complete: function (data) {
       loader("Out")
-
-      //Para ocultar segunda columna
-      // reloadSelectTable()
       tablaRecepcionPacientes.columns.adjust().draw()
     },
     error: function (jqXHR, textStatus, errorThrown) {
@@ -81,22 +78,12 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
               <i class="bi bi-pencil-square btn-editar" style="cursor: pointer; font-size:18px;padding: 2px 5px;"></i>
             </div>
         `;
-
-        // if (session['vista']['RECEPCIÓN CAMBIO DE ESTUDIOS'] == 1)
-        // if (validarVista('RECEPCIÓN CAMBIO DE ESTUDIOS', false)) {
-        //   html += `<div class="col-4" style="max-width: max-content; padding: 0px; padding-left: 3px; padding-right: 3px;">
-        //       <i class="bi bi-back" style="cursor: pointer; font-size:18px;" id="btn-opciones-paciente"></i>
-        //     </div>`;
-        // }
-
-
         html += `</div>`;
         return html
       }
     },
 
     { data: 'GENERO' }
-    // {defaultContent: 'En progreso...'}
   ],
   columnDefs: [
     { target: 0, title: '#', width: '1%', class: 'all' },
@@ -109,11 +96,7 @@ tablaRecepcionPacientes = $('#TablaRecepcionPacientes').DataTable({
     { target: 7, title: '...', width: '1%', class: 'all' },
     { target: 8, title: 'Genero', width: '6%', class: 'none' },
   ],
-
-
-})
-
-
+});
 
 inputBusquedaTable('TablaRecepcionPacientes', tablaRecepcionPacientes, [
   {
@@ -121,10 +104,6 @@ inputBusquedaTable('TablaRecepcionPacientes', tablaRecepcionPacientes, [
     place: 'left'
   },
 ])
-
-
-// selectDatatable("TablaRecepcionPacientes", tablaRecepcionPacientes, 1, "pacientes_api", 'paciente', { 0: "#panel-informacion" }, function () {
-
 selectTable('#TablaRecepcionPacientes', tablaRecepcionPacientes, {
   unSelect: true, reload: ['col-xl-9'], movil: true,
   tabs: [
@@ -201,9 +180,10 @@ selectTable('#TablaRecepcionPacientes', tablaRecepcionPacientes, {
     },
     {
       class: 'btn-editar',
-      callback: function (data) {
+      callback: async function (data) {
         if (data != null) {
           array_selected = data
+
           $("#ModalEditarPaciente").modal('show');
         } else {
           alertSelectTable();
@@ -226,6 +206,4 @@ selectTable('#TablaRecepcionPacientes', tablaRecepcionPacientes, {
   } else {
     $('#buttonBeneficiario').fadeOut(200);
   }
-
-
 })

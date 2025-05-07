@@ -1,19 +1,3 @@
-// $("#btn-aceptar").click(function () {
-// $(document).on('click', '#btn-aceptar', function () {
-//   swal.close()
-
-// })
-
-// $(document).on('click', '#btn-rechazar', function () {
-//   // $("#btn-rechazar").click(function () {
-//   swal.close()
-//   if (array_selected != null) {
-//     $("#modalPacienteRechazar").modal('show');
-//   } else {
-//     alertSelectTable();
-//   }
-// })
-
 $(document).on('click', '#btn-espera-estatus', function () {
   alertMsj({
     icon: '',
@@ -257,15 +241,6 @@ $(document).on('click', "#btn-perfil", function () {
 if (!validarPermiso('RepIngPaci'))
   $('#btn-pendiente-ingreso').fadeOut(0);
 
-// $(document).on('click', '#btn-pendiente-ingreso', function () {
-
-
-// })
-
-// $(document).on('click', "#btn-reagendar", function () {
-
-// })
-
 $(document).on('click', '#btn-correo-particular', function () {
   if (array_selected != null) {
     Swal.fire({
@@ -301,9 +276,6 @@ $(document).on('click', '#btn-correo-particular', function () {
     alertSelectTable('No ha seleccionado ningún paciente', 'error')
   }
 })
-
-
-
 
 $(document).on('click', '#get-modal-qr-clientes', function () {
   $('#modalQRClientes').modal('show');
