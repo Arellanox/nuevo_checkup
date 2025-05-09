@@ -266,6 +266,9 @@
     }
 ?>
 
+<?php
+include '../../../core/festividades/global.php';
+?>
 
 <script type="text/javascript">
     $('.dropdown-menu').on('click', function (e) {

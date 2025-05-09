@@ -5,22 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ee84d9a-bbaf-4dfb-bf9f-89f7eb0c67aa" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/vista/login/contenido/page/05-10/dia_de_las_madres.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/login/contenido/page/05-10/global.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/login/contenido/page/05-10/js/animate.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/login/contenido/page/05-10/js/heart.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/login/contenido/page/05-10/js/lottie.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/login/contenido/page/05-10/json/confeti.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/login/contenido/page/05-10/json/mother.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/log.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/maquilas_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/maquilas_api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/pacientes_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/pacientes_api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/prerregistro_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/prerregistro_api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/recepcion_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/recepcion_api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/toma_de_muestra_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/toma_de_muestra_api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/turnos_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/turnos_api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/usuarios_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/usuarios_api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/include/modal-fast/js/editar-paciente.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/include/modal-fast/js/editar-paciente.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/include/modal/editar-paciente.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/include/modal/editar-paciente.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/include/modal/formRegistroPaciente.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/include/modal/formRegistroPaciente.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/include/modal/js/editar-paciente.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/include/modal/js/editar-paciente.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/include/modal/js/registrar-paciente.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/include/modal/js/registrar-paciente.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/recepcion/contenido/controlador.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/recepcion/contenido/controlador.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/recepcion/contenido/js/recepcion-botones.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/recepcion/contenido/js/recepcion-botones.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/menu/recepcion/contenido/js/recepcion-tabla.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/recepcion/contenido/js/recepcion-tabla.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/login/contenido/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/login/contenido/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/login/contenido/verificar.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/login/contenido/page/05-10/css/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,11 +117,11 @@
       <recent name="F:\AppServ\www\nuevo_checkup\core\assets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\AppServ\www\nuevo_checkup\pdf\public\assets" />
-      <recent name="F:\AppServ\www\nuevo_checkup\pdf\views\invoice\assets" />
-      <recent name="F:\AppServ\www\nuevo_checkup\pdf\views\invoice" />
-      <recent name="F:\AppServ\www\nuevo_checkup\pdf\views\invoice\layouts\footer" />
-      <recent name="F:\AppServ\www\nuevo_checkup\core\requests" />
+      <recent name="C:\AppServ\www\nuevo_checkup\vista\login\contenido\page\05-10\json" />
+      <recent name="C:\AppServ\www\nuevo_checkup\vista\login\contenido\page\05-10" />
+      <recent name="C:\AppServ\www\nuevo_checkup\vista\login\contenido\page" />
+      <recent name="C:\AppServ\www\nuevo_checkup\vista\login\contenido" />
+      <recent name="C:\AppServ\www\nuevo_checkup\vista\login\contenido\events\page" />
     </key>
   </component>
   <component name="RunManager">

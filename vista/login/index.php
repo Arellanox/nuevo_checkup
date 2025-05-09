@@ -12,7 +12,8 @@
   <title><?php echo $menu; ?> | Bimo</title>
 </head>
 
-<body class="" id="body-controlador"> </body>
+<body class="" id="body-controlador">
+</body>
 <script type="text/javascript">
   vista(
       '<?php echo $menu; ?>',

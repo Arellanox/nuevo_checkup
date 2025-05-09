@@ -1,24 +1,4 @@
-<?php
-    function verificarFechaImportante() {
-        // Fecha actual en formato mes-día (ej. 05-10)
-        $hoy = date('m-d');
-
-        // Lista de fechas importantes asociadas con su archivo de animación
-        $fechasImportantes = [
-            '05-07' => './page/05-10/dia_de_las_madres.php',
-            // Puedes agregar más fechas aquí:
-            // '12-25' => 'animaciones/navidad.php',
-            // '01-01' => 'animaciones/ano_nuevo.php',
-        ];
-
-        // Verifica si la fecha actual es una fecha importante
-        if (array_key_exists($hoy, $fechasImportantes)) {
-            include $fechasImportantes[$hoy];
-        }
-    }
-
-    verificarFechaImportante();
-?>
+<?php include "../../../core/festividades/welcome.php";?>
 
 <div class="row justify-content-center max-height">
   <div class="col-lg-6 d-none d-lg-block login-image max-height shadow-login">
@@ -53,14 +33,14 @@
 </div>
 
 <script>
-  var images = [
-    'https://bimo-lab.com/nuevo_checkup/archivos/sistema/ilustraciones/recuadro_1.jpg',
-    'https://bimo-lab.com/nuevo_checkup/archivos/sistema/ilustraciones/recuadro_2.jpg',
-    'https://bimo-lab.com/nuevo_checkup/archivos/sistema/ilustraciones/recuadro_3.jpg'
-  ];
+    const images = [
+        'https://bimo-lab.com/nuevo_checkup/archivos/sistema/ilustraciones/recuadro_1.jpg',
+        'https://bimo-lab.com/nuevo_checkup/archivos/sistema/ilustraciones/recuadro_2.jpg',
+        'https://bimo-lab.com/nuevo_checkup/archivos/sistema/ilustraciones/recuadro_3.jpg'
+    ];
 
-  var randomImage = images[Math.floor(Math.random() * images.length)];
-  document.querySelector('.login-image').style.backgroundImage = 'url(' + randomImage + ')';
+    const randomImage = images[Math.floor(Math.random() * images.length)];
+    document.querySelector('.login-image').style.backgroundImage = 'url(' + randomImage + ')';
 </script>
 
 <style>
