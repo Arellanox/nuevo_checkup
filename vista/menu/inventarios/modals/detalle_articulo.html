@@ -1,0 +1,224 @@
+<!-- Modal -->
+<div class="modal fade" id="detalleProductoModal" tabindex="-1" aria-labelledby="detalleProductoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="detalleProductoLabel">Detalles del Producto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div id="snowAnimation"></div>
+          <div id="heatWaveAnimation"></div> 
+          <div id="warmGlowEffect"></div>
+          <div class="row">
+            <!-- Columna izquierda: Imagen -->
+            <div class="col-md-4 text-center">
+               <!-- Botones con íconos para mostrar Inserto y Procedimiento de Prueba -->
+               <div class="d-grid gap-2">
+                  <!-- Ver imagen completa del articulo  -->
+                  <a target="_blank" id="verImagenArt"><img id="imagenProducto" alt="Imagen del Producto" class="img-fluid rounded" style="max-height: 300px;"></a>
+                  <!-- Botón para ver el Inserto -->
+                  <a target="_blank" class="btn btn-danger" id="verInsertoBtn"><i class="fas fa-file-pdf"></i> Ver Inserto</a>
+                  <!-- Botón para ver el Procedimiento de Prueba -->
+                  <a target="_blank" class="btn btn-secondary" id="verProcedimientoBtn"><i class="fas fa-vial"></i> Ver Procedimiento</a>
+                </div>
+
+                <div class="d-grid gap-2 text-center containerSvg" id="animation">
+                  
+                </div>
+            </div>
+  
+            <!-- Columna derecha: Información del producto -->
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title" id="nombreComercial">Nombre Comercial </h5><span id="redFrio"></span>
+          
+                  <div class="d-inline p-2 bg-primary-subtle"><span id="tipo"></span></div>
+                  <div class="d-inline p-2" id="estatusArt"></div>
+                  <br>
+                  <hr>
+                  <!-- <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Clave del Artículo:</strong> <span id="claveArticulo"></span></li>
+                    <li class="list-group-item"><strong>Costo Última Entrada:</strong> $<span id="costoUltimaEntrada"></span></li>
+                    <li class="list-group-item"><strong>Costo Más Alto:</strong> $<span id="costoMasAlto"></span></li>
+                    <li class="list-group-item"><strong>Fecha Última Entrada:</strong> <span id="fechaUltimaEntrada"></span></li>
+                    <li class="list-group-item"><strong>Unidad de Venta:</strong> <span id="unidadVenta"></span></li>
+                    <li class="list-group-item"><strong>Unidad Mínima:</strong> <span id="unidadMinima"></span></li>
+                    <li class="list-group-item"><strong>Contenido:</strong> <span id="contenido"></span></li>
+                    <li class="list-group-item"><strong>Maneja Caducidad:</strong> <span id="manejaCaducidad"></span></li>
+                    <li class="list-group-item"><strong>Fecha Caducidad:</strong> <span id="fechaCaducidad"></span></li>
+                    <li class="list-group-item"><strong>Área:</strong> <span id="area"></span></li>
+                    <li class="list-group-item"><strong>Rendimiento Estimado:</strong> <span id="rendimientoEstimado"></span></li>
+                    <li class="list-group-item"><strong>Rendimiento Paciente:</strong> <span id="rendimientoPaciente"></span></li>
+                  </ul> -->
+                  <div class="row">
+                    <!-- Primera tarjeta: Información general -->
+                    <div class="col-md-6">
+                      <div class="card mb-3">
+                        <div class="card-header">Información General</div>
+                        <div class="card-body">
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><strong>Clave del Artículo:</strong> <span id="claveArticulo"></span></li>
+                            <li class="list-group-item"><strong>Unidad de Venta:</strong> <span id="unidadVenta"></span></li>
+                            <li class="list-group-item"><strong>Unidad Mínima:</strong> <span id="unidadMinima"></span></li>
+                            <li class="list-group-item"><strong>Área:</strong> <span id="area"></span></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                
+                    <!-- Segunda tarjeta: Costos y fechas -->
+                    <div class="col-md-6">
+                      <div class="card mb-3">
+                        <div class="card-header">Costos y Fechas</div>
+                        <div class="card-body">
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><strong>Costo Última Entrada:</strong> $<span id="costoUltimaEntrada"></span></li>
+                            <li class="list-group-item"><strong>Costo Más Alto:</strong> $<span id="costoMasAlto"></span></li>
+                            <li class="list-group-item"><strong>Fecha Última Entrada:</strong> <span id="fechaUltimaEntrada"></span></li>
+                            <li class="list-group-item"><strong>Fecha Caducidad:</strong> <span id="fechaCaducidad"></span></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                
+                    <!-- Tercera tarjeta: Rendimiento y Caducidad -->
+                    <div class="col-md-6">
+                      <div class="card mb-3">
+                        <div class="card-header">Rendimiento y Caducidad</div>
+                        <div class="card-body">
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><strong>Maneja Caducidad:</strong> <span id="manejaCaducidad"></span></li>
+                            <li class="list-group-item"><strong>Contenido:</strong> <span id="contenido"></span></li>
+                            <li class="list-group-item"><strong>Rendimiento Estimado:</strong> <span id="rendimientoEstimado"></span></li>
+                            <li class="list-group-item"><strong>Rendimiento Paciente:</strong> <span id="rendimientoPaciente"></span></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <style>
+    #snowAnimation {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none; /* No interfiere con los clics */
+      z-index: 100;
+  }
+
+  .snowflake {
+      position: absolute;
+      top: -10px;
+      font-size: 24px;
+      color: white;
+      opacity: 0.8;
+      animation: fall linear infinite;
+  }
+
+  @keyframes fall {
+      0% {
+          top: -10px;
+          opacity: 0.8;
+      }
+      100% {
+          top: 100%;
+          opacity: 0;
+      }
+  }
+
+  @keyframes warmGlow {
+    0% {
+        box-shadow: 0 0 20px rgba(255, 140, 0, 0.8);
+        opacity: 0.6;
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(255, 69, 0, 0.9);
+        opacity: 0.8;
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(255, 140, 0, 0.8);
+        opacity: 0.6;
+    }
+}
+
+#warmGlowEffect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 100;
+    background: transparent;
+}
+
+.warm-glow {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 69, 0, 0.8);
+    border-radius: 50%;
+    animation: warmGlow 2s infinite;
+}
+
+#heatWaveAnimation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 100;
+    overflow: hidden;
+}
+
+.heatwave {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 69, 0, 0.8);
+    /*background: rgba(255, 165, 0, 0.5);*/ /* Naranja semitransparente */
+    border-radius: 50%;
+    opacity: 0;
+    animation: wave 4s linear infinite;
+}
+
+@keyframes wave {
+    0% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+    50% {
+        transform: scale(2);
+        opacity: 0.2;
+    }
+    100% {
+        transform: scale(3);
+        opacity: 0;
+    }
+}
+
+.containerSvg{
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 200px; /* Ajusta la altura del contenedor según sea necesario */
+  /* border: 1px solid #ddd; Opcional, solo para ver los límites del contenedor */
+}
+
+
+  </style>

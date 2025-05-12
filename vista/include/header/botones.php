@@ -365,6 +365,14 @@ if ($menu == "Estudios - Laboratorio" || $menu == "Estudios" || $menu == "Grupos
     </button>
 <?php endif;  ?>
 
+<?php if(strtolower($menu) == "inventarios" && $_SESSION['permisos']['invRegArt']): ?>
+  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#registrarArticuloModal">
+    <i class="bi bi-plus"></i> Agregar Artículo
+  </button>
+<?php
+  endif;
+?>
+
 <style>
     .animated-button {
         animation: shake 0.3s ease infinite;

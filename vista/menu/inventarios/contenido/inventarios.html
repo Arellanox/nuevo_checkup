@@ -1,0 +1,128 @@
+
+
+<!-- tabs para movil -->
+<div id="tab-button"></div>
+
+
+<div class="row">
+    <div class="col-12 col-xl-2 tab-first" id="tab-menu" style="margin-right: -5px !important;">
+        <div class="rounded p-3 shadow my-2 card" id="lista-pacientes">
+          <h5>Elija una opción</h5>
+          <div class="vertical-menu">
+              <a href="#articulos" data-target="moduloCatArticulos"><i class="bi bi-box-seam-fill"></i> Artículos</a>
+              <a href="#recepcion" data-target="moduloRecepcionArticulos"><i class="bi bi-clipboard-check-fill"></i> Recepción de Artículos</a>
+              <a href="#entradas-salidas" data-target="moduloEntradasSalidas"><i class="bi bi-arrow-down-up"></i> Entradas y Salidas</a>
+              <a href="#consulta" data-target="moduloConsulta"><i class="bi bi-search"></i> Consulta</a>
+              <a href="#requisiciones" data-target="moduloRequisiciones"><i class="bi bi-file-earmark-text-fill"></i> Requisiciones</a>
+              <a href="#dashboard" data-target="moduloDash"><i class="bi bi-graph-up-arrow"></i> Dashboard</a>
+          </div>
+        </div>
+    </div>
+    
+    <div class="col-12 col-xl-10 tab-second" id="modulos-inventario">
+        <!-- CATALOGO DE ARTICULOS -->
+        <div class="rounded p-3 shadow my-2 content-module card" id="moduloCatArticulos">
+            <!-- Barra de título -->
+           <div class="d-flex justify-content-between align-items-center p-3 mb-3 text-white rounded">
+               <h2 class="mb-0">Catálogo de Artículos</h2>
+           </div>
+   
+           <!-- Sección de botones -->
+           <!-- <div class="mb-4 text-end">
+               <button type="button" class="btn btn-success me-2" id="btnNuevoArticulo"><i class="bi bi-plus"></i> Nuevo Artículo</button>
+           </div> -->
+   
+           <!-- Tabla -->
+           <div class="table-responsive">
+                <table class="table responsive table-hover" style="min-width: 1000px;" id="tableCatArticulos">
+
+                </table>
+           </div>
+        </div>
+
+        <!-- RECEPCION DE ARTICULOS -->
+        <div class="rounded p-3 shadow my-2 content-module" id="moduloRecepcionArticulos">
+            <!-- Barra de título -->
+            <div class="d-flex justify-content-between align-items-center p-3 mb-3 text-white rounded">
+                <h2 class="mb-0">Recepción de artículos</h2>
+            </div>
+
+        </div>
+
+        <!-- ENTRADAS Y SALIDAS -->
+        <div class="rounded p-3 shadow my-2 content-module" id="moduloEntradasSalidas">
+            <!-- Barra de título -->
+             <div class="d-flex justify-content-between align-items-center p-3 mb-3 text-white rounded">
+                <h2 class="mb-0">Entradas y salidas</h2>
+             </div>
+
+        </div>
+
+        <!-- CONSULTA -->
+        <div class="rounded p-3 shadow my-2 content-module" id="moduloConsulta">
+            <!-- Barra de título -->
+            <div class="d-flex justify-content-between align-items-center p-3 mb-3 text-white rounded">
+                <h2 class="mb-0">Consulta</h2>
+            </div>
+        </div>
+
+        <!-- REQUISICIONES -->
+        <div class="rounded p-3 shadow my-2 content-module" id="moduloRequisiciones">
+            <div class="d-flex justify-content-between align-items-center p-3 mb-3 text-white rounded">
+                <h2 class="mb-0">Requisiciones</h2>
+            </div>
+        </div>
+
+        <!-- DASHBOARD -->
+        <div class="rounded p-3 shadow my-2 content-module" id="moduloDash">
+            <div class="d-flex justify-content-between align-items-center p-3 mb-3 text-white rounded">
+                <h2 class="mb-0">Dashboard</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<style>
+
+
+.vertical-menu {
+    width: auto; /* Ancho del menú */
+    background-color: #ffffff; /* Fondo blanco del menú */
+    border: 1px solid #ddd; /* Bordes grises claros */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave para dar profundidad */
+    overflow: hidden;
+}
+
+.vertical-menu a {
+    display: block;
+    color: #333333; /* Texto en color gris oscuro */
+    padding: 16px;
+    text-decoration: none; /* Sin subrayado */
+    border-bottom: 1px solid #eee; /* Línea divisoria muy suave */
+    transition: background-color 0.3s ease, padding-left 0.3s ease;
+    font-size: 16px; /* Tamaño de la fuente */
+}
+
+.vertical-menu a:hover {
+    background-color: #f9f9f9; /* Fondo gris muy claro al pasar el mouse */
+    padding-left: 30px; /* Efecto deslizante */
+}
+
+.vertical-menu a:active {
+    background-color: #b3d4fc; /* Azul claro al hacer clic */
+    color: #0056b3; /* Texto azul oscuro al hacer clic */
+}
+
+.vertical-menu a:last-child {
+    border-bottom: none; /* Quitar la línea del último elemento */
+}
+
+.content-module {
+    display: none;
+}
+
+</style>

@@ -1,0 +1,163 @@
+<div class="modal fade" id="registrarArticuloModal" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false"
+    data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="liberarDiaTitle">Registrar <strong>Nuevo artículo</strong></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="container-fluid">
+                    <div class="row">
+                         <!-- Formulario para crear una nueva caja -->
+                         <div class="col-12">
+                            <div class="text-start">
+                                <div class="shadow-sm rounded p-3 card-body">
+                                    <div class="row align-items-end">
+                                        <h5 class="text-dark">Ingresa los siguientes datos</h5>
+                                        <div class="col-12">
+                                            <form id="registrarArticuloForm" name="registrarArticuloForm">
+                                                <!-- No. Art -->
+                                                <div class="mb-3">
+                                                    <label for="no_art" class="form-label">No. Artículo</label>
+                                                    <input type="text" class="form-control input-form" id="no_art" name="no_art" required>
+                                                </div>
+                                            
+                                                <!-- Clave Art -->
+                                                <div class="mb-3">
+                                                    <label for="clave_art" class="form-label">Clave Artículo</label>
+                                                    <input type="text" class="form-control input-form" id="clave_art" name="clave_art" required>
+                                                </div>
+                                            
+                                                <!-- Nombre Comercial -->
+                                                <div class="mb-3">
+                                                    <label for="nombre_comercial" class="form-label">Nombre Comercial</label>
+                                                    <input type="text" class="form-control input-form" id="nombre_comercial" name="nombre_comercial" required>
+                                                </div>
+                                            
+                                                <!-- Estatus -->
+                                                <div class="mb-3">
+                                                    <label for="estatus" class="form-label">¿Activo?</label>
+                                                    <!-- <input type="text" class="form-control input-form" id="estatus" name="estatus"> -->
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input" type="checkbox" name="estatus" id="estatus" checked>
+                                                    </div>
+                                                </div>
+                                            
+                                                <!-- Red Frío -->
+                                                <div class="mb-3">
+                                                    <label for="red_frio" class="form-label">Red Frío</label>
+                                                    <select class="form-select input-form" id="red_frio" name="red_frio">
+                                                        <option value="1">Sí</option>
+                                                        <option value="0">No</option>
+                                                    </select>
+                                                </div>
+                                            
+                                                <!-- Unidad de Venta -->
+                                                <div class="mb-3">
+                                                    <label for="unidad_venta" class="form-label">Unidad de Venta</label>
+                                                    <input type="text" class="form-control input-form" id="unidad_venta" name="unidad_venta">
+                                                </div>
+                                            
+                                                <!-- Unidad Mínima -->
+                                                <div class="mb-3">
+                                                    <label for="unidad_minima" class="form-label">Unidad Mínima</label>
+                                                    <input type="number" class="form-control input-form" id="unidad_minima" name="unidad_minima">
+                                                </div>
+                                            
+                                                <!-- Contenido -->
+                                                <div class="mb-3">
+                                                    <label for="contenido" class="form-label">Contenido</label>
+                                                    <input type="text" class="form-control input-form" id="contenido" name="contenido">
+                                                </div>
+                                            
+                                                <!-- Tipo Descripción -->
+                                                <div class="mb-3">
+                                                    <label for="tipo_articulo" class="form-label">Tipo Descripción</label>
+                                                    <select class="form-select input-form tipo_articulo" id="tipo_articulo" name="tipo_articulo">
+                                                        <!-- Agrega las opciones según sea necesario -->
+        
+                                                    </select>
+                                                </div>
+                                            
+                                                <!-- Maneja Caducidad -->
+                                                <div class="mb-3">
+                                                    <label for="maneja_caducidad" class="form-label">Maneja Caducidad</label>
+                                                    <select class="form-select input-form" id="maneja_caducidad" name="maneja_caducidad">
+                                                        <option value="1">Sí</option>
+                                                        <option value="0">No</option>
+                                                    </select>
+                                                </div>
+                                            
+                                                <!-- Fecha Caducidad -->
+                                                <!-- <div class="mb-3">
+                                                    <label for="fechaCaducidad" class="form-label">Fecha Caducidad</label>
+                                                    <input type="date" class="form-control input-form" id="fechaCaducidad" name="FECHA_CADUCIDAD">
+                                                </div> -->
+                                            
+                                                <!-- Área -->
+                                                <div class="mb-3">
+                                                    <label for="area_id" class="form-label">Área</label>
+                                                    <select class="form-select input-form" id="area_id" name="area_id">
+                                                        <!-- Agrega las opciones según sea necesario -->
+                                                        <option value="6">Laboratorio clínico</option>
+                                                        <option value="12">Laboratorio molecular</option>
+                                                    </select>
+                                                </div>
+                                            
+                                                <!-- Costo Más Alto -->
+                                                <div class="mb-3">
+                                                    <label for="costo_mas_alto" class="form-label">Costo Más Alto</label>
+                                                    <input type="text" class="form-control input-form" id="costo_mas_alto" name="costo_mas_alto">
+                                                </div>
+
+                                                <!-- Rendimiento -->
+                                                <div class="mb-3">
+                                                    <label for="rendimiento_estimado" class="form-label">Rendimiento estimado</label>
+                                                    <input type="text" class="form-control input-form" id="rendimiento_estimado" name="rendimiento_estimado">
+                                                </div>
+                                            
+                                                <!-- Inserto -->
+                                                <div class="mb-3">
+                                                    <label for="inserto" class="form-label">Inserto</label>
+                                                    <input type="file" class="form-control input-form" id="inserto" name="inserto[]">
+                                                </div>
+                                            
+                                                <!-- Procedimiento Prueba -->
+                                                <div class="mb-3">
+                                                    <label for="procedimiento" class="form-label">Procedimiento Prueba</label>
+                                                    <input type="file" class="form-control input-form" id="procedimiento" name="procedimiento[]">
+                                                </div>
+
+                                                <!-- imagen del producto -->
+                                                <div class="mb-3">
+                                                    <label for="img_producto" class="form-label">Imagen del producto</label>
+                                                    <input type="file" class="form-control input-form" id="img_producto" name="img_producto[]">
+                                                </div>
+                                            </form>
+                                            
+                                        </div>
+                                        <div class="col-12 d-flex justify-content-end">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i
+                        class="bi bi-arrow-left-short"></i>
+                    Cancelar</button>
+                </button>
+
+                <button type="submit" class="btn btn-confirmar"
+                    form="registrarArticuloForm">
+                    <i class="bi bi-floppy-fill"></i> Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

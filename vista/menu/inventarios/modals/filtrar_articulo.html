@@ -1,0 +1,109 @@
+<div class="modal fade" id="filtrarArticuloModal" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false"
+    data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="liberarDiaTitle">Filtre los artículos</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="container-fluid">
+                    <div class="row">
+                         <!-- Formulario para crear una nueva caja -->
+                         <div class="col-12">
+                            <div class="text-start">
+                                <div class="shadow-sm rounded p-3 card-body">
+                                    <div class="row align-items-end">
+                                        <div class="col-12">
+                                            <form id="filtrarArticuloForm" name="filtrarArticuloForm">
+                                                <!-- Activo -->
+                                                <div class="card mb-3">
+                                                    <div class="card-body">
+                                                        <div class="form-check form-switch">
+                                                            <input class="form-check-input" type="checkbox" id="ignorarActivo" checked>
+                                                            <label class="form-check-label" for="ignorarActivo">Ignorar Activo</label>
+                                                        </div>
+                                                        <label class="form-label">Activo</label>
+                                                        <div id="activoRadios">
+                                                            <input type="radio" class="btn-check" name="activo" id="activo1" value="1">
+                                                            <label class="btn btn-outline-primary" for="activo1">Activo</label>
+                                                            <input type="radio" class="btn-check" name="activo" id="activo0" value="0">
+                                                            <label class="btn btn-outline-secondary" for="activo0">Inactivo</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Red Frío -->
+                                                <div class="card mb-3">
+                                                    <div class="card-body">
+                                                        <div class="form-check form-switch">
+                                                            <input class="form-check-input" type="checkbox" id="ignorarRedFrio" checked>
+                                                            <label class="form-check-label" for="ignorarRedFrio">Ignorar Red Frío</label>
+                                                        </div>
+                                                        <label class="form-label">Red Frío</label>
+                                                        <div id="redFrioRadios">
+                                                            <input type="radio" class="btn-check" name="redFrio" id="redFrio1" value="1">
+                                                            <label class="btn btn-outline-primary" for="redFrio1">Sí</label>
+                                                            <input type="radio" class="btn-check" name="redFrio" id="redFrio0" value="0">
+                                                            <label class="btn btn-outline-secondary" for="redFrio0">No</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Tipo Artículo -->
+                                                <div class="card mb-3">
+                                                    <div class="card-body">
+                                                        <div class="form-check form-switch">
+                                                            <input class="form-check-input" type="checkbox" id="ignorarTipoArticulo" checked>
+                                                            <label class="form-check-label" for="ignorarTipoArticulo">Ignorar Tipo Artículo</label>
+                                                        </div>
+                                                        <label for="tipoArticulo" class="form-label">Tipo Artículo</label>
+                                                        <select class="form-select tipo_articulo" id="tipoArticulo">
+                                                            <option value="1">Tipo 1</option>
+                                                            <option value="2">Tipo 2</option>
+                                                            <option value="3">Tipo 3</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <!-- Maneja Caducidad -->
+                                                <div class="card mb-3">
+                                                    <div class="card-body">
+                                                        <div class="form-check form-switch">
+                                                            <input class="form-check-input" type="checkbox" id="ignorarManejaCaducidad" checked>
+                                                            <label class="form-check-label" for="ignorarManejaCaducidad">Ignorar Maneja Caducidad</label>
+                                                        </div>
+                                                        <label class="form-label">Maneja Caducidad</label>
+                                                        <div id="manejaCaducidadRadios">
+                                                            <input type="radio" class="btn-check" name="manejaCaducidad" id="manejaCaducidad1" value="1">
+                                                            <label class="btn btn-outline-primary" for="manejaCaducidad1">Sí</label>
+                                                            <input type="radio" class="btn-check" name="manejaCaducidad" id="manejaCaducidad0" value="0">
+                                                            <label class="btn btn-outline-secondary" for="manejaCaducidad0">No</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </form>
+                                            
+                                        </div>
+                                        <div class="col-12 d-flex justify-content-end">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i
+                        class="bi bi-arrow-left-short"></i>
+                    Cancelar</button>
+                </button>
+
+                <button type="submit" class="btn btn-confirmar"
+                    form="filtrarArticuloForm">
+                    <i class="bi bi-funnel,."></i> Enviar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
