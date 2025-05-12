@@ -2,15 +2,15 @@ var tablaRecepcionPacientes, dataRecepcion = {api: 1};
 var TablaReportesNoEnviados, dataReporteNoEnviados = {api: 2, enviado: 0};
 
 var estudiosLab = [], estudiosLabBio = [], estudiosRX = [], estudiosUltra = [], estudiosOtros = [];
-var hash = '';
+var hash = '', clientesConfiguraciones, clientesConfiguraciones_particulares;
 
 validaciones()
-
 $.getScript("contenido/js/recepcion-botones.js");
 obtenerTitulo('Recepción | Espera');
-obtenerPanelInformacion(0, 0, 0)
+obtenerPanelInformacion(0, 0, 0);
+detectCoincidence('#medico-aceptar-paciente');
+obtenerConfiguracionesClientes();
 notificacionReportesNoEnviados(null) //Notificacion de reportes faltantes
-detectCoincidence('#medico-aceptar-paciente')
 
 function validaciones(){
   //Validacion de usuario
@@ -77,6 +77,16 @@ function obtenerContenidoTodosPacientes() {
   $('#titulo_area').html('Pacientes registrados');
   $.post("contenido/pacientes/pacientes.html", function (html) { $("#body-js").html(html); })
       .done(function () { $.getScript("contenido/pacientes/js/pacientes.js"); });
+}
+
+async function obtenerConfiguracionesClientes() {
+  await ajaxAwait({api: 10}, 'clientes_api', {callbackAfter: true}, false, (data) => {
+    clientesConfiguraciones = data.response.data;
+
+    clientesConfiguraciones_particulares = clientesConfiguraciones
+        .filter(item => item.DETALLE_PAGO == 1)
+        .map(item => item.CLIENTE_ID);
+  });
 }
 
 async function notificacionReportesNoEnviados(count) {

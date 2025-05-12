@@ -828,8 +828,6 @@ class Miscelaneus
                 $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
         }
 
-
-
         # Seteamos la ruta del reporte para poder recuperarla despues con el atributo $ruta_reporte.
         $this->setRutaReporte($ruta_saved);
 
@@ -837,11 +835,6 @@ class Miscelaneus
         $r = $master->createDir("../" . $ruta_saved);
         $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
         $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
-
-        // echo (1);
-        // print_r($arregloPaciente);
-        // // print_r(json_encode($infoPaciente[0]));
-        // exit;
 
         $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview, $area_id);
         $renderpdf = $pdf->build();
@@ -1009,11 +1002,6 @@ class Miscelaneus
             "USUARIO" => $response[1][0]['USUARIO'],
             'FOLIO_TICKET' => $infoPaciente[0][0]['FOLIO_TICKET']
         );
-
-        // var_dump($arregloTicket);
-        // echo "<br>";
-        // exit;
-
 
         return $arregloTicket;
     }
@@ -1338,24 +1326,11 @@ class Miscelaneus
         $arrayimg = [];
         $arrayNuevascapturas = [];
 
-        // print_r($response2[0]['CAPTURAS']);
-
-
-
-
         for ($i = 0; $i < count($response2); $i++) {
             // print_r($decodedResponse2);
             $decodedResponse2 = $master->decodeJsonRecursively($response2[$i]);
             array_push($arrayNuevascapturas, $decodedResponse2['CAPTURAS_REPORTE']);
         }
-
-
-        // echo "<pre>";
-        // var_dump($arrayNuevascapturas);
-        // echo "</pre>;";
-        // // print_r($decodedResponse2);
-        // exit;
-
 
         for ($i = 0; $i < count($response1[1]); $i++) {
 
@@ -1885,24 +1860,6 @@ class Miscelaneus
         return null;
     }
 
-    // public function changeLocationFile($old_directory,$new_directory){
-    //     // if (copy(".." . $dir[1], $destination . basename($archivo))) {
-    //     //     # si se copia correctamente, borramos el archivo de la carpeta generica.
-    //     //     unlink('..'.$dir[1]);
-
-    //     //     #guardarmos la direccion del electro.
-    //     //     $response = $master->insertByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, $host . "reportes/modulo/electro/$turno_id", null, $comentario, $interpretacion, $tecnica, $hallazgo, null, null, $usuario]);
-    //     // }
-
-    //     if (copy($old_directory,$new_directory)) {
-    //         # si se copia correctamente, borramos el archivo de la carpeta generica.
-    //         unlink($old_directory);
-
-    //         #guardarmos la direccion del electro.
-    //         $response = $master->insertByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, $host . "reportes/modulo/electro/$turno_id", null, $comentario, $interpretacion, $tecnica, $hallazgo, null, null, $usuario]);
-    //     }
-    // }
-
     public function  scanDirectory($directory)
     {
         #enviar los dos puntos [../] basandose en el archivo de miscelaneus
@@ -2149,7 +2106,7 @@ class Miscelaneus
         return $response;
     }
 
-    function llamar_api()
+    public function llamar_api()
     {
 
         // Datos que deseas enviar a la API
@@ -2226,12 +2183,6 @@ class Miscelaneus
         $response1 = $master->getByProcedure("sp_recuperar_info_hostorial_caja", [$turno_id]);
         $response2 = $master->getByProcedure("sp_corte_detalle_pagos", [$turno_id]);
         $response = [$response1, $response2];
-        // echo "<pre>";
-        // // echo $turno_id;
-        // var_dump($response[0]);
-        // echo "</pre>";
-
-        // exit;
 
         $result = array();
         $i = 0;
@@ -2287,12 +2238,9 @@ class Miscelaneus
                 $resumen_BIMO += in_array($e['CLIENTE_ID'], [15]) ? $total : 0;
             }
 
-
-            array_push($array_prefolios, $prefolio);
-
+            $array_prefolios[] = $prefolio;
 
             $folio = $e['FOLIO'];
-
             $fecha_inicio = $e['FECHA_INICIO'];
             $fecha_final = is_null($e['FECHA_FINAL']) ? "N/A" : $e['FECHA_FINAL'];
         }
@@ -2318,9 +2266,7 @@ class Miscelaneus
             $x++;
         }
 
-
-        $response = [];
-        $response = [
+        return [
             $result,
             $subtotal_general,
             $iva_general,
@@ -2336,13 +2282,6 @@ class Miscelaneus
             $resumen_cortesia,
             $resumen_BIMO
         ];
-        // foreach($response as $i){
-        //     print_r($i);
-        //     echo "<br>";
-        // }
-        // echo $response[5];
-        // exit;
-        return $response;
     }
 
     public function getBodyEnvioMuestras($master, $turno_id)

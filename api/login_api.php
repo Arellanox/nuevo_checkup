@@ -123,7 +123,6 @@ function login($user, $password)
                 $_SESSION['AVATAR'] = 'https://bimo-lab.com/nuevo_checkup/archivos/sistema/avatar.svg';
             }
 
-
             //Permisos
             $sql = "SELECT pertip.DESCRIPCION, permisos.activo, pertip.permiso
                     FROM usuarios_permisos as permisos
@@ -152,7 +151,6 @@ function login($user, $password)
             $result = $stmt->fetchAll();
             for ($i = 0; $i < count($result); $i++) {
                 $vista[$result[$i]['DESCRIPCION']] = $result[$i]['activo']; //Eliminar luego
-                $vista[$result[$i]['permiso']] = $result[$i]['activo'];
             }
             $_SESSION['vista'] = $vista;
             $_SESSION['pacientes_llamados'] = null;
@@ -162,7 +160,6 @@ function login($user, $password)
             $sql = "SELECT nb.URL, nb.DESCRIPCION, nb.ACTIVO_BOTON
                     FROM NEWSLETTER_BIMO nb WHERE ACTIVO_BOTON = 1 ORDER BY id_newsletter_bimo ASC LIMIT 1";
             $stmt = $conn->prepare($sql);
-            $stmt->bindParam(1, $_SESSION['id']);
             $stmt->execute();
             $vista = array();
             $result = $stmt->fetchAll();

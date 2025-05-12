@@ -142,7 +142,16 @@ switch ($api) {
     case 9: // Obtener catálogo de conversiones
         $response = $master->getByProcedure('sp_tipo_conversiones_b', []);
         break;
-
+    case 10: // Obtener configuraciones de clientes
+        $response = $master->getByProcedure('sp_clientes_configuracion_pago_b', [
+            $_POST['id_cliente']
+        ]);
+        break;
+    case 11: // Registrar configuraciones para clientes
+        $response = $master->getByProcedure('sp_clientes_configuracion_pago_g', [
+            $_POST['id_cliente'], $_POST['detalle_pago'], $_POST['envio_correo'], $_POST['activo'] ? 1 : 0
+        ]);
+        break;
     default:
         $response = "API no reconocida";
 }

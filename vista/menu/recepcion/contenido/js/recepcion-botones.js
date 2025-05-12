@@ -52,11 +52,9 @@ $(document).on('click', '#btn-concluir-paciente', function (e) {
         }, function () {
             const ClientesIDs = [1, 16, 31, 35, 37, 39, 20, 48, 49, 44, 19, 53];
 
-            if (array_selected['CLIENTE_ID'].includes(ClientesIDs) || isFranquisiario) {
+            if (array_selected['CLIENTE_ID'].includes(clientesConfiguraciones_particulares) || isFranquisiario) {
                 $('descuento').val('');
-                console.log('as')
                 configurarModal(array_selected); //Abrir el modal de estudios, precios y detalle
-                console.log(array_selected);
             } else finalizarProcesoRecepcion(array_selected); //Termina el proceso sin factura y credito
         }, 1)
     } else alertSelectTable();
@@ -67,20 +65,17 @@ $(document).on('click', '#btn-facturar', function (e) {
         alertToast('Complete los siguientes datos a facturar', 'info', 4000);
         onlyFactura = true;
         configurarFactura(array_selected)
-    } else {
-        alertSelectTable();
-    }
+    } else alertSelectTable();
 })
 
 $(document).on('click', '.btn-eliminar-estudio', function (event) {
-  if (!validarPermiso('RepEstElim'))
-    return false
-  event.preventDefault();
-  let name = $(this).closest('tr')
-  name = name.find('td[class="sorting_1 dtr-control"]').html();
+      if (!validarPermiso('RepEstElim')) return false
+      event.preventDefault();
+      let name = $(this).closest('tr')
+      name = name.find('td[class="sorting_1 dtr-control"]').html();
 
-  let id = $(this).attr('data-bd-id');
-  statusEstudiosPaciente(id, 17, 'eliminar', name)
+      let id = $(this).attr('data-bd-id');
+      statusEstudiosPaciente(id, 17, 'eliminar', name)
 })
 
 $(document).on('click', '.btn-agregar-estudio', function (event) {
@@ -98,8 +93,6 @@ $(document).on('click', '.btn-agregar-estudios-admin', function (event) {
   let tipo = $(this).attr('data-bs-tipo');
   let id = $(`#${tipo}`).val()
   let name = $(`#${tipo} option:selected`).html()
-  // console.log(id)
-  // console.log(tipo)
 
   statusEstudiosPaciente(id, 18, 'agregar', name)
 
