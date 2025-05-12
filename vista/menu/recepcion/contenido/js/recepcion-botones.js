@@ -1,8 +1,8 @@
 $(document).on('click', '#btn-espera-estatus', function () {
-  alertMsj({
-      icon: '',
-      title: 'Elige una opción',
-      html: `
+    alertMsj({
+        icon: '',
+        title: 'Elige una opción',
+        html: `
           <button type="button" class="btn btn-pantone-7408 me-2" style="margin-bottom:4px" id="btn-aceptar"
             data-bs-toggle="tooltip" data-bs-placement="top" title="Carga una solicitud de estudios">
             <i class="bi bi-check"></i> Aceptar paciente
@@ -12,16 +12,16 @@ $(document).on('click', '#btn-espera-estatus', function () {
             <i class="bi bi-x"></i> Rechazar paciente
           </button> 
       `,
-      showCancelButton: false,
-      showConfirmButton: false,
-      allowOutsideClick: true
-  })
+        showCancelButton: false,
+        showConfirmButton: false,
+        allowOutsideClick: true
+    })
 })
 
 $(document).on('click', '#btn-opciones-paciente', function (e) {
     let html = '';
 
-    if (validarVista('RECEPCIÓN CAMBIO DE ESTUDIOS', false)){
+    if (validarVista('RECEPCIÓN CAMBIO DE ESTUDIOS', false)) {
         html += `<button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-agregar_eliminar-estudios"
               data-bs-toggle="tooltip" data-bs-placement="top" title="Elimine/Agregue estudios al paciente">
               <i class="bi bi-plus-slash-minus"></i> Actualizar Estudios
@@ -31,8 +31,8 @@ $(document).on('click', '#btn-opciones-paciente', function (e) {
 
     if (array_selected) {
         alertMsj({
-          icon: '', title: 'Elige una opción', html: html, showCancelButton: false, showConfirmButton: false,
-          allowOutsideClick: true,
+            icon: '', title: 'Elige una opción', html: html, showCancelButton: false, showConfirmButton: false,
+            allowOutsideClick: true,
         });
     } else {
         alertSelectTable();
@@ -40,7 +40,7 @@ $(document).on('click', '#btn-opciones-paciente', function (e) {
 })
 
 $(document).on('click', '#btn-agregar_eliminar-estudios', function (e) { //Agregar o eliminar estudios
-  array_selected ? getDataEstudiosFirst() : alertSelectTable();
+    array_selected ? getDataEstudiosFirst() : alertSelectTable();
 })
 
 $(document).on('click', '#btn-concluir-paciente', function (e) {
@@ -69,76 +69,76 @@ $(document).on('click', '#btn-facturar', function (e) {
 })
 
 $(document).on('click', '.btn-eliminar-estudio', function (event) {
-      if (!validarPermiso('RepEstElim')) return false
-      event.preventDefault();
-      let name = $(this).closest('tr')
-      name = name.find('td[class="sorting_1 dtr-control"]').html();
+    if (!validarPermiso('RepEstElim')) return false
+    event.preventDefault();
+    let name = $(this).closest('tr')
+    name = name.find('td[class="sorting_1 dtr-control"]').html();
 
-      let id = $(this).attr('data-bd-id');
-      statusEstudiosPaciente(id, 17, 'eliminar', name)
+    let id = $(this).attr('data-bd-id');
+    statusEstudiosPaciente(id, 17, 'eliminar', name)
 })
 
 $(document).on('click', '.btn-agregar-estudio', function (event) {
-  event.preventDefault();
-  let name = $(this).closest('tr')
-  name = name.find('td[class="sorting_1 dtr-control"]').html();
+    event.preventDefault();
+    let name = $(this).closest('tr')
+    name = name.find('td[class="sorting_1 dtr-control"]').html();
 
-  let id = $(this).attr('data-bd-id');
-  statusEstudiosPaciente(id, 18, 'agregar', name)
+    let id = $(this).attr('data-bd-id');
+    statusEstudiosPaciente(id, 18, 'agregar', name)
 
 })
 
 $(document).on('click', '.btn-agregar-estudios-admin', function (event) {
-  event.preventDefault();
-  let tipo = $(this).attr('data-bs-tipo');
-  let id = $(`#${tipo}`).val()
-  let name = $(`#${tipo} option:selected`).html()
+    event.preventDefault();
+    let tipo = $(this).attr('data-bs-tipo');
+    let id = $(`#${tipo}`).val()
+    let name = $(`#${tipo} option:selected`).html()
 
-  statusEstudiosPaciente(id, 18, 'agregar', name)
+    statusEstudiosPaciente(id, 18, 'agregar', name)
 
 })
 
 $(document).on('click', '#btn-perfil-paciente', function () {
-  if (array_selected) {
-    Swal.close();
-    $('#modalPacientePerfil').modal('show');
-  } else {
-    alertSelectTable();
-  }
+    if (array_selected) {
+        Swal.close();
+        $('#modalPacientePerfil').modal('show');
+    } else {
+        alertSelectTable();
+    }
 })
 
 $(document).on('click', '#btn-credencial-paciente', function () {
-  if (array_selected) {
-    Swal.close();
-    $('#modalPacienteIne').modal('show');
-  } else {
-    alertSelectTable();
-  }
+    if (array_selected) {
+        Swal.close();
+        $('#modalPacienteIne').modal('show');
+    } else {
+        alertSelectTable();
+    }
 })
 
 $(document).on('click', '#btn-ordenes-paciente', function () {
-  if (array_selected) {
-    Swal.close();
-    $('#modalOrdenesMedicas').modal('show');
-  } else {
-    alertSelectTable();
-  }
+    if (array_selected) {
+        Swal.close();
+        $('#modalOrdenesMedicas').modal('show');
+    } else {
+        alertSelectTable();
+    }
 })
 
 $(document).on('click', '#btn-editar', function () {
-  if (array_selected != null) {
-    $("#ModalEditarPaciente").modal('show');
-  } else {
-    alertSelectTable();
-  }
+    if (array_selected != null) {
+        $("#ModalEditarPaciente").modal('show');
+    } else {
+        alertSelectTable();
+    }
 })
 
 $(document).on('click', "#btn-perfil", function () {
-  if (array_selected != null) {
-    $("#modalPacientePerfil").modal('show');
-  } else {
-    alertSelectTable();
-  }
+    if (array_selected != null) {
+        $("#modalPacientePerfil").modal('show');
+    } else {
+        alertSelectTable();
+    }
 })
 
 $(document).on('click', '#btn-correo-particular', function () {
@@ -169,9 +169,9 @@ $(document).on('click', '#btn-correo-particular', function () {
                     }
                 });
             }
-      })
+        })
     } else {
-      alertSelectTable('No ha seleccionado ningún paciente', 'error')
+        alertSelectTable('No ha seleccionado ningún paciente', 'error')
     }
 })
 
@@ -189,7 +189,7 @@ $(document).on('click', '#btn-modalNotificacionesReportes', function () {
 
 
 if (!validarPermiso('RepIngPaci'))
-  $('#btn-pendiente-ingreso').fadeOut(0);
+    $('#btn-pendiente-ingreso').fadeOut(0);
 
 //Finaliza el proceso del paciente
 function finalizarProcesoRecepcion(paciente, factura = false, pago = false) {
@@ -209,6 +209,9 @@ function finalizarProcesoRecepcion(paciente, factura = false, pago = false) {
             icon: 'success',
             showCancelButton: false,
         })
-        try { tablaRecepcionPacientesIngrersados.ajax.reload() } catch (error) { }
+        try {
+            tablaRecepcionPacientesIngrersados.ajax.reload()
+        } catch (error) {
+        }
     }
 }

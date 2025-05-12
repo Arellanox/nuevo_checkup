@@ -59,19 +59,27 @@ var tableCollectionButtons = [
                     }, () => {
                         ajaxAwait({
                             id_turno: array_selected['ID_TURNO'], api: 2,// estado: null
-                        }, 'recepcion_api', { callbackAfter: true }, false, () => {
+                        }, 'recepcion_api', {callbackAfter: true}, false, () => {
                             alertMensaje('info', '¡Paciente en espera!', 'El paciente se cargó en espera.');
-                            try { tablaRecepcionPacientes.ajax.reload(); } catch (e) { }
-                            try { tablaRecepcionPacientesIngrersados.ajax.reload(); } catch (e) { }
+                            try {
+                                tablaRecepcionPacientes.ajax.reload();
+                            } catch (e) {
+                            }
+                            try {
+                                tablaRecepcionPacientesIngrersados.ajax.reload();
+                            } catch (e) {
+                            }
                         })
                     }, 1)
-                } else { alertSelectTable('No ha seleccionado ningún paciente', 'error') }
+                } else {
+                    alertSelectTable('No ha seleccionado ningún paciente', 'error')
+                }
             }, 300);
         }
     },
 ]
 
-if(!isFranquisiario){
+if (!isFranquisiario) {
     tableCollectionButtons.push(
         {
             extend: 'excelHtml5',
@@ -113,11 +121,17 @@ tableCollectionButtons.push(
                             api: 21,
                             id_turno: array_selected['ID_TURNO']
                         },
-                        'recepcion_api', { callbackAfter: true }, false, () => {
+                        'recepcion_api', {callbackAfter: true}, false, () => {
                             alertToast('Cuenta abierta', 'success', 4000)
 
-                            try { tablaRecepcionPacientes.ajax.reload(); } catch (e) { }
-                            try { tablaRecepcionPacientesIngrersados.ajax.reload(); } catch (e) { }
+                            try {
+                                tablaRecepcionPacientes.ajax.reload();
+                            } catch (e) {
+                            }
+                            try {
+                                tablaRecepcionPacientesIngrersados.ajax.reload();
+                            } catch (e) {
+                            }
                         })
                 }, 1)
 
@@ -135,7 +149,7 @@ tableCollectionButtons.push(
             'data-bs-placement': 'top',
             title: "Filtra la tabla de pacientes aceptados"
         },
-        action: function(){
+        action: function () {
             $("#filtroPacientesModal").modal("show");
         }
     }
@@ -150,7 +164,7 @@ var tableButtons = [
     }
 ]
 
-if(!isFranquisiario){
+if (!isFranquisiario) {
     tableButtons.push(
         {
             text: '<i class="bi bi-arrow-repeat"></i> Actualizar procedencia',
@@ -182,11 +196,17 @@ if(!isFranquisiario){
                                         id_turno: array_selected['ID_TURNO'],
                                         cliente_id: $('#select-cambioProcedencia').val()
                                     },
-                                    'recepcion_api', { callbackAfter: true }, false, () => {
+                                    'recepcion_api', {callbackAfter: true}, false, () => {
                                         alertToast('Se actualizó la procendecia', 'success', 4000)
                                         $('#modalActualizarProsedencia').modal('hide');
-                                        try { tablaRecepcionPacientes.ajax.reload(); } catch (e) { }
-                                        try { tablaRecepcionPacientesIngrersados.ajax.reload(); } catch (e) { }
+                                        try {
+                                            tablaRecepcionPacientes.ajax.reload();
+                                        } catch (e) {
+                                        }
+                                        try {
+                                            tablaRecepcionPacientesIngrersados.ajax.reload();
+                                        } catch (e) {
+                                        }
                                     })
                             }, 1)
                         })
@@ -206,7 +226,6 @@ if(!isFranquisiario){
                 id: "buttonBeneficiario",
                 disabled: true
             },
-
         },
         {
             text: '<i class="bi bi-clock"></i> Pago pendiente',
@@ -217,8 +236,8 @@ if(!isFranquisiario){
                 'data-bs-placement': 'top',
                 title: 'Marca un paciente como pendiente para poder cerrar el corte'
             },
-            action: function(){
-                if(array_selected){
+            action: function () {
+                if (array_selected) {
                     alertMensajeConfirm(
                         {
                             title: '¿No ha pagado el paciente?',
@@ -226,7 +245,10 @@ if(!isFranquisiario){
                             icon: 'info'
                         },
                         () => {
-                            ajaxAwait({ api: 22, id_turno: array_selected['ID_TURNO']}, 'recepcion_api', { callbackAfter: true }, false, () => {
+                            ajaxAwait({
+                                api: 22,
+                                id_turno: array_selected['ID_TURNO']
+                            }, 'recepcion_api', {callbackAfter: true}, false, () => {
                                 alertMensaje('info', '¡Paciente pendiente!', 'El paciente se marcó como pendiente. Ahora sí, ¡Cerremos el corte!')
                             })
                         },
@@ -241,21 +263,22 @@ if(!isFranquisiario){
 }
 
 const columnasIngresadosFranquicia = [
-    { data: 'COUNT' },
-    { data: 'NOMBRE_COMPLETO' },
-    { data: 'PREFOLIO' },
+    {data: 'COUNT'},
+    {data: 'NOMBRE_COMPLETO'},
+    {data: 'PREFOLIO'},
     {
         data: 'NOMBRE_COMERCIAL',
         render: function (data) {
             switch (data) {
-                case 'Particular': case 'PARTICULAR':
+                case 'Particular':
+                case 'PARTICULAR':
                     return `<p class="fw-bold" style="letter-spacing: normal !important;">${data}</p>`;
                 default:
                     return data;
             }
         }
     },
-    { data: 'TURNO' },
+    {data: 'TURNO'},
     {
         data: 'FECHA_RECEPCION',
         render: function (data) {
@@ -290,28 +313,29 @@ const columnasIngresadosFranquicia = [
 
         }
     },
-    { data: 'GENERO' },
+    {data: 'GENERO'},
     {
         data: 'COMPLETADO', render: function (data) {
             if (servidor === 'drjb.com.mx' && data === 1)
                 return '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizade</p>'
 
-            return data == 1 ? '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizado</p>' : `<p class="fw-bold ${data == 2 ? '' : 'text-warning'}" style="letter-spacing: normal !important;">En proceso</p>`;
+            return data == 1 ? '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizado</p>'
+                : `<p class="fw-bold ${data == 2 ? '' : 'text-warning'}" style="letter-spacing: normal !important;">En proceso</p>`;
         }
     },
-    { data: null },
+    {data: null},
 ];
 const columnasDefIngresadosFranquicia = [
-    { targets: 0, title: '#', className: 'all', width: '1%' },
-    { targets: 1, title: 'Nombre', className: 'all nombre', width: '30%' },
-    { targets: 2, title: 'Prefolio', className: 'none' },
-    { targets: 3, title: 'Procedencia', className: 'min-tablet', width: '15%' },
-    { targets: 4, title: 'Turno', className: 'none' },
-    { targets: 5, title: 'Recepción', className: 'all', width: '8%' },
-    { targets: 6, title: 'Agenda', className: 'min-tablet', width: '8%' },
-    { targets: 7, title: 'Re-agenda', className: 'none' },
-    { targets: 8, title: 'Sexo', className: 'none' },
-    { targets: 9, title: 'Recepción', className: 'desktop', width: '8%' },
+    {targets: 0, title: '#', className: 'all', width: '1%'},
+    {targets: 1, title: 'Nombre', className: 'all nombre', width: '30%'},
+    {targets: 2, title: 'Prefolio', className: 'none'},
+    {targets: 3, title: 'Procedencia', className: 'min-tablet', width: '15%'},
+    {targets: 4, title: 'Turno', className: 'none'},
+    {targets: 5, title: 'Recepción', className: 'all', width: '8%'},
+    {targets: 6, title: 'Agenda', className: 'min-tablet', width: '8%'},
+    {targets: 7, title: 'Re-agenda', className: 'none'},
+    {targets: 8, title: 'Sexo', className: 'none'},
+    {targets: 9, title: 'Recepción', className: 'desktop', width: '8%'},
     {
         targets: 10,
         title: '#',
@@ -331,14 +355,16 @@ const columnasDefIngresadosFranquicia = [
 ]
 
 tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').DataTable({
-    language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json", },
+    language: {url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",},
     scrollY: '56vh', //347px
     scrollCollapse: true,
     deferRender: true,
     lengthMenu: [[15, 20, 25, 30, 35, 40, 45, 50, -1], [15, 20, 25, 30, 35, 40, 45, 50, "All"]],
     ajax: {
         dataType: 'json',
-        data: function (d) { return $.extend(d, dataRecepcion); },
+        data: function (d) {
+            return $.extend(d, dataRecepcion);
+        },
         method: 'POST',
         url: '../../../api/recepcion_api.php',
         beforeSend: function () {
@@ -346,9 +372,10 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
             array_selected = null
             tablaRecepcionPacientesIngrersados.columns.adjust().draw()
         },
-        complete: function () {
+        complete: function (data) {
             loader("Out")
 
+            console.log(data)
             obtenerPanelInformacion(0, 'paciente_api', 'paciente')
             obtenerPanelInformacion(0, 'consulta_api', 'listado_resultados', '#panel-resultados')
             obtenerPanelInformacion(0, false, 'Estudios_Estatus', '#estudios_concluir_paciente')
@@ -364,57 +391,60 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
         if (data.REAGENDADO?.toString() === "2") $(row).addClass('bg-warning');
     },
     columns: isFranquisiario ? columnasIngresadosFranquicia : [
-        { data: 'COUNT' },
-        { data: 'NOMBRE_COMPLETO' },
-        { data: 'PREFOLIO' },
+        {data: 'COUNT'},
+        {data: 'NOMBRE_COMPLETO'},
+        {data: 'PREFOLIO'},
         {
             data: 'NOMBRE_COMERCIAL',
             render: function (data) {
                 switch (data) {
-                    case 'Particular': case 'PARTICULAR':
+                    case 'Particular':
+                    case 'PARTICULAR':
                         return `<p class="fw-bold" style="letter-spacing: normal !important;">${data}</p>`;
+                    case 'VENTA AL PÚBLICO':
+                        return `<p style="color: #1a79bc; font-weight: 400; letter-spacing: normal !important;">${data}</p>`;
                     default:
-                      return data;
+                        return data;
                 }
             }
         },
-        { data: 'DESCRIPCION_SEGMENTO' },
-        { data: 'TURNO' },
+        {data: 'DESCRIPCION_SEGMENTO'},
+        {data: 'TURNO'},
         {
-          data: 'FECHA_RECEPCION',
-          render: function (data) {
+            data: 'FECHA_RECEPCION',
+            render: function (data) {
 
-            if (!data)
-              return '';
+                if (!data)
+                    return '';
 
-            const formattedDate = formatoFecha2(data, [0, 1, 5, 2, 2, 2, 0], null);
+                const formattedDate = formatoFecha2(data, [0, 1, 5, 2, 2, 2, 0], null);
 
-            // Separar la fecha y la hora basado en la coma
-            const parts = formattedDate.split(', ');
-            const datePart = parts[0];
-            const timePart = parts[1];
+                // Separar la fecha y la hora basado en la coma
+                const parts = formattedDate.split(', ');
+                const datePart = parts[0];
+                const timePart = parts[1];
 
-            // Retornar la fecha y la hora envueltas en spans con las clases correspondientes
-            return `
+                // Retornar la fecha y la hora envueltas en spans con las clases correspondientes
+                return `
                 <span class="d-block">${datePart}</span>
                 <span class="d-block">${timePart}</span>
             `;
-          }
+            }
         },
         {
-          data: 'FECHA_AGENDA',
-          render: function (data) {
-            return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0], null);
-          }
+            data: 'FECHA_AGENDA',
+            render: function (data) {
+                return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0], null);
+            }
         },
         {
-          data: 'FECHA_REAGENDA',
-          render: function (data) {
-            return '<p class="text-primary fw-bold" style="letter-spacing: normal !important;">' + formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0], null) + '</p>';
+            data: 'FECHA_REAGENDA',
+            render: function (data) {
+                return '<p class="text-primary fw-bold" style="letter-spacing: normal !important;">' + formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0], null) + '</p>';
 
-          }
+            }
         },
-        { data: 'GENERO' },
+        {data: 'GENERO'},
         {
             data: 'COMPLETADO', render: function (data) {
                 if (servidor === 'drjb.com.mx' && data === 1)
@@ -423,109 +453,109 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
                 return data === 1 ? '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizado</p>' : `<p class="fw-bold ${data == 2 ? '' : 'text-warning'}" style="letter-spacing: normal !important;">En proceso</p>`;
             }
         },
-        { data: null },
+        {data: null},
     ],
     columnDefs: isFranquisiario ? columnasDefIngresadosFranquicia : [
-      { targets: 0, title: '#', className: 'all', width: '1%' },
-      { targets: 1, title: 'Nombre', className: 'all nombre', width: '30%' },
-      { targets: 2, title: 'Prefolio', className: 'none' },
-      { targets: 3, title: 'Procedencia', className: 'min-tablet', width: '15%' },
-      { targets: 4, title: 'Segmento', className: 'desktop', width: '15%' },
-      { targets: 5, title: 'Turno', className: 'none' },
-      { targets: 6, title: 'Recepción', className: 'all', width: '8%' },
-      { targets: 7, title: 'Agenda', className: 'min-tablet', width: '8%' },
-      { targets: 8, title: 'Re-agenda', className: 'none' },
-      { targets: 9, title: 'Sexo', className: 'none' },
-      { targets: 10, title: 'Recepción', className: 'desktop', width: '8%' },
-      {
-        targets: 11,
-        title: '#',
-        className: 'all actions',
-        width: '1%',
-        data: null,
-        defaultContent: `
-          <div class="d-flex d-lg-block align-items-center" style="max-width: max-content; padding: 0px;">
-              <div class="d-flex flex-wrap flex-lg-nowrap align-items-center">
-                  <i class="bi bi-pencil-square btn-editar d-block" style="cursor: pointer; font-size:16px;padding: 2px 4px;"></i>
-                  <i class="bi bi-card-heading btn-cargar-documentos d-block" style="cursor: pointer; font-size:16px;padding: 2px 4px;"></i>
-                  <i class="bi bi-info-circle btn-offcanva d-block" style="cursor: pointer; font-size:16px;padding: 2px 4px;"></i>
+        {targets: 0, title: '#', className: 'all', width: '1%'},
+        {targets: 1, title: 'Nombre', className: 'all nombre', width: '30%'},
+        {targets: 2, title: 'Prefolio', className: 'none'},
+        {targets: 3, title: 'Procedencia', className: 'min-tablet', width: '15%'},
+        {targets: 4, title: 'Segmento', className: 'desktop', width: '15%'},
+        {targets: 5, title: 'Turno', className: 'none'},
+        {targets: 6, title: 'Recepción', className: 'all', width: '8%'},
+        {targets: 7, title: 'Agenda', className: 'min-tablet', width: '8%'},
+        {targets: 8, title: 'Re-agenda', className: 'none'},
+        {targets: 9, title: 'Sexo', className: 'none'},
+        {targets: 10, title: 'Recepción', className: 'desktop', width: '8%'},
+        {
+            targets: 11,
+            title: '#',
+            className: 'all actions',
+            width: '1%',
+            data: null,
+            defaultContent: `
+              <div class="d-flex d-lg-block align-items-center" style="max-width: max-content; padding: 0px;">
+                  <div class="d-flex flex-wrap flex-lg-nowrap align-items-center">
+                      <i class="bi bi-pencil-square btn-editar d-block" style="cursor: pointer; font-size:16px;padding: 2px 4px;"></i>
+                      <i class="bi bi-card-heading btn-cargar-documentos d-block" style="cursor: pointer; font-size:16px;padding: 2px 4px;"></i>
+                      <i class="bi bi-info-circle btn-offcanva d-block" style="cursor: pointer; font-size:16px;padding: 2px 4px;"></i>
+                  </div>
               </div>
-          </div>
-      `
-      }
+            `
+        }
     ],
     dom: 'Bl<"dataTables_toolbar">frtip',
     buttons: tableButtons
 })
 
-$(document).on('click','#aplicarFiltro', function(){
-  const meses = $('#mesesAtras').val().trim();
-  const paciente = $('#paciente').val().trim(); //recibe el prefolio del paciente
+$(document).on('click', '#aplicarFiltro', function () {
+    const meses = $('#mesesAtras').val().trim();
+    const paciente = $('#paciente').val().trim(); //recibe el prefolio del paciente
 
-  dataRecepcion = {api: 1, estado: 1};
+    dataRecepcion = {api: 1, estado: 1};
 
-  if(meses){
-    dataRecepcion.mesesAtras = meses;
-  }
-  
-  if(paciente){
-    dataRecepcion.prefolio = paciente;
-  }
-    
-  $("#filtroPacientesModal").modal("hide");
-  tablaRecepcionPacientesIngrersados.ajax.reload();
+    if (meses) {
+        dataRecepcion.mesesAtras = meses;
+    }
+
+    if (paciente) {
+        dataRecepcion.prefolio = paciente;
+    }
+
+    $("#filtroPacientesModal").modal("hide");
+    tablaRecepcionPacientesIngrersados.ajax.reload();
 })
 
 
 $('#buttonBeneficiario').attr('disabled', false)
 
 inputBusquedaTable('TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrersados, [
-  {
-    msj: 'Filtra la tabla con palabras u oraciones que coincidan en el campo de busqueda',
-    place: 'top'
-  },
-  {
-    msj: 'Doble click a un paciente para obtener la información adicional',
-    place: 'top'
-  }
+    {
+        msj: 'Filtra la tabla con palabras u oraciones que coincidan en el campo de busqueda',
+        place: 'top'
+    },
+    {
+        msj: 'Doble click a un paciente para obtener la información adicional',
+        place: 'top'
+    }
 ], [], 'col-12', 'col-12')
 
 selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrersados,
-  {
-    unSelect: true, dblClick: true, movil: true, reload: ['col-12 col-xl-9'],
-    tabs: [
-      {
-        title: 'Pacientes',
-        element: '#tab-paciente',
-        class: 'active',
-      },
-      {
-        title: 'Información',
-        element: '#tab-informacion',
-        class: 'disabled tab-select'
-      },
-    ],
-    ClickClass: [
-      {
-        class: 'btn-editar',
-        callback: function (data) {
-          if (array_selected != null) {
-            $("#ModalEditarPaciente").modal('show');
-          } else {
-            alertSelectTable();
-          }
-        },
-        selected: true,
-      },
-      {
-        class: 'btn-cargar-documentos',
-        callback: function (data) {
-          array_selected = data;
-          alertMsj({
-            icon: '',
-            title: 'Documentación del paciente <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Cargue/Guarde la documentación del paciente"></i>',
-            footer: 'Seleccione una opción.',
-            html: `
+    {
+        unSelect: true, dblClick: true, movil: true, reload: ['col-12 col-xl-9'],
+        tabs: [
+            {
+                title: 'Pacientes',
+                element: '#tab-paciente',
+                class: 'active',
+            },
+            {
+                title: 'Información',
+                element: '#tab-informacion',
+                class: 'disabled tab-select'
+            },
+        ],
+        ClickClass: [
+            {
+                class: 'btn-editar',
+                callback: function (data) {
+                    if (array_selected != null) {
+                        $("#ModalEditarPaciente").modal('show');
+                    } else {
+                        alertSelectTable();
+                    }
+                },
+                selected: true,
+            },
+            {
+                class: 'btn-cargar-documentos',
+                callback: function (data) {
+                    array_selected = data;
+                    alertMsj({
+                        icon: '',
+                        title: 'Documentación del paciente <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Cargue/Guarde la documentación del paciente"></i>',
+                        footer: 'Seleccione una opción.',
+                        html: `
                 <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px;" id="btn-perfil-paciente">
                   <i class="bi bi-person-bounding-box"></i> Foto de Perfil
                 </button>
@@ -536,81 +566,82 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
                   <i class="bi bi-files"></i> Ordenes médicas
                 </button> 
             `,
-            showCancelButton: false,
-            showConfirmButton: false,
-            allowOutsideClick: true,
-          })
-        },
-        selected: true,
-      },
-      {
-        class: 'btn-offcanva',
-        callback: function (data) {
-          dobleClickSelectTableRecepcion(data);
-        },
-        selected: true,
-      },
-    ]
-  },
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        allowOutsideClick: true,
+                    })
+                },
+                selected: true,
+            },
+            {
+                class: 'btn-offcanva',
+                callback: function (data) {
+                    dobleClickSelectTableRecepcion(data);
+                },
+                selected: true,
+            },
+        ]
+    },
+    async function (select, data, callback) {
+        if (select) {
+            $(`#${'buttonBeneficiario'}`).attr('disabled', ifnull(data, false, ['CLIENTE_ID']) !== '18')
+            $(`#${'btn_recepcionTicket'}`).attr('disabled', !(ifnull(data, false, ['COMPLETADO']) === '1' && ifnull(data, false, ['CLIENTE_ID']) === '1'))
+            $(`#${'btn_abrir_cuenta'}`).attr('disabled', ifnull(data, false, ['COMPLETADO']) !== '1');
 
-async function (select, data, callback) {
-    if (select) {
-        $(`#${'buttonBeneficiario'}`).attr('disabled', ifnull(data, false, ['CLIENTE_ID']) !== '18')
-        $(`#${'btn_recepcionTicket'}`).attr('disabled', !(ifnull(data, false, ['COMPLETADO']) === '1' && ifnull(data, false, ['CLIENTE_ID']) === '1'))
-        $(`#${'btn_abrir_cuenta'}`).attr('disabled', ifnull(data, false, ['COMPLETADO']) !== '1');
+            selectCounTableTime = true
+            await obtenerPanelInformacion(data['ID_TURNO'], 'paciente_api', 'paciente')
+            selectCounTableTime = true;
+            await obtenerPanelInformacion(data['ID_TURNO'], 'consulta_api', 'listado_resultados', '#panel-resultados')
+            selectCounTableTime = true;
+            await obtenerPanelInformacion(data['ID_TURNO'], false, 'area_faltantes', '#panel-areas-faltantes')
+            selectCounTableTime = true;
+            await obtenerPanelInformacion(1, false, 'Estudios_Estatus', '#estudios_concluir_paciente')
+            selectCounTableTime = true;
 
-        selectCounTableTime = true
-          await obtenerPanelInformacion(data['ID_TURNO'], 'paciente_api', 'paciente')
-        selectCounTableTime = true;
-        await obtenerPanelInformacion(data['ID_TURNO'], 'consulta_api', 'listado_resultados', '#panel-resultados')
-        selectCounTableTime = true;
-          await obtenerPanelInformacion(data['ID_TURNO'], false, 'area_faltantes', '#panel-areas-faltantes')
-        selectCounTableTime = true;
-        await obtenerPanelInformacion(1, false, 'Estudios_Estatus', '#estudios_concluir_paciente')
-        selectCounTableTime = true;
-
-        if (data['COMPLETADO'] === 1) {
-            $('#contenedor-btn-cerrar-paciente').html(`
+            if (data['COMPLETADO'] === 1) {
+                $('#contenedor-btn-cerrar-paciente').html(`
                   <button type="button" class="btn btn-pantone-325 me-2" style="margin-bottom:4px" disabled>
                     <i class="bi bi-person-check"></i> Paciente Cerrado
                 </button>
             `)
-        } else if (data['COMPLETADO'] === 2) {
-            $('#contenedor-btn-cerrar-paciente').html(`
+            } else if (data['COMPLETADO'] === 2) {
+                $('#contenedor-btn-cerrar-paciente').html(`
                 <button type="button" class="btn btn-borrar me-2" style="margin-bottom:4px" id="btn-facturar"
                       data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Necesita actualizar datos de factura">
                     <i class="bi bi-person-check"></i> Actualizar Factura
                 </button>
             `)
-        } else {
-            $('#contenedor-btn-cerrar-paciente').html(`
+            } else {
+                $('#contenedor-btn-cerrar-paciente').html(`
                 <button type="button" class="btn btn-pantone-325 me-2" style="margin-bottom:4px" id="btn-concluir-paciente"
                     data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Finaliza el proceso del paciente">
                     <i class="bi bi-person-check"></i> Cobrar
               </button>
           `)
+            }
+            callback('In')
+        } else {
+            callback('Out')
+
+            $(`#${'buttonBeneficiario'}`).attr('disabled', true);
+            $(`#${'btn_recepcionTicket'}`).attr('disabled', true);
+            $(`#${'btn_abrir_cuenta'}`).attr('disabled', true);
+
+            obtenerPanelInformacion(0, 'paciente_api', 'paciente')
+            obtenerPanelInformacion(0, 'consulta_api', 'listado_resultados', '#panel-resultados')
+            obtenerPanelInformacion(0, false, 'Estudios_Estatus', '#estudios_concluir_paciente')
+            obtenerPanelInformacion(0, false, 'area_faltantes', '#panel-areas-faltantes')
         }
-        callback('In')
-    } else {
-        callback('Out')
-
-        $(`#${'buttonBeneficiario'}`).attr('disabled', true);
-        $(`#${'btn_recepcionTicket'}`).attr('disabled', true);
-        $(`#${'btn_abrir_cuenta'}`).attr('disabled', true);
-
-        obtenerPanelInformacion(0, 'paciente_api', 'paciente')
-        obtenerPanelInformacion(0, 'consulta_api', 'listado_resultados', '#panel-resultados')
-        obtenerPanelInformacion(0, false, 'Estudios_Estatus', '#estudios_concluir_paciente')
-        obtenerPanelInformacion(0, false, 'area_faltantes', '#panel-areas-faltantes')
-    }
-}, function (select, data) { dobleClickSelectTableRecepcion(data) });
+    }, function (select, data) {
+        dobleClickSelectTableRecepcion(data)
+    });
 
 async function dobleClickSelectTableRecepcion(data) {
-  alertToast('Obteniendo datos...', 'info', 4000);
-  await obtenerPanelInformacion(data['ID_TURNO'], 'documentos_api', 'lista-documentos-paciente', '#panel-documentos-paciente')
-  await obtenerPanelInformacion(data['ID_TURNO'], 'toma_de_muestra_api', 'estudios_muestras', '#panel-muestras-estudios')
+    alertToast('Obteniendo datos...', 'info', 4000);
+    await obtenerPanelInformacion(data['ID_TURNO'], 'documentos_api', 'lista-documentos-paciente', '#panel-documentos-paciente')
+    await obtenerPanelInformacion(data['ID_TURNO'], 'toma_de_muestra_api', 'estudios_muestras', '#panel-muestras-estudios')
 
-  const myOffcanvas = document.getElementById('offcanvasInfoPaciente');
-  const bsOffcanvas = new bootstrap.Offcanvas(myOffcanvas);
-  bsOffcanvas.show()
+    const myOffcanvas = document.getElementById('offcanvasInfoPaciente');
+    const bsOffcanvas = new bootstrap.Offcanvas(myOffcanvas);
+    bsOffcanvas.show()
 }
