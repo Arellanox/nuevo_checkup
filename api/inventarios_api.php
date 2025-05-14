@@ -30,8 +30,6 @@ switch($estatus){
         break;
 }
 
-
-
 $red_frio = $_POST['red_frio'];
 $unidad_venta = $_POST['unidad_venta'];
 $unidad_minima = $_POST['unidad_minima'];
@@ -42,6 +40,7 @@ $reactivo = $_POST['reactivo'];
 $insumo = $_POST['insumo'];
 
 $maneja_caducidad = $_POST['maneja_caducidad'];
+$fecha_caducidad = $_POST['fecha_caducidad'];
 $costo_mas_alto = $_POST['costo_mas_alto'];
 $tipo_articulo = $_POST['tipo_articulo'];
 $area_id = $_POST["area_id"];
@@ -106,6 +105,7 @@ switch($api){
             $reactivo,
             $insumo,
             $maneja_caducidad,
+            $fecha_caducidad,
             $costo_mas_alto,
             $tipo_articulo,
             $_SESSION['id'],
