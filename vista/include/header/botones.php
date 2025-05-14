@@ -1,55 +1,11 @@
-<style>
-    .animated-button {
-        animation: shake 0.3s ease infinite;
-        /* Agrega la animación "shake" */
-    }
-
-    .animated-button-normal {
-        cursor: pointer;
-    }
-
-    @keyframes shake {
-        0% {
-            transform: translateX(0);
-        }
-
-        25% {
-            transform: translateX(-5px);
-            /* Mueve el botón a la izquierda */
-        }
-
-        50% {
-            transform: translateX(5px);
-            /* Mueve el botón a la derecha */
-        }
-
-        75% {
-            transform: translateX(-5px);
-            /* Mueve el botón a la izquierda */
-        }
-
-        100% {
-            transform: translateX(0);
-            /* Regresa a la posición original */
-        }
-    }
-</style>
-
 <?php
-session_start();
-date_default_timezone_set('America/Mexico_City');
+    session_start();
+    date_default_timezone_set('America/Mexico_City');
+    $menu = $_POST['menu'];
+?>
 
-
-$menu = $_POST['menu']; ?>
-
-
-<?php if ($menu == "Menú principal" ||
-    $menu == "Reporte de Excel" ||
-    $menu == "Reporte de Excel Laboratorios"
-
-) : ?>
-    <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal"
-            data-bs-target="#modalFiltrarTabla">
+<?php if ($menu == "Menú principal" || $menu == "Reporte de Excel" || $menu == "Reporte de Excel Laboratorios") : ?>
+    <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#modalFiltrarTabla">
         <i class="bi bi-archive"></i> Filtro
     </button>
 <?php endif; ?>
@@ -379,43 +335,75 @@ $menu == 'Laboratorio Biomolecular'
                 </label>
             </div>
         </div>
-    <?php endif; ?>
+        <div class="col-auto d-flex align-items-center" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Visualiza todos los pacientes del area">
+            <input class="form-check-input" type="checkbox" value="" id="checkDiaAnalisis" style="margin: 5px">
+            <label class="form-check-label" for="checkDiaAnalisis">
+                Todos
+            </label>
+        </div>
+    </div>
+<?php endif; ?>
 
-    <?php if ($menu == 'Pacientes (Crédito)') : ?>
-        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="modalGruposPacienteCredito">
-            <i class="bi bi-archive"></i> Generar Grupo
+<?php if (strpos($menu, 'Agenda de pacientes') !== false) : ?>
+    <div class="row">
+        <div class="col-auto d-flex align-items-center">
+            <label for="fechaSelected" class="form-label">Día</label>
+        </div>
+        <div class="col-auto d-flex align-items-center">
+            <input type="date" class="form-control input-form" name="fechaSelected" value="<?php echo date('Y-m-d') ?>" required id="fechaSelected">
+        </div>
+        <div class="col-auto d-flex align-items-center" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Visualiza todos los pacientes del area">
+            <input class="form-check-input" type="checkbox" value="" id="checkDiaFechaSelected" style="margin: 5px">
+            <label class="form-check-label" for="checkDiaFechaSelected">
+                Todos
+            </label>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php if ($menu == 'Pacientes (Crédito)') : ?>
+    <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="modalGruposPacienteCredito">
+        <i class="bi bi-archive"></i> Generar Grupo
+    </button>
+<?php endif; ?>
+
+
+<?php if ($menu == "Registros de Temperatura" && $_SESSION['permisos']['SupTemp'] == 1) : ?>
+    <div class="d-flex">
+        <button type="button" data-bs-toggle='tooltip' data-bs-placement='left' title="Liberar un rango de días  para la captura de temperaturas de los equipos" class="btn btn-hover me-2" style="margin-bottom:4px; display:none" id="LibererDiaTemperatura">
+            <i class="bi bi-arrow-down-circle-fill"></i> Liberar Dia
         </button>
-    <?php endif; ?>
 
-    <?php if ($menu == "Registros de Temperatura" && $_SESSION['permisos']['SupTemp'] == 1) : ?>
-        <div class="d-flex">
-            <button type="button" data-bs-toggle='tooltip' data-bs-placement='left'
-                    title="Liberar un rango de días  para la captura de temperaturas de los equipos"
-                    class="btn btn-hover me-2" style="margin-bottom:4px; display:none" id="LibererDiaTemperatura">
-                <i class="bi bi-arrow-down-circle-fill"></i> Liberar Dia
-            </button>
-
-            <div class="dropdown">
-                <button class="btn btn-hover me-2 dropdown-toggle" type="button" style="margin-bottom:4px;"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-gear-fill"></i> Configuración
+        <?php if ($menu == "Registros de Temperatura" && $_SESSION['permisos']['SupTemp'] == 1) : ?>
+            <div class="d-flex">
+                <button type="button" data-bs-toggle='tooltip' data-bs-placement='left'
+                        title="Liberar un rango de días  para la captura de temperaturas de los equipos"
+                        class="btn btn-hover me-2" style="margin-bottom:4px; display:none" id="LibererDiaTemperatura">
+                    <i class="bi bi-arrow-down-circle-fill"></i> Liberar Dia
                 </button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <button class="btn dropdown-item" id="TermometrosbtnTemperaturas" data-bs-toggle='tooltip'
-                                data-bs-placement='top'
-                                title="Configuración de los termómetros asignados a los equipos">Termómetros
-                        </button>
-                    </li>
-                    <li>
-                        <button class="btn dropdown-item" id="ConfiguracionTemperaturasbtn" data-bs-toggle='tooltip'
-                                data-bs-placement='right'
-                                title="Configuración de los turnos y activar los días domingos">Más Configuración
-                        </button>
-                    </li>
-                </ul>
-            </div>
 
+                <div class="dropdown">
+                    <button class="btn btn-hover me-2 dropdown-toggle" type="button" style="margin-bottom:4px;"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-gear-fill"></i> Configuración
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <button class="btn dropdown-item" id="TermometrosbtnTemperaturas" data-bs-toggle='tooltip'
+                                    data-bs-placement='top'
+                                    title="Configuración de los termómetros asignados a los equipos">Termómetros
+                            </button>
+                        </li>
+                        <li>
+                            <button class="btn dropdown-item" id="ConfiguracionTemperaturasbtn" data-bs-toggle='tooltip'
+                                    data-bs-placement='right'
+                                    title="Configuración de los turnos y activar los días domingos">Más Configuración
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
         </div>
     <?php endif; ?>
 
@@ -426,12 +414,13 @@ $menu == 'Laboratorio Biomolecular'
             <label class="btn btn-outline-success" for="check-agregar"><i class="bi bi-list"></i>
                 Nuevo</label>
 
-            <input type="radio" class="btn-check" name="selectPaquete" id="check-editar" value="2" autocomplete="off">
-            <label class="btn btn-outline-success" for="check-editar"><i class="bi bi-list"></i>
-                Mantenimiento</label>
-        </div>
-
+        <input type="radio" class="btn-check" name="selectPaquete" id="check-editar" value="2" autocomplete="off">
+        <label class="btn btn-outline-success" for="check-editar"><i class="bi bi-list"></i>
+            Mantenimiento</label>
+    </div>
     <?php endif; ?>
+
+<?php endif; ?>
 
     <?php if ($menu == "Corte de caja" && $_SESSION['permisos']['AdminCaja'] == 1) : ?>
         <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal"
@@ -459,13 +448,13 @@ $menu == 'Laboratorio Biomolecular'
     </span>
     <?php endif; ?>
 
-    <?php if ($menu == "Vendedores") : ?>
-        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" onclick="btnModal('nuevo_vendedor')">
-            <i class="bi bi-person-fill-add"></i> Nuevo vendedor
-        </button>
-    <?php endif; ?>
+<style>
+    .animated-button {
+        animation: shake 0.3s ease infinite;
+    }
+</style>
 
-    <?php if (strtolower($menu) == "caja chica" && $_SESSION["permisos"]["CrearCajaChica"]): ?>
+<?php if (strtolower($menu) == "caja chica" && $_SESSION["permisos"]["CrearCajaChica"]): ?>
         <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal"
                 data-bs-target="#ModalAdministrarCajas">
             <i class="bi bi-piggy-bank"></i> Administrar cajas

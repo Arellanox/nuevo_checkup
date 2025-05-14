@@ -69,16 +69,11 @@ switch ($api) {
         # desactivar
         $response = $master->updateByProcedure("sp_paquetes_e", [$id_paquete]);
         break;
-
     case 5:
         # encontrar los paquetes que no han sido asigandos a algun cliente.
         $response = $master->getByProcedure('sp_paquetes_sin_clientes', array());
-
         break;
     case 6:
-
-
-
         #detalles de un paquete
         $detalle = $_POST['paquete_detalle'];
         //print_r($detalle);
@@ -89,8 +84,6 @@ switch ($api) {
         #variables para verificar si se insertaron todos los detalles del paquete,
         $len_detalle = count($detalle);
         $oks = 0;
-        //print_r($detalle);
-        //print_r($info_paquete);
 
         $id_paquete =  $info_paquete[0]['id_paquete'];
 
@@ -121,6 +114,7 @@ switch ($api) {
                 }
             }
         }
+
         if (!is_numeric($desactivados)) {
             echo json_encode(array('response' => array('code' => 2, 'msj' => "No se ha podido reestablecer el contenido del paquete.")));
         } elseif ($oks == $len_detalle) {
@@ -130,7 +124,6 @@ switch ($api) {
         }
 
         return;
-        break;
     case 7:
         $precioPaquetes = $_POST['contenedorPaquetes']; #Forma de recibirlo
 
@@ -154,13 +147,10 @@ switch ($api) {
             echo json_encode(array("response" => array("code" => 2, "fails" => $fails)));
         }
         exit;
-        break;
-
     case 8:
         # asignar un paquete a un cliente
         $response = $master->updateByProcedure('sp_clientes_asignar_paquetes', array($cliente_id, $id_paquete));
         break;
-
     case 9:
         # buscar
         $response = $master->getByProcedure("sp_detalle_paquete_b", [$paquete, $cliente]);
@@ -193,9 +183,7 @@ switch ($api) {
         # eliminar relacion paquete-cliente
         $response = $master->insertByProcedure('sp_paquetes_clientes_e', [$cliente_id, $paquete]);
         break;
-
     default:
-
         $response = "api no reconocida " . $api;
         break;
 }

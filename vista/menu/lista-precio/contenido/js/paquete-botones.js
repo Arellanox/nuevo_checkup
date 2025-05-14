@@ -93,8 +93,8 @@ $('input[type=radio][name=selectChecko]').change(function () {
 $('#guardar-contenido-paquete').on('click', function () {
     let dataAjax = calcularFilasTR();
     let tableData = tablaContenidoPaquete.rows().data().toArray();
+    
     if (tableData.length > 0) {
-
         Swal.fire({
             title: 'Ingrese su contraseña para guardar la lista',
             text: 'Use su contraseña para confirmar',

@@ -170,7 +170,6 @@ inputBusquedaTable('TablaRecepcionPacientes', tablaRecepcionPacientes, [
         place: 'left'
     },
 ])
-
 selectTable('#TablaRecepcionPacientes', tablaRecepcionPacientes, {
     unSelect: true, reload: ['col-xl-9'], movil: true,
     tabs: [

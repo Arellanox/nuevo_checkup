@@ -20,7 +20,6 @@ $fecha_agenda = $_POST['fecha_agenda'];
 $fecha_agenda_final = $_POST['fecha_agenda_final'];
 $con_paquete = $_POST['con_paquete'];
 $franquiciaID = $_SESSION['franquiciario'] ? $_SESSION['id_cliente'] : null;
-
 $response = "";
 
 $master = new Master();

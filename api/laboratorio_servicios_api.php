@@ -43,6 +43,9 @@ $area_id = $_POST['area'];
 $seleccionable = $_POST['selecionable'];
 $es_para = $_POST['para'];
 $costos = $_POST['costos'];
+$motivo_rechazo = $_POST['motivo_rechazo'];
+$indicaciones_lab = $_POST['indicaciones_laboratorio'];
+$conservacion = $_POST['modo_conservacion'];
 
 #datos para rellenar un grupo
 $id_grupo = $_POST['id_grupo'];
@@ -76,7 +79,7 @@ $pendiente = $_POST['pendiente'];
 
 switch ($api) {
     case 1:
-        $response = $master->insertByProcedure("sp_servicio_laboratorio_g", [
+        $payload = [
             $id_servicio,
             $descripcion,
             $abreviatura,
@@ -103,8 +106,14 @@ switch ($api) {
             $seleccionable,
             $es_para,
             $costos,
+            $motivo_rechazo,
+            $indicaciones_lab,
+            $conservacion,
             $_SESSION['id']
-        ]);
+        ];
+        $master->mis->setLog(json_encode($payload), 'Payload');
+
+        $response = $master->insertByProcedure("sp_servicio_laboratorio_g", $payload);
         break;
     case 2:
         $response = $master->getByProcedure('sp_servicio_laboratorio_b', [$id_servicio]);

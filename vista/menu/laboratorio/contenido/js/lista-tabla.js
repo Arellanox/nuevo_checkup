@@ -636,81 +636,88 @@ function generarFormularioPaciente(id) {
 
           html += '<ul class = "list-group hover-list info-detalle mt-3" style="padding: 3px;" >';
           if (row['ID_GRUPO']) {
-            html += `<div style = "margin-bottom: 10px; display: block">
-          <div style="border-radius: 8px;margin:0px;background: rgb(0 0 0 / 5%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;"">
-            <div class="row">
-            <!--MARCAR ESTUDIO COMO PENDIENTE-->
-              <div class="col-1" style="margin-left:14px;">
-                <input type="checkbox" class="btn-check btn-estudios-pendientes" 
-                id="check${row['ID_GRUPO']}" autocomplete="off" data-bs-id="${row['ID_GRUPO']}" 
-                data-bs-text="${row['NombreGrupo']}" data-bs-pending="${row['PENDIENTE']}">`
-              
-              if(parseInt(row['PENDIENTE']) === 1){
-                html+=`
-                    <div class="dropdown">
-                      <span class="btn btn-outline-danger dropdown-toggle" role="button" 
-                        data-bs-toggle="dropdown" aria-expanded="false"
-                      >
-                          <i class="bi bi-three-dots"></i>
-                      </span>
-                      <ul class="dropdown-menu">
-                        <li>
-                          <label class="dropdown-item btn-posponer-estudios" 
-                            id="lbl${row['ID_GRUPO']}" for="check${row['ID_GRUPO']}"
-                          >
-                            <span>Completar</span>
-                            <i class="fa fa-check-circle"></i>
-                          </label>
-                        </li>
-                        <li>
-                          <div class="dropdown-item btn-maquila-estudios" role="button">
-                            Maquilar
-                            <i class="bi bi-file-earmark-break-fill"></i>
-                          </div>
-                        </li>
-                      </ul>
+            html += `
+            <div style = "margin-bottom: 10px; display: block">
+                <div style="border-radius: 8px; margin:0; background: rgb(0 0 0 / 5%); 
+                width: 100%;padding: 10px 0 10px 0; text-align: center;">
+                    <div class="row">
+                      <!--MARCAR ESTUDIO COMO PENDIENTE-->
+                      <div class="col-1" style="margin-left:14px;">
+                        <input type="checkbox" class="btn-check btn-estudios-pendientes" 
+                        id="check${row['ID_GRUPO']}" autocomplete="off" data-bs-id="${row['ID_GRUPO']}" 
+                        data-bs-text="${row['NombreGrupo']}" data-bs-pending="${row['PENDIENTE']}">`
+
+                      //-------------------------------------------------------------------------------------------//
+                      if(parseInt(row['PENDIENTE']) === 1){
+                          html+=`
+                            <div class="dropdown">
+                                <span class="btn btn-outline-danger dropdown-toggle" role="button" 
+                                  data-bs-toggle="dropdown" aria-expanded="false"
+                                >
+                                    <i class="bi bi-three-dots"></i>
+                                </span>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <label class="dropdown-item btn-posponer-estudios" 
+                                          id="lbl${row['ID_GRUPO']}" for="check${row['ID_GRUPO']}"
+                                        >
+                                            <span>Completar</span>
+                                            <i class="fa fa-check-circle"></i>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown-item btn-maquila-estudios" role="button">
+                                          Maquilar
+                                            <i class="bi bi-file-earmark-break-fill"></i>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        `
+                      } else {
+                        html+=`
+                            <div class="dropdown">
+                                <span class="btn btn-outline-danger dropdown-toggle" role="button" 
+                                  data-bs-toggle="dropdown" aria-expanded="false"
+                                >
+                                    <i class="bi bi-three-dots"></i>
+                                </span>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <label class="dropdown-item btn-posponer-estudios" 
+                                          id="lbl${row['ID_GRUPO']}" for="check${row['ID_GRUPO']}"
+                                        >
+                                            <span>Posponer</span>
+                                            <i class="fa fa-clock-o"></i>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown-item btn-maquila-estudios" 
+                                        data-bs-id="${row['ID_GRUPO']}" role="button">
+                                            Maquilar
+                                            <i class="bi bi-file-earmark-break-fill"></i>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        `
+                      }
+
+                      //-------------------------------------------------------------------------------------------//
+
+
+                     html+=`</div><div class="col-9">
+                        <h4 style="font-size: 20px !important;font-weight: 600 !important;padding: 0px;margin: 0px;">
+                          ${row['NombreGrupo']}
+                        </h4> 
+                        <p>${row['CLASIFICACION']}</p> 
+                      </div>
+                      <div class="col-1" style="padding:0px;">
+                        <i class="fas fa-microscope btn icon-hover btn-acciones" style="font-size: 20px; padding: 0px; margin-right: 14px;" data-bs-id="${row['ID_GRUPO']}"></i>
+                      </div>
                     </div>
-                `
-              } else {
-                html+=`
-                    <div class="dropdown">
-                      <span class="btn btn-outline-danger dropdown-toggle" role="button" 
-                        data-bs-toggle="dropdown" aria-expanded="false"
-                      >
-                          <i class="bi bi-three-dots"></i>
-                      </span>
-                      <ul class="dropdown-menu">
-                        <li>
-                          <label class="dropdown-item btn-posponer-estudios" 
-                            id="lbl${row['ID_GRUPO']}" for="check${row['ID_GRUPO']}"
-                          >
-                            <span>Posponer</span>
-                            <i class="fa fa-clock-o"></i>
-                          </label>
-                        </li>
-                        <li>
-                          <div class="dropdown-item btn-maquila-estudios" role="button">
-                            Maquilar
-                            <i class="bi bi-file-earmark-break-fill"></i>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                `
-              }
-             
-             html+=`</div><div class="col-9">
-                <h4 style="font-size: 20px !important;font-weight: 600 !important;padding: 0px;margin: 0px;">
-                  ${row['NombreGrupo']}
-                </h4> 
-                <p>${row['CLASIFICACION']}</p> 
-              </div>
-              <div class="col-1" style="padding:0px;">
-                <i class="fas fa-microscope btn icon-hover btn-acciones" style="font-size: 20px; padding: 0px; margin-right: 14px;" data-bs-id="${row['ID_GRUPO']}"></i>
-              </div>
-            </div>
-          </div>
-          </div>`;
+                </div>
+            </div>`;
           } else {
             html += `<div style = "margin-bottom: 10px; display: block">
           <div style="border-radius: 8px;margin:0px;background: rgb(0 0 0 / 5%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;"">
@@ -899,7 +906,7 @@ function generarFormularioPaciente(id) {
                             </li>
                             <li>
                               <span class="dropdown-item" >
-                                    Maquilars
+                                    Maquilar
                               </span>
                             </li>
                           </ul>

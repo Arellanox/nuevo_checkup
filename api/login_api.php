@@ -129,7 +129,7 @@ function login($user, $password)
                     LEFT JOIN permisos as pertip ON pertip.ID_PERMISO = permisos.PERMISO_ID
                     WHERE permisos.USUARIO_ID = ?";
             $stmt = $conn->prepare($sql);
-            $stmt->bindParam(1, $_SESSION['id']);
+            $stmt->bindParam(1,$_SESSION['id']);
             $stmt->execute();
             $permisos = array();
             $result = $stmt->fetchAll();

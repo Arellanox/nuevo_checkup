@@ -91,11 +91,6 @@ $idFranquicia = $_SESSION['franquiciario'] ? $_SESSION['id'] : null;
 switch ($api) {
     case 1: // Insertar cliente
         $response = $master->insertByProcedure("sp_clientes_g", $parametros);
-
-        if($idFranquicia){
-
-        }
-
         break;
     case 2: // Buscar cliente
         $response = $master->getByProcedure("sp_clientes_b", [
@@ -114,7 +109,7 @@ switch ($api) {
         break;
 
     case 5: // Generar QR para cliente
-        $cliente = [$id, $codigo, $qr];
+        $cliente = [$id, $codigo, $qr, $_SESSION['id']];
         $result = $master->getByProcedure('sp_clientes_b', $cliente);
 
         if (!empty($result)) {

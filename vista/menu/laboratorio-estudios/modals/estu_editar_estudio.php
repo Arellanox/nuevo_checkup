@@ -56,6 +56,7 @@
               <br />
               <textarea class="md-textarea input-form" name="indicaciones" cols="45" rows="2" placeholder="" id="edit-indicaciones-estudio"></textarea>
             </div>
+
             <div class="row" style="zoom:100%;">
               <div class="col-6">
                 <label for="">¿Mostrar valores de referencia? </label>
@@ -69,6 +70,7 @@
                 <label for="registrar-varepoNo">No</label>
               </div>
             </div>
+
             <div class="row" style="zoom:100%;">
               <div class="col-6">
                 <label for="">¿Se subroga?: </label>
@@ -82,6 +84,7 @@
                 <label for="registrar-subrogaNo">No</label>
               </div>
             </div>
+
             <p style="margin-top:15px; margin-bottom: 15px">Seleccione los contenedores que necesite esté estudio</p>
             <div class="" id="div-select-contenedores-edit">
 
@@ -94,7 +97,6 @@
               </div>
             </div>
           </div>
-
         </form>
       </div>
       <div class="modal-footer">

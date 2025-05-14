@@ -14,6 +14,25 @@
       <change beforePath="$PROJECT_DIR$/vista/menu/recepcion/contenido/controlador.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/recepcion/contenido/controlador.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/menu/recepcion/contenido/js/recepcion-tabla.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/recepcion/contenido/js/recepcion-tabla.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/menu/recepcion/contenido/recepcion-rechazados.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/recepcion/contenido/recepcion-rechazados.html" afterDir="false" />
+    <list default="true" id="0ee84d9a-bbaf-4dfb-bf9f-89f7eb0c67aa" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/vista/login/contenido/page/05-10/dia_de_las_madres.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/login/contenido/page/05-10/global.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/login/contenido/page/05-10/js/animate.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/login/contenido/page/05-10/js/heart.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/login/contenido/page/05-10/js/lottie.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/login/contenido/page/05-10/json/confeti.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/login/contenido/page/05-10/json/mother.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/maquilas_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/maquilas_api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/pacientes_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/pacientes_api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/prerregistro_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/prerregistro_api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/recepcion_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/recepcion_api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/toma_de_muestra_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/toma_de_muestra_api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/turnos_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/turnos_api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/usuarios_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/usuarios_api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/login/contenido/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/login/contenido/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/login/contenido/verificar.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/login/contenido/page/05-10/css/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +88,10 @@
       <path value="$PROJECT_DIR$/lib/libmergpdf/vendor/iio/libmergepdf" />
       <path value="$PROJECT_DIR$/lib/libmergpdf/vendor/setasign/fpdi" />
       <path value="$PROJECT_DIR$/lib/libmergpdf/vendor/tecnickcom/tcpdf" />
+      <path value="$PROJECT_DIR$/clases/PhpSpreadsheet/vendor/markbaker/complex" />
+      <path value="$PROJECT_DIR$/clases/PhpSpreadsheet/vendor/composer" />
+      <path value="$PROJECT_DIR$/clases/PhpSpreadsheet/vendor/phpoffice/phpspreadsheet" />
+      <path value="$PROJECT_DIR$/clases/PhpSpreadsheet/vendor/psr/simple-cache" />
     </include_path>
   </component>
   <component name="ProblemsViewState">
@@ -85,8 +108,6 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;com.codeium.enabled&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;mejoras__contadora&quot;,
@@ -96,13 +117,12 @@
     &quot;git-widget-placeholder&quot;: &quot;nueva__franquicia&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;F:/AppServ/www/nuevo_checkup/vista/procedencia/solicitud-franquicia-laboratorio/modals/html&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/AppServ/www/nuevo_checkup/archivos/sistema/temp/qr/CertificadoMedico&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.2.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -120,6 +140,18 @@
       <recent name="F:\AppServ\www\nuevo_checkup\core\includes\app" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\includes\app\js" />
       <recent name="F:\AppServ\www\nuevo_checkup\core\controllers\menu-controller\js" />
+      <recent name="C:\AppServ\www\nuevo_checkup\archivos\sistema\temp\qr\CertificadoMedico" />
+      <recent name="F:\AppServ\www\nuevo_checkup\pdf\public\assets" />
+      <recent name="F:\AppServ\www\nuevo_checkup\vista\menu\maquilas\modals" />
+      <recent name="F:\AppServ\www\nuevo_checkup\core\modules\notifications" />
+      <recent name="F:\AppServ\www\nuevo_checkup\core\assets" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\AppServ\www\nuevo_checkup\vista\login\contenido\page\05-10\json" />
+      <recent name="C:\AppServ\www\nuevo_checkup\vista\login\contenido\page\05-10" />
+      <recent name="C:\AppServ\www\nuevo_checkup\vista\login\contenido\page" />
+      <recent name="C:\AppServ\www\nuevo_checkup\vista\login\contenido" />
+      <recent name="C:\AppServ\www\nuevo_checkup\vista\login\contenido\events\page" />
     </key>
   </component>
   <component name="RunManager">
@@ -132,13 +164,15 @@
     <attachedChunks>
       <set>
         <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.59" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
       </set>
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="af65b511-fae7-4667-83bd-cb6ca4b438cc" name="Changes" comment="" />
+      <changelist id="0ee84d9a-bbaf-4dfb-bf9f-89f7eb0c67aa" name="Changes" comment="Merge pull request #2 from Arellanox/notificaciones_server_sent_events&#10;&#10;Notificaciones server sent events&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;api/log.txt&#10;#&#9;clases/Pdf.php&#10;#&#9;clases/miscelaneus.php&#10;#&#9;vista/menu/laboratorio/contenido/js/laboratorio-botones.js&#10;#&#9;visualizar_reporte/index-pruebas.php" />
       <created>1741444932759</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -187,6 +221,19 @@
           <url>file://$PROJECT_DIR$/vista/procedencia/estudios-laboratorio/contenido/controlador.js</url>
           <line>24</line>
           <option name="timeStamp" value="14" />
+        </line-breakpoint>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php-line-method">
+          <url>file://$PROJECT_DIR$/pdf/views/invoice/certificado_bimo.php</url>
+          <line>250</line>
+          <properties>
+            <option name="className" value="" />
+            <option name="methodName" value="\describirVigencia" />
+          </properties>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

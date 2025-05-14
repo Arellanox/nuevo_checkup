@@ -1,7 +1,7 @@
 $('#formAnalisisLaboratorio').submit(function (event) {
     event.preventDefault();
 
-    if (selectListaLab['CONFIRMADO'] === 0 || selectListaLab['CONFIRMADO'] === "0") {
+    if (selectListaLab['CONFIRMADO'] == 0 || selectListaLab['CONFIRMADO'] == "0") {
         let confirmar = 0;
         const form = document.getElementById("formAnalisisLaboratorio");
         const formData = new FormData(form);
@@ -232,7 +232,6 @@ $(document).on('click', '.btn-estudios-pendientes', async function (event) {
     )
 });
 
-//Maquilación
 $(document).on('click', '.btn-modal-maquila-confirm', function (event) {
     event.preventDefault();
     const laboratorio_texto = $('#select-laboratorios-maquila option:selected').text();

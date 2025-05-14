@@ -17,11 +17,14 @@ $servidorLocal = [
     'localhost' => ['https' => 'http://', 'url' => 'localhost'],
 ];
 
+$servidorLocal = [
+    'localhost' => ['https' => 'http://', 'url' => 'localhost'],
+];
+
 $https = 'http://';
 $url = 'localhost';
 $appname = "nuevo_checkup";
 $isLocalHost = isset($servidorLocal[$current_host]);
-
 
 if (isset($servidores[$current_host])) {
     $config = $servidores[$current_host];

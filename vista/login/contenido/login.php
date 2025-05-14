@@ -1,3 +1,5 @@
+<?php include "../../../core/festividades/welcome.php";?>
+
 <div class="row justify-content-center max-height">
   <div class="col-lg-6 d-none d-lg-block login-image max-height shadow-login">
     <!-- <div class=""></div> -->
@@ -31,16 +33,14 @@
 </div>
 
 <script>
-  // window.onload = function() {
-  var images = [
-    'https://bimo-lab.com/nuevo_checkup/archivos/sistema/ilustraciones/recuadro_1.jpg',
-    'https://bimo-lab.com/nuevo_checkup/archivos/sistema/ilustraciones/recuadro_2.jpg',
-    'https://bimo-lab.com/nuevo_checkup/archivos/sistema/ilustraciones/recuadro_3.jpg'
-  ];
+    const images = [
+        'https://bimo-lab.com/nuevo_checkup/archivos/sistema/ilustraciones/recuadro_1.jpg',
+        'https://bimo-lab.com/nuevo_checkup/archivos/sistema/ilustraciones/recuadro_2.jpg',
+        'https://bimo-lab.com/nuevo_checkup/archivos/sistema/ilustraciones/recuadro_3.jpg'
+    ];
 
-  var randomImage = images[Math.floor(Math.random() * images.length)];
-  document.querySelector('.login-image').style.backgroundImage = 'url(' + randomImage + ')';
-  // };
+    const randomImage = images[Math.floor(Math.random() * images.length)];
+    document.querySelector('.login-image').style.backgroundImage = 'url(' + randomImage + ')';
 </script>
 
 <style>
@@ -71,19 +71,3 @@
     box-shadow: 0 0rem 8px 2.5px rgb(33 37 41 / 68%) !important;
   }
 </style>
-
-
-
-<!-- <div class="modal fade" id="modalSubirInterpretacion" tabindex="-1" aria-labelledby="resultados" aria-hidden="true">
-  <div class="modal-dialog modal-xl modal-fullscreen modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header header-modal">
-        <h5 class="modal-title" id="title-paciente_aceptar">Reporte de interpretación</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScKocVxp_sWvOjI-k21LTkXGmknGiVdyf9DKeikTSk_88csvQ/viewform?embedded=true" width="100%" height="95%" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
-      </div>
-    </div>
-  </div>
-</div> -->
