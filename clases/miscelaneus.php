@@ -2232,10 +2232,20 @@ class Miscelaneus
                 $iva_general += $iva;
                 $total_general += $total;
 
-                $resumen_contado += in_array($e['CLIENTE_ID'], [1, 16, 31]) ? $total :  0;
-                $resumen_credito += !in_array($e['CLIENTE_ID'], [1, 16, 17, 31, 15]) ? $total :  0;
+                $clientes = $master->getByProcedure("sp_clientes_configuracion_pago_b", [null]);
+
+                $cliente_ids = [];
+
+                foreach ($clientes as $row) {
+                    if ($row['DETALLE_PAGO'] == 1) {
+                        $cliente_ids[] = $row['CLIENTE_ID'];
+                    }
+                }
+
+                $resumen_contado  += in_array($e['CLIENTE_ID'], $cliente_ids) ? $total : 0;
+                $resumen_credito  += !in_array($e['CLIENTE_ID'], $cliente_ids) ? $total : 0;
                 $resumen_cortesia += in_array($e['CLIENTE_ID'], [17]) ? $total : 0;
-                $resumen_BIMO += in_array($e['CLIENTE_ID'], [15]) ? $total : 0;
+                $resumen_BIMO     += in_array($e['CLIENTE_ID'], [15]) ? $total : 0;
             }
 
             $array_prefolios[] = $prefolio;
@@ -2265,6 +2275,8 @@ class Miscelaneus
 
             $x++;
         }
+
+
 
         return [
             $result,

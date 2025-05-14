@@ -447,10 +447,10 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
         {data: 'GENERO'},
         {
             data: 'COMPLETADO', render: function (data) {
-                if (servidor === 'drjb.com.mx' && data === 1)
+                if (servidor === 'drjb.com.mx' && data == 1)
                     return '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizade</p>'
 
-                return data === 1 ? '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizado</p>' : `<p class="fw-bold ${data == 2 ? '' : 'text-warning'}" style="letter-spacing: normal !important;">En proceso</p>`;
+                return data == 1 ? '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizado</p>' : `<p class="fw-bold ${data == 2 ? '' : 'text-warning'}" style="letter-spacing: normal !important;">En proceso</p>`;
             }
         },
         {data: null},
@@ -466,7 +466,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
         {targets: 7, title: 'Agenda', className: 'min-tablet', width: '8%'},
         {targets: 8, title: 'Re-agenda', className: 'none'},
         {targets: 9, title: 'Sexo', className: 'none'},
-        {targets: 10, title: 'Recepción', className: 'desktop', width: '8%'},
+        {targets: 10, title: 'Estatus', className: 'desktop', width: '8%'},
         {
             targets: 11,
             title: '#',
