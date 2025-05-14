@@ -188,3 +188,8 @@
 14/05/25 13:44:01 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
 14/05/25 13:44:01 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
 14/05/25 13:44:01 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:56:47 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:56:47 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:56:47 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 14:24:42 sp_vendedores_periodos_b Ha ocurrido un error(42S02). 42S02 1146 Table 'u808450138_practicantes.vendedores_comisionistas_periodos' doesn't exist
+14/05/25 14:24:43 sp_vendedores_periodos_b Ha ocurrido un error(42S02). 42S02 1146 Table 'u808450138_practicantes.vendedores_comisionistas_periodos_detalle' doesn't exist

@@ -1,46 +1,66 @@
-
-
 <!-- tabs para movil -->
 <div id="tab-button"></div>
 
-
 <div class="row">
-    <div class="col-6  tab-first" id="tab-menu" style="margin: auto;">
+    <div class="col-6 tab-first" id="tab-menu" style="margin: auto;">
         <div class="rounded p-3 shadow my-2 card" id="lista-pacientes">
-          <h5>Elija una opción</h5>
-          <div class="vertical-menu d-flex justify-content flex-wrap">
-              <a href="#articulos" data-target="moduloCatArticulos"><i class="bi bi-box-seam-fill" id="icono-menu"></i> Artículos</a>
-              <a href="#recepcion" data-target="moduloRecepcionArticulos"><i class="bi bi-clipboard-check-fill" id="icono-menu"></i><span> Recepción de Artículos</span></a>
-              <a href="#entradas-salidas" data-target="moduloEntradasSalidas"><i class="bi bi-arrow-down-up" id="icono-menu"></i><span> Entradas y Salidas</span></a>
-              <a href="inventarios-fisicos" data-target="moduloInventariosFisicos"><i class="bi bi-pencil-square" id="icono-menu"></i><span> Inventarios Físicos</span></span></a>
-              
-              <a href="#activos" data-target="moduloActivos"><i class="bi bi-folder-plus" id="icono-menu"></i><span> Activos</span></a>
-              <a href="#consulta" data-target="moduloConsulta"><i class="bi bi-search" id="icono-menu"></i><span> Consulta</span></a>
-              <a href="#requisiciones" data-target="moduloRequisiciones"><i class="bi bi-file-earmark-text-fill" id="icono-menu"></i><span> Requisiciones</span></a>
-              <a href="#dashboard" data-target="moduloDash"><i class="bi bi-graph-up-arrow" id="icono-menu"></i> <span> Dashboard</span></a>
-          </div>
+            <h5>Elija una opción</h5>
+            <div class="vertical-menu" id="menu-grid">
+                <a href="#articulos" data-target="moduloCatArticulos">
+                    <i class="bi bi-box-seam-fill icono-menu"></i>
+                    <span>Artículos</span>
+                </a>
+                <a href="#recepcion" data-target="moduloRecepcionArticulos">
+                    <i class="bi bi-clipboard-check-fill icono-menu"></i>
+                    <span>Recepción de Artículos</span>
+                </a>
+                <a href="#entradas-salidas" data-target="moduloEntradasSalidas">
+                    <i class="bi bi-arrow-down-up icono-menu"></i>
+                    <span>Entradas y Salidas</span>
+                </a>
+                <a href="inventarios-fisicos" data-target="moduloInventariosFisicos">
+                    <i class="bi bi-pencil-square icono-menu"></i>
+                    <span>Inventarios Físicos</span>
+                </a>
+                <a href="#activos" data-target="moduloActivos">
+                    <i class="bi bi-folder-plus icono-menu"></i>
+                    <span>Activos</span>
+                </a>
+                <a href="#consulta" data-target="moduloConsulta">
+                    <i class="bi bi-search icono-menu"></i>
+                    <span>Consulta</span>
+                </a>
+                <a href="#requisiciones" data-target="moduloRequisiciones">
+                    <i class="bi bi-file-earmark-text-fill icono-menu"></i>
+                    <span>Requisiciones</span>
+                </a>
+                <a href="#dashboard" data-target="moduloDash">
+                    <i class="bi bi-graph-up-arrow icono-menu"></i>
+                    <span>Dashboard</span>
+                </a>
+            </div>
         </div>
     </div>
-    
-    <div class="col-12 col-xl-12 tab-second" id="modulos-inventario">
+
+    <div class="col-12 col-xl-12 tab-second" id="modulos-inventario" style="display:none;">
         <!-- CATALOGO DE ARTICULOS -->
         <div class="rounded p-3 shadow my-2 content-module card" id="moduloCatArticulos">
             <!-- Barra de título -->
-           <div class="d-flex justify-content-between align-items-center p-3 mb-3 text-white rounded">
-               <h2 class="mb-0">Catálogo de Artículos</h2>
-           </div>
-   
-           <!-- Sección de botones -->
-           <!-- <div class="mb-4 text-end">
-               <button type="button" class="btn btn-success me-2" id="btnNuevoArticulo"><i class="bi bi-plus"></i> Nuevo Artículo</button>
-           </div> -->
-   
-           <!-- Tabla -->
-           <div class="table-responsive">
+            <div class="d-flex justify-content-between align-items-center p-3 mb-3 text-white rounded">
+                <h2 class="mb-0">Catálogo de Artículos</h2>
+            </div>
+
+            <!-- Sección de botones -->
+            <!-- <div class="mb-4 text-end">
+                <button type="button" class="btn btn-success me-2" id="btnNuevoArticulo"><i class="bi bi-plus"></i> Nuevo Artículo</button>
+            </div> -->
+
+            <!-- Tabla -->
+            <div class="table-responsive">
                 <table class="table responsive table-hover" style="min-width: 1000px;" id="tableCatArticulos">
 
                 </table>
-           </div>
+            </div>
         </div>
 
         <!-- RECEPCION DE ARTICULOS -->
@@ -55,19 +75,27 @@
         <!-- ENTRADAS Y SALIDAS -->
         <div class="rounded p-3 shadow my-2 content-module" id="moduloEntradasSalidas">
             <!-- Barra de título -->
-             <div class="d-flex justify-content-between align-items-center p-3 mb-3 text-white rounded">
+            <div class="d-flex justify-content-between align-items-center p-3 mb-3 text-white rounded">
                 <h2 class="mb-0">Entradas y salidas</h2>
-             </div>
+            </div>
 
         </div>
 
-         <!-- INVENTARIOS FISICOS -->
+        <!-- INVENTARIOS FISICOS -->
         <div class="rounded p-3 shadow my-2 content-module" id="moduloInventariosFisicos">
             <!-- Barra de título -->
-             <div class="d-flex justify-content-between align-items-center p-3 mb-3 text-white rounded">
+            <div class="d-flex justify-content-between align-items-center p-3 mb-3 text-white rounded">
                 <h2 class="mb-0">Inventarios fisicos</h2>
-             </div>
+            </div>
 
+        </div>
+
+        <!-- Activos -->
+        <div class="rounded p-3 shadow my-2 content-module" id="moduloActivos">
+            <!-- Barra de título -->
+            <div class="d-flex justify-content-between align-items-center p-3 mb-3 text-white rounded">
+                <h2 class="mb-0">Activos</h2>
+            </div>
         </div>
 
         <!-- CONSULTA -->
@@ -94,62 +122,112 @@
     </div>
 </div>
 
-
-
-
 <style>
-
-
-.vertical-menu {
-    width: auto; /* Ancho del menú */
-    background-color: #ffffff; /* Fondo blanco del menú */
-    border: 1px solid #ddd; /* Bordes grises claros */
-    border-radius: 10px; /* Bordes redondeados */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave para dar profundidad */
-    overflow: hidden;
+#menu-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px 10px;
+    justify-items: center;
+    align-items: center;
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px 0;
 }
 
-.vertical-menu a {
+#menu-grid a {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 165px;
-    height: 120px;
-    color: #333333; /* Texto en color gris oscuro */
-    padding: none;
-    text-decoration: none; /* Sin subrayado */
-    border-bottom: 1px solid #eee; /* Línea divisoria muy suave */
-    transition: background-color 0.3s ease, padding-left 0.3s ease;
-    font-size: 16px; /* Tamaño de la fuente */
+    color: #333333;
+    text-decoration: none;
+    font-size: 18px;
+    background: transparent;
+    border-bottom: none;
+    width: 100%;
+    min-height: 120px;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.3s;
 }
 
-#icono-menu {
-    font-size: 2.5rem; /* Tamaño del icono */
-    margin-bottom: 8px; /* Espacio entre el icono y el texto */
-    line-height: 1; /* Alineación vertical del icono */
+#menu-grid a .icono-menu,
+#menu-grid a span {
+    transition: transform 0.3s;
 }
 
-.vertical-menu a span{
-    margin-top: 2px; /* Espacio entre el icono y el texto */
+#menu-grid a:hover .icono-menu,
+#menu-grid a:hover span {
+    transform: translateY(-8px) scale(1.08);
 }
 
-.vertical-menu a:hover {
-    background-color: #f9f9f9; /* Fondo gris muy claro al pasar el mouse */
-    padding-left: 30px; /* Efecto deslizante */
+#menu-grid a:hover {
+    /* No background, no color change */
 }
 
-.vertical-menu a:active {
-    background-color: #b3d4fc; /* Azul claro al hacer clic */
-    color: #0056b3; /* Texto azul oscuro al hacer clic */
+#menu-grid a::after {
+    /* Si quieres mantener la línea animada, déjala, si no, bórrala */
+    content: "";
+    position: absolute;
+    left: 30%;
+    bottom: 0;
+    width: 40%;
+    height: 3px;
+    background: #06a4b9;
+    border-radius: 2px;
+    transform: scaleX(0);
+    transition: transform 0.3s;
 }
 
-.vertical-menu a:last-child {
-    border-bottom: none; /* Quitar la línea del último elemento */
+#menu-grid a:hover::after {
+    transform: scaleX(1);
 }
 
-.content-module {
-    display: none;
+.icono-menu {
+    font-size: 3.2rem !important;
+    margin-bottom: 10px;
+    line-height: 1;
+    display: block;
 }
 
+#menu-grid a span {
+    margin-top: 8px;
+    font-size: 1.1rem;
+    display: block;
+    text-align: center;
+}
+
+@media (max-width: 991px) {
+    #menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 575px) {
+    #menu-grid {
+        grid-template-columns: 1fr;
+    }
+}
 </style>
+
+<script>
+// Al cargar la página, solo muestra el menú principal
+document.addEventListener('DOMContentLoaded', function() {
+    // Oculta los módulos al inicio
+    document.getElementById('modulos-inventario').style.display = 'none';
+    // Muestra el menú principal
+    document.getElementById('tab-menu').style.display = '';
+});
+
+// Cuando el usuario haga clic en una opción, muestra los módulos
+document.querySelectorAll('#menu-grid a').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('tab-menu').style.display = 'none';
+        document.getElementById('modulos-inventario').style.display = '';
+        // Aquí puedes agregar lógica para mostrar el módulo correspondiente si lo deseas
+    });
+});
+</script>

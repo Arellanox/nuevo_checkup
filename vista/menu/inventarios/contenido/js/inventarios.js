@@ -31,7 +31,7 @@ $(document).ready(function(){
      // Agrega el botón para regresar a cada módulo de contenido
     $('.content-module').each(function() {
         if ($(this).find('.btn-back-menu').length === 0) {
-            $(this).prepend('<button type="button" class="btn btn-secondary  btn-back-menu"><i class="bi bi-arrow-left"></i> Regresar</button>');
+            $(this).prepend('<div class="text-start"><button type="button" class="btn btn-secondary btn-back-menu"><i class="bi bi-arrow-left"></i> Regresar</button></div>');
         }
     });
 
@@ -536,3 +536,11 @@ function createHeatWaves() {
         heatContainer.append(heatwave);
     }
 }
+
+// CSS for .btn-back-menu
+$('.btn-back-menu').css({
+    display: 'inline-block',
+    width: 'auto',
+    marginBottom: '16px',
+    marginTop: '4px'
+});
