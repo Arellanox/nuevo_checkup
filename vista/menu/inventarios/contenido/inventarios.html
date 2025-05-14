@@ -5,13 +5,14 @@
 
 
 <div class="row">
-    <div class="col-12 col-xl-2 tab-first" id="tab-menu" style="margin-right: -5px !important;">
+    <div class="col-12  tab-first" id="tab-menu">
         <div class="rounded p-3 shadow my-2 card" id="lista-pacientes">
           <h5>Elija una opción</h5>
-          <div class="vertical-menu">
+          <div class="vertical-menu d-flex justify-content-between flex-wrap">
               <a href="#articulos" data-target="moduloCatArticulos"><i class="bi bi-box-seam-fill"></i> Artículos</a>
               <a href="#recepcion" data-target="moduloRecepcionArticulos"><i class="bi bi-clipboard-check-fill"></i> Recepción de Artículos</a>
               <a href="#entradas-salidas" data-target="moduloEntradasSalidas"><i class="bi bi-arrow-down-up"></i> Entradas y Salidas</a>
+              <a href="inventarios-fisicos" data-target="moduloInventariosFisicos"><i class="bi bi-pencil-square"></i> Inventarios Físicos</a>
               <a href="#consulta" data-target="moduloConsulta"><i class="bi bi-search"></i> Consulta</a>
               <a href="#requisiciones" data-target="moduloRequisiciones"><i class="bi bi-file-earmark-text-fill"></i> Requisiciones</a>
               <a href="#dashboard" data-target="moduloDash"><i class="bi bi-graph-up-arrow"></i> Dashboard</a>
@@ -19,7 +20,7 @@
         </div>
     </div>
     
-    <div class="col-12 col-xl-10 tab-second" id="modulos-inventario">
+    <div class="col-12 col-xl-12 tab-second" id="modulos-inventario">
         <!-- CATALOGO DE ARTICULOS -->
         <div class="rounded p-3 shadow my-2 content-module card" id="moduloCatArticulos">
             <!-- Barra de título -->
@@ -54,6 +55,15 @@
             <!-- Barra de título -->
              <div class="d-flex justify-content-between align-items-center p-3 mb-3 text-white rounded">
                 <h2 class="mb-0">Entradas y salidas</h2>
+             </div>
+
+        </div>
+
+         <!-- INVENTARIOS FISICOS -->
+        <div class="rounded p-3 shadow my-2 content-module" id="moduloInventariosFisicos">
+            <!-- Barra de título -->
+             <div class="d-flex justify-content-between align-items-center p-3 mb-3 text-white rounded">
+                <h2 class="mb-0">Inventarios fisicos</h2>
              </div>
 
         </div>

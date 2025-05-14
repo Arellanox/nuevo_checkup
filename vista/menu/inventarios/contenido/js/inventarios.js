@@ -9,8 +9,25 @@ $(document).ready(function(){
         // Oculta todos los divs con la clase 'content-module'
         $('.content-module').hide();
 
+       // Oculta el menú principal
+        $('#tab-menu').hide();
+
         // Muestra el div correspondiente al enlace clicado
         $('#' + targetDiv).show();
+
+    });
+
+     // Agrega el botón para regresar a cada módulo de contenido
+    $('.content-module').each(function() {
+        if ($(this).find('.btn-back-menu').length === 0) {
+            $(this).prepend('<button type="button" class="btn btn-secondary  btn-back-menu"><i class="bi bi-arrow-left"></i> Regresar</button>');
+        }
+    });
+
+    // Al hacer clic en el botón regresar
+    $(document).on('click', '.btn-back-menu', function() {
+        $('.content-module').hide();
+        $('#tab-menu').show();
     });
 });
 
