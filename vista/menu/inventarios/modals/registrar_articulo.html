@@ -71,6 +71,7 @@
                                                         <small class="form-text text-muted">Seleccione si el artículo requiere red frío.</small>
                                                     </div>
                                                 </div>
+
                                                 <div class="col-6">
                                                     <div class="mb-3">
                                                         <label for="tipo_articulo" class="form-label">Tipo Descripción</label>
@@ -92,6 +93,16 @@
                                                         <small class="form-text text-muted">Seleccione si el artículo maneja caducidad.</small>
                                                     </div>
                                                 </div>
+                                                <!--  Fecha caducidad -->
+                                                <div class="col-6" id="fechaCaducidadDiv" style="display:none;">
+                                                    <div class="mb-3">
+                                                        <label for="fecha_caducidad" class="form-label">Fecha de Caducidad</label>
+                                                        <input type="date" class="form-control input-form" id="fecha_caducidad" name="fecha_caducidad">
+                                                        <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                                        <small class="form-text text-muted">Ingrese la fecha de caducidad del artículo.</small>
+                                                    </div>
+                                                </div>
+
                                                 <div class="col-12">
                                                     <div class="mb-3">
                                                         <label for="area_id" class="form-label">Área</label>
@@ -261,4 +272,19 @@ if (estatusVariable === 1) {
 } else {
     $('#estatus').prop('checked', false);
 }
+
+// Mostrar u ocultar la fecha de caducidad según el valor seleccionado
+$('#maneja_caducidad').on('change', function() {
+    if ($(this).val() == '1') {
+        $('#fechaCaducidadDiv').show();
+    } else {
+        $('#fechaCaducidadDiv').hide();
+        $('#fecha_caducidad').val('');
+    }
+});
+
+// Ejecutar al cargar para el valor inicial
+$(document).ready(function() {
+    $('#maneja_caducidad').trigger('change');
+});
 </script>

@@ -33,3 +33,158 @@
 14/05/25 09:19:33 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
 14/05/25 09:19:33 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
 14/05/25 09:19:33 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:23:14 sp_inventarios_cat_articulos_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_practicantes.sp_inventarios_cat_articulos_b; expected 4, got 5
+14/05/25 10:23:34 sp_inventarios_cat_articulos_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_practicantes.sp_inventarios_cat_articulos_b; expected 4, got 5
+14/05/25 10:24:17 sp_inventarios_cat_articulos_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_practicantes.sp_inventarios_cat_articulos_b; expected 4, got 5
+14/05/25 10:27:11 sp_inventarios_cat_articulos_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_practicantes.sp_inventarios_cat_articulos_b; expected 4, got 5
+14/05/25 10:28:48 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:28:48 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:28:48 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:28:48 sp_inventarios_cat_articulos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_practicantes.sp_inventarios_cat_articulos_g; expected 21, got 22
+14/05/25 10:28:48 call sp_inventarios_cat_articulos_g(,,3312,Afrín,,1,1,pieza,1,polvo,,,1,2025-05-14,11,1,117,6,,,,) Esto recibió
+14/05/25 10:28:48 [Reproduce el error en la base] call sp_inventarios_cat_articulos_g(,,3312,Afrín,,1,1,pieza,1,polvo,,,1,2025-05-14,11,1,117,6,,,,)
+14/05/25 10:28:53 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:28:53 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:28:53 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:28:53 sp_inventarios_cat_articulos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_practicantes.sp_inventarios_cat_articulos_g; expected 21, got 22
+14/05/25 10:28:53 call sp_inventarios_cat_articulos_g(,,3312,Afrín,,1,1,pieza,1,polvo,,,1,2025-05-14,11,1,117,6,,,,) Esto recibió
+14/05/25 10:28:53 [Reproduce el error en la base] call sp_inventarios_cat_articulos_g(,,3312,Afrín,,1,1,pieza,1,polvo,,,1,2025-05-14,11,1,117,6,,,,)
+14/05/25 10:29:00 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:29:00 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:29:00 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:29:01 sp_inventarios_cat_articulos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_practicantes.sp_inventarios_cat_articulos_g; expected 21, got 22
+14/05/25 10:29:01 call sp_inventarios_cat_articulos_g(,,3312,Afrín,,1,1,pieza,1,polvo,,,0,,11,1,117,6,,,,) Esto recibió
+14/05/25 10:29:01 [Reproduce el error en la base] call sp_inventarios_cat_articulos_g(,,3312,Afrín,,1,1,pieza,1,polvo,,,0,,11,1,117,6,,,,)
+14/05/25 10:29:49 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:29:49 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:29:49 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:34:53 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:34:53 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:34:53 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:34:53 sp_inventarios_cat_articulos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_practicantes.sp_inventarios_cat_articulos_g; expected 21, got 22
+14/05/25 10:34:53 call sp_inventarios_cat_articulos_g(,,331214,Afrín,,1,1,,,,,,1,2025-05-14,,1,117,6,,,,) Esto recibió
+14/05/25 10:34:53 [Reproduce el error en la base] call sp_inventarios_cat_articulos_g(,,331214,Afrín,,1,1,,,,,,1,2025-05-14,,1,117,6,,,,)
+14/05/25 10:46:39 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:46:39 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:46:39 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:46:40 sp_inventarios_cat_articulos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_practicantes.sp_inventarios_cat_articulos_g; expected 21, got 22
+14/05/25 10:46:40 call sp_inventarios_cat_articulos_g(,,3312141,Afrín2,,1,1,,,,,,1,2025-05-14,,1,117,6,,,,) Esto recibió
+14/05/25 10:46:40 [Reproduce el error en la base] call sp_inventarios_cat_articulos_g(,,3312141,Afrín2,,1,1,,,,,,1,2025-05-14,,1,117,6,,,,)
+14/05/25 10:47:49 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:47:49 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:47:49 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:47:50 sp_inventarios_cat_articulos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_practicantes.sp_inventarios_cat_articulos_g; expected 21, got 22
+14/05/25 10:47:50 call sp_inventarios_cat_articulos_g(,,3312,Afrín,,1,1,,,,,,1,2025-05-14,,1,117,6,,,,) Esto recibió
+14/05/25 10:47:50 [Reproduce el error en la base] call sp_inventarios_cat_articulos_g(,,3312,Afrín,,1,1,,,,,,1,2025-05-14,,1,117,6,,,,)
+14/05/25 10:47:54 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:47:54 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:47:54 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:47:54 sp_inventarios_cat_articulos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_practicantes.sp_inventarios_cat_articulos_g; expected 21, got 22
+14/05/25 10:47:54 call sp_inventarios_cat_articulos_g(,,3312,Afrín,,1,1,,,,,,1,,,1,117,6,,,,) Esto recibió
+14/05/25 10:47:54 [Reproduce el error en la base] call sp_inventarios_cat_articulos_g(,,3312,Afrín,,1,1,,,,,,1,,,1,117,6,,,,)
+14/05/25 10:47:59 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:47:59 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:47:59 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:47:59 sp_inventarios_cat_articulos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_practicantes.sp_inventarios_cat_articulos_g; expected 21, got 22
+14/05/25 10:47:59 call sp_inventarios_cat_articulos_g(,,3312,Afrín,,1,1,,,,,,1,2025-05-14,,1,117,6,,,,) Esto recibió
+14/05/25 10:47:59 [Reproduce el error en la base] call sp_inventarios_cat_articulos_g(,,3312,Afrín,,1,1,,,,,,1,2025-05-14,,1,117,6,,,,)
+14/05/25 10:49:42 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:49:42 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:49:42 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:49:42 sp_inventarios_cat_articulos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_practicantes.sp_inventarios_cat_articulos_g; expected 21, got 22
+14/05/25 10:49:42 call sp_inventarios_cat_articulos_g(,,3312,Afrín,,1,1,,,,,,1,2025-05-14,,1,117,6,,,,) Esto recibió
+14/05/25 10:49:42 [Reproduce el error en la base] call sp_inventarios_cat_articulos_g(,,3312,Afrín,,1,1,,,,,,1,2025-05-14,,1,117,6,,,,)
+14/05/25 10:52:11 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:52:11 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:52:11 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 10:52:12 sp_inventarios_cat_articulos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_practicantes.sp_inventarios_cat_articulos_g; expected 21, got 22
+14/05/25 10:52:12 call sp_inventarios_cat_articulos_g(,,33121,Afrín2,,1,1,pieza,1,polvo,,,1,2025-05-14,11,1,117,6,,,,) Esto recibió
+14/05/25 10:52:12 [Reproduce el error en la base] call sp_inventarios_cat_articulos_g(,,33121,Afrín2,,1,1,pieza,1,polvo,,,1,2025-05-14,11,1,117,6,,,,)
+14/05/25 11:01:58 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:01:58 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:01:58 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:05:41 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:05:41 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:05:41 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:08:39 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:08:39 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:08:39 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:10:54 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:10:54 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:10:54 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:33:58 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:33:58 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:33:58 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:41:34 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:41:34 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:41:34 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:42:32 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:42:32 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:42:32 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:56:46 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:56:46 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:56:46 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:57:14 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:57:14 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:57:14 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:58:13 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:58:13 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:58:13 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:58:33 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:58:33 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 11:58:33 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 12:25:48 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 12:25:48 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 12:25:48 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 12:33:53 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 12:33:53 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 12:33:53 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 12:52:56 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 12:52:56 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 12:52:56 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 12:53:07 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 12:53:07 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 12:53:07 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 12:53:32 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 12:53:32 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 12:53:32 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 12:53:42 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 12:53:42 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 12:53:42 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 12:53:55 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 12:53:55 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 12:53:55 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:15:10 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:15:10 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:15:10 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:15:47 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:15:47 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:15:47 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:18:08 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:18:08 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:18:08 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:18:38 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:18:38 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:18:38 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:18:49 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:18:49 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:18:49 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:24:38 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:24:38 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:24:38 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:28:30 sp_inventarios_cat_articulos_b Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_practicantes.sp_inventarios_cat_articulos_b; expected 4, got 5
+14/05/25 13:37:03 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:37:03 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:37:03 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:38:11 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:38:11 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:38:11 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:38:56 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:38:56 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:38:56 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:43:07 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:43:07 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:43:07 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:44:01 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:44:01 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+14/05/25 13:44:01 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
