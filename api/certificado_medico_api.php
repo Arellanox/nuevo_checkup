@@ -26,7 +26,6 @@ $tipo_examen_medico = $_POST['tipo_examen_medico'];
 
 switch ($api) {
     case 1:
-        # Guardar el pdf del certificado medico del paciente
         $dir = '../reportes/modulo/certificados_medicos/';
         $r = $master->createDir($dir);
         $certificado = $master->guardarFiles($_FILES, 'certificado-medico', $dir, "CERTIFICADO_MEDICO_$turno_id");

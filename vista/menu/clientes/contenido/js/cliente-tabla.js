@@ -1,3 +1,6 @@
+var bimoClientes;
+var franquiciasClientes;
+let filtroTipo3Activo = false;
 var tablaClientes = $("#TablaClientes").DataTable({
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
@@ -10,7 +13,7 @@ var tablaClientes = $("#TablaClientes").DataTable({
   ],
   ajax: {
     dataType: "json",
-    data: { api: 2 },
+    data: {api: 2},
     method: "POST",
     url: "../../../api/clientes_api.php",
     beforeSend: function () {
@@ -22,18 +25,30 @@ var tablaClientes = $("#TablaClientes").DataTable({
     dataSrc: "response.data",
   },
   columns: [
-    { data: 'COUNT' },
-    { data: 'NOMBRE_COMERCIAL' },
-    { data: 'RAZON_SOCIAL' },
-    { data: 'ABREVIATURA' },
+    {data: 'COUNT'},
+    {data: 'NOMBRE_COMERCIAL'},
+    {data: 'RAZON_SOCIAL'},
+    {data: 'ABREVIATURA'},
 
     // {defaultContent: 'En progreso...'}
   ],
-  columnDefs: [{ width: "3px", targets: 0 }],
+  columnDefs: [{width: "3px", targets: 0}],
 });
-// setTimeout(function(){loader("In")}, 500);
-// selectDatatable("TablaClientes", tablaClientes);
 
+$.fn.dataTable.ext.search.push(function (settings, data, dataIndex, rowData) {
+  // Solo aplica al DataTable de clientes
+  if (settings.nTable.id !== "TablaClientes") return true;
+
+  // Si el filtro está activo, solo mostramos los USUARIO_TIPO_ID = 3
+  if (filtroTipo3Activo) {
+    // `rowData` estará disponible solo si `rowCallback` o `ajax.dataSrc` devuelve objetos.
+    const usuarioTipo = rowData?.USUARIO_TIPO_ID || 0;
+    return parseInt(usuarioTipo) === 3;
+  }
+
+  // Si el filtro no está activo, mostramos todo
+  return true;
+});
 
 
 selectTable("#TablaClientes", tablaClientes,

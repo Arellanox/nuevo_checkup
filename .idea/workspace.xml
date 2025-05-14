@@ -4,6 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+    <list default="true" id="af65b511-fae7-4667-83bd-cb6ca4b438cc" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/cargos_turnos_api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/cargos_turnos_api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clases/ExcelReport_class.php" beforeDir="false" afterPath="$PROJECT_DIR$/clases/ExcelReport_class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/controlador/funciones.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/controlador/funciones.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/recepcion/contenido/controlador.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/recepcion/contenido/controlador.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/recepcion/contenido/js/recepcion-tabla.js" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/recepcion/contenido/js/recepcion-tabla.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/menu/recepcion/contenido/recepcion-rechazados.html" beforeDir="false" afterPath="$PROJECT_DIR$/vista/menu/recepcion/contenido/recepcion-rechazados.html" afterDir="false" />
     <list default="true" id="0ee84d9a-bbaf-4dfb-bf9f-89f7eb0c67aa" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/vista/login/contenido/page/05-10/dia_de_las_madres.php" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/vista/login/contenido/page/05-10/global.php" afterDir="false" />
@@ -50,6 +60,7 @@
       <list>
         <option value="HTML File" />
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -99,6 +110,13 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;com.codeium.enabled&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;mejoras__contadora&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/AppServ/www/nuevo_checkup/core/modules/notifications&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;nueva__franquicia&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/AppServ/www/nuevo_checkup/vista/procedencia/solicitud-franquicia-laboratorio/modals/html&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/AppServ/www/nuevo_checkup/archivos/sistema/temp/qr/CertificadoMedico&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -110,6 +128,18 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\AppServ\www\nuevo_checkup\vista\procedencia\solicitud-franquicia-laboratorio\modals\html" />
+      <recent name="F:\AppServ\www\nuevo_checkup\vista\menu\solicitud-franquicia-laboratorio\modals" />
+      <recent name="F:\AppServ\www\nuevo_checkup\core\modules\notifications" />
+      <recent name="F:\AppServ\www\nuevo_checkup\core\assets" />
+      <recent name="F:\AppServ\www\nuevo_checkup\core\helpers\inputs" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\AppServ\www\nuevo_checkup\vista\procedencia" />
+      <recent name="F:\AppServ\www\nuevo_checkup\core\requests" />
+      <recent name="F:\AppServ\www\nuevo_checkup\core\includes\app" />
+      <recent name="F:\AppServ\www\nuevo_checkup\core\includes\app\js" />
+      <recent name="F:\AppServ\www\nuevo_checkup\core\controllers\menu-controller\js" />
       <recent name="C:\AppServ\www\nuevo_checkup\archivos\sistema\temp\qr\CertificadoMedico" />
       <recent name="F:\AppServ\www\nuevo_checkup\pdf\public\assets" />
       <recent name="F:\AppServ\www\nuevo_checkup\vista\menu\maquilas\modals" />
@@ -133,6 +163,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.59" />
         <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
         <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
       </set>
@@ -161,6 +192,36 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="LAST_COMMIT_MESSAGE" value="" />
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/vista/menu/recepcion/contenido/js/recepcion-aceptados-tabla.js</url>
+          <line>97</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint type="javascript">
+          <url>file://$PROJECT_DIR$/vista/menu/recepcion/contenido/js/recepcion-aceptados-tabla.js</url>
+          <line>497</line>
+          <option name="temporary" value="true" />
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint type="javascript">
+          <url>file://$PROJECT_DIR$/vista/menu/recepcion/contenido/js/recepcion-aceptados-tabla.js</url>
+          <line>496</line>
+          <option name="temporary" value="true" />
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/vista/procedencia/solicitud-franquicia-laboratorio/contenido/controlador.js</url>
+          <line>35</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/vista/procedencia/estudios-laboratorio/contenido/controlador.js</url>
+          <line>24</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

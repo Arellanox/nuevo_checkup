@@ -23,6 +23,7 @@ $id = $_POST['id'];
 $id_paciente = $_POST['id_paciente'];
 $id_area = $_POST['id_area'];
 $fecha_agenda = $_POST['fecha_busqueda'];
+$fecha_agenda_final = $_POST['fecha_busqueda_final'];
 $confirmar = $_POST['confirmar'];
 
 #subir resultaddos
@@ -53,11 +54,8 @@ $cliente_id = $_POST['cliente_id'];
 $segmento_id = $_POST['segmento_id'];
 $area_id = $_POST['area_id'];
 
-
 # nuevos datos
 $categoria_turno = $_POST['categoria_turno'];
-
-
 $parametros = array(
     $id_turno,
     $paciente_id,
@@ -106,7 +104,11 @@ switch ($api) {
         # recuperar la lista de trabajo por area
         $area = $_POST['area_id'];
         $fecha = $_POST['fecha_busqueda'];
-        $response = $master->getByProcedure('sp_lista_de_trabajo', array($fecha, $area, NULL, $_SESSION['id'], $cliente_id));
+        $fechaFinal = $_POST['fecha_busqueda_final'];
+
+        $response = $master->getByProcedure('sp_lista_de_trabajo', [
+            $fecha, $fechaFinal, $area, NULL, $_SESSION['id'], $cliente_id
+        ]);
         break;
     case 10:
         #historial de servicios
@@ -245,7 +247,10 @@ switch ($api) {
         # Cargar lista de trabajo para la segunda validacion de laboratorio
         $area = $_POST['area_id'];
         $fecha = $_POST['fecha_busqueda'];
-        $response = $master->getByProcedure('sp_lista_de_trabajo', array($fecha, $area, 1, $_SESSION['id'], null)); #fecha deseada, id_area, id_cliente.
+        $fecha_final = $_POST['fecha_busqueda_final'];
+        $response = $master->getByProcedure('sp_lista_de_trabajo', array(
+            $fecha, $fecha_final, $area, 1, $_SESSION['id'], null
+        )); #fecha deseada, id_area, id_cliente.
         break;
     case 13:
         # Dar el 2 check en resultados de laboratorio [particulares]
@@ -296,7 +301,9 @@ switch ($api) {
 
     case 17:
         //eliminar servicio de un turno
-        $response = $master->deleteByProcedure('sp_recepcion_paciente_detalle_e', [$id_turno, $servicio_id, $paquete_id]);
+        $response = $master->deleteByProcedure('sp_recepcion_paciente_detalle_e', [
+            $id_turno, $servicio_id, $paquete_id
+        ]);
         break;
     case 18:
         // agregar un estudio a un turno

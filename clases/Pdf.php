@@ -114,7 +114,6 @@ class Reporte
 
                 $pdf->setPaper(array(0, 0, $ancho, $alto), 'portrait');
                 break;
-
             case 'resultados':
                 $template = render_view('invoice/resultados.php', $view_vars);
                 $pdf->loadHtml($template);
@@ -225,7 +224,7 @@ class Reporte
             case 'solicitud_estudios':
                 $template = render_view('invoice/solicitud_estudios.php', $view_vars);
                 $pdf->loadHtml($template);
-                $pdf->setPaper('letter', 'portrait');
+                $pdf->setPaper('letter');
                 
                 // $height = 14 * 28.3465; // 21.59 cm a puntos
                 // $width = 21.5 * 28.3465;   // 18 cm a puntos
@@ -240,7 +239,7 @@ class Reporte
             case 'audiometria':
                 $template = render_view('invoice/audio.php', $view_vars);
                 $pdf->loadHtml($template);
-                $pdf->setPaper('letter', 'portrait');
+                $pdf->setPaper('letter');
                 break;
 
             case 'envio_muestras':
@@ -252,13 +251,19 @@ class Reporte
                 # para confirmacion de datos del paciente
                 $template = render_view('invoice/form_datos.php', $view_vars);
                 $pdf->loadHtml($template);
-                $pdf->setPaper('letter', 'portrait');
+                $pdf->setPaper('letter');
                 break;
             case 'lista-barras':
                 # para imprimr la lista de trabajo de laboratorio clinico con codigos de barras
                 $template = render_view('invoice/lista-barras.php', $view_vars);
                 $pdf->loadHtml($template);
-                $pdf->setPaper("letter", 'portrait');
+                $pdf->setPaper("letter");
+                break;
+            case 'estados_cuentas':
+                $template = render_view('invoice/estado_cuenta.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter', 'landscape');
+                //$path    = 'pdf/public/oftalmologia/E00001.pdf';
                 break;
             case 'maquilas':
                 $template = render_view('invoice/maquilas.php', $view_vars);
@@ -273,8 +278,7 @@ class Reporte
             default:
                 $template = render_view('invoice/reportes.php', $view_vars);
                 $pdf->loadHtml($template);
-                $pdf->setPaper('letter', 'portrait');
-                // $path    = 'pdf/public/oftalmologia/E00001.pdf';
+                $pdf->setPaper('letter');
                 break;
         }
         // session_destroy();

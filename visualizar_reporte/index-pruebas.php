@@ -13,9 +13,10 @@ $usuario_id = $_SESSION['id'];
 
 
 
-$api = "certificado_bimo";
-$area_id = 1;
-$turno_id = 3458;
+// decomentar las siguientes 3 lineas para hacer las pruebas
+$api = "estados_cuentas";
+$area_id = -9;
+$turno_id = 821;
 $id_cliente = 15;
 $preview = 0;
 // $id_cotizacion = 7;
@@ -79,11 +80,15 @@ switch ($api) {
         break;
     case 'form_datos':
         # para imprimir la confirmacion de los datos del paciente
-        $r = $master->reportador($master, $turno_id, -6, 'form_datos', 'mostrar',$preview, 0, 0);
+        $r = $master->reportador($master, $turno_id, -6, 'form_datos', 'mostrar',$preview);
         break;
     case 'lista-barras':
         # imprimir lista de trabajo con codigo de barras
-        $r = $master->reportador($master, $turno_id, -7, 'lista-barras', 'mostrar', $preview, 0, 0);
+        $r = $master->reportador($master, $turno_id, -7, 'lista-barras', 'mostrar', $preview);
+        break;
+    case 'estados_cuentas':
+        # imprimir estado de cuentas
+        $r = $master->reportador($master, $turno_id, -9, 'estados_cuentas', 'mostrar', $preview);
         break;
     case 'maquilas':
         $r = $master->reportador($master, $turno_id, -8, 'maquilas', 'mostrar', $preview, 0, 0);

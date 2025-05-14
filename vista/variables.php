@@ -13,6 +13,9 @@ $servidores = [
     'helicebiologicos.com' => ['https' => 'http://', 'url' => 'helicebiologicos.com'],
     'localhost' => ['https' => 'http://', 'url' => 'localhost'],
 ];
+$servidorLocal = [
+    'localhost' => ['https' => 'http://', 'url' => 'localhost'],
+];
 
 $servidorLocal = [
     'localhost' => ['https' => 'http://', 'url' => 'localhost'],
@@ -36,11 +39,7 @@ if (isset($servidores[$current_host])) {
 
 $current_url = $https . $url . '/' . $appname;
 $session_data = $_SESSION;
-
-// Quitamos variable del frontend
-unset($session_data['token']);
-unset($session_data['permisos']);
-//
+$isFranquisiario = $_SESSION['franquiciario'];
 
 if ($url == "drjb.com.mx"): ?>
     <style>
@@ -48,3 +47,5 @@ if ($url == "drjb.com.mx"): ?>
         .bg-navbar { background-color: #00958e !important; }
     </style>
 <?php endif; ?>
+
+

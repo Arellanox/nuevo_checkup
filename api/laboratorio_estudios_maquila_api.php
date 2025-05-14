@@ -31,12 +31,12 @@ switch ($api) {
         try {
             $vinculo = '#';
             $procedureName = "sp_notificaciones_generar_g";
-            $mensaje =  "Solicitud de aprobación de maquilación generada por ".$_SESSION['nombre'];
+            $mensaje = "Solicitud de aprobación de maquilación generada por " . $_SESSION['nombre'];
 
             $master->insertByProcedure($procedureName, [$usuario_id, $mensaje, $vinculo, 15]);
             $master->insertByProcedure($procedureName, [$usuario_id, $mensaje, $vinculo, 2]);
             $master->insertByProcedure($procedureName, [$usuario_id, $mensaje, $vinculo, 20]);
-        } catch (Exception $exception){
+        } catch (Exception $exception) {
             $this->mis->setLog('Error al generar notificación', 'sp_notificaciones_generar_g');
         }
 
@@ -46,7 +46,7 @@ switch ($api) {
             $id_maquila, $mostrar_ocultos, $id_laboratorio_maquila, $mostrar_aprobados
         ]);
         break;
-    CASE 3: // Actualizar campo "activo" del estudio a maquilar
+    case 3: // Actualizar campo "activo" del estudio a maquilar
         $response = $master->updateByProcedure('sp_laboratorio_estudios_maquila_a', [
             $id_maquila, $activo
         ]);

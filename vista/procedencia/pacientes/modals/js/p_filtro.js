@@ -1,6 +1,3 @@
-
-
-
 $("#filtroTablaForm").on("submit", function (e) {
     e.preventDefault();
     alertToast('Aplicando filtro, espere un momento', 'info', 4000)

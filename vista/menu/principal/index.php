@@ -2,7 +2,6 @@
 //Variables dinamicas;
 include "../../variables.php";
 $menu = "PrincipalMenu";
-// print_r($_SESSION);
 ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">

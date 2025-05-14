@@ -212,7 +212,9 @@ switch ($api) {
         break;
     case 5:
         # marcar como pendiente un estudio
-        $response = $master->insertByProcedure('sp_turnos_estudios_pendientes_g', [$turno_id, $id_servicio, $pendiente, $_SESSION['id']]);
+        $response = $master->insertByProcedure('sp_turnos_estudios_pendientes_g', [
+            $turno_id, $id_servicio, $pendiente, $_SESSION['id']
+        ]);
         break;
     case 6:
         # notificacion de estudios pendientes

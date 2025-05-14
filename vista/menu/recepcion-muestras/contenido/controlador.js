@@ -10,10 +10,14 @@ async function contenidoRecepcionMuestras() {
   $.post("contenido/recepcion.php", function (html) {
     $("#body-js").html(html);
   }).done(function () {
-    dataListaPaciente = { api: 1, id_area: 6, fecha_agenda: $('#fechaListadoAreaMaster').val() };
-    // DataTable
-    $.getScript('contenido/js/muestras-tabla.js')
-    // Botones
-    $.getScript('contenido/js/muestras-botones.js')
+    dataListaPaciente = {
+      api: 1,
+      id_area: 6,
+      fecha_agenda: $('#fechaListadoAreaMaster').val(),
+      fecha_agenda_final: $('#fechaFinalListadoAreaMaster').val()
+    };
+
+    $.getScript('contenido/js/muestras-tabla.js')// DataTable
+    $.getScript('contenido/js/muestras-botones.js')// Botones
   })
 }

@@ -181,6 +181,8 @@ $(document).on('click', '.eliminarformapago', function (e) {
 
 //Vista de estudios que se le hicieron al paciente
 function configurarModal(data) {
+    console.log('2')
+
     //Estatus en proceso
     OcultarTablas()
     ReiniarFormasPago()
@@ -202,6 +204,7 @@ function configurarModal(data) {
     ajaxAwait({
         api: 1,
         turno_id: data['ID_TURNO'],
+        id_cliente: isFranquisiario ? data['CLIENTE_ID'] : null
     }, 'cargos_turnos_api', { callbackAfter: true, returnData: false }, false, function (data) {
         //El arreglo debe contener tanto un arreglo de los estudios como el total de precio de los estudios
         //let row = data.response.data // todos los datos
@@ -261,10 +264,7 @@ function configurarModal(data) {
         getPrecioTotal()
 
         $('#modalEstudiosContado').modal('show')
-
     })
-
-
 }
 
 $(document).on('change keyup', '#descuento', function () {
