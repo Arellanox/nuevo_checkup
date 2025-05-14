@@ -1,4 +1,8 @@
 $(document).ready(function(){
+
+     // Oculta el botón de agregar al cargar la página
+        $('#btnAgregar').hide();
+
     // Al hacer clic en un enlace del menú
     $('.vertical-menu a').on('click', function(e) {
         e.preventDefault(); // Evita que el enlace navegue
@@ -12,6 +16,13 @@ $(document).ready(function(){
        // Oculta el menú principal
         $('#tab-menu').hide();
 
+        // Muestra el botón de agregar solo si el div es 'moduloCatArticulos'
+        if (targetDiv == 'moduloCatArticulos') {
+            $('#btnAgregar').show();
+        } else {
+            $('#btnAgregar').hide();
+        }
+        
         // Muestra el div correspondiente al enlace clicado
         $('#' + targetDiv).show();
 
@@ -28,6 +39,7 @@ $(document).ready(function(){
     $(document).on('click', '.btn-back-menu', function() {
         $('.content-module').hide();
         $('#tab-menu').show();
+        $('#btnAgregar').hide();
     });
 });
 

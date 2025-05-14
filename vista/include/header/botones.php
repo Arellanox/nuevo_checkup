@@ -366,7 +366,7 @@ if ($menu == "Estudios - Laboratorio" || $menu == "Estudios" || $menu == "Grupos
 <?php endif;  ?>
 
 <?php if(strtolower($menu) == "inventarios" && $_SESSION['permisos']['invRegArt']): ?>
-  <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#registrarArticuloModal">
+  <button type="button" id="btnAgregar" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#registrarArticuloModal">
     <i class="bi bi-plus"></i> Agregar Artículo
   </button>
 <?php

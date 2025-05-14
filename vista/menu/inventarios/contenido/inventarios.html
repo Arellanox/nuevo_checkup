@@ -5,17 +5,19 @@
 
 
 <div class="row">
-    <div class="col-12  tab-first" id="tab-menu">
+    <div class="col-6  tab-first" id="tab-menu" style="margin: auto;">
         <div class="rounded p-3 shadow my-2 card" id="lista-pacientes">
           <h5>Elija una opción</h5>
-          <div class="vertical-menu d-flex justify-content-between flex-wrap">
-              <a href="#articulos" data-target="moduloCatArticulos"><i class="bi bi-box-seam-fill"></i> Artículos</a>
-              <a href="#recepcion" data-target="moduloRecepcionArticulos"><i class="bi bi-clipboard-check-fill"></i> Recepción de Artículos</a>
-              <a href="#entradas-salidas" data-target="moduloEntradasSalidas"><i class="bi bi-arrow-down-up"></i> Entradas y Salidas</a>
-              <a href="inventarios-fisicos" data-target="moduloInventariosFisicos"><i class="bi bi-pencil-square"></i> Inventarios Físicos</a>
-              <a href="#consulta" data-target="moduloConsulta"><i class="bi bi-search"></i> Consulta</a>
-              <a href="#requisiciones" data-target="moduloRequisiciones"><i class="bi bi-file-earmark-text-fill"></i> Requisiciones</a>
-              <a href="#dashboard" data-target="moduloDash"><i class="bi bi-graph-up-arrow"></i> Dashboard</a>
+          <div class="vertical-menu d-flex justify-content flex-wrap">
+              <a href="#articulos" data-target="moduloCatArticulos"><i class="bi bi-box-seam-fill" id="icono-menu"></i> Artículos</a>
+              <a href="#recepcion" data-target="moduloRecepcionArticulos"><i class="bi bi-clipboard-check-fill" id="icono-menu"></i><span> Recepción de Artículos</span></a>
+              <a href="#entradas-salidas" data-target="moduloEntradasSalidas"><i class="bi bi-arrow-down-up" id="icono-menu"></i><span> Entradas y Salidas</span></a>
+              <a href="inventarios-fisicos" data-target="moduloInventariosFisicos"><i class="bi bi-pencil-square" id="icono-menu"></i><span> Inventarios Físicos</span></span></a>
+              
+              <a href="#activos" data-target="moduloActivos"><i class="bi bi-folder-plus" id="icono-menu"></i><span> Activos</span></a>
+              <a href="#consulta" data-target="moduloConsulta"><i class="bi bi-search" id="icono-menu"></i><span> Consulta</span></a>
+              <a href="#requisiciones" data-target="moduloRequisiciones"><i class="bi bi-file-earmark-text-fill" id="icono-menu"></i><span> Requisiciones</span></a>
+              <a href="#dashboard" data-target="moduloDash"><i class="bi bi-graph-up-arrow" id="icono-menu"></i> <span> Dashboard</span></a>
           </div>
         </div>
     </div>
@@ -108,13 +110,28 @@
 }
 
 .vertical-menu a {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 165px;
+    height: 120px;
     color: #333333; /* Texto en color gris oscuro */
-    padding: 16px;
+    padding: none;
     text-decoration: none; /* Sin subrayado */
     border-bottom: 1px solid #eee; /* Línea divisoria muy suave */
     transition: background-color 0.3s ease, padding-left 0.3s ease;
     font-size: 16px; /* Tamaño de la fuente */
+}
+
+#icono-menu {
+    font-size: 2.5rem; /* Tamaño del icono */
+    margin-bottom: 8px; /* Espacio entre el icono y el texto */
+    line-height: 1; /* Alineación vertical del icono */
+}
+
+.vertical-menu a span{
+    margin-top: 2px; /* Espacio entre el icono y el texto */
 }
 
 .vertical-menu a:hover {
