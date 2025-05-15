@@ -29,6 +29,8 @@ $usuario_id = $_SESSION['id'];
 
 
 // decomentar las siguientes 3 lineas para hacer las pruebas
+
+
 $api = "estados_cuentas";
 $area_id = -9;
 $turno_id = 821;
@@ -98,11 +100,15 @@ switch ($api) {
         break;
     case 'form_datos':
         # para imprimir la confirmacion de los datos del paciente
-        $r = $master->reportador($master, $turno_id, -6, 'form_datos', 'mostrar',$preview, 0, 0);
+        $r = $master->reportador($master, $turno_id, -6, 'form_datos', 'mostrar',$preview);
         break;
     case 'lista-barras':
         # imprimir lista de trabajo con codigo de barras
-        $r = $master->reportador($master, $turno_id, -7, 'lista-barras', 'mostrar', $preview, 0, 0);
+        $r = $master->reportador($master, $turno_id, -7, 'lista-barras', 'mostrar', $preview);
+        break;
+    case 'estados_cuentas':
+        # imprimir estado de cuentas
+        $r = $master->reportador($master, $turno_id, -9, 'estados_cuentas', 'mostrar', $preview);
         break;
     default:
         echo '<script language="javascript">alert("¡URL invalida!"); window.close()</script>';

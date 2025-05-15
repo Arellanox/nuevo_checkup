@@ -287,7 +287,7 @@ $(document).on('click', '#btn-etiquetas-pdf', function (e) {
     // area = encodeURIComponent(window.btoa(-1));
     let turno = encodeURIComponent(window.btoa(btn.attr('data-bs-turno_guardado')));
 
-    var win = window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}`, '_blank')
+    let win = window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}`, '_blank')
 
     btnEstatus(3); // Abre el estado final para finalizar proceso
 })
@@ -296,30 +296,27 @@ $(document).on('click', '#btn-etiquetas-pdf', function (e) {
 // |------------------------- Formulario -------------------------|
 
 // Drag and drop
-var archivosNoSoportados = []; // Lista para guardar los nombres de archivos no soportados
+let archivosNoSoportados = []; // Lista para guardar los nombres de archivos no soportados
 let input_ordenMedica = InputDragDrop('#dropPromocionalesBimo', (inputArea, salidaInput) => {
     // Suponiendo que inputArea es un input de tipo file con el atributo "multiple" habilitado
-    var files = inputArea.get(0).files;
+    let files = inputArea.get(0).files;
 
     // Obten el nombre
-    var nombreArchivo = inputArea.val().split('\\').pop();
+    let nombreArchivo = inputArea.val().split('\\').pop();
 
     $('#image-preview').hide();
     $('#image-preview').html('');
     $('#pdf-canvas').hide();
     // Itera sobre todos los archivos seleccionados
-    for (var i = 0; i < files.length; i++) {
+    for (let i = 0; i < files.length; i++) {
         procesarArchivo(files[i]);
     }
 
     // Al finalizar, verifica si hay archivos no soportados para informar al usuario
     if (archivosNoSoportados.length > 0) {
-        var listaArchivosNoSoportados = "Archivos no soportados:\n" + archivosNoSoportados.join('\n');
+        let listaArchivosNoSoportados = "Archivos no soportados:\n" + archivosNoSoportados.join('\n');
         alert(listaArchivosNoSoportados);
     }
-
-
-
 
     // Vista previa final
     $('.nombre_orden-paciente').html(nombreArchivo);
@@ -426,8 +423,6 @@ $(document).on('submit', '#formulario_submit_muestras', function (e) {
     // const botonGuardarMuestra = form.find('.btn_submit_tomarmuestra'); // Encuentra el botón dentro del formulario
 
     guardarMuestraTomada(input, false)
-
-
 })
 
 // Guardar muestra
@@ -447,8 +442,6 @@ $(document).on('click', '#btn_submit_tomarmuestra', function (e) {
     // const botonGuardarMuestra = form.find('.btn_submit_tomarmuestra'); // Encuentra el botón dentro del formulario
 
     guardarMuestraTomada(input, btn)
-
-
 })
 
 function guardarMuestraTomada(input, botonGuardarMuestra) {
@@ -482,7 +475,7 @@ function guardarMuestraTomada(input, botonGuardarMuestra) {
 
 // Procedimiento para agregar nuevo estudio
 // variables a usar
-var estudiosEnviar = new Array(); // <-- Contiene los estudios a cargar
+let estudiosEnviar = new Array(); // <-- Contiene los estudios a cargar
 // Agrega estudio que buscó
 $(document).on('click', '.btn-agregar_estudio', function (event) {
     event.preventDefault();

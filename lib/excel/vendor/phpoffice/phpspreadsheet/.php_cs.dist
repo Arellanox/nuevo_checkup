@@ -24,7 +24,7 @@ return PhpCsFixer\Config::create()
         'class_attributes_separation' => ['elements' => ['method', 'property']], // const are often grouped with other related const
         'class_definition' => true,
         'class_keyword_remove' => false, // ::class keyword gives us beter support in IDE
-        'combine_consecutive_issets' => true,
+        'combine_consecutive_i' => true,
         'combine_consecutive_unsets' => true,
         'compact_nullable_typehint' => true,
         'concat_space' => ['spacing' => 'one'],
