@@ -193,6 +193,3 @@
 14/05/25 13:56:47 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
 14/05/25 14:24:42 sp_vendedores_periodos_b Ha ocurrido un error(42S02). 42S02 1146 Table 'u808450138_practicantes.vendedores_comisionistas_periodos' doesn't exist
 14/05/25 14:24:43 sp_vendedores_periodos_b Ha ocurrido un error(42S02). 42S02 1146 Table 'u808450138_practicantes.vendedores_comisionistas_periodos_detalle' doesn't exist
-15/05/25 09:52:34 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [2006] MySQL server has gone away
-15/05/25 11:57:02 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
-15/05/25 11:57:50 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)

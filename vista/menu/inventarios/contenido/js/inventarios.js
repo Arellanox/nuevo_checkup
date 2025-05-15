@@ -41,6 +41,21 @@ $(document).ready(function(){
         $('#tab-menu').show();
         $('#btnAgregar').hide();
     });
+
+    // ocultar/mostrar fecha de caducidad segun el checkbox y que sea obligatorio
+    $('#maneja_caducidad').trigger('change');
+});
+
+$('#maneja_caducidad').on('change', function() {
+    if ($(this).val() == '1') {
+        $('#fechaCaducidadDiv').show();
+        $('#fecha_caducidad').attr('required', true);
+    } else {
+        $('#fechaCaducidadDiv').hide();
+        $('#fecha_caducidad').val('');
+        $('#fecha_caducidad').removeAttr('required');
+        $('#fecha_caducidad').removeClass('is-invalid');
+    }
 });
 
 // ARTICULOS
@@ -102,7 +117,20 @@ tableCatArticulos = $('#tableCatArticulos').DataTable({
                 }
             }
         },
-        { data: 'FECHA_ULTIMA_ENTRADA' },
+        {
+            data: 'FECHA_ULTIMA_ENTRADA',
+            render: function(data, type, row) {
+                if (
+                    data &&
+                    data !== "0000-00-00" &&
+                    data !== "0000-00-00 00:00:00"
+                ) {
+                    return data.split(' ')[0];
+                } else {
+                    return '';
+                }
+            }
+        },
         //{ data: 'ESTATUS' },
         {
             data: 'ESTATUS',
@@ -140,7 +168,20 @@ tableCatArticulos = $('#tableCatArticulos').DataTable({
             },
             className: 'text-center'
         },
-        { data: 'FECHA_CADUCIDAD' },
+        {
+            data: 'FECHA_CADUCIDAD',
+            render: function(data, type, row) {
+                if (
+                    data &&
+                    data !== "0000-00-00" &&
+                    data !== "0000-00-00 00:00:00"
+                ) {
+                    return data;
+                } else {
+                    return '';
+                }
+            }
+        },
         { data: 'AREA' },
         { 
             data: 'COSTO_MAS_ALTO',
@@ -261,6 +302,10 @@ tableCatArticulos = $('#tableCatArticulos').DataTable({
                         }
                     });
 
+                    $('#editarArticuloForm #fecha_ultima_entrada').val(
+                        rowSelected.FECHA_ULTIMA_ENTRADA ? rowSelected.FECHA_ULTIMA_ENTRADA.split(' ')[0] : ''
+                    );
+
                     $("#editarArticuloForm #area_id").val(rowSelected.AREA_ID);
                     $("#editarArticuloForm #costo_mas_alto").val(rowSelected.COSTO_MAS_ALTO);
                     $("#editarArticuloForm #rendimiento_estimado").val(rowSelected.RENDIMIENTO_ESTIMADO);
@@ -343,13 +388,27 @@ selectDatatable('tableCatArticulos', tableCatArticulos,0,0,0,0, async function(s
     $("#claveArticulo").text(rowSelected.CLAVE_ART);
     $("#costoUltimaEntrada").text(Number(rowSelected.COSTO_ULTIMA_ENTRADA).toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
     $("#costoMasAlto").text(Number(rowSelected.COSTO_MAS_ALTO).toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
-    $("#fechaUltimaEntrada").text(rowSelected.FECHA_ULTIMA_ENTRADA);
+
+    //Ocultar la fecha de ultima entrada si no hay en detalles
+    if (rowSelected.FECHA_ULTIMA_ENTRADA && rowSelected.FECHA_ULTIMA_ENTRADA !== "0000-00-00" && rowSelected.FECHA_ULTIMA_ENTRADA !== "0000-00-00 00:00:00") {
+        $("#fechaUltimaEntrada").text(rowSelected.FECHA_ULTIMA_ENTRADA.split(' ')[0]);
+    } else {
+        $("#fechaUltimaEntrada").text('');
+    }
+
     $("#unidadVenta").text(rowSelected.UNIDAD_VENTA);
     $("#unidadMinima").text(rowSelected.UNIDAD_MINIMA);
     $("#contenido").text(rowSelected.CONTENIDO);
     $("#tipo").text(rowSelected.TIPO_DESCRIPCION);
     $("#manejaCaducidad").html(rowSelected.MANEJA_CADUCIDAD == 1 ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle-fill text-danger"></i>');
-    $("#fechaCaducidad").text(rowSelected.FECHA_CADUCIDAD);
+
+    // Ocultar la fecha de caducidad si no maneja caducidad en detalles
+    if (rowSelected.FECHA_CADUCIDAD && rowSelected.FECHA_CADUCIDAD !== "0000-00-00" && rowSelected.FECHA_CADUCIDAD !== "0000-00-00 00:00:00") {
+        $("#fechaCaducidad").text(rowSelected.FECHA_CADUCIDAD);
+    } else {
+        $("#fechaCaducidad").text('');
+    }
+    
     $('#estatusArt').html(rowSelected.ESTATUS == 1 ? '<span>ACTIVO</span>' : '<span>INACTIVO</span>');
     if(rowSelected.ESTATUS == 1){
         $('#estatusArt').addClass('bg-success-subtle');
@@ -369,7 +428,6 @@ selectDatatable('tableCatArticulos', tableCatArticulos,0,0,0,0, async function(s
     $("#nombreComercial").html(`${rowSelected.NOMBRE_COMERCIAL} ${rowSelected.RED_FRIO == 1 ? '<span class="badge text-bg-primary"><i class="bi bi-snow2 fs-4" title="Refrigerado"></i></span>' : '<span class="badge text-bg-warning"><i class="bi bi-thermometer-half fs-4" title="Temperatura ambiente"></i></span>'}`);
     $('#imagenProducto').attr("src", rowSelected.IMAGEN);
     $('#verImagenArt').attr('href', rowSelected.IMAGEN);
-
 
     if(!rowSelected.INSERTO){
         $("#verInsertoBtn").attr('disabled', true);

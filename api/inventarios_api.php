@@ -42,6 +42,8 @@ $insumo = $_POST['insumo'];
 $maneja_caducidad = $_POST['maneja_caducidad'];
 $fecha_caducidad = $_POST['fecha_caducidad'];
 $costo_mas_alto = $_POST['costo_mas_alto'];
+$costo_ultima_entrada = $_POST['costo_ultima_entrada'];
+$fecha_ultima_entrada = $_POST['fecha_ultima_entrada'];
 $tipo_articulo = $_POST['tipo_articulo'];
 $area_id = $_POST["area_id"];
 $rendimiento_estimado = $_POST['rendimiento_estimado'];
@@ -107,6 +109,8 @@ switch($api){
             $maneja_caducidad,
             $fecha_caducidad,
             $costo_mas_alto,
+            $costo_ultima_entrada,
+            $fecha_ultima_entrada,
             $tipo_articulo,
             $_SESSION['id'],
             $area_id,
