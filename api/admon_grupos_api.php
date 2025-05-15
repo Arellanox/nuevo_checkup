@@ -64,7 +64,6 @@ switch ($api) {
         break;
     case 8:
         # subir el archivo de la factura
-
         # recuperar el numero de la factura.
         $fac = $master->getByProcedure("sp_admon_recuperar_num_factura", [$id_grupo]);
 
