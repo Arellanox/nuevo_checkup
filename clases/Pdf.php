@@ -80,14 +80,19 @@ class Reporte
             case 'form_datos':
             case 'lista-barras':
                 $generator = null;
+                $barcode = null;
             default:
                 $barcode = null;
                 break;
         }
 
         $host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/";
+        // $host = 'http://localhost/nuevo_checkup/';
+        // Path del dominio
         $path = $archivo['ruta'] . $archivo['nombre_archivo'] . ".pdf";
-
+        // $path    = 'pdf/public/resultados/E-00001.pdf';
+        // print_r($pie['datos_medicos'][0]['ESPECIALIDADES']);
+        // print_r($path);
 
         session_start();
         $view_vars = array(
@@ -101,6 +106,13 @@ class Reporte
             "validacion"            => $host . "resultados/validar-pdf/?clave=" . $pie['clave'] . "&modulo=" . $pie['modulo']
         );
 
+        // print_r($view_vars['resultados']->ANAMNESIS);
+        // foreach($view_vars['resultados'] as $item){
+        //     print_r($item);
+        //     echo "<br>";
+        // }
+        // exit;
+
         $pdf = new Dompdf();
         // Recibe la orden de que tipo de archivo quiere
         switch ($tipo) {
@@ -113,6 +125,9 @@ class Reporte
                 $alto  = (2.5 / 2.54) * 72;
 
                 $pdf->setPaper(array(0, 0, $ancho, $alto), 'portrait');
+                // $pdf->setPaper('letter', 'portrait');
+                // $path    = 'pdf/public/etiquetas/00001.pdf';
+
                 break;
 
             case 'resultados':
@@ -260,20 +275,10 @@ class Reporte
                 $pdf->loadHtml($template);
                 $pdf->setPaper("letter", 'portrait');
                 break;
-            case 'maquilas':
-                $template = render_view('invoice/maquilas.php', $view_vars);
-                $pdf->loadHtml($template);
-                $pdf->setPaper('letter', 'portrait');
-                break;
-            case "certificado_bimo":
-                $template = render_view('invoice/certificado_bimo.php', $view_vars);
-                $pdf->loadHtml($template);
-                $pdf->setPaper('letter', 'portrait');
-                break;
             default:
                 $template = render_view('invoice/reportes.php', $view_vars);
                 $pdf->loadHtml($template);
-                $pdf->setPaper('letter', 'portrait');
+                $pdf->setPaper('letter');
                 // $path    = 'pdf/public/oftalmologia/E00001.pdf';
                 break;
         }

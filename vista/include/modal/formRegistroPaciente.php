@@ -94,6 +94,36 @@
   <label for="rfc" class="form-label">RFC</label>
   <input type="text" class="form-control input-form" name="rfc" placeholder="">
 </div>
+<!-- <div class="col-6 col-lg-3">
+  <label for="vacuna" class="form-label">Vacuna</label>
+  <select class="input-form" name="vacuna" id="vacuna">
+      <option value="1" >Ninguno...</opcion>
+      <option value="PFIZER">PFIZER</opcion>
+      <option value="ASTRA ZENECA" >ASTRA ZENECA</opcion>
+      <option value="SPUTNIK V" >SPUTNIK V</opcion>
+      <option value="SINOVAC" >SINOVAC</opcion>
+      <option value="CANSINO" >CANSINO</opcion>
+      <option value="MODERNA" >MODERNA</opcion>
+      <option value="COVAX" >COVAX</opcion>
+      <option value="JOHNSON & JOHNSON" >JOHNSON & JOHNSON</opcion>
+      <option value="SINOPHARM" >SINOPHARM</opcion>
+      <option value="OTRA">OTRA (ESPECIFIQUE)</opcion>
+  </select>
+</div>
+<div class="col-6 col-lg-3" >
+  <label for="vacunaextra" class="form-label">Especifique otra vacuna</label>
+  <input type="text" class="form-control input-form" placeholder="" style="text-transform:uppercase;" value="NA" name="vacunaExtra" id="vacunaExtra" onkeyup="javascript:this.value=this.value.toUpperCase();" readonly>
+</div>
+<div class="col-6 col-lg-3">
+  <label for="dosis" class="form-label">Dosis</label>
+  <select class="input-form" name="inputTipoPDF" id="inputDosis">
+      <option value="1" >Ninguno...</opcion>
+      <option value="1RA" >1RA DOSIS</opcion>
+      <option value="2DA">2DA DOSIS</opcion>
+      <option value="3RA" >3RA DOSIS</opcion>
+      <option value="REFUERZO" >REFUERZO</opcion>
+  </select>
+</div> -->
 <div class="col-12 col-lg-6" style="margin-top: 30px;margin-bottom: 15px;">
   <div class="container">
     <div class="row" style="zoom:110%;">
@@ -113,31 +143,29 @@
 </div>
 
 <div class="col-12 pt-2" id="communicationOptions">
-    <div class="row mt-2 justify-content-center ">
-        <p class="fs-6 text-center pb-2">Preferencia de entrega de resultados</p>
-        <div class="col-auto mb-3 form-check fs-4 mx-3">
-            <input type="checkbox" class="form-check-input input-impreso-check" id="impreso" name="medios" value="1">
-            <label class="form-check-label" for="impreso" style="color: #1a8bbc">
-                <i class="fas fa-print"></i> Impreso
-            </label>
-        </div>
-        <div class="col-auto mb-3 form-check fs-4 mx-3">
-            <input type="checkbox" class="form-check-input input-whatsapp-check" id="whatsapp" name="medios" value="2">
-            <label class="form-check-label" for="whatsapp" style="color: #1ABC9C">
-                <i class="fab fa-whatsapp"></i> Whatsapp
-            </label>
-        </div>
-        <div class="col-auto mb-3 form-check fs-4 mx-3">
-            <input type="checkbox" class="form-check-input input-correo-check" id="correo" name="medios" value="3">
-            <label class="form-check-label" for="correo" style="color: #c35f3d">
-                <i class="fas fa-envelope"></i> Correo
-            </label>
-        </div>
+  <div class="row">
+    <p class="fs-6">Preferencia de entrega de resultados</p>
+    <div class="col-auto mb-3 form-check fs-4 mx-3">
+      <input type="checkbox" class="form-check-input" id="impreso" name="medios" value="1">
+      <label class="form-check-label" for="impreso">
+        <i class="fas fa-print"></i> Impreso
+      </label>
     </div>
+    <div class="col-auto mb-3 form-check fs-4 mx-3">
+      <input type="checkbox" class="form-check-input" id="whatsapp" name="medios" value="2">
+      <label class="form-check-label" for="whatsapp">
+        <i class="fab fa-whatsapp"></i> Whatsapp
+      </label>
+    </div>
+    <div class="col-auto mb-3 form-check fs-4 mx-3">
+      <input type="checkbox" class="form-check-input" id="correo" name="medios" value="3">
+      <label class="form-check-label" for="correo">
+        <i class="fas fa-envelope"></i> Correo
+      </label>
+    </div>
+  </div>
 </div>
 
-<div class="col-12">
-    <div class="row w-full justify-content-center items-center" id="contenido-procedencia">
-
-    </div>
+<div class="col-12 col-lg-6 col-xxl-3 bd-callout bd-callout-warning" id="contenido-procedencia">
+  
 </div>

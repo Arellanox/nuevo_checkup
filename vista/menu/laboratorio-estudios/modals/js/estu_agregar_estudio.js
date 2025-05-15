@@ -27,6 +27,20 @@ ModalRegistrarEstudio.addEventListener("show.bs.modal", (event) => {
 
 })
 
+// $(document).ready(function () {
+//   $('#summernote-estudios').summernote({
+//     toolbar: [
+//       // ['style', ['style']],
+//       ['font', ['bold', 'underline', 'clear']],
+//       // ['color', ['color']],
+//       ['para', ['ul', 'ol', 'paragraph']],
+//       // ['table', ['table']],
+//       // ['insert', ['link', 'picture', 'video']],
+//       // ['view', ['fullscreen', 'codeview', 'help']]
+//     ]
+//   });
+// });
+
 $("#ModalRegistrarEstudio").on("hidden.bs.modal", function () {
   // put your default event here
   if (modalEdit) {
@@ -115,11 +129,14 @@ async function getValueEstudio(id) {
             $('#div-maquila').fadeIn()
             $('#maquila_agregar_estudio').val(row.MAQUILA_ID);
             $('#maquila_agregar_estudio').prop('required', true);
+
           } else {
             $('#div-maquila').fadeOut()
             $('#maquila_agregar_estudio').val(1);
             $('#maquila_agregar_estudio').prop('required', false);
+
           }
+
 
           let grupos = row.GRUPOS
           if (grupos) {
@@ -129,6 +146,7 @@ async function getValueEstudio(id) {
                 if (Object.hasOwnProperty.call(grupos, key)) {
                   const element = grupos[key];
                   if (element) {
+                    console.log(element)
                     let nameInput = agregarHTMLSelectorInput('#div-select-grupo', 'Grupo', rellenoGrupoSelect, element['GRUPO'], element['ORDEN'])
                     $(`select[name="${nameInput}"`).val(element['GRUPO']).trigger('change')
                   }
@@ -138,6 +156,7 @@ async function getValueEstudio(id) {
           }
 
           $(`input[type="radio"][name="grupos"][value="${row.ES_GRUPO}"]`).prop('checked', true)
+
 
           let metodo = row.METODO_ID;
           for (const key in metodo) {
@@ -170,8 +189,10 @@ async function getValueEstudio(id) {
               }, 100);
             }
           } catch (error) {
-            console.warn(error)
+
           }
+
+
 
           let equipo = row.EQUIPO_ID
           for (const key in equipo) {
@@ -185,6 +206,7 @@ async function getValueEstudio(id) {
               }
             }, 100);
           }
+
 
           $(`input[name="muestra_valores"][value="${row.MUESTRA_VALORES_REFERENCIA}"]`).prop('checked', true);
           if (row.VALOR_MINIMO)
@@ -200,6 +222,19 @@ async function getValueEstudio(id) {
 
           $('#input-edad-inicial-referencia').val(ifnull(row.EDAD_INICIAL));
           $('#input-edad-final-referencia').val(ifnull(row.EDAD_FINAL));
+
+
+
+          // } catch (error) {
+          //   alertMensaje('error', 'Oops.', 'Hubo un error en mostrar los valores del servicio', 'NO GUARDE NADA; REPORTA ESTE ERROR');
+
+          // }
+
+
+
+
+
+
 
           modalEdit = id;
         }
@@ -402,8 +437,26 @@ $(document).on('click', '#nuevo-select-equipo', function (event) {
 
 $(document).on('click', '.eliminarContenerMuestra1', function () {
   var parent_element = $(this).closest("div[class='row']");
+  // console.log(parent_element)
+  // numberContenedor -= 1;
   parent_element.remove();
 });
+
+
+
+// $('.eliminarContenerMuestra').on('click', function(event){
+//   event.stopPropagation();
+//   event.stopImmediatePropagation();
+//   var parent_element = $(this).closest("div[class='row']");
+//   console.log(parent_element)
+//   parent_element.remove();
+// })
+
+
+
+
+
+
 
 select2("#registrar-clasificacion-estudio", "ModalRegistrarEstudio");
 

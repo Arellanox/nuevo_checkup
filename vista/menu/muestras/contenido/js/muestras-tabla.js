@@ -92,7 +92,11 @@ function obtenerListaEstudiosContenedores(idturno = null) {
     ajaxAwait({ api: 2, id_turno: idturno }, 'toma_de_muestra_api', { callbackAfter: true, WithoutResponseData: true }, false, (row) => {
       let html = '';
       for (var i = 0; i < row.length; i++) {
-        console.log(row)
+        // console.log(row[i]);
+        // html += '<li class="list-group-item">';
+        // html += row[i]['GRUPO'];
+        // html += '<i class="bi bi-arrow-right-short"></i><strong>' + row[i]['MUESTRA'] + '</strong> - <strong>' + row[i]['CONTENEDOR'] + '</strong></li>';
+
         /* codigo nuevo */
         html += `<div class="card">
                   <div class="card-header">
@@ -113,7 +117,7 @@ function obtenerListaEstudiosContenedores(idturno = null) {
                       <p><strong><i class="bi bi-person-lines-fill"></i> Indicaciones para el paciente:</strong> <span class="none-p">${ifnull(row[i]['INDICACIONES'])}</span></p>
                       <p><strong><i class="bi bi-thermometer-half"></i> Conservación:</strong> <span class="none-p">${ifnull(row[i]['CONSERVACION'])}</span></p>
                       <p><strong><i class="bi bi-building"></i> Área:</strong> <span class="none-p">${ifnull(row[i]['AREA'])}</span></p>
-                      <p><strong><i class="bi bi-activity"></i> Metodología:</strong> <span class="none-p">${ifnull(row[i]['METODOLOGIA_NOMBRE'])}</span></p>
+                      <p><strong><i class="bi bi-activity"></i> Metodología:</strong> <span class="none-p">${ifnull(row[i]['METODOLOGIA'])}</span></p>
                     </div>
                   </div>
                 </div>
