@@ -119,6 +119,7 @@ $("#resetFiltrosBtn").click(function() {
     dataTableCatArticulos = { api: 3 };
     tableCatArticulos.ajax.reload();
     $('#resetFiltrosBtn').hide(); // Oculta el botón inmediatamente después de resetear
+    $("#filtrarArticuloModal").modal('hide'); // Cierra el modal
 });
 
 function toggleFieldset(checkbox, fieldset) {
