@@ -93,6 +93,7 @@
                                                         <small class="form-text text-muted">Seleccione si el artículo maneja caducidad.</small>
                                                     </div>
                                                 </div>
+                                                
                                                 <!--  Fecha caducidad -->
                                                 <div class="col-6" id="fechaCaducidadDiv" style="display:none;">
                                                     <div class="mb-3">
@@ -151,11 +152,30 @@
                                                 <div class="col-12">
                                                     <div class="mb-3">
                                                         <label for="costo_mas_alto" class="form-label">Costo Más Alto</label>
-                                                        <input type="text" class="form-control input-form" id="costo_mas_alto" name="costo_mas_alto">
+                                                        <input type="text" class="form-control input-form" id="costo_mas_alto" name="costo_mas_alto" required>
                                                         <div class="invalid-feedback">Este campo es obligatorio.</div>
                                                         <small class="form-text text-muted">Ingrese el costo más alto del artículo.</small>
                                                     </div>
                                                 </div>
+
+                                                <div class="col-6">
+                                                    <div class="mb-3">
+                                                        <label for="costo_ultima_entrada" class="form-label">Costo Última Entrada</label>
+                                                        <input type="text" class="form-control input-form" id="costo_ultima_entrada" name="costo_ultima_entrada">
+                                                        <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                                        <small class="form-text text-muted">Ingrese el costo de la última entrada del artículo.</small>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-6" id="fechaUltimaEntradaDiv">
+                                                    <div class="mb-3">
+                                                        <label for="fecha_ultima_entrada" class="form-label">Fecha Última Entrada</label>
+                                                        <input type="date" class="form-control input-form" id="fecha_ultima_entrada" name="fecha_ultima_entrada">
+                                                        <!-- <div class="invalid-feedback">Este campo es obligatorio.</div> -->
+                                                        <small class="form-text text-muted">Ingrese la fecha de última entrada del artículo.</small>
+                                                    </div>
+                                                </div>
+
                                                 <div class="col-12">
                                                     <div class="mb-3">
                                                         <label for="rendimiento_estimado" class="form-label">Rendimiento Estimado (pruebas)</label>
