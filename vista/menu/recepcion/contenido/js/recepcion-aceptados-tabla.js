@@ -293,10 +293,10 @@ const columnasIngresadosFranquicia = [
     { data: 'GENERO' },
     {
         data: 'COMPLETADO', render: function (data) {
-            if (servidor === 'drjb.com.mx' && data === 1)
+            if (servidor === 'drjb.com.mx' && data == 1)
                 return '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizade</p>'
 
-            return data === 1 ? '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizado</p>' : `<p class="fw-bold ${data == 2 ? '' : 'text-warning'}" style="letter-spacing: normal !important;">En proceso</p>`;
+            return data == 1 ? '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizado</p>' : `<p class="fw-bold ${data == 2 ? '' : 'text-warning'}" style="letter-spacing: normal !important;">En proceso</p>`;
         }
     },
     { data: null },
@@ -373,6 +373,10 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
                 switch (data) {
                     case 'Particular': case 'PARTICULAR':
                         return `<p class="fw-bold" style="letter-spacing: normal !important;">${data}</p>`;
+                    case 'Venta al Público':
+                    case 'VENTA AL PUBLICO':
+                    case 'VENTA AL PÚBLICO':
+                        return `<p style="letter-spacing: normal !important; color: #ac7832; font-weight: 300">${data}</p>`;
                     default:
                       return data;
                 }
@@ -417,10 +421,10 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
         { data: 'GENERO' },
         {
             data: 'COMPLETADO', render: function (data) {
-                if (servidor === 'drjb.com.mx' && data === 1)
+                if (servidor === 'drjb.com.mx' && data == 1)
                     return '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizade</p>'
 
-                return data === 1 ? '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizado</p>' : `<p class="fw-bold ${data == 2 ? '' : 'text-warning'}" style="letter-spacing: normal !important;">En proceso</p>`;
+                return data == 1 ? '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizado</p>' : `<p class="fw-bold ${data == 2 ? '' : 'text-warning'}" style="letter-spacing: normal !important;">En proceso</p>`;
             }
         },
         { data: null },
