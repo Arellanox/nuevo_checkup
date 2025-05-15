@@ -40,21 +40,3 @@ session_start();
         </div>
     </div>
 </div>
-
-
-
-<script>
-    // Obtener la fecha actual
-    //var fechaActual = new Date();
-
-    // Obtener el día de la semana de la fecha actual (0: domingo, 1: lunes, ..., 6: sábado)
-    //var diaSemana = fechaActual.getDay();
-
-    // Calcular la fecha inicial (lunes) y fecha final (domingo) de la semana actual
-    //var fechaInicial = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate() - diaSemana + 1).toISOString().split('T')[0];
-    //var fechaFinal = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate() + (6 - diaSemana) + 1).toISOString().split('T')[0];
-
-    // Asignar los valores por defecto a los campos de entrada de fecha
-    //document.getElementById('fecha_inicial').value = fechaInicial;
-    //document.getElementById('fecha_final').value = fechaFinal;
-</script>

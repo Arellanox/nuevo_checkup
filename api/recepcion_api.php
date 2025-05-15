@@ -8,10 +8,6 @@ $datos = json_decode(file_get_contents('php://input'), true);
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
-if (!$tokenValido) {
-    // $tokenVerification->logout();
-    // exit;
-}
 
 $api = $_POST['api'];
 $master = new Master();
@@ -68,10 +64,8 @@ $medico_telefono = $_POST['medico_telefono'];
 $medico_especialidad = $_POST['medico_especialidadz'];
 $vendedor_id = $master->setToNull([$_POST['vendedor']])[0];
 
-
 # reagendar
 $fecha_reagenda = $_POST['fecha_reagenda'];
-
 
 #servicio para pacientes particulares o servicios extras para pacientes de empresas
 if (!is_null($master->setToNull([$_POST['servicios']])[0])) {
@@ -80,14 +74,12 @@ if (!is_null($master->setToNull([$_POST['servicios']])[0])) {
     $servicios = null;
 }
 
-
 #ordenes medicas
 $orden_laboratorio = $_FILES['orden-medica-laboratorio'];
 $orden_rayos_x = $_FILES['orden-medica-rx'];
 $orden_ultrasonido = $_FILES['orden-medica-us'];
 
 # Pases de los pacientes de la ujat
-
 $pase_ujat = $_FILES['pase-ujat'];
 
 $ordenes = array(
@@ -115,22 +107,32 @@ $id_medio = $_POST['id_medio'];
 $medios_entrega = $_POST['medios_entrega'];
 
 $comoNosConociste = $_POST['como_nos_conociste'];
+$franquiciaID = $_SESSION['franquiciario'] ? $_SESSION['id_cliente'] : null;
+
+# Mensajes de error para corte de cajas
+$mensajesErrorCaja = [
+    "NO ESTÁS ASIGNADO A NINGUNA CAJA, NO PUEDES CONTINUAR CON EL PROCESO",
+    "UPS...NO ES POSIBLE ACEPTAR ESTE PACIENTE, YA QUE HAY UN CORTE DE CAJA EN PROCESO DEL DÍA ANTERIOR"
+];
 
 switch ($api) {
+    case 0:
+        $response = [];
+        break;
     case 1:
         # recuperar pacientes por estado
         # 1 para pacientes aceptados
         # 0 para pacientes rechazados
         # null o no enviar nada, para pacientes en espera
-        $response = $master->getByProcedure('sp_buscar_paciente_por_estado', array($estado_paciente, $mesesAtras, $prefolio));
 
+        $response = $master->getByProcedure('sp_buscar_paciente_por_estado', [
+            $estado_paciente, $mesesAtras, $prefolio, $franquiciaID
+        ]);
         break;
     case 2:
-        # aceptar o rechazar pacientes [tambien regresar a la vida]
-        # enviar 1 para aceptarlos, 0 para rechazarlos, null para pacientes en espera
-        // $response = $master->updateByProcedure('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo));
-
-        # esto es para prevenir duplicar el corte de cajas.
+        # Aceptar o rechazar pacientes [tambien regresar a la vida]
+        # Enviar 1 para aceptarlos, 0 para rechazarlos, null para pacientes en espera
+        # Esto es para prevenir duplicar el corte de cajas.
         if (!isset($_SESSION['id'])){
             $response = "Por favor, reinicie sesión";
             break;
@@ -138,84 +140,109 @@ switch ($api) {
 
         # Agrega nuevo medico si es requerido
         if ($new_medico) {
-            $response = $master->insertByProcedure('sp_medicos_tratantes_g', [null, $medico_tratante, $medico_correo, null, $medico_telefono, $medico_especialidad]);
+            $response = $master->insertByProcedure('sp_medicos_tratantes_g', [
+                null, $medico_tratante, $medico_correo, null, $medico_telefono, $medico_especialidad
+            ]);
+
             $medico_tratante_id = $response;
         }
-        #
-        $response = $master->getByNext('sp_recepcion_cambiar_estado_paciente', array($idTurno, $estado_paciente, $comentarioRechazo, $alergias, $e_diagnostico, null, $medico_tratante_id, $_SESSION['id'], $vendedor_id, $comoNosConociste)); #<-- la id de segmento manda error si no se le envia algo
+
+        # Cambia el estado del paciente
+        $response = $master->getByNext('sp_recepcion_cambiar_estado_paciente', [
+            $idTurno, $estado_paciente, $comentarioRechazo, $alergias, $e_diagnostico, null, $medico_tratante_id,
+            $_SESSION['id'], $vendedor_id, $comoNosConociste
+        ]);
         $aleta = $response[0][0][0];
 
-        #validacion de si esta en caja o hay un corte de ayer que no se haya cerrado
-        if (
-            $aleta == "NO ESTÁS ASIGNADO A NINGUNA CAJA, NO PUEDES CONTINUAR CON EL PROCESO" ||
-            $aleta == "UPS...NO ES POSIBLE ACEPTAR ESTE PACIENTE, YA QUE HAY UN CORTE DE CAJA EN PROCESO DEL DÍA ANTERIOR"
-        ) {
+        # Validacion de si esta en caja o hay un corte de ayer que no se haya cerrado
+        if (in_array($aleta, $mensajesErrorCaja)) {
             $response = $aleta;
             break;
         }
 
         $etiqueta_turno = $response[1];
 
-        # Insertar el detalle del paquete al turno en cuestion
-        if ($estado_paciente == 1) {
-            # si el paciente es aceptado, cargar los estudios correspondientes
-            rename($identificacion, "../../archivos/identificaciones/" . $idTurno . ".png");
-            $response = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', array($idTurno, $idPaquete, null, $_SESSION['id']));
-            #aqui subir las ordenes medicas si las hay
-            #crear la carpeta de tunos dentro de 
+        if($estado_paciente == 1) {
+            if($_SESSION['franquiciario']) {
+                $paciente = $master->getByProcedure("sp_pacientes_b", [
+                    null, null, null, $idTurno, $franquiciaID
+                ]);
 
+                if (!empty($paciente)) {
+                    $response1 = $master->getByProcedure("sp_franquicia_maquilas_altas_pacientes", [
+                        $paciente[0]['ID_PACIENTE'], $paciente[0]['NOMBRE'], $paciente[0]['PATERNO'],
+                        $paciente[0]['MATERNO'], $paciente[0]['CURP'],$paciente[0]['FECHA_NACIMIENTO'],
+                        $paciente[0]['EDAD'], $paciente[0]['GENERO'], "FRANQUICIA", NULL, 1, [], "",
+                        $_SESSION['id'], "", $idTurno
+                    ]);
+
+                    $master->mis->setLog(json_encode($response1), 'Maquilas: ');
+                }
+            }
+
+            # Insertar el detalle del paquete al turno en cuestion
+            # Si el paciente es aceptado, cargar los estudios correspondientes
+            rename($identificacion, "../../archivos/identificaciones/" . $idTurno . ".png");
+            $response = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', [
+                $idTurno, $idPaquete, null, $_SESSION['id']
+            ]);
+
+            $master->mis->setLog(json_encode($response), 'INSERTAR DETALLE DEL PAQUETE EN CUESTION: ');
+
+            # Aqui subir las ordenes medicas si las hay y crear la carpeta de tunos dentro de
             if (count($ordenes) > 0) {
                 $dir = $master->urlComodin . $master->urlOrdenesMedicas . "$idTurno/";
                 $r = $master->createDir($dir);
+
                 if ($r == 1) {
                     #movemos las ordenes medicas
-                    $return = $master->guardarFiles($_FILES, 'orden-medica-laboratorio', $dir, "ORDEN_MEDICA_LABORATORIO_$idTurno");
-                    $return2 = $master->guardarFiles($_FILES, 'orden-medica-rx', $dir, "ORDEN_MEDICA_RX_$idTurno");
-                    $return3 = $master->guardarFiles($_FILES, 'orden-medica-us', $dir, "ORDEN_MEDICA_ULTRASONIDO_$idTurno");
-
-                    # metemos el area al que pertenece
-                    $return[0]['area_id'] = 6;
-                    $return2[0]['area_id'] = 8;
-                    $return3[0]['area_id'] = 11;
-                    $merge = array_merge($return, $return2, $return3);
+                    $merge = getOrdenesMedicas($master, $dir, $idTurno);
 
                     #insertarmos las ordenes medicas en la base de datos
                     foreach ($merge as $item) {
                         if (!empty($item['tipo'])) {
-                            $responseOrden = $master->insertByProcedure('sp_ordenes_medicas_g', [null, $idTurno, $item['url'], $item['tipo'], $item['area_id']]);
+                            $responseOrden = $master->insertByProcedure('sp_ordenes_medicas_g', [
+                                null, $idTurno, $item['url'], $item['tipo'], $item['area_id']
+                            ]);
                         }
                     }
-                } else {
-                    $master->setLog("No se pudo crear el directorio para guardar las ordenes medicas", "recepcion_api.php [case 2]");
                 }
             }
         } else {
+            if($_SESSION['franquiciario']) {
+                $paciente = $master->getByProcedure("sp_pacientes_b", [
+                    null, null, null, $idTurno, $franquiciaID
+                ]);
+
+                if(!empty($paciente)) {
+                    $response_desactivar = $master->updateByProcedure('sp_franquicia_maquilas_desactivar', [
+                        null, $paciente->ID_PACIENTE, $_SESSION['id']
+                    ]);
+                }
+            }
+
             # si el paciente es rechazado, se desactivan los resultados de su turno.
-            $response = $master->updateByProcedure('sp_recepcion_desactivar_servicios', array($idTurno));
+            $response = $master->updateByProcedure('sp_recepcion_desactivar_servicios', [$idTurno]);
         }
 
         # Insertar servicios extrar para pacientes empresas o servicios para particulares
-        if (is_array($servicios)) {
-            if (count($servicios) > 0) {
-                # si hay algo en el arreglo lo insertamos
-                foreach ($servicios as $key => $value) {
-                    $response2 = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', array($idTurno, null, $value, $_SESSION['id']));
-                }
+        if (is_array($servicios) && count($servicios) > 0) {
+            $detalles = [];
 
-                // $response3 = $master->insertByProcedure('sp_corte_caja_iniciar_g', [$idTurno, $_SESSION['id']]);
-                // var_dump($response3);
+            foreach ($servicios as $key => $value) {
+                $detalles= $master->insertByProcedure('sp_recepcion_detalle_paciente_g', [
+                    $idTurno, null, $value, $_SESSION['id']
+                ]);
+
+                $master->mis->setLog(json_encode($detalles), ' sp_recepcion_detalle_paciente_g: ');
             }
         }
 
-        #$response = array_merge((array) $response, (array) $etiqueta_turno);
-        $response = array(
-            0 => $response,
-            1 => $etiqueta_turno[0]
-        );
+        $response = [0 => $response, 1 => $etiqueta_turno[0]];
         break;
     case 3:
         # reagendar una cita
-        $response = $master->updateByProcedure('sp_recepcion_reagendar', array($idTurno, $fecha_reagenda));
+        $response = $master->updateByProcedure('s', array($idTurno, $fecha_reagenda));
         break;
     case 4:
         # reenviar reportes e imagenes por correo de todas las areas.
@@ -229,10 +256,7 @@ switch ($api) {
             $mail = new Correo();
             $r = $mail->sendEmail("resultados", "[bimo] Resultados", [$reportes[1]], null, $reportes[0], 1);
             if ($r) {
-                $master->setLog("Correo global enviado.", "[recepcion api, case 4]");
                 $response = 1;
-            } else {
-                $master->setLog("Falla al enviar correo.", "[recepcion api, case 4]");
             }
         } else {
             $response = "Paciente sin resultados o imágenes.";
@@ -396,7 +420,7 @@ switch ($api) {
         break;
     case 8:
         #lista de trabajadores
-        #Front necesita: 
+        #Front necesita:
         #'ID_PACIENTE', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.NUMBER_TRABAJADOR'
         #Del trabajador para enviarte la ID
 
@@ -446,15 +470,7 @@ switch ($api) {
             $r = $master->createDir($dir);
             if ($r == 1) {
                 #movemos las ordenes medicas
-                $return = $master->guardarFiles($_FILES, 'orden-medica-laboratorio', $dir, "ORDEN_MEDICA_LABORATORIO_$e_turno_id");
-                $return2 = $master->guardarFiles($_FILES, 'orden-medica-rx', $dir, "ORDEN_MEDICA_RX_$e_turno_id");
-                $return3 = $master->guardarFiles($_FILES, 'orden-medica-us', $dir, "ORDEN_MEDICA_ULTRASONIDO_$e_turno_id");
-
-                # metemos el area al que pertenece
-                $return[0]['area_id'] = 6;
-                $return2[0]['area_id'] = 8;
-                $return3[0]['area_id'] = 11;
-                $merge = array_merge($return, $return2, $return3);
+                $merge = getOrdenesMedicas($master, $dir, $e_turno_id);
 
                 #insertarmos las ordenes medicas en la base de datos
                 foreach ($merge as $item) {
@@ -510,21 +526,20 @@ switch ($api) {
         $response[0]['ORDENES_MEDICAS'] = $master->decodeJson([$response[0]['ORDENES_MEDICAS']]);
         $response[0]['IDENTIFICACION'] = $master->decodeJson([$response[0]['IDENTIFICACION']]);
         break;
-
     case 12:
         #recuperar todos los tipops de cuestionarios
         $response = $master->getByProcedure("sp_cuestionarios_b", []);
 
         break;
-
     case 13:
         //Actualiza la procedencia en recepcion(aceptados)
         $response = $master->updateByProcedure("sp_actualizar_procedencia_g", [$idTurno, $cliente_id]);
         break;
     case 14:
         # descargar masivamente reportes
-
-        $resultset = $master->getByProcedure("sp_recuperar_reportes_confirmados", [null, null, $cliente_id, $fecha_ingreso, null]);
+        $resultset = $master->getByProcedure("sp_recuperar_reportes_confirmados", [
+            null, null, $cliente_id, $fecha_ingreso, null
+        ]);
 
         $ids = array_unique(array_map(function ($item) {
             return $item['TURNO_ID'];
@@ -539,7 +554,7 @@ switch ($api) {
             });
 
             # obtenemos el nombre de la carpeta
-            $firstElement = $records[array_key_first($records)];
+            $firstElement = $records[array_key_first((array)$records)];
             $sinGuion = (explode('-', $firstElement['NOMBRE_ARCHIVO']))[0];
             $sinGuionBajo = explode('_', $sinGuion);
 
@@ -557,13 +572,11 @@ switch ($api) {
             $response[] = [
                 "folder" => $folder,
                 "urls" => $urls,
-
             ];
         }
 
         echo json_encode($response);
         exit;
-        break;
     case 15:
         # Detalle de los estudios
         $estudios = $master->getByProcedure('sp_recepcion_estudios_b', [$area_id]);
@@ -597,7 +610,6 @@ switch ($api) {
         $response = $coincidencias;
         break;
     case 16:
-
         $mail = new Correo();
         # enviar correo de para comprobacion de datos del paciente
         $px = $master->getByProcedure('sp_pacientes_b', [
@@ -629,9 +641,10 @@ switch ($api) {
     case 17:
         $mail = new Correo();
         # lista de las personas agregadas en el dia
-        $response = $master->getByProcedure("sp_recepcion_pacientes_del_dia", [ null, null ]);
+        $response = $master->getByProcedure("sp_recepcion_pacientes_del_dia", [
+            $_SESSION['franquiciario'] ? $_SESSION['id_cliente'] : null, null, null
+        ]);
         break;
-
     case 18:
         # imprimir el formato de validacion de datos del paciente
         $r = $master->reportador($master, $id_paciente, -6, 'form_datos', 'mostrar',0, 0, 0);
@@ -646,7 +659,7 @@ switch ($api) {
         $medios = explode(',', $medios_entrega);
 
         $response = $master->insertByProcedure("sp_pacientes_medios_entrega_g", [
-            $id_paciente, 
+            $id_paciente,
             json_encode($medios)
         ]);
         break;
@@ -663,9 +676,35 @@ switch ($api) {
         # ( solo aplica para clientes de contado, aunque tambien es posible marcar como pendiente un cliente de credito )
         $response = $master->updateByProcedure('sp_marcar_paciente_pendiente_pago',[$idTurno, $_SESSION['id']]);
         break;
+
     default:
-        $response = "Api no definida.";
+        $response = "Api no definida: ".$api;
         break;
+}
+
+/**
+ * @param Master $master
+ * @param string $dir
+ * @param $idTurno
+ * @return array|string
+ */
+function getOrdenesMedicas(Master $master, string $dir, $idTurno)
+{
+    $return = $master->guardarFiles(
+        $_FILES, 'orden-medica-laboratorio', $dir, "ORDEN_MEDICA_LABORATORIO_$idTurno"
+    );
+    $return2 = $master->guardarFiles(
+        $_FILES, 'orden-medica-rx', $dir, "ORDEN_MEDICA_RX_$idTurno"
+    );
+    $return3 = $master->guardarFiles(
+        $_FILES, 'orden-medica-us', $dir, "ORDEN_MEDICA_ULTRASONIDO_$idTurno"
+    );
+
+    # metemos el area al que pertenece
+    $return[0]['area_id'] = 6;
+    $return2[0]['area_id'] = 8;
+    $return3[0]['area_id'] = 11;
+    return array_merge($return, $return2, $return3);
 }
 
 echo $master->returnApi($response);

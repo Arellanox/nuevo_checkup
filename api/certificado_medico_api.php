@@ -18,7 +18,6 @@ $turno_id = $_POST['turno_id'];
 // print_r($_POST);
 switch ($api) {
     case 1:
-        # Guardar el pdf del certificado medico del paciente
         $dir = '../reportes/modulo/certificados_medicos/';
         $r = $master->createDir($dir);
         // print_r($_FILES);

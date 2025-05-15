@@ -1,7 +1,7 @@
 $('#formAnalisisLaboratorio').submit(function (event) {
     event.preventDefault();
 
-    if (selectListaLab['CONFIRMADO'] == 0 || selectListaLab['CONFIRMADO'] == "0") {
+    if (selectListaLab['CONFIRMADO'] === 0) {
         let confirmar = 0;
         const form = document.getElementById("formAnalisisLaboratorio");
         const formData = new FormData(form);
@@ -66,7 +66,6 @@ $('#formAnalisisLaboratorio').submit(function (event) {
                             data = jQuery.parseJSON(data);
                             if (mensajeAjax(data)) {
                                 alertSelectTable(alertoas, 'success')
-                                // dataListaPaciente = {api:5, fecha_busqueda: $('#fechaListadoLaboratorio').val(), area_id: 6}
                                 if (confirmar) {
                                     tablaListaPaciente.ajax.reload();
                                     getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', selectListaLab, 'Out')
@@ -82,19 +81,16 @@ $('#formAnalisisLaboratorio').submit(function (event) {
     }
 })
 
-
-$(".subir-resultado-lab").on("click", function () {
-    if ($('.subir-resultado-lab:focus').attr('data-attribute') === 'confirmar') {
+$('.subir-resultado-lab').click(function () {
+    if ($('.subir-resultado-lab:focus').attr('data-attribute') == 'confirmar') {
         $('.inputFormRequired').prop('required', true);
     } else {
         $('.inputFormRequired').prop('required', false);
     }
     $("#btnConfirmarResultados").click();
-});
-
+})
 
 $('#btn-confirmar-formulario').click(function (e) {
-
 })
 
 //No submit form with enter
@@ -106,13 +102,19 @@ $('#fechaListadoLaboratorio').change(function () {
     recargarVistaLab();
 })
 
+$('#fechaFinalListadoLaboratorio').change(function () {
+    recargarVistaLab();
+})
+
 $('#checkDiaAnalisis').click(function () {
     if ($(this).is(':checked')) {
         recargarVistaLab(0)
         $('#fechaListadoLaboratorio').prop('disabled', true)
+        $('#fechaFinalListadoLaboratorio').prop('disabled', true)
     } else {
         recargarVistaLab();
         $('#fechaListadoLaboratorio').prop('disabled', false)
+        $('#fechaFinalListadoLaboratorio').prop('disabled', false)
     }
 })
 
@@ -121,7 +123,11 @@ function recargarVistaLab(fecha = 1) {
         api: 5,
         area_id: areaActiva
     }
-    if (fecha) dataListaPaciente['fecha_busqueda'] = $('#fechaListadoLaboratorio').val();
+
+    if (fecha) {
+        dataListaPaciente['fecha_busqueda'] = $('#fechaListadoLaboratorio').val();
+        dataListaPaciente['fecha_busqueda_final'] = $('#fechaFinalListadoLaboratorio').val();
+    }
 
     tablaListaPaciente.ajax.reload();
     getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', selectListaLab, 'Out')
@@ -166,7 +172,7 @@ $(document).on('click', '.obtenerPDF', function (event) {
     })
 });
 
-//Marcar un estudio como pendiente
+//Marcar un estuio como pendiente
 $(document).on('click', '.btn-estudios-pendientes', async function (event) {
     event.preventDefault();
 
@@ -232,24 +238,37 @@ $(document).on('click', '.btn-modal-maquila-confirm', function (event) {
     const laboratorio_texto = $('#select-laboratorios-maquila option:selected').text();
     const laboratorio_id = $('#select-laboratorios-maquila').val();
 
-  alertMensajeConfirm({
-    title: '¿Quieres completar esta acción?',
-    text: `Sera maquilado por ${laboratorio_texto}`,
-    icon: 'warning',
-    confirmButtonText: 'Sí'
-  }, function () {
-    //crearNotificacion(session['id'],
-    //    `Solicitud de Revisión de Maquilación de ${session['nombre']}`, '#', [15, 2, 20]
-    //).then(r => '');
+    alertMensajeConfirm({
+        title: '¿Quieres completar esta acción?',
+        text: `Sera maquilado por ${laboratorio_texto}`,
+        icon: 'warning',
+        confirmButtonText: 'Sí'
+    }, function () {
+        //GUARDAR MAQUILACIÓN
+        const servicio_id = $('.btn-estudios-pendientes').attr('data-bs-id');
 
-    ajaxAwait({
-      api: 1,
-      LABORATORIO_MAQUILA_ID: laboratorio_id,
-      TURNO_ID: selectListaLab.ID_TURNO,
-      SERVICIO_ID: servicio_id_by_maquila
-    }, 'laboratorio_estudios_maquila_api', {callbackAfter: true}, false, function (data) {
-      alertToast('Se registro la maquila exiotsamente.', 'success', 4000);
-      $('#modalMaquilaEstudios').modal('hide');
-    }).then(r => {});
-  }, 1, function () { alert("Acción cancelada."); }, () => {});
+        //crearNotificacion(session['id'],
+        //    `Solicitud de Revisión de Maquilación de ${session['nombre']}`, '#', [15, 2, 20]
+        //).then(r => '');
+
+        ajaxAwait({
+            api: 1,
+            LABORATORIO_MAQUILA_ID: laboratorio_id,
+            TURNO_ID: selectListaLab.ID_TURNO,
+            SERVICIO_ID: servicio_id
+        }, 'laboratorio_estudios_maquila_api', {callbackAfter: true}, false, function (data) {
+            alertToast('Se registro la maquila exiotsamente.', 'success', 4000);
+            $('#modalMaquilaEstudios').modal('hide');
+        }).then(r => {
+        });
+    }, 1, function () {
+        alert("Acción cancelada.");
+    }, () => {
+    });
+});
+
+$(document).on('click', '.btn-maquila-estudios', function (event) {
+    event.preventDefault();
+    $('#modalMaquilaEstudios').modal('show');
+    rellenarOrdenarSelect('#select-laboratorios-maquila', 'laboratorio_maquila_api', 2, 'ID_LABORATORIO', 'DESCRIPCION');
 });

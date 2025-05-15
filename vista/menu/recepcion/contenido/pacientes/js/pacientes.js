@@ -9,9 +9,7 @@ tablaPacientesActuales = $('#tablaPacientesActuales').DataTable({
     ],
     ajax: {
         dataType: 'json',
-        data: {
-            api: 17,
-        },
+        data: { api: 17 },
         method: 'POST',
         url: '../../../api/recepcion_api.php',
         beforeSend: function () {
@@ -19,12 +17,13 @@ tablaPacientesActuales = $('#tablaPacientesActuales').DataTable({
 
             array_selected = null
         },
-        complete: function () {
+        complete: function (data) {
             loader("Out")
-
+            console.log(data.responseJSON.response)
             tablaPacientesActuales.columns.adjust().draw()
         },
         error: function (jqXHR, textStatus, errorThrown) {
+            loader("Out")
             alertErrorAJAX(jqXHR, textStatus, errorThrown);
         },
         dataSrc: 'response.data'
@@ -47,22 +46,6 @@ tablaPacientesActuales = $('#tablaPacientesActuales').DataTable({
         },
 
         { data: 'NACIONALIDAD' },
-
-
-        // { data: 'CURP' },
-        // // {
-        // //     data: null, render: (row) => {
-        // //         return `${ifnull(row.CORREO)} <br> ${ifnull(row.CORREO_2)}`
-        // //     }
-        // // },
-        // { data: 'RFC' },
-        // { data: 'NACIONALIDAD' },
-        // { data: 'CELULAR' },
-        // {
-        //     data: null, render: (row) => {
-        //         return `${row.CALLE}, ${row.COLONIA}, ${row.MUNICIPIO}, ${row.ESTADO}, ${row.POSTAL}`;
-        //     }
-        // },
         {
             data: null, render: function () {
                 let html = `
@@ -102,20 +85,6 @@ tablaPacientesActuales = $('#tablaPacientesActuales').DataTable({
         { target: 9, title: 'Celular', class: 'none' },
         { target: 10, title: 'Dirección', class: 'none' },
         { target: 11, title: 'Correo', class: 'none' },
-
-        // { target: 0, title: '#', class: 'all', width: '1%' }, // Ajustado a un valor más realista
-        // { target: 1, title: 'Nombre', class: 'all', width: '30%' }, // Ajustado para compensar el ancho de la columna 0
-        // { target: 2, title: 'Genero', class: 'all' }, // Un poco más de espacio para "Genero"
-        // { target: 3, title: 'Edad', class: 'all' }, // Ajustado a un valor más realista
-        // { target: 4, title: 'Nacimiento', class: 'none' },
-        // { target: 5, title: 'CURP', class: 'none' },
-        // { target: 6, title: 'RFC', class: 'none' },
-        // { target: 7, title: 'Nacionalidad', class: 'none' }, // Aumentado para un mejor ajuste
-        // { target: 8, title: 'Celular', class: 'none' }, // Ajustado para la suma total
-        // { target: 9, title: 'Dirección', class: 'none' },
-        // { target: 10, title: '#', class: 'all', width: '1%' }, // Ajustado a un valor más realista
-        // { target: 11, title: 'Correo', class: 'none' },
-
     ],
 
     dom: 'Blfrtip',

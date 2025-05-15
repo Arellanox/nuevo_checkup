@@ -696,9 +696,7 @@
 <script>
     $(document).on("change keyup", "input[type='radio']", function () {
         const parentElement = $(this).closest(".row.d-flex.justify-content-center.pregunta");
-        // console.log(parentElement)
         let collapID = parentElement.children(".collapse");
-        // console.log(collapID);
         if (!collapID) return; // Si no hay ID, no hacer nada
 
         if (this.value == true) {
