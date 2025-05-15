@@ -223,7 +223,7 @@ class Miscelaneus
         echo "Hello World!";
     }
 
-    function generarQRURL($tipo, $codeContents, $nombre, $frame = QR_ECLEVEL_H, $size = 10)
+    function generarQRURL($tipo, $codeContents, $nombre, $frame = QR_ECLEVEL_H, $size = 10): string
     {
         # URL carpeta
         $tempDir = 'archivos/sistema/temp/qr/' . $tipo . '/';
@@ -233,8 +233,12 @@ class Miscelaneus
         # Enviar la url o codigo necesario desde antes
         QRcode::png($codeContents, '../' . $tempDir . $nombre . '.png', $frame, $size, 2);
 
+        $http = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+        $servidor = $_SERVER['HTTP_HOST'];
+        $current_url = "{$http}{$servidor}/nuevo_checkup/";
+
         # retorna la URL donde se ubica el archivo
-        return 'https://bimo-lab.com/nuevo_checkup/' . $tempDir . $nombre . '.png';
+        return $current_url . $tempDir . $nombre . '.png';
     }
 
     function guardarFiles($files, $posicion = 'default', $dir/*, $carpetas = ['temp/']*/, $nombre)
@@ -659,7 +663,6 @@ class Miscelaneus
                 $carpeta_guardado = "fast_checkup";
                 $folio = $infoPaciente[0]['FOLIO_FASTCK'];
                 break;
-
             case 4:
             case "4":
                 #AUDIOMETRIA

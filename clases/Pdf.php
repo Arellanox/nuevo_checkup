@@ -280,6 +280,16 @@ class Reporte
                 $pdf->setPaper('letter', 'landscape');
                 //$path    = 'pdf/public/oftalmologia/E00001.pdf';
                 break;
+            case 'maquilas':
+                $template = render_view('invoice/maquilas.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter', 'portrait');
+                break;
+            case "certificado_bimo":
+                $template = render_view('invoice/certificado_bimo.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter', 'portrait');
+                break;
             default:
                 $template = render_view('invoice/reportes.php', $view_vars);
                 $pdf->loadHtml($template);
@@ -302,10 +312,12 @@ class Reporte
             case 'url':
                 $pdf->render();
                 file_put_contents('../' . $path, $pdf->output());
-                return 'https://bimo-lab.com/nuevo_checkup/' . $path;
-                // print_r($path);
-                // return $host . $path;
-                break;
+
+                $http = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+                $servidor = $_SERVER['HTTP_HOST'];
+                $current_url = "{$http}{$servidor}/nuevo_checkup/";
+
+                return $current_url. $path;
             default:
                 $pdf->render();
                 return $pdf->stream('documento.pdf', array("Attachment" => false));

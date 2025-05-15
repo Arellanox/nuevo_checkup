@@ -1,0 +1,192 @@
+@page{
+    margin: 180px 20px;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin-top: -54px;
+    margin-bottom: -180px;
+    font-size: 10px;
+}
+
+/*=============[HEADER]=============*/
+header {
+    position: fixed;
+    top: -165px;
+    left: 25px;
+    right: 25px;
+    height: 220px;
+    margin-top: 0;
+}
+.header .float-img{
+    position: absolute;
+    top: 65px;
+    left: 50px;
+    z-index: 100;
+}
+
+.header-container {
+    width: 100%;
+    height: 100px;
+    margin-top: 10px;
+}
+
+.logo-maquila {
+    border-top: 1px solid #0c0c0c;
+    border-left: 1px solid #0c0c0c;
+    width: max-content;
+    padding: 0 15px !important;
+}
+.logo-maquila img{
+    margin-top: -20px;
+    opacity: .7;
+}
+
+.banner-maquila {
+    border-top: 1px solid #0c0c0c;
+    width: 100%;
+    padding: 0 !important;
+}
+.banner-maquila p {
+    margin: 0 !important;
+    padding: 5px 0;
+    text-align: center;
+}
+.banner-maquila p:nth-child(1) {
+    font-weight: bold;
+    font-size: 15px;
+}
+.banner-maquila p:nth-child(2) {
+    background-color: #EDEBE0;
+    font-weight: bold;
+    font-size: 13px;
+}
+.banner-maquila p:nth-child(3) {
+    font-size: 11px;
+}
+
+.banner-footer td {
+    border-bottom: 1px solid #0c0c0c;
+}
+.banner-footer td:first-child {
+    border-left: 1px solid #0c0c0c;
+    height: 4px;
+}
+.banner-footer td:last-child {
+    min-width: 100px;
+    border-right: 1px solid #0c0c0c;
+}
+
+.data-maquila {
+    min-width: 100px;
+    border: 1px solid #0c0c0c;
+    padding: 0 !important;
+}
+.data-maquila .data-result {
+    background-color: #EDEBE0;
+    margin: 0 1px;
+    padding: 6px 0;
+    text-align: center;
+}
+.data-maquila .clave-maquila .label,
+.data-maquila .fecha-maquila .label {
+    text-align: center;
+    font-weight: bold;
+    margin: 0;
+    padding: 5px 0 !important;
+}
+.data-maquila .clave-maquila .data-result{
+    font-weight: bold;
+}
+/*=============[FIN]=============*/
+
+/*=============[MAIN]=============*/
+main {
+    border-radius: 4px;
+    padding-right: 25px;
+    padding-left: 25px;
+    text-align: justify;
+    text-justify: inter-word;
+}
+.table-studies-content thead tr th,
+.table-studies-content tbody tr td{
+    border: 1px solid #0c0c0c;
+    padding: 4px;
+    margin: 0;
+    word-wrap: break-word;
+    white-space: normal;
+}
+.table-studies-content tbody tr td{
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+.table-studies-content thead tr th{
+    border-top: 0;
+}
+.table-studies-content tbody tr td:first-child,
+.table-studies-content tbody tr td:nth-child(3),
+.table-studies-content tbody tr td:nth-child(4),
+.table-studies-content tbody tr td:nth-child(5),
+.table-studies-content tbody tr td:nth-child(6),
+.table-studies-content tbody tr td:nth-child(9){
+    text-align: center;
+}
+/*=============[FIN]=============*/
+
+/*=============[FOOTER]=============*/
+footer {
+    position: fixed;
+    bottom: -200px;
+    height: 180px;
+    text-align: center;
+    padding-right: 25px;
+    padding-left: 25px;
+}
+.table_footer_firma td{
+    border: 0 !important;
+    text-align: center;
+    padding-bottom: 10px !important;
+    padding-top: 40px !important;
+}
+.table_footer_firma td:first-child{
+    border-left: 1px solid #0c0c0c !important;
+    border-bottom: 1px solid #0c0c0c !important;
+}
+.table_footer_firma td:last-child{
+    border-right: 1px solid #0c0c0c !important;
+    border-bottom: 1px solid #0c0c0c !important;
+}
+.table_footer_firma .firmas p{
+    margin: 0 !important;
+    text-transform: uppercase;
+}
+
+.table_footer_firma .firmas{
+    border-top: 1.5px solid #0c0c0c;
+    padding-top: 4px;
+    width: 70%;
+    margin: auto;
+}
+.table_footer_indications{
+    border: 1.5px solid #0c0c0c !important;
+}
+.table_footer_indications td{
+    padding: 5px !important;
+}
+/*=============[FIN]=============*/
+
+.page-number{
+    margin-top: 10px;
+}
+footer .page:after { content: counter(page); }
+.break { page-break-after: always; } /* Saltar pagina */
+
+
+table {
+    width: 100%;
+    max-width: 100%;
+    margin: auto;
+    white-space: nowrap;
+    /* table-layout:fixed; */
+}
+table td, table th, table { border-collapse: collapse; }

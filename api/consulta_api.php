@@ -113,9 +113,22 @@ $odonto_array = array(
 );
 
 $master = new Master();
-// $api = 22;
-// $turno_id = 197;
+
 switch ($api) {
+    case 0:
+        # actualizar ruta de reporte de consultorio dados las id del turno.
+        $prefolios = [1177,
+            1180,
+            1192,
+            1193,
+            1194,
+            1197];
+
+        foreach($prefolios as $prefolio){
+            $url = $master->reportador($master, $prefolio, 1, "consultorio", 'url', 0);
+            $response = $master->updateByProcedure('sp_reportes_actualizar_ruta', ["consultorio_consulta","RUTA_REPORTE",$url,$prefolio,null]);
+        }
+        break;
     case 1:
         $response = $master->insertByProcedure("sp_consultorio_consulta_g", $parametros);
         break;
@@ -181,7 +194,6 @@ switch ($api) {
         # insetar receta
         $response = $master->insertByProcedure("sp_consultorio_recetas_g", $recetaParams);
         break;
-
     case 10:
         # recuperar los antecedentes del turno
         $response = $master->getByProcedure('sp_consultorio_antecedentes_b', [$turno_id, $curp]);
@@ -189,7 +201,6 @@ switch ($api) {
         $ordenado = ordenarCuestionario($response);
         echo json_encode($ordenado);
         exit;
-
     case 11:
         # terminar consulta
         $response = $master->updateByProcedure('sp_consultorio_terminar_consulta', [$id_consulta, $url, $_SESSION['id']]);
@@ -208,24 +219,6 @@ switch ($api) {
         }
 
         break;
-    case 0:
-        # actualizar ruta de reporte de consultorio dados las id del turno.
-
-        $prefolios = [1177,
-        1180,
-        1192,
-        1193,
-        1194,
-        1197];
-
-        foreach($prefolios as $prefolio){
-            $url = $master->reportador($master, $prefolio, 1, "consultorio", 'url', 0);
-            $response = $master->updateByProcedure('sp_reportes_actualizar_ruta', ["consultorio_consulta","RUTA_REPORTE",$url,$prefolio,null]);
-        }
-
-        
-
-        break;
     case 12:
         # buscar las exploraciones clinicas.
         $response = $master->getByProcedure('sp_consultorio_exploracion_clinica_b', [$turno_id]);
@@ -240,7 +233,7 @@ switch ($api) {
         $response = $master->getByProcedure('sp_consultorio_recetas_b', [$turno_id]);
         break;
     case 15:
-        # recuperar anamnesis por aparatos  
+        # recuperar anamnesis por aparatos
         $response = $master->getByProcedure('sp_consultorio_anamnesis_aparatos_b', [$turno_id]);
         $ordenado = ordenarCuestionario($response, 1);
         echo json_encode($ordenado);
@@ -394,10 +387,8 @@ function checkTipoAntecedente($array){
         case in_array('check-incapaAccid', $keys):
             $x =  'medio';
             break;
-    
+
     }
 
     return $x;
-    
 }
-
