@@ -20,15 +20,11 @@
                                                 <!-- Activo -->
                                                 <div class="card mb-3">
                                                     <div class="card-body">
-                                                        <div class="form-check form-switch">
-                                                            <input class="form-check-input" type="checkbox" id="ignorarActivo" checked>
-                                                            <label class="form-check-label" for="ignorarActivo">Ignorar Activo</label>
-                                                        </div>
                                                         <label class="form-label">Activo</label>
                                                         <div id="activoRadios">
-                                                            <input type="radio" class="btn-check" name="activo" id="activo1" value="1">
+                                                            <input type="radio" class="btn-check" name="activo" id="activo1" value="1" >
                                                             <label class="btn btn-outline-primary" for="activo1">Activo</label>
-                                                            <input type="radio" class="btn-check" name="activo" id="activo0" value="0">
+                                                            <input type="radio" class="btn-check" name="activo" id="activo0" value="0" >
                                                             <label class="btn btn-outline-secondary" for="activo0">Inactivo</label>
                                                         </div>
                                                     </div>
@@ -36,10 +32,6 @@
                                                 <!-- Red Frío -->
                                                 <div class="card mb-3">
                                                     <div class="card-body">
-                                                        <div class="form-check form-switch">
-                                                            <input class="form-check-input" type="checkbox" id="ignorarRedFrio" checked>
-                                                            <label class="form-check-label" for="ignorarRedFrio">Ignorar Red Frío</label>
-                                                        </div>
                                                         <label class="form-label">Red Frío</label>
                                                         <div id="redFrioRadios">
                                                             <input type="radio" class="btn-check" name="redFrio" id="redFrio1" value="1">
@@ -52,12 +44,9 @@
                                                 <!-- Tipo Artículo -->
                                                 <div class="card mb-3">
                                                     <div class="card-body">
-                                                        <div class="form-check form-switch">
-                                                            <input class="form-check-input" type="checkbox" id="ignorarTipoArticulo" checked>
-                                                            <label class="form-check-label" for="ignorarTipoArticulo">Ignorar Tipo Artículo</label>
-                                                        </div>
                                                         <label for="tipoArticulo" class="form-label">Tipo Artículo</label>
-                                                        <select class="form-select tipo_articulo" id="tipoArticulo">
+                                                        <select class="form-select tipo_articulo" id="tipoArticulo" >
+                                                            <option value="" disabled selected>Seleccione...</option>
                                                             <option value="1">Tipo 1</option>
                                                             <option value="2">Tipo 2</option>
                                                             <option value="3">Tipo 3</option>
@@ -67,13 +56,9 @@
                                                 <!-- Maneja Caducidad -->
                                                 <div class="card mb-3">
                                                     <div class="card-body">
-                                                        <div class="form-check form-switch">
-                                                            <input class="form-check-input" type="checkbox" id="ignorarManejaCaducidad" checked>
-                                                            <label class="form-check-label" for="ignorarManejaCaducidad">Ignorar Maneja Caducidad</label>
-                                                        </div>
                                                         <label class="form-label">Maneja Caducidad</label>
                                                         <div id="manejaCaducidadRadios">
-                                                            <input type="radio" class="btn-check" name="manejaCaducidad" id="manejaCaducidad1" value="1">
+                                                            <input type="radio" class="btn-check" name="manejaCaducidad" id="manejaCaducidad1" value="1" >
                                                             <label class="btn btn-outline-primary" for="manejaCaducidad1">Sí</label>
                                                             <input type="radio" class="btn-check" name="manejaCaducidad" id="manejaCaducidad0" value="0">
                                                             <label class="btn btn-outline-secondary" for="manejaCaducidad0">No</label>
@@ -99,10 +84,14 @@
                     Cancelar</button>
                 </button>
 
-                <button type="submit" class="btn btn-confirmar"
+                <button type="submit" id="enviarFiltrosBtn"class="btn btn-confirmar"
                     form="filtrarArticuloForm">
                     <i class="bi bi-funnel,."></i> Enviar
                 </button>
+                <!-- Botón Restablecer filtro -->
+                <div class="text-end">
+                    <button type="button" id="resetFiltrosBtn" class="btn btn-secondary">Restablecer filtro</button>
+                </div>
             </div>
         </div>
     </div>

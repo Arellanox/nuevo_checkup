@@ -1,4 +1,3 @@
-
 // Registrar una articulo
 $("#registrarArticuloForm").submit(function(event){
     event.preventDefault();
@@ -92,27 +91,34 @@ $("#editarArticuloForm").submit(function(event){
 
 $("#filtrarArticuloForm").submit(function(event){
     event.preventDefault();
-    if (!$('#ignorarActivo').is(':checked')) {
-        dataTableCatArticulos.estatus = $('input[name="activo"]:checked').val() || null;
-    }
-    if (!$('#ignorarRedFrio').is(':checked')) {
-        dataTableCatArticulos.red_frio = $('input[name="redFrio"]:checked').val() || null;
-    }
-    if (!$('#ignorarTipoArticulo').is(':checked')) {
-        dataTableCatArticulos.tipo_articulo = $('#tipoArticulo').val();
-    }
-    if (!$('#ignorarManejaCaducidad').is(':checked')) {
-        dataTableCatArticulos.maneja_caducidad = $('input[name="manejaCaducidad"]:checked').val() || null;
-    }
-    console.log(dataTableCatArticulos);
 
-    // recargamos la tabla con los nuevos parametros
-    tableCatArticulos.ajax.reload();
-    $("#filtrarArticuloModal").modal('hide');
-    
-    // reestablecemos el valor de dataTableCatArticulos
+    // Solo asigna el filtro si hay selección, si no, elimina la propiedad
+    let activo = $('input[name="activo"]:checked').val();
+    let redFrio = $('input[name="redFrio"]:checked').val();
+    let tipoArticulo = $('#tipoArticulo').val();
+    let manejaCaducidad = $('input[name="manejaCaducidad"]:checked').val();
+
+    // Limpia el objeto antes de asignar
     dataTableCatArticulos = { api: 3 };
 
+    if (activo !== undefined) dataTableCatArticulos.estatus = activo;
+    if (redFrio !== undefined) dataTableCatArticulos.red_frio = redFrio;
+    if (tipoArticulo !== "" && tipoArticulo !== null) dataTableCatArticulos.tipo_articulo = tipoArticulo;
+    if (manejaCaducidad !== undefined) dataTableCatArticulos.maneja_caducidad = manejaCaducidad;
+
+    console.log(dataTableCatArticulos);
+
+    tableCatArticulos.ajax.reload();
+    $("#filtrarArticuloModal").modal('hide');
+});
+
+// Restablecer filtros
+$("#resetFiltrosBtn").click(function() {
+    $("#filtrarArticuloForm")[0].reset();
+    // Limpia los filtros del objeto
+    dataTableCatArticulos = { api: 3 };
+    tableCatArticulos.ajax.reload();
+    toggleFilterButtons();
 });
 
 function toggleFieldset(checkbox, fieldset) {
@@ -131,4 +137,27 @@ $('input[type=radio]').change(function() {
     const checkboxId = $(this).closest('.card-body').find('.form-check-input').attr('id');
     $('#' + checkboxId).prop('checked', false);
 });
+
+function toggleFilterButtons() {
+    const anyRadioChecked = $('input[name="activo"]:checked').length > 0 ||
+                            $('input[name="redFrio"]:checked').length > 0 ||
+                            $('input[name="manejaCaducidad"]:checked').length > 0;
+    const tipoArticuloSelected = $('#tipoArticulo').val() !== "" && $('#tipoArticulo').val() !== null;
+
+    if (anyRadioChecked || tipoArticuloSelected) {
+        $('#resetFiltrosBtn').show();
+        $('#enviarFiltrosBtn').show();
+    } else {
+        $('#resetFiltrosBtn').hide();
+        $('#enviarFiltrosBtn').hide();
+    }
+}
+
+// Inicialmente ocultar ambos botones
+$('#resetFiltrosBtn').hide();
+$('#enviarFiltrosBtn').hide();
+
+// Mostrar/ocultar al cambiar radios o select
+$('input[type=radio][name="activo"], input[type=radio][name="redFrio"], input[type=radio][name="manejaCaducidad"]').on('change', toggleFilterButtons);
+$('#tipoArticulo').on('change', toggleFilterButtons);
 
