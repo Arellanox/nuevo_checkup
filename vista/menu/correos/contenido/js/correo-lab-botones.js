@@ -1,21 +1,15 @@
 // cambiar fecha de la Lista
 $('#fechaListadoLaboratorio').change(function () {
     recargarVistaLab();
-});
-
-$('#fechaFinalListadoLaboratorio').change(function () {
-    recargarVistaLab();
-});
+})
 
 $('#checkDiaAnalisis').click(function () {
     if ($(this).is(':checked')) {
         recargarVistaLab(0)
         $('#fechaListadoLaboratorio').prop('disabled', true)
-        $('#fechaFinalListadoLaboratorio').prop('disabled', true)
     } else {
         recargarVistaLab();
         $('#fechaListadoLaboratorio').prop('disabled', false)
-        $('#fechaFinalListadoLaboratorio').prop('disabled', false)
     }
 })
 
@@ -24,11 +18,7 @@ function recargarVistaLab(fecha = 1) {
         api: 12,
         area_id: areaActiva
     }
-
-    if (fecha) {
-        dataListaPaciente['fecha_busqueda'] = $('#fechaListadoLaboratorio').val();
-        dataListaPaciente['fecha_busqueda_final'] = $('#fechaFinalListadoLaboratorio').val();
-    }
+    if (fecha) dataListaPaciente['fecha_busqueda'] = $('#fechaListadoLaboratorio').val();
 
     tablaListaPaciente.ajax.reload();
     getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', tablaListaPaciente, 'Out')

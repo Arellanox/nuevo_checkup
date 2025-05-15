@@ -1,32 +1,8 @@
 //Menú principal para consultorio
-var id, idturno, idconsulta, dataConsulta = [],
-  tablaMain
+var id, idturno, idconsulta, dataConsulta = new Array, tablaMain;
 var selectPaciente;
 var dataListaPaciente;
 var activoConsultadorTurnero = true;
-
-async function obtenerConsultorioMain() {
-  activoConsultadorTurnero = true;
-  // loader("In")
-  await obtenerTitulo('Consultorio');
-  $.post("contenido/consultorio_main.html", function (html) {
-    var idrow;
-    $("#body-js").html(html) // Rellenar la plantilla de consulta
-  }).done(function () {
-    dataListaPaciente = {
-      api: 5,
-      fecha_busqueda: $('#fechaListadoAreaMaster').val(),
-      //fecha_final: $('#fechaFinalListadoAreaMaster').val(),
-      area_id: 1
-    }
-
-    if (session.cargo == 19)
-      dataListaPaciente['cliente_id'] = 16
-
-    // Datatable
-    $.getScript("contenido/js/main-tabla.js");
-  });
-}
 
 // Obtener el perfil del paciente (antecedentes);
 var pacienteActivo = new GuardarArreglo()

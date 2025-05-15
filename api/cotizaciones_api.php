@@ -5,6 +5,10 @@ include_once "../clases/correo_class.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
+if (!$tokenValido) {
+    // $tokenVerification->logout();
+    // exit;
+}
 
 $master = new Master();
 $api = $_POST['api'];
@@ -25,7 +29,7 @@ $observaciones = $_POST['observaciones'];
 $subtotal_sin_descuento = $_POST['subtotal_sin_descuento'];
 $fecha_vigencia = $_POST['fecha_vigencia'];
 $domicilio_fiscal = $_POST['domicilio_fiscal'];
-$idFranquicia = $_SESSION['franquiciario'] ? $_SESSION['id_cliente'] : null;
+
 
 switch ($api) {
     case 1:
@@ -44,12 +48,12 @@ switch ($api) {
         $url = $master->reportador($master, null, 15, 'cotizaciones', 'url', 0, 0, 0, $cliente_id, $id_cotizacion_pdf);
 
         $response1 = $master->updateByProcedure("sp_reportes_actualizar_ruta", ['cotizaciones', 'RUTA_REPORTE', $url, $id_cotizacion_pdf, 15]);
+
+
         break;
     case 2:
         # buscar informacion de las cotizaciones
-        $dataset = $master->getByNext("sp_cotizaciones_b", [
-            $id_cotizacion, $cliente_id
-        ]);
+        $dataset = $master->getByNext("sp_cotizaciones_b", [$id_cotizacion, $cliente_id]);
         $response = array();
 
         foreach ($dataset[0] as $set) {
@@ -59,8 +63,6 @@ switch ($api) {
 
             $response[] = $set;
         }
-
-        $master->setLog(json_encode($response), 'RESULTADO: ');
         break;
     case 3:
         # eliminar cotizacion

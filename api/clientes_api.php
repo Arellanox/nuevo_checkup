@@ -1,7 +1,7 @@
 <?php
 require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
-session_start();
+
 // Autenticación del token
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
@@ -50,7 +50,6 @@ $parametros = [
     $_POST['convenio'] ?? null,
     $_POST['indicaciones'] ?? null,
     $_POST['cfdi'] ?? null,
-    $_SESSION['id']
 ];
 
 // Carpeta de destino para archivos
@@ -85,19 +84,22 @@ $descuentos = $master->setToNull([
 ]);
 
 $response = "";
-$idFranquicia = $_SESSION['franquiciario'] ? $_SESSION['id'] : null;
 
 // Procesar la API solicitada
 switch ($api) {
     case 1: // Insertar cliente
         $response = $master->insertByProcedure("sp_clientes_g", $parametros);
         break;
+
     case 2: // Buscar cliente
-        $response = $master->getByProcedure("sp_clientes_b", [
-            $id, $codigo, $qr, $idFranquicia
-        ]);
+        $response = $master->getByProcedure("sp_clientes_b", [$id, $codigo, $qr, $_SESSION['id']]);
+
         // Si solo se encuentra un cliente, añadir segmentos y cuestionarios
-        //agregarSegmentosCuestionarios($response);
+        if (count($response) == 1) {
+            $segmentos = $master->getByProcedure('fillSelect_segmentos', [$response[0]['ID_CLIENTE']]);
+            $response[0]['SEGMENTOS'] = !empty($segmentos) ? $segmentos : "Sin segmentos";
+            $response[0]['CUESTIONARIOS'] = $master->decodeJson([$response[0]['CUESTIONARIOS']])[0];
+        }
         break;
 
     case 3: // Actualizar cliente
@@ -137,27 +139,9 @@ switch ($api) {
     case 9: // Obtener catálogo de conversiones
         $response = $master->getByProcedure('sp_tipo_conversiones_b', []);
         break;
-    case 10: // Obtener configuraciones de clientes
-        $response = $master->getByProcedure('sp_clientes_configuracion_pago_b', [
-            $_POST['id_cliente']
-        ]);
-        break;
-    case 11: // Registrar configuraciones para clientes
-        $response = $master->getByProcedure('sp_clientes_configuracion_pago_g', [
-            $_POST['id_cliente'], $_POST['detalle_pago'], $_POST['envio_correo'], $_POST['activo'] ? 1 : 0
-        ]);
-        break;
+
     default:
         $response = "API no reconocida";
-}
-
-function agregarSegmentosCuestionarios($response)
-{
-    if (count($response) == 1) {
-        $segmentos = $master->getByProcedure('fillSelect_segmentos', [$response[0]['ID_CLIENTE']]);
-        $response[0]['SEGMENTOS'] = !empty($segmentos) ? $segmentos : "Sin segmentos";
-        $response[0]['CUESTIONARIOS'] = $master->decodeJson([$response[0]['CUESTIONARIOS']])[0];
-    }
 }
 
 // Función para guardar múltiples archivos

@@ -1,3 +1,46 @@
+// console.log(dataListaPaciente)
+// tablaContenido = $('#TablaContenidoResultados').DataTable({
+//   language: {
+//     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+//   },
+//   lengthChange: false,
+//   info: false,
+//   paging: false,
+//   scrollY: "55vh",
+//   scrollCollapse: true,
+//   ajax: {
+//       dataType: 'json',
+//       data: function (d) {
+//         return $.extend(d, dataListaPaciente);
+//       },
+//       method: 'POST',
+//       url: '../../../api/turnos_api.php',
+//       beforeSend: function() { loader("In"), obtenerPanelInformacion(0, 'pacientes_api', 'paciente'), selectListaLab = null; },
+//       complete: function(){ loader("Out") },
+//       dataSrc:'response.data'
+//   },
+//   columns:[
+//       // {
+//       //   data: 'EDAD', render: function(){
+//       //     return '';
+//       //   }
+//       // },
+//       {data: 'NOMBRE_COMPLETO'},
+//       {data: 'PREFOLIO', render: function (data, type, full, meta) {
+//           return "20221014JMC412";
+//         },
+//       },
+//       {data: 'EDAD'},
+//       {data: 'GENERO'},
+//       {data: 'GENERO'},
+//       // {defaultContent: 'En progreso...'}
+//   ],
+//   // columnDefs: [
+//   //   { "width": "10px", "targets": 0 },
+//   // ],
+//
+// })
+
 tablaContenido = $('#TablaContenidoResultados').DataTable({
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
@@ -91,6 +134,7 @@ function limpiarCampos() {
 
 async function panelResultadoPaciente(row, area = areaActiva) {
   await obtenerPanelInformacion(1, null, 'resultados-areaMaster', '#panel-resultadosMaster')
+  // console.log(row)
   if (row['area_id'] == 3) {
     let html = '<hr> <div class="row" style="padding-left: 15px;padding-right: 15px;">' + +
       '<p style="padding-bottom: 10px">Of:</p>' + //'+row[i]['SERVICIO']+'

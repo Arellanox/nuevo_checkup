@@ -7,6 +7,8 @@ $master = new Master();
 $inputData = file_get_contents('php://input');
 $datos = json_decode($inputData, true);
 
+// Registrar la entrada en el log
+# $master->setLog($inputData, "asafasd");
 
 if (json_last_error() !== JSON_ERROR_NONE) {
     // Error en el formato JSON recibido

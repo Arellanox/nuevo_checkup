@@ -1,102 +1,13 @@
-var columnas = [
-    { data: 'COUNT' },
-    { data: 'NOMBRE_COMPLETO' },
-    { data: 'PROCEDENCIA' },
-    { data: 'PREFOLIO' },
-    {
-        data: 'LABORATORIO_CLINICO', render: function (data, type) {
-            return drawStatusMenuTable(data, { 0: 'muestra', 1: 'reporte', 2: 'correo' }, 6, type);
-        }
-    },
-    {
-        data: 'BIOMOLECULAR', render: function (data, type) {
-            return drawStatusMenuTable(data, { 0: 'muestra', 1: 'reporte', 2: 'correo' }, 12, type);
-        }
-    },
-]
-
-if(!isFranquisiario){
-    columnas.push(
-        {
-            data: 'ULTRASONIDO', render: function (data, type) {
-                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' }, 11, type);
-            }
-        },
-        {
-            data: 'RAYOS_X', render: function (data, type) {
-                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' }, 8, type);
-            }
-        },
-        {
-            data: 'OFTALMOLOGIA', render: function (data, type) {
-                return drawStatusMenuTable(data, { 0: 'reporte', 2: 'correo' }, 3, type);
-            }
-        },
-        {
-            data: 'CONSULTORIO', render: function (data, type) {
-                return drawStatusMenuTable(data, { 0: 'reporte', 2: 'correo' }, 1, type);
-            }
-        },
-        {
-            data: 'ELECTROCARDIOGRAMA', render: function (data, type) {
-                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' }, 10, type);
-            }
-        },
-        {
-            data: 'INBODY', render: function (data, type) {
-                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'correo' }, 14, type);
-            }
-        },
-        {
-            data: 'ESPIROMETRIA', render: function (data, type) {
-                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' }, 5, type);
-            }
-        },
-        {
-            data: 'AUDIOMETRIA', render: function (data, type) {
-                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' }, 4, type);
-            }
-        },
-    )
-}
-
-columnas.push(
-    {
-        data: 'FECHA_RECEPCION',
-        render: function (data) {
-            return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0], null);
-        }
-    },
-    { data: 'TURNO' },
-    {
-        data: 'FECHA_AGENDA',
-        render: function (data) {
-            return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0], null);
-        }
-    },
-    {
-        data: 'FECHA_REAGENDA',
-        render: function (data) {
-            return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0], null);
-        }
-    },
-    { data: 'DESCRIPCION_SEGMENTO' },
-    {
-        data: 'ACTIVO',
-        render: function (data) {
-            return 'PENDIENTE';
-        }
-    },
-    { data: 'GENERO' }
-)
-
-console.log(columnas)
 
 tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
+    language: {
+        url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+    },
     scrollY: function () {
         return autoHeightDiv(0, 263)
     },
     scrollCollapse: true,
+    // paging: false,
     deferRender: true,
     lengthMenu: [
         [15, 20, 25, 30, 35, 40, 45, 50, -1],
@@ -108,24 +19,116 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
         method: 'POST',
         url: '../../../api/menu_principal_api.php',
         beforeSend: function () {
-            loader("In", 'bottom');
-            array_selected = null
+            loader("In", 'bottom'), array_selected = null
         },
         complete: function () {
             loader("Out", 'bottom')
-            console.log('exito')
-        },
-        error: function (e) {
-            console.log(e)
         },
         dataSrc: 'response.data'
     },
     createdRow: function (row, data, dataIndex) {
-        if (data.REAGENDADO === 1) {
+        if (data.REAGENDADO == 1) {
             $(row).addClass('bg-info');
         }
+
+        // $('td', row).addClass('bg-info');
     },
-    columns: columnas,
+    columns: [
+        { data: 'COUNT' },
+        { data: 'NOMBRE_COMPLETO' },
+        { data: 'PROCEDENCIA' },
+        { data: 'PREFOLIO' },
+        //Laboratorio
+        {
+            data: 'LABORATORIO_CLINICO', render: function (data, type) {
+                return drawStatusMenuTable(data, { 0: 'muestra', 1: 'reporte', 2: 'correo' }, 6, type);
+            }
+        },
+        //Laboratorio
+        {
+            data: 'BIOMOLECULAR', render: function (data, type) {
+                return drawStatusMenuTable(data, { 0: 'muestra', 1: 'reporte', 2: 'correo' }, 12, type);
+            }
+        },
+        //Ultrasonido
+        {
+            data: 'ULTRASONIDO', render: function (data, type) {
+                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' }, 11, type);
+            }
+        },
+        //Rayos X
+        {
+            data: 'RAYOS_X', render: function (data, type) {
+                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' }, 8, type);
+            }
+        },
+        //Oftalmo
+        {
+            data: 'OFTALMOLOGIA', render: function (data, type) {
+                return drawStatusMenuTable(data, { 0: 'reporte', 2: 'correo' }, 3, type);
+            }
+        },
+        //HistoriaClinica
+        {
+            data: 'CONSULTORIO', render: function (data, type) {
+                return drawStatusMenuTable(data, { 0: 'reporte', 2: 'correo' }, 1, type);
+            }
+        },
+        //Electrocardiograma
+        {
+            data: 'ELECTROCARDIOGRAMA', render: function (data, type) {
+                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' }, 10, type);
+            }
+        },
+        //Nutricion InBody
+        {
+            data: 'INBODY', render: function (data, type) {
+                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'correo' }, 14, type);
+            }
+        },
+        //Espirometría
+        {
+            data: 'ESPIROMETRIA', render: function (data, type) {
+                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' }, 5, type);
+            }
+        },
+        //Audiometria
+        {
+            data: 'AUDIOMETRIA', render: function (data, type) {
+                return drawStatusMenuTable(data, { 0: 'capturas', 1: 'reporte', 2: 'correo' }, 4, type);
+            }
+        },
+        //Menu
+        {
+            data: 'FECHA_RECEPCION',
+            render: function (data) {
+                return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0], null);
+            }
+        },
+        { data: 'TURNO' },
+        {
+            data: 'FECHA_AGENDA',
+            render: function (data) {
+                return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0], null);
+            }
+        },
+        {
+            data: 'FECHA_REAGENDA',
+            render: function (data) {
+                return formatoFecha2(data, [0, 1, 5, 2, 0, 0, 0], null);
+            }
+        },
+
+        { data: 'DESCRIPCION_SEGMENTO' },
+        {
+            data: 'ACTIVO',
+            render: function (data) {
+                return 'PENDIENTE';
+            }
+        },
+        { data: 'GENERO' }
+        // {defaultContent: 'En progreso...'}
+    ],
     columnDefs: [
         { width: "1%", targets: "col-number" },
         { width: "20%", targets: "col-20%" },
@@ -134,7 +137,23 @@ tablaMenuPrincipal = $('#TablaEstatusTurnos').DataTable({
         { targets: "col-invisble-first", visible: false }
         // { visible: false, title: "AreaActual", targets: 20, searchable: false }
     ],
-});
+
+})
+
+// tablaMenuPrincipal.columns().every(function () {
+//     var that = this;
+
+//     $('input', this.footer()).on('keyup change', function () {
+//         if (that.search() !== this.value) {
+//             that
+//                 .search(this.value)
+//                 .draw();
+//         }
+//     });
+// });
+
+// $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+
 
 //Activa o desactiva una columna
 $('a.toggle-vis').on('click', function (e) {
@@ -144,7 +163,7 @@ $('a.toggle-vis').on('click', function (e) {
 
     // Toggle the visibility
     column.visible(!column.visible());
-
+    // tablaMenuPrincipal.ajax.reload();
     $.fn.dataTable
         .tables({
             visible: true,
@@ -153,27 +172,29 @@ $('a.toggle-vis').on('click', function (e) {
         .columns.adjust();
 
     $(this).removeClass('span-info');
-
-    if (column.visible()) $(this).addClass('span-info');
+    if (column.visible())
+        $(this).addClass('span-info');
 });
+
 
 $('a.toggle-vis').each(function () {
     var column = tablaMenuPrincipal.column($(this).attr('data-column'));
-
-    if (column.visible()) $(this).addClass('span-info');
+    if (column.visible())
+        $(this).addClass('span-info');
 })
 
 selectDatatabledblclick(async function (select, data) {
+    let dataInfo = data;
     if (select) {
-        await obtenerPanelInformacion(
-            1, 'toma_de_muestra_api', 'estudios_muestras', '#panel-muestras-estudios'
-        );
-
+        await obtenerPanelInformacion(1, 'toma_de_muestra_api', 'estudios_muestras', '#panel-muestras-estudios')
         var myOffcanvas = document.getElementById('offcanvasInfoPrincipal')
         var bsOffcanvas = new bootstrap.Offcanvas(myOffcanvas)
         bsOffcanvas.show()
+
     }
 }, '#TablaEstatusTurnos', tablaMenuPrincipal)
+
+
 
 inputBusquedaTable('TablaEstatusTurnos', tablaMenuPrincipal, [
     {
@@ -185,6 +206,27 @@ inputBusquedaTable('TablaEstatusTurnos', tablaMenuPrincipal, [
         place: 'left'
     },
 ])
+
+
+
+
+
+
+function drawRowTable(data, tipo, msj = { 0: '', 1: '', 2: '' }) {
+    switch (data) {
+        case 1: case '1':
+            html = '<p class="text-success fw-bold style="letter-spacing: normal !important; text-shadow: 0 0 1px #000000;">' + msj[1] + '</p>'
+            return html;
+        case 0: case '0':
+            html = '<p class="text-info fw-bold style="letter-spacing: normal !important; text-shadow: 0 0 1px #000000;">' + msj[2] + '</p>'
+            return html
+        case 'N/A':
+            return '';
+        default:
+            return '?';
+    }
+}
+
 
 const icons = {
     muestra: {
@@ -230,6 +272,8 @@ function drawStatusMenuTable(data, iconObject = { 0: 'muestra', 1: 'reporte', 2:
     }
 
 };
+
+
 
 function elegirIconStatus(tipo, key) {
     if (tipo) {

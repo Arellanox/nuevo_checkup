@@ -141,6 +141,14 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
                 // audiometria;
                 $('#btn-inter-areas').fadeIn(0);
 
+                // Subir audios y Tabla de equipos
+                // console.log(dataSelect['array'])
+
+                // Captura de oidos (real por activar)
+                // getFormOidosAudiometria(datalist);
+
+                // Recupera la info del reporte:
+                // console.log(selectEstudio.array);
                 if (ifnull(selectEstudio, false, ['array']))
                     await obtenerResultadosAudio(selectEstudio);
 
@@ -156,6 +164,7 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
                 $('#sintomasPaciente').fadeOut();
 
                 if (selectEstudio.array.length) {
+                    //console.log(selectEstudio.array[0]['PREGUNTAS'])
                     recuperarDatosEspiro(selectEstudio.array[0]['PREGUNTAS'])
                 }
 
@@ -291,6 +300,48 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
         })
         $('#btnResultados').fadeOut('100');
     }
+
+
+    // let dataajax;
+    // let url;
+    // botonesResultados('desactivar')
+    // datalist = array;
+    // console.log(datalist)
+    // if (selectTR == 1) {
+    //     obtenerPanelInformacion(datalist['ID_PACIENTE'], 'pacientes_api', 'paciente')
+    //     if (areaActiva == 3) {
+    //         url = 'oftalmologia_api';
+    //         data = {
+    //             turno_id: datalist['ID_TURNO'],
+    //             api: 3
+    //         }
+    //     } else {
+    //         data = {
+    //             api: 11,
+    //             id_turno: datalist['ID_TURNO'],
+    //             id_area: areaActiva
+    //         }
+    //         url = 'servicios_api'
+    //     }
+    //     $.ajax({
+    //         url: http + servidor + "/nuevo_checkup/api/" + url + ".php",
+    //         data: data,
+    //         type: "POST",
+    //         datatype: 'json',
+    //         success: function (data) {
+    //             data = jQuery.parseJSON(data)
+    //             console.log(data);
+    //             selectEstudio = new GuardarArreglo(data.response.data);
+    //             panelResultadoPaciente(data.response.data);
+    //             botonesResultados('activar', areaActiva)
+    //         },
+    //         complete: function () {
+
+    //         }
+    //     })
+    // } else {
+    //     limpiarCampos()
+    // }
 })
 
 

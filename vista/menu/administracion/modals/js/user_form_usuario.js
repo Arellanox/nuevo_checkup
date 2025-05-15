@@ -23,6 +23,7 @@ let Especialidades, Universidades;
 // })
 
 async function getInfo(tip) {
+
     //Cargar selects
     await rellenarSelect('#e', 'especialidades_api', 2, 'ID_ESPECIALIDAD', 'DESCRIPCION', {}, function (data) {
         Especialidades = new GuardarArreglo(data);
@@ -35,9 +36,22 @@ async function getInfo(tip) {
     await rellenarSelect('#cargo-usuario', 'cargos_api', 2, 'ID_CARGO', 'DESCRIPCION');
     await rellenarSelect('#tipo-usuario', 'tipos_usuarios_api', 2, 'ID_TIPO', 'DESCRIPCION');
     await rellenarSelect('#titulo-usuario', 'titulos_api', 2, 'ID_U_TITULO', 'DESCRIPCION')
-    await rellenarSelect('#cliente', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
-    await rellenarSelect('#cliente-edit', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
-    await rellenarSelect('#cliente-agregar', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
+
+
+    switch (tip) {
+        case 'new':
+
+            break;
+        case 'edit':
+
+            break;
+
+        default:
+            break;
+    }
+
+
+
 }
 
 
@@ -45,8 +59,8 @@ async function getInfo(tip) {
 $("#formFormUsuario").submit(function (event) {
     event.preventDefault();
     /*DATOS Y VALIDACION DEL REGISTRO*/
-    const form = document.getElementById("formFormUsuario");
-    const formData = new FormData(form);
+    var form = document.getElementById("formFormUsuario");
+    var formData = new FormData(form);
     formData.set('api', 1);
 
 

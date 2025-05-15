@@ -71,7 +71,7 @@ $('#formAnalisisLaboratorio').submit(function (event) {
               data = jQuery.parseJSON(data);
               if (mensajeAjax(data)) {
                 alertSelectTable(alertoas, 'success')
-
+                // dataListaPaciente = {api:5, fecha_busqueda: $('#fechaListadoLaboratorio').val(), area_id: 6}
                 if (confirmar) {
                   tablaListaPaciente.ajax.reload();
                   getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', selectListaLab, 'Out')
@@ -148,10 +148,7 @@ function recargarVistaLab(fecha = 1) {
     api: 5,
     area_id: areaActiva
   }
-  if (fecha) {
-    dataListaPaciente['fecha_busqueda'] = $('#fechaListadoLaboratorio').val();
-    dataListaPaciente['fecha_busqueda_final'] = $('#fechaFinalListadoLaboratorio').val();
-  }
+  if (fecha) dataListaPaciente['fecha_busqueda'] = $('#fechaListadoLaboratorio').val();
 
   tablaListaPaciente.ajax.reload();
   getPanel('.informacion-labo', '#loader-Lab', '#loaderDivLab', selectListaLab, 'Out')

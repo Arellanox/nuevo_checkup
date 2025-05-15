@@ -13,8 +13,7 @@ $(document).on('click', '#btn-concluir-paciente', function (e) {
     if (array_selected) {
         let btn = $(this)
         let concluido = btn.attr('data-concluir');
-
-        if (concluido === 0) {
+        if (concluido == 0) {
             title = 'abrir'
             text = 'se abrirá el proceso para hacer modificaciones'
             text_2 = 'se ha abierto su proceso para hacer modificaciones'

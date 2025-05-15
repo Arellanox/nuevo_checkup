@@ -1,8 +1,37 @@
 let html = ''
-let TablaUsuariosResponsables = ''
-let id_caja = ''
+var TablaUsuariosResponsables = ''
+$("#formCrearCaja").on("submit", function (e) {
+    e.preventDefault();
 
-let TablaTotaldeCajas = $('#TablaTotaldeCajas').DataTable({
+
+
+    alertMensajeConfirm({
+        title: "¿Desea agregar una nueva caja ahora?",
+        text: "Debe confirmar para agregar esta nueva caja.",
+        icon: "question"
+    }, function () {
+
+        alertPassConfirm({
+            title: "Por favor, ingrese su contraseña para continuar.", icon: "info"
+        }, () => {
+            ajaxAwaitFormData({
+                api: 1,
+            }, 'corte_caja_api', 'formCrearCaja', { callbackAfter: true }, false, async function (data) {
+
+                $("#formCrearCaja").trigger("reset");
+                TablaTotaldeCajas.ajax.reload();
+
+                await switchCajasSelect(true, true)
+                alertToast("La caja fue agregada con éxito", "success", 4000)
+
+            })
+        })
+
+    }, 1)
+})
+
+// Tabla de cajas
+var TablaTotaldeCajas = $('#TablaTotaldeCajas').DataTable({
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
     },
@@ -57,41 +86,27 @@ let TablaTotaldeCajas = $('#TablaTotaldeCajas').DataTable({
 
 })
 
-$("#formCrearCaja").on("submit", function (e) {
-    e.preventDefault();
+inputBusquedaTable("TablaTotaldeCajas", TablaTotaldeCajas, [{
+    msj: 'Tabla de los totales de cajas',
+    place: 'top'
+}], {
+    msj: "Filtre los resultados",
+    place: 'top'
+}, "col-12")
 
-    alertMensajeConfirm({
-        title: "¿Desea agregar una nueva caja ahora?",
-        text: "Debe confirmar para agregar esta nueva caja.",
-        icon: "question"
-    }, function () {
-        alertPassConfirm({
-            title: "Por favor, ingrese su contraseña para continuar.", icon: "info"
-        }, () => {
-            ajaxAwaitFormData({
-                api: 1,
-            }, 'corte_caja_api', 'formCrearCaja', { callbackAfter: true }, false, async function (data) {
-                $("#formCrearCaja").trigger("reset");
-                TablaTotaldeCajas.ajax.reload();
 
-                await switchCajasSelect(true, true)
-                alertToast("La caja fue agregada con éxito", "success", 4000)
-            })
-        })
-    }, 1)
-})
-
-// Tabla de cajas
-inputBusquedaTable("TablaTotaldeCajas", TablaTotaldeCajas, [
-    {msj: 'Tabla de los totales de cajas', place: 'top'}
-], {msj: "Filtre los resultados", place: 'top'}, "col-12")
-
+let id_caja = ''
 selectTable('#TablaTotaldeCajas', TablaTotaldeCajas, {
     unSelect: true, ClickClass: [
         {
+
             class: 'borarCaja',
             callback: async function (data) {
-                data = {api: 4, id_caja: data['ID_CAJAS']}
+                // console.log(data)
+                data = {
+                    api: 4,
+                    id_caja: data['ID_CAJAS']
+                }
 
                 alertMensajeConfirm({
                     title: "¿Está seguro de eliminar esta caja?",
@@ -115,8 +130,11 @@ selectTable('#TablaTotaldeCajas', TablaTotaldeCajas, {
             }
         }
     ], divPadre: '#div_container-cajas'
+
 }, (select, data) => {
+    // fadeTabla('Out')
     if (select) {
+        console.log(data)
         $("#nombreCaja").text(data["DESCRIPCION"])
         $("#btnAgregarResponsableCaja").prop('disabled', false)
         $("#select-user").prop('disabled', false)
@@ -126,10 +144,17 @@ selectTable('#TablaTotaldeCajas', TablaTotaldeCajas, {
         fadeTabla('In')
 
         TablaUsuariosResponsables.ajax.reload()
-    } else { // Parametros o funciones que hara cuando un row no este seleccionado
+    } else {
+        // Parametros o funciones que hara cuando un row no este seleccionado
+
         fadeTabla('Out')
     }
+
+
+
 })
+
+
 
 const adminCajasModal = document.getElementById('ModalAdministrarCajas')
 adminCajasModal.addEventListener('show.bs.modal', event => {
@@ -141,6 +166,7 @@ adminCajasModal.addEventListener('show.bs.modal', event => {
             })
             .columns.adjust();
     }, 200);
+
 })
 
 

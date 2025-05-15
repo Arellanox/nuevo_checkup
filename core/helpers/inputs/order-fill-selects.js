@@ -1,4 +1,4 @@
-function rellenarOrdenarSelect(
+function orderAndFillSelects(
   select = false,
   api,
   apinum,

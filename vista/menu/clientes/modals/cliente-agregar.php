@@ -129,15 +129,15 @@
 
                         <div class="row">
                             <div class="col-6">
-                                <label for="pdf_situacion_fiscal-registrar" class="form-label">Constancia de Situación Fiscal</label>
+                                <label for="pdf_situacion_fiscal-registrar" class="form-label">PDF Situación Fiscal</label>
                                 <input type="file" name="pdf_situacion_fiscal[]" accept="application/pdf" id="pdf_situacion_fiscal-registrar" class="form-control input-form">
                             </div>
                             <div class="col-6">
-                                <label for="pdf_convenios-registrar" class="form-label">Conveio</label>
+                                <label for="pdf_convenios-registrar" class="form-label">PDF Conveio</label>
                                 <input type="file" name="pdf_convenios[]" accept="application/pdf" id="pdf_convenios-registrar" class="form-control input-form">
                             </div>
                             <div class="col-6">
-                                <label for="pdf_lista_precio-registrar" class="form-label">Lista de Precios</label>
+                                <label for="pdf_lista_precio-registrar" class="form-label">PDF Lista de Precios</label>
                                 <input type="file" name="pdf_lista_precio[]" accept="application/pdf" id="pdf_lista_precio-registrar" class="form-control input-form">
                             </div>
                         </div>

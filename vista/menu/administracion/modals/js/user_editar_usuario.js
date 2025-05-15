@@ -1,51 +1,33 @@
-const modalEditarRegistroUsuario = document.getElementById('ModalEditarRegistroUsuario');
-
+const modalEditarRegistroUsuario = document.getElementById('ModalEditarRegistroUsuario')
 modalEditarRegistroUsuario.addEventListener('show.bs.modal', event => {
   document.getElementById("formEditarUsuario").reset();
   $("#Input-Constraseña-Edit").hide();
   $("#edit-usuario-contraseña").removeAttr("name");
-
-  // Llenar selects
-  let promises = [
-    rellenarSelect('#usuario-cargos-edit', 'tipos_usuarios_api', 2, 0, 1),
-    rellenarSelect('#usuario-tipo-edit', 'tipos_usuarios_api', 2, 0, 1),
-    rellenarSelect('#cliente-edit', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
-  ];
-
-  // Esperar a que los selects estén listos antes de asignar valores
-  Promise.all(promises).then(() => {
-    $.ajax({
-      url: "../../../api/usuarios_api.php",
-      type: "POST",
-      data: { id: array_selected['ID_USUARIO'], api: 2 },
-      success: function (data) {
-        data = jQuery.parseJSON(data);
-
-        if (mensajeAjax(data)) {
-          let usuario = data['response']['data'][0];
-          console.log(usuario)
-
-          $('#usuario-cargos-edit').val(usuario['CARGO_ID']).trigger('change');
-          $('#usuario-tipo-edit').val(usuario['TIPO_ID']).trigger('change');
-          $('#edit-usuario-nombre').val(usuario['NOMBRE']);
-          $('#edit-usuario-paterno').val(usuario['PATERNO']);
-          $('#edit-usuario-materno').val(usuario['MATERNO']);
-          $('#edit-usuario-usuario').val(usuario['USUARIO']);
-          $('#edit-usuario-Profesión').val(usuario['PROFESION']);
-          $('#edit-usuario-cedula').val(usuario['CEDULA']);
-          $('#edit-usuario-telefono').val(usuario['TELEFONO']);
-          $('#edit-usuario-correo').val(usuario['CORREO']);
-
-          // Asignar cliente después de que el select esté cargado
-          $('#cliente-edit').val(usuario['CLIENTE_ID']).trigger('change');
-        }
+  rellenarSelect('#usuario-cargos-edit', 'tipos_usuarios_api', 2, 0, 1);
+  rellenarSelect('#usuario-tipo-edit', 'tipos_usuarios_api', 2, 0, 1);
+  // Colocar ajax
+  $.ajax({
+    url: "../../../api/usuarios_api.php",
+    type: "POST",
+    data: { id: array_selected['ID_USUARIO'], api: 3 },
+    success: function (data) {
+      data = jQuery.parseJSON(data);
+      if (mensajeAjax(data)) {
+        $('#usuario-cargos-edit').val(data['response']['data'][0]['CARGO_ID'])
+        $('#usuario-tipo-edit').val(data['response']['data'][0]['TIPO_ID'])
+        $('#edit-usuario-nombre').val(data['response']['data'][0]['NOMBRE'])
+        $('#edit-usuario-paterno').val(data['response']['data'][0]['PATERNO'])
+        $('#edit-usuario-materno').val(data['response']['data'][0]['MATERNO'])
+        $('#edit-usuario-usuario').val(data['response']['data'][0]['USUARIO'])
+        // $('#edit-usuario-contraseña').val("data")
+        $('#edit-usuario-Profesión').val(data['response']['data'][0]['PROFESION'])
+        $('#edit-usuario-cedula').val(data['response']['data'][0]['CEDULA'])
+        $('#edit-usuario-telefono').val(data['response']['data'][0]['TELEFONO'])
+        $('#edit-usuario-correo').val(data['response']['data'][0]['CORREO'])
       }
-    });
-  });
-});
-
-
-
+    }
+  })
+})
 //Formulario de Preregistro
 $("#formEditarUsuario").submit(function (event) {
   event.preventDefault();

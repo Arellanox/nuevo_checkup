@@ -582,9 +582,7 @@ class Miscelaneus
 
     private function getBodyInfoCotizacion($master, $id_cotizacion, $cliente_id)
     {
-        $arregloServicio = $master->getByNext("sp_cotizaciones_b", [
-            $id_cotizacion, $cliente_id
-        ]);
+        $arregloServicio = $master->getByNext("sp_cotizaciones_b", [$id_cotizacion, $cliente_id]);
         return $arregloServicio;
     }
 

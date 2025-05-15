@@ -29,16 +29,3 @@ $('#generar-codigoqr').click(async function () {
     alertSelectTable('No ha seleccionado un cliente');
   }
 })
-
-
-$('#btn-showFranquiciasClientes').click(function () {
-  filtroTipo3Activo = !filtroTipo3Activo;
-
-  // Cambiar texto del botón según estado
-  $(this).find(".btn-text").text(
-      filtroTipo3Activo ? "Clientes Bimo" : "Clientes de Franquicia"
-  );
-
-  // Redibujar la tabla con el filtro actualizado
-  tablaClientes.draw();
-});

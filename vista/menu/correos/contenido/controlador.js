@@ -7,11 +7,7 @@ async function obtenerVistaCorreosLaboratorio(cliente) {
     $.post("contenido/laboratorio.html", function (html) {
         $("#body-js").html(html);
     }).done(function () {
-        dataListaPaciente = {
-            api: 12,
-            fecha_busqueda: $('#fechaListadoLaboratorio').val(),
-            area_id: areaActiva
-        }
+        dataListaPaciente = { api: 12, fecha_busqueda: $('#fechaListadoLaboratorio').val(), area_id: areaActiva }
         // DataTable
         $.getScript('contenido/js/lista-tabla.js')
         // Botones

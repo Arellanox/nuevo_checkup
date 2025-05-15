@@ -1,11 +1,11 @@
 // Obtener datos del paciente seleccionado
-let url_paciente = null,
+var url_paciente = null,
   validarEstudiosLab = 0,
   validarEstudiosRX = 0,
   validarEstudiosImg = 0,
   validarEstudiosOtros = 0;
-let estudiosEnviar = new Array();
-let PaquetesDatos;
+var estudiosEnviar = new Array();
+var PaquetesDatos;
 
 select2("#select-paquetes", "modalPacienteAceptar", 'Seleccione un paquete');
 select2("#select-lab", "modalPacienteAceptar", 'Seleccione un estudio');
@@ -71,13 +71,6 @@ modalPacienteAceptar.addEventListener('show.bs.modal', async event => {
     recepcion: 1
   }, function (data) {
     estudiosLab = data;
-
-      if(data.length <= 0){
-        Toast.fire({
-          icon: 'warning',
-          title: 'No se encontraron estudios para este paciente, añade un precio para poder verlos.'
-        })
-      }
   });
 
 
@@ -141,9 +134,30 @@ modalPacienteAceptar.addEventListener('show.bs.modal', async event => {
     estudiosTodos[index] = item;
   });
   estudiosTodos = Object.values(estudiosTodos);
+
+
+  // rellenarSelect("#select-lab", "servicios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+  //   'area_id': 6,
+  //   cliente_id: array_selected['CLIENTE_ID']
+  // });
+  // rellenarSelect('#select-us', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+  //   'area_id': 7,
+  //   cliente_id: array_selected['CLIENTE_ID']
+  // });
+  // rellenarSelect('#select-rx', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+  //   'area_id': 8,
+  //   cliente_id: array_selected['CLIENTE_ID']
+  // });
+  // rellenarSelect('#select-otros', "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
+  //   area_id: 0,
+  //   cliente_id: array_selected['CLIENTE_ID']
+  // });
+
+  // "#seleccion-estudio", "precios_api", 7, 0, 'ABREVIATURA.SERVICIO', {area_id : this.value, paquete_id: $('#seleccion-paquete').val()}
 })
 
 $("#btn-obtenerID").click(function () {
+  var folder = "identificacion/";
   $.ajax({
     url: "../../../api/archivos/imagen_paciente.php",
     type: "POST",
@@ -152,9 +166,11 @@ $("#btn-obtenerID").click(function () {
     },
     success: function (data) {
       data = jQuery.parseJSON(data);
-      $("#image-perfil").attr("src", "identificacion/" + data[2]);
+      img = "identificacion/" + data[2];
+      $("#image-perfil").attr("src", img);
       url_paciente = `https:bimo-lab.com/\${appname}/vista/menu/recepcion/identificacion/${data[2]}`;
       url_paciente = data;
+      // document.getElementById("btn-confirmar-paciente").disabled = false;
     }
   });
 })
@@ -164,11 +180,8 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
   event.preventDefault();
 
   let dataJson = {
-    api: 2,
-    url: url_paciente,
-    id_turno: array_selected['ID_TURNO'],
-    estado: 1,
-    comentario_rechazo: $('#Observaciones-aceptar').val(),
+    api: 2, url: url_paciente, id_turno: array_selected['ID_TURNO'],
+    estado: 1, comentario_rechazo: $('#Observaciones-aceptar').val(),
     alergias: $('#alergias-aceptar-paciente').val(),
     diagnostico: $('#diagnostico-aceptar-paciente').val(),
     segmento_id: $('#select-segmento-aceptar').val(),
@@ -183,6 +196,7 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
   if($("#comoNosConociste").length > 0){
     dataJson['como_nos_conociste'] = $('#comoNosConociste').val()
   }
+
 
   if ($("#checkBox-NewMedico").is(":checked")) {
     dataJson['medico_tratante'] = $('#medico-aceptar-paciente').val()
@@ -202,17 +216,69 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
     }
   }
 
+
+
   alertMensajeConfirm({
     title: `${paquete}¿Está seguro de aceptar el paciente?`,
     text: "¡Recuerda revisar que todo este en orden!",
-    icon: paquete !== '' ? 'warning' : 'info',
+    icon: paquete != '' ? 'warning' : 'info',
+    // confirmButtonColor: "#d33",
     confirmButtonText: "Aceptar",
     allowOutsideClick: false
   }, function () {
-    ajaxAwaitFormData(dataJson, 'recepcion_api', 'formAceptarPacienteRecepcion', {
-      callbackAfter: true,
-      callbackBefore: true
-    }, () => {
+    // var form = document.getElementById("formAceptarPacienteRecepcion");
+    // var formData = new FormData(form);
+    // formData.set('api', 2);
+    // formData.set('url', url_paciente);
+    // formData.set('id_turno', array_selected['ID_TURNO']);
+    // formData.set('estado', 1);
+    // formData.set('comentario_rechazo', $('#Observaciones-aceptar').val());
+    // formData.set('alergias', $('#alergias-aceptar-paciente').val());
+    // formData.set('diagnostico', $('#diagnostico-aceptar-paciente').val());
+    // formData.set('segmento_id', $('#select-segmento-aceptar').val())
+    // //Medico tratante
+    // formData.set('medico_tratante', $('#medico-aceptar-paciente').val());
+    // formData.set('medico_correo', $('#medico-correo-aceptar').val())
+
+
+    // formData.set('servicios', estudiosEnviar);
+
+
+    // if (!$('#checkPaqueteAceptar').is(":checked")) {
+    //   formData.set('id_paquete', $('#select-paquetes').val());
+    // }
+
+    // // console.log(estudiosEnviar);
+    // // document.getElementById("btn-confirmar-paciente").disabled = true;
+    // $.ajax({
+    //   url: "../../../api/recepcion_api.php",
+    //   type: "POST",
+    //   data: formData,
+    //   processData: false,
+    //   contentType: false,
+    //   beforeSend: function () {
+    //     alertMensaje('info', 'Aceptando paciente', 'Espere un momento mientras el sistema carga al paciente')
+    //   },
+    //   success: function (data) {
+    //     data = jQuery.parseJSON(data);
+    //     console.log(data);
+    //     if (true) {
+    //       Swal.fire({
+    //         position: 'center',
+    //         icon: 'success',
+    //         title: 'Turno: ' + data.response.data[1]['TURNO'],
+    //         text: '¡Paciente aceptado! Recuerda generar sus documentos.',
+    //         showCloseButton: false,
+    //       })
+    //       limpiarFormAceptar();
+    //       $("#modalPacienteAceptar").modal("hide");
+    //       tablaRecepcionPacientes.ajax.reload();
+    //     }
+    //   },
+    // });
+
+
+    ajaxAwaitFormData(dataJson, 'recepcion_api', 'formAceptarPacienteRecepcion', { callbackAfter: true, callbackBefore: true }, () => {
       alertMensaje('info', 'Aceptando paciente', 'Espere un momento mientras el sistema carga al paciente')
     }, (data) => {
       Swal.fire({
@@ -225,8 +291,10 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
       limpiarFormAceptar();
       $("#modalPacienteAceptar").modal("hide");
       tablaRecepcionPacientes.ajax.reload();
-     }).then(r => {})
+    })
+
   }, 1)
+
 
   event.preventDefault();
 })

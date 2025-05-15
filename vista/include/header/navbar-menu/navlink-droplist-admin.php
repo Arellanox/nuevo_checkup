@@ -143,14 +143,14 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
     </a>
     <div class="collapse" id="board-listaprecios">
         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <?php if ($_SESSION['vista']['LISTA_PRECIOS'] == 1) : ?>
+            <?php if ($_SESSION['vista']['PAQUETES_ESTUDIOS'] == 1) : ?>
                 <li>
                     <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/lista-precio/#LISTA_PRECIOS'; ?>">
                         <i class="bi bi-dot"></i> Listado de precios
                     </a>
                 </li>
             <?php endif; ?>
-            <?php if ($_SESSION['vista']['PAQUETES_ESTUDIOS'] == 1) : ?>
+            <?php if ($_SESSION['vista']['LISTA_PRECIOS'] == 1) : ?>
                 <li>
                     <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/lista-precio/#PAQUETES_ESTUDIOS'; ?>">
                         <i class="bi bi-dot"></i> Paquetes

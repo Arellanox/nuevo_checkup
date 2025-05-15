@@ -67,6 +67,11 @@ if ($_GET['filter'] == '[6,12]') {
     areasString.push(...Object.values(areasMap));
   }
 
+  // Imprimir el arreglo de nombres de áreas
+  console.log(areasString);
+
+
+
   vista('<?php echo $menu; ?>', '<?php echo $https . $url . '/' . $appname . '/vista/menu/controlador/controlador.php'; ?>')
 
   function vista(menu, url) {

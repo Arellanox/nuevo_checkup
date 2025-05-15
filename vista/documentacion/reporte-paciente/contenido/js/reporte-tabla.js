@@ -71,6 +71,8 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
     { data: 'PROCEDENCIA' },
     { data: 'VENDEDOR' },
     { data: 'EQUIPO' },
+    // { data: '' },
+
     { data: 'TRABAJADOR' },
     { data: 'VERIFICACION' },
     { data: 'CATEGORIA' },
@@ -124,6 +126,8 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
     { target: 33, className: 'none', title: 'Tipo Cliente' },
     { target: 34, className: 'none', title: 'US Interpretado por' },
   ],
+
+
   rowGroup: {
     dataSrc: 'PREFOLIO', // Columna utilizada para la agrupación
     startRender: function (rows, group) {
@@ -168,135 +172,110 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
       // .append('<td>' + diagnostico + '</td>');
     }
   },
+
+
+
   dom: 'Bfrtip',
   buttons: [
-      {
-          text: '<i class="fa fa-file-excel-o"></i> Excel',
-          className: 'btn btn-success',
-          titleAttr: 'Descargar Excel',
-          action: function () {
-              dataList['api'] = 6;
-
-              ajaxAwait(dataList, 'cargos_turnos_api', { callbackAfter: true }, false, function (data) {
-                  let url = data.response.data.url;
-
-                  // Verificar si estás en localhost y si la URL contiene "bimo-lab.com"
-                  if (servidor === 'localhost' && url.includes('bimo-lab.com')) {
-                      // Reemplazar "https://bimo-lab.com" por el origen actual (http://localhost)
-                      const localOrigin = window.location.origin;
-                      url = url.replace(/^https?:\/\/bimo-lab\.com/, localOrigin);
-                  }
-
-                  const link = document.createElement('a');
-                  link.href = url;
-                  link.target = '_blank';
-
-                  document.body.appendChild(link);
-                  link.click();
-                  document.body.removeChild(link);
-              })
-
-              dataList['api'] = 3;
+    // {
+    //   extend: 'copyHtml5',
+    //   text: '<i class="fa fa-files-o"></i>',
+    //   titleAttr: 'Copy'
+    // },
+    {
+      extend: 'excelHtml5',
+      text: '<i class="fa fa-file-excel-o"></i> Excel',
+      className: 'btn btn-success',
+      titleAttr: 'Excel',
+      customizeData: function (data) {
+        // Eliminar encabezados de columnas ocultas
+        for (var i = data.header.length - 1; i >= 0; i--) {
+          if (!$('#tablaPrincipal').DataTable().column(i).visible()) {
+            data.header.splice(i, 1);
+            for (var j = 0; j < data.body.length; j++) {
+              data.body[j].splice(i, 1);
+            }
           }
-      },
-      {
-          text: '<i class="fa fa-file-pdf-o"></i> PDF',
-          className: 'btn btn-danger',
-          titleAttr: 'Descargar PDF',
-          action: function () {
-              dataList['api'] = 9;
-
-              ajaxAwait(dataList, 'cargos_turnos_api', { callbackAfter: true }, false, function (data) {
-                  let url = data.response.data.url;
-
-                  // Verificar si estás en localhost y si la URL contiene "bimo-lab.com"
-                  if (servidor === 'localhost' && url.includes('bimo-lab.com')) {
-                      // Reemplazar "https://bimo-lab.com" por el origen actual (http://localhost)
-                      const localOrigin = window.location.origin;
-                      url = url.replace(/^https?:\/\/bimo-lab\.com/, localOrigin);
-                  }
-
-                  const link = document.createElement('a');
-                  link.href = url;
-                  link.target = '_blank';
-
-                  document.body.appendChild(link);
-                  link.click();
-                  document.body.removeChild(link);
-              });
-
-              dataList['api'] = 3;
-          }
-      },
-      {
-          text: '<i class="bi bi-box-arrow-in-down"></i> Incluir Campos Beneficiarios',
-          className: 'btn btn-turquesa',
-          id: 'btn-ocultar-campos-beneficiarios',
-          extend: '',
-          action: function () {
-              var columnasOcultas = ['beneficiario']; // Clases CSS de las columnas que quieres ocultar
-              columnasOcultas.forEach(function (clase) {
-                  var columnas = tablaPrincipal.columns('.' + clase);
-                  var estadoActual = columnas.visible()[0];
-                  columnas.visible(!estadoActual);
-              });
-
-              tablaPrincipal.buttons().container().removeClass('show-columns');
-              tablaPrincipal.buttons().container().addClass('hide-columns');
-
-              setTimeout(() => {
-                  tablaPrincipal.columns.adjust().draw(false); // Ajustar columnas y redibujar completamente la tabla
-              }, 130);
-          }
-      },
-      {
-          text: '<i class="bi bi-list"></i> Detallado',
-          className: 'btn btn-outline-turquesa',
-          attr:{ id: 'btn-reporte-detallado' },
-          extend: '',
-          action: function () {
-              if(dataList['detallado'] == 1){
-                  dataList['detallado'] = 0;
-                  $('#btn-reporte-detallado').removeClass('btn-turquesa').addClass('btn-outline-turquesa');
-                  tablaPrincipal.ajax.reload();
-              } else {
-                  dataList['detallado'] = 1;
-                  $('#btn-reporte-detallado').removeClass('btn-outline-turquesa').addClass('btn-turquesa');
-                  tablaPrincipal.ajax.reload();
-              }
-          }
-      },
-      {
-          text: '<i class="bi bi-eye-slash"></i> Ocultar',
-          className: 'btn btn-secondary',
-          action: function () {
-              tablaPrincipal.rows().nodes().to$().addClass('d-none');
-          }
-      },
-      {
-          text: '<i class="bi bi-eye"></i> Mostrar',
-          className: 'btn btn-secondary',
-          action: function () {
-              tablaPrincipal.rows().nodes().to$().removeClass('d-none');
-          }
+        }
       }
-  ]
+    },
+    {
+      text: '<i class="bi bi-box-arrow-in-down"></i> Incluir Campos Beneficiarios',
+      className: 'btn btn-turquesa',
+      id: 'btn-ocultar-campos-beneficiarios',
+      extend: '',
+      action: function () {
+        var columnasOcultas = ['beneficiario']; // Clases CSS de las columnas que quieres ocultar
+        columnasOcultas.forEach(function (clase) {
+          var columnas = tablaPrincipal.columns('.' + clase);
+          var estadoActual = columnas.visible()[0];
+          columnas.visible(!estadoActual);
+        });
+
+        tablaPrincipal.buttons().container().removeClass('show-columns');
+        tablaPrincipal.buttons().container().addClass('hide-columns');
+
+        setTimeout(() => {
+          tablaPrincipal.columns.adjust().draw(false); // Ajustar columnas y redibujar completamente la tabla
+        }, 130);
+
+      }
+    },
+    {
+      text: '<i class="bi bi-list"></i> Detallado',
+      className: 'btn btn-outline-turquesa',
+      attr:{
+        id: 'btn-reporte-detallado',
+      },
+      extend: '',
+      action: function () {
+        if(dataList['detallado'] == 1){
+          dataList['detallado'] = 0;
+          $('#btn-reporte-detallado').removeClass('btn-turquesa').addClass('btn-outline-turquesa');
+          tablaPrincipal.ajax.reload();
+        } else {
+          dataList['detallado'] = 1;
+          $('#btn-reporte-detallado').removeClass('btn-outline-turquesa').addClass('btn-turquesa');
+          tablaPrincipal.ajax.reload();
+        }
+       
+      }
+    },
+    {
+      text: '<i class="bi bi-eye-slash"></i> Ocultar',
+      className: 'btn btn-secondary',
+      action: function () {
+        tablaPrincipal.rows().nodes().to$().addClass('d-none');
+
+      }
+    },
+    {
+      text: '<i class="bi bi-eye"></i> Mostrar',
+      className: 'btn btn-secondary',
+      action: function () {
+        tablaPrincipal.rows().nodes().to$().removeClass('d-none');
+
+      }
+    },
+  ],
+
+
 })
 
 
 
 function parseDataTable(data) {
-    let parsedData;
+  let parsedData;
 
-    if (!isNaN(parseFloat(data))) {
-        // Si el dato puede ser convertido a número
-        parsedData = parseFloat(data).toFixed(2); // Convertir a número y limitar a dos decimales
-    } else {
-        // Si el dato es texto
-        parsedData = 0;
-    }
+  if (!isNaN(parseFloat(data))) {
+    // Si el dato puede ser convertido a número
+    parsedData = parseFloat(data).toFixed(2); // Convertir a número y limitar a dos decimales
+  } else {
+    // Si el dato es texto
+    parsedData = 0;
+  }
 
-    return parsedData
+  return parsedData
 }
 
 inputBusquedaTable('tablaPrincipal', tablaPrincipal, [
@@ -311,12 +290,15 @@ inputBusquedaTable('tablaPrincipal', tablaPrincipal, [
 ], {}, 'col-12')
 
 
+
 // Agregar un evento clic a las filas de grupo
 $('#tablaPrincipal tbody').on('click', '.background-group', function () {
-    var rows = tablaPrincipal.rows($(this).nextUntil('.background-group'));
-    if (rows.nodes().to$().hasClass('d-none')) {
-        rows.nodes().to$().removeClass('d-none');
-    } else {
-        rows.nodes().to$().addClass('d-none');
-    }
+  // $(this).toggleClass('group-hidden');
+  var rows = tablaPrincipal.rows($(this).nextUntil('.background-group'));
+  if (rows.nodes().to$().hasClass('d-none')) {
+    rows.nodes().to$().removeClass('d-none');
+  } else {
+    rows.nodes().to$().addClass('d-none');
+  }
+
 });

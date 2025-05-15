@@ -20,16 +20,13 @@
     let array_user;
     let validar;
 
-    const isFranquisiario = session['franquiciario'];
-
     $.getScript("<?= $current_url . '/core/helpers/menu/tooltip.js' ?>").done(function () {
         $.getScript("<?= $current_url . '/core/helpers/menu/site.js' ?>").done(function () {
             obtenerHeader('<?= $menu ?>', '<?= $tip ?>');
 
             $.getScript("<?= $current_url . '/vista/menu/controlador/class.js' ?>").done(function () {
                 $.getScript("<?= $current_url . '/vista/menu/controlador/funciones.js' ?>").done(function () {
-                    $.getScript("<?= $current_url . '/core/helpers/menu/loggin.js' ?>").done(function () {
-                    });
+                    $.getScript("<?= $current_url . '/core/helpers/menu/loggin.js' ?>");
                 });
             });
         })

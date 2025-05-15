@@ -10,7 +10,7 @@ setTimeout(() => {
   if (nombreCliente != null) {
     $("#procedencia-registro").html(nombreCliente)
     if (clienteRegistro != 17) {
-      rellenarOrdenarSelect('#selectSegmentos', 'segmentos_api', 2, 0, 'DESCRIPCION', {
+      orderAndFillSelects('#selectSegmentos', 'segmentos_api', 2, 0, 'DESCRIPCION', {
         cliente_id: clienteRegistro
       });
     } else {
@@ -411,13 +411,14 @@ if (registroAgendaRecepcion == 1) {
     '<div class="form-check">' +
     '<input class="form-check-input" type="checkbox" value="" id="checkCurpPasaporte-agenda">' +
     '<label class="form-check-label" for="checkCurpPasaporte-agenda"> Soy extranjero </label></div>')
-
   select2('#curp-paciente', "ModalRegistrarPrueba", 'Cargando...')
-
   rellenarSelect('#curp-paciente', 'pacientes_api', 2, 'ID_PACIENTE', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.EXPEDIENTE')
-
   $('#checkCurpPasaporte-agenda').prop('disabled', true)
 }
+// else{
+//   $('#procedencia-agenda').html('<p id="procedencia-registro">PARTICULAR</p>')
+// }
+
 
 //Mayus
 $('#curp-paciente').css('text-transform', 'uppercase')

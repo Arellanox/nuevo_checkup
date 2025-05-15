@@ -57,7 +57,6 @@ switch ($api) {
         break;
     case 2:
         # buscar
-        $master->setLog(json_encode([$id_paquete, $cliente_id, $contenido]), 'PROPS: ');
         $response = $master->getByProcedure("sp_paquetes_b", [$id_paquete, $cliente_id, $contenido]);
         break;
 

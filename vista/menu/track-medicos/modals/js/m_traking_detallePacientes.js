@@ -107,8 +107,9 @@ function MostrarReportePDF() {
 
 // Función que se ejecuta cuando se realiza una acción para obtener un nuevo PDF
 function getNewView(url, filename) {
-    var clientId = isLocalHost ? '3867b556792e429084f3e9253d3ea45c' : 'cd0a5ec82af74d85b589bbb7f1175ce3';
-    let adobeDCView = new AdobeDC.View({ clientId: clientId, divId: "adobe-dc-view" });
+    // Destruir la instancia existente de AdobeDC.View
+    // Crear una instancia inicial de AdobeDC.View
+    let adobeDCView = new AdobeDC.View({ clientId: "cd0a5ec82af74d85b589bbb7f1175ce3", divId: "adobe-dc-view" });
 
     var nuevaURL = url;
 

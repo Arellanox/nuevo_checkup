@@ -1,5 +1,5 @@
 <div class="col-12 loader" id="loader">
-    <div class=" preloader" id="preloader"></div>
+    <div class=" preloader" id="preloader"> </div>
 </div>
 
 <!-- Selects -->
@@ -10,28 +10,18 @@
             <div class="row p-2">
                 <div class="col-12 col-sm-6 col-xl-5 selectDisabled">
                     <label for="inputBuscarPaquetes">Cliente:</label>
-                    <select name="seleccionpaquete" id="seleccion-paquete" class="input-form" required
-                            data-bs-toggle="tooltip" data-bs-placement="top" title="Seleccione/Busque un cliente">
+                    <select name="seleccionpaquete" id="seleccion-paquete" class="input-form" required data-bs-toggle="tooltip" data-bs-placement="top" title="Seleccione/Busque un cliente">
                     </select>
                 </div>
-                <div class="col-12 col-sm-6 col-xl-5 selectDisabled" class="listaPresupuestos"
-                     id="container-select-presupuesto">
+                <div class="col-12 col-sm-6 col-xl-5 selectDisabled" class="listaPresupuestos" id="container-select-presupuesto">
                     <label for="inputBuscarPaquetes">Cotización:</label>
-                    <select name="seleccionpaquete" id="select-presupuestos" class="input-form" required
-                            data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Seleccione/Busque un presupuesto ya guardado"> </select>
+                    <select name="seleccionpaquete" id="select-presupuestos" class="input-form" required data-bs-toggle="tooltip" data-bs-placement="top" title="Seleccione/Busque un presupuesto ya guardado"> </select>
                 </div>
-                <div class="col-12 col-lg-2 d-flex justify-content-end align-items-center"
-                     style="padding: 0px 19px 0px 0px">
+                <div class="col-12 col-lg-2 d-flex justify-content-end align-items-center" style="padding: 0px 19px 0px 0px">
                     <div class="row">
                         <div class="" style="padding: 0px">
-                            <button class="btn btn-sm btn-pantone-7408" type="button" id="UsarPaquete">
-                                <i class="bi bi-binoculars"></i> Usar
-                            </button>
-                            <button class="btn btn-sm btn-borrar" type="button" id="CambiarPaquete"
-                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Borrará todo la tabla">
-                                <i class="bi bi-eraser"></i> Cambiar
-                            </button>
+                            <button class="btn btn-sm btn-pantone-7408" type="button" id="UsarPaquete"><i class="bi bi-binoculars"></i> Usar</button>
+                            <button class="btn btn-sm btn-borrar" type="button" id="CambiarPaquete" data-bs-toggle="tooltip" data-bs-placement="top" title="Borrará todo la tabla"><i class="bi bi-eraser"></i> Cambiar</button>
                         </div>
                     </div>
                 </div>
@@ -40,50 +30,23 @@
         <!-- Parametros del paquete -->
         <div class="card shadow my-1" id="form-select-paquetes">
             <div class='row p-2'>
-                <div class="col-12 col-lg-6 text-center formContenidoPaquete" id="formPaqueteBotonesArea"
-                     style="margin-top:4px;margin-bottom:5px;">
+                <div class="col-12 col-lg-6 text-center formContenidoPaquete" id="formPaqueteBotonesArea" style="margin-top:4px;margin-bottom:5px;">
+
                     <label for="inputBuscarPaquetes">Pulse el area del estudio:</label> <br>
+                    <input type="radio" class="btn-check" name="selectChecko" id="check-img" value="11" autocomplete="off">
+                    <label class="btn btn-outline-success" for="check-img"><i class="bi bi-list"></i>
+                        Ultrasonido</label>
 
-                    <input type="radio" class="btn-check" name="selectChecko" id="check-lab" value="6"
-                           autocomplete="off">
+                    <input type="radio" class="btn-check" name="selectChecko" id="check-rx" value="8" autocomplete="off">
+                    <label class="btn btn-outline-success" for="check-rx"><i class="bi bi-list"></i> Rayos X</label>
+
+                    <input type="radio" class="btn-check" name="selectChecko" id="check-lab" value="6" autocomplete="off">
                     <label class="btn btn-outline-success" for="check-lab"><i class="bi bi-list"></i>
-                        Laboratorio
-                    </label>
+                        Laboratorio</label>
 
-                    <input type="radio" class="btn-check" name="selectChecko" id="check-bio" value="12"
-                           autocomplete="off">
-                    <label class="btn btn-outline-success" for="check-bio"><i class="bi bi-list"></i>
-                        Laboratorio Bíomolecular
-                    </label>
-
-                    <?php if (filter_var($_POST['franquicia'], FILTER_VALIDATE_BOOLEAN) === false): ?>
-                        <input type="radio" class="btn-check" name="selectChecko" id="check-paq" value="13"
-                               autocomplete="off">
-                        <label class="btn btn-outline-success" for="check-paq"><i class="bi bi-list"></i>
-                            Paquetes
-                        </label>
-
-                        <input type="radio" class="btn-check" name="selectChecko" id="check-img" value="11"
-                               autocomplete="off">
-                        <label class="btn btn-outline-success" for="check-img"><i class="bi bi-list"></i>
-                            Ultrasonido
-                        </label>
-
-                        <input type="radio" class="btn-check" name="selectChecko" id="check-rx" value="8"
-                               autocomplete="off">
-                        <label class="btn btn-outline-success" for="check-rx"><i class="bi bi-list"></i> Rayos X</label>
-
-                    <?php endif; ?>
-
-                    <?php if (filter_var($_POST['franquicia'], FILTER_VALIDATE_BOOLEAN) === false): ?>
-
-                        <input type="radio" class="btn-check" name="selectChecko" id="check-otros" value="0"
-                               autocomplete="off">
-                        <label class="btn btn-outline-success" for="check-otros"><i class="bi bi-list"></i>
-                            Otros Servicios
-                        </label>
-
-                    <?php endif; ?>
+                    <input type="radio" class="btn-check" name="selectChecko" id="check-otros" value="0" autocomplete="off">
+                    <label class="btn btn-outline-success" for="check-otros"><i class="bi bi-list"></i>Otros
+                        Servicios</label>
 
                 </div>
                 <div class="col-12 col-lg-6">
@@ -94,12 +57,10 @@
                             </select>
                         </div>
                         <div class="col-12 d-flex align-items-center d-flex justify-content-end">
-                            <button type="submit" form="formCompletarPaquete" class="btn btn-pantone-7408 m-1"
-                                    id="agregar-estudio-paquete">
+                            <button type="submit" form="formCompletarPaquete" class="btn btn-pantone-7408 m-1" id="agregar-estudio-paquete">
                                 <i class="bi bi-plus"></i> Agregar
                             </button>
-                            <button type="submit" form="formCompletarPaquete" class="btn btn-borrar m-1"
-                                    id="submit-cancelarPaquete" style="display:none">
+                            <button type="submit" form="formCompletarPaquete" class="btn btn-borrar m-1" id="submit-cancelarPaquete" style="display:none">
                                 <i class="bi bi-plus"></i> Cancelar
                             </button>
                         </div>
@@ -114,55 +75,44 @@
         <div class="card shadow my-2 p-2">
             <!-- Botones de los paquetes -->
             <div class="d-flex justify-content-center aling-item-center">
-
-                <button type="button" class="btn btn-pantone-7408 me-2" style="margin-bottom:4px" data-bs-toggle="modal"
-                        data-bs-target="#modalInfoDetalleCotizacion" id="btn-info-detaelle-cotizacion">
+                <button type="button" class="btn btn-pantone-7408 me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#modalInfoDetalleCotizacion" id="btn-info-detaelle-cotizacion">
                     <i class="bi bi-save2"></i>
                     <span class="d-none d-xl-inline d-sm-inline"> Guardar Cotización</span>
                 </button>
-                <span data-bs-toggle="tooltip" data-bs-placement="top"
-                      title="Debes tener un paquete guardado previamente, utiliza el boton de 'Mantenimiento'">
-                    <button type="button" class="btn btn-success me-2" style="margin-bottom:4px" id="btn-excel-previa"
-                            disabled data-bs-toggle="modal" data-bs-target="#modalVistaPaquete">
+                <span data-bs-toggle="tooltip" data-bs-placement="top" title="Debes tener un paquete guardado previamente, utiliza el boton de 'Mantenimiento'">
+                    <button type="button" class="btn btn-success me-2" style="margin-bottom:4px" id="btn-excel-previa" disabled data-bs-toggle="modal" data-bs-target="#modalVistaPaquete">
                         <i class="bi bi-filetype-exe"></i>
                         <span class="d-none d-xl-inline d-sm-inline"> Excel (Vista previa)</span>
                     </button>
                 </span>
-                <span data-bs-toggle="tooltip" data-bs-placement="top"
-                      title="Debes tener un paquete guardado previamente, utiliza el boton de 'Mantenimiento'">
-                    <button type="button" class="btn btn-borrar me-2" style="margin-bottom:4px"
-                            id="btn-vistaPrevia-cotizacion">
+                <span data-bs-toggle="tooltip" data-bs-placement="top" title="Debes tener un paquete guardado previamente, utiliza el boton de 'Mantenimiento'">
+                    <button type="button" class="btn btn-borrar me-2" style="margin-bottom:4px" id="btn-vistaPrevia-cotizacion">
                         <i class="bi bi-file-earmark-pdf"></i>
                         <span class="d-none d-xl-inline d-sm-inline">Cotización (Vista previa)</span>
                     </button>
                 </span>
-
-                <?php if (filter_var($_POST['franquicia'], FILTER_VALIDATE_BOOLEAN) === false): ?>
-
-                    <span data-bs-toggle="tooltip" data-bs-placement="top" title="Muestra/Oculta las columnas">
-                        <button type="button" class="btn btn-hover me-2 toggle-vis" style="margin-bottom:4px">
-                            <i class="bi bi-eye"></i> Ver/Ocultar
-                        </button>
-                    </span>
-
-                <?php endif; ?>
+                <span data-bs-toggle="tooltip" data-bs-placement="top" title="Muestra/Oculta las columnas">
+                    <button type="button" class="btn btn-hover me-2 toggle-vis" style="margin-bottom:4px">
+                        <i class="bi bi-eye"></i> Ver/Ocultar
+                    </button>
+                </span>
             </div>
 
             <!-- Tabla de paquetes -->
             <div id="tabla-Paquetes">
                 <table class="table table-hover display responsive " id="TablaListaPaquetes" style="width: 100%">
                     <thead style="width: 100%">
-                    <tr>
-                        <th class="all">Descripción</th>
-                        <th class="min-tablet">CVE</th>
-                        <th class="min-tablet">Cantidad</th>
-                        <!-- <th class="min-tablet">Costo</th>
-                        <th class="min-tablet">Costo Total</th> -->
-                        <th class="min-tablet">Precio Venta</th>
-                        <th class="min-tablet">Descuento</th>
-                        <th class="min-tablet">Subtotal</th>
-                        <th class="all" style="display:none">ID</th>
-                    </tr>
+                        <tr>
+                            <th class="all">Descripción</th>
+                            <th class="min-tablet">CVE</th>
+                            <th class="min-tablet">Cantidad</th>
+                            <!-- <th class="min-tablet">Costo</th>
+                            <th class="min-tablet">Costo Total</th> -->
+                            <th class="min-tablet">Precio Venta</th>
+                            <th class="min-tablet">Descuento</th>
+                            <th class="min-tablet">Subtotal</th>
+                            <th class="all" style="display:none">ID</th>
+                        </tr>
                     </thead>
                     <tbody>
 
@@ -230,8 +180,7 @@
 
                     <div class="col-12 d-flex justify-content-center">
                         <div class="input-group" width="50%">
-                            <input type="number" class="form-control input-form text-center" name=""
-                                   placeholder="Descuento total %" id="descuento-paquete">
+                            <input type="number" class="form-control input-form text-center" name="" placeholder="Descuento total %" id="descuento-paquete">
                             <span class="input-span">%</span>
                         </div>
                     </div>
@@ -268,8 +217,7 @@
 
 
 <!-- Modal para el pdf -->
-<div class="modal fade" id="modal-cotizacion" tabindex="-1" role="dialog" aria-labelledby="modal-cotizacion-label"
-     aria-hidden="true">
+<div class="modal fade" id="modal-cotizacion" tabindex="-1" role="dialog" aria-labelledby="modal-cotizacion-label" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <!-- <div class="modal-header header-modal">

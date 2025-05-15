@@ -45,6 +45,7 @@ switch ($api) {
         if (!empty($attachment[0])) {
             $mail = new Correo();
             if ($mail->sendEmail('resultados', '[bimo] RESULTADOS DE PRUEBA DE ESFUERZO', [$attachment[1]], null, $attachment[0], 1, null, $turno_id, 18, $master)) {
+                $master->setLog("Correo enviado.", "Prueba de esfuerzo captura");
                 $response = ["Correo enviado."];
                 # cambiar el estado del campo enviado en la base de datos
                 # para que se pinte el icono de correo en el menu principal

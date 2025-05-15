@@ -90,7 +90,7 @@ class Miscelaneus
                 // echo "<br>";
                 if (!is_numeric($dato)) {
                     if (in_array($count, $nulls)) {
-                        //si esta dentro de los nullstoma
+                        //si esta dentro de los nulls
                         // no es un error, por tanto no hace nada
                     } else {
                         $errors[] = $count;
@@ -328,7 +328,7 @@ class Miscelaneus
     } // fin de checkArray
 
 
-    public function reportador($master, $turno_id, $area_id, $reporte, $tipo = 'url', $preview = 0, $lab = 0, $id_consulta = 0, $cliente_id = 1, $id_cotizacion = 8, $params = [])
+    public function reportador($master, $turno_id, $area_id, $reporte, $tipo = 'url', $preview = 0, $lab = 0, $id_consulta = 0, $cliente_id = 1, $id_cotizacion = 8)
     {
         #Recupera la información personal del paciente
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
@@ -572,14 +572,16 @@ class Miscelaneus
                         }
                     }
 
-                    $arregloPaciente = [
-                        $result, $arregloAntecedentes, $arregloHistofam, $arregloAntecedentesNutri,
-                        $arregloConsultorioAparatos, $arregloInfoFichAdmi, $arregloSignosVital,
-                        $arregloSigmaExploracion, $arregloSigmaInterpretaciones, $arregloOftalmoResultados,
-                        $arregloConsultorioConsulta, $arregloSigmaLesiones, $arregloSigmaValoraciones
-                    ];
+                    //echo "<pre>";
+                    //agregar nuevos arreglos
+                    $arregloPaciente = [$result, $arregloAntecedentes, $arregloHistofam, $arregloAntecedentesNutri, $arregloConsultorioAparatos, $arregloInfoFichAdmi, $arregloSignosVital, $arregloSigmaExploracion, $arregloSigmaInterpretaciones, $arregloOftalmoResultados, $arregloConsultorioConsulta, $arregloSigmaLesiones, $arregloSigmaValoraciones];
+                    //print_r([$result, $arregloAntecedentes, $arregloHistofam, $arregloAntecedentesNutri, $arregloConsultorioAparatos, $arregloInfoFichAdmi, $arregloSignosVital, $arregloSigmaExploracion, $arregloSigmaInterpretaciones, $arregloOftalmoResultados, $arregloConsultorioConsulta, $arregloSigmaLesiones, $arregloSigmaValoraciones]);
+                    //echo "</pre>";
+                    //exit;
+
                 } else {
                     $arregloPaciente = $this->getBodyInfoConsultorio($master, $turno_id, $id_consulta);
+
                 }
 
                 $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
@@ -590,6 +592,10 @@ class Miscelaneus
                 $carpeta_guardado = 'consultorio';
                 $folio = $infoPaciente[0]['FOLIO_CONSULTA'];
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[0]['CLAVE_CONSULTA'];
+
+                # evaluar si el cliente es sigma y enviar las variables correspondientes.
+                # id cliente [15]
+
                 break;
             case 10:
             case '10':
@@ -618,15 +624,6 @@ class Miscelaneus
             case "15":
                 # COTIZACIONES
                 $arregloPaciente = $this->getBodyInfoCotizacion($master, $id_cotizacion, $cliente_id);
-
-                if($_SESSION['franquiciario']){
-                    $getDatosFiscales = $master->getByProcedure('sp_datos_fiscales_franquicia', [
-                        $_SESSION['id_cliente']]
-                    );
-
-                    $arregloPaciente['franquicia'] = $getDatosFiscales;
-                }
-
                 $fecha_resultado = $arregloPaciente['FECHA_CREACION'];
                 $fecha_resultado = date('dmY', strtotime($fecha_resultado));
                 $carpeta_guardado = "cotizacion";
@@ -658,8 +655,8 @@ class Miscelaneus
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_FASTCK'];
                 $carpeta_guardado = "fast_checkup";
                 $folio = $infoPaciente[0]['FOLIO_FASTCK'];
-                break;
 
+                break;
             case 4:
             case "4":
                 #AUDIOMETRIA
@@ -728,9 +725,8 @@ class Miscelaneus
                 # pacientes que son enviado por maquila.
                 $carpeta_guardado = "envio_de_muestras";
                 $fecha_resultado = date("Ymd");
-                $nombre_paciente = "envio_muestras_$turno_id";  # $turno_id es el id de lote que se quiere generar.
-
-                $arregloPaciente = $this->getBodyFormatoEnvioLotesMaquila($master, $turno_id);
+                $nombre_paciente = "envio_muestras_$turno_id";
+                $arregloPaciente = $this->getBodyFormatoEnvioLotesMaquila($master, $turno_id); # $turno_id es el id de lote que se quiere generar.
                 break;
             case -6:
                 # $turno_id para este caso seria el equivalente a ID_PACIENTE
@@ -746,40 +742,6 @@ class Miscelaneus
                     null, null, $laboratorio_id, 1
                 ]);
                 break;
-            case 'estados_cuentas':
-            case -9:
-                $ujat_inicial = $_POST['fecha_inicial'];
-                $ujat_final = $_POST['fecha_final'];
-                $id_cliente = $_POST['id_cliente'];
-                $area_id    = $_POST['area_id'];
-                $tipo_cliente = $_POST['tipo_cliente']; # 1 contado, 2 credito
-                $tiene_factura = $_POST['tiene_factura'];
-                $detallado = $_POST['detallado']; # indica el tipo de reporte que quieren ver
-
-                $params = $master->setToNull([
-                    $ujat_inicial,
-                    $ujat_final,
-                    $id_cliente,
-                    $area_id,
-                    $tipo_cliente,
-                    $tiene_factura,
-                    'es_franquiciario' => $_SESSION['franquiciario'] ? $_SESSION['id'] : null
-                ]);
-
-                $arregloPaciente['reporte'] = ($detallado == 1)
-                    ? $master->getByProcedure("sp_reporte_ujat", $params)
-                    : $master->getByProcedure("sp_reporte_ujat_prueba", $params);
-
-                $arregloPaciente['franquicia'] = $_SESSION['franquiciario']
-                    ? $master->getByProcedure("sp_datos_fiscales_franquicia", [$_SESSION['id_cliente']])
-                    : null;
-
-                $carpeta_guardado = 'pacientes';
-                $fecha_resultado = date('Y-m-d');
-                $turno_id = $_SESSION['id'];
-                $nombre_paciente = 'Reporte-de';
-                $infoPaciente[0]['ETIQUETA_TURNO'] = 'Pacientes';
-                break;
             case -10:
                 #Recuperar certificado medico
                 $servicios = $master->getByProcedure("sp_paciente_servicios_cargados", [$turno_id, null]);
@@ -787,7 +749,7 @@ class Miscelaneus
                 $arregloPaciente = ['SERVICIOS' => $servicios, 'PACIENTE' => $paciente];
                 break;
         }
-        
+
         if ($area_id == 0) {
             $area_id = 6;
         }
@@ -900,18 +862,20 @@ class Miscelaneus
         return $arregloPaciente;
     }
 
-    private function getBodyInfoCotizacion($master, $id_cotizacion, $cliente_id): array
+    private function getBodyInfoCotizacion($master, $id_cotizacion, $cliente_id)
     {
         $infoCliente = $master->getByProcedure('sp_cotizaciones_b', [$id_cotizacion, $cliente_id]);
         $response = $master->getByNext("sp_cotizaciones_b", [$id_cotizacion, $cliente_id]);
+        // print_r($response);
         $arrayDetalle = [];
-
+        // $number = ["TOTAL" => $response[0][0]['TOTAL']];
+        // $NumbersToLetters = new NumbersToLetters($number['TOTAL']);
+        // $cantidad = $NumbersToLetters->letters;
         $subTotalCal = 0;
         for ($i = 0; $i < count($response[1]); $i++) {
 
             $cargosDetalle = [
                 "PRODUCTO" => $response[1][$i]['PRODUCTO'],
-                "PAQUETE" => $response[1][$i]['PAQUETE'],
                 "PRECIO_UNITARIO" => $response[1][$i]['SUBTOTAL_BASE'],
                 "CANTIDAD" => $response[1][$i]['CANTIDAD'],
                 "TOTAL" => $response[1][$i]['SUBTOTAL'],
@@ -993,8 +957,38 @@ class Miscelaneus
         # recuperamos los datos del paciente
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$id_turno]);
         $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
-        $response = $master->getByNext("sp_cargos_turnos_b", [$id_turno, $_SESSION['id_cliente']]);
+        $response = $master->getByNext("sp_cargos_turnos_b", [$id_turno]);
+        // $infoDetalle = $master->getByNext('sp_cargos_turnos_b', [$id_turno]);
+        //print_r($infoDetalle);
 
+        $arrayServicios = [];
+        // for ($i = 0; $i < count($response); $i++) {
+
+        //     $cargosT = [
+        //         "PRODUCTO" => $response[$i]['PAQUETES'] == "" ? $response[$i]['SERVICIOS'] : $response[$i]['PAQUETES'],
+        //         "PRECIO" => $response[$i]['PRECIO_VENTA'],
+        //         "CANTIDAD" => $response[$i]['CANTIDAD'],
+        //         "TOTAL" => (($response[$i]['CANTIDAD'] * $response[$i]['PRECIO_VENTA']) - (($infoDetalle[1][0]['DESCUENTO']) / ($response[$i]['CANTIDAD'] * $response[$i]['PRECIO_VENTA']) * 100))
+        //     ];
+        //     array_push($arrayServicios, $cargosT);
+        // }
+
+
+        // $servicios = $response[0];
+        // foreach ($servicios as $key => $value) {
+        //     $cargosT = [
+        //         "PRODUCTO" => $value['PAQUETES'] == "" ? $value['SERVICIOS'] : $value['PAQUETES'],
+        //         "PRECIO" => $value['PRECIO_VENTA'],
+        //         "CANTIDAD" => $value['CANTIDAD'],
+        //         "TOTAL" => (($value['CANTIDAD'] * $value['PRECIO_VENTA']) - (($response[1][0]['DESCUENTO']) / ($value['CANTIDAD'] * $value['PRECIO_VENTA']) * 100))
+        //     ];
+
+        //     array_push($arrayServicios, json_encode($cargosT));
+        // }
+
+        // $arrayTckt = array_merge($locales, $subroga);
+        # declaramos el array final 
+        //echo "Aquiiiii " . $infoDetalle[1][0]['SUBTOTAL'];
         $arregloTicket = array(
             'NOMBRE' => $infoPaciente[0]['NOMBRE'],
             "FOLIO" => $infoPaciente[0]['FOLIO_TICKET'],
@@ -1010,6 +1004,11 @@ class Miscelaneus
             "USUARIO" => $response[1][0]['USUARIO'],
             'FOLIO_TICKET' => $infoPaciente[0][0]['FOLIO_TICKET']
         );
+
+        // var_dump($arregloTicket);
+        // echo "<br>";
+        // exit;
+
 
         return $arregloTicket;
     }
@@ -1335,11 +1334,22 @@ class Miscelaneus
         $arrayimg = [];
         $arrayNuevascapturas = [];
 
+        // print_r($response2[0]['CAPTURAS']);
+
+
         for ($i = 0; $i < count($response2); $i++) {
             // print_r($decodedResponse2);
             $decodedResponse2 = $master->decodeJsonRecursively($response2[$i]);
             array_push($arrayNuevascapturas, $decodedResponse2['CAPTURAS_REPORTE']);
         }
+
+
+        // echo "<pre>";
+        // var_dump($arrayNuevascapturas);
+        // echo "</pre>;";
+        // // print_r($decodedResponse2);
+        // exit;
+
 
         for ($i = 0; $i < count($response1[1]); $i++) {
 
@@ -1869,11 +1879,32 @@ class Miscelaneus
         return null;
     }
 
-    public function  scanDirectory($directory)
+    // public function changeLocationFile($old_directory,$new_directory){
+    //     // if (copy(".." . $dir[1], $destination . basename($archivo))) {
+    //     //     # si se copia correctamente, borramos el archivo de la carpeta generica.
+    //     //     unlink('..'.$dir[1]);
+
+    //     //     #guardarmos la direccion del electro.
+    //     //     $response = $master->insertByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, $host . "reportes/modulo/electro/$turno_id", null, $comentario, $interpretacion, $tecnica, $hallazgo, null, null, $usuario]);
+    //     // }
+
+    //     if (copy($old_directory,$new_directory)) {
+    //         # si se copia correctamente, borramos el archivo de la carpeta generica.
+    //         unlink($old_directory);
+
+    //         #guardarmos la direccion del electro.
+    //         $response = $master->insertByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, $host . "reportes/modulo/electro/$turno_id", null, $comentario, $interpretacion, $tecnica, $hallazgo, null, null, $usuario]);
+    //     }
+    // }
+
+    public function scanDirectory($directory)
     {
         #enviar los dos puntos [../] basandose en el archivo de miscelaneus
         $files = array();
         if ($gestor = opendir($directory)) {
+            // echo "Gestor de directorio: $gestor\n";
+            // echo "Entradas:\n";
+
             /* Esta es la forma correcta de iterar sobre el directorio. */
             $count = 0;
             while (false !== ($entrada = readdir($gestor))) {
@@ -1889,7 +1920,7 @@ class Miscelaneus
         return $files;
     }
 
-    public function selectHost($domain): string
+    public function selectHost($domain)
     {
 
         switch ($domain) {
@@ -2114,7 +2145,7 @@ class Miscelaneus
         return $response;
     }
 
-    public function llamar_api()
+    function llamar_api()
     {
 
         // Datos que deseas enviar a la API
@@ -2191,6 +2222,12 @@ class Miscelaneus
         $response1 = $master->getByProcedure("sp_recuperar_info_hostorial_caja", [$turno_id]);
         $response2 = $master->getByProcedure("sp_corte_detalle_pagos", [$turno_id]);
         $response = [$response1, $response2];
+        // echo "<pre>";
+        // // echo $turno_id;
+        // var_dump($response[0]);
+        // echo "</pre>";
+
+        // exit;
 
         $result = array();
         $i = 0;
@@ -2240,25 +2277,18 @@ class Miscelaneus
                 $iva_general += $iva;
                 $total_general += $total;
 
-                $clientes = $master->getByProcedure("sp_clientes_configuracion_pago_b", [null]);
-
-                $cliente_ids = [];
-
-                foreach ($clientes as $row) {
-                    if ($row['DETALLE_PAGO'] == 1) {
-                        $cliente_ids[] = $row['CLIENTE_ID'];
-                    }
-                }
-
-                $resumen_contado  += in_array($e['CLIENTE_ID'], $cliente_ids) ? $total : 0;
-                $resumen_credito  += !in_array($e['CLIENTE_ID'], $cliente_ids) ? $total : 0;
+                $resumen_contado += in_array($e['CLIENTE_ID'], [1, 16, 31]) ? $total : 0;
+                $resumen_credito += !in_array($e['CLIENTE_ID'], [1, 16, 17, 31, 15]) ? $total : 0;
                 $resumen_cortesia += in_array($e['CLIENTE_ID'], [17]) ? $total : 0;
-                $resumen_BIMO     += in_array($e['CLIENTE_ID'], [15]) ? $total : 0;
+                $resumen_BIMO += in_array($e['CLIENTE_ID'], [15]) ? $total : 0;
             }
 
-            $array_prefolios[] = $prefolio;
+
+            array_push($array_prefolios, $prefolio);
+
 
             $folio = $e['FOLIO'];
+
             $fecha_inicio = $e['FECHA_INICIO'];
             $fecha_final = is_null($e['FECHA_FINAL']) ? "N/A" : $e['FECHA_FINAL'];
         }
@@ -2285,8 +2315,8 @@ class Miscelaneus
         }
 
 
-
-        return [
+        $response = [];
+        $response = [
             $result,
             $subtotal_general,
             $iva_general,
@@ -2302,6 +2332,13 @@ class Miscelaneus
             $resumen_cortesia,
             $resumen_BIMO
         ];
+        // foreach($response as $i){
+        //     print_r($i);
+        //     echo "<br>";
+        // }
+        // echo $response[5];
+        // exit;
+        return $response;
     }
 
     public function getBodyEnvioMuestras($master, $turno_id)

@@ -1,203 +1,126 @@
-<div class="modal fade" id="EnvioLotesPacientes" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false"
-     data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+<div class="modal fade" id="envioMuestras" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+    role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen modal-dialog-scrollable modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="temperaturaTitle">Envio de lotes de muestras</h5>
+                <h5 class="modal-title" id="temperaturaTitle">Envio de muestras</h5>
+                <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
             </div>
             <div class="modal-body">
-                <div class="container-pages" id="page_control-envio_lotes" style="height: 100%; max-height: 100%;">
-                    <section class="page px-4" page="1" style="display: none;max-height: 100%; height: 100%;">
-                        <!-- Tablas para organizar los pacientes -->
-                        <div style="max-height: 100%;height: 100%;">
-                            <div class="row d-flex justify-content-center" style="height: 100%;">
-                                <div class="col-12 col-lg-5 px-4">
-                                    <div class="rounded p-3 shadow my-2">
-                                        <h5>Pacientes faltantes</h5>
-                                        <table class="table table-hover display responsive" id="tablaPacientesFaltantes"
-                                               style="width: 100%;">
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-lg-2 px-3 mt-5">
-                                    <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
-                                        <div>
-                                            <p class="text-center pb-2 none-p">
-                                                Crea y envia lotes de muestras.
-                                            </p>
-                                            <p class="text-center none-p">
-                                                Selecciona y "<span class="pantone-3165-color">agrega</span>" a los
-                                                pacientes a
-                                                un
-                                                nuevo lote, viceversa para "<span
-                                                    class="pantone-3165-color">regresar</span>" a
-                                                los
-                                                pacientes del nuevo lote.
-                                            </p>
-                                            <div class="row mt-3">
-                                                <!-- <div class="col-12 mt-3 d-flex justify-content-center">
-                                                                                                                                                                <input type="text" class="form-input input-form" placeholder="Descripción del grupo"
-                                                                                                                                                                    id="descripcion-grupo-factura">
-                                                                                                                                                            </div> -->
-                                                <div class="col-12 mt-3 d-flex justify-content-center">
-                                                    <button class="btn btn-success" style="padding:12px 26px"
-                                                            id="AgregarPacientesGrupo">
-                                                        Agregar <i class="bi bi-arrow-right"></i>
-                                                    </button>
-                                                </div>
-                                                <div class="col-12 mt-3 d-flex justify-content-center">
-                                                    <button class="btn btn-turquesa" style="padding:12px 26px"
-                                                            id="QuitarPacientesGrupo">
-                                                        <i class="bi bi-arrow-left"></i> Regresar
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-lg-5 px-4">
-                                    <div class="rounded p-3 shadow my-2">
-                                        <h5>Lote de muestras a enviar</h5>
-                                        <table class="table display responsive" id="TablaPacientesNewGrupo"
-                                               style="width: 100%">
+                <div class="row" style="width: 100%;">
 
-                                        </table>
-                                    </div>
+                    <div class="col-12 col-xl-4 tab-first" id="tab-paciente" style="margin-right: -5px !important;">
+                        <div class="rounded p-3 shadow my-2" id="lista-pacientes">
+                            <h4>Lista de pacientes</h4>
+                            <div class="text-center">
+                                <label for="inputBuscarTableListaNuevos">Buscar:</label>
+                                <input type="text" class="form-control input-color"
+                                    style="display: unset !important;width:auto !important"
+                                    name="inputBuscarTableListaNuevos" value="" style="width:80%" autocomplete="off"
+                                    id="BuscarTablaListaLaboratorio" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    title="Filtra la lista de pacientes">
+                            </div>
+                            <table class="table display responsive" id="TablaLaboratorio" style="width: 100%">
+                                <thead class="">
+                                    <tr>
+                                        <th scope="col d-flex justify-content-center" class="all">#</th>
+                                        <th scope="col d-flex justify-content-center" class="all">Folio</th>
+                                        <th scope="col d-flex justify-content-center" class="all">Conteo</th>
+                                        <th scope="col d-flex justify-content-center" class="all">Estatus</th>
+                                        <th scope="col d-flex justify-content-center" class="none">Fecha registro</th>
+                                        <th scope="col d-flex justify-content-center" class="none">Registrado por</th>
+
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Datos del paciente -->
+
+                    <div class="col-12 col-xl-8 tab-second" id="tab-reporte"
+                        style="margin-right: -5px !important;display:none !important">
+                        <div class="rounded p-3 shadow my-2" id="height-card-pdf">
+                            <div class="row">
+                                <div class="col-12 col-lg-7">
+                                    <h4>Resultado del paciente</h4>
+                                    <p class="none-p">Validación y envío del reporte al paciente o invalide el mismo
+                                        para poder
+                                        modificar nuevamente el resultado
+                                    </p>
+                                </div>
+                                <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center">
+                                    <button type="button" data-attribute="guardar" class="btn btn-hover"
+                                        style="margin-bottom:4px" id="btn-rechazar-resultado">
+                                        <i class="bi bi-clipboard2-pulse"></i> Invalidar
+                                    </button>
+                                    <button type="button" data-attribute="confirmar" class="btn btn-hover"
+                                        style="margin-bottom:4px" id="btn-confirmarenviar-resultado">
+                                        <i class="bi bi-clipboard2-pulse"></i> Validar
+                                    </button>
                                 </div>
                             </div>
-                        </div>
-                    </section>
+                            <div id="pdfviewer" style="height: 93%;">
+                                <div id="adobe-dc-view"></div>
 
-                    <section class="page px-4" page="2" style="display: none; max-height: 100%;height: 100%;">
-                        <!-- Criterios de rechazo -->
-                        <div class="d-flex justify-content-center align-items-center"
-                             style="height: 100%;height: 100%;">
-                            <div class="col-12 col-md-10 col-lg-10">
-                                <div class="rounded py-3 px-4 shadow my-2">
 
-                                    <div class="">
-                                        <h3 style="color: red;" class="text-center"><strong>Importante:</strong>
-                                        </h3>
-                                        <h3 class="text-center">Criterios de Rechazo de Muestras</h3>
-                                    </div>
-
-                                    <p style="font-size: 18px;">
-                                        <strong>
-                                            Al llegar las muestras al laboratorio, estas serán revisadas por el
-                                            personal
-                                            de recepción de muestras y pueden ser rechazadas por los siguientes
-                                            motivos:
-                                        </strong>
-                                    </p>
-
-                                    <div class="px-2">
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <ol class="motivosCriterios px-3" style="padding: 6px;">
-                                                        <li>Sin identificación.</li>
-                                                        <li>No Indicar el tipo de muestra o procedencia.</li>
-                                                        <li>No indicar el examen requerido.</li>
-                                                        <li>Etiquetas defectuosas.</li>
-                                                        <li>Mal rotuladas cuando:
-                                                            <br>
-                                                            <span>- El nombre y/o apellidos no coincidan con la
-                                                                solicitud de exámenes</span>
-                                                            <br>
-                                                            <span>- La identificación del tubo no sea legible.</span>
-                                                        </li>
-                                                    </ol>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <ol class="motivosCriterios px-3" style="padding: 6px;" start="6">
-                                                        <li>Derramada.</li>
-                                                        <li>Tubo, medio o frasco inadecuado.</li>
-                                                        <li>Hemolizada.</li>
-                                                        <li>Lipémica.</li>
-                                                        <li>Coagulada y se requiere sangre total.</li>
-                                                        <li>Contaminada.</li>
-                                                        <li>Insuficiente.</li>
-                                                    </ol>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <p style="text-align: center; font-size: 18px;" class="py-4">
-                                        <strong>He
-                                            leído los Criterios y estoy de acuerdo.</strong>
-                                    </p>
-
-                                    <div class="row">
-                                        <div class="col-6 centrar-botones">
-                                            <button type="button" action="rechazo"
-                                                    class="page2-botons btn btn-cancelar">
-                                                <i class="bi bi-x-square"></i>
-                                                No estoy de acuerdo.
-                                            </button>
-                                        </div>
-                                        <div class="col-6 centrar-botones">
-                                            <button type="button" action="aceptar" class="page2-botons btn btn-warning">
-                                                <i class="bi bi-check-circle"></i>
-                                                Si, estoy de acuerdo.
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
+                    </div>
 
-                    </section>
 
-                    <section class="page px-4" page="3" style="display: none; max-height: 100%;height: 100%;">
-                        <!-- Registro de muestras -->
-                        <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
-                            <div class="col-12 col-md-8 col-lg-10 col-xl-6">
-                                <div class="rounded p-3 shadow my-2">
-                                    <p style="font-size: 18px; margin: 31px; margin-top: 1px;">
-                                        Sus muestras han sido registradas para ser enviadas al laboratorio central
-                                        con el
-                                        <br />
-                                        <strong>FOLIO DE LOTE: <span style="color: red;"
-                                                                     id="folio_de_solicitud_muestras">HN09090</span></strong>
-                                    </p>
-
-                                    <div class="row">
-                                        <div class="col-12 centrar-botones">
-                                            <button type="button" class="btn btn-warning mx-2"
-                                                    id="procesoFinal_aceptar-enviarLote">
-                                                <i class="bi bi-check-circle"></i>
-                                                Aceptar
-                                            </button>
-                                            <a href="#NoRellenado" target="_blank" id="formato_de_envio"
-                                               class="btn btn-borrar mx-2">
-                                                <i class="bi bi-printer"></i>
-                                                Imprimir formato de lote.
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </section>
                 </div>
             </div>
             <div class="modal-footer">
-
-                <!-- Solo visible en la primera y despues de guaradar -->
                 <!-- para guardar -->
-                <button type="button" class="btn-footer_envioLote btn btn-cancelar" data-bs-dismiss="modal">
+                <button type="button" class="btn-footers page-formulario btn btn-cancelar btn-cerrar_modal"
+                    data-bs-cancelar="0">
+                    <i class="bi bi-arrow-left-short"></i>
+                    Cancelar
+                </button>
+                <button type="submit" class="btn-footers page-formulario btn btn-confirmar" form="formAgregarPaciente">
+                    <i class="bi bi-person-fill-up"></i> Guardar
+                </button>
+
+
+                <!-- Para las etiquetas -->
+                <!-- <button style="display: none;" type="button"
+                    class="btn-footers btn btn-cancelar btn-cerrar_modal page-proceso_final" data-bs-cancelar="1">
                     <i class="bi bi-arrow-left-short"></i>
                     Cerrar
                 </button>
+                <button style="display: none;" type="button" class="btn-footers page-etiquetas btn btn-borrar"
+                    id="btn-etiquetas-pdf">
+                    <i class="bi bi-file-earmark-pdf"></i> Imprimir etiquetas del paciente
+                </button> -->
 
-                <!-- Envia a la pagina de aviso para angel -->
-                <button type="button" class="btn-footer_envioLote btn btn-pantone-7408" id="envioLotes-beforeConfirm">
-                    <i class="bi bi-arrow-right-short"></i> Siguiente
-                </button>
+
+                <!-- Nuevo registro -->
+                <!-- <button style="display: none;" type="button" class="btn-footers page-proceso_final btn btn-confirmar">
+                    <i class="bi bi-person-fill-up"></i> Nuevo registro
+                </button> -->
             </div>
         </div>
     </div>
 </div>
+
+<!-- <style>
+    .drop-zone label {
+        background-color: #f6fdff00 !important
+    }
+
+    .page.animate__animated {
+        animation-duration: 0.5s;
+        /* Ajusta este valor según lo rápido que quieras que sea */
+    }
+
+    .container-pages {
+        position: relative;
+    }
+
+    .page {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+</style> -->

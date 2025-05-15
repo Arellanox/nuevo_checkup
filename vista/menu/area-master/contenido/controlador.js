@@ -120,6 +120,7 @@ function hasLocation() {
         break;
       case "OFTALMOLOGIA":
         control_turnos = 4;
+        // console.log(control_turnos)
         url_api = 'oftalmologia_api';
         api_interpretacion = 1;
         formulario = "formSubirInterpretacionOftalmo";
@@ -163,6 +164,8 @@ function hasLocation() {
   -Poder consultar las capturas y mandarlas ordenadas por pruebas
   -Guardar la fecha de registro de resultado y quien lo cargó
   -Generar el reporte de oftalmo y guardarlo junto a los campos
+
+
 */
 function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.html', tipovista) {
   areaActiva = area;
@@ -180,7 +183,6 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
     dataListaPaciente = {
       api: 5,
       fecha_busqueda: $('#fechaListadoAreaMaster').val(),
-      //fechan_busqueda_final: $('#fechaFinalListadoAreaMaster').val(),
       area_id: areaActiva
     }
 
@@ -191,6 +193,13 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
 
     $('.abrirModalResultados').attr('disabled', false);
     switch (area) {
+
+      // case 18: case 9: //Eco y prueba de esfuerzo
+
+      //   // Subir resultado
+      //   $.getScript("modals/js/master_subir_interpretación.js");
+      //   break;
+
       case 3: //Oftalmología
         $('#btn-analisis-oftalmo').fadeIn(0)
         $('#formSubirInterpretacionOftalmo').fadeIn(0)
@@ -248,6 +257,17 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
           // $('#vistaCapturasAreas').fadeIn(0)
         }
         break;
+
+      // Versión anterior (Absoleta)
+      // default:
+      //   $('#btn-analisis-pdf').fadeIn(0)
+      //   $('.btn-capturas-pdf').fadeIn(0)
+      //   $('.btnResultados').fadeOut(0)
+      //   // Datatable
+      //   $.getScript("contenido/js/vista-tabla.js");
+      //   // Modal para agregar interpretacion
+      //   $.getScript("modals/js/ar_subirprueba_area.js");
+      //   break;
     }
     // Botones
     $.getScript("contenido/js/area-botones.js")
@@ -255,3 +275,10 @@ function obtenerContenidoVistaMaster(area, titulo, contenidoHTML = 'contenido.ht
 
   });
 }
+
+// obtenerContenidoRX()
+
+// function sessionVista(areaVista) {
+//   let vista = session.vista;
+//   return vista[areaVista] == 1 ? true:false;
+// }

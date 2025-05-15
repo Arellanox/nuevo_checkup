@@ -1,4 +1,7 @@
 <?php
+
+use Masterminds\HTML5\Parser\CharacterReference;
+
 require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
 include_once "../clases/Pdf.php";
@@ -240,8 +243,15 @@ function llamarPaciente($master, $area_fisica_id)
             return;
         }
 
+
         # verificar si ya existe, lo reemplazamos
         $jsonData->setData($area_fisica_id, $object->getTurnoId());
+        // if(isset($_SESSION['turnero'])){
+        //     $_SESSION['turnero'][$area_fisica_id] = array("turno" => $object->getTurnoId());
+        // } else {
+        //     $_SESSION['turnero'] = array($area_fisica_id => array("turno" => $object->getTurnoId()));
+        // }
+
     }
     return $response;
 }
@@ -331,6 +341,7 @@ function changeStatusOptimizador($param, $area)
     $data = file_get_contents("../archivos/sistema/json/turnero_optimizador.json");
     $request = json_decode($data, true);
     $master = new Master();
+    $master->setLog("Area: $area", null);
     $request['Optimizador'][$area] = $param;
     file_put_contents("../archivos/sistema/json/turnero_optimizador.json", json_encode($request));
 }

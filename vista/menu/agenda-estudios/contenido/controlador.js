@@ -7,7 +7,8 @@ async function obtenerAgendaPacientes(titulos) {
     $.post("contenido/agenda-pacientes.html", function (html) {
         $("#body-js").html(html);
     }).done(function () {
-        $.getScript('contenido/js/agenda-funciones.js')// Botones
+        // Botones
+        $.getScript('contenido/js/agenda-funciones.js')
     });
 }
 
