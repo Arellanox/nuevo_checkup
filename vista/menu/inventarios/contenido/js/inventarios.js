@@ -398,7 +398,7 @@ selectDatatable('tableCatArticulos', tableCatArticulos,0,0,0,0, async function(s
 
     $("#unidadVenta").text(rowSelected.UNIDAD_VENTA);
     $("#unidadMinima").text(rowSelected.UNIDAD_MINIMA);
-    $("#contenido").text(rowSelected.CONTENIDO);
+    $("#contenidoDetalle").text(rowSelected.CONTENIDO);
     $("#tipo").text(rowSelected.TIPO_DESCRIPCION);
     $("#manejaCaducidad").html(rowSelected.MANEJA_CADUCIDAD == 1 ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle-fill text-danger"></i>');
 
