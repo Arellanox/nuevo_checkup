@@ -1,13 +1,12 @@
 const ModalEditarPaciente = document.getElementById('ModalEditarPaciente')
-ModalEditarPaciente.addEventListener('show.bs.modal', event => {
+ModalEditarPaciente.addEventListener('shown.bs.modal', async event => {
   $('#editar-nombre').val(array_selected['NOMBRE']);
   $('#editar-paterno').val(array_selected['PATERNO']);
   $('#editar-materno').val(array_selected['MATERNO']);
-  // $('#editar-edad').val(array_selected['EDAD']);
   $('#editar-nacimiento').val(array_selected['NACIMIENTO']);
 
   // Calcular edad
-  $(`#editar-edad`).val(calcularEdad2(array_selected['NACIMIENTO'])['numero|'])
+  $(`#editar-edad`).val(calcularEdad2(array_selected['NACIMIENTO'])['numero'])
   $(`#span_formEdad_edit`).html(calcularEdad2(array_selected['NACIMIENTO'])['tipo'])
 
   $('#editar-curp').val(array_selected['CURP']);
@@ -27,51 +26,51 @@ ModalEditarPaciente.addEventListener('show.bs.modal', event => {
   $('#editar-vacuna').val(array_selected['VACUNA']);
   $('#editar-vacunaExtra').val(array_selected['OTRAVACUNA']);
   $('#editar-inputDosis').val(array_selected['DOSIS']);
-  var genero = array_selected['GENERO'];
+
+  let genero = array_selected['GENERO'];
   genero = genero.toUpperCase();
-  if (genero.toUpperCase() == 'MASCULINO') {
+
+  if (genero.toUpperCase() === 'MASCULINO')
     $('#edit-mascuCues').attr('checked', true);
-  } else {
-    $('#edit-femenCues').attr('checked', true);
+  else $('#edit-femenCues').attr('checked', true);
+
+  if(array_selected['MEDIOS_ENTREGA']) {
+    const medios = array_selected['MEDIOS_ENTREGA'];
+    const mediosArray = medios.split(',').map(m => m.trim());
+
+    if (mediosArray.length > 0) {
+      mediosArray.forEach((item) => {
+        if (item === "CORREO") $('#correo').prop('checked', true);
+        else if (item === "WHATSAPP") $('#whatsapp').prop('checked', true);
+        else if (item === "IMPRESO") $('#impreso').prop('checked', true);
+      });
+    }
   }
 });
-
-
-// // Lista de segmentos dinamico
-// $('#listProcedencia-editar').on('change', function() {
-//   var procedencia = $("#listProcedencia-editar option:selected").val();
-//   getSegmentoByProcedencia(procedencia, "segmentos_procedencias-edit");
-// });
-//
-// async function cargarDatosPaci (){
-//   if (await getProcedencias("listProcedencia-editar")) {
-//     var procedencia = $("#listProcedencia-editar option:selected").val();
-//     const resultSeg = await getSegmentoByProcedencia(procedencia, "segmentos_procedencias-edit");
-//     console.log(resultSeg);
-//     if (resultSeg) {
-//
-//       document.getElementById("listProcedencia-editar").value = array_selected['ID_CLIENTE'];
-//       await getSegmentoByProcedencia(array_selected['ID_CLIENTE'], "segmentos_procedencias-edit");
-//       document.getElementById("segmentos_procedencias-edit").value = array_selected['ID_SEGMENTO'];
-//       // $('#listProcedencia-edit').val(array_selected['ID_CLIENTE']);
-//       // console.log(array_selected['ID_SEGMENTO']);
-//       // $('#').val(array_selected['']);
-//     }
-//   }
-// }
 
 
 //Formulario de Preregistro
 $("#formEditarPaciente").submit(function (event) {
   event.preventDefault();
+  selectedMedia = '';
+  let checkedCount = $('#communicationOptions input[type="checkbox"]:checked').length;
+  if (checkedCount === 0) {
+    alertToast('Por favor, seleccione al menos un medio de comunicación', 'info');
+    return false
+  } else {
+    // Recoge los valores de los checkboxes seleccionados y los une con comas
+    let selectedMedia = $('#communicationOptions input[type="checkbox"]:checked').map(function () {
+      return this.value;
+    }).get().join(', ');
+  }
   /*DATOS Y VALIDACION DEL REGISTRO*/
-  var form = document.getElementById("formEditarPaciente");
-  var formData = new FormData(form);
+  let form = document.getElementById("formEditarPaciente");
+  let formData = new FormData(form);
   formData.set('id', array_selected['ID_PACIENTE']);
+  formData.set('medios_entrega', selectedMedia);
   formData.set('api', 3);
   $i = 0;
   formData.forEach(element => {
-    console.log($i + ' ' + element);
     $i++;
   });
   Swal.fire({
@@ -96,7 +95,7 @@ $("#formEditarPaciente").submit(function (event) {
         success: function (data) {
           $("#btn-actualizar").prop('disabled', false);
           data = jQuery.parseJSON(data);
-          console.log(data['response']['code']);
+
           switch (data['response']['code']) {
             case 1:
               Toast.fire({
@@ -109,12 +108,12 @@ $("#formEditarPaciente").submit(function (event) {
               try {
                 tablaRecepcionPacientesIngrersados.ajax.reload()
               } catch (e) {
-                // console.log(e)
+                console.warn(e)
               }
               try {
                 tablaRecepcionPacientes.ajax.reload()
               } catch (e) {
-                // console.log(e)
+                console.warn(e)
               }
               break;
             case "repetido":

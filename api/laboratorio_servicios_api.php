@@ -43,6 +43,9 @@ $area_id = $_POST['area'];
 $seleccionable = $_POST['selecionable'];
 $es_para = $_POST['para'];
 $costos = $_POST['costos'];
+$motivo_rechazo = $_POST['motivo_rechazo'];
+$indicaciones_lab = $_POST['indicaciones_laboratorio'];
+$conservacion = $_POST['modo_conservacion'];
 
 #datos para rellenar un grupo
 $id_grupo = $_POST['id_grupo'];
@@ -76,7 +79,7 @@ $pendiente = $_POST['pendiente'];
 
 switch ($api) {
     case 1:
-        $response = $master->insertByProcedure("sp_servicio_laboratorio_g", [
+        $payload = [
             $id_servicio,
             $descripcion,
             $abreviatura,
@@ -103,8 +106,13 @@ switch ($api) {
             $seleccionable,
             $es_para,
             $costos,
+            $motivo_rechazo,
+            $indicaciones_lab,
+            $conservacion,
             $_SESSION['id']
-        ]);
+        ];
+
+        $response = $master->insertByProcedure("sp_servicio_laboratorio_g", $payload);
         break;
     case 2:
         $response = $master->getByProcedure('sp_servicio_laboratorio_b', [$id_servicio]);
@@ -144,10 +152,7 @@ switch ($api) {
                 array_push($arrayMuestras, $muestras);
                 array_push($arrayContenedoryMuestra, array('CONTENEDOR_ID' => $contenedores, 'MUESTRA_ID' =>  $muestras));
             }
-            //     if(!in_array($response[$i]['MUESTRA_ID'], $arrayMuestras)){
-            //         $muestras = $response[$i]['MUESTRA_ID'];
-            //         array_push($arrayMuestras, $muestras);
-            //     }
+
         }
 
         $response = array(
@@ -182,7 +187,7 @@ switch ($api) {
         #obtener lista de estudios por id_grupo
         $grupo_id = $_POST['grupo_id'];
 
-        $response = $master->getByProcedure('sp_servicios_por_grupo_b', [$grupo_id, $servicio_id]); #<-- Falta obtener grupos por servicio 
+        $response = $master->getByProcedure('sp_servicios_por_grupo_b', [$grupo_id, $servicio_id]); #<-- Falta obtener grupos por servicio
         break;
     case 4:
         #Agregar varios estudios a un grupo
@@ -192,14 +197,7 @@ switch ($api) {
             json_encode($servicios)
         );
 
-
         $response = $master->insertByProcedure('sp_detalle_grupo_g_2', $grupos_data);
-
-        // echo '<pre>';
-        // print_r($grupos_data);
-        // echo '</pre>';
-        // exit;
-
         break;
     case 5:
         # marcar como pendiente un estudio

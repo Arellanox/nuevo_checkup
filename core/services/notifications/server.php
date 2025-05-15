@@ -45,7 +45,7 @@ while (true) {
     echo "data: " . json_encode($notificacion) . "\n\n";
     flushAndCloseCurls($ch);
 
-    sleep(120); // Esperar 120 segundos //temporal
+    sleep(6000); // Esperar 120 segundos //temporal
 }
 
 function flushAndCloseCurls($ch){

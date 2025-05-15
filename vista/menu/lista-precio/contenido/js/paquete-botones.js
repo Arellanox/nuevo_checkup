@@ -17,6 +17,7 @@ $('#agregar-estudio-paquete').click(function () {
 $('#UsarPaquete').on('click', function () {
     $('#seleccion-paquete').prop('disabled', true);
     $("#selectDisabled").addClass("disable-element");
+    // $('.formContenidoPaquete').prop('disabled', false);
     $("#formPaqueteBotonesArea").removeClass("disable-element");
     $("#formPaqueteSelectEstudio").removeClass("disable-element");
     $("#informacionPaquete").removeClass("disable-element");
@@ -33,14 +34,10 @@ $('#UsarPaquete').on('click', function () {
                     api: 9
                 },
                 success: function (data) {
+                    console.log(data);
                     row = data.response.data;
-                    row = data.response.data;
-
                     for (let i = 0; i < row.length; i++) {
-                        meterDato(row[i]['SERVICIO'], row[i].ABREVIATURA, row[i].COSTO_UNITARIO,
-                            row[i].PRECIO_VENTA_UNITARIO, row[i].CANTIDAD, row[i].ID_SERVICIO, row[i].ABREVIATURA,
-                            tablaContenidoPaquete
-                        )
+                        meterDato(row[i]['SERVICIO'], row[i].ABREVIATURA, row[i].COSTO_UNITARIO, row[i].PRECIO_VENTA_UNITARIO, row[i].CANTIDAD, row[i].ID_SERVICIO, row[i].ABREVIATURA, tablaContenidoPaquete)
                     }
                     calcularFilasTR();
                 }
@@ -69,6 +66,7 @@ $('input[type="radio"][name="selectPaquete"]').change(function () {
         case '2':
             mantenimientoPaquete();
             break;
+
     }
 });
 
@@ -84,15 +82,14 @@ $('input[type=radio][name=selectChecko]').change(function () {
         rellenarSelect("#seleccion-estudio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
             area_id: this.value,
             paquete_id: $('#seleccion-paquete').val()
-        }, function (listaEstudios) {
-            selectEstudio = new GuardarArreglo(listaEstudios);
-        });
+        }, function (listaEstudios) { selectEstudio = new GuardarArreglo(listaEstudios); });
     }
 });
 
 $('#guardar-contenido-paquete').on('click', function () {
-    let dataAjax = calcularFilasTR();
+    let dataAjax = calcularFilasTR2();
     let tableData = tablaContenidoPaquete.rows().data().toArray();
+
     if (tableData.length > 0) {
 
         Swal.fire({
@@ -102,7 +99,12 @@ $('#guardar-contenido-paquete').on('click', function () {
             confirmButtonText: 'Confirmar',
             cancelButtonText: 'Cancelar',
             showLoaderOnConfirm: true,
+            // inputAttributes: {
+            //   autocomplete: false
+            // },
+            // input: 'password',
             html: '<form autocomplete="off" onsubmit="formpassword(); return false;"><input type="password" id="password-confirmar" class="form-control input-color" autocomplete="off" placeholder=""></form>',
+            // confirmButtonText: 'Sign in',
             focusConfirm: false,
             preConfirm: () => {
                 const password = Swal.getPopup().querySelector('#password-confirmar').value;
@@ -135,7 +137,7 @@ $('#guardar-contenido-paquete').on('click', function () {
                             eliminados: dataEliminados
                         };
                     }
-
+                    console.log(dataEliminados);
                     $.ajax({
                         url: `${http}${servidor}/${appname}/api/paquetes_api.php`,
                         data: ajaxDataSend,
@@ -161,6 +163,8 @@ $('#guardar-contenido-paquete').on('click', function () {
     } else {
         alertMensaje('error', '¡Faltan datos!', 'Necesita rellenar la tabla de estudios para continuar')
     }
+
+    // console.log()
 })
 
 $(document).on("change", "input[name='cantidad-paquete']", function (event) {
@@ -168,5 +172,4 @@ $(document).on("change", "input[name='cantidad-paquete']", function (event) {
 });
 
 //No submit form with enter
-function formpassword() {
-}
+function formpassword() { }

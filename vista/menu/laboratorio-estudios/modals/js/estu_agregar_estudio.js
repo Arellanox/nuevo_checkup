@@ -1,5 +1,4 @@
-let rellenoGrupoSelect, rellenoMetodoSelect, rellenoEquipoSelect, rellenoMaquilaSelect, rellenoClasificacion,
-    rellenoMedidas, rellenoSatFacturacion
+let rellenoGrupoSelect, rellenoMetodoSelect, rellenoEquipoSelect, rellenoMaquilaSelect, rellenoClasificacion, rellenoMedidas, rellenoSatFacturacion
 const ModalRegistrarEstudio = document.getElementById("ModalRegistrarEstudio");
 ModalRegistrarEstudio.addEventListener("show.bs.modal", (event) => {
 
@@ -15,7 +14,8 @@ ModalRegistrarEstudio.addEventListener("show.bs.modal", (event) => {
             if (this.value == '0') {
                 $('#div-maquila').fadeIn()
                 $('#maquila_agregar_estudio').prop('required', true)
-            } else if (this.value == '1') {
+            }
+            else if (this.value == '1') {
                 $('#div-maquila').fadeOut()
                 $('#maquila_agregar_estudio').prop('required', false)
             }
@@ -27,6 +27,7 @@ ModalRegistrarEstudio.addEventListener("show.bs.modal", (event) => {
 $("#ModalRegistrarEstudio").on("hidden.bs.modal", function () {
     // put your default event here
     if (modalEdit) {
+        // $('#formRegistrarEstudio').html(formEstudios);
         $('#div-select-grupo, #div-select-metodo, #div-select-contenedores, #div-select-equipo').html('')
 
         agregarContenedorMuestra('#div-select-contenedores', numberContenedor, 1);
@@ -36,6 +37,7 @@ $("#ModalRegistrarEstudio").on("hidden.bs.modal", function () {
 
         $('#maquila_agregar_estudio').html(rellenoMaquilaSelect)
 
+        // $('input[name="muestra_valores"]').prop('checked', false);
         $('#input-dirigido-sexo-referencia option').removeClass('selected');
         $('#input-dirigido-sexo-servicio option').removeClass('selected');
 
@@ -43,6 +45,7 @@ $("#ModalRegistrarEstudio").on("hidden.bs.modal", function () {
         $('input[name="descripcion"]').val('');
         $('input[name="abreviatura"]').val('');
         $('input[name="muestra_valores"], input[name="grupos"]').prop('checked', false);
+
     }
 });
 
@@ -65,6 +68,8 @@ async function getValueEstudio(id) {
                 $('#registrar-medidas-estudio').html(rellenoMedidas)
                 $('#registrar-concepto-facturacion').html(rellenoSatFacturacion)
                 $('#maquila_agregar_estudio').html(rellenoMaquilaSelect)
+
+                // alertMensaje('info', 'Cargando información...', 'Espere un momento mientras se cargan los datos');
             },
             success: function (data) {
                 if (mensajeAjax(data)) {
@@ -107,14 +112,11 @@ async function getValueEstudio(id) {
                         $('#div-maquila').fadeIn()
                         $('#maquila_agregar_estudio').val(row.MAQUILA_ID);
                         $('#maquila_agregar_estudio').prop('required', true);
-
                     } else {
                         $('#div-maquila').fadeOut()
                         $('#maquila_agregar_estudio').val(1);
                         $('#maquila_agregar_estudio').prop('required', false);
-
                     }
-
 
                     let grupos = row.GRUPOS
                     if (grupos) {
@@ -134,13 +136,13 @@ async function getValueEstudio(id) {
 
                     $(`input[type="radio"][name="grupos"][value="${row.ES_GRUPO}"]`).prop('checked', true)
 
-
                     let metodo = row.METODO_ID;
                     for (const key in metodo) {
                         setTimeout(() => {
                             if (Object.hasOwnProperty.call(metodo, key)) {
                                 const element = metodo[key];
                                 if (element) {
+                                    console.log(element)
                                     let nameInput = agregarHTMLSelector('#div-select-metodo', 'Método', rellenoMetodoSelect)
                                     $(`select[name="${nameInput}"]`).val(element).trigger('change');
                                 }
@@ -155,6 +157,7 @@ async function getValueEstudio(id) {
                                 if (Object.hasOwnProperty.call(contenedor, key)) {
                                     const element = contenedor[key];
                                     if (element) {
+                                        console.log(element)
                                         let nameSelect = agregarContenedorMuestra('#div-select-contenedores', numberContenedor, 1);
 
                                         $(`select[name="${nameSelect[0]}"]`).val(element.CONTENEDOR_ID)
@@ -166,7 +169,6 @@ async function getValueEstudio(id) {
                     } catch (error) {
                         console.warn(error)
                     }
-
 
                     let equipo = row.EQUIPO_ID
                     for (const key in equipo) {
@@ -181,7 +183,6 @@ async function getValueEstudio(id) {
                         }, 100);
                     }
 
-
                     $(`input[name="muestra_valores"][value="${row.MUESTRA_VALORES_REFERENCIA}"]`).prop('checked', true);
                     if (row.VALOR_MINIMO)
                         $('#valor_minimo_referencia').val(ifnull(`${row.VALOR_MINIMO}`))
@@ -190,7 +191,8 @@ async function getValueEstudio(id) {
 
                     $("#input-dirigido-sexo-referencia option").prop('selected', false)
                     $("#input-dirigido-sexo-referencia option").filter(function () {
-                        return $(this).text() === row.SEXO_REFERENCIA;
+                        //may want to use $.trim in here
+                        return $(this).text() == row.SEXO_REFERENCIA;
                     }).prop('selected', true);
 
                     $('#input-edad-inicial-referencia').val(ifnull(row.EDAD_INICIAL));
@@ -199,14 +201,9 @@ async function getValueEstudio(id) {
                     modalEdit = id;
                 }
             },
-            complete: function (data) {
-                alertToast('Datos recuperados', 'success');
-
-              setTimeout(() => {
-                observer.observe(document.getElementById("registrar-area-estudio"), { childList: true });
-              }, 800)
-
-              resolve(1);
+            complete: function () {
+                alertToast('Datos recuperados', 'success')
+                resolve(1);
             },
             error: function (jqXHR, exception, data) {
                 modalEdit = false;
@@ -217,13 +214,6 @@ async function getValueEstudio(id) {
 
 }
 
-//Usamos MutationObserver para detectar el cambio en el DOM y hacer la selección justo después:
-const observer = new MutationObserver(() => {
-  if ($("#registrar-area-estudio option").length > 0) {
-    $("#registrar-area-estudio").val(String(array_selected['AREA_ID'])).trigger('change');
-    observer.disconnect(); // Detener el observador después de hacer la selección
-  }
-});
 
 async function getDataFirst(edit = false, id = false) {
     alertMsj({
@@ -237,11 +227,12 @@ async function getDataFirst(edit = false, id = false) {
     await rellenarSelect("#registrar-clasificacion-estudio", "laboratorio_clasificacion_api", 2, 0, 1, {}, function (data, o) {
         rellenoClasificacion = o
     });
-
+    // await rellenarSelect("#registrar-metodos-estudio", "laboratorio_metodos_api", 2, 0, 1);
     await rellenarSelect("#registrar-medidas-estudio", "laboratorio_medidas_api", 2, 0, 1, {}, function (data, o) {
         rellenoMedidas = o
     });
-
+    // await rellenarSelect("#registrar-grupo-estudio", "servicios_api", 7, 0, 'DESCRIPCION');
+    // await rellenarSelect("#registrar-area-estudio", "areas_api", 2, 0, 2);
     await rellenarSelect('#registrar-concepto-facturacion', 'sat_catalogo_api', 2, 0, 'COMPLETO', {}, function (data, o) {
         $('#registrar-concepto-facturacion').val(32).trigger('change');
         rellenoSatFacturacion = o
@@ -251,7 +242,7 @@ async function getDataFirst(edit = false, id = false) {
         rellenoMetodoSelect = o
     })
 
-    await rellenarSelect('.select-contenedor-Grupo', 'servicios_api', 7, 0, 'DESCRIPCION', {id_area: '6,12'}, function (data, o) {
+    await rellenarSelect('.select-contenedor-Grupo', 'servicios_api', 7, 0, 'DESCRIPCION', { id_area: '6,12' }, function (data, o) {
         rellenoGrupoSelect = o
     })
 
@@ -263,12 +254,8 @@ async function getDataFirst(edit = false, id = false) {
         rellenoMaquilaSelect = o;
     })
 
-    await rellenarSelect('#registrar-area-estudio', 'areas_api', 2, 'ID_AREA', 'DESCRIPCION')
-
-    if (edit) {
+    if (edit)
         await getValueEstudio(id)
-        await rellenarSelect('#registrar-area-estudio', 'areas_api', 2, 'ID_AREA', 'DESCRIPCION')
-    }
 
     if (!edit) {
         if (modalEdit) {
@@ -304,11 +291,7 @@ $("#formRegistrarEstudio").submit(function (event) {
     }
 
     var textSummer = $('#summernote-estudios').summernote('code');
-
-    // var padre = formData.get("grupo");
-    // formData.delete("grupo");
-    // formData.set("padre", padre);
-    // formData.set("grupos", 0);
+    console.log(textSummer);
 
     if (modalEdit)
         formData.set("id_servicio", array_selected['ID_SERVICIO']);
@@ -356,14 +339,8 @@ $("#formRegistrarEstudio").submit(function (event) {
 
                         recargarSelects(formData.get("grupo"));
 
-                        try {
-                            tablaServicio.ajax.reload();
-                        } catch (error) {
-                        }
-                        try {
-                            tablaGrupos.ajax.reload();
-                        } catch (error) {
-                        }
+                        try { tablaServicio.ajax.reload(); } catch (error) { }
+                        try { tablaGrupos.ajax.reload(); } catch (error) { }
 
                         if (modalEdit)
                             $('#ModalRegistrarEstudio').close();
@@ -383,7 +360,6 @@ $("#formRegistrarEstudio").submit(function (event) {
     });
     event.preventDefault();
 });
-
 
 // Nuevo contenedores
 $(document).on('click', '#nuevo-contenedor-muestra', function (event) {

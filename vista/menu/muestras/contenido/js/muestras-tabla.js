@@ -93,7 +93,6 @@ function obtenerListaEstudiosContenedores(idturno = null) {
       let html = '';
       for (var i = 0; i < row.length; i++) {
         console.log(row)
-
         /* codigo nuevo */
         html += `<div class="card">
                   <div class="card-header">
@@ -108,13 +107,13 @@ function obtenerListaEstudiosContenedores(idturno = null) {
                       <i class="bi bi-chevron-down"></i> Más información
                     </button>
                     <div class="collapse" id="moreInfo${row[i]['ID']}">
-                      <p><strong><i class="bi bi-clock"></i> Tiempo de entrega:</strong> <span class="none-p">${ifnull(row[i]['ENTREGA']) ?? 'S/N'}</span></p>
-                      <p><strong><i class="bi bi-file-earmark-medical"></i> Indicaciones para el laboratorio:</strong> <span class="none-p">${ifnull(row[i]['INDICACIONES_LABORATORIO']) ?? 'S/N'}</span></p>
-                      <p><strong><i class="bi bi-file-earmark-medical"></i> Motivos para rechazo de muestras:</strong> <span class="none-p">${ifnull(row[i]['MOTIVO_RECHAZO']) ?? 'S/N'}</span></p>
-                      <p><strong><i class="bi bi-person-lines-fill"></i> Indicaciones para el paciente:</strong> <span class="none-p">${ifnull(row[i]['INDICACIONES']) ?? 'S/N'}</span></p>
-                      <p><strong><i class="bi bi-thermometer-half"></i> Conservación:</strong> <span class="none-p">${ifnull(row[i]['CONSERVACION']) ?? 'S/N'}</span></p>
-                      <p><strong><i class="bi bi-building"></i> Área:</strong> <span class="none-p">${ifnull(row[i]['AREA']) ?? 'S/N'}</span></p>
-                      <p><strong><i class="bi bi-activity"></i> Metodología:</strong> <span class="none-p">${ifnull(row[i]['METODOLOGIA']) ?? 'S/N'}</span></p>
+                      <p><strong><i class="bi bi-clock"></i> Tiempo de entrega:</strong> <span class="none-p">${ifnull(row[i]['ENTREGA'])}</span></p>
+                      <p><strong><i class="bi bi-file-earmark-medical"></i> Indicaciones para el laboratorio:</strong> <span class="none-p">${ifnull(row[i]['INDICACIONES_LABORATORIO'])}</span></p>
+                      <p><strong><i class="bi bi-file-earmark-medical"></i> Motivos para rechazo de muestras:</strong> <span class="none-p">${ifnull(row[i]['MOTIVO_RECHAZO'])}</span></p>
+                      <p><strong><i class="bi bi-person-lines-fill"></i> Indicaciones para el paciente:</strong> <span class="none-p">${ifnull(row[i]['INDICACIONES'])}</span></p>
+                      <p><strong><i class="bi bi-thermometer-half"></i> Conservación:</strong> <span class="none-p">${ifnull(row[i]['CONSERVACION'])}</span></p>
+                      <p><strong><i class="bi bi-building"></i> Área:</strong> <span class="none-p">${ifnull(row[i]['AREA'])}</span></p>
+                      <p><strong><i class="bi bi-activity"></i> Metodología:</strong> <span class="none-p">${ifnull(row[i]['METODOLOGIA_NOMBRE'])}</span></p>
                     </div>
                   </div>
                 </div>
@@ -126,7 +125,7 @@ function obtenerListaEstudiosContenedores(idturno = null) {
 
       // NUEVO
       $('#lista-estudios-paciente-div').html(html);
-      
+
       //Complete
       loaderDiv("Out", null, "#loader-muestras", '#loaderDivmuestras');
       resolve(1);
@@ -141,8 +140,7 @@ function obtenerListaEstudiosContenedores(idturno = null) {
 obtenerPanelInformacion(7, null, "turnos_panel", '#turnos_panel')
 
 
-  
-    
-  
-  
+
+
+
 

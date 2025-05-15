@@ -1,50 +1,26 @@
-// const modalRegistrarPaciente = document.getElementById('ModalRegistrarPaciente')
-// var edited = false;
-// modalRegistrarPaciente.addEventListener('show.bs.modal', event => {
-//   getProcedencias("listProcedencia");
-//   var procedencia = $("#listProcedencia option:selected").val();
-//   getSegmentoByProcedencia(procedencia, "segmentos_procedencias-menu");
-// })
-// // Lista de segmentos dinamico
-// $('#listProcedencia').on('change', function() {
-//   var procedencia = $("#listProcedencia option:selected").val();
-//   getSegmentoByProcedencia(procedencia, "segmentos_procedencias-menu");
-// });
-
-//Formulario de Preregistro 
+//Formulario de Preregistro
 $("#formRegistrarPaciente").submit(function (event) {
   event.preventDefault();
-  /*DATOS Y VALIDACION DEL REGISTRO*/
-
-
-  // Validar medio 
   // Solo cuenta los checkboxes que están dentro del div#communicationOptions
   selectedMedia = '';
-  var checkedCount = $('#communicationOptions input[type="checkbox"]:checked').length;
+  let checkedCount = $('#communicationOptions input[type="checkbox"]:checked').length;
   if (checkedCount === 0) {
     alertToast('Por favor, seleccione al menos un medio de comunicación', 'info');
     return false
   } else {
     // Recoge los valores de los checkboxes seleccionados y los une con comas
-    var selectedMedia = $('#communicationOptions input[type="checkbox"]:checked').map(function () {
+    let selectedMedia = $('#communicationOptions input[type="checkbox"]:checked').map(function () {
       return this.value;
     }).get().join(', ');
 
     // Aquí puedes hacer algo con la cadena 'selectedMedia', como almacenarla o enviarla.
   }
 
-
-
-  var form = document.getElementById("formRegistrarPaciente");
-  var formData = new FormData(form);
+  let form = document.getElementById("formRegistrarPaciente");
+  let formData = new FormData(form);
   formData.set('api', 1);
   formData.set('medios_entrega', selectedMedia);
-  // console.log(formData);
-  // $i=0;
-  //  formData.forEach(element => {
-  //   console.log($i + element);
-  //   $i++;
-  // });
+
   Swal.fire({
     title: `${traducir('¿Está seguro que todos sus datos son correctos?', language)}`,
     text: `${traducir('¡Asegurate de tener la procedencia correcta!', language)} : )`,
@@ -186,15 +162,18 @@ $('#formRegistrarPaciente input[type=text]').on('change keyup', function () {
 
 
 if (registroAgendaRecepcion == 1) {
-  var html = `</label for= "selectIngresoProcedencia" class= "form-label" > Selecciona procedencia</ >
-  <select class="form-control input-form dataIdProcedencias" id="selectIngresoProcedencia">
-  </select>`
+  let html = `<div class="col-6">
+    </label for= "selectIngresoProcedencia" class= "form-label" > Selecciona procedencia</label>
+      <select class="form-control input-form dataIdProcedencias" id="selectIngresoProcedencia">
+      </select>
+    </div>`
 
   // para saber cual es la conversion o como supieron de bimo
-  html += `</label for= "selectComoNosConociste" class= "form-label" > ¿Cómo supiste de nosotros?</ >
-  <select class="form-control input-form dataIdProcedencias" id="selectComoNosConociste">
-  </select>`
-
+  html += `<div class="col-6">
+    </label for= "selectComoNosConociste" class= "form-label" > ¿Cómo supiste de nosotros?</label>
+      <select class="form-control input-form dataIdProcedencias" id="selectComoNosConociste">
+      </select>
+    </div>`
 
   $('#contenido-procedencia').html(html)
 
@@ -202,33 +181,6 @@ if (registroAgendaRecepcion == 1) {
   rellenarSelect('#selectIngresoProcedencia', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
   rellenarSelect("#selectComoNosConociste", 'clientes_api', 9, 'ID_CONVERSION', 'DESCRIPCION')
 }
-
-
-//  this.value=this.value.toUpperCase();
-
-
-
-//  const ModalRegistrarPaciente = document.getElementById('ModalRegistrarPaciente');
-//
-//  ModalRegistrarPaciente.addEventListener('hide.bs.modal', event => {
-//   if (edited){
-//     edited=false;
-//     actualizarTablaPacientesRecepcion();
-//   }
-//  });
-//
-//
-// $("#vacuna").change(function(){
-//   var seleccion =$("#vacuna").val();
-//   if (seleccion.toUpperCase() =='OTRA'){
-//     $("#vacunaExtra").prop('readonly', false);
-//   }else{
-//
-//     $("#vacunaExtra").prop('readonly', true);
-//     $("#vacunaExtra").prop('value', "NA");
-//     }
-// });
-
 
 
 const ModalRegistrarPaciente = document.getElementById('ModalRegistrarPaciente')

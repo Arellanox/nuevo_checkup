@@ -22,39 +22,16 @@ ModalEditarPaciente.addEventListener('show.bs.modal', event => {
   $('#editar-vacuna').val(array_selected['VACUNA']);
   $('#editar-vacunaExtra').val(array_selected['OTRAVACUNA']);
   $('#editar-inputDosis').val(array_selected['DOSIS']);
+
   var genero = array_selected['GENERO'];
   genero = genero.toUpperCase();
+
   if (genero.toUpperCase() == 'MASCULINO') {
     $('#edit-mascuCues').attr('checked', true);
   } else {
     $('#edit-femenCues').attr('checked', true);
   }
 });
-
-
-// // Lista de segmentos dinamico
-// $('#listProcedencia-editar').on('change', function() {
-//   var procedencia = $("#listProcedencia-editar option:selected").val();
-//   getSegmentoByProcedencia(procedencia, "segmentos_procedencias-edit");
-// });
-//
-// async function cargarDatosPaci (){
-//   if (await getProcedencias("listProcedencia-editar")) {
-//     var procedencia = $("#listProcedencia-editar option:selected").val();
-//     const resultSeg = await getSegmentoByProcedencia(procedencia, "segmentos_procedencias-edit");
-//     console.log(resultSeg);
-//     if (resultSeg) {
-//
-//       document.getElementById("listProcedencia-editar").value = array_selected['ID_CLIENTE'];
-//       await getSegmentoByProcedencia(array_selected['ID_CLIENTE'], "segmentos_procedencias-edit");
-//       document.getElementById("segmentos_procedencias-edit").value = array_selected['ID_SEGMENTO'];
-//       // $('#listProcedencia-edit').val(array_selected['ID_CLIENTE']);
-//       // console.log(array_selected['ID_SEGMENTO']);
-//       // $('#').val(array_selected['']);
-//     }
-//   }
-// }
-
 
 //Formulario de Preregistro
 $("#formEditarPaciente").submit(function (event) {
@@ -65,10 +42,11 @@ $("#formEditarPaciente").submit(function (event) {
   formData.set('id', array_selected['ID_PACIENTE']);
   formData.set('api', 3);
   $i = 0;
+
   formData.forEach(element => {
-    console.log($i + ' ' + element);
     $i++;
   });
+
   Swal.fire({
     title: '¿Está seguro que todos sus datos estén correctos?',
     text: "¡No podrá revertir los cambios!",
@@ -91,7 +69,7 @@ $("#formEditarPaciente").submit(function (event) {
         success: function (data) {
           $("#btn-actualizar").prop('disabled', false);
           data = jQuery.parseJSON(data);
-          console.log(data['response']['code']);
+
           switch (data['response']['code']) {
             case 1:
               Toast.fire({
@@ -101,16 +79,14 @@ $("#formEditarPaciente").submit(function (event) {
               });
               document.getElementById("formEditarPaciente").reset();
               $("#ModalEditarPaciente").modal('hide');
+
               try {
                 tablaRecepcionPacientesIngrersados.ajax.reload()
-              } catch (e) {
-                // console.log(e)
-              }
+              } catch (e) { console.warn(e) }
               try {
                 tablaRecepcionPacientes.ajax.reload()
-              } catch (e) {
-                // console.log(e)
-              }
+              } catch (e) { console.warn(e) }
+
               break;
             case "repetido":
               Swal.fire({
@@ -135,9 +111,9 @@ $("#formEditarPaciente").submit(function (event) {
   event.preventDefault();
 });
 
-
 $("#editar-vacuna").change(function () {
-  var seleccion = $("#editar-vacuna").val();
+  let seleccion = $("#editar-vacuna").val();
+
   if (seleccion.toUpperCase() == 'OTRA') {
     $("#editar-vacunaExtra").prop('readonly', false);
   } else {

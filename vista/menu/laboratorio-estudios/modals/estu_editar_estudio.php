@@ -7,17 +7,15 @@
             </div>
             <div class="modal-body">
                 <form class="" id="formEditarEstudio">
-                    <p class="text-center">Modificar <strong>Estudio</strong></p>
+                    <p class="text-center">Modificar <strong>Estudio</strong> </p>
                     <div class="row">
                         <div class="col-8">
                             <label for="nombre_estudio" class="form-label">Nombre del Estudio</label>
-                            <input type="text" name="nombre_estudio" class="form-control input-form" required
-                                   id="edit-nombre-estudio">
+                            <input type="text" name="nombre_estudio" class="form-control input-form" required id="edit-nombre-estudio">
                         </div>
                         <div class="col-4">
                             <label for="cve_estudio" class="form-label">CVE</label>
-                            <input type="text" name="cve_estudio" class="form-control input-form" required
-                                   id="edit-cve-estudio">
+                            <input type="text" name="cve_estudio" class="form-control input-form" required id="edit-cve-estudio">
                         </div>
                         <div class="col-12 col-md-12">
                             <label for="grupo" class="form-label">Grupo de exámen</label>
@@ -46,8 +44,7 @@
                         </div>
                         <div class="col-3 col-md-3">
                             <label for="entrega" class="form-label">Día de entrega</label>
-                            <input type="number" name="entrega" class="input-form" value="" required
-                                   id="edit-dias-estudio">
+                            <input type="number" name="entrega" class="input-form" value="" required id="edit-dias-estudio">
                         </div>
                         <div class="col-6 col-md-6">
                             <label for="confac" class="form-label">Concepto facturación</label>
@@ -56,10 +53,10 @@
                         </div>
                         <div class="col-6 col-md-6">
                             <label for="indicaciones" class="form-label">Indicaciones</label>
-                            <br/>
-                            <textarea class="md-textarea input-form" name="indicaciones" cols="45" rows="2"
-                                      placeholder="" id="edit-indicaciones-estudio"></textarea>
+                            <br />
+                            <textarea class="md-textarea input-form" name="indicaciones" cols="45" rows="2" placeholder="" id="edit-indicaciones-estudio"></textarea>
                         </div>
+
                         <div class="row" style="zoom:100%;">
                             <div class="col-6">
                                 <label for="">¿Mostrar valores de referencia? </label>
@@ -73,6 +70,7 @@
                                 <label for="registrar-varepoNo">No</label>
                             </div>
                         </div>
+
                         <div class="row" style="zoom:100%;">
                             <div class="col-6">
                                 <label for="">¿Se subroga?: </label>
@@ -86,8 +84,8 @@
                                 <label for="registrar-subrogaNo">No</label>
                             </div>
                         </div>
-                        <p style="margin-top:15px; margin-bottom: 15px">Seleccione los contenedores que necesite esté
-                            estudio</p>
+
+                        <p style="margin-top:15px; margin-bottom: 15px">Seleccione los contenedores que necesite esté estudio</p>
                         <div class="" id="div-select-contenedores-edit">
 
                         </div>
@@ -99,13 +97,10 @@
                             </div>
                         </div>
                     </div>
-
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i
-                            class="bi bi-arrow-left-short"></i> Cancelar
-                </button>
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i class="bi bi-arrow-left-short"></i> Cancelar</button>
                 <button type="submit" form="formEditarEstudio" class="btn btn-confirmar">
                     <i class="bi bi-person-plus"></i> Actualizar
                 </button>
