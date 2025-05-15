@@ -54,7 +54,7 @@ if (!empty($_SESSION['id'])) {
     switch ($api) {
         case 1:
             # Verificar que si el paciente que estan ingresando ya existe.
-            $pacientes_existentes = $master->getByProcedure("sp_pacientes_b", [null, null, null, null, $_SESSION['id_cliente']]);
+            $pacientes_existentes = $master->getByProcedure("sp_pacientes_b", [null, null, null, null]);
             $paciente = strtolower($nombre . ' ' . $paterno . ' ' . $materno);
 
 

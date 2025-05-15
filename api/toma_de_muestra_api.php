@@ -19,8 +19,8 @@ $id_paciente = $_POST['id_paciente'];
 $id_area = $_POST['id_area'];
 $fecha_agenda = $_POST['fecha_agenda'];
 $con_paquete = $_POST['con_paquete'];
+$franquiciaID = $_SESSION['franquiciario'] ? $_SESSION['id_cliente'] : null;
 
-#insertar
 $response = "";
 
 $master = new Master();

@@ -89,6 +89,48 @@ $('input[type=radio][name=selectChecko]').change(function () {
 $('#guardar-contenido-paquete').on('click', function () {
     let dataAjax = calcularFilasTR2();
     let tableData = tablaContenidoPaquete.rows().data().toArray();
+    if (tableData.length > 0) {
+
+        Swal.fire({
+            title: 'Ingrese su contraseña para guardar la lista',
+            text: 'Use su contraseña para confirmar',
+            showCancelButton: true,
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar',
+            showLoaderOnConfirm: true,
+            html: '<form autocomplete="off" onsubmit="formpassword(); return false;"><input type="password" id="password-confirmar" class="form-control input-color" autocomplete="off" placeholder=""></form>',
+            focusConfirm: false,
+            preConfirm: () => {
+                const password = Swal.getPopup().querySelector('#password-confirmar').value;
+                return fetch(`${http}${servidor}/${appname}/api/usuarios_api.php?api=9&password=${password}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(response.statusText)
+                        }
+                        return response.json()
+                    })
+                    .catch(error => {
+                        Swal.showValidationMessage(
+                            `Request failed: ${error}`
+                        )
+                    });
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            if (result.isConfirmed) {
+                if (result.value.status === 1) {
+                    if ($('input[type=radio][name=selectPaquete]:checked').val() === 1) {
+                        ajaxDataSend = {
+                            api: 6,
+                            paquete_detalle: dataAjax
+                        };
+                    } else {
+                        ajaxDataSend = {
+                            api: 6,
+                            paquete_detalle: dataAjax,
+                            eliminados: dataEliminados
+                        };
+                    }
 
     if (tableData.length > 0) {
 
