@@ -380,7 +380,7 @@
 // $encode = base64_encode($ruta);
 
 // para el path del logo 
-$ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
+$ruta = file_get_contents('../pdf/public/assets/logotipo.png');
 $encode = base64_encode($ruta);
 
 // Para la firma se requiere mandar la "firma" tambien en base 64 e incrustarlo como en el ejemplo de arriba,
@@ -433,11 +433,16 @@ $array = convertirObjetoAArray($resultados);
                 </td>
                 <td style="width: 70%;text-align: center;">
                     <p>
-                        <b>DIAGNOSTICO BIOMOLECULAR</b><br>
-                        RFC DBI2012084N2<br>
-                        Calle AV. RUIZ CORTINES, 1344, TABASCO 2000, CENTRO,<br>
-                        VILLAHERMOSA, TABASCO, 86060, MEX<br>
-                        9936340250<br>
+                        <b>DIAGNOSTICO BIOMOLECULAR</b>
+                        <br>
+                        RFC DBI2012084N2
+                        <br>
+                        Avenida José Pagés Llergo No. 150, Colonia Arboledas,
+                        <br>
+                        Villahermosa Tabasco, C.P. 86079
+                        <br>
+                        9936340250
+                        <br>
                         hola@bimo.com.mx
                     </p>
                 </td>
@@ -556,6 +561,7 @@ $array = convertirObjetoAArray($resultados);
                                         $<?php echo ifnull(number_format($array[3], 2)) ?>
                                     </b>
                                 </p>
+
                         </td>
                     </tr>
                 </tbody>

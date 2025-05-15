@@ -1,3 +1,4 @@
+ <?php session_start() ?>
 <div class="col-12 loader" id="loader" style="">
     <div class="preloader" id="preloader"> </div>
 </div>
@@ -20,12 +21,14 @@
                         style="margin-bottom:4px" id="btn-descuentoCliente">
                     <i class="bi bi-percent"></i> Descuento
                 </button>
-                <button type="button" class="btn btn-hover me-2"
-                        data-bs-toggle="tooltip" data-bs-title="Mostrar/Ocultar Clientes de Francias y Bimo"
-                        style="margin-bottom:4px" id="btn-showFranquiciasClientes">
-                    <i class="bi bi-people"></i>
-                    <span class="btn-text">Clientes de Franquicia</span>
-                </button>
+                <?php if(!$_SESSION['franquiciario']): ?>
+                    <button type="button" class="btn btn-hover me-2"
+                            data-bs-toggle="tooltip" data-bs-title="Mostrar/Ocultar Clientes de Francias y Bimo"
+                            style="margin-bottom:4px" id="btn-showFranquiciasClientes">
+                        <i class="bi bi-people"></i>
+                        <span class="btn-text">Clientes de Franquicia</span>
+                    </button>
+                <?php endif; ?>
             </div>
             <table class="table table-hover display responsive tableContenido" id="TablaClientes" style="width: 100%">
                 <thead class="" style="width: 100%">

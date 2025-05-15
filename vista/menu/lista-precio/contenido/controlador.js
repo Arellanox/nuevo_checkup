@@ -17,7 +17,7 @@ var VistaExcelurl = '';
 var tablePaquetesHTML;
 var dataVistaPq = {};
 var cliente_id;
-var row2
+var row2;
 
 //Cambia la vista a la lista de precios
 function obtenerContenidoPrecios() {

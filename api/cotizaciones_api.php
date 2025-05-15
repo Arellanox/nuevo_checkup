@@ -36,14 +36,15 @@ switch ($api) {
             json_encode($detalle), $subtotal_sin_descuento, $fecha_vigencia, $domicilio_fiscal
         ]);
 
+        $master->setLog(json_encode($response), 'sp_cotizaciones_g');
+
         #Obtemos el ID_COTIZACION para crear el poder crear el PDF
         $id_cotizacion_pdf = $master->getByProcedure('sp_cotizaciones_info_b', [$id_cotizacion]);
         $id_cotizacion_pdf = $id_cotizacion_pdf[0]['ID_COTIZACION'];
 
         //Guardamos el PDF de la cotizacion
         $url = $master->reportador($master, null, 15, 'cotizaciones', 'url', 0, 0, 0, $cliente_id, $id_cotizacion_pdf);
-
-        $response1 = $master->updateByProcedure("sp_reportes_actualizar_ruta", ['cotizaciones', 'RUTA_REPORTE', $url, $id_cotizacion_pdf, 15]);
+        $master->updateByProcedure("sp_reportes_actualizar_ruta", ['cotizaciones', 'RUTA_REPORTE', $url, $id_cotizacion_pdf, 15]);
         break;
     case 2:
         # buscar informacion de las cotizaciones
@@ -66,13 +67,10 @@ switch ($api) {
         # eliminar cotizacion
         $response = $master->deleteByProcedure("sp_cotizaciones_e", [$id_cotizacion]);
         break;
-
     case 4:
         # solo cotizacinoes sin detalle.
         $response = $master->getByProcedure("sp_cotizaciones_gral", [$cliente_id]);
         break;
-
-
     case 5:
         #Enviar el correo 
 
@@ -108,8 +106,6 @@ switch ($api) {
 }
 
 echo $master->returnApi($response);
-
-
 
 function obtenerCorreosValidos($input) {
     // Reemplazar comas por punto y coma

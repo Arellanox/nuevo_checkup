@@ -1,1 +1,0 @@
-14/05/25 22:27:01 sp_status_paciente Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_capacitaciones.sp_status_paciente; expected 2, got 1

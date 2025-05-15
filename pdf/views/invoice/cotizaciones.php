@@ -158,7 +158,7 @@
                     <td style="width: 50%;text-align: center;">
                         <p>
                             <?php $franquicia = $resultados->franquicia[0]; ?>
-                            <b>DIAGNOSTICO BIOMOLECULAR</b>
+                            <b>DIAGNOSTICO BIOMOLECULAR SA DE CV</b>
                             <br>
                             RFC <?= $franquicia->RFC ?>
                             <br>

@@ -92,10 +92,6 @@ switch ($api) {
     case 1: // Insertar cliente
         $response = $master->insertByProcedure("sp_clientes_g", $parametros);
 
-        if($idFranquicia){
-
-        }
-
         break;
     case 2: // Buscar cliente
         $response = $master->getByProcedure("sp_clientes_b", [
