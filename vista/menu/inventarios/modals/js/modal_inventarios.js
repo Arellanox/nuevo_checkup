@@ -118,7 +118,7 @@ $("#resetFiltrosBtn").click(function() {
     // Limpia los filtros del objeto
     dataTableCatArticulos = { api: 3 };
     tableCatArticulos.ajax.reload();
-    toggleFilterButtons();
+    $('#resetFiltrosBtn').hide(); // Oculta el botón inmediatamente después de resetear
 });
 
 function toggleFieldset(checkbox, fieldset) {
@@ -138,7 +138,7 @@ $('input[type=radio]').change(function() {
     $('#' + checkboxId).prop('checked', false);
 });
 
-function toggleFilterButtons() {
+function toggleResetButton() {
     const anyRadioChecked = $('input[name="activo"]:checked').length > 0 ||
                             $('input[name="redFrio"]:checked').length > 0 ||
                             $('input[name="manejaCaducidad"]:checked').length > 0;
@@ -146,18 +146,15 @@ function toggleFilterButtons() {
 
     if (anyRadioChecked || tipoArticuloSelected) {
         $('#resetFiltrosBtn').show();
-        $('#enviarFiltrosBtn').show();
     } else {
         $('#resetFiltrosBtn').hide();
-        $('#enviarFiltrosBtn').hide();
     }
 }
 
-// Inicialmente ocultar ambos botones
+// Inicialmente ocultar el botón
 $('#resetFiltrosBtn').hide();
-$('#enviarFiltrosBtn').hide();
 
 // Mostrar/ocultar al cambiar radios o select
-$('input[type=radio][name="activo"], input[type=radio][name="redFrio"], input[type=radio][name="manejaCaducidad"]').on('change', toggleFilterButtons);
-$('#tipoArticulo').on('change', toggleFilterButtons);
+$('input[type=radio][name="activo"], input[type=radio][name="redFrio"], input[type=radio][name="manejaCaducidad"]').on('change', toggleResetButton);
+$('#tipoArticulo').on('change', toggleResetButton);
 
