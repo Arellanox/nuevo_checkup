@@ -311,7 +311,7 @@ const columnasDefIngresadosFranquicia = [
     { targets: 6, title: 'Agenda', className: 'min-tablet', width: '8%' },
     { targets: 7, title: 'Re-agenda', className: 'none' },
     { targets: 8, title: 'Sexo', className: 'none' },
-    { targets: 9, title: 'Recepción', className: 'desktop', width: '8%' },
+    { targets: 9, title: 'Estatus', className: 'desktop', width: '8%' },
     {
         targets: 10,
         title: '#',
@@ -441,7 +441,7 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
       { targets: 7, title: 'Agenda', className: 'min-tablet', width: '8%' },
       { targets: 8, title: 'Re-agenda', className: 'none' },
       { targets: 9, title: 'Sexo', className: 'none' },
-      { targets: 10, title: 'Recepción', className: 'desktop', width: '8%' },
+      { targets: 10, title: 'Estatus', className: 'desktop', width: '8%' },
       {
         targets: 11,
         title: '#',

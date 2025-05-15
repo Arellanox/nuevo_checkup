@@ -742,8 +742,14 @@ class Miscelaneus
                 # $turno_id corresponde a la fecha de la lista de trabajo que se quiere imprimir
                 $arregloPaciente = $master->getByProcedure("sp_lista_de_trabajo_barras", [$turno_id, 6, null, null, null]);
                 break;
+            case -8:
+                $laboratorio_id = $_GET['laboratorio_id'];
+                $arregloPaciente = $master->getByProcedure("sp_laboratorio_estudios_maquila_b", [
+                    null, null, $laboratorio_id, 1
+                ]);
+                break;
             case 'estados_cuentas':
-            case -9:{
+            case -9:
                 $ujat_inicial = $_POST['fecha_inicial'];
                 $ujat_final = $_POST['fecha_final'];
                 $id_cliente = $_POST['id_cliente'];
@@ -775,7 +781,13 @@ class Miscelaneus
                 $turno_id = $_SESSION['id'];
                 $nombre_paciente = 'Reporte-de';
                 $infoPaciente[0]['ETIQUETA_TURNO'] = 'Pacientes';
-            }
+            break;
+            case -10:
+                #Recuperar certificado medico
+                $servicios = $master->getByProcedure("sp_paciente_servicios_cargados", [$turno_id, null]);
+                $paciente = $master->getByProcedure("sp_consultorio_certificado_b", [$turno_id, null]);
+                $arregloPaciente = ['SERVICIOS' => $servicios, 'PACIENTE' => $paciente];
+                break;
         }
 
         if ($area_id == 0) {
@@ -784,38 +796,34 @@ class Miscelaneus
         $infoPaciente[0]['SUBTITULO'] = 'Datos del paciente';
 
         #Crear directorio
-        $nombre = str_replace(
-            " ",
-            "_",
-            $nombre_paciente
-        );
+        $nombre = str_replace(" ", "_", $nombre_paciente);
 
         switch ($area_id) {
-
-                # para reportes que no usan $turno_id para su creacion.
+            #CERTIFICADOS
+            case -10:
+                $fecha_resultado = date("Ymd");
+                $nombre = "CertificadoMedico";
+                $ruta_saved = "reportes/certificados/$turno_id/$fecha_resultado/";
+                break;
+            #Para reportes que no usan $turno_id para su creacion.
             case 15:
                 $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/";
 
                 # Seteamos la ruta del reporte para poder recuperarla despues con el atributo $ruta_reporte.
                 $this->setRutaReporte($ruta_saved);
 
-
                 # Crear el directorio si no existe
                 $r = $master->createDir("../" . $ruta_saved);
 
                 if ($r === 1) {
-
                     $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre_paciente);
                     $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
                 } else {
-
                     $this->setLog("Imposible crear la ruta del archivo", "[cotizaciones, reportador]");
                     exit;
                 }
-
-
                 break;
-
+            #DEFAULT
             default:
                 $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/$turno_id/";
 
@@ -826,22 +834,16 @@ class Miscelaneus
                 $r = $master->createDir("../" . $ruta_saved);
                 $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
                 $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
+                break;
         }
-
-
 
         # Seteamos la ruta del reporte para poder recuperarla despues con el atributo $ruta_reporte.
         $this->setRutaReporte($ruta_saved);
 
         # Crear el directorio si no existe
-        $r = $master->createDir("../" . $ruta_saved);
+        $master->createDir("../" . $ruta_saved);
         $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
         $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
-
-        // echo (1);
-        // print_r($arregloPaciente);
-        // // print_r(json_encode($infoPaciente[0]));
-        // exit;
 
         $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview, $area_id);
         $renderpdf = $pdf->build();
@@ -849,6 +851,7 @@ class Miscelaneus
         if ($lab == 1 && $tipo == 'url') {
             $master->insertByProcedure('sp_reportes_areas_g', [null, $turno_id, $area_id, $infoPaciente[0]['CLAVE_IMAGEN'], $renderpdf, null]);
         }
+
         return $renderpdf;
     }
 
@@ -933,7 +936,7 @@ class Miscelaneus
         $NumbersToLetters = new NumbersToLetters($infoCliente[0]['TOTAL']);
         $cantidad = $NumbersToLetters->letters;
 
-        $arregloCotizaciones = array(
+        return array(
             'ESTUDIOS_DETALLE' => $arrayDetalle,
             'CLIENTE' => $infoCliente[0]['CLIENTE'],
             "RAZON_SOCIAL" => $infoCliente[0]['RAZON_SOCIAL'],
@@ -954,9 +957,6 @@ class Miscelaneus
             'CANTIDAD' => $cantidad,
             'PORCENTAJE_DESCUENTO' => $infoCliente[0]['PORCENTAJE_DESCUENTO']
         );
-
-
-        return $arregloCotizaciones;
     }
 
 
@@ -1009,11 +1009,6 @@ class Miscelaneus
             "USUARIO" => $response[1][0]['USUARIO'],
             'FOLIO_TICKET' => $infoPaciente[0][0]['FOLIO_TICKET']
         );
-
-        // var_dump($arregloTicket);
-        // echo "<br>";
-        // exit;
-
 
         return $arregloTicket;
     }
@@ -1885,24 +1880,6 @@ class Miscelaneus
         return null;
     }
 
-    // public function changeLocationFile($old_directory,$new_directory){
-    //     // if (copy(".." . $dir[1], $destination . basename($archivo))) {
-    //     //     # si se copia correctamente, borramos el archivo de la carpeta generica.
-    //     //     unlink('..'.$dir[1]);
-
-    //     //     #guardarmos la direccion del electro.
-    //     //     $response = $master->insertByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, $host . "reportes/modulo/electro/$turno_id", null, $comentario, $interpretacion, $tecnica, $hallazgo, null, null, $usuario]);
-    //     // }
-
-    //     if (copy($old_directory,$new_directory)) {
-    //         # si se copia correctamente, borramos el archivo de la carpeta generica.
-    //         unlink($old_directory);
-
-    //         #guardarmos la direccion del electro.
-    //         $response = $master->insertByProcedure("sp_electro_resultados_g", [$id_electro, $turno_id, $host . "reportes/modulo/electro/$turno_id", null, $comentario, $interpretacion, $tecnica, $hallazgo, null, null, $usuario]);
-    //     }
-    // }
-
     public function  scanDirectory($directory)
     {
         #enviar los dos puntos [../] basandose en el archivo de miscelaneus
@@ -2226,12 +2203,6 @@ class Miscelaneus
         $response1 = $master->getByProcedure("sp_recuperar_info_hostorial_caja", [$turno_id]);
         $response2 = $master->getByProcedure("sp_corte_detalle_pagos", [$turno_id]);
         $response = [$response1, $response2];
-        // echo "<pre>";
-        // // echo $turno_id;
-        // var_dump($response[0]);
-        // echo "</pre>";
-
-        // exit;
 
         $result = array();
         $i = 0;
@@ -2243,7 +2214,7 @@ class Miscelaneus
         $resumen_credito = 0;
         $resumen_contado = 0;
         $resumen_cortesia = 0;
-        $resumen_BIMO =  0; # CONCEPTO BIMO  
+        $resumen_BIMO =  0; # CONCEPTO BIMO
 
         // Datos de todos los pacientes que entraron en el cierre de caja
         $array_prefolios = array();
@@ -2281,18 +2252,25 @@ class Miscelaneus
                 $iva_general += $iva;
                 $total_general += $total;
 
-                $resumen_contado += in_array($e['CLIENTE_ID'], [1, 16, 31]) ? $total :  0;
-                $resumen_credito += !in_array($e['CLIENTE_ID'], [1, 16, 17, 31, 15]) ? $total :  0;
+                $clientes = $master->getByProcedure("sp_clientes_configuracion_pago_b", [null]);
+
+                $cliente_ids = [];
+
+                foreach ($clientes as $row) {
+                    if ($row['DETALLE_PAGO'] == 1) {
+                        $cliente_ids[] = $row['CLIENTE_ID'];
+                    }
+                }
+
+                $resumen_contado  += in_array($e['CLIENTE_ID'], $cliente_ids) ? $total : 0;
+                $resumen_credito  += !in_array($e['CLIENTE_ID'], $cliente_ids) ? $total : 0;
                 $resumen_cortesia += in_array($e['CLIENTE_ID'], [17]) ? $total : 0;
-                $resumen_BIMO += in_array($e['CLIENTE_ID'], [15]) ? $total : 0;
+                $resumen_BIMO     += in_array($e['CLIENTE_ID'], [15]) ? $total : 0;
             }
 
-
-            array_push($array_prefolios, $prefolio);
-
+            $array_prefolios[] = $prefolio;
 
             $folio = $e['FOLIO'];
-
             $fecha_inicio = $e['FECHA_INICIO'];
             $fecha_final = is_null($e['FECHA_FINAL']) ? "N/A" : $e['FECHA_FINAL'];
         }
@@ -2318,9 +2296,7 @@ class Miscelaneus
             $x++;
         }
 
-
-        $response = [];
-        $response = [
+        return [
             $result,
             $subtotal_general,
             $iva_general,
@@ -2336,13 +2312,6 @@ class Miscelaneus
             $resumen_cortesia,
             $resumen_BIMO
         ];
-        // foreach($response as $i){
-        //     print_r($i);
-        //     echo "<br>";
-        // }
-        // echo $response[5];
-        // exit;
-        return $response;
     }
 
     public function getBodyEnvioMuestras($master, $turno_id)

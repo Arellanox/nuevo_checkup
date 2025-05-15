@@ -1,10 +1,9 @@
 <?php
 if (
-    $_SESSION['id_cliente'] == 15
+    $_SESSION['id_cliente'] == 15 || $_SESSION['franquiciario']
 ) : ?>
     <li class="nav-item">
-        <a href="<?php echo "$https$url/$appname/vista/menu/principal";
-                    /*echo $https . $url . '/' . /$appname . '/vista/menu/principal/';*/ ?>">
+        <a href="<?php echo "$https$url/$appname/vista/menu/principal"; ?>">
             <i class="bi bi-window"></i> Menú principal
         </a>
     </li>
