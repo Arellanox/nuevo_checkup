@@ -69,7 +69,18 @@
                                                 <!-- Unidad de Venta -->
                                                 <div class="mb-3">
                                                     <label for="unidad_venta" class="form-label">Unidad de Venta</label>
-                                                    <input type="text" class="form-control input-form" id="unidad_venta" name="unidad_venta">
+                                                    <select class="form-select input-form" id="unidad_venta" name="unidad_venta" required>
+                                                        <option value="">Seleccione una unidad</option>
+                                                        <option value="Por pieza (unidad)">Por pieza (unidad)</option>
+                                                        <option value="Por caja">Por caja</option>
+                                                        <option value="Por blíster (tira)">Por blíster (tira)</option>
+                                                        <option value="Por frasco / botella">Por frasco / botella</option>
+                                                        <option value="Por ampolla o vial">Por ampolla o vial</option>
+                                                        <option value="Por gramo / mililitro">Por gramo / mililitro</option>
+                                                        <option value="Por kit o presentación combinada">Por kit o presentación combinada</option>
+                                                    </select>
+                                                    <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                                    <small class="form-text text-muted">Seleccione la unidad de venta del artículo.</small>
                                                 </div>
                                             
                                                 <!-- Unidad Mínima -->
