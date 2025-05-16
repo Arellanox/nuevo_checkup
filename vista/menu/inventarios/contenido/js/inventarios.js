@@ -109,11 +109,10 @@ tableCatArticulos = $('#tableCatArticulos').DataTable({
         { 
             data: 'COSTO_ULTIMA_ENTRADA',
             render: function(data, type, row) {
-                // Verifica si el dato es numérico y formatea
                 if ($.isNumeric(data)) {
                     return '$' + Number(data).toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                 } else {
-                    return '$0.00';  // Valor predeterminado en caso de datos inválidos
+                    return '$0.00';
                 }
             }
         },
@@ -186,11 +185,10 @@ tableCatArticulos = $('#tableCatArticulos').DataTable({
         { 
             data: 'COSTO_MAS_ALTO',
             render: function(data, type, row) {
-                // Verifica si el dato es numérico y formatea
                 if ($.isNumeric(data)) {
                     return '$' + Number(data).toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                 } else {
-                    return '$0.00';  // Valor predeterminado en caso de datos inválidos
+                    return '$0.00';
                 }
             }
         },
@@ -308,6 +306,7 @@ tableCatArticulos = $('#tableCatArticulos').DataTable({
 
                     $("#editarArticuloForm #area_id").val(rowSelected.AREA_ID);
                     $("#editarArticuloForm #costo_mas_alto").val(rowSelected.COSTO_MAS_ALTO);
+                    $("#editarArticuloForm #costo_ultima_entrada").val(rowSelected.COSTO_ULTIMA_ENTRADA);
                     $("#editarArticuloForm #rendimiento_estimado").val(rowSelected.RENDIMIENTO_ESTIMADO);
 
                 } else {
@@ -398,7 +397,7 @@ selectDatatable('tableCatArticulos', tableCatArticulos,0,0,0,0, async function(s
 
     $("#unidadVenta").text(rowSelected.UNIDAD_VENTA);
     $("#unidadMinima").text(rowSelected.UNIDAD_MINIMA);
-    $("#contenido").text(rowSelected.CONTENIDO);
+    $("#contenidoDetalle").text(rowSelected.CONTENIDO);
     $("#tipo").text(rowSelected.TIPO_DESCRIPCION);
     $("#manejaCaducidad").html(rowSelected.MANEJA_CADUCIDAD == 1 ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle-fill text-danger"></i>');
 
@@ -420,7 +419,7 @@ selectDatatable('tableCatArticulos', tableCatArticulos,0,0,0,0, async function(s
 
 
 
-    // EDITAR que al editar aparesca la fecha actual de ese articulo en la bd
+    // EDITAR que al editar aparezca la fecha actual de ese articulo en la bd
     $("#editarArticuloForm #fechaCaducidad").val(fechaCaducidad);
     $("#area").text(rowSelected.AREA);
     $("#rendimientoEstimado").text(rowSelected.RENDIMIENTO_ESTIMADO);
