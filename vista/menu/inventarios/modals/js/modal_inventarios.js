@@ -120,6 +120,8 @@ $("#resetFiltrosBtn").click(function() {
     tableCatArticulos.ajax.reload();
     $('#resetFiltrosBtn').hide(); // Oculta el botón inmediatamente después de resetear
     $("#filtrarArticuloModal").modal('hide'); // Cierra el modal
+    alertToast("Filtros restablecidos", "success", 4000)
+
 });
 
 function toggleFieldset(checkbox, fieldset) {

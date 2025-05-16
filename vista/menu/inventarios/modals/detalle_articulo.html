@@ -14,15 +14,24 @@
             <!-- Columna izquierda: Imagen -->
             <div class="col-md-4 text-center">
                <!-- Botones con íconos para mostrar Inserto y Procedimiento de Prueba -->
-               <div class="d-grid gap-2">
+               <div class="d-grid gap-3">
                   <!-- Ver imagen completa del articulo  -->
                   <a target="_blank" id="verImagenArt"><img id="imagenProducto" alt="Imagen del Producto" class="img-fluid rounded" style="max-height: 300px;"></a>
                   <!-- Botón para ver el Inserto -->
                   <a target="_blank" class="btn btn-danger" id="verInsertoBtn"><i class="fas fa-file-pdf"></i> Ver Inserto</a>
                   <!-- Botón para ver el Procedimiento de Prueba -->
                   <a target="_blank" class="btn btn-secondary" id="verProcedimientoBtn"><i class="fas fa-vial"></i> Ver Procedimiento</a>
+                               <!-- Puedes poner esto donde quieras en tu archivo HTML -->
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    id="btnEditarArticulo"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Editar el artículo seleccionado">
+                    <i class="bi bi-pencil-square"></i> Editar
+                  </button>
                 </div>
-
                 <div class="d-grid gap-2 text-center containerSvg" id="animation">
                   
                 </div>
@@ -222,3 +231,67 @@
 
 
   </style>
+
+  <script>
+    // Puedes poner esto en el archivo JS que controla el modal de detalles
+    $('#btnEditarArticulo').on('click', function() {
+        var rowSelected = window.articuloActual; // Ya está garantizado que existe
+        $('#detalleProductoModal').modal('hide');
+
+        // Abre el modal de edición y llena el formulario
+        $("#editarArticuloModal").modal('show');
+        $('#editandoArticulo').text(` ${rowSelected.CLAVE_ART}`);
+
+        $('#editarArticuloForm #no_art').val(rowSelected.NO_ART);
+        $('#editarArticuloForm #clave_art').val(rowSelected.CLAVE_ART);
+        $('#editarArticuloForm #nombre_comercial').val(rowSelected.NOMBRE_COMERCIAL);
+
+        if(rowSelected.ESTATUS == 1){
+            $('#editarArticuloForm #estatus').prop("checked", true);
+        } else {
+            $('#editarArticuloForm #estatus').prop("checked", false);
+        }
+        $('#editarArticuloForm #red_frio').val(rowSelected.RED_FRIO);
+        $('#editarArticuloForm #unidad_venta').val(rowSelected.UNIDAD_VENTA);
+        $('#editarArticuloForm #unidad_minima').val(rowSelected.UNIDAD_MINIMA);
+        $('#editarArticuloForm #contenido').val(rowSelected.CONTENIDO);
+        $('#editarArticuloForm #tipo_articulo').val(rowSelected.TIPO_ARTICULO_ID);
+        $('#editarArticuloForm #maneja_caducidad').val(rowSelected.MANEJA_CADUCIDAD);
+
+        $('#editarArticuloForm #fecha_caducidad').val(rowSelected.FECHA_CADUCIDAD);
+
+        // Mostrar/ocultar campo de fecha de caducidad según maneja_caducidad
+        if (rowSelected.MANEJA_CADUCIDAD == 1) {
+            $('#editarArticuloForm #fecha_caducidad').closest('.mb-3').show();
+        } else {
+            $('#editarArticuloForm #fecha_caducidad').closest('.mb-3').hide();
+            $('#editarArticuloForm #fecha_caducidad').val('');
+        }
+        $('#editarArticuloForm #maneja_caducidad').off('change').on('change', function() {
+            if ($(this).val() == "1") {
+                $('#editarArticuloForm #fecha_caducidad').closest('.mb-3').show();
+            } else {
+                $('#editarArticuloForm #fecha_caducidad').closest('.mb-3').hide();
+                $('#editarArticuloForm #fecha_caducidad').val('');
+            }
+        });
+
+        $('#editarArticuloForm #fecha_ultima_entrada').val(
+            rowSelected.FECHA_ULTIMA_ENTRADA ? rowSelected.FECHA_ULTIMA_ENTRADA.split(' ')[0] : ''
+        );
+
+        $("#editarArticuloForm #area_id").val(rowSelected.AREA_ID);
+        $("#editarArticuloForm #costo_mas_alto").val(rowSelected.COSTO_MAS_ALTO);
+        $("#editarArticuloForm #rendimiento_estimado").val(rowSelected.RENDIMIENTO_ESTIMADO);
+    });
+
+    // Ejemplo: al hacer doble click en una fila de la tabla
+    $('#tableCatArticulos').on('dblclick', 'tr', function() {
+        var data = tableCatArticulos.row(this).data();
+        if (data) {
+            window.articuloActual = data; // Guarda el artículo seleccionado
+            // Aquí puedes llenar los campos del modal de detalles con data...
+            $('#detalleProductoModal').modal('show');
+        }
+    });
+  </script>
