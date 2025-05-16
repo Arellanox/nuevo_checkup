@@ -68,7 +68,7 @@ class Master extends Miscelaneus
 
             return $resultSet;
         } catch (Exception $e) {
-            $master->mis->setLog($e->getMessage(), $nombreProcedimiento);
+            $this->mis->setLog($e->getMessage(), $nombreProcedimiento);
             echo $e->getMessage();
         } finally {
             $conexion = null;
@@ -102,7 +102,7 @@ class Master extends Miscelaneus
             # cerramos la conexion a la base de datos.
             return $global;
         } catch (Exception $e) {
-            $master->mis->setLog($e->getMessage(), $nombreProcedimiento);
+            $this->mis->setLog($e->getMessage(), $nombreProcedimiento);
             echo $e->getMessage();
         } finally {
             $conexion = null;
@@ -115,11 +115,8 @@ class Master extends Miscelaneus
             $retorno = "";
             $conexion = $this->connectDb();
             $sp = "call " . $nombreProcedimiento . $this->concatQuestionMark(count($parametros));
-
             $sentencia = $conexion->prepare($sp);
-
             $sentencia = $this->bindParams($sentencia, $parametros);
-
 
             if ($sentencia->execute()) {
                 $fila = $sentencia->fetchAll();
@@ -128,21 +125,18 @@ class Master extends Miscelaneus
                 } else {
                     $retorno = "Alerta: la consulta no devolvió resultado";
                 }
+
+                $this->mis->setLog(json_encode($fila), 'error');
             } else {
                 $error_msj = "Ha ocurrido un error(" . $sentencia->errorCode() . "). " . implode(" ", $sentencia->errorInfo());
                 # return "ERROR. No se pudieron recuperar los datos.";
-                $retorno = "Alerta: la consulta al servidor no se realizó correctamente".$sentencia->errorInfo();
+                $retorno = "Alerta: la consulta al servidor no se realizó correctamente".json_encode($sentencia->errorInfo());
             }
 
-
             $sentencia->closeCursor();
-
-            # cerramos la conexion a la base de datos.
-            $conexion = null;
-
             return $retorno;
         } catch (Exception $e) {
-            $master->mis->setLog($e->getMessage(), $nombreProcedimiento);
+            $this->mis->setLog($e->getMessage(), $nombreProcedimiento);
             echo $e->getMessage();
         } finally {
             $conexion = null;
@@ -207,7 +201,7 @@ class Master extends Miscelaneus
             // Devuelve el último id;
             return $conn->lastInsertId();
         } catch (Exception $e) {
-            $master->mis->setLog($e->getMessage(), $tabla);
+            $this->mis->setLog($e->getMessage(), $tabla);
             echo $e->getMessage();
         } finally {
             $conn = null;
@@ -237,7 +231,7 @@ class Master extends Miscelaneus
 
             return $stmt->fetchAll();
         } catch (Exception $e) {
-            $master->mis->setLog($e->getMessage(), $tabla);
+            $this->mis->setLog($e->getMessage(), $tabla);
             echo $e->getMessage();
         } finally {
             $conn = null;
@@ -272,7 +266,7 @@ class Master extends Miscelaneus
 
             return $stmt->fetchAll();
         } catch (Exception $e) {
-            $master->mis->setLog($e->getMessage(), $tabla);
+            $this->mis->setLog($e->getMessage(), $tabla);
             echo $e->getMessage();
         } finally {
             $conn = null;
@@ -318,7 +312,7 @@ class Master extends Miscelaneus
 
             return $stmt->rowCount();
         } catch (Exception $e) {
-            $master->mis->setLog($e->getMessage(), $table);
+            $this->mis->setLog($e->getMessage(), $table);
             echo $e->getMessage();
         } finally {
             $conn = null;
@@ -337,7 +331,7 @@ class Master extends Miscelaneus
 
             if (count($error_tipo_dato) > 0) {
                 $posiciones = implode(",", $error_tipo_dato);
-                $error_msj = "Error en tipo de datos. Posiciones ($posiciones)";
+                $error_smsj = "Error en tipo de datos. Posiciones ($posiciones)";
                 return $error_msj;
             }
 
@@ -350,7 +344,7 @@ class Master extends Miscelaneus
 
             return $stmt->rowCount();
         } catch (Exception $e) {
-            $master->mis->setLog($e->getMessage(), $tabla);
+            $this->mis->setLog($e->getMessage(), $tabla);
             echo $e->getMessage();
         } finally {
             $conn = null;

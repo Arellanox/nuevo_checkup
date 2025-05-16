@@ -642,7 +642,7 @@ switch ($api) {
         $mail = new Correo();
         # lista de las personas agregadas en el dia
         $response = $master->getByProcedure("sp_recepcion_pacientes_del_dia", [
-            $_SESSION['franquiciario'] ? $_SESSION['id_cliente'] : null, null, null
+            null, null
         ]);
         break;
     case 18:
