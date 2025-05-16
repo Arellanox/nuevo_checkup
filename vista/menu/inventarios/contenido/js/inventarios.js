@@ -481,7 +481,8 @@ $('#btnNuevoArticulo').click(function() {
     $('#registrarArticuloModal').modal('show');
 });
 
-rellenarSelect('.tipo_articulo', 'inventarios_api', 2, 'ID_TIPO', 'DESCRIPCION');
+//preguntar si sirve
+//rellenarSelect('.tipo_articulo', 'inventarios_api', 2, 'ID_TIPO', 'DESCRIPCION');
 
 
 $(document).ready(function () {
