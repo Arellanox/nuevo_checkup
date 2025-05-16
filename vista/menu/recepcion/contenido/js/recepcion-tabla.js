@@ -53,7 +53,7 @@ var columnasRecepcionPacientesFranquicia = [
   { data: 'GENERO' }
 ];
 
-const columasDefRecepcionPacientesFranquicia = [
+var columasDefRecepcionPacientesFranquicia = [
   { target: 0, title: '#', width: '1%', class: 'all' },
   { target: 1, title: 'Nombre', width: '13%', class: 'all' },
   { target: 2, title: 'Ingreso', width: '1%', class: 'all' },
