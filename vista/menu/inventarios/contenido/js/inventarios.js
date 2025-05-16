@@ -304,7 +304,7 @@ tableCatArticulos = $('#tableCatArticulos').DataTable({
                         rowSelected.FECHA_ULTIMA_ENTRADA ? rowSelected.FECHA_ULTIMA_ENTRADA.split(' ')[0] : ''
                     );
 
-                    $("#editarArticuloForm #area_id").val(rowSelected.AREA_ID);
+                    $("#editarArticuloForm #area_id").val(rowSelected.AREA_ID); //si aparece
                     $("#editarArticuloForm #costo_mas_alto").val(rowSelected.COSTO_MAS_ALTO);
                     $("#editarArticuloForm #costo_ultima_entrada").val(rowSelected.COSTO_ULTIMA_ENTRADA);
                     $("#editarArticuloForm #rendimiento_estimado").val(rowSelected.RENDIMIENTO_ESTIMADO);
