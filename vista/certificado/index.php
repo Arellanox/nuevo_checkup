@@ -1,8 +1,8 @@
 <?php
-    include "../variables.php";
-    $codigo = $_GET['codigo'] ?? null;
+include "../variables.php";
+$codigo = $_GET['codigo'] ?? null;
 
-    $menu = "Validar Certificación";
+$menu = "Validar Certificación";
 ?>
 
 <!DOCTYPE html>

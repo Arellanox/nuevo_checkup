@@ -120,6 +120,8 @@ $equipos_termometros = array(
     $factor_correcion
 );
 
+
+
 switch ($api) {
 
     case 1:
@@ -224,6 +226,8 @@ switch ($api) {
         $response['USUARIO']['RUBRICA'] = is_null($usuario_rubrica) ? 'N/A' : $usuario_rubrica;
 
         $response['DIAS'] = $result;
+
+
         break;
     case 8:
         #Agregar Comentarios Superivisor 

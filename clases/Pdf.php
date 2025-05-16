@@ -80,14 +80,19 @@ class Reporte
             case 'form_datos':
             case 'lista-barras':
                 $generator = null;
+                $barcode = null;
             default:
                 $barcode = null;
                 break;
         }
 
         $host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/";
+        // $host = 'http://localhost/nuevo_checkup/';
+        // Path del dominio
         $path = $archivo['ruta'] . $archivo['nombre_archivo'] . ".pdf";
-
+        // $path    = 'pdf/public/resultados/E-00001.pdf';
+        // print_r($pie['datos_medicos'][0]['ESPECIALIDADES']);
+        // print_r($path);
 
         session_start();
         $view_vars = array(
@@ -101,6 +106,13 @@ class Reporte
             "validacion"            => $host . "resultados/validar-pdf/?clave=" . $pie['clave'] . "&modulo=" . $pie['modulo']
         );
 
+        // print_r($view_vars['resultados']->ANAMNESIS);
+        // foreach($view_vars['resultados'] as $item){
+        //     print_r($item);
+        //     echo "<br>";
+        // }
+        // exit;
+
         $pdf = new Dompdf();
         // Recibe la orden de que tipo de archivo quiere
         switch ($tipo) {
@@ -113,8 +125,10 @@ class Reporte
                 $alto  = (2.5 / 2.54) * 72;
 
                 $pdf->setPaper(array(0, 0, $ancho, $alto), 'portrait');
-                break;
+                // $pdf->setPaper('letter', 'portrait');
+                // $path    = 'pdf/public/etiquetas/00001.pdf';
 
+                break;
             case 'resultados':
                 $template = render_view('invoice/resultados.php', $view_vars);
                 $pdf->loadHtml($template);
@@ -225,7 +239,7 @@ class Reporte
             case 'solicitud_estudios':
                 $template = render_view('invoice/solicitud_estudios.php', $view_vars);
                 $pdf->loadHtml($template);
-                $pdf->setPaper('letter', 'portrait');
+                $pdf->setPaper('letter');
                 
                 // $height = 14 * 28.3465; // 21.59 cm a puntos
                 // $width = 21.5 * 28.3465;   // 18 cm a puntos
@@ -240,7 +254,7 @@ class Reporte
             case 'audiometria':
                 $template = render_view('invoice/audio.php', $view_vars);
                 $pdf->loadHtml($template);
-                $pdf->setPaper('letter', 'portrait');
+                $pdf->setPaper('letter');
                 break;
 
             case 'envio_muestras':
@@ -252,13 +266,19 @@ class Reporte
                 # para confirmacion de datos del paciente
                 $template = render_view('invoice/form_datos.php', $view_vars);
                 $pdf->loadHtml($template);
-                $pdf->setPaper('letter', 'portrait');
+                $pdf->setPaper('letter');
                 break;
             case 'lista-barras':
                 # para imprimr la lista de trabajo de laboratorio clinico con codigos de barras
                 $template = render_view('invoice/lista-barras.php', $view_vars);
                 $pdf->loadHtml($template);
-                $pdf->setPaper("letter", 'portrait');
+                $pdf->setPaper("letter");
+                break;
+            case 'estados_cuentas':
+                $template = render_view('invoice/estado_cuenta.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter', 'landscape');
+                //$path    = 'pdf/public/oftalmologia/E00001.pdf';
                 break;
             case 'maquilas':
                 $template = render_view('invoice/maquilas.php', $view_vars);
@@ -273,7 +293,7 @@ class Reporte
             default:
                 $template = render_view('invoice/reportes.php', $view_vars);
                 $pdf->loadHtml($template);
-                $pdf->setPaper('letter', 'portrait');
+                $pdf->setPaper('letter');
                 // $path    = 'pdf/public/oftalmologia/E00001.pdf';
                 break;
         }
@@ -292,10 +312,12 @@ class Reporte
             case 'url':
                 $pdf->render();
                 file_put_contents('../' . $path, $pdf->output());
-                return 'https://bimo-lab.com/nuevo_checkup/' . $path;
-                // print_r($path);
-                // return $host . $path;
-                break;
+
+                $http = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+                $servidor = $_SERVER['HTTP_HOST'];
+                $current_url = "{$http}{$servidor}/nuevo_checkup/";
+
+                return $current_url. $path;
             default:
                 $pdf->render();
                 return $pdf->stream('documento.pdf', array("Attachment" => false));

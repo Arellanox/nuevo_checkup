@@ -125,7 +125,7 @@ function obtenerListaEstudiosContenedores(idturno = null) {
 
       // NUEVO
       $('#lista-estudios-paciente-div').html(html);
-      
+
       //Complete
       loaderDiv("Out", null, "#loader-muestras", '#loaderDivmuestras');
       resolve(1);
@@ -140,8 +140,7 @@ function obtenerListaEstudiosContenedores(idturno = null) {
 obtenerPanelInformacion(7, null, "turnos_panel", '#turnos_panel')
 
 
-  
-    
-  
-  
+
+
+
 

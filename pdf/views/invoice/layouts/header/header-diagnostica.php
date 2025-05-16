@@ -1,11 +1,11 @@
 <?php
-    $ruta_logo = file_get_contents('../pdf/public/assets/diagnostica_logo.png');
-    $ruta_aniversario = file_get_contents('../pdf/public/assets/diagnostica-lema_&_aniversario.png');
-    $ruta_lema = file_get_contents('../pdf/public/assets/diagnostica_lema.png');
+$ruta_logo = file_get_contents('../pdf/public/assets/diagnostica_logo.png');
+$ruta_aniversario = file_get_contents('../pdf/public/assets/diagnostica-lema_&_aniversario.png');
+$ruta_lema = file_get_contents('../pdf/public/assets/diagnostica_lema.png');
 
-    $logo_enconde = base64_encode($ruta_logo);
-    $aniversario_enconde = base64_encode($ruta_aniversario);
-    $lema_enconde = base64_encode($ruta_lema);
+$logo_enconde = base64_encode($ruta_logo);
+$aniversario_enconde = base64_encode($ruta_aniversario);
+$lema_enconde = base64_encode($ruta_lema);
 ?>
 
 <div class="header">

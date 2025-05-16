@@ -321,6 +321,11 @@
             width: 180px;
             max-width: 200px;
         }
+
+        .sin-dato {
+            color: #18343e;
+            font-style: italic;
+        }
     </style>
 </head>
 
@@ -344,13 +349,7 @@ $encode_firma = base64_encode($ruta_firma);
 <body>
     <!-- header -->
     <div class="header">
-        <?php
-        // $titulo = 'Checkup Clínica y Prevención';
-        // $tituloPersonales = 'Información del paciente';
-        // $subtitulo = 'Historia Clínica';
-        // $encabezado->FECHA_RESULTADO = $encabezado->FECHA_RESULTADO_CONSULTA;
-        include 'includes/header_envioMuestras.php';
-        ?>
+        <?php include 'includes/header_envioMuestras.php'; ?>
     </div>
 
     <!-- Footer 1 chido -->
@@ -382,25 +381,25 @@ $encode_firma = base64_encode($ruta_firma);
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                        
-                        foreach ((array)$resultados->DETALLE as $item){
-                    ?>
+                    <?php foreach ((array)$resultados->DETALLE as $item): ?>
                         <tr>
-                        <td class="small-width"><?php echo $item->COUNT ?></td>
-                        <td class="prefolio-width"><?php echo $item->PREFOLIO ?></td>
-                        <td><?php echo $item->PACIENTE; ?></td>
-                        <td class="muestra-width"><?php echo $item->NACIMIENTO; ?></td>
-                        <td class="edad-width"><?php echo $item->EDAD; ?></td>
-                        <td><?php echo $item->SEXO; ?></td>
-                        <td class="muestra-width"><?php echo $item->MUESTRA; ?></td>
-                        <td><?php echo $item->FECHA_TOMA; ?></td>
-                        <td class="estudio-width"><?php echo $item->ESTUDIOS; ?></td>
-                    </tr>
-                    <?php
-                        }
-                    
-                    ?>
+                            <td class="small-width"><?php echo $item->COUNT ?></td>
+                            <td class="prefolio-width"><?php echo $item->PREFOLIO ?></td>
+                            <td><?php echo $item->PACIENTE; ?></td>
+                            <td class="muestra-width"><?php echo $item->NACIMIENTO; ?></td>
+                            <td class="edad-width"><?php echo $item->EDAD; ?></td>
+                            <td><?php echo $item->SEXO; ?></td>
+                            <td class="muestra-width <?= empty($item->MUESTRA) ? 'sin-dato' : '' ?>">
+                                <?= !empty($item->MUESTRA) ? $item->MUESTRA : '---' ?>
+                            </td>
+                            <td class="<?= empty($item->MUESTRA) ? 'sin-dato' : '' ?>">
+                                <?= !empty($item->FECHA_TOMA) ? $item->FECHA_TOMA : '---' ?>
+                            </td>
+                            <td class="estudio-width <?= empty($item->MUESTRA) ? 'sin-dato' : '' ?>">
+                                <?= !empty($item->ESTUDIOS) ? $item->ESTUDIOS : '---' ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </div>

@@ -2,8 +2,10 @@
 require_once "../clases/master_class.php";
 require_once "../clases/token_auth.php";
 
+$master = new Master();
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
+
 if (!$tokenValido) {
     // $tokenVerification->logout();
     // exit;
@@ -13,7 +15,6 @@ if (!$tokenValido) {
 $api = $_POST['api'];
 
 #buscar
-#$id = $_POST['id'];
 $curp = $_POST['curp'];
 
 #insertar
@@ -45,71 +46,61 @@ $id_turno = $_POST['turno_id'];
 $correo2 = $_POST['correo_2'];
 $tipo_conversion = $_POST['comoNosConociste'];
 
-# medios de entrega 
+# medios de entrega
 $medios_entrega = $_POST['medios_entrega'];
-
-$parametros = array(
-    $id_paciente,
-    $segmento_id,
-    $nombre,
-    $paterno,
-    $materno,
-    $edad,
-    $nacimiento,
-    $curp,
-    $celular,
-    $correo,
-    $postal,
-    $estado,
-    $municipio,
-    $colonia,
-    $exterior,
-    $interior,
-    $calle,
-    $nacionalidad,
-    $pasaporte,
-    $rfc,
-    $vacuna,
-    $otravacuna,
-    $dosis,
-    $genero,
-    $correo2,
-    $tipo_conversion
-);
-
-$response = "";
-
 # Esta variable es enviada desde el formulario de fast checkup
 # hay que evaluarlo si tiene algo ingresarlo en somatometria. Talla
 $talla = $_POST['talla'];
+$idFranquicia = $_SESSION['franquiciario'] ? $_SESSION['id_cliente'] : null;
+$response = "";
 
-$master = new Master();
+$parametros = [
+    $_SESSION['id'],   // 0 _usuario_id
+    $id_paciente,      // 1 _id_paciente
+    $segmento_id,      // 2 _segmento_id
+    $nombre,           // 3 _nombre
+    $paterno,          // 4 _paterno
+    $materno,          // 5 _materno
+    $edad,             // 6 _edad
+    $nacimiento,       // 7 _nacimiento
+    $curp,             // 8 _curp
+    $celular,          // 9 _celular
+    $correo,           // 10 _correo
+    $postal,           // 11 _postal
+    $estado,           // 12 _estado
+    $municipio,        // 13 _municipio
+    $colonia,          // 14 _colonia
+    $exterior,         // 15 _exterior
+    $interior,         // 16 _interior
+    $calle,            // 17 _calle
+    $nacionalidad,     // 18 _nacionalidad
+    $pasaporte,        // 19 _pasaporte
+    $rfc,              // 20 _rfc
+    $vacuna,           // 21 _vacuna
+    $otravacuna,       // 22 _otravacuna
+    $dosis,            // 23 _dosis
+    $genero,           // 24 _genero
+    $correo2,          // 25 _correo2
+    $medios_entrega,      // 26 _medios (JSON string)
+    $tipo_conversion,  // 27 _tipo_conversion
+    $talla,             // 28 _talla
+    $idFranquicia
+];
+
 switch ($api) {
     case 1:
-        # insertar un nuevo paciente
-
-        # Agregar los tipos de medios que quiere el paciente recibir sus resultados.
-        # Este procedure recibe una lista separadas por comas de los ids de los medios de entrega
-
-        # solo envias la lista con las opciones que tendra el paciente, agrega o elimina segun la lista que reciba.
-
-        # convertimos en arreglo chido la lista separada por comas.
-        $medios = explode(',', $medios_entrega);
-
-        # agregamos el json al arreglo del paciente
-        array_push($parametros, json_encode($medios));
-
-        # insertar la talla en el arreglo general ( esto es para fast checkup)
-        # luego al ser aceptado se guarda en somatometria (tabla)
-        array_push($parametros, $talla);
-    
+        $medios = array_map('intval', explode(',', $medios_entrega));
+        $parametros[26] = json_encode($medios); //Se asgina a la posición 26 directamente
+        $parametros[28] = $talla; //Se asgina a la posición 28 directamente
 
         $response = $master->insertByProcedure("sp_pacientes_g", $parametros);
         break;
     case 2:
         # buscar pacientes
         // echo $id_paciente;
-        $response = $master->getByProcedure("sp_pacientes_b", [$id_paciente, $curp, $pasaporte, $id_turno]);
+        $response = $master->getByProcedure("sp_pacientes_b", [
+            $id_paciente, $curp, $pasaporte, $id_turno, $idFranquicia
+        ]);
 
         foreach ($response as $key => $value) {
             $value['ordenes'] = $master->decodeJson([$value['ordenes']]);

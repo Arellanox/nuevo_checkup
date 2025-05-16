@@ -1,4 +1,5 @@
-<div class="modal fade" id="modalRellenarGrupos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="filtrador" data-bs-focus="false" aria-hidden="true">
+<div class="modal fade" id="modalRellenarGrupos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="filtrador" data-bs-focus="false" aria-hidden="true">
     <div class="modal-dialog  modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header header-modal">
@@ -7,14 +8,17 @@
             </div>
             <div class="modal-body">
                 <div class="rounded p-3 shadow my-2">
-                    <p>Pulse en la primera columna y arrastre el estudio para cargar su orden, con el icono de <i class="bi bi-trash"></i> puedes eliminar el estudio de la tabla.</p>
+                    <p>Pulse en la primera columna y arrastre el estudio para cargar su orden, con el icono de <i
+                                class="bi bi-trash"></i> puedes eliminar el estudio de la tabla.</p>
 
                     <label for="form-label">Buscar:</label>
                     <select class="form-select input-form my-3" name="estudios" id="estudios" required>
                         <option selected>Eliga un estudio</option>
                     </select>
                     <div class="text-end">
-                        <button class='btn btn-confirmar' id="btn-agregar-estudios" type='button'><i class="bi bi-file-earmark-plus"></i> Agregar</button>
+                        <button class='btn btn-confirmar' id="btn-agregar-estudios" type='button'><i
+                                    class="bi bi-file-earmark-plus"></i> Agregar
+                        </button>
                     </div>
 
                     <table class="table display responsive" id="TablaLLenarGrupo" style="width: 100%">

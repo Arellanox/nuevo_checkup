@@ -1,10 +1,9 @@
 <?php
 if (
-    $_SESSION['id_cliente'] == 15
+    $_SESSION['id_cliente'] == 15 || $_SESSION['franquiciario']
 ) : ?>
     <li class="nav-item">
-        <a href="<?php echo "$https$url/$appname/vista/menu/principal";
-                    /*echo $https . $url . '/' . /$appname . '/vista/menu/principal/';*/ ?>">
+        <a href="<?php echo "$https$url/$appname/vista/menu/principal"; ?>">
             <i class="bi bi-window"></i> Menú principal
         </a>
     </li>
@@ -21,7 +20,7 @@ if (
     </li>
 <?php endif; ?>
 
-<?php if ($_SESSION['vista']['MENU_MAQUILA'] == 1) : ?>
+<?php if ($_SESSION['vista']['MENU_MAQUILA'] == 1 && !$_SESSION['franquiciario']) : ?>
     <li class="nav-item">
         <a href="<?php echo "$https$url/$appname/vista/procedencia/pacientes/#UJAT"; ?>">
             <i class=" bi bi-thunderbolt"></i> UJAT
@@ -185,8 +184,7 @@ if (
     </li>
 <?php endif; ?>
 
-<?php if ($_SESSION['vista']['FRANQUICIAS'] == 1) :
-?>
+<?php if ($_SESSION['vista']['FRANQUICIAS'] == 1) :?>
     <li class="nav-item Recepción">
         <div class="dropdown ">
 
@@ -196,15 +194,15 @@ if (
 
             <div class="collapse" id="board-menu-empresas">
                 <ul style="padding-left: 15px;" class="btn-toggle-nav text-black list-unstyled fw-normal pb-1 small shadow">
-
-                    <?php if ($_SESSION['vista']['FRANQUICIAS'] == 1) :
-                    ?>
+                    <?php if ($_SESSION['vista']['FRANQUICIAS'] == 1 && !$_SESSION['franquiciario']) :?>
                         <a class="dropdown-a text-white align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/procedencia/estudios-laboratorio/'; ?>">
-                            <i class="bi bi-people"></i> Solicitud de Laboratorio
+                            <i class="bi bi-people"></i> Solicitud de Laboratorio <?= $_SESSION['franquiciario'] ?>
                         </a>
+                    <?php endif; ?>
 
-                    <?php endif;
-                    ?>
+                    <a class="dropdown-a text-white align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/procedencia/solicitud-franquicia-laboratorio/'; ?>">
+                        <i class="bi bi-journal-medical"></i> Solicitud de Franquicia
+                    </a>
                 </ul>
             </div>
         </div>

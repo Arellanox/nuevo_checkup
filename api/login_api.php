@@ -26,12 +26,6 @@ switch ($api) {
     case 2:
         $_SESSION = array();
 
-        // if(init_get("session.use_cookies")){
-        //     $params = session_get_cookie_params();
-        //     setcookie(session_name(),'',time() - 42000,
-        //     $params["path"],$params["domain"],$params["secure"],$params["httponly"]);
-        // }
-
         unset($_COOKIE);
 
         if (session_destroy()) {
@@ -44,7 +38,7 @@ switch ($api) {
         # recuperar password olvidada
         $master = new Master();
         $correo = $_POST['correo'];
-        $response = $master->getByProcedure("sp_usuarios_b", [null, $correo]);
+        $response = $master->getByProcedure("sp_usuarios_b", [null, $correo, null]);
 
         if (is_array($response)) {
             $mail = new Correo();
@@ -118,7 +112,7 @@ function login($user, $password)
             $_SESSION['user'] = $result[0]['USUARIO'];
             $_SESSION['perfil'] = $result[0]['TIPO_ID'];
             $_SESSION['cargo'] = $result[0]['CARGO_ID'];
-
+            $_SESSION['franquiciario'] = $result[0]['TIPO_ID'] === 3 || $result[0]['TIPO_ID'] === "3";
 
             $_SESSION['cargo_descripcion'] = $result[0]['DESCRIPCION'];
 
@@ -136,7 +130,7 @@ function login($user, $password)
                     LEFT JOIN permisos as pertip ON pertip.ID_PERMISO = permisos.PERMISO_ID
                     WHERE permisos.USUARIO_ID = ?";
             $stmt = $conn->prepare($sql);
-            $stmt->bindParam(1,$_SESSION['id']);
+            $stmt->bindParam(1, $_SESSION['id']);
             $stmt->execute();
             $permisos = array();
             $result = $stmt->fetchAll();
@@ -185,6 +179,7 @@ function login($user, $password)
             return "Oops! Tu contraseña es incorrecta.";
         }
     } else {
+        $master->mis->setLog(json_encode($result), 'Login fallido');
         return "Usuario y/o contraseña incorrectos.";
     }
 }

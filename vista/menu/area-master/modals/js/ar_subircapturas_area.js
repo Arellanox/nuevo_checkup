@@ -1,11 +1,8 @@
 
 const ModalSubirCapturas = document.getElementById('ModalSubirCapturas')
 ModalSubirCapturas.addEventListener('show.bs.modal', event => {
-  // console.log(selectListaLab)
   $('#Area-estudio').html('Cargar capturas <strong>' + servicio_nombre + ' (' + hash + ')</strong >')
   document.getElementById("formSubirCapturas").reset();
-  // alert(selectEstudio.selectID)
-  //Modals
   $('#nombre-paciente-capturas').val(dataSelect.array['nombre_paciente'])
 })
 

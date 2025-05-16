@@ -14,7 +14,7 @@ $turno_id = $_POST['turno_id'];
 $hash = $_POST['hash'];
 $fecha_vigencia = $_POST['fecha_vigencia'];
 
-$host = $_SERVER['SERVER_NAME'] == "localhost"
+$host = $_SERVER['SERVER_NAME'] === "localhost"
     ? "http://localhost/nuevo_checkup/"
     : "https://bimo-lab.com/nuevo_checkup/";
 
@@ -37,28 +37,35 @@ switch ($api) {
         $response = $master->getByProcedure("sp_certificados_medicos_tmp_b", [$turno_id]);
         break;
     case 3:
-        #CREAR CERTIFICADO
-        $QR_NAME = 'CertificadoMedico-' . $turno_id . '-' . date('Y-m-d');
-        $HASH = generarHashCertificado($turno_id, 'Pruebas');
-        $QR_URL = $host."vista/certificado/?codigo=".$HASH;
-        $PDF_URL = $master->reportador($master, $turno_id, -10, "certificado_bimo", 'url');
-        $QR_IMG_LOCATION = $master->generarQRURL("CertificadoMedico", $QR_URL, $QR_NAME, QR_ECLEVEL_H);
-
-        $master->insertByProcedure("sp_consultorio_certificado_g", [
-            $turno_id, $QR_IMG_LOCATION, $PDF_URL, $QR_URL, $vigencia, $fecha_vigencia,
-            $grado_salud, $tipo_examen_medico, $aptitud_trabajo, $_SESSION['id'], $HASH
+        $validarConsultaMedicaTerminada = $master->getByProcedure("sp_consultorio_certificado_b", [
+            $turno_id, null
         ]);
 
-        $attachment = $master->cleanAttachFilesImage($master, $turno_id, 10, 1);
+        if (count($validarConsultaMedicaTerminada) > 0) {
+            #CREAR CERTIFICADO
+            $QR_NAME = 'CertificadoMedico-' . $turno_id . '-' . date('Y-m-d');
+            $HASH = generarHashCertificado($turno_id, 'Pruebas');
+            $QR_URL = $host."vista/certificado/?codigo=".$HASH;
+            $PDF_URL = $master->reportador($master, $turno_id, -10, "certificado_bimo", 'url');
+            $QR_IMG_LOCATION = $master->generarQRURL("CertificadoMedico", $QR_URL, $QR_NAME, QR_ECLEVEL_H);
 
-        if (!empty($attachment[0])) {
-            $mail = new Correo();
-            if ($mail->sendEmail('resultados', '[bimo] Resultados de consulta', [$attachment[1]], null, $attachment[0], 1, $turno_id, 1, $master)) {
-                $master->setLog("Correo enviado.", "Consulta");
+            $master->insertByProcedure("sp_consultorio_certificado_g", [
+                $turno_id, $QR_IMG_LOCATION, $PDF_URL, $QR_URL, $vigencia, $fecha_vigencia,
+                $grado_salud, $tipo_examen_medico, $aptitud_trabajo, $_SESSION['id'], $HASH
+            ]);
+
+            $attachment = $master->cleanAttachFilesImage($master, $turno_id, 10, 1);
+
+            if (!empty($attachment[0])) {
+                $mail = new Correo();
+                if ($mail->sendEmail('resultados', '[bimo] Resultados de consulta', [$attachment[1]], null, $attachment[0], 1, $turno_id, 1, $master)) {
+                    $master->setLog("Correo enviado.", "Consulta");
+                }
             }
-        }
 
-        $response = $master->getByProcedure("sp_consultorio_certificado_b", [$turno_id, null]);
+            $response = $master->getByProcedure("sp_consultorio_certificado_b", [$turno_id, null]);
+        } else $response = 'Debes terminar la consulta médica para generar el certificado medico.';
+
         break;
     case 4:
         #Recuperar certificado
@@ -79,5 +86,4 @@ function generarHashCertificado($idTurno, $nombrePaciente, $fechaActual = null):
 }
 
 echo $master->returnApi($response);
-
 

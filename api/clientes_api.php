@@ -50,6 +50,7 @@ $parametros = [
     $_POST['convenio'] ?? null,
     $_POST['indicaciones'] ?? null,
     $_POST['cfdi'] ?? null,
+    $_SESSION['id']
 ];
 
 // Carpeta de destino para archivos
@@ -84,22 +85,20 @@ $descuentos = $master->setToNull([
 ]);
 
 $response = "";
+$idFranquicia = $_SESSION['franquiciario'] ? $_SESSION['id'] : null;
 
 // Procesar la API solicitada
 switch ($api) {
     case 1: // Insertar cliente
         $response = $master->insertByProcedure("sp_clientes_g", $parametros);
+
         break;
-
     case 2: // Buscar cliente
-        $response = $master->getByProcedure("sp_clientes_b", [$id, $codigo, $qr, $_SESSION['id']]);
-
+        $response = $master->getByProcedure("sp_clientes_b", [
+            $id, $codigo, $qr, $idFranquicia
+        ]);
         // Si solo se encuentra un cliente, añadir segmentos y cuestionarios
-        if (count($response) == 1) {
-            $segmentos = $master->getByProcedure('fillSelect_segmentos', [$response[0]['ID_CLIENTE']]);
-            $response[0]['SEGMENTOS'] = !empty($segmentos) ? $segmentos : "Sin segmentos";
-            $response[0]['CUESTIONARIOS'] = $master->decodeJson([$response[0]['CUESTIONARIOS']])[0];
-        }
+        //agregarSegmentosCuestionarios($response);
         break;
 
     case 3: // Actualizar cliente
@@ -111,7 +110,7 @@ switch ($api) {
         break;
 
     case 5: // Generar QR para cliente
-        $cliente = [$id, $codigo, $qr, $_SESSION['id']];
+        $cliente = [$id, $codigo, $qr];
         $result = $master->getByProcedure('sp_clientes_b', $cliente);
 
         if (!empty($result)) {
@@ -142,6 +141,15 @@ switch ($api) {
 
     default:
         $response = "API no reconocida";
+}
+
+function agregarSegmentosCuestionarios($response)
+{
+    if (count($response) == 1) {
+        $segmentos = $master->getByProcedure('fillSelect_segmentos', [$response[0]['ID_CLIENTE']]);
+        $response[0]['SEGMENTOS'] = !empty($segmentos) ? $segmentos : "Sin segmentos";
+        $response[0]['CUESTIONARIOS'] = $master->decodeJson([$response[0]['CUESTIONARIOS']])[0];
+    }
 }
 
 // Función para guardar múltiples archivos

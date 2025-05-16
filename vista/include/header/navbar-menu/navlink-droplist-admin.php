@@ -143,14 +143,14 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
     </a>
     <div class="collapse" id="board-listaprecios">
         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <?php if ($_SESSION['vista']['PAQUETES_ESTUDIOS'] == 1) : ?>
+            <?php if ($_SESSION['vista']['LISTA_PRECIOS'] == 1) : ?>
                 <li>
                     <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/lista-precio/#LISTA_PRECIOS'; ?>">
                         <i class="bi bi-dot"></i> Listado de precios
                     </a>
                 </li>
             <?php endif; ?>
-            <?php if ($_SESSION['vista']['LISTA_PRECIOS'] == 1) : ?>
+            <?php if ($_SESSION['vista']['PAQUETES_ESTUDIOS'] == 1) : ?>
                 <li>
                     <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/lista-precio/#PAQUETES_ESTUDIOS'; ?>">
                         <i class="bi bi-dot"></i> Paquetes
@@ -186,17 +186,11 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
             <hr class="dropdown-divider">
         </ul>
     </div>
+
 <?php endif; ?>
 
 <?php if($_SESSION['vista']['CAJA_CHICA'] == 1):  ?>
     <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/caja_chica/#CAJACHICA'; ?>">
         <i class="bi bi-piggy-bank"></i> Caja chica
-    </a>
-<?php endif; ?>
-
-
-<?php if($_SESSION['vista']['MAQUILAS'] == 1):  ?>
-    <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/maquilas/'; ?>">
-        <i class="bi bi-file-earmark-break"></i> Maquilas
     </a>
 <?php endif; ?>

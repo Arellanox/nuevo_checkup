@@ -111,7 +111,6 @@ switch ($api) {
             $conservacion,
             $_SESSION['id']
         ];
-        $master->mis->setLog(json_encode($payload), 'Payload');
 
         $response = $master->insertByProcedure("sp_servicio_laboratorio_g", $payload);
         break;
@@ -153,10 +152,7 @@ switch ($api) {
                 array_push($arrayMuestras, $muestras);
                 array_push($arrayContenedoryMuestra, array('CONTENEDOR_ID' => $contenedores, 'MUESTRA_ID' =>  $muestras));
             }
-            //     if(!in_array($response[$i]['MUESTRA_ID'], $arrayMuestras)){
-            //         $muestras = $response[$i]['MUESTRA_ID'];
-            //         array_push($arrayMuestras, $muestras);
-            //     }
+
         }
 
         $response = array(
@@ -191,7 +187,7 @@ switch ($api) {
         #obtener lista de estudios por id_grupo
         $grupo_id = $_POST['grupo_id'];
 
-        $response = $master->getByProcedure('sp_servicios_por_grupo_b', [$grupo_id, $servicio_id]); #<-- Falta obtener grupos por servicio 
+        $response = $master->getByProcedure('sp_servicios_por_grupo_b', [$grupo_id, $servicio_id]); #<-- Falta obtener grupos por servicio
         break;
     case 4:
         #Agregar varios estudios a un grupo
@@ -201,18 +197,13 @@ switch ($api) {
             json_encode($servicios)
         );
 
-
         $response = $master->insertByProcedure('sp_detalle_grupo_g_2', $grupos_data);
-
-        // echo '<pre>';
-        // print_r($grupos_data);
-        // echo '</pre>';
-        // exit;
-
         break;
     case 5:
         # marcar como pendiente un estudio
-        $response = $master->insertByProcedure('sp_turnos_estudios_pendientes_g', [$turno_id, $id_servicio, $pendiente, $_SESSION['id']]);
+        $response = $master->insertByProcedure('sp_turnos_estudios_pendientes_g', [
+            $turno_id, $id_servicio, $pendiente, $_SESSION['id']
+        ]);
         break;
     case 6:
         # notificacion de estudios pendientes

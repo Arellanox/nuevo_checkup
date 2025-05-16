@@ -12,5 +12,4 @@ $('#btn-regresar-vista').click(function () {
     }, function () {
         obtenerContenidoAntecedentes(pacienteActivo.array)
     })
-});
-
+})

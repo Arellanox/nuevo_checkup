@@ -67,12 +67,10 @@ $cajas_usuarios_e = array(
 
 #Parametros para guardar un nuevo corte de caja
 $data_corte_caja = $master->setToNull(array(
-
     $id_caja,
     $usuario,
     $subtotal,
     $total
-
 ));
 
 
@@ -80,11 +78,10 @@ $data_corte_caja = $master->setToNull(array(
 $data_forma_pago_monto = $master->setToNull(array(
     $turno_id,
     $id_corte
-
 ));
 
+$esFranquicia = $_SESSION['franquiciario'] ?? null;
 # ========================================================================
-
 
 switch ($api) {
     case 1:
@@ -93,8 +90,9 @@ switch ($api) {
         break;
     case 2:
         # Mostrar las cajas asignadas a usuarios
-        $response = $master->getByProcedure("sp_cajas_b", [$id_caja, $usuario]);
-        $response = $master->decodeJsonRecursively($response);
+        $response = $master->getByProcedure("sp_cajas_b", [
+            $id_caja, $usuario, $esFranquicia
+        ]);
         break;
     case 3:
         # Finalizar el corte de caja
@@ -118,7 +116,9 @@ switch ($api) {
         break;
     case 8:
         #recuperar todos los usuarios
-        $response = $master->getByProcedure("sp_usuarios_b", [null, null]);
+        $response = $master->getByProcedure("sp_usuarios_b", [
+            null, null, $esFranquicia ? $_SESSION['id_cliente'] : null
+        ]);
         break;
     case 9:
         #Mostrar la informacion de los historiales de los cortes de cajas

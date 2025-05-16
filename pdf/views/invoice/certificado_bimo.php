@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Certificado Médico</title>
     <style>
-        <?php include 'assets/certiciado_bimo.css'; ?>
+        <?php include 'assets/certificado_bimo.css'; ?>
 
         .footer .page:after {
             content: counter(page);
@@ -16,34 +16,34 @@
 <body>
 
 <?php
-    $ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
-    $encode = base64_encode($ruta);
+$ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
+$encode = base64_encode($ruta);
 
-    $ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
-    $encode_firma = base64_encode($ruta_firma);
+$ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
+$encode_firma = base64_encode($ruta_firma);
 ?>
 
 <header class="header">
     <?php
-        $titulo = 'DIAGNOSTICO BIOMOLECULAR';
-        $tituloPersonales = 'Laboratorio de Biología Molecular';
-        $subtitulo = 'Requisición Maquilas';
-        $encabezado->CREACION = $REPOSICION[0]->FECHA_REQUISICION;
-        $encabezado->FOLIO = $REPOSICION[0]->FOLIO;
-        $encabezado->ESTADO = $REPOSICION[0]->ESTADO;
-        $encabezado->RESPONSABLE = $REPOSICION[0]->RESPONSABLE;
+    $titulo = 'DIAGNOSTICO BIOMOLECULAR';
+    $tituloPersonales = 'Laboratorio de Biología Molecular';
+    $subtitulo = 'Requisición Maquilas';
+    $encabezado->CREACION = $REPOSICION[0]->FECHA_REQUISICION;
+    $encabezado->FOLIO = $REPOSICION[0]->FOLIO;
+    $encabezado->ESTADO = $REPOSICION[0]->ESTADO;
+    $encabezado->RESPONSABLE = $REPOSICION[0]->RESPONSABLE;
 
-        include 'layouts/header/certificado_bimo.php';
+    include 'layouts/header/certificado_bimo.php';
     ?>
 </header>
 
 <main>
     <?php
-        $paciente = $resultados->PACIENTE[0] ?? [];
-        $servicios = $resultados->SERVICIOS ?? [];
+    $paciente = $resultados->PACIENTE[0] ?? [];
+    $servicios = $resultados->SERVICIOS ?? [];
 
-        $array_aptitud = json_decode($paciente->APTITUD ?? "[]");
-        $array_tipo_exam = json_decode($paciente->TIPO_EXAMEN_MEDICO ?? "[]");
+    $array_aptitud = json_decode($paciente->APTITUD ?? "[]");
+    $array_tipo_exam = json_decode($paciente->TIPO_EXAMEN_MEDICO ?? "[]");
     ?>
     <table class="tb-datos-personales">
         <thead class="tb-datos-personales-header">
@@ -136,9 +136,9 @@
     </table>
     <table class="tb-clasificacion">
         <thead class="tb-clasificacion-header">
-            <tr>
-                <th colspan="24">CLASIFICACIÓN EN GRADO DE SALUD</th>
-            </tr>
+        <tr>
+            <th colspan="24">CLASIFICACIÓN EN GRADO DE SALUD</th>
+        </tr>
         </thead>
         <tbody>
         <tr>
@@ -213,34 +213,33 @@
                 $servicios_area6 = array_values($servicios_area6); // Reindexar el array
                 $count = count($servicios_area6);
 
-                for ($i = 0; $i < $count; $i += 2): ?>
-                    <tr>
-                        <td colspan="3"><strong><?= $servicios_area6[$i]->SERVICIO ?></strong></td>
+            for ($i = 0; $i < $count; $i += 2): ?>
+                <tr>
+                    <td colspan="3"><strong><?= $servicios_area6[$i]->SERVICIO ?></strong></td>
+                    <td colspan="3"></td>
+                    <?php if (isset($servicios_area6[$i + 1])): ?>
+                        <td colspan="3"><strong><?= $servicios_area6[$i + 1]->SERVICIO ?></strong></td>
                         <td colspan="3"></td>
-                        <?php if (isset($servicios_area6[$i + 1])): ?>
-                            <td colspan="3"><strong><?= $servicios_area6[$i + 1]->SERVICIO ?></strong></td>
-                            <td colspan="3"></td>
-                        <?php else: ?>
-                            <td colspan="6"></td>
-                        <?php endif; ?>
-                    </tr>
+                    <?php else: ?>
+                        <td colspan="6"></td>
+                    <?php endif; ?>
+                </tr>
             <?php endfor; ?>
-
         </tbody>
     </table>
 </main>
 
 <footer class="footer">
     <?php
-        $ruta_qr = preg_replace(
-            '#https?://[^/]+/nuevo_checkup/#',
-            './../', $paciente->RUTA_QR
-        );
+    $ruta_qr = preg_replace(
+        '#https?://[^/]+/nuevo_checkup/#',
+        './../', $paciente->RUTA_QR
+    );
 
-        $ruta_validacion = file_get_contents($ruta_qr);
-        $encode_validacion = base64_encode($ruta_validacion);
+    $ruta_validacion = file_get_contents($ruta_qr);
+    $encode_validacion = base64_encode($ruta_validacion);
 
-        include 'layouts/footer/certificado_bimo.php';
+    include 'layouts/footer/certificado_bimo.php';
     ?>
 </footer>
 </body>

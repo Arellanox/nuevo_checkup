@@ -81,7 +81,6 @@ input[type=number] {
   background-color: rgb(216 223 225 / 20%);
   color: rgb(0 78 89);
   word-break: break-all;
-  z-index: 30;
   /* font-weight: bold; */
 }
 
