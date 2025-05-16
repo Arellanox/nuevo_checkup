@@ -1,4 +1,4 @@
-const columnasRecepcionPacientesFranquicia = [
+var columnasRecepcionPacientesFranquicia = [
   { data: 'COUNT' },
   { data: 'NOMBRE_COMPLETO' },
   {

@@ -125,18 +125,16 @@ class Master extends Miscelaneus
                 } else {
                     $retorno = "Alerta: la consulta no devolvió resultado";
                 }
-
-                $this->mis->setLog(json_encode($fila), 'error');
             } else {
                 $error_msj = "Ha ocurrido un error(" . $sentencia->errorCode() . "). " . implode(" ", $sentencia->errorInfo());
                 # return "ERROR. No se pudieron recuperar los datos.";
-                $retorno = "Alerta: la consulta al servidor no se realizó correctamente".json_encode($sentencia->errorInfo());
+                $retorno = "Alerta: la consulta al servidor no se realizó correctamente".implode(" ", $sentencia->errorInfo());
             }
 
             $sentencia->closeCursor();
             return $retorno;
         } catch (Exception $e) {
-            $this->mis->setLog($e->getMessage(), $nombreProcedimiento);
+            $this->mis->setLog($e->getMessage(), 'error en: '.$nombreProcedimiento);
             echo $e->getMessage();
         } finally {
             $conexion = null;
