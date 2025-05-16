@@ -3,6 +3,14 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/clases/PHPMailer/src" isTestSource="false" packagePrefix="PHPMailer\PHPMailer\" />
+      <sourceFolder url="file://$MODULE_DIR$/clases/PHPMailer/test" isTestSource="true" packagePrefix="PHPMailer\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/pdf/dompdf/lib/php-css-parser/lib" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pdf/dompdf/lib/php-font-lib/src/FontLib" isTestSource="false" packagePrefix="FontLib\" />
+      <sourceFolder url="file://$MODULE_DIR$/pdf/dompdf/lib/php-svg-lib/src/Svg" isTestSource="false" packagePrefix="Svg\" />
+      <sourceFolder url="file://$MODULE_DIR$/pdf/dompdf/lib/php-svg-lib/tests/Svg" isTestSource="true" packagePrefix="Svg\Tests\" />
+      <sourceFolder url="file://$MODULE_DIR$/pdf/dompdf/src" isTestSource="false" packagePrefix="Dompdf\" />
+      <sourceFolder url="file://$MODULE_DIR$/pdf/dompdf/tests" isTestSource="true" packagePrefix="Dompdf\Tests\" />
       <excludeFolder url="file://$MODULE_DIR$/lib/libmergpdf/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/lib/libmergpdf/vendor/iio/libmergepdf" />
       <excludeFolder url="file://$MODULE_DIR$/lib/libmergpdf/vendor/setasign/fpdi" />
@@ -19,6 +27,10 @@
       <excludeFolder url="file://$MODULE_DIR$/php/dompdf/vendor/sabberworm/php-css-parser" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/kwn/number-to-words" />
+      <excludeFolder url="file://$MODULE_DIR$/clases/PhpSpreadsheet/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/clases/PhpSpreadsheet/vendor/markbaker/complex" />
+      <excludeFolder url="file://$MODULE_DIR$/clases/PhpSpreadsheet/vendor/phpoffice/phpspreadsheet" />
+      <excludeFolder url="file://$MODULE_DIR$/clases/PhpSpreadsheet/vendor/psr/simple-cache" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

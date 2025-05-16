@@ -36,8 +36,6 @@ switch ($api) {
             json_encode($detalle), $subtotal_sin_descuento, $fecha_vigencia, $domicilio_fiscal
         ]);
 
-        $master->setLog(json_encode($response), 'sp_cotizaciones_g');
-
         #Obtemos el ID_COTIZACION para crear el poder crear el PDF
         $id_cotizacion_pdf = $master->getByProcedure('sp_cotizaciones_info_b', [$id_cotizacion]);
         $id_cotizacion_pdf = $id_cotizacion_pdf[0]['ID_COTIZACION'];
@@ -60,8 +58,6 @@ switch ($api) {
 
             $response[] = $set;
         }
-
-        $master->setLog(json_encode($response), 'RESULTADO: ');
         break;
     case 3:
         # eliminar cotizacion

@@ -127,29 +127,6 @@ $("#UsarPaquete").on("click", function () {
                 }
             }
         );
-    } else {
-        ajaxAwait({id_cotizacion: id_cotizacion, api: 2}, "cotizaciones_api", {callbackAfter: true}, false,
-            (data) => {
-                if (data.response.data.length > 0) {
-                    const response_register = data.response.data[0];
-
-                    const domicilio_fiscal =
-                        (response_register['DOMICILIO_FISCAL'] && response_register['DOMICILIO_FISCAL'].trim() !== '')
-                            ? response_register['DOMICILIO_FISCAL'] :
-                            `${response_register["ESTADO"] ?? 'Estado'}, ` +
-                            `${response_register["MUNICIPIO"] ?? 'Municipio'}, ` +
-                            `Col. ${response_register["COLONIA"] ?? 'Colonia'}, ` +
-                            `C. ${response_register["CALLE"] ?? 'Calle'}, ` +
-                            `No. Ext. ${response_register["NUMERO_EXTERIOR"] ?? 'SN'}, ` +
-                            `No. Int. ${response_register["NUMERO_INTERIOR"] ?? 'SN'}`;
-
-                    $("#input-domicilio_fiscal").val(domicilio_fiscal);
-                    $("#fiscalCotizacionCliente").html(domicilio_fiscal);
-                } else {
-                    $("#fiscalCotizacionCliente").html('Completa los datos del cliente, para autorellenar esta sección.');
-                }
-            }
-        );
     }
 });
 
@@ -189,22 +166,16 @@ $('input[type=radio][name=selectChecko]').change(function () {
         rellenarSelect("#seleccion-estudio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
             area_id: value,
             cliente_id: clienteId
-        }, function (listaEstudios) {
-            selectEstudio = new GuardarArreglo(listaEstudios);
-        });
+        }, function (listaEstudios) { selectEstudio = new GuardarArreglo(listaEstudios); });
     } else if (value === 13) {
         rellenarSelect("#seleccion-estudio", "paquetes_api", 2, "ID_PAQUETE", "DESCRIPCION", {
             cliente_id: clienteId
-        }, function (listaPaquetes) {
-            selectEstudio = new GuardarArreglo(listaPaquetes)
-        })
+        }, function (listaPaquetes) { selectEstudio = new GuardarArreglo(listaPaquetes) })
     } else {
         rellenarSelect("#seleccion-estudio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
             area_id: value,
             cliente_id: clienteId
-        }, function (listaEstudios) {
-            selectEstudio = new GuardarArreglo(listaEstudios);
-        });
+        }, function (listaEstudios) { selectEstudio = new GuardarArreglo(listaEstudios); });
     }
 });
 
@@ -242,7 +213,9 @@ $("#guardar-contenido-paquete").on("click", function () {
                     domicilio_fiscal: $("#input-domicilio_fiscal").val(),
                 };
 
-                if ($("input[type=radio][name=selectPaquete]:checked").val() === 2) {
+                console.log(dataAjaxDetalleCotizacion["descuento_porcentaje"])
+
+                if ($("input[type=radio][name=selectPaquete]:checked").val() == 2) {
                     datajson["id_cotizacion"] = $("#select-presupuestos").val();
                 }
 

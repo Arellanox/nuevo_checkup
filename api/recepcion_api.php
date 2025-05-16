@@ -175,8 +175,6 @@ switch ($api) {
                         $paciente[0]['EDAD'], $paciente[0]['GENERO'], "FRANQUICIA", NULL, 1, [], "",
                         $_SESSION['id'], "", $idTurno
                     ]);
-
-                    $master->mis->setLog(json_encode($response1), 'Maquilas: ');
                 }
             }
 
@@ -186,8 +184,6 @@ switch ($api) {
             $response = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', [
                 $idTurno, $idPaquete, null, $_SESSION['id']
             ]);
-
-            $master->mis->setLog(json_encode($response), 'INSERTAR DETALLE DEL PAQUETE EN CUESTION: ');
 
             # Aqui subir las ordenes medicas si las hay y crear la carpeta de tunos dentro de
             if (count($ordenes) > 0) {
@@ -233,8 +229,6 @@ switch ($api) {
                 $detalles= $master->insertByProcedure('sp_recepcion_detalle_paciente_g', [
                     $idTurno, null, $value, $_SESSION['id']
                 ]);
-
-                $master->mis->setLog(json_encode($detalles), ' sp_recepcion_detalle_paciente_g: ');
             }
         }
 
