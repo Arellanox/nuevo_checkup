@@ -421,7 +421,7 @@ selectDatatable('tableCatArticulos', tableCatArticulos,0,0,0,0, async function(s
 
     // EDITAR que al editar aparezca la fecha actual de ese articulo en la bd
     $("#editarArticuloForm #fechaCaducidad").val(fechaCaducidad);
-    $("#area").text(rowSelected.AREA);
+    $("#areaDetalle").text(rowSelected.AREA);
     $("#rendimientoEstimado").text(rowSelected.RENDIMIENTO_ESTIMADO);
     $("#rendimientoPaciente").text(rowSelected.RENDIMIENTO_PACIENTE);
     $("#nombreComercial").html(`${rowSelected.NOMBRE_COMERCIAL} ${rowSelected.RED_FRIO == 1 ? '<span class="badge text-bg-primary"><i class="bi bi-snow2 fs-4" title="Refrigerado"></i></span>' : '<span class="badge text-bg-warning"><i class="bi bi-thermometer-half fs-4" title="Temperatura ambiente"></i></span>'}`);
