@@ -4,7 +4,7 @@ select2('#select-presupuestos', 'form-select-paquetes')
 
 //Declarar variable para la clase
 var selectEstudio, SelectedFolio;
-var datosUsuarioCotizacion;
+var datosUsuarioCotizacion = $('#datosUsuarioCotizacion');
 let correos;
 
 $('#agregar-estudio-paquete').click(function () {
@@ -37,9 +37,15 @@ $("#informacionPaquete").addClass("disable-element");
 $("#UsarPaquete").on("click", function () {
     if ($("input[type=radio][name=selectPaquete]:checked").val() === 2) {
         if (!$("#select-presupuestos").val()) {
-            alertToast("Necesitas seleccionar un presupuesto de este cliente", "error", "5000");
+            alertToast(
+                "Necesitas seleccionar un presupuesto de este cliente",
+                "error",
+                "5000"
+            );
             return false;
-        } else { SelectedFolio = $("#folio-cotizacion").val();}
+        } else {
+            SelectedFolio = $("#folio-cotizacion").val();
+        }
     }
 
     const id_cotizacion = $("#select-presupuestos").val();
@@ -121,6 +127,29 @@ $("#UsarPaquete").on("click", function () {
                 }
             }
         );
+    } else {
+        ajaxAwait({id_cotizacion: id_cotizacion, api: 2}, "cotizaciones_api", {callbackAfter: true}, false,
+            (data) => {
+                if (data.response.data.length > 0) {
+                    const response_register = data.response.data[0];
+
+                    const domicilio_fiscal =
+                        (response_register['DOMICILIO_FISCAL'] && response_register['DOMICILIO_FISCAL'].trim() !== '')
+                            ? response_register['DOMICILIO_FISCAL'] :
+                            `${response_register["ESTADO"] ?? 'Estado'}, ` +
+                            `${response_register["MUNICIPIO"] ?? 'Municipio'}, ` +
+                            `Col. ${response_register["COLONIA"] ?? 'Colonia'}, ` +
+                            `C. ${response_register["CALLE"] ?? 'Calle'}, ` +
+                            `No. Ext. ${response_register["NUMERO_EXTERIOR"] ?? 'SN'}, ` +
+                            `No. Int. ${response_register["NUMERO_INTERIOR"] ?? 'SN'}`;
+
+                    $("#input-domicilio_fiscal").val(domicilio_fiscal);
+                    $("#fiscalCotizacionCliente").html(domicilio_fiscal);
+                } else {
+                    $("#fiscalCotizacionCliente").html('Completa los datos del cliente, para autorellenar esta sección.');
+                }
+            }
+        );
     }
 });
 
@@ -196,24 +225,24 @@ $("#guardar-contenido-paquete").on("click", function () {
                 showLoaderOnConfirm: true,
             },
             async function () {
-                let atencion = $("#input-atencion-cortizaciones").val();
-                let correo = $("#input-correo-cortizaciones").val();
-                let observaciones = $("#input-observaciones-cortizaciones").val();
-                let fecha_vigencia = $("#input-fecha-vigencia").val();
-                let domicilio_fiscal = $("#input-domicilio_fiscal").val();
-
                 let datajson = {
-                    api: 1, detalle: dataAjax,
+                    api: 1,
+                    detalle: dataAjax,
                     total: dataAjaxDetalleCotizacion["total"].toFixed(2),
                     subtotal: dataAjaxDetalleCotizacion["subtotal"].toFixed(2),
                     subtotal_sin_descuento: dataAjaxDetalleCotizacion["subtotal_sindescuento"].toFixed(2),
                     iva: dataAjaxDetalleCotizacion["iva"].toFixed(2),
                     descuento: dataAjaxDetalleCotizacion["descuento"],
-                    descuento_porcentaje: dataAjaxDetalleCotizacion["descuento_porcentaje"], cliente_id: dataAjaxDetalleCotizacion["cliente_id"],
-                    atencion: atencion, correo: correo, observaciones: observaciones, fecha_vigencia: fecha_vigencia, domicilio_fiscal: domicilio_fiscal,
+                    descuento_porcentaje: dataAjaxDetalleCotizacion["descuento_porcentaje"],
+                    cliente_id: dataAjaxDetalleCotizacion["cliente_id"],
+                    atencion: $("#input-atencion-cortizaciones").val(),
+                    correo: $("#input-correo-cortizaciones").val(),
+                    observaciones: $("#input-observaciones-cortizaciones").val(),
+                    fecha_vigencia: $("#input-fecha-vigencia").val(),
+                    domicilio_fiscal: $("#input-domicilio_fiscal").val(),
                 };
 
-                if ($("input[type=radio][name=selectPaquete]:checked").val() == 2) {
+                if ($("input[type=radio][name=selectPaquete]:checked").val() === 2) {
                     datajson["id_cotizacion"] = $("#select-presupuestos").val();
                 }
 
@@ -226,7 +255,7 @@ $("#guardar-contenido-paquete").on("click", function () {
                     alertMsj({
                         title: "Cotización guardada",
                         text: `Tu nuevo cotización ha sido guardada con el siguiente folio: ${
-                            data.response.data ? data.response.data : SelectedFolio
+                            data.response.data === "1" ? SelectedFolio : data.response.data
                         }`,
                         icon: "success",
                         showCancelButton: false,
@@ -234,19 +263,11 @@ $("#guardar-contenido-paquete").on("click", function () {
                         confirmButtonColor: "green",
                     });
 
-                    if($("input[type=radio][name=selectPaquete]:checked").val() == 2){
-                        $("#modalInfoDetalleCotizacion").modal("hide");
-                        $("#nombreCotizacionCliente").html(row2["CREADO_POR"]);
-                        $("#correoCotizacionCliente").html(row2["CORREO"]);
-                        $("#fiscalCotizacionCliente").html(row2["DOMICILIO_FISCAL"]);
-                        $("#observacionesCotizacionCliente").html(row2["OBSERVACIONES"]);
-                    }else{
-                        $("#modalInfoDetalleCotizacion").modal("hide");
-                        $("#nombreCotizacionCliente").html(atencion);
-                        $("#correoCotizacionCliente").html(correo);
-                        $("#fiscalCotizacionCliente").html(domicilio_fiscal);
-                        $("#observacionesCotizacionCliente").html(observaciones);
-                    }
+                    $("#modalInfoDetalleCotizacion").modal("hide");
+                    $("#nombreCotizacionCliente").html(row2["CREADO_POR"]);
+                    $("#correoCotizacionCliente").html(row2["CORREO"]);
+                    $("#fiscalCotizacionCliente").html(row2["DOMICILIO_FISCAL"]);
+                    $("#observacionesCotizacionCliente").html(row2["OBSERVACIONES"]);
                 }
             }
         );
