@@ -14,14 +14,14 @@
             <!-- Columna izquierda: Imagen -->
             <div class="col-md-4 text-center">
                <!-- Botones con íconos para mostrar Inserto y Procedimiento de Prueba -->
-               <div class="d-grid gap-3">
+               <div class="d-grid gap-2">
                   <!-- Ver imagen completa del articulo  -->
                   <a target="_blank" id="verImagenArt"><img id="imagenProducto" alt="Imagen del Producto" class="img-fluid rounded" style="max-height: 300px;"></a>
                   <!-- Botón para ver el Inserto -->
                   <a target="_blank" class="btn btn-danger" id="verInsertoBtn"><i class="fas fa-file-pdf"></i> Ver Inserto</a>
                   <!-- Botón para ver el Procedimiento de Prueba -->
                   <a target="_blank" class="btn btn-secondary" id="verProcedimientoBtn"><i class="fas fa-vial"></i> Ver Procedimiento</a>
-                               <!-- Puedes poner esto donde quieras en tu archivo HTML -->
+                               <!-- Botón editar desde detalles (Inactivo)
                   <button
                     type="button"
                     class="btn btn-secondary"
@@ -30,7 +30,7 @@
                     data-bs-placement="top"
                     title="Editar el artículo seleccionado">
                     <i class="bi bi-pencil-square"></i> Editar
-                  </button>
+                  </button> -->
                 </div>
                 <div class="d-grid gap-2 text-center containerSvg" id="animation">
                   
@@ -231,7 +231,8 @@
 
 
   </style>
-
+<!-- Manejo del modal desde los detalles (Inactivo) -->
+ <!--
   <script>
     // Puedes poner esto en el archivo JS que controla el modal de detalles
     $('#btnEditarArticulo').on('click', function() {
@@ -295,3 +296,4 @@
         }
     });
   </script>
+-->
