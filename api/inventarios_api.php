@@ -130,7 +130,8 @@ switch($api){
             $estatus,
             $red_frio,
             $tipo_articulo,
-            $maneja_caducidad
+            $maneja_caducidad,
+            $area_id
         ]);
         break;
     case 4:

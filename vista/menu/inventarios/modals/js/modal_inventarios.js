@@ -97,6 +97,7 @@ $("#filtrarArticuloForm").submit(function(event){
     let redFrio = $('input[name="redFrio"]:checked').val();
     let tipoArticulo = $('#tipoArticulo').val();
     let manejaCaducidad = $('input[name="manejaCaducidad"]:checked').val();
+    let area = $('#area').val();
 
     // Limpia el objeto antes de asignar
     dataTableCatArticulos = { api: 3 };
@@ -105,6 +106,7 @@ $("#filtrarArticuloForm").submit(function(event){
     if (redFrio !== undefined) dataTableCatArticulos.red_frio = redFrio;
     if (tipoArticulo !== "" && tipoArticulo !== null) dataTableCatArticulos.tipo_articulo = tipoArticulo;
     if (manejaCaducidad !== undefined) dataTableCatArticulos.maneja_caducidad = manejaCaducidad;
+    if (area !== "" && area !== null) dataTableCatArticulos.area_id = area;
 
     console.log(dataTableCatArticulos);
 
@@ -135,6 +137,7 @@ toggleFieldset('#ignorarActivo', '#activoRadios');
 toggleFieldset('#ignorarRedFrio', '#redFrioRadios');
 toggleFieldset('#ignorarTipoArticulo', '#tipoArticulo');
 toggleFieldset('#ignorarManejaCaducidad', '#manejaCaducidadRadios');
+toggleFieldset('#ignorarArea','#area');
 
 $('input[type=radio]').change(function() {
     const checkboxId = $(this).closest('.card-body').find('.form-check-input').attr('id');
@@ -146,8 +149,9 @@ function toggleResetButton() {
                             $('input[name="redFrio"]:checked').length > 0 ||
                             $('input[name="manejaCaducidad"]:checked').length > 0;
     const tipoArticuloSelected = $('#tipoArticulo').val() !== "" && $('#tipoArticulo').val() !== null;
+    const areaSelected = $('#area').val() !== "" && $('#area').val() !== null;
 
-    if (anyRadioChecked || tipoArticuloSelected) {
+    if (anyRadioChecked || tipoArticuloSelected || areaSelected) {
         $('#resetFiltrosBtn').show();
     } else {
         $('#resetFiltrosBtn').hide();
@@ -160,4 +164,5 @@ $('#resetFiltrosBtn').hide();
 // Mostrar/ocultar al cambiar radios o select
 $('input[type=radio][name="activo"], input[type=radio][name="redFrio"], input[type=radio][name="manejaCaducidad"]').on('change', toggleResetButton);
 $('#tipoArticulo').on('change', toggleResetButton);
+$('#area').on('change', toggleResetButton);
 
