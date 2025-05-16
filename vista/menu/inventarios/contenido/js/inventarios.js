@@ -484,7 +484,6 @@ $('#btnNuevoArticulo').click(function() {
 //preguntar si sirve
 //rellenarSelect('.tipo_articulo', 'inventarios_api', 2, 'ID_TIPO', 'DESCRIPCION');
 
-
 $(document).ready(function () {
     // Desactivar checkbox al seleccionar un radio button
     $('input[type="radio"]').on('change', function () {

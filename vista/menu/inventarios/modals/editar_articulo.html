@@ -99,8 +99,10 @@
                                                 <div class="mb-3">
                                                     <label for="tipo_articulo" class="form-label">Tipo Descripción</label>
                                                     <select class="form-select input-form tipo_articulo" id="tipo_articulo" name="tipo_articulo">
-                                                        <!-- Agrega las opciones según sea necesario -->
-        
+                                                         <option value="" disabled selected>Seleccione...</option>
+                                                            <option value="1">Reactivo</option>
+                                                            <option value="2">Insumo</option>
+                                                            <option value="3">Medicamento</option>
                                                     </select>
                                                 </div>
                                             
@@ -124,8 +126,9 @@
                                                     <label for="area_id" class="form-label">Área</label>
                                                     <select class="form-select input-form" id="area_id" name="area_id">
                                                         <!-- Agrega las opciones según sea necesario -->
+                                                         <option value="" disabled selected>Seleccione...</option>
                                                         <option value="6">Laboratorio clínico</option>
-                                                        <option value="12">Laboratorio molecular</option>
+                                                        <option value="12">Laboratorio biomolecular</option>
                                                         <option value="23">Otro</option>
                                                     </select>
                                                 </div>

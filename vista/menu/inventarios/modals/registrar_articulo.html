@@ -75,8 +75,11 @@
                                                 <div class="col-6">
                                                     <div class="mb-3">
                                                         <label for="tipo_articulo" class="form-label">Tipo Descripción</label>
-                                                        <select class="form-select tipo_articulo input-form" id="tipo_articulo" name="tipo_articulo">
-                                                            <!-- Agrega las opciones según sea necesario -->
+                                                        <select class="form-select tipo_articulo input-form" id="tipo_articulo" name="tipo_articulo" required>
+                                                            <option value="">Seleccione un tipo</option>
+                                                            <option value="1">Reactivo</option>
+                                                            <option value="2">Insumo</option>
+                                                            <option value="3">Medicamento</option>
                                                         </select>
                                                         <div class="invalid-feedback">Este campo es obligatorio.</div>
                                                         <small class="form-text text-muted">Seleccione el tipo de descripción del artículo.</small>
@@ -104,13 +107,14 @@
                                                     </div>
                                                 </div>
 
+                                                <!-- AREA -->
                                                 <div class="col-12">
                                                     <div class="mb-3">
                                                         <label for="area_id" class="form-label">Área</label>
-                                                        <select class="form-select input-form" id="area_id" name="area_id">
-                                                            <!-- Agrega las opciones según sea necesario -->
+                                                        <select class="form-select input-form" id="area_id" name="area_id" required>
+                                                            <option value="">Seleccione un área</option>
                                                             <option value="6">Laboratorio clínico</option>
-                                                            <option value="12">Laboratorio molecular</option>
+                                                            <option value="12">Laboratorio biomolecular</option>
                                                             <option value="23">Otro</option>
                                                         </select>
                                                         <div class="invalid-feedback">Este campo es obligatorio.</div>
