@@ -240,7 +240,7 @@ if(!isFranquisiario){
     )
 }
 
-const columnasIngresadosFranquicia = [
+var columnasIngresadosFranquicia = [
     { data: 'COUNT' },
     { data: 'NOMBRE_COMPLETO' },
     { data: 'PREFOLIO' },
@@ -301,7 +301,7 @@ const columnasIngresadosFranquicia = [
     },
     { data: null },
 ];
-const columnasDefIngresadosFranquicia = [
+var columnasDefIngresadosFranquicia = [
     { targets: 0, title: '#', className: 'all', width: '1%' },
     { targets: 1, title: 'Nombre', className: 'all nombre', width: '30%' },
     { targets: 2, title: 'Prefolio', className: 'none' },
