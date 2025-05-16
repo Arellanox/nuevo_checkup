@@ -44,7 +44,47 @@ $(document).ready(function(){
 
     // ocultar/mostrar fecha de caducidad segun el checkbox y que sea obligatorio
     $('#maneja_caducidad').trigger('change');
+    $('#tipo_articulo').trigger('change');
 });
+
+$('#tipo_articulo').on('change', function() {
+    if ($(this).val() == '1') {
+        $('#rendimientoEstimadoDiv').show();
+        $('#rendimientoPacienteDiv').show();
+        $('#insertoDiv').show();
+        $('#protocoloDiv').show();
+        $('#rendimientoEstimadoDiv').attr('required', true);
+        $('#rendimientoPacienteDiv').attr('required', true);
+        $('#insertoDiv').attr('required', true);
+        $('#protocoloDiv').attr('required', true);
+
+    } else if ($(this).val() == '3') {
+        $('#rendimientoEstimadoDiv').show();
+        $('#rendimientoPacienteDiv').show();
+        $('#insertoDiv').show();
+        $('#protocoloDiv').show();
+        $('#rendimientoEstimadoDiv').attr('required', true);
+        $('#rendimientoPacienteDiv').attr('required', true);
+        $('#insertoDiv').attr('required', true);
+        $('#protocoloDiv').attr('required', true); }
+        
+    else {
+        $('#rendimientoEstimadoDiv').hide();
+        $('#rendimientoPacienteDiv').hide();
+        $('#insertoDiv').hide();
+        $('#protocoloDiv').hide();
+        $('#rendimientoEstimadoDiv').val('');
+        $('#rendimientoPacienteDiv').val('');
+        $('#insertoDiv').val('');
+        $('#rendimientoEstimadoDiv').removeAttr('required');
+        $('#rendimientoPacienteDiv').removeAttr('required');
+        $('#insertoDiv').removeAttr('required');
+        $('#protocoloDiv').removeAttr('required');
+        $('#rendimientoEstimadoDiv').removeClass('is-invalid');
+        $('#insertoDiv').removeClass('is-invalid');
+        $('#protocoloDiv').removeClass('is-invalid');
+    }
+ });
 
 $('#maneja_caducidad').on('change', function() {
     if ($(this).val() == '1') {
