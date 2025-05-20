@@ -1,5 +1,5 @@
 $('#muestra-tomado').on('click', function () {
-    if (selectListaMuestras['MUESTRA_TOMADA'] === 0) {
+    if (selectListaMuestras['MUESTRA_TOMADA'] == 0) {
         Swal.fire({
             title: "¿Está seguro de confirmar la muestra?",
             text: "¡El paciente seguirá su turno!",
