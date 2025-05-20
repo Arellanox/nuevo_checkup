@@ -1,5 +1,3 @@
-
-
 var datalist, dataListaPaciente, selectEstudio, dataSelect;
 
 async function obtenerAgendaPacientes(titulos) {
@@ -11,11 +9,8 @@ async function obtenerAgendaPacientes(titulos) {
     });
 }
 
-
 // Botones
 $.getScript('contenido/js/agenda-botones.js')
-
-
 
 hasLocation()
 $(window).on("hashchange", function (e) {
@@ -47,15 +42,8 @@ function hasLocation() {
             localStorage.setItem('areaActual', 8);
             obtenerAgendaPacientes('Rayos X');
             break;
-
-        // case "AGENDA_PACIENTES":
-        //     areaActiva = 11;
-        //     localStorage.setItem('areaActual', 11);
-        //     obtenerAgendaPacientes();
-        //     break;
         default:
 
             break;
     }
-    // }
 }

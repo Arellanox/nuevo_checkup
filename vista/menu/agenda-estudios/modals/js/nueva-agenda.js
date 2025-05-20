@@ -1,6 +1,4 @@
-
 function cambiarVistaModal() {
-
     switch (localStorage.getItem('areaActual')) {
         case 19: case '19':
             $('#title-area, #subtext-area').html('Paquete')
@@ -17,12 +15,9 @@ function cambiarVistaModal() {
     }
 }
 
-
 const modalNuevaAgenda = document.getElementById('modalNuevaAgenda')
 modalNuevaAgenda.addEventListener('show.bs.modal', event => {
-
     cambiarVistaModal()
-
 
     switch (localStorage.getItem('areaActual')) {
         case 19: case '19':
@@ -40,8 +35,6 @@ modalNuevaAgenda.addEventListener('show.bs.modal', event => {
                 dataEstudios = new GuardarArreglo(data);
 
                 let selected = data[$("#select-us").prop('selectedIndex')]
-
-
             });
             break;
     }
@@ -112,15 +105,8 @@ $('#FormAgendaNueva').submit(function (event) {
             alertToast('¡Agenda registrada!', 'success', 4000);
             recargarListas()
         })
-
     }, 1)
-
-
-
 })
-
-
-
 
 let dataEstudios = false;
 let servicios = new Array();
@@ -130,7 +116,7 @@ $(document).on('click', '#btn-agregarEstudioImg', function (event) {
         selectData = dataEstudios.array[$("#select-us").prop('selectedIndex')]
         if (!servicios.includes(selectData['ID_SERVICIO'])) {
             servicios.push(selectData['ID_SERVICIO']);
-            console.log(servicios)
+
             agregarFilaDiv('#list-estudios-ultrasonido', selectData['DESCRIPCION'], selectData['ID_SERVICIO'])
             try {
                 //Establece el tiempo
@@ -156,7 +142,6 @@ $(document).on('click', '.eliminarfilaEstudio', function (event) {
 })
 
 function eliminarElementoArray(id) {
-    // with return
     let filtro = dataEstudios.array.find(objeto => objeto.ID_SERVICIO === id);
     dataEstudios.acumularResta(filtro['MINUTOS'])
     $('#tiempo-aproximado').html(`${dataEstudios.acumular} minutos`)
@@ -177,10 +162,7 @@ function agregarFilaDiv(appendDiv, text, id) {
         '</div>' +
         '</li>';
     $(appendDiv).append(html);
-    // console.log(estudiosEnviar);
 }
-
-
 
 function resetEstudios() {
     dataEstudios = false;

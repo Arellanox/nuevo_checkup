@@ -1,13 +1,11 @@
-$(document).ready(function () {
+$(document).ready(async function () {
+   var MyCalendar = $('#calendar');
+   var CalendarItems = {
+      events: []
+   };
 
-   var $calendar = $('#calendar');
-
-
-   getDataAjax();
-   function getDataAjax() {
-      var year = new Date().getFullYear();
-      var month = new Date().getMonth();
-      var day = new Date().getDate();
+   await getDataAjax();
+   async function getDataAjax() {
       $.ajax({
          url: `${localStorage.getItem('http')}${localStorage.getItem('servidor')}/${localStorage.getItem('appname')}/api/agenda_api.php`,
          data: {
@@ -17,49 +15,45 @@ $(document).ready(function () {
          dataType: 'json',
          type: 'POST',
          success: function (data) {
-            // console.log(data);
             data = data.response.data;
-            let event = {
-               events: []
-            };
+
             for (const key in data) {
                if (Object.hasOwnProperty.call(data, key)) {
                   const element = data[key];
-                  event['events'].push({
+                  CalendarItems['events'].push({
                      "id": parseInt(element.ID_AGENDA),
                      "start": new Date(element.CITA),
                      "end": new Date(element.FINALIZA),
                      "title": "Paciente: " + element.PACIENTE,
                      readOnly: true
-                  })
-
+                  });
                }
             }
 
-            calendar(event)
-
-            // let row = data.response.data;
+            calendar(CalendarItems);
          },
          error: function (jqXHR, exception, data) {
             console.log(jqXHR, exception, data)
          },
-      })
+      });
    }
 
-
-   function calendar(data) {
-      $calendar.weekCalendar({
+   function calendar(data = CalendarItems) {
+      MyCalendar.weekCalendar({
          timeslotsPerHour: 4,
          allowCalEventOverlap: true,
          overlapEventsSeparate: true,
          firstDayOfWeek: 1,
-         businessHours: { start: 7, end: 18, limitDisplay: true },
+         businessHours: {start: 7, end: 18, limitDisplay: true},
          daysToShow: 6,
          readonly: true,
          height: function ($calendar) {
             return $(window).height() - $("h1").outerHeight() - 1;
          },
          eventRender: function (calEvent, $event) {
+            console.log(calEvent)
+            console.log('===========')
+            console.log($event)
             if (calEvent.end.getTime() < new Date().getTime()) {
                $event.css("backgroundColor", "#aaa");
                $event.find(".wc-time").css({
@@ -74,25 +68,7 @@ $(document).ready(function () {
          resizable: function (calEvent, $event) {
             return calEvent.readOnly != true;
          },
-         eventNew: function (calEvent, $event) {
-         },
-         eventDrop: function (calEvent, $event) {
-            return false
-         },
-         eventResize: function (calEvent, $event) {
-            return false
-         },
-         eventClick: function (calEvent, $event) {
-
-         },
-         eventMouseover: function (calEvent, $event) {
-         },
-         eventMouseout: function (calEvent, $event) {
-         },
-         noEvents: function () {
-
-         },
-         data: data
+         data: data ?? CalendarItems
       });
    }
 
@@ -155,7 +131,6 @@ $(document).ready(function () {
       };
    }
 
-
    /*
     * Sets up the start and end time fields in the calendar event
     * form for editing based on the calendar event being edited
@@ -189,9 +164,9 @@ $(document).ready(function () {
       var startTime = $(this).find(":selected").val();
       var currentEndTime = $endTimeField.find("option:selected").val();
       $endTimeField.html(
-         $endTimeOptions.filter(function () {
-            return startTime < $(this).val();
-         })
+          $endTimeOptions.filter(function () {
+             return startTime < $(this).val();
+          })
       );
 
       var endTimeSelected = false;
@@ -228,8 +203,6 @@ $(document).ready(function () {
          }
       }).show();
    });
-
-
 
    function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = 'best fit') {
       if (fecha == null)
@@ -318,5 +291,4 @@ $(document).ready(function () {
       // //console.log(date)
       return date.toLocaleDateString('es-MX', options)
    }
-
 });
