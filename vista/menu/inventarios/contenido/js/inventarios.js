@@ -2,6 +2,7 @@ $(document).ready(function(){
 
      // Oculta el botón de agregar al cargar la página
         $('#btnAgregar').hide();
+        //$('#btnRegistrar').hide();
 
     // Al hacer clic en un enlace del menú
     $('.vertical-menu a').on('click', function(e) {
@@ -22,6 +23,13 @@ $(document).ready(function(){
         } else {
             $('#btnAgregar').hide();
         }
+
+        /*muestra el boton en entradas
+        if (targetDiv == 'moduloCatEntradas') {
+            $('#btnRegistrar').show();
+        } else {
+            $('#btnRegistrar').hide();
+        }*/
         
         // Muestra el div correspondiente al enlace clicado
         $('#' + targetDiv).show();
@@ -40,6 +48,7 @@ $(document).ready(function(){
         $('.content-module').hide();
         $('#tab-menu').show();
         $('#btnAgregar').hide();
+       //$('#btnRegistrar').hide();
     });
 
     // ocultar/mostrar fecha de caducidad segun el checkbox y que sea obligatorio
@@ -146,6 +155,7 @@ tableCatArticulos = $('#tableCatArticulos').DataTable({
             className: 'text-center'
         },
         { data: 'NOMBRE_COMERCIAL' },
+        /*
         { 
             data: 'COSTO_ULTIMA_ENTRADA',
             render: function(data, type, row) {
@@ -169,7 +179,8 @@ tableCatArticulos = $('#tableCatArticulos').DataTable({
                     return '';
                 }
             }
-        },
+        },*/
+        
         //{ data: 'ESTATUS' },
         {
             data: 'ESTATUS',
@@ -267,24 +278,23 @@ tableCatArticulos = $('#tableCatArticulos').DataTable({
        
     ],
     columnDefs: [
+        //editar los numeros segun las columnas que quieras, editar el tittle es el header de las tablas
         { target: 0, title: 'No. Art', className: 'all' },
         { target: 1, title: 'Clave Art', className: 'all' },
         { target: 2, title: 'Artículo', className: 'all'},
         { target: 3, title: 'Nombre comercial', className: 'all' },
-        { target: 4, title: 'Costo última entrada', className: 'all' },
-        { target: 5, title: 'Fecha última entrada', className: 'all' },
-        { target: 6, title: 'Estatus', className: 'all' },
-        { target: 7, title: 'Red frío', className: 'all' },
-        { target: 8, title: 'Unid. venta', className: 'all' },
-        { target: 9, title: 'Unid. mínima', className: 'all'},
-        { target: 10, title: 'Contenido', className: 'all'},
-        { target: 11, title: 'Tipo', className: 'all'},
-        { target: 12, title: 'Maneja caducidad', className: 'all'},
-        { target: 13, title: 'Fecha caducidad', className: 'all'},
-        { target: 14, title: 'Área', className: 'all'},
-        { target: 15, title: 'Costo más alto', className: 'all'},
-        { target: 16, title: 'Inserto', className: 'all'},
-        { target: 17, title: 'Proc. de prueba', className: 'all'},
+        { target: 4, title: 'Estatus', className: 'all' },
+        { target: 5, title: 'Red frío', className: 'all' },
+        { target: 6, title: 'Unid. venta', className: 'all' },
+        { target: 7, title: 'Unid. mínima', className: 'all'},
+        { target: 8, title: 'Contenido', className: 'all'},
+        { target: 9, title: 'Tipo', className: 'all'},
+        { target: 10, title: 'Maneja caducidad', className: 'all'},
+        { target: 11, title: 'Fecha caducidad', className: 'all'},
+        { target: 12, title: 'Área', className: 'all'},
+        { target: 13, title: 'Costo más alto', className: 'all'},
+        { target: 14, title: 'Inserto', className: 'all'},
+        { target: 15, title: 'Proc. de prueba', className: 'all'},
     ],
     dom: 'Bl<"dataTables_toolbar">frtip',
     buttons: [
@@ -340,13 +350,13 @@ tableCatArticulos = $('#tableCatArticulos').DataTable({
                         }
                     });
 
-                    $('#editarArticuloForm #fecha_ultima_entrada').val(
+                    $("#editarArticuloForm #costo_mas_alto").val(rowSelected.COSTO_MAS_ALTO);
+                    $("#editarArticuloForm #costo_ultima_entrada").val(rowSelected.COSTO_ULTIMA_ENTRADA);
+                    $("#editarArticuloForm #fecha_ultima_entrada").val(
                         rowSelected.FECHA_ULTIMA_ENTRADA ? rowSelected.FECHA_ULTIMA_ENTRADA.split(' ')[0] : ''
                     );
 
                     $("#editarArticuloForm #area_id").val(rowSelected.AREA_ID);
-                    $("#editarArticuloForm #costo_mas_alto").val(rowSelected.COSTO_MAS_ALTO);
-                    $("#editarArticuloForm #costo_ultima_entrada").val(rowSelected.COSTO_ULTIMA_ENTRADA);
                     $("#editarArticuloForm #rendimiento_estimado").val(rowSelected.RENDIMIENTO_ESTIMADO);
 
                 } else {
@@ -415,6 +425,104 @@ tableCatArticulos = $('#tableCatArticulos').DataTable({
     ]
 
 });
+
+//ENTRADAS tableEntradaArticulos
+tableCatEntradas = $('#tableCatEntradas').DataTable({
+    autoWidth: true,
+    language: {
+        url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+    },
+    lengthChange: false,
+    info: true,
+    paging: true,
+    sorting: true,
+    scrollY: '68vh',
+    scrollX: true,
+    scrollCollapse: true,
+    fixedHeader: true,
+    ajax: {
+        dataType: 'json',
+        data: function(d){
+            return $.extend(d, dataTableCatEntradas);
+        },
+        // data: { api: 2, equipo: id_equipos },
+        method: 'POST',
+        url: '../../../api/inventarios_api.php',
+        error: function (jqXHR, textStatus, errorThrown) {
+            alertErrorAJAX(jqXHR, textStatus, errorThrown);
+        },
+        dataSrc: 'response.data'
+    },
+    columns: [
+        { data: 'ID_ARTICULO' },
+        { data: 'CLAVE_ART' },
+        { data: 'NOMBRE_COMERCIAL' },
+        { data: 'CANTIDAD' },
+        { data: 'FECHA_ULTIMA_ENTRADA' },
+        { data: 'COSTO_ULTIMA_ENTRADA' },
+        { data: 'COSTO_MAS_ALTO' },
+        { data: 'PROVEEDOR' },
+        { data: 'RESPONSABLE' }
+    ],
+    columnDefs: [
+        { target: 0, title: 'Id Art', className: 'all' },
+        { target: 1, title: 'Clave Art', className: 'all' },
+        { target: 2, title: 'Nombre comercial', className: 'all' },
+        { target: 3, title: 'Cantidad de entrada', className: 'all' },
+        { target: 4, title: 'Fecha de última entrada', className: 'all' },
+        { target: 5, title: 'Costo de última entrada', className: 'all' },
+        { target: 6, title: 'Costo más alto', className: 'all' },
+        { target: 7, title: 'Proveedor', className: 'all' },
+        { target: 8, title: 'Responsable', className: 'all' }
+    ],
+    dom: 'Bl<"dataTables_toolbar">frtip',
+    buttons: [
+        {
+            //Boton para registrar entradas
+            text: '<i class="bi bi-pencil-square"></i> Registrar entrada',
+            className: 'btn btn-secondary',
+            attr: {
+              //disabled: true,
+              id: 'btnRegistrarEntrada',
+              'data-bs-toggle': "tooltip",
+              'data-bs-placement': "top",
+              title: "Registrar entradas del artículo seleccionado",
+              disabled: !userPermissions.canEdit
+            },
+            action: function () {
+                if (rowSelected) {      
+                    $("#registrarEntradaModal").modal('show');
+                    $('#registrandoEntrada').text(` ${rowSelected.CLAVE_ART}`);
+
+                    // Colocar los valores al formulario
+                    $('#registrarEntradaForm #clave_art').val(rowSelected.CLAVE_ART);
+                    $('#registrarEntradaForm #nombre_comercial').val(rowSelected.NOMBRE_COMERCIAL);
+                    $("#registrarEntradaForm #cantidad").val(rowSelected.CANTIDAD);
+                    $("#registrarEntradaForm #fecha_ultima_entrada").val(
+                        rowSelected.FECHA_ULTIMA_ENTRADA ? rowSelected.FECHA_ULTIMA_ENTRADA.split(' ')[0] : ''
+                    );
+                    $("#registrarEntradaForm #costo_ultima_entrada").val(rowSelected.COSTO_ULTIMA_ENTRADA);
+                    $("#registrarEntradaForm #costo_mas_alto").val(rowSelected.COSTO_MAS_ALTO);
+                     $("#registrarEntradaForm #proveedor").val(rowSelected.PROVEEDOR);
+
+                    if(rowSelected.ESTATUS == 1){
+                        $('#registrarEntradaForm #estatus').prop("checked", true);
+                    } else {
+                        $('#registrarEntradaForm #estatus').prop("checked", false);
+                    }
+                } else {
+                    alertToast('Por favor, seleccione un artículo', 'info', 4000)
+                }
+            }
+          },
+    ]
+});
+
+selectDatatable('tableCatEntradas', tableCatEntradas,0,0,0,0, async function(select, dataClick){
+    rowSelected = dataClick;
+}, async function(){
+
+})
 
 selectDatatable('tableCatArticulos', tableCatArticulos,0,0,0,0, async function(select, dataClick){
     // CUANDO SELECCIONAN UNA FILA DE LA TABLA
@@ -505,6 +613,8 @@ selectDatatable('tableCatArticulos', tableCatArticulos,0,0,0,0, async function(s
     $('#detalleProductoModal').modal('show');
 })
 
+
+//estilos para la barra de busqueda
 setTimeout(() => {
     inputBusquedaTable('tableCatArticulos', tableCatArticulos, [{
         msj: 'Filtre los registros por coincidencia',
@@ -513,6 +623,16 @@ setTimeout(() => {
 
     // resuelve el problema de ancho de las columnas en el titulo
     tableCatArticulos.columns.adjust().draw();
+}, 1000);
+
+setTimeout(() => {
+    inputBusquedaTable('tableCatEntradas', tableCatEntradas, [{
+        msj: 'Filtre los registros por coincidencia',
+        place: 'top'
+    }], [], 'col-12');
+
+    // resuelve el problema de ancho de las columnas en el titulo
+    tableCatEntradas.columns.adjust().draw();
 }, 1000);
 
 

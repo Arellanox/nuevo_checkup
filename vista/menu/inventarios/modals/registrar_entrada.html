@@ -1,0 +1,86 @@
+<div class="modal fade" id="registrarEntradaModal" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false"
+    data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitleRegistrarEntrada">Registrando entrada del siguiente artículo<strong><span id="registrandoEntrada"></span></strong></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="container-fluid">
+                    <div class="row">
+                         <!-- Formulario para crear una nueva caja -->
+                         <div class="col-12">
+                            <div class="text-start">
+                                <div class="shadow-sm rounded p-3 card-body">
+                                    <div class="row align-items-end">
+                                        <h5 class="text-dark">Ingresa los siguientes datos</h5>
+                                        <div class="col-12">
+                                            <form id="registrarEntradaForm" name="registrarEntradaForm">
+                                            
+                                                <!-- Clave Art -->
+                                                <div class="mb-3">
+                                                    <label for="clave_art" class="form-label">Clave Artículo</label>
+                                                    <input type="text" class="form-control input-form" id="clave_art" name="clave_art" readonly>
+                                                </div>
+                                            
+                                                <!-- Nombre Comercial -->
+                                                <div class="mb-3">
+                                                    <label for="nombre_comercial" class="form-label">Nombre Comercial</label>
+                                                    <input type="text" class="form-control input-form" id="nombre_comercial" name="nombre_comercial" readonly>
+                                                </div>
+
+                                                <!-- Cantidad -->
+                                                <div class="mb-3">
+                                                    <label for="cantidad" class="form-label">Cantidad</label>
+                                                    <input type="number" class="form-control input-form" id="cantidad" name="cantidad">
+                                                </div>
+
+                                                <!-- Fecha Última Entrada -->
+                                                <div class="mb-3">
+                                                    <label for="fecha_ultima_entrada" class="form-label">Fecha Última Entrada</label>
+                                                    <input type="date" class="form-control input-form" id="fecha_ultima_entrada" name="fecha_ultima_entrada">
+                                                </div>
+
+                                                <!-- Costo Última Entrada -->
+                                                <div class="mb-3">
+                                                    <label for="costo_ultima_entrada" class="form-label">Costo Última Entrada</label>
+                                                    <input type="number" step="any" class="form-control input-form" id="costo_ultima_entrada" name="costo_ultima_entrada">
+                                                </div>
+
+                                                <!-- Proveedor -->
+                                                <div class="mb-3">
+                                                    <label for="proveedor" class="form-label">Proveedor</label>
+                                                    <select class="form-select input-form" id="proveedor" name="proveedor">
+                                                        <option value="" disabled selected>Seleccione...</option>
+                                                        <option value="1">Proveedor 1</option>
+                                                        <option value="2">Proveedor 2</option>
+                                                        <option value="3">Proveedor 3</option>
+                                                    </select>
+                                            </form>
+                                            
+                                        </div>
+                                        <div class="col-12 d-flex justify-content-end">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i
+                        class="bi bi-arrow-left-short"></i>
+                    Cancelar</button>
+                </button>
+
+                <button type="submit" class="btn btn-confirmar"
+                    form="registrarEntradaForm">
+                    <i class="bi bi-pencil-square"></i> Editar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -19,10 +19,15 @@ async function contenidoInventario(){
 
 var tableCatArticulos;
 var dataTableCatArticulos;
+var dataTableCatEntradas;
 var rowSelected;
 
 console.log(userPermissions);
 
 dataTableCatArticulos = {
     api: 3
+}
+
+dataTableCatEntradas = {
+    api: 4
 }

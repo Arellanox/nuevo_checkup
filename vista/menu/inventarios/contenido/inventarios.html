@@ -7,16 +7,16 @@
             <h5>Elija una opción</h5>
             <div class="vertical-menu" id="menu-grid">
                 <a href="#articulos" data-target="moduloCatArticulos">
-                    <i class="bi bi-box-seam-fill icono-menu"></i>
+                    <i class="bi bi-box-seam icono-menu"></i>
                     <span>Artículos</span>
                 </a>
-                <a href="#recepcion" data-target="moduloRecepcionArticulos">
-                    <i class="bi bi-clipboard-check-fill icono-menu"></i>
-                    <span>Recepción de Artículos</span>
-                </a>
-                <a href="#entradas-salidas" data-target="moduloEntradasSalidas">
-                    <i class="bi bi-arrow-down-up icono-menu"></i>
-                    <span>Entradas y Salidas</span>
+                <a href="#entradas" data-target="moduloCatEntradas">
+                    <i class="bi bi-box-arrow-in-down-right icono-menu"></i>
+                    <span>Entradas</span>
+               </a>
+                <a href="#salidas" data-target="moduloCatSalidas">
+                    <i class="bi bi-box-arrow-in-up-right icono-menu"></i>
+                    <span>Salidas</span>
                 </a>
                 <a href="inventarios-fisicos" data-target="moduloInventariosFisicos">
                     <i class="bi bi-pencil-square icono-menu"></i>
@@ -63,20 +63,26 @@
             </div>
         </div>
 
-        <!-- RECEPCION DE ARTICULOS -->
-        <div class="rounded p-3 shadow my-2 content-module" id="moduloRecepcionArticulos">
+        <!-- ENTRADAS-->
+        <div class="rounded p-3 shadow my-2 content-module" id="moduloCatEntradas">
             <!-- Barra de título -->
             <div class="d-flex justify-content-between align-items-center p-3 mb-3 text-white rounded">
-                <h2 class="mb-0">Recepción de artículos</h2>
+                <h2 class="mb-0">Entradas</h2>
+            </div>
+        <!-- Tabla -->
+            <div class="table-responsive">
+                <table class="table responsive table-hover" style="min-width: 1000px;" id="tableCatEntradas">
+
+                </table>
             </div>
 
         </div>
 
-        <!-- ENTRADAS Y SALIDAS -->
-        <div class="rounded p-3 shadow my-2 content-module" id="moduloEntradasSalidas">
+        <!--SALIDAS -->
+        <div class="rounded p-3 shadow my-2 content-module" id="moduloSalidas">
             <!-- Barra de título -->
             <div class="d-flex justify-content-between align-items-center p-3 mb-3 text-white rounded">
-                <h2 class="mb-0">Entradas y salidas</h2>
+                <h2 class="mb-0">Salidas</h2>
             </div>
 
         </div>

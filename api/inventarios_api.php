@@ -49,6 +49,11 @@ $area_id = $_POST["area_id"];
 $rendimiento_estimado = $_POST['rendimiento_estimado'];
 $rendimiento_paciente = $_POST['rendimiento_paciente'];
 
+// no se si se utilizan
+$id_cat_entradas = $_POST['id_cat_entradas'];
+$cantidad = $_POST['cantidad'];
+$proveedor = $_POST['proveedor'];
+
 $host = $master->selectHost($_SERVER['SERVER_NAME']);
 
 switch($api){
@@ -92,7 +97,6 @@ switch($api){
             $procedimientoUrl = $master->setToNull([$procedimientoUrl])[0];
         }
 
-
         $response = $master->insertByProcedure("sp_inventarios_cat_articulos_g", [
             $id_articulo,
             $no_art,
@@ -135,10 +139,26 @@ switch($api){
         ]);
         break;
     case 4:
+        # recuperar los articulos de entrada
+        $response = $master->getByProcedure("sp_inventarios_entrada_articulos_b", []);
+        break;
+    case 5:
         # eliminar un articulo
         $response = $master->deleteByProcedure("sp_inventarios_cat_articulos_e",[$id_articulo, $_SESSION['id']]);
         break;
-    
+    case 6:
+        # ingresar datos faltantates a la tabla de entradas
+        $response = $master->insertByProcedure("sp_inventarios_cat_entradas_g", [
+            $id_articulo,
+            //$nombre_comercial,
+            $cantidad,
+            $fecha_ultima_entrada,
+            $costo_ultima_entrada,
+            //$costo_mas_alto,
+            $proveedor,
+            $_SESSION['id']
+        ]);
+        break;
     default:
         $response = "API no definida.";
 }
