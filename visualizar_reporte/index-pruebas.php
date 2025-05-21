@@ -6,40 +6,19 @@ include_once '../clases/master_class.php';
 include_once "../clases/Pdf.php";
 
 $master = new Master();
-// $tokenVerification = new TokenVerificacion();
-// $tokenValido = $tokenVerification->verificar();
-// if (!$tokenValido) {
-//     // $tokenVerification->logout();
-//     // exit;
-// }
-#Visualizar los reportes de ultrasonido y rayos X aqui
-//Recibir las variables codificadas
-
-// var myStr = "I am the string to encode";
-// var token = encodeURIComponent(window.btoa(myStr));
-
 
 $api = mb_convert_encoding(base64_decode(urldecode($_GET['api'])), 'UTF-8');
 $turno_id = mb_convert_encoding(base64_decode(urldecode($_GET['turno'])), 'UTF-8');
 $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8');
 $usuario_id = $_SESSION['id'];
-// mb_convert_encoding($rePa['paterno'],'UTF-8'));
-// Imagenologia --> 8 para rayos y 11 para ultrasonido
 
-
-
-// decomentar las siguientes 3 lineas para hacer las pruebas
-
-
-$api = "estados_cuentas";
-$area_id = -9;
+$api = "examen_medico";
+$area_id = -11;
 $turno_id = 821;
 $id_cliente = 15;
 // $id_cotizacion = 7;
 
-
 $preview = 0; // <- debe estar activo, y la firma de quien interpreta no debe aparecer
-
 
 switch ($api) {
     case 'imagenologia':
@@ -109,6 +88,10 @@ switch ($api) {
     case 'estados_cuentas':
         # imprimir estado de cuentas
         $r = $master->reportador($master, $turno_id, -9, 'estados_cuentas', 'mostrar', $preview);
+        break;
+    case 'examen_medico':
+        # imprimir exmane médico de adminisión
+        $r = $master->reportador($master, $turno_id, -11, 'examen_medico', 'mostrar', $preview);
         break;
     default:
         echo '<script language="javascript">alert("¡URL invalida!"); window.close()</script>';

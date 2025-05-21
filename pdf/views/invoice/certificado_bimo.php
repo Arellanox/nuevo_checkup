@@ -192,17 +192,17 @@ $encode_firma = base64_encode($ruta_firma);
     <br>
     <table class="tb-estudios">
         <thead class="tb-estudios-header">
-        <tr class="subheader">
-            <th class="empty" colspan="3"></th>
-            <th class="title" colspan="3">ESTUDIOS Y ANALISIS COMPLEMENTARIOS</th>
-            <th class="not-border" colspan="6"></th>
-        </tr>
-        <tr class="header-base">
-            <th colspan="3" style="border: 1px solid black;">Estudio</th>
-            <th colspan="3" style="border: 1px solid black;">Resultado</th>
-            <th colspan="3" style="border: 1px solid black;">Estudio</th>
-            <th colspan="3" style="border: 1px solid black;">Resultado</th>
-        </tr>
+            <tr class="subheader">
+                <th class="empty" colspan="3"></th>
+                <th class="title" colspan="3">ESTUDIOS Y ANALISIS COMPLEMENTARIOS</th>
+                <th class="not-border" colspan="6"></th>
+            </tr>
+            <tr class="header-base">
+                <th colspan="3" style="border: 1px solid black;">Estudio</th>
+                <th colspan="3" style="border: 1px solid black;">Resultado</th>
+                <th colspan="3" style="border: 1px solid black;">Estudio</th>
+                <th colspan="3" style="border: 1px solid black;">Resultado</th>
+            </tr>
         </thead>
         <tbody>
             <?php

@@ -791,6 +791,9 @@ class Miscelaneus
                 $paciente = $master->getByProcedure("sp_consultorio_certificado_b", [$turno_id, null]);
                 $arregloPaciente = ['SERVICIOS' => $servicios, 'PACIENTE' => $paciente];
                 break;
+            case -11:
+                $arregloPaciente = [];
+                break;
         }
 
         if ($area_id == 0) {

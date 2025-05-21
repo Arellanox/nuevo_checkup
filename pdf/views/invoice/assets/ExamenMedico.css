@@ -1,0 +1,144 @@
+@page {
+    margin: 18px 40px;
+}
+
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    margin-bottom: 0;
+    font-size: 11px;
+    font-weight: 400;
+    color: #272525;
+}
+
+main {
+    margin-top: -35px;
+    text-justify: inter-word;
+}
+
+th,
+td {
+    width: 100%;
+    max-width: 100%;
+    word-break: break-all;
+}
+
+table {
+    width: 100%;
+    font-size: 13px;
+    border-collapse: collapse;
+    word-break: break-all;
+}
+
+/*===================================*/
+.paciente_info_container {
+    background: #f9f6f6;
+    padding: 4px 10px;
+    border-radius: 5px;
+    border: .5px solid #cfcfcf;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.paciente_info {
+    width: 100%;
+    font-family: sans-serif;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+.paciente_info tr th div {
+    vertical-align: top;
+    word-wrap: break-word;
+    text-align: left !important;
+    margin-right: 10px;
+    font-weight: bolder;
+    font-size: 12px;
+}
+.paciente_info tr th div div {
+    position: absolute;
+    color: #575757;
+    font-weight: lighter;
+    padding-left: 3px;
+    left: calc(100% + 10px);
+}
+/*===================================*/
+.text-table-result span,
+.text-table-result{
+    color: #575757;
+    font-weight: lighter;
+    font-size: 10px;
+}
+
+.table_body_common tr td{
+    background: #ffffff;
+    border: .5px solid #cfcfcf;
+    padding: 5px;
+    font-weight: lighter;
+    font-size: 10px;
+}
+
+.table_head_common tr th span,
+.table_head_common_with_padding tr th span {
+    color: #303030;
+    font-weight: lighter;
+}
+
+.table_head_common tr th {
+    background: #f6f6f6;
+    border: .5px solid #cfcfcf;
+}
+.table_head_common_with_padding tr th {
+    background: #f6f6f6;
+    border: .5px solid #cfcfcf;
+    padding: 7px 8px;
+}
+
+.table_head_common_in th,
+.th_head_common_in {
+    background: #f6f6f6 !important;
+    border: .5px solid #cfcfcf !important;
+    padding: 7px 8px !important;
+    text-align: center;
+}
+
+.table_head_transparent tr th span {
+    font-weight: bolder;
+    font-size: 10px;
+}
+.table_head_transparent_in tr th span {
+    color: #575757;
+    font-weight: lighter;
+    font-size: 11px;
+}
+
+.checked{
+    border: .5px solid #575757;
+    padding: 2px 5px;
+    margin-right: 2px;
+    border-radius: 2px;
+}
+.checked.empty{
+    color: transparent;
+}
+.checked-label{
+    margin-right: 6px;
+}
+span.center{
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    max-width: 10px;
+    text-align: center;
+}
+/*===================================*/
+
+.page-number {
+    position: center;
+    bottom: 0;
+    text-align: center;
+}
+
+.footer {
+    position: fixed;
+    bottom: -240px;
+    width: 100%;
+    height: 280px;
+}
