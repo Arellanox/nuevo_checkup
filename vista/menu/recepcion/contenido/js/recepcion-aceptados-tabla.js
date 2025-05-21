@@ -424,7 +424,8 @@ tablaRecepcionPacientesIngrersados = $('#TablaRecepcionPacientes-Ingresados').Da
                 if (servidor === 'drjb.com.mx' && data == 1)
                     return '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizade</p>'
 
-                return data == 1 ? '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizado</p>' : `<p class="fw-bold ${data == 2 ? '' : 'text-warning'}" style="letter-spacing: normal !important;">En proceso</p>`;
+                return data == 1 ? '<p class="fw-bold text-success" style="letter-spacing: normal !important;">Finalizado</p>'
+                    : `<p class="fw-bold ${data == 2 ? '' : 'text-warning'}" style="letter-spacing: normal !important;">En proceso</p>`;
             }
         },
         { data: null },

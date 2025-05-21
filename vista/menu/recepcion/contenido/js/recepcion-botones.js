@@ -62,28 +62,10 @@ $(document).on('click', '#btn-concluir-paciente', function (e) {
             text: `El paciente, ${array_selected['NOMBRE_COMPLETO']}, ya no se podrán hacer mas modificaciones.`,
             icon: 'warning'
         }, function () {
+            const ClientesIDs = [1, 16, 31, 35, 37, 39, 20, 48, 49, 44, 19, 53];
 
-            // 1,15,17,18,24,31,35
-            if (
-                array_selected['CLIENTE_ID'] == 1 ||// PARTICULAR
-                // array_selected['CLIENTE_ID'] == 15 ||
-                array_selected['CLIENTE_ID'] == '16' || // SLB CONTADO
-                // array_selected['CLIENTE_ID'] == 17 ||
-                // array_selected['CLIENTE_ID'] == 18 ||// UJAT
-                array_selected['CLIENTE_ID'] == '31' || //CLINICA DEL DR CASTILLO
-                array_selected['CLIENTE_ID'] == 35 || // DR JAVIER ALEJANDRO JIMENEZ TORRUCO
-                array_selected['CLIENTE_ID'] == 37 ||//AMASFAC
-                array_selected['CLIENTE_ID'] == 39 || // TRANE
-                array_selected['CLIENTE_ID'] == 20 // ADN LAB
-                || array_selected['CLIENTE_ID'] == 48 // DP CONSULTANCY & TRAINING
-                || array_selected['CLIENTE_ID'] == 49 // CES MARTIN
-                || array_selected['CLIENTE_ID'] == 44 // LABORATORIO BALDERAS
-                || array_selected['CLIENTE_ID'] == 19 // FAST CHEKCUP
-                || array_selected['CLIENTE_ID'] == 53 // VIRIDIANA MORALES VIZUET
-            ) {
-
+            if (array_selected['CLIENTE_ID'].includes(clientesConfiguraciones_particulares) || isFranquisiario) {
                 $('descuento').val('');
-
                 //Abrir el modal de estudios, precios y detalle
                 configurarModal(array_selected);
 
