@@ -426,8 +426,9 @@ tableCatArticulos = $('#tableCatArticulos').DataTable({
 
 });
 
-//ENTRADAS tableEntradaArticulos
+//REGISTRAR UN ARTICULO
 tableCatEntradas = $('#tableCatEntradas').DataTable({
+    order: [0, 'asc'],
     autoWidth: true,
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
@@ -456,72 +457,108 @@ tableCatEntradas = $('#tableCatEntradas').DataTable({
     columns: [
         { data: 'ID_ARTICULO' },
         { data: 'CLAVE_ART' },
+        {
+            data: 'IMAGEN',
+            render: function(data, type, row) {
+                if (data) {
+                    return '<a href="' + data + '" target="_blank"><img src="' + data + '" alt="Imagen del Artículo" style="width: 50px; height: auto;"/></a>';
+                } else {
+                    return '';
+                }
+            },
+            className: 'text-center'
+        },
         { data: 'NOMBRE_COMERCIAL' },
-        { data: 'CANTIDAD' },
-        { data: 'FECHA_ULTIMA_ENTRADA' },
-        { data: 'COSTO_ULTIMA_ENTRADA' },
-        { data: 'COSTO_MAS_ALTO' },
-        { data: 'PROVEEDOR' },
-        { data: 'RESPONSABLE' }
+        { 
+            data: 'COSTO_ULTIMA_ENTRADA',
+            render: function(data, type, row) {
+                if ($.isNumeric(data)) {
+                    return '$' + Number(data).toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                } else {
+                    return '$0.00';
+                }
+            }
+        },
+        {
+            data: 'FECHA_ULTIMA_ENTRADA',
+            render: function(data, type, row) {
+                if (
+                    data &&
+                    data !== "0000-00-00" &&
+                    data !== "0000-00-00 00:00:00"
+                ) {
+                    return data.split(' ')[0];
+                } else {
+                    return '';
+                }
+            }
+        },
+        { 
+            data: 'COSTO_MAS_ALTO',
+            render: function(data, type, row) {
+                if ($.isNumeric(data)) {
+                    return '$' + Number(data).toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                } else {
+                    return '$0.00';
+                }
+            }
+        },
+        { data: 'PROVEEDOR'},
+        { data: 'CANTIDAD'}
     ],
     columnDefs: [
+        //editar los numeros segun las columnas que quieras, editar el tittle es el header de las tablas
         { target: 0, title: 'Id Art', className: 'all' },
         { target: 1, title: 'Clave Art', className: 'all' },
-        { target: 2, title: 'Nombre comercial', className: 'all' },
-        { target: 3, title: 'Cantidad de entrada', className: 'all' },
-        { target: 4, title: 'Fecha de última entrada', className: 'all' },
-        { target: 5, title: 'Costo de última entrada', className: 'all' },
-        { target: 6, title: 'Costo más alto', className: 'all' },
-        { target: 7, title: 'Proveedor', className: 'all' },
-        { target: 8, title: 'Responsable', className: 'all' }
+        { target: 2, title: 'Imágen del artículo', className: 'all'},
+        { target: 3, title: 'Nombre comercial', className: 'all' },
+        { target: 4, title: 'Costo última entrada', className: 'all' },
+        { target: 5, title: 'Fecha última entrada', className: 'all' },
+        { target: 6, title: 'Costo más alto', className: 'all'},
+        { target: 7, title: 'Proveedor', className: 'all'},
+        { target: 8, title: 'Cantidad', className: 'all'},
     ],
     dom: 'Bl<"dataTables_toolbar">frtip',
     buttons: [
         {
-            //Boton para registrar entradas
-            text: '<i class="bi bi-pencil-square"></i> Registrar entrada',
+            // BOTON PARA REGISTRAR
+            text: '<i class="bi bi-plus"></i> Registrar entrada',
             className: 'btn btn-secondary',
             attr: {
               //disabled: true,
               id: 'btnRegistrarEntrada',
               'data-bs-toggle': "tooltip",
               'data-bs-placement': "top",
-              title: "Registrar entradas del artículo seleccionado",
+              title: "Registrar entrada del artículo seleccionado",
               disabled: !userPermissions.canEdit
             },
             action: function () {
                 if (rowSelected) {      
                     $("#registrarEntradaModal").modal('show');
-                    $('#registrandoEntrada').text(` ${rowSelected.CLAVE_ART}`);
+                    $('#registrandoEntrada').text(` ${rowSelected.NOMBRE_COMERCIAL} (ID: ${rowSelected.ID_ARTICULO})`);
 
                     // Colocar los valores al formulario
-                    $('#registrarEntradaForm #clave_art').val(rowSelected.CLAVE_ART);
+                    $('#registrarEntradaForm #no_art').val(rowSelected.ID_ARTICULO);
                     $('#registrarEntradaForm #nombre_comercial').val(rowSelected.NOMBRE_COMERCIAL);
-                    $("#registrarEntradaForm #cantidad").val(rowSelected.CANTIDAD);
-                    $("#registrarEntradaForm #fecha_ultima_entrada").val(
-                        rowSelected.FECHA_ULTIMA_ENTRADA ? rowSelected.FECHA_ULTIMA_ENTRADA.split(' ')[0] : ''
-                    );
-                    $("#registrarEntradaForm #costo_ultima_entrada").val(rowSelected.COSTO_ULTIMA_ENTRADA);
-                    $("#registrarEntradaForm #costo_mas_alto").val(rowSelected.COSTO_MAS_ALTO);
-                     $("#registrarEntradaForm #proveedor").val(rowSelected.PROVEEDOR);
 
                     if(rowSelected.ESTATUS == 1){
                         $('#registrarEntradaForm #estatus').prop("checked", true);
                     } else {
                         $('#registrarEntradaForm #estatus').prop("checked", false);
                     }
+
                 } else {
                     alertToast('Por favor, seleccione un artículo', 'info', 4000)
                 }
             }
-          },
+          }
     ]
+
 });
 
 selectDatatable('tableCatEntradas', tableCatEntradas,0,0,0,0, async function(select, dataClick){
     rowSelected = dataClick;
 }, async function(){
-
 })
 
 selectDatatable('tableCatArticulos', tableCatArticulos,0,0,0,0, async function(select, dataClick){
