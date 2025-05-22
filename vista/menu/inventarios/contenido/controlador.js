@@ -31,3 +31,7 @@ dataTableCatArticulos = {
 dataTableCatEntradas = {
     api: 4
 }
+
+dataTableCatDetallesEntradas = {
+    api: 7
+}

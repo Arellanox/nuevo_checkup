@@ -88,7 +88,7 @@ $("#editarArticuloForm").submit(function(event){
 
 });
 
-//Registrar una entrada
+// registrar una entrada
 $("#registrarEntradaForm").submit(function(event){
     event.preventDefault();
     var form = document.getElementById('registrarEntradaForm');

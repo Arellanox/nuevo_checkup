@@ -159,6 +159,10 @@ switch($api){
             $_SESSION['id']
         ]);
         break;
+    case 7:
+        # recuperar los datos de un solo articulo
+        $response = $master->getByProcedure("sp_inventarios_entrada_articulos_detalle", [$id_articulo]);
+        break;
     default:
         $response = "API no definida.";
 }
