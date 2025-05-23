@@ -33,6 +33,7 @@ $("#registrarArticuloForm").submit(function(event){
                 $("#registrarArticuloModal").modal('hide');
                 alertToast("Artículo registrado", "success", 4000)
                 tableCatArticulos.ajax.reload();
+                tableCatEntradas.ajax.reload();
             }
         }
 

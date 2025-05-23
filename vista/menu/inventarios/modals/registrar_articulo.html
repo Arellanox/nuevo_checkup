@@ -85,6 +85,19 @@
                                                         <small class="form-text text-muted">Seleccione el tipo de descripción del artículo.</small>
                                                     </div>
                                                 </div>
+                                                 <div class="col-6">
+                                                    <div class="mb-3">
+                                                        <label for="area_id" class="form-label">Área</label>
+                                                        <select class="form-select input-form" id="area_id" name="area_id" required>
+                                                            <option value="">Seleccione un área</option>
+                                                            <option value="6">Laboratorio clínico</option>
+                                                            <option value="12">Laboratorio biomolecular</option>
+                                                            <option value="23">Otro</option>
+                                                        </select>
+                                                        <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                                        <small class="form-text text-muted">Seleccione a qué área pertenece  el artículo.</small>
+                                                    </div>
+                                                </div>
                                                 <div class="col-6">
                                                     <div class="mb-3">
                                                         <label for="maneja_caducidad" class="form-label">Maneja Caducidad</label>
@@ -106,21 +119,6 @@
                                                         <small class="form-text text-muted">Ingrese la fecha de caducidad del artículo.</small>
                                                     </div>
                                                 </div>
-
-                                                <!-- AREA -->
-                                                <div class="col-12">
-                                                    <div class="mb-3">
-                                                        <label for="area_id" class="form-label">Área</label>
-                                                        <select class="form-select input-form" id="area_id" name="area_id" required>
-                                                            <option value="">Seleccione un área</option>
-                                                            <option value="6">Laboratorio clínico</option>
-                                                            <option value="12">Laboratorio biomolecular</option>
-                                                            <option value="23">Otro</option>
-                                                        </select>
-                                                        <div class="invalid-feedback">Este campo es obligatorio.</div>
-                                                        <small class="form-text text-muted">Seleccione a qué área pertenece  el artículo.</small>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -130,7 +128,6 @@
                                         <div class="card-body">
                                             <h6 class="card-title">Detalles del Artículo</h6>
                                             <div class="row">
-
                                                 <div class="col-6">
                                                     <div class="mb-3">
                                                         <label for="unidad_venta" class="form-label">Unidad de Venta</label>
@@ -157,7 +154,7 @@
                                                         <small class="form-text text-muted">Ingrese la unidad mínima del artículo.</small>
                                                     </div>
                                                 </div>
-                                                <div class="col-12">
+                                                <div class="col-6">
                                                     <div class="mb-3">
                                                         <label for="contenido" class="form-label">Contenido</label>
                                                         <input type="text" class="form-control input-form" id="contenido" name="contenido">
@@ -165,33 +162,18 @@
                                                         <small class="form-text text-muted">Ingrese el contenido del artículo.</small>
                                                     </div>
                                                 </div>
-                                                <div class="col-12">
-                                                    <div class="mb-3">
-                                                        <label for="costo_mas_alto" class="form-label">Costo Más Alto</label>
-                                                        <input type="number" step="any" class="form-control input-form" id="costo_mas_alto" name="costo_mas_alto" required>
-                                                        <div class="invalid-feedback">Este campo es obligatorio.</div>
-                                                        <small class="form-text text-muted">Ingrese el costo más alto del artículo.</small>
-                                                    </div>
-                                                </div>
-
                                                 <div class="col-6">
                                                     <div class="mb-3">
-                                                        <label for="costo_ultima_entrada" class="form-label">Costo Última Entrada</label>
-                                                        <input type="number" step="any" class="form-control input-form" id="costo_ultima_entrada" name="costo_ultima_entrada">
+                                                        <label for="id_proveedores" class="form-label">Proveedor</label>
+                                                        <select class="form-select input-form" id="id_proveedores" name="id_proveedores" required>
+                                                            <option value="">Seleccione un área</option>
+                                                            <option value="1">Farmacias Guadalajara</option>
+                                                            <option value="2">Farmacias Similares</option>
+                                                        </select>
                                                         <div class="invalid-feedback">Este campo es obligatorio.</div>
-                                                        <small class="form-text text-muted">Ingrese el costo de la última entrada del artículo.</small>
+                                                        <small class="form-text text-muted">Seleccione que proveedor surte el artículo.</small>
                                                     </div>
                                                 </div>
-
-                                                <div class="col-6" id="fechaUltimaEntradaDiv">
-                                                    <div class="mb-3">
-                                                        <label for="fecha_ultima_entrada" class="form-label">Fecha Última Entrada</label>
-                                                        <input type="date" class="form-control input-form" id="fecha_ultima_entrada" name="fecha_ultima_entrada">
-                                                        <!-- <div class="invalid-feedback">Este campo es obligatorio.</div> -->
-                                                        <small class="form-text text-muted">Ingrese la fecha de última entrada del artículo.</small>
-                                                    </div>
-                                                </div>
-
                                                 <div class="col-12" id="rendimientoEstimadoDiv" style="display:none;">
                                                     <div class="mb-3">
                                                         <label for="rendimiento_estimado" class="form-label">Rendimiento Estimado (pruebas)</label>

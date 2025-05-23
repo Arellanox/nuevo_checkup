@@ -677,3 +677,232 @@
 22/05/25 15:47:59 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
 22/05/25 15:47:59 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
 22/05/25 15:47:59 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 09:22:37 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 09:22:37 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 09:22:37 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 09:28:44 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 09:28:44 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 09:28:44 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 09:30:37 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 09:30:37 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 09:30:37 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 09:34:00 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 09:34:00 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 09:34:00 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 09:36:12 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 09:36:12 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 09:36:12 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 09:53:24 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 09:53:24 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 09:53:24 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 09:53:24 sp_inventarios_cat_articulos_g Ha ocurrido un error(42S22). 42S22 1054 Unknown column '_cantidad' in 'VALUES'
+23/05/25 09:53:24 call sp_inventarios_cat_articulos_g(,,055,Azura Genomics AZ-1302,,1,1,Por gramo / mililitro,1,1.25,,,1,2025-05-23,1958.40,1958.40,2025-05-23,1,117,12,,,,) Esto recibió
+23/05/25 09:53:24 [Reproduce el error en la base] call sp_inventarios_cat_articulos_g(,,055,Azura Genomics AZ-1302,,1,1,Por gramo / mililitro,1,1.25,,,1,2025-05-23,1958.40,1958.40,2025-05-23,1,117,12,,,,)
+23/05/25 10:02:42 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 10:02:42 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 10:02:42 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 10:02:43 sp_inventarios_cat_articulos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_practicantes.sp_inventarios_cat_articulos_g; expected 24, got 26
+23/05/25 10:02:43 call sp_inventarios_cat_articulos_g(,,056,Azura PureView™ AZ-1101,,1,1,Por caja,1,bandas,,,1,2025-05-31,940.80,940.80,2025-05-23,1,117,12,,,,,3,Bimbo) Esto recibió
+23/05/25 10:02:43 [Reproduce el error en la base] call sp_inventarios_cat_articulos_g(,,056,Azura PureView™ AZ-1101,,1,1,Por caja,1,bandas,,,1,2025-05-31,940.80,940.80,2025-05-23,1,117,12,,,,,3,Bimbo)
+23/05/25 10:03:24 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 10:03:24 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 10:03:24 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 10:03:24 sp_inventarios_cat_articulos_g Ha ocurrido un error(42S22). 42S22 1054 Unknown column '_cantidad' in 'VALUES'
+23/05/25 10:03:24 call sp_inventarios_cat_articulos_g(,,056,Azura PureView™ AZ-1101,,1,1,Por caja,1,bandas,,,1,2025-05-31,940.80,940.80,2025-05-23,1,117,12,,,,) Esto recibió
+23/05/25 10:03:24 [Reproduce el error en la base] call sp_inventarios_cat_articulos_g(,,056,Azura PureView™ AZ-1101,,1,1,Por caja,1,bandas,,,1,2025-05-31,940.80,940.80,2025-05-23,1,117,12,,,,)
+23/05/25 10:05:59 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 10:05:59 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 10:05:59 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 10:06:00 sp_inventarios_cat_articulos_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_practicantes.sp_inventarios_cat_articulos_g; expected 24, got 26
+23/05/25 10:06:00 call sp_inventarios_cat_articulos_g(,,056,Azura PureView™ AZ-1101,,1,1,Por caja,1,bandas,,,1,2025-05-31,940.80,940.80,2025-05-23,1,117,12,,,,,3,Bimbo) Esto recibió
+23/05/25 10:06:00 [Reproduce el error en la base] call sp_inventarios_cat_articulos_g(,,056,Azura PureView™ AZ-1101,,1,1,Por caja,1,bandas,,,1,2025-05-31,940.80,940.80,2025-05-23,1,117,12,,,,,3,Bimbo)
+23/05/25 10:06:38 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 10:06:38 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 10:06:38 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 10:16:27 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 10:16:27 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 10:16:27 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 10:32:50 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 10:32:50 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 10:32:50 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:18:58 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:18:58 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:18:58 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:19:03 sp_inventarios_cat_articulos_g Ha ocurrido un error(23000). 23000 1048 Column 'cantidad' cannot be null
+23/05/25 11:19:03 call sp_inventarios_cat_articulos_g(79,,059,Adimod,,1,0,Por caja,1,frascos,,,1,2025-05-23,615.5,600,2025-05-23,3,117,6,0,,,,,) Esto recibió
+23/05/25 11:19:03 [Reproduce el error en la base] call sp_inventarios_cat_articulos_g(79,,059,Adimod,,1,0,Por caja,1,frascos,,,1,2025-05-23,615.5,600,2025-05-23,3,117,6,0,,,,,)
+23/05/25 11:19:05 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:19:05 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:19:05 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:19:06 sp_inventarios_cat_articulos_g Ha ocurrido un error(23000). 23000 1048 Column 'cantidad' cannot be null
+23/05/25 11:19:06 call sp_inventarios_cat_articulos_g(79,,059,Adimod,,1,0,Por caja,1,frascos,,,1,2025-05-23,615.5,600,2025-05-23,3,117,6,0,,,,,) Esto recibió
+23/05/25 11:19:06 [Reproduce el error en la base] call sp_inventarios_cat_articulos_g(79,,059,Adimod,,1,0,Por caja,1,frascos,,,1,2025-05-23,615.5,600,2025-05-23,3,117,6,0,,,,,)
+23/05/25 11:23:11 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:23:11 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:23:11 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:23:12 sp_inventarios_cat_articulos_g Ha ocurrido un error(23000). 23000 1048 Column 'cantidad' cannot be null
+23/05/25 11:23:12 call sp_inventarios_cat_articulos_g(79,,059,Adimod,,1,0,Por caja,1,frascos,,,1,2025-05-23,615.5,600,2025-05-23,3,117,6,0,,,,,) Esto recibió
+23/05/25 11:23:12 [Reproduce el error en la base] call sp_inventarios_cat_articulos_g(79,,059,Adimod,,1,0,Por caja,1,frascos,,,1,2025-05-23,615.5,600,2025-05-23,3,117,6,0,,,,,)
+23/05/25 11:23:43 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:23:43 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:23:43 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:28:35 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:28:35 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:28:35 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:30:22 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:30:22 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:30:22 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:36:43 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:36:43 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:36:43 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:36:52 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:36:52 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:36:52 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:37:02 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:37:02 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:37:02 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:37:14 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:37:14 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:37:14 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:37:23 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:37:23 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:37:23 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:37:35 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:37:35 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:37:35 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:39:04 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:39:04 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:39:04 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:39:04 sp_inventarios_cat_articulos_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_requisiciones`, CONSTRAINT `fk_requisicion_entrada` FOREIGN KEY (`id_cat_entradas`) REFERENCES `inventarios_cat_entradas` (`id_cat_entradas`))
+23/05/25 11:39:04 call sp_inventarios_cat_articulos_g(75,,055,Azura Genomics AZ-1302,,1,1,Por gramo / mililitro,1,1.25,,,1,2025-05-23,1958.4,1958.4,2025-05-23,1,117,12,0,,,,0,) Esto recibió
+23/05/25 11:39:04 [Reproduce el error en la base] call sp_inventarios_cat_articulos_g(75,,055,Azura Genomics AZ-1302,,1,1,Por gramo / mililitro,1,1.25,,,1,2025-05-23,1958.4,1958.4,2025-05-23,1,117,12,0,,,,0,)
+23/05/25 11:40:23 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:40:23 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:40:23 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:40:23 sp_inventarios_cat_articulos_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_requisiciones`, CONSTRAINT `fk_requisicion_entrada` FOREIGN KEY (`id_cat_entradas`) REFERENCES `inventarios_cat_entradas` (`id_cat_entradas`))
+23/05/25 11:40:23 call sp_inventarios_cat_articulos_g(75,,055,Azura Genomics AZ-1302,,1,1,Por gramo / mililitro,1,1.25,,,1,2025-05-23,1958.4,1958.4,2025-05-23,1,117,12,0,,,,0,) Esto recibió
+23/05/25 11:40:23 [Reproduce el error en la base] call sp_inventarios_cat_articulos_g(75,,055,Azura Genomics AZ-1302,,1,1,Por gramo / mililitro,1,1.25,,,1,2025-05-23,1958.4,1958.4,2025-05-23,1,117,12,0,,,,0,)
+23/05/25 11:41:09 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:41:09 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:41:09 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:42:05 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:42:05 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:42:05 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:47:20 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:47:20 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:47:20 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:48:36 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:48:36 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:48:36 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:49:07 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:49:07 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:49:07 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:54:54 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:54:54 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 11:54:54 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 12:03:03 sp_inventarios_cat_entradas_g Ha ocurrido un error(42S02). 42S02 1146 Table 'u808450138_practicantes.inventrarios_cat_requesiciones' doesn't exist
+23/05/25 12:03:03 call sp_inventarios_cat_entradas_g(83,12333,2025-05-23,11,Farmacias YZA,117) Esto recibió
+23/05/25 12:03:03 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(83,12333,2025-05-23,11,Farmacias YZA,117)
+23/05/25 12:03:30 sp_inventarios_cat_entradas_g Ha ocurrido un error(42S02). 42S02 1146 Table 'u808450138_practicantes.inventarios_cat_requesiciones' doesn't exist
+23/05/25 12:03:30 call sp_inventarios_cat_entradas_g(83,12333,2025-05-23,11,Farmacias YZA,117) Esto recibió
+23/05/25 12:03:30 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(83,12333,2025-05-23,11,Farmacias YZA,117)
+23/05/25 12:03:58 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_requisiciones`, CONSTRAINT `fk_requisicion_area` FOREIGN KEY (`area_id`) REFERENCES `areas` (`ID_AREA`))
+23/05/25 12:03:58 call sp_inventarios_cat_entradas_g(83,12333,2025-05-23,11,Farmacias YZA,117) Esto recibió
+23/05/25 12:03:58 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(83,12333,2025-05-23,11,Farmacias YZA,117)
+23/05/25 12:04:57 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_requisiciones`, CONSTRAINT `fk_requisicion_area` FOREIGN KEY (`area_id`) REFERENCES `areas` (`ID_AREA`))
+23/05/25 12:04:57 call sp_inventarios_cat_entradas_g(83,12333,2025-05-23,11,Farmacias YZA,117) Esto recibió
+23/05/25 12:04:57 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(83,12333,2025-05-23,11,Farmacias YZA,117)
+23/05/25 12:05:19 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_requisiciones`, CONSTRAINT `fk_requisicion_articulo` FOREIGN KEY (`id_articulo`) REFERENCES `inventarios_cat_articulos` (`ID_ARTICULO`))
+23/05/25 12:05:19 call sp_inventarios_cat_entradas_g(83,12333,2025-05-23,11,Farmacias YZA,117) Esto recibió
+23/05/25 12:05:19 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(83,12333,2025-05-23,11,Farmacias YZA,117)
+23/05/25 12:07:42 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 12:07:42 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 12:07:42 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 12:07:49 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 12:07:49 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 12:07:49 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 12:15:46 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 12:15:46 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 12:15:46 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 12:16:00 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 12:16:00 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 12:16:00 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 12:22:11 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 12:22:11 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 12:22:11 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 12:58:42 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 12:58:42 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 12:58:42 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 12:58:42 sp_inventarios_cat_articulos_g Ha ocurrido un error(23000). 23000 1048 Column 'costo_mas_alto' cannot be null
+23/05/25 12:58:42 call sp_inventarios_cat_articulos_g(,,068,Monitor,,1,0,Por pieza (unidad),1,monitor,,,0,,,,,2,117,23,,,,,,LG) Esto recibió
+23/05/25 12:58:42 [Reproduce el error en la base] call sp_inventarios_cat_articulos_g(,,068,Monitor,,1,0,Por pieza (unidad),1,monitor,,,0,,,,,2,117,23,,,,,,LG)
+23/05/25 13:05:13 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 13:05:13 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 13:05:13 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 13:12:24 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 13:12:24 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 13:12:24 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 13:40:36 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 13:40:36 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 13:40:36 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 13:40:37 sp_inventarios_cat_articulos_g Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'id_proveedores' in 'INSERT INTO'
+23/05/25 13:40:37 call sp_inventarios_cat_articulos_g(,,071,Switch,,1,0,Por caja,1,switch,,,0,,,,,2,117,23,,,,,,1) Esto recibió
+23/05/25 13:40:37 [Reproduce el error en la base] call sp_inventarios_cat_articulos_g(,,071,Switch,,1,0,Por caja,1,switch,,,0,,,,,2,117,23,,,,,,1)
+23/05/25 13:42:31 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 13:42:31 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 13:42:31 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 13:42:31 sp_inventarios_cat_articulos_g Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'id_proveedores' in 'INSERT INTO'
+23/05/25 13:42:31 call sp_inventarios_cat_articulos_g(,,072,Switch,,1,0,Por caja,1,switch,,,0,,,,,2,117,23,,,,,,1) Esto recibió
+23/05/25 13:42:31 [Reproduce el error en la base] call sp_inventarios_cat_articulos_g(,,072,Switch,,1,0,Por caja,1,switch,,,0,,,,,2,117,23,,,,,,1)
+23/05/25 13:44:59 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 13:44:59 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 13:44:59 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 13:44:59 sp_inventarios_cat_articulos_g Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'id_proveedores' in 'INSERT INTO'
+23/05/25 13:44:59 call sp_inventarios_cat_articulos_g(,,073,Switch,,1,0,Por caja,1,switch,,,0,,,,,2,117,23,,,,,,) Esto recibió
+23/05/25 13:44:59 [Reproduce el error en la base] call sp_inventarios_cat_articulos_g(,,073,Switch,,1,0,Por caja,1,switch,,,0,,,,,2,117,23,,,,,,)
+23/05/25 13:48:36 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 13:48:36 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 13:48:36 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 13:50:07 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 13:50:07 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 13:50:07 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 13:58:38 sp_inventarios_entrada_articulos_b Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'e.proveedor' in 'SELECT'
+23/05/25 13:59:02 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 13:59:02 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 13:59:02 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 13:59:04 sp_inventarios_entrada_articulos_b Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'e.proveedor' in 'SELECT'
+23/05/25 13:59:27 sp_inventarios_entrada_articulos_b Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'e.proveedor' in 'SELECT'
+23/05/25 13:59:28 sp_inventarios_entrada_articulos_detalle Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'e.proveedor' in 'SELECT'
+23/05/25 14:02:56 sp_inventarios_entrada_articulos_detalle Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'e.proveedor' in 'SELECT'
+23/05/25 14:03:01 sp_inventarios_entrada_articulos_detalle Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'e.proveedor' in 'SELECT'
+23/05/25 14:03:08 sp_inventarios_entrada_articulos_detalle Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'e.proveedor' in 'SELECT'
+23/05/25 14:05:03 sp_inventarios_entrada_articulos_detalle Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'e.proveedor' in 'SELECT'
+23/05/25 14:05:06 sp_inventarios_entrada_articulos_detalle Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'e.proveedor' in 'SELECT'
+23/05/25 14:06:07 sp_inventarios_entrada_articulos_detalle Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'e.proveedor' in 'SELECT'
+23/05/25 14:07:21 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 14:07:21 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 14:07:21 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 14:09:07 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 14:09:07 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 14:09:07 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 14:09:27 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 14:09:27 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 14:09:27 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 14:12:51 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 14:12:51 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 14:12:51 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 14:13:18 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 14:13:18 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 14:13:18 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 14:22:10 sp_inventarios_cat_entradas_g Ha ocurrido un error(42000). 42000 1318 Incorrect number of arguments for PROCEDURE u808450138_practicantes.sp_inventarios_cat_entradas_g; expected 6, got 5
+23/05/25 14:22:10 call sp_inventarios_cat_entradas_g(98,11,2025-05-23,12,117) Esto recibió
+23/05/25 14:22:10 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(98,11,2025-05-23,12,117)
+23/05/25 14:46:11 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 14:46:11 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 14:46:11 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 15:02:05 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 15:02:05 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 15:02:05 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 15:06:58 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 15:06:58 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+23/05/25 15:06:58 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.

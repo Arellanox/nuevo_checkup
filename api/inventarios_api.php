@@ -52,7 +52,7 @@ $rendimiento_paciente = $_POST['rendimiento_paciente'];
 // no se si se utilizan
 $id_cat_entradas = $_POST['id_cat_entradas'];
 $cantidad = $_POST['cantidad'];
-$proveedor = $_POST['proveedor'];
+$id_proveedores = $_POST['id_proveedores'];
 
 $host = $master->selectHost($_SERVER['SERVER_NAME']);
 
@@ -121,7 +121,9 @@ switch($api){
             $rendimiento_estimado,
             $insertoUrl,
             $procedimientoUrl,
-            $rendimiento_paciente
+            $rendimiento_paciente,
+            $cantidad,
+            $id_proveedores
         ]);
         break;
     case 2:
@@ -155,7 +157,7 @@ switch($api){
             $fecha_ultima_entrada,
             $costo_ultima_entrada,
             //$costo_mas_alto,
-            $proveedor,
+            $id_proveedores,
             $_SESSION['id']
         ]);
         break;

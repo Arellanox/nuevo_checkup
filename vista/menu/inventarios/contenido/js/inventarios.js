@@ -139,7 +139,6 @@ tableCatArticulos = $("#tableCatArticulos").DataTable({
   //     }
   // },
   columns: [
-    { data: "NO_ART" },
     { data: "CLAVE_ART" },
     {
       data: "IMAGEN",
@@ -226,6 +225,17 @@ tableCatArticulos = $("#tableCatArticulos").DataTable({
       data: "FECHA_CADUCIDAD",
       render: function (data, type, row) {
         if (data && data !== "0000-00-00" && data !== "0000-00-00 00:00:00") {
+          const today = new Date();
+          const caducidad = new Date(data);
+          today.setHours(0, 0, 0, 0);
+          caducidad.setHours(0, 0, 0, 0);
+          const diffTime = caducidad - today;
+          const diffDays = diffTime / (1000 * 60 * 60 * 24);
+          if (diffDays >= 0 && diffDays <= 7) {
+            return `<span style="color:red;font-weight:bold;">${data}</span>`;
+          } else if (diffDays === 0) {
+            return `<span style="color:red;font-weight:bold;">${data}</span>`;
+          }
           return data;
         } else {
           return "";
@@ -292,22 +302,21 @@ tableCatArticulos = $("#tableCatArticulos").DataTable({
   ],
   columnDefs: [
     //editar los numeros segun las columnas que quieras, editar el tittle es el header de las tablas
-    { target: 0, title: "No. Art", className: "all" },
-    { target: 1, title: "Clave Art", className: "all" },
-    { target: 2, title: "Artículo", className: "all" },
-    { target: 3, title: "Nombre comercial", className: "all" },
-    { target: 4, title: "Estatus", className: "all" },
-    { target: 5, title: "Red frío", className: "all" },
-    { target: 6, title: "Unid. venta", className: "all" },
-    { target: 7, title: "Unid. mínima", className: "all" },
-    { target: 8, title: "Contenido", className: "all" },
-    { target: 9, title: "Tipo", className: "all" },
-    { target: 10, title: "Maneja caducidad", className: "all" },
-    { target: 11, title: "Fecha caducidad", className: "all" },
-    { target: 12, title: "Área", className: "all" },
-    { target: 13, title: "Costo más alto", className: "all" },
-    { target: 14, title: "Inserto", className: "all" },
-    { target: 15, title: "Proc. de prueba", className: "all" },
+    { target: 0, title: "Clave Art", className: "all" },
+    { target: 1, title: "Imágen del artículo", className: "all" },
+    { target: 2, title: "Nombre comercial", className: "all" },
+    { target: 3, title: "Estatus", className: "all" },
+    { target: 4, title: "Red frío", className: "all" },
+    { target: 5, title: "Unid. venta", className: "all" },
+    { target: 6, title: "Unid. mínima", className: "all" },
+    { target: 7, title: "Contenido", className: "all" },
+    { target: 8, title: "Tipo", className: "all" },
+    { target: 9, title: "Maneja caducidad", className: "all" },
+    { target: 10, title: "Fecha caducidad", className: "all" },
+    { target: 11, title: "Área", className: "all" },
+    { target: 12, title: "Costo más alto", className: "all" },
+    { target: 13, title: "Inserto", className: "all" },
+    { target: 14, title: "Proc. de prueba", className: "all" },
   ],
   dom: 'Bl<"dataTables_toolbar">frtip',
   buttons: [
@@ -464,7 +473,10 @@ tableCatArticulos = $("#tableCatArticulos").DataTable({
 
 // DATATABLE DE ENTRADAS
 tableCatEntradas = $("#tableCatEntradas").DataTable({
-  order: [5, "desc"],
+  order: [
+    [4, "desc"],
+    [0, "desc"],
+  ],
   autoWidth: true,
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
@@ -491,7 +503,6 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
     dataSrc: "response.data",
   },
   columns: [
-    { data: "ID_ARTICULO" },
     { data: "CLAVE_ART" },
     {
       data: "IMAGEN",
@@ -558,15 +569,14 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
   ],
   columnDefs: [
     //editar los numeros segun las columnas que quieras, editar el tittle es el header de las tablas
-    { target: 0, title: "Id Art", className: "all" },
-    { target: 1, title: "Clave Art", className: "all" },
-    { target: 2, title: "Imágen del artículo", className: "all" },
-    { target: 3, title: "Nombre comercial", className: "all" },
-    { target: 4, title: "Costo última entrada", className: "all" },
-    { target: 5, title: "Fecha última entrada", className: "all" },
-    { target: 6, title: "Costo más alto", className: "all" },
-    { target: 7, title: "Proveedor", className: "all" },
-    { target: 8, title: "Cantidad", className: "all" },
+    { target: 0, title: "Clave Art", className: "all" },
+    { target: 1, title: "Imágen del artículo", className: "all" },
+    { target: 2, title: "Nombre comercial", className: "all" },
+    { target: 3, title: "Costo última entrada", className: "all" },
+    { target: 4, title: "Fecha última entrada", className: "all" },
+    { target: 5, title: "Costo más alto", className: "all" },
+    { target: 6, title: "Proveedor", className: "all" },
+    { target: 7, title: "Cantidad", className: "all" },
   ],
   dom: 'Bl<"dataTables_toolbar">frtip',
   buttons: [
@@ -586,7 +596,7 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
         if (rowSelected) {
           $("#registrarEntradaModal").modal("show");
           $("#registrandoEntrada").text(
-            ` ${rowSelected.NOMBRE_COMERCIAL} (ID: ${rowSelected.ID_ARTICULO})`
+            ` ${rowSelected.NOMBRE_COMERCIAL} (Clave: ${rowSelected.CLAVE_ART})`
           );
 
           // Colocar los valores al formulario
@@ -661,7 +671,7 @@ var tableCatDetallesEntradas = $("#tableCatDetallesEntradas").DataTable({
             })
           );
         } else {
-          return "$0.00";
+          return "";
         }
       },
     },
@@ -689,17 +699,29 @@ selectDatatable(
   },
   async function () {
     $("#mostrandoEntrada").html(
-      `<strong>${rowSelected.NOMBRE_COMERCIAL}</strong> <span class="text-muted" style="font-size:0.95em;">&mdash; ID: <b>${rowSelected.ID_ARTICULO}</b></span>`
+      `<strong>${rowSelected.NOMBRE_COMERCIAL}</strong> <span class="text-muted" style="font-size:0.95em;">&mdash; CLAVE: <b>${rowSelected.CLAVE_ART}</b></span>`
     );
-    $("#costoMasAltoEntrada").html(
-      `<span class="fw-semibold text-secondary">Costo más alto:</span> <span class="text-success fw-bold">$${Number(
-        rowSelected.COSTO_MAS_ALTO
-      ).toLocaleString("es-MX", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })}</span>`
-    );
-    $("#totalUnidades").text(`total de unidades: ${rowSelected.CANTIDAD}`);
+    if (
+      rowSelected.CANTIDAD &&
+      rowSelected.CANTIDAD !== "null" &&
+      rowSelected.CANTIDAD !== null &&
+      rowSelected.COSTO_MAS_ALTO &&
+      rowSelected.COSTO_MAS_ALTO !== "null" &&
+      rowSelected.COSTO_MAS_ALTO !== null
+    ) {
+      $("#costoMasAltoEntrada").html(
+        `<span class="fw-semibold text-secondary">Costo más alto:</span> <span class="text-success fw-bold">$${Number(
+          rowSelected.COSTO_MAS_ALTO
+        ).toLocaleString("es-MX", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })}</span>`
+      );
+      $("#totalUnidades").text(`- Total de unidades: ${rowSelected.CANTIDAD}`);
+    } else {
+      $("#costoMasAltoEntrada").html("SIN REGISTROS");
+      $("#totalUnidades").text("");
+    }
     tableCatDetallesEntradas.ajax.reload(); // recargar la tabla con nuevo id
     $("#detalleEntradaModal").modal("show");
   }
