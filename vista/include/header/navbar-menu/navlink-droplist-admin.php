@@ -193,3 +193,12 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
         <i class="bi bi-piggy-bank"></i> Caja chica
     </a>
 <?php endif; ?>
+
+<?php if ($_SESSION['vista']['INVENTARIOS'] == 1) : ?>
+    <li class="nav-item">
+        <a href="<?php echo "$https$url/$appname/vista/menu/inventarios"; ?>">
+                    <!-- preguntar la ecepcion medicos_tratantes -->
+            <i class="bi bi-box-seam"></i> Almacén
+        </a>
+    </li>
+<?php endif; ?>

@@ -236,11 +236,3 @@ if (
     </li>
 <?php endif; ?>
 
-<?php if ($_SESSION['vista']['MEDICOS_TRATANTES'] == 1) : ?>
-    <li class="nav-item">
-        <a href="<?php echo "$https$url/$appname/vista/menu/inventarios"; ?>">
-                    <!-- preguntar la ecepcion medicos_tratantes -->
-            <i class="bi bi-box-seam"></i> Almacén
-        </a>
-    </li>
-<?php endif; ?>
