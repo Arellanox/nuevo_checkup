@@ -34,11 +34,15 @@ $(document).ready(function () {
     $("#" + targetDiv).show();
   });
 
-  // Agrega el botón para regresar a cada módulo de contenido
+  // Agrega el botón para regresar a cada módulo de contenido al lado del título
   $(".content-module").each(function () {
-    if ($(this).find(".btn-back-menu").length === 0) {
-      $(this).prepend(
-        '<div class="text-start"><button type="button" class="btn btn-secondary btn-back-menu"><i class="bi bi-arrow-left"></i> Regresar</button></div>'
+    var $header = $(this).find('> .d-flex.align-items-start');
+    // Busca el h2 dentro del header
+    var $title = $header.find("h2");
+    // Si no existe el botón, lo agrega después del h2
+    if ($title.length && $header.find(".btn-back-menu").length === 0) {
+      $title.before(
+        '<button type="button" class="btn btn-secondary btn-back-menu px-2"><i class="bi bi-arrow-left"></i> Regresar</button>'
       );
     }
   });
