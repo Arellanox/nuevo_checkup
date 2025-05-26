@@ -688,6 +688,25 @@ var tableCatDetallesEntradas = $("#tableCatDetallesEntradas").DataTable({
     { targets: 2, title: "Proveedor", className: "all" },
     { targets: 3, title: "Cantidad", className: "all" },
   ],
+  dom: 'Bl<"dataTables_toolbar">frtip',
+  buttons: [
+    {
+      // BOTON PARA FILTRAR LA TABLA ENTRADAS Y SALIDAS
+      text: '<i class="bi bi-funnel"></i> Filtrar',
+      className: "btn btn-warning",
+      attr: {
+        id: "btnFiltrarArticulos",
+        "data-bs-toggle": "tooltip",
+        "data-bs-placement": "top",
+        title: "Filtrar los artículos de la tabla",
+      },
+      action: function () {
+        // procedimiento para filtrar la tabla
+        $("#filtrarArticuloModal").modal("show");
+        $("#detalleEntradaModal").modal("hide");
+      },
+    },
+  ],
 });
 
 // seleccionar la fila de la tabla de entradas
