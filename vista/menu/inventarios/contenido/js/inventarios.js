@@ -36,7 +36,7 @@ $(document).ready(function () {
 
   // Agrega el botón para regresar a cada módulo de contenido al lado del título
   $(".content-module").each(function () {
-    var $header = $(this).find('> .d-flex.align-items-start');
+    var $header = $(this).find("> .d-flex.align-items-start");
     // Busca el h2 dentro del header
     var $title = $header.find("h2");
     // Si no existe el botón, lo agrega después del h2
@@ -234,11 +234,11 @@ tableCatArticulos = $("#tableCatArticulos").DataTable({
           today.setHours(0, 0, 0, 0);
           caducidad.setHours(0, 0, 0, 0);
           const diffTime = caducidad - today;
-          const diffDays = diffTime / (1000 * 60 * 60 * 24);
-          if (diffDays >= 0 && diffDays <= 7) {
+          const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+          if (diffDays === 0 || diffDays < 0) {
             return `<span style="color:red;font-weight:bold;">${data}</span>`;
-          } else if (diffDays === 0) {
-            return `<span style="color:red;font-weight:bold;">${data}</span>`;
+          } else if (diffDays >= 1 && diffDays <= 7) {
+            return `<span style="color:goldenrod;font-weight:bold;">${data}</span>`;
           }
           return data;
         } else {
