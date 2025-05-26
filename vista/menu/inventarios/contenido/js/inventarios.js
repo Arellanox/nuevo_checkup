@@ -70,15 +70,6 @@ $("#tipo_articulo").on("change", function () {
     $("#rendimientoPacienteDiv").attr("required", true);
     $("#insertoDiv").attr("required", true);
     $("#protocoloDiv").attr("required", true);
-  } else if ($(this).val() == "3") {
-    $("#rendimientoEstimadoDiv").show();
-    $("#rendimientoPacienteDiv").show();
-    $("#insertoDiv").show();
-    $("#protocoloDiv").show();
-    $("#rendimientoEstimadoDiv").attr("required", true);
-    $("#rendimientoPacienteDiv").attr("required", true);
-    $("#insertoDiv").attr("required", true);
-    $("#protocoloDiv").attr("required", true);
   } else {
     $("#rendimientoEstimadoDiv").hide();
     $("#rendimientoPacienteDiv").hide();
@@ -362,6 +353,42 @@ tableCatArticulos = $("#tableCatArticulos").DataTable({
           $("#editarArticuloForm #tipo_articulo").val(
             rowSelected.TIPO_ARTICULO_ID
           );
+
+          // Validación para tipo_articulo (Reactivo)
+if (rowSelected.TIPO_ARTICULO_ID == 1) {
+  $("#editarArticuloForm #rendimientoEstimadoDiv").show();
+  $("#editarArticuloForm #rendimientoPacienteDiv").show();
+  $("#editarArticuloForm #insertoDiv").show();
+  $("#editarArticuloForm #protocoloDiv").show();
+} else {
+  $("#editarArticuloForm #rendimientoEstimadoDiv").hide();
+  $("#editarArticuloForm #rendimientoPacienteDiv").hide();
+  $("#editarArticuloForm #insertoDiv").hide();
+  $("#editarArticuloForm #protocoloDiv").hide();
+  $("#editarArticuloForm #rendimiento_estimado").val("");
+  $("#editarArticuloForm #rendimiento_paciente").val("");
+  $("#editarArticuloForm #inserto").val("");
+  $("#editarArticuloForm #procedimiento").val("");
+}
+$("#editarArticuloForm #tipo_articulo")
+  .off("change")
+  .on("change", function () {
+    if ($(this).val() == "1") {
+      $("#editarArticuloForm #rendimientoEstimadoDiv").show();
+      $("#editarArticuloForm #rendimientoPacienteDiv").show();
+      $("#editarArticuloForm #insertoDiv").show();
+      $("#editarArticuloForm #protocoloDiv").show();
+    } else {
+      $("#editarArticuloForm #rendimientoEstimadoDiv").hide();
+      $("#editarArticuloForm #rendimientoPacienteDiv").hide();
+      $("#editarArticuloForm #insertoDiv").hide();
+      $("#editarArticuloForm #protocoloDiv").hide();
+      $("#editarArticuloForm #rendimiento_estimado").val("");
+      $("#editarArticuloForm #rendimiento_paciente").val("");
+      $("#editarArticuloForm #inserto").val("");
+      $("#editarArticuloForm #procedimiento").val("");
+    }
+  });
           $("#editarArticuloForm #maneja_caducidad").val(
             rowSelected.MANEJA_CADUCIDAD
           );
@@ -809,8 +836,9 @@ selectDatatable(
       rowSelected.FECHA_CADUCIDAD !== "0000-00-00 00:00:00"
     ) {
       $("#fechaCaducidad").text(rowSelected.FECHA_CADUCIDAD);
+      $("#fechaCaducidad1").show();
     } else {
-      $("#fechaCaducidad").text("");
+      $("#fechaCaducidad1").hide();
     }
 
     $("#estatusArt").html(
@@ -827,8 +855,18 @@ selectDatatable(
     // EDITAR que al editar aparezca la fecha actual de ese articulo en la bd
     $("#editarArticuloForm #fechaCaducidad").val(fechaCaducidad);
     $("#areaDetalle").text(rowSelected.AREA);
-    $("#rendimientoEstimado").text(rowSelected.RENDIMIENTO_ESTIMADO);
-    $("#rendimientoPaciente").text(rowSelected.RENDIMIENTO_PACIENTE);
+    if (rowSelected.RENDIMIENTO_ESTIMADO && rowSelected.RENDIMIENTO_ESTIMADO !== "0") {
+      $("#rendimientoEstimado").text(rowSelected.RENDIMIENTO_ESTIMADO);
+      $("#rendimientoEstimado1").show();
+    } else {
+      $("#rendimientoEstimado1").hide();
+  }
+   if (rowSelected.RENDIMIENTO_PACIENTE && rowSelected.RENDIMIENTO_PACIENTE !== "0") {
+  $("#rendimientoPaciente").text(rowSelected.RENDIMIENTO_PACIENTE);
+  $("#rendimientoPaciente1").show();
+} else {
+  $("#rendimientoPaciente1").hide();
+}
     $("#nombreComercial").html(
       `${rowSelected.NOMBRE_COMERCIAL} ${
         rowSelected.RED_FRIO == 1
@@ -840,6 +878,7 @@ selectDatatable(
     $("#verImagenArt").attr("href", rowSelected.IMAGEN);
 
     if (!rowSelected.INSERTO) {
+      $("#verInsertoBtn").hide();
       $("#verInsertoBtn").attr("disabled", true);
       $("#verInsertoBtn").removeClass("btn-danger");
       $("#verInsertoBtn").addClass("btn-outline-danger");
@@ -849,6 +888,7 @@ selectDatatable(
         }
       });
     } else {
+      $("#verInsertoBtn").show();
       $("#verInsertoBtn").attr("disabled", false);
       $("#verInsertoBtn").attr("href", rowSelected.INSERTO);
       $("#verInsertoBtn").removeClass("btn-outline-danger");
@@ -856,6 +896,7 @@ selectDatatable(
     }
 
     if (!rowSelected.PROCEDIMIENTO_PRUEBA) {
+      $("#verProcedimientoBtn").hide();
       $("#verProcedimientoBtn").attr("disabled", true);
       $("#verProcedimientoBtn").removeClass("btn-secondary");
       $("#verProcedimientoBtn").addClass("btn-outline-secondary");
@@ -865,6 +906,7 @@ selectDatatable(
         }
       });
     } else {
+      $("#verProcedimientoBtn").show();
       $("#verProcedimientoBtn").attr("disabled", false);
       $("#verProcedimientoBtn").removeClass("btn-outline-secondary");
       $("#verProcedimientoBtn").addClass("btn-secondary");
