@@ -1872,11 +1872,7 @@
                     </span></td>
                 <td colspan="15" rowspan="1">Productos químicos (polvos, humos, neblina, vapores, aerosoles):</td>
                 <td class="cent"><span id="productosQuimicosSiSpan">
-                        <?php
-                        if ($resultados[1]->{61}->RESPUESTA == "Sí") {
-                            echo 'x';
-                        }
-                        ?>
+                        $resultados[1]->{61}->RESPUESTA == "Sí"
                     </span></td>
                 <td class="cent"><span id="productosQuimicosNoSpan">
                         <?php

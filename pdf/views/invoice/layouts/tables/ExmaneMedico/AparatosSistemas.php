@@ -30,11 +30,12 @@
 <h2 style="font-weight: bold; margin-top: 15px">Somatometría:</h2>
 
 <p>
-    Temperatura:<span class="text-table-result">_________ </span><!-- RELLENAR -->
-    Altura:<span class="text-table-result">_________ </span><!-- RELLENAR -->
-    Peso:<span class="text-table-result">_________ </span><!-- RELLENAR -->
-    IMC:<span class="text-table-result">_________ </span><!-- RELLENAR -->
-    Frecuencia cardiaca:<span class="text-table-result">_________ </span><!-- RELLENAR -->
+    Temperatura: <span class="text-table-result"><?= $resultados[6]->{4}->VALOR . ' ' . $resultados[6]->{4}->UNIDAD_MEDIDA; ?> </span><!-- RELLENAR -->
+    Altura: <span class="text-table-result"><?= $resultados[6]->{1}->VALOR . ' ' . $resultados[6]->{1}->UNIDAD_MEDIDA; ?> </span><!-- RELLENAR -->
+    Peso: <span class="text-table-result"><?= $resultados[6]->{2}->VALOR . ' ' . $resultados[6]->{2}->UNIDAD_MEDIDA; ?> </span><!-- RELLENAR -->
+    IMC: <span class="text-table-result"><?= $resultados[6]->{3}->VALOR; ?></span><!-- RELLENAR -->
+    Presión Arterial: <span class="text-table-result"><?= $resultados[6]->{0}->VALOR . ' ' . $resultados[6]->{0}->UNIDAD_MEDIDA; ?> </span><!-- RELLENAR -->
+    Frecuencia Cardíaca: <span class="text-table-result"><?= $resultados[6]->{5}->VALOR . ' ' . $resultados[6]->{5}->UNIDAD_MEDIDA; ?> </span><!-- RELLENAR -->
     Presión sistólica:<span class="text-table-result">_________ </span><!-- RELLENAR -->
     <br>
     Presión diastólica:<span class="text-table-result">_________ </span><!-- RELLENAR -->
@@ -46,7 +47,9 @@
     Perímetro de cintura:<span class="text-table-result">_________ </span><!-- RELLENAR -->
     Perímetro de cadera:<span class="text-table-result">_________ </span><!-- RELLENAR -->
     Indice CC:<span class="text-table-result">_________ </span><!-- RELLENAR -->
-    Oximetría:<span class="text-table-result">_________ </span><!-- RELLENAR -->
+    Oximetría:<span class="text-table-result">
+        <?= $resultados[6]->{6}->VALOR . ' ' . $resultados[6]->{6}->UNIDAD_MEDIDA; ?>
+    </span><!-- RELLENAR -->
     Frecuencia Respiratoria:<span class="text-table-result">_________ </span><!-- RELLENAR -->
     <br>
     Tipo de sangre:<span class="text-table-result">_________ </span><!-- RELLENAR -->

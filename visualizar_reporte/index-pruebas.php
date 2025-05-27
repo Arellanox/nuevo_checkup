@@ -14,7 +14,7 @@ $usuario_id = $_SESSION['id'];
 
 $api = "examen_medico";
 $area_id = -11;
-$turno_id = 821;
+$turno_id = 8628;
 $id_cliente = 15;
 // $id_cotizacion = 7;
 

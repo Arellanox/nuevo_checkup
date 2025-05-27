@@ -130,6 +130,10 @@ span.center{
 }
 /*===================================*/
 
+.text-white{
+    color: white !important;
+}
+
 .page-number {
     position: center;
     bottom: 0;

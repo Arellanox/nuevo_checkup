@@ -8,7 +8,7 @@
             <th>
                 <span class="text-table-result" style="display: block; margin-bottom: 10px;">________________________________________</span>
                 <span class="text-table-result" style="display: block; margin-bottom: 4px;">Profesional de la salud</span>
-                <span class="text-table-result" style="display: block;">Cédula Profesional: </span>
+                <span class="text-table-result" style="display: block;">Cédula Profesional: <?= $pie['datos_medicos'][0]['CEDULA'] ?></span>
             </th>
         </tr>
     </tbody>
