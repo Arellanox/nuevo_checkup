@@ -53,10 +53,8 @@ $(document).ready(function () {
     $("#tab-menu").show();
     $("#btnAgregar").hide();
     rowSelected = null; // Resetea la selección de fila
-    tableCatArticulos.ajax.reload(); // Recarga la tabla de artículos
-    tableCatEntradas.ajax.reload(); // Recarga la tabla de entradas
-    tableCatDetallesEntradas.ajax.reload(); // Recarga la tabla de detalles de entradas
     //$('#btnRegistrar').hide();
+    $("#titulosEntradasSalidas").text("Entradas y salidas");
   });
 
   // ocultar/mostrar fecha de caducidad segun el checkbox y que sea obligatorio
@@ -360,40 +358,40 @@ tableCatArticulos = $("#tableCatArticulos").DataTable({
           );
 
           // Validación para tipo_articulo (Reactivo)
-if (rowSelected.TIPO_ARTICULO_ID == 1) {
-  $("#editarArticuloForm #rendimientoEstimadoDiv").show();
-  $("#editarArticuloForm #rendimientoPacienteDiv").show();
-  $("#editarArticuloForm #insertoDiv").show();
-  $("#editarArticuloForm #protocoloDiv").show();
-} else {
-  $("#editarArticuloForm #rendimientoEstimadoDiv").hide();
-  $("#editarArticuloForm #rendimientoPacienteDiv").hide();
-  $("#editarArticuloForm #insertoDiv").hide();
-  $("#editarArticuloForm #protocoloDiv").hide();
-  $("#editarArticuloForm #rendimiento_estimado").val("");
-  $("#editarArticuloForm #rendimiento_paciente").val("");
-  $("#editarArticuloForm #inserto").val("");
-  $("#editarArticuloForm #procedimiento").val("");
-}
-$("#editarArticuloForm #tipo_articulo")
-  .off("change")
-  .on("change", function () {
-    if ($(this).val() == "1") {
-      $("#editarArticuloForm #rendimientoEstimadoDiv").show();
-      $("#editarArticuloForm #rendimientoPacienteDiv").show();
-      $("#editarArticuloForm #insertoDiv").show();
-      $("#editarArticuloForm #protocoloDiv").show();
-    } else {
-      $("#editarArticuloForm #rendimientoEstimadoDiv").hide();
-      $("#editarArticuloForm #rendimientoPacienteDiv").hide();
-      $("#editarArticuloForm #insertoDiv").hide();
-      $("#editarArticuloForm #protocoloDiv").hide();
-      $("#editarArticuloForm #rendimiento_estimado").val("");
-      $("#editarArticuloForm #rendimiento_paciente").val("");
-      $("#editarArticuloForm #inserto").val("");
-      $("#editarArticuloForm #procedimiento").val("");
-    }
-  });
+          if (rowSelected.TIPO_ARTICULO_ID == 1) {
+            $("#editarArticuloForm #rendimientoEstimadoDiv").show();
+            $("#editarArticuloForm #rendimientoPacienteDiv").show();
+            $("#editarArticuloForm #insertoDiv").show();
+            $("#editarArticuloForm #protocoloDiv").show();
+          } else {
+            $("#editarArticuloForm #rendimientoEstimadoDiv").hide();
+            $("#editarArticuloForm #rendimientoPacienteDiv").hide();
+            $("#editarArticuloForm #insertoDiv").hide();
+            $("#editarArticuloForm #protocoloDiv").hide();
+            $("#editarArticuloForm #rendimiento_estimado").val("");
+            $("#editarArticuloForm #rendimiento_paciente").val("");
+            $("#editarArticuloForm #inserto").val("");
+            $("#editarArticuloForm #procedimiento").val("");
+          }
+          $("#editarArticuloForm #tipo_articulo")
+            .off("change")
+            .on("change", function () {
+              if ($(this).val() == "1") {
+                $("#editarArticuloForm #rendimientoEstimadoDiv").show();
+                $("#editarArticuloForm #rendimientoPacienteDiv").show();
+                $("#editarArticuloForm #insertoDiv").show();
+                $("#editarArticuloForm #protocoloDiv").show();
+              } else {
+                $("#editarArticuloForm #rendimientoEstimadoDiv").hide();
+                $("#editarArticuloForm #rendimientoPacienteDiv").hide();
+                $("#editarArticuloForm #insertoDiv").hide();
+                $("#editarArticuloForm #protocoloDiv").hide();
+                $("#editarArticuloForm #rendimiento_estimado").val("");
+                $("#editarArticuloForm #rendimiento_paciente").val("");
+                $("#editarArticuloForm #inserto").val("");
+                $("#editarArticuloForm #procedimiento").val("");
+              }
+            });
           $("#editarArticuloForm #maneja_caducidad").val(
             rowSelected.MANEJA_CADUCIDAD
           );
@@ -608,10 +606,10 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
     { target: 1, title: "Imágen del artículo", className: "all" },
     { target: 2, title: "Nombre comercial", className: "all" },
     { target: 3, title: "Costo última entrada", className: "all" },
-    { target: 4, title: "Fecha último movimiento", className: "all" },
+    { target: 4, title: "Fecha última entrada", className: "all" },
     { target: 5, title: "Costo más alto", className: "all" },
     { target: 6, title: "Proveedor", className: "all" },
-    { target: 7, title: "Cantidad", className: "all" },
+    { target: 7, title: "Cantidad total en almacén", className: "all" },
   ],
   dom: 'Bl<"dataTables_toolbar">frtip',
   buttons: [
@@ -678,10 +676,40 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
       `);
 
           // Evento para recargar la tabla al cambiar el filtro
-          $("#dropdownTipoMovimiento").on("change", function () {
+          $(document).on("change", "#dropdownTipoMovimiento", function () {
+            var tipo = $(this).val();
             window.dataTableCatEntradas = window.dataTableCatEntradas || {};
-            dataTableCatEntradas.id_movimiento = $(this).val();
+            dataTableCatEntradas.id_movimiento = tipo;
             tableCatEntradas.ajax.reload();
+            // Cambia visibilidad y títulos de columnas según el tipo de movimiento
+            if (tipo == "1") {
+              // Entradas
+              tableCatEntradas.column(3).visible(true);
+              tableCatEntradas.column(4).header().textContent =
+                "Fecha última entrada";
+              tableCatEntradas.column(5).visible(true);
+              tableCatEntradas.column(6).visible(true);
+              tableCatDetallesEntradas.column(3).header().textContent =
+                "Cantidad de entrada";
+              tableCatEntradas.column(0).header().textContent =
+                "Fecha última entrada";
+              tableCatDetallesEntradas.column(1).visible(true);
+              tableCatDetallesEntradas.column(2).visible(true);
+            } else {
+              // Salidas
+              tableCatEntradas.column(3).visible(false); // Oculta costo última entrada
+              tableCatEntradas.column(4).header().textContent =
+                "Fecha última salida";
+              tableCatEntradas.column(5).visible(false); // Oculta costo más alto
+              tableCatEntradas.column(6).visible(false); // Oculta proveedor
+              tableCatDetallesEntradas.column(3).header().textContent =
+                "Cantidad de salida";
+              tableCatDetallesEntradas.column(0).header().textContent =
+                "Fecha última salida";
+              tableCatDetallesEntradas.column(1).visible(false);
+              tableCatDetallesEntradas.column(2).visible(false);
+            }
+            tableCatEntradas.columns.adjust().draw();
           });
         }
         // Opcional: abrir el dropdown automáticamente
@@ -712,6 +740,11 @@ var tableCatDetallesEntradas = $("#tableCatDetallesEntradas").DataTable({
       return {
         api: 7,
         id_articulo: rowSelected ? rowSelected.ID_ARTICULO : 0,
+        id_movimiento:
+          window.dataTableCatEntradas &&
+          window.dataTableCatEntradas.id_movimiento
+            ? window.dataTableCatEntradas.id_movimiento
+            : 1,
       };
     },
     method: "POST",
@@ -755,26 +788,7 @@ var tableCatDetallesEntradas = $("#tableCatDetallesEntradas").DataTable({
     { targets: 0, title: "Fecha última entrada", className: "all" },
     { targets: 1, title: "Costo última entrada", className: "all" },
     { targets: 2, title: "Proveedor", className: "all" },
-    { targets: 3, title: "Cantidad", className: "all" },
-  ],
-  dom: 'Bl<"dataTables_toolbar">frtip',
-  buttons: [
-    {
-      // BOTON PARA FILTRAR LA TABLA ENTRADAS Y SALIDAS
-      text: '<i class="bi bi-funnel"></i> Filtrar',
-      className: "btn btn-warning",
-      attr: {
-        id: "btnFiltrarArticulos",
-        "data-bs-toggle": "tooltip",
-        "data-bs-placement": "top",
-        title: "Filtrar los artículos de la tabla",
-      },
-      action: function () {
-        // procedimiento para filtrar la tabla
-        $("#filtrarArticuloModal").modal("show");
-        $("#detalleEntradaModal").modal("hide");
-      },
-    },
+    { targets: 3, title: "Cantidad de entrada", className: "all" },
   ],
 });
 
@@ -809,7 +823,9 @@ selectDatatable(
           maximumFractionDigits: 2,
         })}</span>`
       );
-      $("#totalUnidades").text(`- Total de unidades: ${rowSelected.CANTIDAD}`);
+      $("#totalUnidades").html(
+        `- Total de unidades en almacén: <span style="color: red;">${rowSelected.CANTIDAD}</span>`
+      );
     } else {
       $("#costoMasAltoEntrada").html("SIN REGISTROS");
       $("#totalUnidades").text("");
@@ -897,18 +913,24 @@ selectDatatable(
     // EDITAR que al editar aparezca la fecha actual de ese articulo en la bd
     $("#editarArticuloForm #fechaCaducidad").val(fechaCaducidad);
     $("#areaDetalle").text(rowSelected.AREA);
-    if (rowSelected.RENDIMIENTO_ESTIMADO && rowSelected.RENDIMIENTO_ESTIMADO !== "0") {
+    if (
+      rowSelected.RENDIMIENTO_ESTIMADO &&
+      rowSelected.RENDIMIENTO_ESTIMADO !== "0"
+    ) {
       $("#rendimientoEstimado").text(rowSelected.RENDIMIENTO_ESTIMADO);
       $("#rendimientoEstimado1").show();
     } else {
       $("#rendimientoEstimado1").hide();
-  }
-   if (rowSelected.RENDIMIENTO_PACIENTE && rowSelected.RENDIMIENTO_PACIENTE !== "0") {
-  $("#rendimientoPaciente").text(rowSelected.RENDIMIENTO_PACIENTE);
-  $("#rendimientoPaciente1").show();
-} else {
-  $("#rendimientoPaciente1").hide();
-}
+    }
+    if (
+      rowSelected.RENDIMIENTO_PACIENTE &&
+      rowSelected.RENDIMIENTO_PACIENTE !== "0"
+    ) {
+      $("#rendimientoPaciente").text(rowSelected.RENDIMIENTO_PACIENTE);
+      $("#rendimientoPaciente1").show();
+    } else {
+      $("#rendimientoPaciente1").hide();
+    }
     $("#nombreComercial").html(
       `${rowSelected.NOMBRE_COMERCIAL} ${
         rowSelected.RED_FRIO == 1

@@ -1,135 +1,99 @@
 <!-- tabs para movil -->
 <div id="tab-button"></div>
-
 <div class="row">
-    <div class="col-6 tab-first" id="tab-menu" style="margin: auto;">
-        <div class="rounded p-3 shadow my-2 card" id="lista-pacientes">
-            <h5>Elija una opción</h5>
-            <div class="vertical-menu" id="menu-grid">
-                <a href="#articulos" data-target="moduloCatArticulos">
-                    <i class="bi bi-box-seam icono-menu"></i>
-                    <span>Artículos</span>
-                </a>
-                <a href="#entradas" data-target="moduloCatEntradas">
-                    <i class="bi bi-arrow-down-up icono-menu"></i>
-                    <span>Entradas y salidas</span>
-               </a>
-                <a href="#salidas" data-target="moduloCatSalidas">
-                    <i class="bi bi-box-arrow-in-up-right icono-menu"></i>
-                    <span>Salidas</span>
-                </a>
-                <a href="inventarios-fisicos" data-target="moduloInventariosFisicos">
-                    <i class="bi bi-pencil-square icono-menu"></i>
-                    <span>Inventarios Físicos</span>
-                </a>
-                <a href="#activos" data-target="moduloActivos">
-                    <i class="bi bi-folder-plus icono-menu"></i>
-                    <span>Activos</span>
-                </a>
-                <a href="#consulta" data-target="moduloConsulta">
-                    <i class="bi bi-search icono-menu"></i>
-                    <span>Consulta</span>
-                </a>
-                <a href="#requisiciones" data-target="moduloRequisiciones">
-                    <i class="bi bi-file-earmark-text-fill icono-menu"></i>
-                    <span>Requisiciones</span>
-                </a>
-                <a href="#dashboard" data-target="moduloDash">
-                    <i class="bi bi-graph-up-arrow icono-menu"></i>
-                    <span>Dashboard</span>
-                </a>
-            </div>
-        </div>
+  <div class="col-6 tab-first" id="tab-menu" style="margin: auto">
+    <div class="rounded p-3 shadow my-2 card" id="lista-pacientes">
+      <h5>Elija una opción</h5>
+      <div class="vertical-menu" id="menu-grid">
+        <a href="#articulos" data-target="moduloCatArticulos">
+          <i class="bi bi-box-seam icono-menu"></i>
+          <span>Artículos</span>
+        </a>
+        <a href="#entradas" data-target="moduloCatEntradas">
+          <i class="bi bi-arrow-down-up icono-menu"></i>
+          <span>Entradas y salidas</span>
+        </a>
+        <a href="inventarios-fisicos" data-target="moduloInventariosFisicos">
+          <i class="bi bi-pencil-square icono-menu"></i>
+          <span>Inventarios Físicos</span>
+        </a>
+        <a href="#requisiciones" data-target="moduloRequisiciones">
+          <i class="bi bi-file-earmark-text-fill icono-menu"></i>
+          <span>Requisiciones</span>
+        </a>
+      </div>
     </div>
+  </div>
 
-    <div class="col-12 col-xl-12 tab-second" id="modulos-inventario" style="display:none;">
-        <!-- CATALOGO DE ARTICULOS -->
-        <div class="rounded p-3 shadow my-2 content-module card" id="moduloCatArticulos">
-            <!-- Barra de título -->
-            <div class="d-flex align-items-start pb-3 mb-3 text-white rounded">
-                <h2 class="mx-2">Catálogo de Artículos</h2>
-            </div>
+  <div
+    class="col-12 col-xl-12 tab-second"
+    id="modulos-inventario"
+    style="display: none"
+  >
+    <!-- CATALOGO DE ARTICULOS -->
+    <div
+      class="rounded p-3 shadow my-2 content-module card"
+      id="moduloCatArticulos"
+    >
+      <!-- Barra de título -->
+      <div class="d-flex align-items-start pb-3 mb-3 text-white rounded">
+        <h2 class="mx-2">Catálogo de Artículos</h2>
+      </div>
 
-            <!-- Sección de botones -->
-            <!-- <div class="mb-4 text-end">
+      <!-- Sección de botones -->
+      <!-- <div class="mb-4 text-end">
                 <button type="button" class="btn btn-success me-2" id="btnNuevoArticulo"><i class="bi bi-plus"></i> Nuevo Artículo</button>
             </div> -->
 
-            <!-- Tabla -->
-            <div class="table-responsive">
-                <table class="table responsive table-hover" style="min-width: 1470px;" id="tableCatArticulos">
-
-                </table>
-            </div>
-        </div>
-
-        <!-- ENTRADAS-->
-        <div class="rounded p-3 shadow my-2 content-module" id="moduloCatEntradas">
-            <!-- Barra de título -->
-            <div class="d-flex  align-items-start pb-3 mb-3 text-white rounded">
-                <h2 class="mx-2">Entradas y salidas</h2>
-            </div>
-        <!-- Tabla -->
-            <div class="table-responsive">
-                <table class="table responsive table-hover" style="min-width: 1470px;" id="tableCatEntradas">
-
-                </table>
-            </div>
-
-        </div>
-
-        <!--SALIDAS -->
-        <div class="rounded p-3 shadow my-2 content-module" id="moduloCatSalidas">
-            <!-- Barra de título -->
-            <div class="d-flex  align-items-start pb-3 mb-3 text-white rounded">
-                <h2 class="mx-2">Salidas</h2>
-            </div>
-
-        </div>
-
-        <!-- INVENTARIOS FISICOS -->
-        <div class="rounded p-3 shadow my-2 content-module" id="moduloInventariosFisicos">
-            <!-- Barra de título -->
-            <div class="d-flex  align-items-start pb-3 mb-3 text-white rounded">
-                <h2 class="mx-2">Inventarios fisicos</h2>
-            </div>
-
-        </div>
-
-        <!-- Activos -->
-        <div class="rounded p-3 shadow my-2 content-module" id="moduloActivos">
-            <!-- Barra de título -->
-            <div class="d-flex  align-items-start pb-3 mb-3 text-white rounded">
-                <h2 class="mx-2">Activos</h2>
-            </div>
-        </div>
-
-        <!-- CONSULTA -->
-        <div class="rounded p-3 shadow my-2 content-module" id="moduloConsulta">
-            <!-- Barra de título -->
-            <div class="d-flex  align-items-start pb-3 mb-3 text-white rounded">
-                <h2 class="mx-2">Consulta</h2>
-            </div>
-        </div>
-
-        <!-- REQUISICIONES -->
-        <div class="rounded p-3 shadow my-2 content-module" id="moduloRequisiciones">
-            <div class="d-flex  align-items-start pb-3 mb-3 text-white rounded">
-                <h2 class="mx-2">Requisiciones</h2>
-            </div>
-        </div>
-
-        <!-- DASHBOARD -->
-        <div class="rounded p-3 shadow my-2 content-module" id="moduloDash">
-            <div class="d-flex  align-items-start pb-3 mb-3 text-white rounded">
-                <h2 class="mx-2">Dashboard</h2>
-            </div>
-        </div>
+      <!-- Tabla -->
+      <div class="table-responsive">
+        <table
+          class="table responsive table-hover"
+          style="min-width: 1470px"
+          id="tableCatArticulos"
+        ></table>
+      </div>
     </div>
-</div>
 
+    <!-- ENTRADAS-->
+    <div class="rounded p-3 shadow my-2 content-module" id="moduloCatEntradas">
+      <!-- Barra de título -->
+      <div class="d-flex align-items-start pb-3 mb-3 text-white rounded">
+        <h2 class="mx-2">Entradas y salidas</h2>
+      </div>
+      <!-- Tabla -->
+      <div class="table-responsive">
+        <table
+          class="table responsive table-hover"
+          style="min-width: 1470px"
+          id="tableCatEntradas"
+        ></table>
+      </div>
+    </div>
+
+    <!-- INVENTARIOS FISICOS -->
+    <div
+      class="rounded p-3 shadow my-2 content-module"
+      id="moduloInventariosFisicos"
+    >
+      <!-- Barra de título -->
+      <div class="d-flex align-items-start pb-3 mb-3 text-white rounded">
+        <h2 class="mx-2">Inventarios fisicos</h2>
+      </div>
+    </div>
+    <!-- REQUISICIONES -->
+    <div
+      class="rounded p-3 shadow my-2 content-module"
+      id="moduloRequisiciones"
+    >
+      <div class="d-flex align-items-start pb-3 mb-3 text-white rounded">
+        <h2 class="mx-2">Requisiciones</h2>
+      </div>
+    </div>
+  </div>
+</div>
 <style>
-#menu-grid {
+  #menu-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 18px 10px;
@@ -141,9 +105,9 @@
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 20px 0;
-}
+  }
 
-#menu-grid a {
+  #menu-grid a {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -158,23 +122,23 @@
     position: relative;
     overflow: hidden;
     transition: color 0.3s;
-}
+  }
 
-#menu-grid a .icono-menu,
-#menu-grid a span {
+  #menu-grid a .icono-menu,
+  #menu-grid a span {
     transition: transform 0.3s;
-}
+  }
 
-#menu-grid a:hover .icono-menu,
-#menu-grid a:hover span {
+  #menu-grid a:hover .icono-menu,
+  #menu-grid a:hover span {
     transform: translateY(-8px) scale(1.08);
-}
+  }
 
-#menu-grid a:hover {
+  #menu-grid a:hover {
     /* No background, no color change */
-}
+  }
 
-#menu-grid a::after {
+  #menu-grid a::after {
     /* Si quieres mantener la línea animada, déjala, si no, bórrala */
     content: "";
     position: absolute;
@@ -186,56 +150,54 @@
     border-radius: 2px;
     transform: scaleX(0);
     transition: transform 0.3s;
-}
+  }
 
-#menu-grid a:hover::after {
+  #menu-grid a:hover::after {
     transform: scaleX(1);
-}
+  }
 
-.icono-menu {
+  .icono-menu {
     font-size: 3.2rem !important;
     margin-bottom: 10px;
     line-height: 1;
     display: block;
-}
+  }
 
-#menu-grid a span {
+  #menu-grid a span {
     margin-top: 8px;
     font-size: 1.1rem;
     display: block;
     text-align: center;
-}
+  }
 
-
-
-@media (max-width: 991px) {
+  @media (max-width: 991px) {
     #menu-grid {
-        grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, 1fr);
     }
-}
-@media (max-width: 575px) {
+  }
+  @media (max-width: 575px) {
     #menu-grid {
-        grid-template-columns: 1fr;
+      grid-template-columns: 1fr;
     }
-}
+  }
 </style>
 
 <script>
-// Al cargar la página, solo muestra el menú principal
-document.addEventListener('DOMContentLoaded', function() {
+  // Al cargar la página, solo muestra el menú principal
+  document.addEventListener("DOMContentLoaded", function () {
     // Oculta los módulos al inicio
-    document.getElementById('modulos-inventario').style.display = 'none';
+    document.getElementById("modulos-inventario").style.display = "none";
     // Muestra el menú principal
-    document.getElementById('tab-menu').style.display = '';
-});
+    document.getElementById("tab-menu").style.display = "";
+  });
 
-// Cuando el usuario haga clic en una opción, muestra los módulos
-document.querySelectorAll('#menu-grid a').forEach(function(link) {
-    link.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.getElementById('tab-menu').style.display = 'none';
-        document.getElementById('modulos-inventario').style.display = '';
-        // Aquí puedes agregar lógica para mostrar el módulo correspondiente si lo deseas
+  // Cuando el usuario haga clic en una opción, muestra los módulos
+  document.querySelectorAll("#menu-grid a").forEach(function (link) {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      document.getElementById("tab-menu").style.display = "none";
+      document.getElementById("modulos-inventario").style.display = "";
+      // Aquí puedes agregar lógica para mostrar el módulo correspondiente si lo deseas
     });
-});
+  });
 </script>

@@ -9,7 +9,7 @@ if (!$tokenValido) {
     exit;
 }
 
-if(empty($_SESSION['id'])){
+if (empty($_SESSION['id'])) {
     $tokenVerification->logout();
 }
 
@@ -24,7 +24,7 @@ $nombre_comercial = $_POST['nombre_comercial'];
 // la imagnes es un files
 $estatus = $_POST['estatus'];
 
-switch($estatus){
+switch ($estatus) {
     case "on":
         $estatus = 1;
         break;
@@ -57,42 +57,42 @@ $id_movimiento = $_POST['id_movimiento'];
 
 $host = $master->selectHost($_SERVER['SERVER_NAME']);
 
-switch($api){
+switch ($api) {
     case 1:
         # agregar nuevo articulo al catalogo
 
         // subir la imagen del catalogo
         # nombre de articulo.
-        $nombreImagen = "img_$no_art";#uniqid("img_");
-        $nombreInserto = "inserto_$no_art";#uniqid("inserto_");
-        $nombreProcedimiento = "procedimiento_$no_art";# uniqid("procedimiento_");
+        $nombreImagen = "img_$no_art"; #uniqid("img_");
+        $nombreInserto = "inserto_$no_art"; #uniqid("inserto_");
+        $nombreProcedimiento = "procedimiento_$no_art"; # uniqid("procedimiento_");
 
         $dir = '../reportes/catalogo_articulos/';
         # crear la carpeta
         $r = $master->createDir($dir);
 
-        if(!$r){
+        if (!$r) {
             $response = "Imposible crear directorio de la imagen.";
             break;
         }
         // imagen
         # si la carga del archivo es apropiado se sube al servidor
-        if(isset($_FILES["img_producto"]) && !empty($_FILES['img_producto']['name'])){
+        if (isset($_FILES["img_producto"]) && !empty($_FILES['img_producto']['name'])) {
 
             $img = $master->guardarFiles($_FILES, 'img_producto', $dir, $nombreImagen);
             $imagen = str_replace('../', $host, $img[0]['url']);
             $imagen = $master->setToNull([$imagen])[0];
         }
-        
+
         //inserto 
-        if(isset($_FILES["inserto"]) && !empty($_FILES['inserto']['name'])){
-            $inserto = $master->guardarFiles($_FILES,'inserto', $dir, $nombreInserto);
+        if (isset($_FILES["inserto"]) && !empty($_FILES['inserto']['name'])) {
+            $inserto = $master->guardarFiles($_FILES, 'inserto', $dir, $nombreInserto);
             $insertoUrl = str_replace('../', $host, $inserto[0]['url']);
             $insertoUrl = $master->setToNull([$insertoUrl])[0];
         }
 
         //procedimiento
-        if(isset($_FILES["procedimiento"]) &&  !empty($_FILES['procedimiento']['name'])){
+        if (isset($_FILES["procedimiento"]) &&  !empty($_FILES['procedimiento']['name'])) {
             $procedimiento = $master->guardarFiles($_FILES, 'procedimiento', $dir, $nombreProcedimiento);
             $procedimientoUrl = str_replace('../', $host, $procedimiento[0]['url']);
             $procedimientoUrl = $master->setToNull([$procedimientoUrl])[0];
@@ -149,7 +149,7 @@ switch($api){
         break;
     case 5:
         # eliminar un articulo
-        $response = $master->deleteByProcedure("sp_inventarios_cat_articulos_e",[$id_articulo, $_SESSION['id']]);
+        $response = $master->deleteByProcedure("sp_inventarios_cat_articulos_e", [$id_articulo, $_SESSION['id']]);
         break;
     case 6:
         # ingresar datos faltantates a la tabla de entradas
@@ -166,8 +166,15 @@ switch($api){
         ]);
         break;
     case 7:
-        # recuperar los datos de un solo articulo
-        $response = $master->getByProcedure("sp_inventarios_entrada_articulos_detalle", [$id_articulo]);
+        // Recuperar los datos de un solo articulo
+        $id_movimiento = isset($_POST['id_movimiento']) ? intval($_POST['id_movimiento']) : 1;
+        if ($id_movimiento == 1) {
+            // Entradas
+            $response = $master->getByProcedure("sp_inventarios_entrada_articulos_detalle", [$id_articulo]);
+        } else {
+            // Salidas
+            $response = $master->getByProcedure("sp_inventarios_salida_articulos_detalle", [$id_articulo]);
+        }
         break;
     default:
         $response = "API no definida.";

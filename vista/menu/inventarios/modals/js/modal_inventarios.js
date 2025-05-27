@@ -106,7 +106,7 @@ $("#registrarEntradaForm").submit(function(event){
     
     alertMensajeConfirm(
         {
-            title: "¿Está a punto de registrar esta entrada?",
+            title: "¿Está a punto de registrar este movimiento?",
             text: "Asegúrate que los datos sean correctos.",
             icon: "warning"
         },
@@ -128,6 +128,7 @@ $("#registrarEntradaForm").submit(function(event){
                         alertToast("Artículo actualizado!", "success", 4000)
                         tableCatEntradas.ajax.reload();
                         tableCatArticulos.ajax.reload();
+                        tableCatDetallesEntradas.ajax.reload();
                     }
                 }
             )
