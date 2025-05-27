@@ -4,7 +4,7 @@
 
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalTitleRegistrarEntrada">Registrando entrada de<strong><span id="registrandoEntrada"></span></strong></h5>
+                <h5 class="modal-title" id="modalTitleRegistrarEntrada">Registrando movimiento de<strong><span id="registrandoEntrada"></span></strong></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body container-fluid">
@@ -19,6 +19,16 @@
                                         <div class="col-12">
                                             <form id="registrarEntradaForm" name="registrarEntradaForm">
 
+                                                <!-- Movimiento -->
+                                                <div class="mb-3">
+                                                    <label for="id_movimiento" class="form-label">Tipo de movimiento</label>
+                                                    <select class="form-select input-form" id="id_movimiento" name="id_movimiento">
+                                                        <option value="" disabled selected>Seleccione...</option>
+                                                        <option value="1">Entrada</option>
+                                                        <option value="2">Salida</option>
+                                                    </select>
+                                                </div>
+
                                                 <!-- Cantidad -->
                                                 <div class="mb-3">
                                                     <label for="cantidad" class="form-label">Cantidad a ingresar</label>
@@ -27,7 +37,7 @@
 
                                                 <!-- Fecha Última Entrada -->
                                                 <div class="mb-3">
-                                                    <label for="fecha_ultima_entrada" class="form-label">Fecha Última Entrada</label>
+                                                    <label for="fecha_ultima_entrada" class="form-label">Fecha Última Movimiento</label>
                                                     <input type="date" class="form-control input-form" id="fecha_ultima_entrada" name="fecha_ultima_entrada" required>
                                                 </div>
 
@@ -38,7 +48,7 @@
                                                 </div>
 
                                                 <!-- Proveedor -->
-                                                <div class="mb-3">
+                                                <div class="mb-3" id="proveedorDiv">
                                                     <label for="id_proveedores" class="form-label">Proveedor</label>
                                                     <select class="form-select input-form" id="id_proveedores" name="id_proveedores">
                                                         <option value="" disabled selected>Seleccione...</option>
@@ -72,3 +82,48 @@
         </div>
     </div>
 </div>
+
+<script>
+$(document).ready(function () {
+    // Oculta todos los campos excepto el selector de movimiento al inicio
+    $("#cantidad").closest(".mb-3").hide();
+    $("#fecha_ultima_entrada").closest(".mb-3").hide();
+    $("#costo_ultima_entrada").closest(".mb-3").hide();
+    $("#proveedorDiv").hide();
+
+    $("#id_movimiento").on("change", function () {
+        if ($(this).val() == "1") {
+            $("label[for='cantidad']").text("Cantidad a ingresar");
+            $("#cantidad").attr("placeholder", "Ej. 10");
+            $("#cantidad").closest(".mb-3").show();
+            $("#fecha_ultima_entrada").closest(".mb-3").show();
+            $("#costo_ultima_entrada").closest(".mb-3").show();
+            $("#proveedorDiv").show();
+            $("#cantidad").prop("required", true);
+            $("#fecha_ultima_entrada").prop("required", true);
+            $("#costo_ultima_entrada").prop("required", true);
+            $("#id_proveedores").prop("required", true);
+        } else if ($(this).val() == "2") {
+            $("label[for='cantidad']").text("Cantidad a retirar");
+            $("#cantidad").attr("placeholder", "Ej. 5");
+            $("#cantidad").closest(".mb-3").show();
+            $("#fecha_ultima_entrada").closest(".mb-3").show();
+            $("#costo_ultima_entrada").closest(".mb-3").hide();
+            $("#costo_ultima_entrada").prop("required", false);
+            $("#proveedorDiv").hide();
+            $("#id_proveedores").prop("required", false);
+            $("#cantidad").prop("required", true);
+             $("#fecha_ultima_entrada").prop("required", true);
+        } else {
+            $("#cantidad").closest(".mb-3").hide();
+            $("#fecha_ultima_entrada").closest(".mb-3").hide();
+            $("#costo_ultima_entrada").closest(".mb-3").hide();
+            $("#proveedorDiv").hide();
+            $("#cantidad").prop("required", false);
+            $("#fecha_ultima_entrada").prop("required", false);
+            $("#costo_ultima_entrada").prop("required", false);
+            $("#id_proveedores").prop("required", false);
+        }
+    });
+});
+</script>

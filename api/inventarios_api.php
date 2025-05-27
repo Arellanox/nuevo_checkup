@@ -53,6 +53,7 @@ $rendimiento_paciente = $_POST['rendimiento_paciente'];
 $id_cat_entradas = $_POST['id_cat_entradas'];
 $cantidad = $_POST['cantidad'];
 $id_proveedores = $_POST['id_proveedores'];
+$id_movimiento = $_POST['id_movimiento'];
 
 $host = $master->selectHost($_SERVER['SERVER_NAME']);
 
@@ -142,7 +143,9 @@ switch($api){
         break;
     case 4:
         # recuperar los articulos de entrada
-        $response = $master->getByProcedure("sp_inventarios_entrada_articulos_b", []);
+        // Por defecto, muestra entradas (1) si no se envía nada
+        $id_movimiento = isset($_POST['id_movimiento']) ? $_POST['id_movimiento'] : 1;
+        $response = $master->getByProcedure("sp_inventarios_entrada_articulos_b", [$id_movimiento]);
         break;
     case 5:
         # eliminar un articulo
@@ -158,6 +161,7 @@ switch($api){
             $costo_ultima_entrada,
             //$costo_mas_alto,
             $id_proveedores,
+            $id_movimiento,
             $_SESSION['id']
         ]);
         break;

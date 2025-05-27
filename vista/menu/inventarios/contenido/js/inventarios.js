@@ -52,6 +52,10 @@ $(document).ready(function () {
     $(".content-module").hide();
     $("#tab-menu").show();
     $("#btnAgregar").hide();
+    rowSelected = null; // Resetea la selección de fila
+    tableCatArticulos.ajax.reload(); // Recarga la tabla de artículos
+    tableCatEntradas.ajax.reload(); // Recarga la tabla de entradas
+    tableCatDetallesEntradas.ajax.reload(); // Recarga la tabla de detalles de entradas
     //$('#btnRegistrar').hide();
   });
 
@@ -111,14 +115,14 @@ $("#maneja_caducidad").on("change", function () {
 
 // DATATABLE DE ARTICULOS
 tableCatArticulos = $("#tableCatArticulos").DataTable({
-  autoWidth: true,
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
   },
+  order: [[0, "desc"]],
+  autoWidth: true,
   lengthChange: false,
   info: true,
   paging: true,
-  sorting: true,
   scrollY: "68vh",
   scrollX: true,
   scrollCollapse: true,
@@ -305,7 +309,8 @@ tableCatArticulos = $("#tableCatArticulos").DataTable({
     // }
   ],
   columnDefs: [
-    //editar los numeros segun las columnas que quieras, editar el tittle es el header de las tablas
+    // Ajusta los anchos de columna según el contenido esperado
+    { targets: "_all", className: "text-center align-middle" },
     { target: 0, title: "Clave Art", className: "all" },
     { target: 1, title: "Imágen del artículo", className: "all" },
     { target: 2, title: "Nombre comercial", className: "all" },
@@ -498,7 +503,6 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
     data: function (d) {
       return $.extend(d, dataTableCatEntradas);
     },
-    // data: { api: 2, equipo: id_equipos },
     method: "POST",
     url: "../../../api/inventarios_api.php",
     error: function (jqXHR, textStatus, errorThrown) {
@@ -577,7 +581,7 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
     { target: 1, title: "Imágen del artículo", className: "all" },
     { target: 2, title: "Nombre comercial", className: "all" },
     { target: 3, title: "Costo última entrada", className: "all" },
-    { target: 4, title: "Fecha última entrada", className: "all" },
+    { target: 4, title: "Fecha último movimiento", className: "all" },
     { target: 5, title: "Costo más alto", className: "all" },
     { target: 6, title: "Proveedor", className: "all" },
     { target: 7, title: "Cantidad", className: "all" },
@@ -585,15 +589,15 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
   dom: 'Bl<"dataTables_toolbar">frtip',
   buttons: [
     {
-      // BOTON PARA REGISTRAR
-      text: '<i class="bi bi-plus"></i> Registrar entrada',
+      // Boton para registrar entrada o salida
+      text: '<i class="bi bi-plus"></i> Registrar movimiento',
       className: "btn btn-secondary",
       attr: {
         //disabled: true,
         id: "btnRegistrarEntrada",
         "data-bs-toggle": "tooltip",
         "data-bs-placement": "top",
-        title: "Registrar entrada del artículo seleccionado",
+        title: "Registrar movimiento del artículo seleccionado",
         disabled: !userPermissions.canEdit,
       },
       action: function () {
@@ -608,6 +612,13 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
           $("#registrarEntradaForm #nombre_comercial").val(
             rowSelected.NOMBRE_COMERCIAL
           );
+          $("#registrarEntradaForm #id_proveedores option").each(function () {
+            if (
+              $(this).text().trim() === (rowSelected.PROVEEDOR || "").trim()
+            ) {
+              $("#registrarEntradaForm #id_proveedores").val($(this).val());
+            }
+          });
 
           if (rowSelected.ESTATUS == 1) {
             $("#registrarEntradaForm #estatus").prop("checked", true);
@@ -617,6 +628,37 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
         } else {
           alertToast("Por favor, seleccione un artículo", "info", 4000);
         }
+      },
+    },
+    {
+      text: '<i class="bi bi-funnel"></i> Tipo de movimiento',
+      className: "btn btn-warning",
+      attr: {
+        id: "btnFiltroTipoMovimiento",
+        "data-bs-toggle": "tooltip",
+        "data-bs-placement": "top",
+        title: "Filtrar por tipo de movimiento",
+      },
+      action: function (e, dt, node, config) {
+        // Si ya existe el select, no lo vuelvas a agregar
+        if ($("#dropdownTipoMovimiento").length === 0) {
+          // Crea el dropdown y lo coloca al lado del botón
+          $(node).after(`
+        <select id="dropdownTipoMovimiento" class="form-select form-select-sm d-inline-block ms-2" style="width:auto;display:inline-block;">
+          <option value="1">Entradas</option>
+          <option value="2">Salidas</option>
+        </select>
+      `);
+
+          // Evento para recargar la tabla al cambiar el filtro
+          $("#dropdownTipoMovimiento").on("change", function () {
+            window.dataTableCatEntradas = window.dataTableCatEntradas || {};
+            dataTableCatEntradas.id_movimiento = $(this).val();
+            tableCatEntradas.ajax.reload();
+          });
+        }
+        // Opcional: abrir el dropdown automáticamente
+        $("#dropdownTipoMovimiento").focus();
       },
     },
   ],
@@ -871,6 +913,18 @@ selectDatatable(
       $("#verProcedimientoBtn").attr("href", rowSelected.PROCEDIMIENTO_PRUEBA);
     }
 
+    //mostrar proveedores del articulo seleccionado
+    $("#proveedoresArt").html(
+      rowSelected.PROVEEDORES
+        ? rowSelected.PROVEEDORES.split("|")
+            .map(
+              (proveedor) =>
+                `<span class="badge text-bg-dark">${proveedor}</span>`
+            )
+            .join(" ")
+        : "No hay proveedores registrados."
+    );
+
     //mostrar el modal
     $("#detalleProductoModal").modal("show");
   }
@@ -1052,4 +1106,32 @@ $(".btn-back-menu").css({
   width: "auto",
   marginBottom: "16px",
   marginTop: "4px",
+});
+
+// Centrar y mantener en una sola línea el texto de headers y celdas de todas las DataTables
+$(".dataTable th, .dataTable td").css({
+  "text-align": "center",
+  "vertical-align": "middle",
+});
+
+// Aplica estilos cada vez que se dibuje la tabla de artículos
+tableCatArticulos.on("draw", function () {
+  $(".dataTable th, .dataTable td").css({
+    "text-align": "center",
+    "vertical-align": "middle",
+  });
+});
+
+tableCatEntradas.on("draw", function () {
+  $(".dataTable th, .dataTable td").css({
+    "text-align": "center",
+    "vertical-align": "middle",
+  });
+});
+
+tableCatDetallesEntradas.on("draw", function () {
+  $(".dataTable th, .dataTable td").css({
+    "text-align": "center",
+    "vertical-align": "middle",
+  });
 });

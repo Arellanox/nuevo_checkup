@@ -81,6 +81,7 @@ $("#editarArticuloForm").submit(function(event){
                         $("#editarArticuloModal").modal('hide');
                         alertToast("Artículo actualizado!", "success", 4000)
                         tableCatArticulos.ajax.reload();
+                        tableCatEntradas.ajax.reload();
                     }
                 }
             )
@@ -126,6 +127,7 @@ $("#registrarEntradaForm").submit(function(event){
                         $("#registrarEntradaModal").modal('hide');
                         alertToast("Artículo actualizado!", "success", 4000)
                         tableCatEntradas.ajax.reload();
+                        tableCatArticulos.ajax.reload();
                     }
                 }
             )
@@ -191,8 +193,10 @@ $('input[type=radio]').change(function() {
 
 function toggleResetButton() {
     const anyRadioChecked = $('input[name="activo"]:checked').length > 0 ||
-                            $('input[name="redFrio"]:checked').length > 0 ||
-                            $('input[name="manejaCaducidad"]:checked').length > 0;
+                            
+    $('input[name="redFrio"]:checked').length > 0 ||
+                           
+    $('input[name="manejaCaducidad"]:checked').length > 0;
     const tipoArticuloSelected = $('#tipoArticulo').val() !== "" && $('#tipoArticulo').val() !== null;
     const areaSelected = $('#area').val() !== "" && $('#area').val() !== null;
 
