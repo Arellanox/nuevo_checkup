@@ -57,29 +57,23 @@
                     title="Editar el artículo seleccionado">
                     <i class="bi bi-pencil-square"></i> Editar
                   </button> -->
-            </div>
-            <div
-              class="d-grid gap-2 text-center containerSvg"
-              id="animation"
-            ></div>
-          </div>
-
-          <!-- Columna derecha: Información del producto -->
-          <div class="col-md-8">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title" id="nombreComercial">
-                  Nombre Comercial
-                </h5>
-                <span id="redFrio"></span>
-
-                <div class="d-inline p-2 bg-primary-subtle">
-                  <span id="tipo"></span>
                 </div>
-                <div class="d-inline p-2" id="estatusArt"></div>
-                <br />
-                <hr />
-                <!-- <ul class="list-group list-group-flush">
+                <div class="d-grid gap-2 text-center containerSvg" id="animation">
+                  
+                </div>
+            </div>
+  
+            <!-- Columna derecha: Información del producto -->
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title" id="nombreComercial">Nombre Comercial </h5><span id="redFrio"></span>
+          
+                  <div class="d-inline p-2 bg-primary-subtle"><span id="tipo"></span></div>
+                  <div class="d-inline p-2" id="estatusArt"></div>
+                  <br>
+                  <hr>
+                  <!-- <ul class="list-group list-group-flush">
                     <li class="list-group-item"><strong>Clave del Artículo:</strong> <span id="claveArticulo"></span></li>
                     <li class="list-group-item"><strong>Costo Última Entrada:</strong> $<span id="costoUltimaEntrada"></span></li>
                     <li class="list-group-item"><strong>Costo Más Alto:</strong> $<span id="costoMasAlto"></span></li>
@@ -93,101 +87,49 @@
                     <li class="list-group-item"><strong>Rendimiento Estimado:</strong> <span id="rendimientoEstimado"></span></li>
                     <li class="list-group-item"><strong>Rendimiento Paciente:</strong> <span id="rendimientoPaciente"></span></li>
                   </ul> -->
-                <div class="row">
-                  <!-- Primera tarjeta: Información general -->
-                  <div class="col-md-6">
-                    <div class="card mb-3">
-                      <div class="card-header">Información General</div>
-                      <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                          <li class="list-group-item">
-                            <strong>Clave del Artículo:</strong>
-                            <span id="claveArticulo"></span>
-                          </li>
-                          <li class="list-group-item">
-                            <strong>Unidad de Venta:</strong>
-                            <span id="unidadVenta"></span>
-                          </li>
-                          <li class="list-group-item">
-                            <strong>Unidad Mínima:</strong>
-                            <span id="unidadMinima"></span>
-                          </li>
-                          <li class="list-group-item">
-                            <strong>Área:</strong>
-                            <span id="areaDetalle"></span>
-                          </li>
-                        </ul>
+                  <div class="row">
+                    <!-- Primera tarjeta: Información general -->
+                    <div class="col-md-6">
+                      <div class="card mb-3">
+                        <div class="card-header">Información General</div>
+                        <div class="card-body">
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><strong>Clave del Artículo:</strong> <span id="claveArticulo"></span></li>
+                            <li class="list-group-item"><strong>Unidad de Venta:</strong> <span id="unidadVenta"></span></li>
+                            <li class="list-group-item"><strong>Unidad Mínima:</strong> <span id="unidadMinima"></span></li>
+                            <li class="list-group-item"><strong>Área:</strong> <span id="areaDetalle"></span></li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
-                  </div>
-
-                  <!-- Segunda tarjeta: Costos y fechas -->
-                  <div class="col-md-6">
-                    <div class="card mb-3">
-                      <div class="card-header">Costos y Fechas</div>
-                      <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                          <li class="list-group-item">
-                            <strong>Costo Última Entrada:</strong> $<span
-                              id="costoUltimaEntrada"
-                            ></span>
-                          </li>
-                          <li class="list-group-item">
-                            <strong>Fecha Última Entrada:</strong>
-                            <span id="fechaUltimaEntrada"></span>
-                          </li>
-                          <li class="list-group-item">
-                            <strong>Costo Más Alto:</strong> $<span
-                              id="costoMasAlto"
-                            ></span>
-                          </li>
-                          <li class="list-group-item">
-                            <strong>Fecha Caducidad:</strong>
-                            <span id="fechaCaducidad"></span>
-                          </li>
-                        </ul>
+                
+                    <!-- Segunda tarjeta: Costos y fechas -->
+                    <div class="col-md-6">
+                      <div class="card mb-3">
+                        <div class="card-header">Costos y Fechas</div>
+                        <div class="card-body">
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><strong>Costo Última Entrada:</strong> $<span id="costoUltimaEntrada"></span></li>
+                            <li class="list-group-item"><strong>Fecha Última Entrada:</strong> <span id="fechaUltimaEntrada"></span></li>
+                            <li class="list-group-item"><strong>Costo Más Alto:</strong> $<span id="costoMasAlto"></span></li>
+                            <li class="list-group-item"><strong>Fecha Caducidad:</strong> <span id="fechaCaducidad"></span></li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
-                  </div>
-
-                  <!-- Tercera tarjeta: Rendimiento y Caducidad -->
-                  <div class="col-md-6">
-                    <div class="card mb-3">
-                      <div class="card-header">Rendimiento y Caducidad</div>
-                      <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                          <li class="list-group-item">
-                            <strong>Maneja Caducidad:</strong>
-                            <span id="manejaCaducidad"></span>
-                          </li>
-                          <li class="list-group-item">
-                            <strong>Contenido:</strong>
-                            <span id="contenidoDetalle"></span>
-                          </li>
-                          <li class="list-group-item">
-                            <strong>Rendimiento Estimado:</strong>
-                            <span id="rendimientoEstimado"></span>
-                          </li>
-                          <li class="list-group-item">
-                            <strong>Rendimiento Paciente:</strong>
-                            <span id="rendimientoPaciente"></span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Cuarta tarjeta: Proveedores -->
-                  <div class="col-md-6">
-                    <div class="card mb-3">
-                      <div class="card-header">Proveedores</div>
-                      <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                          <li class="list-group-item">
-                            <strong>Proveedores:</strong>
-                            <span id="proveedoresArt"></span>
-                          </li>
-                        </ul>
+                
+                    <!-- Tercera tarjeta: Rendimiento y Caducidad -->
+                    <div class="col-md-6">
+                      <div class="card mb-3">
+                        <div class="card-header">Rendimiento y Caducidad</div>
+                        <div class="card-body">
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><strong>Maneja Caducidad:</strong> <span id="manejaCaducidad"></span></li>
+                            <li class="list-group-item"><strong>Contenido:</strong> <span id="contenidoDetalle"></span></li>
+                            <li class="list-group-item"><strong>Rendimiento Estimado:</strong> <span id="rendimientoEstimado"></span></li>
+                            <li class="list-group-item"><strong>Rendimiento Paciente:</strong> <span id="rendimientoPaciente"></span></li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -196,24 +138,21 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Cerrar
-        </button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<style>
-  #snowAnimation {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* No interfiere con los clics */
-    z-index: 100;
+  <style>
+    #snowAnimation {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none; /* No interfiere con los clics */
+      z-index: 100;
   }
 
   .snowflake {
