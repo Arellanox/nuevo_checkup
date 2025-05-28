@@ -701,6 +701,7 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
             var tipo = $(this).data("value");
             window.dataTableCatEntradas = window.dataTableCatEntradas || {};
             dataTableCatEntradas.id_movimiento = tipo;
+            rowSelected = null;
             tableCatEntradas.ajax.reload();
 
             // Cambia visibilidad y títulos de columnas según el tipo de movimiento
@@ -713,6 +714,8 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
               tableCatEntradas.column(6).visible(true);
               tableCatDetallesEntradas.column(3).header().textContent =
                 "Cantidad de entrada";
+              tableCatDetallesEntradas.column(0).header().textContent =
+                "Fecha y hora última entrada";
               tableCatDetallesEntradas.column(1).visible(true);
               tableCatDetallesEntradas.column(2).visible(true);
             } else {
@@ -724,6 +727,8 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
               tableCatEntradas.column(6).visible(false); // Oculta proveedor
               tableCatDetallesEntradas.column(3).header().textContent =
                 "Cantidad de salida";
+              tableCatDetallesEntradas.column(0).header().textContent =
+                "Fecha y hora última salida";
               tableCatDetallesEntradas.column(1).visible(false);
               tableCatDetallesEntradas.column(2).visible(false);
             }
@@ -786,13 +791,6 @@ var tableCatDetallesEntradas = $("#tableCatDetallesEntradas").DataTable({
   columns: [
     {
       data: "FECHA_ULTIMA_ENTRADA",
-      render: function (data, type, row) {
-        if (data && data !== "0000-00-00" && data !== "0000-00-00 00:00:00") {
-          return data.split(" ")[0];
-        } else {
-          return "";
-        }
-      },
     },
     {
       data: "COSTO_ULTIMA_ENTRADA",
@@ -814,7 +812,7 @@ var tableCatDetallesEntradas = $("#tableCatDetallesEntradas").DataTable({
     { data: "CANTIDAD" },
   ],
   columnDefs: [
-    { targets: 0, title: "Fecha última entrada", className: "all" },
+    { targets: 0, title: "Fecha y hora última entrada", className: "all" },
     { targets: 1, title: "Costo última entrada", className: "all" },
     { targets: 2, title: "Proveedor", className: "all" },
     { targets: 3, title: "Cantidad de entrada", className: "all" },
