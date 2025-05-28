@@ -677,77 +677,80 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
         title: "Filtrar por tipo de movimiento",
       },
       action: function (e, dt, node, config) {
-        // Si ya existe el menú, no lo vuelvas a agregar
-        if ($("#dropdownTipoMovimientoMenu").length === 0) {
-          // Crea el menú tipo dropdown contextual
-          var $menu = $(`
-        <div id="dropdownTipoMovimientoMenu" class="dropdown-menu show" style="position:absolute;z-index:9999;min-width:180px;">
-          <button class="dropdown-item" data-value="1"><i class="bi bi-box-arrow-in-down"></i> Entradas</button>
-          <button class="dropdown-item" data-value="2"><i class="bi bi-box-arrow-up"></i> Salidas</button>
-        </div>
-      `);
-
-          // Posiciona el menú debajo del botón
-          var offset = $(node).offset();
-          $menu.css({
-            top: offset.top + $(node).outerHeight(),
-            left: offset.left,
-          });
-
-          $("body").append($menu);
-
-          // Evento para seleccionar opción
-          $menu.on("click", ".dropdown-item", function () {
-            var tipo = $(this).data("value");
-            window.dataTableCatEntradas = window.dataTableCatEntradas || {};
-            dataTableCatEntradas.id_movimiento = tipo;
-            rowSelected = null;
-            tableCatEntradas.ajax.reload();
-
-            // Cambia visibilidad y títulos de columnas según el tipo de movimiento
-            if (tipo == "1") {
-              // Entradas
-              tableCatEntradas.column(3).visible(true);
-              tableCatEntradas.column(4).header().textContent =
-                "Fecha última entrada";
-              tableCatEntradas.column(5).visible(true);
-              tableCatEntradas.column(6).visible(true);
-              tableCatDetallesEntradas.column(3).header().textContent =
-                "Cantidad de entrada";
-              tableCatDetallesEntradas.column(0).header().textContent =
-                "Fecha y hora última entrada";
-              tableCatDetallesEntradas.column(1).visible(true);
-              tableCatDetallesEntradas.column(2).visible(true);
-            } else {
-              // Salidas
-              tableCatEntradas.column(3).visible(false); // Oculta costo última entrada
-              tableCatEntradas.column(4).header().textContent =
-                "Fecha última salida";
-              tableCatEntradas.column(5).visible(false); // Oculta costo más alto
-              tableCatEntradas.column(6).visible(false); // Oculta proveedor
-              tableCatDetallesEntradas.column(3).header().textContent =
-                "Cantidad de salida";
-              tableCatDetallesEntradas.column(0).header().textContent =
-                "Fecha y hora última salida";
-              tableCatDetallesEntradas.column(1).visible(false);
-              tableCatDetallesEntradas.column(2).visible(false);
-            }
-            tableCatEntradas.columns.adjust().draw();
-            $menu.remove();
-          });
-
-          // Cierra el menú si haces click fuera
-          $(document).on("mousedown.dropdownTipoMovimiento", function (event) {
-            if (
-              !$(event.target).closest(
-                "#dropdownTipoMovimientoMenu, #btnFiltroTipoMovimiento"
-              ).length
-            ) {
-              $menu.remove();
-              $(document).off("mousedown.dropdownTipoMovimiento");
-            }
-          });
+        rowSelected = null; // Resetea la selección de fila
+        // Si el menú ya existe, lo elimina (oculta)
+        if ($("#dropdownTipoMovimientoMenu").length > 0) {
+          $("#dropdownTipoMovimientoMenu").remove();
+          $(document).off("mousedown.dropdownTipoMovimiento");
+          return;
         }
+        // Si no existe, lo crea y muestra
+        var $menu = $(`
+    <div id="dropdownTipoMovimientoMenu" class="dropdown-menu show" style="position:absolute;z-index:9999;min-width:180px;">
+      <button class="dropdown-item" data-value="1"><i class="bi bi-box-arrow-in-down"></i> Entradas</button>
+      <button class="dropdown-item" data-value="2"><i class="bi bi-box-arrow-up"></i> Salidas</button>
+    </div>
+  `);
+
+        // Posiciona el menú debajo del botón
+        var offset = $(node).offset();
+        $menu.css({
+          top: offset.top + $(node).outerHeight(),
+          left: offset.left,
+        });
+
+        $("body").append($menu);
+
+        // Evento para seleccionar opción
+        $menu.on("click", ".dropdown-item", function () {
+          var tipo = $(this).data("value");
+          window.dataTableCatEntradas = window.dataTableCatEntradas || {};
+          dataTableCatEntradas.id_movimiento = tipo;
+          tableCatEntradas.ajax.reload();
+
+          // Cambia visibilidad y títulos de columnas según el tipo de movimiento
+          if (tipo == "1") {
+            // Entradas
+            tableCatEntradas.column(3).visible(true);
+            tableCatEntradas.column(4).header().textContent =
+              "Fecha última entrada";
+            tableCatEntradas.column(5).visible(true);
+            tableCatEntradas.column(6).visible(true);
+            tableCatDetallesEntradas.column(3).header().textContent =
+              "Cantidad de entrada";
+            tableCatDetallesEntradas.column(0).header().textContent =
+              "Fecha y hora última entrada";
+            tableCatDetallesEntradas.column(1).visible(true);
+            tableCatDetallesEntradas.column(2).visible(true);
+          } else {
+            // Salidas
+            tableCatEntradas.column(3).visible(false); // Oculta costo última entrada
+            tableCatEntradas.column(4).header().textContent =
+              "Fecha última salida";
+            tableCatEntradas.column(5).visible(false); // Oculta costo más alto
+            tableCatEntradas.column(6).visible(false); // Oculta proveedor
+            tableCatDetallesEntradas.column(3).header().textContent =
+              "Cantidad de salida";
+            tableCatDetallesEntradas.column(0).header().textContent =
+              "Fecha y hora última salida";
+            tableCatDetallesEntradas.column(1).visible(false);
+            tableCatDetallesEntradas.column(2).visible(false);
+          }
+          tableCatEntradas.columns.adjust().draw();
+          $menu.remove();
+        });
+
+        // Cierra el menú si haces click fuera
+        $(document).on("mousedown.dropdownTipoMovimiento", function (event) {
+          if (
+            !$(event.target).closest(
+              "#dropdownTipoMovimientoMenu, #btnFiltroTipoMovimiento"
+            ).length
+          ) {
+            $menu.remove();
+            $(document).off("mousedown.dropdownTipoMovimiento");
+          }
+        });
       },
     },
   ],
