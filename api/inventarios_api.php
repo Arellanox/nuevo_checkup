@@ -54,6 +54,7 @@ $id_cat_entradas = $_POST['id_cat_entradas'];
 $cantidad = $_POST['cantidad'];
 $id_proveedores = $_POST['id_proveedores'];
 $id_movimiento = $_POST['id_movimiento'];
+$motivo_salida = $_POST['motivo_salida'];
 
 $host = $master->selectHost($_SERVER['SERVER_NAME']);
 
@@ -124,7 +125,6 @@ switch ($api) {
             $procedimientoUrl,
             $rendimiento_paciente,
             $cantidad,
-            $id_proveedores
         ]);
         break;
     case 2:
@@ -162,6 +162,7 @@ switch ($api) {
             //$costo_mas_alto,
             $id_proveedores,
             $id_movimiento,
+            $motivo_salida,
             $_SESSION['id']
         ]);
         break;

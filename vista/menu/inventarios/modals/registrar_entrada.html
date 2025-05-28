@@ -35,15 +35,15 @@
                                                     <input type="number" class="form-control input-form" id="cantidad" name="cantidad" required placeholder="Ej. 10">
                                                 </div>
 
-                                                <!-- Fecha Última Entrada -->
+                                                <!-- Fecha Última Entrada 
                                                 <div class="mb-3">
                                                     <label for="fecha_ultima_entrada" class="form-label">Fecha y hora del movimiento</label>
                                                     <input type="datetime-local" class="form-control input-form" id="fecha_ultima_entrada" name="fecha_ultima_entrada" required>
-                                                </div>
+                                                </div>-->
 
                                                 <!-- Costo Última Entrada -->
                                                 <div class="mb-3">
-                                                    <label for="costo_ultima_entrada" class="form-label">Costo Última Entrada</label>
+                                                    <label for="costo_ultima_entrada" class="form-label">Costo actual</label>
                                                     <input type="number" step="any" class="form-control input-form" id="costo_ultima_entrada" name="costo_ultima_entrada" required placeholder="Ej. 10.50">
                                                 </div>
 
@@ -56,6 +56,15 @@
                                                         <option value="2">Farmacias Similares</option>
                                                     </select>
                                                 </div>
+
+                                                <!-- Motivo de salida -->
+                                                <div class="mb-3" id="motivoSalidaDiv">
+                                                    <label for="motivo_salida" class="form-label">Motivo de salida</label>
+                                                    <input type="text" class="form-control input-form" id="motivo_salida" name="motivo_salida" placeholder="Ej. Devolución de producto">
+                                                </div>
+
+                                                <!-- Campo oculto para la fecha y hora del movimiento -->
+                                                <input type="hidden" id="fecha_ultima_entrada" name="fecha_ultima_entrada">
                                             </form>
                                             
                                         </div>
@@ -90,10 +99,12 @@ $(document).ready(function () {
     $("#fecha_ultima_entrada").closest(".mb-3").hide();
     $("#costo_ultima_entrada").closest(".mb-3").hide();
     $("#proveedorDiv").hide();
+    $("#motivoSalidaDiv").hide();
     $("#registrarMovimientoButton").hide();
 
     $("#id_movimiento").on("change", function () {
         if ($(this).val() == "1") {
+            $("#motivoSalidaDiv").hide();
             $("label[for='cantidad']").text("Cantidad a ingresar");
             $("#cantidad").attr("placeholder", "Ej. 10");
             $("#cantidad").closest(".mb-3").show();
@@ -112,6 +123,7 @@ $(document).ready(function () {
             );
             $("#registrarMovimientoButton").show();
         } else if ($(this).val() == "2") {
+            $("#motivoSalidaDiv").show();
             $("label[for='cantidad']").text("Cantidad a retirar");
             $("#cantidad").attr("placeholder", "Ej. 5");
             $("#cantidad").closest(".mb-3").show();
@@ -129,6 +141,7 @@ $(document).ready(function () {
             "</span></strong>"
             );
             $("#registrarMovimientoButton").show();
+            $("#motivoSalidaDiv").show();
         } else {
             $("#cantidad").closest(".mb-3").hide();
             $("#fecha_ultima_entrada").closest(".mb-3").hide();
@@ -139,6 +152,19 @@ $(document).ready(function () {
             $("#costo_ultima_entrada").prop("required", false);
             $("#id_proveedores").prop("required", false);
         }
+    });
+
+    $("#registrarEntradaForm").submit(function (event) {
+        // Asigna la fecha y hora actual en formato compatible con MySQL DATETIME
+        var now = new Date();
+        var fechaHora = now.getFullYear() + "-" +
+            String(now.getMonth() + 1).padStart(2, '0') + "-" +
+            String(now.getDate()).padStart(2, '0') + " " +
+            String(now.getHours()).padStart(2, '0') + ":" +
+            String(now.getMinutes()).padStart(2, '0') + ":" +
+            String(now.getSeconds()).padStart(2, '0');
+        $("#fecha_ultima_entrada").val(fechaHora);
+        // ...tu código de envío...
     });
 });
 </script>

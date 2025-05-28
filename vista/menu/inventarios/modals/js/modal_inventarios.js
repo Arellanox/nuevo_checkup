@@ -129,6 +129,7 @@ $("#registrarEntradaForm").submit(function (event) {
             $("#fecha_ultima_entrada").closest(".mb-3").hide();
             $("#costo_ultima_entrada").closest(".mb-3").hide();
             $("#proveedorDiv").hide();
+            $("#motivoSalidaDiv").hide();
             $("#cantidad").prop("required", false);
             $("#fecha_ultima_entrada").prop("required", false);
             $("#costo_ultima_entrada").prop("required", false);

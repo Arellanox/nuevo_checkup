@@ -1127,3 +1127,43 @@
 28/05/25 11:04:52 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
 28/05/25 11:04:58 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
 28/05/25 11:05:17 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+28/05/25 12:47:12 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+28/05/25 12:47:12 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+28/05/25 12:47:12 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+28/05/25 12:47:21 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+28/05/25 12:47:21 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+28/05/25 12:47:21 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+28/05/25 12:48:02 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+28/05/25 12:48:02 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+28/05/25 12:48:02 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+28/05/25 12:57:22 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+28/05/25 12:58:00 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+28/05/25 13:02:31 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+28/05/25 13:02:36 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+28/05/25 13:03:01 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+28/05/25 14:04:12 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+28/05/25 14:05:04 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+28/05/25 14:05:09 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+28/05/25 14:05:52 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+28/05/25 14:06:45 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+28/05/25 14:06:50 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+28/05/25 14:14:13 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+28/05/25 14:14:13 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+28/05/25 14:14:13 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+28/05/25 14:28:18 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+28/05/25 14:28:18 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+28/05/25 14:28:18 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+28/05/25 14:41:33 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexi�n ya que la parte conectada no respondi� adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexi�n establecida ya que el host conectado no ha podido responder.
+
+28/05/25 14:56:29 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+28/05/25 14:56:29 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+28/05/25 14:56:29 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+28/05/25 14:57:52 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+28/05/25 14:57:52 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+28/05/25 14:57:52 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+28/05/25 15:01:44 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+28/05/25 15:04:13 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+28/05/25 15:08:20 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+28/05/25 15:09:44 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+28/05/25 15:10:10 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+28/05/25 15:10:36 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)

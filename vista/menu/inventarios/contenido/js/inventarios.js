@@ -66,7 +66,7 @@ $(document).ready(function () {
     $("#btnAgregar").hide();
     rowSelected = null; // Resetea la selección de fila
     //$('#btnRegistrar').hide();
-    $("#titulosEntradasSalidas").text("Entradas y salidas");
+    $("#titulosEntradasSalidas").text("Entradas");
   });
 
   // ocultar/mostrar fecha de caducidad segun el checkbox y que sea obligatorio
@@ -585,13 +585,6 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
     },
     {
       data: "FECHA_ULTIMA_ENTRADA",
-      render: function (data, type, row) {
-        if (data && data !== "0000-00-00" && data !== "0000-00-00 00:00:00") {
-          return data.split(" ")[0];
-        } else {
-          return "";
-        }
-      },
     },
     {
       data: "COSTO_MAS_ALTO",
@@ -610,6 +603,9 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
       },
     },
     { data: "PROVEEDOR" },
+    {
+      data: "MOTIVO_SALIDA",
+    },
     { data: "CANTIDAD" },
   ],
   columnDefs: [
@@ -621,7 +617,8 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
     { target: 4, title: "Fecha última entrada", className: "all" },
     { target: 5, title: "Costo más alto", className: "all" },
     { target: 6, title: "Proveedor", className: "all" },
-    { target: 7, title: "Cantidad total en almacén", className: "all" },
+    { target: 7, title: "Motivo de salida", className: "all", visible: false },
+    { target: 8, title: "Cantidad total en almacén", className: "all" },
   ],
   dom: 'Bl<"dataTables_toolbar">frtip',
   buttons: [
@@ -711,20 +708,25 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
           // Cambia visibilidad y títulos de columnas según el tipo de movimiento
           if (tipo == "1") {
             // Entradas
+            $("#titulosEntradasSalidas").text("Entradas");
             tableCatEntradas.column(3).visible(true);
             tableCatEntradas.column(4).header().textContent =
               "Fecha última entrada";
             tableCatEntradas.column(5).visible(true);
             tableCatEntradas.column(6).visible(true);
+            tableCatEntradas.column(7).visible(false);
             tableCatDetallesEntradas.column(3).header().textContent =
               "Cantidad de entrada";
             tableCatDetallesEntradas.column(0).header().textContent =
               "Fecha y hora última entrada";
             tableCatDetallesEntradas.column(1).visible(true);
             tableCatDetallesEntradas.column(2).visible(true);
+            detalleEntradaLabel.textContent = "Detalles de entrada";
           } else {
             // Salidas
+            $("#titulosEntradasSalidas").text("Salidas");
             tableCatEntradas.column(3).visible(false); // Oculta costo última entrada
+            tableCatEntradas.column(7).visible(true);
             tableCatEntradas.column(4).header().textContent =
               "Fecha última salida";
             tableCatEntradas.column(5).visible(false); // Oculta costo más alto
@@ -735,6 +737,7 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
               "Fecha y hora última salida";
             tableCatDetallesEntradas.column(1).visible(false);
             tableCatDetallesEntradas.column(2).visible(false);
+            detalleEntradaLabel.textContent = "Detalles de salida";
           }
           tableCatEntradas.columns.adjust().draw();
           $menu.remove();
