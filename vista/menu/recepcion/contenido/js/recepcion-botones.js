@@ -64,7 +64,8 @@ $(document).on('click', '#btn-concluir-paciente', function (e) {
         }, function () {
             const ClientesIDs = [1, 16, 31, 35, 37, 39, 20, 48, 49, 44, 19, 53];
 
-            if (array_selected['CLIENTE_ID'].includes(clientesConfiguraciones_particulares) || isFranquisiario) {
+           // if (array_selected['CLIENTE_ID'].includes(clientesConfiguraciones_particulares) || isFranquisiario) {
+            if (clientesConfiguraciones_particulares.includes(array_selected['CLIENTE_ID']) || isFranquisiario) {
                 $('descuento').val('');
                 //Abrir el modal de estudios, precios y detalle
                 configurarModal(array_selected);

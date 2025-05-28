@@ -98,8 +98,41 @@ switch ($api) {
             "IVA" => "IVA",
             "TOTAL" => "Total",
             "FECHA_RECEPCION" => "Fecha Recepción",
-            "FACTURA" => "Factura"
+            "FACTURA" => "Factura",
+            "PROCEDENCIA" => "Procedencia",
+            "US_INTERPRETADO_POR" => "Interpretó",
+
+            "CLAVE_BENEFICIARIO" => "Clave Beneficiario",
+            "PARENTESCO" => "Parentesco",
+            "NUM_PASE" => "Pase",
+            "URES" => "URES",
+            "CATEGORIA" => "Categoría",
+            "NUM_TRABAJADOR" => "Num Trabajador",
+            "NUM_PROVEEDOR" => "Proveedor",
+            "TRABAJADOR" => "Trabajador",
+            "VERIFICACION" => "Verificación (URL)"
+            
         ];
+
+        # columnas de beneficiario
+        if ($incluir == 1){
+            $columnasBeneficiario = [
+                "CLAVE_BENEFICIARIO" => "Clave Beneficiario",
+                "PARENTESCO" => "Parentesco",
+                "NUM_PASE" => "Pase",
+                "URES" => "URES",
+                "CATEGORIA" => "Categoría",
+                "NUM_TRABAJADOR" => "Num Trabajador",
+                "NUM_PROVEEDOR" => "Proveedor",
+                "FACTURA" => "Factura",
+                "TRABAJADOR" => "Trabajador",
+                "VERIFICACION" => "Verificación (URL)"
+            ];
+
+            $columnas = array_merge($columnas, $columnasBeneficiario);
+
+        }
+     
 
         $columnasMoneda = [
             'PRECIO_UNITARIO',
