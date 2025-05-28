@@ -775,6 +775,8 @@ class Miscelaneus
                 $medicos = $master->getByProcedure("sp_info_medicos", [$turno_id, 1]);
 
                 $arregloPaciente = ['SERVICIOS' => $servicios, 'PACIENTE' => $paciente, 'MEDICOS' => $medicos];
+
+                $master->setLog(json_encode($arregloPaciente), 'Datos: ');
                 break;
             case -11:
                 $arregloPaciente = [];
@@ -792,20 +794,34 @@ class Miscelaneus
                 $nombre = "CertificadoMedico";
                 $ruta_saved = "reportes/certificados/$turno_id/$fecha_resultado/";
                 break;
-            case 15: #Para reportes que no usan $turno_id para su creacion.
+            case 15:
                 $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/";
 
                 # Seteamos la ruta del reporte para poder recuperarla despues con el atributo $ruta_reporte.
                 $this->setRutaReporte($ruta_saved);
-                $master->createDir("../" . $ruta_saved); # Crear el directorio si no existe
 
-                if ($r !== 1) {
+                # Crear el directorio si no existe
+                $r = $master->createDir("../" . $ruta_saved);
+
+                if ($r === 1) {
+                    $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre_paciente);
+                    $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
+                } else {
                     $this->setLog("Imposible crear la ruta del archivo", "[cotizaciones, reportador]");
                     exit;
                 }
                 break;
+            #DEFAULT
             default:
                 $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/$turno_id/";
+
+                # Seteamos la ruta del reporte para poder recuperarla despues con el atributo $ruta_reporte.
+                $this->setRutaReporte($ruta_saved);
+
+                # Crear el directorio si no existe
+                $r = $master->createDir("../" . $ruta_saved);
+                $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
+                $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
                 break;
         }
 
@@ -821,9 +837,7 @@ class Miscelaneus
         $renderpdf = $pdf->build();
 
         if ($lab == 1 && $tipo == 'url') {
-            $master->insertByProcedure('sp_reportes_areas_g', [
-                null, $turno_id, $area_id, $infoPaciente[0]['CLAVE_IMAGEN'], $renderpdf, null
-            ]);
+            $master->insertByProcedure('sp_reportes_areas_g', [null, $turno_id, $area_id, $infoPaciente[0]['CLAVE_IMAGEN'], $renderpdf, null]);
         }
 
         return $renderpdf;
