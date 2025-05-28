@@ -37,21 +37,19 @@ switch ($api) {
         $response = $master->getByProcedure("sp_certificados_medicos_tmp_b", [$turno_id]);
         break;
     case 3:
-        $validarConsultaMedicaTerminada = $master->getByProcedure("sp_consultorio_certificado_b", [
-            $turno_id, null
-        ]);
-
-        if (count($validarConsultaMedicaTerminada) > 0) {
+        $response = $master->getByProcedure("sp_historial_conclusiones_historia_clinica", [$turno_id]);
+        if (count($response) > 0) {
             #CREAR CERTIFICADO
             $QR_NAME = 'CertificadoMedico-' . $turno_id . '-' . date('Y-m-d');
-            $HASH = generarHashCertificado($turno_id, 'Pruebas');
-            $QR_URL = $host."vista/certificado/?codigo=".$HASH;
-            $PDF_URL = $master->reportador($master, $turno_id, -10, "certificado_bimo", 'url');
-            $QR_IMG_LOCATION = $master->generarQRURL("CertificadoMedico", $QR_URL, $QR_NAME, QR_ECLEVEL_H);
+            $HASH_CERTIFICADO = generarHashCertificado($turno_id, 'Pruebas');
+            $URL_VALIDAR_CERTIFICADO = $host."vista/certificado/?codigo=".$HASH_CERTIFICADO;
+
+            $PDF_CERTIFICADO = $master->reportador($master, $turno_id, -10, "certificado_bimo");
+            $QR_VALIDAR_CERTIFICADO = $master->generarQRURL("CertificadoMedico", $URL_VALIDAR_CERTIFICADO, $QR_NAME, QR_ECLEVEL_H);
 
             $master->insertByProcedure("sp_consultorio_certificado_g", [
-                $turno_id, $QR_IMG_LOCATION, $PDF_URL, $QR_URL, $vigencia, $fecha_vigencia,
-                $grado_salud, $tipo_examen_medico, $aptitud_trabajo, $_SESSION['id'], $HASH
+                $turno_id, $QR_VALIDAR_CERTIFICADO, $PDF_CERTIFICADO, $URL_VALIDAR_CERTIFICADO, $vigencia, $fecha_vigencia,
+                $grado_salud, $tipo_examen_medico, $aptitud_trabajo, $_SESSION['id'], $HASH_CERTIFICADO
             ]);
 
             $attachment = $master->cleanAttachFilesImage($master, $turno_id, 10, 1);
@@ -64,8 +62,7 @@ switch ($api) {
             }
 
             $response = $master->getByProcedure("sp_consultorio_certificado_b", [$turno_id, null]);
-        } else $response = 'Debes terminar la consulta médica para generar el certificado medico.';
-
+        } else $response = 'Debes terminar la Historia Clínica para generar el Certificado Médico.';
         break;
     case 4:
         #Recuperar certificado

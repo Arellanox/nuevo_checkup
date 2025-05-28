@@ -22,20 +22,21 @@
         bottom: 220px;
     }
 </style>
+
 <div class="firma" style="position: relative;">
-    <a href="<?= $paciente->RUTA_VALIDAR_CERTIFICADO ?>">
-        <?= "<img src='data:image/png;base64, " . $encode_validacion . "' height='80' >"; ?>
+    <a href="<?= $paciente->RUTA_VALIDAR_CERTIFICADO ?>" style='margin-bottom: 10px'>
+        <?= "<img src='data:image/png;base64, " . $encode_validacion . "' height='80' "; ?>
     </a>
 
-    <p class="detalles"><?= isset($footerDoctor) ? $footerDoctor : 'Dr. Nombre del doctor' ?></p>
-    <p class="detalles">Cédula profesional: <?= isset($cedula) ? $cedula : '########' ?></p>
+    <p class="detalles"><?= isset($medicos->NOMBRE_COMPLETO) ?? '' ?></p>
+    <p class="detalles">Cédula profesional: <?= isset($medicos->CEDULA) ?? '' ?></p>
     <p class="detalles">Certificación NIOSH SP-000515-23</p>
-    <?= isset($encode_firma) ? "<img style='position:absolute; right:200px; margin-top: -70px ' src='data:image/png;base64, " . $encode_firma . "' height='90px'> " : '' ?>
+    <?= isset($encode_firma) ? "<img style='position:absolute; right:190px; margin-top: -70px ' src='data:image/png;base64, " . $encode_firma . "' height='90px'> " : '' ?>
 </div>
 <hr style="margin-top: 0px; height: 0.5px; background-color: black ;">
 <p style="text-align: center;">
     <small>
-        <strong style="font-size: 11px;">Avenida José Pagés Llergo No. 150 Interior 1, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079</strong> <br>
+        <strong style="font-size: 11px;">Avenida José Pagés Llergo No. 150, Colonia Arboledas, Villahermosa Tabasco, C.P. 86079</strong> <br>
         <strong style="font-size: 11px;">Teléfonos: </strong>
         <strong style="font-size: 11px;">993 634 0250, 993 634 6245</strong>
         <strong style="font-size: 11px;">Correo electrónico:</strong>

@@ -337,9 +337,6 @@ class Miscelaneus
         #Recupera la información personal del paciente
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
         $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
-
-        // $infoPaciente = $master->getByNext("sp_cotizaciones_b", [$id_cotizacion, $cliente_id]);
-
         $nombre_paciente = $infoPaciente[0]['NOMBRE'];
 
         #Recuperamos el cuerpo y asignamos titulo si es necesario
@@ -350,12 +347,9 @@ class Miscelaneus
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA'];
                 $carpeta_guardado = "etiquetas";
                 $datos_medicos = array();
-                //print_r($arregloPaciente);
                 break;
-            case 6:
-            case '6':
-            case 12: //<-- Biomolecular
-            case '12':
+            case 6: case '6':
+            case 12: case '12': //<-- Biomolecular
                 $arregloPaciente = $this->getBodyInfoLab($master, $turno_id, $area_id);
                 $clave = $master->getByProcedure("sp_generar_clave", []);
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $clave[0]['TOKEN'];
@@ -364,13 +358,13 @@ class Miscelaneus
                 $carpeta_guardado = 'lab';
                 $datos_medicos = array(); #Mandar vacio
                 $folio = $infoPaciente[0]['FOLIO'];
+
                 if ($area_id == 12 || $area_id == '12') {
                     $carpeta_guardado = 'lab-molecular';
                     $folio = $infoPaciente[0]['FOLIO_BIOMOLECULAR'];
                 }
                 break;
-            case 8:
-            case '8':
+            case 8: case '8':
                 $arregloPaciente = $this->getBodyInfoImg($master, $turno_id, $area_id);
                 $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
                 $datos_medicos = $this->getMedicalCarrier($info);
@@ -382,8 +376,7 @@ class Miscelaneus
                 $infoPaciente[0]['FOLIO_IMAGEN'] = $infoPaciente[0]['FOLIO_IMAGEN_US'];
                 $folio = $infoPaciente[0]['FOLIO_IMAGEN'];
                 break;
-            case 11:
-            case '11':
+            case 11: case '11':
                 $arregloPaciente = $this->getBodyInfoImg($master, $turno_id, $area_id);
                 $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
                 $datos_medicos = $this->getMedicalCarrier($info);
@@ -395,8 +388,7 @@ class Miscelaneus
                 $infoPaciente[0]['FOLIO_IMAGEN'] = $infoPaciente[0]['FOLIO_IMAGEN_RX'];
                 $folio = $infoPaciente[0]['FOLIO_IMAGEN'];
                 break;
-            case 3:
-            case '3': #Oftalmologia
+            case 3: case '3': #Oftalmologia
                 $arregloPaciente = $this->getBodyInfoOftal($master, $turno_id);
                 $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $arregloPaciente['CLAVE'];
@@ -405,8 +397,7 @@ class Miscelaneus
                 $carpeta_guardado = 'oftalmologia';
                 $folio = $infoPaciente[0]['FOLIO_OFTALMO'];
                 break;
-            case 1:
-            case '1':
+            case 1: case '1':
                 # CONSULTORIO
                 $cliente_id = $master->insertByProcedure('sp_get_cliente', [$turno_id]);
                 if ($cliente_id == 51) { # 51 es sigma
@@ -430,14 +421,17 @@ class Miscelaneus
                         'domicilio_cliente',
                         'GENERO'
                     ];
+
                     if (isset($arregloPaciente[0][0])) {
                         $arregloPaciente = $arregloPaciente[0][0];
                     }
+
                     foreach ($arregloPaciente as $key => $value) {
                         if (in_array($key, $allowedKeys) && is_string($key)) {
                             $filteredArregloPaciente[$key] = $value;
                         }
                     }
+
                     $result = $filteredArregloPaciente;
 
                     //obtener los antecedentes del paciente
@@ -595,8 +589,7 @@ class Miscelaneus
                 $folio = $infoPaciente[0]['FOLIO_CONSULTA'];
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[0]['CLAVE_CONSULTA'];
                 break;
-            case 10:
-            case '10':
+            case 10: case '10':
                 # ELECTROCARDIOGRAMA
                 $arregloPaciente = $this->getBodyInfoElectro($master, $turno_id);
                 $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
@@ -605,12 +598,10 @@ class Miscelaneus
                 $carpeta_guardado = "electro";
                 $folio = $infoPaciente[0]['FOLIO_ELECTRO'];
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[0]['CLAVE_ELECTRO'];
-                // $clave = $infoPaciente[0]['CLAVE_ELECTRO'];
                 $infoPaciente[0]['TITULO'] = 'Reporte de Electrocardiograma';
 
                 break;
-            case 2:
-            case "2":
+            case 2: case "2":
                 # SOMATOMETRIA
                 $arregloPaciente = $this->getBodyInfoSoma($master, $turno_id);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_MESO'];
@@ -618,8 +609,7 @@ class Miscelaneus
                 $folio = $infoPaciente[0]['FOLIO_SOMA'];
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[0]['CLAVE_SOMA'];
                 break;
-            case 15:
-            case "15":
+            case 15: case "15":
                 # COTIZACIONES
                 $arregloPaciente = $this->getBodyInfoCotizacion($master, $id_cotizacion, $cliente_id);
 
@@ -634,12 +624,11 @@ class Miscelaneus
                 $fecha_resultado = $arregloPaciente['FECHA_CREACION'];
                 $fecha_resultado = date('dmY', strtotime($fecha_resultado));
                 $carpeta_guardado = "cotizacion";
-                // $arregloPaciente = [$arregloPaciente[count($arregloPaciente) - 1]];
+
                 $folio = $arregloPaciente['FOLIO'];
                 $nombre_paciente = 'COT_' . $folio . '_' . $arregloPaciente['ABREVIATURA'] ;
                 break;
-            case 16:
-            case "16":
+            case 16: case "16":
                 # TICKET
                 $arregloPaciente = $this->getBodyInfoTicket($master, $turno_id);
                 $fecha_resultado = $infoPaciente[0]['FECHA_TICKET'];
@@ -654,7 +643,6 @@ class Miscelaneus
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_FASTCK'];
                 $carpeta_guardado = "fast_checkup";
                 $folio = $infoPaciente[0]['FOLIO_FASTCK'];
-
                 break;
             case 18:
                 #FAST CHECKUP
@@ -663,8 +651,7 @@ class Miscelaneus
                 $carpeta_guardado = "fast_checkup";
                 $folio = $infoPaciente[0]['FOLIO_FASTCK'];
                 break;
-            case 4:
-            case "4":
+            case 4: case "4":
                 #AUDIOMETRIA
                 $arregloPaciente = $this->getBodyAudio($master, $turno_id);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_AUDIO'];
@@ -676,8 +663,7 @@ class Miscelaneus
                 $folio = $infoPaciente[0]['FOLIO_AUDIO'];
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[0]['CLAVE_AUDIO'];
                 break;
-            case 5:
-            case "5":
+            case 5: case "5":
                 #ESPIROMETRIA
                 $datos_medicos = array();
                 $arregloPaciente = $this->getBodyEspiro($master, $turno_id);
@@ -687,8 +673,7 @@ class Miscelaneus
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[array_key_last($infoPaciente)]['CLAVE_ESPIRO'];
 
                 break;
-            case 19:
-            case "19":
+            case 19: case "19":
                 #CONSULTORIO2
                 $arregloPaciente = $this->getBodyInfoConsultorio2($master, $turno_id);
                 $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
@@ -698,9 +683,8 @@ class Miscelaneus
                 $carpeta_guardado = "consulta_medica";
                 break;
 
-            case -1: #Formato de temperatura de equipos
-                // echo "si entro";
-                // exit;
+            case -1:
+                #Formato de temperatura de equipos
                 $arregloPaciente = $this->getBodyTemperatura($master, $turno_id);
                 break;
             case -2:
@@ -720,7 +704,6 @@ class Miscelaneus
                 $folio = $infoPaciente[array_key_last($infoPaciente)]['FOLIO_SOLICITUD_ESTUDIOS'];
                 $fecha_resultado = $infoPaciente[array_key_last($infoPaciente)]['FECHA_CARPETA_CONSULTA2'];
                 $carpeta_guardado = "solicitud_estudios";
-
                 break;
             case -4:
                 #Corte de caja
@@ -789,57 +772,40 @@ class Miscelaneus
                 #Recuperar certificado medico
                 $servicios = $master->getByProcedure("sp_paciente_servicios_cargados", [$turno_id, null]);
                 $paciente = $master->getByProcedure("sp_consultorio_certificado_b", [$turno_id, null]);
-                $arregloPaciente = ['SERVICIOS' => $servicios, 'PACIENTE' => $paciente];
+                $medicos = $master->getByProcedure("sp_info_medicos", [$turno_id, 1]);
+
+                $arregloPaciente = ['SERVICIOS' => $servicios, 'PACIENTE' => $paciente, 'MEDICOS' => $medicos];
                 break;
             case -11:
                 $arregloPaciente = [];
                 break;
         }
 
-        if ($area_id == 0) {
-            $area_id = 6;
-        }
+        if ($area_id == 0) $area_id = 6;
+
         $infoPaciente[0]['SUBTITULO'] = 'Datos del paciente';
+        $nombre = str_replace(" ", "_", $nombre_paciente);  #Crear directorio
 
-        #Crear directorio
-        $nombre = str_replace(" ", "_", $nombre_paciente);
-
-        switch ($area_id) {
-            #CERTIFICADOS
+        switch ($area_id) { #CERTIFICADOS
             case -10:
                 $fecha_resultado = date("Ymd");
                 $nombre = "CertificadoMedico";
                 $ruta_saved = "reportes/certificados/$turno_id/$fecha_resultado/";
                 break;
-            #Para reportes que no usan $turno_id para su creacion.
-            case 15:
+            case 15: #Para reportes que no usan $turno_id para su creacion.
                 $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/";
 
                 # Seteamos la ruta del reporte para poder recuperarla despues con el atributo $ruta_reporte.
                 $this->setRutaReporte($ruta_saved);
+                $master->createDir("../" . $ruta_saved); # Crear el directorio si no existe
 
-                # Crear el directorio si no existe
-                $r = $master->createDir("../" . $ruta_saved);
-
-                if ($r === 1) {
-                    $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre_paciente);
-                    $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
-                } else {
+                if ($r !== 1) {
                     $this->setLog("Imposible crear la ruta del archivo", "[cotizaciones, reportador]");
                     exit;
                 }
                 break;
-            #DEFAULT
             default:
                 $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/$turno_id/";
-
-                # Seteamos la ruta del reporte para poder recuperarla despues con el atributo $ruta_reporte.
-                $this->setRutaReporte($ruta_saved);
-
-                # Crear el directorio si no existe
-                $r = $master->createDir("../" . $ruta_saved);
-                $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
-                $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
                 break;
         }
 
@@ -855,7 +821,9 @@ class Miscelaneus
         $renderpdf = $pdf->build();
 
         if ($lab == 1 && $tipo == 'url') {
-            $master->insertByProcedure('sp_reportes_areas_g', [null, $turno_id, $area_id, $infoPaciente[0]['CLAVE_IMAGEN'], $renderpdf, null]);
+            $master->insertByProcedure('sp_reportes_areas_g', [
+                null, $turno_id, $area_id, $infoPaciente[0]['CLAVE_IMAGEN'], $renderpdf, null
+            ]);
         }
 
         return $renderpdf;

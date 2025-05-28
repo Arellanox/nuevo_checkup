@@ -121,7 +121,7 @@ session_start();
                             class="btn btn-hover me-2" style="margin: 15px auto 20px auto !important; font-size: 21px;"
                             data-bs-toggle="modal" data-bs-target="#modalCrearCertificadoBimo"
                     >
-                        <i class="bi bi-file-earmark-plus-fill"></i> Crear Certificado BIMO
+                        <i class="bi bi-file-earmark-plus-fill"></i> Crear Certificado Vinco
                     </button>
                 </div>
                 <!-- Agregar certificado bimo  -->
