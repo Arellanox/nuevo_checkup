@@ -47,6 +47,18 @@ $(document).ready(function () {
     }
   });
 
+  let lastNombreComercial = "";
+  $("#nombre_comercial").on("input", function () {
+    lastNombreComercial = $(this).val();
+  });
+  $("#tipo_articulo").on("change", function () {
+    setTimeout(function () {
+      if ($("#nombre_comercial").val() === "") {
+        $("#nombre_comercial").val(lastNombreComercial);
+      }
+    }, 100);
+  });
+
   // Al hacer clic en el botón regresar
   $(document).on("click", ".btn-back-menu", function () {
     $(".content-module").hide();
@@ -665,22 +677,32 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
         title: "Filtrar por tipo de movimiento",
       },
       action: function (e, dt, node, config) {
-        // Si ya existe el select, no lo vuelvas a agregar
-        if ($("#dropdownTipoMovimiento").length === 0) {
-          // Crea el dropdown y lo coloca al lado del botón
-          $(node).after(`
-        <select id="dropdownTipoMovimiento" class="form-select form-select-sm d-inline-block ms-2" style="width:auto;display:inline-block;">
-          <option value="1">Entradas</option>
-          <option value="2">Salidas</option>
-        </select>
+        // Si ya existe el menú, no lo vuelvas a agregar
+        if ($("#dropdownTipoMovimientoMenu").length === 0) {
+          // Crea el menú tipo dropdown contextual
+          var $menu = $(`
+        <div id="dropdownTipoMovimientoMenu" class="dropdown-menu show" style="position:absolute;z-index:9999;min-width:180px;">
+          <button class="dropdown-item" data-value="1"><i class="bi bi-box-arrow-in-down"></i> Entradas</button>
+          <button class="dropdown-item" data-value="2"><i class="bi bi-box-arrow-up"></i> Salidas</button>
+        </div>
       `);
 
-          // Evento para recargar la tabla al cambiar el filtro
-          $(document).on("change", "#dropdownTipoMovimiento", function () {
-            var tipo = $(this).val();
+          // Posiciona el menú debajo del botón
+          var offset = $(node).offset();
+          $menu.css({
+            top: offset.top + $(node).outerHeight(),
+            left: offset.left,
+          });
+
+          $("body").append($menu);
+
+          // Evento para seleccionar opción
+          $menu.on("click", ".dropdown-item", function () {
+            var tipo = $(this).data("value");
             window.dataTableCatEntradas = window.dataTableCatEntradas || {};
             dataTableCatEntradas.id_movimiento = tipo;
             tableCatEntradas.ajax.reload();
+
             // Cambia visibilidad y títulos de columnas según el tipo de movimiento
             if (tipo == "1") {
               // Entradas
@@ -691,8 +713,6 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
               tableCatEntradas.column(6).visible(true);
               tableCatDetallesEntradas.column(3).header().textContent =
                 "Cantidad de entrada";
-              tableCatEntradas.column(0).header().textContent =
-                "Fecha última entrada";
               tableCatDetallesEntradas.column(1).visible(true);
               tableCatDetallesEntradas.column(2).visible(true);
             } else {
@@ -704,16 +724,25 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
               tableCatEntradas.column(6).visible(false); // Oculta proveedor
               tableCatDetallesEntradas.column(3).header().textContent =
                 "Cantidad de salida";
-              tableCatDetallesEntradas.column(0).header().textContent =
-                "Fecha última salida";
               tableCatDetallesEntradas.column(1).visible(false);
               tableCatDetallesEntradas.column(2).visible(false);
             }
             tableCatEntradas.columns.adjust().draw();
+            $menu.remove();
+          });
+
+          // Cierra el menú si haces click fuera
+          $(document).on("mousedown.dropdownTipoMovimiento", function (event) {
+            if (
+              !$(event.target).closest(
+                "#dropdownTipoMovimientoMenu, #btnFiltroTipoMovimiento"
+              ).length
+            ) {
+              $menu.remove();
+              $(document).off("mousedown.dropdownTipoMovimiento");
+            }
           });
         }
-        // Opcional: abrir el dropdown automáticamente
-        $("#dropdownTipoMovimiento").focus();
       },
     },
   ],
@@ -830,7 +859,7 @@ selectDatatable(
       $("#costoMasAltoEntrada").html("SIN REGISTROS");
       $("#totalUnidades").text("");
     }
-    tableCatDetallesEntradas.ajax.reload(); // recargar la tabla con nuevo id
+    tableCatDetallesEntradas.ajax.reload();
     $("#detalleEntradaModal").modal("show");
   }
 );

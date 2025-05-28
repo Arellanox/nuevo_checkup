@@ -74,7 +74,7 @@
                     Cancelar</button>
                 </button>
 
-                <button type="submit" class="btn btn-confirmar"
+                <button id="registrarMovimientoButton" type="submit" class="btn btn-confirmar"
                     form="registrarEntradaForm">
                     <i class="bi bi-pencil-square"></i> Registrar movimiento
                 </button>
@@ -90,6 +90,7 @@ $(document).ready(function () {
     $("#fecha_ultima_entrada").closest(".mb-3").hide();
     $("#costo_ultima_entrada").closest(".mb-3").hide();
     $("#proveedorDiv").hide();
+    $("#registrarMovimientoButton").hide();
 
     $("#id_movimiento").on("change", function () {
         if ($(this).val() == "1") {
@@ -103,6 +104,13 @@ $(document).ready(function () {
             $("#fecha_ultima_entrada").prop("required", true);
             $("#costo_ultima_entrada").prop("required", true);
             $("#id_proveedores").prop("required", true);
+            $("#registrarMovimientoButton").html('<i class="bi bi-pencil-square"></i> Registrar entrada');
+            $("#modalTitleRegistrarEntrada").html(
+            "Registrando entrada de <strong><span id='registrandoEntrada'>" +
+            ($("#registrandoEntrada").text() || "") +
+            "</span></strong>"
+            );
+            $("#registrarMovimientoButton").show();
         } else if ($(this).val() == "2") {
             $("label[for='cantidad']").text("Cantidad a retirar");
             $("#cantidad").attr("placeholder", "Ej. 5");
@@ -113,7 +121,14 @@ $(document).ready(function () {
             $("#proveedorDiv").hide();
             $("#id_proveedores").prop("required", false);
             $("#cantidad").prop("required", true);
-             $("#fecha_ultima_entrada").prop("required", true);
+            $("#fecha_ultima_entrada").prop("required", true);
+            $("#registrarMovimientoButton").html('<i class="bi bi-pencil-square"></i> Registrar salida');
+            $("#modalTitleRegistrarEntrada").html(
+            "Registrando salida de <strong><span id='registrandoEntrada'>" +
+            ($("#registrandoEntrada").text() || "") +
+            "</span></strong>"
+            );
+            $("#registrarMovimientoButton").show();
         } else {
             $("#cantidad").closest(".mb-3").hide();
             $("#fecha_ultima_entrada").closest(".mb-3").hide();
