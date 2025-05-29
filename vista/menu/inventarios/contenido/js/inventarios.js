@@ -3,6 +3,15 @@ $(document).ready(function () {
   $("#btnAgregar").hide();
   //$('#btnRegistrar').hide();
 
+/*  $('a[data-target="moduloCatEntradas"] span').on('click', function () {
+  if (typeof tableCatEntradas !== "undefined") {
+    tableCatEntradas.ajax.reload();
+  }
+  if (typeof tableCatDetallesEntradas !== "undefined") {
+    tableCatDetallesEntradas.ajax.reload();
+  }
+  }); */
+
   // Al hacer clic en un enlace del menú
   $(".vertical-menu a").on("click", function (e) {
     e.preventDefault(); // Evita que el enlace navegue
@@ -22,6 +31,7 @@ $(document).ready(function () {
     } else {
       $("#btnAgregar").hide();
     }
+    
 
     /*muestra el boton en entradas
         if (targetDiv == 'moduloCatEntradas') {
@@ -666,7 +676,7 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
     },
     {
       text: '<i class="bi bi-funnel"></i> Tipo de movimiento',
-      className: "btn btn-warning",
+      className: "btn-tipo-rad btn btn-warning",
       attr: {
         id: "btnFiltroTipoMovimiento",
         "data-bs-toggle": "tooltip",
@@ -754,6 +764,17 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
             $(document).off("mousedown.dropdownTipoMovimiento");
           }
         });
+      },
+    },
+    {
+      // Botón para el historial de transacciones
+      text: '<i class="bi bi-clock-history"></i> Transacciones',
+      className: "btn-transacciones-margin btn btn-info", style:"left:138vh;",
+      attr: {
+        id: "btnHistorialEntradas",
+        "data-bs-toggle": "tooltip",
+        "data-bs-placement": "top",
+        title: "Ver historial de transacciones",
       },
     },
   ],
