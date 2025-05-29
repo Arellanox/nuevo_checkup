@@ -722,6 +722,16 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
             tableCatDetallesEntradas.column(1).visible(true);
             tableCatDetallesEntradas.column(2).visible(true);
             detalleEntradaLabel.textContent = "Detalles de entrada";
+
+            //Editar en detalles entradas
+            cantidadEditarMovLabel.textContent = "Cantidad a ingresar";
+            $("#editarMovimientoModal #costoUltimaEntradaDiv").show();
+            $("#editarMovimientoModal #costo_ultima_entrada").prop(
+              "required",
+              true
+            );
+            $("#editarMovimientoModal #proveedorDiv").show();
+            $("#editarMovimientoModal #motivoSalidaDiv").hide();
           } else {
             // Salidas
             $("#titulosEntradasSalidas").text("Salidas");
@@ -738,6 +748,18 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
             tableCatDetallesEntradas.column(1).visible(false);
             tableCatDetallesEntradas.column(2).visible(false);
             detalleEntradaLabel.textContent = "Detalles de salida";
+
+            //Editar en detalles salidas
+            cantidadEditarMovLabel.textContent = "Cantidad a retirar";
+            $("#editarMovimientoModal #costoUltimaEntradaDiv").hide();
+            $("#editarMovimientoModal #costo_ultima_entrada")
+              .prop("required", false)
+              .val("");
+            $("#editarMovimientoModal #proveedorDiv").hide();
+            $("#editarMovimientoModal .modal-title").html(
+              'Editando salida con fecha: <span id="mostrandoDetallesEntrada"></span>'
+            );
+            $("#editarMovimientoModal #motivoSalidaDiv").show();
           }
           tableCatEntradas.columns.adjust().draw();
           $menu.remove();
@@ -816,14 +838,35 @@ var tableCatDetallesEntradas = $("#tableCatDetallesEntradas").DataTable({
     },
     { data: "PROVEEDOR" },
     { data: "CANTIDAD" },
+    { data: "id_cat_movimientos" },
   ],
   columnDefs: [
     { targets: 0, title: "Fecha y hora última entrada", className: "all" },
     { targets: 1, title: "Costo última entrada", className: "all" },
     { targets: 2, title: "Proveedor", className: "all" },
     { targets: 3, title: "Cantidad de entrada", className: "all" },
+    { targets: 4, visible: false },
   ],
 });
+
+selectDatatable(
+  "tableCatDetallesEntradas",
+  tableCatDetallesEntradas,
+  0,
+  0,
+  0,
+  0,
+  async function (select, dataClick) {
+    rowSelected = dataClick;
+  },
+  async function () {
+    $("#editarMovimientoModal").modal("show");
+    $("#detalleEntradaModal").modal("hide");
+    $("#mostrandoDetallesEntrada").html(
+      `<strong>${rowSelected.FECHA_ULTIMA_ENTRADA}</strong>`
+    );
+  }
+);
 
 // seleccionar la fila de la tabla de entradas
 selectDatatable(

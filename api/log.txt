@@ -1167,3 +1167,112 @@
 28/05/25 15:09:44 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
 28/05/25 15:10:10 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
 28/05/25 15:10:36 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+29/05/25 09:52:00 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+29/05/25 11:24:02 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+29/05/25 11:24:02 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+29/05/25 11:24:02 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+29/05/25 11:24:25 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+29/05/25 11:24:25 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+29/05/25 11:24:25 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+29/05/25 12:09:19 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_movimientos`, CONSTRAINT `inventarios_cat_movimientos_ibfk_1` FOREIGN KEY (`id_articulo`) REFERENCES `inventarios_cat_articulos` (`ID_ARTICULO`))
+29/05/25 12:09:19 call sp_inventarios_cat_entradas_g(74,44,,44,2,,,117) Esto recibió
+29/05/25 12:09:19 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(74,44,,44,2,,,117)
+29/05/25 12:10:21 sp_inventarios_cat_movimiento_u Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'id_cat_movimiento' in 'WHERE'
+29/05/25 12:10:21 call sp_inventarios_cat_movimiento_u(,74,,,55,2,,,,117) Esto recibió
+29/05/25 12:10:21 [Reproduce el error en la base] call sp_inventarios_cat_movimiento_u(,74,,,55,2,,,,117)
+29/05/25 12:12:50 sp_inventarios_cat_movimiento_u Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'id_cat_movimiento' in 'WHERE'
+29/05/25 12:12:50 call sp_inventarios_cat_movimiento_u(,74,,,55,2,,,,117) Esto recibió
+29/05/25 12:12:50 [Reproduce el error en la base] call sp_inventarios_cat_movimiento_u(,74,,,55,2,,,,117)
+29/05/25 12:14:34 sp_inventarios_cat_movimiento_u Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'CANTIDAD' in 'SET'
+29/05/25 12:14:34 call sp_inventarios_cat_movimiento_u(,74,,,55,2,,,,117) Esto recibió
+29/05/25 12:14:34 [Reproduce el error en la base] call sp_inventarios_cat_movimiento_u(,74,,,55,2,,,,117)
+29/05/25 12:16:33 sp_inventarios_cat_movimiento_u Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'CANTIDAD' in 'SET'
+29/05/25 12:16:33 call sp_inventarios_cat_movimiento_u(,74,,,55,2,,,,117) Esto recibió
+29/05/25 12:16:33 [Reproduce el error en la base] call sp_inventarios_cat_movimiento_u(,74,,,55,2,,,,117)
+29/05/25 12:16:47 sp_inventarios_cat_movimiento_u Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_movimientos`, CONSTRAINT `fk_tipo_movimiento` FOREIGN KEY (`id_movimiento`) REFERENCES `inventarios_tipo_movimientos` (`id_movimiento`))
+29/05/25 12:16:47 call sp_inventarios_cat_movimiento_u(74,11,,5,11,1,2025-05-28 14:14:22,undefined,undefined,117) Esto recibió
+29/05/25 12:16:47 [Reproduce el error en la base] call sp_inventarios_cat_movimiento_u(74,11,,5,11,1,2025-05-28 14:14:22,undefined,undefined,117)
+29/05/25 12:18:07 sp_inventarios_cat_movimiento_u Ha ocurrido un error(42S22). 42S22 1054 Unknown column 'CANTIDAD' in 'SET'
+29/05/25 12:18:07 call sp_inventarios_cat_movimiento_u(74,11,,5,11,2,2025-05-28 14:14:22,1,,117) Esto recibió
+29/05/25 12:18:07 [Reproduce el error en la base] call sp_inventarios_cat_movimiento_u(74,11,,5,11,2,2025-05-28 14:14:22,1,,117)
+29/05/25 13:01:59 sp_vendedores_periodos_b Ha ocurrido un error(42S02). 42S02 1146 Table 'u808450138_practicantes.vendedores_comisionistas_periodos' doesn't exist
+29/05/25 13:02:00 sp_vendedores_periodos_b Ha ocurrido un error(42S02). 42S02 1146 Table 'u808450138_practicantes.vendedores_comisionistas_periodos_detalle' doesn't exist
+29/05/25 13:03:30 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_movimientos`, CONSTRAINT `inventarios_cat_movimientos_ibfk_1` FOREIGN KEY (`id_articulo`) REFERENCES `inventarios_cat_articulos` (`ID_ARTICULO`))
+29/05/25 13:03:30 call sp_inventarios_cat_entradas_g(87,,0,,11,2,,,117) Esto recibió
+29/05/25 13:03:30 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(87,,0,,11,2,,,117)
+29/05/25 13:13:14 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_movimientos`, CONSTRAINT `inventarios_cat_movimientos_ibfk_1` FOREIGN KEY (`id_articulo`) REFERENCES `inventarios_cat_articulos` (`ID_ARTICULO`))
+29/05/25 13:13:14 call sp_inventarios_cat_entradas_g(87,,13,,13,1,,,117) Esto recibió
+29/05/25 13:13:14 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(87,,13,,13,1,,,117)
+29/05/25 13:18:53 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_movimientos`, CONSTRAINT `inventarios_cat_movimientos_ibfk_1` FOREIGN KEY (`id_articulo`) REFERENCES `inventarios_cat_articulos` (`ID_ARTICULO`))
+29/05/25 13:18:53 call sp_inventarios_cat_entradas_g(87,,13,,13,1,,,117) Esto recibió
+29/05/25 13:18:53 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(87,,13,,13,1,,,117)
+29/05/25 13:53:26 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_movimientos`, CONSTRAINT `fk_proveedor_entrada` FOREIGN KEY (`id_proveedores`) REFERENCES `proveedores` (`id_proveedores`))
+29/05/25 13:53:26 call sp_inventarios_cat_entradas_g(4,76,12,2025-05-29 12:53:23,,null,1,,117) Esto recibió
+29/05/25 13:53:26 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(4,76,12,2025-05-29 12:53:23,,null,1,,117)
+29/05/25 13:54:19 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_movimientos`, CONSTRAINT `fk_proveedor_entrada` FOREIGN KEY (`id_proveedores`) REFERENCES `proveedores` (`id_proveedores`))
+29/05/25 13:54:19 call sp_inventarios_cat_entradas_g(4,76,11,2025-05-29 12:54:16,,null,1,,117) Esto recibió
+29/05/25 13:54:19 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(4,76,11,2025-05-29 12:54:16,,null,1,,117)
+29/05/25 13:54:23 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_movimientos`, CONSTRAINT `fk_proveedor_entrada` FOREIGN KEY (`id_proveedores`) REFERENCES `proveedores` (`id_proveedores`))
+29/05/25 13:54:23 call sp_inventarios_cat_entradas_g(4,76,11,2025-05-29 12:54:16,,null,1,,117) Esto recibió
+29/05/25 13:54:23 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(4,76,11,2025-05-29 12:54:16,,null,1,,117)
+29/05/25 13:57:39 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_movimientos`, CONSTRAINT `fk_proveedor_entrada` FOREIGN KEY (`id_proveedores`) REFERENCES `proveedores` (`id_proveedores`))
+29/05/25 13:57:39 call sp_inventarios_cat_entradas_g(4,76,22,2025-05-29 12:57:35,,null,1,,117) Esto recibió
+29/05/25 13:57:39 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(4,76,22,2025-05-29 12:57:35,,null,1,,117)
+29/05/25 13:58:22 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_movimientos`, CONSTRAINT `fk_proveedor_entrada` FOREIGN KEY (`id_proveedores`) REFERENCES `proveedores` (`id_proveedores`))
+29/05/25 13:58:22 call sp_inventarios_cat_entradas_g(4,76,11,2025-05-29 12:58:19,,null,1,,117) Esto recibió
+29/05/25 13:58:22 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(4,76,11,2025-05-29 12:58:19,,null,1,,117)
+29/05/25 14:06:14 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+29/05/25 14:06:15 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+29/05/25 14:06:15 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+29/05/25 14:09:18 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+29/05/25 14:19:33 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1048 Column 'id_proveedores' cannot be null
+29/05/25 14:19:33 call sp_inventarios_cat_entradas_g(3,,3,2025-05-29 13:19:32,,,2,,117) Esto recibió
+29/05/25 14:19:33 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(3,,3,2025-05-29 13:19:32,,,2,,117)
+29/05/25 14:21:46 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_movimientos`, CONSTRAINT `fk_proveedor_entrada` FOREIGN KEY (`id_proveedores`) REFERENCES `proveedores` (`id_proveedores`))
+29/05/25 14:21:46 call sp_inventarios_cat_entradas_g(3,94,2,2025-05-29 13:21:41,,null,1,,117) Esto recibió
+29/05/25 14:21:46 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(3,94,2,2025-05-29 13:21:41,,null,1,,117)
+29/05/25 14:24:57 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_movimientos`, CONSTRAINT `fk_proveedor_entrada` FOREIGN KEY (`id_proveedores`) REFERENCES `proveedores` (`id_proveedores`))
+29/05/25 14:24:57 call sp_inventarios_cat_entradas_g(3,94,2,2025-05-29 13:21:41,,null,1,,117) Esto recibió
+29/05/25 14:24:57 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(3,94,2,2025-05-29 13:21:41,,null,1,,117)
+29/05/25 14:25:53 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_movimientos`, CONSTRAINT `fk_proveedor_entrada` FOREIGN KEY (`id_proveedores`) REFERENCES `proveedores` (`id_proveedores`))
+29/05/25 14:25:53 call sp_inventarios_cat_entradas_g(3,94,2,2025-05-29 13:21:41,,null,1,,117) Esto recibió
+29/05/25 14:25:53 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(3,94,2,2025-05-29 13:21:41,,null,1,,117)
+29/05/25 14:26:49 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_movimientos`, CONSTRAINT `fk_proveedor_entrada` FOREIGN KEY (`id_proveedores`) REFERENCES `proveedores` (`id_proveedores`))
+29/05/25 14:26:49 call sp_inventarios_cat_entradas_g(3,94,2,2025-05-29 13:26:45,,null,1,,117) Esto recibió
+29/05/25 14:26:49 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(3,94,2,2025-05-29 13:26:45,,null,1,,117)
+29/05/25 14:30:54 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_movimientos`, CONSTRAINT `fk_proveedor_entrada` FOREIGN KEY (`id_proveedores`) REFERENCES `proveedores` (`id_proveedores`))
+29/05/25 14:30:54 call sp_inventarios_cat_entradas_g(3,94,2,2025-05-29 13:30:50,,null,1,,117) Esto recibió
+29/05/25 14:30:54 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(3,94,2,2025-05-29 13:30:50,,null,1,,117)
+29/05/25 14:38:58 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_movimientos`, CONSTRAINT `fk_proveedor_entrada` FOREIGN KEY (`id_proveedores`) REFERENCES `proveedores` (`id_proveedores`))
+29/05/25 14:38:58 call sp_inventarios_cat_entradas_g(3,94,6,2025-05-29 13:33:14,,null,1,,117) Esto recibió
+29/05/25 14:38:58 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(3,94,6,2025-05-29 13:33:14,,null,1,,117)
+29/05/25 14:41:50 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_movimientos`, CONSTRAINT `fk_proveedor_entrada` FOREIGN KEY (`id_proveedores`) REFERENCES `proveedores` (`id_proveedores`))
+29/05/25 14:41:50 call sp_inventarios_cat_entradas_g(3,96,11,2025-05-29 13:41:46,,null,1,,117) Esto recibió
+29/05/25 14:41:50 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(3,96,11,2025-05-29 13:41:46,,null,1,,117)
+29/05/25 14:53:38 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_movimientos`, CONSTRAINT `fk_proveedor_entrada` FOREIGN KEY (`id_proveedores`) REFERENCES `proveedores` (`id_proveedores`))
+29/05/25 14:53:38 call sp_inventarios_cat_entradas_g(3,96,11,2025-05-29 13:53:35,,null,1,,117) Esto recibió
+29/05/25 14:53:38 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(3,96,11,2025-05-29 13:53:35,,null,1,,117)
+29/05/25 15:03:30 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+29/05/25 15:05:34 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+29/05/25 15:05:40 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+29/05/25 15:08:36 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+29/05/25 15:10:08 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+29/05/25 15:11:14 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+29/05/25 15:13:33 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_movimientos`, CONSTRAINT `fk_proveedor_entrada` FOREIGN KEY (`id_proveedores`) REFERENCES `proveedores` (`id_proveedores`))
+29/05/25 15:13:33 call sp_inventarios_cat_entradas_g(3,96,11,2025-05-29 14:13:29,,null,1,,117) Esto recibió
+29/05/25 15:13:33 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(3,96,11,2025-05-29 14:13:29,,null,1,,117)
+29/05/25 15:15:22 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_movimientos`, CONSTRAINT `fk_proveedor_entrada` FOREIGN KEY (`id_proveedores`) REFERENCES `proveedores` (`id_proveedores`))
+29/05/25 15:15:22 call sp_inventarios_cat_entradas_g(3,96,11,2025-05-29 14:15:19,,null,1,,117) Esto recibió
+29/05/25 15:15:22 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(3,96,11,2025-05-29 14:15:19,,null,1,,117)
+29/05/25 15:16:46 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_movimientos`, CONSTRAINT `fk_proveedor_entrada` FOREIGN KEY (`id_proveedores`) REFERENCES `proveedores` (`id_proveedores`))
+29/05/25 15:16:46 call sp_inventarios_cat_entradas_g(3,96,11,2025-05-29 14:16:42,,null,1,,117) Esto recibió
+29/05/25 15:16:46 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(3,96,11,2025-05-29 14:16:42,,null,1,,117)
+29/05/25 15:18:18 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_movimientos`, CONSTRAINT `fk_proveedor_entrada` FOREIGN KEY (`id_proveedores`) REFERENCES `proveedores` (`id_proveedores`))
+29/05/25 15:18:18 call sp_inventarios_cat_entradas_g(3,,22,2025-05-29 14:18:17,,null,2,Caducidad,117) Esto recibió
+29/05/25 15:18:18 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(3,,22,2025-05-29 14:18:17,,null,2,Caducidad,117)
+29/05/25 15:18:37 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_movimientos`, CONSTRAINT `fk_proveedor_entrada` FOREIGN KEY (`id_proveedores`) REFERENCES `proveedores` (`id_proveedores`))
+29/05/25 15:18:37 call sp_inventarios_cat_entradas_g(3,,22,2025-05-29 14:18:36,,null,2,Caducidad,117) Esto recibió
+29/05/25 15:18:37 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(3,,22,2025-05-29 14:18:36,,null,2,Caducidad,117)
+29/05/25 15:18:59 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_movimientos`, CONSTRAINT `fk_proveedor_entrada` FOREIGN KEY (`id_proveedores`) REFERENCES `proveedores` (`id_proveedores`))
+29/05/25 15:18:59 call sp_inventarios_cat_entradas_g(3,,22,2025-05-29 14:18:57,,null,2,Caducidad,117) Esto recibió
+29/05/25 15:18:59 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(3,,22,2025-05-29 14:18:57,,null,2,Caducidad,117)

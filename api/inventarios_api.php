@@ -55,6 +55,7 @@ $cantidad = $_POST['cantidad'];
 $id_proveedores = $_POST['id_proveedores'];
 $id_movimiento = $_POST['id_movimiento'];
 $motivo_salida = $_POST['motivo_salida'];
+$id_cat_movimientos = $_POST['id_cat_movimientos'];
 
 $host = $master->selectHost($_SERVER['SERVER_NAME']);
 
@@ -155,6 +156,7 @@ switch ($api) {
         # ingresar datos faltantates a la tabla de entradas
         $response = $master->insertByProcedure("sp_inventarios_cat_entradas_g", [
             $id_articulo,
+            $id_cat_movimientos,
             //$nombre_comercial,
             $cantidad,
             $fecha_ultima_entrada,

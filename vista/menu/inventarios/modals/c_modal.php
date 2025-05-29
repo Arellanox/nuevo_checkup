@@ -6,3 +6,4 @@ include "detalle_articulo.html";
 include "registrar_entrada.html";
 include "detalle_entrada.html";
 include "registrar_requisiciones.html";
+include "editar_movimiento.html";
