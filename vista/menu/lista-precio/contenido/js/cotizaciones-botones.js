@@ -125,10 +125,29 @@ $("#UsarPaquete").on("click", function () {
 
                     calcularFilasTR();
                 }
+
+                verificarDescuentosPaquete();
             }
         );
     }
 });
+
+function verificarDescuentosPaquete() {
+    let hayDescuentos = false;
+
+    $("input[name='descuento-paquete'], #descuento-paquete").each(function () {
+        if (parseFloat($(this).val()) > 0) {
+            hayDescuentos = true;
+        }
+    });
+
+    if (hayDescuentos) {
+        $("#precios-con-descuento").show();
+    } else {
+        $("#precios-con-descuento").hide();
+    }
+}
+
 
 $('#CambiarPaquete').on('click', function () {
     $('#nombreCotizacionCliente').html('')
