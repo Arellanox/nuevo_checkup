@@ -149,6 +149,53 @@ $("#registrarEntradaForm").submit(function (event) {
   );
 });
 
+//Editar una entrada
+$("#editarMovimientoForm").submit(function (event) {
+  event.preventDefault();
+  var form = document.getElementById("editarMovimientoForm");
+  var formData = new FormData(form);
+
+  var activo;
+
+  if ($("#editarMovimientoForm #estatus").is(":checked")) {
+    activo = 1;
+  } else {
+    activo = 0;
+  }
+
+  alertMensajeConfirm(
+    {
+      title: "¿Está a punto de editar este movimiento?",
+      text: "Asegúrate que los datos sean correctos.",
+      icon: "warning",
+    },
+    function () {
+      ajaxAwaitFormData(
+        {
+          api: 6,
+          id_articulo: rowSelected.ID_ARTICULO,
+          id_cat_movimientos: rowSelected.id_cat_movimientos,
+          
+        },
+        "inventarios_api",
+        "editarMovimientoForm",
+        { callbackAfter: true },
+        false,
+        function (data) {
+          if (data.response.code == 1) {
+            $("#editarMovimientoForm")[0].reset();
+            $("#editarMovimientoModal").modal("hide");
+            alertToast("Movimiento actualizado!", "success", 4000);
+            tableCatArticulos.ajax.reload();
+            tableCatEntradas.ajax.reload();
+            tableCatDetallesEntradas.ajax.reload();
+          }
+        }
+      );
+    }
+  );
+});
+
 $("#filtrarArticuloForm").submit(function (event) {
   event.preventDefault();
 

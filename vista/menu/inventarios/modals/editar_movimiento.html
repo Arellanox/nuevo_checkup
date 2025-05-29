@@ -1,0 +1,100 @@
+<div class="modal fade" id="editarMovimientoModal" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false"
+    data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarMovimientoModal">
+                    Editando entrada con fecha: <span id="mostrandoDetallesEntrada"></span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="container-fluid">
+                    <div class="row">
+                        <form id="editarMovimientoForm" name="editarMovimientoForm">
+                            <div class="col-12">
+                                <div class="text-start">
+                                    <div class="shadow-sm rounded p-3 card-body">
+                                        <h5 class="text-dark">Edita los siguientes datos</h5>
+
+                                        <!-- Sección 1: Informacion general -->
+                                        <div class="card mb-4">
+                                            <div class="card-body">
+                                                <h6 class="card-title">Información general</h6>
+                                                <div class="row">
+
+                                                    <!-- Cantidad -->
+                                                    <div class="mb-3">
+                                                        <label id="cantidadEditarMovLabel" for="cantidad"
+                                                            class="form-label">Cantidad a
+                                                            ingresar</label>
+                                                        <input type="number" class="form-control input-form"
+                                                            id="cantidad" name="cantidad" required placeholder="Ej. 10">
+                                                    </div>
+
+                                                    <!-- Costo Última Entrada -->
+                                                    <div class="mb-3" id="costoUltimaEntradaDiv">
+                                                        <label for="costo_ultima_entrada" class="form-label">Costo
+                                                            actual</label>
+                                                        <input type="number" step="any" class="form-control input-form"
+                                                            id="costo_ultima_entrada" name="costo_ultima_entrada"
+                                                            required placeholder="Ej. 10.50">
+                                                    </div>
+
+                                                    <!-- Proveedor -->
+                                                    <div class="mb-3" id="proveedorDiv">
+                                                        <label for="id_proveedores" class="form-label">Proveedor</label>
+                                                        <select class="form-select input-form" id="id_proveedores"
+                                                            name="id_proveedores">
+                                                            <option value="" disabled selected>Seleccione...</option>
+                                                            <option value="2">Farmacias Guadalajara</option>
+                                                            <option value="3">Farmacias Similares</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Campo oculto para la fecha y hora actual -->
+                                        <input type="hidden" id="fecha_ultima_entrada" name="fecha_ultima_entrada">
+                                    </div>
+                                </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelarButtonEditarMovimientos" type="button" class="btn btn-cancelar"
+                    data-bs-dismiss="modal">
+                    <i class="bi bi-arrow-left-short"></i> Cancelar
+                </button>
+                <button type="submit" class="btn btn-confirmar" form="editarMovimientoForm">
+                    <i class="bi bi-pencil-square"></i> Editar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // Ejecutar al cargar para el valor inicial
+    $(document).ready(function () {
+
+        $("#cancelarButtonEditarMovimientos").on("click", function () {
+            setTimeout(function () {
+                $("#detalleEntradaModal").modal("show");
+            }, 100);
+        });
+
+        // Al mostrar el modal, asigna la fecha y hora actual al campo oculto
+        $('#editarMovimientoModal').on('show.bs.modal', function () {
+            const now = new Date();
+            const fechaHora = now.getFullYear() + '-' +
+                String(now.getMonth() + 1).padStart(2, '0') + '-' +
+                String(now.getDate()).padStart(2, '0') + ' ' +
+                String(now.getHours()).padStart(2, '0') + ':' +
+                String(now.getMinutes()).padStart(2, '0') + ':' +
+                String(now.getSeconds()).padStart(2, '0');
+            $('#fecha_ultima_entrada').val(fechaHora);
+        });
+    });
+</script>
