@@ -93,6 +93,7 @@ switch ($api) {
             "SERVICIOS" => "Servicios",
             "PREFOLIO" => "Prefolio",
             "CANTIDAD" => "Cantidad",
+            "COSTO_BASE" => "Costo",
             "PRECIO_UNITARIO" => "Unitario",
             "SUBTOTAL" => "Subtotal",
             "IVA" => "IVA",
