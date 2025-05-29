@@ -927,18 +927,37 @@ selectDatatable(
     // DOBLE CLICK
     // llenamos el modal de detalles para mostrarlo al usuario.
     $("#claveArticulo").text(rowSelected.CLAVE_ART);
+    if (
+        rowSelected.COSTO_ULTIMA_ENTRADA &&
+        rowSelected.COSTO_ULTIMA_ENTRADA !== "null" &&
+        rowSelected.COSTO_ULTIMA_ENTRADA !== null
+    ) {
     $("#costoUltimaEntrada").text(
+        "$" +
       Number(rowSelected.COSTO_ULTIMA_ENTRADA).toLocaleString("es-MX", {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       })
     );
+   } else {
+    $("#costoUltimaEntrada").text("Sin registros");
+   }
+
+    if(
+        rowSelected.COSTO_MAS_ALTO &&
+        rowSelected.COSTO_MAS_ALTO !== "null" &&
+        rowSelected.COSTO_MAS_ALTO !== null
+    ) {
     $("#costoMasAlto").text(
+        "$" +
       Number(rowSelected.COSTO_MAS_ALTO).toLocaleString("es-MX", {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       })
     );
+    } else {
+    $("#costoMasAlto").text("Sin registros");
+    }
 
     //Ocultar la fecha de ultima entrada si no hay en detalles
     if (
@@ -950,7 +969,7 @@ selectDatatable(
         rowSelected.FECHA_ULTIMA_ENTRADA.split(" ")[0]
       );
     } else {
-      $("#fechaUltimaEntrada").text("");
+      $("#fechaUltimaEntrada").text("Sin registros");
     }
 
     $("#unidadVenta").text(rowSelected.UNIDAD_VENTA);
@@ -1059,9 +1078,9 @@ selectDatatable(
         ? rowSelected.PROVEEDORES.split("|")
             .map(
               (proveedor) =>
-                `<span class="badge text-bg-dark">${proveedor}</span>`
+                `<br><span>${proveedor}</span>`
             )
-            .join(" ")
+            .join("")
         : "No hay proveedores registrados."
     );
 
