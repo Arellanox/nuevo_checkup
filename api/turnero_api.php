@@ -263,8 +263,10 @@ function setDataJson($area, $turno)
 function fillSessionList($master, $area)
 {
     global $listaGlobal;
-    $response = $master->getByProcedure('sp_turnero_lista_pacientes', [$area]);
-
+    $response = $master->getByProcedure('sp_turnero_lista_pacientes', [
+        $area, $_SESSION['id'], $_SESSION['franquiciario']
+    ]);
+    
     if (!isset($response[0]['MSJ'])) {
         $listaGlobal = fillListPatient($response);
     } else {
