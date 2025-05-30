@@ -179,6 +179,7 @@ class Correo
             $mail->addBCC("hola@bimo.com.mx");
             #$mail->addBCC("luis.cuevas@bimo.com.mx");
             $mail->addBCC("confirmacion_resultados@bimo-lab.com");
+            $mail->addBCC("sucursal.mendez@bimo.com.mx");
             // $mail->addBCC("marthita.acopa@bimo.com.mx");
 
             # attach files
