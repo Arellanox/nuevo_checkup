@@ -110,7 +110,7 @@ switch ($api) {
         break;
 
     case 5: // Generar QR para cliente
-        $cliente = [$id, $codigo, $qr];
+        $cliente = [$id, $codigo, $qr, null];
         $result = $master->getByProcedure('sp_clientes_b', $cliente);
 
         if (!empty($result)) {
