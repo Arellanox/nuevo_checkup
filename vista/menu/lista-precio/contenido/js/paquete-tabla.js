@@ -14,7 +14,7 @@ $(tablePaquetesHTML).on("click", 'tr', function (event) {
                 dataEliminados.push(data[7])
                 tablaContenidoPaquete.row($(this)).remove().draw();
                 if (tablaContenidoPaquete.data().count()) {
-                    calcularFilasTR()
+                    calcularFilasPaqueteTR()
                 }
             }
 

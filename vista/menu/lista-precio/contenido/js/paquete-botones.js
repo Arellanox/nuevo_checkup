@@ -11,10 +11,14 @@ let selectEstudio;
 $('#agregar-estudio-paquete').click(function () {
     selectData = selectEstudio.array[$("#seleccion-estudio").prop('selectedIndex')]
     meterDato(selectData['SERVICIO'], selectData['ABREVIATURA'], selectData['COSTO'], selectData['PRECIO_VENTA'], 1, selectData['ID_SERVICIO'], selectData['ABREVIATURA'], tablaContenidoPaquete);
-    calcularFilasTR();
+    calcularFilasPaqueteTR();
 })
 
 $('#UsarPaquete').on('click', function () {
+    $('#subtotal-costo-paquete').html('$0 ');
+    $('#subtotal-precioventa-paquete').html('$ 0');
+    $('#total-paquete').html(`$ 0`);
+
     $('#seleccion-paquete').prop('disabled', true);
     $("#selectDisabled").addClass("disable-element");
     // $('.formContenidoPaquete').prop('disabled', false);
@@ -34,12 +38,12 @@ $('#UsarPaquete').on('click', function () {
                     api: 9
                 },
                 success: function (data) {
-                    console.log(data);
                     row = data.response.data;
                     for (let i = 0; i < row.length; i++) {
                         meterDato(row[i]['SERVICIO'], row[i].ABREVIATURA, row[i].COSTO_UNITARIO, row[i].PRECIO_VENTA_UNITARIO, row[i].CANTIDAD, row[i].ID_SERVICIO, row[i].ABREVIATURA, tablaContenidoPaquete)
                     }
-                    calcularFilasTR();
+
+                    calcularFilasPaqueteTR();
                 }
             })
             break;
@@ -59,6 +63,10 @@ $('#CambiarPaquete').on('click', function () {
 })
 
 $('input[type="radio"][name="selectPaquete"]').change(function () {
+    $('#subtotal-costo-paquete').html('$');
+    $('#subtotal-precioventa-paquete').html('$');
+    $('#total-paquete').html(`$`);
+
     switch ($(this).val()) {
         case '1':
             contenidoPaquete();
@@ -82,12 +90,14 @@ $('input[type=radio][name=selectChecko]').change(function () {
         rellenarSelect("#seleccion-estudio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
             area_id: this.value,
             paquete_id: $('#seleccion-paquete').val()
-        }, function (listaEstudios) { selectEstudio = new GuardarArreglo(listaEstudios); });
+        }, function (listaEstudios) {
+            selectEstudio = new GuardarArreglo(listaEstudios);
+        });
     }
 });
 
 $('#guardar-contenido-paquete').on('click', function () {
-    let dataAjax = calcularFilasTR2();
+    let dataAjax = calcularFilasPaqueteTR();
     let tableData = tablaContenidoPaquete.rows().data().toArray();
 
     if (tableData.length > 0) {
@@ -137,7 +147,7 @@ $('#guardar-contenido-paquete').on('click', function () {
                             eliminados: dataEliminados
                         };
                     }
-                    console.log(dataEliminados);
+
                     $.ajax({
                         url: `${http}${servidor}/${appname}/api/paquetes_api.php`,
                         data: ajaxDataSend,
@@ -163,13 +173,12 @@ $('#guardar-contenido-paquete').on('click', function () {
     } else {
         alertMensaje('error', '¡Faltan datos!', 'Necesita rellenar la tabla de estudios para continuar')
     }
-
-    // console.log()
 })
 
 $(document).on("change", "input[name='cantidad-paquete']", function (event) {
-    calcularFilasTR()
+    calcularFilasPaqueteTR()
 });
 
 //No submit form with enter
-function formpassword() { }
+function formpassword() {
+}

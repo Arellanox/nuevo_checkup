@@ -143,7 +143,8 @@ function tablaContenido(descuento = false) {
 
     tablaContenidoPaquete.destroy();
     $('#TablaListaPaquetes').empty();
-    dataEliminados = []
+    dataEliminados = [];
+
     tablaContenidoPaquete = $("#TablaListaPaquetes").DataTable({
         lengthChange: false,
         // info: false,

@@ -62,65 +62,8 @@ function meterDato(DESCRIPCION, CVE, costo_total, precio_venta, CANTIDAD, ID_SER
     ]).draw();
 }
 
-function calcularFilasTR() {
-    subtotalCosto = 0, subtotalPrecioventa = 0, iva = 0, total = 0;
-    var paqueteEstudios = new Array();
-    try {
-        $('#TablaListaPaquetes tbody tr').each(function () {
-            tabledata = tablaContenidoPaquete.row(this).data();
-            var arregloEstudios = new Array();
-            let id_servicio;
-            let calculo = caluloFila(this)
-            subtotalCosto += calculo[0];
-            subtotalPrecioventa += calculo[1];
-            id_servicio = tabledata[8]
-            arregloEstudios = {
-                'id': id_servicio,
-                'cantidad': calculo[2],
-                'costo': calculo[3],
-                'costototal': calculo[0],
-                'precioventa': calculo[4],
-                'subtotal': calculo[1]
-            }
-            paqueteEstudios.push(arregloEstudios)
-        });
-    } catch (error) {
-        console.warn(error)
-    }
-
-    iva = (subtotalPrecioventa * 16) / 100;
-    total = subtotalPrecioventa + iva;
-
-    if (!checkNumber(subtotalCosto)) {
-        subtotalCosto = 0;
-    } else {
-        subtotalCosto = subtotalCosto;
-    }
-    if (!checkNumber(subtotalPrecioventa)) {
-        subtotalPrecioventa = 0;
-    } else {
-        subtotalPrecioventa = subtotalPrecioventa;
-    }
-    if (!checkNumber(total)) {
-        total = 0;
-    } else {
-        total = total;
-    }
-    $('#subtotal-costo-paquete').html('$' + subtotalCosto.toFixed(2));
-    $('#subtotal-precioventa-paquete').html('$' + subtotalPrecioventa.toFixed(2));
-    $('#total-paquete').html(`$${total.toFixed(2)}`);
-    paqueteEstudios.push({
-        'total': total,
-        'subtotal-costo': subtotalCosto,
-        'subtotal.precioventa': subtotalPrecioventa,
-        'iva': iva,
-        'id_paquete': $('#seleccion-paquete').val()
-    })
-    return paqueteEstudios
-}
-
-// Cargado de información sin perdida de datos al filtrar la tabla.
-function calcularFilasTR2() {
+// Cálculo de paquetes por medio de la tabla y sus filas.
+function calcularFilasPaqueteTR() {
     subtotalCosto = 0, subtotalPrecioventa = 0, iva = 0, total = 0;
     var paqueteEstudios = [];
 
@@ -129,21 +72,28 @@ function calcularFilasTR2() {
         tablaContenidoPaquete.rows().every(function () {
             let rowData = this.data();
             let rowNode = this.node(); // para pasar el nodo al cálculo si lo necesitas
-
             let calculo = caluloFila(rowNode); // Usa el nodo para los cálculos
-
-            subtotalCosto += calculo[0];
-            subtotalPrecioventa += calculo[1];
-
             let id_servicio = rowData[8];
+
+            subtotalCosto += parseFloat(calculo[0]) || 0;
+            subtotalPrecioventa += parseFloat(calculo[1]) || 0;
+
+            // paqueteEstudios.push({
+            //     'id': id_servicio,
+            //     'cantidad': calculo[2],
+            //     'costo': calculo[3],
+            //     'costototal': calculo[0],
+            //     'precioventa': calculo[4],
+            //     'subtotal': calculo[1]
+            // });
 
             paqueteEstudios.push({
                 'id': id_servicio,
-                'cantidad': calculo[2],
-                'costo': calculo[3],
-                'costototal': calculo[0],
-                'precioventa': calculo[4],
-                'subtotal': calculo[1]
+                'cantidad': parseInt(calculo[2]) || 0,
+                'costo': parseFloat(calculo[3]) || 0,
+                'costototal': parseFloat(calculo[0]) || 0,
+                'precioventa': parseFloat(calculo[4]) || 0,
+                'subtotal': parseFloat(calculo[1]) || 0
             });
         });
     } catch (error) {
@@ -239,6 +189,27 @@ function checkNumber(x) {
     }
 }
 
+function mostrarClientesAsignados(data){
+    let item = '';
+
+    for (let index = 0; index < data.length; index++) {
+        item += `
+        <div class="col-auto cliente">
+          <div class="input-group mb-3">
+            <div class="input-group-text">
+              <label class="d-flex justify-content-center" for="">${data[index].CLIENTE}</label> 
+              <button class="badge text-bg-danger listaClientesPaquetes" data-bs-id="${data[index].ID_CLIENTE}">
+                <i class="bi bi-trash3-fill"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        `;
+    }
+
+    return item;
+}
+
 // ASIGNAR PAQUETES A CLIENTES.
 rellenarOrdenarSelect('#relacion-paquete', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL');
 
@@ -320,29 +291,7 @@ $(document).ready(function(){
             1
         );
     });
-
 });
-
-function mostrarClientesAsignados(data){
-    let item = '';
-
-    for (let index = 0; index < data.length; index++) {
-        item += `
-    <div class="col-auto cliente">
-      <div class="input-group mb-3">
-        <div class="input-group-text">
-          <label class="d-flex justify-content-center" for="">${data[index].CLIENTE}</label> 
-          <button class="badge text-bg-danger listaClientesPaquetes" data-bs-id="${data[index].ID_CLIENTE}">
-            <i class="bi bi-trash3-fill"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-    `;
-    }
-
-    return item;
-}
 
 $('#filtroClientes').on('input', function() {
     var filtro = $(this).val().toLowerCase(); // Obtener el texto del filtro en minúsculas
