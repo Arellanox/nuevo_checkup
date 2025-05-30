@@ -1276,3 +1276,42 @@
 29/05/25 15:18:59 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_movimientos`, CONSTRAINT `fk_proveedor_entrada` FOREIGN KEY (`id_proveedores`) REFERENCES `proveedores` (`id_proveedores`))
 29/05/25 15:18:59 call sp_inventarios_cat_entradas_g(3,,22,2025-05-29 14:18:57,,null,2,Caducidad,117) Esto recibió
 29/05/25 15:18:59 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(3,,22,2025-05-29 14:18:57,,null,2,Caducidad,117)
+30/05/25 10:30:56 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+30/05/25 10:30:56 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+30/05/25 10:30:56 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+30/05/25 10:37:06 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+30/05/25 10:38:34 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+30/05/25 10:40:45 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+30/05/25 10:41:36 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+30/05/25 13:24:13 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1452 Cannot add or update a child row: a foreign key constraint fails (`u808450138_practicantes`.`inventarios_cat_movimientos`, CONSTRAINT `fk_proveedor_entrada` FOREIGN KEY (`id_proveedores`) REFERENCES `proveedores` (`id_proveedores`))
+30/05/25 13:24:13 call sp_inventarios_cat_entradas_g(13,124,7,2025-05-30 12:24:12,,undefined,2,,117) Esto recibió
+30/05/25 13:24:13 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(13,124,7,2025-05-30 12:24:12,,undefined,2,,117)
+30/05/25 13:42:36 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+30/05/25 13:42:55 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+30/05/25 13:47:40 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+30/05/25 13:50:32 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+30/05/25 13:52:44 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+30/05/25 13:52:49 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+30/05/25 13:53:43 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+30/05/25 13:55:09 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+30/05/25 13:55:14 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+30/05/25 13:56:51 fn_connect_db Could not connect to the database u808450138_practicantes :SQLSTATE[HY000] [1226] User 'u808450138_practica' has exceeded the 'max_connections_per_hour' resource (current value: 500)
+30/05/25 14:07:57 sp_vendedores_periodos_b Ha ocurrido un error(42S02). 42S02 1146 Table 'u808450138_practicantes.vendedores_comisionistas_periodos' doesn't exist
+30/05/25 14:07:57 sp_vendedores_periodos_b Ha ocurrido un error(42S02). 42S02 1146 Table 'u808450138_practicantes.vendedores_comisionistas_periodos_detalle' doesn't exist
+30/05/25 14:17:09 sp_vendedores_periodos_b Ha ocurrido un error(42S02). 42S02 1146 Table 'u808450138_practicantes.vendedores_comisionistas_periodos' doesn't exist
+30/05/25 14:17:09 sp_vendedores_periodos_b Ha ocurrido un error(42S02). 42S02 1146 Table 'u808450138_practicantes.vendedores_comisionistas_periodos_detalle' doesn't exist
+30/05/25 14:29:10 sp_vendedores_periodos_b Ha ocurrido un error(42S02). 42S02 1146 Table 'u808450138_practicantes.vendedores_comisionistas_periodos' doesn't exist
+30/05/25 14:29:10 sp_vendedores_periodos_b Ha ocurrido un error(42S02). 42S02 1146 Table 'u808450138_practicantes.vendedores_comisionistas_periodos_detalle' doesn't exist
+30/05/25 14:34:13 sp_vendedores_periodos_b Ha ocurrido un error(42S02). 42S02 1146 Table 'u808450138_practicantes.vendedores_comisionistas_periodos' doesn't exist
+30/05/25 14:34:14 sp_vendedores_periodos_b Ha ocurrido un error(42S02). 42S02 1146 Table 'u808450138_practicantes.vendedores_comisionistas_periodos_detalle' doesn't exist
+30/05/25 14:35:06 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+30/05/25 14:35:06 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+30/05/25 14:35:06 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+30/05/25 14:38:36 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+30/05/25 14:38:36 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+30/05/25 14:38:36 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+30/05/25 14:41:01 sp_vendedores_periodos_b Ha ocurrido un error(42S02). 42S02 1146 Table 'u808450138_practicantes.vendedores_comisionistas_periodos' doesn't exist
+30/05/25 14:41:01 sp_vendedores_periodos_b Ha ocurrido un error(42S02). 42S02 1146 Table 'u808450138_practicantes.vendedores_comisionistas_periodos_detalle' doesn't exist
+30/05/25 14:43:27 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+30/05/25 14:43:27 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+30/05/25 14:43:27 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.

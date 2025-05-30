@@ -3,7 +3,7 @@ $(document).ready(function () {
   $("#btnAgregar").hide();
   //$('#btnRegistrar').hide();
 
-/*  $('a[data-target="moduloCatEntradas"] span').on('click', function () {
+  /*  $('a[data-target="moduloCatEntradas"] span').on('click', function () {
   if (typeof tableCatEntradas !== "undefined") {
     tableCatEntradas.ajax.reload();
   }
@@ -31,7 +31,6 @@ $(document).ready(function () {
     } else {
       $("#btnAgregar").hide();
     }
-    
 
     /*muestra el boton en entradas
         if (targetDiv == 'moduloCatEntradas') {
@@ -642,7 +641,7 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
         "data-bs-toggle": "tooltip",
         "data-bs-placement": "top",
         title: "Registrar movimiento del artículo seleccionado",
-        disabled: !userPermissions.canEdit,
+        disabled: !userPermissions.canEditEntradas,
       },
       action: function () {
         if (rowSelected) {
@@ -720,7 +719,8 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
             // Entradas
             $("#titulosEntradasSalidas").text("Entradas");
             tableCatEntradas.column(3).visible(true);
-            tableCatEntradas.column(4).header().textContent = "Fecha última entrada";
+            tableCatEntradas.column(4).header().textContent =
+              "Fecha última entrada";
             tableCatEntradas.column(5).visible(true);
             tableCatEntradas.column(6).visible(true);
             tableCatEntradas.column(7).visible(false);
@@ -735,9 +735,16 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
             //Editar en detalles entradas
             cantidadEditarMovLabel.textContent = "Cantidad a ingresar";
             $("#editarMovimientoModal #costoUltimaEntradaDiv").show();
-            $("#editarMovimientoModal #costo_ultima_entrada").prop("required", true);
+            $("#editarMovimientoModal #costo_ultima_entrada").prop(
+              "required",
+              true
+            );
             $("#editarMovimientoModal #proveedorDiv").show();
+            $("#editarMovimientoModal #id_proveedores").prop("required", true);
             $("#editarMovimientoModal #motivoSalidaDiv").hide();
+            $("#editarMovimientoModal #motivo_salida")
+              .prop("required", false)
+              .val("");
           } else {
             // Salidas
             $("#titulosEntradasSalidas").text("Salidas");
@@ -758,14 +765,19 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
             //Editar en detalles salidas
             cantidadEditarMovLabel.textContent = "Cantidad a retirar";
             $("#editarMovimientoModal #costoUltimaEntradaDiv").hide();
-            $("#editarMovimientoModal #costo_ultima_entrada")
-              .prop("required", false)
-              .val("");
+            $("#editarMovimientoModal #costo_ultima_entrada").prop(
+              "required",
+              false
+            );
             $("#editarMovimientoModal #proveedorDiv").hide();
+            $("#editarMovimientoModal #id_proveedores").prop("required", false); //false, se pone auto id 3 (SIN PROVEEDOR)
             $("#editarMovimientoModal .modal-title").html(
               'Editando salida con fecha: <span id="mostrandoDetallesEntrada"></span>'
             );
-            $("#editarMovimientoModal #motivoSalidaDiv").show();
+            $("#editarMovimientoModal #motivoSalidaDiv")
+              .show()
+              .prop("required", true);
+            $("#editarMovimientoModal #motivo_salida").prop("required", true);
           }
           tableCatEntradas.columns.adjust().draw();
           $menu.remove();
@@ -787,7 +799,8 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
     {
       // Botón para el historial de transacciones
       text: '<i class="bi bi-clock-history"></i> Transacciones',
-      className: "btn-transacciones-margin btn btn-info", style:"left:138vh;",
+      className: "btn-transacciones-margin btn btn-info",
+      style: "left:138vh;",
       attr: {
         id: "btnHistorialEntradas",
         "data-bs-toggle": "tooltip",
@@ -856,6 +869,7 @@ var tableCatDetallesEntradas = $("#tableCatDetallesEntradas").DataTable({
     { data: "PROVEEDOR" },
     { data: "CANTIDAD" },
     { data: "id_cat_movimientos" },
+    { data: "id_movimiento" },
   ],
   columnDefs: [
     { targets: 0, title: "Fecha y hora última entrada", className: "all" },
@@ -863,6 +877,7 @@ var tableCatDetallesEntradas = $("#tableCatDetallesEntradas").DataTable({
     { targets: 2, title: "Proveedor", className: "all" },
     { targets: 3, title: "Cantidad de entrada", className: "all" },
     { targets: 4, visible: false },
+    { targets: 5, visible: false },
   ],
 });
 
@@ -875,6 +890,8 @@ selectDatatable(
   0,
   async function (select, dataClick) {
     rowSelected = dataClick;
+    //console.log("id de movimiento seleccionado:", rowSelected.id_movimiento);
+    console.log("id de movimiento seleccionado:", rowSelected.PROVEEDOR);
   },
   async function () {
     $("#editarMovimientoModal").modal("show");
@@ -945,35 +962,35 @@ selectDatatable(
     // llenamos el modal de detalles para mostrarlo al usuario.
     $("#claveArticulo").text(rowSelected.CLAVE_ART);
     if (
-        rowSelected.COSTO_ULTIMA_ENTRADA &&
-        rowSelected.COSTO_ULTIMA_ENTRADA !== "null" &&
-        rowSelected.COSTO_ULTIMA_ENTRADA !== null
+      rowSelected.COSTO_ULTIMA_ENTRADA &&
+      rowSelected.COSTO_ULTIMA_ENTRADA !== "null" &&
+      rowSelected.COSTO_ULTIMA_ENTRADA !== null
     ) {
-    $("#costoUltimaEntrada").text(
+      $("#costoUltimaEntrada").text(
         "$" +
-      Number(rowSelected.COSTO_ULTIMA_ENTRADA).toLocaleString("es-MX", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })
-    );
-   } else {
-    $("#costoUltimaEntrada").text("Sin registros");
-   }
-
-    if(
-        rowSelected.COSTO_MAS_ALTO &&
-        rowSelected.COSTO_MAS_ALTO !== "null" &&
-        rowSelected.COSTO_MAS_ALTO !== null
-    ) {
-    $("#costoMasAlto").text(
-        "$" +
-      Number(rowSelected.COSTO_MAS_ALTO).toLocaleString("es-MX", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })
-    );
+          Number(rowSelected.COSTO_ULTIMA_ENTRADA).toLocaleString("es-MX", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })
+      );
     } else {
-    $("#costoMasAlto").text("Sin registros");
+      $("#costoUltimaEntrada").text("Sin registros");
+    }
+
+    if (
+      rowSelected.COSTO_MAS_ALTO &&
+      rowSelected.COSTO_MAS_ALTO !== "null" &&
+      rowSelected.COSTO_MAS_ALTO !== null
+    ) {
+      $("#costoMasAlto").text(
+        "$" +
+          Number(rowSelected.COSTO_MAS_ALTO).toLocaleString("es-MX", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })
+      );
+    } else {
+      $("#costoMasAlto").text("Sin registros");
     }
 
     //Ocultar la fecha de ultima entrada si no hay en detalles
@@ -1093,10 +1110,7 @@ selectDatatable(
     $("#proveedoresArt").html(
       rowSelected.PROVEEDORES
         ? rowSelected.PROVEEDORES.split("|")
-            .map(
-              (proveedor) =>
-                `<br><span>${proveedor}</span>`
-            )
+            .map((proveedor) => `<br><span>${proveedor}</span>`)
             .join("")
         : "No hay proveedores registrados."
     );
