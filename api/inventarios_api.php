@@ -126,6 +126,7 @@ switch ($api) {
             $procedimientoUrl,
             $rendimiento_paciente,
             $cantidad,
+            $id_proveedores
         ]);
         break;
     case 2:

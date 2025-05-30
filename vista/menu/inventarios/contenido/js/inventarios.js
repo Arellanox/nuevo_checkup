@@ -720,8 +720,7 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
             // Entradas
             $("#titulosEntradasSalidas").text("Entradas");
             tableCatEntradas.column(3).visible(true);
-            tableCatEntradas.column(4).header().textContent =
-              "Fecha última entrada";
+            tableCatEntradas.column(4).header().textContent = "Fecha última entrada";
             tableCatEntradas.column(5).visible(true);
             tableCatEntradas.column(6).visible(true);
             tableCatEntradas.column(7).visible(false);
@@ -736,10 +735,7 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
             //Editar en detalles entradas
             cantidadEditarMovLabel.textContent = "Cantidad a ingresar";
             $("#editarMovimientoModal #costoUltimaEntradaDiv").show();
-            $("#editarMovimientoModal #costo_ultima_entrada").prop(
-              "required",
-              true
-            );
+            $("#editarMovimientoModal #costo_ultima_entrada").prop("required", true);
             $("#editarMovimientoModal #proveedorDiv").show();
             $("#editarMovimientoModal #motivoSalidaDiv").hide();
           } else {

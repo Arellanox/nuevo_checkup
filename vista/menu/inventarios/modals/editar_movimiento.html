@@ -12,6 +12,8 @@
                 <div class="container-fluid">
                     <div class="row">
                         <form id="editarMovimientoForm" name="editarMovimientoForm">
+                            <!-- Campo oculto para la fecha y hora actual -->
+                            <input type="hidden" id="fecha_ultima_entrada" name="fecha_ultima_entrada">
                             <div class="col-12">
                                 <div class="text-start">
                                     <div class="shadow-sm rounded p-3 card-body">
@@ -54,9 +56,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <!-- Campo oculto para la fecha y hora actual -->
-                                        <input type="hidden" id="fecha_ultima_entrada" name="fecha_ultima_entrada">
                                     </div>
                                 </div>
                         </form>
@@ -85,16 +84,17 @@
             }, 100);
         });
 
-        // Al mostrar el modal, asigna la fecha y hora actual al campo oculto
-        $('#editarMovimientoModal').on('show.bs.modal', function () {
-            const now = new Date();
-            const fechaHora = now.getFullYear() + '-' +
-                String(now.getMonth() + 1).padStart(2, '0') + '-' +
-                String(now.getDate()).padStart(2, '0') + ' ' +
-                String(now.getHours()).padStart(2, '0') + ':' +
-                String(now.getMinutes()).padStart(2, '0') + ':' +
+        $("#editarMovimientoForm").submit(function (event) {
+            // Asigna la fecha y hora actual en formato compatible con MySQL DATETIME
+            var now = new Date();
+            var fechaHora = now.getFullYear() + "-" +
+                String(now.getMonth() + 1).padStart(2, '0') + "-" +
+                String(now.getDate()).padStart(2, '0') + " " +
+                String(now.getHours()).padStart(2, '0') + ":" +
+                String(now.getMinutes()).padStart(2, '0') + ":" +
                 String(now.getSeconds()).padStart(2, '0');
-            $('#fecha_ultima_entrada').val(fechaHora);
+            $("#fecha_ultima_entrada").val(fechaHora);
+            // ...tu código de envío...
         });
     });
 </script>

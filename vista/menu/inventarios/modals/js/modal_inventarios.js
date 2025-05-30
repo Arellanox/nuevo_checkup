@@ -21,7 +21,7 @@ $("#registrarArticuloForm").submit(function (event) {
     },
     function () {
       ajaxAwaitFormData(
-        { api: 1, estatus: activo },
+        { api: 1, estatus: activo, id_proveedores: 3 },
         "inventarios_api",
         "registrarArticuloForm",
         { callbackAfter: true },
@@ -175,7 +175,7 @@ $("#editarMovimientoForm").submit(function (event) {
           api: 6,
           id_articulo: rowSelected.ID_ARTICULO,
           id_cat_movimientos: rowSelected.id_cat_movimientos,
-          
+          fecha_ultima_entrada: $("#fecha_ultima_entrada").val(),
         },
         "inventarios_api",
         "editarMovimientoForm",
