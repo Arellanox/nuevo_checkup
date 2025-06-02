@@ -1,3 +1,4 @@
+<!-- Modal Editar Movimiento -->
 <div class="modal fade" id="editarMovimientoModal" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false"
     data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
@@ -11,29 +12,25 @@
             <div class="modal-body container-fluid">
                 <div class="container-fluid">
                     <div class="row">
-                        <form id="editarMovimientoForm" name="editarMovimientoForm">
-                            <!-- Campo oculto para la fecha y hora actual -->
-                            <input type="hidden" id="fecha_ultima_entrada" name="fecha_ultima_entrada">
-                            <div class="col-12">
-                                <div class="text-start">
-                                    <div class="shadow-sm rounded p-3 card-body">
-                                        <h5 class="text-dark">Edita los siguientes datos</h5>
-
+                        <div class="col-12">
+                            <div class="text-start">
+                                <div class="shadow-sm rounded p-3 card-body">
+                                    <h5 class="text-dark">Edita los siguientes datos</h5>
+                                    <form id="editarMovimientoForm" name="editarMovimientoForm">
+                                        <!-- Campo oculto para la fecha y hora actual -->
+                                        <input type="hidden" id="fecha_ultima_entrada" name="fecha_ultima_entrada">
                                         <!-- Sección 1: Informacion general -->
                                         <div class="card mb-4">
                                             <div class="card-body">
                                                 <h6 class="card-title">Información general</h6>
                                                 <div class="row">
-
                                                     <!-- Cantidad -->
                                                     <div class="mb-3">
                                                         <label id="cantidadEditarMovLabel" for="cantidad"
-                                                            class="form-label">Cantidad a
-                                                            ingresar</label>
+                                                            class="form-label">Cantidad a ingresar</label>
                                                         <input type="number" class="form-control input-form"
                                                             id="cantidad" name="cantidad" required placeholder="Ej. 10">
                                                     </div>
-
                                                     <!-- Costo Última Entrada -->
                                                     <div class="mb-3" id="costoUltimaEntradaDiv">
                                                         <label for="costo_ultima_entrada" class="form-label">Costo
@@ -42,7 +39,6 @@
                                                             id="costo_ultima_entrada" name="costo_ultima_entrada"
                                                             required placeholder="Ej. 10.50">
                                                     </div>
-
                                                     <!-- Proveedor -->
                                                     <div class="mb-3" id="proveedorDiv">
                                                         <label for="id_proveedores" class="form-label">Proveedor</label>
@@ -53,7 +49,6 @@
                                                             <option value="2">Farmacias Similares</option>
                                                         </select>
                                                     </div>
-
                                                     <!-- Motivo de salida -->
                                                     <div class="mb-3" id="motivoSalidaDiv" style="display: none;">
                                                         <label for="motivo_salida" class="form-label">Motivo de
@@ -65,19 +60,21 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                        </form>
+                                        <div class="modal-footer">
+                                            <button id="cancelarButtonEditarMovimientos" type="button"
+                                                class="btn btn-cancelar" data-bs-dismiss="modal">
+                                                <i class="bi bi-arrow-left-short"></i> Cancelar
+                                            </button>
+                                            <button type="submit" class="btn btn-confirmar" form="editarMovimientoForm">
+                                                <i class="bi bi-pencil-square"></i> Editar
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button id="cancelarButtonEditarMovimientos" type="button" class="btn btn-cancelar"
-                    data-bs-dismiss="modal">
-                    <i class="bi bi-arrow-left-short"></i> Cancelar
-                </button>
-                <button type="submit" class="btn btn-confirmar" form="editarMovimientoForm">
-                    <i class="bi bi-pencil-square"></i> Editar
-                </button>
             </div>
         </div>
     </div>

@@ -1,72 +1,38 @@
 <!-- Modal -->
-<div
-  class="modal fade"
-  id="detalleTransaccionModal"
-  tabindex="-1"
-  aria-labelledby="detalleTransaccionLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="detalleTransaccionModal" tabindex="-1" aria-labelledby="detalleTransaccionLabel"
+  aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="detalleTransaccionLabel">
           Detalles de transacciones
         </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="row">
-          <!-- Columna izquierda: Imagen 
-          <div class="col-md-4 text-center">
-             Botones con íconos para mostrar Inserto y Procedimiento de Prueba 
-            <div class="d-grid gap-2">
-               Ver imagen completa del articulo  
-              <a target="_blank" id="verImagenArt"
-                ><img
-                  id="imagenProducto"
-                  alt="Imagen del Producto"
-                  class="img-fluid rounded"
-                  style="max-height: 300px"
-              /></a>
-            </div>
-          </div> -->
-
-          <!-- Columna derecha: Información del producto -->
-          <div class="col-md-8">
+          <div class="col-12">
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title" id="nombreComercial">
-                  <span id="mostrandoTransaccion"></span>
-                </h5>
                 <div class="row">
-                  <!-- Primera tarjeta: Información general -->
-                  <div class="col-md-12">
+                  <div class="col-12">
                     <div class="card mb-3">
                       <div class="card-header">
-                        <span>Transacciones</span> 
+                        <span>Transacciones</span>
                       </div>
-                      <!-- Datatable de detalles-->
                       <div class="card-body">
-                        <table
-                          id="tableCatTransacciones"
-                          class="table table-striped table-bordered"
-                          style="width: 100%"
-                        >
+                        <table id="tableCatTransacciones" class="table table-striped table-bordered"
+                          style="width: 100%">
                           <thead>
                             <tr>
-                              <th>clave_art</th>
-                              <th>nombre_comercial</th>
-                              <th>cantidad</th>
-                              <th>fecha_transaccion</th>
-                              <th>costo_ultima_transaccion</th>
-                              <th>responsable</th>
-                              <th>proveedor</th>
-                              <th>tipo_movimiento</th>
+                              <th>Clave Artículo</th>
+                              <th>Nombre Comercial</th>
+                              <th>Cantidad</th>
+                              <th>Fecha Transacción</th>
+                              <th>Costo Última Transacción</th>
+                              <th>Responsable</th>
+                              <th>Proveedor</th>
+                              <th>Tipo Movimiento</th>
                             </tr>
                           </thead>
                           <tbody></tbody>
@@ -92,9 +58,8 @@
 <style>
   .containerSvg {
     display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-    height: 200px; /* Ajusta la altura del contenedor según sea necesario */
-    /* border: 1px solid #ddd; Opcional, solo para ver los límites del contenedor */
+    justify-content: center;
+    align-items: center;
+    height: 200px;
   }
 </style>

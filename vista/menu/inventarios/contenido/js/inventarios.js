@@ -629,7 +629,7 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
     { target: 6, title: "Proveedor", className: "all" },
     { target: 7, title: "Motivo de salida", className: "all", visible: false },
     { target: 8, title: "Cantidad total en almacén", className: "all" },
-    { target: 9, title: "Usuario", className: "all" },
+    { target: 9, title: "Responsable", className: "all" },
   ],
   dom: 'Bl<"dataTables_toolbar">frtip',
   buttons: [
@@ -815,6 +815,12 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
         "data-bs-placement": "top",
         title: "Ver historial de transacciones",
       },
+      action: function () {
+        //Mostrar el modal
+        $("#detalleTransaccionModal").modal("show");
+        // ajaxreload de trans
+        tableCatTransacciones.ajax.reload();
+      },
     },
   ],
 });
@@ -891,6 +897,72 @@ var tableCatDetallesEntradas = $("#tableCatDetallesEntradas").DataTable({
   ],
 });
 
+// DATATABLE DE TRANSACCIONES
+tableCatTransacciones = $("#tableCatTransacciones").DataTable({
+  order: [[3, "desc"]],
+  autoWidth: true,
+  language: {
+    url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+  },
+  lengthChange: false,
+  info: true,
+  paging: true,
+  sorting: true,
+  scrollY: "68vh",
+  scrollX: true,
+  scrollCollapse: true,
+  fixedHeader: true,
+  ajax: {
+    dataType: "json",
+    data: function (d) {
+      return $.extend(d, dataTableCatTransacciones);
+    },
+    method: "POST",
+    url: "../../../api/inventarios_api.php",
+    error: function (jqXHR, textStatus, errorThrown) {
+      alertErrorAJAX(jqXHR, textStatus, errorThrown);
+    },
+    dataSrc: "response.data",
+  },
+  columns: [
+    { data: "CLAVE_ART" },
+    { data: "NOMBRE_COMERCIAL" },
+    { data: "CANTIDAD" },
+    { data: "FECHA_TRANSACCION" },
+    {
+      data: "COSTO_ULTIMA_TRANSACCION",
+      render: function (data, type, row) {
+        if ($.isNumeric(data)) {
+          return (
+            "$" +
+            Number(data).toLocaleString("es-MX", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })
+          );
+        } else {
+          return "$0.00";
+        }
+      },
+    },
+    { data: "RESPONSABLE" },
+    { data: "PROVEEDOR" },
+    { data: "TIPO_MOVIMIENTO" },
+  ],
+  columnDefs: [
+    { targets: 0, title: "Clave Artículo", className: "all" },
+    { targets: 1, title: "Nombre Comercial", className: "all" },
+    { targets: 2, title: "Cantidad", className: "all" },
+    { targets: 3, title: "Fecha Transacción", className: "all" },
+    { targets: 4, title: "Costo Última Transacción", className: "all" },
+    { targets: 5, title: "Responsable", className: "all" },
+    { targets: 6, title: "Proveedor", className: "all" },
+    { targets: 7, title: "Tipo Movimiento", className: "all" },
+  ],
+  dom: 'Bl<"dataTables_toolbar">frtip',
+  buttons: [],
+});
+
 selectDatatable(
   "tableCatDetallesEntradas",
   tableCatDetallesEntradas,
@@ -909,9 +981,7 @@ selectDatatable(
     $("#mostrandoDetallesEntrada").html(
       `<strong>${rowSelected.FECHA_ULTIMA_ENTRADA}</strong>`
     );
-    $("#editarMovimientoModal #cantidad").val(
-      rowSelected.CANTIDAD
-    );
+    $("#editarMovimientoModal #cantidad").val(rowSelected.CANTIDAD);
     $("#editarMovimientoModal #costo_ultima_entrada").val(
       rowSelected.COSTO_ULTIMA_ENTRADA
     );
@@ -1176,6 +1246,22 @@ setTimeout(() => {
 
 setTimeout(() => {
   inputBusquedaTable(
+    "tableCatTransacciones",
+    tableCatTransacciones,
+    [
+      {
+        msj: "Filtre los registros por coincidencia",
+        place: "top",
+      },
+    ],
+    [],
+    "col-12"
+  );
+  tableCatArticulos.columns.adjust().draw();
+}, 1000);
+
+setTimeout(() => {
+  inputBusquedaTable(
     "tableCatEntradas",
     tableCatEntradas,
     [
@@ -1341,6 +1427,13 @@ tableCatEntradas.on("draw", function () {
 });
 
 tableCatDetallesEntradas.on("draw", function () {
+  $(".dataTable th, .dataTable td").css({
+    "text-align": "center",
+    "vertical-align": "middle",
+  });
+});
+
+tableCatTransacciones.on("draw", function () {
   $(".dataTable th, .dataTable td").css({
     "text-align": "center",
     "vertical-align": "middle",

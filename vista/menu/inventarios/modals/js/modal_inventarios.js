@@ -125,6 +125,7 @@ $("#registrarEntradaForm").submit(function (event) {
             tableCatEntradas.ajax.reload();
             tableCatArticulos.ajax.reload();
             tableCatDetallesEntradas.ajax.reload();
+            tableCatTransacciones.ajax.reload();
             $("#cantidad").closest(".mb-3").hide();
             $("#fecha_ultima_entrada").closest(".mb-3").hide();
             $("#costo_ultima_entrada").closest(".mb-3").hide();
@@ -190,6 +191,7 @@ $("#editarMovimientoForm").submit(function (event) {
             tableCatArticulos.ajax.reload();
             tableCatEntradas.ajax.reload();
             tableCatDetallesEntradas.ajax.reload();
+            tableCatTransacciones.ajax.reload();
           }
         }
       );
