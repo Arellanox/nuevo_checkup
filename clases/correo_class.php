@@ -109,6 +109,7 @@ class Correo
     {
         $this->correo_seleccionado = $correo;
     }
+
     function sendEmail(
         $bodySelected,
         $subject,
@@ -135,20 +136,17 @@ class Correo
         #configuramos el correo de donde saldran los mensajes, la cabecer, etc
         if ($resultados == 0) {
             $username = 'hola@bimo-lab.com';
-            // $password = 'X@96ck6B1V4&tm!4QZp3F';
             $this->setCorreoSeleccionado($username);
             $password = $this->emailCred->hola;
             $fromName = 'bimo';
         } else if ($resultados == 1) {
             $username = 'soporte@bimo-lab.com';
             $this->setCorreoSeleccionado($username);
-            // $password = 'Bimo2023!';
             $password = $this->emailCred->soporte;
             $fromName = 'Resultados [bimo]';
         } else {
             $username = 'resultados@bimo-lab.com';
             $this->setCorreoSeleccionado($username);
-            // $password = 'Bimo2023!';
             $password = $this->emailCred->resultados;
             $fromName = 'Resultados [bimo]';
         }
@@ -161,12 +159,12 @@ class Correo
 
         try {
             # server settings
-            // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+            // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                   //Enable verbose debug output
             $mail->isSMTP();                                            //Send using SMTP
-            $mail->Host       = 'smtp.hostinger.com';                     //Set the SMTP server to send through
+            $mail->Host       = 'smtp.hostinger.com';                   //Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            $mail->Username   = $username;                     //SMTP username
-            $mail->Password   = $password;                               //SMTP password
+            $mail->Username   = $username;                              //SMTP username
+            $mail->Password   = $password;                              //SMTP password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
             $mail->Port       = 465;
 
@@ -175,12 +173,26 @@ class Correo
             foreach ($emails as $email) {
                 $mail->addAddress($email);
             }
+
             #$mail->addBCC('josue.delacruz@bimo.com.mx');
             $mail->addBCC("hola@bimo.com.mx");
             #$mail->addBCC("luis.cuevas@bimo.com.mx");
             $mail->addBCC("confirmacion_resultados@bimo-lab.com");
-           // $mail->addBCC("sucursal.mendez@bimo.com.mx");
+            // $mail->addBCC("sucursal.mendez@bimo.com.mx");
             // $mail->addBCC("marthita.acopa@bimo.com.mx");
+            //$mail->addBCC("sucursal.mendez@bimo.com.mx");
+
+            #MEDIANTE EL TURNO SE ENVIAN LOS CORREOS DE FRANQUICIA QUE ESTAN REGISTRADOS
+            # EN EL SISTEMA MEDIANTE UN CLIENTE_ID, QUE ES OBTENIDO MEDIANTE EL TURNO.
+            if (isset($id_turno) && isset($master)) {
+                $emails_franquicia = $this->obtenerCorreoFranquiciaParaResultados($master, $id_turno);
+
+                if (!empty($emails_franquicia)) {
+                    foreach ($emails_franquicia as $email) {
+                        $mail->addBCC($email['CORREO_DESTINO']);
+                    }
+                }
+            }
 
             # attach files
             foreach ($reportes as $file) {
@@ -230,8 +242,8 @@ class Correo
 
             # send email
             $mail->send();
-            if (isset($id_turno)) {
 
+            if (isset($id_turno)) {
                 $response = $master->insertByProcedure("sp_correos_g", [
                     $id_turno,
                     $area_id,
@@ -262,6 +274,10 @@ class Correo
             $mis->setLog($e, "Clase correo [sendMail]");
             return false;
         }
+    }
+
+    private function obtenerCorreoFranquiciaParaResultados($master, $turno){
+        return $master->getByProcedure("sp_correos_franquicia_para_resultado_b", [$turno]);
     }
 
     # cuerpo corroborar datos
