@@ -733,6 +733,9 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
             tableCatDetallesEntradas.column(1).visible(true);
             tableCatDetallesEntradas.column(2).visible(true);
             tableCatDetallesEntradas.column(6).visible(false);
+            tableCatDetallesEntradas.column(6).header().textContent =
+              "Motivo de salida";
+            tableCatDetallesEntradas.column(7).visible(true);
             detalleEntradaLabel.textContent = "Detalles de entrada";
 
             //Editar en detalles entradas
@@ -767,6 +770,9 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
             tableCatDetallesEntradas.column(1).visible(false);
             tableCatDetallesEntradas.column(2).visible(false);
             tableCatDetallesEntradas.column(6).visible(true);
+            tableCatDetallesEntradas.column(6).header().textContent =
+              "Motivo de salida";
+            tableCatDetallesEntradas.column(7).visible(true);
             tableCatDetallesEntradas.columns.adjust().draw();
             detalleEntradaLabel.textContent = "Detalles de salida";
 
@@ -879,6 +885,7 @@ var tableCatDetallesEntradas = $("#tableCatDetallesEntradas").DataTable({
     { data: "id_cat_movimientos" },
     { data: "id_movimiento" },
     { data: "MOTIVO_SALIDA" },
+    { data: "RESPONSABLE" },
   ],
   columnDefs: [
     { targets: 0, title: "Fecha y hora última entrada", className: "all" },
@@ -888,6 +895,7 @@ var tableCatDetallesEntradas = $("#tableCatDetallesEntradas").DataTable({
     { targets: 4, visible: false },
     { targets: 5, visible: false },
     { targets: 6, title: "Motivo de salida", className: "all", visible: false },
+    { targets: 7, title: "Responsable", className: "all" },
   ],
 });
 
@@ -914,6 +922,9 @@ selectDatatable(
     );
     $("#editarMovimientoModal #costo_ultima_entrada").val(
       rowSelected.COSTO_ULTIMA_ENTRADA
+    );
+    $("#editarMovimientoModal #motivo_salida").val(
+      rowSelected.MOTIVO_SALIDA
     );
   }
 );
