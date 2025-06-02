@@ -180,6 +180,10 @@ switch ($api) {
             $response = $master->getByProcedure("sp_inventarios_salida_articulos_detalle", [$id_articulo]);
         }
         break;
+    case 8:
+        // Lógica para devolver las transacciones
+        $response = $master->getByProcedure("sp_inventarios_cat_transacciones_b", [$id_articulo]);
+        break;
     default:
         $response = "API no definida.";
 }
