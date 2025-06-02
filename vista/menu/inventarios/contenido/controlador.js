@@ -20,6 +20,7 @@ async function contenidoInventario(){
 var tableCatArticulos;
 var dataTableCatArticulos;
 var dataTableCatEntradas;
+var dataTableCatTransacciones;
 var rowSelected;
 
 console.log(userPermissions);
@@ -34,4 +35,8 @@ dataTableCatEntradas = {
 
 dataTableCatDetallesEntradas = {
     api: 7
+}
+
+dataTableCatTransacciones = {
+    api: 8
 }

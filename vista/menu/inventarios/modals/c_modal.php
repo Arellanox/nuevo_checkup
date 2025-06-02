@@ -7,3 +7,4 @@ include "registrar_entrada.html";
 include "detalle_entrada.html";
 include "registrar_requisiciones.html";
 include "editar_movimiento.html";
+include "detalle_transacciones.html";
