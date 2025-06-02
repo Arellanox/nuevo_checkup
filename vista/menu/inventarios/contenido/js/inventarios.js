@@ -899,6 +899,12 @@ selectDatatable(
     $("#mostrandoDetallesEntrada").html(
       `<strong>${rowSelected.FECHA_ULTIMA_ENTRADA}</strong>`
     );
+    $("#editarMovimientoModal #cantidad").val(
+      rowSelected.CANTIDAD
+    );
+    $("#editarMovimientoModal #costo_ultima_entrada").val(
+      rowSelected.COSTO_ULTIMA_ENTRADA
+    );
   }
 );
 
