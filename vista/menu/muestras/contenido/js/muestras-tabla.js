@@ -27,6 +27,29 @@ tablaMuestras = $('#TablaMuestras').DataTable({
     if (data.MUESTRA_TOMADA == 1) {
       $(row).addClass('bg-success text-white');
     }
+    else if (data.PROCEDENCIA_FRANQUICIA == 1) {
+      $('td:eq(1)', row).prepend('<i class="bi bi-building me-2"></i>');
+      $(row).attr({
+        'data-bs-toggle': 'tooltip',
+        'data-bs-original-title': 'Paciente de Franquicia',
+        'data-bs-placement': "right"
+      });
+
+      if(data.MUESTRA_TOMADA == 0) {
+        $(row).addClass('text-white');
+        $(row).css('background-color', '#a76a2d');
+      }
+    }
+    else if (data.PROCEDENCIA_FRANQUICIA == 0) {
+      $(row).addClass('bg-warning');
+      $(row).attr({
+        'data-bs-toggle': 'tooltip',
+        'data-bs-original-title': 'Paciente de BIMO',
+        'data-bs-placement': "right"
+      });
+    }
+
+    console.log(data.PROCEDENCIA_FRANQUICIA)
   },
   columns: [
     {

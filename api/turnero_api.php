@@ -266,7 +266,7 @@ function fillSessionList($master, $area)
     $response = $master->getByProcedure('sp_turnero_lista_pacientes', [
         $area, $_SESSION['id'], $_SESSION['franquiciario']
     ]);
-    
+
     if (!isset($response[0]['MSJ'])) {
         $listaGlobal = fillListPatient($response);
     } else {

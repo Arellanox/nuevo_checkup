@@ -17,23 +17,41 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
     beforeSend: function () {
       loader("In")
     },
-    complete: function () {
-      loader("Out", 'bottom')
-      //Para ocultar segunda columna
-      reloadSelectTable()
+    complete: function (data) {
+      loader("Out", 'bottom');
+      reloadSelectTable(); //Para ocultar segunda columna
     },
     dataSrc: 'response.data'
   },
   createdRow: function (row, data, dataIndex) {
     if (data.CONFIRMADO == 1) {
       $(row).addClass('bg-success text-white');
-    } else {
+    }
+    else if (data.PROCEDENCIA_FRANQUICIA == 1) {
+      $('td:eq(1)', row).prepend('<i class="bi bi-building me-2"></i>');
+      $(row).attr({
+        'data-bs-toggle': 'tooltip',
+        'data-bs-original-title': 'Paciente de Franquicia',
+        'data-bs-placement': "right"
+      });
+
+      if(data.CONFIRMADO == 0) {
+        $(row).addClass('text-white');
+        $(row).css('background-color', '#a76a2d');
+      }
+    }
+    else if (data.PROCEDENCIA_FRANQUICIA == 0) {
       $(row).addClass('bg-warning');
+      $(row).attr({
+        'data-bs-toggle': 'tooltip',
+        'data-bs-original-title': 'Paciente de BIMO',
+        'data-bs-placement': "right"
+      });
     }
   },
   columns: [
     { data: 'COUNT' },
-    { data: 'NOMBRE_COMPLETO' },
+    { data: 'NOMBRE_COMPLETO'},
     { data: 'PREFOLIO' },
     { data: 'CLIENTE' },
     { data: 'SEGMENTO' },
@@ -46,8 +64,8 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
   columnDefs: [
     { "width": "10px", "targets": 0 },
   ],
+});
 
-})
 loaderDiv("Out", null, "#loader-Lab", '#loaderDivLab');
 
 selectTable('#TablaLaboratorio', tablaListaPaciente, { unSelect: true, movil: true, reload: ['col-xl-8'] }, async (selectTR, array, callback) => {
@@ -1016,8 +1034,6 @@ function generarFormularioPaciente(id) {
 }
 
 function crearSelectCamposMolecular(data, nameInput, valueInput, classInput = '') {
-
-
   let selectHtml = `<select name="${nameInput}" class="input-form selectMolecular ${classInput} text-end" required="">`
   for (const key in data) {
     if (Object.hasOwnProperty.call(data, key)) {
@@ -1073,19 +1089,9 @@ $(document).on('click', '.selectMolecular', function () {
     input = $(parent_element).find('input[class="form-control input-form text-end inputFormRequired ClaveAutorizacion"]');
     input.val(value)
   }
-  // let id = $(this).attr('data-bs-id');
-  // eliminarElementoArray(id);
-  // console.log(id);
-  // var parent_element = $(this).closest("li[class='list-group-item']");
-  // $(parent_element).remove()
-
 });
 
-
-
 $(document).on('click', '.linearEstudiosLabs', function (event) {
-
-
   const target = $(event.target);
 
   // Verifica si el elemento clickeado es un checkbox.
@@ -1137,7 +1143,6 @@ $(document).on('click', '.reload-button', function (event) {
 });
 
 function reloadValoresRef($element, id) {
-
   // Desactiva la secuencia para biomolecular
   if (areaActiva == 12)
     return false;
