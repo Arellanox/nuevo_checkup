@@ -1315,3 +1315,21 @@
 30/05/25 14:43:27 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
 30/05/25 14:43:27 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
 30/05/25 14:43:27 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+02/06/25 09:03:49 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+02/06/25 09:03:49 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+02/06/25 09:03:49 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+02/06/25 09:09:42 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+02/06/25 09:09:42 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+02/06/25 09:09:42 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+02/06/25 09:31:14 sp_inventarios_cat_entradas_g Ha ocurrido un error(23000). 23000 1062 Duplicate entry '26' for key 'PRIMARY'
+02/06/25 09:31:14 call sp_inventarios_cat_entradas_g(26,,100,2025-06-02 08:31:12,111,2,1,,117) Esto recibió
+02/06/25 09:31:14 [Reproduce el error en la base] call sp_inventarios_cat_entradas_g(26,,100,2025-06-02 08:31:12,111,2,1,,117)
+02/06/25 09:34:13 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+02/06/25 09:34:13 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+02/06/25 09:34:13 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+02/06/25 09:40:29 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+02/06/25 09:40:29 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+02/06/25 09:40:29 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.
+02/06/25 09:50:59 [function guardarFiles][img_producto], [img_] El archivo esta vacio o dañado, error al subir archivo.
+02/06/25 09:50:59 [function guardarFiles][inserto], [inserto_] El archivo esta vacio o dañado, error al subir archivo.
+02/06/25 09:50:59 [function guardarFiles][procedimiento], [procedimiento_] El archivo esta vacio o dañado, error al subir archivo.

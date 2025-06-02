@@ -616,6 +616,7 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
       data: "MOTIVO_SALIDA",
     },
     { data: "CANTIDAD" },
+    { data: "USUARIO" },
   ],
   columnDefs: [
     //editar los numeros segun las columnas que quieras, editar el tittle es el header de las tablas
@@ -628,6 +629,7 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
     { target: 6, title: "Proveedor", className: "all" },
     { target: 7, title: "Motivo de salida", className: "all", visible: false },
     { target: 8, title: "Cantidad total en almacén", className: "all" },
+    { target: 9, title: "Usuario", className: "all" },
   ],
   dom: 'Bl<"dataTables_toolbar">frtip',
   buttons: [
@@ -730,6 +732,7 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
               "Fecha y hora última entrada";
             tableCatDetallesEntradas.column(1).visible(true);
             tableCatDetallesEntradas.column(2).visible(true);
+            tableCatDetallesEntradas.column(6).visible(false);
             detalleEntradaLabel.textContent = "Detalles de entrada";
 
             //Editar en detalles entradas
@@ -741,6 +744,9 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
             );
             $("#editarMovimientoModal #proveedorDiv").show();
             $("#editarMovimientoModal #id_proveedores").prop("required", true);
+            $("#editarMovimientoModal .modal-title").html(
+              'Editando entrada con fecha: <span id="mostrandoDetallesEntrada"></span>'
+            );
             $("#editarMovimientoModal #motivoSalidaDiv").hide();
             $("#editarMovimientoModal #motivo_salida")
               .prop("required", false)
@@ -760,6 +766,8 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
               "Fecha y hora última salida";
             tableCatDetallesEntradas.column(1).visible(false);
             tableCatDetallesEntradas.column(2).visible(false);
+            tableCatDetallesEntradas.column(6).visible(true);
+            tableCatDetallesEntradas.columns.adjust().draw();
             detalleEntradaLabel.textContent = "Detalles de salida";
 
             //Editar en detalles salidas
@@ -870,6 +878,7 @@ var tableCatDetallesEntradas = $("#tableCatDetallesEntradas").DataTable({
     { data: "CANTIDAD" },
     { data: "id_cat_movimientos" },
     { data: "id_movimiento" },
+    { data: "MOTIVO_SALIDA" },
   ],
   columnDefs: [
     { targets: 0, title: "Fecha y hora última entrada", className: "all" },
@@ -878,6 +887,7 @@ var tableCatDetallesEntradas = $("#tableCatDetallesEntradas").DataTable({
     { targets: 3, title: "Cantidad de entrada", className: "all" },
     { targets: 4, visible: false },
     { targets: 5, visible: false },
+    { targets: 6, title: "Motivo de salida", className: "all", visible: false },
   ],
 });
 
@@ -891,7 +901,7 @@ selectDatatable(
   async function (select, dataClick) {
     rowSelected = dataClick;
     //console.log("id de movimiento seleccionado:", rowSelected.id_movimiento);
-    console.log("id de movimiento seleccionado:", rowSelected.PROVEEDOR);
+    //console.log("id de movimiento seleccionado:", rowSelected.PROVEEDOR);
   },
   async function () {
     $("#editarMovimientoModal").modal("show");
@@ -1116,8 +1126,13 @@ selectDatatable(
     $("#proveedoresArt").html(
       rowSelected.PROVEEDORES
         ? rowSelected.PROVEEDORES.split("|")
+            .filter(
+              (proveedor) =>
+                proveedor.trim().toUpperCase() !== "SIN PROVEEDOR" &&
+                proveedor.trim() !== "3"
+            )
             .map((proveedor) => `<br><span>${proveedor}</span>`)
-            .join("")
+            .join("") || "No hay proveedores registrados."
         : "No hay proveedores registrados."
     );
 
