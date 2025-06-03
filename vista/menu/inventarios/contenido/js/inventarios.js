@@ -1450,3 +1450,26 @@ tableCatTransacciones.on("draw", function () {
     "vertical-align": "middle",
   });
 });
+
+// Guarda la instancia de FixedHeader para poder destruirla
+let fixedHeaderTransacciones = null;
+
+// Al abrir el modal, inicializa FixedHeader si no existe
+$('#detalleTransaccionModal').on('shown.bs.modal', function () {
+  if (!fixedHeaderTransacciones) {
+    fixedHeaderTransacciones = new $.fn.dataTable.FixedHeader(tableCatTransacciones);
+  }
+  // Ajusta el header por si acaso
+  fixedHeaderTransacciones.adjust();
+});
+
+// Al cerrar el modal, destruye el FixedHeader y elimina el header flotante
+$('#detalleTransaccionModal').on('hidden.bs.modal', function () {
+  if (fixedHeaderTransacciones) {
+    fixedHeaderTransacciones.destroy();
+    fixedHeaderTransacciones = null;
+  }
+  // Elimina cualquier header flotante que haya quedado
+  $('.fixedHeader-floating').remove();
+  $('.fixedHeader-locked').remove();
+});
