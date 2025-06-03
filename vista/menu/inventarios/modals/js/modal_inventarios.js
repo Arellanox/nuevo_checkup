@@ -135,9 +135,9 @@ $("#registrarEntradaForm").submit(function (event) {
             $("#fecha_ultima_entrada").prop("required", false);
             $("#costo_ultima_entrada").prop("required", false);
             $("#id_proveedores").prop("required", false);
-            $("#registrarMovimientoButton").html(
-              '<i class="bi bi-pencil-square"></i> Registrar movimiento'
-            ).hide();
+            $("#registrarMovimientoButton")
+              .html('<i class="bi bi-pencil-square"></i> Registrar movimiento')
+              .hide();
             $("#modalTitleRegistrarEntrada").html(
               "Registrando movimiento de <strong><span id='registrandoEntrada'>" +
                 ($("#registrandoEntrada").text() || "") +
@@ -177,7 +177,12 @@ $("#editarMovimientoForm").submit(function (event) {
           id_articulo: rowSelected.ID_ARTICULO,
           id_cat_movimientos: rowSelected.id_cat_movimientos,
           fecha_ultima_entrada: $("#fecha_ultima_entrada").val(),
-          id_movimiento: rowSelected.id_movimiento,
+          id_movimiento:
+            rowSelected.id_movimiento == 1
+              ? 4
+              : rowSelected.id_movimiento == 2
+              ? 5
+              : rowSelected.id_movimiento,
         },
         "inventarios_api",
         "editarMovimientoForm",
