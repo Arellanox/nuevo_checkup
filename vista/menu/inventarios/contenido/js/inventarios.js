@@ -984,6 +984,13 @@ selectDatatable(
     //console.log("id de movimiento seleccionado:", rowSelected.PROVEEDOR);
   },
   async function () {
+    // Validar si hay registros en la tabla
+    if (tableCatDetallesEntradas.data().count() === 0) {
+    rowSelected = null; // Limpia la selección
+    $("#tableCatEntradas tbody tr.selected").removeClass("selected");
+    alertToast("No hay registros para editar.", "info", 3000);
+    return;
+    }
     $("#editarMovimientoModal").modal("show");
     $("#detalleEntradaModal").modal("hide");
     $("#mostrandoDetallesEntrada").html(
