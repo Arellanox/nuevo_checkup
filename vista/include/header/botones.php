@@ -365,6 +365,14 @@ if ($menu == "Estudios - Laboratorio" || $menu == "Estudios" || $menu == "Grupos
     </button>
 <?php endif;  ?>
 
+<?php if(strtolower($menu) == "inventarios" && $_SESSION['permisos']['invRegCat']): ?>
+  <button type="button" id="btnRegistrar" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#registrarCatalogoModal">
+    <i class="bi bi-plus"></i> Agregar Catálogo
+  </button>
+<?php
+  endif;
+?>
+
 <?php if(strtolower($menu) == "inventarios" && $_SESSION['permisos']['invRegArt']): ?>
   <button type="button" id="btnAgregar" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal" data-bs-target="#registrarArticuloModal">
     <i class="bi bi-plus"></i> Agregar Artículo
