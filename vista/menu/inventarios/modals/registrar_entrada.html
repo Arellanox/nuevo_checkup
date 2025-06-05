@@ -5,7 +5,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalTitleRegistrarEntrada">Registrando movimiento de<strong><span
-                            id="registrandoEntrada"></span></strong></h5>
+                            id="registrandoEntrada"></span></strong> con una cantidad en almacén de:<strong><span id="registrandoCantidad"></span></strong></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body container-fluid">
@@ -131,6 +131,8 @@
                 $("#modalTitleRegistrarEntrada").html(
                     "Registrando entrada de <strong><span id='registrandoEntrada'>" +
                     ($("#registrandoEntrada").text() || "") +
+                    "</span></strong> con una cantidad en almacén de: <strong><span id='registrandoCantidad'>" +
+                    ($("#registrandoCantidad").text() || "") +
                     "</span></strong>"
                 );
                 $("#registrarMovimientoButton").show();
@@ -150,6 +152,8 @@
                 $("#modalTitleRegistrarEntrada").html(
                     "Registrando salida de <strong><span id='registrandoEntrada'>" +
                     ($("#registrandoEntrada").text() || "") +
+                    "</span></strong> con una cantidad en almacén de: <strong><span id='registrandoCantidad'>" +
+                    ($("#registrandoCantidad").text() || "") +
                     "</span></strong>"
                 );
                 $("#registrarMovimientoButton").show();

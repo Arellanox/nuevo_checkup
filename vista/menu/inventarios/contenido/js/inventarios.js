@@ -1,7 +1,7 @@
 $(document).ready(function () {
   // Oculta el botón de agregar al cargar la página
   $("#btnAgregar").hide();
-  //$('#btnRegistrar').hide();
+  $('#btnRegistrar').hide();
 
   /*  $('a[data-target="moduloCatEntradas"] span').on('click', function () {
   if (typeof tableCatEntradas !== "undefined") {
@@ -28,8 +28,10 @@ $(document).ready(function () {
     // Muestra el botón de agregar solo si el div es 'moduloCatArticulos'
     if (targetDiv == "moduloCatArticulos") {
       $("#btnAgregar").show();
+      $('#btnRegistrar').show();
     } else {
       $("#btnAgregar").hide();
+      $('#btnRegistrar').hide();
     }
 
     /*muestra el boton en entradas
@@ -74,7 +76,7 @@ $(document).ready(function () {
     $("#tab-menu").show();
     $("#btnAgregar").hide();
     rowSelected = null; // Resetea la selección de fila
-    //$('#btnRegistrar').hide();
+    $('#btnRegistrar').hide();
     $("#titulosEntradasSalidas").text("Entradas");
   });
 
@@ -535,22 +537,25 @@ var buttonsEntradas = [];
 if (editEntradas == 1) {
   buttonsEntradas.push({
     // Boton para registrar entrada o salida
-    text: '<i class="bi bi-plus"></i> Registrar movimiento',
-    className: "btn btn-secondary",
-    attr: {
-      //disabled: true,
-      id: "btnRegistrarEntrada",
-      "data-bs-toggle": "tooltip",
-      "data-bs-placement": "top",
-      title: "Registrar movimiento del artículo seleccionado",
-      disabled: !userPermissions.canEditEntradas,
-    },
-    action: function () {
-      if (rowSelected) {
-        $("#registrarEntradaModal").modal("show");
-        $("#registrandoEntrada").text(
-          ` ${rowSelected.NOMBRE_COMERCIAL} (Clave: ${rowSelected.CLAVE_ART})`
-        );
+      text: '<i class="bi bi-plus"></i> Registrar movimiento',
+      className: "btn btn-secondary",
+      attr: {
+        //disabled: true,
+        id: "btnRegistrarEntrada",
+        "data-bs-toggle": "tooltip",
+        "data-bs-placement": "top",
+        title: "Registrar movimiento del artículo seleccionado",
+        disabled: !userPermissions.canEditEntradas,
+      },
+      action: function () {
+        if (rowSelected) {
+          $("#registrarEntradaModal").modal("show");
+          $("#registrandoEntrada").text(
+            ` ${rowSelected.NOMBRE_COMERCIAL} (Clave: ${rowSelected.CLAVE_ART})`
+          );
+          $("#registrandoCantidad").text(
+            ` ${rowSelected.CANTIDAD}`
+          );
 
         // Colocar los valores al formulario
         $("#registrarEntradaForm #no_art").val(rowSelected.ID_ARTICULO);
@@ -734,7 +739,7 @@ if (invVerTrans == 1) {
 // DATATABLE DE ENTRADAS
 tableCatEntradas = $("#tableCatEntradas").DataTable({
   order: [
-    [4, "desc"],
+    [4, "asc"],
     [0, "desc"],
   ],
   autoWidth: true,
@@ -962,9 +967,9 @@ tableCatTransacciones = $("#tableCatTransacciones").DataTable({
         }
       },
     },
-    { data: "RESPONSABLE" },
     { data: "PROVEEDOR" },
     { data: "TIPO_MOVIMIENTO" },
+    { data: "RESPONSABLE" },
   ],
   columnDefs: [
     { targets: 0, title: "Clave Artículo", className: "all" },
@@ -972,9 +977,9 @@ tableCatTransacciones = $("#tableCatTransacciones").DataTable({
     { targets: 2, title: "Cantidad", className: "all" },
     { targets: 3, title: "Fecha Transacción", className: "all" },
     { targets: 4, title: "Costo Última Transacción", className: "all" },
-    { targets: 5, title: "Responsable", className: "all" },
-    { targets: 6, title: "Proveedor", className: "all" },
-    { targets: 7, title: "Tipo Movimiento", className: "all" },
+    { targets: 5, title: "Proveedor", className: "all" },
+    { targets: 6, title: "Tipo Movimiento", className: "all" },
+    { targets: 7, title: "Responsable", className: "all" },
   ],
   dom: 'Bl<"dataTables_toolbar">frtip',
   buttons: [],
