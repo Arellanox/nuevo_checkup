@@ -125,193 +125,189 @@ $("#maneja_caducidad").on("change", function () {
 
 var buttonsArticulos = [];
 
-if(edit ==1) {
+if (edit == 1) {
   buttonsArticulos.push({
     // BOTON PARA EDITAR
-      text: '<i class="bi bi-pencil-square"></i> Editar',
-      className: "btn btn-secondary",
-      attr: {
-        //disabled: true,
-        id: "btnEditarArticulo",
-        "data-bs-toggle": "tooltip",
-        "data-bs-placement": "top",
-        title: "Editar el artículo seleccionado",
-        disabled: !userPermissions.canEdit,
-      },
-      action: function () {
-        if (rowSelected) {
-          $("#editarArticuloModal").modal("show");
-          $("#editandoArticulo").text(` ${rowSelected.CLAVE_ART}`);
+    text: '<i class="bi bi-pencil-square"></i> Editar',
+    className: "btn btn-secondary",
+    attr: {
+      //disabled: true,
+      id: "btnEditarArticulo",
+      "data-bs-toggle": "tooltip",
+      "data-bs-placement": "top",
+      title: "Editar el artículo seleccionado",
+      disabled: !userPermissions.canEdit,
+    },
+    action: function () {
+      if (rowSelected) {
+        $("#editarArticuloModal").modal("show");
+        $("#editandoArticulo").text(` ${rowSelected.CLAVE_ART}`);
 
-          // Colocar los valores al formulario
-          $("#editarArticuloForm #no_art").val(rowSelected.NO_ART);
-          $("#editarArticuloForm #clave_art").val(rowSelected.CLAVE_ART);
-          $("#editarArticuloForm #nombre_comercial").val(
-            rowSelected.NOMBRE_COMERCIAL
-          );
+        // Colocar los valores al formulario
+        $("#editarArticuloForm #no_art").val(rowSelected.NO_ART);
+        $("#editarArticuloForm #clave_art").val(rowSelected.CLAVE_ART);
+        $("#editarArticuloForm #nombre_comercial").val(
+          rowSelected.NOMBRE_COMERCIAL
+        );
 
-          if (rowSelected.ESTATUS == 1) {
-            $("#editarArticuloForm #estatus").prop("checked", true);
-          } else {
-            $("#editarArticuloForm #estatus").prop("checked", false);
-          }
-          $("#editarArticuloForm #red_frio").val(rowSelected.RED_FRIO);
-          $("#editarArticuloForm #unidad_venta").val(rowSelected.UNIDAD_VENTA);
-          $("#editarArticuloForm #unidad_minima").val(
-            rowSelected.UNIDAD_MINIMA
-          );
-          $("#editarArticuloForm #contenido").val(rowSelected.CONTENIDO);
-          $("#editarArticuloForm #tipo_articulo").val(
-            rowSelected.TIPO_ARTICULO_ID
-          );
+        $("#editarArticuloForm #id_marcas").val(rowSelected.MARCAS);
 
-          // Validación para tipo_articulo (Reactivo)
-          if (rowSelected.TIPO_ARTICULO_ID == 1) {
-            $("#editarArticuloForm #rendimientoEstimadoDiv").show();
-            $("#editarArticuloForm #rendimientoPacienteDiv").show();
-            $("#editarArticuloForm #insertoDiv").show();
-            $("#editarArticuloForm #protocoloDiv").show();
-          } else {
-            $("#editarArticuloForm #rendimientoEstimadoDiv").hide();
-            $("#editarArticuloForm #rendimientoPacienteDiv").hide();
-            $("#editarArticuloForm #insertoDiv").hide();
-            $("#editarArticuloForm #protocoloDiv").hide();
-            $("#editarArticuloForm #rendimiento_estimado").val("");
-            $("#editarArticuloForm #rendimiento_paciente").val("");
-            $("#editarArticuloForm #inserto").val("");
-            $("#editarArticuloForm #procedimiento").val("");
-          }
-          $("#editarArticuloForm #tipo_articulo")
-            .off("change")
-            .on("change", function () {
-              if ($(this).val() == "1") {
-                $("#editarArticuloForm #rendimientoEstimadoDiv").show();
-                $("#editarArticuloForm #rendimientoPacienteDiv").show();
-                $("#editarArticuloForm #insertoDiv").show();
-                $("#editarArticuloForm #protocoloDiv").show();
-              } else {
-                $("#editarArticuloForm #rendimientoEstimadoDiv").hide();
-                $("#editarArticuloForm #rendimientoPacienteDiv").hide();
-                $("#editarArticuloForm #insertoDiv").hide();
-                $("#editarArticuloForm #protocoloDiv").hide();
-                $("#editarArticuloForm #rendimiento_estimado").val("");
-                $("#editarArticuloForm #rendimiento_paciente").val("");
-                $("#editarArticuloForm #inserto").val("");
-                $("#editarArticuloForm #procedimiento").val("");
-              }
-            });
-          $("#editarArticuloForm #maneja_caducidad").val(
-            rowSelected.MANEJA_CADUCIDAD
-          );
-
-          $("#editarArticuloForm #fecha_caducidad").val(
-            rowSelected.FECHA_CADUCIDAD
-          );
-
-          //para mostrar la fecha de caducidad traida de la bd y si no maneja caducidad ocultar el campo
-          if (rowSelected.MANEJA_CADUCIDAD == 1) {
-            $("#editarArticuloForm #fecha_caducidad").closest(".mb-3").show();
-          } else {
-            $("#editarArticuloForm #fecha_caducidad").closest(".mb-3").hide();
-            $("#editarArticuloForm #fecha_caducidad").val("");
-          }
-          $("#editarArticuloForm #maneja_caducidad")
-            .off("change")
-            .on("change", function () {
-              if ($(this).val() == "1") {
-                $("#editarArticuloForm #fecha_caducidad")
-                  .closest(".mb-3")
-                  .show();
-              } else {
-                $("#editarArticuloForm #fecha_caducidad")
-                  .closest(".mb-3")
-                  .hide();
-                $("#editarArticuloForm #fecha_caducidad").val("");
-              }
-            });
-
-          $("#editarArticuloForm #costo_mas_alto").val(
-            rowSelected.COSTO_MAS_ALTO
-          );
-          $("#editarArticuloForm #costo_ultima_entrada").val(
-            rowSelected.COSTO_ULTIMA_ENTRADA
-          );
-          $("#editarArticuloForm #fecha_ultima_entrada").val(
-            rowSelected.FECHA_ULTIMA_ENTRADA
-              ? rowSelected.FECHA_ULTIMA_ENTRADA.split(" ")[0]
-              : ""
-          );
-
-          $("#editarArticuloForm #area_id").val(rowSelected.AREA_ID);
-          $("#editarArticuloForm #rendimiento_estimado").val(
-            rowSelected.RENDIMIENTO_ESTIMADO
-          );
+        if (rowSelected.ESTATUS == 1) {
+          $("#editarArticuloForm #estatus").prop("checked", true);
+        } else {
+          $("#editarArticuloForm #estatus").prop("checked", false);
         }
-      },
-    });
+        $("#editarArticuloForm #red_frio").val(rowSelected.RED_FRIO);
+        $("#editarArticuloForm #unidad_venta").val(rowSelected.UNIDAD_VENTA);
+        $("#editarArticuloForm #unidad_minima").val(rowSelected.UNIDAD_MINIMA);
+        $("#editarArticuloForm #contenido").val(rowSelected.CONTENIDO);
+        $("#editarArticuloForm #tipo_articulo").val(
+          rowSelected.TIPO_ARTICULO_ID
+        );
+
+        // Validación para tipo_articulo (Reactivo)
+        if (rowSelected.TIPO_ARTICULO_ID == 1) {
+          $("#editarArticuloForm #rendimientoEstimadoDiv").show();
+          $("#editarArticuloForm #rendimientoPacienteDiv").show();
+          $("#editarArticuloForm #insertoDiv").show();
+          $("#editarArticuloForm #protocoloDiv").show();
+        } else {
+          $("#editarArticuloForm #rendimientoEstimadoDiv").hide();
+          $("#editarArticuloForm #rendimientoPacienteDiv").hide();
+          $("#editarArticuloForm #insertoDiv").hide();
+          $("#editarArticuloForm #protocoloDiv").hide();
+          $("#editarArticuloForm #rendimiento_estimado").val("");
+          $("#editarArticuloForm #rendimiento_paciente").val("");
+          $("#editarArticuloForm #inserto").val("");
+          $("#editarArticuloForm #procedimiento").val("");
+        }
+        $("#editarArticuloForm #tipo_articulo")
+          .off("change")
+          .on("change", function () {
+            if ($(this).val() == "1") {
+              $("#editarArticuloForm #rendimientoEstimadoDiv").show();
+              $("#editarArticuloForm #rendimientoPacienteDiv").show();
+              $("#editarArticuloForm #insertoDiv").show();
+              $("#editarArticuloForm #protocoloDiv").show();
+            } else {
+              $("#editarArticuloForm #rendimientoEstimadoDiv").hide();
+              $("#editarArticuloForm #rendimientoPacienteDiv").hide();
+              $("#editarArticuloForm #insertoDiv").hide();
+              $("#editarArticuloForm #protocoloDiv").hide();
+              $("#editarArticuloForm #rendimiento_estimado").val("");
+              $("#editarArticuloForm #rendimiento_paciente").val("");
+              $("#editarArticuloForm #inserto").val("");
+              $("#editarArticuloForm #procedimiento").val("");
+            }
+          });
+        $("#editarArticuloForm #maneja_caducidad").val(
+          rowSelected.MANEJA_CADUCIDAD
+        );
+
+        $("#editarArticuloForm #fecha_caducidad").val(
+          rowSelected.FECHA_CADUCIDAD
+        );
+
+        //para mostrar la fecha de caducidad traida de la bd y si no maneja caducidad ocultar el campo
+        if (rowSelected.MANEJA_CADUCIDAD == 1) {
+          $("#editarArticuloForm #fecha_caducidad").closest(".mb-3").show();
+        } else {
+          $("#editarArticuloForm #fecha_caducidad").closest(".mb-3").hide();
+          $("#editarArticuloForm #fecha_caducidad").val("");
+        }
+        $("#editarArticuloForm #maneja_caducidad")
+          .off("change")
+          .on("change", function () {
+            if ($(this).val() == "1") {
+              $("#editarArticuloForm #fecha_caducidad").closest(".mb-3").show();
+            } else {
+              $("#editarArticuloForm #fecha_caducidad").closest(".mb-3").hide();
+              $("#editarArticuloForm #fecha_caducidad").val("");
+            }
+          });
+
+        $("#editarArticuloForm #costo_mas_alto").val(
+          rowSelected.COSTO_MAS_ALTO
+        );
+        $("#editarArticuloForm #costo_ultima_entrada").val(
+          rowSelected.COSTO_ULTIMA_ENTRADA
+        );
+        $("#editarArticuloForm #fecha_ultima_entrada").val(
+          rowSelected.FECHA_ULTIMA_ENTRADA
+            ? rowSelected.FECHA_ULTIMA_ENTRADA.split(" ")[0]
+            : ""
+        );
+
+        $("#editarArticuloForm #area_id").val(rowSelected.AREA_ID);
+        $("#editarArticuloForm #rendimiento_estimado").val(
+          rowSelected.RENDIMIENTO_ESTIMADO
+        );
+      }
+    },
+  });
 }
 
 if (supr == 1) {
   buttonsArticulos.push({
-      // BOTON PARA ELIIMAR
-      text: '<i class="bi bi-trash-fill"></i> Eliminar',
-      className: "btn btn-secondary",
-      attr: {
-        id: "btnEliminarArticulo",
-        "data-bs-toggle": "tooltip",
-        "data-bs-placement": "top",
-        title: "Borrar un artículo permanentemente",
-        disabled: !userPermissions.canDelete,
-      },
-      action: function () {
-        if (rowSelected) {
-          // procedimiento para eliminar un articulo
-          alertMensajeConfirm(
-            {
-              title: "Estás eliminando " + rowSelected.NOMBRE_COMERCIAL + "",
-              text: "¿Desea continuar?.",
-              icon: "warning",
-            },
-            function () {
-              ajaxAwait(
-                {
-                  api: 4,
-                  id_articulo: rowSelected.ID_ARTICULO,
-                },
-                "inventarios_api",
-                { callbackAfter: true },
-                false,
-                function (data) {
-                  if (data.response.code == 1) {
-                    alertToast("Artículo eliminado!", "success", 4000);
-                    tableCatArticulos.ajax.reload();
-                  }
+    // BOTON PARA ELIIMAR
+    text: '<i class="bi bi-trash-fill"></i> Eliminar',
+    className: "btn btn-secondary",
+    attr: {
+      id: "btnEliminarArticulo",
+      "data-bs-toggle": "tooltip",
+      "data-bs-placement": "top",
+      title: "Borrar un artículo permanentemente",
+      disabled: !userPermissions.canDelete,
+    },
+    action: function () {
+      if (rowSelected) {
+        // procedimiento para eliminar un articulo
+        alertMensajeConfirm(
+          {
+            title: "Estás eliminando " + rowSelected.NOMBRE_COMERCIAL + "",
+            text: "¿Desea continuar?.",
+            icon: "warning",
+          },
+          function () {
+            ajaxAwait(
+              {
+                api: 4,
+                id_articulo: rowSelected.ID_ARTICULO,
+              },
+              "inventarios_api",
+              { callbackAfter: true },
+              false,
+              function (data) {
+                if (data.response.code == 1) {
+                  alertToast("Artículo eliminado!", "success", 4000);
+                  tableCatArticulos.ajax.reload();
                 }
-              );
-            },
-            1
-          );
-        } else {
-          alertToast("Por favor, seleccione un artículo", "info", 4000);
-        }
+              }
+            );
+          },
+          1
+        );
+      } else {
+        alertToast("Por favor, seleccione un artículo", "info", 4000);
       }
+    },
   });
 }
 
 buttonsArticulos.push({
   // BOTON PARA FILTRAR LA TABLA
-      text: '<i class="bi bi-funnel"></i> Filtrar',
-      className: "btn btn-warning",
-      attr: {
-        id: "btnFiltrarArticulos",
-        "data-bs-toggle": "tooltip",
-        "data-bs-placement": "top",
-        title: "Filtrar los artículos de la tabla",
-      },
-      action: function () {
-        // procedimiento para filtrar la tabla
-        $("#filtrarArticuloModal").modal("show");
-      },
+  text: '<i class="bi bi-funnel"></i> Filtrar',
+  className: "btn btn-warning",
+  attr: {
+    id: "btnFiltrarArticulos",
+    "data-bs-toggle": "tooltip",
+    "data-bs-placement": "top",
+    title: "Filtrar los artículos de la tabla",
+  },
+  action: function () {
+    // procedimiento para filtrar la tabla
+    $("#filtrarArticuloModal").modal("show");
+  },
 });
 
 // DATATABLE DE ARTICULOS
@@ -394,6 +390,7 @@ tableCatArticulos = $("#tableCatArticulos").DataTable({
         },*/
 
     //{ data: 'ESTATUS' },
+    { data: "MARCAS" },
     {
       data: "ESTATUS",
       render: function (data, type, row) {
@@ -515,18 +512,19 @@ tableCatArticulos = $("#tableCatArticulos").DataTable({
     { target: 0, title: "Clave Art", className: "all" },
     { target: 1, title: "Imágen del artículo", className: "all" },
     { target: 2, title: "Nombre comercial", className: "all" },
-    { target: 3, title: "Estatus", className: "all" },
-    { target: 4, title: "Red frío", className: "all" },
-    { target: 5, title: "Unid. venta", className: "all" },
-    { target: 6, title: "Unid. mínima", className: "all" },
-    { target: 7, title: "Contenido", className: "all" },
-    { target: 8, title: "Tipo", className: "all" },
-    { target: 9, title: "Maneja caducidad", className: "all" },
-    { target: 10, title: "Fecha caducidad", className: "all" },
-    { target: 11, title: "Área", className: "all" },
-    { target: 12, title: "Costo más alto", className: "all" },
-    { target: 13, title: "Inserto", className: "all" },
-    { target: 14, title: "Proc. de prueba", className: "all" },
+    { target: 3, title: "Marca", className: "all" },
+    { target: 4, title: "Estatus", className: "all" },
+    { target: 5, title: "Red frío", className: "all" },
+    { target: 6, title: "Unid. venta", className: "all" },
+    { target: 7, title: "Unid. mínima", className: "all" },
+    { target: 8, title: "Contenido", className: "all" },
+    { target: 9, title: "Tipo", className: "all" },
+    { target: 10, title: "Maneja caducidad", className: "all" },
+    { target: 11, title: "Fecha caducidad", className: "all" },
+    { target: 12, title: "Área", className: "all" },
+    { target: 13, title: "Costo más alto", className: "all" },
+    { target: 14, title: "Inserto", className: "all" },
+    { target: 15, title: "Proc. de prueba", className: "all" },
   ],
   dom: 'Bl<"dataTables_toolbar">frtip',
   buttons: buttonsArticulos,
@@ -537,202 +535,199 @@ var buttonsEntradas = [];
 if (editEntradas == 1) {
   buttonsEntradas.push({
     // Boton para registrar entrada o salida
-      text: '<i class="bi bi-plus"></i> Registrar movimiento',
-      className: "btn btn-secondary",
-      attr: {
-        //disabled: true,
-        id: "btnRegistrarEntrada",
-        "data-bs-toggle": "tooltip",
-        "data-bs-placement": "top",
-        title: "Registrar movimiento del artículo seleccionado",
-        disabled: !userPermissions.canEditEntradas,
-      },
-      action: function () {
-        if (rowSelected) {
-          $("#registrarEntradaModal").modal("show");
-          $("#registrandoEntrada").text(
-            ` ${rowSelected.NOMBRE_COMERCIAL} (Clave: ${rowSelected.CLAVE_ART})`
-          );
+    text: '<i class="bi bi-plus"></i> Registrar movimiento',
+    className: "btn btn-secondary",
+    attr: {
+      //disabled: true,
+      id: "btnRegistrarEntrada",
+      "data-bs-toggle": "tooltip",
+      "data-bs-placement": "top",
+      title: "Registrar movimiento del artículo seleccionado",
+      disabled: !userPermissions.canEditEntradas,
+    },
+    action: function () {
+      if (rowSelected) {
+        $("#registrarEntradaModal").modal("show");
+        $("#registrandoEntrada").text(
+          ` ${rowSelected.NOMBRE_COMERCIAL} (Clave: ${rowSelected.CLAVE_ART})`
+        );
 
-          // Colocar los valores al formulario
-          $("#registrarEntradaForm #no_art").val(rowSelected.ID_ARTICULO);
-          $("#registrarEntradaForm #nombre_comercial").val(
-            rowSelected.NOMBRE_COMERCIAL
-          );
-          $("#registrarEntradaForm #id_proveedores option").each(function () {
-            if (
-              $(this).text().trim() === (rowSelected.PROVEEDOR || "").trim()
-            ) {
-              $("#registrarEntradaForm #id_proveedores").val($(this).val());
-            }
-          });
-
-          if (rowSelected.ESTATUS == 1) {
-            $("#registrarEntradaForm #estatus").prop("checked", true);
-          } else {
-            $("#registrarEntradaForm #estatus").prop("checked", false);
+        // Colocar los valores al formulario
+        $("#registrarEntradaForm #no_art").val(rowSelected.ID_ARTICULO);
+        $("#registrarEntradaForm #nombre_comercial").val(
+          rowSelected.NOMBRE_COMERCIAL
+        );
+        $("#registrarEntradaForm #id_proveedores option").each(function () {
+          if ($(this).text().trim() === (rowSelected.PROVEEDOR || "").trim()) {
+            $("#registrarEntradaForm #id_proveedores").val($(this).val());
           }
+        });
+
+        if (rowSelected.ESTATUS == 1) {
+          $("#registrarEntradaForm #estatus").prop("checked", true);
         } else {
-          alertToast("Por favor, seleccione un artículo", "info", 4000);
+          $("#registrarEntradaForm #estatus").prop("checked", false);
         }
-      },
+      } else {
+        alertToast("Por favor, seleccione un artículo", "info", 4000);
+      }
+    },
   });
 }
 
 buttonsEntradas.push({
-      text: '<i class="bi bi-funnel"></i> Tipo de movimiento',
-      className: "btn-tipo-rad btn btn-warning",
-      attr: {
-      id: "btnFiltroTipoMovimiento",
-      "data-bs-toggle": "tooltip",
-      "data-bs-placement": "top",
-      title: "Filtrar por tipo de movimiento",
-      },
-      action: function (e, dt, node, config) {
-        rowSelected = null; // Resetea la selección de fila
-        // Si el menú ya existe, lo elimina (oculta)
-        if ($("#dropdownTipoMovimientoMenu").length > 0) {
-          $("#dropdownTipoMovimientoMenu").remove();
-          $(document).off("mousedown.dropdownTipoMovimiento");
-          return;
-        }
-        // Si no existe, lo crea y muestra
-        var $menu = $(`
+  text: '<i class="bi bi-funnel"></i> Tipo de movimiento',
+  className: "btn-tipo-rad btn btn-warning",
+  attr: {
+    id: "btnFiltroTipoMovimiento",
+    "data-bs-toggle": "tooltip",
+    "data-bs-placement": "top",
+    title: "Filtrar por tipo de movimiento",
+  },
+  action: function (e, dt, node, config) {
+    rowSelected = null; // Resetea la selección de fila
+    // Si el menú ya existe, lo elimina (oculta)
+    if ($("#dropdownTipoMovimientoMenu").length > 0) {
+      $("#dropdownTipoMovimientoMenu").remove();
+      $(document).off("mousedown.dropdownTipoMovimiento");
+      return;
+    }
+    // Si no existe, lo crea y muestra
+    var $menu = $(`
     <div id="dropdownTipoMovimientoMenu" class="dropdown-menu show" style="position:absolute;z-index:9999;min-width:180px;">
       <button class="dropdown-item" data-value="1"><i class="bi bi-box-arrow-in-down"></i> Entradas</button>
       <button class="dropdown-item" data-value="2"><i class="bi bi-box-arrow-up"></i> Salidas</button>
     </div>
   `);
 
-        // Posiciona el menú debajo del botón
-        var offset = $(node).offset();
-        $menu.css({
-          top: offset.top + $(node).outerHeight(),
-          left: offset.left,
-        });
+    // Posiciona el menú debajo del botón
+    var offset = $(node).offset();
+    $menu.css({
+      top: offset.top + $(node).outerHeight(),
+      left: offset.left,
+    });
 
-        $("body").append($menu);
+    $("body").append($menu);
 
-        // Evento para seleccionar opción
-        $menu.on("click", ".dropdown-item", function () {
-          var tipo = $(this).data("value");
-          window.dataTableCatEntradas = window.dataTableCatEntradas || {};
-          dataTableCatEntradas.id_movimiento = tipo;
-          tableCatEntradas.ajax.reload();
+    // Evento para seleccionar opción
+    $menu.on("click", ".dropdown-item", function () {
+      var tipo = $(this).data("value");
+      window.dataTableCatEntradas = window.dataTableCatEntradas || {};
+      dataTableCatEntradas.id_movimiento = tipo;
+      tableCatEntradas.ajax.reload();
 
-          // Cambia visibilidad y títulos de columnas según el tipo de movimiento
-          if (tipo == "1") {
-            // Entradas
-            $("#titulosEntradasSalidas").text("Entradas");
-            tableCatEntradas.column(3).visible(true);
-            tableCatEntradas.column(4).header().textContent =
-              "Fecha última entrada";
-            tableCatEntradas.column(5).visible(true);
-            tableCatEntradas.column(6).visible(true);
-            tableCatEntradas.column(7).visible(false);
-            tableCatDetallesEntradas.column(3).header().textContent =
-              "Cantidad de entrada";
-            tableCatDetallesEntradas.column(0).header().textContent =
-              "Fecha y hora última entrada";
-            tableCatDetallesEntradas.column(1).visible(true);
-            tableCatDetallesEntradas.column(2).visible(true);
-            tableCatDetallesEntradas.column(6).visible(false);
-            tableCatDetallesEntradas.column(6).header().textContent =
-              "Motivo de salida";
-            tableCatDetallesEntradas.column(7).visible(true);
-            detalleEntradaLabel.textContent = "Detalles de entrada";
+      // Cambia visibilidad y títulos de columnas según el tipo de movimiento
+      if (tipo == "1") {
+        // Entradas
+        $("#titulosEntradasSalidas").text("Entradas");
+        tableCatEntradas.column(3).visible(true);
+        tableCatEntradas.column(4).header().textContent =
+          "Fecha última entrada";
+        tableCatEntradas.column(5).visible(true);
+        tableCatEntradas.column(6).visible(true);
+        tableCatEntradas.column(7).visible(false);
+        tableCatDetallesEntradas.column(3).header().textContent =
+          "Cantidad de entrada";
+        tableCatDetallesEntradas.column(0).header().textContent =
+          "Fecha y hora última entrada";
+        tableCatDetallesEntradas.column(1).visible(true);
+        tableCatDetallesEntradas.column(2).visible(true);
+        tableCatDetallesEntradas.column(6).visible(false);
+        tableCatDetallesEntradas.column(6).header().textContent =
+          "Motivo de salida";
+        tableCatDetallesEntradas.column(7).visible(true);
+        detalleEntradaLabel.textContent = "Detalles de entrada";
 
-            //Editar en detalles entradas
-            cantidadEditarMovLabel.textContent = "Cantidad a ingresar";
-            $("#editarMovimientoModal #costoUltimaEntradaDiv").show();
-            $("#editarMovimientoModal #costo_ultima_entrada").prop(
-              "required",
-              true
-            );
-            $("#editarMovimientoModal #proveedorDiv").show();
-            $("#editarMovimientoModal #id_proveedores").prop("required", true);
-            $("#editarMovimientoModal .modal-title").html(
-              'Editando entrada con fecha: <span id="mostrandoDetallesEntrada"></span>'
-            );
-            $("#editarMovimientoModal #motivoSalidaDiv").hide();
-            $("#editarMovimientoModal #motivo_salida")
-              .prop("required", false)
-              .val("");
-          } else {
-            // Salidas
-            $("#titulosEntradasSalidas").text("Salidas");
-            tableCatEntradas.column(3).visible(false); // Oculta costo última entrada
-            tableCatEntradas.column(7).visible(true);
-            tableCatEntradas.column(4).header().textContent =
-              "Fecha última salida";
-            tableCatEntradas.column(5).visible(false); // Oculta costo más alto
-            tableCatEntradas.column(6).visible(false); // Oculta proveedor
-            tableCatDetallesEntradas.column(3).header().textContent =
-              "Cantidad de salida";
-            tableCatDetallesEntradas.column(0).header().textContent =
-              "Fecha y hora última salida";
-            tableCatDetallesEntradas.column(1).visible(false);
-            tableCatDetallesEntradas.column(2).visible(false);
-            tableCatDetallesEntradas.column(6).visible(true);
-            tableCatDetallesEntradas.column(6).header().textContent =
-              "Motivo de salida";
-            tableCatDetallesEntradas.column(7).visible(true);
-            tableCatDetallesEntradas.columns.adjust().draw();
-            detalleEntradaLabel.textContent = "Detalles de salida";
+        //Editar en detalles entradas
+        cantidadEditarMovLabel.textContent = "Cantidad a ingresar";
+        $("#editarMovimientoModal #costoUltimaEntradaDiv").show();
+        $("#editarMovimientoModal #costo_ultima_entrada").prop(
+          "required",
+          true
+        );
+        $("#editarMovimientoModal #proveedorDiv").show();
+        $("#editarMovimientoModal #id_proveedores").prop("required", true);
+        $("#editarMovimientoModal .modal-title").html(
+          'Editando entrada con fecha: <span id="mostrandoDetallesEntrada"></span>'
+        );
+        $("#editarMovimientoModal #motivoSalidaDiv").hide();
+        $("#editarMovimientoModal #motivo_salida")
+          .prop("required", false)
+          .val("");
+      } else {
+        // Salidas
+        $("#titulosEntradasSalidas").text("Salidas");
+        tableCatEntradas.column(3).visible(false); // Oculta costo última entrada
+        tableCatEntradas.column(7).visible(true);
+        tableCatEntradas.column(4).header().textContent = "Fecha última salida";
+        tableCatEntradas.column(5).visible(false); // Oculta costo más alto
+        tableCatEntradas.column(6).visible(false); // Oculta proveedor
+        tableCatDetallesEntradas.column(3).header().textContent =
+          "Cantidad de salida";
+        tableCatDetallesEntradas.column(0).header().textContent =
+          "Fecha y hora última salida";
+        tableCatDetallesEntradas.column(1).visible(false);
+        tableCatDetallesEntradas.column(2).visible(false);
+        tableCatDetallesEntradas.column(6).visible(true);
+        tableCatDetallesEntradas.column(6).header().textContent =
+          "Motivo de salida";
+        tableCatDetallesEntradas.column(7).visible(true);
+        tableCatDetallesEntradas.columns.adjust().draw();
+        detalleEntradaLabel.textContent = "Detalles de salida";
 
-            //Editar en detalles salidas
-            cantidadEditarMovLabel.textContent = "Cantidad a retirar";
-            $("#editarMovimientoModal #costoUltimaEntradaDiv").hide();
-            $("#editarMovimientoModal #costo_ultima_entrada").prop(
-              "required",
-              false
-            );
-            $("#editarMovimientoModal #proveedorDiv").hide();
-            $("#editarMovimientoModal #id_proveedores").prop("required", false); //false, se pone auto id 3 (SIN PROVEEDOR)
-            $("#editarMovimientoModal .modal-title").html(
-              'Editando salida con fecha: <span id="mostrandoDetallesEntrada"></span>'
-            );
-            $("#editarMovimientoModal #motivoSalidaDiv")
-              .show()
-              .prop("required", true);
-            $("#editarMovimientoModal #motivo_salida").prop("required", true);
-          }
-          tableCatEntradas.columns.adjust().draw();
-          $menu.remove();
-        });
+        //Editar en detalles salidas
+        cantidadEditarMovLabel.textContent = "Cantidad a retirar";
+        $("#editarMovimientoModal #costoUltimaEntradaDiv").hide();
+        $("#editarMovimientoModal #costo_ultima_entrada").prop(
+          "required",
+          false
+        );
+        $("#editarMovimientoModal #proveedorDiv").hide();
+        $("#editarMovimientoModal #id_proveedores").prop("required", false); //false, se pone auto id 3 (SIN PROVEEDOR)
+        $("#editarMovimientoModal .modal-title").html(
+          'Editando salida con fecha: <span id="mostrandoDetallesEntrada"></span>'
+        );
+        $("#editarMovimientoModal #motivoSalidaDiv")
+          .show()
+          .prop("required", true);
+        $("#editarMovimientoModal #motivo_salida").prop("required", true);
+      }
+      tableCatEntradas.columns.adjust().draw();
+      $menu.remove();
+    });
 
-        // Cierra el menú si haces click fuera
-        $(document).on("mousedown.dropdownTipoMovimiento", function (event) {
-          if (
-            !$(event.target).closest(
-              "#dropdownTipoMovimientoMenu, #btnFiltroTipoMovimiento"
-            ).length
-          ) {
-            $menu.remove();
-            $(document).off("mousedown.dropdownTipoMovimiento");
-          }
-        });
-      },
+    // Cierra el menú si haces click fuera
+    $(document).on("mousedown.dropdownTipoMovimiento", function (event) {
+      if (
+        !$(event.target).closest(
+          "#dropdownTipoMovimientoMenu, #btnFiltroTipoMovimiento"
+        ).length
+      ) {
+        $menu.remove();
+        $(document).off("mousedown.dropdownTipoMovimiento");
+      }
+    });
+  },
 });
 
 if (invVerTrans == 1) {
   buttonsEntradas.push({
     // Botón para el historial de transacciones
-      text: '<i class="bi bi-clock-history"></i> Transacciones',
-      className: "btn-transacciones-margin btn btn-info",
-      style: "left:138vh;",
-      attr: {
-        id: "btnHistorialEntradas",
-        "data-bs-toggle": "tooltip",
-        "data-bs-placement": "top",
-        title: "Ver historial de transacciones",
-      },
-      action: function () {
-        //Mostrar el modal
-        $("#detalleTransaccionModal").modal("show");
-        // ajaxreload de trans
-        tableCatTransacciones.ajax.reload();
-      },
+    text: '<i class="bi bi-clock-history"></i> Transacciones',
+    className: "btn-transacciones-margin btn btn-info",
+    style: "left:138vh;",
+    attr: {
+      id: "btnHistorialEntradas",
+      "data-bs-toggle": "tooltip",
+      "data-bs-placement": "top",
+      title: "Ver historial de transacciones",
+    },
+    action: function () {
+      //Mostrar el modal
+      $("#detalleTransaccionModal").modal("show");
+      // ajaxreload de trans
+      tableCatTransacciones.ajax.reload();
+    },
   });
 }
 
@@ -1000,10 +995,10 @@ selectDatatable(
   async function () {
     // Validar si hay registros en la tabla
     if (tableCatDetallesEntradas.data().count() === 0) {
-    rowSelected = null; // Limpia la selección
-    $("#tableCatEntradas tbody tr.selected").removeClass("selected");
-    alertToast("No hay registros para editar.", "info", 3000);
-    return;
+      rowSelected = null; // Limpia la selección
+      $("#tableCatEntradas tbody tr.selected").removeClass("selected");
+      alertToast("No hay registros para editar.", "info", 3000);
+      return;
     }
     $("#editarMovimientoModal").modal("show");
     $("#detalleEntradaModal").modal("hide");
@@ -1014,9 +1009,7 @@ selectDatatable(
     $("#editarMovimientoModal #costo_ultima_entrada").val(
       rowSelected.COSTO_ULTIMA_ENTRADA
     );
-    $("#editarMovimientoModal #motivo_salida").val(
-      rowSelected.MOTIVO_SALIDA
-    );
+    $("#editarMovimientoModal #motivo_salida").val(rowSelected.MOTIVO_SALIDA);
   }
 );
 
@@ -1160,6 +1153,7 @@ selectDatatable(
     // EDITAR que al editar aparezca la fecha actual de ese articulo en la bd
     $("#editarArticuloForm #fechaCaducidad").val(fechaCaducidad);
     $("#areaDetalle").text(rowSelected.AREA);
+    $("#marcaDetalle").text(rowSelected.MARCAS);
     if (
       rowSelected.RENDIMIENTO_ESTIMADO &&
       rowSelected.RENDIMIENTO_ESTIMADO !== "0"
@@ -1476,21 +1470,82 @@ tableCatTransacciones.on("draw", function () {
 let fixedHeaderTransacciones = null;
 
 // Al abrir el modal, inicializa FixedHeader si no existe
-$('#detalleTransaccionModal').on('shown.bs.modal', function () {
+$("#detalleTransaccionModal").on("shown.bs.modal", function () {
   if (!fixedHeaderTransacciones) {
-    fixedHeaderTransacciones = new $.fn.dataTable.FixedHeader(tableCatTransacciones);
+    fixedHeaderTransacciones = new $.fn.dataTable.FixedHeader(
+      tableCatTransacciones
+    );
   }
   // Ajusta el header por si acaso
   fixedHeaderTransacciones.adjust();
 });
 
 // Al cerrar el modal, destruye el FixedHeader y elimina el header flotante
-$('#detalleTransaccionModal').on('hidden.bs.modal', function () {
+$("#detalleTransaccionModal").on("hidden.bs.modal", function () {
   if (fixedHeaderTransacciones) {
     fixedHeaderTransacciones.destroy();
     fixedHeaderTransacciones = null;
   }
   // Elimina cualquier header flotante que haya quedado
-  $('.fixedHeader-floating').remove();
-  $('.fixedHeader-locked').remove();
+  $(".fixedHeader-floating").remove();
+  $(".fixedHeader-locked").remove();
+});
+
+//cargas de marcas dinamicas
+$(document).ready(function () {
+  // Cargar marcas cuando se abre el modal de REGISTRAR
+  $("#registrarArticuloModal").on("show.bs.modal", function () {
+    cargarMarcasRegistrar();
+  });
+
+  // Cargar marcas cuando se abre el modal de EDITAR
+  $("#editarArticuloModal").on("show.bs.modal", function () {
+    cargarMarcasEditar();
+  });
+
+  function cargarMarcasRegistrar() {
+    cargarMarcasEnModal("#registrarArticuloModal #id_marcas");
+  }
+
+  function cargarMarcasEditar() {
+    cargarMarcasEnModal("#editarArticuloModal #id_marcas");
+  }
+
+  function cargarMarcasEnModal(selectorSelect) {
+    $.ajax({
+      url: "../../../api/inventarios_api.php",
+      type: "POST",
+      dataType: "json",
+      data: {
+        api: 9
+      },
+      success: function (response) {
+        if (response.response && response.response.code == 1) {
+          let selectMarca = $(selectorSelect);
+          let valorActual = selectMarca.val();
+
+          selectMarca.empty();
+          selectMarca.append('<option value="">Seleccione una marca</option>');
+
+          response.response.data.forEach(function (marca) {
+            selectMarca.append(
+              `<option value="${marca.id_marcas}">${marca.descripcion}</option>`
+            );
+          });
+
+          // Mantener la selección previa si existe
+          if (valorActual) {
+            selectMarca.val(valorActual);
+          }
+
+          console.log("Marcas cargadas en:", selectorSelect);
+        } else {
+          console.log("Error al cargar las marcas:", response);
+        }
+      },
+      error: function (xhr, status, error) {
+        console.log("Error AJAX:", error);
+      }
+    });
+  }
 });

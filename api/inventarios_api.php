@@ -56,6 +56,7 @@ $id_proveedores = $_POST['id_proveedores'];
 $id_movimiento = $_POST['id_movimiento'];
 $motivo_salida = $_POST['motivo_salida'];
 $id_cat_movimientos = $_POST['id_cat_movimientos'];
+$id_marcas = $_POST['id_marcas'];
 
 $host = $master->selectHost($_SERVER['SERVER_NAME']);
 
@@ -126,7 +127,8 @@ switch ($api) {
             $procedimientoUrl,
             $rendimiento_paciente,
             $cantidad,
-            $id_proveedores
+            $id_proveedores,
+            $id_marcas
         ]);
         break;
     case 2:
@@ -183,6 +185,10 @@ switch ($api) {
     case 8:
         // Lógica para devolver las transacciones
         $response = $master->getByProcedure("sp_inventarios_cat_transacciones_b", [$id_articulo]);
+        break;
+    case 9:
+        # recuperar marcas activas
+        $response = $master->getByProcedure("sp_inventarios_cat_marcas_b", []);
         break;
     default:
         $response = "API no definida.";
