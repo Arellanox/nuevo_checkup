@@ -1,5 +1,5 @@
 // Obtener datos del paciente seleccionado
-const modalCambiarEstudios = document.getElementById('modalCambiarEstudios')
+var modalCambiarEstudios = document.getElementById('modalCambiarEstudios')
 modalCambiarEstudios.addEventListener('show.bs.modal', event => {
 
     $('#title-paciente_actualizar_estudios').html(array_selected['NOMBRE_COMPLETO'])
@@ -14,14 +14,6 @@ modalCambiarEstudios.addEventListener('show.bs.modal', event => {
     }, 200);
 
 })
-
-
-
-
-
-
-
-
 
 async function getDataEstudiosFirst() {
     // alertMsj({

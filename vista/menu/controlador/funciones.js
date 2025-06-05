@@ -1,78 +1,65 @@
 //Formatear Fecha de sql
 function formatoFecha(texto) {
-  if (texto)
-    return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g, '$3/$2/$1');
+    if (texto) return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g, '$3/$2/$1');
 
-  return '';
+    return '';
 }
 
 //formatea la Edad de sql
 function formatoEdad(texto) {
-  if (texto) {
-    // Convierte la cadena en un número
-    var numero = parseFloat(texto);
+    if (texto) {
+        // Convierte la cadena en un número
+        var numero = parseFloat(texto);
 
-    // Verifica si el número tiene decimales y cuántos
-    var decimales = (numero % 1 !== 0) ? texto.split('.')[1].length : 0;
+        // Verifica si el número tiene decimales y cuántos
+        var decimales = (numero % 1 !== 0) ? texto.split('.')[1].length : 0;
 
-    // Utiliza toFixed para formatear el número con la cantidad correcta de decimales
-    return numero.toFixed(decimales).replace(/^(\d{4})-(\d{2})-(\d{2})$/g, '$3/$2/$1');
-  }
+        // Utiliza toFixed para formatear el número con la cantidad correcta de decimales
+        return numero.toFixed(decimales).replace(/^(\d{4})-(\d{2})-(\d{2})$/g, '$3/$2/$1');
+    }
 
-  return '';
+    return '';
 }
 
 jQuery.fn.exists = function () { return this.length > 0; }
 
 function formatoFechaSQL(fecha, formato) {
-  const map = {
-    dd: fecha.getDate(),
-    mm: fecha.getMonth() + 1,
-    // yy: fecha.getFullYear().toString().slice(-2),
-    yy: fecha.getFullYear()
-  }
+    const map = {
+        dd: fecha.getDate(),
+        mm: fecha.getMonth() + 1,
+        yy: fecha.getFullYear()
+    }
 
-  return formato.replace(/dd|mm|yy|yyy/gi, matched => map[matched]);
+    return formato.replace(/dd|mm|yy|yyy/gi, matched => map[matched]);
 }
 
 function formatoFecha2(fecha, optionsDate = [3, 1, 2, 2, 1, 1, 1], formatMat = 'best fit') {
-  if (fecha == null)
-    return '';
-  // let options = {
-  //   hourCycle: 'h12', //<-- Formato de 12 horas
-  //   timeZone: 'America/Mexico_City'
-  // } // p.m. - a.m.
+    if (fecha == null) return '';
 
-  const options = {
-    timeZone: 'America/Mexico_City',
-    hourCycle: 'h12',
-    weekday: ['narrow', 'short', 'long'][optionsDate[0] - 1],
-    year: ['numeric', '2-digit'][optionsDate[1] - 1],
-    month: ['narrow', 'short', 'long', 'numeric', '2-digit'][optionsDate[2] - 1],
-    day: ['numeric', '2-digit'][optionsDate[3] - 1],
-    hour: ['numeric', '2-digit'][optionsDate[4] - 1],
-    minute: ['numeric', '2-digit'][optionsDate[5] - 1],
-    seconds: ['numeric', '2-digit'][optionsDate[6] - 1]
-  };
+    const options = {
+      timeZone: 'America/Mexico_City',
+      hourCycle: 'h12',
+      weekday: ['narrow', 'short', 'long'][optionsDate[0] - 1],
+      year: ['numeric', '2-digit'][optionsDate[1] - 1],
+      month: ['narrow', 'short', 'long', 'numeric', '2-digit'][optionsDate[2] - 1],
+      day: ['numeric', '2-digit'][optionsDate[3] - 1],
+      hour: ['numeric', '2-digit'][optionsDate[4] - 1],
+      minute: ['numeric', '2-digit'][optionsDate[5] - 1],
+      seconds: ['numeric', '2-digit'][optionsDate[6] - 1]
+    };
 
-  let date;
-  if (fecha.length == 10) {
-    date = new Date(fecha + 'T00:00:00')
-  } else {
-    date = new Date(fecha)
-  }
+    let date;
 
-  // //console.log(date)
-  return date.toLocaleDateString('es-MX', options)
+    if (fecha.length == 10) date = new Date(fecha + 'T00:00:00')
+    else date = new Date(fecha)
+
+    return date.toLocaleDateString('es-MX', options)
 }
-
 
 // Función para convertir un arreglo a texto
 function arrayATexto(arr) {
-  return arr.join(', '); // Usa ', ' como separador
+    return arr.join(', '); // Usa ', ' como separador
 }
-
-
 
 // Reinicia los collapse para medicos tratantes
 function reset_email_inputs_medicos() {
@@ -1697,10 +1684,53 @@ function alertMsj(options, callback = function () { }) {
   })
 }
 
-function alertMensajeConfirm(options, callback = function () { }, set = 0, callbackDenied = function () { }, callbackCanceled = function () {
+/**
+ * Muestra un cuadro de diálogo SweetAlert2 con un campo de entrada y tres opciones:
+ * Enviar el valor ingresado, Saltar (sin ingresar valor) o Cancelar la acción.
+ *
+ * @param {Object} options - Opciones personalizadas para configurar el alert de SweetAlert2.
+ * @param {Function} callback - Función que se ejecuta con el resultado del alert.
+ */
+function alertConInput(options = {}, callback = () => { }) {
+    // Configuración por defecto
+    const defaultOptions = {
+        title: 'Ingrese un valor',
+        input: 'text',
+        inputPlaceholder: 'Escriba algo...',
+        showCancelButton: true,
+        showDenyButton: true,
+        confirmButtonText: 'Enviar',
+        denyButtonText: 'Omitir',
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: "#00AFAA",     // rgb(0, 175, 170)
+        denyButtonColor: "#F7BE00",        // rgb(247, 190, 0)
+        cancelButtonColor: "#D8DFE1",      // rgb(216, 223, 225)
+        allowOutsideClick: false,
+        inputValidator: (value) => {
+            if (!value) {
+                return 'Debe ingresar un valor o usar "Omitir" o "Cancelar"';
+            }
+        }
+    };
 
-}) {
+    // Combinar opciones personalizadas
+    const config = Object.assign({}, defaultOptions, options);
 
+    Swal.fire(config).then((result) => {
+        if (result.isConfirmed && result.value) callback({ tipo: 'enviar', valor: result.value });
+        else if (result.isDenied) callback({ tipo: 'omitir' });
+        else if (result.dismiss === Swal.DismissReason.cancel) callback({ tipo: 'cancelar' });
+    });
+}
+
+function alertMensajeConfirm(
+    options, callback = function () {
+    },
+    set = 0, callbackDenied = function () {
+    },
+    callbackCanceled = function () {
+    }
+) {
   //Options si existe
   switch (set) {
     case 1:
@@ -1730,11 +1760,6 @@ function alertMensajeConfirm(options, callback = function () { }, set = 0, callb
 
       if (!options.hasOwnProperty('allowOutsideClick'))
         options['allowOutsideClick'] = false
-      // if (options.hasOwnProperty('timer'))
-      //   options['timer'] = 4000
-      // if (options.hasOwnProperty('timerProgressBar'))
-      //   options['timerProgressBar'] = true
-      //
       break;
     default:
       if (!options) {
@@ -1774,71 +1799,69 @@ function alertMensajeConfirm(options, callback = function () { }, set = 0, callb
 function alertPassConfirm(alert = {
   title: 'Titulo por defecto :)',
   icon: 'info'
-}, callback = () => { }) {
-  Swal.fire({
-    title: alert['title'],
-    // text: 'Se creará el grupo con los pacientes seleccionados, ¡No podrás revertir los cambios',
-    icon: alert['icon'],
-    showCancelButton: true,
-    confirmButtonText: 'Confirmar',
-    cancelButtonText: 'Cancelar',
-    showLoaderOnConfirm: true,
-    // inputAttributes: {
-    //   autocomplete: false
-    // },
-    // input: 'password',
-    html: `<form autocomplete="off" onsubmit="formpassword(); return false;"><input type="password" id="password-confirmar" class="form-control input-color" autocomplete="off" placeholder="${alert['placeholder'] ? alert['placeholder'] : 'Ingrese su contraseña para confirmar'}"></form>`,
-    // confirmButtonText: 'Sign in',
-    focusConfirm: false,
-    didOpen: () => {
-      const passwordField = document.getElementById('password-confirmar');
-      passwordField.setAttribute('autocomplete', 'new-password');
-    },
-    preConfirm: () => {
-      const password = Swal.getPopup().querySelector('#password-confirmar').value;
+}, callback = () => {
+}) {
+    Swal.fire({
+      title: alert['title'],
+      // text: 'Se creará el grupo con los pacientes seleccionados, ¡No podrás revertir los cambios',
+      icon: alert['icon'],
+      showCancelButton: true,
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar',
+      showLoaderOnConfirm: true,
+      // inputAttributes: {
+      //   autocomplete: false
+      // },
+      // input: 'password',
+      html: `<form autocomplete="off" onsubmit="formpassword(); return false;"><input type="password" id="password-confirmar" class="form-control input-color" autocomplete="off" placeholder="${alert['placeholder'] ? alert['placeholder'] : 'Ingrese su contraseña para confirmar'}"></form>`,
+      // confirmButtonText: 'Sign in',
+      focusConfirm: false,
+      didOpen: () => {
+        const passwordField = document.getElementById('password-confirmar');
+        passwordField.setAttribute('autocomplete', 'new-password');
+      },
+      preConfirm: () => {
+        const password = Swal.getPopup().querySelector('#password-confirmar').value;
 
 
-      switch (alert['fetch']) {
-        case 'turnero':
-          url_fetch = `${http}${servidor}/${appname}/api/turnero_api.php?api=8&clave_secreta=${password}`
-          break;
+        switch (alert['fetch']) {
+          case 'turnero':
+            url_fetch = `${http}${servidor}/${appname}/api/turnero_api.php?api=8&clave_secreta=${password}`
+            break;
 
-        default:
-          url_fetch = `${http}${servidor}/${appname}/api/usuarios_api.php?api=9&password=${password}`
-          break;
-      }
+          default:
+            url_fetch = `${http}${servidor}/${appname}/api/usuarios_api.php?api=9&password=${password}`
+            break;
+        }
 
 
-      return fetch(url_fetch)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(response.statusText)
+        return fetch(url_fetch)
+            .then(response => {
+              if (!response.ok) {
+                throw new Error(response.statusText)
+              }
+              return response.json()
+            })
+            .catch(error => {
+              Swal.showValidationMessage(
+                  `Request failed: ${error}`
+              )
+            });
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+      if (result.isConfirmed) {
+          if (result.value.status == 1) {
+            callback();
+          } else {
+            alertSelectTable('¡Está incorrecto!', 'error')
           }
-          return response.json()
-        })
-        .catch(error => {
-          Swal.showValidationMessage(
-            `Request failed: ${error}`
-          )
-        });
-    },
-    allowOutsideClick: () => !Swal.isLoading()
-  }).then((result) => {
-    if (result.isConfirmed) {
-      if (result.value.status == 1) {
-        callback();
-      } else {
-        alertSelectTable('¡Está incorrecto!', 'error')
       }
-    }
-
-
-  })
+    })
 }
 
 function formpassword() {
   //No submit form with enter
-
 }
 
 // Levenshtein
@@ -1881,8 +1904,6 @@ function detectCoincidence(input, api, config = {}) {
     });
   });
 }
-
-
 
 function mensajeAjax(data, modulo = null) {
   if (modulo != null) {
