@@ -109,6 +109,9 @@ $medios_entrega = $_POST['medios_entrega'];
 $comoNosConociste = $_POST['como_nos_conociste'];
 $franquiciaID = $_SESSION['franquiciario'] ? $_SESSION['id_cliente'] : null;
 
+$folio = $_POST['folio'];
+$servicios_detalle = $_POST['servicios_detalle'];
+
 # Mensajes de error para corte de cajas
 $mensajesErrorCaja = [
     "NO ESTÁS ASIGNADO A NINGUNA CAJA, NO PUEDES CONTINUAR CON EL PROCESO",
@@ -150,8 +153,9 @@ switch ($api) {
         # Cambia el estado del paciente
         $response = $master->getByNext('sp_recepcion_cambiar_estado_paciente', [
             $idTurno, $estado_paciente, $comentarioRechazo, $alergias, $e_diagnostico, null, $medico_tratante_id,
-            $_SESSION['id'], $vendedor_id, $comoNosConociste
+            $_SESSION['id'], $vendedor_id, $comoNosConociste, $folio == 0 || $folio == null ? null : $folio
         ]);
+
         $aleta = $response[0][0][0];
 
         # Validacion de si esta en caja o hay un corte de ayer que no se haya cerrado

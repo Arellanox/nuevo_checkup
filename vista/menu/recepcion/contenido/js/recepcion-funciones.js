@@ -41,7 +41,8 @@ async function precargarEstudiosCotizacion(numCotizacion) {
                 }
 
                 servicios?.forEach(estudio => {
-                    estudio.PRECIO_VENTA = estudio.SUBTOTAL_BASE; // Campo PRECIO_VENTA requerido para el cálculo
+                    console.log(estudio)
+                    estudio.PRECIO_VENTA = estudio.SUBTOTAL; // Campo PRECIO_VENTA requerido para el cálculo
 
                     if (estudio.AREA_ID.toString() == "12") { // Biomolecular
                         estudiosLabBio.push(estudio); // Agrega el estudio a la variable global
@@ -75,9 +76,6 @@ async function precargarEstudiosCotizacion(numCotizacion) {
                     }
                 });
 
-                console.log(servicios);
-                console.log(response);
-
                 alertToast('Estudios precargados correctamente.', 'success', 4000);
             });
     }
@@ -91,7 +89,7 @@ function cargarEstudiosDiv(id, estudios, text, div, validar = false) {
 }
 
 async function obtenerCotizacionIdByFolio(folio) {
-    let idCotizacion = 0;
+    let idCotizacion = null;
 
     await ajaxAwait({api: 8, id_cotizacion: folio}, 'cotizaciones_api', {callbackAfter: true}, false, (content) => {
         if (!content.response.data || !Array.isArray(content.response.data) || content.response.data.length === 0) {

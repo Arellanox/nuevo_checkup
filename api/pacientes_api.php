@@ -81,9 +81,9 @@ $parametros = [
     $dosis,            // 23 _dosis
     $genero,           // 24 _genero
     $correo2,          // 25 _correo2
-    $medios_entrega,      // 26 _medios (JSON string)
+    $medios_entrega,   // 26 _medios (JSON string)
     $tipo_conversion,  // 27 _tipo_conversion
-    $talla,             // 28 _talla
+    $talla,            // 28 _talla
     $idFranquicia
 ];
 

@@ -181,7 +181,13 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
         medico_correo: $('#medico-correo-aceptar').val(),
         vendedor: $('#select-vendedor').val(),
         nuevo_medico: 0,
-        medico_tratante_id: 0
+        medico_tratante_id: 0,
+        folio: $('#input-cotizacion').val()
+    }
+
+    // Envío de detalles de servicios cargados por medio de un folio de cotizacion
+    if ($("#input-cotizacion").val()) {
+        dataJson['servicios_detalles'] = [estudiosLab, estudiosLabBio, estudiosUltra, estudiosRX, estudiosOtros];
     }
 
     if ($("#comoNosConociste").length > 0) {
@@ -236,21 +242,23 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
     event.preventDefault();
 })
 
+
+
 $('#btn-AgregarEstudioLab').on('click', function () {
     let text = $("#select-lab option:selected").text();
     let id = $("#select-lab").val();
     validarEstudiosLab = 1;
     actualizarTotal(id, estudiosLab, true)
     agregarFilaDiv('#list-estudios-laboratorio', text, id)
-})
 
+    console.log("[MANUAL]");
+    console.log(estudiosLab);
+    console.log(id)
+})
 // Create an observer instance.
 var Obserlab = new MutationObserver(function (mutations) {
     if ($('#list-estudios-laboratorio').children().length == 0 || array_selected['CLIENTE_ID'] != 1) {
         validarEstudiosLab = 0;
-        // $('#file-laboratorio').prop('required', false);
-    } else {
-        // $('#file-laboratorio').prop('required', true);
     }
 });
 // Pass in the target node, as well as the observer options.
@@ -260,14 +268,12 @@ Obserlab.observe(document.querySelector('#list-estudios-laboratorio'), {
     characterData: true
 });
 
-
 $('#btn-agregarEstudioRX').on('click', function () {
     let text = $("#select-rx option:selected").text();
     let id = $("#select-rx").val();
     actualizarTotal(id, estudiosRX, true)
     agregarFilaDiv('#list-estudios-rx', text, id)
 })
-// Create an observer instance.
 var ObserRX = new MutationObserver(function (mutations) {
     if ($('#list-estudios-rx').children().length == 0 || array_selected['CLIENTE_ID'] != 1) {
         validarEstudiosRX = 0;
@@ -276,13 +282,11 @@ var ObserRX = new MutationObserver(function (mutations) {
         // $('#file-r-x').prop('required', true);
     }
 });
-// Pass in the target node, as well as the observer options.
 ObserRX.observe(document.querySelector('#list-estudios-rx'), {
     attributes: true,
     childList: true,
     characterData: true
 });
-
 
 $('#btn-agregarEstudioImg').on('click', function () {
     let text = $("#select-us option:selected").text();
@@ -290,22 +294,16 @@ $('#btn-agregarEstudioImg').on('click', function () {
     actualizarTotal(id, estudiosUltra, true)
     agregarFilaDiv('#list-estudios-ultrasonido', text, id)
 })
-// Create an observer instance.
 var ObserULTRSONIDO = new MutationObserver(function (mutations) {
     if ($('#list-estudios-ultrasonido').children().length == 0 || array_selected['CLIENTE_ID'] != 1) {
         validarEstudiosImg = 0;
-        // $('#file-ultra-sonido').prop('required', false);
-    } else {
-        // $('#file-ultra-sonido').prop('required', true);
     }
 });
-// Pass in the target node, as well as the observer options.
 ObserULTRSONIDO.observe(document.querySelector('#list-estudios-ultrasonido'), {
     attributes: true,
     childList: true,
     characterData: true
 });
-
 
 $('#btn-agregarEstudioOtros').on('click', function () {
     let text = $("#select-otros option:selected").text();
@@ -313,19 +311,16 @@ $('#btn-agregarEstudioOtros').on('click', function () {
     actualizarTotal(id, estudiosOtros, true)
     agregarFilaDiv('#list-estudios-otros', text, id)
 })
-// Create an observer instance.
 var ObserOtros = new MutationObserver(function (mutations) {
     if ($('#list-estudios-otros').children().length == 0 || array_selected['CLIENTE_ID'] != 1) {
         validarEstudiosOtros = 0;
     }
 });
-// Pass in the target node, as well as the observer options.
 ObserOtros.observe(document.querySelector('#list-estudios-otros'), {
     attributes: true,
     childList: true,
     characterData: true
 });
-
 
 $('#btn-AgregarEstudioLabBio').on('click', function () {
     let text = $("#select-labbio option:selected").text();
@@ -333,18 +328,17 @@ $('#btn-AgregarEstudioLabBio').on('click', function () {
     actualizarTotal(id, estudiosLabBio, true)
     agregarFilaDiv('#list-estudios-laboratorio-biomolecular', text, id)
 })
-// Create an observer instance.
 var ObserOtros = new MutationObserver(function (mutations) {
     if ($('#list-estudios-laboratorio-biomolecular').children().length == 0 || array_selected['CLIENTE_ID'] != 1) {
         validarEstudiosOtros = 0;
     }
 });
-// Pass in the target node, as well as the observer options.
 ObserOtros.observe(document.querySelector('#list-estudios-laboratorio-biomolecular'), {
     attributes: true,
     childList: true,
     characterData: true
 });
+
 
 
 function agregarFilaDiv(appendDiv, text, id) {
@@ -371,14 +365,11 @@ $(document).on('click', '.eliminarfilaEstudio', function () {
 
 });
 
-
 function eliminarElementoArray(id) {
     estudiosEnviar = jQuery.grep(estudiosEnviar, function (value) {
         return value != id;
     });
-    // console.log(estudiosEnviar);
 }
-
 
 function limpiarFormAceptar() {
     $('#list-estudios-laboratorio').html('')
@@ -397,11 +388,9 @@ function limpiarFormAceptar() {
     $('#Observaciones-aceptar').val('')
     estudiosEnviar = [];
 
-
     //Precio final
     totalAcumulado = 0;
     $('#aceptar-totalCargado').html('$0.00')
-
 
     // New set page
     const page = 'SecondPage-aceptar';
@@ -453,18 +442,13 @@ let totalAcumulado = 0;
 
 function actualizarTotal(id, servicios, sumar = true) {
     const servicio = servicios.find(servicio => servicio.ID_SERVICIO == id);
+    if (servicio) totalAcumulado += sumar ? parseFloat(servicio.PRECIO_VENTA) : -parseFloat(servicio.PRECIO_VENTA);
 
-    if (servicio) {
-        totalAcumulado += sumar ? parseFloat(servicio.PRECIO_VENTA) : -parseFloat(servicio.PRECIO_VENTA);
-    }
-    // Actualizar el elemento HTML con el total acumulado
-    $('#aceptar-totalCargado').html(`$${totalAcumulado.toFixed(2)}`);
-    console.log(totalAcumulado);
+    $('#aceptar-totalCargado')
+        .html(`$${totalAcumulado.toFixed(2)}`); // Actualizar el elemento HTML con el total acumulado
 }
 
-
 $('#checkPaqueteAceptar, #select-paquetes').on('change', function () {
-
     const id = $('#select-paquetes').val();
     const paquete = PaquetesDatos.find(paquete => paquete.ID_PAQUETE == id);
     const total = parseFloat(paquete.PRECIO_VENTA);
