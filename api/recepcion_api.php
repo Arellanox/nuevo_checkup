@@ -4,34 +4,37 @@ require_once "../clases/token_auth.php";
 include_once "../clases/correo_class.php";
 include_once "../clases/Pdf.php";
 
+// Decodifica el cuerpo JSON si existe
 $datos = json_decode(file_get_contents('php://input'), true);
 
+// Verifica el token de sesión
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 
 $api = $_POST['api'];
 $master = new Master();
-$mail = new Correo;
+$mail = new Correo();
 
+// Selecciona el host según el dominio actual
 $host = $master->selectHost($_SERVER['SERVER_NAME']);
 $hoy = date("Ymd");
 
+// Parámetros generales
 $estado_paciente = $_POST['estado'];
 $mesesAtras = $_POST['mesesAtras'];
 $prefolio = $_POST['prefolio'];
 
-
+// Datos del turno
 $idTurno = $_POST['id_turno'];
-$idPaquete = $_POST['id_paquete']; #
+$idPaquete = $_POST['id_paquete'];
 $comentarioRechazo = $_POST['comentario_rechazo'];
-$identificacion = $_POST['identificacion']; #url
+$identificacion = $_POST['identificacion']; // URL
 $area_id = $_POST['area_id'];
-
 $alergias = $_POST['alergias'];
 $segmento_id = $_POST['segmento_id'];
 
-# trabajadores de la ujat
-$is_worker = $_POST['nuevo-trabajador']; # bit para saber si es ujat y se debe agregar la info del trabajador
+// Información del trabajador (UJAT)
+$is_worker = $_POST['nuevo-trabajador']; // booleano
 $e_id_trabajador = $_POST['trabajador_id'];
 $e_nombre = $_POST['nombre'];
 $e_paterno = $_POST['paterno'];
@@ -54,94 +57,86 @@ $e_cedula = $_POST['cedula-medico'];
 $e_pase = $_POST['pase'];
 $parametro = $_POST['parametro'];
 
-// nuevos datos
+// Nuevos datos del paciente
 $foto_paciente = $_POST['avatar'];
 $medico_tratante = $_POST['medico_tratante'];
 $medico_correo = $_POST['medico_correo'];
-$new_medico = $_POST['nuevo_medico']; # Tipo booleano
-$medico_tratante_id = ($master->setToNull([$_POST['medico_tratante_id']]))[0]; # Usuario
+$new_medico = $_POST['nuevo_medico']; // booleano
+$medico_tratante_id = $master->setToNull([$_POST['medico_tratante_id']])[0]; // Usuario
 $medico_telefono = $_POST['medico_telefono'];
 $medico_especialidad = $_POST['medico_especialidadz'];
 $vendedor_id = $master->setToNull([$_POST['vendedor']])[0];
 
-# reagendar
+// Reagenda
 $fecha_reagenda = $_POST['fecha_reagenda'];
 
-#servicio para pacientes particulares o servicios extras para pacientes de empresas
-if (!is_null($master->setToNull([$_POST['servicios']])[0])) {
-    $servicios = explode(",", $_POST['servicios']); //array
-} else {
-    $servicios = null;
-}
+// Servicios para particulares o extras para empresas
+$servicios = $master->setToNull([$_POST['servicios']])[0];
+$servicios = !is_null($servicios) ? explode(",", $_POST['servicios']) : null;
 
-#ordenes medicas
-$orden_laboratorio = $_FILES['orden-medica-laboratorio'];
-$orden_rayos_x = $_FILES['orden-medica-rx'];
-$orden_ultrasonido = $_FILES['orden-medica-us'];
-
-# Pases de los pacientes de la ujat
-$pase_ujat = $_FILES['pase-ujat'];
-
-$ordenes = array(
-    'ORDEN_LABORATORIO' => $orden_laboratorio,
-    'ORDEN_RAYOS_X' => $orden_rayos_x,
-    'ORDEN_ULTRASONIDO' => $orden_ultrasonido
-);
-
+// Órdenes médicas
+$ordenes = [
+    'ORDEN_LABORATORIO' => $_FILES['orden-medica-laboratorio'],
+    'ORDEN_RAYOS_X'     => $_FILES['orden-medica-rx'],
+    'ORDEN_ULTRASONIDO' => $_FILES['orden-medica-us']
+];
 $ordenes = $master->checkArray($ordenes, 1);
 
-# para envio de correo de empresaas
+// Pase UJAT
+$pase_ujat = $_FILES['pase-ujat'];
+
+// Datos para envío de correo empresarial
 $cliente_id = $_POST['cliente_id'];
 $fecha_ingreso = $_POST['fecha_ingreso'];
 
-# para el levenshtein
+// Para Levenshtein
 $estudio = $_POST['estudio'];
 
-# comprobar correos correctamente
+// Validación de correos
 $id_paciente = $_POST['id_paciente'];
 $curp = $_POST['curp'];
 $pasaporte = $_POST['pasaporte'];
 
-# medios de entrega de resultados
+// Medios de entrega
 $id_medio = $_POST['id_medio'];
 $medios_entrega = $_POST['medios_entrega'];
 
+// Fuente de referencia
 $comoNosConociste = $_POST['como_nos_conociste'];
+
+// Determina si es franquicia
 $franquiciaID = $_SESSION['franquiciario'] ? $_SESSION['id_cliente'] : null;
 
+// Información del folio
 $folio = $_POST['folio'];
 $servicios_detalle = $_POST['servicios_detalle'];
 
-# Mensajes de error para corte de cajas
+// Mensajes de error relacionados con corte de caja
 $mensajesErrorCaja = [
     "NO ESTÁS ASIGNADO A NINGUNA CAJA, NO PUEDES CONTINUAR CON EL PROCESO",
     "UPS...NO ES POSIBLE ACEPTAR ESTE PACIENTE, YA QUE HAY UN CORTE DE CAJA EN PROCESO DEL DÍA ANTERIOR"
 ];
 
 switch ($api) {
-    case 0:
-        $response = [];
-        break;
     case 1:
-        # recuperar pacientes por estado
-        # 1 para pacientes aceptados
-        # 0 para pacientes rechazados
-        # null o no enviar nada, para pacientes en espera
-
+        // Recupera pacientes por estado (1 - aceptados, 0 - rechazados o en null -espera)
         $response = $master->getByProcedure('sp_buscar_paciente_por_estado', [
-            $estado_paciente, $mesesAtras, $prefolio, $franquiciaID
+            $estado_paciente,
+            $mesesAtras,
+            $prefolio,
+            $franquiciaID
         ]);
         break;
     case 2:
-        # Aceptar o rechazar pacientes [tambien regresar a la vida]
-        # Enviar 1 para aceptarlos, 0 para rechazarlos, null para pacientes en espera
-        # Esto es para prevenir duplicar el corte de cajas.
-        if (!isset($_SESSION['id'])){
+        // Aceptar o rechazar pacientes (también se puede "revivir" pacientes rechazados)
+        // Estado: 1 = Aceptado, 0 = Rechazado, null = En espera
+
+        if (!isset($_SESSION['id'])) {
             $response = "Por favor, reinicie sesión";
             break;
         }
 
-        # Agrega nuevo medico si es requerido
+        // Si se está agregando un nuevo médico tratante
         if ($new_medico) {
             $response = $master->insertByProcedure('sp_medicos_tratantes_g', [
                 null, $medico_tratante, $medico_correo, null, $medico_telefono, $medico_especialidad
@@ -150,55 +145,57 @@ switch ($api) {
             $medico_tratante_id = $response;
         }
 
-        # Cambia el estado del paciente
+        // Cambiar el estado del paciente (aceptado/rechazado)
         $response = $master->getByNext('sp_recepcion_cambiar_estado_paciente', [
-            $idTurno, $estado_paciente, $comentarioRechazo, $alergias, $e_diagnostico, null, $medico_tratante_id,
-            $_SESSION['id'], $vendedor_id, $comoNosConociste, $folio == 0 || $folio == null ? null : $folio
+            $idTurno, $estado_paciente, $comentarioRechazo, $alergias, $e_diagnostico, null,
+            $medico_tratante_id, $_SESSION['id'], $vendedor_id, $comoNosConociste,
+            $folio == 0 || $folio == null ? null : $folio
         ]);
 
-        $aleta = $response[0][0][0];
+        $alerta = $response[0][0][0];
 
-        # Validacion de si esta en caja o hay un corte de ayer que no se haya cerrado
-        if (in_array($aleta, $mensajesErrorCaja)) {
-            $response = $aleta;
+        // Si hay un mensaje de error relacionado con caja, terminamos aquí
+        if (in_array($alerta, $mensajesErrorCaja)) {
+            $response = $alerta;
             break;
         }
 
         $etiqueta_turno = $response[1];
 
-        if($estado_paciente == 1) {
-            if($_SESSION['franquiciario']) {
-                $paciente = $master->getByProcedure("sp_pacientes_b", [
-                    null, null, null, $idTurno, $franquiciaID
-                ]);
+        // Procesamiento si el paciente fue ACEPTADO
+        if ($estado_paciente == 1) {
+            if ($_SESSION['franquiciario']) {
+                // Consultar al paciente
+                $paciente = $master->getByProcedure("sp_pacientes_b", [null, null, null, $idTurno, $franquiciaID]);
 
                 if (!empty($paciente)) {
                     $response1 = $master->getByProcedure("sp_franquicia_maquilas_altas_pacientes", [
                         $paciente[0]['ID_PACIENTE'], $paciente[0]['NOMBRE'], $paciente[0]['PATERNO'],
-                        $paciente[0]['MATERNO'], $paciente[0]['CURP'],$paciente[0]['FECHA_NACIMIENTO'],
-                        $paciente[0]['EDAD'], $paciente[0]['GENERO'], "FRANQUICIA", NULL, 1, [], "",
+                        $paciente[0]['MATERNO'], $paciente[0]['CURP'], $paciente[0]['FECHA_NACIMIENTO'],
+                        $paciente[0]['EDAD'], $paciente[0]['GENERO'], "FRANQUICIA", null, 1, [], "",
                         $_SESSION['id'], "", $idTurno
                     ]);
                 }
             }
 
-            # Insertar el detalle del paquete al turno en cuestion
-            # Si el paciente es aceptado, cargar los estudios correspondientes
+            // Guardar la identificación
             rename($identificacion, "../../archivos/identificaciones/" . $idTurno . ".png");
-            $response = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', [
-                $idTurno, $idPaquete, null, $_SESSION['id']
-            ]);
 
-            # Aqui subir las ordenes medicas si las hay y crear la carpeta de tunos dentro de
+            // Insertar detalle del paquete
+            if (isset($idPaquete)) {
+                $response = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', [
+                    $idTurno, $idPaquete, null, $_SESSION['id']
+                ]);
+            }
+
+            // Subida de órdenes médicas
             if (count($ordenes) > 0) {
                 $dir = $master->urlComodin . $master->urlOrdenesMedicas . "$idTurno/";
-                $r = $master->createDir($dir);
+                $dirCreado = $master->createDir($dir);
 
-                if ($r == 1) {
-                    #movemos las ordenes medicas
+                if ($dirCreado == 1) {
                     $merge = getOrdenesMedicas($master, $dir, $idTurno);
 
-                    #insertarmos las ordenes medicas en la base de datos
                     foreach ($merge as $item) {
                         if (!empty($item['tipo'])) {
                             $responseOrden = $master->insertByProcedure('sp_ordenes_medicas_g', [
@@ -208,34 +205,46 @@ switch ($api) {
                     }
                 }
             }
-        } else {
-            if($_SESSION['franquiciario']) {
-                $paciente = $master->getByProcedure("sp_pacientes_b", [
-                    null, null, null, $idTurno, $franquiciaID
-                ]);
 
-                if(!empty($paciente)) {
+        } else {
+            // Procesamiento si el paciente fue RECHAZADO
+            if ($_SESSION['franquiciario']) {
+                $paciente = $master->getByProcedure("sp_pacientes_b", [null, null, null, $idTurno, $franquiciaID]);
+
+                if (!empty($paciente)) {
                     $response_desactivar = $master->updateByProcedure('sp_franquicia_maquilas_desactivar', [
-                        null, $paciente->ID_PACIENTE, $_SESSION['id']
+                        null, $paciente[0]['ID_PACIENTE'], $_SESSION['id']
                     ]);
                 }
             }
 
-            # si el paciente es rechazado, se desactivan los resultados de su turno.
+            // Desactivar servicios del turno
             $response = $master->updateByProcedure('sp_recepcion_desactivar_servicios', [$idTurno]);
         }
 
-        # Insertar servicios extrar para pacientes empresas o servicios para particulares
+        // Insertar servicios adicionales (si aplica)
         if (is_array($servicios) && count($servicios) > 0) {
-            $detalles = [];
-
-            foreach ($servicios as $key => $value) {
-                $detalles= $master->insertByProcedure('sp_recepcion_detalle_paciente_g', [
+            foreach ($servicios as $value) {
+                $detalles = $master->insertByProcedure('sp_recepcion_detalle_paciente_g', [
                     $idTurno, null, $value, $_SESSION['id']
                 ]);
             }
         }
 
+        if ($folio != 0 and $folio != null and ($servicios_detalle) && count($servicios_detalle) > 0) {
+            foreach ($servicios_detalle as $value) {
+                /*
+                 * NOTA: USARE ESTE PROCEDIMIENTO PARA ACTUALIZAR LOS SERVICIOS DEL TURNO
+                 * PARA ESO SE UTILIZA EL PROCEDIMIENTO sp_actualizar_servicios_turno Y LOS SERVICOS QUE VIENEN
+                 * SON LOS DETALLES COMPLETOS DEL SERVICIO DE COTIZACIÓN CARGADO PREVIAMENTE, SP EN PRCESO DE GENERACIÓN
+                 * */
+                $master->updateByProcedure('sp_actualizar_servicios_turno', [
+                    $idTurno, $value['cantidad'], $value['descuento'], $value['subtotal'], $value['precio_venta']
+                ]);
+            }
+        }
+
+        // Devolver respuesta final
         $response = [0 => $response, 1 => $etiqueta_turno[0]];
         break;
     case 3:
@@ -243,151 +252,116 @@ switch ($api) {
         $response = $master->updateByProcedure('s', array($idTurno, $fecha_reagenda));
         break;
     case 4:
-        # reenviar reportes e imagenes por correo de todas las areas.
-
-        # recuperamos reportes e imagenes como arreglo unico.
-        # decodificamos las imagenes para poderlas tratar como un array.
+        // Reenviar reportes e imágenes por correo
         $reportes = $master->cleanAttachFilesImage($master, $idTurno, null, 1, 1);
 
-        # si existe algo, enviamos el correo.
         if (!empty($reportes[0])) {
             $mail = new Correo();
             $r = $mail->sendEmail("resultados", "[bimo] Resultados", [$reportes[1]], null, $reportes[0], 1);
-            if ($r) {
-                $response = 1;
-            }
+            $response = $r ? 1 : "Error al enviar correo.";
         } else {
             $response = "Paciente sin resultados o imágenes.";
         }
-
         break;
     case 5:
-        # Enzipar por paciente reportes e imagenes por cliente y enviarlo por correo eletronico
-        $zip = new ZipArchive;
+        $zip = new ZipArchive();
         $mail = new Correo();
-        #recuperamos el los reportes y las imagenes de los pacientes del cliente seleccionado.
+
+        // Recuperar los archivos de todos los pacientes del cliente seleccionado
         $reportes = $master->cleanAttachFilesImage($master, null, null, $cliente_id, 0, $fecha_ingreso);
 
-        if (!empty($reportes[0])) {
-            #si hay algo, continuamos con el proceso.
-
-            #creamos la carpeta temporal
-            if (!is_dir("../tmp")) {
-                if (!mkdir("../tmp")) {
-                    $master->setLog("No se pudo crear la carpeta temporal", "recepcion api [case 5]");
-                    $response = "No se pudo crear la carpeta temporal.";
-                    break;
-                }
-            }
-
-            # creamos el zip por cada paciente.
-            for ($i = 0; $i < count($reportes[3]); $i++) {
-                $nombre_zip = $explode = explode(".", $reportes[3][$i]);
-
-                #creamos el archivo zip dentro de la carpeta temporal
-                $fh = fopen("../tmp/" . $nombre_zip[0] . ".zip", 'a');
-                // fwrite($fh, '<h1>Hello world!</h1>');
-                fclose($fh);
-
-                # Filtramos todos los archivos del paciente
-                $str = "/" . $reportes[2][$i] . "/";
-                $archivos_paciente = [];
-                foreach ($reportes[0] as $ruta_archivo) {
-
-                    $pos = strpos($ruta_archivo, $str);
-
-                    try {
-                        if ($pos !== false) {
-                            array_push($archivos_paciente, $ruta_archivo);
-                        }
-                    } catch (Exception $e) {
-                        print_r($e);
-                    }
-                }
-
-                // print_r($archivos_paciente);
-                # enzipamos los archivos correspondientes al zip actual.
-                foreach ($archivos_paciente as $a) {
-                    $ruta = explode("nuevo_checkup", $a);
-                    $ruta = ".." . $ruta[1];
-
-                    if ($zip->open("../tmp/" . $nombre_zip[0] . ".zip") === TRUE) {
-                        $zip->addFile($ruta, basename($ruta));
-                        $zip->close();
-                    } else {
-                        echo 'failed';
-                    }
-                    // if ($zip->open("../tmp/" . $nombre_zip[0] . ".zip") === TRUE) {
-                    //     $zip->addFile("../checkup.sql", basename($ruta));
-                    //     $zip->close();
-                    // } else {
-                    //     echo 'failed';
-                    // }
-                }
-            }
-
-            $archivos_enviar = [];
-
-
-            if ($gestor = opendir('../tmp/')) {
-                echo "Gestor de directorio: $gestor\n";
-                echo "Entradas:\n";
-
-                /* Esta es la forma correcta de iterar sobre el directorio. */
-                $count = 0;
-                while (false !== ($entrada = readdir($gestor))) {
-                    if ($count > 1) {
-                        array_push($archivos_enviar, "nuevo_checkup/tmp/" . $entrada);
-                    }
-                    $count++;
-                }
-
-                closedir($gestor);
-            }
-            print_r($archivos_enviar);
-
-            $r = $mail->sendEmail("resultados", "Envio de resultados [bimo]", ["arellanox0392@gmail.com"], null, $archivos_enviar, 1);
-        } else {
-            $response = "No hay archivos disponible para el cliente seleccionado.";
+        if (empty($reportes[0])) {
+            $response = "No hay archivos disponibles para el cliente seleccionado.";
+            break;
         }
+
+        // Crear carpeta temporal si no existe
+        $tmpDir = "../tmp";
+        if (!is_dir($tmpDir) && !mkdir($tmpDir)) {
+            $master->setLog("No se pudo crear la carpeta temporal", "recepcion api [case 5]");
+            $response = "No se pudo crear la carpeta temporal.";
+            break;
+        }
+
+        // Crear un ZIP por cada paciente
+        foreach ($reportes[3] as $i => $nombreArchivo) {
+            $nombre_zip = explode(".", $nombreArchivo)[0];
+            $zipPath = "$tmpDir/$nombre_zip.zip";
+
+            // Archivos del paciente
+            $identificadorCarpeta = "/" . $reportes[2][$i] . "/";
+            $archivosPaciente = array_filter($reportes[0], function ($ruta) use ($identificadorCarpeta) {
+                return strpos($ruta, $identificadorCarpeta) !== false;
+            });
+
+            // Crear ZIP
+            if ($zip->open($zipPath, ZipArchive::CREATE) === TRUE) {
+                foreach ($archivosPaciente as $archivo) {
+                    $rutaRelativa = ".." . explode("nuevo_checkup", $archivo)[1];
+                    if (file_exists($rutaRelativa)) {
+                        $zip->addFile($rutaRelativa, basename($rutaRelativa));
+                    }
+                }
+                $zip->close();
+            } else {
+                $master->setLog("No se pudo crear el archivo ZIP: $zipPath", "recepcion api [case 5]");
+            }
+        }
+
+        // Obtener lista de ZIPs creados
+        $archivos_enviar = [];
+        if ($gestor = opendir($tmpDir)) {
+            while (false !== ($entrada = readdir($gestor))) {
+                if ($entrada !== "." && $entrada !== "..") {
+                    $archivos_enviar[] = "nuevo_checkup/tmp/" . $entrada;
+                }
+            }
+            closedir($gestor);
+        }
+
+        // Enviar por correo
+        $r = $mail->sendEmail(
+            "resultados",
+            "Envio de resultados [bimo]",
+            ["arellanox0392@gmail.com"],
+            null,
+            $archivos_enviar,
+            1
+        );
 
         break;
     case 6:
-        # detalle del estudios cargados al paciente.
+        // Recupera el detalle de estudios cargados al paciente por área
         $response = $master->getByProcedure("sp_paciente_servicios_cargados", [$idTurno, $area_id]);
-
         break;
     case 7:
-        #Datos de beneficiario
-        #========================================================================================
-        ##############AGREGAR TRABAJAOR DE LA UJAT###############################################
-        # insertar la ruta del pase para los pacientes de la ujat
-        $dir = $master->urlComodin . $master->urlPases;
-        $dir2 = $master->urlComodin . "archivos/verificaciones_ujat/";
-        $r = $master->createDir($dir);
-        $r2 = $master->createDir($dir2);
+        // Carga de beneficiario (trabajador UJAT) y documentos (pase y verificación)
+        // Directorios
+        $dirPases = $master->urlComodin . $master->urlPases;
+        $dirVerificaciones = $master->urlComodin . "archivos/verificaciones_ujat/";
+        $master->createDir($dirPases);
+        $master->createDir($dirVerificaciones);
 
-        $pase = $master->guardarFiles($_FILES, "pase-ujat", $dir, "PASE_$e_turno_id" . "_" . $master->getByPatientNameByTurno($master, $e_turno_id) . "_$hoy");
+        // Guardar pase
+        $nombrePaciente = $master->getByPatientNameByTurno($master, $e_turno_id);
+        $nombreBase = "{$e_turno_id}_{$nombrePaciente}_{$hoy}";
 
-        $verificacion = $master->guardarFiles($_FILES, "verificacion-ujat", $dir2, "VERIFICACION_$e_turno_id" . "_" . $master->getByPatientNameByTurno($master, $e_turno_id) . "_$hoy");
+        $pase = $master->guardarFiles($_FILES, "pase-ujat", $dirPases, "PASE_" . $nombreBase);
+        $verificacion = $master->guardarFiles($_FILES, "verificacion-ujat", $dirVerificaciones, "VERIFICACION_" . $nombreBase);
 
+        $url_pase = !empty($pase[0]['tipo']) ? str_replace("../", $host, $pase[0]['url']) : null;
+        $url_verificacion = !empty($verificacion[0]['url']) ? str_replace("../", $host, $verificacion[0]['url']) : null;
 
-        if (!empty($master->checkArray($verificacion))) {
-            $url_verificacion = str_replace("../", $host, $verificacion[0]['url']);
+        // Si existe pase, actualiza
+        if ($url_pase) {
+            $master->updateByProcedure("sp_actualizar_pase_empresas", [$e_turno_id, $url_pase]);
         }
 
-        $url_verificacion = str_replace("../", $host, $verificacion[0]['url']);
+        // Nuevo trabajador si el flag está activo
+        $e_id_trabajador = ($_POST['nuevo-trabajador'] === "on") ? null : $e_id_trabajador;
+        $e_genero = ($e_genero === "MASCULINO") ? 1 : 2;
 
-        if (!empty($pase[0]['tipo'])) {
-            $url_pase = str_replace("../", $host, $pase[0]['url']);
-            $r = $master->updateByProcedure("sp_actualizar_pase_empresas", [$e_turno_id, $url_pase]);
-        }
-
-
-        // if(isset($is_worker) && $is_worker== "on"){
-        //$e_id_trabajador = is_numeric($e_id_trabajador) ? $e_id_trabajador : null;
-        $e_id_trabajador = $_POST['nuevo-trabajador'] == "on" ? null : $e_id_trabajador;
-        $e_genero = ($e_genero == "MASCULINO") ? 1 : 2;
+        // Insertar trabajador
         $response = $master->insertByProcedure("sp_trabajadores_empresas_g", [
             $e_id_trabajador,
             $e_nombre,
@@ -411,37 +385,26 @@ switch ($api) {
             $e_pase,
             $url_verificacion
         ]);
-        // } else {
-        //     $response = "nuevo-trabajador: off";
-        // }
-        #========================================================================================
         break;
     case 8:
-        #lista de trabajadores
-        #Front necesita:
-        #'ID_PACIENTE', 'CURP.PASAPORTE.NOMBRE_COMPLETO.NACIMIENTO.NUMBER_TRABAJADOR'
-        #Del trabajador para enviarte la ID
-
-        # recuperar la lista de lost trabajadores
-        # Enviar el id del trabajdor para recuperar un solo registro.
-        # Enviar cualquier palabra en $parametro para recuperar un set de datos
-        # que coincidan con el nombre completo, categoria, num trabajador, etc.
-        # Enviar solo la id del turno para recuperar la informacion del trabajador que
-        # depende el beneficiario.
-        $response = $master->getByProcedure("sp_trabajdores_empresas_b", [$e_id_trabajador, $parametro, $e_turno_id]);
+        // Consultar trabajadores según ID, parámetro o turno
+        $response = $master->getByProcedure("sp_trabajdores_empresas_b", [
+            $e_id_trabajador,
+            $parametro,
+            $e_turno_id
+        ]);
         break;
     case 9:
-        # actualizar la informacion de los trabajadores de la ujat.
-        # siempre y cuando el usuario tenga el permiso.
-        # Para actualizar, se necesita enviar la id del trabajdor de la ujat.
-        $dir2 = $master->urlComodin . "archivos/verificaciones_ujat/";
-        $r2 = $master->createDir($dir2);
+        // Actualización de información del trabajador UJAT
 
-        $verificacion = $master->guardarFiles($_FILES, "verificacion-ujat", $dir2, "VERIFICACION_$e_turno_id" . "_" . $master->getByPatientNameByTurno($master, $e_turno_id) . "_$hoy");
+        $dirVerificaciones = $master->urlComodin . "archivos/verificaciones_ujat/";
+        $master->createDir($dirVerificaciones);
 
-        if (!empty($verificacion)) {
-            $url_verificacion = str_replace("../", $host, $verificacion[0]['url']);
-        }
+        $nombrePaciente = $master->getByPatientNameByTurno($master, $e_turno_id);
+        $nombreBase = "{$e_turno_id}_{$nombrePaciente}_{$hoy}";
+
+        $verificacion = $master->guardarFiles($_FILES, "verificacion-ujat", $dirVerificaciones, "VERIFICACION_" . $nombreBase);
+        $url_verificacion = !empty($verificacion[0]['url']) ? str_replace("../", $host, $verificacion[0]['url']) : null;
 
         $response = $master->updateByProcedure("sp_trabajadores_empresas_a", [
             $e_id_trabajador,
@@ -454,8 +417,8 @@ switch ($api) {
             $e_curp,
             $e_pasaporte,
             $e_genero,
-            $_SESSION['id'],
-            isset($e_turno_id) ? $url_verificacion : null
+            $_SESSION['id'], // Usuario actual
+            $e_turno_id ? $url_verificacion : null
         ]);
         break;
     case 10:

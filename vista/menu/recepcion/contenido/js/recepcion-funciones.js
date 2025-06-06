@@ -41,38 +41,16 @@ async function precargarEstudiosCotizacion(numCotizacion) {
                 }
 
                 servicios?.forEach(estudio => {
-                    console.log(estudio)
-                    estudio.PRECIO_VENTA = estudio.SUBTOTAL; // Campo PRECIO_VENTA requerido para el cálculo
-
                     if (estudio.AREA_ID.toString() == "12") { // Biomolecular
-                        estudiosLabBio.push(estudio); // Agrega el estudio a la variable global
-
-                        cargarEstudiosDiv(estudio.ID_SERVICIO, estudiosLabBio, estudio.PRODUCTO,
-                            "#list-estudios-laboratorio-biomolecular");
-                    }
-                    else if (estudio.AREA_ID.toString() == "6") { // Clinico
-                        estudiosLab.push(estudio);
-
-                        cargarEstudiosDiv(estudio.ID_SERVICIO, estudiosLab, estudio.PRODUCTO,
-                            "#list-estudios-laboratorio", true);
-                    }
-                    else if (estudio.AREA_ID.toString() == "8") { // Rayos X
-                        estudiosRX.push(estudio);
-
-                        cargarEstudiosDiv(estudio.ID_SERVICIO, estudiosRX, estudio.PRODUCTO,
-                            "#list-estudios-rx");
-                    }
-                    else if (estudio.AREA_ID.toString() == "11") { // Ultrasonido
-                        estudiosUltra.push(estudio);
-
-                        cargarEstudiosDiv(estudio.ID_SERVICIO, estudiosUltra, estudio.PRODUCTO,
-                            "#list-estudios-ultrasonido");
-                    }
-                    else { // Otros
-                        estudiosOtros.push(estudio);
-
-                        cargarEstudiosDiv(estudio.ID_SERVICIO, estudiosOtros, estudio.PRODUCTO,
-                            "#list-estudios-otros");
+                        actualizarPrecioYAgregar(estudio, estudiosLabBio, "#list-estudios-laboratorio-biomolecular");
+                    } else if (estudio.AREA_ID.toString() == "6") { // Clinico
+                        actualizarPrecioYAgregar(estudio, estudiosLab, "#list-estudios-laboratorio", true);
+                    } else if (estudio.AREA_ID.toString() == "8") { // Rayos X
+                        actualizarPrecioYAgregar(estudio, estudiosRX, "#list-estudios-rx");
+                    } else if (estudio.AREA_ID.toString() == "11") { // Ultrasonido
+                        actualizarPrecioYAgregar(estudio, estudiosUltra, "#list-estudios-ultrasonido");
+                    } else { // Otros
+                        actualizarPrecioYAgregar(estudio, estudiosOtros, "#list-estudios-otros");
                     }
                 });
 
@@ -80,6 +58,22 @@ async function precargarEstudiosCotizacion(numCotizacion) {
             });
     }
 }
+
+function actualizarPrecioYAgregar(estudio, lista, selector, extra = false) {
+    let label = estudio.PRODUCTO;
+
+    lista.forEach(item => {
+        if (item.ID_SERVICIO === estudio.ID_SERVICIO) {
+            item.PRECIO_VENTA = estudio.SUBTOTAL; // Campo PRECIO_VENTA requerido para el cálculo
+            label = item.ABREVIATURA + ' - ' + item.SERVICIO;
+        }
+    });
+
+    cargarEstudiosDiv(estudio.ID_SERVICIO, lista, label, selector, extra);
+
+    detallesEstudiosCotizacion.push(estudio);
+}
+
 
 function cargarEstudiosDiv(id, estudios, text, div, validar = false) {
     if (validar) validarEstudiosLab = 1;
@@ -104,11 +98,11 @@ async function obtenerCotizacionIdByFolio(folio) {
 }
 
 function limpiarEstudios() {
-    estudiosLabBio = [];
-    estudiosLab = [];
-    estudiosRX = [];
-    estudiosUltra = [];
-    estudiosOtros = [];
+    // estudiosLabBio = [];
+    // estudiosLab = [];
+    // estudiosRX = [];
+    // estudiosUltra = [];
+    // estudiosOtros = [];
 
     $("#list-estudios-laboratorio").empty();
     $("#list-estudios-rx").empty();

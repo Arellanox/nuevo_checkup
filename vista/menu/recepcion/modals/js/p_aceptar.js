@@ -4,7 +4,8 @@ let url_paciente = null,
     validarEstudiosRX = 0,
     validarEstudiosImg = 0,
     validarEstudiosOtros = 0;
-let estudiosEnviar = new Array();
+let estudiosEnviar = [];
+let detallesEstudiosCotizacion = [];
 let PaquetesDatos;
 
 select2("#select-paquetes", "modalPacienteAceptar", 'Seleccione un paquete');
@@ -81,7 +82,6 @@ modalPacienteAceptar.addEventListener('show.bs.modal', async event => {
         recepcion: 1
     }, function (data) {
         estudiosLab = data;
-
         if (data.length <= 0) {
             Toast.fire({
                 icon: 'warning',
@@ -121,6 +121,7 @@ modalPacienteAceptar.addEventListener('show.bs.modal', async event => {
         // Se usa en el hover  de  detalle
         estudiosOtros = data;
     });
+
     rellenarSelect('#select-vendedor', 'usuarios_api', 2, 'ID_USUARIO', 'nombrecompleto', {}, () => {
         $('#select-vendedor').val(0).trigger("change")
     })
@@ -187,8 +188,12 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
 
     // Envío de detalles de servicios cargados por medio de un folio de cotizacion
     if ($("#input-cotizacion").val()) {
-        dataJson['servicios_detalles'] = [estudiosLab, estudiosLabBio, estudiosUltra, estudiosRX, estudiosOtros];
+        dataJson['servicios_detalles'] = detallesEstudiosCotizacion;
+
+        console.log(dataJson['servicios_detalles']);
     }
+
+    return alertToast('Terminado', 'success', 4000);
 
     if ($("#comoNosConociste").length > 0) {
         dataJson['como_nos_conociste'] = $('#comoNosConociste').val()
@@ -452,9 +457,6 @@ $('#checkPaqueteAceptar, #select-paquetes').on('change', function () {
     const id = $('#select-paquetes').val();
     const paquete = PaquetesDatos.find(paquete => paquete.ID_PAQUETE == id);
     const total = parseFloat(paquete.PRECIO_VENTA);
-    // console.log(PaquetesDatos, id, paquete, total)
-
-    // return productoSeleccionado ? productoSeleccionado.PRECIO_VENTA : 0;
 
     if (!$('#checkPaqueteAceptar').prop('checked')) {
         $('#aceptar-totalPaqueteCargado').text(`$${parseFloat(total).toFixed(2)}`);
