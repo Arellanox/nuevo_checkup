@@ -57,21 +57,21 @@
                                                 <!-- Proveedor -->
                                                 <div class="mb-3" id="proveedorDiv">
                                                     <label for="id_proveedores" class="form-label">Proveedor</label>
-                                                    <select class="form-select input-form" id="id_proveedores"
-                                                        name="id_proveedores">
+                                                    <select class="form-select input-form" id="id_proveedores" name="id_proveedores">
                                                         <option value="" disabled selected>Seleccione...</option>
-                                                        <option value="1">Farmacias Guadalajara</option>
-                                                        <option value="2">Farmacias Similares</option>
+                                                        <!-- Las opciones se cargarán dinámicamente -->
                                                     </select>
                                                 </div>
 
                                                 <!-- Motivo de salida -->
                                                 <div class="mb-3" id="motivoSalidaDiv">
-                                                    <label for="motivo_salida" class="form-label">Motivo de
-                                                        salida</label>
-                                                    <input type="text" class="form-control input-form"
-                                                        id="motivo_salida" name="motivo_salida"
-                                                        placeholder="Ej. Devolución de producto">
+                                                    <label for="motivo_salida" class="form-label">Motivo de entrada</label>
+                                                    <select class="form-select input-form" id="motivo_salida" name="motivo_salida" required>
+                                                        <option value="">Seleccione un motivo de entrada</option>
+                                                        <!-- Las opciones se cargarán dinámicamente -->
+                                                    </select>
+                                                    <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                                    <small class="form-text text-muted">Seleccione el motivo de entrada del artículo.</small>
                                                 </div>
 
                                                 <!-- Campo oculto para la fecha y hora del movimiento -->
@@ -116,7 +116,8 @@
 
         $("#id_movimiento").on("change", function () {
             if ($(this).val() == "1") {
-                $("#motivoSalidaDiv").hide();
+                $("#motivoSalidaDiv").show();
+                $("label[for='motivo_salida']").text("Motivo de entrada");
                 $("label[for='cantidad']").text("Cantidad a ingresar");
                 $("#cantidad").attr("placeholder", "Ej. 10");
                 $("#cantidad").closest(".mb-3").show();
@@ -136,8 +137,12 @@
                     "</span></strong>"
                 );
                 $("#registrarMovimientoButton").show();
+
+                cargarProveedoresEntrada();
+                cargarMotivosPorTipo("entrada");
             } else if ($(this).val() == "2") {
                 $("#motivoSalidaDiv").show();
+                $("label[for='motivo_salida']").text("Motivo de salida");
                 $("label[for='cantidad']").text("Cantidad a retirar");
                 $("#cantidad").attr("placeholder", "Ej. 5");
                 $("#cantidad").closest(".mb-3").show();
@@ -157,7 +162,8 @@
                     "</span></strong>"
                 );
                 $("#registrarMovimientoButton").show();
-                $("#motivoSalidaDiv").show();
+
+                cargarMotivosPorTipo("salida");
             } else {
                 $("#cantidad").closest(".mb-3").hide();
                 $("#fecha_ultima_entrada").closest(".mb-3").hide();
@@ -169,6 +175,98 @@
                 $("#id_proveedores").prop("required", false);
             }
         });
+
+        // FUNCIÓN PARA CARGAR PROVEEDORES
+    function cargarProveedoresEntrada() {
+        cargarCatalogoEnModal("#registrarEntradaModal #id_proveedores", {
+            api: 16, // API para proveedores activos
+            campoId: "id_proveedores",
+            campoTexto: "nombre",
+            placeholder: "Seleccione un proveedor"
+        });
+    }
+
+    // FUNCIÓN PARA CARGAR MOTIVOS FILTRADOS POR TIPO
+    function cargarMotivosPorTipo(tipoMovimiento) {
+        $.ajax({
+            url: "../../../api/inventarios_api.php",
+            type: "POST",
+            dataType: "json",
+            data: {
+                api: 15, // API para motivos
+                tipo_movimiento: tipoMovimiento
+            },
+            success: function (response) {
+                if (response.response && response.response.code == 1) {
+                    let selectElement = $("#motivo_salida");
+                    
+                    selectElement.empty();
+                    selectElement.append(`<option value="">Seleccione un motivo de ${tipoMovimiento}</option>`);
+
+                    // Filtrar por tipo de movimiento
+                    let datosFiltrados = response.response.data.filter(function(item) {
+                        return item.tipo_movimiento === tipoMovimiento || item.tipo_movimiento === 'ambos';
+                    });
+
+                    datosFiltrados.forEach(function (item) {
+                        selectElement.append(
+                            `<option value="${item.id_motivos}">${item.descripcion}</option>`
+                        );
+                    });
+
+                    console.log(`Motivos de ${tipoMovimiento} cargados`);
+                } else {
+                    console.log("Error al cargar motivos:", response);
+                    alertToast("Error al cargar motivos", "error", 3000);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Error AJAX:", error);
+                alertToast("Error de conexión al cargar motivos", "error", 3000);
+            }
+        });
+    }
+
+    // FUNCIÓN GENÉRICA PARA CARGAR CATÁLOGOS (reutilizable)
+    function cargarCatalogoEnModal(selectorSelect, opciones) {
+        $.ajax({
+            url: "../../../api/inventarios_api.php",
+            type: "POST",
+            dataType: "json",
+            data: {
+                api: opciones.api
+            },
+            success: function (response) {
+                if (response.response && response.response.code == 1) {
+                    let selectElement = $(selectorSelect);
+                    let valorActual = selectElement.val();
+
+                    selectElement.empty();
+                    selectElement.append(`<option value="">${opciones.placeholder}</option>`);
+
+                    response.response.data.forEach(function (item) {
+                        selectElement.append(
+                            `<option value="${item[opciones.campoId]}">${item[opciones.campoTexto]}</option>`
+                        );
+                    });
+
+                    // Mantener la selección previa si existe
+                    if (valorActual) {
+                        selectElement.val(valorActual);
+                    }
+
+                    console.log(`${opciones.placeholder} cargados`);
+                } else {
+                    console.log(`Error al cargar ${opciones.placeholder}:`, response);
+                    alertToast(`Error al cargar ${opciones.placeholder}`, "error", 3000);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Error AJAX:", error);
+                alertToast(`Error de conexión al cargar ${opciones.placeholder}`, "error", 3000);
+            }
+        });
+    }
 
         $("#registrarEntradaForm").submit(function (event) {
             // Asigna la fecha y hora actual en formato compatible con MySQL DATETIME

@@ -130,7 +130,6 @@ $("#registrarEntradaForm").submit(function (event) {
             $("#fecha_ultima_entrada").closest(".mb-3").hide();
             $("#costo_ultima_entrada").closest(".mb-3").hide();
             $("#proveedorDiv").hide();
-            $("#motivoSalidaDiv").hide();
             $("#cantidad").prop("required", false);
             $("#fecha_ultima_entrada").prop("required", false);
             $("#costo_ultima_entrada").prop("required", false);
@@ -202,6 +201,342 @@ $("#editarMovimientoForm").submit(function (event) {
       );
     }
   );
+});
+
+// Registrar/Editar Tipo
+$("#registrarTipoForm").submit(function (event) {
+  event.preventDefault();
+
+  var form = document.getElementById("registrarTipoForm");
+  var formData = new FormData(form);
+
+  $("#tipoDescripcion").removeClass("is-invalid");
+
+  // Obtener el valor del checkbox de activo
+  var activo;
+  if ($("#registrarTipoForm #tipoActivoCheck").is(":checked")) {
+    activo = 1;
+  } else {
+    activo = 0;
+  }
+
+  console.log("Activo tipo:", activo);
+
+  let esEdicion = tipoId && tipoId !== "";
+
+  alertMensajeConfirm(
+    {
+      title: esEdicion
+        ? "¿Está a punto de editar este tipo?"
+        : "¿Está a punto de registrar un nuevo tipo?",
+      text: "Asegúrate que los datos sean correctos.",
+      icon: "warning",
+    },
+    function () {
+      ajaxAwaitFormData(
+        {
+          api: 10,
+          activo: activo,
+        },
+        "inventarios_api",
+        "registrarTipoForm",
+        { callbackAfter: true },
+        false,
+        function (data) {
+          if (data.response.code == 1) {
+            $("#registrarTipoForm")[0].reset();
+            $("#registrarTipoModal").modal("hide");
+            alertToast(
+              esEdicion ? "Tipo actualizado!" : "Tipo registrado!",
+              "success",
+              4000
+            );
+            if (tableCatTipos) tableCatTipos.ajax.reload();
+          } else {
+            alertToast(
+              data.response.message || "Error al procesar la solicitud",
+              "error",
+              4000
+            );
+          }
+        }
+      );
+    }
+  );
+
+  return false;
+});
+
+// Registrar/Editar Unidad
+$("#registrarUnidadForm").submit(function (event) {
+  event.preventDefault();
+
+  var form = document.getElementById("registrarUnidadForm");
+  var formData = new FormData(form);
+
+  $("#unidadDescripcion").removeClass("is-invalid");
+
+  // Obtener el valor del checkbox de activo
+  var activo;
+  if ($("#registrarUnidadForm #unidadActivoCheck").is(":checked")) {
+    activo = 1;
+  } else {
+    activo = 0;
+  }
+
+  let esEdicion = tipoId && tipoId !== "";
+
+  alertMensajeConfirm(
+    {
+      title: esEdicion
+        ? "¿Está a punto de editar esta unidad?"
+        : "¿Está a punto de registrar una nueva unidad?",
+      text: "Asegúrate que los datos sean correctos.",
+      icon: "warning",
+    },
+    function () {
+      ajaxAwaitFormData(
+        {
+          api: 13,
+          activo: activo,
+        },
+        "inventarios_api",
+        "registrarUnidadForm",
+        { callbackAfter: true },
+        false,
+        function (data) {
+          if (data.response.code == 1) {
+            $("#registrarUnidadForm")[0].reset();
+            $("#registrarUnidadModal").modal("hide");
+            alertToast(
+              esEdicion ? "Unidad actualizada!" : "Unidad registrada!",
+              "success",
+              4000
+            );
+            if (tableCatUnidades) tableCatUnidades.ajax.reload();
+          } else {
+            alertToast(
+              data.response.message || "Error al procesar la solicitud",
+              "error",
+              4000
+            );
+          }
+        }
+      );
+    }
+  );
+
+  return false;
+});
+
+// Registrar/Editar Marca
+$("#registrarMarcaForm").submit(function (event) {
+  event.preventDefault();
+
+  var form = document.getElementById("registrarMarcaForm");
+  var formData = new FormData(form);
+
+  $("#marcaDescripcion").removeClass("is-invalid");
+
+  // Obtener el valor del checkbox de activo
+  var activo;
+  if ($("#registrarMarcaForm #marcaActivoCheck").is(":checked")) {
+    activo = 1;
+  } else {
+    activo = 0;
+  }
+
+  console.log("Activo marca:", activo);
+
+  let esEdicion = tipoId && tipoId !== "";
+
+  alertMensajeConfirm(
+    {
+      title: esEdicion
+        ? "¿Está a punto de editar esta marca?"
+        : "¿Está a punto de registrar una nueva marca?",
+      text: "Asegúrate que los datos sean correctos.",
+      icon: "warning",
+    },
+    function () {
+      ajaxAwaitFormData(
+        {
+          api: 11,
+          activo: activo,
+        },
+        "inventarios_api",
+        "registrarMarcaForm",
+        { callbackAfter: true },
+        false,
+        function (data) {
+          if (data.response.code == 1) {
+            $("#registrarMarcaForm")[0].reset();
+            $("#registrarMarcaModal").modal("hide");
+            alertToast(
+              esEdicion ? "Marca actualizada!" : "Marca registrada!",
+              "success",
+              4000
+            );
+
+            if (tableCatMarcas) tableCatMarcas.ajax.reload();
+          } else {
+            alertToast(
+              data.response.message || "Error al procesar la solicitud",
+              "error",
+              4000
+            );
+          }
+        }
+      );
+    }
+  );
+
+  return false;
+});
+
+// Registrar/Editar Motivo
+$("#registrarMotivoForm").submit(function (event) {
+  event.preventDefault();
+
+  var form = document.getElementById("registrarMotivoForm");
+  var formData = new FormData(form);
+
+  $("#motivoDescripcion").removeClass("is-invalid");
+
+  // Obtener el valor del checkbox de activo
+  var activo;
+  if ($("#registrarMotivoForm #motivoActivoCheck").is(":checked")) {
+    activo = 1;
+  } else {
+    activo = 0;
+  }
+  var tipoMovimiento = $("#registrarMotivoForm #motivoTipoMovimiento").val();
+  console.log("Tipo de movimiento:", tipoMovimiento);
+
+  let esEdicion = tipoId && tipoId !== "";
+
+  alertMensajeConfirm(
+    {
+      title: esEdicion
+        ? "¿Está a punto de editar este motivo"
+        : "¿Está a punto de registrar un nuevo motivo?",
+      text: "Asegúrate que los datos sean correctos.",
+      icon: "warning",
+    },
+    function () {
+      ajaxAwaitFormData(
+        {
+          api: 14,
+          activo: activo,
+          tipo_movimiento: tipoMovimiento,
+        },
+        "inventarios_api",
+        "registrarMotivoForm",
+        { callbackAfter: true },
+        false,
+        function (data) {
+          if (data.response.code == 1) {
+            $("#registrarMotivoForm")[0].reset();
+            $("#registrarMotivoModal").modal("hide");
+            alertToast(
+              esEdicion ? "Motivo actualizado!" : "Motivo registrado!",
+              "success",
+              4000
+            );
+
+            if (tableCatMotivos) tableCatMotivos.ajax.reload();
+          } else {
+            alertToast(
+              data.response.message || "Error al procesar la solicitud",
+              "error",
+              4000
+            );
+          }
+        }
+      );
+    }
+  );
+  return false;
+});
+
+// Registrar/Editar Proveedor
+$("#registrarProveedorForm").submit(function (event) {
+  event.preventDefault();
+
+  var form = document.getElementById("registrarProveedorForm");
+  var formData = new FormData(form);
+
+  let proveedorId = $("#proveedorId").val();
+  let nombre = $("#proveedorNombre").val().trim();
+  let contacto = $("#proveedorContacto").val().trim();
+  let telefono = $("#proveedorTelefono").val().trim();
+  let email = $("#proveedorEmail").val().trim();
+
+  if (!nombre) {
+    $("#proveedorNombre").addClass("is-invalid");
+    alertToast("El nombre del proveedor es obligatorio", "warning", 3000);
+    return;
+  }
+
+  $("#proveedorNombre").removeClass("is-invalid");
+
+  var activo;
+  if ($("#registrarProveedorForm #proveedorActivoCheck").is(":checked")) {
+    activo = 1;
+  } else {
+    activo = 0;
+  }
+  let esEdicion = proveedorId && proveedorId !== "";
+
+  alertMensajeConfirm(
+    {
+      title: esEdicion
+        ? "¿Está a punto de editar este proveedor?"
+        : "¿Está a punto de registrar un nuevo proveedor?",
+      text: "Asegúrate que los datos sean correctos.",
+      icon: "warning",
+    },
+    function () {
+      ajaxAwaitFormData(
+        {
+          api: 17, // Necesitarás crear este endpoint en tu API
+          id_proveedor: proveedorId || null,
+          contacto: contacto,
+          telefono: telefono,
+          email: email,
+          activo: activo,
+        },
+        "inventarios_api",
+        "registrarProveedorForm",
+        { callbackAfter: true },
+        false,
+        function (data) {
+          if (data.response.code == 1) {
+            $("#registrarProveedorForm")[0].reset();
+            $("#registrarProveedorModal").modal("hide");
+            alertToast(
+              esEdicion ? "Proveedor actualizado!" : "Proveedor registrado!",
+              "success",
+              4000
+            );
+
+            // Recargar tablas y selects
+            if (tableCatProveedores) tableCatProveedores.ajax.reload();
+            // cargarProveedoresRegistrar();
+            // cargarProveedoresEditar();
+          } else {
+            alertToast(
+              data.response.message || "Error al procesar la solicitud",
+              "error",
+              4000
+            );
+          }
+        }
+      );
+    }
+  );
+
+  return false;
 });
 
 $("#filtrarArticuloForm").submit(function (event) {
