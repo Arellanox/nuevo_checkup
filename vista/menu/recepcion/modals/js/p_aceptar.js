@@ -188,12 +188,8 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
 
     // Envío de detalles de servicios cargados por medio de un folio de cotizacion
     if ($("#input-cotizacion").val()) {
-        dataJson['servicios_detalles'] = detallesEstudiosCotizacion;
-
-        console.log(dataJson['servicios_detalles']);
+        dataJson['servicios_detalles'] = JSON.stringify(detallesEstudiosCotizacion);
     }
-
-    return alertToast('Terminado', 'success', 4000);
 
     if ($("#comoNosConociste").length > 0) {
         dataJson['como_nos_conociste'] = $('#comoNosConociste').val()
@@ -216,6 +212,8 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
             paquete = `Cargarás el paquete ${$('#select-paquetes option:selected').text()} \n`
         }
     }
+
+    console.log(dataJson);
 
     alertMensajeConfirm({
         title: `${paquete}¿Está seguro de aceptar el paciente?`,

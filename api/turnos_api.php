@@ -73,7 +73,8 @@ $parametros = array(
     $completado,
     $comentario_rechazo,
     $cliente_id,
-    $segmento_id
+    $segmento_id,
+    $_POST['tipo']
 );
 $response = "";
 
@@ -366,6 +367,9 @@ switch ($api) {
                 $response = 'Tipo de archivo no permitido.';
             }
         }
+        break;
+    case 23:
+        $response = $master->getByProcedure("sp_turno_estudios_cotizacion_b", [$turno]);
         break;
     default:
         $response = "api no reconocida";

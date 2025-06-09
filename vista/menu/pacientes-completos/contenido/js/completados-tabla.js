@@ -16,6 +16,8 @@ tablaCompletados = $('#TablaRecepcionPacientes-Ingresados').DataTable({
     method: 'POST',
     url: '../../../api/turnos_api.php',
     beforeSend: function () {
+      alertToast('Espere un momento, se estan cargando los estudios', 'info', 4000)
+
       loader("In", 'bottom'), array_selected = null
     },
     complete: function () {
@@ -140,6 +142,7 @@ inputBusquedaTable('TablaRecepcionPacientes-Ingresados', tablaCompletados, [])
 
 selectDatatable("TablaRecepcionPacientes-Ingresados", tablaCompletados, 1, 0, 0, 0, async function (select, data) {
   if (select) {
+    alertToast('Espere un momento, se estan cargando los estudios', 'info', 4000)
 
     obtenerPanelInformacion(data['ID_TURNO'], 'paciente_api', 'paciente')
     obtenerPanelInformacion(data['ID_TURNO'], 'consulta_api', 'listado_resultados', '#panel-resultados')
@@ -168,6 +171,8 @@ selectDatatable("TablaRecepcionPacientes-Ingresados", tablaCompletados, 1, 0, 0,
       $('#buttonBeneficiario').fadeOut(200);
     }
   } else {
+    alertToast('Espere un momento, se estan cargando los estudios', 'info', 4000)
+
     obtenerPanelInformacion(0, 'paciente_api', 'paciente')
     obtenerPanelInformacion(0, 'consulta_api', 'listado_resultados', '#panel-resultados')
     await obtenerPanelInformacion(0, false, 'Estudios_Estatus', '#estudios_concluir_paciente')

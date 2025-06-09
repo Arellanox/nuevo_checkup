@@ -180,8 +180,8 @@ $(document).on('click', '.eliminarformapago', function (e) {
 // ==============================================================================
 
 //Vista de estudios que se le hicieron al paciente
-function configurarModal(data) {
-    console.log('2')
+async function configurarModal(data) {
+    alertToast('Espere un momento, se estan cargando los estudios', 'info', 4000)
 
     //Estatus en proceso
     OcultarTablas()
@@ -198,10 +198,18 @@ function configurarModal(data) {
 
     rellenarSelect('#contado-tipo-pago', 'formas_pago_api', '2', 'ID_PAGO', 'DESCRIPCION', {}, function (data) {
         formasPagos = data;
-        // console.log(formasPagos)
     })
 
-    ajaxAwait({
+    let precargado = false;
+    let estudios_precargados = [];
+    await ajaxAwait({
+        api: 23, turno: data['ID_TURNO']
+    }, 'turnos_api', { callbackAfter: true, returnData: false }, false, function (data) {
+        precargado = true;
+        estudios_precargados = data.response.data;
+    })
+
+    await ajaxAwait({
         api: 1,
         turno_id: data['ID_TURNO'],
         id_cliente: isFranquisiario ? data['CLIENTE_ID'] : null
@@ -218,9 +226,7 @@ function configurarModal(data) {
             return false;
         }
 
-
         let row = data['estudios'] // <-- Listas de estudios en bruto
-
         $('.contenido-estudios').html('')
 
         for (const key in row) {
@@ -232,7 +238,7 @@ function configurarModal(data) {
                                 <th data-bs-id-servicio="${element['ID_SERVICIO']}">${element['SERVICIOS']}</th>
                                 <td>
                                     <div class="input-group flex-nowrap">
-                                        <input type="number" placeholder="0" class="form-control input-form text-end setDescuentoConcepto px-1" value="">
+                                        <input type="number" placeholder="0" class="form-control input-form text-end setDescuentoConcepto px-1" value="${element['DESCUENTO']}">
                                         <span class="input-group-text input-span">%</span>
                                     </div>
                                 </td>
@@ -253,17 +259,29 @@ function configurarModal(data) {
                     $(`#cargos-estudios-0`).append(html)
                     $(`#container-estudios-0`).fadeIn(0)
                 }
-
             }
         }
 
-        total_cargo = data['TOTAL_CARGO']
 
+
+        total_cargo = data['TOTAL_CARGO']
         dataPrecios['sin_mod-total_cargos'] = total_cargo
 
         getPrecioTotal()
 
-        $('#modalEstudiosContado').modal('show')
+        setTimeout(() => {
+            $('#modalEstudiosContado').modal('show');
+
+            if (precargado) {
+                let descuento = estudios_precargados[0]['DESCUENTO_PORCENTAJE'];
+                $('#descuento').val(descuento);
+
+                // Actualizar todos los inputs de descuento y disparar eventos
+                $('#cargos-estudios-6 input.setDescuentoConcepto').each(function() {
+                    $(this).trigger('input').trigger('change').trigger('keyup');
+                });
+            }
+        }, 100);
     })
 }
 

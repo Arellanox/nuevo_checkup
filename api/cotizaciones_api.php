@@ -97,7 +97,7 @@ switch ($api) {
         break;
     case 8:
         # solo cotizacinoes sin detalle.
-        $response = $master->getByProcedure("obtener_cotizacion_folio", [
+        $response = $master->getByProcedure("sp_obtener_cotizacion_folio", [
             $id_cotizacion, $_SESSION['id'], $_SESSION['franquiciario'] ? 1 : 0
         ]);
         break;

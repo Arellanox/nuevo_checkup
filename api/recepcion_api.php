@@ -109,7 +109,7 @@ $franquiciaID = $_SESSION['franquiciario'] ? $_SESSION['id_cliente'] : null;
 
 // Información del folio
 $folio = $_POST['folio'];
-$servicios_detalle = $_POST['servicios_detalle'];
+$servicios_detalle = $_POST['servicios_detalles'];
 
 // Mensajes de error relacionados con corte de caja
 $mensajesErrorCaja = [
@@ -231,15 +231,26 @@ switch ($api) {
             }
         }
 
-        if ($folio != 0 and $folio != null and ($servicios_detalle) && count($servicios_detalle) > 0) {
+        if (is_string($servicios_detalle)) {
+            $servicios_detalle = json_decode($servicios_detalle, true); // convierte a array asociativo
+        }
+
+        if ($folio && is_array($servicios_detalle)) {
             foreach ($servicios_detalle as $value) {
-                /*
-                 * NOTA: USARE ESTE PROCEDIMIENTO PARA ACTUALIZAR LOS SERVICIOS DEL TURNO
-                 * PARA ESO SE UTILIZA EL PROCEDIMIENTO sp_actualizar_servicios_turno Y LOS SERVICOS QUE VIENEN
-                 * SON LOS DETALLES COMPLETOS DEL SERVICIO DE COTIZACIÓN CARGADO PREVIAMENTE, SP EN PRCESO DE GENERACIÓN
-                 * */
+                if (!isset($value['ID_SERVICIO'], $value['CANTIDAD'], $value['DESCUENTO_PORCENTAJE'], $value['PRECIO_VENTA'], $value['SUBTOTAL'])) {
+                    $master->setLog(json_encode($value), '[error] Campos faltantes en value');
+                    continue;
+                }
+
                 $master->updateByProcedure('sp_actualizar_servicios_turno', [
-                    $idTurno, $value['cantidad'], $value['descuento'], $value['subtotal'], $value['precio_venta']
+                    $idTurno,
+                    $value['ID_SERVICIO'],
+                    $value['CANTIDAD'],
+                    $value['COSTO_BASE'],
+                    $value['SUBTOTAL'],
+                    $value['DESCUENTO_PORCENTAJE'],
+                    $value['COSTO_TOTAL'],
+                    $value['SUBTOTAL_SIN_DESCUENTO']
                 ]);
             }
         }

@@ -64,6 +64,7 @@ function actualizarPrecioYAgregar(estudio, lista, selector, extra = false) {
 
     lista.forEach(item => {
         if (item.ID_SERVICIO === estudio.ID_SERVICIO) {
+            estudio.PRECIO_VENTA = estudio.SUBTOTAL; // Agregamos el campo PRECIO_VENTA
             item.PRECIO_VENTA = estudio.SUBTOTAL; // Campo PRECIO_VENTA requerido para el cálculo
             label = item.ABREVIATURA + ' - ' + item.SERVICIO;
         }

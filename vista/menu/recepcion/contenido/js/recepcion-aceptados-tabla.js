@@ -579,6 +579,7 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
             {
                 class: 'btn-offcanva',
                 callback: function (data) {
+                    alertToast('Espere un momento, se estan cargando los estudios', 'info', 4000)
                     dobleClickSelectTableRecepcion(data);
                 },
                 selected: true,
@@ -588,6 +589,8 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
 
     async function (select, data, callback) {
         if (select) {
+            alertToast('Espere un momento, se estan cargando los estudios', 'info', 4000)
+
             $(`#${'buttonBeneficiario'}`).attr('disabled', ifnull(data, false, ['CLIENTE_ID']) !== '18')
             $(`#${'btn_recepcionTicket'}`).attr('disabled', !(ifnull(data, false, ['COMPLETADO']) === '1' && ifnull(data, false, ['CLIENTE_ID']) === '1'))
             $(`#${'btn_abrir_cuenta'}`).attr('disabled', ifnull(data, false, ['COMPLETADO']) !== '1');
@@ -630,6 +633,7 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
             $(`#${'buttonBeneficiario'}`).attr('disabled', true);
             $(`#${'btn_recepcionTicket'}`).attr('disabled', true);
             $(`#${'btn_abrir_cuenta'}`).attr('disabled', true);
+            alertToast('Espere un momento, se estan cargando los estudios', 'info', 4000)
 
             obtenerPanelInformacion(0, 'paciente_api', 'paciente')
             obtenerPanelInformacion(0, 'consulta_api', 'listado_resultados', '#panel-resultados')
@@ -637,11 +641,11 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
             obtenerPanelInformacion(0, false, 'area_faltantes', '#panel-areas-faltantes')
         }
     }, function (select, data) {
+        alertToast('Espere un momento, se estan cargando los estudios', 'info', 4000)
         dobleClickSelectTableRecepcion(data)
     });
 
 async function dobleClickSelectTableRecepcion(data) {
-    alertToast('Obteniendo datos...', 'info', 4000);
     await obtenerPanelInformacion(data['ID_TURNO'], 'documentos_api', 'lista-documentos-paciente', '#panel-documentos-paciente')
     await obtenerPanelInformacion(data['ID_TURNO'], 'toma_de_muestra_api', 'estudios_muestras', '#panel-muestras-estudios')
 
