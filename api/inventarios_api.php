@@ -52,11 +52,20 @@ $rendimiento_paciente = $_POST['rendimiento_paciente'];
 // no se si se utilizan
 $id_cat_entradas = $_POST['id_cat_entradas'];
 $cantidad = $_POST['cantidad'];
-$id_proveedores = $_POST['id_proveedores'];
 $id_movimiento = $_POST['id_movimiento'];
 $motivo_salida = $_POST['motivo_salida'];
 $id_cat_movimientos = $_POST['id_cat_movimientos'];
 $id_marcas = $_POST['id_marcas'];
+$id_tipo = isset($_POST['id_tipo']) ? $_POST['id_tipo'] : null;
+$descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : null;
+$activo = isset($_POST['activo']) ? $_POST['activo'] : 1;
+$tipo_movimiento = isset($_POST['tipo_movimiento']) ? $_POST['tipo_movimiento'] : 'salida';
+
+$id_proveedores = isset($_POST['id_proveedores']) ? $_POST['id_proveedores'] : null;
+$nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
+$contacto = isset($_POST['contacto']) ? $_POST['contacto'] : '';
+$telefono = isset($_POST['telefono']) ? $_POST['telefono'] : '';
+$email = isset($_POST['email']) ? $_POST['email'] : '';
 
 $host = $master->selectHost($_SERVER['SERVER_NAME']);
 
@@ -189,6 +198,72 @@ switch ($api) {
     case 9:
         # recuperar marcas activas
         $response = $master->getByProcedure("sp_inventarios_cat_marcas_b", []);
+        break;
+    case 10:
+        $response = $master->insertByProcedure("sp_inventarios_cat_tipos_g", [
+            $id_tipo,
+            $descripcion,
+            $activo
+        ]);
+        break;
+    case 11:
+        $response = $master->insertByProcedure("sp_inventarios_cat_marcas_g", [
+            $id_marcas,
+            $descripcion,
+            $activo
+        ]);
+        break;
+    case 12:
+        // para mostrar las unidades de medida
+        $response = $master->getByProcedure("sp_inventarios_cat_unidades_b", []);
+        break;
+
+    case 13:
+        // Para insertar/actualizar unidades
+        $response = $master->insertByProcedure("sp_inventarios_cat_unidades_g", [
+            $id_unidades,
+            $descripcion,
+            $activo
+        ]);
+        break;
+    case 14:
+        // Para insertar/actualizar motivos
+        $response = $master->insertByProcedure("sp_inventarios_cat_motivos_g", [
+            $id_unidades,
+            $descripcion,
+            $activo,
+            $tipo_movimiento
+        ]);
+        break;
+    case 15:
+        // Para mostrar motivos filtrados por tipo
+        $tipo_movimiento = isset($_POST['tipo_movimiento']) ? $_POST['tipo_movimiento'] : null;
+
+        if ($tipo_movimiento) {
+            // Si se especifica tipo, filtrar en la consulta
+            $response = $master->getByProcedure("sp_inventarios_cat_motivos_filtrado", [$tipo_movimiento]);
+        } else {
+            // Si no se especifica tipo, devolver todos
+            $response = $master->getByProcedure("sp_inventarios_cat_motivos_b", []);
+        }
+        break;
+    case 16:
+        // Para mostrar los proveedores
+        $response = $master->getByProcedure("sp_inventarios_cat_proveedores_b", []);
+        break;
+    case 17:
+        // Para insertar/actualizar proveedores
+        $response = $master->insertByProcedure("sp_inventarios_cat_proveedores_g", [
+            $id_proveedores,
+            $nombre,
+            $contacto,
+            $telefono,
+            $email,
+            $activo
+        ]);
+        break;
+    case 18:
+        $response = $master->getByProcedure("sp_areas_b", [null, null]);
         break;
     default:
         $response = "API no definida.";

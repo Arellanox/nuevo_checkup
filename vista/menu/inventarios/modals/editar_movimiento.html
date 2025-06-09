@@ -1,105 +1,306 @@
 <!-- Modal Editar Movimiento -->
-<div class="modal fade" id="editarMovimientoModal" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false"
-    data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editarMovimientoModal">
-                    Editando entrada con fecha: <span id="mostrandoDetallesEntrada"></span>
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body container-fluid">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="text-start">
-                                <div class="shadow-sm rounded p-3 card-body">
-                                    <h5 class="text-dark">Edita los siguientes datos</h5>
-                                    <form id="editarMovimientoForm" name="editarMovimientoForm">
-                                        <!-- Campo oculto para la fecha y hora actual -->
-                                        <input type="hidden" id="fecha_ultima_entrada" name="fecha_ultima_entrada">
-                                        <!-- Sección 1: Informacion general -->
-                                        <div class="card mb-4">
-                                            <div class="card-body">
-                                                <h6 class="card-title">Información general</h6>
-                                                <div class="row">
-                                                    <!-- Cantidad -->
-                                                    <div class="mb-3">
-                                                        <label id="cantidadEditarMovLabel" for="cantidad"
-                                                            class="form-label">Cantidad a ingresar</label>
-                                                        <input type="number" class="form-control input-form"
-                                                            id="cantidad" name="cantidad" required placeholder="Ej. 10">
-                                                    </div>
-                                                    <!-- Costo Última Entrada -->
-                                                    <div class="mb-3" id="costoUltimaEntradaDiv">
-                                                        <label for="costo_ultima_entrada" class="form-label">Costo
-                                                            actual</label>
-                                                        <input type="number" step="any" class="form-control input-form"
-                                                            id="costo_ultima_entrada" name="costo_ultima_entrada"
-                                                            required placeholder="Ej. 10.50">
-                                                    </div>
-                                                    <!-- Proveedor -->
-                                                    <div class="mb-3" id="proveedorDiv">
-                                                        <label for="id_proveedores" class="form-label">Proveedor</label>
-                                                        <select class="form-select input-form" id="id_proveedores"
-                                                            name="id_proveedores" required>
-                                                            <option value="" disabled selected>Seleccione...</option>
-                                                            <option value="1">Farmacias Guadalajara</option>
-                                                            <option value="2">Farmacias Similares</option>
-                                                        </select>
-                                                    </div>
-                                                    <!-- Motivo de salida -->
-                                                    <div class="mb-3" id="motivoSalidaDiv" style="display: none;">
-                                                        <label for="motivo_salida" class="form-label">Motivo de
-                                                            salida</label>
-                                                        <input type="text" class="form-control input-form"
-                                                            id="motivo_salida" name="motivo_salida"
-                                                            placeholder="Ej. Devolución de producto">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+<div
+  class="modal fade"
+  id="editarMovimientoModal"
+  tabindex="-1"
+  data-bs-backdrop="static"
+  data-bs-focus="false"
+  data-bs-keyboard="false"
+  role="dialog"
+  aria-labelledby="modalTitleId"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable"
+    role="document"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editarMovimientoModal">
+          Editando entrada con fecha:
+          <span id="mostrandoDetallesEntrada"></span>
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body container-fluid">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <div class="text-start">
+                <div class="shadow-sm rounded p-3 card-body">
+                  <h5 class="text-dark">Edita los siguientes datos</h5>
+                  <form id="editarMovimientoForm" name="editarMovimientoForm">
+                    <!-- Campo oculto para la fecha y hora actual -->
+                    <input
+                      type="hidden"
+                      id="fecha_ultima_entrada"
+                      name="fecha_ultima_entrada"
+                    />
+                    <!-- Sección 1: Informacion general -->
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <h6 class="card-title">Información general</h6>
+                        <div class="row">
+                          <!-- Cantidad -->
+                          <div class="mb-3">
+                            <label
+                              id="cantidadEditarMovLabel"
+                              for="cantidad"
+                              class="form-label"
+                              >Cantidad a ingresar</label
+                            >
+                            <input
+                              type="number"
+                              class="form-control input-form"
+                              id="cantidad"
+                              name="cantidad"
+                              required
+                              placeholder="Ej. 10"
+                            />
+                          </div>
+                          <!-- Costo Última Entrada -->
+                          <div class="mb-3" id="costoUltimaEntradaDiv">
+                            <label for="costo_ultima_entrada" class="form-label"
+                              >Costo actual</label
+                            >
+                            <input
+                              type="number"
+                              step="any"
+                              class="form-control input-form"
+                              id="costo_ultima_entrada"
+                              name="costo_ultima_entrada"
+                              required
+                              placeholder="Ej. 10.50"
+                            />
+                          </div>
+                          <!-- Proveedor -->
+                          <div class="mb-3" id="proveedorDiv">
+                            <label for="id_proveedores" class="form-label"
+                              >Proveedor</label
+                            >
+                            <select
+                              class="form-select input-form"
+                              id="id_proveedores"
+                              name="id_proveedores"
+                              required
+                            >
+                              <option value="" disabled selected>
+                                Seleccione...
+                              </option>
+                              <!-- Las opciones se cargarán dinámicamente -->
+                            </select>
+                          </div>
+                          <!-- Motivo de salida -->
+                          <div class="mb-3" id="motivoSalidaDiv">
+                            <label for="motivo_salida" class="form-label"
+                              >Motivo de entrada</label
+                            >
+                            <select
+                              class="form-select input-form"
+                              id="motivo_salida"
+                              name="motivo_salida"
+                              required
+                            >
+                              <option value="">
+                                Seleccione un motivo de entrada
+                              </option>
+                              <!-- Las opciones se cargarán dinámicamente -->
+                            </select>
+                            <div class="invalid-feedback">
+                              Este campo es obligatorio.
                             </div>
+                            <small class="form-text text-muted"
+                              >Seleccione el motivo de entrada del
+                              artículo.</small
+                            >
+                          </div>
                         </div>
+                      </div>
                     </div>
+                  </form>
                 </div>
+              </div>
             </div>
-            <div class="modal-footer">
-                <button id="cancelarButtonEditarMovimientos" type="button"
-                    class="btn btn-cancelar" data-bs-dismiss="modal">
-                    <i class="bi bi-arrow-left-short"></i> Cancelar
-                </button>
-                <button type="submit" class="btn btn-confirmar" form="editarMovimientoForm">
-                    <i class="bi bi-pencil-square"></i> Editar
-                </button>
-            </div>
+          </div>
         </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          id="cancelarButtonEditarMovimientos"
+          type="button"
+          class="btn btn-cancelar"
+          data-bs-dismiss="modal"
+        >
+          <i class="bi bi-arrow-left-short"></i> Cancelar
+        </button>
+        <button
+          type="submit"
+          class="btn btn-confirmar"
+          form="editarMovimientoForm"
+        >
+          <i class="bi bi-pencil-square"></i> Editar
+        </button>
+      </div>
     </div>
+  </div>
 </div>
 <script>
-    // Ejecutar al cargar para el valor inicial
-    $(document).ready(function () {
+  // Variables globales para almacenar los valores actuales
+  var proveedorActual = null;
+  var motivoActual = null;
+  var cantidadActual = null;
+  var costoActual = null;
 
-        $("#cancelarButtonEditarMovimientos").on("click", function () {
-            setTimeout(function () {
-                $("#detalleEntradaModal").modal("show");
-            }, 100);
-        });
-
-        $("#editarMovimientoForm").submit(function (event) {
-            // Asigna la fecha y hora actual en formato compatible con MySQL DATETIME
-            var now = new Date();
-            var fechaHora = now.getFullYear() + "-" +
-                String(now.getMonth() + 1).padStart(2, '0') + "-" +
-                String(now.getDate()).padStart(2, '0') + " " +
-                String(now.getHours()).padStart(2, '0') + ":" +
-                String(now.getMinutes()).padStart(2, '0') + ":" +
-                String(now.getSeconds()).padStart(2, '0');
-            $("#fecha_ultima_entrada").val(fechaHora);
-            // ...tu código de envío...
-        });
+  $(document).ready(function () {
+    $("#cancelarButtonEditarMovimientos").on("click", function () {
+      setTimeout(function () {
+        $("#detalleEntradaModal").modal("show");
+      }, 100);
     });
+
+    // Cargar proveedores y motivos cuando se abre el modal
+    $('#editarMovimientoModal').on('shown.bs.modal', function () {
+      cargarProveedoresEditar();
+      cargarMotivosEditar();
+      
+      // Establecer valores en los campos de input después de un pequeño delay
+      setTimeout(function() {
+        if (cantidadActual) {
+          $("#cantidad").val(cantidadActual);
+        }
+        if (costoActual) {
+          $("#costo_ultima_entrada").val(costoActual);
+        }
+      }, 100);
+    });
+
+    // FUNCIÓN PARA CARGAR PROVEEDORES
+    function cargarProveedoresEditar() {
+      cargarCatalogoEnModalEditar("#editarMovimientoModal #id_proveedores", {
+        api: 16,
+        campoId: "id_proveedores",
+        campoTexto: "nombre",
+        placeholder: "Seleccione un proveedor",
+        valorASeleccionar: proveedorActual
+      });
+    }
+
+    // FUNCIÓN PARA CARGAR MOTIVOS
+    function cargarMotivosEditar() {
+      $.ajax({
+        url: "../../../api/inventarios_api.php",
+        type: "POST",
+        dataType: "json",
+        data: {
+          api: 15,
+          tipo_movimiento: "entrada"
+        },
+        success: function (response) {
+          if (response.response && response.response.code == 1) {
+            let selectElement = $("#editarMovimientoModal #motivo_salida");
+            
+            selectElement.empty();
+            selectElement.append(`<option value="">Seleccione un motivo de entrada</option>`);
+
+            let datosFiltrados = response.response.data.filter(function(item) {
+              return item.tipo_movimiento === "entrada" || item.tipo_movimiento === 'ambos';
+            });
+
+            datosFiltrados.forEach(function (item) {
+              // LÓGICA PARA SELECCIONAR AUTOMÁTICAMENTE
+              const selected = motivoActual && item.descripcion === motivoActual ? 'selected' : '';
+              
+              selectElement.append(
+                `<option value="${item.id_motivos}" ${selected}>${item.descripcion}</option>`
+              );
+            });
+
+            console.log("Motivos de entrada cargados en modal editar");
+            if (motivoActual) {
+              console.log(`Motivo seleccionado automáticamente: ${motivoActual}`);
+            }
+          } else {
+            console.log("Error al cargar motivos:", response);
+            alertToast("Error al cargar motivos", "error", 3000);
+          }
+        },
+        error: function (xhr, status, error) {
+          console.log("Error AJAX:", error);
+          alertToast("Error de conexión al cargar motivos", "error", 3000);
+        }
+      });
+    }
+
+    // FUNCIÓN GENÉRICA PARA CARGAR CATÁLOGOS
+    function cargarCatalogoEnModalEditar(selectorSelect, opciones) {
+      $.ajax({
+        url: "../../../api/inventarios_api.php",
+        type: "POST",
+        dataType: "json",
+        data: {
+          api: opciones.api
+        },
+        success: function (response) {
+          if (response.response && response.response.code == 1) {
+            let selectElement = $(selectorSelect);
+
+            selectElement.empty();
+            selectElement.append(`<option value="">${opciones.placeholder}</option>`);
+
+            response.response.data.forEach(function (item) {
+              // LÓGICA PARA SELECCIONAR AUTOMÁTICAMENTE
+              const selected = opciones.valorASeleccionar && 
+                             item[opciones.campoTexto] === opciones.valorASeleccionar ? 'selected' : '';
+              
+              selectElement.append(
+                `<option value="${item[opciones.campoId]}" ${selected}>${item[opciones.campoTexto]}</option>`
+              );
+            });
+
+            console.log(`${opciones.placeholder} cargados en modal editar`);
+            if (opciones.valorASeleccionar) {
+              console.log(`Seleccionado automáticamente: ${opciones.valorASeleccionar}`);
+            }
+          } else {
+            console.log(`Error al cargar ${opciones.placeholder}:`, response);
+            alertToast(`Error al cargar ${opciones.placeholder}`, "error", 3000);
+          }
+        },
+        error: function (xhr, status, error) {
+          console.log("Error AJAX:", error);
+          alertToast(`Error de conexión al cargar ${opciones.placeholder}`, "error", 3000);
+        }
+      });
+    }
+
+    $("#editarMovimientoForm").submit(function (event) {
+      var now = new Date();
+      var fechaHora =
+        now.getFullYear() +
+        "-" +
+        String(now.getMonth() + 1).padStart(2, "0") +
+        "-" +
+        String(now.getDate()).padStart(2, "0") +
+        " " +
+        String(now.getHours()).padStart(2, "0") +
+        ":" +
+        String(now.getMinutes()).padStart(2, "0") +
+        ":" +
+        String(now.getSeconds()).padStart(2, "0");
+      $("#fecha_ultima_entrada").val(fechaHora);
+    });
+  });
+
+  // FUNCIÓN PARA ESTABLECER LOS VALORES ACTUALES (llamar desde donde abres el modal)
+  function establecerValoresActuales(datos) {
+    proveedorActual = datos.proveedor || datos.PROVEEDOR || datos.nombre_proveedor;
+    motivoActual = datos.motivo || datos.MOTIVO_SALIDA || datos.descripcion_motivo;
+    cantidadActual = datos.cantidad || datos.CANTIDAD;
+    costoActual = datos.costo_ultima_entrada || datos.COSTO_ULTIMA_ENTRADA || datos.costo;
+  }
 </script>

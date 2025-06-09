@@ -1,7 +1,7 @@
 $(document).ready(function () {
   // Oculta el botón de agregar al cargar la página
   $("#btnAgregar").hide();
-  $('#btnRegistrar').hide();
+  $("#btnRegistrar").hide();
 
   /*  $('a[data-target="moduloCatEntradas"] span').on('click', function () {
   if (typeof tableCatEntradas !== "undefined") {
@@ -28,10 +28,10 @@ $(document).ready(function () {
     // Muestra el botón de agregar solo si el div es 'moduloCatArticulos'
     if (targetDiv == "moduloCatArticulos") {
       $("#btnAgregar").show();
-      $('#btnRegistrar').show();
+      $("#btnRegistrar").show();
     } else {
       $("#btnAgregar").hide();
-      $('#btnRegistrar').hide();
+      $("#btnRegistrar").hide();
     }
 
     /*muestra el boton en entradas
@@ -76,7 +76,7 @@ $(document).ready(function () {
     $("#tab-menu").show();
     $("#btnAgregar").hide();
     rowSelected = null; // Resetea la selección de fila
-    $('#btnRegistrar').hide();
+    $("#btnRegistrar").hide();
     $("#titulosEntradasSalidas").text("Entradas");
   });
 
@@ -537,25 +537,23 @@ var buttonsEntradas = [];
 if (editEntradas == 1) {
   buttonsEntradas.push({
     // Boton para registrar entrada o salida
-      text: '<i class="bi bi-plus"></i> Registrar movimiento',
-      className: "btn btn-secondary",
-      attr: {
-        //disabled: true,
-        id: "btnRegistrarEntrada",
-        "data-bs-toggle": "tooltip",
-        "data-bs-placement": "top",
-        title: "Registrar movimiento del artículo seleccionado",
-        disabled: !userPermissions.canEditEntradas,
-      },
-      action: function () {
-        if (rowSelected) {
-          $("#registrarEntradaModal").modal("show");
-          $("#registrandoEntrada").text(
-            ` ${rowSelected.NOMBRE_COMERCIAL} (Clave: ${rowSelected.CLAVE_ART})`
-          );
-          $("#registrandoCantidad").text(
-            ` ${rowSelected.CANTIDAD}`
-          );
+    text: '<i class="bi bi-plus"></i> Registrar movimiento',
+    className: "btn btn-secondary",
+    attr: {
+      //disabled: true,
+      id: "btnRegistrarEntrada",
+      "data-bs-toggle": "tooltip",
+      "data-bs-placement": "top",
+      title: "Registrar movimiento del artículo seleccionado",
+      disabled: !userPermissions.canEditEntradas,
+    },
+    action: function () {
+      if (rowSelected) {
+        $("#registrarEntradaModal").modal("show");
+        $("#registrandoEntrada").text(
+          ` ${rowSelected.NOMBRE_COMERCIAL} (Clave: ${rowSelected.CLAVE_ART})`
+        );
+        $("#registrandoCantidad").text(` ${rowSelected.CANTIDAD}`);
 
         // Colocar los valores al formulario
         $("#registrarEntradaForm #no_art").val(rowSelected.ID_ARTICULO);
@@ -626,20 +624,19 @@ buttonsEntradas.push({
         // Entradas
         $("#titulosEntradasSalidas").text("Entradas");
         tableCatEntradas.column(3).visible(true);
+        tableCatEntradas.column(7).header().textContent = "Motivo de entrada";
         tableCatEntradas.column(4).header().textContent =
           "Fecha última entrada";
         tableCatEntradas.column(5).visible(true);
         tableCatEntradas.column(6).visible(true);
-        tableCatEntradas.column(7).visible(false);
         tableCatDetallesEntradas.column(3).header().textContent =
           "Cantidad de entrada";
         tableCatDetallesEntradas.column(0).header().textContent =
           "Fecha y hora última entrada";
         tableCatDetallesEntradas.column(1).visible(true);
         tableCatDetallesEntradas.column(2).visible(true);
-        tableCatDetallesEntradas.column(6).visible(false);
         tableCatDetallesEntradas.column(6).header().textContent =
-          "Motivo de salida";
+          "Motivo de entrada";
         tableCatDetallesEntradas.column(7).visible(true);
         detalleEntradaLabel.textContent = "Detalles de entrada";
 
@@ -655,15 +652,12 @@ buttonsEntradas.push({
         $("#editarMovimientoModal .modal-title").html(
           'Editando entrada con fecha: <span id="mostrandoDetallesEntrada"></span>'
         );
-        $("#editarMovimientoModal #motivoSalidaDiv").hide();
-        $("#editarMovimientoModal #motivo_salida")
-          .prop("required", false)
-          .val("");
+        $("#editarMovimientoModal #motivoSalidaDiv").text("Motivo de entrada");
       } else {
         // Salidas
         $("#titulosEntradasSalidas").text("Salidas");
         tableCatEntradas.column(3).visible(false); // Oculta costo última entrada
-        tableCatEntradas.column(7).visible(true);
+        tableCatEntradas.column(7).header().textContent = "Motivo de salida";
         tableCatEntradas.column(4).header().textContent = "Fecha última salida";
         tableCatEntradas.column(5).visible(false); // Oculta costo más alto
         tableCatEntradas.column(6).visible(false); // Oculta proveedor
@@ -673,7 +667,6 @@ buttonsEntradas.push({
           "Fecha y hora última salida";
         tableCatDetallesEntradas.column(1).visible(false);
         tableCatDetallesEntradas.column(2).visible(false);
-        tableCatDetallesEntradas.column(6).visible(true);
         tableCatDetallesEntradas.column(6).header().textContent =
           "Motivo de salida";
         tableCatDetallesEntradas.column(7).visible(true);
@@ -692,10 +685,7 @@ buttonsEntradas.push({
         $("#editarMovimientoModal .modal-title").html(
           'Editando salida con fecha: <span id="mostrandoDetallesEntrada"></span>'
         );
-        $("#editarMovimientoModal #motivoSalidaDiv")
-          .show()
-          .prop("required", true);
-        $("#editarMovimientoModal #motivo_salida").prop("required", true);
+        $("#editarMovimientoModal #motivoSalidaDiv").text("Motivo de salida");
       }
       tableCatEntradas.columns.adjust().draw();
       $menu.remove();
@@ -739,7 +729,7 @@ if (invVerTrans == 1) {
 // DATATABLE DE ENTRADAS
 tableCatEntradas = $("#tableCatEntradas").DataTable({
   order: [
-    [4, "asc"],
+    [4, "desc"],
     [0, "desc"],
   ],
   autoWidth: true,
@@ -804,6 +794,17 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
     },
     {
       data: "FECHA_ULTIMA_ENTRADA",
+      // Render personalizado para manejar fechas vacías en el ordenamiento
+      render: function (data, type, row) {
+        if (type === "sort" || type === "type") {
+          // Para ordenamiento: fechas vacías van al principio (valor alto)
+          return data
+            ? new Date(data).getTime()
+            : new Date().getTime() + 86400000; // +1 día para que vaya arriba
+        }
+        // Para display normal
+        return data || "";
+      },
     },
     {
       data: "COSTO_MAS_ALTO",
@@ -837,7 +838,7 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
     { target: 4, title: "Fecha última entrada", className: "all" },
     { target: 5, title: "Costo más alto", className: "all" },
     { target: 6, title: "Proveedor", className: "all" },
-    { target: 7, title: "Motivo de salida", className: "all", visible: false },
+    { target: 7, title: "Motivo de entrada", className: "all" },
     { target: 8, title: "Cantidad total en almacén", className: "all" },
     { target: 9, title: "Responsable", className: "all" },
   ],
@@ -914,7 +915,7 @@ var tableCatDetallesEntradas = $("#tableCatDetallesEntradas").DataTable({
     { targets: 3, title: "Cantidad de entrada", className: "all" },
     { targets: 4, visible: false },
     { targets: 5, visible: false },
-    { targets: 6, title: "Motivo de salida", className: "all", visible: false },
+    { targets: 6, title: "Motivo de entrada", className: "all" },
     { targets: 7, title: "Responsable", className: "all" },
   ],
 });
@@ -978,7 +979,7 @@ tableCatTransacciones = $("#tableCatTransacciones").DataTable({
     { targets: 3, title: "Fecha Transacción", className: "all" },
     { targets: 4, title: "Costo Última Transacción", className: "all" },
     { targets: 5, title: "Proveedor", className: "all" },
-    { targets: 6, title: "Tipo Movimiento", className: "all" },
+    { targets: 6, title: "Tipo y Motivo de Movimiento", className: "all" },
     { targets: 7, title: "Responsable", className: "all" },
   ],
   dom: 'Bl<"dataTables_toolbar">frtip',
@@ -1014,7 +1015,12 @@ selectDatatable(
     $("#editarMovimientoModal #costo_ultima_entrada").val(
       rowSelected.COSTO_ULTIMA_ENTRADA
     );
-    $("#editarMovimientoModal #motivo_salida").val(rowSelected.MOTIVO_SALIDA);
+
+    //MODIFICACION AQUI ME QUEDE
+    establecerValoresActuales({
+      proveedor: rowSelected.PROVEEDOR,
+      motivo: rowSelected.MOTIVO_SALIDA,
+    });
   }
 );
 
@@ -1496,61 +1502,672 @@ $("#detalleTransaccionModal").on("hidden.bs.modal", function () {
   $(".fixedHeader-locked").remove();
 });
 
-//cargas de marcas dinamicas
+//cargas dinamica
 $(document).ready(function () {
-  // Cargar marcas cuando se abre el modal de REGISTRAR
+  // ==================== CARGAS PARA MODAL REGISTRAR ====================
   $("#registrarArticuloModal").on("show.bs.modal", function () {
+    cargarTiposRegistrar();
     cargarMarcasRegistrar();
+    cargarUnidadesRegistrar();
+    cargarAreasRegistrar();
+    // No cargar proveedores aquí porque no está en el formulario de registrar
   });
 
-  // Cargar marcas cuando se abre el modal de EDITAR
+  // Agregar a tu script existente en el modal
+  $("#registrarEntradaModal").on("show.bs.modal", function () {
+    // Cargar proveedores dinámicamente
+    cargarProveedoresEntrada();
+    // Cargar motivos de salida dinámicamente
+    cargarMotivosSalida();
+  });
+
+  function cargarProveedoresEntrada() {
+    cargarCatalogoEnModal("#registrarEntradaModal #id_proveedores", {
+      api: 16, // API para proveedores activos
+      campoId: "id_proveedores",
+      campoTexto: "nombre",
+      placeholder: "Seleccione...",
+    });
+  }
+
+  function cargarMotivosSalida() {
+    cargarCatalogoEnModal("#registrarEntradaModal #motivo_salida", {
+      api: 15, // API para motivos activos
+      campoId: "id_motivos",
+      campoTexto: "descripcion",
+      placeholder: "Seleccione un motivo de salida",
+    });
+  }
+
+  // ==================== CARGAS PARA MODAL EDITAR ====================
   $("#editarArticuloModal").on("show.bs.modal", function () {
+    cargarTiposEditar();
     cargarMarcasEditar();
+    cargarUnidadesEditar();
+    cargarAreasEditar();
+    // No cargar proveedores aquí porque no está en el formulario de editar
   });
 
+  // ==================== CARGAS PARA MODAL REGISTRAR ENTRADA ====================
+  $("#registrarEntradaModal").on("show.bs.modal", function () {
+    cargarProveedoresEntrada();
+    cargarMotivosEntrada();
+  });
+
+  // ==================== FUNCIONES PARA AREAS ====================
+  function cargarAreasRegistrar() {
+    cargarCatalogoEnModal("#registrarArticuloModal #area_id", {
+      api: 18,
+      campoId: "ID_AREA", // Usar el campo que devuelve tu SP
+      campoTexto: "DESCRIPCION",
+      placeholder: "Seleccione un área",
+    });
+  }
+
+  function cargarAreasEditar() {
+    cargarCatalogoEnModal("#editarArticuloModal #area_id", {
+      api: 18,
+      campoId: "ID_AREA", // Usar el campo que devuelve tu SP
+      campoTexto: "DESCRIPCION",
+      placeholder: "Seleccione un área",
+    });
+  }
+
+  // ==================== FUNCIONES PARA TIPOS ====================
+  function cargarTiposRegistrar() {
+    cargarCatalogoEnModal("#registrarArticuloModal #tipo_articulo", {
+      api: 2,
+      campoId: "ID_TIPO",
+      campoTexto: "DESCRIPCION",
+      placeholder: "Seleccione un tipo",
+    });
+  }
+
+  function cargarTiposEditar() {
+    cargarCatalogoEnModal("#editarArticuloModal #tipo_articulo", {
+      api: 2,
+      campoId: "ID_TIPO",
+      campoTexto: "DESCRIPCION",
+      placeholder: "Seleccione un tipo",
+    });
+  }
+
+  // ==================== FUNCIONES PARA MARCAS ====================
   function cargarMarcasRegistrar() {
-    cargarMarcasEnModal("#registrarArticuloModal #id_marcas");
+    cargarCatalogoEnModal("#registrarArticuloModal #id_marcas", {
+      api: 9,
+      campoId: "id_marcas",
+      campoTexto: "descripcion",
+      placeholder: "Seleccione una marca",
+    });
   }
 
   function cargarMarcasEditar() {
-    cargarMarcasEnModal("#editarArticuloModal #id_marcas");
+    cargarCatalogoEnModal("#editarArticuloModal #id_marcas", {
+      api: 9,
+      campoId: "id_marcas",
+      campoTexto: "descripcion",
+      placeholder: "Seleccione una marca",
+    });
   }
 
-  function cargarMarcasEnModal(selectorSelect) {
+  // ==================== FUNCIONES PARA UNIDADES ====================
+  function cargarUnidadesRegistrar() {
+    cargarCatalogoEnModal("#registrarArticuloModal #unidad_venta", {
+      api: 12, // API para unidades activas
+      campoId: "id_unidades",
+      campoTexto: "descripcion",
+      placeholder: "Seleccione unidad de venta",
+    });
+  }
+
+  function cargarUnidadesEditar() {
+    cargarCatalogoEnModal("#editarArticuloModal #unidad_venta", {
+      api: 12, // API para unidades activas
+      campoId: "id_unidades",
+      campoTexto: "descripcion",
+      placeholder: "Seleccione unidad de venta",
+    });
+  }
+
+  // ==================== FUNCIONES PARA PROVEEDORES (solo para entradas) ====================
+  function cargarProveedoresEntrada() {
+    cargarCatalogoEnModal("#registrarEntradaModal #id_proveedores", {
+      api: 16, // API para proveedores activos
+      campoId: "id_proveedores",
+      campoTexto: "nombre",
+      placeholder: "Seleccione un proveedor",
+    });
+  }
+
+  // ==================== FUNCIONES PARA MOTIVOS ====================
+  function cargarMotivosEntrada() {
+    cargarCatalogoEnModal("#registrarEntradaModal #motivo_salida", {
+      api: 15, // API para motivos activos
+      campoId: "id_motivos",
+      campoTexto: "descripcion",
+      placeholder: "Seleccione un motivo",
+      filtroTipo: "salida", // Solo motivos de salida
+    });
+  }
+
+  // ==================== FUNCIÓN GENÉRICA PARA CARGAR CATÁLOGOS ====================
+  function cargarCatalogoEnModal(selectorSelect, opciones) {
     $.ajax({
       url: "../../../api/inventarios_api.php",
       type: "POST",
       dataType: "json",
       data: {
-        api: 9
+        api: opciones.api,
+        tipo_movimiento: opciones.filtroTipo || null,
       },
       success: function (response) {
         if (response.response && response.response.code == 1) {
-          let selectMarca = $(selectorSelect);
-          let valorActual = selectMarca.val();
+          let selectElement = $(selectorSelect);
+          let valorActual = selectElement.val();
 
-          selectMarca.empty();
-          selectMarca.append('<option value="">Seleccione una marca</option>');
+          selectElement.empty();
+          selectElement.append(
+            `<option value="">${opciones.placeholder}</option>`
+          );
 
-          response.response.data.forEach(function (marca) {
-            selectMarca.append(
-              `<option value="${marca.id_marcas}">${marca.descripcion}</option>`
+          // Filtrar datos si es necesario (para motivos por tipo)
+          let datos = response.response.data;
+          if (opciones.filtroTipo && opciones.api === 15) {
+            datos = datos.filter(
+              (item) =>
+                item.tipo_movimiento === opciones.filtroTipo ||
+                item.tipo_movimiento === "ambos"
+            );
+          }
+
+          datos.forEach(function (item) {
+            selectElement.append(
+              `<option value="${item[opciones.campoId]}">${
+                item[opciones.campoTexto]
+              }</option>`
             );
           });
 
           // Mantener la selección previa si existe
           if (valorActual) {
-            selectMarca.val(valorActual);
+            selectElement.val(valorActual);
           }
 
-          console.log("Marcas cargadas en:", selectorSelect);
+          console.log(`${opciones.placeholder} cargados en:`, selectorSelect);
         } else {
-          console.log("Error al cargar las marcas:", response);
+          console.log(`Error al cargar ${opciones.placeholder}:`, response);
+          alertToast(`Error al cargar ${opciones.placeholder}`, "error", 3000);
         }
       },
       error: function (xhr, status, error) {
         console.log("Error AJAX:", error);
-      }
+        alertToast(
+          `Error de conexión al cargar ${opciones.placeholder}`,
+          "error",
+          3000
+        );
+      },
     });
   }
+
+  // ==================== FUNCIÓN ESPECÍFICA PARA MOTIVOS POR TIPO ====================
+  function cargarMotivosPorTipo(selectorSelect, tipoMovimiento) {
+    cargarCatalogoEnModal(selectorSelect, {
+      api: 15, // API para motivos activos
+      campoId: "id_motivos",
+      campoTexto: "descripcion",
+      placeholder: `Seleccione un motivo de ${tipoMovimiento}`,
+      filtroTipo: tipoMovimiento,
+    });
+  }
+
+  // ==================== EVENTOS PARA CAMBIO DE TIPO DE MOVIMIENTO ====================
+  $(document).on("change", "#tipo_movimiento_entrada", function () {
+    const tipoSeleccionado = $(this).val();
+    if (tipoSeleccionado === "1") {
+      // Entrada
+      cargarMotivosPorTipo("#registrarEntradaModal #motivo_entrada", "entrada");
+    } else if (tipoSeleccionado === "2") {
+      // Salida
+      cargarMotivosPorTipo("#registrarEntradaModal #motivo_salida", "salida");
+    }
+  });
 });
+
+// catalogos, mostrar las tablas
+var tableCatTipos,
+  tableCatUnidades,
+  tableCatMarcas,
+  tableCatMotivos,
+  tableCatProveedores;
+var rowSelectedCatalogo = null;
+
+$("#registrarCatalogoModal").on("shown.bs.modal", function () {
+  // solo inicializar si no existen las tablas
+  if (!tableCatTipos) {
+    inicializarDataTablesCatalogos();
+  }
+});
+
+// aqui poner las datatabls para inicializarlas
+function inicializarDataTablesCatalogos() {
+  // DATATABLE DE TIPOS
+  tableCatTipos = $("#tableCatTipos").DataTable({
+    language: {
+      url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+    },
+    autoWidth: true,
+    lengthChange: false,
+    info: true,
+    paging: true,
+    scrollY: "40vh",
+    scrollCollapse: true,
+    ajax: {
+      dataType: "json",
+      method: "POST",
+      url: "../../../api/inventarios_api.php",
+      data: { api: 2 },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alertErrorAJAX(jqXHR, textStatus, errorThrown);
+      },
+      dataSrc: "response.data",
+    },
+    columns: [
+      { data: "ID_TIPO" },
+      { data: "DESCRIPCION" },
+      {
+        data: "ACTIVO",
+        render: function (data) {
+          return data == 1
+            ? '<i class="bi bi-toggle-on fs-4 text-success"></i>'
+            : '<i class="bi bi-toggle-off fs-4"></i>';
+        },
+      },
+      {
+        data: null,
+        render: function (data, type, row) {
+          return `
+                        <button class="btn btn-sm btn-warning btn-editar-tipo" data-id="${row.ID_TIPO}" data-descripcion="${row.DESCRIPCION}" data-activo="${row.ACTIVO}">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger btn-eliminar-tipo" data-id="${row.ID_TIPO}">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    `;
+        },
+      },
+    ],
+    // AGREGAR BOTÓN PERSONALIZADO
+    dom: 'Bl<"dataTables_toolbar">frtip',
+    buttons: [
+      {
+        text: '<i class="bi bi-plus-lg"></i> Nuevo Tipo',
+        className: "btn btn-success",
+        attr: {
+          "data-bs-toggle": "modal",
+          "data-bs-target": "#registrarTipoModal",
+        },
+        action: function () {
+          $("#registrarTipoModal").modal("show");
+        },
+      },
+    ],
+  });
+
+  // DATATABLE DE UNIDADES
+  tableCatUnidades = $("#tableCatUnidades").DataTable({
+    language: {
+      url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+    },
+    autoWidth: true,
+    lengthChange: false,
+    info: true,
+    paging: true,
+    scrollY: "40vh",
+    scrollCollapse: true,
+    ajax: {
+      dataType: "json",
+      method: "POST",
+      url: "../../../api/inventarios_api.php",
+      data: { api: 12 },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alertErrorAJAX(jqXHR, textStatus, errorThrown);
+      },
+      dataSrc: "response.data",
+    },
+    columns: [
+      { data: "id_unidades" },
+      { data: "descripcion" },
+      {
+        data: "activo",
+        render: function (data) {
+          return data == 1
+            ? '<i class="bi bi-toggle-on fs-4 text-success"></i>'
+            : '<i class="bi bi-toggle-off fs-4"></i>';
+        },
+      },
+      {
+        data: null,
+        render: function (data, type, row) {
+          return `
+                        <button class="btn btn-sm btn-warning btn-editar-marca" data-id="${row.id_unidades}" data-descripcion="${row.descripcion}" data-activo="${row.activo}">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger btn-eliminar-marca" data-id="${row.id_unidades}">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    `;
+        },
+      },
+    ],
+    // AGREGAR BOTÓN PERSONALIZADO
+    dom: 'Bl<"dataTables_toolbar">frtip',
+    buttons: [
+      {
+        text: '<i class="bi bi-plus-lg"></i> Nueva Unidad',
+        className: "btn btn-success",
+        attr: {
+          "data-bs-toggle": "modal",
+          "data-bs-target": "#registrarUnidadModal",
+        },
+        action: function () {
+          $("#registrarUnidadModal").modal("show");
+        },
+      },
+    ],
+  });
+
+  // DATATABLE DE MARCAS
+  tableCatMarcas = $("#tableCatMarcas").DataTable({
+    language: {
+      url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+    },
+    autoWidth: true,
+    lengthChange: false,
+    info: true,
+    paging: true,
+    scrollY: "40vh",
+    scrollCollapse: true,
+    ajax: {
+      dataType: "json",
+      method: "POST",
+      url: "../../../api/inventarios_api.php",
+      data: { api: 9 },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alertErrorAJAX(jqXHR, textStatus, errorThrown);
+      },
+      dataSrc: "response.data",
+    },
+    columns: [
+      { data: "id_marcas" },
+      { data: "descripcion" },
+      {
+        data: "activo",
+        render: function (data) {
+          return data == 1
+            ? '<i class="bi bi-toggle-on fs-4 text-success"></i>'
+            : '<i class="bi bi-toggle-off fs-4"></i>';
+        },
+      },
+      {
+        data: null,
+        render: function (data, type, row) {
+          return `
+                        <button class="btn btn-sm btn-warning btn-editar-marca" data-id="${row.id_marcas}" data-descripcion="${row.descripcion}" data-activo="${row.activo}">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger btn-eliminar-marca" data-id="${row.id_marcas}">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    `;
+        },
+      },
+    ],
+    // AGREGAR BOTÓN PERSONALIZADO
+    dom: 'Bl<"dataTables_toolbar">frtip',
+    buttons: [
+      {
+        text: '<i class="bi bi-plus-lg"></i> Nueva Marca',
+        className: "btn btn-success",
+        attr: {
+          "data-bs-toggle": "modal",
+          "data-bs-target": "#registrarMarcaModal",
+        },
+        action: function () {
+          $("#registrarMarcaModal").modal("show");
+        },
+      },
+    ],
+  });
+
+  //DATATABLE DE MOTIVOS
+  tableCatMotivos = $("#tableCatMotivos").DataTable({
+    language: {
+      url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+    },
+    autoWidth: true,
+    lengthChange: false,
+    info: true,
+    paging: true,
+    scrollY: "40vh",
+    scrollCollapse: true,
+    ajax: {
+      dataType: "json",
+      method: "POST",
+      url: "../../../api/inventarios_api.php",
+      data: { api: 15 },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alertErrorAJAX(jqXHR, textStatus, errorThrown);
+      },
+      dataSrc: "response.data",
+    },
+    columns: [
+      { data: "id_motivos" },
+      { data: "descripcion" },
+      {
+        data: "activo",
+        render: function (data) {
+          return data == 1
+            ? '<i class="bi bi-toggle-on fs-4 text-success"></i>'
+            : '<i class="bi bi-toggle-off fs-4"></i>';
+        },
+      },
+      {
+        data: "tipo_movimiento",
+        render: function (data) {
+          let badgeClass = "";
+          let texto = "";
+
+          switch (data) {
+            case "entrada":
+              badgeClass = "bg-success";
+              texto = "Entrada";
+              break;
+            case "salida":
+              badgeClass = "bg-danger";
+              texto = "Salida";
+              break;
+            case "ambos":
+              badgeClass = "bg-info";
+              texto = "Ambos";
+              break;
+            default:
+              badgeClass = "bg-secondary";
+              texto = "No definido";
+          }
+
+          return `<span class="badge ${badgeClass}">${texto}</span>`;
+        },
+      },
+      {
+        data: null,
+        render: function (data, type, row) {
+          return `
+                        <button class="btn btn-sm btn-warning btn-editar-marca" data-id="${row.id_marcas}" data-descripcion="${row.descripcion}" data-activo="${row.activo}">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger btn-eliminar-marca" data-id="${row.id_marcas}">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    `;
+        },
+      },
+    ],
+    // AGREGAR BOTÓN PERSONALIZADO
+    dom: 'Bl<"dataTables_toolbar">frtip',
+    buttons: [
+      {
+        text: '<i class="bi bi-plus-lg"></i> Nuevo motivo',
+        className: "btn btn-success",
+        attr: {
+          "data-bs-toggle": "modal",
+          "data-bs-target": "#registrarMotivoModal",
+        },
+        action: function () {
+          $("#registrarMotivoModal").modal("show");
+        },
+      },
+    ],
+  });
+
+  // DATATABLE DE PROVEEDORES
+  tableCatProveedores = $("#tableCatProveedores").DataTable({
+    language: {
+      url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+    },
+    autoWidth: true,
+    lengthChange: false,
+    info: true,
+    paging: true,
+    scrollY: "40vh",
+    scrollCollapse: true,
+    ajax: {
+      dataType: "json",
+      method: "POST",
+      url: "../../../api/inventarios_api.php",
+      data: { api: 16 }, // Nueva API para proveedores
+      error: function (jqXHR, textStatus, errorThrown) {
+        alertErrorAJAX(jqXHR, textStatus, errorThrown);
+      },
+      dataSrc: "response.data",
+    },
+    columns: [
+      { data: "id_proveedores" },
+      { data: "nombre" },
+      { data: "contacto" },
+      { data: "telefono" },
+      {
+        data: "activo",
+        render: function (data) {
+          return data == 1
+            ? '<i class="bi bi-toggle-on fs-4 text-success"></i>'
+            : '<i class="bi bi-toggle-off fs-4"></i>';
+        },
+      },
+      {
+        data: null,
+        render: function (data, type, row) {
+          return `
+                    <button class="btn btn-sm btn-warning btn-editar-proveedor" data-id="${row.id_proveedores}" data-nombre="${row.nombre}" data-contacto="${row.contacto}" data-telefono="${row.telefono}" data-email="${row.email}" data-activo="${row.activo}">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger btn-eliminar-proveedor" data-id="${row.id_proveedores}">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                `;
+        },
+      },
+    ],
+    dom: 'Bl<"dataTables_toolbar">frtip',
+    buttons: [
+      {
+        text: '<i class="bi bi-plus-lg"></i> Nuevo Proveedor',
+        className: "btn btn-success",
+        attr: {
+          "data-bs-toggle": "modal",
+          "data-bs-target": "#registrarProveedorModal",
+        },
+        action: function () {
+          $("#registrarProveedorModal").modal("show");
+        },
+      },
+    ],
+  });
+
+  // Aplicar la función inputBusquedaTable después de la inicialización
+  setTimeout(() => {
+    inputBusquedaTable(
+      "tableCatTipos",
+      tableCatTipos,
+      [
+        {
+          msj: "Buscar tipos...",
+          place: "top",
+        },
+      ],
+      [],
+      "col-12"
+    );
+
+    inputBusquedaTable(
+      "tableCatMarcas",
+      tableCatMarcas,
+      [
+        {
+          msj: "Buscar marcas...",
+          place: "top",
+        },
+      ],
+      [],
+      "col-12"
+    );
+
+    inputBusquedaTable(
+      "tableCatUnidades",
+      tableCatUnidades,
+      [
+        {
+          msj: "Buscar unidades...",
+          place: "top",
+        },
+      ],
+      [],
+      "col-12"
+    );
+
+    inputBusquedaTable(
+      "tableCatMotivos",
+      tableCatMotivos,
+      [
+        {
+          msj: "Buscar motivos...",
+          place: "top",
+        },
+      ],
+      [],
+      "col-12"
+    );
+    inputBusquedaTable(
+      "tableCatProveedores",
+      tableCatProveedores,
+      [
+        {
+          msj: "Buscar proveedores...",
+          place: "top",
+        },
+      ],
+      [],
+      "col-12"
+    );
+
+    // Ajustar columnas
+    tableCatTipos.columns.adjust().draw();
+    tableCatMarcas.columns.adjust().draw();
+    tableCatUnidades.columns.adjust().draw();
+    tableCatMotivos.columns.adjust().draw();
+    tableCatProveedores.columns.adjust().draw();
+  }, 1000);
+
+  inicializarEventosCatalogos();
+}
