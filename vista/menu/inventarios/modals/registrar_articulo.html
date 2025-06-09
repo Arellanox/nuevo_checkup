@@ -235,6 +235,84 @@
                                         </div>
                                     </div>
 
+ 
+                                    <!-- Sección 5: Códigos de Identificación -->
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <h6 class="card-title">Identificación del Producto</h6>
+                                                <div class="row">
+                                                <!-- Código de barras -->
+                                                <div class="col-6">
+                                                    <div class="mb-3">
+                                                    <label for="codigo_barras" class="form-label">Código de Barras</label>
+                                                    <input type="text" class="form-control input-form" id="codigo_barras" name="codigo_barras">
+                                                        <div class="d-flex gap-3 mt-2 flex-wrap">
+                                                        <button class="btn btn-outline-secondary btn-sm d-flex flex-column align-items-center" type="button" id="generarCodigoBarras" style="width: 97px;">
+                                                        <i class="bi bi-upc-scan fs-5"></i>
+                                                        <span class="mt-1">Generar</span>
+                                                        </button>
+                                                        <button class="btn btn-outline-secondary btn-sm d-flex flex-column align-items-center" type="button" id="leerCodigoBarras" style="width: 97px;">
+                                                        <i class="bi bi-upc-scan fs-5"></i>
+                                                        <span class="mt-1">Escanear</span>
+                                                        </button>
+                                                        <button class="btn btn-outline-secondary btn-sm d-flex flex-column align-items-center" type="button" 
+                                                        id="generarQR" style="width:97px;">
+                                                        <i class="bi bi-qr-code fs-5"></i>
+                                                        <span class="mt-1">Generar QR</span>
+                                                        </button>
+                                                        </div>
+                                                        <div class="d-flex gap-3 mt-2 flex-wrap">
+                                                        <button class="btn btn-outline-secondary btn-sm d-flex flex-column align-items-center d-none" type="button" id="descargarQRPNG" style="width:97px;">
+                                                        <i class="bi bi-filetype-png fs-5"></i>
+                                                        <span class="mt-1">Descargar Imagen</span>
+                                                        </button>
+                                                        <button id="descargarQRPDF" class="btn btn-outline-secondary btn-sm d-flex flex-column align-items-center d-none" type="button" style="width: 97px;"><i class="bi bi-filetype-pdf fs-5"></i>Descargar PDF</button>
+                                                        <button id="imprimirQR" class="btn btn-outline-secondary btn-sm d-flex flex-column align-items-center d-none" type="button" style="width: 97px;"><i class="bi bi-file-earmark-pdf fs-5"></i>Imprimir PDF</button>
+                                                        </div>
+                                                        <small class="form-text text-muted">Ingrese o genere el código de barras del artículo.</small>
+                                                    </div>
+                                                </div>
+                                            <!-- Visualización del QR -->
+                                                <div class="col-6">
+                                                    <div class="h-100 d-flex flex-column">
+                                                        <div id="qrCodePreview" class="border p-3 rounded flex-grow-1 d-flex align-items-center justify-content-center flex-column" style="min-height: 150px;">
+                                                        <small class="text-muted text-center">El código QR aparecerá aquí</small>
+                                                        <!-- Este div contendrá el QR -->
+                                                        <div id="qrCodeContainer" class="mb-2"></div>
+                                                        <!-- Este div mostrará la clave y nombre -->
+                                                        <div id="qrClaveDisplay" class="fw-bold text-center" style="font-size: 1.1rem;"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Sección 6: Gestión de Lotes -->
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <h6 class="card-title">Gestión de Lotes</h6>
+                                            <div class="row">
+                                            <!-- Campos que aparecen en lotes -->
+                                                <div id="lotesFields">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="mb-3">
+                                                            <label for="numero_lote" class="form-label">Número de Lote</label>
+                                                            <input type="text" class="form-control input-form" id="numero_lote" name="numero_lote">
+                                                            <small class="form-text text-muted">Ingrese el número de lote del producto.</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="mb-3">
+                                                            <label for="fecha_fabricacion" class="form-label">Fecha de Lote</label>
+                                                            <input type="date" class="form-control input-form" id="fecha_fabricacion" name="fecha_fabricacion">
+                                                            <small class="form-text text-muted">Ingrese la fecha de fabricación del lote.</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>           
+                                                </div>
+
                                     <!-- Botones de Acción -->
                                     <!-- <div class="d-flex justify-content-end mt-3">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -313,5 +391,310 @@ $('#maneja_caducidad').on('change', function() {
 // Ejecutar al cargar para el valor inicial
 $(document).ready(function() {
     $('#maneja_caducidad').trigger('change');
+    $('#maneja_lotes').trigger('change');
+});
+
+// Generar código de barras automático (mantén el existente)
+$('#generarCodigoBarras').click(function() {
+    // Tu código actual de generación de código de barras
+    // Generar un código EAN-13 válido (13 dígitos)
+    let prefix = '750'; // Prefijo para México
+    let random = Math.floor(1000000000 + Math.random() * 9000000000).toString().substring(0, 9);
+    let code = prefix + random;
+    
+    // Calcular dígito de control para EAN-13
+    let sum = 0;
+    for (let i = 0; i < 12; i++) {
+        sum += parseInt(code.charAt(i)) * (i % 2 === 0 ? 1 : 3);
+    }
+    let checksum = (10 - (sum % 10)) % 10;
+    let fullCode = code + checksum;
+    
+    $('#codigo_barras').val(fullCode);
+});
+
+// Botón para generar QR
+$('#generarQR').click(function() {
+    // Verificar que haya un código de barras
+
+    // Obtener la clave del artículo
+    const clave = $('#clave_art').val();
+    if (!clave) {
+        alertToast("La clave del artículo es requerida", "warning", 3000);
+        return;
+    }
+
+    // Obtener el nombre comercial del artículo
+    const nombre_comercial = $("#nombre_comercial").val();
+    if (!nombre_comercial) {
+        alertToast("El nombre del artículo es requerido", "warning", 3000);
+        return;
+    }
+
+    if (!$('#codigo_barras').val()) {
+        alertToast("Primero genere o ingrese un código de barras", "warning", 3000);
+        return;
+    }
+    
+    // Generar código QR con los datos del artículo
+    const qrCampos = {
+        clave,
+        nombre_comercial: $('#nombre_comercial').val(),
+        codigo_barras: $('#codigo_barras').val(),
+        id_marcas: $('#id_marcas').val(),
+        red_frio: $('#red_frio').val(),
+        tipo_articulo: $('#tipo_articulo').val(),
+        area_id: $('#area_id').val(),
+        maneja_caducidad: $('#maneja_caducidad').val(),
+        fecha_caducidad: $('#fecha_caducidad').val(),
+        unidad_venta: $('#unidad_venta').val(),
+        unidad_minima: $('#unidad_minima').val(),
+        contenido: $('#contenido').val(),
+        numero_lote: $('#numero_lote').val(),
+        fecha_fabricacion: $('#fecha_fabricacion').val(),
+        fecha_qr: new Date().toISOString().split('T')[0]
+    };
+    const qrDataObj = {};
+for (const key in qrCampos) {
+    if (qrCampos[key] !== null && qrCampos[key] !== undefined && qrCampos[key] !== '') {
+        qrDataObj[key] = qrCampos[key];
+    }
+}
+const qrData = JSON.stringify(qrDataObj);
+    // Limpiar los contenedores
+    $('#qrCodeContainer').empty();
+    $('#qrClaveDisplay').empty();
+    
+    // Generar el código QR
+    if (typeof QRCode !== 'undefined') {
+        new QRCode(document.getElementById("qrCodeContainer"), {
+            text: qrData,
+            width: 150,
+            height: 150,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+
+        // Mostrar la clave debajo del QR con mejor formato
+        $('#qrClaveDisplay').html(`Clave: ${clave}<br>Nombre Comercial: ${nombre_comercial}`);
+
+
+        
+        // Ocultar el placeholder
+        $('#qrCodePreview small').hide();
+
+        // Mostrar el botón de descargar PDF
+        $('#descargarQRPNG').removeClass('d-none').addClass('d-flex');
+        $('#descargarQRPDF').removeClass('d-none').addClass('d-flex');
+        $('#imprimirQR').removeClass('d-none').addClass('d-flex');
+
+    } else {
+        alertToast("Error: Librería QRCode no cargada", "error", 3000);
+    }
+});
+/* Modificación del submit para incluir el QR en los datos
+$('#registrarArticuloForm').submit(function(e) {
+    e.preventDefault();
+    
+    // Verificar si hay QR generado
+    const qrImg = $('#qrCodePreview img');
+    if (qrImg.length > 0) {
+        // Convertir QR a base64 para enviarlo al servidor
+        const qrDataURL = qrImg[0].src;
+        $('<input>').attr({
+            type: 'hidden',
+            name: 'qr_image',
+            value: qrDataURL
+        }).appendTo('#registrarArticuloForm');
+    }
+    
+    // Tu código existente de envío del formulario
+});
+*/
+
+$('#descargarQRPNG').click(function() {
+    if (!$('#qrCodeContainer').html()) {
+        alertToast("Primero genere un código QR", "warning", 3000);
+        return;
+    }
+
+    // Obtener datos
+    const qrCanvas = $('#qrCodeContainer canvas')[0];
+    const clave = $('#clave_art').val();
+    const nombre_comercial = $('#nombre_comercial').val();
+    
+    // Crear canvas combinado
+    const combinedCanvas = document.createElement('canvas');
+    const ctx = combinedCanvas.getContext('2d');
+    
+    // Definir altura extra para 2 líneas de texto (ajustable)
+    const extraHeight = 50;
+    combinedCanvas.width = qrCanvas.width;
+    combinedCanvas.height = qrCanvas.height + extraHeight;
+
+    // Dibujar el QR
+    ctx.drawImage(qrCanvas, 0, 0);
+
+    // Estilo del texto
+    ctx.font = '16px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillStyle = 'black';
+
+    // Dibujar cada línea de texto debajo del QR
+    const centerX = qrCanvas.width / 2;
+    const startY = qrCanvas.height + 20;
+
+    ctx.fillText(`Clave: ${clave}`, centerX, startY);
+    ctx.fillText(`Nombre: ${nombre_comercial}`, centerX, startY + 20);
+
+    // Descargar imagen
+    const imgData = combinedCanvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.download = `QR_${clave}.png`;
+    link.href = imgData;
+    link.click();
+});
+
+$('#descargarQRPDF').click(async function () {
+    if (!$('#qrCodeContainer').html()) {
+        alertToast("Primero genere un código QR", "warning", 3000);
+        return;
+    }
+
+    const qrImage = $('#qrCodeContainer canvas')[0].toDataURL('image/png');
+    const clave = $('#clave_art').val();
+    const nombre_comercial = $('#nombre_comercial').val();
+    const fecha = new Date().toLocaleDateString();
+
+    // Crear PDF
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm'
+    });
+
+    // Configuración de márgenes y tamaños
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const margin = 15;
+    const qrWidth = 50; // ancho del QR en mm
+    const qrX = (pageWidth - qrWidth) / 2; // centrar horizontalmente
+
+    // Agregar título
+    pdf.setFontSize(16);
+    pdf.setTextColor(40);
+    // Agregar título
+    pdf.text(`Reporte QR - ${nombre_comercial}`, 105, 20, { align: 'center' });
+
+
+    // Agregar imagen del QR
+    pdf.addImage(qrImage, 'PNG', qrX, margin + 10, qrWidth, qrWidth);
+
+    // Agregar información del artículo
+    pdf.setFontSize(12);
+    pdf.text(`Clave: ${clave}`, margin, margin + qrWidth + 25);
+    pdf.text(`Nombre: ${nombre_comercial}`, margin, margin + qrWidth + 30);
+    pdf.text(`Fecha: ${fecha}`, margin, margin + qrWidth + 35);
+
+    // Línea decorativa
+    pdf.setDrawColor(200);
+    pdf.line(margin, margin + qrWidth + 40, pageWidth - margin, margin + qrWidth + 40);
+
+    // Descargar PDF
+    pdf.save(`QR_${clave}.pdf`);
+});
+
+
+$('#imprimirQR').click(function () {
+    if (!$('#qrCodeContainer').html()) {
+        alertToast("Primero genere un código QR", "warning", 3000);
+        return;
+    }
+
+    const qrImage = $('#qrCodeContainer canvas')[0].toDataURL('image/png');
+    const clave = $('#clave_art').val();
+    const nombre_comercial = $('#nombre_comercial').val();
+    const fecha = new Date().toLocaleDateString();
+
+    const ventanaImpresion = window.open('', '_blank', 'width=400,height=600');
+
+    const htmlContent = `
+        <html>
+            <head>
+                <title>LABORATORIO BIOMOLECULAR S.A DE C.V</title>
+                <style>
+                    body { 
+                        font-family: Arial, sans-serif; 
+                        margin: 20px;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                    }
+                    .header {
+                        text-align: center;
+                        margin-bottom: 20px;
+                    }
+                    .qr-container {
+                        margin: 20px 0;
+                        text-align: center;
+                    }
+                    .qr-container img {
+                        width: 150px;
+                        height: 150px;
+                    }
+                    .info {
+                        margin-top: 20px;
+                        text-align: left;
+                        width: 100%;
+                        max-width: 300px;
+                        border-top: 1px solid #eee;
+                        padding-top: 10px;
+                    }
+                    .info p {
+                        margin: 5px 0;
+                    }
+                    @media print {
+                        body { margin: 0; padding: 10px; }
+                        .no-print { display: none; }
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="header">
+                    <h3>Reporte QR - ${nombre_comercial}</h3>
+                </div>
+                
+                <div class="qr-container">
+                    <img src="${qrImage}" alt="Código QR">
+                </div>
+                
+                <div class="info">
+                    <p><strong>Clave:</strong> ${clave}</p>
+                    <p><strong>Nombre:</strong> ${nombre_comercial}</p>
+                    <p><strong>Fecha:</strong> ${fecha}</p>
+                </div>
+                
+                <button class="no-print" onclick="window.print()" style="margin-top: 20px; padding: 8px 15px; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                    Imprimir
+                </button>
+                
+               
+            </body>
+        </html>
+    `;
+
+    ventanaImpresion.document.open();
+    ventanaImpresion.document.write(htmlContent);
+    ventanaImpresion.document.close();
+});
+
+// Al resetear el formulario
+$('#registrarArticuloForm').on('reset', function() {
+    $('#qrCodeImage').empty();
+    $('#qrCodeClave').empty();
+    $('#qrCodePlaceholder').show();
 });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
