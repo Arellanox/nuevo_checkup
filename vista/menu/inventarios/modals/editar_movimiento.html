@@ -96,8 +96,8 @@
                             </select>
                           </div>
                           <!-- Motivo de salida -->
-                          <div class="mb-3" id="motivoSalidaDiv">
-                            <label for="motivo_salida" class="form-label"
+                          <div class="mb-3" id="motivoSalidaDiva">
+                            <label id="motivo_salida_label" for="motivo_salida" class="form-label"
                               >Motivo de entrada</label
                             >
                             <select
@@ -192,23 +192,38 @@
 
     // FUNCIÓN PARA CARGAR MOTIVOS
     function cargarMotivosEditar() {
+      // Determinar el tipo de movimiento basado en dataTableCatEntradas.id_movimiento
+      var tipoMovimiento = "entrada"; // Por defecto
+      var textoPlaceholder = "Seleccione un motivo de entrada";
+      var filtroTipo = "entrada";
+      
+      // Si existe la variable global y es tipo salida (2 o 5)
+      if (window.dataTableCatEntradas && window.dataTableCatEntradas.id_movimiento) {
+        var idMovimiento = window.dataTableCatEntradas.id_movimiento;
+        if (idMovimiento == "2" || idMovimiento == "5") {
+          tipoMovimiento = "salida";
+          textoPlaceholder = "Seleccione un motivo de salida";
+          filtroTipo = "salida";
+        }
+      }
+
       $.ajax({
         url: "../../../api/inventarios_api.php",
         type: "POST",
         dataType: "json",
         data: {
           api: 15,
-          tipo_movimiento: "entrada"
+          tipo_movimiento: tipoMovimiento // Ahora es dinámico
         },
         success: function (response) {
           if (response.response && response.response.code == 1) {
             let selectElement = $("#editarMovimientoModal #motivo_salida");
             
             selectElement.empty();
-            selectElement.append(`<option value="">Seleccione un motivo de entrada</option>`);
+            selectElement.append(`<option value="">${textoPlaceholder}</option>`); // Dinámico
 
             let datosFiltrados = response.response.data.filter(function(item) {
-              return item.tipo_movimiento === "entrada" || item.tipo_movimiento === 'ambos';
+              return item.tipo_movimiento === filtroTipo || item.tipo_movimiento === 'ambos'; // Dinámico
             });
 
             datosFiltrados.forEach(function (item) {
@@ -220,7 +235,7 @@
               );
             });
 
-            console.log("Motivos de entrada cargados en modal editar");
+            console.log(`Motivos de ${tipoMovimiento} cargados en modal editar`);
             if (motivoActual) {
               console.log(`Motivo seleccionado automáticamente: ${motivoActual}`);
             }

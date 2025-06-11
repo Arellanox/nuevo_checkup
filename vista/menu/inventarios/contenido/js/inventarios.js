@@ -497,16 +497,9 @@ tableCatArticulos = $("#tableCatArticulos").DataTable({
       },
       className: "text-center",
     },
-
-    // { data: 'MONTO_ACTUAL' },
-    // // {
-    // //     data: 'FECHA_CREACION', render: function (data) {
-    // //         return formatoFecha2(data, [0, 1, 3, 1]);
-    // //     }
-    // // },
-    // {
-    //     data: 'RESPONSABLE_NOMBRE'
-    // }
+    { data: "clave_art_sys" },
+    { data: "numero_lote" },
+    { data: "fecha_lote" },
   ],
   columnDefs: [
     // Ajusta los anchos de columna según el contenido esperado
@@ -527,6 +520,9 @@ tableCatArticulos = $("#tableCatArticulos").DataTable({
     { target: 13, title: "Costo más alto", className: "all" },
     { target: 14, title: "Inserto", className: "all" },
     { target: 15, title: "Proc. de prueba", className: "all" },
+    { target: 16, title: "CAS", className: "all", visible: false },
+    { target: 17, title: "Número de lote", className: "all" },
+    { target: 18, title: "Fecha de lote", className: "all" },
   ],
   dom: 'Bl<"dataTables_toolbar">frtip',
   buttons: buttonsArticulos,
@@ -652,7 +648,9 @@ buttonsEntradas.push({
         $("#editarMovimientoModal .modal-title").html(
           'Editando entrada con fecha: <span id="mostrandoDetallesEntrada"></span>'
         );
-        $("#editarMovimientoModal #motivoSalidaDiv").text("Motivo de entrada");
+        $("#editarMovimientoModal #motivo_salida_label").text(
+          "Motivo de entrada"
+        );
       } else {
         // Salidas
         $("#titulosEntradasSalidas").text("Salidas");
@@ -685,7 +683,9 @@ buttonsEntradas.push({
         $("#editarMovimientoModal .modal-title").html(
           'Editando salida con fecha: <span id="mostrandoDetallesEntrada"></span>'
         );
-        $("#editarMovimientoModal #motivoSalidaDiv").text("Motivo de salida");
+        $("#editarMovimientoModal #motivo_salida_label").text(
+          "Motivo de salida"
+        );
       }
       tableCatEntradas.columns.adjust().draw();
       $menu.remove();
@@ -946,8 +946,7 @@ tableCatTransacciones = $("#tableCatTransacciones").DataTable({
       alertErrorAJAX(jqXHR, textStatus, errorThrown);
     },
     dataSrc: "response.data",
-  },
-  columns: [
+  },  columns: [
     { data: "CLAVE_ART" },
     { data: "NOMBRE_COMERCIAL" },
     { data: "CANTIDAD" },
@@ -970,17 +969,18 @@ tableCatTransacciones = $("#tableCatTransacciones").DataTable({
     },
     { data: "PROVEEDOR" },
     { data: "TIPO_MOVIMIENTO" },
+    { data: "MOTIVO_SALIDA" },
     { data: "RESPONSABLE" },
-  ],
-  columnDefs: [
+  ],  columnDefs: [
     { targets: 0, title: "Clave Artículo", className: "all" },
     { targets: 1, title: "Nombre Comercial", className: "all" },
     { targets: 2, title: "Cantidad", className: "all" },
     { targets: 3, title: "Fecha Transacción", className: "all" },
     { targets: 4, title: "Costo Última Transacción", className: "all" },
     { targets: 5, title: "Proveedor", className: "all" },
-    { targets: 6, title: "Tipo y Motivo de Movimiento", className: "all" },
-    { targets: 7, title: "Responsable", className: "all" },
+    { targets: 6, title: "Tipo de Movimiento", className: "all" },
+    { targets: 7, title: "Motivo", className: "all" },
+    { targets: 8, title: "Responsable", className: "all" },
   ],
   dom: 'Bl<"dataTables_toolbar">frtip',
   buttons: [],

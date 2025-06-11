@@ -54,6 +54,8 @@ $id_cat_entradas = $_POST['id_cat_entradas'];
 $cantidad = $_POST['cantidad'];
 $id_movimiento = $_POST['id_movimiento'];
 $motivo_salida = $_POST['motivo_salida'];
+$numero_lote = $_POST['numero_lote'];
+$fecha_lote = $_POST['fecha_lote'];
 $id_cat_movimientos = $_POST['id_cat_movimientos'];
 $id_marcas = $_POST['id_marcas'];
 $id_tipo = isset($_POST['id_tipo']) ? $_POST['id_tipo'] : null;
@@ -137,7 +139,9 @@ switch ($api) {
             $rendimiento_paciente,
             $cantidad,
             $id_proveedores,
-            $id_marcas
+            $id_marcas,
+            $numero_lote,
+            $fecha_lote
         ]);
         break;
     case 2:
