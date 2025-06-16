@@ -651,6 +651,9 @@ buttonsEntradas.push({
         $("#editarMovimientoModal #motivo_salida_label").text(
           "Motivo de entrada"
         );
+
+        $("#editarMovimientoModal #facturaEditDiv").show();
+        $("#editarMovimientoModal #img_factura").prop("required", true);
       } else {
         // Salidas
         $("#titulosEntradasSalidas").text("Salidas");
@@ -686,6 +689,9 @@ buttonsEntradas.push({
         $("#editarMovimientoModal #motivo_salida_label").text(
           "Motivo de salida"
         );
+
+        $("#editarMovimientoModal #facturaEditDiv").hide();
+        $("#editarMovimientoModal #img_factura").prop("required", false);
       }
       tableCatEntradas.columns.adjust().draw();
       $menu.remove();
@@ -906,6 +912,36 @@ var tableCatDetallesEntradas = $("#tableCatDetallesEntradas").DataTable({
     { data: "id_cat_movimientos" },
     { data: "id_movimiento" },
     { data: "MOTIVO_SALIDA" },
+    {
+      data: "imagen_documento",
+      render: function (data, type, row) {
+        if (data) {
+          // Obtener la extensión del archivo
+          var extension = data.split(".").pop().toLowerCase();
+
+          if (extension === "pdf") {
+            // Si es PDF, mostrar icono de PDF
+            return (
+              '<a href="' +
+              data +
+              '" target="_blank"><i class="bi bi-file-earmark-pdf-fill text-danger fs-4" title="Ver PDF"></i></a>'
+            );
+          } else {
+            // Si es imagen, mostrar como antes
+            return (
+              '<a href="' +
+              data +
+              '" target="_blank"><img src="' +
+              data +
+              '" alt="Imagen del Documento" style="width: 50px; height: auto;"/></a>'
+            );
+          }
+        } else {
+          return "Sin documento";
+        }
+      },
+      className: "text-center",
+    },
     { data: "RESPONSABLE" },
   ],
   columnDefs: [
@@ -916,7 +952,8 @@ var tableCatDetallesEntradas = $("#tableCatDetallesEntradas").DataTable({
     { targets: 4, visible: false },
     { targets: 5, visible: false },
     { targets: 6, title: "Motivo de entrada", className: "all" },
-    { targets: 7, title: "Responsable", className: "all" },
+    { targets: 7, title: "Documento", className: "all" },
+    { targets: 8, title: "Responsable", className: "all" },
   ],
 });
 
@@ -946,7 +983,8 @@ tableCatTransacciones = $("#tableCatTransacciones").DataTable({
       alertErrorAJAX(jqXHR, textStatus, errorThrown);
     },
     dataSrc: "response.data",
-  },  columns: [
+  },
+  columns: [
     { data: "CLAVE_ART" },
     { data: "NOMBRE_COMERCIAL" },
     { data: "CANTIDAD" },
@@ -970,8 +1008,26 @@ tableCatTransacciones = $("#tableCatTransacciones").DataTable({
     { data: "PROVEEDOR" },
     { data: "TIPO_MOVIMIENTO" },
     { data: "MOTIVO_SALIDA" },
+    {
+      data: "IMAGEN",
+      render: function (data, type, row) {
+        if (data) {
+          return (
+            '<a href="' +
+            data +
+            '" target="_blank"><img src="' +
+            data +
+            '" alt="Imagen del Artículo" style="width: 50px; height: auto;"/></a>'
+          );
+        } else {
+          return "";
+        }
+      },
+      className: "text-center",
+    },
     { data: "RESPONSABLE" },
-  ],  columnDefs: [
+  ],
+  columnDefs: [
     { targets: 0, title: "Clave Artículo", className: "all" },
     { targets: 1, title: "Nombre Comercial", className: "all" },
     { targets: 2, title: "Cantidad", className: "all" },
@@ -980,7 +1036,8 @@ tableCatTransacciones = $("#tableCatTransacciones").DataTable({
     { targets: 5, title: "Proveedor", className: "all" },
     { targets: 6, title: "Tipo de Movimiento", className: "all" },
     { targets: 7, title: "Motivo", className: "all" },
-    { targets: 8, title: "Responsable", className: "all" },
+    { targets: 8, title: "Documento", className: "all" },
+    { targets: 9, title: "Responsable", className: "all" },
   ],
   dom: 'Bl<"dataTables_toolbar">frtip',
   buttons: [],
@@ -1036,6 +1093,8 @@ selectDatatable(
     rowSelected = dataClick;
   },
   async function () {
+    $("#imagenProductoa").attr("src", rowSelected.IMAGEN);
+    $("#verImagenArta").attr("href", rowSelected.IMAGEN);
     $("#mostrandoEntrada").html(
       `<strong>${rowSelected.NOMBRE_COMERCIAL}</strong> <span class="text-muted" style="font-size:0.95em;">&mdash; CLAVE: <b>${rowSelected.CLAVE_ART}</b></span>`
     );

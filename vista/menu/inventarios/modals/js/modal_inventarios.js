@@ -134,6 +134,10 @@ $("#registrarEntradaForm").submit(function (event) {
             $("#fecha_ultima_entrada").prop("required", false);
             $("#costo_ultima_entrada").prop("required", false);
             $("#id_proveedores").prop("required", false);
+            $("#facturaDiv").hide();
+            $("#img_factura").prop("required", false);
+            $("#motivoSalidaDiv").hide();
+            $("#motivoSalidaDiv").prop("required", false);
             $("#registrarMovimientoButton")
               .html('<i class="bi bi-pencil-square"></i> Registrar movimiento')
               .hide();

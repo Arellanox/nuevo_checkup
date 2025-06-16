@@ -63,6 +63,16 @@
                                                     </select>
                                                 </div>
 
+                                                <!-- Factura o número de documento -->
+                                                <div class="col-12" id="facturaDiv">
+                                                    <div class="mb-3">
+                                                        <label for="protocolo" class="form-label">Factura o número de documento</label>
+                                                        <input type="file" class="form-control input-form" id="img_factura" required name="img_factura[]">
+                                                        <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                                        <small class="form-text text-muted">Adjunte la imagen de la factura o número de protocolo.</small>
+                                                    </div>
+                                                </div>
+
                                                 <!-- Motivo de salida -->
                                                 <div class="mb-3" id="motivoSalidaDiv">
                                                     <label for="motivo_salida" class="form-label">Motivo de entrada</label>
@@ -113,6 +123,7 @@
         $("#proveedorDiv").hide();
         $("#motivoSalidaDiv").hide();
         $("#registrarMovimientoButton").hide();
+        $("#facturaDiv").hide();
 
         $("#id_movimiento").on("change", function () {
             if ($(this).val() == "1") {
@@ -140,6 +151,9 @@
 
                 cargarProveedoresEntrada();
                 cargarMotivosPorTipo("entrada");
+
+                $("#facturaDiv").show();
+                $("#img_factura").prop("required", true);
             } else if ($(this).val() == "2") {
                 $("#motivoSalidaDiv").show();
                 $("label[for='motivo_salida']").text("Motivo de salida");
@@ -164,6 +178,8 @@
                 $("#registrarMovimientoButton").show();
 
                 cargarMotivosPorTipo("salida");
+                $("#facturaDiv").hide();
+                $("#img_factura").prop("required", false);
             } else {
                 $("#cantidad").closest(".mb-3").hide();
                 $("#fecha_ultima_entrada").closest(".mb-3").hide();
@@ -173,6 +189,9 @@
                 $("#fecha_ultima_entrada").prop("required", false);
                 $("#costo_ultima_entrada").prop("required", false);
                 $("#id_proveedores").prop("required", false);
+                $("#facturaDiv").hide();
+                $("#img_factura").prop("required", false);
+                $("#motivoSalidaDiv").hide();
             }
         });
 
