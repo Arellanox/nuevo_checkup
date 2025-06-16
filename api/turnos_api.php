@@ -118,52 +118,66 @@ switch ($api) {
 
     case 7:
         # api falsa
-
-
         $response = $master->getEmailMedico($master, 436);
         $response[] = "prueba@hotmail.com";
         print_r(array_unique($response));
         exit;
-        break;
-
     case 8:
-        # cargar los resultados
-        $tipo = $_POST['tipo'];
+        try {
+            # cargar los resultados
+            $tipo = $_POST['tipo'];
+            $array = [];
 
-        if ($tipo == 1) {
-            $grupos = $master->getByProcedure("sp_cargar_grupos", [$id_turno, $id_area]);
-            $response = $master->getByProcedure('sp_cargar_estudios', [$id_turno, $id_area]);
-            $array = array();
-            for ($i = 0; $i < count($grupos); $i++) {
-                $nombre_grupo = $grupos[$i]['GRUPO'];
-                $id_grupo = $grupos[$i]['GRUPO_ID'];
-                $obs = $grupos[$i]['OBSERVACIONES'];
-                $clasificacion = $grupos[$i]['CLASIFICACION'];
-
-                $contenido_grupo = array_filter($response, function ($obj) use ($nombre_grupo) {
-                    $r = $obj["GRUPO"] == $nombre_grupo;
-                    return $r;
-                });
-
-                $contenido_grupo['NombreGrupo'] = $nombre_grupo;
-                $contenido_grupo['ID_GRUPO'] = $id_grupo;
-                $contenido_grupo['OBSERVACIONES'] = $obs;
-                $contenido_grupo['CLASIFICACION'] = $clasificacion;
-                $contenido_grupo['PENDIENTE'] = $grupos[$i]['PENDIENTE'];
-
-                if (!empty($contenido_grupo)) {
-                    $array[] = $contenido_grupo;
+            if ($tipo == 1) {
+                $grupos = $master->getByProcedure("sp_cargar_grupos", [$id_turno, $id_area]);
+                if ($grupos === false) {
+                    throw new Exception('Error al cargar grupos');
                 }
-            }
 
-            echo json_encode(array("response" => array("code" => 1, "data" => $array)));
+                $response = $master->getByProcedure('sp_cargar_estudios', [$id_turno, $id_area]);
+                if ($response === false) {
+                    throw new Exception('Error al cargar estudios');
+                }
+
+                for ($i = 0; $i < count($grupos); $i++) {
+                    $nombre_grupo = $grupos[$i]['GRUPO'];
+                    $id_grupo = $grupos[$i]['GRUPO_ID'];
+                    $obs = $grupos[$i]['OBSERVACIONES'];
+                    $clasificacion = $grupos[$i]['CLASIFICACION'];
+
+                    $contenido_grupo = array_filter($response, function ($obj) use ($nombre_grupo) {
+                        $r = $obj["GRUPO"] == $nombre_grupo;
+                        return $r;
+                    });
+
+                    $contenido_grupo['NombreGrupo'] = $nombre_grupo;
+                    $contenido_grupo['ID_GRUPO'] = $id_grupo;
+                    $contenido_grupo['OBSERVACIONES'] = $obs;
+                    $contenido_grupo['CLASIFICACION'] = $clasificacion;
+                    $contenido_grupo['PENDIENTE'] = $grupos[$i]['PENDIENTE'];
+
+                    if (!empty($contenido_grupo)) {
+                        $array[] = $contenido_grupo;
+                    }
+                }
+
+                echo json_encode(array("response" => array("code" => 1, "data" => $array)));
+                exit;
+            } else {
+
+                if ($response === false) {
+                    throw new Exception('Error al cargar estudios');
+                }
+
+                echo json_encode(array("response" => array("code" => 1, "data" => $response)));
+            }
+        } catch (Exception $e) {
+            $master->setLog($e->getMessage(), 'turnos_api.php [case 8] ERROR');
+            echo json_encode(array("response" => array("code" => 0, "error" => "Error en base de datos")));
             exit;
-        } else {
-            $response = $master->getByProcedure('sp_cargar_estudios', [$id_turno, $id_area]);
         }
 
         break;
-
     case 9:
         # subir resultados
         $setResultados = $_POST['servicios'];
@@ -294,12 +308,10 @@ switch ($api) {
         $response = $master->getByProcedure("sp_desconfirmar_resultados", [$id_turno, $confirmado_por, $id_area]);
         //$response = $master->cleanAttachingFiles($response);
         break;
-
     case 16:
         //Consultar servicios eliminados de un turno
         $response = $master->getByProcedure('sp_servicios_c', [$id_turno]);
         break;
-
     case 17:
         //eliminar servicio de un turno
         $response = $master->deleteByProcedure('sp_recepcion_paciente_detalle_e', [

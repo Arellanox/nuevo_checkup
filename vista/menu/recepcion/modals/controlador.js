@@ -3,8 +3,8 @@ $.post("modals/m_recepcion.php", function (html) {
 }).done(function () {
 
   // Modal para aceptar
+  $.getScript("contenido/js/recepcion-funciones.js");
   $.getScript('modals/js/p_aceptar.js').done(function () {
-    //  //Modal para vista de servicios
     $.getScript(`modals/js/vista-servicios.js`);
   });
   // Modal para rechazar
@@ -24,9 +24,7 @@ $.post("modals/m_recepcion.php", function (html) {
   $.getScript(`${http}${servidor}/${appname}/vista/include/modal/js/registrar-agenda.js`);
   $.getScript(`${http}${servidor}/${appname}/vista/include/modal/js/registrar-paciente.js`);
   $.getScript(`${http}${servidor}/${appname}/vista/include/modal/js/editar-paciente.js`);
-
   $.getScript(`${http}${servidor}/${appname}/vista/include/funciones/facturacion-pacientes/js/estudios-contado.js`);
-
 
   $.getScript(`modals/js/ujat-beneficiarios.js`)
 

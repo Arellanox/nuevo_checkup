@@ -1,7 +1,25 @@
-/**
- * Función que se ejecuta al hacer click en un botón con clase btn-aceptar
- * @param {Object} data - Información del paciente seleccionado
- */
+var checkbox = document.getElementById('checkCotizacionAceptar');
+var btnCotizacion = document.getElementById('btnCotizacion');
+var input = document.getElementById('input-cotizacion');
+
+function toggleCotizacionInput() {
+    if (checkbox.checked) {
+        input.disabled = true;
+        btnCotizacion.style.display = 'none'; // Oculta el botón
+        limpiarEstudiosCotizacion();
+    } else {
+        input.disabled = false;
+        btnCotizacion.style.display = 'block';
+    }
+}
+
+checkbox?.addEventListener('change', toggleCotizacionInput);
+btnCotizacion?.addEventListener('click', (e) => {
+    e.preventDefault();
+    const valor = input.value;
+    precargarEstudiosCotizacion(valor);
+});
+
 function onIngresarPaciente(data) {
     if (data != null) {
         array_selected = data // Almacena la información del paciente seleccionado en una variable global
@@ -24,8 +42,7 @@ async function precargarEstudiosCotizacion(numCotizacion) {
     numCotizacion = await obtenerCotizacionIdByFolio(numCotizacion);
 
     if (numCotizacion !== null) {
-        limpiarEstudios();
-        limpiarFormAceptar();
+        limpiarEstudiosCotizacion();
 
         await ajaxAwait({api: 2, id_cotizacion: numCotizacion}, 'cotizaciones_api', {callbackAfter: true}, false,
             (content) => {
@@ -54,35 +71,14 @@ async function precargarEstudiosCotizacion(numCotizacion) {
                     }
                 });
 
+                console.log("Servicios: ", servicios)
+
                 alertToast('Estudios precargados correctamente.', 'success', 4000);
             });
     }
+
+    console.log("Cotizacion: " + numCotizacion)
 }
-
-function actualizarPrecioYAgregar(estudio, lista, selector, extra = false) {
-    let label = estudio.PRODUCTO;
-
-    lista.forEach(item => {
-        if (item.ID_SERVICIO === estudio.ID_SERVICIO) {
-            estudio.PRECIO_VENTA = estudio.SUBTOTAL; // Agregamos el campo PRECIO_VENTA
-            item.PRECIO_VENTA = estudio.SUBTOTAL; // Campo PRECIO_VENTA requerido para el cálculo
-            label = item.ABREVIATURA + ' - ' + item.SERVICIO;
-        }
-    });
-
-    cargarEstudiosDiv(estudio.ID_SERVICIO, lista, label, selector, extra);
-
-    detallesEstudiosCotizacion.push(estudio);
-}
-
-
-function cargarEstudiosDiv(id, estudios, text, div, validar = false) {
-    if (validar) validarEstudiosLab = 1;
-
-    actualizarTotal(id, estudios, true)
-    agregarFilaDiv(div, text, id)
-}
-
 async function obtenerCotizacionIdByFolio(folio) {
     let idCotizacion = null;
 
@@ -98,15 +94,43 @@ async function obtenerCotizacionIdByFolio(folio) {
     return idCotizacion;
 }
 
-function limpiarEstudios() {
-    // estudiosLabBio = [];
-    // estudiosLab = [];
-    // estudiosRX = [];
-    // estudiosUltra = [];
-    // estudiosOtros = [];
+function actualizarPrecioYAgregar(estudio, lista, selector, extra = false) {
+    let label = estudio.PRODUCTO;
+
+    lista.forEach(item => {
+        if (item.ID_SERVICIO === estudio.ID_SERVICIO) {
+            estudio.PRECIO_VENTA = estudio.SUBTOTAL; // Agregamos el campo PRECIO_VENTA
+            item.PRECIO_VENTA = estudio.SUBTOTAL; // Campo PRECIO_VENTA requerido para el cálculo
+            label = item.ABREVIATURA + ' - ' + item.SERVICIO;
+        }
+    });
+
+    console.log("Cargando estudio: " + estudio.ID_SERVICIO + " - " + estudio.PRODUCTO);
+    cargarEstudiosDiv(estudio.ID_SERVICIO, lista, label, selector, extra);
+    detallesEstudiosCotizacion.push(estudio);
+}
+
+function cargarEstudiosDiv(id, estudios, text, div, validar = false) {
+    if (validar) validarEstudiosLab = 1;
+    console.log("Actualizando estudio precio: " + id + " - " + text);
+    actualizarTotal(id, estudios, true)
+    agregarFilaDiv(div, text, id)
+}
+
+function limpiarEstudiosCotizacion() {
+    console.log("Limpiando estudios cotizacion")
+    console.log(detallesEstudiosCotizacion);
+
+    detallesEstudiosCotizacion.map((item) => {
+        eliminarElementoArray(item.ID_SERVICIO)
+    })
+
+    detallesEstudiosCotizacion = [];
 
     $("#list-estudios-laboratorio").empty();
     $("#list-estudios-rx").empty();
     $("#list-estudios-ultrasonido").empty();
     $("#list-estudios-otros").empty();
+
+    limpiarFormAceptar();
 }

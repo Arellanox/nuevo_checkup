@@ -60,7 +60,6 @@ function hasLocation() {
 
 function cargarScripts() {
     $.getScript("contenido/js/recepcion-botones.js");
-    $.getScript("contenido/js/recepcion-funciones.js");
 }
 
 function obtenerContenidoEspera() {

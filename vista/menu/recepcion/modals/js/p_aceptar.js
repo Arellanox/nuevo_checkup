@@ -1,9 +1,5 @@
 // Obtener datos del paciente seleccionado
-let url_paciente = null,
-    validarEstudiosLab = 0,
-    validarEstudiosRX = 0,
-    validarEstudiosImg = 0,
-    validarEstudiosOtros = 0;
+let url_paciente = null, validarEstudiosLab = 0, validarEstudiosRX = 0, validarEstudiosImg = 0, validarEstudiosOtros = 0;
 let estudiosEnviar = [];
 let detallesEstudiosCotizacion = [];
 let PaquetesDatos;
@@ -18,50 +14,25 @@ select2('#select-segmento-aceptar', "modalPacienteAceptar", 'Seleccione un segme
 select2('#select-vendedor', 'modalPacienteAceptar', 'Selecciona un vendedor') //<-- //Rellena el select de los vendedores
 select2('#select-recepcion-medicos-tratantes', 'modalPacienteAceptar', 'Seleccione un medico tratante')
 
-var checkbox = document.getElementById('checkCotizacionAceptar');
-var input = document.getElementById('input-cotizacion');
-var btnCotizacion = document.getElementById('btnCotizacion');
-
-function toggleCotizacionInput() {
-    if (checkbox.checked) {
-        input.disabled = true;
-        btnCotizacion.style.display = 'none'; // Oculta el botón
-    } else {
-        input.disabled = false;
-        btnCotizacion.style.display = 'block';
-        btnCotizacion.addEventListener('click', () => {
-            const valor = input.value;
-            precargarEstudiosCotizacion(valor);
-        });
-    }
-}
-
-toggleCotizacionInput(); // Inicializar estado al cargar
-checkbox.addEventListener('change', toggleCotizacionInput);// Escuchar cambios del checkbox
-
 var modalPacienteAceptar = document.getElementById('modalPacienteAceptar')
 modalPacienteAceptar.addEventListener('show.bs.modal', async event => {
     limpiarFormAceptar();
-
     reset_email_inputs_medicos();
-
 
     document.getElementById("title-paciente_aceptar").innerHTML = array_selected[1];
 
     array_selected['ALERGIAS'] ? $('#alergias-aceptar-paciente').val(array_selected['ALERGIAS']) : $('#alergias-aceptar-paciente').val('');
     array_selected['DIAGNOSTICO_TURNO'] ? $('#diagnostico-aceptar-paciente').val(array_selected['DIAGNOSTICO_TURNO']) : $('#diagnostico-aceptar-paciente').val('');
 
-
-    rellenarSelect('#select-paquetes', 'paquetes_api', 2, 'ID_PAQUETE', 'DESCRIPCION', {
+    await rellenarSelect('#select-paquetes', 'paquetes_api', 2, 'ID_PAQUETE', 'DESCRIPCION', {
         'cliente_id': array_selected['CLIENTE_ID']
-    }, (data) => {
-        PaquetesDatos = data
-    })
+    }, (data) => { PaquetesDatos = data });
 
-    rellenarSelect('#select-segmento-aceptar', 'segmentos_api', 2, 0, 'DESCRIPCION', {
+    await rellenarSelect('#select-segmento-aceptar', 'segmentos_api', 2, 0, 'DESCRIPCION', {
         cliente_id: array_selected['CLIENTE_ID']
     }, function (data) {
-        array_selected['ID_SEGMENTO'] ? $('#select-segmento-aceptar').val(array_selected['ID_SEGMENTO']).trigger('change') : false;
+        array_selected['ID_SEGMENTO'] ?
+            $('#select-segmento-aceptar').val(array_selected['ID_SEGMENTO']).trigger('change') : false;
     });
 
     if (array_selected['MOSTRAR_CAT_CONVERSION'] == "1") {
@@ -71,7 +42,7 @@ modalPacienteAceptar.addEventListener('show.bs.modal', async event => {
 
                   </select>
                 </div>`)
-        rellenarSelect('#comoNosConociste', 'clientes_api', 9, 'ID_CONVERSION', 'DESCRIPCION')
+        await rellenarSelect('#comoNosConociste', 'clientes_api', 9, 'ID_CONVERSION', 'DESCRIPCION')
     } else {
         $('#comoNosConocisteDiv').html(``)
     }
@@ -122,12 +93,12 @@ modalPacienteAceptar.addEventListener('show.bs.modal', async event => {
         estudiosOtros = data;
     });
 
-    rellenarSelect('#select-vendedor', 'usuarios_api', 2, 'ID_USUARIO', 'nombrecompleto', {}, () => {
+    await rellenarSelect('#select-vendedor', 'usuarios_api', 2, 'ID_USUARIO', 'nombrecompleto', {}, () => {
         $('#select-vendedor').val(0).trigger("change")
     })
 
 
-    rellenarSelect('#select-recepcion-medicos-tratantes', 'medicos_tratantes_api', 2, 'ID_MEDICO', 'NOMBRE_MEDICO', {}, () => {
+    await rellenarSelect('#select-recepcion-medicos-tratantes', 'medicos_tratantes_api', 2, 'ID_MEDICO', 'NOMBRE_MEDICO', {}, () => {
         $('#select-recepcion-medicos-tratantes').val(0).trigger('change');
     })
 
@@ -213,8 +184,6 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
         }
     }
 
-    console.log(dataJson);
-
     alertMensajeConfirm({
         title: `${paquete}¿Está seguro de aceptar el paciente?`,
         text: "¡Recuerda revisar que todo este en orden!",
@@ -245,26 +214,19 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
     event.preventDefault();
 })
 
-
-
+// Create an observer instance.
 $('#btn-AgregarEstudioLab').on('click', function () {
     let text = $("#select-lab option:selected").text();
     let id = $("#select-lab").val();
     validarEstudiosLab = 1;
     actualizarTotal(id, estudiosLab, true)
     agregarFilaDiv('#list-estudios-laboratorio', text, id)
-
-    console.log("[MANUAL]");
-    console.log(estudiosLab);
-    console.log(id)
 })
-// Create an observer instance.
 var Obserlab = new MutationObserver(function (mutations) {
     if ($('#list-estudios-laboratorio').children().length == 0 || array_selected['CLIENTE_ID'] != 1) {
         validarEstudiosLab = 0;
     }
-});
-// Pass in the target node, as well as the observer options.
+}); // Pass in the target node, as well as the observer options.
 Obserlab.observe(document.querySelector('#list-estudios-laboratorio'), {
     attributes: true,
     childList: true,
@@ -342,7 +304,14 @@ ObserOtros.observe(document.querySelector('#list-estudios-laboratorio-biomolecul
     characterData: true
 });
 
+$(document).on('click', '.eliminarfilaEstudio', function () {
+    let id = $(this).attr('data-bs-id');
+    actualizarTotal(id, estudiosTodos, false)
+    eliminarElementoArray(id);
+    var parent_element = $(this).closest("li[class='list-group-item']");
+    $(parent_element).remove()
 
+});
 
 function agregarFilaDiv(appendDiv, text, id) {
     estudiosEnviar.push(id)
@@ -359,15 +328,6 @@ function agregarFilaDiv(appendDiv, text, id) {
     $(appendDiv).append(html);
 }
 
-$(document).on('click', '.eliminarfilaEstudio', function () {
-    let id = $(this).attr('data-bs-id');
-    actualizarTotal(id, estudiosTodos, false)
-    eliminarElementoArray(id);
-    var parent_element = $(this).closest("li[class='list-group-item']");
-    $(parent_element).remove()
-
-});
-
 function eliminarElementoArray(id) {
     estudiosEnviar = jQuery.grep(estudiosEnviar, function (value) {
         return value != id;
@@ -377,23 +337,21 @@ function eliminarElementoArray(id) {
 function limpiarFormAceptar() {
     $('#list-estudios-laboratorio').html('')
     $('#file-laboratorio').val('');
-    validarEstudiosLab = 0;
     $('#list-estudios-laboratorio-biomolecular').html('')
-
     $('#list-estudios-rx').html('')
     $('#file-r-x').val('');
-    validarEstudiosRX = 0;
     $('#list-estudios-ultrasonido').html('')
     $('#file-ultra-sonido').val('');
-    validarEstudiosImg = 0;
     $('#list-estudios-otros').html('')
-    validarEstudiosOtros = 0;
     $('#Observaciones-aceptar').val('')
-    estudiosEnviar = [];
-
-    //Precio final
-    totalAcumulado = 0;
     $('#aceptar-totalCargado').html('$0.00')
+
+    validarEstudiosLab = 0;
+    validarEstudiosRX = 0;
+    validarEstudiosImg = 0;
+    validarEstudiosOtros = 0;
+    estudiosEnviar = [];
+    totalAcumulado = 0;  //Precio final
 
     // New set page
     const page = 'SecondPage-aceptar';
@@ -403,11 +361,10 @@ function limpiarFormAceptar() {
     const btn = $(`button.${next}`);
 
     $(`.${page}:not(button)`).fadeOut('fast');
-    // btn.fadeIn(0);
-    btn.attr('disabled', false)
+
+    btn.attr('disabled', false) // btn.fadeIn(0);
     setTimeout(() => {
-        $(`.${next}:not(button)`).fadeIn('fast')
-        // btn.attr('disabled', false)
+        $(`.${next}:not(button)`).fadeIn('fast') // btn.attr('disabled', false)
     }, 100);
 
     // Medico tratante
@@ -417,7 +374,6 @@ function limpiarFormAceptar() {
     $('.input-new-medico').val('');
     $('#select-recepcion-medicos-tratantes').val(0)
 }
-
 
 $('.SecondPage-aceptar:not(button)').fadeOut(0);
 $('button.SecondPage-aceptar').attr('disabled', true);
@@ -442,14 +398,6 @@ $('.pagination-aceptar').on('click', function (e) {
 
 // Variable global para almacenar el total acumulado
 let totalAcumulado = 0;
-
-function actualizarTotal(id, servicios, sumar = true) {
-    const servicio = servicios.find(servicio => servicio.ID_SERVICIO == id);
-    if (servicio) totalAcumulado += sumar ? parseFloat(servicio.PRECIO_VENTA) : -parseFloat(servicio.PRECIO_VENTA);
-
-    $('#aceptar-totalCargado')
-        .html(`$${totalAcumulado.toFixed(2)}`); // Actualizar el elemento HTML con el total acumulado
-}
 
 $('#checkPaqueteAceptar, #select-paquetes').on('change', function () {
     const id = $('#select-paquetes').val();
@@ -476,3 +424,11 @@ $(`#${'checkBox-NewMedico'}`).change(function () {
         $('.input-new-medico').val('');
     }
 });
+
+function actualizarTotal(id, servicios, sumar = true) {
+    const servicio = servicios.find(servicio => servicio.ID_SERVICIO == id);
+    if (servicio) totalAcumulado += sumar ? parseFloat(servicio.PRECIO_VENTA) : -parseFloat(servicio.PRECIO_VENTA);
+
+    $('#aceptar-totalCargado')
+        .html(`$${totalAcumulado.toFixed(2)}`); // Actualizar el elemento HTML con el total acumulado
+}

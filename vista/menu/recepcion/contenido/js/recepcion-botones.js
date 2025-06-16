@@ -3,7 +3,9 @@ if (!validarPermiso('RepIngPaci')) {
 }
 
 //Finaliza el proceso del paciente
-function finalizarProcesoRecepcion(paciente, factura = false, pago = false) {
+async function finalizarProcesoRecepcion(paciente, factura = false, pago = false) {
+    
+
     let data = ajaxAwait({
         api: 19, // <-- desmarcar o marcar
         turno_completado: 1,
@@ -93,7 +95,6 @@ $(document).on('click', '#btn-concluir-paciente', function (e) {
                 $('descuento').val('');
                 //Abrir el modal de estudios, precios y detalle
                 configurarModal(array_selected);
-
             } else {
                 //Termina el proceso sin factura y credito
                 finalizarProcesoRecepcion(array_selected);
