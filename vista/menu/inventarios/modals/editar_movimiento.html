@@ -119,6 +119,17 @@
                               artículo.</small
                             >
                           </div>
+
+                          <!-- Factura o número de documento -->
+                          <div class="col-12" id="facturaEditDiv">
+                            <div class="mb-3">
+                              <label for="img_factura" class="form-label">Cambiar factura o documento (opcional)</label>
+                              <input type="file" class="form-control input-form" id="img_factura" name="img_factura[]">
+                              <div class="invalid-feedback">Este campo es obligatorio.</div>
+                              <small class="form-text text-muted">Adjunte una nueva imagen/PDF de la factura si desea cambiarla. Deje vacío para mantener el actual.</small>
+                            </div>
+                          </div>
+                          
                         </div>
                       </div>
                     </div>
@@ -167,7 +178,7 @@
     $('#editarMovimientoModal').on('shown.bs.modal', function () {
       cargarProveedoresEditar();
       cargarMotivosEditar();
-      
+
       // Establecer valores en los campos de input después de un pequeño delay
       setTimeout(function() {
         if (cantidadActual) {
