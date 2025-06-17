@@ -13,32 +13,39 @@ $("#registrarArticuloForm").submit(function (event) {
     activo = 0;
   }
 
-  alertMensajeConfirm(
-    {
-      title: "¿Está a punto de registrar un artículo?",
-      text: "Seleccione una opción.",
-      icon: "warning",
-    },
-    function () {
-      ajaxAwaitFormData(
-        { api: 1, estatus: activo, id_proveedores: 3 },
-        "inventarios_api",
-        "registrarArticuloForm",
-        { callbackAfter: true },
-        false,
-        function (data) {
-          if (data.response.code == 1) {
-            $("#registrarArticuloForm")[0].reset();
-            $("#registrarArticuloModal").modal("hide");
-            alertToast("Artículo registrado", "success", 4000);
-            tableCatArticulos.ajax.reload();
-            tableCatEntradas.ajax.reload();
+  // Validar duplicados antes de mostrar confirmación
+  validarDuplicadosArticulo('#registrarArticuloModal').then(function(puedeEnviar) {
+    if (!puedeEnviar) {
+      return; // Usuario decidió no continuar
+    }
+    
+    alertMensajeConfirm(
+      {
+        title: "¿Está a punto de registrar un artículo?",
+        text: "Seleccione una opción.",
+        icon: "warning",
+      },
+      function () {
+        ajaxAwaitFormData(
+          { api: 1, estatus: activo, id_proveedores: 3 },
+          "inventarios_api",
+          "registrarArticuloForm",
+          { callbackAfter: true },
+          false,
+          function (data) {
+            if (data.response.code == 1) {
+              $("#registrarArticuloForm")[0].reset();
+              $("#registrarArticuloModal").modal("hide");
+              alertToast("Artículo registrado", "success", 4000);
+              tableCatArticulos.ajax.reload();
+              tableCatEntradas.ajax.reload();
+            }
           }
-        }
-      );
-    },
-    1
-  );
+        );
+      },
+      1
+    );
+  });
 
   return false;
 });
@@ -57,34 +64,41 @@ $("#editarArticuloForm").submit(function (event) {
     activo = 0;
   }
 
-  alertMensajeConfirm(
-    {
-      title: "¿Está a punto de editar este artículo?",
-      text: "Asegúrate que los datos sean correctos.",
-      icon: "warning",
-    },
-    function () {
-      ajaxAwaitFormData(
-        {
-          api: 1,
-          id_articulo: rowSelected.ID_ARTICULO,
-        },
-        "inventarios_api",
-        "editarArticuloForm",
-        { callbackAfter: true },
-        false,
-        function (data) {
-          if (data.response.code == 1) {
-            $("#editarArticuloForm")[0].reset();
-            $("#editarArticuloModal").modal("hide");
-            alertToast("Artículo actualizado!", "success", 4000);
-            tableCatArticulos.ajax.reload();
-            tableCatEntradas.ajax.reload();
-          }
-        }
-      );
+  // Validar duplicados antes de mostrar confirmación (excluyendo el artículo actual)
+  validarDuplicadosArticulo('#editarArticuloModal', rowSelected.ID_ARTICULO).then(function(puedeEnviar) {
+    if (!puedeEnviar) {
+      return; // Usuario decidió no continuar
     }
-  );
+    
+    alertMensajeConfirm(
+      {
+        title: "¿Está a punto de editar este artículo?",
+        text: "Asegúrate que los datos sean correctos.",
+        icon: "warning",
+      },
+      function () {
+        ajaxAwaitFormData(
+          {
+            api: 1,
+            id_articulo: rowSelected.ID_ARTICULO,
+          },
+          "inventarios_api",
+          "editarArticuloForm",
+          { callbackAfter: true },
+          false,
+          function (data) {
+            if (data.response.code == 1) {
+              $("#editarArticuloForm")[0].reset();
+              $("#editarArticuloModal").modal("hide");
+              alertToast("Artículo actualizado!", "success", 4000);
+              tableCatArticulos.ajax.reload();
+              tableCatEntradas.ajax.reload();
+            }
+          }
+        );
+      }
+    );
+  });
 });
 
 // registrar una entrada

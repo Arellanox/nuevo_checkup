@@ -335,6 +335,66 @@ switch ($api) {
     case 18:
         $response = $master->getByProcedure("sp_areas_b", [null, null]);
         break;
+    case 19:
+        // Validar duplicados de artículos
+        $nombre_comercial = isset($_POST['nombre_comercial']) ? $_POST['nombre_comercial'] : '';
+        $unidad_venta = isset($_POST['unidad_venta']) ? $_POST['unidad_venta'] : '';
+        $id_marcas = isset($_POST['id_marcas']) ? $_POST['id_marcas'] : null;
+        $contenido = isset($_POST['contenido']) ? $_POST['contenido'] : '';
+        $id_articulo_actual = isset($_POST['id_articulo_actual']) ? $_POST['id_articulo_actual'] : null;
+        
+        if (empty($nombre_comercial) || empty($unidad_venta) || empty($id_marcas)) {
+            $response = array(
+                'code' => 0,
+                'message' => 'Faltan datos para validar duplicados',
+                'data' => array()
+            );
+        } else {
+            // Crear un stored procedure temporal o usar getByProcedure con uno existente
+            // Por ahora, usar una validación simple basada en los datos existentes
+            $result = $master->getByProcedure('sp_inventarios_cat_articulos_b', [1, null, null, null, null]);
+            
+            $duplicado_encontrado = false;
+            $articulo_duplicado = null;
+            
+            if ($result && isset($result['response']) && isset($result['response']['data'])) {
+                foreach ($result['response']['data'] as $articulo) {
+                    // Verificar duplicados manualmente incluyendo contenido
+                    if (strtoupper(trim($articulo['NOMBRE_COMERCIAL'])) == strtoupper(trim($nombre_comercial)) &&
+                        $articulo['UNIDAD_VENTA'] == $unidad_venta &&
+                        $articulo['ID_MARCAS'] == $id_marcas &&
+                        strtoupper(trim($articulo['CONTENIDO'] ?? '')) == strtoupper(trim($contenido)) &&
+                        ($id_articulo_actual ? $articulo['ID_ARTICULO'] != $id_articulo_actual : true)) {
+                        
+                        $duplicado_encontrado = true;
+                        $articulo_duplicado = array(
+                            'ID_ARTICULO' => $articulo['ID_ARTICULO'],
+                            'CLAVE_ART' => $articulo['CLAVE_ART'],
+                            'NOMBRE_COMERCIAL' => $articulo['NOMBRE_COMERCIAL'],
+                            'UNIDAD_DESCRIPCION' => $articulo['UNIDAD_VENTA'],
+                            'MARCA_DESCRIPCION' => $articulo['MARCAS'],
+                            'CONTENIDO' => $articulo['CONTENIDO']
+                        );
+                        break;
+                    }
+                }
+            }
+            
+            if ($duplicado_encontrado) {
+                $response = array(
+                    'code' => 2, // Código especial para duplicados encontrados
+                    'message' => 'Ya existe un artículo con las mismas características',
+                    'data' => $articulo_duplicado
+                );
+            } else {
+                $response = array(
+                    'code' => 1,
+                    'message' => 'No se encontraron duplicados',
+                    'data' => array()
+                );
+            }
+        }
+        break;
     default:
         $response = "API no definida.";
 }
