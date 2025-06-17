@@ -162,7 +162,7 @@
                                                         <small class="form-text text-muted">Ingrese la unidad mínima del artículo.</small>
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col-12">
                                                     <div class="mb-3">
                                                         <label for="contenido" class="form-label">Descripción</label>
                                                         <input type="text" class="form-control input-form" id="contenido" name="contenido">
@@ -183,6 +183,31 @@
                                                         <small class="form-text text-muted">Seleccione que proveedor surte el artículo.</small>
                                                     </div>
                                                 </div>-->
+                                                <div class="col-6">
+                                                    <div class="mb-3">
+                                                        <label for="maneja_rendimiento" class="form-label">Maneja Rendimiento</label>
+                                                        <select class="form-select input-form" id="maneja_rendimiento" name="maneja_rendimiento">
+                                                            <option value="1">No</option>
+                                                            <option value="0">Sí</option>
+                                                        </select>
+                                                        <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                                        <small class="form-text text-muted">Seleccione si el artículo maneja rendimiento.</small>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-6">
+                                                    <div class="mb-3">
+                                                        <label for="maneja_inserto" class="form-label">Maneja Inserto y Protocolo</label>
+                                                        <select class="form-select input-form" id="maneja_inserto" name="maneja_inserto">
+                                                            <option value="1">No</option>
+                                                            <option value="0">Sí</option>
+                                                        </select>
+                                                        <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                                        <small class="form-text text-muted">Seleccione si el artículo maneja inserto y protocolo.</small>
+                                                    </div>
+                                                </div>
+                                                
+                                                
                                                 <div class="col-12" id="rendimientoEstimadoDiv" style="display:none;">
                                                     <div class="mb-3">
                                                         <label for="rendimiento_estimado" class="form-label">Rendimiento Estimado (pruebas)</label>
@@ -210,7 +235,7 @@
                                                 <div class="col-12" id="insertoDiv" style="display: none;">
                                                     <div class="mb-3">
                                                         <label for="inserto" class="form-label">Inserto</label>
-                                                        <input type="file" class="form-control input-form" id="inserto" name="inserto[]">
+                                                        <input type="file" class="form-control input-form" id="inserto" name="inserto">
                                                         <div class="invalid-feedback">Este campo es obligatorio.</div>
                                                         <small class="form-text text-muted">Adjunte el inserto del artículo.</small>
                                                     </div>
@@ -218,7 +243,7 @@
                                                 <div class="col-12" id="protocoloDiv" style="display: none;">
                                                     <div class="mb-3">
                                                         <label for="procedimiento" class="form-label">Procedimiento Prueba</label>
-                                                        <input type="file" class="form-control input-form" id="procedimiento" name="procedimiento[]">
+                                                        <input type="file" class="form-control input-form" id="procedimiento" name="procedimiento">
                                                         <div class="invalid-feedback">Este campo es obligatorio.</div>
                                                         <small class="form-text text-muted">Adjunte el procedimiento de prueba del artículo.</small>
                                                     </div>
@@ -244,13 +269,18 @@
                                                 <!-- Código de barras -->
                                                 <div class="col-6">
                                                     <div class="mb-3">
-                                                    <label for="codigo_barras" class="form-label">Código de Barras</label>
-                                                    <input type="text" class="form-control input-form" id="codigo_barras" name="codigo_barras">
+                                                        <div class="input-group">
+                                                        <input type="text" class="form-control input-form" id="codigo_barras" name="codigo_barras" 
+                                                        placeholder="Ingrese el código de barras manualmente" style="height: 38px;">
+                                                        <button class="btn btn-outline-secondary d-flex align-items-center" type="button" id="limpiarCodigoBarras" title="Limpiar código" style="height: 38px; padding-top: 0; padding-bottom: 0;">
+                                                        <i class="bi bi-x-lg"></i>
+                                                        </button>
+                                                        </div>
                                                         <div class="d-flex gap-3 mt-2 flex-wrap">
-                                                        <button class="btn btn-outline-secondary btn-sm d-flex flex-column align-items-center" type="button" id="generarCodigoBarras" style="width: 97px;">
+                                                        <!--<button class="btn btn-outline-secondary btn-sm d-flex flex-column align-items-center" type="button" id="generarCodigoBarras" style="width: 97px;">
                                                         <i class="bi bi-upc-scan fs-5"></i>
                                                         <span class="mt-1">Generar</span>
-                                                        </button>
+                                                        </button> -->
                                                         <button class="btn btn-outline-secondary btn-sm d-flex flex-column align-items-center" type="button" id="leerCodigoBarras" style="width: 97px;">
                                                         <i class="bi bi-upc-scan fs-5"></i>
                                                         <span class="mt-1">Escanear</span>
@@ -391,6 +421,72 @@ $('#maneja_caducidad').on('change', function() {
     }
 });
 
+// Mostrar u ocultar los campos de rendimiento según el valor seleccionado
+$('#maneja_rendimiento').on('change', function() {
+    if ($(this).val() == '0') {
+        $('#rendimientoEstimadoDiv').show();
+        $('#rendimientoPacienteDiv').show();
+        $("#rendimiento_estimado").attr("required", true);
+        $("#rendimiento_paciente").attr("required", true);
+    } else {
+        $('#rendimientoEstimadoDiv').hide();
+        $('#rendimientoPacienteDiv').hide();
+        $("#rendimiento_estimado").val("");
+        $("#rendimiento_paciente").val("");
+        $("#rendimiento_estimado").removeAttr("required");
+        $("#rendimiento_paciente").removeAttr("required");
+        $("#rendimiento_estimado").removeClass("is-invalid");
+        $("#rendimiento_paciente").removeClass("is-invalid");
+    }
+});
+
+// Mostrar u ocultar los campos de inserto y procedimiento prueba según el valor seleccionado
+$('#maneja_inserto').on('change', function() {
+    if ($(this).val() == '0') {
+        $("#insertoDiv").show();
+        $("#protocoloDiv").show();
+        //$("#inserto").attr("required", true);
+       // $("#procedimiento").attr("required", true);
+    } else {
+        $('#insertoDiv').hide();
+        $('#protocoloDiv').hide();
+        $("#insertoDiv").hide();
+        $("#protocoloDiv").hide();
+        $("#inserto").val("");
+       // $("#inserto").removeAttr("required");
+       // $("#procedimiento").removeAttr("required");
+       // $("#inserto").removeClass("is-invalid");
+       // $("#procedimiento").removeClass("is-invalid");
+    }
+});
+
+/*$("#tipo_articulo").on("change", function () {
+  if ($(this).val() == "1") {
+    $("#rendimientoEstimadoDiv").show();
+    $("#rendimientoPacienteDiv").show();
+    $("#insertoDiv").show();
+    $("#protocoloDiv").show();
+    $("#rendimientoEstimadoDiv").attr("required", true);
+    $("#rendimientoPacienteDiv").attr("required", true);
+    $("#insertoDiv").attr("required", true);
+    $("#protocoloDiv").attr("required", true);
+  } else {
+    $("#rendimientoEstimadoDiv").hide();
+    $("#rendimientoPacienteDiv").hide();
+    $("#insertoDiv").hide();
+    $("#protocoloDiv").hide();
+    $("#rendimientoEstimadoDiv").val("");
+    $("#rendimientoPacienteDiv").val("");
+    $("#insertoDiv").val("");
+    $("#rendimientoEstimadoDiv").removeAttr("required");
+    $("#rendimientoPacienteDiv").removeAttr("required");
+    $("#insertoDiv").removeAttr("required");
+    $("#protocoloDiv").removeAttr("required");
+    $("#rendimientoEstimadoDiv").removeClass("is-invalid");
+    $("#insertoDiv").removeClass("is-invalid");
+    $("#protocoloDiv").removeClass("is-invalid");
+  }
+});*/
 // Ejecutar al cargar para el valor inicial
 $(document).ready(function() {
     $('#maneja_caducidad').trigger('change');
@@ -414,6 +510,34 @@ $('#generarCodigoBarras').click(function() {
     let fullCode = code + checksum;
     
     $('#codigo_barras').val(fullCode);
+});
+
+
+// Función para limpiar el código de barras
+function limpiarCodigoBarras() {
+    $('#registrarArticuloForm #codigo_barras').val('');
+    limpiarErrorCodigoBarras();
+    $('#registrarArticuloForm #codigo_barras').siblings('.formato-feedback').remove();
+    $('#codigoBarrasContainer').hide(); // Ocultar el canvas
+}
+
+// Event listener para limpiar código de barras
+$(document).on('click', '#limpiarCodigoBarras', function(e) {
+    e.preventDefault();
+    limpiarCodigoBarras();
+});
+
+// Event listener para validar al perder el foco
+$('#registrarArticuloForm #codigo_barras').on('blur', function() {
+    const codigo = $(this).val().trim();
+    
+    if (codigo !== '') {
+        const validacion = validarCodigoBarras(codigo);
+        
+        if (!validacion.valido) {
+            mostrarErrorCodigoBarras('Debe completar un código de barras válido.');
+        }
+    }
 });
 
 // Botón para generar QR

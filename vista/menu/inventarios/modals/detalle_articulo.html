@@ -61,6 +61,11 @@
                 <div class="d-grid gap-2 text-center containerSvg" id="animation">
                   
                 </div>
+                <!-- En el div donde quieres mostrar el código de barras -->
+                <div id="codigoBarrasContainer" style="text-align: center; margin-top: 10px;">
+                <canvas id="codigoBarras" style="max-width: 100%;"></canvas>
+                <div id="codigoBarrasTexto" style="margin-top: 5px; font-size: 12px; color: #666;"></div>
+                </div>
             </div>
   
             <!-- Columna derecha: Información del producto -->
@@ -100,6 +105,7 @@
                             <li class="list-group-item"><strong>Unidad Mínima:</strong> <span id="unidadMinima"></span></li>
                             <li class="list-group-item"><strong>Área:</strong> <span id="areaDetalle"></span></li>
                             <li class="list-group-item"><strong>Marca:</strong> <span id="marcaDetalle"></span></li>
+                            <li class="list-group-item"><strong>No. Lote:</strong> <span id="numeroLote"></span></li>
                           </ul>
                         </div>
                       </div>
@@ -115,6 +121,7 @@
                             <li class="list-group-item"><strong>Fecha Última Entrada:</strong> <span id="fechaUltimaEntrada"></span></li>
                             <li class="list-group-item"><strong>Costo Más Alto:</strong> <span id="costoMasAlto"></span></li>
                             <li id="fechaCaducidad1" class="list-group-item"><strong>Fecha Caducidad:</strong> <span id="fechaCaducidad"></span></li>
+                            <li class="list-group-item"><strong>Fecha de Lote:</strong> <span id="fechaLote"></span></li>
                           </ul>
                         </div>
                       </div>
@@ -271,6 +278,214 @@
     /* border: 1px solid #ddd; Opcional, solo para ver los límites del contenedor */
   }
 </style>
+
+
+<script>
+  // Función para generar y mostrar el código de barras visual
+function mostrarCodigoBarras(codigo) {
+    if (!codigo || codigo.trim() === '') {
+        // Si no hay código, ocultar el contenedor
+        document.getElementById('codigoBarrasContainer').style.display = 'none';
+        return;
+    }
+    
+    try {
+        // Mostrar el contenedor
+        document.getElementById('codigoBarrasContainer').style.display = 'block';
+        
+        // Generar el código de barras en el canvas
+        JsBarcode("#codigoBarras", codigo, {
+            format: "CODE128", // Formato más flexible que acepta números y texto
+            width: 2,
+            height: 60,
+            displayValue: true,
+            fontSize: 12,
+            textMargin: 5,
+            background: "#ffffff",
+            lineColor: "#000000"
+        });
+        
+        // Mostrar el código como texto también
+        document.getElementById('codigoBarrasTexto').textContent = codigo;
+        
+    } catch (error) {
+        console.error('Error al generar código de barras:', error);
+        // En caso de error, mostrar solo el texto
+        document.getElementById('codigoBarrasTexto').textContent = 'Código: ' + codigo;
+    }
+}
+
+// Función para detectar el tipo de código y usar el formato apropiado
+function detectarFormatoCodigo(codigo) {
+    // Si es solo números y tiene 13 dígitos, usar EAN13
+    if (/^\d{13}$/.test(codigo)) {
+        return "EAN13";
+    }
+    // Si es solo números y tiene 12 dígitos, usar UPC
+    else if (/^\d{12}$/.test(codigo)) {
+        return "UPC";
+    }
+    // Si es solo números y tiene 8 dígitos, usar EAN8
+    else if (/^\d{8}$/.test(codigo)) {
+        return "EAN8";
+    }
+    // Para cualquier otro caso (números + texto), usar CODE128
+    else {
+        return "CODE128";
+    }
+}
+
+// Versión mejorada de la función que detecta automáticamente el formato
+function mostrarCodigoBarrasInteligente(codigo) {
+    if (!codigo || codigo.trim() === '') {
+        document.getElementById('codigoBarrasContainer').style.display = 'none';
+        return;
+    }
+    
+    try {
+        document.getElementById('codigoBarrasContainer').style.display = 'block';
+        
+        const formato = detectarFormatoCodigo(codigo);
+        
+        JsBarcode("#codigoBarras", codigo, {
+            format: formato,
+            width: formato === "CODE128" ? 1.5 : 2,
+            height: 60,
+            displayValue: true,
+            fontSize: 12,
+            textMargin: 5,
+            background: "#ffffff",
+            lineColor: "#000000"
+        });
+        
+        document.getElementById('codigoBarrasTexto').textContent = codigo;
+        
+    } catch (error) {
+        console.error('Error al generar código de barras:', error);
+        document.getElementById('codigoBarrasTexto').textContent = 'Código: ' + codigo;
+    }
+}
+
+// Función optimizada para mostrar el código de barras solo en el modal de detalles
+function mostrarCodigoBarrasDetalle(codigo) {
+    // Verificar que el contenedor exista
+    const container = document.getElementById('codigoBarrasContainer');
+    const canvas = document.getElementById('codigoBarras');
+    const textoElement = document.getElementById('codigoBarrasTexto');
+    
+    if (!container || !canvas || !textoElement) {
+        console.error('No se encontraron elementos necesarios para el código de barras');
+        return;
+    }
+    
+    // Si no hay código válido, ocultar el contenedor y terminar
+    if (!codigo || codigo.trim() === '') {
+        container.style.display = 'none';
+        return;
+    }
+    
+    try {
+        // Limpiar el canvas para evitar superposiciones
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Reiniciar dimensiones
+        canvas.width = 0;
+        canvas.height = 0;
+        
+        // Mostrar el contenedor
+        container.style.display = 'block';
+        
+        // Detectar el formato apropiado
+        const formato = detectarFormatoCodigo(codigo);
+        
+        // Generar el código de barras
+        JsBarcode("#codigoBarras", codigo, {
+            format: formato,
+            width: formato === "CODE128" ? 1.5 : 2,
+            height: 60,
+            displayValue: true,
+            fontSize: 12,
+            textMargin: 5,
+            background: "#ffffff",
+            lineColor: "#000000"
+        });
+        
+        // Mostrar el código como texto también
+        textoElement.textContent = codigo;
+        
+    } catch (error) {
+        console.error('Error al generar código de barras:', error, 'para código:', codigo);
+        // En caso de error, mostrar solo el texto
+        textoElement.textContent = 'Código: ' + codigo;
+        
+        // Intentar con un formato más permisivo en caso de error
+        try {
+            JsBarcode("#codigoBarras", codigo, {
+                format: "CODE128",
+                width: 1.5,
+                height: 60,
+                displayValue: true,
+                fontSize: 12,
+                textMargin: 5,
+                background: "#ffffff",
+                lineColor: "#000000"
+            });
+        } catch (secondError) {
+            console.error('Error en segundo intento con CODE128:', secondError);
+            // Si sigue fallando, simplemente ocultar el canvas
+            canvas.style.display = 'none';
+        }
+    }
+}
+
+// Función para detectar el formato adecuado para el código
+function detectarFormatoCodigo(codigo) {
+    if (!codigo || typeof codigo !== 'string') {
+        return "CODE128"; // Valor por defecto
+    }
+    
+    const codigoLimpio = codigo.trim();
+    
+    // Verificar diferentes formatos comunes
+    if (/^\d{13}$/.test(codigoLimpio)) {
+        return "EAN13";
+    } else if (/^\d{12}$/.test(codigoLimpio)) {
+        return "UPC";
+    } else if (/^\d{8}$/.test(codigoLimpio)) {
+        return "EAN8";
+    } else if (/^\d{5}$/.test(codigoLimpio)) {
+        return "EAN5";
+    } else if (/^\d{2}$/.test(codigoLimpio)) {
+        return "EAN2";
+    } else {
+        return "CODE128"; // Más flexible para cualquier combinación alfanumérica
+    }
+}
+
+// Agregar este event listener para asegurar que el código de barras se genere cuando se muestra el modal
+$(document).ready(function() {
+  $('#detalleProductoModal').on('shown.bs.modal', function () {
+    // Si existe un rowSelected y tiene código de barras
+    if (rowSelected && rowSelected.codigo_barras && rowSelected.codigo_barras.trim() !== '') {
+      // Retrasar ligeramente la generación para asegurar que el DOM está listo
+      setTimeout(() => {
+        mostrarCodigoBarrasDetalle(rowSelected.codigo_barras);
+      }, 100);
+    }
+  });
+  
+  // Limpiar el canvas cuando se cierra el modal para evitar problemas
+  $('#detalleProductoModal').on('hidden.bs.modal', function () {
+    const canvas = document.getElementById('codigoBarras');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  });
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
 <!-- Manejo del modal desde los detalles (Inactivo) -->
 <!--
   <script>
