@@ -208,7 +208,7 @@ switch ($api) {
                     UPLOAD_ERR_CANT_WRITE => 'Error al escribir el archivo al disco',
                     UPLOAD_ERR_EXTENSION => 'Subida de archivo detenida por extensión'
                 ];
-                
+
                 $errorMsg = isset($errorMessages[$uploadError]) ? $errorMessages[$uploadError] : 'Error desconocido';
                 $response = "Error al subir archivo: $errorMsg. Verifique el tamaño del archivo.";
                 break;
@@ -220,7 +220,7 @@ switch ($api) {
             }
 
             $img = $master->guardarFiles($_FILES, 'img_factura', $dir, $nombreImagen);
-            
+
             if (!empty($img) && is_array($img) && isset($img[0]['url'])) {
                 $imagen_documento = str_replace('../', $host, $img[0]['url']);
                 $imagen_documento = $master->setToNull([$imagen_documento])[0];

@@ -243,7 +243,7 @@ $("#registrarTipoForm").submit(function (event) {
         {
           api: 10,
           activo: activo,
-          id_tipo: tipoIdValue || null
+          id_tipo: tipoIdValue || null,
         },
         "inventarios_api",
         "registrarTipoForm",
@@ -308,7 +308,7 @@ $("#registrarUnidadForm").submit(function (event) {
         {
           api: 13,
           activo: activo,
-          id_unidades: unidadIdValue || null
+          id_unidades: unidadIdValue || null,
         },
         "inventarios_api",
         "registrarUnidadForm",
@@ -375,7 +375,7 @@ $("#registrarMarcaForm").submit(function (event) {
         {
           api: 11,
           activo: activo,
-          id_marcas: marcaIdValue || null
+          id_marcas: marcaIdValue || null,
         },
         "inventarios_api",
         "registrarMarcaForm",
@@ -444,7 +444,7 @@ $("#registrarMotivoForm").submit(function (event) {
           api: 14,
           activo: activo,
           tipo_movimiento: tipoMovimiento,
-          id_motivos: motivoIdValue || null
+          id_motivos: motivoIdValue || null,
         },
         "inventarios_api",
         "registrarMotivoForm",

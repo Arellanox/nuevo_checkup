@@ -85,8 +85,6 @@ $(document).ready(function () {
   $("#tipo_articulo").trigger("change");
 });
 
-
-
 $("#maneja_caducidad").on("change", function () {
   if ($(this).val() == "1") {
     $("#fechaCaducidadDiv").show();
@@ -135,41 +133,41 @@ if (edit == 1) {
         $("#editarArticuloForm #unidad_minima").val(rowSelected.UNIDAD_MINIMA);
         $("#editarArticuloForm #contenido").val(rowSelected.CONTENIDO);
 
-        // Validación para tipo_articulo (Reactivo)
-        if (rowSelected.TIPO_ARTICULO_ID == 1) {
-          $("#editarArticuloForm #rendimientoEstimadoDiv").show();
-          $("#editarArticuloForm #rendimientoPacienteDiv").show();
-          $("#editarArticuloForm #insertoDiv").show();
-          $("#editarArticuloForm #protocoloDiv").show();
-        } else {
-          $("#editarArticuloForm #rendimientoEstimadoDiv").hide();
-          $("#editarArticuloForm #rendimientoPacienteDiv").hide();
-          $("#editarArticuloForm #insertoDiv").hide();
-          $("#editarArticuloForm #protocoloDiv").hide();
-          $("#editarArticuloForm #rendimiento_estimado").val("");
-          $("#editarArticuloForm #rendimiento_paciente").val("");
-          $("#editarArticuloForm #inserto").val("");
-          $("#editarArticuloForm #procedimiento").val("");
-        }
-        $("#editarArticuloForm #tipo_articulo")
-          .off("change")
-          .on("change", function () {
-            if ($(this).val() == "1") {
-              $("#editarArticuloForm #rendimientoEstimadoDiv").show();
-              $("#editarArticuloForm #rendimientoPacienteDiv").show();
-              $("#editarArticuloForm #insertoDiv").show();
-              $("#editarArticuloForm #protocoloDiv").show();
-            } else {
-              $("#editarArticuloForm #rendimientoEstimadoDiv").hide();
-              $("#editarArticuloForm #rendimientoPacienteDiv").hide();
-              $("#editarArticuloForm #insertoDiv").hide();
-              $("#editarArticuloForm #protocoloDiv").hide();
-              $("#editarArticuloForm #rendimiento_estimado").val("");
-              $("#editarArticuloForm #rendimiento_paciente").val("");
-              $("#editarArticuloForm #inserto").val("");
-              $("#editarArticuloForm #procedimiento").val("");
-            }
-          });
+        // // Validación para tipo_articulo (Reactivo)
+        // if (rowSelected.TIPO_ARTICULO_ID == 1) {
+        //   $("#editarArticuloForm #rendimientoEstimadoDiv").show();
+        //   $("#editarArticuloForm #rendimientoPacienteDiv").show();
+        //   $("#editarArticuloForm #insertoDiv").show();
+        //   $("#editarArticuloForm #protocoloDiv").show();
+        // } else {
+        //   $("#editarArticuloForm #rendimientoEstimadoDiv").hide();
+        //   $("#editarArticuloForm #rendimientoPacienteDiv").hide();
+        //   $("#editarArticuloForm #insertoDiv").hide();
+        //   $("#editarArticuloForm #protocoloDiv").hide();
+        //   $("#editarArticuloForm #rendimiento_estimado").val("");
+        //   $("#editarArticuloForm #rendimiento_paciente").val("");
+        //   $("#editarArticuloForm #inserto").val("");
+        //   $("#editarArticuloForm #procedimiento").val("");
+        // }
+        // $("#editarArticuloForm #tipo_articulo")
+        //   .off("change")
+        //   .on("change", function () {
+        //     if ($(this).val() == "1") {
+        //       $("#editarArticuloForm #rendimientoEstimadoDiv").show();
+        //       $("#editarArticuloForm #rendimientoPacienteDiv").show();
+        //       $("#editarArticuloForm #insertoDiv").show();
+        //       $("#editarArticuloForm #protocoloDiv").show();
+        //     } else {
+        //       $("#editarArticuloForm #rendimientoEstimadoDiv").hide();
+        //       $("#editarArticuloForm #rendimientoPacienteDiv").hide();
+        //       $("#editarArticuloForm #insertoDiv").hide();
+        //       $("#editarArticuloForm #protocoloDiv").hide();
+        //       $("#editarArticuloForm #rendimiento_estimado").val("");
+        //       $("#editarArticuloForm #rendimiento_paciente").val("");
+        //       $("#editarArticuloForm #inserto").val("");
+        //       $("#editarArticuloForm #procedimiento").val("");
+        //     }
+        //   });
         $("#editarArticuloForm #maneja_caducidad").val(
           rowSelected.MANEJA_CADUCIDAD
         );
@@ -196,6 +194,12 @@ if (edit == 1) {
             }
           });
 
+        $("#editarArticuloForm #codigo_barras").val(rowSelected.codigo_barras);
+
+        $("#editarArticuloForm #numero_lote").val(rowSelected.numero_lote);
+
+        $("#editarArticuloForm #fecha_lote").val(rowSelected.fecha_lote);
+
         $("#editarArticuloForm #costo_mas_alto").val(
           rowSelected.COSTO_MAS_ALTO
         );
@@ -211,69 +215,78 @@ if (edit == 1) {
         $("#editarArticuloForm #rendimiento_estimado").val(
           rowSelected.RENDIMIENTO_ESTIMADO
         );
-        $("#editarArticuloForm #rendimiento_paciente").val(rowSelected.RENDIMIENTO_PACIENTE);
+        $("#editarArticuloForm #rendimiento_paciente").val(
+          rowSelected.RENDIMIENTO_PACIENTE
+        );
         $("#editarArticuloForm #inserto").val(rowSelected.INSERTO);
 
         // Agregar la configuración para maneja_inserto
-      if (typeof rowSelected.MANEJA_INSERTO !== "undefined") {
-        $("#editarArticuloForm #maneja_inserto").val(rowSelected.MANEJA_INSERTO);
-      } else {
-        // Si no existe en el objeto, determinar su valor según si hay datos o no
-        // Si hay un valor en INSERTO, significa que debemos mostrarlo (0), de lo contrario ocultarlo (1)
-        $("#editarArticuloForm #maneja_inserto").val(
-          rowSelected.INSERTO && rowSelected.INSERTO.trim() !== "" ? "0" : "1"
-        );
-      }
+        if (typeof rowSelected.MANEJA_INSERTO !== "undefined") {
+          $("#editarArticuloForm #maneja_inserto").val(
+            rowSelected.MANEJA_INSERTO
+          );
+        } else {
+          // Si no existe en el objeto, determinar su valor según si hay datos o no
+          // Si hay un valor en INSERTO, significa que debemos mostrarlo (0), de lo contrario ocultarlo (1)
+          $("#editarArticuloForm #maneja_inserto").val(
+            rowSelected.INSERTO && rowSelected.INSERTO.trim() !== "" ? "0" : "1"
+          );
+        }
 
-      // Agregar la configuración para maneja_rendimiento
-      if (typeof rowSelected.MANEJA_RENDIMIENTO !== "undefined") {
-        $("#editarArticuloForm #maneja_rendimiento").val(rowSelected.MANEJA_RENDIMIENTO);
-      } else {
-      // Si no existe en el objeto, determinar su valor según si hay datos o no
-      // Si hay un valor en RENDIMIENTO_ESTIMADO, significa que debemos mostrarlo (0), de lo contrario ocultarlo (1)
-        $("#editarArticuloForm #maneja_rendimiento").val(
-          rowSelected.RENDIMIENTO_ESTIMADO && rowSelected.RENDIMIENTO_ESTIMADO.toString() !== "0" ? "0" : "1"
-        );
-      }
+        // Agregar la configuración para maneja_rendimiento
+        if (typeof rowSelected.MANEJA_RENDIMIENTO !== "undefined") {
+          $("#editarArticuloForm #maneja_rendimiento").val(
+            rowSelected.MANEJA_RENDIMIENTO
+          );
+        } else {
+          // Si no existe en el objeto, determinar su valor según si hay datos o no
+          // Si hay un valor en RENDIMIENTO_ESTIMADO, significa que debemos mostrarlo (0), de lo contrario ocultarlo (1)
+          $("#editarArticuloForm #maneja_rendimiento").val(
+            rowSelected.RENDIMIENTO_ESTIMADO &&
+              rowSelected.RENDIMIENTO_ESTIMADO.toString() !== "0"
+              ? "0"
+              : "1"
+          );
+        }
 
-      // Función para actualizar la visibilidad de los campos de inserto
-    function actualizarInsertoEditar() {
-      if ($("#editarArticuloForm #maneja_inserto").val() == "0") {
-        $("#editarArticuloForm #insertoDiv").show();
-        $("#editarArticuloForm #protocoloDiv").show();
-      } else {
-        $("#editarArticuloForm #insertoDiv").hide();
-        $("#editarArticuloForm #protocoloDiv").hide();          
-        $("#editarArticuloForm #inserto").val("");
-        $("#editarArticuloForm #procedimiento").val("");
-      }
-}
+        // Función para actualizar la visibilidad de los campos de inserto
+        function actualizarInsertoEditar() {
+          if ($("#editarArticuloForm #maneja_inserto").val() == "0") {
+            $("#editarArticuloForm #insertoDiv").show();
+            $("#editarArticuloForm #protocoloDiv").show();
+          } else {
+            $("#editarArticuloForm #insertoDiv").hide();
+            $("#editarArticuloForm #protocoloDiv").hide();
+            $("#editarArticuloForm #inserto").val("");
+            $("#editarArticuloForm #procedimiento").val("");
+          }
+        }
 
-      // Función para actualizar la visibilidad de los campos de rendimiento
-    function actualizarRendimientoEditar() {
-      if ($("#editarArticuloForm #maneja_rendimiento").val() == "0") {
-        $("#editarArticuloForm #rendimientoEstimadoDiv").show();
-        $("#editarArticuloForm #rendimientoPacienteDiv").show();
-  } else {
-      $("#editarArticuloForm #rendimientoEstimadoDiv").hide();
-      $("#editarArticuloForm #rendimientoPacienteDiv").hide();
-      $("#editarArticuloForm #rendimiento_estimado").val("");
-      $("#editarArticuloForm #rendimiento_paciente").val("");
-  }
-}
+        // Función para actualizar la visibilidad de los campos de rendimiento
+        function actualizarRendimientoEditar() {
+          if ($("#editarArticuloForm #maneja_rendimiento").val() == "0") {
+            $("#editarArticuloForm #rendimientoEstimadoDiv").show();
+            $("#editarArticuloForm #rendimientoPacienteDiv").show();
+          } else {
+            $("#editarArticuloForm #rendimientoEstimadoDiv").hide();
+            $("#editarArticuloForm #rendimientoPacienteDiv").hide();
+            $("#editarArticuloForm #rendimiento_estimado").val("");
+            $("#editarArticuloForm #rendimiento_paciente").val("");
+          }
+        }
 
-    // Ejecutar las funciones al cargar el formulario
-    actualizarInsertoEditar();
-    actualizarRendimientoEditar();
+        // Ejecutar las funciones al cargar el formulario
+        actualizarInsertoEditar();
+        actualizarRendimientoEditar();
 
-    // Configurar eventos onChange
-    $("#editarArticuloForm #maneja_inserto")
-    .off("change")
-    .on("change", actualizarInsertoEditar);
+        // Configurar eventos onChange
+        $("#editarArticuloForm #maneja_inserto")
+          .off("change")
+          .on("change", actualizarInsertoEditar);
 
-    $("#editarArticuloForm #maneja_rendimiento")
-    .off("change")
-    .on("change", actualizarRendimientoEditar);
+        $("#editarArticuloForm #maneja_rendimiento")
+          .off("change")
+          .on("change", actualizarRendimientoEditar);
       }
     },
   });
@@ -541,10 +554,9 @@ tableCatArticulos = $("#tableCatArticulos").DataTable({
           return "";
         }
         return data;
-      }
+      },
     },
-    { data: "codigo_barras" }
-    ,
+    { data: "codigo_barras" },
   ],
   columnDefs: [
     // Ajusta los anchos de columna según el contenido esperado
@@ -1270,34 +1282,36 @@ selectDatatable(
     $("#editarArticuloForm #fechaCaducidad").val(fechaCaducidad);
     $("#areaDetalle").text(rowSelected.AREA);
     $("#marcaDetalle").text(rowSelected.MARCAS);
-    $("#numeroLote").text(rowSelected.numero_lote ? rowSelected.numero_lote : "Sin registros");
+    $("#numeroLote").text(
+      rowSelected.numero_lote ? rowSelected.numero_lote : "Sin registros"
+    );
     $("#fechaLote").text(
-  !rowSelected.fecha_lote || 
-  rowSelected.fecha_lote === "0000-00-00" || 
-  rowSelected.fecha_lote === "0000-00-00 00:00:00" || 
-  rowSelected.fecha_lote === "00000000" 
-    ? "Sin registros" 
-    : rowSelected.fecha_lote
-);
-// $("#codigoBarras").text(rowSelected.codigo_barras ? rowSelected.codigo_barras : "Sin registros");
-    
+      !rowSelected.fecha_lote ||
+        rowSelected.fecha_lote === "0000-00-00" ||
+        rowSelected.fecha_lote === "0000-00-00 00:00:00" ||
+        rowSelected.fecha_lote === "00000000"
+        ? "Sin registros"
+        : rowSelected.fecha_lote
+    );
+    // $("#codigoBarras").text(rowSelected.codigo_barras ? rowSelected.codigo_barras : "Sin registros");
+
     // Por esta nueva lógica:
-    if (rowSelected.codigo_barras && rowSelected.codigo_barras.trim() !== '') {
+    if (rowSelected.codigo_barras && rowSelected.codigo_barras.trim() !== "") {
       // Mostrar el código como texto en el elemento original
       $("#codigoBarras").text(rowSelected.codigo_barras);
-      
+
       // Generar y mostrar el código de barras visual
       mostrarCodigoBarrasInteligente(rowSelected.codigo_barras);
     } else {
       // Si no hay código de barras
       $("#codigoBarras").text("Sin registros");
-      
+
       // Ocultar el contenedor del código visual
-      if (document.getElementById('codigoBarrasContainer')) {
-        document.getElementById('codigoBarrasContainer').style.display = 'none';
+      if (document.getElementById("codigoBarrasContainer")) {
+        document.getElementById("codigoBarrasContainer").style.display = "none";
       }
     }
-    
+
     if (
       rowSelected.RENDIMIENTO_ESTIMADO &&
       rowSelected.RENDIMIENTO_ESTIMADO !== "0"
@@ -1672,16 +1686,16 @@ $(document).ready(function () {
     });
   }
 
-    // ==================== CARGAS PARA MODAL EDITAR ====================
+  // ==================== CARGAS PARA MODAL EDITAR ====================
   $("#editarArticuloModal").on("show.bs.modal", function () {
     // Cargar todos los catálogos primero sin callbacks
     cargarTiposEditar();
     cargarMarcasEditar();
     cargarAreasEditar();
     cargarUnidadesEditar();
-    
+
     // Esperar un momento para que se carguen los catálogos y luego establecer valores
-    setTimeout(function() {
+    setTimeout(function () {
       establecerValoresFormularioEditar();
     }, 500);
   });
@@ -1690,27 +1704,30 @@ $(document).ready(function () {
     cargarTiposFiltrar();
     cargarAreasFiltrar();
   });
-  
+
   // ==================== FUNCIÓN PARA ESTABLECER VALORES DEL FORMULARIO ====================
   function establecerValoresFormularioEditar() {
     if (!rowSelected) return;
-    
-    console.log("Estableciendo valores para el artículo:", rowSelected.NOMBRE_COMERCIAL);
+
+    console.log(
+      "Estableciendo valores para el artículo:",
+      rowSelected.NOMBRE_COMERCIAL
+    );
     console.log("Datos del artículo seleccionado:", rowSelected);
-    
+
     // Establecer tipo
     const tipoId = rowSelected.TIPO_ARTICULO_ID || rowSelected.ID_TIPO;
     if (tipoId) {
       $("#editarArticuloForm #tipo_articulo").val(tipoId);
       console.log("Tipo establecido:", tipoId);
     }
-    
+
     // Establecer marca
     if (rowSelected.ID_MARCAS) {
       $("#editarArticuloForm #id_marcas").val(rowSelected.ID_MARCAS);
       console.log("Marca establecida por ID:", rowSelected.ID_MARCAS);
     } else if (rowSelected.MARCAS) {
-      $("#editarArticuloForm #id_marcas option").each(function() {
+      $("#editarArticuloForm #id_marcas option").each(function () {
         if ($(this).text().trim() === rowSelected.MARCAS.trim()) {
           $("#editarArticuloForm #id_marcas").val($(this).val());
           console.log("Marca establecida por texto:", $(this).text());
@@ -1718,13 +1735,13 @@ $(document).ready(function () {
         }
       });
     }
-    
+
     // Establecer área
     if (rowSelected.AREA_ID) {
       $("#editarArticuloForm #area_id").val(rowSelected.AREA_ID);
       console.log("Área establecida por ID:", rowSelected.AREA_ID);
     } else if (rowSelected.AREA) {
-      $("#editarArticuloForm #area_id option").each(function() {
+      $("#editarArticuloForm #area_id option").each(function () {
         if ($(this).text().trim() === rowSelected.AREA.trim()) {
           $("#editarArticuloForm #area_id").val($(this).val());
           console.log("Área establecida por texto:", $(this).text());
@@ -1732,22 +1749,35 @@ $(document).ready(function () {
         }
       });
     }
-    
+
     // Establecer unidad de venta
     console.log("UNIDAD_VENTA:", rowSelected.UNIDAD_VENTA);
     console.log("UNIDAD_VENTA_ID:", rowSelected.UNIDAD_VENTA_ID);
-    
+
     if (rowSelected.UNIDAD_VENTA_ID) {
       $("#editarArticuloForm #unidad_venta").val(rowSelected.UNIDAD_VENTA_ID);
-      console.log("Unidad establecida por UNIDAD_VENTA_ID:", rowSelected.UNIDAD_VENTA_ID);
+      console.log(
+        "Unidad establecida por UNIDAD_VENTA_ID:",
+        rowSelected.UNIDAD_VENTA_ID
+      );
     } else if (rowSelected.UNIDAD_VENTA) {
       $("#editarArticuloForm #unidad_venta").val(rowSelected.UNIDAD_VENTA);
-      console.log("Unidad establecida por UNIDAD_VENTA como ID:", rowSelected.UNIDAD_VENTA);
-      
+      console.log(
+        "Unidad establecida por UNIDAD_VENTA como ID:",
+        rowSelected.UNIDAD_VENTA
+      );
+
       // Verificar qué se estableció
       const valorSeleccionado = $("#editarArticuloForm #unidad_venta").val();
-      const textoSeleccionado = $("#editarArticuloForm #unidad_venta option:selected").text();
-      console.log("Unidad de venta final:", textoSeleccionado, "ID:", valorSeleccionado);
+      const textoSeleccionado = $(
+        "#editarArticuloForm #unidad_venta option:selected"
+      ).text();
+      console.log(
+        "Unidad de venta final:",
+        textoSeleccionado,
+        "ID:",
+        valorSeleccionado
+      );
     }
   }
 
@@ -1768,12 +1798,16 @@ $(document).ready(function () {
   }
 
   function cargarAreasEditar(callback) {
-    cargarCatalogoEnModal("#editarArticuloModal #area_id", {
-      api: 18,
-      campoId: "ID_AREA", // Usar el campo que devuelve tu SP
-      campoTexto: "DESCRIPCION",
-      placeholder: "Seleccione un área",
-    }, callback);
+    cargarCatalogoEnModal(
+      "#editarArticuloModal #area_id",
+      {
+        api: 18,
+        campoId: "ID_AREA", // Usar el campo que devuelve tu SP
+        campoTexto: "DESCRIPCION",
+        placeholder: "Seleccione un área",
+      },
+      callback
+    );
   }
 
   function cargarAreasFiltrar() {
@@ -1796,12 +1830,16 @@ $(document).ready(function () {
   }
 
   function cargarTiposEditar(callback) {
-    cargarCatalogoEnModal("#editarArticuloModal #tipo_articulo", {
-      api: 2,
-      campoId: "ID_TIPO",
-      campoTexto: "DESCRIPCION",
-      placeholder: "Seleccione un tipo",
-    }, callback);
+    cargarCatalogoEnModal(
+      "#editarArticuloModal #tipo_articulo",
+      {
+        api: 2,
+        campoId: "ID_TIPO",
+        campoTexto: "DESCRIPCION",
+        placeholder: "Seleccione un tipo",
+      },
+      callback
+    );
   }
 
   function cargarTiposFiltrar() {
@@ -1824,12 +1862,16 @@ $(document).ready(function () {
   }
 
   function cargarMarcasEditar(callback) {
-    cargarCatalogoEnModal("#editarArticuloModal #id_marcas", {
-      api: 9,
-      campoId: "id_marcas",
-      campoTexto: "descripcion",
-      placeholder: "Seleccione una marca",
-    }, callback);
+    cargarCatalogoEnModal(
+      "#editarArticuloModal #id_marcas",
+      {
+        api: 9,
+        campoId: "id_marcas",
+        campoTexto: "descripcion",
+        placeholder: "Seleccione una marca",
+      },
+      callback
+    );
   }
 
   // ==================== FUNCIONES PARA UNIDADES ====================
@@ -1843,12 +1885,16 @@ $(document).ready(function () {
   }
 
   function cargarUnidadesEditar(callback) {
-    cargarCatalogoEnModal("#editarArticuloModal #unidad_venta", {
-      api: 12, // API para unidades activas
-      campoId: "id_unidades",
-      campoTexto: "descripcion",
-      placeholder: "Seleccione unidad de venta",
-    }, callback);
+    cargarCatalogoEnModal(
+      "#editarArticuloModal #unidad_venta",
+      {
+        api: 12, // API para unidades activas
+        campoId: "id_unidades",
+        campoTexto: "descripcion",
+        placeholder: "Seleccione unidad de venta",
+      },
+      callback
+    );
   }
 
   // ==================== FUNCIONES PARA PROVEEDORES (solo para entradas) ====================
@@ -1875,35 +1921,48 @@ $(document).ready(function () {
   // ==================== FUNCIÓN AUXILIAR PARA BUSCAR UNIDAD DE VENTA ====================
   function buscarYSeleccionarUnidadVenta(unidadTexto) {
     if (!unidadTexto) return false;
-    
+
     const selector = "#editarArticuloForm #unidad_venta";
     const unidadBuscada = unidadTexto.trim().toLowerCase();
     let encontrado = false;
-    
+
     // Primero busqueda exacta
-    $(selector + " option").each(function() {
+    $(selector + " option").each(function () {
       const opcionTexto = $(this).text().trim().toLowerCase();
       if (opcionTexto === unidadBuscada) {
         $(selector).val($(this).val());
-        console.log("Encontrado por coincidencia exacta:", $(this).text(), "ID:", $(this).val());
+        console.log(
+          "Encontrado por coincidencia exacta:",
+          $(this).text(),
+          "ID:",
+          $(this).val()
+        );
         encontrado = true;
         return false;
       }
     });
-    
+
     // Si no se encontró, buscar por coincidencias parciales
     if (!encontrado) {
-      $(selector + " option").each(function() {
+      $(selector + " option").each(function () {
         const opcionTexto = $(this).text().trim().toLowerCase();
-        if (opcionTexto.includes(unidadBuscada) || unidadBuscada.includes(opcionTexto)) {
+        if (
+          opcionTexto.includes(unidadBuscada) ||
+          unidadBuscada.includes(opcionTexto)
+        ) {
           $(selector).val($(this).val());
-          console.log("Encontrado por coincidencia parcial:", $(this).text(), "ID:", $(this).val());
+          console.log(
+            "Encontrado por coincidencia parcial:",
+            $(this).text(),
+            "ID:",
+            $(this).val()
+          );
           encontrado = true;
           return false;
         }
       });
     }
-    
+
     return encontrado;
   }
 
@@ -1951,9 +2010,9 @@ $(document).ready(function () {
           }
 
           console.log(`${opciones.placeholder} cargados en:`, selectorSelect);
-          
+
           // Ejecutar callback si existe
-          if (callback && typeof callback === 'function') {
+          if (callback && typeof callback === "function") {
             callback();
           }
         } else {
@@ -2005,7 +2064,6 @@ var tableCatTipos,
 var rowSelectedCatalogo = null;
 
 $("#registrarCatalogoModal").on("shown.bs.modal", function () {
- 
   // solo inicializar si no existen las tablas
   if (!tableCatTipos) {
     inicializarDataTablesCatalogos();
@@ -2439,139 +2497,336 @@ function inicializarDataTablesCatalogos() {
 function inicializarEventosCatalogos() {
   // ==================== EVENTOS PARA TIPOS ====================
   // Evento para botón editar tipo
-  $(document).on('click', '.btn-editar-tipo', function() {
-    var tipoId = $(this).data('id');
-    var descripcion = $(this).data('descripcion');
-    var activo = $(this).data('activo');
-    
+  $(document).on("click", ".btn-editar-tipo", function () {
+    var tipoId = $(this).data("id");
+    var descripcion = $(this).data("descripcion");
+    var activo = $(this).data("activo");
+
     // Cambiar el título del modal
-    $('#registrarTipoModalLabel').text('Editar Tipo');
-    
+    $("#registrarTipoModalLabel").text("Editar Tipo");
+
     // Llenar el formulario con los datos
-    $('#tipoId').val(tipoId);
-    $('#tipoDescripcion').val(descripcion);
-    $('#tipoActivoCheck').prop('checked', activo == 1);
-    
+    $("#tipoId").val(tipoId);
+    $("#tipoDescripcion").val(descripcion);
+    $("#tipoActivoCheck").prop("checked", activo == 1);
+
     // Mostrar el modal
-    $('#registrarTipoModal').modal('show');
+    $("#registrarTipoModal").modal("show");
   });
-  
+
   // Evento para limpiar el formulario cuando se cierra el modal de tipo
-  $('#registrarTipoModal').on('hidden.bs.modal', function() {
-    $('#registrarTipoModalLabel').text('Registrar Tipo');
-    $('#registrarTipoForm')[0].reset();
-    $('#tipoId').val('');
+  $("#registrarTipoModal").on("hidden.bs.modal", function () {
+    $("#registrarTipoModalLabel").text("Registrar Tipo");
+    $("#registrarTipoForm")[0].reset();
+    $("#tipoId").val("");
   });
-  
+
   // ==================== EVENTOS PARA UNIDADES ====================
   // Evento para botón editar unidad
-  $(document).on('click', '.btn-editar-unidad', function() {
-    var unidadId = $(this).data('id');
-    var descripcion = $(this).data('descripcion');
-    var activo = $(this).data('activo');
-    
+  $(document).on("click", ".btn-editar-unidad", function () {
+    var unidadId = $(this).data("id");
+    var descripcion = $(this).data("descripcion");
+    var activo = $(this).data("activo");
+
     // Cambiar el título del modal
-    $('#registrarUnidadModalLabel').text('Editar Unidad');
-    
+    $("#registrarUnidadModalLabel").text("Editar Unidad");
+
     // Llenar el formulario con los datos
-    $('#unidadId').val(unidadId);
-    $('#unidadDescripcion').val(descripcion);
-    $('#unidadActivoCheck').prop('checked', activo == 1);
-    
+    $("#unidadId").val(unidadId);
+    $("#unidadDescripcion").val(descripcion);
+    $("#unidadActivoCheck").prop("checked", activo == 1);
+
     // Mostrar el modal
-    $('#registrarUnidadModal').modal('show');
+    $("#registrarUnidadModal").modal("show");
   });
-  
+
   // Evento para limpiar el formulario cuando se cierra el modal de unidad
-  $('#registrarUnidadModal').on('hidden.bs.modal', function() {
-    $('#registrarUnidadModalLabel').text('Registrar Unidad');
-    $('#registrarUnidadForm')[0].reset();
-    $('#unidadId').val('');
+  $("#registrarUnidadModal").on("hidden.bs.modal", function () {
+    $("#registrarUnidadModalLabel").text("Registrar Unidad");
+    $("#registrarUnidadForm")[0].reset();
+    $("#unidadId").val("");
   });
-  
+
   // ==================== EVENTOS PARA MARCAS ====================
   // Evento para botón editar marca
-  $(document).on('click', '.btn-editar-marca', function() {
-    var marcaId = $(this).data('id');
-    var descripcion = $(this).data('descripcion');
-    var activo = $(this).data('activo');
-    
+  $(document).on("click", ".btn-editar-marca", function () {
+    var marcaId = $(this).data("id");
+    var descripcion = $(this).data("descripcion");
+    var activo = $(this).data("activo");
+
     // Cambiar el título del modal
-    $('#registrarMarcaModalLabel').text('Editar Marca');
-    
+    $("#registrarMarcaModalLabel").text("Editar Marca");
+
     // Llenar el formulario con los datos
-    $('#marcaId').val(marcaId);
-    $('#marcaDescripcion').val(descripcion);
-    $('#marcaActivoCheck').prop('checked', activo == 1);
-    
+    $("#marcaId").val(marcaId);
+    $("#marcaDescripcion").val(descripcion);
+    $("#marcaActivoCheck").prop("checked", activo == 1);
+
     // Mostrar el modal
-    $('#registrarMarcaModal').modal('show');
+    $("#registrarMarcaModal").modal("show");
   });
-  
+
   // Evento para limpiar el formulario cuando se cierra el modal de marca
-  $('#registrarMarcaModal').on('hidden.bs.modal', function() {
-    $('#registrarMarcaModalLabel').text('Registrar Marca');
-    $('#registrarMarcaForm')[0].reset();
-    $('#marcaId').val('');
+  $("#registrarMarcaModal").on("hidden.bs.modal", function () {
+    $("#registrarMarcaModalLabel").text("Registrar Marca");
+    $("#registrarMarcaForm")[0].reset();
+    $("#marcaId").val("");
   });
-  
+
   // ==================== EVENTOS PARA MOTIVOS ====================
   // Evento para botón editar motivo
-  $(document).on('click', '.btn-editar-motivo', function() {
-    var motivoId = $(this).data('id');
-    var descripcion = $(this).data('descripcion');
-    var activo = $(this).data('activo');
-    var tipoMovimiento = $(this).data('tipo-movimiento');
-    
+  $(document).on("click", ".btn-editar-motivo", function () {
+    var motivoId = $(this).data("id");
+    var descripcion = $(this).data("descripcion");
+    var activo = $(this).data("activo");
+    var tipoMovimiento = $(this).data("tipo-movimiento");
+
     // Cambiar el título del modal
-    $('#registrarMotivoModalLabel').text('Editar Motivo');
-    
+    $("#registrarMotivoModalLabel").text("Editar Motivo");
+
     // Llenar el formulario con los datos
-    $('#motivoId').val(motivoId);
-    $('#motivoDescripcion').val(descripcion);
-    $('#motivoActivoCheck').prop('checked', activo == 1);
-    $('#motivoTipoMovimiento').val(tipoMovimiento);
-    
+    $("#motivoId").val(motivoId);
+    $("#motivoDescripcion").val(descripcion);
+    $("#motivoActivoCheck").prop("checked", activo == 1);
+    $("#motivoTipoMovimiento").val(tipoMovimiento);
+
     // Mostrar el modal
-    $('#registrarMotivoModal').modal('show');
+    $("#registrarMotivoModal").modal("show");
   });
-  
+
   // Evento para limpiar el formulario cuando se cierra el modal de motivo
-  $('#registrarMotivoModal').on('hidden.bs.modal', function() {
-    $('#registrarMotivoModalLabel').text('Registrar Motivo');
-    $('#registrarMotivoForm')[0].reset();
-    $('#motivoId').val('');
+  $("#registrarMotivoModal").on("hidden.bs.modal", function () {
+    $("#registrarMotivoModalLabel").text("Registrar Motivo");
+    $("#registrarMotivoForm")[0].reset();
+    $("#motivoId").val("");
   });
-  
+
   // ==================== EVENTOS PARA PROVEEDORES ====================
   // Evento para botón editar proveedor
-  $(document).on('click', '.btn-editar-proveedor', function() {
-    var proveedorId = $(this).data('id');
-    var nombre = $(this).data('nombre');
-    var contacto = $(this).data('contacto');
-    var telefono = $(this).data('telefono');
-    var email = $(this).data('email');
-    var activo = $(this).data('activo');
-    
+  $(document).on("click", ".btn-editar-proveedor", function () {
+    var proveedorId = $(this).data("id");
+    var nombre = $(this).data("nombre");
+    var contacto = $(this).data("contacto");
+    var telefono = $(this).data("telefono");
+    var email = $(this).data("email");
+    var activo = $(this).data("activo");
+
     // Cambiar el título del modal
-    $('#registrarProveedorModalLabel').text('Editar Proveedor');
-    
+    $("#registrarProveedorModalLabel").text("Editar Proveedor");
+
     // Llenar el formulario con los datos
-    $('#proveedorId').val(proveedorId);
-    $('#proveedorNombre').val(nombre);
-    $('#proveedorContacto').val(contacto);
-    $('#proveedorTelefono').val(telefono);
-    $('#proveedorEmail').val(email);
-    $('#proveedorActivoCheck').prop('checked', activo == 1);
-    
+    $("#proveedorId").val(proveedorId);
+    $("#proveedorNombre").val(nombre);
+    $("#proveedorContacto").val(contacto);
+    $("#proveedorTelefono").val(telefono);
+    $("#proveedorEmail").val(email);
+    $("#proveedorActivoCheck").prop("checked", activo == 1);
+
     // Mostrar el modal
-    $('#registrarProveedorModal').modal('show');
+    $("#registrarProveedorModal").modal("show");
   });
-  
+
   // Evento para limpiar el formulario cuando se cierra el modal de proveedor
-  $('#registrarProveedorModal').on('hidden.bs.modal', function() {
-    $('#registrarProveedorModalLabel').text('Registrar Proveedor');
-    $('#registrarProveedorForm')[0].reset();
-    $('#proveedorId').val('');
+  $("#registrarProveedorModal").on("hidden.bs.modal", function () {
+    $("#registrarProveedorModalLabel").text("Registrar Proveedor");
+    $("#registrarProveedorForm")[0].reset();
+    $("#proveedorId").val("");
+  });
+
+  // ==================== EVENTOS PARA ELIMINAR (DESACTIVAR) ====================
+  // Evento para botón eliminar tipo
+  $(document).on("click", ".btn-eliminar-tipo", function () {
+    var tipoId = $(this).data("id");
+    var tipoDescripcion = $(this).closest("tr").find("td:eq(1)").text(); // Obtener descripción de la fila
+
+    alertMensajeConfirm(
+      {
+        title: "Estás desactivando el tipo: " + tipoDescripcion,
+        text: "¿Desea continuar? Esta acción ocultará el tipo de las listas.",
+        icon: "warning",
+      },
+      function () {
+        ajaxAwait(
+          {
+            api: 10, // API para tipos (usar la misma que para insertar/actualizar)
+            id_tipo: tipoId,
+            descripcion: tipoDescripcion,
+            activo: 0, // Desactivar
+          },
+          "inventarios_api",
+          { callbackAfter: true },
+          false,
+          function (data) {
+            if (data.response.code == 1) {
+              alertToast("Tipo desactivado correctamente!", "success", 4000);
+              tableCatTipos.ajax.reload();
+            } else {
+              alertToast("Error al desactivar el tipo", "error", 4000);
+            }
+          }
+        );
+      },
+      1
+    );
+  });
+
+  // Evento para botón eliminar unidad
+  $(document).on("click", ".btn-eliminar-unidad", function () {
+    var unidadId = $(this).data("id");
+    var unidadDescripcion = $(this).closest("tr").find("td:eq(1)").text(); // Obtener descripción de la fila
+
+    alertMensajeConfirm(
+      {
+        title: "Estás desactivando la unidad: " + unidadDescripcion,
+        text: "¿Desea continuar? Esta acción ocultará la unidad de las listas.",
+        icon: "warning",
+      },
+      function () {
+        ajaxAwait(
+          {
+            api: 13, // API para unidades (usar la misma que para insertar/actualizar)
+            id_unidades: unidadId,
+            descripcion: unidadDescripcion,
+            activo: 0, // Desactivar
+          },
+          "inventarios_api",
+          { callbackAfter: true },
+          false,
+          function (data) {
+            if (data.response.code == 1) {
+              alertToast("Unidad desactivada correctamente!", "success", 4000);
+              tableCatUnidades.ajax.reload();
+            } else {
+              alertToast("Error al desactivar la unidad", "error", 4000);
+            }
+          }
+        );
+      },
+      1
+    );
+  });
+
+  // Evento para botón eliminar marca
+  $(document).on("click", ".btn-eliminar-marca", function () {
+    var marcaId = $(this).data("id");
+    var marcaDescripcion = $(this).closest("tr").find("td:eq(1)").text(); // Obtener descripción de la fila
+
+    alertMensajeConfirm(
+      {
+        title: "Estás desactivando la marca: " + marcaDescripcion,
+        text: "¿Desea continuar? Esta acción ocultará la marca de las listas.",
+        icon: "warning",
+      },
+      function () {
+        ajaxAwait(
+          {
+            api: 11, // API para marcas (usar la misma que para insertar/actualizar)
+            id_marcas: marcaId,
+            descripcion: marcaDescripcion,
+            activo: 0, // Desactivar
+          },
+          "inventarios_api",
+          { callbackAfter: true },
+          false,
+          function (data) {
+            if (data.response.code == 1) {
+              alertToast("Marca desactivada correctamente!", "success", 4000);
+              tableCatMarcas.ajax.reload();
+            } else {
+              alertToast("Error al desactivar la marca", "error", 4000);
+            }
+          }
+        );
+      },
+      1
+    );
+  });
+
+  // Evento para botón eliminar motivo
+  $(document).on("click", ".btn-eliminar-motivo", function () {
+    var motivoId = $(this).data("id");
+    var motivoDescripcion = $(this).closest("tr").find("td:eq(1)").text(); // Obtener descripción de la fila
+    var tipoMovimiento = $(this).data("tipo-movimiento"); // Obtener tipo de movimiento
+
+    alertMensajeConfirm(
+      {
+        title: "Estás desactivando el motivo: " + motivoDescripcion,
+        text: "¿Desea continuar? Esta acción ocultará el motivo de las listas.",
+        icon: "warning",
+      },
+      function () {
+        ajaxAwait(
+          {
+            api: 14, // API para motivos (usar la misma que para insertar/actualizar)
+            id_motivos: motivoId,
+            descripcion: motivoDescripcion,
+            tipo_movimiento: tipoMovimiento,
+            activo: 0, // Desactivar
+          },
+          "inventarios_api",
+          { callbackAfter: true },
+          false,
+          function (data) {
+            if (data.response.code == 1) {
+              alertToast("Motivo desactivado correctamente!", "success", 4000);
+              tableCatMotivos.ajax.reload();
+            } else {
+              alertToast("Error al desactivar el motivo", "error", 4000);
+            }
+          }
+        );
+      },
+      1
+    );
+  });
+
+  // Evento para botón eliminar proveedor
+  $(document).on("click", ".btn-eliminar-proveedor", function () {
+    var proveedorId = $(this).data("id");
+    // Obtener los datos de las celdas de la tabla
+    var $row = $(this).closest("tr");
+    var proveedorNombre = $row.find("td:eq(1)").text(); // Columna del nombre
+    var proveedorContacto = $row.find("td:eq(2)").text(); // Columna del contacto
+    var proveedorTelefono = $row.find("td:eq(3)").text(); // Columna del teléfono
+    // El email no está visible en la tabla, pero lo necesitamos para el SP
+    // Obtenerlo del botón de editar que sí tiene todos los data attributes
+    var proveedorEmail = $row.find(".btn-editar-proveedor").data("email");
+
+    alertMensajeConfirm(
+      {
+        title: "Estás desactivando el proveedor: " + proveedorNombre,
+        text: "¿Desea continuar? Esta acción ocultará el proveedor de las listas.",
+        icon: "warning",
+      },
+      function () {
+        ajaxAwait(
+          {
+            api: 17, // API para proveedores (usar la misma que para insertar/actualizar)
+            id_proveedores: proveedorId,
+            nombre: proveedorNombre,
+            contacto: proveedorContacto,
+            telefono: proveedorTelefono,
+            email: proveedorEmail,
+            activo: 0, // Desactivar
+          },
+          "inventarios_api",
+          { callbackAfter: true },
+          false,
+          function (data) {
+            if (data.response.code == 1) {
+              alertToast(
+                "Proveedor desactivado correctamente!",
+                "success",
+                4000
+              );
+              tableCatProveedores.ajax.reload();
+            } else {
+              alertToast("Error al desactivar el proveedor", "error", 4000);
+            }
+          }
+        );
+      },
+      1
+    );
   });
 }
