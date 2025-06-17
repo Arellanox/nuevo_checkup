@@ -134,7 +134,7 @@
                         <div class="card-body">
                           <ul class="list-group list-group-flush">
                             <li class="list-group-item"><strong>Maneja Caducidad:</strong> <span id="manejaCaducidad"></span></li>
-                            <li class="list-group-item"><strong>Contenido:</strong> <span id="contenidoDetalle"></span></li>
+                            <li class="list-group-item"><strong>Descripción:</strong> <span id="contenidoDetalle"></span></li>
                             <li id="rendimientoEstimado1" class="list-group-item"><strong>Rendimiento Estimado:</strong> <span id="rendimientoEstimado"></span></li>
                             <li id="rendimientoPaciente1" class="list-group-item"><strong>Rendimiento Paciente:</strong> <span id="rendimientoPaciente"></span></li>
                           </ul>
@@ -306,7 +306,7 @@ function mostrarCodigoBarras(codigo) {
         });
         
         // Mostrar el código como texto también
-        document.getElementById('codigoBarrasTexto').textContent = codigo;
+        document.getElementById('codigoBarrasTexto').textContent = 'Código: ' + codigo;
         
     } catch (error) {
         console.error('Error al generar código de barras:', error);
@@ -358,7 +358,7 @@ function mostrarCodigoBarrasInteligente(codigo) {
             lineColor: "#000000"
         });
         
-        document.getElementById('codigoBarrasTexto').textContent = codigo;
+        document.getElementById('codigoBarrasTexto').textContent = 'Código: ' + codigo;
         
     } catch (error) {
         console.error('Error al generar código de barras:', error);
@@ -412,7 +412,7 @@ function mostrarCodigoBarrasDetalle(codigo) {
         });
         
         // Mostrar el código como texto también
-        textoElement.textContent = codigo;
+        textoElement.textContent = 'Código: ' + codigo;
         
     } catch (error) {
         console.error('Error al generar código de barras:', error, 'para código:', codigo);

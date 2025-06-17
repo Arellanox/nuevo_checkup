@@ -657,3 +657,17 @@
     </div>
   </div>
 </div>
+<script>
+$(document).ready(function() {
+    // Simplemente reabrir el modal principal cuando se cierren los modales secundarios
+    $('#registrarTipoModal, #registrarMarcaModal, #registrarUnidadModal, #registrarMotivoModal, #registrarProveedorModal').on('hidden.bs.modal', function() {
+        $('#registrarCatalogoModal').modal('show');
+    });
+});
+
+// 2. Interceptar TODOS los botones de acción dentro de las tablas (editar y nuevos)
+$(document).on('click', '.btn-editar-tipo, .btn-editar-marca, .btn-editar-unidad, .btn-editar-motivo, .btn-editar-proveedor, .btn-nuevo-tipo, .btn-nuevo-marca, .btn-nuevo-unidad, .btn-nuevo-motivo, .btn-nuevo-proveedor', function(e) {
+    $('#registrarCatalogoModal').modal('hide');
+});
+
+</script>
