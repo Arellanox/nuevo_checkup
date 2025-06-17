@@ -152,20 +152,14 @@ if (edit == 1) {
           rowSelected.NOMBRE_COMERCIAL
         );
 
-        $("#editarArticuloForm #id_marcas").val(rowSelected.MARCAS);
-
         if (rowSelected.ESTATUS == 1) {
           $("#editarArticuloForm #estatus").prop("checked", true);
         } else {
           $("#editarArticuloForm #estatus").prop("checked", false);
         }
         $("#editarArticuloForm #red_frio").val(rowSelected.RED_FRIO);
-        $("#editarArticuloForm #unidad_venta").val(rowSelected.UNIDAD_VENTA);
         $("#editarArticuloForm #unidad_minima").val(rowSelected.UNIDAD_MINIMA);
         $("#editarArticuloForm #contenido").val(rowSelected.CONTENIDO);
-        $("#editarArticuloForm #tipo_articulo").val(
-          rowSelected.TIPO_ARTICULO_ID
-        );
 
         // Validación para tipo_articulo (Reactivo)
         if (rowSelected.TIPO_ARTICULO_ID == 1) {
@@ -240,7 +234,6 @@ if (edit == 1) {
             : ""
         );
 
-        $("#editarArticuloForm #area_id").val(rowSelected.AREA_ID);
         $("#editarArticuloForm #rendimiento_estimado").val(
           rowSelected.RENDIMIENTO_ESTIMADO
         );
@@ -1598,14 +1591,79 @@ $(document).ready(function () {
     });
   }
 
-  // ==================== CARGAS PARA MODAL EDITAR ====================
+    // ==================== CARGAS PARA MODAL EDITAR ====================
   $("#editarArticuloModal").on("show.bs.modal", function () {
+    // Cargar todos los catálogos primero sin callbacks
     cargarTiposEditar();
     cargarMarcasEditar();
-    cargarUnidadesEditar();
     cargarAreasEditar();
-    // No cargar proveedores aquí porque no está en el formulario de editar
+    cargarUnidadesEditar();
+    
+    // Esperar un momento para que se carguen los catálogos y luego establecer valores
+    setTimeout(function() {
+      establecerValoresFormularioEditar();
+    }, 500);
   });
+  
+  // ==================== FUNCIÓN PARA ESTABLECER VALORES DEL FORMULARIO ====================
+  function establecerValoresFormularioEditar() {
+    if (!rowSelected) return;
+    
+    console.log("Estableciendo valores para el artículo:", rowSelected.NOMBRE_COMERCIAL);
+    console.log("Datos del artículo seleccionado:", rowSelected);
+    
+    // Establecer tipo
+    const tipoId = rowSelected.TIPO_ARTICULO_ID || rowSelected.ID_TIPO;
+    if (tipoId) {
+      $("#editarArticuloForm #tipo_articulo").val(tipoId);
+      console.log("Tipo establecido:", tipoId);
+    }
+    
+    // Establecer marca
+    if (rowSelected.ID_MARCAS) {
+      $("#editarArticuloForm #id_marcas").val(rowSelected.ID_MARCAS);
+      console.log("Marca establecida por ID:", rowSelected.ID_MARCAS);
+    } else if (rowSelected.MARCAS) {
+      $("#editarArticuloForm #id_marcas option").each(function() {
+        if ($(this).text().trim() === rowSelected.MARCAS.trim()) {
+          $("#editarArticuloForm #id_marcas").val($(this).val());
+          console.log("Marca establecida por texto:", $(this).text());
+          return false;
+        }
+      });
+    }
+    
+    // Establecer área
+    if (rowSelected.AREA_ID) {
+      $("#editarArticuloForm #area_id").val(rowSelected.AREA_ID);
+      console.log("Área establecida por ID:", rowSelected.AREA_ID);
+    } else if (rowSelected.AREA) {
+      $("#editarArticuloForm #area_id option").each(function() {
+        if ($(this).text().trim() === rowSelected.AREA.trim()) {
+          $("#editarArticuloForm #area_id").val($(this).val());
+          console.log("Área establecida por texto:", $(this).text());
+          return false;
+        }
+      });
+    }
+    
+    // Establecer unidad de venta
+    console.log("UNIDAD_VENTA:", rowSelected.UNIDAD_VENTA);
+    console.log("UNIDAD_VENTA_ID:", rowSelected.UNIDAD_VENTA_ID);
+    
+    if (rowSelected.UNIDAD_VENTA_ID) {
+      $("#editarArticuloForm #unidad_venta").val(rowSelected.UNIDAD_VENTA_ID);
+      console.log("Unidad establecida por UNIDAD_VENTA_ID:", rowSelected.UNIDAD_VENTA_ID);
+    } else if (rowSelected.UNIDAD_VENTA) {
+      $("#editarArticuloForm #unidad_venta").val(rowSelected.UNIDAD_VENTA);
+      console.log("Unidad establecida por UNIDAD_VENTA como ID:", rowSelected.UNIDAD_VENTA);
+      
+      // Verificar qué se estableció
+      const valorSeleccionado = $("#editarArticuloForm #unidad_venta").val();
+      const textoSeleccionado = $("#editarArticuloForm #unidad_venta option:selected").text();
+      console.log("Unidad de venta final:", textoSeleccionado, "ID:", valorSeleccionado);
+    }
+  }
 
   // ==================== CARGAS PARA MODAL REGISTRAR ENTRADA ====================
   $("#registrarEntradaModal").on("show.bs.modal", function () {
@@ -1623,13 +1681,13 @@ $(document).ready(function () {
     });
   }
 
-  function cargarAreasEditar() {
+  function cargarAreasEditar(callback) {
     cargarCatalogoEnModal("#editarArticuloModal #area_id", {
       api: 18,
       campoId: "ID_AREA", // Usar el campo que devuelve tu SP
       campoTexto: "DESCRIPCION",
       placeholder: "Seleccione un área",
-    });
+    }, callback);
   }
 
   // ==================== FUNCIONES PARA TIPOS ====================
@@ -1642,13 +1700,13 @@ $(document).ready(function () {
     });
   }
 
-  function cargarTiposEditar() {
+  function cargarTiposEditar(callback) {
     cargarCatalogoEnModal("#editarArticuloModal #tipo_articulo", {
       api: 2,
       campoId: "ID_TIPO",
       campoTexto: "DESCRIPCION",
       placeholder: "Seleccione un tipo",
-    });
+    }, callback);
   }
 
   // ==================== FUNCIONES PARA MARCAS ====================
@@ -1661,13 +1719,13 @@ $(document).ready(function () {
     });
   }
 
-  function cargarMarcasEditar() {
+  function cargarMarcasEditar(callback) {
     cargarCatalogoEnModal("#editarArticuloModal #id_marcas", {
       api: 9,
       campoId: "id_marcas",
       campoTexto: "descripcion",
       placeholder: "Seleccione una marca",
-    });
+    }, callback);
   }
 
   // ==================== FUNCIONES PARA UNIDADES ====================
@@ -1680,13 +1738,13 @@ $(document).ready(function () {
     });
   }
 
-  function cargarUnidadesEditar() {
+  function cargarUnidadesEditar(callback) {
     cargarCatalogoEnModal("#editarArticuloModal #unidad_venta", {
       api: 12, // API para unidades activas
       campoId: "id_unidades",
       campoTexto: "descripcion",
       placeholder: "Seleccione unidad de venta",
-    });
+    }, callback);
   }
 
   // ==================== FUNCIONES PARA PROVEEDORES (solo para entradas) ====================
@@ -1710,8 +1768,43 @@ $(document).ready(function () {
     });
   }
 
+  // ==================== FUNCIÓN AUXILIAR PARA BUSCAR UNIDAD DE VENTA ====================
+  function buscarYSeleccionarUnidadVenta(unidadTexto) {
+    if (!unidadTexto) return false;
+    
+    const selector = "#editarArticuloForm #unidad_venta";
+    const unidadBuscada = unidadTexto.trim().toLowerCase();
+    let encontrado = false;
+    
+    // Primero busqueda exacta
+    $(selector + " option").each(function() {
+      const opcionTexto = $(this).text().trim().toLowerCase();
+      if (opcionTexto === unidadBuscada) {
+        $(selector).val($(this).val());
+        console.log("Encontrado por coincidencia exacta:", $(this).text(), "ID:", $(this).val());
+        encontrado = true;
+        return false;
+      }
+    });
+    
+    // Si no se encontró, buscar por coincidencias parciales
+    if (!encontrado) {
+      $(selector + " option").each(function() {
+        const opcionTexto = $(this).text().trim().toLowerCase();
+        if (opcionTexto.includes(unidadBuscada) || unidadBuscada.includes(opcionTexto)) {
+          $(selector).val($(this).val());
+          console.log("Encontrado por coincidencia parcial:", $(this).text(), "ID:", $(this).val());
+          encontrado = true;
+          return false;
+        }
+      });
+    }
+    
+    return encontrado;
+  }
+
   // ==================== FUNCIÓN GENÉRICA PARA CARGAR CATÁLOGOS ====================
-  function cargarCatalogoEnModal(selectorSelect, opciones) {
+  function cargarCatalogoEnModal(selectorSelect, opciones, callback) {
     $.ajax({
       url: "../../../api/inventarios_api.php",
       type: "POST",
@@ -1754,6 +1847,11 @@ $(document).ready(function () {
           }
 
           console.log(`${opciones.placeholder} cargados en:`, selectorSelect);
+          
+          // Ejecutar callback si existe
+          if (callback && typeof callback === 'function') {
+            callback();
+          }
         } else {
           console.log(`Error al cargar ${opciones.placeholder}:`, response);
           alertToast(`Error al cargar ${opciones.placeholder}`, "error", 3000);

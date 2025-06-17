@@ -288,6 +288,7 @@ switch ($api) {
 
     case 13:
         // Para insertar/actualizar unidades
+        $id_unidades = isset($_POST['id_unidades']) ? $_POST['id_unidades'] : null;
         $response = $master->insertByProcedure("sp_inventarios_cat_unidades_g", [
             $id_unidades,
             $descripcion,
