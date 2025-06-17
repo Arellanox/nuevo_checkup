@@ -280,7 +280,7 @@
                           <div class="col-6">
                             <div class="mb-3">
                               <label for="unidad_minima" class="form-label"
-                                >Unidad Mínima</label
+                                >Stock Mínimo</label
                               >
                               <input
                                 type="number"
@@ -292,14 +292,14 @@
                                 Este campo es obligatorio.
                               </div>
                               <small class="form-text text-muted"
-                                >Ingrese la unidad mínima del artículo.</small
+                                >Cantidad mínima que debe mantenerse en inventario antes de reabastecer.</small
                               >
                             </div>
                           </div>
                           <div class="col-12">
                             <div class="mb-3">
                               <label for="contenido" class="form-label"
-                                >Descripción</label
+                                >Especificaciones del Producto</label
                               >
                               <input
                                 type="text"
@@ -311,7 +311,7 @@
                                 Este campo es obligatorio.
                               </div>
                               <small class="form-text text-muted"
-                                >Ingrese el contenido del artículo.</small
+                                >Detalles específicos del contenido (ej: "100ml por frasco", "50 tiras por caja", etc.).</small
                               >
                             </div>
                           </div>
@@ -1508,9 +1508,9 @@
     $("#qrClaveDisplays").empty();
     $("#qrCodeContainers").empty();
     $("#qrCodePreview small").show();
-    $("#descargarQRIMG, #descargarQRPdf, #imprimirQrpdf")
-      .addClass("d-none")
-      .removeClass("d-flex");
+    $("#descargarQRIMG").addClass("d-none").removeClass("d-flex");
+    $("#descargarQRpdf").addClass("d-none").removeClass("d-flex");
+    $("#imprimirQRpdf").addClass("d-none").removeClass("d-flex");
   });
 </script>
 

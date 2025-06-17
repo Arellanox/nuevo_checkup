@@ -156,18 +156,18 @@
                                                 
                                                 <div class="col-6">
                                                     <div class="mb-3">
-                                                        <label for="unidad_minima" class="form-label">Unidad Mínima</label>
+                                                        <label for="unidad_minima" class="form-label">Stock Mínimo</label>
                                                         <input type="number" class="form-control input-form" id="unidad_minima" name="unidad_minima">
                                                         <div class="invalid-feedback">Este campo es obligatorio.</div>
-                                                        <small class="form-text text-muted">Ingrese la unidad mínima del artículo.</small>
+                                                        <small class="form-text text-muted">Cantidad mínima que debe mantenerse en inventario antes de reabastecer.</small>
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="mb-3">
-                                                        <label for="contenido" class="form-label">Descripción</label>
+                                                        <label for="contenido" class="form-label">Especificaciones del Producto</label>
                                                         <input type="text" class="form-control input-form" id="contenido" name="contenido">
                                                         <div class="invalid-feedback">Este campo es obligatorio.</div>
-                                                        <small class="form-text text-muted">Ingrese la descripción del artículo.</small>
+                                                        <small class="form-text text-muted">Detalles específicos del contenido (ej: "100ml por frasco", "50 tiras por caja", etc.).</small>
                                                     </div>
                                                 </div>
                                                 <!--
@@ -820,7 +820,9 @@ $('#registrarArticuloModal').on('hidden.bs.modal', function () {
     $('#qrClaveDisplay').empty();
     $('#qrCodeContainer').empty();
     $('#qrCodePreview small').show();
-    $('#descargarQRPNG, #descargarQRPDF, #imprimirQR').addClass('d-none').removeClass('d-flex');
+    $('#descargarQRPNG').addClass('d-none').removeClass('d-flex');
+    $('#descargarQRPDF').addClass('d-none').removeClass('d-flex');
+    $('#imprimirQR').addClass('d-none').removeClass('d-flex');
 });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
