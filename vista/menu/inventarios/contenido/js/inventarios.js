@@ -2008,10 +2008,10 @@ function inicializarDataTablesCatalogos() {
         data: null,
         render: function (data, type, row) {
           return `
-                        <button class="btn btn-sm btn-warning btn-editar-marca" data-id="${row.id_unidades}" data-descripcion="${row.descripcion}" data-activo="${row.activo}">
+                        <button class="btn btn-sm btn-warning btn-editar-unidad" data-id="${row.id_unidades}" data-descripcion="${row.descripcion}" data-activo="${row.activo}">
                             <i class="bi bi-pencil"></i>
                         </button>
-                        <button class="btn btn-sm btn-danger btn-eliminar-marca" data-id="${row.id_unidades}">
+                        <button class="btn btn-sm btn-danger btn-eliminar-unidad" data-id="${row.id_unidades}">
                             <i class="bi bi-trash"></i>
                         </button>
                     `;
@@ -2161,10 +2161,10 @@ function inicializarDataTablesCatalogos() {
         data: null,
         render: function (data, type, row) {
           return `
-                        <button class="btn btn-sm btn-warning btn-editar-marca" data-id="${row.id_marcas}" data-descripcion="${row.descripcion}" data-activo="${row.activo}">
+                        <button class="btn btn-sm btn-warning btn-editar-motivo" data-id="${row.id_motivos}" data-descripcion="${row.descripcion}" data-activo="${row.activo}" data-tipo-movimiento="${row.tipo_movimiento}">
                             <i class="bi bi-pencil"></i>
                         </button>
-                        <button class="btn btn-sm btn-danger btn-eliminar-marca" data-id="${row.id_marcas}">
+                        <button class="btn btn-sm btn-danger btn-eliminar-motivo" data-id="${row.id_motivos}">
                             <i class="bi bi-trash"></i>
                         </button>
                     `;
@@ -2327,4 +2327,145 @@ function inicializarDataTablesCatalogos() {
   }, 1000);
 
   inicializarEventosCatalogos();
+}
+
+// Función para inicializar los eventos de los catálogos
+function inicializarEventosCatalogos() {
+  // ==================== EVENTOS PARA TIPOS ====================
+  // Evento para botón editar tipo
+  $(document).on('click', '.btn-editar-tipo', function() {
+    var tipoId = $(this).data('id');
+    var descripcion = $(this).data('descripcion');
+    var activo = $(this).data('activo');
+    
+    // Cambiar el título del modal
+    $('#registrarTipoModalLabel').text('Editar Tipo');
+    
+    // Llenar el formulario con los datos
+    $('#tipoId').val(tipoId);
+    $('#tipoDescripcion').val(descripcion);
+    $('#tipoActivoCheck').prop('checked', activo == 1);
+    
+    // Mostrar el modal
+    $('#registrarTipoModal').modal('show');
+  });
+  
+  // Evento para limpiar el formulario cuando se cierra el modal de tipo
+  $('#registrarTipoModal').on('hidden.bs.modal', function() {
+    $('#registrarTipoModalLabel').text('Registrar Tipo');
+    $('#registrarTipoForm')[0].reset();
+    $('#tipoId').val('');
+  });
+  
+  // ==================== EVENTOS PARA UNIDADES ====================
+  // Evento para botón editar unidad
+  $(document).on('click', '.btn-editar-unidad', function() {
+    var unidadId = $(this).data('id');
+    var descripcion = $(this).data('descripcion');
+    var activo = $(this).data('activo');
+    
+    // Cambiar el título del modal
+    $('#registrarUnidadModalLabel').text('Editar Unidad');
+    
+    // Llenar el formulario con los datos
+    $('#unidadId').val(unidadId);
+    $('#unidadDescripcion').val(descripcion);
+    $('#unidadActivoCheck').prop('checked', activo == 1);
+    
+    // Mostrar el modal
+    $('#registrarUnidadModal').modal('show');
+  });
+  
+  // Evento para limpiar el formulario cuando se cierra el modal de unidad
+  $('#registrarUnidadModal').on('hidden.bs.modal', function() {
+    $('#registrarUnidadModalLabel').text('Registrar Unidad');
+    $('#registrarUnidadForm')[0].reset();
+    $('#unidadId').val('');
+  });
+  
+  // ==================== EVENTOS PARA MARCAS ====================
+  // Evento para botón editar marca
+  $(document).on('click', '.btn-editar-marca', function() {
+    var marcaId = $(this).data('id');
+    var descripcion = $(this).data('descripcion');
+    var activo = $(this).data('activo');
+    
+    // Cambiar el título del modal
+    $('#registrarMarcaModalLabel').text('Editar Marca');
+    
+    // Llenar el formulario con los datos
+    $('#marcaId').val(marcaId);
+    $('#marcaDescripcion').val(descripcion);
+    $('#marcaActivoCheck').prop('checked', activo == 1);
+    
+    // Mostrar el modal
+    $('#registrarMarcaModal').modal('show');
+  });
+  
+  // Evento para limpiar el formulario cuando se cierra el modal de marca
+  $('#registrarMarcaModal').on('hidden.bs.modal', function() {
+    $('#registrarMarcaModalLabel').text('Registrar Marca');
+    $('#registrarMarcaForm')[0].reset();
+    $('#marcaId').val('');
+  });
+  
+  // ==================== EVENTOS PARA MOTIVOS ====================
+  // Evento para botón editar motivo
+  $(document).on('click', '.btn-editar-motivo', function() {
+    var motivoId = $(this).data('id');
+    var descripcion = $(this).data('descripcion');
+    var activo = $(this).data('activo');
+    var tipoMovimiento = $(this).data('tipo-movimiento');
+    
+    // Cambiar el título del modal
+    $('#registrarMotivoModalLabel').text('Editar Motivo');
+    
+    // Llenar el formulario con los datos
+    $('#motivoId').val(motivoId);
+    $('#motivoDescripcion').val(descripcion);
+    $('#motivoActivoCheck').prop('checked', activo == 1);
+    $('#motivoTipoMovimiento').val(tipoMovimiento);
+    
+    // Mostrar el modal
+    $('#registrarMotivoModal').modal('show');
+  });
+  
+  // Evento para limpiar el formulario cuando se cierra el modal de motivo
+  $('#registrarMotivoModal').on('hidden.bs.modal', function() {
+    $('#registrarMotivoModalLabel').text('Registrar Motivo');
+    $('#registrarMotivoForm')[0].reset();
+    $('#motivoId').val('');
+  });
+  
+  // ==================== EVENTOS PARA PROVEEDORES ====================
+  // Evento para botón editar proveedor
+  $(document).on('click', '.btn-editar-proveedor', function() {
+    var proveedorId = $(this).data('id');
+    var nombre = $(this).data('nombre');
+    var contacto = $(this).data('contacto');
+    var telefono = $(this).data('telefono');
+    var email = $(this).data('email');
+    var activo = $(this).data('activo');
+    
+    // Cambiar el título del modal
+    $('#registrarProveedorModalLabel').text('Editar Proveedor');
+    
+    // Llenar el formulario con los datos
+    $('#proveedorId').val(proveedorId);
+    $('#proveedorNombre').val(nombre);
+    $('#proveedorContacto').val(contacto);
+    $('#proveedorTelefono').val(telefono);
+    $('#proveedorEmail').val(email);
+    $('#proveedorActivoCheck').prop('checked', activo == 1);
+    
+    // Mostrar el modal
+    $('#registrarProveedorModal').modal('show');
+  });
+  
+  // Evento para limpiar el formulario cuando se cierra el modal de proveedor
+  $('#registrarProveedorModal').on('hidden.bs.modal', function() {
+    $('#registrarProveedorModalLabel').text('Registrar Proveedor');
+    $('#registrarProveedorForm')[0].reset();
+    $('#proveedorId').val('');
+  });
 }

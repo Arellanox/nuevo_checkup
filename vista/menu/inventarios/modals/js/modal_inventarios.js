@@ -226,7 +226,9 @@ $("#registrarTipoForm").submit(function (event) {
 
   console.log("Activo tipo:", activo);
 
-  let esEdicion = tipoId && tipoId !== "";
+  // Obtener el ID del tipo desde el campo hidden
+  let tipoIdValue = $("#tipoId").val();
+  let esEdicion = tipoIdValue && tipoIdValue !== "";
 
   alertMensajeConfirm(
     {
@@ -241,6 +243,7 @@ $("#registrarTipoForm").submit(function (event) {
         {
           api: 10,
           activo: activo,
+          id_tipo: tipoIdValue || null
         },
         "inventarios_api",
         "registrarTipoForm",
@@ -288,7 +291,9 @@ $("#registrarUnidadForm").submit(function (event) {
     activo = 0;
   }
 
-  let esEdicion = tipoId && tipoId !== "";
+  // Obtener el ID de la unidad desde el campo hidden
+  let unidadIdValue = $("#unidadId").val();
+  let esEdicion = unidadIdValue && unidadIdValue !== "";
 
   alertMensajeConfirm(
     {
@@ -303,6 +308,7 @@ $("#registrarUnidadForm").submit(function (event) {
         {
           api: 13,
           activo: activo,
+          id_unidades: unidadIdValue || null
         },
         "inventarios_api",
         "registrarUnidadForm",
@@ -352,7 +358,9 @@ $("#registrarMarcaForm").submit(function (event) {
 
   console.log("Activo marca:", activo);
 
-  let esEdicion = tipoId && tipoId !== "";
+  // Obtener el ID de la marca desde el campo hidden
+  let marcaIdValue = $("#marcaId").val();
+  let esEdicion = marcaIdValue && marcaIdValue !== "";
 
   alertMensajeConfirm(
     {
@@ -367,6 +375,7 @@ $("#registrarMarcaForm").submit(function (event) {
         {
           api: 11,
           activo: activo,
+          id_marcas: marcaIdValue || null
         },
         "inventarios_api",
         "registrarMarcaForm",
@@ -417,12 +426,14 @@ $("#registrarMotivoForm").submit(function (event) {
   var tipoMovimiento = $("#registrarMotivoForm #motivoTipoMovimiento").val();
   console.log("Tipo de movimiento:", tipoMovimiento);
 
-  let esEdicion = tipoId && tipoId !== "";
+  // Obtener el ID del motivo desde el campo hidden
+  let motivoIdValue = $("#motivoId").val();
+  let esEdicion = motivoIdValue && motivoIdValue !== "";
 
   alertMensajeConfirm(
     {
       title: esEdicion
-        ? "¿Está a punto de editar este motivo"
+        ? "¿Está a punto de editar este motivo?"
         : "¿Está a punto de registrar un nuevo motivo?",
       text: "Asegúrate que los datos sean correctos.",
       icon: "warning",
@@ -433,6 +444,7 @@ $("#registrarMotivoForm").submit(function (event) {
           api: 14,
           activo: activo,
           tipo_movimiento: tipoMovimiento,
+          id_motivos: motivoIdValue || null
         },
         "inventarios_api",
         "registrarMotivoForm",
@@ -504,7 +516,8 @@ $("#registrarProveedorForm").submit(function (event) {
       ajaxAwaitFormData(
         {
           api: 17, // Necesitarás crear este endpoint en tu API
-          id_proveedor: proveedorId || null,
+          id_proveedores: proveedorId || null,
+          nombre: nombre,
           contacto: contacto,
           telefono: telefono,
           email: email,

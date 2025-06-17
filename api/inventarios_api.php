@@ -297,8 +297,9 @@ switch ($api) {
         break;
     case 14:
         // Para insertar/actualizar motivos
+        $id_motivos = isset($_POST['id_motivos']) ? $_POST['id_motivos'] : null;
         $response = $master->insertByProcedure("sp_inventarios_cat_motivos_g", [
-            $id_unidades,
+            $id_motivos,
             $descripcion,
             $activo,
             $tipo_movimiento
