@@ -85,33 +85,7 @@ $(document).ready(function () {
   $("#tipo_articulo").trigger("change");
 });
 
-$("#tipo_articulo").on("change", function () {
-  if ($(this).val() == "1") {
-    $("#rendimientoEstimadoDiv").show();
-    $("#rendimientoPacienteDiv").show();
-    $("#insertoDiv").show();
-    $("#protocoloDiv").show();
-    $("#rendimientoEstimadoDiv").attr("required", true);
-    $("#rendimientoPacienteDiv").attr("required", true);
-    $("#insertoDiv").attr("required", true);
-    $("#protocoloDiv").attr("required", true);
-  } else {
-    $("#rendimientoEstimadoDiv").hide();
-    $("#rendimientoPacienteDiv").hide();
-    $("#insertoDiv").hide();
-    $("#protocoloDiv").hide();
-    $("#rendimientoEstimadoDiv").val("");
-    $("#rendimientoPacienteDiv").val("");
-    $("#insertoDiv").val("");
-    $("#rendimientoEstimadoDiv").removeAttr("required");
-    $("#rendimientoPacienteDiv").removeAttr("required");
-    $("#insertoDiv").removeAttr("required");
-    $("#protocoloDiv").removeAttr("required");
-    $("#rendimientoEstimadoDiv").removeClass("is-invalid");
-    $("#insertoDiv").removeClass("is-invalid");
-    $("#protocoloDiv").removeClass("is-invalid");
-  }
-});
+
 
 $("#maneja_caducidad").on("change", function () {
   if ($(this).val() == "1") {
@@ -240,10 +214,85 @@ if (edit == 1) {
             : ""
         );
 
+        $("#editarArticuloForm #codigo_barras").val(
+          rowSelected.codigo_barras
+        );
+
+        $("#editarArticuloForm #numero_lote").val(
+          rowSelected.numero_lote
+        );
+
+        $("#editarArticuloForm #fecha_lote").val(
+          rowSelected.fecha_lote
+        );
+
         $("#editarArticuloForm #area_id").val(rowSelected.AREA_ID);
         $("#editarArticuloForm #rendimiento_estimado").val(
           rowSelected.RENDIMIENTO_ESTIMADO
         );
+        $("#editarArticuloForm #rendimiento_paciente").val(rowSelected.RENDIMIENTO_PACIENTE);
+        $("#editarArticuloForm #inserto").val(rowSelected.INSERTO);
+
+        // Agregar la configuración para maneja_inserto
+      if (typeof rowSelected.MANEJA_INSERTO !== "undefined") {
+        $("#editarArticuloForm #maneja_inserto").val(rowSelected.MANEJA_INSERTO);
+      } else {
+        // Si no existe en el objeto, determinar su valor según si hay datos o no
+        // Si hay un valor en INSERTO, significa que debemos mostrarlo (0), de lo contrario ocultarlo (1)
+        $("#editarArticuloForm #maneja_inserto").val(
+          rowSelected.INSERTO && rowSelected.INSERTO.trim() !== "" ? "0" : "1"
+        );
+      }
+
+      // Agregar la configuración para maneja_rendimiento
+      if (typeof rowSelected.MANEJA_RENDIMIENTO !== "undefined") {
+        $("#editarArticuloForm #maneja_rendimiento").val(rowSelected.MANEJA_RENDIMIENTO);
+      } else {
+      // Si no existe en el objeto, determinar su valor según si hay datos o no
+      // Si hay un valor en RENDIMIENTO_ESTIMADO, significa que debemos mostrarlo (0), de lo contrario ocultarlo (1)
+        $("#editarArticuloForm #maneja_rendimiento").val(
+          rowSelected.RENDIMIENTO_ESTIMADO && rowSelected.RENDIMIENTO_ESTIMADO.toString() !== "0" ? "0" : "1"
+        );
+      }
+
+      // Función para actualizar la visibilidad de los campos de inserto
+    function actualizarInsertoEditar() {
+      if ($("#editarArticuloForm #maneja_inserto").val() == "0") {
+        $("#editarArticuloForm #insertoDiv").show();
+        $("#editarArticuloForm #protocoloDiv").show();
+      } else {
+        $("#editarArticuloForm #insertoDiv").hide();
+        $("#editarArticuloForm #protocoloDiv").hide();          
+        $("#editarArticuloForm #inserto").val("");
+        $("#editarArticuloForm #procedimiento").val("");
+      }
+}
+
+      // Función para actualizar la visibilidad de los campos de rendimiento
+    function actualizarRendimientoEditar() {
+      if ($("#editarArticuloForm #maneja_rendimiento").val() == "0") {
+        $("#editarArticuloForm #rendimientoEstimadoDiv").show();
+        $("#editarArticuloForm #rendimientoPacienteDiv").show();
+  } else {
+      $("#editarArticuloForm #rendimientoEstimadoDiv").hide();
+      $("#editarArticuloForm #rendimientoPacienteDiv").hide();
+      $("#editarArticuloForm #rendimiento_estimado").val("");
+      $("#editarArticuloForm #rendimiento_paciente").val("");
+  }
+}
+
+    // Ejecutar las funciones al cargar el formulario
+    actualizarInsertoEditar();
+    actualizarRendimientoEditar();
+
+    // Configurar eventos onChange
+    $("#editarArticuloForm #maneja_inserto")
+    .off("change")
+    .on("change", actualizarInsertoEditar);
+
+    $("#editarArticuloForm #maneja_rendimiento")
+    .off("change")
+    .on("change", actualizarRendimientoEditar);
       }
     },
   });
@@ -499,7 +548,22 @@ tableCatArticulos = $("#tableCatArticulos").DataTable({
     },
     { data: "clave_art_sys" },
     { data: "numero_lote" },
-    { data: "fecha_lote" },
+    {
+      data: "fecha_lote",
+      render: function (data, type, row) {
+        if (
+          !data ||
+          data === "0000-00-00" ||
+          data === "0000-00-00 00:00:00" ||
+          data === "0000000000"
+        ) {
+          return "";
+        }
+        return data;
+      }
+    },
+    { data: "codigo_barras" }
+    ,
   ],
   columnDefs: [
     // Ajusta los anchos de columna según el contenido esperado
@@ -520,9 +584,10 @@ tableCatArticulos = $("#tableCatArticulos").DataTable({
     { target: 13, title: "Costo más alto", className: "all" },
     { target: 14, title: "Inserto", className: "all" },
     { target: 15, title: "Proc. de prueba", className: "all" },
-    { target: 16, title: "CAS", className: "all", visible: false },
+    { target: 16, title: "CAS", className: "all" },
     { target: 17, title: "Número de lote", className: "all" },
     { target: 18, title: "Fecha de lote", className: "all" },
+    { target: 19, title: "Código de barras", className: "all", visible: false },
   ],
   dom: 'Bl<"dataTables_toolbar">frtip',
   buttons: buttonsArticulos,
@@ -1165,6 +1230,34 @@ selectDatatable(
     $("#editarArticuloForm #fechaCaducidad").val(fechaCaducidad);
     $("#areaDetalle").text(rowSelected.AREA);
     $("#marcaDetalle").text(rowSelected.MARCAS);
+    $("#numeroLote").text(rowSelected.numero_lote ? rowSelected.numero_lote : "Sin registros");
+    $("#fechaLote").text(
+  !rowSelected.fecha_lote || 
+  rowSelected.fecha_lote === "0000-00-00" || 
+  rowSelected.fecha_lote === "0000-00-00 00:00:00" || 
+  rowSelected.fecha_lote === "00000000" 
+    ? "Sin registros" 
+    : rowSelected.fecha_lote
+);
+// $("#codigoBarras").text(rowSelected.codigo_barras ? rowSelected.codigo_barras : "Sin registros");
+    
+    // Por esta nueva lógica:
+    if (rowSelected.codigo_barras && rowSelected.codigo_barras.trim() !== '') {
+      // Mostrar el código como texto en el elemento original
+      $("#codigoBarras").text(rowSelected.codigo_barras);
+      
+      // Generar y mostrar el código de barras visual
+      mostrarCodigoBarrasInteligente(rowSelected.codigo_barras);
+    } else {
+      // Si no hay código de barras
+      $("#codigoBarras").text("Sin registros");
+      
+      // Ocultar el contenedor del código visual
+      if (document.getElementById('codigoBarrasContainer')) {
+        document.getElementById('codigoBarrasContainer').style.display = 'none';
+      }
+    }
+    
     if (
       rowSelected.RENDIMIENTO_ESTIMADO &&
       rowSelected.RENDIMIENTO_ESTIMADO !== "0"
@@ -1548,6 +1641,12 @@ $(document).ready(function () {
     // No cargar proveedores aquí porque no está en el formulario de editar
   });
 
+   // ==================== CARGAS PARA MODAL FILTRAR ====================
+  $("#filtrarArticuloModal").on("show.bs.modal", function () {
+    cargarTiposFiltrar();
+    cargarAreasFiltrar();
+  });
+
   // ==================== CARGAS PARA MODAL REGISTRAR ENTRADA ====================
   $("#registrarEntradaModal").on("show.bs.modal", function () {
     cargarProveedoresEntrada();
@@ -1573,6 +1672,15 @@ $(document).ready(function () {
     });
   }
 
+  function cargarAreasFiltrar() {
+    cargarCatalogoEnModal("#filtrarArticuloModal #area", {
+      api: 18,
+      campoId: "ID_AREA", // Usar el campo que devuelve tu SP
+      campoTexto: "DESCRIPCION",
+      placeholder: "Seleccione un área",
+    });
+  }
+
   // ==================== FUNCIONES PARA TIPOS ====================
   function cargarTiposRegistrar() {
     cargarCatalogoEnModal("#registrarArticuloModal #tipo_articulo", {
@@ -1585,6 +1693,15 @@ $(document).ready(function () {
 
   function cargarTiposEditar() {
     cargarCatalogoEnModal("#editarArticuloModal #tipo_articulo", {
+      api: 2,
+      campoId: "ID_TIPO",
+      campoTexto: "DESCRIPCION",
+      placeholder: "Seleccione un tipo",
+    });
+  }
+
+  function cargarTiposFiltrar() {
+    cargarCatalogoEnModal("#filtrarArticuloModal #tipoArticulo", {
       api: 2,
       campoId: "ID_TIPO",
       campoTexto: "DESCRIPCION",
@@ -1744,6 +1861,7 @@ var tableCatTipos,
 var rowSelectedCatalogo = null;
 
 $("#registrarCatalogoModal").on("shown.bs.modal", function () {
+ 
   // solo inicializar si no existen las tablas
   if (!tableCatTipos) {
     inicializarDataTablesCatalogos();
@@ -1758,6 +1876,7 @@ function inicializarDataTablesCatalogos() {
       url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
     },
     autoWidth: true,
+
     lengthChange: false,
     info: true,
     paging: true,
@@ -1857,7 +1976,7 @@ function inicializarDataTablesCatalogos() {
                         <button class="btn btn-sm btn-danger btn-eliminar-marca" data-id="${row.id_unidades}">
                             <i class="bi bi-trash"></i>
                         </button>
-                    `;
+        `;
         },
       },
     ],
@@ -1920,7 +2039,7 @@ function inicializarDataTablesCatalogos() {
                         <button class="btn btn-sm btn-danger btn-eliminar-marca" data-id="${row.id_marcas}">
                             <i class="bi bi-trash"></i>
                         </button>
-                    `;
+        `;
         },
       },
     ],
@@ -2010,7 +2129,7 @@ function inicializarDataTablesCatalogos() {
                         <button class="btn btn-sm btn-danger btn-eliminar-marca" data-id="${row.id_marcas}">
                             <i class="bi bi-trash"></i>
                         </button>
-                    `;
+        `;
         },
       },
     ],
@@ -2171,3 +2290,4 @@ function inicializarDataTablesCatalogos() {
 
   inicializarEventosCatalogos();
 }
+
