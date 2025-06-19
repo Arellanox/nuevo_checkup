@@ -728,7 +728,7 @@ buttonsEntradas.push({
         tableCatDetallesEntradas.column(2).visible(false);
         tableCatDetallesEntradas.column(6).header().textContent =
           "Motivo de salida";
-        tableCatDetallesEntradas.column(7).visible(true);
+        tableCatDetallesEntradas.column(7).visible(false);
         tableCatDetallesEntradas.columns.adjust().draw();
         detalleEntradaLabel.textContent = "Detalles de salida";
 
@@ -1722,28 +1722,19 @@ $(document).ready(function () {
   function establecerValoresFormularioEditar() {
     if (!rowSelected) return;
 
-    console.log(
-      "Estableciendo valores para el artículo:",
-      rowSelected.NOMBRE_COMERCIAL
-    );
-    console.log("Datos del artículo seleccionado:", rowSelected);
-
     // Establecer tipo
     const tipoId = rowSelected.TIPO_ARTICULO_ID || rowSelected.ID_TIPO;
     if (tipoId) {
       $("#editarArticuloForm #tipo_articulo").val(tipoId);
-      console.log("Tipo establecido:", tipoId);
     }
 
     // Establecer marca
     if (rowSelected.ID_MARCAS) {
       $("#editarArticuloForm #id_marcas").val(rowSelected.ID_MARCAS);
-      console.log("Marca establecida por ID:", rowSelected.ID_MARCAS);
     } else if (rowSelected.MARCAS) {
       $("#editarArticuloForm #id_marcas option").each(function () {
         if ($(this).text().trim() === rowSelected.MARCAS.trim()) {
           $("#editarArticuloForm #id_marcas").val($(this).val());
-          console.log("Marca establecida por texto:", $(this).text());
           return false;
         }
       });
@@ -1752,45 +1743,26 @@ $(document).ready(function () {
     // Establecer área
     if (rowSelected.AREA_ID) {
       $("#editarArticuloForm #area_id").val(rowSelected.AREA_ID);
-      console.log("Área establecida por ID:", rowSelected.AREA_ID);
     } else if (rowSelected.AREA) {
       $("#editarArticuloForm #area_id option").each(function () {
         if ($(this).text().trim() === rowSelected.AREA.trim()) {
           $("#editarArticuloForm #area_id").val($(this).val());
-          console.log("Área establecida por texto:", $(this).text());
           return false;
         }
       });
     }
 
     // Establecer unidad de venta
-    console.log("UNIDAD_VENTA:", rowSelected.UNIDAD_VENTA);
-    console.log("UNIDAD_VENTA_ID:", rowSelected.UNIDAD_VENTA_ID);
-
     if (rowSelected.UNIDAD_VENTA_ID) {
       $("#editarArticuloForm #unidad_venta").val(rowSelected.UNIDAD_VENTA_ID);
-      console.log(
-        "Unidad establecida por UNIDAD_VENTA_ID:",
-        rowSelected.UNIDAD_VENTA_ID
-      );
     } else if (rowSelected.UNIDAD_VENTA) {
       $("#editarArticuloForm #unidad_venta").val(rowSelected.UNIDAD_VENTA);
-      console.log(
-        "Unidad establecida por UNIDAD_VENTA como ID:",
-        rowSelected.UNIDAD_VENTA
-      );
 
       // Verificar qué se estableció
       const valorSeleccionado = $("#editarArticuloForm #unidad_venta").val();
       const textoSeleccionado = $(
         "#editarArticuloForm #unidad_venta option:selected"
       ).text();
-      console.log(
-        "Unidad de venta final:",
-        textoSeleccionado,
-        "ID:",
-        valorSeleccionado
-      );
     }
   }
 
@@ -2022,19 +1994,15 @@ $(document).ready(function () {
             selectElement.val(valorActual);
           }
 
-          console.log(`${opciones.placeholder} cargados en:`, selectorSelect);
-
           // Ejecutar callback si existe
           if (callback && typeof callback === "function") {
             callback();
           }
         } else {
-          console.log(`Error al cargar ${opciones.placeholder}:`, response);
           alertToast(`Error al cargar ${opciones.placeholder}`, "error", 3000);
         }
       },
       error: function (xhr, status, error) {
-        console.log("Error AJAX:", error);
         alertToast(
           `Error de conexión al cargar ${opciones.placeholder}`,
           "error",
@@ -2378,9 +2346,11 @@ function inicializarDataTablesCatalogos() {
     scrollCollapse: true,
     ajax: {
       dataType: "json",
+      data: function (d) {
+        return $.extend(d, dataTableCatProveedores);
+      },
       method: "POST",
       url: "../../../api/inventarios_api.php",
-      data: { api: 16 }, // Nueva API para proveedores
       error: function (jqXHR, textStatus, errorThrown) {
         alertErrorAJAX(jqXHR, textStatus, errorThrown);
       },
@@ -2424,6 +2394,17 @@ function inicializarDataTablesCatalogos() {
         },
         action: function () {
           $("#registrarProveedorModal").modal("show");
+        },
+      },
+      {
+        text: '<i class="bi bi-funnel"></i> Filtrar Proveedores',
+        className: "btn btn-warning",
+        attr: {
+          "data-bs-toggle": "modal",
+          "data-bs-target": "#filtrarProveedoresModal",
+        },
+        action: function () {
+          $("#filtrarProveedoresModal").modal("show");
         },
       },
     ],
@@ -2848,130 +2829,146 @@ function inicializarEventosCatalogos() {
 
 // Función para validar duplicados antes de enviar el formulario
 function validarDuplicadosArticulo(formulario, articuloId = null) {
-    const nombreComercial = $(formulario + ' #nombre_comercial').val();
-    const unidadVenta = $(formulario + ' #unidad_venta').val();
-    const marcaId = $(formulario + ' #id_marcas').val();
-    const contenido = $(formulario + ' #contenido').val();
-    
-    // Solo validar si todos los campos están completos
-    if (!nombreComercial || !unidadVenta || !marcaId) {
-        return Promise.resolve(true); // Permitir continuar si faltan datos
-    }
-    
-    return new Promise((resolve) => {
-        $.ajax({
-            url: "../../../api/inventarios_api.php",
-            type: "POST",
-            dataType: "json",
-            data: {
-                api: 19, // Nueva API para validar duplicados
-                nombre_comercial: nombreComercial.trim(),
-                unidad_venta: unidadVenta,
-                id_marcas: marcaId,
-                contenido: contenido.trim(),
-                id_articulo_actual: articuloId
+  const nombreComercial = $(formulario + " #nombre_comercial").val();
+  const unidadVenta = $(formulario + " #unidad_venta").val();
+  const marcaId = $(formulario + " #id_marcas").val();
+  const contenido = $(formulario + " #contenido").val();
+
+  // Solo validar si todos los campos están completos
+  if (!nombreComercial || !unidadVenta || !marcaId) {
+    return Promise.resolve(true); // Permitir continuar si faltan datos
+  }
+
+  return new Promise((resolve) => {
+    $.ajax({
+      url: "../../../api/inventarios_api.php",
+      type: "POST",
+      dataType: "json",
+      data: {
+        api: 19, // Nueva API para validar duplicados
+        nombre_comercial: nombreComercial.trim(),
+        unidad_venta: unidadVenta,
+        id_marcas: marcaId,
+        contenido: contenido.trim(),
+        id_articulo_actual: articuloId,
+      },
+      success: function (response) {
+        if (response.response && response.response.code === 2) {
+          // Se encontró un duplicado
+          const articulo = response.response.data;
+          const mensaje =
+            `⚠️ **Posible Duplicado Detectado**\n\n` +
+            `Ya existe un artículo con las mismas características:\n\n` +
+            `• **Nombre:** ${articulo.NOMBRE_COMERCIAL}\n` +
+            `• **Clave:** ${articulo.CLAVE_ART}\n` +
+            `• **Unidad:** ${articulo.UNIDAD_DESCRIPCION}\n` +
+            `• **Marca:** ${articulo.MARCA_DESCRIPCION}\n` +
+            `• **Especificaciones:** ${
+              articulo.CONTENIDO || "Sin especificaciones"
+            }\n\n` +
+            `¿Desea continuar de todas formas?`;
+
+          // Mostrar confirmación al usuario
+          alertMensajeConfirm(
+            {
+              title: "Duplicado Detectado",
+              text: mensaje,
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonText: "Sí, continuar",
+              cancelButtonText: "No, revisar datos",
             },
-            success: function(response) {
-                if (response.response && response.response.code === 2) {
-                    // Se encontró un duplicado
-                    const articulo = response.response.data;
-                    const mensaje = `⚠️ **Posible Duplicado Detectado**\n\n` +
-                                  `Ya existe un artículo con las mismas características:\n\n` +
-                                  `• **Nombre:** ${articulo.NOMBRE_COMERCIAL}\n` +
-                                  `• **Clave:** ${articulo.CLAVE_ART}\n` +
-                                  `• **Unidad:** ${articulo.UNIDAD_DESCRIPCION}\n` +
-                                  `• **Marca:** ${articulo.MARCA_DESCRIPCION}\n` +
-                                  `• **Especificaciones:** ${articulo.CONTENIDO || 'Sin especificaciones'}\n\n` +
-                                  `¿Desea continuar de todas formas?`;
-                    
-                    // Mostrar confirmación al usuario
-                    alertMensajeConfirm({
-                        title: "Duplicado Detectado",
-                        text: mensaje,
-                        icon: "warning",
-                        showCancelButton: true,
-                        confirmButtonText: "Sí, continuar",
-                        cancelButtonText: "No, revisar datos"
-                    }, function() {
-                        resolve(true); // Usuario acepta continuar
-                    }, function() {
-                        resolve(false); // Usuario cancela
-                    });
-                } else {
-                    resolve(true); // No hay duplicados, continuar
-                }
+            function () {
+              resolve(true); // Usuario acepta continuar
             },
-            error: function(xhr, status, error) {
-                console.log("Error al validar duplicados:", error);
-                resolve(true); // En caso de error, permitir continuar
+            function () {
+              resolve(false); // Usuario cancela
             }
-        });
+          );
+        } else {
+          resolve(true); // No hay duplicados, continuar
+        }
+      },
+      error: function (xhr, status, error) {
+        console.log("Error al validar duplicados:", error);
+        resolve(true); // En caso de error, permitir continuar
+      },
     });
+  });
 }
 
 // Función para validar en tiempo real mientras el usuario escribe
 function validarDuplicadosEnTiempoReal(formulario, articuloId = null) {
-    const nombreComercial = $(formulario + ' #nombre_comercial').val();
-    const unidadVenta = $(formulario + ' #unidad_venta').val();
-    const marcaId = $(formulario + ' #id_marcas').val();
-    const contenido = $(formulario + ' #contenido').val();
-    
-    // Limpiar alertas previas
-    $(formulario + ' .alerta-duplicado').remove();
-    
-    if (!nombreComercial || !unidadVenta || !marcaId) {
-        return; // No validar si faltan datos
-    }
-    
-    $.ajax({
-        url: "../../../api/inventarios_api.php",
-        type: "POST",
-        dataType: "json",
-        data: {
-            api: 19,
-            nombre_comercial: nombreComercial.trim(),
-            unidad_venta: unidadVenta,
-            id_marcas: marcaId,
-            contenido: contenido.trim(),
-            id_articulo_actual: articuloId
-        },
-        success: function(response) {
-            if (response.response && response.response.code === 2) {
-                const articulo = response.response.data;
-                const alerta = `
+  const nombreComercial = $(formulario + " #nombre_comercial").val();
+  const unidadVenta = $(formulario + " #unidad_venta").val();
+  const marcaId = $(formulario + " #id_marcas").val();
+  const contenido = $(formulario + " #contenido").val();
+
+  // Limpiar alertas previas
+  $(formulario + " .alerta-duplicado").remove();
+
+  if (!nombreComercial || !unidadVenta || !marcaId) {
+    return; // No validar si faltan datos
+  }
+
+  $.ajax({
+    url: "../../../api/inventarios_api.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      api: 19,
+      nombre_comercial: nombreComercial.trim(),
+      unidad_venta: unidadVenta,
+      id_marcas: marcaId,
+      contenido: contenido.trim(),
+      id_articulo_actual: articuloId,
+    },
+    success: function (response) {
+      if (response.response && response.response.code === 2) {
+        const articulo = response.response.data;
+        const alerta = `
                     <div class="alert alert-warning alerta-duplicado mt-2" role="alert">
                         <strong>⚠️ Posible duplicado:</strong> Ya existe "${articulo.NOMBRE_COMERCIAL}" 
                         (${articulo.CLAVE_ART}) con la misma unidad y marca.
                     </div>
                 `;
-                $(formulario + ' #nombre_comercial').closest('.mb-3').append(alerta);
-            }
-        },
-        error: function(xhr, status, error) {
-            console.log("Error al validar duplicados en tiempo real:", error);
-        }
-    });
+        $(formulario + " #nombre_comercial")
+          .closest(".mb-3")
+          .append(alerta);
+      }
+    },
+    error: function (xhr, status, error) {
+      console.log("Error al validar duplicados en tiempo real:", error);
+    },
+  });
 }
 
 // Eventos para validación en tiempo real
-$(document).ready(function() {
-    // Validación en tiempo real para modal de registro
-    $('#registrarArticuloModal #nombre_comercial, #registrarArticuloModal #unidad_venta, #registrarArticuloModal #id_marcas, #registrarArticuloModal #contenido').on('change blur', function() {
-        setTimeout(function() {
-            validarDuplicadosEnTiempoReal('#registrarArticuloModal');
-        }, 500); // Delay para evitar muchas llamadas
-    });
-    
-    // Validación en tiempo real para modal de edición
-    $('#editarArticuloModal #nombre_comercial, #editarArticuloModal #unidad_venta, #editarArticuloModal #id_marcas, #editarArticuloModal #contenido').on('change blur', function() {
-        setTimeout(function() {
-            const articuloId = rowSelected ? rowSelected.ID_ARTICULO : null;
-            validarDuplicadosEnTiempoReal('#editarArticuloModal', articuloId);
-        }, 500);
-    });
-    
-    // Limpiar alertas al abrir modales
-    $('#registrarArticuloModal, #editarArticuloModal').on('show.bs.modal', function() {
-        $(this).find('.alerta-duplicado').remove();
-    });
+$(document).ready(function () {
+  // Validación en tiempo real para modal de registro
+  $(
+    "#registrarArticuloModal #nombre_comercial, #registrarArticuloModal #unidad_venta, #registrarArticuloModal #id_marcas, #registrarArticuloModal #contenido"
+  ).on("change blur", function () {
+    setTimeout(function () {
+      validarDuplicadosEnTiempoReal("#registrarArticuloModal");
+    }, 500); // Delay para evitar muchas llamadas
+  });
+
+  // Validación en tiempo real para modal de edición
+  $(
+    "#editarArticuloModal #nombre_comercial, #editarArticuloModal #unidad_venta, #editarArticuloModal #id_marcas, #editarArticuloModal #contenido"
+  ).on("change blur", function () {
+    setTimeout(function () {
+      const articuloId = rowSelected ? rowSelected.ID_ARTICULO : null;
+      validarDuplicadosEnTiempoReal("#editarArticuloModal", articuloId);
+    }, 500);
+  });
+
+  // Limpiar alertas al abrir modales
+  $("#registrarArticuloModal, #editarArticuloModal").on(
+    "show.bs.modal",
+    function () {
+      $(this).find(".alerta-duplicado").remove();
+    }
+  );
 });

@@ -14,11 +14,13 @@ $("#registrarArticuloForm").submit(function (event) {
   }
 
   // Validar duplicados antes de mostrar confirmación
-  validarDuplicadosArticulo('#registrarArticuloModal').then(function(puedeEnviar) {
+  validarDuplicadosArticulo("#registrarArticuloModal").then(function (
+    puedeEnviar
+  ) {
     if (!puedeEnviar) {
       return; // Usuario decidió no continuar
     }
-    
+
     alertMensajeConfirm(
       {
         title: "¿Está a punto de registrar un artículo?",
@@ -65,11 +67,14 @@ $("#editarArticuloForm").submit(function (event) {
   }
 
   // Validar duplicados antes de mostrar confirmación (excluyendo el artículo actual)
-  validarDuplicadosArticulo('#editarArticuloModal', rowSelected.ID_ARTICULO).then(function(puedeEnviar) {
+  validarDuplicadosArticulo(
+    "#editarArticuloModal",
+    rowSelected.ID_ARTICULO
+  ).then(function (puedeEnviar) {
     if (!puedeEnviar) {
       return; // Usuario decidió no continuar
     }
-    
+
     alertMensajeConfirm(
       {
         title: "¿Está a punto de editar este artículo?",
@@ -529,7 +534,7 @@ $("#registrarProveedorForm").submit(function (event) {
     function () {
       ajaxAwaitFormData(
         {
-          api: 17, // Necesitarás crear este endpoint en tu API
+          api: 17,
           id_proveedores: proveedorId || null,
           nombre: nombre,
           contacto: contacto,
@@ -568,6 +573,34 @@ $("#registrarProveedorForm").submit(function (event) {
   );
 
   return false;
+});
+
+$("#filtrarProveedoresForm").submit(function (event) {
+  event.preventDefault();
+
+  let activo = $('input[name="activoProveedor"]:checked').val();
+
+  if (activo === "1") {
+    dataTableCatProveedores = { api: 16 };
+  } else if (activo === "0") {
+    dataTableCatProveedores = { api: 20 };
+  } else {
+    dataTableCatProveedores = { api: 16 };
+  }
+
+  tableCatProveedores.ajax.reload();
+  $("#filtrarProveedoresModal").modal("hide");
+  $("#registrarCatalogoModal").modal("show");
+});
+
+$("#resetFiltrosProveedoresBtn").click(function () {
+  $("#filtrarProveedoresForm")[0].reset();
+  dataTableCatProveedores = { api: 16 };
+  tableCatProveedores.ajax.reload();
+  $("#resetFiltrosProveedoresBtn").hide();
+  $("#filtrarProveedoresModal").modal("hide");
+  $("#registrarCatalogoModal").modal("show");
+  alertToast("Filtros de proveedores restablecidos", "success", 4000);
 });
 
 $("#filtrarArticuloForm").submit(function (event) {

@@ -657,6 +657,68 @@
     </div>
   </div>
 </div>
+<!-- Filtrado de proveedores -->
+<div class="modal fade" id="filtrarProveedoresModal" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false"
+    data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filtrarProveedoresTitle">Filtre los proveedores</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="container-fluid">
+                    <div class="row">
+                         <!-- Formulario para filtrar proveedores -->
+                         <div class="col-12">
+                            <div class="text-start">
+                                <div class="shadow-sm rounded p-3 card-body">
+                                    <div class="row align-items-end">
+                                        <div class="col-12">
+                                            <form id="filtrarProveedoresForm" name="filtrarProveedoresForm">
+                                                <!-- Activo -->
+                                                <div class="card mb-3">
+                                                    <div class="card-body">
+                                                        <label class="form-label">Estatus</label>
+                                                        <div id="activoProveedorRadios">
+                                                            <input type="radio" class="btn-check" name="activoProveedor" id="activoProveedor1" value="1" >
+                                                            <label class="btn btn-outline-primary" for="activoProveedor1">Activo</label>
+                                                            
+                                                            <input type="radio" class="btn-check" name="activoProveedor" id="activoProveedor0" value="0" > 
+                                                            <label class="btn btn-outline-secondary" for="activoProveedor0">Inactivo</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-12 d-flex justify-content-end">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i
+                        class="bi bi-arrow-left-short"></i>
+                    Cancelar</button>
+                </button>
+
+                <button type="submit" id="enviarFiltrosProveedoresBtn" class="btn btn-success"
+                    form="filtrarProveedoresForm">
+                    <i class="bi bi-funnel"></i> Enviar
+                </button>
+                <!-- Botón Restablecer filtro -->
+                <div class="text-end">
+                    <button type="button" id="resetFiltrosProveedoresBtn" class="btn btn-confirmar">Restablecer filtro</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
 $(document).ready(function() {
     // Simplemente reabrir el modal principal cuando se cierren los modales secundarios

@@ -21,6 +21,7 @@ var tableCatArticulos;
 var dataTableCatArticulos;
 var dataTableCatEntradas;
 var dataTableCatTransacciones;
+var dataTableCatProveedores;
 var rowSelected;
 
 console.log(userPermissions);
@@ -39,4 +40,8 @@ dataTableCatDetallesEntradas = {
 
 dataTableCatTransacciones = {
     api: 8
+}
+
+dataTableCatProveedores = {
+    api: 16
 }

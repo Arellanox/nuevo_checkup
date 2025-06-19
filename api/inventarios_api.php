@@ -59,12 +59,12 @@ $fecha_lote = $_POST['fecha_lote'];
 $codigo_barras = $_POST['codigo_barras'];
 $id_cat_movimientos = $_POST['id_cat_movimientos'];
 $id_marcas = $_POST['id_marcas'];
-$id_tipo = isset($_POST['id_tipo']) ? $_POST['id_tipo'] : null;
+$id_tipo = isset($_POST['id_tipo']) && $_POST['id_tipo'] !== '' && $_POST['id_tipo'] !== 'null' ? $_POST['id_tipo'] : null;
 $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : null;
 $activo = isset($_POST['activo']) ? $_POST['activo'] : 1;
 $tipo_movimiento = isset($_POST['tipo_movimiento']) ? $_POST['tipo_movimiento'] : 'salida';
 
-$id_proveedores = isset($_POST['id_proveedores']) ? $_POST['id_proveedores'] : null;
+$id_proveedores = isset($_POST['id_proveedores']) && $_POST['id_proveedores'] !== '' && $_POST['id_proveedores'] !== 'null' ? $_POST['id_proveedores'] : null;
 $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
 $contacto = isset($_POST['contacto']) ? $_POST['contacto'] : '';
 $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : '';
@@ -288,7 +288,7 @@ switch ($api) {
 
     case 13:
         // Para insertar/actualizar unidades
-        $id_unidades = isset($_POST['id_unidades']) ? $_POST['id_unidades'] : null;
+        $id_unidades = isset($_POST['id_unidades']) && $_POST['id_unidades'] !== '' && $_POST['id_unidades'] !== 'null' ? $_POST['id_unidades'] : null;
         $response = $master->insertByProcedure("sp_inventarios_cat_unidades_g", [
             $id_unidades,
             $descripcion,
@@ -297,7 +297,7 @@ switch ($api) {
         break;
     case 14:
         // Para insertar/actualizar motivos
-        $id_motivos = isset($_POST['id_motivos']) ? $_POST['id_motivos'] : null;
+        $id_motivos = isset($_POST['id_motivos']) && $_POST['id_motivos'] !== '' && $_POST['id_motivos'] !== 'null' ? $_POST['id_motivos'] : null;
         $response = $master->insertByProcedure("sp_inventarios_cat_motivos_g", [
             $id_motivos,
             $descripcion,
@@ -342,7 +342,7 @@ switch ($api) {
         $id_marcas = isset($_POST['id_marcas']) ? $_POST['id_marcas'] : null;
         $contenido = isset($_POST['contenido']) ? $_POST['contenido'] : '';
         $id_articulo_actual = isset($_POST['id_articulo_actual']) ? $_POST['id_articulo_actual'] : null;
-        
+
         if (empty($nombre_comercial) || empty($unidad_venta) || empty($id_marcas)) {
             $response = array(
                 'code' => 0,
@@ -353,19 +353,21 @@ switch ($api) {
             // Crear un stored procedure temporal o usar getByProcedure con uno existente
             // Por ahora, usar una validación simple basada en los datos existentes
             $result = $master->getByProcedure('sp_inventarios_cat_articulos_b', [1, null, null, null, null]);
-            
+
             $duplicado_encontrado = false;
             $articulo_duplicado = null;
-            
+
             if ($result && isset($result['response']) && isset($result['response']['data'])) {
                 foreach ($result['response']['data'] as $articulo) {
                     // Verificar duplicados manualmente incluyendo contenido
-                    if (strtoupper(trim($articulo['NOMBRE_COMERCIAL'])) == strtoupper(trim($nombre_comercial)) &&
+                    if (
+                        strtoupper(trim($articulo['NOMBRE_COMERCIAL'])) == strtoupper(trim($nombre_comercial)) &&
                         $articulo['UNIDAD_VENTA'] == $unidad_venta &&
                         $articulo['ID_MARCAS'] == $id_marcas &&
                         strtoupper(trim($articulo['CONTENIDO'] ?? '')) == strtoupper(trim($contenido)) &&
-                        ($id_articulo_actual ? $articulo['ID_ARTICULO'] != $id_articulo_actual : true)) {
-                        
+                        ($id_articulo_actual ? $articulo['ID_ARTICULO'] != $id_articulo_actual : true)
+                    ) {
+
                         $duplicado_encontrado = true;
                         $articulo_duplicado = array(
                             'ID_ARTICULO' => $articulo['ID_ARTICULO'],
@@ -379,7 +381,7 @@ switch ($api) {
                     }
                 }
             }
-            
+
             if ($duplicado_encontrado) {
                 $response = array(
                     'code' => 2, // Código especial para duplicados encontrados
@@ -394,6 +396,9 @@ switch ($api) {
                 );
             }
         }
+        break;
+    case 20:
+        $response = $master->getByProcedure("sp_inventarios_cat_proveedores_inactivos_b", []);
         break;
     default:
         $response = "API no definida.";
