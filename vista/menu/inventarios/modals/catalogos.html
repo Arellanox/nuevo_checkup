@@ -329,6 +329,69 @@
   </div>
 </div>
 
+<div class="modal fade" id="filtrarUnidadesModal" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false"
+    data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filtrarUnidadesTitle">Filtre las unidades</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="container-fluid">
+                    <div class="row">
+                         <!-- Formulario para filtrar proveedores -->
+                         <div class="col-12">
+                            <div class="text-start">
+                                <div class="shadow-sm rounded p-3 card-body">
+                                    <div class="row align-items-end">
+                                        <div class="col-12">
+                                            <form id="filtrarUnidadesForm" name="filtrarUnidadesForm">
+                                                <!-- Activo -->
+                                                <div class="card mb-3">
+                                                    <div class="card-body">
+                                                        <label class="form-label">Estatus</label>
+                                                        <div id="activoUnidadesRadios">
+                                                            <input type="radio" class="btn-check" name="activoUnidades" id="activoUnidades1" value="1" >
+                                                            <label class="btn btn-outline-primary" for="activoUnidades1">Activo</label>
+                                                            
+                                                            <input type="radio" class="btn-check" name="activoUnidades" id="activoUnidades0" value="0" > 
+                                                            <label class="btn btn-outline-secondary" for="activoUnidades0">Inactivo</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-12 d-flex justify-content-end">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i
+                        class="bi bi-arrow-left-short"></i>
+                    Cancelar</button>
+                </button>
+
+                <button type="submit" id="enviarFiltrosUnidadesBtn" class="btn btn-success"
+                    form="filtrarUnidadesForm">
+                    <i class="bi bi-funnel"></i> Enviar
+                </button>
+                <!-- Botón Restablecer filtro -->
+                <div class="text-end">
+                    <button type="button" id="resetFiltrosUnidadesBtn" class="btn btn-confirmar">Restablecer filtro</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+
+
 <!-- Modal para Registrar/Editar Marca -->
 <div
   class="modal fade"
@@ -394,6 +457,69 @@
     </div>
   </div>
 </div>
+
+<!-- Modal para filtrar Marcas-->
+<div class="modal fade" id="filtrarMarcasModal" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false"
+    data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filtrarMarcasTitle">Filtre las marcas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="container-fluid">
+                    <div class="row">
+                         <!-- Formulario para filtrar proveedores -->
+                         <div class="col-12">
+                            <div class="text-start">
+                                <div class="shadow-sm rounded p-3 card-body">
+                                    <div class="row align-items-end">
+                                        <div class="col-12">
+                                            <form id="filtrarMarcasForm" name="filtrarMarcasForm">
+                                                <!-- Activo -->
+                                                <div class="card mb-3">
+                                                    <div class="card-body">
+                                                        <label class="form-label">Estatus</label>
+                                                        <div id="activoMarcasRadios">
+                                                            <input type="radio" class="btn-check" name="activoMarcas" id="activoMarcas1" value="1" >
+                                                            <label class="btn btn-outline-primary" for="activoMarcas1">Activo</label>
+                                                            
+                                                            <input type="radio" class="btn-check" name="activoMarcas" id="activoMarcas0" value="0" > 
+                                                            <label class="btn btn-outline-secondary" for="activoMarcas0">Inactivo</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-12 d-flex justify-content-end">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i
+                        class="bi bi-arrow-left-short"></i>
+                    Cancelar</button>
+                </button>
+
+                <button type="submit" id="enviarFiltrosMarcasBtn" class="btn btn-success"
+                    form="filtrarMarcasForm">
+                    <i class="bi bi-funnel"></i> Enviar
+                </button>
+                <!-- Botón Restablecer filtro -->
+                <div class="text-end">
+                    <button type="button" id="resetFiltrosMarcasBtn" class="btn btn-confirmar">Restablecer filtro</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
 
 <!-- Modal para Registrar/Editar Unidad -->
 <div
@@ -465,6 +591,70 @@
     </div>
   </div>
 </div>
+
+<!-- Modal para filtrar Unidades-->
+<div class="modal fade" id="filtrarTiposModal" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false"
+    data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filtrarTiposTitle">Filtre los tipos</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="container-fluid">
+                    <div class="row">
+                         <!-- Formulario para filtrar proveedores -->
+                         <div class="col-12">
+                            <div class="text-start">
+                                <div class="shadow-sm rounded p-3 card-body">
+                                    <div class="row align-items-end">
+                                        <div class="col-12">
+                                            <form id="filtrarTiposForm" name="filtrarTiposForm">
+                                                <!-- Activo -->
+                                                <div class="card mb-3">
+                                                    <div class="card-body">
+                                                        <label class="form-label">Estatus</label>
+                                                        <div id="activoTiposRadios">
+                                                            <input type="radio" class="btn-check" name="activoTipos" id="activoTipos1" value="1" >
+                                                            <label class="btn btn-outline-primary" for="activoTipos1">Activo</label>
+                                                            
+                                                            <input type="radio" class="btn-check" name="activoTipos" id="activoTipos0" value="0" > 
+                                                            <label class="btn btn-outline-secondary" for="activoTipos0">Inactivo</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-12 d-flex justify-content-end">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i
+                        class="bi bi-arrow-left-short"></i>
+                    Cancelar</button>
+                </button>
+
+                <button type="submit" id="enviarFiltrosTiposBtn" class="btn btn-success"
+                    form="filtrarTiposForm">
+                    <i class="bi bi-funnel"></i> Enviar
+                </button>
+                <!-- Botón Restablecer filtro -->
+                <div class="text-end">
+                    <button type="button" id="resetFiltrosTiposBtn" class="btn btn-confirmar">Restablecer filtro</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+
 
 <!-- Modal para Registrar/Editar Motivo -->
 <div
@@ -554,6 +744,82 @@
     </div>
   </div>
 </div>
+
+<!-- Filtrado de motivos -->
+<div class="modal fade" id="filtrarMotivosModal" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false"
+    data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filtrarMotivosTitle">Filtre los motivos</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="container-fluid">
+                    <div class="row">
+                         <!-- Formulario para filtrar motivos -->
+                         <div class="col-12">
+                            <div class="text-start">
+                                <div class="shadow-sm rounded p-3 card-body">
+                                    <div class="row align-items-end">
+                                        <div class="col-12">
+                                            <form id="filtrarMotivosForm" name="filtrarMotivosForm">
+                                                <!-- Activo -->
+                                                <div class="card mb-3">
+                                                    <div class="card-body">
+                                                        <label class="form-label">Estatus</label>
+                                                        <div id="activoMotivosRadios">
+                                                            <input type="radio" class="btn-check" name="activoMotivos" id="activoMotivos1" value="1" >
+                                                            <label class="btn btn-outline-primary" for="activoMotivos1">Activo</label>
+                                                            
+                                                            <input type="radio" class="btn-check" name="activoMotivos" id="activoMotivos0" value="0" > 
+                                                            <label class="btn btn-outline-secondary" for="activoMotivos0">Inactivo</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Tipo de Movimiento -->
+                                                <div class="card mb-3">
+                                                    <div class="card-body">
+                                                        <label for="motivosTipoMovimiento" class="form-label">Tipo de Movimiento</label>
+                                                        <select class="form-select" id="motivosTipoMovimiento" name="tipo_movimiento">
+                                                            <option value="">Seleccione el tipo de movimiento</option>
+                                                            <option value="entrada">Entrada</option>
+                                                            <option value="salida">Salida</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-12 d-flex justify-content-end">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i
+                        class="bi bi-arrow-left-short"></i>
+                    Cancelar</button>
+                </button>
+
+                <button type="submit" id="enviarFiltrosMotivosBtn" class="btn btn-success"
+                    form="filtrarMotivosForm">
+                    <i class="bi bi-funnel"></i> Enviar
+                </button>
+                <!-- Botón Restablecer filtro -->
+                <div class="text-end">
+                    <button type="button" id="resetFiltrosMotivosBtn" class="btn btn-confirmar">Restablecer filtro</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- Modal para Registrar/Editar Proveedor -->
 <div

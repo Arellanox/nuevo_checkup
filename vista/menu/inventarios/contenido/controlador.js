@@ -21,8 +21,16 @@ var tableCatArticulos;
 var dataTableCatArticulos;
 var dataTableCatEntradas;
 var dataTableCatTransacciones;
+
+var dataTableCatTipos;
+var dataTableCatMarcas;
+var dataTableCatUnidades;
+var dataTableCatMotivos;
 var dataTableCatProveedores;
+
+
 var rowSelected;
+
 
 console.log(userPermissions);
 
@@ -40,6 +48,22 @@ dataTableCatDetallesEntradas = {
 
 dataTableCatTransacciones = {
     api: 8
+}
+
+dataTableCatTipos = {
+    api: 2
+}
+
+dataTableCatMarcas = {
+    api: 9
+}
+
+dataTableCatUnidades = {
+    api: 12
+}
+
+dataTableCatMotivos = {
+    api: 15
 }
 
 dataTableCatProveedores = {

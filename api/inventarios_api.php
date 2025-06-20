@@ -58,7 +58,7 @@ $numero_lote = $_POST['numero_lote'];
 $fecha_lote = $_POST['fecha_lote'];
 $codigo_barras = $_POST['codigo_barras'];
 $id_cat_movimientos = $_POST['id_cat_movimientos'];
-$id_marcas = $_POST['id_marcas'];
+$id_marcas = isset($_POST['id_marcas']) && $_POST['id_marcas'] !== '' && $_POST['id_marcas'] !== 'null' ? $_POST['id_marcas'] : null;
 $id_tipo = isset($_POST['id_tipo']) && $_POST['id_tipo'] !== '' && $_POST['id_tipo'] !== 'null' ? $_POST['id_tipo'] : null;
 $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : null;
 $activo = isset($_POST['activo']) ? $_POST['activo'] : 1;
@@ -333,6 +333,7 @@ switch ($api) {
         ]);
         break;
     case 18:
+        // No se usa
         $response = $master->getByProcedure("sp_areas_b", [null, null]);
         break;
     case 19:
@@ -399,6 +400,18 @@ switch ($api) {
         break;
     case 20:
         $response = $master->getByProcedure("sp_inventarios_cat_proveedores_inactivos_b", []);
+        break;
+    case 21:
+        $response = $master->getByProcedure("sp_inventarios_cat_marcas_inactivos_b", []);
+        break;
+    case 22:
+        $response = $master->getByProcedure("sp_inventarios_cat_unidades_inactivos_b", []);
+        break;
+    case 23:
+        $response = $master->getByProcedure("sp_inventarios_tipo_articulos_inactivos_b", []);
+        break;
+    case 24:
+        $response = $master->getByProcedure("sp_inventarios_cat_motivos_inactivos_b", []);
         break;
     default:
         $response = "API no definida.";

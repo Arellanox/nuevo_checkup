@@ -575,6 +575,202 @@ $("#registrarProveedorForm").submit(function (event) {
   return false;
 });
 
+
+// Filtrar tipos
+$("#filtrarTiposForm").submit(function (event) {
+  event.preventDefault();
+
+  let activo = $('input[name="activoTipos"]:checked').val();
+
+  if (activo === "1") {
+    dataTableCatTipos = { api: 2 };
+  } else if (activo === "0") {
+    dataTableCatTipos = { api: 23 };
+  } else {
+    dataTableCatTipos = { api: 2 };
+  }
+
+  tableCatTipos.ajax.reload();
+  $("#filtrarTiposModal").modal("hide");
+  $("#registrarCatalogoModal").modal("show");
+});
+
+$("#resetFiltrosTiposBtn").click(function () {
+  $("#filtrarTiposForm")[0].reset();
+  dataTableCatTipos = { api: 2 };
+  tableCatTipos.ajax.reload();
+  $("#resetFiltrosTiposBtn").hide();
+  $("#filtrarTiposModal").modal("hide");
+  $("#registrarCatalogoModal").modal("show");
+  alertToast("Filtros de tipos restablecidos", "success", 4000);
+});
+
+// Filtrar tipos
+function toggleResetButtonTipos() {
+  const anyRadioChecked = $('input[name="activoTipos"]:checked').length > 0;
+  if (anyRadioChecked) {
+    $("#resetFiltrosTiposBtn").show();
+  } else {
+    $("#resetFiltrosTiposBtn").hide();
+  }
+}
+
+$("#resetFiltrosTiposBtn").hide();
+$('input[type=radio][name="activoTipos"]').on("change", toggleResetButtonTipos);
+
+
+
+
+// Filtrar unidades
+$("#filtrarUnidadesForm").submit(function (event) {
+  event.preventDefault();
+
+  let activo = $('input[name="activoUnidades"]:checked').val();
+
+  if (activo === "1") {
+    dataTableCatUnidades = { api: 12 };
+  } else if (activo === "0") {
+    dataTableCatUnidades = { api: 22 };
+  } else {
+    dataTableCatUnidades = { api: 12 };
+  }
+
+  tableCatUnidades.ajax.reload();
+  $("#filtrarUnidadesModal").modal("hide");
+  $("#registrarCatalogoModal").modal("show");
+});
+
+$("#resetFiltrosUnidadesBtn").click(function () {
+  $("#filtrarUnidadesForm")[0].reset();
+  dataTableCatUnidades = { api: 12 };
+  tableCatUnidades.ajax.reload();
+  $("#resetFiltrosUnidadesBtn").hide();
+  $("#filtrarUnidadesModal").modal("hide");
+  $("#registrarCatalogoModal").modal("show");
+  alertToast("Filtros de unidades restablecidos", "success", 4000);
+});
+
+// UNIDADES
+function toggleResetButtonUnidades() {
+  const anyRadioChecked = $('input[name="activoUnidades"]:checked').length > 0;
+  if (anyRadioChecked) {
+    $("#resetFiltrosUnidadesBtn").show();
+  } else {
+    $("#resetFiltrosUnidadesBtn").hide();
+  }
+}
+
+$("#resetFiltrosUnidadesBtn").hide();
+$('input[type=radio][name="activoUnidades"]').on("change", toggleResetButtonUnidades);
+
+
+// Filtrar marcas
+$("#filtrarMarcasForm").submit(function (event) {
+  event.preventDefault();
+
+  let activo = $('input[name="activoMarcas"]:checked').val();
+
+  if (activo === "1") {
+    dataTableCatMarcas = { api: 9 };
+  } else if (activo === "0") {
+    dataTableCatMarcas = { api: 21 };
+  } else {
+    dataTableCatMarcas = { api: 9 };
+  }
+
+  tableCatMarcas.ajax.reload();
+  $("#filtrarMarcasModal").modal("hide");
+  $("#registrarCatalogoModal").modal("show");
+});
+
+$("#resetFiltrosMarcasBtn").click(function () {
+  $("#filtrarMarcasForm")[0].reset();
+  dataTableCatMarcas = { api: 16 };
+  tableCatMarcas.ajax.reload();
+  $("#resetFiltrosMarcasBtn").hide();
+  $("#filtrarMarcasModal").modal("hide");
+  $("#registrarCatalogoModal").modal("show");
+  alertToast("Filtros de marcas restablecidos", "success", 4000);
+});
+
+// Función para mostrar/ocultar botón reset de marcas
+function toggleResetButtonMarcas() {
+  const anyRadioChecked = $('input[name="activoMarcas"]:checked').length > 0;
+
+  if (anyRadioChecked) {
+    $("#resetFiltrosMarcasBtn").show();
+  } else {
+    $("#resetFiltrosMarcasBtn").hide();
+  }
+}
+
+// Inicialmente ocultar el botón
+$("#resetFiltrosMarcasBtn").hide();
+
+// Mostrar/ocultar al cambiar radios
+$('input[type=radio][name="activoMarcas"]').on("change", toggleResetButtonMarcas);
+
+// Filtrar motivos 
+$("#filtrarMotivosForm").submit(function (event) {
+  event.preventDefault();
+
+let activo = $('input[name="activoMotivos"]:checked').val();
+let tipoMovimiento = $("#motivosTipoMovimiento").val();
+
+if (activo === "0") {
+    // Para inactivos usar API 24
+    dataTableCatMotivos = { api: 24 };
+    
+    // Si también hay filtro de tipo, agregarlo
+    if (tipoMovimiento && tipoMovimiento !== "") {
+        dataTableCatMotivos.tipo_movimiento = tipoMovimiento;
+    }
+} else {
+    // Para activos o sin filtro de estatus usar API 15
+    dataTableCatMotivos = { api: 15 };
+    
+    // Si hay filtro de tipo, agregarlo (como hace tu case 15)
+    if (tipoMovimiento && tipoMovimiento !== "") {
+        dataTableCatMotivos.tipo_movimiento = tipoMovimiento;
+    }
+}
+
+  tableCatMotivos.ajax.reload();
+  $("#filtrarMotivosModal").modal("hide");
+  $("#registrarCatalogoModal").modal("show");
+});
+
+$("#resetFiltrosMotivosBtn").click(function () {
+  $("#filtrarMotivosForm")[0].reset();
+  dataTableCatMotivos = { api: 15 };
+  tableCatMotivos.ajax.reload();
+  $("#resetFiltrosMotivosBtn").hide();
+  $("#filtrarMotivosModal").modal("hide");
+  $("#registrarCatalogoModal").modal("show");
+  alertToast("Filtros de tipos restablecidos", "success", 4000);
+});
+
+// Función para mostrar/ocultar botón reset de motivos
+function toggleResetButtonMotivos() {
+  const anyRadioChecked = $('input[name="activoMotivos"]:checked').length > 0;
+  const tipoMovimientoSelected = $("#motivoTipoMovimiento").val() !== "" && $("#motivoTipoMovimiento").val() !== null;
+
+  if (anyRadioChecked || tipoMovimientoSelected) {
+    $("#resetFiltrosMotivosBtn").show();
+  } else {
+    $("#resetFiltrosMotivosBtn").hide();
+  }
+}
+
+// Inicialmente ocultar el botón
+$("#resetFiltrosMotivosBtn").hide();
+
+// Mostrar/ocultar al cambiar radios o select
+$('input[type=radio][name="activoMotivos"]').on("change", toggleResetButtonMotivos);
+$("#motivoTipoMovimiento").on("change", toggleResetButtonMotivos);
+
+
+// Filtrar proveedores
 $("#filtrarProveedoresForm").submit(function (event) {
   event.preventDefault();
 
@@ -602,6 +798,24 @@ $("#resetFiltrosProveedoresBtn").click(function () {
   $("#registrarCatalogoModal").modal("show");
   alertToast("Filtros de proveedores restablecidos", "success", 4000);
 });
+
+// Función para mostrar/ocultar botón reset de proveedores
+function toggleResetButtonProveedores() {
+  const anyRadioChecked = $('input[name="activoProveedor"]:checked').length > 0;
+
+  if (anyRadioChecked) {
+    $("#resetFiltrosProveedoresBtn").show();
+  } else {
+    $("#resetFiltrosProveedoresBtn").hide();
+  }
+}
+
+// Inicialmente ocultar el botón
+$("#resetFiltrosProveedoresBtn").hide();
+
+// Mostrar/ocultar al cambiar radios
+$('input[type=radio][name="activoProveedor"]').on("change", toggleResetButtonProveedores);
+
 
 $("#filtrarArticuloForm").submit(function (event) {
   event.preventDefault();
@@ -687,3 +901,4 @@ $(
 ).on("change", toggleResetButton);
 $("#tipoArticulo").on("change", toggleResetButton);
 $("#area").on("change", toggleResetButton);
+

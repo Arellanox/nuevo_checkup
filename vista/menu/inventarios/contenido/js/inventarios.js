@@ -1669,7 +1669,7 @@ $(document).ready(function () {
     cargarTiposRegistrar();
     cargarMarcasRegistrar();
     cargarUnidadesRegistrar();
-    cargarAreasRegistrar();
+    // cargarAreasRegistrar(); No se utiliza
     // No cargar proveedores aquí porque no está en el formulario de registrar
   });
 
@@ -2067,9 +2067,11 @@ function inicializarDataTablesCatalogos() {
     scrollCollapse: true,
     ajax: {
       dataType: "json",
+      data: function (d) {
+        return $.extend(d, dataTableCatTipos);
+      },
       method: "POST",
       url: "../../../api/inventarios_api.php",
-      data: { api: 2 },
       error: function (jqXHR, textStatus, errorThrown) {
         alertErrorAJAX(jqXHR, textStatus, errorThrown);
       },
@@ -2114,6 +2116,17 @@ function inicializarDataTablesCatalogos() {
           $("#registrarTipoModal").modal("show");
         },
       },
+      {
+        text: '<i class="bi bi-funnel"></i> Filtrar Tipos',
+        className: "btn btn-warning",
+        attr: {
+          "data-bs-toggle": "modal",
+          "data-bs-target": "#filtrarTiposModal",
+        },
+        action: function () {
+          $("#filtrarTiposModal").modal("show");
+        },
+      },
     ],
   });
 
@@ -2130,9 +2143,11 @@ function inicializarDataTablesCatalogos() {
     scrollCollapse: true,
     ajax: {
       dataType: "json",
+      data: function (d) {
+        return $.extend(d, dataTableCatUnidades);
+      },
       method: "POST",
       url: "../../../api/inventarios_api.php",
-      data: { api: 12 },
       error: function (jqXHR, textStatus, errorThrown) {
         alertErrorAJAX(jqXHR, textStatus, errorThrown);
       },
@@ -2177,6 +2192,17 @@ function inicializarDataTablesCatalogos() {
           $("#registrarUnidadModal").modal("show");
         },
       },
+      {
+        text: '<i class="bi bi-funnel"></i> Filtrar Unidades',
+        className: "btn btn-warning",
+        attr: {
+          "data-bs-toggle": "modal",
+          "data-bs-target": "#filtrarUnidadesModal",
+        },
+        action: function () {
+          $("#filtrarUnidadesModal").modal("show");
+        },
+      },
     ],
   });
 
@@ -2193,9 +2219,11 @@ function inicializarDataTablesCatalogos() {
     scrollCollapse: true,
     ajax: {
       dataType: "json",
+      data: function (d) {
+        return $.extend(d, dataTableCatMarcas);
+      },
       method: "POST",
       url: "../../../api/inventarios_api.php",
-      data: { api: 9 },
       error: function (jqXHR, textStatus, errorThrown) {
         alertErrorAJAX(jqXHR, textStatus, errorThrown);
       },
@@ -2240,6 +2268,17 @@ function inicializarDataTablesCatalogos() {
           $("#registrarMarcaModal").modal("show");
         },
       },
+      {
+        text: '<i class="bi bi-funnel"></i> Filtrar Marcas',
+        className: "btn btn-warning",
+        attr: {
+          "data-bs-toggle": "modal",
+          "data-bs-target": "#filtrarMarcassModal",
+        },
+        action: function () {
+          $("#filtrarMarcasModal").modal("show");
+        },
+      },
     ],
   });
 
@@ -2256,9 +2295,11 @@ function inicializarDataTablesCatalogos() {
     scrollCollapse: true,
     ajax: {
       dataType: "json",
+      data: function (d) {
+        return $.extend(d, dataTableCatMotivos);
+      },
       method: "POST",
       url: "../../../api/inventarios_api.php",
-      data: { api: 15 },
       error: function (jqXHR, textStatus, errorThrown) {
         alertErrorAJAX(jqXHR, textStatus, errorThrown);
       },
@@ -2328,6 +2369,17 @@ function inicializarDataTablesCatalogos() {
         },
         action: function () {
           $("#registrarMotivoModal").modal("show");
+        },
+      },
+            {
+        text: '<i class="bi bi-funnel"></i> Filtrar Motivos',
+        className: "btn btn-warning",
+        attr: {
+          "data-bs-toggle": "modal",
+          "data-bs-target": "#filtrarMotivosModal",
+        },
+        action: function () {
+          $("#filtrarMotivosModal").modal("show");
         },
       },
     ],
