@@ -36,9 +36,17 @@ $("#registrarArticuloForm").submit(function (event) {
           false,
           function (data) {
             if (data.response.code == 1) {
+              // El ID del artículo recién creado está directamente en data.response.data
+              const articuloId = data.response.data;
+              const nombreArticulo = $("#registrarArticuloForm #nombre_comercial").val();
+              const claveArticulo = $("#registrarArticuloForm #clave_art").val();
+              
               $("#registrarArticuloForm")[0].reset();
               $("#registrarArticuloModal").modal("hide");
-              alertToast("Artículo registrado", "success", 4000);
+              
+              // Mostrar alerta personalizada con opciones
+              mostrarAlertaArticuloCreado(articuloId, nombreArticulo, claveArticulo);
+              
               tableCatArticulos.ajax.reload();
               tableCatEntradas.ajax.reload();
             }
@@ -51,6 +59,115 @@ $("#registrarArticuloForm").submit(function (event) {
 
   return false;
 });
+
+// Función personalizada para mostrar alerta con opciones después de crear artículo
+function mostrarAlertaArticuloCreado(articuloId, nombreArticulo, claveArticulo) {
+  console.log('ID del artículo creado:', articuloId); // Para depuración
+  
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'bottom-end',
+    showConfirmButton: false,
+    showCloseButton: true,
+    timerProgressBar: true,
+    timer: 8000,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  });
+
+  Toast.fire({
+    icon: 'success',
+    title: '¡Artículo creado exitosamente!',
+    html: `
+      <div style="margin-top: 10px;">
+        <p><strong>${nombreArticulo}</strong> (${claveArticulo})</p>
+        <div style="display: flex; gap: 8px; justify-content: center; margin-top: 15px;">
+          <button id="btnIrRegistrarEntrada" class="btn btn-primary btn-sm" style="font-size: 12px; padding: 5px 10px;">
+            <i class="bi bi-plus-circle"></i> Registrar entrada
+          </button>
+        </div>
+      </div>
+    `,
+    didOpen: () => {
+      // Evento para registrar entrada
+      const btnRegistrarEntrada = document.getElementById('btnIrRegistrarEntrada');
+      const btnEditar = document.getElementById('btnEditarArticulo');
+      
+      if (btnRegistrarEntrada) {
+        btnRegistrarEntrada.addEventListener('click', () => {
+          Swal.close();
+          abrirModalRegistrarEntrada(articuloId, nombreArticulo, claveArticulo);
+        });
+      }
+      
+      // Evento para editar artículo
+      if (btnEditar) {
+        btnEditar.addEventListener('click', () => {
+          Swal.close();
+          abrirModalEditarArticulo(articuloId, nombreArticulo, claveArticulo);
+        });
+      }
+    }
+  });
+}
+
+// Función para abrir modal de registrar entrada con el artículo recién creado
+function abrirModalRegistrarEntrada(articuloId, nombreArticulo, claveArticulo) {
+  console.log('Buscando artículo con ID:', articuloId); // Para depuración
+  
+  // Buscar el artículo en la tabla para obtener los datos completos
+  tableCatEntradas.ajax.reload(function() {
+    // Buscar la fila correspondiente al artículo recién creado
+    const data = tableCatEntradas.data().toArray();
+    console.log('Datos de la tabla:', data); // Para depuración
+    
+    const articuloEncontrado = data.find(item => {
+      console.log('Comparando:', item.ID_ARTICULO, 'con', articuloId); // Para depuración
+      return item.ID_ARTICULO == articuloId;
+    });
+    
+    if (articuloEncontrado) {
+      console.log('Artículo encontrado:', articuloEncontrado); // Para depuración
+      
+      // Establecer como fila seleccionada
+      rowSelected = articuloEncontrado;
+      
+      // Abrir modal de registrar entrada
+      $("#registrarEntradaModal").modal("show");
+      $("#registrandoEntrada").text(` ${nombreArticulo} (Clave: ${claveArticulo})`);
+      $("#registrandoCantidad").text(` ${articuloEncontrado.CANTIDAD || '0'}`);
+
+      // Colocar los valores al formulario
+      $("#registrarEntradaForm #no_art").val(articuloId);
+      $("#registrarEntradaForm #nombre_comercial").val(nombreArticulo);
+      
+      // Establecer estatus
+      if (articuloEncontrado.ESTATUS == 1) {
+        $("#registrarEntradaForm #estatus").prop("checked", true);
+      } else {
+        $("#registrarEntradaForm #estatus").prop("checked", false);
+      }
+    } else {
+      console.log('No se encontró el artículo en la tabla de entradas'); // Para depuración
+      // Intentar buscar directamente por nombre y clave como fallback
+      const articuloPorNombre = data.find(item => 
+        item.NOMBRE_COMERCIAL === nombreArticulo && item.CLAVE_ART === claveArticulo
+      );
+      
+      if (articuloPorNombre) {
+        console.log('Artículo encontrado por nombre:', articuloPorNombre); // Para depuración
+        rowSelected = articuloPorNombre;
+        $("#registrarEntradaModal").modal("show");
+        $("#registrandoEntrada").text(` ${nombreArticulo} (Clave: ${claveArticulo})`);
+        $("#registrandoCantidad").text(` ${articuloPorNombre.CANTIDAD || '0'}`);
+      } else {
+        alertToast("El artículo fue creado exitosamente. Actualiza la página para registrar una entrada.", "info", 6000);
+      }
+    }
+  });
+}
 
 // editar un articulo
 $("#editarArticuloForm").submit(function (event) {

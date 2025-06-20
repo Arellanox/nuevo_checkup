@@ -42,7 +42,7 @@
                           <div class="col-12">
                             <div class="mb-3">
                               <label for="clave_art" class="form-label"
-                                >Clave</label
+                                >Código</label
                               >
                               <input
                                 type="text"
@@ -55,7 +55,7 @@
                                 Este campo es obligatorio.
                               </div>
                               <small class="form-text text-muted"
-                                >Ingrese la clave única del artículo.</small
+                                >Ingrese el código único del artículo.</small
                               >
                             </div>
                             <div class="mb-3">
@@ -248,6 +248,35 @@
                               >
                             </div>
                           </div>
+                          <!-- Campos que aparecen en lotes -->
+                          <div id="lotesFields">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="mb-3">
+                                  <label for="numero_lote" class="form-label"
+                                    >Número de Lote</label
+                                  >
+                                  <input
+                                    type="text"
+                                    class="form-control input-form"
+                                    id="numero_lote"
+                                    name="numero_lote"
+                                  />
+                                  <small class="form-text text-muted"
+                                    >Ingrese el número de lote del
+                                    producto.</small
+                                  >
+                                </div>
+                              </div>
+                              <!-- <div class="col-md-6">
+                                    <div class="mb-3">
+                                    <label for="fecha_lote" class="form-label">Fecha de Lote</label>
+                                    <input type="date" class="form-control input-form" id="fecha_lote" name="fecha_lote">
+                                    <small class="form-text text-muted">Ingrese la fecha de fabricación del lote.</small>
+                                    </div>
+                                </div> -->
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -283,7 +312,7 @@
                           <div class="col-6">
                             <div class="mb-3">
                               <label for="unidad_minima" class="form-label"
-                                >Stock Mínimo</label
+                                >Stock Mínimo (Opcional)</label
                               >
                               <input
                                 type="number"
@@ -292,7 +321,7 @@
                                 name="unidad_minima"
                               />
                               <div class="invalid-feedback">
-                                Este campo es obligatorio.
+                                Este campo es opcional.
                               </div>
                               <small class="form-text text-muted"
                                 >Cantidad mínima que debe mantenerse en
@@ -639,54 +668,6 @@
                                   class="fw-bold text-center"
                                   style="font-size: 1.1rem"
                                 ></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Sección 5: Gestión de Lotes -->
-                    <div class="card mb-4">
-                      <div class="card-body">
-                        <h6 class="card-title">Gestión de Lotes</h6>
-                        <div class="row">
-                          <!-- Campos que aparecen en lotes -->
-                          <div id="lotesFields">
-                            <div class="row">
-                              <div class="col-md-6">
-                                <div class="mb-3">
-                                  <label for="numero_lote" class="form-label"
-                                    >Número de Lote</label
-                                  >
-                                  <input
-                                    type="text"
-                                    class="form-control input-form"
-                                    id="numero_lote"
-                                    name="numero_lote"
-                                  />
-                                  <small class="form-text text-muted"
-                                    >Ingrese el número de lote del
-                                    producto.</small
-                                  >
-                                </div>
-                              </div>
-                              <div class="col-md-6">
-                                <div class="mb-3">
-                                  <label for="fecha_lote" class="form-label"
-                                    >Fecha de Lote</label
-                                  >
-                                  <input
-                                    type="date"
-                                    class="form-control input-form"
-                                    id="fecha_lote"
-                                    name="fecha_lote"
-                                  />
-                                  <small class="form-text text-muted"
-                                    >Ingrese la fecha de fabricación del
-                                    lote.</small
-                                  >
-                                </div>
                               </div>
                             </div>
                           </div>
