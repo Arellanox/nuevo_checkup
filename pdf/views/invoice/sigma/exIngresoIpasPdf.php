@@ -905,20 +905,10 @@
                 <tr>
                     <td style="background-color: #E6B8B7; vertical-align: middle;">Agudeza Visual (sin lentes)</td>
                     <td style="background-color: #E6B8B7; vertical-align: middle; text-align: center;"><span id="agudViDSinSpan">
-                            <?php
-                            // if (isset($resultados[9]->OD)) {
-                            //     echo $resultados[9]->OD;
-                            // }
-                            echo $resultados[7]->{378}->OBSERVACIONES;
-                            ?>
+                            <?php echo $resultados[7]->{378}->OBSERVACIONES; ?>
                         </span></td>
                     <td style="background-color: #E6B8B7; vertical-align: middle; text-align: center;"><span id="agudViISinSpan">
-                            <?php
-                            // if (isset($resultados[9]->OI)) {
-                            //     echo $resultados[9]->OI;
-                            // }
-                            echo $resultados[7]->{878}->OBSERVACIONES;
-                            ?>
+                            <?php echo $resultados[7]->{878}->OBSERVACIONES; ?>
                         </span></td>
                     <td colspan="2" rowspan="1" style="background-color: #E6B8B7;"><span id="agudViSinEspecifiqueSpan">
                             <?php

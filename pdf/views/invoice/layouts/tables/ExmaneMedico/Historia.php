@@ -42,247 +42,247 @@
         <tr>
             <td class="text-table-result"><span>Padre</span></td>
             <td style="min-width: 50px; max-width: 50px;" class="text-table-result">
-                <span class="center">             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[1]->{25}->RESPUESTA == "No" ? 'X' : '' ?></span><!-- RELLENAR -->
             </td>
             <td style="min-width: 50px; max-width: 50px;" class="text-table-result">
-                <span class="center">             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[1]->{25}->RESPUESTA == "Sí" ? 'X' : '' ?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span class="center">             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[1]->{26}->RESPUESTA == "Sí" ? 'X' : '' ?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span class="center">             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[1]->{27}->RESPUESTA == "Sí" ? 'X' : '' ?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span class="center">             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[1]->{210}->RESPUESTA == "Sí" ? 'X' : '' ?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span class="center">             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[1]->{211}->RESPUESTA == "Sí" ? 'X' : '' ?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span class="center">             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[1]->{28}->RESPUESTA == "Sí" ? 'X' : '' ?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span class="center">             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[1]->{213}->RESPUESTA == "Sí" ? 'X' : '' ?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span class="center">             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[1]->{214}->RESPUESTA == "Sí" ? 'X' : '' ?></span><!-- RELLENAR -->
             </td>
         </tr>
         <tr>
             <td class="text-table-result"><span>Madre</span></td>
             <td class="text-table-result">
-                <span class="center">             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[1]->{30}->RESPUESTA == "No" ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span class="center">             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[1]->{30}->RESPUESTA == "Sí" ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span class="center">             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[1]->{31}->RESPUESTA == "Sí" ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span class="center">             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[1]->{32}->RESPUESTA == "Sí" ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span class="center">             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[1]->{215}->RESPUESTA == "Sí" ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span class="center">             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[1]->{216}->RESPUESTA == "Sí" ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span class="center">             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[1]->{33}->RESPUESTA == "Sí" ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span class="center">             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[1]->{218}->RESPUESTA == "Sí" ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span class="center">             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[1]->{219}->RESPUESTA == "Sí" ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
         </tr>
         <tr>
             <td class="text-table-result"><span>Hermanos</span></td>
             <td class="text-table-result">
-                <span class="center">             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{1}->PREGUNTAS->{1}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span class="center">             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{1}->PREGUNTAS->{1}->RESPUESTA == 0 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span class="center">             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{1}->PREGUNTAS->{2}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span class="center">             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{1}->PREGUNTAS->{3}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span class="center">             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{1}->PREGUNTAS->{4}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span class="center">             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{1}->PREGUNTAS->{5}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span class="center">             </span><!-- RELLENAR -->
+                <span class="center"<?= $resultados[2]->{1}->PREGUNTAS->{6}->RESPUESTA == 1 ? 'X' : ''?> </span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span class="center">             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{1}->PREGUNTAS->{7}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span class="center">             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{1}->PREGUNTAS->{8}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
         </tr>
         <tr>
             <td class="text-table-result"><span>Abuelo paterno</span></td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{2}->PREGUNTAS->{1}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{2}->PREGUNTAS->{1}->RESPUESTA == 0 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{2}->PREGUNTAS->{2}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{2}->PREGUNTAS->{3}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{2}->PREGUNTAS->{4}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{2}->PREGUNTAS->{5}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{2}->PREGUNTAS->{6}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{2}->PREGUNTAS->{7}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{2}->PREGUNTAS->{8}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
         </tr>
         <tr>
             <td class="text-table-result"><span>Abuela paterna</span></td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{3}->PREGUNTAS->{1}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{3}->PREGUNTAS->{1}->RESPUESTA == 0 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{3}->PREGUNTAS->{2}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{3}->PREGUNTAS->{3}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{3}->PREGUNTAS->{4}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{3}->PREGUNTAS->{5}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{3}->PREGUNTAS->{6}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{3}->PREGUNTAS->{7}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{3}->PREGUNTAS->{8}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
         </tr>
         <tr>
             <td class="text-table-result"><span>Abuelo materno</span></td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{4}->PREGUNTAS->{1}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{4}->PREGUNTAS->{1}->RESPUESTA == 0 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{4}->PREGUNTAS->{2}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{4}->PREGUNTAS->{3}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{4}->PREGUNTAS->{4}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{4}->PREGUNTAS->{5}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{4}->PREGUNTAS->{6}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{4}->PREGUNTAS->{7}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{4}->PREGUNTAS->{8}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
         </tr>
         <tr>
             <td class="text-table-result"><span>Abuela materna</span></td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{5}->PREGUNTAS->{1}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{5}->PREGUNTAS->{1}->RESPUESTA == 0 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{5}->PREGUNTAS->{2}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{5}->PREGUNTAS->{3}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{5}->PREGUNTAS->{4}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{5}->PREGUNTAS->{5}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{5}->PREGUNTAS->{6}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{5}->PREGUNTAS->{7}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{5}->PREGUNTAS->{8}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
         </tr>
         <tr>
             <td class="text-table-result"><span>Hijos</span></td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{6}->PREGUNTAS->{1}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{6}->PREGUNTAS->{1}->RESPUESTA == 0 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{6}->PREGUNTAS->{2}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{6}->PREGUNTAS->{3}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{6}->PREGUNTAS->{4}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{6}->PREGUNTAS->{5}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{6}->PREGUNTAS->{6}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{6}->PREGUNTAS->{7}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
             <td class="text-table-result">
-                <span>             </span><!-- RELLENAR -->
+                <span class="center"><?= $resultados[2]->{6}->PREGUNTAS->{8}->RESPUESTA == 1 ? 'X' : ''?></span><!-- RELLENAR -->
             </td>
         </tr>
         <tr>
             <td class="text-table-result"><span>Observaciónes</span></td>
             <td class="text-table-result" colspan="9">
-                <span>             </span><!-- RELLENAR -->
+                <span>Sin información</span><!-- RELLENAR -->
             </td>
         </tr>
     </tbody>

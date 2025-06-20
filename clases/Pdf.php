@@ -38,16 +38,16 @@ class Reporte
         $this->area = $area;
     }
 
-    public function build()
+    public function build(): ?string
     {
-        $response   = json_decode($this->response);
-        $data       = json_decode($this->data); //Esperando la data general
-        $pie        = $this->pie;
-        $archivo    = $this->archivo;
-        $tipo       = $this->tipo;
-        $orden      = $this->orden;
-        $preview    = $this->preview;
-        $area       = $this->area;
+        $response = json_decode($this->response);
+        $data = json_decode($this->data); //Esperando la data general
+        $pie = $this->pie;
+        $archivo = $this->archivo;
+        $tipo = $this->tipo;
+        $orden = $this->orden;
+        $preview = $this->preview;
+        $area = $this->area;
 
         switch ($tipo) {
             case 'etiquetas':
@@ -76,7 +76,7 @@ class Reporte
             case 'audiometria':
                 $prueba = generarQRURL($pie['clave'], $pie['folio'], $pie['modulo']);
                 break;
-            case 'envio_muestras':    
+            case 'envio_muestras':
             case 'form_datos':
             case 'lista-barras':
                 $generator = null;
@@ -94,11 +94,11 @@ class Reporte
         $view_vars = array(
             "resultados" => $response,
             "encabezado" => $data,
-            "pie"        => isset($pie) ? $pie : null,
-            "qr"         => isset($prueba) ? $prueba : null,
-            "barcode"    => isset($barcode) ? $barcode : null,
-            "preview"    => $preview,
-            "area"       => isset($area) ? $area : null,
+            "pie" => isset($pie) ? $pie : null,
+            "qr" => isset($prueba) ? $prueba : null,
+            "barcode" => isset($barcode) ? $barcode : null,
+            "preview" => $preview,
+            "area" => isset($area) ? $area : null,
             "validacion" => $host . "resultados/validar-pdf/?clave=" . $pie['clave'] . "&modulo=" . $pie['modulo']
         );
 
@@ -110,7 +110,7 @@ class Reporte
                 $pdf->loadHtml($template);
 
                 $ancho = (5 / 2.54) * 72;
-                $alto  = (2.5 / 2.54) * 72;
+                $alto = (2.5 / 2.54) * 72;
 
                 $pdf->setPaper(array(0, 0, $ancho, $alto), 'portrait');
                 // $path    = 'pdf/public/etiquetas/00001.pdf';
@@ -195,14 +195,11 @@ class Reporte
                 $template = render_view('invoice/receta.php', $view_vars);
                 $pdf->loadHtml($template);
                 // Convertir centímetros a puntos
-                $height = 13.97 * 28.3465; // 21.59 cm a puntos
-                $width = 21.59 * 28.3465;   // 18 cm a puntos
-
                 $height = 14 * 28.3465; // 21.59 cm a puntos
                 $width = 21.5 * 28.3465;   // 18 cm a puntos
                 $pdf->setPaper([0, 0, $width, $height], 'portrait');
                 $pdf->setPaper('letter', 'portrait');
-    
+
                 //Marca de agua
                 $pdf->getOptions()->setIsHtml5ParserEnabled(true); // Habilita el soporte para CSS3
                 $pdf->getOptions()->setIsFontSubsettingEnabled(true); // Habilita la subconjunción de fuentes
@@ -211,7 +208,7 @@ class Reporte
                 $template = render_view('invoice/solicitud_estudios.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter');
-                
+
                 // $height = 14 * 28.3465; // 21.59 cm a puntos
                 // $width = 21.5 * 28.3465;   // 18 cm a puntos
                 // $pdf->setPaper([0, 0, $width, $height], 'portrait');
@@ -230,7 +227,7 @@ class Reporte
                 $template = render_view('invoice/envio_muestras.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'landscape');
-                break;    
+                break;
             case 'form_datos':
                 # para confirmacion de datos del paciente
                 $template = render_view('invoice/form_datos.php', $view_vars);
@@ -270,33 +267,25 @@ class Reporte
                 $pdf->setPaper('letter');
                 break;
         }
-        // session_destroy();
+
         // Recibe la orden de que tipo de  modo de visualizacion quiere
+        $pdf->render();
+
         switch ($orden) {
             case 'descargar':
-                $pdf->render();
                 file_put_contents('../' . $path, $pdf->output());
                 return $pdf->stream();
-                break;
-            case 'mostrar':
-                $pdf->render();
-                return $pdf->stream('documento.pdf', array("Attachment" => false));
-                break;
             case 'url':
-                $pdf->render();
                 file_put_contents('../' . $path, $pdf->output());
-
                 $http = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
                 $servidor = $_SERVER['HTTP_HOST'];
                 $current_url = "{$http}{$servidor}/nuevo_checkup/";
 
                 return $current_url. $path;
             default:
-                $pdf->render();
                 return $pdf->stream('documento.pdf', array("Attachment" => false));
-                break;
-
-                session_write_close();
         }
+
+        //session_write_close();
     }
 }
