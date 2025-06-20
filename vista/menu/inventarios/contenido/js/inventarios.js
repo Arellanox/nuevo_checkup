@@ -912,7 +912,7 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
 
 // DATATABLE DE DETALLES ENTRADAS
 var tableCatDetallesEntradas = $("#tableCatDetallesEntradas").DataTable({
-  order: [0, "desc"],
+  order: [1, "desc"],
   autoWidth: false,
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
@@ -946,6 +946,7 @@ var tableCatDetallesEntradas = $("#tableCatDetallesEntradas").DataTable({
     dataSrc: "response.data",
   },
   columns: [
+    { data: "PROVEEDOR" },
     {
       data: "FECHA_ULTIMA_ENTRADA",
     },
@@ -965,8 +966,27 @@ var tableCatDetallesEntradas = $("#tableCatDetallesEntradas").DataTable({
         }
       },
     },
-    { data: "PROVEEDOR" },
     { data: "CANTIDAD" },
+    {
+      data: null,
+      render: function (data, type, row) {
+        const cantidad = parseFloat(row.CANTIDAD) || 0;
+        const costoUnitario = parseFloat(row.COSTO_ULTIMA_ENTRADA) || 0;
+        
+        if (cantidad > 0 && costoUnitario > 0) {
+          const costoTotal = cantidad * costoUnitario;
+          return (
+            "$" +
+            costoTotal.toLocaleString("es-MX", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })
+          );
+        } else {
+          return "$0.00";
+        }
+      },
+    },
     { data: "id_cat_movimientos" },
     { data: "id_movimiento" },
     { data: "MOTIVO_SALIDA" },
@@ -1003,15 +1023,16 @@ var tableCatDetallesEntradas = $("#tableCatDetallesEntradas").DataTable({
     { data: "RESPONSABLE" },
   ],
   columnDefs: [
-    { targets: 0, title: "Fecha y hora última entrada", className: "all" },
-    { targets: 1, title: "Costo última entrada", className: "all" },
-    { targets: 2, title: "Proveedor", className: "all" },
+    { targets: 0, title: "Proveedor", className: "all" },
+    { targets: 1, title: "Fecha y hora última entrada", className: "all" },
+    { targets: 2, title: "Costo última entrada", className: "all" },
     { targets: 3, title: "Cantidad de entrada", className: "all" },
-    { targets: 4, visible: false },
+    { targets: 4, title: "Costo total de entrada", className: "all" },
     { targets: 5, visible: false },
-    { targets: 6, title: "Motivo de entrada", className: "all" },
-    { targets: 7, title: "Documento", className: "all" },
-    { targets: 8, title: "Responsable", className: "all" },
+    { targets: 6, visible: false },
+    { targets: 7, title: "Motivo de entrada", className: "all" }, 
+    { targets: 8, title: "Documento", className: "all" },    
+    { targets: 9, title: "Responsable", className: "all" }, 
   ],
 });
 
@@ -1704,7 +1725,7 @@ $(document).ready(function () {
     // Cargar todos los catálogos primero sin callbacks
     cargarTiposEditar();
     cargarMarcasEditar();
-    cargarAreasEditar();
+    // cargarAreasEditar();
     cargarUnidadesEditar();
 
     // Esperar un momento para que se carguen los catálogos y luego establecer valores

@@ -48,20 +48,37 @@
                                                 <!-- Costo Última Entrada -->
                                                 <div class="mb-3">
                                                     <label for="costo_ultima_entrada" class="form-label">Costo
-                                                        actual</label>
+                                                        unitario</label>
                                                     <input type="number" step="any" class="form-control input-form"
                                                         id="costo_ultima_entrada" name="costo_ultima_entrada" required
                                                         placeholder="Ej. 10.50">
+                                                    <small id="costoTotal" class="form-text text-secondary fw-bold" style="display: none;">
+                                                        <i class="bi bi-calculator"></i> Costo total: $<span id="costoTotalValor">0.00</span>
+                                                    </small>
                                                 </div>
 
                                                 <!-- Proveedor -->
                                                 <div class="mb-3" id="proveedorDiv">
                                                     <label for="id_proveedores" class="form-label">Proveedor</label>
-                                                    <select class="form-select input-form" id="id_proveedores" name="id_proveedores">
-                                                        <option value="" disabled selected>Seleccione...</option>
-                                                        <!-- Las opciones se cargarán dinámicamente -->
-                                                    </select>
+                                                    <div class="row">
+                                                        <div class="col-10">
+                                                            <select class="form-select input-form" id="id_proveedores" name="id_proveedores">
+                                                                <option value="" disabled selected>Seleccione...</option>
+                                                                <!-- Las opciones se cargarán dinámicamente -->
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <!-- Botón para agregar nuevo proveedor -->
+                                                            <button type="button" class="btn btn-outline-success btn-sm w-100 h-100" 
+                                                                    id="btnNuevoProveedor" data-bs-toggle="modal" data-bs-target="#registrarCatalogoModal"
+                                                                    title="Agregar nuevo proveedor">
+                                                                <i class="bi bi-plus-lg"></i><br>
+                                                                <small>Nuevo</small>
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                                
 
                                                 <!-- Factura o número de documento -->
                                                 <div class="col-12" id="facturaDiv">
@@ -74,15 +91,28 @@
                                                 </div>
 
                                                 <!-- Motivo de salida -->
-                                                <div class="mb-3" id="motivoSalidaDiv">
+                                            <div class="mb-3" id="motivoSalidaDiv">
                                                     <label for="motivo_salida" class="form-label">Motivo de entrada</label>
-                                                    <select class="form-select input-form" id="motivo_salida" name="motivo_salida" required>
+                                                <div class="row">
+                                                    <div class="col-10">
+                                                        <select class="form-select input-form" id="motivo_salida" name="motivo_salida" required>
                                                         <option value="">Seleccione un motivo de entrada</option>
                                                         <!-- Las opciones se cargarán dinámicamente -->
-                                                    </select>
-                                                    <div class="invalid-feedback">Este campo es obligatorio.</div>
-                                                    <small class="form-text text-muted">Seleccione el motivo de entrada del artículo.</small>
+                                                        </select>
+                                                            <div class="invalid-feedback">Este campo es obligatorio.</div>
+                                                            <small class="form-text text-muted">Seleccione el motivo de entrada del artículo.</small>
+                                                    </div>
+                                                    <div class="col-2">
+                                                    <!-- Botón para agregar nuevo motivo -->
+                                                        <button type="button" class="btn btn-outline-success btn-sm w-100 h-100" 
+                                                            id="btnNuevoMotivo"data-bs-toggle="modal" data-bs-target="#registrarCatalogoModal"
+                                                                    title="Agregar nuevo motivo">
+                                                                <i class="bi bi-plus-lg"></i><br>
+                                                            <small>Nuevo</small>
+                                                        </button>
+                                                    </div>
                                                 </div>
+                                            </div>
 
                                                 <!-- Campo oculto para la fecha y hora del movimiento -->
                                                 <input type="hidden" id="fecha_ultima_entrada"
@@ -124,6 +154,24 @@
         $("#motivoSalidaDiv").hide();
         $("#registrarMovimientoButton").hide();
         $("#facturaDiv").hide();
+        $("#costoTotal").hide(); // AGREGAR: Ocultar costo total inicialmente
+
+        // AGREGAR: Función para calcular y mostrar el costo total
+        function calcularCostoTotal() {
+            const cantidad = parseFloat($("#cantidad").val()) || 0;
+            const costoUnitario = parseFloat($("#costo_ultima_entrada").val()) || 0;
+            
+            if (cantidad > 0 && costoUnitario > 0) {
+                const costoTotal = cantidad * costoUnitario;
+                $("#costoTotalValor").text(costoTotal.toLocaleString('es-MX', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }));
+                $("#costoTotal").show();
+            } else {
+                $("#costoTotal").hide();
+            }
+        }
 
         $("#id_movimiento").on("change", function () {
             if ($(this).val() == "1") {
@@ -154,6 +202,11 @@
 
                 $("#facturaDiv").show();
                 $("#img_factura").prop("required", true);
+
+                // AGREGAR: Habilitar cálculo de costo total para entradas
+                $("#cantidad, #costo_ultima_entrada").on("input keyup change", calcularCostoTotal);
+                calcularCostoTotal(); // Calcular inmediatamente si ya hay valores
+
             } else if ($(this).val() == "2") {
                 $("#motivoSalidaDiv").show();
                 $("label[for='motivo_salida']").text("Motivo de salida");
@@ -180,6 +233,11 @@
                 cargarMotivosPorTipo("salida");
                 $("#facturaDiv").hide();
                 $("#img_factura").prop("required", false);
+
+                // AGREGAR: Ocultar y deshabilitar cálculo de costo total para salidas
+                $("#costoTotal").hide();
+                $("#cantidad, #costo_ultima_entrada").off("input keyup change", calcularCostoTotal);
+
             } else {
                 $("#cantidad").closest(".mb-3").hide();
                 $("#fecha_ultima_entrada").closest(".mb-3").hide();
@@ -192,7 +250,104 @@
                 $("#facturaDiv").hide();
                 $("#img_factura").prop("required", false);
                 $("#motivoSalidaDiv").hide();
+                
+                // AGREGAR: Ocultar costo total cuando no hay selección
+                $("#costoTotal").hide();
             }
+        });
+
+
+         // AGREGAR: Variable para controlar si se debe reabrir el modal de entrada
+        let debeReabrirModalEntrada = false;
+
+        // FUNCIÓN para el botón de nuevo proveedor
+        $("#btnNuevoProveedor").click(function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            debeReabrirModalEntrada = true;
+            console.log("Botón nuevo proveedor clickeado, bandera activada:", debeReabrirModalEntrada);
+            
+            $("#registrarEntradaModal").modal("hide");
+            
+            setTimeout(function() {
+                $("#registrarCatalogoModal").modal("show");
+                
+                setTimeout(function() {
+                    $("#proveedores-tab").tab("show");
+                    console.log("Cambiando a pestaña de proveedores");
+                    
+                    setTimeout(function() {
+                        $("#registrarProveedorModal").modal("show");
+                        console.log("Modal de registro de proveedor abierto");
+                    }, 400);
+                }, 300);
+            }, 200);
+        });
+
+        // AGREGAR: Función para el botón de nuevo motivo
+        $("#btnNuevoMotivo").click(function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+    
+            debeReabrirModalEntrada = true;
+            console.log("Botón nuevo motivo clickeado, bandera activada:", debeReabrirModalEntrada);
+    
+            $("#registrarEntradaModal").modal("hide");
+    
+            setTimeout(function() {
+            $("#registrarCatalogoModal").modal("show");
+        
+                setTimeout(function() {
+                // Cambiar a la pestaña de motivos (ajusta el selector según tu implementación)
+                $("#motivos-tab").tab("show");
+                console.log("Cambiando a pestaña de motivos");
+            
+                    setTimeout(function() {
+                        $("#registrarMotivoModal").modal("show");
+                        console.log("Modal de registro de motivo abierto");
+                    }, 400);
+                }, 300);
+            }, 200);
+        });
+
+        // MODIFICAR: Event listener para cuando se cierra el modal de catálogo
+        $("#registrarCatalogoModal").on("hidden.bs.modal", function() {
+            console.log("Modal de catálogo cerrado, bandera:", debeReabrirModalEntrada);
+            
+            // Solo reabrir si se marcó la bandera
+            if (debeReabrirModalEntrada) {
+                console.log("Reabriendo modal de entrada...");
+                
+                setTimeout(function() {
+                    $("#registrarEntradaModal").modal("show");
+                    
+                    // Recargar la lista de proveedores Y motivos para incluir los nuevos
+                    setTimeout(function() {
+                        cargarProveedoresEntrada();
+                        
+                        // AGREGAR: Recargar motivos según el tipo de movimiento actual
+                        const tipoMovimiento = $("#id_movimiento").val();
+                        if (tipoMovimiento == "1") {
+                            cargarMotivosPorTipo("entrada");
+                        } else if (tipoMovimiento == "2") {
+                            cargarMotivosPorTipo("salida");
+                        }
+                        
+                        console.log("Modal de entrada reabierto, proveedores y motivos recargados");
+                    }, 300);
+                }, 200);
+                
+                // Resetear la bandera
+                debeReabrirModalEntrada = false;
+                console.log("Bandera reseteada");
+            }
+        });
+
+        // AGREGAR: Solo resetear si el usuario cancela manualmente
+        $(".btn-cancelar, .btn-close").click(function() {
+            debeReabrirModalEntrada = false;
+            console.log("Usuario canceló manualmente, bandera reseteada");
         });
 
         // FUNCIÓN PARA CARGAR PROVEEDORES
