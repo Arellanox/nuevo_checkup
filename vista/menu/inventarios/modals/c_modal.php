@@ -9,3 +9,6 @@ include "registrar_requisiciones.html";
 include "editar_movimiento.html";
 include "detalle_transacciones.html";
 include "catalogos.html";
+include "registrar_requisicion.html";
+include "editar_requisicion.html";
+include "detalle_requisicion.html";

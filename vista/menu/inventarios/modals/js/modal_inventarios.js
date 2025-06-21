@@ -274,6 +274,7 @@ $("#registrarEntradaForm").submit(function (event) {
             $("#img_factura").prop("required", false);
             $("#motivoSalidaDiv").hide();
             $("#motivoSalidaDiv").prop("required", false);
+            $("#ordenCompraDiv").hide();
             $("#registrarMovimientoButton")
               .html('<i class="bi bi-pencil-square"></i> Registrar movimiento')
               .hide();

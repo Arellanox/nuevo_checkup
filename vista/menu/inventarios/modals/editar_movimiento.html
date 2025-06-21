@@ -95,6 +95,23 @@
                               <!-- Las opciones se cargarán dinámicamente -->
                             </select>
                           </div>
+
+                          <!-- Orden de compra -->
+                          <div class="mb-3" id="ordenCompraDiva">
+                            <div class="mb-3">
+                                <label for="orden_compra" class="form-label">Orden de compra (opcional)</label>
+                                <input type="text" class="form-control input-form" id="orden_compra"
+                                    name="orden_compra" placeholder="Ej. 10">
+                            </div>
+                            <div class="mb-3">
+                                <label for="orden_compra" class="form-label">Documento de orden de compra (opcional)</label>
+                                <input type="file" class="form-control input-form" id="img_orden_compra"
+                                name="img_orden_compra[]">
+                                <div class="invalid-feedback">Este campo es opcional.</div>
+                                <small class="form-text text-muted">Adjunte el documento de orden de compra.</small>
+                            </div>
+                        </div>
+
                           <!-- Motivo de salida -->
                           <div class="mb-3" id="motivoSalidaDiva">
                             <label id="motivo_salida_label" for="motivo_salida" class="form-label"

@@ -21,7 +21,7 @@ var tableCatArticulos;
 var dataTableCatArticulos;
 var dataTableCatEntradas;
 var dataTableCatTransacciones;
-
+var dataTableCatRequisiciones;
 var dataTableCatTipos;
 var dataTableCatMarcas;
 var dataTableCatUnidades;

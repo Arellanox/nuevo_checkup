@@ -694,6 +694,10 @@ buttonsEntradas.push({
         tableCatDetallesEntradas.column(7).visible(true);
         detalleEntradaLabel.textContent = "Detalles de entrada";
 
+        //cambiar dep osicion post
+        tableCatDetallesEntradas.column(10).visible(true);
+        tableCatDetallesEntradas.column(11).visible(true);
+
         //Editar en detalles entradas
         cantidadEditarMovLabel.textContent = "Cantidad a ingresar";
         $("#editarMovimientoModal #costoUltimaEntradaDiv").show();
@@ -750,6 +754,11 @@ buttonsEntradas.push({
 
         $("#editarMovimientoModal #facturaEditDiv").hide();
         $("#editarMovimientoModal #img_factura").prop("required", false);
+
+        //cambiar dep osicion post 
+
+        tableCatDetallesEntradas.column(10).visible(false);
+        tableCatDetallesEntradas.column(11).visible(false);
       }
       tableCatEntradas.columns.adjust().draw();
       $menu.remove();
@@ -892,6 +901,37 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
     },
     { data: "CANTIDAD" },
     { data: "USUARIO" },
+    { data: "ORDEN_COMPRA" },
+    {
+      data: "IMAGEN_ORDEN_COMPRA",
+      render: function (data, type, row) {
+        if (data) {
+          // Obtener la extensión del archivo
+          var extension = data.split(".").pop().toLowerCase();
+
+          if (extension === "pdf") {
+            // Si es PDF, mostrar icono de PDF
+            return (
+              '<a href="' +
+              data +
+              '" target="_blank"><i class="bi bi-file-earmark-pdf-fill text-danger fs-4" title="Ver PDF"></i></a>'
+            );
+          } else {
+            // Si es imagen, mostrar como antes
+            return (
+              '<a href="' +
+              data +
+              '" target="_blank"><img src="' +
+              data +
+              '" alt="Imagen del Documento" style="width: 50px; height: auto;"/></a>'
+            );
+          }
+        } else {
+          return "Sin documento";
+        }
+      },
+      className: "text-center",
+    },
   ],
   columnDefs: [
     //editar los numeros segun las columnas que quieras, editar el tittle es el header de las tablas
@@ -905,6 +945,8 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
     { target: 7, title: "Motivo de entrada", className: "all" },
     { target: 8, title: "Cantidad total en almacén", className: "all" },
     { target: 9, title: "Responsable", className: "all" },
+    { target: 10, title: "Orden de compra", className: "all" },
+    { target: 11, title: "Imagen de orden de compra", className: "all" },
   ],
   dom: 'Bl<"dataTables_toolbar">frtip',
   buttons: buttonsEntradas,
@@ -1021,6 +1063,37 @@ var tableCatDetallesEntradas = $("#tableCatDetallesEntradas").DataTable({
       className: "text-center",
     },
     { data: "RESPONSABLE" },
+    { data: "orden_compra" },
+    {
+      data: "IMAGEN_ORDEN_COMPRA",
+      render: function (data, type, row) {
+        if (data) {
+          // Obtener la extensión del archivo
+          var extension = data.split(".").pop().toLowerCase();
+
+          if (extension === "pdf") {
+            // Si es PDF, mostrar icono de PDF
+            return (
+              '<a href="' +
+              data +
+              '" target="_blank"><i class="bi bi-file-earmark-pdf-fill text-danger fs-4" title="Ver PDF"></i></a>'
+            );
+          } else {
+            // Si es imagen, mostrar como antes
+            return (
+              '<a href="' +
+              data +
+              '" target="_blank"><img src="' +
+              data +
+              '" alt="Imagen del Documento" style="width: 50px; height: auto;"/></a>'
+            );
+          }
+        } else {
+          return "Sin documento";
+        }
+      },
+      className: "text-center",
+    },
   ],
   columnDefs: [
     { targets: 0, title: "Proveedor", className: "all" },
@@ -1033,6 +1106,8 @@ var tableCatDetallesEntradas = $("#tableCatDetallesEntradas").DataTable({
     { targets: 7, title: "Motivo de entrada", className: "all" }, 
     { targets: 8, title: "Documento", className: "all" },    
     { targets: 9, title: "Responsable", className: "all" }, 
+    { targets: 10, title: "Orden de compra", className: "all" },
+    { targets: 11, title: "Imagen de orden de compra", className: "all" },
   ],
 });
 
@@ -1085,6 +1160,37 @@ tableCatTransacciones = $("#tableCatTransacciones").DataTable({
       },
     },
     { data: "PROVEEDOR" },
+    { data: "ORDEN_COMPRA" },
+    {
+      data: "IMAGEN_ORDEN_COMPRA",
+      render: function (data, type, row) {
+        if (data) {
+          // Obtener la extensión del archivo
+          var extension = data.split(".").pop().toLowerCase();
+
+          if (extension === "pdf") {
+            // Si es PDF, mostrar icono de PDF
+            return (
+              '<a href="' +
+              data +
+              '" target="_blank"><i class="bi bi-file-earmark-pdf-fill text-danger fs-4" title="Ver PDF"></i></a>'
+            );
+          } else {
+            // Si es imagen, mostrar como antes
+            return (
+              '<a href="' +
+              data +
+              '" target="_blank"><img src="' +
+              data +
+              '" alt="Imagen del Documento" style="width: 50px; height: auto;"/></a>'
+            );
+          }
+        } else {
+          return "Sin documento";
+        }
+      },
+      className: "text-center",
+    },
     { data: "TIPO_MOVIMIENTO" },
     { data: "MOTIVO_SALIDA" },
     {
@@ -1126,10 +1232,12 @@ tableCatTransacciones = $("#tableCatTransacciones").DataTable({
     { targets: 3, title: "Fecha Transacción", className: "all" },
     { targets: 4, title: "Costo Última Transacción", className: "all" },
     { targets: 5, title: "Proveedor", className: "all" },
-    { targets: 6, title: "Tipo de Movimiento", className: "all" },
-    { targets: 7, title: "Motivo", className: "all" },
-    { targets: 8, title: "Documento", className: "all" },
-    { targets: 9, title: "Responsable", className: "all" },
+    { targets: 6, title: "Orden de compra", className: "all" },
+    { targets: 7, title: "Imagen de orden de compra", className: "all" },
+    { targets: 8, title: "Tipo de Movimiento", className: "all" },
+    { targets: 9, title: "Motivo", className: "all" },
+    { targets: 10, title: "Documento", className: "all" },
+    { targets: 11, title: "Responsable", className: "all" },
   ],
   dom: 'Bl<"dataTables_toolbar">frtip',
   buttons: [],
@@ -1164,6 +1272,8 @@ selectDatatable(
     $("#editarMovimientoModal #costo_ultima_entrada").val(
       rowSelected.COSTO_ULTIMA_ENTRADA
     );
+
+    $("#editarMovimientoModal #orden_compra").val(rowSelected.orden_compra);
 
     //MODIFICACION AQUI ME QUEDE
     establecerValoresActuales({

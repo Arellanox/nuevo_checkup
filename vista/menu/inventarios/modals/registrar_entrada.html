@@ -90,6 +90,22 @@
                                                     </div>
                                                 </div>
 
+                                                <!-- Orden de compra -->
+                                                <div class="col-12" id="ordenCompraDiv">
+                                                    <div class="mb-3">
+                                                        <label for="orden_compra" class="form-label">Orden de compra (opcional)</label>
+                                                        <input type="text" class="form-control input-form" id="orden_compra"
+                                                            name="orden_compra" placeholder="Ej. 10">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="orden_compra" class="form-label">Documento de orden de compra (opcional)</label>
+                                                        <input type="file" class="form-control input-form" id="img_orden_compra"
+                                                        name="img_orden_compra[]">
+                                                        <div class="invalid-feedback">Este campo es opcional.</div>
+                                                        <small class="form-text text-muted">Adjunte el documento de orden de compra.</small>
+                                                    </div>
+                                                </div>
+
                                                 <!-- Motivo de salida -->
                                             <div class="mb-3" id="motivoSalidaDiv">
                                                     <label for="motivo_salida" class="form-label">Motivo de entrada</label>
@@ -156,6 +172,8 @@
         $("#facturaDiv").hide();
         $("#costoTotal").hide(); // AGREGAR: Ocultar costo total inicialmente
 
+        $("#ordenCompraDiv").hide();
+
         // AGREGAR: Función para calcular y mostrar el costo total
         function calcularCostoTotal() {
             const cantidad = parseFloat($("#cantidad").val()) || 0;
@@ -202,11 +220,11 @@
 
                 $("#facturaDiv").show();
                 $("#img_factura").prop("required", true);
-
                 // AGREGAR: Habilitar cálculo de costo total para entradas
                 $("#cantidad, #costo_ultima_entrada").on("input keyup change", calcularCostoTotal);
                 calcularCostoTotal(); // Calcular inmediatamente si ya hay valores
 
+                $("#ordenCompraDiv").show();
             } else if ($(this).val() == "2") {
                 $("#motivoSalidaDiv").show();
                 $("label[for='motivo_salida']").text("Motivo de salida");
@@ -238,6 +256,7 @@
                 $("#costoTotal").hide();
                 $("#cantidad, #costo_ultima_entrada").off("input keyup change", calcularCostoTotal);
 
+                $("#ordenCompraDiv").hide();
             } else {
                 $("#cantidad").closest(".mb-3").hide();
                 $("#fecha_ultima_entrada").closest(".mb-3").hide();
@@ -250,9 +269,10 @@
                 $("#facturaDiv").hide();
                 $("#img_factura").prop("required", false);
                 $("#motivoSalidaDiv").hide();
-                
                 // AGREGAR: Ocultar costo total cuando no hay selección
                 $("#costoTotal").hide();
+
+                $("#ordenCompraDiv").hide();
             }
         });
 

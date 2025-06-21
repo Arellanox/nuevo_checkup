@@ -6,19 +6,19 @@
       <h5>Elija una opción</h5>
       <div class="vertical-menu" id="menu-grid">
         <a href="#articulos" data-target="moduloCatArticulos">
-          <i class="bi bi-box-seam icono-menu"></i>
+          <i class="bi bi-box-seam icono-menu icono-articulos"></i>
           <span>Artículos</span>
         </a>
         <a href="#entradas" data-target="moduloCatEntradas">
-          <i class="bi bi-arrow-down-up icono-menu"></i>
+          <i class="bi bi-arrow-down-up icono-menu icono-entradas"></i>
           <span>Entradas y salidas</span>
         </a>
         <a href="inventarios-fisicos" data-target="moduloInventariosFisicos">
-          <i class="bi bi-pencil-square icono-menu"></i>
+          <i class="bi bi-pencil-square icono-menu icono-inventarios"></i>
           <span>Inventarios Físicos</span>
         </a>
         <a href="#requisiciones" data-target="moduloRequisiciones">
-          <i class="bi bi-file-earmark-text-fill icono-menu"></i>
+          <i class="bi bi-file-earmark-text-fill icono-menu icono-requisiciones"></i>
           <span>Requisiciones</span>
         </a>
       </div>
@@ -89,6 +89,13 @@
       <div class="d-flex align-items-start pb-3 mb-3 text-white rounded">
         <h2 class="mx-2">Requisiciones</h2>
       </div>
+      <div class="table-responsive">
+        <table
+          class="table responsive table-hover"
+          style="min-width: 1470px"
+          id="tableCatRequisiciones"
+        ></table>
+      </div>
     </div>
   </div>
 </div>
@@ -157,6 +164,39 @@
     margin-bottom: 10px;
     line-height: 1;
     display: block;
+  }
+
+  /* Iconos coloridos individuales */
+  .icono-articulos {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(2px 2px 4px rgba(102, 126, 234, 0.3));
+  }
+
+  .icono-entradas {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(2px 2px 4px rgba(245, 87, 108, 0.3));
+  }
+
+  .icono-inventarios {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(2px 2px 4px rgba(79, 172, 254, 0.3));
+  }
+
+  .icono-requisiciones {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(2px 2px 4px rgba(67, 233, 123, 0.3));
   }
 
   #menu-grid a span {

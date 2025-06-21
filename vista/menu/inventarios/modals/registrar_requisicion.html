@@ -1,0 +1,100 @@
+<!-- Modal Registrar Requisición -->
+<div class="modal fade" id="registrarRequisicionModal" tabindex="-1" aria-labelledby="registrarRequisicionLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="registrarRequisicionLabel">
+          Registrar Nueva Requisición
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formRegistrarRequisicion">
+          <div class="row">
+            <!-- Columna izquierda -->
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="areaSolicitante" class="form-label">Área Solicitante</label>
+                <select class="form-select" id="areaSolicitante" required>
+                  <option value="">Seleccione un área</option>
+                  <!-- Las opciones se cargarán dinámicamente -->
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="justificacion" class="form-label">Justificación</label>
+                <textarea class="form-control" id="justificacion" rows="3" required></textarea>
+              </div>
+
+              <div class="mb-3">
+                <label for="fechaLimite" class="form-label">Fecha Límite Necesaria</label>
+                <input type="date" class="form-control" id="fechaLimite" required>
+              </div>
+
+              <div class="mb-3">
+                <label for="prioridad" class="form-label">Prioridad</label>
+                <select class="form-select" id="prioridad" required>
+                  <option value="">Seleccione la prioridad</option>
+                  <option value="urgente">Urgente</option>
+                  <option value="normal">Normal</option>
+                  <option value="baja">Baja</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Columna derecha -->
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label">Artículos Requeridos</label>
+                <div class="d-grid gap-2">
+                  <button type="button" class="btn btn-primary" id="btnAgregarArticulo">
+                    <i class="bi bi-plus-circle"></i> Agregar Artículo
+                  </button>
+                </div>
+              </div>
+
+              <!-- Tabla de artículos -->
+              <div class="table-responsive">
+                <table class="table table-bordered" id="tablaArticulosRequisicion">
+                  <thead>
+                    <tr>
+                      <th>Artículo</th>
+                      <th>Cantidad</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Los artículos se agregarán dinámicamente -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary" form="formRegistrarRequisicion">
+          Guardar Requisición
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  #tablaArticulosRequisicion {
+    min-width: 500px;
+  }
+  
+  .btn-eliminar-articulo {
+    color: #dc3545;
+    cursor: pointer;
+  }
+  
+  .btn-eliminar-articulo:hover {
+    color: #bb2d3b;
+  }
+</style>
