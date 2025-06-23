@@ -150,7 +150,7 @@
                                                                 pertenece el artículo.</small>
                                                         </div>
                                                     </div>
-                                                    <div class="col-6">
+                                                    <!-- <div class="col-6">
                                                         <div class="mb-3">
                                                             <label for="maneja_caducidad" class="form-label">Maneja
                                                                 Caducidad</label>
@@ -164,43 +164,10 @@
                                                             <small class="form-text text-muted">Seleccione si el
                                                                 artículo maneja caducidad.</small>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
 
-                                                    <!--  Fecha caducidad -->
-                                                    <div class="col-6" id="fechaCaducidadDiv" style="display:none;">
-                                                        <div class="mb-3">
-                                                            <label for="fecha_caducidad" class="form-label">Fecha de
-                                                                Caducidad</label>
-                                                            <input type="date" class="form-control input-form"
-                                                                id="fecha_caducidad" name="fecha_caducidad">
-                                                            <div class="invalid-feedback">Este campo es obligatorio.
-                                                            </div>
-                                                            <small class="form-text text-muted">Ingrese la fecha de
-                                                                caducidad del artículo.</small>
-                                                        </div>
-                                                    </div>
-                                                    <!-- Campos que aparecen en lotes -->
-                                                    <div id="lotesFields">
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="mb-3">
-                                                                    <label for="numero_lote" class="form-label">Número
-                                                                        de Lote</label>
-                                                                    <input type="text" class="form-control input-form"
-                                                                        id="numero_lote" name="numero_lote">
-                                                                    <small class="form-text text-muted">Ingrese el
-                                                                        número de lote del producto.</small>
-                                                                </div>
-                                                            </div>
-                                                            <!-- <div class="col-md-6">
-                                                            <div class="mb-3">
-                                                            <label for="fecha_lote" class="form-label">Fecha de Lote</label>
-                                                            <input type="date" class="form-control input-form" id="fecha_lote" name="fecha_lote">
-                                                            <small class="form-text text-muted">Ingrese la fecha de fabricación del lote.</small>
-                                                            </div>
-                                                        </div> -->
-                                                        </div>
-                                                    </div>
+                                                    <!-- Nota: Los campos de fecha de caducidad, número de lote y fecha de lote 
+                                                         ahora se manejan en el modal de entrada para mejor control de inventario -->
                                                 </div>
                                             </div>
                                         </div>
@@ -249,8 +216,7 @@
 
                                                     <div class="col-6">
                                                         <div class="mb-3">
-                                                            <label for="unidad_minima" class="form-label">Stock Mínimo
-                                                                (Opcional)</label>
+                                                            <label for="unidad_minima" class="form-label">Stock Mínimo</label>
                                                             <input type="number" class="form-control input-form"
                                                                 id="unidad_minima" name="unidad_minima">
                                                             <div class="invalid-feedback">Este campo es opcional.</div>
@@ -538,15 +504,7 @@
         $('#estatus').prop('checked', false);
     }
 
-    // Mostrar u ocultar la fecha de caducidad según el valor seleccionado
-    $('#maneja_caducidad').on('change', function () {
-        if ($(this).val() == '1') {
-            $('#fechaCaducidadDiv').show();
-        } else {
-            $('#fechaCaducidadDiv').hide();
-            $('#fecha_caducidad').val('');
-        }
-    });
+    // Nota: La gestión de caducidad y lotes ahora se maneja en el modal de entrada
 
     // Mostrar u ocultar los campos de rendimiento según el valor seleccionado
     $('#maneja_rendimiento').on('change', function () {
@@ -616,8 +574,7 @@
     });*/
     // Ejecutar al cargar para el valor inicial
     $(document).ready(function () {
-        $('#maneja_caducidad').trigger('change');
-        $('#maneja_lotes').trigger('change');
+        // Nota: Los triggers de caducidad y lotes se removieron porque ahora se manejan en el modal de entrada
     });
 
     // Generar código de barras automático (mantén el existente)

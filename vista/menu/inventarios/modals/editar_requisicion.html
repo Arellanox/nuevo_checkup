@@ -77,26 +77,17 @@
                       <tr>
                         <th style="min-width: 200px;">Artículo</th>
                         <th style="width: 100px;">Cantidad</th>
-                        <th style="width: 120px;">Precio Est.</th>
-                        <th style="width: 120px;">Subtotal</th>
                         <th style="width: 80px;">Acciones</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr id="filaVaciaArticulosEditar">
-                        <td colspan="5" class="text-center text-muted">
+                        <td colspan="3" class="text-center text-muted">
                           <i class="bi bi-inbox"></i><br>
                           No hay artículos agregados
                         </td>
                       </tr>
                     </tbody>
-                    <tfoot class="table-light">
-                      <tr>
-                        <th colspan="3" class="text-end">Total Estimado:</th>
-                        <th id="totalEstimadoEditar">$0.00</th>
-                        <th></th>
-                      </tr>
-                    </tfoot>
                   </table>
                 </div>
               </div>
@@ -122,7 +113,7 @@
     </div>
   </div>
   
-  <!-- Modal para Editar Cantidad y Precio en Edición -->
+  <!-- Modal para Editar Cantidad en Edición -->
   <div class="modal fade" id="editarArticuloEdicionModal" tabindex="-1" aria-labelledby="editarArticuloEdicionLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -146,21 +137,6 @@
               <label for="editarCantidadEdicion" class="form-label">Cantidad Solicitada <span class="text-danger">*</span></label>
               <input type="number" class="form-control" id="editarCantidadEdicion" 
                      min="0.01" step="0.01" required>
-            </div>
-            
-            <div class="mb-3">
-              <label for="editarPrecioEdicion" class="form-label">Precio Estimado</label>
-              <div class="input-group">
-                <span class="input-group-text">$</span>
-                <input type="number" class="form-control" id="editarPrecioEdicion" 
-                       min="0" step="0.01" placeholder="0.00">
-              </div>
-              <div class="form-text">Opcional - para cálculo de presupuesto</div>
-            </div>
-            
-            <div class="mb-3">
-              <label class="form-label"><strong>Subtotal:</strong></label>
-              <p id="editarSubtotalEdicion" class="mb-0 h5 text-success">$0.00</p>
             </div>
           </form>
         </div>

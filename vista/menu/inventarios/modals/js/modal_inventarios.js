@@ -38,15 +38,23 @@ $("#registrarArticuloForm").submit(function (event) {
             if (data.response.code == 1) {
               // El ID del artículo recién creado está directamente en data.response.data
               const articuloId = data.response.data;
-              const nombreArticulo = $("#registrarArticuloForm #nombre_comercial").val();
-              const claveArticulo = $("#registrarArticuloForm #clave_art").val();
-              
+              const nombreArticulo = $(
+                "#registrarArticuloForm #nombre_comercial"
+              ).val();
+              const claveArticulo = $(
+                "#registrarArticuloForm #clave_art"
+              ).val();
+
               $("#registrarArticuloForm")[0].reset();
               $("#registrarArticuloModal").modal("hide");
-              
+
               // Mostrar alerta personalizada con opciones
-              mostrarAlertaArticuloCreado(articuloId, nombreArticulo, claveArticulo);
-              
+              mostrarAlertaArticuloCreado(
+                articuloId,
+                nombreArticulo,
+                claveArticulo
+              );
+
               tableCatArticulos.ajax.reload();
               tableCatEntradas.ajax.reload();
             }
@@ -61,25 +69,29 @@ $("#registrarArticuloForm").submit(function (event) {
 });
 
 // Función personalizada para mostrar alerta con opciones después de crear artículo
-function mostrarAlertaArticuloCreado(articuloId, nombreArticulo, claveArticulo) {
-  console.log('ID del artículo creado:', articuloId); // Para depuración
-  
+function mostrarAlertaArticuloCreado(
+  articuloId,
+  nombreArticulo,
+  claveArticulo
+) {
+  console.log("ID del artículo creado:", articuloId); // Para depuración
+
   const Toast = Swal.mixin({
     toast: true,
-    position: 'bottom-end',
+    position: "bottom-end",
     showConfirmButton: false,
     showCloseButton: true,
     timerProgressBar: true,
     timer: 8000,
     didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
-      toast.addEventListener('mouseleave', Swal.resumeTimer)
-    }
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
   });
 
   Toast.fire({
-    icon: 'success',
-    title: '¡Artículo creado exitosamente!',
+    icon: "success",
+    title: "¡Artículo creado exitosamente!",
     html: `
       <div style="margin-top: 10px;">
         <p><strong>${nombreArticulo}</strong> (${claveArticulo})</p>
@@ -92,57 +104,61 @@ function mostrarAlertaArticuloCreado(articuloId, nombreArticulo, claveArticulo) 
     `,
     didOpen: () => {
       // Evento para registrar entrada
-      const btnRegistrarEntrada = document.getElementById('btnIrRegistrarEntrada');
-      const btnEditar = document.getElementById('btnEditarArticulo');
-      
+      const btnRegistrarEntrada = document.getElementById(
+        "btnIrRegistrarEntrada"
+      );
+      const btnEditar = document.getElementById("btnEditarArticulo");
+
       if (btnRegistrarEntrada) {
-        btnRegistrarEntrada.addEventListener('click', () => {
+        btnRegistrarEntrada.addEventListener("click", () => {
           Swal.close();
           abrirModalRegistrarEntrada(articuloId, nombreArticulo, claveArticulo);
         });
       }
-      
+
       // Evento para editar artículo
       if (btnEditar) {
-        btnEditar.addEventListener('click', () => {
+        btnEditar.addEventListener("click", () => {
           Swal.close();
           abrirModalEditarArticulo(articuloId, nombreArticulo, claveArticulo);
         });
       }
-    }
+    },
   });
 }
 
 // Función para abrir modal de registrar entrada con el artículo recién creado
 function abrirModalRegistrarEntrada(articuloId, nombreArticulo, claveArticulo) {
-  console.log('Buscando artículo con ID:', articuloId); // Para depuración
-  
+  console.log("Buscando artículo con ID:", articuloId); // Para depuración
+
   // Buscar el artículo en la tabla para obtener los datos completos
-  tableCatEntradas.ajax.reload(function() {
+  tableCatEntradas.ajax.reload(function () {
     // Buscar la fila correspondiente al artículo recién creado
     const data = tableCatEntradas.data().toArray();
-    console.log('Datos de la tabla:', data); // Para depuración
-    
-    const articuloEncontrado = data.find(item => {
-      console.log('Comparando:', item.ID_ARTICULO, 'con', articuloId); // Para depuración
+    console.log("Datos de la tabla:", data); // Para depuración
+
+    const articuloEncontrado = data.find((item) => {
+      console.log("Comparando:", item.ID_ARTICULO, "con", articuloId); // Para depuración
       return item.ID_ARTICULO == articuloId;
     });
-    
+
     if (articuloEncontrado) {
-      console.log('Artículo encontrado:', articuloEncontrado); // Para depuración
-      
+      console.log("Artículo encontrado:", articuloEncontrado); // Para depuración
+
       // Establecer como fila seleccionada
       rowSelected = articuloEncontrado;
-      
+
       // Abrir modal de registrar entrada
       $("#registrarEntradaModal").modal("show");
-      $("#registrandoEntrada").text(` ${nombreArticulo} (Clave: ${claveArticulo})`);
-      $("#registrandoCantidad").text(` ${articuloEncontrado.CANTIDAD || '0'}`);
+      $("#registrandoEntrada").text(
+        ` ${nombreArticulo} (Clave: ${claveArticulo})`
+      );
+      $("#registrandoCantidad").text(` ${articuloEncontrado.CANTIDAD || "0"}`);
 
       // Colocar los valores al formulario
       $("#registrarEntradaForm #no_art").val(articuloId);
       $("#registrarEntradaForm #nombre_comercial").val(nombreArticulo);
-      
+
       // Establecer estatus
       if (articuloEncontrado.ESTATUS == 1) {
         $("#registrarEntradaForm #estatus").prop("checked", true);
@@ -150,20 +166,28 @@ function abrirModalRegistrarEntrada(articuloId, nombreArticulo, claveArticulo) {
         $("#registrarEntradaForm #estatus").prop("checked", false);
       }
     } else {
-      console.log('No se encontró el artículo en la tabla de entradas'); // Para depuración
+      console.log("No se encontró el artículo en la tabla de entradas"); // Para depuración
       // Intentar buscar directamente por nombre y clave como fallback
-      const articuloPorNombre = data.find(item => 
-        item.NOMBRE_COMERCIAL === nombreArticulo && item.CLAVE_ART === claveArticulo
+      const articuloPorNombre = data.find(
+        (item) =>
+          item.NOMBRE_COMERCIAL === nombreArticulo &&
+          item.CLAVE_ART === claveArticulo
       );
-      
+
       if (articuloPorNombre) {
-        console.log('Artículo encontrado por nombre:', articuloPorNombre); // Para depuración
+        console.log("Artículo encontrado por nombre:", articuloPorNombre); // Para depuración
         rowSelected = articuloPorNombre;
         $("#registrarEntradaModal").modal("show");
-        $("#registrandoEntrada").text(` ${nombreArticulo} (Clave: ${claveArticulo})`);
-        $("#registrandoCantidad").text(` ${articuloPorNombre.CANTIDAD || '0'}`);
+        $("#registrandoEntrada").text(
+          ` ${nombreArticulo} (Clave: ${claveArticulo})`
+        );
+        $("#registrandoCantidad").text(` ${articuloPorNombre.CANTIDAD || "0"}`);
       } else {
-        alertToast("El artículo fue creado exitosamente. Actualiza la página para registrar una entrada.", "info", 6000);
+        alertToast(
+          "El artículo fue creado exitosamente. Actualiza la página para registrar una entrada.",
+          "info",
+          6000
+        );
       }
     }
   });
@@ -693,7 +717,6 @@ $("#registrarProveedorForm").submit(function (event) {
   return false;
 });
 
-
 // Filtrar tipos
 $("#filtrarTiposForm").submit(function (event) {
   event.preventDefault();
@@ -736,9 +759,6 @@ function toggleResetButtonTipos() {
 $("#resetFiltrosTiposBtn").hide();
 $('input[type=radio][name="activoTipos"]').on("change", toggleResetButtonTipos);
 
-
-
-
 // Filtrar unidades
 $("#filtrarUnidadesForm").submit(function (event) {
   event.preventDefault();
@@ -779,8 +799,10 @@ function toggleResetButtonUnidades() {
 }
 
 $("#resetFiltrosUnidadesBtn").hide();
-$('input[type=radio][name="activoUnidades"]').on("change", toggleResetButtonUnidades);
-
+$('input[type=radio][name="activoUnidades"]').on(
+  "change",
+  toggleResetButtonUnidades
+);
 
 // Filtrar marcas
 $("#filtrarMarcasForm").submit(function (event) {
@@ -826,32 +848,35 @@ function toggleResetButtonMarcas() {
 $("#resetFiltrosMarcasBtn").hide();
 
 // Mostrar/ocultar al cambiar radios
-$('input[type=radio][name="activoMarcas"]').on("change", toggleResetButtonMarcas);
+$('input[type=radio][name="activoMarcas"]').on(
+  "change",
+  toggleResetButtonMarcas
+);
 
-// Filtrar motivos 
+// Filtrar motivos
 $("#filtrarMotivosForm").submit(function (event) {
   event.preventDefault();
 
-let activo = $('input[name="activoMotivos"]:checked').val();
-let tipoMovimiento = $("#motivosTipoMovimiento").val();
+  let activo = $('input[name="activoMotivos"]:checked').val();
+  let tipoMovimiento = $("#motivosTipoMovimiento").val();
 
-if (activo === "0") {
+  if (activo === "0") {
     // Para inactivos usar API 24
     dataTableCatMotivos = { api: 24 };
-    
+
     // Si también hay filtro de tipo, agregarlo
     if (tipoMovimiento && tipoMovimiento !== "") {
-        dataTableCatMotivos.tipo_movimiento = tipoMovimiento;
+      dataTableCatMotivos.tipo_movimiento = tipoMovimiento;
     }
-} else {
+  } else {
     // Para activos o sin filtro de estatus usar API 15
     dataTableCatMotivos = { api: 15 };
-    
+
     // Si hay filtro de tipo, agregarlo (como hace tu case 15)
     if (tipoMovimiento && tipoMovimiento !== "") {
-        dataTableCatMotivos.tipo_movimiento = tipoMovimiento;
+      dataTableCatMotivos.tipo_movimiento = tipoMovimiento;
     }
-}
+  }
 
   tableCatMotivos.ajax.reload();
   $("#filtrarMotivosModal").modal("hide");
@@ -871,7 +896,9 @@ $("#resetFiltrosMotivosBtn").click(function () {
 // Función para mostrar/ocultar botón reset de motivos
 function toggleResetButtonMotivos() {
   const anyRadioChecked = $('input[name="activoMotivos"]:checked').length > 0;
-  const tipoMovimientoSelected = $("#motivoTipoMovimiento").val() !== "" && $("#motivoTipoMovimiento").val() !== null;
+  const tipoMovimientoSelected =
+    $("#motivoTipoMovimiento").val() !== "" &&
+    $("#motivoTipoMovimiento").val() !== null;
 
   if (anyRadioChecked || tipoMovimientoSelected) {
     $("#resetFiltrosMotivosBtn").show();
@@ -884,9 +911,11 @@ function toggleResetButtonMotivos() {
 $("#resetFiltrosMotivosBtn").hide();
 
 // Mostrar/ocultar al cambiar radios o select
-$('input[type=radio][name="activoMotivos"]').on("change", toggleResetButtonMotivos);
+$('input[type=radio][name="activoMotivos"]').on(
+  "change",
+  toggleResetButtonMotivos
+);
 $("#motivoTipoMovimiento").on("change", toggleResetButtonMotivos);
-
 
 // Filtrar proveedores
 $("#filtrarProveedoresForm").submit(function (event) {
@@ -932,8 +961,10 @@ function toggleResetButtonProveedores() {
 $("#resetFiltrosProveedoresBtn").hide();
 
 // Mostrar/ocultar al cambiar radios
-$('input[type=radio][name="activoProveedor"]').on("change", toggleResetButtonProveedores);
-
+$('input[type=radio][name="activoProveedor"]').on(
+  "change",
+  toggleResetButtonProveedores
+);
 
 $("#filtrarArticuloForm").submit(function (event) {
   event.preventDefault();
@@ -1019,4 +1050,3 @@ $(
 ).on("change", toggleResetButton);
 $("#tipoArticulo").on("change", toggleResetButton);
 $("#area").on("change", toggleResetButton);
-

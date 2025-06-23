@@ -1,0 +1,204 @@
+<!-- Modal Surtir Requisición -->
+<div class="modal fade" id="surtirRequisicionModal" tabindex="-1" aria-labelledby="surtirRequisicionLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="surtirRequisicionLabel">
+          <i class="bi bi-box-seam"></i> Surtir Requisición <span id="numeroRequisicionSurtir" class="text-primary"></span>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formSurtirRequisicion">
+          <input type="hidden" id="surtirIdRequisicion">
+          
+          <div class="row">
+            <!-- Información General -->
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-header">
+                  <h6 class="card-title mb-0">Información de Entrega</h6>
+                </div>
+                <div class="card-body">
+                  <div class="mb-3">
+                    <label for="fechaEntrega" class="form-label">Fecha de Entrega <span class="text-danger">*</span></label>
+                    <input type="datetime-local" class="form-control" id="fechaEntrega" required>
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="personaRecibe" class="form-label">Persona que Recibe</label>
+                    <input type="text" class="form-control" id="personaRecibe" 
+                           placeholder="Nombre completo">
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="observacionesSurtimiento" class="form-label">Observaciones</label>
+                    <textarea class="form-control" id="observacionesSurtimiento" rows="3" 
+                              placeholder="Observaciones sobre la entrega..."></textarea>
+                  </div>
+
+                  <!-- Evidencia Fotográfica -->
+                  <div class="mb-3">
+                    <label for="evidenciaFotografica" class="form-label">
+                      Evidencia Fotográfica 
+                      <span class="badge bg-info ms-1">Recomendado</span>
+                    </label>
+                    <input type="file" class="form-control" id="evidenciaFotografica" 
+                           name="evidencia_fotografica[]" accept="image/*" multiple>
+                    <div class="form-text">
+                      <i class="bi bi-camera"></i> Tome fotos de los artículos entregados
+                    </div>
+                  </div>
+
+                  <!-- Preview de Imágenes -->
+                  <div id="previewImagenes" style="display: none;">
+                    <label class="form-label">Vista Previa:</label>
+                    <div id="contenedorImagenes" class="d-flex flex-wrap gap-2">
+                      <!-- Se llenarán las imágenes dinámicamente -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Artículos para Surtir -->
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <h6 class="card-title mb-0">Artículos para Surtir</h6>
+                  <span class="badge bg-secondary" id="contadorArticulosSurtir">0 artículos</span>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                    <table class="table table-sm" id="tablaSurtirArticulos">
+                      <thead class="table-light sticky-top">
+                        <tr>
+                          <th style="width: 250px;">Artículo</th>
+                          <th style="width: 80px;" class="text-center">Aprobado</th>
+                          <th style="width: 80px;" class="text-center">Ya Surtido</th>
+                          <th style="width: 100px;" class="text-center">A Entregar</th>
+                          <th style="width: 80px;" class="text-center">Stock</th>
+                          <th style="width: 120px;" class="text-center">Estado</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- Se llenará dinámicamente -->
+                      </tbody>
+                    </table>
+                  </div>
+                  
+                  <!-- Resumen de Surtimiento -->
+                  <div class="mt-3">
+                    <div class="row text-center">
+                      <div class="col-3">
+                        <div class="border rounded p-2">
+                          <div class="fw-bold text-primary" id="totalArticulos">0</div>
+                          <small class="text-muted">Total Artículos</small>
+                        </div>
+                      </div>
+                      <div class="col-3">
+                        <div class="border rounded p-2">
+                          <div class="fw-bold text-success" id="articulosCompletos">0</div>
+                          <small class="text-muted">Completos</small>
+                        </div>
+                      </div>
+                      <div class="col-3">
+                        <div class="border rounded p-2">
+                          <div class="fw-bold text-warning" id="articulosParciales">0</div>
+                          <small class="text-muted">Parciales</small>
+                        </div>
+                      </div>
+                      <div class="col-3">
+                        <div class="border rounded p-2">
+                          <div class="fw-bold text-danger" id="articulosPendientes">0</div>
+                          <small class="text-muted">Pendientes</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+        <button type="button" class="btn btn-success" id="btnGuardarSurtimiento">
+          <i class="bi bi-check-circle"></i> Guardar Surtimiento
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  #tablaSurtirArticulos {
+    font-size: 0.9em;
+  }
+  
+  .input-cantidad-surtir {
+    width: 70px;
+    text-align: center;
+  }
+  
+  .badge-completo {
+    background-color: #28a745 !important;
+  }
+  
+  .badge-parcial {
+    background-color: #ffc107 !important;
+    color: #000;
+  }
+  
+  .badge-pendiente {
+    background-color: #dc3545 !important;
+  }
+  
+  .badge-sin-stock {
+    background-color: #6c757d !important;
+  }
+  
+  .preview-imagen {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .preview-imagen:hover {
+    opacity: 0.8;
+  }
+  
+  .btn-eliminar-imagen {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: none;
+    background: #dc3545;
+    color: white;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .imagen-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .stock-bajo {
+    background-color: #ffe6e6;
+  }
+  
+  .stock-suficiente {
+    background-color: #e6ffe6;
+  }
+</style> 
