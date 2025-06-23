@@ -69,3 +69,7 @@ dataTableCatMotivos = {
 dataTableCatProveedores = {
     api: 16
 }
+
+dataTableCatRequisiciones = {
+    api: 25
+}

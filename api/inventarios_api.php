@@ -379,8 +379,8 @@ switch ($api) {
         ]);
         break;
     case 18:
-        // No se usa
-        $response = $master->getByProcedure("sp_areas_b", [null, null]);
+        // Obtener áreas activas para inventarios
+        $response = $master->getByProcedure("sp_inventarios_cat_areas_b", []);
         break;
     case 19:
         // Validar duplicados de artículos
@@ -458,6 +458,327 @@ switch ($api) {
         break;
     case 24:
         $response = $master->getByProcedure("sp_inventarios_cat_motivos_inactivos_b", []);
+        break;
+    case 25:
+        //buscar requisiciones
+        $response = $master->getByProcedure("sp_inventarios_cat_requisiciones_b ", []);
+        break;
+    case 26:
+        //insertar/actualizar requisiciones
+        $id_requisicion = isset($_POST['id_requisicion']) && $_POST['id_requisicion'] !== '' && $_POST['id_requisicion'] !== 'null' ? $_POST['id_requisicion'] : null;
+        $area_solicitante_id = isset($_POST['area_solicitante_id']) ? intval($_POST['area_solicitante_id']) : null;
+        $fecha_limite = isset($_POST['fecha_limite']) ? $_POST['fecha_limite'] : null;
+        $prioridad = isset($_POST['prioridad']) ? $_POST['prioridad'] : null;
+        $justificacion = isset($_POST['justificacion']) ? $_POST['justificacion'] : null;
+        $estatus = isset($_POST['estatus']) ? $_POST['estatus'] : 'borrador';
+        
+        // Validar parámetros obligatorios
+        if ($area_solicitante_id <= 0 || empty($fecha_limite) || empty($prioridad) || empty($justificacion)) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: Faltan parámetros obligatorios (área, fecha límite, prioridad o justificación)',
+                'data' => array()
+            );
+            break;
+        }
+        
+        // Validar sesión de usuario
+        if (!isset($_SESSION['id']) || empty($_SESSION['id'])) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: No se ha identificado el usuario en la sesión',
+                'data' => array()
+            );
+            break;
+        }
+        
+        // Log de debugging
+        error_log("API 26 - Parámetros recibidos: " . json_encode([
+            'id_requisicion' => $id_requisicion,
+            'area_solicitante_id' => $area_solicitante_id,
+            'usuario_solicitante_id' => $_SESSION['id'],
+            'fecha_limite' => $fecha_limite,
+            'prioridad' => $prioridad,
+            'justificacion' => $justificacion,
+            'estatus' => $estatus
+        ]));
+        
+        try {
+            error_log("API 26 - Llamando SP con parámetros: " . json_encode([
+                $id_requisicion,
+                $area_solicitante_id,
+                $_SESSION['id'],
+                $fecha_limite,
+                $prioridad,
+                $justificacion,
+                $estatus
+            ]));
+            
+            $response = $master->insertByProcedure("sp_inventarios_cat_requisiciones_g", [
+                $id_requisicion,
+                $area_solicitante_id,
+                $_SESSION['id'], // usuario_solicitante_id
+                $fecha_limite,
+                $prioridad,
+                $justificacion,
+                $estatus
+            ]);
+            
+            error_log("API 26 - Respuesta del SP: " . json_encode($response));
+            error_log("API 26 - Tipo de respuesta: " . gettype($response));
+            if (is_array($response) && isset($response['response'])) {
+                error_log("API 26 - Datos internos: " . json_encode($response['response']['data']));
+            }
+            
+        } catch (Exception $e) {
+            error_log("API 26 - Error en SP: " . $e->getMessage());
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: ' . $e->getMessage(),
+                'data' => array()
+            );
+        }
+        break;
+    
+    case 27:
+        //gestionar detalles de requisiciones
+        $requisicion_id = isset($_POST['requisicion_id']) ? $_POST['requisicion_id'] : null;
+        $articulo_id = isset($_POST['articulo_id']) ? $_POST['articulo_id'] : null;
+        $cantidad_solicitada = isset($_POST['cantidad_solicitada']) ? $_POST['cantidad_solicitada'] : null;
+        $precio_estimado = isset($_POST['precio_estimado']) && $_POST['precio_estimado'] !== '' && $_POST['precio_estimado'] !== 'null' ? $_POST['precio_estimado'] : null;
+        $operacion = isset($_POST['operacion']) ? $_POST['operacion'] : null;
+        $id_detalle = isset($_POST['id_detalle']) && $_POST['id_detalle'] !== '' && $_POST['id_detalle'] !== 'null' ? $_POST['id_detalle'] : null;
+        
+        // Log de debugging
+        error_log("API 27 - Parámetros recibidos: " . json_encode([
+            'requisicion_id' => $requisicion_id,
+            'articulo_id' => $articulo_id,
+            'cantidad_solicitada' => $cantidad_solicitada,
+            'precio_estimado' => $precio_estimado,
+            'operacion' => $operacion,
+            'id_detalle' => $id_detalle,
+            'operacion_type' => gettype($operacion)
+        ]));
+        
+        $response = $master->insertByProcedure("sp_inventarios_cat_requisiciones_detalles_g", [
+            $requisicion_id,
+            $articulo_id,
+            $cantidad_solicitada,
+            $precio_estimado,
+            $operacion,
+            $id_detalle
+        ]);
+        
+        // Log de la respuesta
+        error_log("API 27 - Respuesta del SP: " . json_encode($response));
+        break;
+    case 28:
+        //recuperar detalles de requisiciones
+        $requisicion_id = isset($_POST['requisicion_id']) ? $_POST['requisicion_id'] : null;
+        
+        // Validar parámetro obligatorio
+        if ($requisicion_id === null || $requisicion_id === '') {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: ID de requisición es obligatorio',
+                'data' => array()
+            );
+            break;
+        }
+        
+        // Log de debugging
+        error_log("API 28 - Recuperando detalles para requisición ID: " . $requisicion_id);
+        
+        try {
+            $response = $master->getByProcedure("sp_inventarios_cat_requisiciones_detalles_select", [
+                $requisicion_id
+            ]);
+            
+            error_log("API 28 - Respuesta del SP: " . json_encode($response));
+            
+        } catch (Exception $e) {
+            error_log("API 28 - Error en SP: " . $e->getMessage());
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: ' . $e->getMessage(),
+                'data' => array()
+            );
+                 }
+         break;
+    case 29:
+        //actualizar requisiciones existentes
+        $id_requisicion = isset($_POST['id_requisicion']) && $_POST['id_requisicion'] !== '' && $_POST['id_requisicion'] !== 'null' ? $_POST['id_requisicion'] : null;
+        $area_solicitante_id = isset($_POST['area_solicitante_id']) ? intval($_POST['area_solicitante_id']) : null;
+        $fecha_limite = isset($_POST['fecha_limite']) ? $_POST['fecha_limite'] : null;
+        $prioridad = isset($_POST['prioridad']) ? $_POST['prioridad'] : null;
+        $justificacion = isset($_POST['justificacion']) ? $_POST['justificacion'] : null;
+        $estatus = isset($_POST['estatus']) ? $_POST['estatus'] : 'borrador';
+        
+        // Validar parámetros obligatorios
+        if ($id_requisicion === null || $area_solicitante_id <= 0 || empty($fecha_limite) || empty($prioridad) || empty($justificacion)) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: Faltan parámetros obligatorios (ID requisición, área, fecha límite, prioridad o justificación)',
+                'data' => array()
+            );
+            break;
+        }
+        
+        // Validar sesión de usuario
+        if (!isset($_SESSION['id']) || empty($_SESSION['id'])) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: No se ha identificado el usuario en la sesión',
+                'data' => array()
+            );
+            break;
+        }
+        
+        // Log de debugging
+        error_log("API 29 - Parámetros recibidos: " . json_encode([
+            'id_requisicion' => $id_requisicion,
+            'area_solicitante_id' => $area_solicitante_id,
+            'usuario_solicitante_id' => $_SESSION['id'],
+            'fecha_limite' => $fecha_limite,
+            'prioridad' => $prioridad,
+            'justificacion' => $justificacion,
+            'estatus' => $estatus
+        ]));
+        
+        try {
+            $response = $master->insertByProcedure("sp_inventarios_cat_requisiciones_g", [
+                $id_requisicion, // Para UPDATE, pasar el ID existente
+                $area_solicitante_id,
+                $_SESSION['id'], // usuario_solicitante_id
+                $fecha_limite,
+                $prioridad,
+                $justificacion,
+                $estatus
+            ]);
+            
+            error_log("API 29 - Respuesta del SP: " . json_encode($response));
+            
+        } catch (Exception $e) {
+            error_log("API 29 - Error en SP: " . $e->getMessage());
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: ' . $e->getMessage(),
+                'data' => array()
+            );
+        }
+        break;
+    case 30:
+        //eliminar detalles de requisiciones
+        $id_detalle = isset($_POST['id_detalle']) ? $_POST['id_detalle'] : null;
+        $requisicion_id = isset($_POST['requisicion_id']) ? $_POST['requisicion_id'] : null;
+        
+        // Validar parámetros obligatorios
+        if ($id_detalle === null || $requisicion_id === null) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: Faltan parámetros obligatorios (ID detalle y ID requisición)',
+                'data' => array()
+            );
+            break;
+        }
+        
+        // Validar sesión de usuario
+        if (!isset($_SESSION['id']) || empty($_SESSION['id'])) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: No se ha identificado el usuario en la sesión',
+                'data' => array()
+            );
+            break;
+        }
+        
+        // Log de debugging
+        error_log("API 30 - Parámetros recibidos: " . json_encode([
+            'id_detalle' => $id_detalle,
+            'requisicion_id' => $requisicion_id,
+            'usuario_id' => $_SESSION['id']
+        ]));
+        
+        try {
+            $response = $master->insertByProcedure("sp_inventarios_cat_requisiciones_detalles_delete", [
+                $id_detalle,
+                $requisicion_id,
+                $_SESSION['id']
+            ]);
+            
+            error_log("API 30 - Respuesta del SP: " . json_encode($response));
+            
+        } catch (Exception $e) {
+            error_log("API 30 - Error en SP: " . $e->getMessage());
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: ' . $e->getMessage(),
+                'data' => array()
+            );
+        }
+        break;
+    case 31:
+        //aprobar o rechazar requisiciones
+        $id_requisicion = isset($_POST['id_requisicion']) ? $_POST['id_requisicion'] : null;
+        $accion = isset($_POST['accion']) ? $_POST['accion'] : null; // 'aprobar' o 'rechazar'
+        $observaciones_aprobacion = isset($_POST['observaciones_aprobacion']) ? $_POST['observaciones_aprobacion'] : null;
+        
+        // Validar parámetros obligatorios
+        if ($id_requisicion === null || $accion === null) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: Faltan parámetros obligatorios (ID requisición y acción)',
+                'data' => array()
+            );
+            break;
+        }
+        
+        // Validar que la acción sea válida
+        if (!in_array(strtolower($accion), ['aprobar', 'rechazar'])) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: Acción no válida. Use "aprobar" o "rechazar"',
+                'data' => array()
+            );
+            break;
+        }
+        
+        // Validar sesión de usuario
+        if (!isset($_SESSION['id']) || empty($_SESSION['id'])) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: No se ha identificado el usuario en la sesión',
+                'data' => array()
+            );
+            break;
+        }
+        
+        // Log de debugging
+        error_log("API 31 - Parámetros recibidos: " . json_encode([
+            'id_requisicion' => $id_requisicion,
+            'accion' => $accion,
+            'usuario_aprobador_id' => $_SESSION['id'],
+            'observaciones_aprobacion' => $observaciones_aprobacion
+        ]));
+        
+        try {
+            $response = $master->insertByProcedure("sp_inventarios_cat_requisiciones_aprobar", [
+                $id_requisicion,
+                $accion,
+                $_SESSION['id'], // usuario_aprobador_id
+                $observaciones_aprobacion
+            ]);
+            
+            error_log("API 31 - Respuesta del SP: " . json_encode($response));
+            
+        } catch (Exception $e) {
+            error_log("API 31 - Error en SP: " . $e->getMessage());
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: ' . $e->getMessage(),
+                'data' => array()
+            );
+        }
         break;
     default:
         $response = "API no definida.";

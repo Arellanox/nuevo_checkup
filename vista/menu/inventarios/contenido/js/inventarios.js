@@ -76,7 +76,9 @@ $(document).ready(function () {
     $("#tab-menu").show();
     $("#btnAgregar").hide();
     rowSelected = null; // Resetea la selección de fila
+    rowSelectedRequisicion = null; // Resetea la selección de requisiciones
     $("#btnRegistrar").hide();
+    $("#btnEditarRequisicion").prop('disabled', true); // Deshabilita botón de editar requisiciones
     $("#titulosEntradasSalidas").text("Entradas");
   });
 
@@ -1243,6 +1245,256 @@ tableCatTransacciones = $("#tableCatTransacciones").DataTable({
   buttons: [],
 });
 
+//DATATABLE DE DETALLES DE REQUISICIONES
+tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
+  order: [[1, "desc"]], // Ordenar por fecha de creación
+  autoWidth: false,
+  language: {
+    url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+  },
+  lengthChange: false,
+  info: true,
+  paging: true,
+  sorting: true,
+  scrollY: "68vh",
+  scrollX: true,
+  scrollCollapse: true,
+  fixedHeader: true,
+  ajax: {
+    dataType: "json",
+    data: function (d) {
+      return $.extend(d, dataTableCatRequisiciones);
+    },
+    method: "POST",
+    url: "../../../api/inventarios_api.php",
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.error("Error en DataTable Requisiciones:", jqXHR.responseText || textStatus || errorThrown || "Error desconocido");
+      alertErrorAJAX(jqXHR, textStatus, errorThrown);
+    },
+    dataSrc: function(json) {
+      console.log("Datos recibidos para requisiciones:", json);
+      if (json.response && json.response.data) {
+        return json.response.data;
+      } else if (json.data) {
+        return json.data;
+      } else if (Array.isArray(json)) {
+        return json;
+      } else {
+        console.error("Estructura de datos no reconocida:", json);
+        return [];
+      }
+    },
+  },
+  columns: [
+    { data: "numero_requisicion" },
+    { data: "fecha_creacion" },
+    { data: "area_solicitante" },
+    { data: "solicitante" },
+    { 
+      data: "prioridad",
+      render: function(data, type, row) {
+        const badges = {
+          'urgente': 'badge bg-danger',
+          'normal': 'badge bg-primary', 
+          'baja': 'badge bg-secondary'
+        };
+        const badgeClass = badges[data] || 'badge bg-light text-dark';
+        return `<span class="${badgeClass}">${data ? data.charAt(0).toUpperCase() + data.slice(1) : ''}</span>`;
+      }
+    },
+    { 
+      data: "estatus",
+      render: function(data, type, row) {
+        const badges = {
+          'borrador': 'badge bg-warning text-dark',
+          'pendiente': 'badge bg-info',
+          'aprobada': 'badge bg-success',
+          'rechazada': 'badge bg-danger',
+          'parcialmente_surtida': 'badge bg-warning',
+          'completada': 'badge bg-success',
+          'pausada': 'badge bg-secondary'
+        };
+        const badgeClass = badges[data] || 'badge bg-light text-dark';
+        return `<span class="${badgeClass}">${data ? data.charAt(0).toUpperCase() + data.slice(1).replace('_', ' ') : ''}</span>`;
+      }
+    },
+    { 
+      data: "fecha_limite",
+      render: function(data, type, row) {
+        if (!data) return '-';
+        // Si el data ya viene formateado del SP, usarlo directo
+        return data;
+      }
+    },
+    { 
+      data: "total_estimado",
+      render: function(data, type, row) {
+        if (!data || data === '0.00') return '$0.00';
+        return data.toString().includes('$') ? data : `$${parseFloat(data).toFixed(2)}`;
+      }
+    },
+    { 
+      data: "total_articulos",
+      render: function(data, type, row) {
+        return data || '0';
+      }
+    },
+    { 
+      data: "aprobador",
+      render: function(data, type, row) {
+        return data || '-';
+      }
+    },
+    { 
+      data: "fecha_aprobacion",
+      render: function(data, type, row) {
+        return data || '-';
+      }
+    },
+    { 
+      data: "alerta_tiempo",
+      render: function(data, type, row) {
+        const alerts = {
+          'Vencida': 'badge bg-danger',
+          'Por vencer': 'badge bg-warning text-dark',
+          'Normal': 'badge bg-success'
+        };
+        const alertClass = alerts[data] || 'badge bg-light text-dark';
+        return `<span class="${alertClass}">${data || 'Normal'}</span>`;
+      }
+    },
+    { 
+      data: "justificacion",
+      render: function(data, type, row) {
+        if (!data) return '-';
+        if (data.length > 50) {
+          return `<span title="${data}">${data.substring(0, 50)}...</span>`;
+        }
+        return data;
+      }
+    },
+    { 
+      data: "observaciones_aprobacion",
+      render: function(data, type, row) {
+        if (!data) return '-';
+        if (data.length > 30) {
+          return `<span title="${data}">${data.substring(0, 30)}...</span>`;
+        }
+        return data;
+      }
+    },
+    {
+      data: null,
+      render: function(data, type, row) {
+        let buttons = '';
+        
+        // Solo mostrar botones de aprobación si está pendiente
+        if (row.estatus === 'pendiente') {
+          buttons += `
+            <div class="d-flex gap-1 justify-content-center">
+              <button class="btn btn-sm btn-success btn-aprobar-requisicion" data-id="${row.id_requisicion}" title="Aprobar">
+                <i class="bi bi-check-circle"></i>
+              </button>
+              <button class="btn btn-sm btn-danger btn-rechazar-requisicion" data-id="${row.id_requisicion}" title="Rechazar">
+                <i class="bi bi-x-circle"></i>
+              </button>
+            </div>
+          `;
+        }
+        
+        return buttons || '<span class="text-muted">-</span>';
+      }
+    }
+  ],
+  columnDefs: [
+    { targets: 0, title: "Número", className: "all", width: "100px" },
+    { targets: 1, title: "F. Creación", className: "all", width: "120px" },
+    { targets: 2, title: "Área", className: "all", width: "120px" },
+    { targets: 3, title: "Solicitante", className: "all", width: "150px" },
+    { targets: 4, title: "Prioridad", className: "all", width: "80px" },
+    { targets: 5, title: "Estado", className: "all", width: "100px" },
+    { targets: 6, title: "F. Límite", className: "all", width: "100px" },
+    { targets: 7, title: "Total", className: "all", width: "90px" },
+    { targets: 8, title: "Arts.", className: "all", width: "60px" },
+    { targets: 9, title: "Aprobador", className: "desktop", width: "120px" },
+    { targets: 10, title: "F. Aprobación", className: "desktop", width: "120px" },
+    { targets: 11, title: "Alerta", className: "all", width: "80px" },
+    { targets: 12, title: "Justificación", className: "desktop", width: "200px" },
+    { targets: 13, title: "Observaciones", className: "desktop", width: "150px" },
+    { targets: 14, title: "Acciones", className: "all", orderable: false, width: "120px" }
+  ],
+  dom: 'Bl<"dataTables_toolbar">frtip',
+  buttons: [
+    {
+      text: '<i class="bi bi-plus-lg"></i> Nueva Requisición',
+      className: "btn btn-success",
+      action: function() {
+        $("#registrarRequisicionModal").modal("show");
+      }
+    },
+    {
+      text: '<i class="bi bi-pencil-square"></i> Editar',
+      className: "btn btn-secondary",
+      attr: {
+        id: "btnEditarRequisicion",
+        "data-bs-toggle": "tooltip",
+        "data-bs-placement": "top",
+        title: "Editar la requisición seleccionada",
+        disabled: true,
+      },
+              action: function() {
+          if (rowSelectedRequisicion && rowSelectedRequisicion.estatus === 'borrador') {
+            cargarDatosRequisicionCompletos();
+            $("#editarRequisicionModal").modal("show");
+          } else {
+            alertToast("Por favor, seleccione una requisición en estado BORRADOR", "info", 4000);
+          }
+        }
+    },
+    {
+      text: '<i class="bi bi-funnel"></i> Filtrar',
+      className: "btn btn-warning",
+      action: function() {
+        // Aquí puedes agregar un modal de filtros si lo necesitas
+        console.log("Filtros de requisiciones");
+      }
+    }
+  ]
+});
+
+// Variable para la fila seleccionada de requisiciones
+var rowSelectedRequisicion = null;
+
+// Selección y eventos para tableCatRequisiciones
+selectDatatable(
+  "tableCatRequisiciones",
+  tableCatRequisiciones,
+  0,
+  0,
+  0,
+  0,
+  async function (select, dataClick) {
+    // CUANDO SELECCIONAN UNA FILA DE LA TABLA DE REQUISICIONES
+    rowSelectedRequisicion = dataClick;
+    
+    // Habilitar/deshabilitar botón de editar según el estado
+    if (rowSelectedRequisicion && rowSelectedRequisicion.estatus === 'borrador') {
+      $("#btnEditarRequisicion").prop('disabled', false);
+      $("#btnEditarRequisicion").removeClass('btn-outline-secondary').addClass('btn-secondary');
+    } else {
+      $("#btnEditarRequisicion").prop('disabled', true);
+      $("#btnEditarRequisicion").removeClass('btn-secondary').addClass('btn-outline-secondary');
+    }
+  },
+  async function () {
+    // DOBLE CLICK - Mostrar modal de detalles
+    if (rowSelectedRequisicion) {
+      cargarDetallesRequisicionCompletos();
+      $("#detalleRequisicionModal").modal("show");
+    }
+  }
+);
+
 selectDatatable(
   "tableCatDetallesEntradas",
   tableCatDetallesEntradas,
@@ -1606,6 +1858,22 @@ setTimeout(() => {
   tableCatEntradas.columns.adjust().draw();
 }, 1000);
 
+setTimeout(() => {
+  inputBusquedaTable(
+    "tableCatRequisiciones",
+    tableCatRequisiciones,
+    [
+      {
+        msj: "Filtre las requisiciones por coincidencia",
+        place: "top",
+      },
+    ],
+    [],
+    "col-12"
+  );
+  tableCatRequisiciones.columns.adjust().draw();
+}, 1000);
+
 // abrir modal para registrar un articulo
 $("#btnNuevoArticulo").click(function () {
   $("#registrarArticuloModal").modal("show");
@@ -1762,6 +2030,13 @@ tableCatDetallesEntradas.on("draw", function () {
 });
 
 tableCatTransacciones.on("draw", function () {
+  $(".dataTable th, .dataTable td").css({
+    "text-align": "center",
+    "vertical-align": "middle",
+  });
+});
+
+tableCatRequisiciones.on("draw", function () {
   $(".dataTable th, .dataTable td").css({
     "text-align": "center",
     "vertical-align": "middle",
@@ -2143,6 +2418,483 @@ $(document).ready(function () {
     });
   }
 
+  // ==================== FUNCIONES PARA REQUISICIONES ====================
+  
+  // Variables globales para requisiciones
+  var articulosRequisicion = [];
+  var contadorArticulos = 0;
+  var totalEstimadoRequisicion = 0;
+
+  // Cargar áreas cuando se abre el modal de registrar requisición
+  $("#registrarRequisicionModal").on("show.bs.modal", function() {
+    cargarAreasRequisicion();
+    establecerFechaMinima();
+    limpiarFormularioRequisicion();
+  });
+
+  function cargarAreasRequisicion() {
+    cargarCatalogoEnModal("#registrarRequisicionModal #areaSolicitante", {
+      api: 18, // API para áreas
+      campoId: "ID_AREA",
+      campoTexto: "DESCRIPCION",
+      placeholder: "Seleccione un área"
+    });
+  }
+
+  function establecerFechaMinima() {
+    const hoy = new Date();
+    const manana = new Date(hoy);
+    manana.setDate(hoy.getDate() + 1);
+    
+    const fechaMinima = manana.toISOString().split('T')[0];
+    $("#fechaLimite").attr("min", fechaMinima);
+  }
+
+  function limpiarFormularioRequisicion() {
+    $("#formRegistrarRequisicion")[0].reset();
+    $("#prioridad").val("normal");
+    $("#estatusRequisicion").val("borrador");
+    articulosRequisicion = [];
+    contadorArticulos = 0;
+    totalEstimadoRequisicion = 0;
+    actualizarTablaArticulos();
+    actualizarContadorYTotal();
+  }
+
+  // Evento para agregar artículo
+  $("#btnAgregarArticulo").on("click", function() {
+    cargarArticulosParaSeleccion();
+    $("#seleccionarArticuloModal").modal("show");
+  });
+
+  function cargarArticulosParaSeleccion() {
+    $.ajax({
+      url: "../../../api/inventarios_api.php",
+      type: "POST",
+      dataType: "json",
+      data: { api: 3, estatus: 1 }, // Solo artículos activos
+      success: function(response) {
+        if (response.response && response.response.code == 1) {
+          let tbody = $("#tablaSeleccionArticulos tbody");
+          tbody.empty();
+          
+          response.response.data.forEach(function(articulo) {
+            let fila = `
+              <tr>
+                <td>${articulo.CLAVE_ART}</td>
+                <td class="text-truncate-custom" title="${articulo.NOMBRE_COMERCIAL}">
+                  ${articulo.NOMBRE_COMERCIAL}
+                </td>
+                <td>${articulo.MARCAS || '-'}</td>
+                <td class="text-center">
+                  <span class="badge ${articulo.CANTIDAD > 0 ? 'bg-success' : 'bg-danger'}">
+                    ${articulo.CANTIDAD || 0}
+                  </span>
+                </td>
+                <td class="text-end">
+                  ${articulo.COSTO_MAS_ALTO ? 
+                    '$' + Number(articulo.COSTO_MAS_ALTO).toLocaleString('es-MX', {minimumFractionDigits: 2}) : 
+                    '-'
+                  }
+                </td>
+                <td class="text-center">
+                  <button class="btn btn-sm btn-primary btn-seleccionar-articulo" 
+                          data-id="${articulo.ID_ARTICULO}"
+                          data-nombre="${articulo.NOMBRE_COMERCIAL}"
+                          data-clave="${articulo.CLAVE_ART}"
+                          data-precio="${articulo.COSTO_MAS_ALTO || 0}">
+                    <i class="bi bi-plus-circle"></i> Agregar
+                  </button>
+                </td>
+              </tr>
+            `;
+            tbody.append(fila);
+          });
+        }
+      },
+      error: function(xhr, status, error) {
+        alertToast("Error al cargar los artículos", "error", 3000);
+      }
+    });
+  }
+
+  // Filtro de búsqueda en tabla de selección de artículos
+  $("#buscarArticulo").on("input", function() {
+    let filtro = $(this).val().toLowerCase();
+    $("#tablaSeleccionArticulos tbody tr").each(function() {
+      let textoFila = $(this).text().toLowerCase();
+      $(this).toggle(textoFila.includes(filtro));
+    });
+  });
+
+  // Seleccionar artículo de la tabla
+  $(document).on("click", ".btn-seleccionar-articulo", function() {
+    let articuloId = $(this).data("id");
+    let nombreArticulo = $(this).data("nombre");
+    let claveArticulo = $(this).data("clave");
+    let precioReferencia = parseFloat($(this).data("precio")) || 0;
+
+    // Verificar si ya está agregado
+    if (articulosRequisicion.find(art => art.id == articuloId)) {
+      alertToast("Este artículo ya está agregado a la requisición", "warning", 3000);
+      return;
+    }
+
+    // Agregar al array
+    let nuevoArticulo = {
+      id: articuloId,
+      nombre: nombreArticulo,
+      clave: claveArticulo,
+      cantidad: 1,
+      precio: precioReferencia,
+      subtotal: precioReferencia * 1
+    };
+
+    articulosRequisicion.push(nuevoArticulo);
+    contadorArticulos++;
+    
+    actualizarTablaArticulos();
+    actualizarContadorYTotal();
+    
+    $("#seleccionarArticuloModal").modal("hide");
+    alertToast(`Artículo "${nombreArticulo}" agregado exitosamente`, "success", 2000);
+  });
+
+  function actualizarTablaArticulos() {
+    let tbody = $("#tablaArticulosRequisicion tbody");
+    tbody.empty();
+
+    if (articulosRequisicion.length === 0) {
+      tbody.append(`
+        <tr id="filaVaciaArticulos">
+          <td colspan="5" class="text-center text-muted">
+            <i class="bi bi-inbox"></i><br>
+            No hay artículos agregados
+          </td>
+        </tr>
+      `);
+    } else {
+      articulosRequisicion.forEach(function(articulo, index) {
+        let fila = `
+          <tr>
+            <td>
+              <strong>${articulo.clave}</strong><br>
+              <small class="text-muted">${articulo.nombre}</small>
+            </td>
+            <td class="text-center">
+              <span class="badge bg-primary">${articulo.cantidad}</span>
+            </td>
+            <td class="text-end">
+              ${articulo.precio > 0 ? 
+                '$' + Number(articulo.precio).toLocaleString('es-MX', {minimumFractionDigits: 2}) : 
+                '-'
+              }
+            </td>
+            <td class="text-end">
+              <strong class="text-success">
+                ${articulo.subtotal > 0 ? 
+                  '$' + Number(articulo.subtotal).toLocaleString('es-MX', {minimumFractionDigits: 2}) : 
+                  '-'
+                }
+              </strong>
+            </td>
+            <td class="text-center">
+              <i class="bi bi-pencil btn-editar-articulo me-2" 
+                 data-index="${index}" 
+                 title="Editar cantidad y precio"></i>
+              <i class="bi bi-trash btn-eliminar-articulo" 
+                 data-index="${index}" 
+                 title="Eliminar artículo"></i>
+            </td>
+          </tr>
+        `;
+        tbody.append(fila);
+      });
+    }
+  }
+
+  function actualizarContadorYTotal() {
+    $("#contadorArticulos").text(`${contadorArticulos} artículo${contadorArticulos !== 1 ? 's' : ''}`);
+    
+    totalEstimadoRequisicion = articulosRequisicion.reduce((total, art) => total + art.subtotal, 0);
+    $("#totalEstimado").text('$' + Number(totalEstimadoRequisicion).toLocaleString('es-MX', {minimumFractionDigits: 2}));
+  }
+
+  // Editar artículo
+  $(document).on("click", ".btn-editar-articulo", function() {
+    let index = $(this).data("index");
+    let articulo = articulosRequisicion[index];
+
+    $("#editarArticuloId").val(articulo.id);
+    $("#editarIndiceTabla").val(index);
+    $("#editarNombreArticulo").text(`${articulo.clave} - ${articulo.nombre}`);
+    $("#editarCantidad").val(articulo.cantidad);
+    $("#editarPrecio").val(articulo.precio);
+    
+    calcularSubtotalEdicion();
+    $("#editarArticuloRequisicionModal").modal("show");
+  });
+
+  // Calcular subtotal en modal de edición
+  $("#editarCantidad, #editarPrecio").on("input", function() {
+    calcularSubtotalEdicion();
+  });
+
+  function calcularSubtotalEdicion() {
+    let cantidad = parseFloat($("#editarCantidad").val()) || 0;
+    let precio = parseFloat($("#editarPrecio").val()) || 0;
+    let subtotal = cantidad * precio;
+    
+    $("#editarSubtotal").text('$' + Number(subtotal).toLocaleString('es-MX', {minimumFractionDigits: 2}));
+  }
+
+  // Confirmar edición
+  $("#btnConfirmarEdicion").on("click", function() {
+    let index = parseInt($("#editarIndiceTabla").val());
+    let cantidad = parseFloat($("#editarCantidad").val());
+    let precio = parseFloat($("#editarPrecio").val()) || 0;
+
+    if (cantidad <= 0) {
+      alertToast("La cantidad debe ser mayor a 0", "warning", 3000);
+      return;
+    }
+
+    articulosRequisicion[index].cantidad = cantidad;
+    articulosRequisicion[index].precio = precio;
+    articulosRequisicion[index].subtotal = cantidad * precio;
+
+    actualizarTablaArticulos();
+    actualizarContadorYTotal();
+    
+    $("#editarArticuloRequisicionModal").modal("hide");
+    alertToast("Artículo actualizado exitosamente", "success", 2000);
+  });
+
+  // Eliminar artículo
+  $(document).on("click", ".btn-eliminar-articulo", function() {
+    let index = $(this).data("index");
+    let articulo = articulosRequisicion[index];
+
+    alertMensajeConfirm({
+      title: "Eliminar Artículo",
+      text: `¿Está seguro de eliminar "${articulo.nombre}" de la requisición?`,
+      icon: "warning"
+    }, function() {
+      articulosRequisicion.splice(index, 1);
+      contadorArticulos--;
+      
+      actualizarTablaArticulos();
+      actualizarContadorYTotal();
+      
+      alertToast("Artículo eliminado de la requisición", "success", 2000);
+    });
+  });
+
+  // Validar formulario antes de enviar
+  $("#formRegistrarRequisicion").on("submit", function(e) {
+    e.preventDefault();
+    
+    if (!validarFormularioRequisicion()) {
+      return;
+    }
+
+    guardarRequisicion();
+  });
+
+  function validarFormularioRequisicion() {
+    // Validar campos básicos
+    let area = $("#areaSolicitante").val();
+    let justificacion = $("#justificacion").val().trim();
+    let fechaLimite = $("#fechaLimite").val();
+    let prioridad = $("#prioridad").val();
+
+    if (!area) {
+      alertToast("Debe seleccionar un área solicitante", "warning", 3000);
+      return false;
+    }
+
+    if (justificacion.length < 10) {
+      alertToast("La justificación debe tener al menos 10 caracteres", "warning", 3000);
+      return false;
+    }
+
+    if (!fechaLimite) {
+      alertToast("Debe especificar una fecha límite", "warning", 3000);
+      return false;
+    }
+
+    // Validar que la fecha sea futura
+    let hoy = new Date();
+    let fechaSeleccionada = new Date(fechaLimite);
+    if (fechaSeleccionada <= hoy) {
+      alertToast("La fecha límite debe ser posterior a hoy", "warning", 3000);
+      return false;
+    }
+
+    if (!prioridad) {
+      alertToast("Debe seleccionar una prioridad", "warning", 3000);
+      return false;
+    }
+
+    // Validar artículos
+    if (articulosRequisicion.length === 0) {
+      alertToast("Debe agregar al menos un artículo a la requisición", "warning", 3000);
+      return false;
+    }
+
+    return true;
+  }
+
+  function guardarRequisicion(reintentos = 0) {
+    let datosRequisicion = {
+      api: 26, // API para guardar requisición
+      area_solicitante_id: parseInt($("#areaSolicitante").val()),
+      fecha_limite: $("#fechaLimite").val(),
+      prioridad: $("#prioridad").val(),
+      justificacion: $("#justificacion").val().trim(),
+      estatus: $("#estatusRequisicion").val()
+    };
+    
+    console.log('Enviando datos de requisición:', datosRequisicion);
+
+    $.ajax({
+      url: "../../../api/inventarios_api.php",
+      type: "POST",
+      data: datosRequisicion,
+      dataType: "json",
+      success: function(response) {
+        console.log('Respuesta COMPLETA de guardar requisición:', JSON.stringify(response, null, 2));
+        
+        if (response.response && response.response.code == 1 && response.response.data) {
+          let requisicionId = null;
+          let numeroRequisicion = null;
+          
+          // Manejar diferentes formatos de respuesta
+          if (Array.isArray(response.response.data) && response.response.data.length > 0) {
+            // Formato esperado: array con objeto
+            console.log('Datos de respuesta (array):', response.response.data[0]);
+            requisicionId = response.response.data[0].id_requisicion;
+            numeroRequisicion = response.response.data[0].numero_requisicion;
+          } else if (typeof response.response.data === 'object' && response.response.data.id_requisicion) {
+            // Formato alternativo: objeto directo
+            console.log('Datos de respuesta (objeto):', response.response.data);
+            requisicionId = response.response.data.id_requisicion;
+            numeroRequisicion = response.response.data.numero_requisicion;
+          } else if (typeof response.response.data === 'string' || typeof response.response.data === 'number') {
+            // Formato actual: solo el ID como string/number
+            console.log('Datos de respuesta (ID solo):', response.response.data);
+            requisicionId = response.response.data;
+            numeroRequisicion = `REQ-${new Date().getFullYear()}-${String(requisicionId).padStart(4, '0')}`;
+            console.log('Número de requisición generado:', numeroRequisicion);
+          }
+          
+          console.log('Requisición guardada exitosamente. ID:', requisicionId, 'Número:', numeroRequisicion);
+          
+          if (requisicionId) {
+            // Guardar detalles de artículos
+            guardarDetallesRequisicion(requisicionId, numeroRequisicion);
+          } else {
+            console.error('ID de requisición no encontrado en la respuesta');
+            alertToast("Error: No se pudo obtener el ID de la requisición guardada", "error", 4000);
+          }
+        } else {
+          console.error('Error en respuesta de requisición:', response);
+          let errorMsg = response.response && response.response.data && response.response.data[0] && response.response.data[0].ERROR 
+            ? response.response.data[0].ERROR 
+            : "Error al guardar la requisición";
+          
+          // Verificar si es error de duplicado y reintentar
+          if (errorMsg.includes("Duplicate entry") && errorMsg.includes("numero_requisicion") && reintentos < 3) {
+            console.log(`Error de duplicado detectado. Reintentando... (${reintentos + 1}/3)`);
+            setTimeout(() => {
+              guardarRequisicion(reintentos + 1);
+            }, 1000 + (reintentos * 500)); // Delay incremental: 1s, 1.5s, 2s
+          } else {
+            alertToast(errorMsg, "error", 4000);
+          }
+        }
+      },
+      error: function(xhr, status, error) {
+        console.error('Error AJAX al guardar requisición:', xhr.responseText);
+        alertToast("Error de conexión al guardar la requisición", "error", 4000);
+      }
+    });
+  }
+
+  function guardarDetallesRequisicion(requisicionId, numeroRequisicion) {
+    let detallesGuardados = 0;
+    let totalDetalles = articulosRequisicion.length;
+
+    articulosRequisicion.forEach(function(articulo) {
+      let datosDetalle = {
+        api: 27, // API para guardar detalles
+        requisicion_id: requisicionId,
+        articulo_id: articulo.id,
+        cantidad_solicitada: articulo.cantidad,
+        precio_estimado: articulo.precio || 0,
+        operacion: 'INSERT'
+      };
+      
+      console.log('Enviando datos del detalle:', datosDetalle);
+      console.log('Operación específica:', datosDetalle.operacion);
+      console.log('Tipo de operación:', typeof datosDetalle.operacion);
+
+      $.ajax({
+        url: "../../../api/inventarios_api.php",
+        type: "POST",
+        data: datosDetalle,
+        dataType: "json",
+        success: function(response) {
+          console.log(`Respuesta del detalle ${detallesGuardados + 1}:`, response);
+          
+          // Verificar si es exitoso por código 1, 2 o por mensaje de éxito
+          let esExitoso = false;
+          if (response.response && (response.response.code == 1 || response.response.code == 2)) {
+            esExitoso = true;
+          } else if (response === "Operación completada exitosamente." || 
+                     (typeof response === 'string' && response.includes('exitosamente'))) {
+            esExitoso = true;
+          } else if (response.response && (response.response.msj || response.response.message) && 
+                     (response.response.msj === "Operación completada exitosamente." || 
+                      response.response.message === "Operación completada exitosamente." ||
+                      (response.response.msj && response.response.msj.includes('exitosamente')) ||
+                      (response.response.message && response.response.message.includes('exitosamente')))) {
+            esExitoso = true;
+          }
+          
+          if (esExitoso) {
+            detallesGuardados++;
+            console.log(`Detalle ${detallesGuardados} de ${totalDetalles} guardado exitosamente`);
+            
+            if (detallesGuardados === totalDetalles) {
+              // Todos los detalles guardados exitosamente
+              alertToast(`Requisición ${numeroRequisicion} guardada exitosamente`, "success", 4000);
+              $("#registrarRequisicionModal").modal("hide");
+              
+              // Limpiar formulario para próxima requisición
+              limpiarFormularioRequisicion();
+              
+              // Recargar tabla de requisiciones
+              if (typeof tableCatRequisiciones !== 'undefined') {
+                tableCatRequisiciones.ajax.reload();
+              }
+            }
+          } else {
+            console.error('Error al guardar detalle:', response);
+            let errorMsg = response.response && response.response.data && response.response.data[0] && response.response.data[0].ERROR 
+              ? response.response.data[0].ERROR 
+              : "Error al guardar los detalles de la requisición";
+            alertToast(errorMsg, "error", 4000);
+          }
+        },
+        error: function(xhr, status, error) {
+          console.error('Error AJAX al guardar detalle:', xhr.responseText);
+          alertToast("Error de conexión al guardar los detalles", "error", 4000);
+        }
+      });
+    });
+  }
+
   // ==================== FUNCIÓN ESPECÍFICA PARA MOTIVOS POR TIPO ====================
   function cargarMotivosPorTipo(selectorSelect, tipoMovimiento) {
     cargarCatalogoEnModal(selectorSelect, {
@@ -2153,6 +2905,137 @@ $(document).ready(function () {
       filtroTipo: tipoMovimiento,
     });
   }
+
+  // ==================== EVENTOS PARA EDICIÓN DE REQUISICIONES ====================
+  
+  // Evento para agregar artículo en edición
+  $("#btnEditarAgregarArticulo").on("click", function() {
+    cargarArticulosParaSeleccionEditar();
+    
+    // Configurar el modal como anidado
+    $("#seleccionarArticuloModal").modal({
+      backdrop: true,
+      keyboard: true
+    });
+    
+    // Ajustar z-index manualmente después de mostrar
+    $("#seleccionarArticuloModal").on('shown.bs.modal', function() {
+      $(this).css('z-index', 1060);
+      $('.modal-backdrop').last().css('z-index', 1059);
+    });
+    
+    $("#seleccionarArticuloModal").modal("show");
+  });
+
+  // Seleccionar artículo para edición
+  $(document).on("click", ".btn-seleccionar-articulo-editar", function() {
+    let articuloId = $(this).data("id");
+    let nombreArticulo = $(this).data("nombre");
+    let claveArticulo = $(this).data("clave");
+    let precioReferencia = parseFloat($(this).data("precio")) || 0;
+
+    // Verificar si ya está agregado
+    if (articulosRequisicionEditar.find(art => art.id == articuloId)) {
+      alertToast("Este artículo ya está agregado a la requisición", "warning", 3000);
+      return;
+    }
+
+    // Agregar al array
+    let nuevoArticulo = {
+      id: articuloId,
+      nombre: nombreArticulo,
+      clave: claveArticulo,
+      cantidad: 1,
+      precio: precioReferencia,
+      subtotal: precioReferencia * 1,
+      detalle_id: null // Nuevo artículo, sin ID de detalle
+    };
+
+    articulosRequisicionEditar.push(nuevoArticulo);
+    contadorArticulosEditar++;
+    
+    actualizarTablaArticulosEditar();
+    actualizarContadorYTotalEditar();
+    
+    $("#seleccionarArticuloModal").modal("hide");
+    alertToast(`Artículo "${nombreArticulo}" agregado exitosamente`, "success", 2000);
+  });
+
+  // Editar artículo en edición
+  $(document).on("click", ".btn-editar-articulo-editar", function() {
+    let index = $(this).data("index");
+    let articulo = articulosRequisicionEditar[index];
+
+    $("#editarArticuloIdEdicion").val(articulo.id);
+    $("#editarIndiceTablaEdicion").val(index);
+    $("#editarNombreArticuloEdicion").text(`${articulo.clave} - ${articulo.nombre}`);
+    $("#editarCantidadEdicion").val(articulo.cantidad);
+    $("#editarPrecioEdicion").val(articulo.precio);
+    
+    calcularSubtotalEdicionEditar();
+    $("#editarArticuloEdicionModal").modal("show");
+  });
+
+  // Calcular subtotal en modal de edición
+  $("#editarCantidadEdicion, #editarPrecioEdicion").on("input", function() {
+    calcularSubtotalEdicionEditar();
+  });
+
+  // Confirmar edición de artículo
+  $(document).on("click", "#btnConfirmarEdicionArticulo", function() {
+    let index = parseInt($("#editarIndiceTablaEdicion").val());
+    let cantidad = parseFloat($("#editarCantidadEdicion").val());
+    let precio = parseFloat($("#editarPrecioEdicion").val()) || 0;
+
+    if (cantidad <= 0) {
+      alertToast("La cantidad debe ser mayor a 0", "warning", 3000);
+      return;
+    }
+
+    articulosRequisicionEditar[index].cantidad = cantidad;
+    articulosRequisicionEditar[index].precio = precio;
+    articulosRequisicionEditar[index].subtotal = cantidad * precio;
+
+    actualizarTablaArticulosEditar();
+    actualizarContadorYTotalEditar();
+    
+    $("#editarArticuloEdicionModal").modal("hide");
+    alertToast("Artículo actualizado exitosamente", "success", 2000);
+  });
+
+  // Eliminar artículo en edición
+  $(document).on("click", ".btn-eliminar-articulo-editar", function() {
+    let index = $(this).data("index");
+    let articulo = articulosRequisicionEditar[index];
+
+    alertMensajeConfirm({
+      title: "Eliminar Artículo",
+      text: `¿Está seguro de eliminar "${articulo.nombre}" de la requisición?`,
+      icon: "warning"
+    }, function() {
+      articulosRequisicionEditar.splice(index, 1);
+      contadorArticulosEditar--;
+      
+      actualizarTablaArticulosEditar();
+      actualizarContadorYTotalEditar();
+      
+      alertToast("Artículo eliminado de la requisición", "success", 2000);
+    });
+  });
+
+  // Guardar cambios de la requisición
+  $(document).off("submit", "#formEditarRequisicion").on("submit", "#formEditarRequisicion", function(e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    
+    console.log("Evento GLOBAL submit formulario requisición disparado");
+    
+    if (!validarFormularioRequisicionEditar()) {
+      return;
+    }
+
+    actualizarRequisicion();
+  });
 
   // ==================== EVENTOS PARA CAMBIO DE TIPO DE MOVIMIENTO ====================
   $(document).on("change", "#tipo_movimiento_entrada", function () {
@@ -2166,6 +3049,481 @@ $(document).ready(function () {
     }
   });
 });
+
+// ==================== FUNCIONES GLOBALES PARA EDICIÓN DE REQUISICIONES ====================
+
+// Variables globales para edición de requisiciones
+var articulosRequisicionEditar = [];
+var contadorArticulosEditar = 0;
+var totalEstimadoRequisicionEditar = 0;
+
+// Cargar datos completos de la requisición seleccionada
+function cargarDatosRequisicionCompletos() {
+  if (!rowSelectedRequisicion) {
+    alertToast("No hay una requisición seleccionada", "error", 3000);
+    return;
+  }
+
+  console.log("Cargando datos de requisición:", rowSelectedRequisicion);
+
+  // Llenar campos básicos directamente
+  $("#editarIdRequisicion").val(rowSelectedRequisicion.id_requisicion);
+  $("#numeroRequisicionEditar").text(rowSelectedRequisicion.numero_requisicion);
+  $("#editarJustificacion").val(rowSelectedRequisicion.justificacion || '');
+  $("#editarFechaLimite").val(rowSelectedRequisicion.fecha_limite);
+  $("#editarPrioridad").val(rowSelectedRequisicion.prioridad || 'normal');
+  $("#editarEstatusRequisicion").val(rowSelectedRequisicion.estatus || 'borrador');
+
+  // Establecer fecha mínima
+  establecerFechaMinimaEditar();
+
+  // Cargar áreas y después seleccionar la correcta
+  cargarAreasParaEdicion(function() {
+    // Una vez cargadas las áreas, buscar y seleccionar por texto
+    buscarYSeleccionarAreaPorTexto(rowSelectedRequisicion.area_solicitante);
+  });
+
+  // Cargar artículos de la requisición
+  cargarArticulosDeRequisicion(rowSelectedRequisicion.id_requisicion);
+}
+
+function establecerFechaMinimaEditar() {
+  const hoy = new Date();
+  const manana = new Date(hoy);
+  manana.setDate(hoy.getDate() + 1);
+  
+  const fechaMinima = manana.toISOString().split('T')[0];
+  $("#editarFechaLimite").attr("min", fechaMinima);
+}
+
+function cargarAreasParaEdicion(callback) {
+  cargarCatalogoEnModal("#editarAreaSolicitante", {
+    api: 18, // API para áreas
+    campoId: "ID_AREA",
+    campoTexto: "DESCRIPCION",
+    placeholder: "Seleccione un área"
+  }, callback);
+}
+
+function buscarYSeleccionarAreaPorTexto(textoArea) {
+  // Buscar el option que coincida con el texto del área
+  $("#editarAreaSolicitante option").each(function() {
+    if ($(this).text().trim() === textoArea.trim()) {
+      $("#editarAreaSolicitante").val($(this).val());
+      return false; // Romper el loop
+    }
+  });
+}
+
+function cargarArticulosDeRequisicion(requisicionId) {
+  $.ajax({
+    url: "../../../api/inventarios_api.php",
+    type: "POST",
+    dataType: "json",
+    data: { api: 28, requisicion_id: requisicionId },
+    success: function(response) {
+      console.log("Respuesta completa de artículos de requisición:", response);
+      
+      if (response.response && response.response.code == 1 && response.response.data) {
+        console.log("Datos de respuesta:", response.response.data);
+        console.log("Primer elemento de datos:", response.response.data[0]);
+        
+        articulosRequisicionEditar = [];
+        contadorArticulosEditar = 0;
+        totalEstimadoRequisicionEditar = 0;
+
+        response.response.data.forEach(function(detalle, index) {
+          console.log(`Procesando detalle ${index}:`, detalle);
+          console.log("Propiedades del detalle:", Object.keys(detalle));
+          
+          // Mapear campos con diferentes posibles nombres
+          let articulo = {
+            id: detalle.articulo_id || detalle.ID_ARTICULO || detalle.id_articulo,
+            nombre: detalle.nombre_comercial || detalle.NOMBRE_COMERCIAL || detalle.nombre_articulo,
+            clave: detalle.clave_art || detalle.CLAVE_ART || detalle.clave_articulo,
+            cantidad: parseFloat(detalle.cantidad_solicitada || detalle.CANTIDAD_SOLICITADA) || 1,
+            precio: parseFloat(detalle.precio_estimado || detalle.PRECIO_ESTIMADO) || 0,
+            subtotal: 0, // Se calculará después
+            detalle_id: detalle.id_detalle || detalle.ID_DETALLE
+          };
+          
+          // Calcular subtotal
+          articulo.subtotal = articulo.cantidad * articulo.precio;
+          
+          console.log("Artículo procesado:", articulo);
+          
+          articulosRequisicionEditar.push(articulo);
+          contadorArticulosEditar++;
+        });
+
+        actualizarTablaArticulosEditar();
+        actualizarContadorYTotalEditar();
+        
+        console.log("Artículos cargados para edición:", articulosRequisicionEditar);
+      } else {
+        // No hay artículos o error
+        console.log("No se encontraron artículos o hubo un error:", response);
+        articulosRequisicionEditar = [];
+        contadorArticulosEditar = 0;
+        totalEstimadoRequisicionEditar = 0;
+        actualizarTablaArticulosEditar();
+        actualizarContadorYTotalEditar();
+      }
+    },
+    error: function(xhr, status, error) {
+      console.error("Error al cargar artículos de requisición:", error);
+      console.error("Respuesta del servidor:", xhr.responseText);
+      alertToast("Error al cargar los artículos de la requisición", "error", 3000);
+      
+      // Limpiar en caso de error
+      articulosRequisicionEditar = [];
+      contadorArticulosEditar = 0;
+      totalEstimadoRequisicionEditar = 0;
+      actualizarTablaArticulosEditar();
+      actualizarContadorYTotalEditar();
+    }
+  });
+}
+
+function actualizarTablaArticulosEditar() {
+  let tbody = $("#tablaEditarArticulosRequisicion tbody");
+  tbody.empty();
+
+  if (articulosRequisicionEditar.length === 0) {
+    tbody.append(`
+      <tr id="filaVaciaArticulosEditar">
+        <td colspan="5" class="text-center text-muted">
+          <i class="bi bi-inbox"></i><br>
+          No hay artículos agregados
+        </td>
+      </tr>
+    `);
+  } else {
+    articulosRequisicionEditar.forEach(function(articulo, index) {
+      let fila = `
+        <tr>
+          <td>
+            <strong>${articulo.clave}</strong><br>
+            <small class="text-muted">${articulo.nombre}</small>
+          </td>
+          <td class="text-center">
+            <span class="badge bg-primary">${articulo.cantidad}</span>
+          </td>
+          <td class="text-end">
+            ${articulo.precio > 0 ? 
+              '$' + Number(articulo.precio).toLocaleString('es-MX', {minimumFractionDigits: 2}) : 
+              '-'
+            }
+          </td>
+          <td class="text-end">
+            <strong class="text-success">
+              ${articulo.subtotal > 0 ? 
+                '$' + Number(articulo.subtotal).toLocaleString('es-MX', {minimumFractionDigits: 2}) : 
+                '-'
+              }
+            </strong>
+          </td>
+          <td class="text-center">
+            <i class="bi bi-pencil btn-editar-articulo-editar me-2" 
+               data-index="${index}" 
+               title="Editar cantidad y precio"></i>
+            <i class="bi bi-trash btn-eliminar-articulo-editar" 
+               data-index="${index}" 
+               title="Eliminar artículo"></i>
+          </td>
+        </tr>
+      `;
+      tbody.append(fila);
+    });
+  }
+}
+
+function actualizarContadorYTotalEditar() {
+  $("#contadorArticulosEditar").text(`${contadorArticulosEditar} artículo${contadorArticulosEditar !== 1 ? 's' : ''}`);
+  
+  totalEstimadoRequisicionEditar = articulosRequisicionEditar.reduce((total, art) => total + art.subtotal, 0);
+  $("#totalEstimadoEditar").text('$' + Number(totalEstimadoRequisicionEditar).toLocaleString('es-MX', {minimumFractionDigits: 2}));
+}
+
+function cargarArticulosParaSeleccionEditar() {
+  $.ajax({
+    url: "../../../api/inventarios_api.php",
+    type: "POST",
+    dataType: "json",
+    data: { api: 3, estatus: 1 }, // Solo artículos activos
+    success: function(response) {
+      if (response.response && response.response.code == 1) {
+        let tbody = $("#tablaSeleccionArticulos tbody");
+        tbody.empty();
+        
+        response.response.data.forEach(function(articulo) {
+          let fila = `
+            <tr>
+              <td>${articulo.CLAVE_ART}</td>
+              <td class="text-truncate-custom" title="${articulo.NOMBRE_COMERCIAL}">
+                ${articulo.NOMBRE_COMERCIAL}
+              </td>
+              <td>${articulo.MARCAS || '-'}</td>
+              <td class="text-center">
+                <span class="badge ${articulo.CANTIDAD > 0 ? 'bg-success' : 'bg-danger'}">
+                  ${articulo.CANTIDAD || 0}
+                </span>
+              </td>
+              <td class="text-end">
+                ${articulo.COSTO_MAS_ALTO ? 
+                  '$' + Number(articulo.COSTO_MAS_ALTO).toLocaleString('es-MX', {minimumFractionDigits: 2}) : 
+                  '-'
+                }
+              </td>
+              <td class="text-center">
+                <button class="btn btn-sm btn-primary btn-seleccionar-articulo-editar" 
+                        data-id="${articulo.ID_ARTICULO}"
+                        data-nombre="${articulo.NOMBRE_COMERCIAL}"
+                        data-clave="${articulo.CLAVE_ART}"
+                        data-precio="${articulo.COSTO_MAS_ALTO || 0}">
+                  <i class="bi bi-plus-circle"></i> Agregar
+                </button>
+              </td>
+            </tr>
+          `;
+          tbody.append(fila);
+        });
+      }
+    },
+    error: function(xhr, status, error) {
+      alertToast("Error al cargar los artículos", "error", 3000);
+    }
+  });
+}
+
+function calcularSubtotalEdicionEditar() {
+  let cantidad = parseFloat($("#editarCantidadEdicion").val()) || 0;
+  let precio = parseFloat($("#editarPrecioEdicion").val()) || 0;
+  let subtotal = cantidad * precio;
+  
+  $("#editarSubtotalEdicion").text('$' + Number(subtotal).toLocaleString('es-MX', {minimumFractionDigits: 2}));
+}
+
+function validarFormularioRequisicionEditar() {
+  // Validar campos básicos
+  let area = $("#editarAreaSolicitante").val();
+  let justificacion = $("#editarJustificacion").val().trim();
+  let fechaLimite = $("#editarFechaLimite").val();
+  let prioridad = $("#editarPrioridad").val();
+
+  if (!area) {
+    alertToast("Debe seleccionar un área solicitante", "warning", 3000);
+    return false;
+  }
+
+  if (justificacion.length < 10) {
+    alertToast("La justificación debe tener al menos 10 caracteres", "warning", 3000);
+    return false;
+  }
+
+  if (!fechaLimite) {
+    alertToast("Debe especificar una fecha límite", "warning", 3000);
+    return false;
+  }
+
+  // Validar que la fecha sea futura
+  let hoy = new Date();
+  let fechaSeleccionada = new Date(fechaLimite);
+  if (fechaSeleccionada <= hoy) {
+    alertToast("La fecha límite debe ser posterior a hoy", "warning", 3000);
+    return false;
+  }
+
+  if (!prioridad) {
+    alertToast("Debe seleccionar una prioridad", "warning", 3000);
+    return false;
+  }
+
+  // Validar artículos
+  if (articulosRequisicionEditar.length === 0) {
+    alertToast("Debe agregar al menos un artículo a la requisición", "warning", 3000);
+    return false;
+  }
+
+  return true;
+}
+
+function actualizarRequisicion() {
+  let datosRequisicion = {
+    api: 29, // API para actualizar requisición
+    id_requisicion: parseInt($("#editarIdRequisicion").val()),
+    area_solicitante_id: parseInt($("#editarAreaSolicitante").val()),
+    fecha_limite: $("#editarFechaLimite").val(),
+    prioridad: $("#editarPrioridad").val(),
+    justificacion: $("#editarJustificacion").val().trim(),
+    estatus: $("#editarEstatusRequisicion").val()
+  };
+  
+  console.log('Actualizando requisición:', datosRequisicion);
+
+  $.ajax({
+    url: "../../../api/inventarios_api.php",
+    type: "POST",
+    data: datosRequisicion,
+    dataType: "json",
+    success: function(response) {
+      console.log('Respuesta de actualizar requisición:', response);
+      
+      if (response.response && response.response.code == 1) {
+        // Requisición actualizada, ahora actualizar los artículos
+        actualizarDetallesRequisicion();
+      } else {
+        let errorMsg = response.response && response.response.data && response.response.data[0] && response.response.data[0].ERROR 
+          ? response.response.data[0].ERROR 
+          : "Error al actualizar la requisición";
+        alertToast(errorMsg, "error", 4000);
+      }
+    },
+    error: function(xhr, status, error) {
+      console.error('Error AJAX al actualizar requisición:', xhr.responseText);
+      alertToast("Error de conexión al actualizar la requisición", "error", 4000);
+    }
+  });
+}
+
+function actualizarDetallesRequisicion() {
+  let requisicionId = parseInt($("#editarIdRequisicion").val());
+  let detallesActualizados = 0;
+  let totalDetalles = articulosRequisicionEditar.length;
+
+  articulosRequisicionEditar.forEach(function(articulo) {
+    let datosDetalle = {
+      api: 27, // API para manejar detalles
+      requisicion_id: requisicionId,
+      articulo_id: articulo.id,
+      cantidad_solicitada: articulo.cantidad,
+      precio_estimado: articulo.precio || 0,
+      operacion: articulo.detalle_id ? 'UPDATE' : 'INSERT'
+    };
+    
+    if (articulo.detalle_id) {
+      datosDetalle.id_detalle = articulo.detalle_id;
+    }
+    
+    console.log('Actualizando detalle:', datosDetalle);
+
+    $.ajax({
+      url: "../../../api/inventarios_api.php",
+      type: "POST",
+      data: datosDetalle,
+      dataType: "json",
+      success: function(response) {
+        console.log(`Respuesta del detalle ${detallesActualizados + 1}:`, response);
+        
+        // Verificar si es exitoso
+        let esExitoso = false;
+        if (response.response && (response.response.code == 1 || response.response.code == 2)) {
+          esExitoso = true;
+        } else if (response === "Operación completada exitosamente." || 
+                   (typeof response === 'string' && response.includes('exitosamente'))) {
+          esExitoso = true;
+        }
+        
+        if (esExitoso) {
+          detallesActualizados++;
+          
+          if (detallesActualizados === totalDetalles) {
+            // Todos los detalles actualizados exitosamente
+            alertToast("Requisición actualizada exitosamente", "success", 4000);
+            $("#editarRequisicionModal").modal("hide");
+            
+            // Recargar tabla de requisiciones con manejo de errores
+            setTimeout(function() {
+              if (typeof tableCatRequisiciones !== 'undefined' && tableCatRequisiciones.ajax) {
+                try {
+                  tableCatRequisiciones.ajax.reload(function(json) {
+                    console.log("Tabla de requisiciones recargada exitosamente");
+                  }, false); // false = no reset de paginación
+                } catch (error) {
+                  console.error("Error al recargar tabla de requisiciones:", error);
+                  // Recargar la página como alternativa
+                  setTimeout(function() {
+                    location.reload();
+                  }, 1000);
+                }
+              } else {
+                console.log("DataTable de requisiciones no disponible para recarga");
+              }
+            }, 500);
+          }
+        } else {
+          console.error('Error al actualizar detalle:', response);
+          alertToast("Error al actualizar los detalles de la requisición", "error", 4000);
+        }
+      },
+      error: function(xhr, status, error) {
+        console.error('Error AJAX al actualizar detalle:', xhr.responseText);
+        alertToast("Error de conexión al actualizar los detalles", "error", 4000);
+      }
+    });
+  });
+}
+
+// También necesitamos cargarCatalogoEnModal disponible globalmente
+function cargarCatalogoEnModal(selectorSelect, opciones, callback) {
+  $.ajax({
+    url: "../../../api/inventarios_api.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      api: opciones.api,
+      tipo_movimiento: opciones.filtroTipo || null,
+    },
+    success: function (response) {
+      if (response.response && response.response.code == 1) {
+        let selectElement = $(selectorSelect);
+        let valorActual = selectElement.val();
+
+        selectElement.empty();
+        selectElement.append(
+          `<option value="">${opciones.placeholder}</option>`
+        );
+
+        // Filtrar datos si es necesario (para motivos por tipo)
+        let datos = response.response.data;
+        if (opciones.filtroTipo && opciones.api === 15) {
+          datos = datos.filter(
+            (item) =>
+              item.tipo_movimiento === opciones.filtroTipo ||
+              item.tipo_movimiento === "ambos"
+          );
+        }
+
+        datos.forEach(function (item) {
+          selectElement.append(
+            `<option value="${item[opciones.campoId]}">${
+              item[opciones.campoTexto]
+            }</option>`
+          );
+        });
+
+        // Mantener la selección previa si existe
+        if (valorActual) {
+          selectElement.val(valorActual);
+        }
+
+        // Ejecutar callback si existe
+        if (callback && typeof callback === "function") {
+          callback();
+        }
+      } else {
+        alertToast(`Error al cargar ${opciones.placeholder}`, "error", 3000);
+      }
+    },
+    error: function (xhr, status, error) {
+      alertToast(
+        `Error de conexión al cargar ${opciones.placeholder}`,
+        "error",
+        3000
+      );
+    },
+  });
+}
 
 // catalogos, mostrar las tablas
 var tableCatTipos,
@@ -3155,3 +4513,740 @@ $(document).ready(function () {
     }
   );
 });
+
+// ==================== EVENTOS GLOBALES PARA EDICIÓN DE REQUISICIONES ====================
+// Estos eventos están fuera del $(document).ready() para asegurar el scope correcto
+
+// Evento para agregar artículo en edición
+$(document).on("click", "#btnEditarAgregarArticulo", function() {
+  cargarArticulosParaSeleccionEditar();
+  
+  // Configurar el modal como anidado
+  $("#seleccionarArticuloModal").modal({
+    backdrop: true,
+    keyboard: true
+  });
+  
+  // Ajustar z-index manualmente después de mostrar
+  $("#seleccionarArticuloModal").on('shown.bs.modal', function() {
+    $(this).css('z-index', 1060);
+    $('.modal-backdrop').last().css('z-index', 1059);
+  });
+  
+  $("#seleccionarArticuloModal").modal("show");
+});
+
+// Seleccionar artículo para edición
+$(document).on("click", ".btn-seleccionar-articulo-editar", function() {
+  let articuloId = $(this).data("id");
+  let nombreArticulo = $(this).data("nombre");
+  let claveArticulo = $(this).data("clave");
+  let precioReferencia = parseFloat($(this).data("precio")) || 0;
+
+  // Verificar si ya está agregado
+  if (articulosRequisicionEditar.find(art => art.id == articuloId)) {
+    alertToast("Este artículo ya está agregado a la requisición", "warning", 3000);
+    return;
+  }
+
+  // Agregar al array
+  let nuevoArticulo = {
+    id: articuloId,
+    nombre: nombreArticulo,
+    clave: claveArticulo,
+    cantidad: 1,
+    precio: precioReferencia,
+    subtotal: precioReferencia * 1,
+    detalle_id: null // Nuevo artículo, sin ID de detalle
+  };
+
+  articulosRequisicionEditar.push(nuevoArticulo);
+  contadorArticulosEditar++;
+  
+  actualizarTablaArticulosEditar();
+  actualizarContadorYTotalEditar();
+  
+  // Cerrar modal con limpieza de eventos
+  $("#seleccionarArticuloModal").off('shown.bs.modal').modal("hide");
+  
+  alertToast(`Artículo "${nombreArticulo}" agregado exitosamente`, "success", 2000);
+});
+
+// Editar artículo en edición
+$(document).on("click", ".btn-editar-articulo-editar", function() {
+  let index = $(this).data("index");
+  let articulo = articulosRequisicionEditar[index];
+
+  $("#editarArticuloIdEdicion").val(articulo.id);
+  $("#editarIndiceTablaEdicion").val(index);
+  $("#editarNombreArticuloEdicion").text(`${articulo.clave} - ${articulo.nombre}`);
+  $("#editarCantidadEdicion").val(articulo.cantidad);
+  $("#editarPrecioEdicion").val(articulo.precio);
+  
+  calcularSubtotalEdicionEditar();
+  $("#editarArticuloEdicionModal").modal("show");
+});
+
+// Eliminar artículo en edición (EVENTO GLOBAL)
+$(document).off("click", "#tablaEditarArticulosRequisicion .btn-eliminar-articulo-editar").on("click", "#tablaEditarArticulosRequisicion .btn-eliminar-articulo-editar", function(e) {
+  e.preventDefault();
+  e.stopImmediatePropagation(); // Evitar propagación múltiple
+  
+  let index = $(this).data("index");
+  
+  console.log("Evento GLOBAL ESPECÍFICO eliminar disparado. Index:", index);
+  console.log("Artículos disponibles:", articulosRequisicionEditar);
+  
+  if (index === undefined || index === null || index < 0) {
+    alertToast("Error: No se pudo identificar el artículo a eliminar", "error", 3000);
+    return;
+  }
+  
+  if (index >= articulosRequisicionEditar.length) {
+    alertToast("Error: Índice de artículo inválido", "error", 3000);
+    return;
+  }
+  
+  let articulo = articulosRequisicionEditar[index];
+  
+  if (!articulo) {
+    alertToast("Error: Artículo no encontrado", "error", 3000);
+    return;
+  }
+
+  console.log("Artículo a eliminar:", articulo);
+
+  alertMensajeConfirm({
+    title: "Eliminar Artículo",
+    text: `¿Está seguro de eliminar "${articulo.nombre}" de la requisición?`,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Sí, eliminar",
+    cancelButtonText: "Cancelar"
+  }, function() {
+    // Confirmar eliminación
+    console.log("Eliminando artículo en índice:", index);
+    console.log("Array antes de eliminar:", JSON.stringify(articulosRequisicionEditar));
+    
+    // Si el artículo tiene detalle_id, eliminarlo de la base de datos
+    if (articulo.detalle_id && articulo.detalle_id !== null && articulo.detalle_id !== "null") {
+      console.log("Eliminando artículo de la base de datos. ID detalle:", articulo.detalle_id);
+      
+      $.ajax({
+        url: "../../../api/inventarios_api.php",
+        type: "POST",
+        dataType: "json",
+        data: {
+          api: 30,
+          id_detalle: articulo.detalle_id,
+          requisicion_id: rowSelectedRequisicion.id_requisicion
+        },
+        success: function(response) {
+          console.log("Respuesta de eliminación física:", response);
+          console.log("Tipo de response:", typeof response);
+          console.log("response.response:", response.response);
+          console.log("response.response.code:", response.response ? response.response.code : "undefined");
+          console.log("response.response.data:", response.response ? response.response.data : "undefined");
+          
+          // Verificar múltiples condiciones de éxito
+          let esExitoso = false;
+          
+          if (response.response && (response.response.code == 1 || response.response.code == 2)) {
+            esExitoso = true;
+          } else if (response.response && response.response.msj === 'SUCCESS') {
+            // Verificar mensaje de éxito específico
+            esExitoso = true;
+          } else if (response.response && response.response.data && response.response.data.length > 0) {
+            // Verificar si hay datos que indiquen éxito
+            let primeraFila = response.response.data[0];
+            if (primeraFila.RESULT === 'SUCCESS' || primeraFila.MESSAGE) {
+              esExitoso = true;
+            }
+          } else if (response.code == 1 || response.code == 2) {
+            // Verificar en el nivel superior
+            esExitoso = true;
+          }
+          
+          if (esExitoso) {
+            // Eliminación exitosa en base de datos
+            console.log("Artículo eliminado exitosamente de la base de datos");
+            
+            // Eliminar del array local
+            articulosRequisicionEditar.splice(index, 1);
+            contadorArticulosEditar--;
+            
+            // Actualizar la tabla y contadores
+            actualizarTablaArticulosEditar();
+            actualizarContadorYTotalEditar();
+            
+            // Si no quedan artículos, recargar la tabla principal
+            if (articulosRequisicionEditar.length === 0) {
+              console.log("No quedan artículos, recargando tabla principal...");
+              setTimeout(function() {
+                try {
+                  if (typeof tableCatRequisiciones !== 'undefined' && tableCatRequisiciones) {
+                    tableCatRequisiciones.ajax.reload(function(json) {
+                      console.log("Tabla de requisiciones recargada después de eliminar último artículo");
+                    }, false);
+                  }
+                } catch (error) {
+                  console.error("Error al recargar tabla principal:", error);
+                }
+              }, 500);
+            }
+            
+            alertToast("Artículo eliminado permanentemente de la requisición", "success", 2000);
+          } else {
+            console.error("Error al eliminar artículo de la base de datos:", response);
+            alertToast("Error al eliminar el artículo de la base de datos", "error", 3000);
+          }
+        },
+        error: function(xhr, status, error) {
+          console.error("Error AJAX al eliminar artículo:", xhr.responseText);
+          alertToast("Error de conexión al eliminar el artículo", "error", 3000);
+        }
+      });
+    } else {
+      // Artículo nuevo, solo eliminar del array local
+      console.log("Eliminando artículo nuevo (sin detalle_id) solo del array local");
+      
+      articulosRequisicionEditar.splice(index, 1);
+      contadorArticulosEditar--;
+      
+      // Actualizar la tabla y contadores
+      actualizarTablaArticulosEditar();
+      actualizarContadorYTotalEditar();
+      
+      alertToast("Artículo eliminado de la requisición", "success", 2000);
+    }
+    
+    console.log("Array después de eliminar:", JSON.stringify(articulosRequisicionEditar));
+  });
+});
+
+// Calcular subtotal en modal de edición para artículos
+$(document).on("input", "#editarCantidadEdicion, #editarPrecioEdicion", function() {
+  calcularSubtotalEdicionEditar();
+});
+
+// Confirmar edición de artículo
+$(document).on("click", "#btnConfirmarEdicionArticulo", function() {
+  let index = parseInt($("#editarIndiceTablaEdicion").val());
+  let cantidad = parseFloat($("#editarCantidadEdicion").val());
+  let precio = parseFloat($("#editarPrecioEdicion").val()) || 0;
+
+  if (cantidad <= 0) {
+    alertToast("La cantidad debe ser mayor a 0", "warning", 3000);
+    return;
+  }
+
+  articulosRequisicionEditar[index].cantidad = cantidad;
+  articulosRequisicionEditar[index].precio = precio;
+  articulosRequisicionEditar[index].subtotal = cantidad * precio;
+
+  actualizarTablaArticulosEditar();
+  actualizarContadorYTotalEditar();
+  
+  $("#editarArticuloEdicionModal").modal("hide");
+  alertToast("Artículo actualizado exitosamente", "success", 2000);
+});
+
+// Función para manejar modales anidados correctamente
+function configurarModalAnidado(modalId) {
+  $(modalId).on('show.bs.modal', function() {
+    // Asegurar z-index correcto
+    setTimeout(function() {
+      $(modalId).css('z-index', 1060);
+      $('.modal-backdrop').last().css('z-index', 1059);
+    }, 10);
+  });
+  
+  $(modalId).on('hidden.bs.modal', function() {
+    // Limpiar eventos duplicados
+    $(this).off('shown.bs.modal');
+  });
+}
+
+// Configurar modales anidados al cargar
+configurarModalAnidado('#seleccionarArticuloModal');
+configurarModalAnidado('#editarArticuloEdicionModal');
+
+// ==================== FUNCIÓN PARA CARGAR DETALLES COMPLETOS DE REQUISICIÓN ====================
+function cargarDetallesRequisicionCompletos() {
+  if (!rowSelectedRequisicion) {
+    alertToast("Por favor, seleccione una requisición", "warning", 3000);
+    return;
+  }
+  
+  console.log("Cargando detalles completos de requisición:", rowSelectedRequisicion);
+  
+  // Cargar información básica
+  $("#numeroRequisicionDetalle").text(rowSelectedRequisicion.numero_requisicion);
+  $("#detalleNumero").text(rowSelectedRequisicion.numero_requisicion);
+  $("#detalleArea").text(rowSelectedRequisicion.area_solicitante);
+  $("#detalleSolicitante").text(rowSelectedRequisicion.solicitante);
+  $("#detalleFechaCreacion").text(rowSelectedRequisicion.fecha_creacion);
+  $("#detalleFechaLimite").text(rowSelectedRequisicion.fecha_limite || '-');
+  $("#detalleTotalEstimado").text(rowSelectedRequisicion.total_estimado || '$0.00');
+  $("#detalleJustificacion").text(rowSelectedRequisicion.justificacion || '-');
+  
+  // Configurar prioridad con badge
+  const prioridadBadges = {
+    'urgente': 'badge bg-danger',
+    'normal': 'badge bg-primary', 
+    'baja': 'badge bg-secondary'
+  };
+  const prioridadClass = prioridadBadges[rowSelectedRequisicion.prioridad] || 'badge bg-light text-dark';
+  $("#detallePrioridad").html(`<span class="${prioridadClass}">${rowSelectedRequisicion.prioridad ? rowSelectedRequisicion.prioridad.charAt(0).toUpperCase() + rowSelectedRequisicion.prioridad.slice(1) : ''}</span>`);
+  
+  // Configurar estado con badge
+  const estatusBadges = {
+    'borrador': 'badge bg-warning text-dark',
+    'pendiente': 'badge bg-info',
+    'aprobada': 'badge bg-success',
+    'rechazada': 'badge bg-danger',
+    'parcialmente_surtida': 'badge bg-warning',
+    'completada': 'badge bg-success',
+    'pausada': 'badge bg-secondary'
+  };
+  const estatusClass = estatusBadges[rowSelectedRequisicion.estatus] || 'badge bg-light text-dark';
+  $("#detalleEstatus").removeClass().addClass(estatusClass).text(rowSelectedRequisicion.estatus ? rowSelectedRequisicion.estatus.charAt(0).toUpperCase() + rowSelectedRequisicion.estatus.slice(1).replace('_', ' ') : '');
+  
+  // Información de aprobación
+  if (rowSelectedRequisicion.aprobador && rowSelectedRequisicion.fecha_aprobacion) {
+    $("#detalleAprobadoPor").text(rowSelectedRequisicion.aprobador);
+    $("#detalleFechaAprobacion").text(rowSelectedRequisicion.fecha_aprobacion);
+    $("#cardObservacionesAprobacion").show();
+    
+    if (rowSelectedRequisicion.observaciones_aprobacion) {
+      $("#detalleObservacionesAprobacion").text(rowSelectedRequisicion.observaciones_aprobacion);
+    } else {
+      $("#detalleObservacionesAprobacion").text('Sin observaciones');
+    }
+  } else {
+    $("#cardObservacionesAprobacion").hide();
+  }
+  
+  // Mostrar/ocultar sección de acciones según el estado
+  if (rowSelectedRequisicion.estatus === 'pendiente') {
+    $("#cardAccionesAprobacion").show();
+  } else {
+    $("#cardAccionesAprobacion").hide();
+  }
+  
+  // Cargar artículos de la requisición
+  cargarArticulosDetalle(rowSelectedRequisicion.id_requisicion);
+  
+  // Cargar historial (opcional - por ahora lo dejamos como placeholder)
+  cargarHistorialRequisicion(rowSelectedRequisicion.id_requisicion);
+}
+
+// Función para cargar artículos en el modal de detalles
+function cargarArticulosDetalle(requisicionId) {
+  console.log("Cargando artículos para modal de detalles. ID requisición:", requisicionId);
+  
+  $.ajax({
+    url: "../../../api/inventarios_api.php", 
+    type: "POST",
+    dataType: "json",
+    data: {
+      api: 28, // Mismo endpoint que usa la edición
+      requisicion_id: requisicionId
+    },
+    success: function(response) {
+      console.log("Respuesta de artículos para detalles:", response);
+      
+      let tbody = $("#tablaDetalleArticulos tbody");
+      tbody.empty();
+      
+      if (response.response && response.response.code == 1 && response.response.data && response.response.data.length > 0) {
+        response.response.data.forEach(function(detalle) {
+          // Mapear campos como en la función de edición
+          let articulo = {
+            nombre: detalle.nombre_comercial || detalle.NOMBRE_COMERCIAL || detalle.nombre_articulo || 'N/A',
+            clave: detalle.clave_art || detalle.CLAVE_ART || detalle.clave_articulo || 'N/A',
+            cantidad_solicitada: detalle.cantidad_solicitada || detalle.CANTIDAD_SOLICITADA || 0,
+            cantidad_aprobada: detalle.cantidad_aprobada || detalle.CANTIDAD_APROBADA || '-',
+            cantidad_surtida: detalle.cantidad_surtida || detalle.CANTIDAD_SURTIDA || '-',
+            precio: detalle.precio_estimado || detalle.PRECIO_ESTIMADO || 0
+          };
+          
+          let fila = `
+            <tr>
+              <td>
+                <strong>${articulo.nombre}</strong><br>
+                <small class="text-muted">${articulo.clave}</small>
+              </td>
+              <td class="text-center">${articulo.cantidad_solicitada}</td>
+              <td class="text-center">${articulo.cantidad_aprobada}</td>
+              <td class="text-center">${articulo.cantidad_surtida}</td>
+              <td class="text-end">$${parseFloat(articulo.precio).toFixed(2)}</td>
+            </tr>
+          `;
+          
+          tbody.append(fila);
+        });
+      } else {
+        tbody.append(`
+          <tr>
+            <td colspan="5" class="text-center text-muted">
+              <i class="bi bi-inbox"></i><br>
+              No hay artículos en esta requisición
+            </td>
+          </tr>
+        `);
+      }
+    },
+    error: function(xhr, status, error) {
+      console.error("Error al cargar artículos para detalles:", xhr.responseText);
+      $("#tablaDetalleArticulos tbody").html(`
+        <tr>
+          <td colspan="5" class="text-center text-danger">
+            Error al cargar artículos
+          </td>
+        </tr>
+      `);
+    }
+  });
+}
+
+// Función placeholder para el historial (puedes implementarla más tarde)
+function cargarHistorialRequisicion(requisicionId) {
+  $("#timelineHistorial").html(`
+    <div class="timeline-item">
+      <div class="timeline-date">${rowSelectedRequisicion.fecha_creacion}</div>
+      <div><strong>Requisición creada</strong></div>
+      <div class="text-muted">Por: ${rowSelectedRequisicion.solicitante}</div>
+    </div>
+  `);
+  
+  if (rowSelectedRequisicion.fecha_aprobacion) {
+    $("#timelineHistorial").append(`
+      <div class="timeline-item">
+        <div class="timeline-date">${rowSelectedRequisicion.fecha_aprobacion}</div>
+        <div><strong>Requisición ${rowSelectedRequisicion.estatus}</strong></div>
+        <div class="text-muted">Por: ${rowSelectedRequisicion.aprobador}</div>
+      </div>
+    `);
+  }
+}
+
+// ==================== EVENTOS PARA APROBACIÓN/RECHAZO DE REQUISICIONES ====================
+
+// Eventos para botones de acción en la tabla de requisiciones
+$(document).on("click", ".btn-aprobar-requisicion", function(e) {
+  e.preventDefault();
+  e.stopImmediatePropagation();
+  
+  let idRequisicion = $(this).data('id');
+  console.log("Aprobar requisición desde tabla:", idRequisicion);
+  
+  if (!idRequisicion) {
+    alertToast("ID de requisición no válido", "warning", 3000);
+    return;
+  }
+  
+  // Buscar la requisición en los datos de la tabla
+  let requisicionData = null;
+  if (tableCatRequisiciones && tableCatRequisiciones.data()) {
+    requisicionData = tableCatRequisiciones.data().toArray().find(req => req.id_requisicion == idRequisicion);
+  }
+  
+  if (!requisicionData) {
+    alertToast("No se encontraron datos de la requisición", "warning", 3000);
+    return;
+  }
+  
+  if (requisicionData.estatus !== 'pendiente') {
+    alertToast("Solo se pueden aprobar requisiciones en estado PENDIENTE", "warning", 4000);
+    return;
+  }
+  
+  alertMensajeConfirm({
+    title: "Aprobar Requisición",
+    text: `¿Está seguro de aprobar la requisición ${requisicionData.numero_requisicion}?`,
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonText: "Sí, aprobar",
+    cancelButtonText: "Cancelar",
+    confirmButtonColor: "#28a745"
+  }, function() {
+    procesarAprobacionRechazoTabla('aprobar', idRequisicion, '');
+  });
+});
+
+$(document).on("click", ".btn-rechazar-requisicion", function(e) {
+  e.preventDefault();
+  e.stopImmediatePropagation();
+  
+  let idRequisicion = $(this).data('id');
+  console.log("Rechazar requisición desde tabla:", idRequisicion);
+  
+  if (!idRequisicion) {
+    alertToast("ID de requisición no válido", "warning", 3000);
+    return;
+  }
+  
+  // Buscar la requisición en los datos de la tabla
+  let requisicionData = null;
+  if (tableCatRequisiciones && tableCatRequisiciones.data()) {
+    requisicionData = tableCatRequisiciones.data().toArray().find(req => req.id_requisicion == idRequisicion);
+  }
+  
+  if (!requisicionData) {
+    alertToast("No se encontraron datos de la requisición", "warning", 3000);
+    return;
+  }
+  
+  if (requisicionData.estatus !== 'pendiente') {
+    alertToast("Solo se pueden rechazar requisiciones en estado PENDIENTE", "warning", 4000);
+    return;
+  }
+  
+  // Solicitar observaciones para el rechazo
+  Swal.fire({
+    title: "Rechazar Requisición",
+    text: `Ingrese las observaciones para rechazar la requisición ${requisicionData.numero_requisicion}:`,
+    input: 'textarea',
+    inputPlaceholder: 'Las observaciones son obligatorias para rechazar una requisición...',
+    inputAttributes: {
+      'aria-label': 'Observaciones de rechazo'
+    },
+    showCancelButton: true,
+    confirmButtonText: "Rechazar",
+    cancelButtonText: "Cancelar",
+    confirmButtonColor: "#dc3545",
+    cancelButtonColor: "#6c757d",
+    inputValidator: (value) => {
+      if (!value || value.trim() === '') {
+        return 'Las observaciones son obligatorias para rechazar una requisición';
+      }
+    }
+  }).then((result) => {
+    if (result.isConfirmed && result.value && result.value.trim()) {
+      procesarAprobacionRechazoTabla('rechazar', idRequisicion, result.value.trim());
+    }
+  });
+});
+
+// Función para procesar aprobación/rechazo desde la tabla
+function procesarAprobacionRechazoTabla(accion, idRequisicion, observaciones) {
+  console.log(`Procesando ${accion} de requisición desde tabla:`, idRequisicion);
+  
+  // Buscar y deshabilitar los botones de la fila específica
+  let btnAprobar = $(`.btn-aprobar-requisicion[data-id="${idRequisicion}"]`);
+  let btnRechazar = $(`.btn-rechazar-requisicion[data-id="${idRequisicion}"]`);
+  
+  btnAprobar.prop('disabled', true);
+  btnRechazar.prop('disabled', true);
+  
+  $.ajax({
+    url: "../../../api/inventarios_api.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      api: 31,
+      id_requisicion: idRequisicion,
+      accion: accion,
+      observaciones_aprobacion: observaciones
+    },
+    success: function(response) {
+      console.log(`Respuesta de ${accion} desde tabla:`, response);
+      
+      // Verificar múltiples condiciones de éxito
+      let esExitoso = false;
+      
+      if (response.response && (response.response.code == 1 || response.response.code == 2)) {
+        esExitoso = true;
+      } else if (response.response && response.response.data && response.response.data.length > 0) {
+        let primeraFila = response.response.data[0];
+        if (primeraFila.RESULT === 'SUCCESS' || primeraFila.MESSAGE) {
+          esExitoso = true;
+        }
+      } else if (response.code == 1 || response.code == 2) {
+        esExitoso = true;
+      }
+      
+      if (esExitoso) {
+        // Éxito
+        let mensaje = accion === 'aprobar' ? 'aprobada' : 'rechazada';
+        alertToast(`Requisición ${mensaje} exitosamente`, "success", 3000);
+        
+        // Recargar la tabla principal
+        setTimeout(function() {
+          try {
+            if (typeof tableCatRequisiciones !== 'undefined' && tableCatRequisiciones) {
+              tableCatRequisiciones.ajax.reload(function(json) {
+                console.log("Tabla de requisiciones recargada después de aprobación/rechazo desde tabla");
+              }, false);
+            }
+          } catch (error) {
+            console.error("Error al recargar tabla principal:", error);
+          }
+        }, 500);
+        
+      } else {
+        // Error
+        console.error(`Error al ${accion} requisición desde tabla:`, response);
+        let mensajeError = response.response && response.response.message ? 
+                          response.response.message : 
+                          `Error al ${accion} la requisición`;
+        alertToast(mensajeError, "error", 4000);
+      }
+    },
+    error: function(xhr, status, error) {
+      console.error(`Error AJAX al ${accion} requisición desde tabla:`, xhr.responseText);
+      alertToast(`Error de conexión al ${accion} la requisición`, "error", 4000);
+    },
+    complete: function() {
+      // Rehabilitar botones
+      btnAprobar.prop('disabled', false);
+      btnRechazar.prop('disabled', false);
+    }
+  });
+}
+
+// Evento para aprobar requisición (desde modal de detalles)
+$(document).on("click", "#btnAprobarRequisicion", function() {
+  if (!rowSelectedRequisicion) {
+    alertToast("No hay requisición seleccionada", "warning", 3000);
+    return;
+  }
+  
+  if (rowSelectedRequisicion.estatus !== 'pendiente') {
+    alertToast("Solo se pueden aprobar requisiciones en estado PENDIENTE", "warning", 4000);
+    return;
+  }
+  
+  let observaciones = $("#observacionesAprobacion").val().trim();
+  
+  alertMensajeConfirm({
+    title: "Aprobar Requisición",
+    text: `¿Está seguro de aprobar la requisición ${rowSelectedRequisicion.numero_requisicion}?`,
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonText: "Sí, aprobar",
+    cancelButtonText: "Cancelar",
+    confirmButtonColor: "#28a745"
+  }, function() {
+    procesarAprobacionRechazo('aprobar', observaciones);
+  });
+});
+
+// Evento para rechazar requisición
+$(document).on("click", "#btnRechazarRequisicion", function() {
+  if (!rowSelectedRequisicion) {
+    alertToast("No hay requisición seleccionada", "warning", 3000);
+    return;
+  }
+  
+  if (rowSelectedRequisicion.estatus !== 'pendiente') {
+    alertToast("Solo se pueden rechazar requisiciones en estado PENDIENTE", "warning", 4000);
+    return;
+  }
+  
+  let observaciones = $("#observacionesAprobacion").val().trim();
+  
+  if (!observaciones) {
+    alertToast("Las observaciones son obligatorias para rechazar una requisición", "warning", 4000);
+    $("#observacionesAprobacion").focus();
+    return;
+  }
+  
+  alertMensajeConfirm({
+    title: "Rechazar Requisición",
+    text: `¿Está seguro de rechazar la requisición ${rowSelectedRequisicion.numero_requisicion}?`,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Sí, rechazar",
+    cancelButtonText: "Cancelar",
+    confirmButtonColor: "#dc3545"
+  }, function() {
+    procesarAprobacionRechazo('rechazar', observaciones);
+  });
+});
+
+// Función para procesar aprobación o rechazo
+function procesarAprobacionRechazo(accion, observaciones) {
+  console.log(`Procesando ${accion} de requisición:`, rowSelectedRequisicion.id_requisicion);
+  
+  // Deshabilitar botones para evitar doble clic
+  $("#btnAprobarRequisicion, #btnRechazarRequisicion").prop('disabled', true);
+  
+  $.ajax({
+    url: "../../../api/inventarios_api.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      api: 31,
+      id_requisicion: rowSelectedRequisicion.id_requisicion,
+      accion: accion,
+      observaciones_aprobacion: observaciones
+    },
+    success: function(response) {
+      console.log(`Respuesta de ${accion}:`, response);
+      
+      // Verificar múltiples condiciones de éxito
+      let esExitoso = false;
+      
+      if (response.response && (response.response.code == 1 || response.response.code == 2)) {
+        esExitoso = true;
+      } else if (response.response && response.response.data && response.response.data.length > 0) {
+        let primeraFila = response.response.data[0];
+        if (primeraFila.RESULT === 'SUCCESS' || primeraFila.MESSAGE) {
+          esExitoso = true;
+        }
+      } else if (response.code == 1 || response.code == 2) {
+        esExitoso = true;
+      }
+      
+      if (esExitoso) {
+        // Éxito
+        let mensaje = accion === 'aprobar' ? 'aprobada' : 'rechazada';
+        alertToast(`Requisición ${mensaje} exitosamente`, "success", 3000);
+        
+        // Actualizar el estado local de la requisición
+        rowSelectedRequisicion.estatus = accion === 'aprobar' ? 'aprobada' : 'rechazada';
+        rowSelectedRequisicion.fecha_aprobacion = new Date().toLocaleString();
+        rowSelectedRequisicion.observaciones_aprobacion = observaciones;
+        
+        // Recargar la tabla principal
+        setTimeout(function() {
+          try {
+            if (typeof tableCatRequisiciones !== 'undefined' && tableCatRequisiciones) {
+              tableCatRequisiciones.ajax.reload(function(json) {
+                console.log("Tabla de requisiciones recargada después de aprobación/rechazo");
+              }, false);
+            }
+          } catch (error) {
+            console.error("Error al recargar tabla principal:", error);
+          }
+        }, 500);
+        
+        // Cerrar el modal de detalles
+        $("#detalleRequisicionModal").modal("hide");
+        
+        // Limpiar observaciones
+        $("#observacionesAprobacion").val('');
+        
+      } else {
+        // Error
+        console.error(`Error al ${accion} requisición:`, response);
+        let mensajeError = response.response && response.response.message ? 
+                          response.response.message : 
+                          `Error al ${accion} la requisición`;
+        alertToast(mensajeError, "error", 4000);
+      }
+    },
+    error: function(xhr, status, error) {
+      console.error(`Error AJAX al ${accion} requisición:`, xhr.responseText);
+      alertToast(`Error de conexión al ${accion} la requisición`, "error", 4000);
+    },
+    complete: function() {
+      // Rehabilitar botones
+      $("#btnAprobarRequisicion, #btnRechazarRequisicion").prop('disabled', false);
+    }
+  });
+}
+
+console.log("Eventos globales de edición de requisiciones cargados correctamente");
