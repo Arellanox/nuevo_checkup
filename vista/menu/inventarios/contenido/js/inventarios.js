@@ -1245,7 +1245,7 @@ tableCatTransacciones = $("#tableCatTransacciones").DataTable({
   buttons: [],
 });
 
-//DATATABLE DE DETALLES DE REQUISICIONES
+//DATATABLE DE REQUISICIONES
 tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
   order: [[1, "desc"]], // Ordenar por fecha de creación
   autoWidth: false,
@@ -1451,14 +1451,14 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
           }
         }
     },
-    {
-      text: '<i class="bi bi-funnel"></i> Filtrar',
-      className: "btn btn-warning",
-      action: function() {
-        // Aquí puedes agregar un modal de filtros si lo necesitas
-        console.log("Filtros de requisiciones");
-      }
-    }
+    // {
+    //   text: '<i class="bi bi-funnel"></i> Filtrar',
+    //   className: "btn btn-warning",
+    //   action: function() {
+    //     // Aquí puedes agregar un modal de filtros si lo necesitas
+    //     console.log("Filtros de requisiciones");
+    //   }
+    // }
   ]
 });
 
@@ -2472,7 +2472,7 @@ $(document).ready(function () {
       url: "../../../api/inventarios_api.php",
       type: "POST",
       dataType: "json",
-      data: { api: 3, estatus: 1 }, // Solo artículos activos
+      data: { api: 4, id_movimiento: 1 }, // Solo artículos activos
       success: function(response) {
         if (response.response && response.response.code == 1) {
           let tbody = $("#tablaSeleccionArticulos tbody");
@@ -3250,7 +3250,7 @@ function cargarArticulosParaSeleccionEditar() {
     url: "../../../api/inventarios_api.php",
     type: "POST",
     dataType: "json",
-    data: { api: 3, estatus: 1 }, // Solo artículos activos
+    data: { api: 4, id_movimiento: 1 }, // Solo artículos activos
     success: function(response) {
       if (response.response && response.response.code == 1) {
         let tbody = $("#tablaSeleccionArticulos tbody");
