@@ -396,7 +396,7 @@
                                                                     <span class="mt-1">Descargar</span>
                                                                 </button>
                                                                 <button
-                                                                    class="btn btn-outline-seocndary btn-sm d-flex flex-column align-items-center d-none"
+                                                                    class="btn btn-outline-success btn-sm d-flex flex-column align-items-center d-none"
                                                                     type="button" id="abrirNuevaVentana" style="width:97px;">
                                                                     <i class="bi bi-box-arrow-up-right fs-5"></i>
                                                                     <span class="mt-1">Vista completa</span>
@@ -1020,6 +1020,31 @@ $("#btnCatalogoMarcas").click(function(e) {
     }, 200);
 });
 
+// FUNCIÓN para el botón de catálogo de sustancias
+$("#btnCatalogoSustancias").click(function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    debeReabrirModalArticulo = true;
+    console.log("Botón catálogo sustancias clickeado, bandera activada:", debeReabrirModalArticulo);
+    
+    $("#registrarSustanciaModal").modal("hide");
+    
+    setTimeout(function() {
+        $("#registrarCatalogoModal").modal("show");
+        
+        setTimeout(function() {
+            $("#sustancias-tab").tab("show");
+            console.log("Cambiando a pestaña de sustancias");
+            
+            setTimeout(function() {
+                $("#registrarSustanciaModal").modal("show");
+                console.log("Modal de registro de sustancias abierto");
+            }, 400);
+        }, 300);
+    }, 200);
+});
+
 // FUNCIÓN para el botón de catálogo de tipos
 $("#btnCatalogoTipos").click(function(e) {
     e.preventDefault();
@@ -1105,16 +1130,5 @@ $("#registrarArticuloModal .btn-cancelar, #registrarArticuloModal .btn-close").c
     console.log("Usuario canceló artículo manualmente, bandera reseteada");
 });
 
-
-    $('#btnCatalogoSustancias').click(function () {
-        $('#registrarArticuloModal').modal('hide');
-
-        $('#registrarCatalogoModal').modal('show');
-        setTimeout(function () {
-            $("#sustancias-tab").tab("show");
-
-            console.log("Cambiando a pestaña de sustancias activas");
-        }, 300);
-    });
 
 </script>
