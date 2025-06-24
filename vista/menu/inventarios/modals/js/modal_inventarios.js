@@ -1050,3 +1050,79 @@ $(
 ).on("change", toggleResetButton);
 $("#tipoArticulo").on("change", toggleResetButton);
 $("#area").on("change", toggleResetButton);
+
+// ==================== SUBMIT DEL FORMULARIO DE SUSTANCIAS ACTIVAS ====================
+$("#registrarSustanciaForm").submit(function (event) {
+  event.preventDefault();
+
+  var sustanciaId = $("#sustanciaId").val();
+  var nombre = $("#sustanciaNombre").val().trim();
+  var tipo = $("#sustanciaTipo").val();
+  var descripcion = $("#sustanciaDescripcion").val().trim();
+  var estatus = $("#sustanciaActivaCheck").is(":checked") ? 1 : 0;
+
+  // Validaciones
+  if (!nombre) {
+    alertToast("El nombre de la sustancia es obligatorio", "warning", 3000);
+    return;
+  }
+
+  if (!tipo) {
+    alertToast("Debe seleccionar un tipo de sustancia", "warning", 3000);
+    return;
+  }
+
+  var accion = sustanciaId ? 'UPDATE' : 'CREATE';
+  var tituloConfirm = sustanciaId ? "¿Actualizar sustancia activa?" : "¿Registrar nueva sustancia activa?";
+  var textoConfirm = sustanciaId ? "Se actualizará la sustancia activa." : "Se creará una nueva sustancia activa.";
+
+  alertMensajeConfirm(
+    {
+      title: tituloConfirm,
+      text: textoConfirm,
+      icon: "warning",
+    },
+    function () {
+      ajaxAwait(
+        {
+          api: 38, // Usar el case 38 para CRUD de sustancias
+          id_sustancia: sustanciaId || null,
+          nombre: nombre,
+          tipo: tipo,
+          descripcion: descripcion,
+          estatus: estatus,
+          accion: accion,
+        },
+        "inventarios_api",
+        { callbackAfter: true },
+        false,
+        function (data) {
+          if (data.response.code == 1) {
+            var mensaje = sustanciaId ? "Sustancia actualizada exitosamente!" : "Sustancia registrada exitosamente!";
+            alertToast(mensaje, "success", 4000);
+            
+            $("#registrarSustanciaForm")[0].reset();
+            $("#registrarSustanciaModal").modal("hide");
+            
+            // Recargar tabla de sustancias
+            if (typeof tableCatSustancias !== "undefined") {
+              tableCatSustancias.ajax.reload();
+            }
+
+            // Recargar sustancias en los selects si están abiertos los modales de artículos
+            if ($("#registrarArticuloModal").hasClass("show")) {
+              cargarSustanciasRegistrar();
+            }
+            if ($("#editarArticuloModal").hasClass("show")) {
+              cargarSustanciasEditar();
+            }
+          } else {
+            var errorMsg = data.response.message || "Error al procesar la sustancia";
+            alertToast(errorMsg, "error", 4000);
+          }
+        }
+      );
+    },
+    1
+  );
+});

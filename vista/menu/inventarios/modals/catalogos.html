@@ -87,6 +87,21 @@
           <li class="nav-item" role="presentation">
             <button
               class="nav-link"
+              id="sustancias-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#sustancias"
+              type="button"
+              role="tab"
+              aria-controls="sustancias"
+              aria-selected="false"
+              data-tabla="tableCatSustancias"
+            >
+              Sustancias Activas
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
               id="proveedores-tab"
               data-bs-toggle="tab"
               data-bs-target="#proveedores"
@@ -219,6 +234,33 @@
                     <th>Motivo</th>
                     <th>Estado</th>
                     <th>Movimiento</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Pestaña de Sustancias Activas -->
+          <div
+            class="tab-pane fade"
+            id="sustancias"
+            role="tabpanel"
+            aria-labelledby="sustancias-tab"
+          >
+            <div class="table-responsive">
+              <table
+                id="tableCatSustancias"
+                class="table table-striped table-bordered"
+                style="width: 100%"
+              >
+                <thead class="table-light">
+                  <tr>
+                    <th>ID</th>
+                    <th>Sustancia Activa</th>
+                    <th>Tipo</th>
+                    <th>Estado</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
@@ -921,8 +963,106 @@
         </button>
       </div>
     </div>
+      </div>
+</div>
+
+<!-- Modal para Registrar/Editar Sustancia Activa -->
+<div
+  class="modal fade"
+  id="registrarSustanciaModal"
+  tabindex="-1"
+  aria-labelledby="registrarSustanciaModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="registrarSustanciaModalLabel">
+          Registrar Sustancia Activa
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="registrarSustanciaForm">
+          <input type="hidden" id="sustanciaId" name="sustanciaId" value="" />
+          <div class="mb-3">
+            <label for="sustanciaNombre" class="form-label"
+              >Nombre de la Sustancia</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="sustanciaNombre"
+              name="nombre"
+              placeholder="Ej: Loratadina, Paracetamol, etc."
+              required
+            />
+            <div class="invalid-feedback">Este campo es obligatorio.</div>
+            <small class="form-text text-muted">Ingrese el nombre de la sustancia activa o principio activo.</small>
+          </div>
+          <div class="mb-3">
+            <label for="sustanciaTipo" class="form-label">Tipo de Sustancia</label>
+            <select class="form-select" id="sustanciaTipo" name="tipo" required>
+              <option value="">Seleccione el tipo</option>
+              <option value="medicamento">Medicamento</option>
+              <option value="reactivo">Reactivo</option>
+              <option value="vitamina">Vitamina/Suplemento</option>
+              <option value="antibiotico">Antibiótico</option>
+              <option value="analgesico">Analgésico</option>
+              <option value="otro">Otro</option>
+            </select>
+            <div class="invalid-feedback">Este campo es obligatorio.</div>
+            <small class="form-text text-muted">Clasificación de la sustancia activa.</small>
+          </div>
+          <div class="mb-3">
+            <label for="sustanciaDescripcion" class="form-label">Descripción (Opcional)</label>
+            <textarea
+              class="form-control"
+              id="sustanciaDescripcion"
+              name="descripcion"
+              rows="3"
+              placeholder="Breve descripción de la sustancia y sus usos principales"
+            ></textarea>
+            <small class="form-text text-muted">Información adicional sobre la sustancia.</small>
+          </div>
+          <div class="mb-3">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="sustanciaActivaCheck"
+                name="sustanciaActivaCheck"
+                checked
+              />
+              <label class="form-check-label" for="sustanciaActivaCheck">
+                Sustancia activa
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <i class="bi bi-x-lg"></i> Cancelar
+        </button>
+        <button
+          type="submit"
+          form="registrarSustanciaForm"
+          class="btn btn-success"
+          id="btnGuardarSustancia"
+        >
+          <i class="bi bi-check-lg"></i> Guardar
+        </button>
+      </div>
+    </div>
   </div>
 </div>
+
 <!-- Filtrado de proveedores -->
 <div class="modal fade" id="filtrarProveedoresModal" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false"
     data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">

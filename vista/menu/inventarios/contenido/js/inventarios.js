@@ -2203,6 +2203,7 @@ $(document).ready(function () {
     cargarTiposRegistrar();
     cargarMarcasRegistrar();
     cargarUnidadesRegistrar();
+    cargarSustanciasRegistrar();
     // cargarAreasRegistrar(); No se utiliza
     // No cargar proveedores aquí porque no está en el formulario de registrar
   });
@@ -2240,6 +2241,7 @@ $(document).ready(function () {
     cargarMarcasEditar();
     // cargarAreasEditar();
     cargarUnidadesEditar();
+    cargarSustanciasEditar();
 
     // Esperar un momento para que se carguen los catálogos y luego establecer valores
     setTimeout(function () {
@@ -2297,6 +2299,11 @@ $(document).ready(function () {
       const textoSeleccionado = $(
         "#editarArticuloForm #unidad_venta option:selected"
       ).text();
+    }
+
+    // Establecer sustancia activa
+    if (rowSelected.ID_SUSTANCIA) {
+      $("#editarArticuloForm #id_sustancia").val(rowSelected.ID_SUSTANCIA);
     }
   }
 
@@ -2411,6 +2418,29 @@ $(document).ready(function () {
         campoId: "id_unidades",
         campoTexto: "descripcion",
         placeholder: "Seleccione unidad de venta",
+      },
+      callback
+    );
+  }
+
+  // ==================== FUNCIONES PARA SUSTANCIAS ACTIVAS ====================
+  function cargarSustanciasRegistrar() {
+    cargarCatalogoEnModal("#registrarArticuloForm #id_sustancia", {
+      api: 37, // API para sustancias activas usando stored procedure simple
+      campoId: "ID_SUSTANCIA",
+      campoTexto: "NOMBRE",
+      placeholder: "Seleccione una sustancia activa",
+    });
+  }
+
+  function cargarSustanciasEditar(callback) {
+    cargarCatalogoEnModal(
+      "#editarArticuloForm #id_sustancia",
+      {
+        api: 37, // API para sustancias activas usando stored procedure simple
+        campoId: "ID_SUSTANCIA",
+        campoTexto: "NOMBRE",
+        placeholder: "Seleccione una sustancia activa",
       },
       callback
     );
@@ -3760,8 +3790,17 @@ var tableCatTipos,
   tableCatUnidades,
   tableCatMarcas,
   tableCatMotivos,
-  tableCatProveedores;
+  tableCatProveedores,
+  tableCatSustancias;
 var rowSelectedCatalogo = null;
+
+// Variables de filtro para DataTables de catálogos
+var dataTableCatTipos = { api: 2 };
+var dataTableCatUnidades = { api: 12 };
+var dataTableCatMarcas = { api: 9 };
+var dataTableCatMotivos = { api: 15 };
+var dataTableCatProveedores = { api: 16 };
+var dataTableCatSustancias = { api: 37 }; // API para listar sustancias activas
 
 $("#registrarCatalogoModal").on("shown.bs.modal", function () {
   // solo inicializar si no existen las tablas
@@ -4181,6 +4220,82 @@ function inicializarDataTablesCatalogos() {
     ],
   });
 
+  // DATATABLE DE SUSTANCIAS ACTIVAS
+  tableCatSustancias = $("#tableCatSustancias").DataTable({
+    language: {
+      url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+    },
+    autoWidth: true,
+    lengthChange: false,
+    info: true,
+    paging: true,
+    scrollY: "40vh",
+    scrollCollapse: true,
+    ajax: {
+      dataType: "json",
+      data: function (d) {
+        return $.extend(d, dataTableCatSustancias);
+      },
+      method: "POST",
+      url: "../../../api/inventarios_api.php",
+      error: function (jqXHR, textStatus, errorThrown) {
+        alertErrorAJAX(jqXHR, textStatus, errorThrown);
+      },
+      dataSrc: "response.data",
+    },
+    columns: [
+      { data: "ID_SUSTANCIA" },
+      { data: "NOMBRE" },
+      { 
+        data: "TIPO",
+        render: function (data) {
+          // Capitalizar primera letra
+          return data.charAt(0).toUpperCase() + data.slice(1);
+        }
+      },
+      {
+        data: "ESTATUS",
+        render: function (data) {
+          return data == 1
+            ? '<i class="bi bi-toggle-on fs-4 text-success"></i>'
+            : '<i class="bi bi-toggle-off fs-4"></i>';
+        },
+      },
+      {
+        data: null,
+        render: function (data, type, row) {
+          return `
+                    <button class="btn btn-sm btn-warning btn-editar-sustancia" 
+                            data-id="${row.ID_SUSTANCIA}" 
+                            data-nombre="${row.NOMBRE}" 
+                            data-tipo="${row.TIPO}" 
+                            data-descripcion="${row.DESCRIPCION || ''}" 
+                            data-estatus="${row.ESTATUS}">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger btn-eliminar-sustancia" data-id="${row.ID_SUSTANCIA}">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                `;
+        },
+      },
+    ],
+    dom: 'Bl<"dataTables_toolbar">frtip',
+    buttons: [
+      {
+        text: '<i class="bi bi-plus-lg"></i> Nueva Sustancia',
+        className: "btn btn-success",
+        attr: {
+          "data-bs-toggle": "modal",
+          "data-bs-target": "#registrarSustanciaModal",
+        },
+        action: function () {
+          $("#registrarSustanciaModal").modal("show");
+        },
+      },
+    ],
+  });
+
   // Aplicar la función inputBusquedaTable después de la inicialización
   setTimeout(() => {
     inputBusquedaTable(
@@ -4247,12 +4362,26 @@ function inicializarDataTablesCatalogos() {
       "col-12"
     );
 
+    inputBusquedaTable(
+      "tableCatSustancias",
+      tableCatSustancias,
+      [
+        {
+          msj: "Buscar sustancias activas...",
+          place: "top",
+        },
+      ],
+      [],
+      "col-12"
+    );
+
     // Ajustar columnas
     tableCatTipos.columns.adjust().draw();
     tableCatMarcas.columns.adjust().draw();
     tableCatUnidades.columns.adjust().draw();
     tableCatMotivos.columns.adjust().draw();
     tableCatProveedores.columns.adjust().draw();
+    tableCatSustancias.columns.adjust().draw();
   }, 1000);
 
   inicializarEventosCatalogos();
@@ -4587,6 +4716,71 @@ function inicializarEventosCatalogos() {
               tableCatProveedores.ajax.reload();
             } else {
               alertToast("Error al desactivar el proveedor", "error", 4000);
+            }
+          }
+        );
+      },
+      1
+    );
+  });
+
+  // ==================== EVENTOS PARA SUSTANCIAS ACTIVAS ====================
+  // Evento para botón editar sustancia
+  $(document).on("click", ".btn-editar-sustancia", function () {
+    var sustanciaId = $(this).data("id");
+    var nombre = $(this).data("nombre");
+    var tipo = $(this).data("tipo");
+    var descripcion = $(this).data("descripcion");
+    var estatus = $(this).data("estatus");
+
+    // Cambiar el título del modal
+    $("#registrarSustanciaModalLabel").text("Editar Sustancia Activa");
+
+    // Llenar el formulario con los datos
+    $("#sustanciaId").val(sustanciaId);
+    $("#sustanciaNombre").val(nombre);
+    $("#sustanciaTipo").val(tipo);
+    $("#sustanciaDescripcion").val(descripcion);
+    $("#sustanciaActivaCheck").prop("checked", estatus == 1);
+
+    // Mostrar el modal
+    $("#registrarSustanciaModal").modal("show");
+  });
+
+  // Evento para limpiar el formulario cuando se cierra el modal de sustancia
+  $("#registrarSustanciaModal").on("hidden.bs.modal", function () {
+    $("#registrarSustanciaModalLabel").text("Registrar Sustancia Activa");
+    $("#registrarSustanciaForm")[0].reset();
+    $("#sustanciaId").val("");
+  });
+
+  // Evento para botón eliminar sustancia
+  $(document).on("click", ".btn-eliminar-sustancia", function () {
+    var sustanciaId = $(this).data("id");
+    var sustanciaNombre = $(this).closest("tr").find("td:eq(1)").text(); // Obtener nombre de la fila
+
+    alertMensajeConfirm(
+      {
+        title: "Estás desactivando la sustancia: " + sustanciaNombre,
+        text: "¿Desea continuar? Esta acción ocultará la sustancia de las listas.",
+        icon: "warning",
+      },
+      function () {
+        ajaxAwait(
+          {
+            api: 38, // API para CRUD de sustancias en inventarios_api
+            id_sustancia: sustanciaId,
+            accion: 'DELETE',
+          },
+          "inventarios_api",
+          { callbackAfter: true },
+          false,
+          function (data) {
+            if (data.response.code == 1) {
+              alertToast("Sustancia desactivada correctamente!", "success", 4000);
+              tableCatSustancias.ajax.reload();
+            } else {
+              alertToast("Error al desactivar la sustancia", "error", 4000);
             }
           }
         );

@@ -67,6 +67,22 @@
                                                             <small class="form-text text-muted">Seleccione la marca del
                                                                 artículo.</small>
                                                         </div>
+                                                        <div class="mb-3">
+                                                            <label for="id_sustancia" class="form-label">Sustancia Activa</label>
+                                                            <div class="input-group">
+                                                                <select class="form-select input-form" id="id_sustancia"
+                                                                    name="id_sustancia">
+                                                                    <option value="">Seleccione una sustancia activa</option>
+                                                                </select>
+                                                                <button
+                                                                    style="height: 38px; padding-top: 0; padding-bottom: 0;"
+                                                                    class="btn btn-outline-primary" type="button"
+                                                                    id="btnCatalogoSustancias" title="Gestionar Sustancias Activas">
+                                                                    <i class="bi bi-plus"></i>
+                                                                </button>
+                                                            </div>
+                                                            <small class="form-text text-muted">Para medicamentos: seleccione la sustancia activa. Para genéricos, agregue solo el gramaje en "Nombre Comercial" (ej: 500mg). Para patentes, use el nombre comercial completo.</small>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -939,6 +955,17 @@
             $("#unidades-tab").tab("show");
 
             console.log("Cambiando a pestaña de unidades de venta");
+        }, 300);
+    });
+
+    $('#btnCatalogoSustancias').click(function () {
+        $('#registrarArticuloModal').modal('hide');
+
+        $('#registrarCatalogoModal').modal('show');
+        setTimeout(function () {
+            $("#sustancias-tab").tab("show");
+
+            console.log("Cambiando a pestaña de sustancias activas");
         }, 300);
     });
 

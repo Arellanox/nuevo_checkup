@@ -115,6 +115,9 @@ switch ($api) {
             $procedimientoUrl = $master->setToNull([$procedimientoUrl])[0];
         }
 
+        // Campo de sustancia activa agregado
+        $id_sustancia = isset($_POST['id_sustancia']) && $_POST['id_sustancia'] !== '' && $_POST['id_sustancia'] !== 'null' ? $_POST['id_sustancia'] : null;
+
         $response = $master->insertByProcedure("sp_inventarios_cat_articulos_g", [
             $id_articulo,
             $no_art,
@@ -144,7 +147,8 @@ switch ($api) {
             $id_proveedores,
             $id_marcas,
             // PARÁMETROS REMOVIDOS: $numero_lote, $fecha_lote,
-            $codigo_barras
+            $codigo_barras,
+            $id_sustancia // NUEVO PARÁMETRO AGREGADO
         ]);
         break;
     case 2:
@@ -461,6 +465,18 @@ switch ($api) {
         break;
     case 24:
         $response = $master->getByProcedure("sp_inventarios_cat_motivos_inactivos_b", []);
+        break;
+    case 30:
+        // Obtener sustancias activas para el select del formulario
+        $response = $master->getByProcedure("sp_inventarios_cat_sustancias_activas", [
+            null, // id_sustancia
+            null, // nombre
+            null, // tipo
+            null, // descripcion
+            1, // estatus (solo activas)
+            $_SESSION['id'], // usuario_id
+            'GET' // accion
+        ]);
         break;
     case 25:
         //buscar requisiciones
@@ -1102,6 +1118,79 @@ switch ($api) {
         } while ($result->nextRowset());
 
         echo json_encode(['code' => 1, 'data' => $data]);
+        break;
+    case 37:
+        // Obtener sustancias activas usando el stored procedure simple
+        $estatus = isset($_POST['estatus']) ? $_POST['estatus'] : 1; // Por defecto solo activas
+        
+        $response = $master->getByProcedure("sp_inventarios_cat_sustancias_activas_select", [
+            $estatus
+        ]);
+        break;
+    case 38:
+        // CRUD de sustancias activas (crear, actualizar, eliminar)
+        $id_sustancia = isset($_POST['id_sustancia']) && $_POST['id_sustancia'] !== '' && $_POST['id_sustancia'] !== 'null' ? $_POST['id_sustancia'] : null;
+        $nombre_sustancia = isset($_POST['nombre']) ? trim($_POST['nombre']) : '';
+        $tipo_sustancia = isset($_POST['tipo']) ? $_POST['tipo'] : '';
+        $descripcion_sustancia = isset($_POST['descripcion']) ? trim($_POST['descripcion']) : '';
+        $estatus_sustancia = isset($_POST['estatus']) ? $_POST['estatus'] : 1;
+        $accion = isset($_POST['accion']) ? $_POST['accion'] : '';
+
+        // Validar parámetros según la acción
+        if (empty($accion)) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: Falta especificar la acción',
+                'data' => array()
+            );
+            break;
+        }
+
+        if (in_array($accion, ['CREATE', 'UPDATE']) && empty($nombre_sustancia)) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: El nombre de la sustancia es obligatorio',
+                'data' => array()
+            );
+            break;
+        }
+
+        if (in_array($accion, ['UPDATE', 'DELETE']) && empty($id_sustancia)) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: El ID de la sustancia es obligatorio para esta acción',
+                'data' => array()
+            );
+            break;
+        }
+
+        // Validar sesión de usuario
+        if (!isset($_SESSION['id']) || empty($_SESSION['id'])) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: No se ha identificado el usuario en la sesión',
+                'data' => array()
+            );
+            break;
+        }
+
+        try {
+            $response = $master->insertByProcedure("sp_inventarios_cat_sustancias_activas", [
+                $id_sustancia,
+                $nombre_sustancia,
+                $tipo_sustancia,
+                $descripcion_sustancia,
+                $estatus_sustancia,
+                $_SESSION['id'],
+                $accion
+            ]);
+        } catch (Exception $e) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: ' . $e->getMessage(),
+                'data' => array()
+            );
+        }
         break;
     default:
         $response = "API no definida.";
