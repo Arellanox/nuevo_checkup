@@ -146,6 +146,37 @@
                               <small class="form-text text-muted">Adjunte una nueva imagen/PDF de la factura si desea cambiarla. Deje vacío para mantener el actual.</small>
                             </div>
                           </div>
+
+                          <!-- Campos de lote y caducidad (solo para entradas) -->
+                          <div id="lotesCaducidadEditDiv">
+                            <div class="row">
+                              <div class="col-6">
+                                <div class="mb-3">
+                                  <label for="numero_lote" class="form-label">Número de Lote</label>
+                                  <input type="text" class="form-control input-form" id="numero_lote" name="numero_lote" placeholder="Ej. LOT123456">
+                                  <small class="form-text text-muted">Ingrese el número de lote del producto.</small>
+                                </div>
+                              </div>
+                              <!-- COMENTADO: Fecha de lote ya no es requerida
+                              <div class="col-6">
+                                <div class="mb-3">
+                                  <label for="fecha_lote" class="form-label">Fecha de Lote</label>
+                                  <input type="date" class="form-control input-form" id="fecha_lote" name="fecha_lote">
+                                  <small class="form-text text-muted">Fecha de fabricación del lote.</small>
+                                </div>
+                              </div>
+                              -->
+                              <div class="col-6" id="fechaCaducidadEditDiv">
+                                <div class="mb-3">
+                                  <label for="fecha_caducidad" class="form-label">Fecha de Caducidad</label>
+                                  <input type="date" class="form-control input-form" id="fecha_caducidad" name="fecha_caducidad">
+                                  <small class="form-text text-muted">Fecha de vencimiento del producto.</small>
+                                </div>
+                              </div>
+                              <!-- Campo oculto para fecha_lote - envía null -->
+                              <input type="hidden" id="fecha_lote" name="fecha_lote" value="">
+                            </div>
+                          </div>
                           
                         </div>
                       </div>
@@ -195,6 +226,7 @@
     $('#editarMovimientoModal').on('shown.bs.modal', function () {
       cargarProveedoresEditar();
       cargarMotivosEditar();
+      consultarManejaCaducidadYCargarDatos();
 
       // Establecer valores en los campos de input después de un pequeño delay
       setTimeout(function() {
@@ -204,6 +236,7 @@
         if (costoActual) {
           $("#costo_ultima_entrada").val(costoActual);
         }
+        // Los valores de lote y caducidad se cargan ahora via AJAX en consultarDatosMovimientoCompletos()
       }, 100);
     });
 
@@ -339,11 +372,58 @@
     });
   });
 
+  // FUNCIÓN PARA CONSULTAR SI EL ARTÍCULO MANEJA CADUCIDAD
+  function consultarManejaCaducidadYCargarDatos() {
+    if (window.dataTableCatEntradas && window.dataTableCatEntradas.id_articulo) {
+      $.ajax({
+        url: "../../../api/inventarios_api.php",
+        type: "POST",
+        dataType: "json",
+        data: {
+          api: 7, // API para obtener detalles del artículo
+          id_articulo: window.dataTableCatEntradas.id_articulo,
+          id_movimiento: 1 // Para obtener detalles de entrada
+        },
+        success: function (response) {
+          if (response.response && response.response.code == 1 && response.response.data.length > 0) {
+            var articulo = response.response.data[0];
+            var manejaCaducidad = articulo.MANEJA_CADUCIDAD == 1 || articulo.MANEJA_CADUCIDAD == '1';
+            
+            // Mostrar campos de lote y caducidad para entradas
+            $("#lotesCaducidadEditDiv").show();
+            
+            // Mostrar u ocultar fecha de caducidad según configuración
+            if (manejaCaducidad) {
+              $("#fechaCaducidadEditDiv").show();
+            } else {
+              $("#fechaCaducidadEditDiv").hide();
+              $("#fecha_caducidad").val(''); // Limpiar valor
+            }
+            
+            console.log("Artículo maneja caducidad:", manejaCaducidad);
+          } else {
+            console.log("Error al obtener información del artículo:", response);
+            // En caso de error, mostrar todos los campos por defecto
+            $("#lotesCaducidadEditDiv").show();
+            $("#fechaCaducidadEditDiv").show();
+          }
+        },
+        error: function (xhr, status, error) {
+          console.log("Error AJAX al consultar artículo:", error);
+          // En caso de error, mostrar todos los campos por defecto
+          $("#lotesCaducidadEditDiv").show();
+          $("#fechaCaducidadEditDiv").show();
+        }
+      });
+    }
+  }
+
   // FUNCIÓN PARA ESTABLECER LOS VALORES ACTUALES (llamar desde donde abres el modal)
   function establecerValoresActuales(datos) {
     proveedorActual = datos.proveedor || datos.PROVEEDOR || datos.nombre_proveedor;
     motivoActual = datos.motivo || datos.MOTIVO_SALIDA || datos.descripcion_motivo;
     cantidadActual = datos.cantidad || datos.CANTIDAD;
     costoActual = datos.costo_ultima_entrada || datos.COSTO_ULTIMA_ENTRADA || datos.costo;
+    // Los datos de lote y caducidad se obtienen ahora via AJAX
   }
 </script>

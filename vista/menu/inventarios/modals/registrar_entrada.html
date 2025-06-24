@@ -130,6 +130,37 @@
                                                 </div>
                                             </div>
 
+                                                <!-- Campos de lote y caducidad (solo para entradas) -->
+                                                <div id="lotesCaducidadDiv" style="display: none;">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <div class="mb-3">
+                                                                <label for="numero_lote" class="form-label">Número de Lote</label>
+                                                                <input type="text" class="form-control input-form" id="numero_lote" name="numero_lote" placeholder="Ej. LOT123456">
+                                                                <small class="form-text text-muted">Ingrese el número de lote del producto.</small>
+                                                            </div>
+                                                        </div>
+                                                        <!-- COMENTADO: Fecha de lote ya no es requerida
+                                                        <div class="col-6">
+                                                            <div class="mb-3">
+                                                                <label for="fecha_lote" class="form-label">Fecha de Lote</label>
+                                                                <input type="date" class="form-control input-form" id="fecha_lote" name="fecha_lote">
+                                                                <small class="form-text text-muted">Fecha de fabricación del lote.</small>
+                                                            </div>
+                                                        </div>
+                                                        -->
+                                                        <div class="col-6" id="fechaCaducidadDiv">
+                                                            <div class="mb-3">
+                                                                <label for="fecha_caducidad" class="form-label">Fecha de Caducidad</label>
+                                                                <input type="date" class="form-control input-form" id="fecha_caducidad" name="fecha_caducidad">
+                                                                <small class="form-text text-muted">Fecha de vencimiento del producto.</small>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Campo oculto para fecha_lote - envía null -->
+                                                        <input type="hidden" id="fecha_lote" name="fecha_lote" value="">
+                                                    </div>
+                                                </div>
+
                                                 <!-- Campo oculto para la fecha y hora del movimiento -->
                                                 <input type="hidden" id="fecha_ultima_entrada"
                                                     name="fecha_ultima_entrada">
@@ -171,6 +202,7 @@
         $("#registrarMovimientoButton").hide();
         $("#facturaDiv").hide();
         $("#costoTotal").hide(); // AGREGAR: Ocultar costo total inicialmente
+        $("#lotesCaducidadDiv").hide(); // AGREGAR: Ocultar campos de lote y caducidad inicialmente
 
         $("#ordenCompraDiv").hide();
 
@@ -225,6 +257,7 @@
                 calcularCostoTotal(); // Calcular inmediatamente si ya hay valores
 
                 $("#ordenCompraDiv").show();
+                $("#lotesCaducidadDiv").show(); // AGREGAR: Mostrar campos de lote y caducidad para entradas
             } else if ($(this).val() == "2") {
                 $("#motivoSalidaDiv").show();
                 $("label[for='motivo_salida']").text("Motivo de salida");
@@ -257,6 +290,7 @@
                 $("#cantidad, #costo_ultima_entrada").off("input keyup change", calcularCostoTotal);
 
                 $("#ordenCompraDiv").hide();
+                $("#lotesCaducidadDiv").hide(); // AGREGAR: Ocultar campos de lote y caducidad para salidas
             } else {
                 $("#cantidad").closest(".mb-3").hide();
                 $("#fecha_ultima_entrada").closest(".mb-3").hide();
@@ -273,6 +307,7 @@
                 $("#costoTotal").hide();
 
                 $("#ordenCompraDiv").hide();
+                $("#lotesCaducidadDiv").hide(); // AGREGAR: Ocultar campos de lote y caducidad cuando no hay selección
             }
         });
 
@@ -460,6 +495,47 @@
                 alertToast(`Error de conexión al cargar ${opciones.placeholder}`, "error", 3000);
             }
         });
+    }
+
+    // FUNCIÓN PARA CONSULTAR SI EL ARTÍCULO MANEJA CADUCIDAD (para modal de registrar entrada)
+    function consultarManejaCaducidadRegistrar(idArticulo) {
+        if (idArticulo) {
+            $.ajax({
+                url: "../../../api/inventarios_api.php",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    api: 7, // API para obtener detalles del artículo
+                    id_articulo: idArticulo,
+                    id_movimiento: 1 // Para obtener detalles de entrada
+                },
+                success: function (response) {
+                    if (response.response && response.response.code == 1 && response.response.data.length > 0) {
+                        var articulo = response.response.data[0];
+                        var manejaCaducidad = articulo.MANEJA_CADUCIDAD == 1 || articulo.MANEJA_CADUCIDAD == '1';
+                        
+                        // Mostrar u ocultar fecha de caducidad según configuración
+                        if (manejaCaducidad) {
+                            $("#fechaCaducidadDiv").show();
+                        } else {
+                            $("#fechaCaducidadDiv").hide();
+                            $("#fecha_caducidad").val(''); // Limpiar valor
+                        }
+                        
+                        console.log("Artículo maneja caducidad (registrar):", manejaCaducidad);
+                    } else {
+                        console.log("Error al obtener información del artículo:", response);
+                        // En caso de error, mostrar todos los campos por defecto
+                        $("#fechaCaducidadDiv").show();
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error AJAX al consultar artículo:", error);
+                    // En caso de error, mostrar todos los campos por defecto
+                    $("#fechaCaducidadDiv").show();
+                }
+            });
+        }
     }
 
         $("#registrarEntradaForm").submit(function (event) {
