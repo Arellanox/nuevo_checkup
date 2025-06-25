@@ -125,8 +125,9 @@ if (
     $_SESSION['vista']['CURSOS BIMO'] == 1 ||
     $_SESSION['vista']['REGISTRO_TEMPERATURA'] == 1 ||
     $_SESSION['vista']['MEDICOS_TRATANTES'] == 1 ||
-    $_SESSION['vista']['CAJA'] == 1
-    || $_SESSION['vista']['CAJA_CHICA'] == 1
+    $_SESSION['vista']['CAJA'] == 1 ||
+    $_SESSION['vista']['CAJA_CHICA'] == 1 ||
+    $_SESSION['vista']['RECURSOS_HUMANOS'] == 1
 ) : ?>
     <li class="nav-item Recepción">
         <div class="dropdown ">

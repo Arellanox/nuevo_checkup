@@ -1,0 +1,54 @@
+<!-- Modal para nueva requisición -->
+<div class="modal fade" id="registrarVacanteModal" tabindex="-1" aria-labelledby="registrarVacanteModalLabel" aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registrarVacanteModalLabel">Nueva Requisición de Personal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Contenido del formulario -->
+                <form id="formRegistrarVacante" name="formRegistrarVacante">
+                    <div class="mb-3">
+                        <label for="puesto" class="form-label">Puesto</label>
+                        <select class="form-select" id="puesto" name="puesto" required>
+                            <option value="">Seleccionar puesto</option>
+                            <option value="talentoHumano">Talento Humano</option>
+                            <option value="ventas">Ventas</option>
+                            <option value="marketing">Marketing</option>
+                            <option value="TI">Programador/TI</option>
+                            <option value="contabilidad">Contabilidad</option>
+                            <option value="medico">Médico</option>
+                            <option value="laboratorio">Jefe de Laboratorio</option>
+                            <option value="radiologo">Técnico Radiologo</option>
+                            <option value="enfermeria">Enfermería</option>
+                            <option value="quimicoExterno">Químico Externo</option>
+                            <option value="administracion">Administración</option>
+                            <option value="analista">Analista</option>
+                            <option value="liderCalidad">Líder de Calidad</option>
+                            <option value="franquiciario">Franquiciario</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="departamento" class="form-label">Departamento</label>
+                        <select class="form-select" id="departamento" name="departamento" required>
+                            <option value="">Seleccionar departamento</option>
+                            <option value="rrhh">Recursos Humanos</option>
+                            <option value="ventas">Ventas</option>
+                            <option value="marketing">Marketing</option>
+                            <option value="tecnologia">Tecnologías de la información</option>
+                            <option value="finanzas">Finanzas</option>
+                            <option value="produccion">Producción</option>
+                            <option value="logistica">Logística</option>
+                            <option value="atencion_cliente">Atención al Cliente</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" form="formRegistrarVacante" class="btn btn-confirmar">Guardar vacante</button>
+            </div>
+        </div>
+    </div>
+</div>

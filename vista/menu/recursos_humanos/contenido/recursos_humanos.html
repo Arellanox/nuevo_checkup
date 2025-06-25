@@ -1,0 +1,526 @@
+    <!-- tabs para movil -->
+    <div id="tab-button"></div>
+    <div class="row">
+        <div class="col-6 tab-first" id="tab-menu" style="margin: auto">
+            <div class="rounded p-3 shadow my-2 card" id="lista-modulos">
+                <h5 class="text-center mb-4">Sistema de Talento Humano</h5>
+                <div class="vertical-menu" id="menu-grid">
+                    <a href="#requisicion" data-target="moduloRequisicion">
+                        <i class="bi bi-file-earmark-text icono-menu icono-requisicion"></i>
+                        <span>Requisición</span>
+                    </a>
+                    <a href="#reclutamiento" data-target="moduloReclutamiento">
+                        <i class="bi bi-people icono-menu icono-reclutamiento"></i>
+                        <span>Reclutamiento</span>
+                    </a>
+                    <a href="#seleccion" data-target="moduloSeleccion">
+                        <i class="bi bi-person-check icono-menu icono-seleccion"></i>
+                        <span>Selección</span>
+                    </a>
+                    <a href="#expediente" data-target="moduloExpediente">
+                        <i class="bi bi-folder2-open icono-menu icono-expediente"></i>
+                        <span>Expediente</span>
+                    </a>
+                    <a href="#onboarding" data-target="moduloOnboarding">
+                        <i class="bi bi-person-plus icono-menu icono-onboarding"></i>
+                        <span>Onboarding</span>
+                    </a>
+                    <a href="#evaluaciones" data-target="moduloEvaluaciones">
+                        <i class="bi bi-clipboard-check icono-menu icono-evaluaciones"></i>
+                        <span>Evaluaciones</span>
+                    </a>
+                    <a href="#incidencias" data-target="moduloIncidencias">
+                        <i class="bi bi-exclamation-triangle icono-menu icono-incidencias"></i>
+                        <span>Incidencias</span>
+                    </a>
+                    <a href="#desvinculacion" data-target="moduloDesvinculacion">
+                        <i class="bi bi-person-dash icono-menu icono-desvinculacion"></i>
+                        <span>Desvinculación</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-xl-12 tab-second" id="modulos-rrhh" style="display: none">
+            <!-- MÓDULO REQUISICIÓN -->
+            <div class="rounded p-3 shadow my-2 mx-2 content-module card" id="moduloRequisicion">                
+                <div class="d-flex align-items-center pb-3 mb-3 border-bottom">
+                    <button class="btn btn-link p-0 me-3 btnVolver">
+                        <i class="bi bi-arrow-left fs-4 text-primary"></i>
+                    </button>
+                    <h2 class="mb-0 text-primary">Requisición de Personal</h2>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="text-muted">Gestiona las solicitudes de nuevo personal para la organización.</p>
+                    </div>
+                </div>
+                <div class="table-responsive mt-3">
+                    <table class="table table-hover" id="tableRequisicion">
+                        <thead class="table-light">
+                            <tr>
+                                <th>ID</th>
+                                <th>Puesto</th>
+                                <th>Departamento</th>
+                                <th>Fecha Solicitud</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Contenido dinámico -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- MÓDULO RECLUTAMIENTO -->
+            <div class="rounded p-3 shadow my-2 mx-2 content-module card" id="moduloReclutamiento">                
+                <div class="d-flex align-items-center pb-3 mb-3 border-bottom">
+                    <button class="btn btn-link p-0 me-3 btnVolver">
+                        <i class="bi bi-arrow-left fs-4 text-primary"></i>
+                    </button>
+                    <h2 class="mb-0 text-primary">Reclutamiento</h2>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="text-muted">Administra los procesos de búsqueda y atracción de candidatos.</p>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <button type="button" class="btn btn-primary">
+                            <i class="bi bi-plus"></i> Nuevo Proceso
+                        </button>
+                    </div>
+                </div>
+                <div class="table-responsive mt-3">
+                    <table class="table table-hover" id="tableReclutamiento">
+                        <thead class="table-light">
+                            <tr>
+                                <th>ID</th>
+                                <th>Puesto</th>
+                                <th>Candidatos</th>
+                                <th>Fecha Inicio</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Contenido dinámico -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- MÓDULO SELECCIÓN -->
+            <div class="rounded p-3 shadow my-2 mx-2 content-module card" id="moduloSeleccion">                
+                <div class="d-flex align-items-center pb-3 mb-3 border-bottom">
+                    <button class="btn btn-link p-0 me-3 btnVolver">
+                        <i class="bi bi-arrow-left fs-4 text-primary"></i>
+                    </button>
+                    <h2 class="mb-0 text-primary">Proceso de Selección</h2>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="text-muted">Evalúa y selecciona a los mejores candidatos para la organización.</p>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <button type="button" class="btn btn-primary">
+                            <i class="bi bi-plus"></i> Nueva Evaluación
+                        </button>
+                    </div>
+                </div>
+                <div class="table-responsive mt-3">
+                    <table class="table table-hover" id="tableSeleccion">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Candidato</th>
+                                <th>Puesto</th>
+                                <th>Etapa</th>
+                                <th>Puntuación</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Contenido dinámico -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- MÓDULO EXPEDIENTE -->
+            <div class="rounded p-3 shadow my-2 mx-2 content-module card" id="moduloExpediente">                
+                <div class="d-flex align-items-center pb-3 mb-3 border-bottom">
+                    <button class="btn btn-link p-0 me-3 btnVolver">
+                        <i class="bi bi-arrow-left fs-4 text-primary"></i>
+                    </button>
+                    <h2 class="mb-0 text-primary">Expedientes de Personal</h2>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="text-muted">Gestiona la información completa de los empleados.</p>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <button type="button" class="btn btn-primary">
+                            <i class="bi bi-plus"></i> Nuevo Expediente
+                        </button>
+                    </div>
+                </div>
+                <div class="table-responsive mt-3">
+                    <table class="table table-hover" id="tableExpediente">
+                        <thead class="table-light">
+                            <tr>
+                                <th>ID Empleado</th>
+                                <th>Nombre</th>
+                                <th>Puesto</th>
+                                <th>Departamento</th>
+                                <th>Fecha Ingreso</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Contenido dinámico -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- MÓDULO ONBOARDING -->
+            <div class="rounded p-3 shadow my-2 mx-2 content-module card" id="moduloOnboarding">                
+                <div class="d-flex align-items-center pb-3 mb-3 border-bottom">
+                    <button class="btn btn-link p-0 me-3 btnVolver">
+                        <i class="bi bi-arrow-left fs-4 text-primary"></i>
+                    </button>
+                    <h2 class="mb-0 text-primary">Onboarding</h2>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="text-muted">Facilita la integración de nuevos empleados a la organización.</p>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <button type="button" class="btn btn-primary">
+                            <i class="bi bi-plus"></i> Nuevo Plan
+                        </button>
+                    </div>
+                </div>
+                <div class="table-responsive mt-3">
+                    <table class="table table-hover" id="tableOnboarding">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Empleado</th>
+                                <th>Puesto</th>
+                                <th>Fecha Inicio</th>
+                                <th>Progreso</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Contenido dinámico -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- MÓDULO EVALUACIONES -->
+            <div class="rounded p-3 shadow my-2 mx-2 content-module card" id="moduloEvaluaciones">                
+                <div class="d-flex align-items-center pb-3 mb-3 border-bottom">
+                    <button class="btn btn-link p-0 me-3 btnVolver">
+                        <i class="bi bi-arrow-left fs-4 text-primary"></i>
+                    </button>
+                    <h2 class="mb-0 text-primary">Evaluaciones de Desempeño</h2>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="text-muted">Administra las evaluaciones de desempeño de los empleados.</p>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <button type="button" class="btn btn-primary">
+                            <i class="bi bi-plus"></i> Nueva Evaluación
+                        </button>
+                    </div>
+                </div>
+                <div class="table-responsive mt-3">
+                    <table class="table table-hover" id="tableEvaluaciones">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Empleado</th>
+                                <th>Período</th>
+                                <th>Evaluador</th>
+                                <th>Puntuación</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Contenido dinámico -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- MÓDULO INCIDENCIAS -->
+            <div class="rounded p-3 shadow my-2 mx-2 content-module card" id="moduloIncidencias">                
+                <div class="d-flex align-items-center pb-3 mb-3 border-bottom">
+                    <button class="btn btn-link p-0 me-3 btnVolver">
+                        <i class="bi bi-arrow-left fs-4 text-primary"></i>
+                    </button>
+                    <h2 class="mb-0 text-primary">Incidencias</h2>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="text-muted">Registra y gestiona las incidencias del personal.</p>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <button type="button" class="btn btn-primary">
+                            <i class="bi bi-plus"></i> Nueva Incidencia
+                        </button>
+                    </div>
+                </div>
+                <div class="table-responsive mt-3">
+                    <table class="table table-hover" id="tableIncidencias">
+                        <thead class="table-light">
+                            <tr>
+                                <th>ID</th>
+                                <th>Empleado</th>
+                                <th>Tipo</th>
+                                <th>Fecha</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Contenido dinámico -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- MÓDULO DESVINCULACIÓN -->
+            <div class="rounded p-3 shadow my-2 mx-2 content-module card" id="moduloDesvinculacion">                
+                <div class="d-flex align-items-center pb-3 mb-3 border-bottom">
+                    <button class="btn btn-link p-0 me-3 btnVolver">
+                        <i class="bi bi-arrow-left fs-4 text-primary"></i>
+                    </button>
+                    <h2 class="mb-0 text-primary">Desvinculación</h2>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="text-muted">Gestiona los procesos de desvinculación laboral.</p>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <button type="button" class="btn btn-primary">
+                            <i class="bi bi-plus"></i> Nuevo Proceso
+                        </button>
+                    </div>
+                </div>
+                <div class="table-responsive mt-3">
+                    <table class="table table-hover" id="tableDesvinculacion">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Empleado</th>
+                                <th>Tipo</th>
+                                <th>Fecha Solicitud</th>
+                                <th>Fecha Efectiva</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Contenido dinámico -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        #menu-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px 15px;
+            justify-items: center;
+            align-items: center;
+            width: 100%;
+            background-color: #ffffff;
+            border: 1px solid #e9ecef;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px 15px;
+        }
+
+        #menu-grid a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #495057;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            background: transparent;
+            border-bottom: none;
+            width: 100%;
+            min-height: 130px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        #menu-grid a:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        #menu-grid a .icono-menu,
+        #menu-grid a span {
+            transition: transform 0.3s ease;
+        }
+
+        #menu-grid a:hover .icono-menu,
+        #menu-grid a:hover span {
+            transform: scale(1.1);
+        }
+
+        .icono-menu {
+            font-size: 3.5rem !important;
+            margin-bottom: 12px;
+            line-height: 1;
+            display: block;
+        }
+
+        /* Iconos coloridos individuales con colores profesionales de RRHH */
+         .icono-requisicion {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(2px 2px 4px rgba(67, 233, 123, 0.3));
+        }
+
+        .icono-reclutamiento {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(2px 2px 4px rgba(245, 87, 108, 0.3));
+        }
+
+        .icono-seleccion {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(2px 2px 4px rgba(79, 172, 254, 0.3));
+        }
+
+        .icono-expediente {
+            background: linear-gradient(135deg, #e9d643 0%, #fee140 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(2px 2px 4px rgba(205, 233, 67, 0.3));
+        }
+
+        .icono-onboarding {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(2px 2px 4px rgba(250, 112, 154, 0.3));
+        }
+
+        .icono-evaluaciones {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(2px 2px 4px rgba(168, 237, 234, 0.3));
+        }
+
+        .icono-incidencias {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(2px 2px 4px rgba(255, 154, 158, 0.3));
+        }
+
+        .icono-desvinculacion {
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(2px 2px 4px rgba(161, 196, 253, 0.3));
+        }
+
+        #menu-grid a span {
+            margin-top: 8px;
+            font-size: 1rem;
+            display: block;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .content-module {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .content-module.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .table th {
+            border-top: none;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        @media (max-width: 991px) {
+            #menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px 10px;
+            }
+        }
+
+        @media (max-width: 575px) {
+            #menu-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+        }    
+        </style>
+

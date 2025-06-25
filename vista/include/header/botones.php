@@ -472,6 +472,13 @@ $menu == 'Laboratorio Biomolecular'
         </button>
     <?php endif; ?>
 
+    <?php if (strtolower($menu) == "recursos humanos" && $_SESSION["permisos"]["thRegVac"]) : ?>
+        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px; display:none;" data-bs-toggle="modal"
+                data-bs-target="#registrarVacanteModal" id="btnRegistrarVacante">
+            <i class="bi bi-person-plus-fill"></i> Agregar vacante
+        </button>
+    <?php endif; ?>
+
     <script>
         // Abrir el dropdown al pasar el mouse
         $('.btn-group').on('mouseenter', '.dropdown-toggle', function () {

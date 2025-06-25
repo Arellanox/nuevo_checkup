@@ -194,3 +194,9 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
         <i class="bi bi-piggy-bank"></i> Caja chica
     </a>
 <?php endif; ?>
+
+<?php if($_SESSION['vista']['RECURSOS_HUMANOS'] == 1):  ?>
+    <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/recursos_humanos/#RECURSOSHUMANOS'; ?>">
+        <i class="bi bi-person-square"></i> Recursos Humanos
+    </a>
+<?php endif; ?>
