@@ -472,7 +472,16 @@ $menu == 'Laboratorio Biomolecular'
         </button>
     <?php endif; ?>
 
-    <?php if (strtolower($menu) == "recursos humanos" && $_SESSION["permisos"]["thRegVac"]) : ?>
+    
+    <?php if (strtolower($menu) == "recursos humanos" && $_SESSION["permisos"]["rhRegCat"]) : ?>
+        <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px; display:none;" data-bs-toggle="modal"
+                data-bs-target="#registrarCatalogoModal" id="btnRegistrarCatalogo">
+            <i class="bi bi-plus"></i> Agregar catálogo
+        </button>
+    <?php endif; ?>
+
+
+    <?php if (strtolower($menu) == "recursos humanos" && $_SESSION["permisos"]["rhRegVac"]) : ?>
         <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px; display:none;" data-bs-toggle="modal"
                 data-bs-target="#registrarVacanteModal" id="btnRegistrarVacante">
             <i class="bi bi-person-plus-fill"></i> Agregar vacante

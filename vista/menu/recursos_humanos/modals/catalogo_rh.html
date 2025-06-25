@@ -1,0 +1,339 @@
+<!-- Modal de Catálogos -->
+<div
+  class="modal fade"
+  id="registrarCatalogoModal"
+  tabindex="-1"
+  aria-labelledby="catalogosModalLabel"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="catalogosModalLabel">
+          Catálogos de requisiciones
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <!-- Pestañas para diferentes catálogos -->
+        <ul class="nav nav-tabs" id="catalogosTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link active"
+              id="departamentos-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#departamentos"
+              type="button"
+              role="tab"
+              aria-controls="departamentos"
+              aria-selected="true"
+              data-tabla="tableCatDepartamentos"
+            >
+              Departamentos
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="puestos-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#puestos"
+              type="button"
+              role="tab"
+              aria-controls="puestos"
+              aria-selected="false"
+              data-tabla="tableCatPuestos"
+            >
+              Puestos
+            </button>
+          </li>
+        </ul>
+
+        <!-- Contenido de las pestañas -->
+        <div
+          class="tab-content p-3 border border-top-0 rounded-bottom"
+          id="catalogosTabContent"
+        >
+          <!-- Pestaña de departamentos -->
+          <div
+            class="tab-pane fade show active"
+            id="departamentos"
+            role="tabpanel"
+            aria-labelledby="departamentos-tab"
+          >
+            <div class="table-responsive">
+              <table
+                id="tableCatDepartamentos"
+                class="table table-striped table-bordered"
+                style="width: 100%"
+              >
+                <thead class="table-light">
+                  <tr>
+                    <th>ID</th>
+                    <th>Descripción</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Pestaña de Puestos -->
+          <div
+            class="tab-pane fade"
+            id="puestos"
+            role="tabpanel"
+            aria-labelledby="puestos-tab"
+          >
+            <div class="table-responsive">
+              <table
+                id="tableCatPuestos"
+                class="table table-striped table-bordered"
+                style="width: 100%"
+              >
+                <thead class="table-light">
+                  <tr>
+                    <th>ID</th>
+                    <th>Descripción</th>
+                    <th>Departamento</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <i class="bi bi-x-lg"></i> Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para Registrar/Editar Departamento -->
+<div
+  class="modal fade"
+  id="registrarDepartamentoModal"
+  tabindex="-1"
+  aria-labelledby="registrarDepartamentoModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="registrarDepartamentoModalLabel">Registrar Departamento</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="registrarDepartamentoForm">
+          <input type="hidden" id="departamentoId" name="departamentoId" value="" />
+          <div class="mb-3">
+            <label for="departamentoDescripcion" class="form-label"
+              >Descripción del Departamento</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="departamentoDescripcion"
+              name="descripcion"
+              placeholder="Ingrese la descripción del departamento"
+              required
+            />
+            <div class="invalid-feedback">Este campo es obligatorio.</div>
+          </div>
+          <div class="mb-3">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox"
+              id="departamentoActivoCheck" name="departamentoActivoCheck" checked />
+              <label class="form-check-label" for="departamentoActivoCheck">
+                Departamento activo
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <i class="bi bi-x-lg"></i> Cancelar
+        </button>
+        <button
+          type="submit"
+          form="registrarDepartamentoForm"
+          class="btn btn-success"
+          id="btnGuardarDepartamento"
+        >
+          <i class="bi bi-check-lg"></i> Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="filtrarDepartamentosModal" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false"
+    data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filtrarDepartamentosTitle">Filtre los departamentos</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="container-fluid">
+                    <div class="row">
+                         <!-- Formulario para filtrar proveedores -->
+                         <div class="col-12">
+                            <div class="text-start">
+                                <div class="shadow-sm rounded p-3 card-body">
+                                    <div class="row align-items-end">
+                                        <div class="col-12">
+                                            <form id="filtrarDepartamentosForm" name="filtrarDepartamentosForm">
+                                                <!-- Activo -->
+                                                <div class="card mb-3">
+                                                    <div class="card-body">
+                                                        <label class="form-label">Estatus</label>
+                                                        <div id="activoDepartamentosRadios">
+                                                            <input type="radio" class="btn-check" name="activoDepartamentos" id="activoDepartamentos1" value="1" >
+                                                            <label class="btn btn-outline-primary" for="activoDepartamentos1">Activo</label>
+                                                            
+                                                            <input type="radio" class="btn-check" name="activoDepartamentos" id="activoDepartamentos0" value="0" > 
+                                                            <label class="btn btn-outline-secondary" for="activoDepartamentos0">Inactivo</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-12 d-flex justify-content-end">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i
+                        class="bi bi-arrow-left-short"></i>
+                    Cancelar</button>
+                </button>
+
+                <button type="submit" id="enviarFiltrosDepartamentosBtn" class="btn btn-success"
+                    form="filtrarDepartamentosForm">
+                    <i class="bi bi-funnel"></i> Enviar
+                </button>
+                <!-- Botón Restablecer filtro -->
+                <div class="text-end">
+                    <button type="button" id="resetFiltrosDepartamentosBtn" class="btn btn-confirmar">Restablecer filtro</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<!-- Modal para Registrar/Editar Puesto -->
+<div
+  class="modal fade"
+  id="registrarPuestoModal"
+  tabindex="-1"
+  aria-labelledby="registrarPuestoModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="registrarPuestoModalLabel">
+          Registrar Puesto
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="registrarPuestoForm">
+          <input type="hidden" id="puestoId" name="puestoId" value="" />
+          <div class="mb-3">
+            <label for="marcaDescripcion" class="form-label"
+              >Nombre del Puesto</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="puestoDescripcion"
+              name="descripcion"
+              placeholder="Ingrese el nombre del puesto"
+              required
+            />
+            <div class="invalid-feedback">Este campo es obligatorio.</div>
+          </div>
+          <div class="mb-3">
+            <label for="id_departamento_puesto" class="form-label">Departamento</label>
+                <select class="form-select" id="id_departamento_puesto" name="id_departamento" required>
+                    <option value="">Seleccionar departamento...</option>
+                            <!-- Opciones se cargan dinámicamente -->
+                </select>
+            </div>
+          <div class="mb-3">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox"
+              id="puestoActivoCheck" name="puestoActivoCheck" checked />
+              <label class="form-check-label" for="puestoActivoCheck">
+                Puesto activo
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <i class="bi bi-x-lg"></i> Cancelar
+        </button>
+        <button
+          type="submit"
+          form="registrarPuestoForm"
+          class="btn btn-success"
+          id="btnGuardarPuesto"
+        >
+          <i class="bi bi-check-lg"></i> Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    // Simplemente reabrir el modal principal cuando se cierren los modales secundarios
+    $('#registrarDepartamentoModal, #registrarPuestoModal').on('hidden.bs.modal', function() {
+        $('#registrarCatalogoModal').modal('show');
+    });
+});
+
+// 2. Interceptar TODOS los botones de acción dentro de las tablas (editar y nuevos)
+$(document).on('click', '.btn-editar-departamento, .btn-editar-puesto, .btn-nuevo-departamento, .btn-nuevo-puesto', function(e) {
+    $('#registrarCatalogoModal').modal('hide');
+});
+
+</script>

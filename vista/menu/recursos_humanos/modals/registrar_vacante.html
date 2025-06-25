@@ -1,54 +1,329 @@
 <!-- Modal para nueva requisición -->
 <div class="modal fade" id="registrarVacanteModal" tabindex="-1" aria-labelledby="registrarVacanteModalLabel" aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="registrarVacanteModalLabel">Nueva Requisición de Personal</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
                 <!-- Contenido del formulario -->
                 <form id="formRegistrarVacante" name="formRegistrarVacante">
-                    <div class="mb-3">
-                        <label for="puesto" class="form-label">Puesto</label>
-                        <select class="form-select" id="puesto" name="puesto" required>
-                            <option value="">Seleccionar puesto</option>
-                            <option value="talentoHumano">Talento Humano</option>
-                            <option value="ventas">Ventas</option>
-                            <option value="marketing">Marketing</option>
-                            <option value="TI">Programador/TI</option>
-                            <option value="contabilidad">Contabilidad</option>
-                            <option value="medico">Médico</option>
-                            <option value="laboratorio">Jefe de Laboratorio</option>
-                            <option value="radiologo">Técnico Radiologo</option>
-                            <option value="enfermeria">Enfermería</option>
-                            <option value="quimicoExterno">Químico Externo</option>
-                            <option value="administracion">Administración</option>
-                            <option value="analista">Analista</option>
-                            <option value="liderCalidad">Líder de Calidad</option>
-                            <option value="franquiciario">Franquiciario</option>
-                        </select>
+                    
+                    <!-- INFORMACIÓN GENERAL -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h6 class="mb-0">Información General</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="solicitante" class="form-label">Solicitante</label>
+                                        <input type="text" class="form-control" id="solicitante" name="solicitante" readonly>
+                                        <input type="hidden" id="usuario_id" name="usuario_id">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="fecha_solicitud" class="form-label">Fecha de Solicitud</label>
+                                        <input type="date" class="form-control" id="fecha_solicitud" name="fecha_solicitud" required readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="departamento" class="form-label">Departamento</label>
+                                        <div class="input-group">
+                                            <select class="form-select" id="departamento" name="departamento" required>
+                                                <option value="">Seleccionar departamento...</option>
+                                            </select>
+                                            <button class="btn btn-outline-primary" type="button" id="btnCatalogoDepartamentos" title="Gestionar Departamentos">
+                                                <i class="bi bi-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="motivo_requisicion" class="form-label">Motivo de la Requisición</label>
+                                        <select class="form-select" id="motivo_requisicion" name="motivo_requisicion" required>
+                                            <option value="">Seleccionar motivo...</option>
+                                            <option value="nueva_posicion">Nueva posición</option>
+                                            <option value="reemplazo_renuncia">Reemplazo por renuncia</option>
+                                            <option value="reemplazo_despido">Reemplazo por despido</option>
+                                            <option value="reemplazo_incapacidad">Reemplazo por incapacidad</option>
+                                            <option value="crecimiento_area">Crecimiento del área</option>
+                                            <option value="proyecto_temporal">Proyecto temporal</option>
+                                            <option value="carga_trabajo">Incremento de carga de trabajo</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="departamento" class="form-label">Departamento</label>
-                        <select class="form-select" id="departamento" name="departamento" required>
-                            <option value="">Seleccionar departamento</option>
-                            <option value="rrhh">Recursos Humanos</option>
-                            <option value="ventas">Ventas</option>
-                            <option value="marketing">Marketing</option>
-                            <option value="tecnologia">Tecnologías de la información</option>
-                            <option value="finanzas">Finanzas</option>
-                            <option value="produccion">Producción</option>
-                            <option value="logistica">Logística</option>
-                            <option value="atencion_cliente">Atención al Cliente</option>
-                        </select>
+
+                    <!-- DETALLES DEL PUESTO -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h6 class="mb-0">Detalles del Puesto</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3" id="puestoContainer">
+                                        <label for="puesto" class="form-label">Cargo o Título Solicitado</label>
+                                        <div class="input-group">                                            
+                                            <select class="form-select" id="puesto" name="puesto">
+                                                <option value="">Seleccionar puesto...</option>
+                                            </select>
+                                            <button class="btn btn-outline-primary" type="button" id="btnCatalogoPuestos" title="Gestionar Puestos">
+                                                <i class="bi bi-plus"></i>
+                                             </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="numero_vacantes" class="form-label">Número de Vacantes</label>
+                                        <input type="number" class="form-control" id="numero_vacantes" name="numero_vacantes" min="1" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="tipo_contrato" class="form-label">Tipo de Contrato</label>
+                                        <select class="form-select" id="tipo_contrato" name="tipo_contrato" required>
+                                            <option value="">Seleccionar tipo...</option>
+                                            <option value="permanente">Permanente</option>
+                                            <option value="temporal">Temporal</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="tipo_jornada" class="form-label">Tipo de Jornada</label>
+                                        <select class="form-select" id="tipo_jornada" name="tipo_jornada" required>
+                                            <option value="">Seleccionar jornada...</option>
+                                            <option value="tiempo_completo">Tiempo completo</option>
+                                            <option value="medio_tiempo">Medio tiempo</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- PERFIL DESEADO -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h6 class="mb-0">Perfil Deseado</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="escolaridad_minima" class="form-label">Escolaridad Mínima Requerida</label>
+                                        <select class="form-select" id="escolaridad_minima" name="escolaridad_minima" required>
+                                            <option value="">Seleccionar escolaridad...</option>
+                                            <option value="primaria">Primaria</option>
+                                            <option value="secundaria">Secundaria</option>
+                                            <option value="preparatoria">Preparatoria/Bachillerato</option>
+                                            <option value="tecnico">Técnico</option>
+                                            <option value="licenciatura">Licenciatura</option>
+                                            <option value="maestria">Maestría</option>
+                                            <option value="doctorado">Doctorado</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="experiencia_anos" class="form-label">Experiencia Laboral (años)</label>
+                                        <select class="form-select" id="experiencia_anos" name="experiencia_anos" required>
+                                            <option value="">Seleccionar experiencia...</option>
+                                            <option value="sin_experiencia">Sin experiencia</option>
+                                            <option value="1">1 año</option>
+                                            <option value="2">2 años</option>
+                                            <option value="3">3 años</option>
+                                            <option value="4">4 años</option>
+                                            <option value="5">5 años</option>
+                                            <option value="5+">Más de 5 años</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="experiencia_area" class="form-label">Área de Experiencia</label>
+                                <input type="text" class="form-control" id="experiencia_area" name="experiencia_area" placeholder="Ej: Ventas, Marketing, Administración...">
+                            </div>
+                            <div class="mb-3">
+                                <label for="conocimientos_tecnicos" class="form-label">Conocimientos Específicos o Técnicos</label>
+                                <textarea class="form-control" id="conocimientos_tecnicos" name="conocimientos_tecnicos" rows="3" placeholder="Ej: Office, sistemas específicos, certificaciones..."></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="habilidades_blandas" class="form-label">Habilidades Blandas Esperadas</label>
+                                <textarea class="form-control" id="habilidades_blandas" name="habilidades_blandas" rows="3" placeholder="Ej: Trabajo en equipo, comunicación efectiva, liderazgo..."></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="idiomas" class="form-label">Idiomas Requeridos</label>
+                                <input type="text" class="form-control" id="idiomas" name="idiomas" placeholder="Ej: Inglés intermedio, Francés básico...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CONDICIONES LABORALES -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h6 class="mb-0">Condiciones Laborales</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="horario_trabajo" class="form-label">Horario de Trabajo</label>
+                                        <input type="text" class="form-control" id="horario_trabajo" name="horario_trabajo" placeholder="Ej: 8:00 AM - 5:00 PM, L-V" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="rango_salarial" class="form-label">Rango Salarial (Opcional)</label>
+                                        <input type="text" class="form-control" id="rango_salarial" name="rango_salarial" placeholder="Ej: $15,000 - $25,000">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COMENTARIOS ADICIONALES -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h6 class="mb-0">Información Adicional</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="comentarios_adicionales" class="form-label">Comentarios Adicionales</label>
+                                <textarea class="form-control" id="comentarios_adicionales" name="comentarios_adicionales" rows="4" placeholder="Cualquier detalle extra que ayude a entender la necesidad de la vacante o el contexto del área..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" form="formRegistrarVacante" class="btn btn-confirmar">Guardar vacante</button>
+                <button type="submit" form="formRegistrarVacante" class="btn btn-confirmar">Guardar Requisición</button>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+// Variable para controlar si se debe reabrir el modal de requisición
+let debeReabrirModalRequisicion = false;
+
+// FUNCIÓN para el botón de catálogo de departamentos
+$(document).on('click', '#btnCatalogoDepartamentos', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    debeReabrirModalRequisicion = true;
+    console.log("Botón catálogo departamentos clickeado, bandera activada:", debeReabrirModalRequisicion);
+    
+    // Cerrar el modal de requisición
+    $("#registrarVacanteModal").modal("hide");
+    
+    // Esperar a que se cierre completamente y luego abrir el modal de catálogos
+    $("#registrarVacanteModal").on('hidden.bs.modal', function(e) {
+        if (debeReabrirModalRequisicion) {
+            // Remover el event listener para evitar múltiples ejecuciones
+            $(this).off('hidden.bs.modal');
+            
+            setTimeout(function() {
+                $("#registrarCatalogoModal").modal("show");
+                
+                // Cuando se abra el modal de catálogos, cambiar a la pestaña de departamentos
+                $("#registrarCatalogoModal").on('shown.bs.modal', function() {
+                    $(this).off('shown.bs.modal'); // Remover listener
+                    $("#departamentos-tab").tab("show");
+                    console.log("Modal de catálogos abierto y pestaña de departamentos activada");
+                    
+                    // Después de activar la pestaña, abrir el modal de registro
+                    setTimeout(function() {
+                        $("#registrarDepartamentoModal").modal("show");
+                        console.log("Modal de registro de departamento abierto automáticamente");
+                    }, 500); // Esperar un poco más para que se establezca la pestaña
+                });
+            }, 300);
+        }
+    });
+});
+
+
+$(document).on('click', '#btnCatalogoPuestos', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    debeReabrirModalRequisicion = true;
+    console.log("Botón catálogo puestos clickeado, bandera activada:", debeReabrirModalRequisicion);
+    
+    // Cerrar el modal de requisición
+    $("#registrarVacanteModal").modal("hide");
+    
+    // Esperar a que se cierre completamente y luego abrir el modal de catálogos
+    $("#registrarVacanteModal").on('hidden.bs.modal', function(e) {
+        if (debeReabrirModalRequisicion) {
+            // Remover el event listener para evitar múltiples ejecuciones
+            $(this).off('hidden.bs.modal');
+            
+            setTimeout(function() {
+                $("#registrarCatalogoModal").modal("show");
+                
+                // Cuando se abra el modal de catálogos, cambiar a la pestaña de departamentos
+                $("#registrarCatalogoModal").on('shown.bs.modal', function() {
+                    $(this).off('shown.bs.modal'); // Remover listener
+                    $("#puestos-tab").tab("show");
+                    console.log("Modal de catálogos abierto y pestaña de departamentos activada");
+                    
+                    // Después de activar la pestaña, abrir el modal de registro
+                    setTimeout(function() {
+                        $("#registrarPuestoModal").modal("show");
+                        console.log("Modal de registro de puestos abierto automáticamente");
+                    }, 500); // Esperar un poco más para que se establezca la pestaña
+                });
+            }, 300);
+        }
+    });
+});
+
+// Event listener para cuando se cierre el modal de catálogos
+$("#registrarCatalogoModal").on('hidden.bs.modal', function() {
+    if (debeReabrirModalRequisicion) {
+        debeReabrirModalRequisicion = false;
+        console.log("Cerrando modal de catálogos, reabriendo modal de requisición");
+        
+        setTimeout(function() {
+            // Recargar los puestos cuando regrese al modal
+            if (typeof cargarPuestosVacanteSelect === 'function') {
+            cargarPuestosVacanteSelect();
+            }
+            $("#registrarVacanteModal").modal("show");
+            
+            // Recargar los departamentos cuando regrese al modal
+            if (typeof cargarDepartamentosVacanteSelect === 'function') {
+                cargarDepartamentosVacanteSelect();
+            }
+        }, 300);
+    }
+});
+
+// Event listener para cuando se cierre el modal de registro de departamento
+$("#registrarDepartamentoModal").on('hidden.bs.modal', function() {
+    if (debeReabrirModalRequisicion) {
+        console.log("Modal de departamento cerrado, regresando a catálogos");
+        // No hacer nada aquí, dejar que el modal de catálogos maneje el flujo
+        // El modal de catálogos seguirá abierto en segundo plano
+    }
+});
+</script>

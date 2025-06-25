@@ -14,3 +14,14 @@ async function obtenerContenidoRecursosHumanos() {
     });
 }
 
+var tableCatDepartamentos;
+var tableCatPuestos;
+
+
+const dataTableCatDepartamentos = {
+    api: 6
+};
+
+const dataTableCatPuestos = {
+    api: 8 // Case 8 para obtener puestos
+};
