@@ -9,15 +9,26 @@ function toggleCotizacionInput() {
         limpiarEstudiosCotizacion();
     } else {
         input.disabled = false;
+        btnCotizacion.disabled = false;
         btnCotizacion.style.display = 'block';
     }
 }
 
 checkbox?.addEventListener('change', toggleCotizacionInput);
-btnCotizacion?.addEventListener('click', (e) => {
+btnCotizacion?.addEventListener('click', async (e) => {
     e.preventDefault();
-    const valor = input.value;
-    precargarEstudiosCotizacion(valor);
+    
+    try {
+        const valor = input.value;
+        btnCotizacion.disabled = true;
+        await precargarEstudiosCotizacion(valor);
+    } catch (error) {
+        alertToast('Error durante la precarga de estudios, contacte al administrador.', 'error', 5000);
+    } finally {
+        setTimeout(() => {
+            btnCotizacion.disabled = false;
+        }, 800);
+    }
 });
 
 function onIngresarPaciente(data) {
