@@ -132,7 +132,6 @@ switch ($api) {
             $reactivo,
             $insumo,
             $maneja_caducidad,
-            // PARÁMETRO REMOVIDO: $fecha_caducidad,
             $costo_mas_alto,
             $costo_ultima_entrada,
             $fecha_ultima_entrada,
@@ -146,9 +145,8 @@ switch ($api) {
             $cantidad,
             $id_proveedores,
             $id_marcas,
-            // PARÁMETROS REMOVIDOS: $numero_lote, $fecha_lote,
             $codigo_barras,
-            $id_sustancia // NUEVO PARÁMETRO AGREGADO
+            $id_sustancia
         ]);
         break;
     case 2:

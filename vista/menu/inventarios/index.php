@@ -17,7 +17,6 @@ $menu = "Inventarios";
 <script type="text/javascript">
     var edit = <?php echo empty($_SESSION['permisos']['invRegArt']) ? 0 : $_SESSION['permisos']['invRegArt']; ?>;
     var supr = <?php echo empty($_SESSION['permisos']['invEliArt']) ? 0 : $_SESSION['permisos']['invEliArt']; ?>;
-    //preguntar si sirve
     var editEntradas = <?php echo empty($_SESSION['permisos']['invRegEnt']) ? 0 : $_SESSION['permisos']['invRegEnt']; ?>;
     var invVerTrans = <?php echo (isset($_SESSION['permisos']['invVerTrans']) && $_SESSION['permisos']['invVerTrans'] == 1) ? 1 : 0; ?>;
 

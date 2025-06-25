@@ -492,7 +492,7 @@ tableCatArticulos = $("#tableCatArticulos").DataTable({
           }
           return data;
         } else {
-          return "";
+          return "Sin caducidad";
         }
       },
     },
@@ -562,6 +562,7 @@ tableCatArticulos = $("#tableCatArticulos").DataTable({
     },
     */
     { data: "codigo_barras" },
+    { data: "SUSTANCIA_ACTIVA" },
   ],
   columnDefs: [
     // Ajusta los anchos de columna según el contenido esperado
@@ -573,19 +574,20 @@ tableCatArticulos = $("#tableCatArticulos").DataTable({
     { target: 4, title: "Estatus", className: "all" },
     { target: 5, title: "Red frío", className: "all" },
     { target: 6, title: "Unid. venta", className: "all" },
-    { target: 7, title: "Stock mínimo", className: "all" },
-    { target: 8, title: "Especificaciones", className: "all" },
+    { target: 7, title: "Stock mínimo", className: "all", visible: false }, // OCULTAR: Se ve en detalles
+    { target: 8, title: "Especificaciones", className: "all", visible: false }, // OCULTAR: Se ve en detalles como "Descripción"
     { target: 9, title: "Tipo", className: "all" },
-    { target: 10, title: "Maneja caducidad", className: "all" },
+    { target: 10, title: "Maneja caducidad", className: "all", visible: false }, // YA OCULTA
     { target: 11, title: "Fecha caducidad", className: "all" },
     { target: 12, title: "Área", className: "all" },
-    { target: 13, title: "Costo más alto", className: "all" },
-    { target: 14, title: "Inserto", className: "all" },
-    { target: 15, title: "Proc. de prueba", className: "all" },
-    { target: 16, title: "CAS", className: "all" },
-    { target: 17, title: "Número de lote", className: "all" },
+    { target: 13, title: "Costo más alto", className: "all", visible: false }, // OCULTAR: Se ve en detalles
+    { target: 14, title: "Inserto", className: "all", visible: false }, // OCULTAR: Es un documento, mejor en detalles
+    { target: 15, title: "Proc. de prueba", className: "all", visible: false }, // OCULTAR: Es un documento, mejor en detalles
+    { target: 16, title: "CAS", className: "all" }, // MANTENER: Código importante para búsqueda rápida
+    { target: 17, title: "Número de lote", className: "all", visible: false }, // OCULTAR: Se ve en detalles
     // COMENTADO: { target: 18, title: "Fecha de lote", className: "all" },
-    { target: 18, title: "Código de barras", className: "all", visible: false },
+    { target: 18, title: "Código de barras", className: "all", visible: false }, // YA OCULTA
+    { target: 19, title: "Sustancia", className: "all", visible: false }, // OCULTAR: Información detallada, mejor en detalles
   ],
   dom: 'Bl<"dataTables_toolbar">frtip',
   buttons: buttonsArticulos,
@@ -1914,6 +1916,46 @@ selectDatatable(
         : "No hay proveedores registrados."
     );
 
+    $("#SUSTANCIA_ACTIVA").text(rowSelected.SUSTANCIA_ACTIVA);
+
+    // AGREGAR: Llenar los nuevos campos del modal de detalles
+    // Sustancia activa (buscar el nombre si hay ID)
+    if (rowSelected.SUSTANCIA_ACTIVA && rowSelected.SUSTANCIA_ACTIVA !== 'null' && rowSelected.SUSTANCIA_ACTIVA !== null) {
+        $("#sustanciaActiva").text(rowSelected.SUSTANCIA_ACTIVA);
+    } else {
+        $("#sustanciaActiva").text("Sin asignar");
+    }
+
+    // Stock mínimo
+    $("#stockMinimo").text(rowSelected.UNIDAD_MINIMA || "Sin definir");
+
+    // Costo más alto (duplicar la lógica existente)
+    if (rowSelected.COSTO_MAS_ALTO && rowSelected.COSTO_MAS_ALTO !== "null" && rowSelected.COSTO_MAS_ALTO !== null) {
+        $("#costoMasAltoDetalle").text("$" + Number(rowSelected.COSTO_MAS_ALTO).toLocaleString("es-MX", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        }));
+    } else {
+        $("#costoMasAltoDetalle").text("Sin registros");
+    }
+
+    // Enlaces a documentos
+    if (rowSelected.INSERTO && rowSelected.INSERTO.trim() !== '') {
+        $("#insertoLink").html('<a href="' + rowSelected.INSERTO + '" target="_blank" class="btn btn-sm btn-outline-danger"><i class="bi bi-file-earmark-pdf"></i> Ver inserto</a>');
+        $("#insertoDetalle").show();
+    } else {
+        $("#insertoLink").html('<span class="text-muted">No disponible</span>');
+        $("#insertoDetalle").show();
+    }
+
+    if (rowSelected.PROCEDIMIENTO_PRUEBA && rowSelected.PROCEDIMIENTO_PRUEBA.trim() !== '') {
+        $("#procedimientoLink").html('<a href="' + rowSelected.PROCEDIMIENTO_PRUEBA + '" target="_blank" class="btn btn-sm btn-outline-secondary"><i class="bi bi-file-earmark-pdf"></i> Ver procedimiento</a>');
+        $("#procedimientoDetalle").show();
+    } else {
+        $("#procedimientoLink").html('<span class="text-muted">No disponible</span>');
+        $("#procedimientoDetalle").show();
+    }
+
     //mostrar el modal
     $("#detalleProductoModal").modal("show");
   }
@@ -2018,15 +2060,15 @@ $(document).ready(function () {
   });
 });
 
-$("#detalleProductoModal").on("shown.bs.modal", function () {
-  if (rowSelected.RED_FRIO == 1) {
-    createSnowflakes();
-  } else {
-    // createHeatWaves();
-    // createWarmGlow();
-    createThermometer();
-  }
-});
+// $("#detalleProductoModal").on("shown.bs.modal", function () {
+//   if (rowSelected.RED_FRIO == 1) {
+//     createSnowflakes();
+//   } else {
+//     // createHeatWaves();
+//     // createWarmGlow();
+//     createThermometer();
+//   }
+// });
 
 $("#detalleProductoModal").on("hidden.bs.modal", function () {
   $("#snowAnimation").empty(); // Remueve los copos al cerrar el modal
@@ -5392,6 +5434,12 @@ function cargarDetallesRequisicionCompletos() {
     $("#btnImprimirRequisicion").show();
   } else {
     $("#btnImprimirRequisicion").hide();
+  }
+
+  if (rowSelectedRequisicion.estatus === "parcialmente_surtida" || rowSelectedRequisicion.estatus === "completada") {
+    $("#btnDetalleSurtimiento").show();
+  } else {
+    $("#btnDetalleSurtimiento").hide();
   }
 
   // Cargar artículos de la requisición
