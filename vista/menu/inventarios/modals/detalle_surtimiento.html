@@ -1,0 +1,869 @@
+<!-- Modal Detalles de Surtimiento -->
+<div class="modal fade" id="detalleSurtimientoModal" tabindex="-1" aria-labelledby="detallesSurtimientoLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="detalleSurtimientoLabel">
+          <i class="bi bi-eye"></i> Detalle del Surtimiento 
+          <span id="numeroSurtimiento" class="text-primary"></span>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <!-- Información General del Surtimiento -->
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-header">
+                <h6 class="card-title mb-0">
+                  <i class="bi bi-info-circle"></i> Información del Surtimiento
+                </h6>
+              </div>
+              <div class="card-body">
+                <!-- Datos principales -->
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Requisición N°:</label>
+                  <div class="form-control-plaintext" id="numeroRequisicion">-</div>
+                </div>
+                
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Fecha de Surtimiento:</label>
+                  <div class="form-control-plaintext" id="fechaSurtimiento">-</div>
+                </div>
+                
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Usuario Surtidor:</label>
+                  <div class="form-control-plaintext" id="usuarioSurtidor">-</div>
+                </div>
+                
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Persona que Recibió:</label>
+                  <div class="form-control-plaintext" id="personaRecibeDetalle">-</div>
+                </div>
+                
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Estatus:</label>
+                  <div id="estatusSurtimiento">
+                    <span class="badge fs-6" id="badgeEstatus">-</span>
+                  </div>
+                </div>
+                
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Historial de Observaciones:</label>
+                  <div class="border rounded p-2 bg-light" id="observacionesDetalle" style="min-height: 80px; max-height: 200px; overflow-y: auto;">
+                    <div class="text-muted">Sin observaciones</div>
+                  </div>
+                </div>
+
+                <!-- Evidencia Fotográfica -->
+                <div class="mb-3" id="seccionEvidencia" style="display: none;">
+                  <label class="form-label fw-bold">
+                    <i class="bi bi-camera"></i> Evidencia Fotográfica:
+                  </label>
+                  <div id="galeriaEvidencias" class="d-flex flex-wrap gap-2">
+                    <!-- Se llenarán las imágenes dinámicamente -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Detalles de Artículos Surtidos -->
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h6 class="card-title mb-0">
+                  <i class="bi bi-box-seam"></i> Artículos Surtidos
+                </h6>
+                <span class="badge bg-info" id="contadorArticulosDetalle">0 artículos</span>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                  <table class="table table-sm table-hover" id="tablaDetalleArticulos">
+                    <thead class="table-light sticky-top">
+                      <tr>
+                        <th style="width: 250px;">Artículo</th>
+                        <th style="width: 80px;" class="text-center">Solicitado</th>
+                        <th style="width: 80px;" class="text-center">Aprobado</th>
+                        <th style="width: 80px;" class="text-center">Surtido</th>
+                        <th style="width: 100px;" class="text-center">% Cumplimiento</th>
+                        <th style="width: 120px;" class="text-center">Estado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Se llenará dinámicamente -->
+                    </tbody>
+                  </table>
+                </div>
+                
+                <!-- Resumen del Surtimiento -->
+                <div class="mt-3">
+                  <div class="row text-center">
+                    <div class="col-3">
+                      <div class="border rounded p-2 bg-light">
+                        <div class="fw-bold text-primary fs-4" id="totalArticulosDetalle">0</div>
+                        <small class="text-muted">Total Artículos</small>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="border rounded p-2 bg-light">
+                        <div class="fw-bold text-success fs-4" id="articulosCompletosDetalle">0</div>
+                        <small class="text-muted">Completos</small>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="border rounded p-2 bg-light">
+                        <div class="fw-bold text-warning fs-4" id="articulosParcialesDetalle">0</div>
+                        <small class="text-muted">Parciales</small>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="border rounded p-2 bg-light">
+                        <div class="fw-bold text-danger fs-4" id="articulosPendientesDetalle">0</div>
+                        <small class="text-muted">Pendientes</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Estadísticas adicionales -->
+                <div class="mt-3">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="card bg-light">
+                        <div class="card-body text-center">
+                          <h6 class="card-title">Porcentaje General de Cumplimiento</h6>
+                          <div class="display-6 text-info" id="porcentajeCumplimiento">0%</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Evidencias Fotográficas -->
+                <div class="mt-3">
+                  <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                      <h6 class="card-title mb-0">
+                        <i class="bi bi-camera"></i> Evidencias Fotográficas
+                      </h6>
+                      <span class="badge bg-secondary" id="contadorEvidencias">0 evidencias</span>
+                    </div>
+                    <div class="card-body">
+                      <div id="galeriaEvidenciasSurtimiento" class="row g-2">
+                        <!-- Se llenarán las evidencias dinámicamente -->
+                      </div>
+                      <div id="sinEvidenciasSurtimiento" class="text-center text-muted py-5" style="display: none;">
+                        <div class="mb-3">
+                          <i class="bi bi-camera-slash" style="font-size: 3rem; opacity: 0.5;"></i>
+                        </div>
+                        <h6 class="text-muted">Sin evidencias fotográficas</h6>
+                        <small class="text-muted">No se encontraron evidencias fotográficas para este surtimiento</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <i class="bi bi-x-circle"></i> Cerrar
+        </button>
+        <button type="button" class="btn btn-primary" id="btnImprimeDetalle">
+          <i class="bi bi-printer"></i> Imprimir
+        </button>
+        <button type="button" class="btn btn-info" id="btnExportarDetalle">
+          <i class="bi bi-download"></i> Exportar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<style>
+  #tablaDetalleArticulos {
+    font-size: 0.9em;
+  }
+  
+  .form-control-plaintext {
+    padding: 0.375rem 0;
+    margin-bottom: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: transparent;
+    border: none;
+  }
+  
+  .badge-completo-detalle {
+    background-color: #28a745 !important;
+  }
+  
+  .badge-parcial-detalle {
+    background-color: #ffc107 !important;
+    color: #000;
+  }
+  
+  .badge-pendiente-detalle {
+    background-color: #dc3545 !important;
+  }
+  
+  .badge-estatus-completo {
+    background-color: #28a745 !important;
+  }
+  
+  .badge-estatus-parcial {
+    background-color: #ffc107 !important;
+    color: #000;
+  }
+  
+  .evidencia-imagen {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 2px solid #dee2e6;
+    transition: all 0.3s ease;
+  }
+  
+  .evidencia-imagen:hover {
+    border-color: #007bff;
+    transform: scale(1.05);
+  }
+  
+  .progress-bar-custom {
+    height: 8px;
+    border-radius: 4px;
+  }
+  
+  .cumplimiento-excelente {
+    background-color: #e8f5e8;
+    border-left: 4px solid #28a745;
+  }
+  
+  .cumplimiento-bueno {
+    background-color: #fff3cd;
+    border-left: 4px solid #ffc107;
+  }
+  
+  .cumplimiento-malo {
+    background-color: #f8d7da;
+    border-left: 4px solid #dc3545;
+  }
+  
+  .detalle-articulo-row:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .stats-card {
+    transition: all 0.3s ease;
+  }
+  
+  .stats-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .evidencia-card {
+    transition: all 0.3s ease;
+    border: 1px solid #dee2e6;
+  }
+  
+  .evidencia-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    border-color: #007bff;
+  }
+  
+  .evidencia-thumbnail {
+    width: 100%;
+    max-width: 200px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid #dee2e6;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .evidencia-thumbnail:hover {
+    border-color: #007bff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+  }
+  
+  .evidencia-container {
+    padding: 10px;
+  }
+  
+  /* Estilos para evidencias grandes */
+  .evidencia-card-large {
+    transition: all 0.3s ease;
+    border: 1px solid #e3e6f0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+  
+  .evidencia-card-large:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    border-color: #007bff;
+  }
+  
+  .evidencia-image-container {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+    background: #f8f9fa;
+  }
+  
+  .evidencia-image-container::before {
+    content: '\F5EB'; /* Bootstrap icon zoom-in */
+    font-family: "bootstrap-icons";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 5px 8px;
+    border-radius: 50%;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+    pointer-events: none;
+  }
+  
+  .evidencia-card-large:hover .evidencia-image-container::before {
+    opacity: 1;
+  }
+  
+  .evidencia-thumbnail-large {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .evidencia-thumbnail-large:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+  }
+  
+  .evidencia-info {
+    margin-top: 0.5rem;
+  }
+  
+  .evidencia-info .bi {
+    font-size: 0.85rem;
+  }
+  
+  #galeriaEvidenciasSurtimiento .card {
+    margin-bottom: 1rem;
+  }
+</style>
+
+  <script>
+    function mostrarDetalleSurtimiento() {
+      var id_surtimiento = rowSelectedRequisicion.id_surtimiento;
+      console.log("ID Surtimiento:", id_surtimiento);
+      
+      // Llamar al API 39
+      $.ajax({
+        url: "../../../api/inventarios_api.php",
+        type: "POST",
+        dataType: "json",
+        data: {
+          api: 39,
+          id_surtimiento: id_surtimiento
+        },
+        success: function(response) {
+          console.log("✅ Respuesta del API 39:", response);
+          
+          // Verificar si hay datos
+          if (response && response.response && response.response.data && response.response.data.length > 0) {
+            const datos = response.response.data[0]; // Tomar el primer registro
+            
+            // Rellenar campos de información general
+            $("#numeroRequisicion").text(datos[7] || datos.numero_requisicion || '-'); // REQ-2025-1750954704
+            
+            // Formatear fecha
+            const fechaSurtimiento = datos.fecha_surtimiento || datos[3];
+            if (fechaSurtimiento) {
+              const fecha = new Date(fechaSurtimiento);
+              $("#fechaSurtimiento").text(fecha.toLocaleString('es-MX'));
+            } else {
+              $("#fechaSurtimiento").text('-');
+            }
+            
+            // Usuario surtidor (índice 15, 16 o 17 parecen tener "Javier Montero")
+            const usuarioSurtidor = datos[15] || datos[16] || datos[17] || datos.usuario_surtidor_nombre || '-';
+            $("#usuarioSurtidor").text(usuarioSurtidor);
+            
+            // Persona que recibe (índice 4)
+            const personaRecibe = datos.persona_recibe || datos[4] || '-';
+            $("#personaRecibeDetalle").text(personaRecibe);
+            
+            // Cargar historial de observaciones
+            cargarHistorialObservaciones(id_surtimiento);
+            
+            // Configurar badge de estatus (índice 6)
+            const estatus = datos[6] || datos.estatus_surtimiento || '-';
+            const badgeEstatus = $("#badgeEstatus");
+            badgeEstatus.text(estatus.charAt(0).toUpperCase() + estatus.slice(1));
+            
+            // Aplicar colores según estatus
+            badgeEstatus.removeClass('bg-success bg-warning bg-danger bg-secondary');
+            switch (estatus) {
+              case 'completo':
+              case 'Completo':
+                badgeEstatus.addClass('bg-success');
+                break;
+              case 'parcial':
+              case 'Parcial':  
+                badgeEstatus.addClass('bg-warning');
+                break;
+              case 'pendiente':
+              case 'Pendiente':
+                badgeEstatus.addClass('bg-danger');
+                break;
+              default:
+                badgeEstatus.addClass('bg-secondary');
+            }
+            
+            // Cargar artículos surtidos por separado
+            cargarArticulosSurtidos(datos.requisicion_id || rowSelectedRequisicion.id_requisicion);
+            
+            // Cargar evidencias fotográficas
+            cargarEvidenciasDetalleSurtimiento(id_surtimiento);
+            
+            // Mostrar el modal
+            $("#detalleSurtimientoModal").modal("show");
+            
+          } else {
+            console.warn("⚠️ No se encontraron datos para el surtimiento:", id_surtimiento);
+            alert("No se encontraron datos para este surtimiento");
+          }
+        },
+        error: function(xhr, status, error) {
+          console.error("❌ Error en API 39:", error);
+          console.error("Respuesta:", xhr.responseText);
+          alert("Error al obtener datos del surtimiento: " + error);
+        }
+      });
+    }
+    
+    function cargarArticulosSurtidos(requisicion_id) {
+      console.log("📦 Cargando artículos surtidos para requisición:", requisicion_id);
+      
+      // Llamar al API 40 para obtener artículos de la requisición
+      $.ajax({
+        url: "../../../api/inventarios_api.php",
+        type: "POST",
+        dataType: "json", 
+        data: {
+          api: 40,
+          requisicion_id: requisicion_id
+        },
+        success: function(response) {
+          console.log("✅ Artículos surtidos obtenidos:", response);
+          
+          // La estructura es: response.response.data.data (respuesta anidada)
+          let articulos = [];
+          
+          if (response && response.response && response.response.data) {
+            if (response.response.data.data && Array.isArray(response.response.data.data)) {
+              articulos = response.response.data.data;
+            } else if (Array.isArray(response.response.data)) {
+              articulos = response.response.data;
+            }
+          }
+          
+          if (articulos.length > 0) {
+            console.log("📦 Artículos encontrados:", articulos.length);
+            rellenarTablaArticulos(articulos);
+          } else {
+            console.warn("⚠️ No se encontraron artículos surtidos");
+            rellenarTablaArticulos([]); // Tabla vacía
+          }
+        },
+        error: function(xhr, status, error) {
+          console.error("❌ Error al cargar artículos surtidos:", error);
+          console.error("Respuesta:", xhr.responseText);
+          rellenarTablaArticulos([]); // Tabla vacía en caso de error
+        }
+      });
+        }
+    
+    function cargarHistorialObservaciones(surtimiento_id) {
+      console.log("📝 Cargando historial de observaciones para surtimiento:", surtimiento_id);
+      
+      // El SP modificado ahora trae TODOS los surtimientos de la misma requisición automáticamente
+      $.ajax({
+        url: "../../../api/inventarios_api.php",
+        type: "POST",
+        dataType: "json",
+        data: {
+          api: 39,
+          id_surtimiento: surtimiento_id  // Usar el parámetro original, el SP se encarga del resto
+        },
+        success: function(response) {
+          console.log("✅ Historial de observaciones obtenido:", response);
+          
+          let observaciones = [];
+          
+          if (response && response.response && response.response.data && Array.isArray(response.response.data)) {
+            // Extraer todas las observaciones de TODOS los registros de surtimiento de esta requisición
+            response.response.data.forEach(function(registro, index) {
+              const obs = registro[5] || registro.observaciones;
+              const fecha = registro[3] || registro.fecha_surtimiento;
+              const estatus = registro[6] || registro.estatus_surtimiento;
+              const id_surtimiento_reg = registro[0] || registro.id_surtimiento;
+              
+              console.log(`📝 Registro ${index + 1}: ID=${id_surtimiento_reg}, Obs="${obs}", Estatus="${estatus}", Fecha="${fecha}"`);
+              
+              if (obs && obs.trim() !== '' && obs !== 'null' && obs !== null) {
+                observaciones.push({
+                  id_surtimiento: id_surtimiento_reg,
+                  observacion: obs,
+                  fecha: fecha,
+                  estatus: estatus
+                });
+              }
+            });
+          }
+          
+          console.log("📝 Total de observaciones encontradas:", observaciones.length);
+          mostrarHistorialObservaciones(observaciones);
+        },
+        error: function(xhr, status, error) {
+          console.error("❌ Error al cargar historial de observaciones:", error);
+          $("#observacionesDetalle").html('<div class="text-muted">Error al cargar observaciones</div>');
+        }
+      });
+    }
+    
+    function mostrarHistorialObservaciones(observaciones) {
+      const contenedor = $("#observacionesDetalle");
+      contenedor.empty();
+      
+      if (!observaciones || observaciones.length === 0) {
+        contenedor.html('<div class="text-muted">Sin observaciones registradas</div>');
+        return;
+      }
+      
+      // Ordenar observaciones por fecha (más reciente primero)
+      observaciones.sort(function(a, b) {
+        return new Date(b.fecha) - new Date(a.fecha);
+      });
+      
+             observaciones.forEach(function(obs, index) {
+         const fecha = new Date(obs.fecha).toLocaleString('es-MX');
+         const estatusClass = getEstatusClass(obs.estatus);
+         const estatusIcon = getEstatusIcon(obs.estatus);
+         
+         const observacionHtml = `
+           <div class="mb-2 p-2 border-start border-3 ${estatusClass} bg-white rounded">
+             <div class="d-flex justify-content-between align-items-start mb-1">
+               <small class="text-muted">
+                 <i class="bi ${estatusIcon}"></i>
+                 <strong>${obs.estatus.charAt(0).toUpperCase() + obs.estatus.slice(1)}</strong>
+               </small>
+               <small class="text-muted">${fecha}</small>
+             </div>
+             <div class="text-dark" style="font-size: 0.9rem;">
+               ${obs.observacion}
+             </div>
+           </div>
+         `;
+         
+         contenedor.append(observacionHtml);
+       });
+    }
+    
+    function getEstatusClass(estatus) {
+      switch (estatus) {
+        case 'completo':
+        case 'Completo':
+          return 'border-success';
+        case 'parcial':
+        case 'Parcial':
+          return 'border-warning';
+        case 'pendiente':
+        case 'Pendiente':
+          return 'border-danger';
+        default:
+          return 'border-secondary';
+      }
+    }
+    
+    function getEstatusIcon(estatus) {
+      switch (estatus) {
+        case 'completo':
+        case 'Completo':
+          return 'bi-check-circle-fill text-success';
+        case 'parcial':
+        case 'Parcial':
+          return 'bi-clock-fill text-warning';
+        case 'pendiente':
+        case 'Pendiente':
+          return 'bi-exclamation-circle-fill text-danger';
+        default:
+          return 'bi-info-circle-fill text-secondary';
+      }
+    }
+    
+    function cargarEvidenciasDetalleSurtimiento(surtimiento_id) {
+      console.log("📷 Cargando evidencias para detalle surtimiento:", surtimiento_id);
+      
+      // Llamar al API 41 para obtener evidencias
+      $.ajax({
+        url: "../../../api/inventarios_api.php",
+        type: "POST",
+        dataType: "json", 
+        data: {
+          api: 41,
+          surtimiento_id: surtimiento_id
+        },
+        success: function(response) {
+          console.log("✅ Evidencias obtenidas:", response);
+          
+          let evidencias = [];
+          
+          if (response && response.response && response.response.data) {
+            if (response.response.data.data && Array.isArray(response.response.data.data)) {
+              evidencias = response.response.data.data;
+            } else if (Array.isArray(response.response.data)) {
+              evidencias = response.response.data;
+            }
+          }
+          
+          if (evidencias.length > 0) {
+            console.log("📷 Evidencias encontradas:", evidencias.length);
+            mostrarEvidenciasDetalle(evidencias);
+          } else {
+            console.warn("⚠️ No se encontraron evidencias");
+            mostrarSinEvidenciasDetalle();
+          }
+        },
+        error: function(xhr, status, error) {
+          console.error("❌ Error al cargar evidencias:", error);
+          console.error("Respuesta:", xhr.responseText);
+          mostrarSinEvidenciasDetalle();
+        }
+      });
+    }
+    
+    function mostrarEvidenciasDetalle(evidencias) {
+      const galeria = $("#galeriaEvidenciasSurtimiento");
+      galeria.empty();
+      
+      evidencias.forEach(function(evidencia, index) {
+        const fechaFormateada = new Date(evidencia.fecha_subida).toLocaleString('es-MX');
+        
+        const card = `
+          <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-3">
+            <div class="card h-100 evidencia-card-large shadow-sm">
+              <div class="evidencia-image-container">
+                <img src="${evidencia.ruta_archivo}" 
+                     alt="${evidencia.descripcion}" 
+                     class="card-img-top evidencia-thumbnail-large"
+                     onclick="ampliarEvidenciaDetalle('${evidencia.ruta_archivo}', '${evidencia.descripcion}', '${fechaFormateada}')">
+              </div>
+              <div class="card-body p-3">
+                <h6 class="card-title mb-2" style="font-size: 0.95rem; font-weight: 600;">
+                  ${evidencia.descripcion || 'Evidencia'}
+                </h6>
+                <div class="evidencia-info">
+                  <div class="d-flex align-items-center mb-1">
+                    <i class="bi bi-calendar3 text-muted me-2"></i>
+                    <small class="text-muted">${fechaFormateada}</small>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <i class="bi bi-file-earmark text-muted me-2"></i>
+                    <small class="text-muted">${evidencia.tipo_archivo?.toUpperCase() || 'IMG'}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        galeria.append(card);
+      });
+      
+      // Actualizar contador
+      $("#contadorEvidencias").text(`${evidencias.length} evidencia${evidencias.length !== 1 ? 's' : ''}`);
+      $("#sinEvidenciasSurtimiento").hide();
+    }
+    
+    function mostrarSinEvidenciasDetalle() {
+      $("#galeriaEvidenciasSurtimiento").empty();
+      $("#contadorEvidencias").text("0 evidencias");
+      $("#sinEvidenciasSurtimiento").show();
+    }
+    
+
+    
+    function rellenarTablaArticulos(datos) {
+       const tbody = $("#tablaDetalleArticulos tbody");
+       tbody.empty();
+       
+       let totalArticulos = 0;
+       let articulosCompletos = 0;
+       let articulosParciales = 0;
+       let articulosPendientes = 0;
+       
+       // Si no hay datos, mostrar mensaje
+       if (!datos || datos.length === 0) {
+         tbody.append(`
+           <tr>
+             <td colspan="6" class="text-center text-muted">
+               <i class="bi bi-box"></i><br>
+               No se encontraron artículos surtidos
+             </td>
+           </tr>
+         `);
+         
+         // Actualizar contadores a cero
+         $("#contadorArticulosDetalle").text("0 artículos");
+         $("#totalArticulosDetalle").text(0);
+         $("#articulosCompletosDetalle").text(0);
+         $("#articulosParcialesDetalle").text(0);
+         $("#articulosPendientesDetalle").text(0);
+         $("#porcentajeCumplimiento").text("0%");
+         return;
+       }
+       
+       datos.forEach(function(item) {
+         // Los campos del API 40 están bien definidos
+         const nombreArticulo = item.nombre_articulo || '';
+         const claveArticulo = item.clave_articulo || '';
+         
+         if (nombreArticulo) { // Solo procesar si tiene artículo
+           totalArticulos++;
+           
+           const cantidadSolicitada = parseFloat(item.cantidad_solicitada || 0);
+           const cantidadAprobada = parseFloat(item.cantidad_aprobada || 0);
+           const cantidadSurtida = parseFloat(item.cantidad_surtida || 0);
+          
+          // Calcular porcentaje de cumplimiento
+          const porcentaje = cantidadAprobada > 0 ? ((cantidadSurtida / cantidadAprobada) * 100).toFixed(1) : 0;
+          
+                     // Determinar estado usando el campo calculado del API 40
+           const estadoSurtimiento = item.estado_surtimiento || 'pendiente';
+           let estado = 'Pendiente';
+           let claseEstado = 'bg-danger';
+           
+           switch (estadoSurtimiento) {
+             case 'completo':
+               estado = 'Completo';
+               claseEstado = 'bg-success';
+               articulosCompletos++;
+               break;
+             case 'parcial':
+               estado = 'Parcial';
+               claseEstado = 'bg-warning';
+               articulosParciales++;
+               break;
+             default:
+               estado = 'Pendiente';
+               claseEstado = 'bg-danger';
+               articulosPendientes++;
+           }
+          
+                     const fila = `
+             <tr>
+               <td>
+                 <strong>${nombreArticulo}</strong><br>
+                 <small class="text-muted">${claveArticulo}</small>
+               </td>
+              <td class="text-center">
+                <span class="badge bg-primary">${cantidadSolicitada}</span>
+              </td>
+              <td class="text-center">
+                <span class="badge bg-info">${cantidadAprobada}</span>
+              </td>
+              <td class="text-center">
+                <span class="badge bg-success">${cantidadSurtida}</span>
+              </td>
+              <td class="text-center">
+                <span class="badge bg-light text-dark">${porcentaje}%</span>
+              </td>
+              <td class="text-center">
+                <span class="badge ${claseEstado}">${estado}</span>
+              </td>
+            </tr>
+          `;
+          
+          tbody.append(fila);
+        }
+      });
+      
+      // Actualizar contadores
+      $("#contadorArticulosDetalle").text(`${totalArticulos} artículos`);
+      $("#totalArticulosDetalle").text(totalArticulos);
+      $("#articulosCompletosDetalle").text(articulosCompletos);
+      $("#articulosParcialesDetalle").text(articulosParciales);
+      $("#articulosPendientesDetalle").text(articulosPendientes);
+      
+      // Calcular porcentaje general de cumplimiento
+      const porcentajeGeneral = totalArticulos > 0 ? 
+        ((articulosCompletos / totalArticulos) * 100).toFixed(1) : 0;
+      $("#porcentajeCumplimiento").text(`${porcentajeGeneral}%`);
+    }
+    
+    function ampliarEvidenciaDetalle(rutaArchivo, descripcion, fecha) {
+      console.log("🔍 Ampliando evidencia:", rutaArchivo);
+      
+      // Configurar contenido del modal
+      $("#imagenEvidenciaDetalle").attr("src", rutaArchivo);
+      $("#tituloEvidenciaDetalle").html(`<i class="bi bi-zoom-in"></i> ${descripcion || "Evidencia Fotográfica"}`);
+      $("#descripcionEvidenciaDetalle").text(descripcion || "Evidencia Fotográfica");
+      $("#fechaEvidenciaDetalle").text(fecha || "Sin fecha");
+      $("#descargarEvidenciaDetalle").attr("href", rutaArchivo);
+      
+      // Mostrar modal
+      $("#modalEvidenciaDetalle").modal("show");
+    }
+  </script>
+
+<!-- Modal para ampliar evidencias del detalle -->
+<div class="modal fade" id="modalEvidenciaDetalle" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content bg-dark">
+      <div class="modal-header bg-dark text-white border-secondary">
+        <h5 class="modal-title" id="tituloEvidenciaDetalle">
+          <i class="bi bi-zoom-in"></i> Evidencia Fotográfica
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center p-2" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);">
+        <img id="imagenEvidenciaDetalle" src="" class="img-fluid rounded shadow-lg" alt="Evidencia" 
+             style="max-height: 75vh; max-width: 100%; box-shadow: 0 8px 32px rgba(0,0,0,0.6);">
+      </div>
+      <div class="modal-footer bg-dark border-secondary">
+        <div class="info-evidencia-detalle text-center w-100">
+          <div class="row">
+            <div class="col-md-8">
+              <h6 class="text-white mb-1" id="descripcionEvidenciaDetalle">Evidencia</h6>
+              <small class="text-muted d-block" id="fechaEvidenciaDetalle">Fecha</small>
+            </div>
+            <div class="col-md-4 text-end">
+              <a id="descargarEvidenciaDetalle" href="" target="_blank" class="btn btn-outline-light btn-sm">
+                <i class="bi bi-download"></i> Descargar
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

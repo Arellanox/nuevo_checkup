@@ -12,3 +12,4 @@ include "registrar_requisicion.html";
 include "editar_requisicion.html";
 include "detalle_requisicion.html";
 include "surtir_requisicion.html";
+include "detalle_surtimiento.html";

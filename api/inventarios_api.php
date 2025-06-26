@@ -71,6 +71,8 @@ $email = isset($_POST['email']) ? $_POST['email'] : '';
 
 $orden_compra = isset($_POST['orden_compra']) ? $_POST['orden_compra'] : null;
 
+$id_surtimiento = isset($_POST['id_surtimiento']) ? $_POST['id_surtimiento'] : null;
+
 $host = $master->selectHost($_SERVER['SERVER_NAME']);
 
 switch ($api) {
@@ -1102,25 +1104,52 @@ switch ($api) {
         }
         break;
     case 36:
-        $requisicion_id = $_POST['requisicion_id'];
-        $result = $pdo->prepare("CALL sp_inventarios_obtener_detalles_surtimiento(?)");
-        $result->execute([$requisicion_id]);
+        // Obtener detalles de surtimiento por requisición
+        $requisicion_id = isset($_POST['requisicion_id']) ? intval($_POST['requisicion_id']) : null;
 
-        // Procesar múltiples result sets
-        $data = [];
-        do {
-            $rows = $result->fetchAll(PDO::FETCH_ASSOC);
-            if ($rows) {
-                $data[] = $rows;
-            }
-        } while ($result->nextRowset());
+        if ($requisicion_id === null) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: Falta el ID de requisición',
+                'data' => array()
+            );
+            break;
+        }
 
-        echo json_encode(['code' => 1, 'data' => $data]);
+        try {
+            $conexion = $master->connectDb();
+            $result = $conexion->prepare("CALL sp_inventarios_obtener_detalles_surtimiento(?)");
+            $result->execute([$requisicion_id]);
+
+            // Procesar múltiples result sets
+            $data = [];
+            do {
+                $rows = $result->fetchAll(PDO::FETCH_ASSOC);
+                if ($rows) {
+                    $data[] = $rows;
+                }
+            } while ($result->nextRowset());
+            
+            $conexion = null;
+
+            $response = array(
+                'code' => 1,
+                'message' => 'Detalles de surtimiento obtenidos exitosamente',
+                'data' => $data
+            );
+        } catch (Exception $e) {
+            error_log("API 36 - Error: " . $e->getMessage());
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: ' . $e->getMessage(),
+                'data' => array()
+            );
+        }
         break;
     case 37:
         // Obtener sustancias activas usando el stored procedure simple
         $estatus = isset($_POST['estatus']) ? $_POST['estatus'] : 1; // Por defecto solo activas
-        
+
         $response = $master->getByProcedure("sp_inventarios_cat_sustancias_activas_select", [
             $estatus
         ]);
@@ -1182,6 +1211,193 @@ switch ($api) {
                 $_SESSION['id'],
                 $accion
             ]);
+        } catch (Exception $e) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: ' . $e->getMessage(),
+                'data' => array()
+            );
+        }
+        break;
+    case 33:
+        // Obtener evidencias de surtimientos por requisición ID
+        $requisicion_id = isset($_POST['requisicion_id']) ? intval($_POST['requisicion_id']) : null;
+
+        if ($requisicion_id === null) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: Falta el ID de requisición',
+                'data' => array()
+            );
+            break;
+        }
+
+        // Log de debugging
+        error_log("API 33 - Buscando evidencias para requisición ID: " . $requisicion_id);
+
+        try {
+            $conexion = $master->connectDb();
+            
+            // Primero verificar si la requisición existe
+            $check_req_sql = "SELECT COUNT(*) as total FROM inventarios_cat_requisiciones WHERE id_requisicion = ?";
+            $check_req_stmt = $conexion->prepare($check_req_sql);
+            $check_req_stmt->execute([$requisicion_id]);
+            $requisicion_exists = $check_req_stmt->fetch(PDO::FETCH_ASSOC);
+            error_log("API 33 - Requisición existe: " . json_encode($requisicion_exists));
+            
+            // Verificar si hay surtimientos para esta requisición
+            $check_surt_sql = "SELECT id_surtimiento, fecha_surtimiento, persona_recibe FROM inventarios_cat_surtimientos WHERE requisicion_id = ?";
+            $check_surt_stmt = $conexion->prepare($check_surt_sql);
+            $check_surt_stmt->execute([$requisicion_id]);
+            $surtimientos = $check_surt_stmt->fetchAll(PDO::FETCH_ASSOC);
+            error_log("API 33 - Surtimientos encontrados: " . json_encode($surtimientos));
+            
+            // Verificar si hay evidencias en total
+            $check_ev_sql = "SELECT COUNT(*) as total FROM inventarios_cat_surtimientos_evidencia";
+            $check_ev_stmt = $conexion->prepare($check_ev_sql);
+            $check_ev_stmt->execute();
+            $total_evidencias = $check_ev_stmt->fetch(PDO::FETCH_ASSOC);
+            error_log("API 33 - Total evidencias en sistema: " . json_encode($total_evidencias));
+
+            $sql = "SELECT 
+                        e.id_evidencia,
+                        e.surtimiento_id,
+                        e.nombre_archivo,
+                        e.ruta_archivo,
+                        e.tipo_archivo,
+                        e.tamaño_archivo,
+                        e.descripcion,
+                        e.fecha_subida,
+                        s.fecha_surtimiento,
+                        s.persona_recibe,
+                        s.estatus as estatus_surtimiento
+                    FROM inventarios_cat_surtimientos_evidencia e
+                    INNER JOIN inventarios_cat_surtimientos s ON e.surtimiento_id = s.id_surtimiento
+                    WHERE s.requisicion_id = ?
+                    ORDER BY s.fecha_surtimiento DESC, e.fecha_subida ASC";
+
+            $stmt = $conexion->prepare($sql);
+            $stmt->execute([$requisicion_id]);
+            $evidencias = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            error_log("API 33 - Evidencias encontradas para requisición: " . count($evidencias));
+            error_log("API 33 - Datos de evidencias: " . json_encode($evidencias));
+            
+            $conexion = null;
+
+            $response = array(
+                'code' => 1,
+                'message' => 'Evidencias obtenidas exitosamente',
+                'data' => $evidencias
+            );
+        } catch (Exception $e) {
+            error_log("API 33 - Error: " . $e->getMessage());
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: ' . $e->getMessage(),
+                'data' => array()
+            );
+        }
+        break;
+    case 39:
+        //obtener los datos de surtimiento
+        $response = $master->getByProcedure("sp_inventarios_obtener_detalle_surtimiento", [
+            $id_surtimiento
+        ]);
+        break;
+    case 40:
+        // Obtener artículos surtidos por requisición (consulta directa)
+        $requisicion_id = isset($_POST['requisicion_id']) ? intval($_POST['requisicion_id']) : null;
+
+        if ($requisicion_id === null) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: Falta el ID de requisición',
+                'data' => array()
+            );
+            break;
+        }
+
+        try {
+            $sql = "SELECT 
+                        rd.id_detalle,
+                        rd.requisicion_id,
+                        rd.articulo_id,
+                        rd.cantidad_solicitada,
+                        rd.cantidad_aprobada,
+                        COALESCE(rd.cantidad_surtida, 0) as cantidad_surtida,
+                        a.nombre_comercial as nombre_articulo,
+                        a.clave_art as clave_articulo,
+                        u.descripcion as unidad_medida,
+                        CASE 
+                            WHEN COALESCE(rd.cantidad_surtida, 0) >= rd.cantidad_aprobada THEN 'completo'
+                            WHEN COALESCE(rd.cantidad_surtida, 0) > 0 THEN 'parcial'
+                            ELSE 'pendiente'
+                        END as estado_surtimiento
+                    FROM inventarios_cat_requisiciones_detalles rd
+                    INNER JOIN inventarios_cat_articulos a ON rd.articulo_id = a.id_articulo
+                    LEFT JOIN inventarios_cat_unidades u ON a.unidad_venta = u.id_unidades
+                    WHERE rd.requisicion_id = ?
+                    ORDER BY a.nombre_comercial";
+
+            $conexion = $master->connectDb();
+            $stmt = $conexion->prepare($sql);
+            $stmt->execute([$requisicion_id]);
+            $articulos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $conexion = null;
+
+            $response = array(
+                'code' => 1,
+                'message' => 'Artículos de requisición obtenidos exitosamente',
+                'data' => $articulos
+            );
+        } catch (Exception $e) {
+            error_log("API 40 - Error: " . $e->getMessage());
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: ' . $e->getMessage(),
+                'data' => array()
+            );
+        }
+        break;
+    case 41:
+        // Obtener evidencias de un surtimiento específico
+        $surtimiento_id = isset($_POST['surtimiento_id']) ? intval($_POST['surtimiento_id']) : null;
+
+        if ($surtimiento_id === null) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: Falta el ID de surtimiento',
+                'data' => array()
+            );
+            break;
+        }
+
+        try {
+            $sql = "SELECT 
+                        e.id_evidencia,
+                        e.surtimiento_id,
+                        e.nombre_archivo,
+                        e.ruta_archivo,
+                        e.tipo_archivo,
+                        e.tamaño_archivo,
+                        e.descripcion,
+                        e.fecha_subida
+                    FROM inventarios_cat_surtimientos_evidencia e
+                    WHERE e.surtimiento_id = ?
+                    ORDER BY e.fecha_subida ASC";
+
+            $conexion = $master->connectDb();
+            $stmt = $conexion->prepare($sql);
+            $stmt->execute([$surtimiento_id]);
+            $evidencias = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $conexion = null;
+
+            $response = array(
+                'code' => 1,
+                'message' => 'Evidencias del surtimiento obtenidas exitosamente',
+                'data' => $evidencias
+            );
         } catch (Exception $e) {
             $response = array(
                 'code' => 0,

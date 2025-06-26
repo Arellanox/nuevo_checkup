@@ -1,316 +1,252 @@
 <!-- vista/menu/inventarios/modals/detalle_requisicion.html -->
-<div class="modal fade" id="detalleRequisicionModal" tabindex="-1" aria-labelledby="detalleRequisicionLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="detalleRequisicionLabel">
-            Detalle de Requisición <span id="numeroRequisicionDetalle" class="text-primary"></span>
-          </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <!-- Información General -->
-            <div class="col-md-6">
-              <div class="card">
-                <div class="card-header">
-                  <h6 class="card-title mb-0">Información General</h6>
+<div class="modal fade" id="detalleRequisicionModal" tabindex="-1" aria-labelledby="detalleRequisicionLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="detalleRequisicionLabel">
+          Detalle de Requisición <span id="numeroRequisicionDetalle" class="text-primary"></span>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <!-- Información General -->
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h6 class="card-title mb-0">Información General</h6>
+              </div>
+              <div class="card-body">
+                <div class="row mb-2">
+                  <div class="col-sm-4"><strong>Número:</strong></div>
+                  <div class="col-sm-8" id="detalleNumero">-</div>
                 </div>
-                <div class="card-body">
-                  <div class="row mb-2">
-                    <div class="col-sm-4"><strong>Número:</strong></div>
-                    <div class="col-sm-8" id="detalleNumero">-</div>
+                <div class="row mb-2">
+                  <div class="col-sm-4"><strong>Área Solicitante:</strong></div>
+                  <div class="col-sm-8" id="detalleArea">-</div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-sm-4"><strong>Solicitante:</strong></div>
+                  <div class="col-sm-8" id="detalleSolicitante">-</div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-sm-4"><strong>Fecha Creación:</strong></div>
+                  <div class="col-sm-8" id="detalleFechaCreacion">-</div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-sm-4"><strong>Fecha Límite:</strong></div>
+                  <div class="col-sm-8" id="detalleFechaLimite">-</div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-sm-4"><strong>Prioridad:</strong></div>
+                  <div class="col-sm-8" id="detallePrioridad">-</div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-sm-4"><strong>Estado:</strong></div>
+                  <div class="col-sm-8">
+                    <span class="badge" id="detalleEstatus">-</span>
                   </div>
-                  <div class="row mb-2">
-                    <div class="col-sm-4"><strong>Área Solicitante:</strong></div>
-                    <div class="col-sm-8" id="detalleArea">-</div>
-                  </div>
-                  <div class="row mb-2">
-                    <div class="col-sm-4"><strong>Solicitante:</strong></div>
-                    <div class="col-sm-8" id="detalleSolicitante">-</div>
-                  </div>
-                  <div class="row mb-2">
-                    <div class="col-sm-4"><strong>Fecha Creación:</strong></div>
-                    <div class="col-sm-8" id="detalleFechaCreacion">-</div>
-                  </div>
-                  <div class="row mb-2">
-                    <div class="col-sm-4"><strong>Fecha Límite:</strong></div>
-                    <div class="col-sm-8" id="detalleFechaLimite">-</div>
-                  </div>
-                  <div class="row mb-2">
-                    <div class="col-sm-4"><strong>Prioridad:</strong></div>
-                    <div class="col-sm-8" id="detallePrioridad">-</div>
-                  </div>
-                  <div class="row mb-2">
-                    <div class="col-sm-4"><strong>Estado:</strong></div>
-                    <div class="col-sm-8">
-                      <span class="badge" id="detalleEstatus">-</span>
-                    </div>
-                  </div>
-                  <!-- <div class="row mb-2">
+                </div>
+                <!-- <div class="row mb-2">
                     <div class="col-sm-4"><strong>Total Estimado:</strong></div>
                     <div class="col-sm-8" id="detalleTotalEstimado">$0.00</div>
                   </div> -->
+              </div>
+            </div>
+
+            <!-- Justificación -->
+            <div class="card mt-3">
+              <div class="card-header">
+                <h6 class="card-title mb-0">Justificación</h6>
+              </div>
+              <div class="card-body">
+                <p id="detalleJustificacion">-</p>
+              </div>
+            </div>
+
+            <!-- Observaciones de Aprobación -->
+            <div class="card mt-3" id="cardObservacionesAprobacion" style="display: none;">
+              <div class="card-header">
+                <h6 class="card-title mb-0">Observaciones de Aprobación</h6>
+              </div>
+              <div class="card-body">
+                <p id="detalleObservacionesAprobacion">-</p>
+                <small class="text-muted">
+                  Aprobado por: <span id="detalleAprobadoPor">-</span><br>
+                  Fecha: <span id="detalleFechaAprobacion">-</span>
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Artículos y Acciones -->
+          <div class="col-md-6">
+            <!-- Artículos -->
+            <div class="card">
+              <div class="card-header">
+                <h6 class="card-title mb-0">Artículos Solicitados</h6>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-sm" id="tablaDetalleArticulos">
+                    <thead>
+                      <tr>
+                        <th>Artículo</th>
+                        <th>Solicitado</th>
+                        <th>Aprobado</th>
+                        <th>Surtido</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Se llenará dinámicamente -->
+                    </tbody>
+                  </table>
                 </div>
               </div>
-  
-              <!-- Justificación -->
-              <div class="card mt-3">
-                <div class="card-header">
-                  <h6 class="card-title mb-0">Justificación</h6>
+            </div>
+
+            <!-- Acciones de Aprobación -->
+            <div class="card mt-3" id="cardAccionesAprobacion">
+              <div class="card-header">
+                <h6 class="card-title mb-0">Acciones</h6>
+              </div>
+              <div class="card-body">
+                <div class="mb-3">
+                  <label for="observacionesAprobacion" class="form-label">Observaciones</label>
+                  <textarea class="form-control" id="observacionesAprobacion" rows="3"
+                    placeholder="Comentarios sobre la aprobación/rechazo..."></textarea>
                 </div>
-                <div class="card-body">
-                  <p id="detalleJustificacion">-</p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                  <button type="button" class="btn btn-success" id="btnAprobarRequisicion">
+                    <i class="bi bi-check-circle"></i> Aprobar
+                  </button>
+                  <button type="button" class="btn btn-danger" id="btnRechazarRequisicion">
+                    <i class="bi bi-x-circle"></i> Rechazar
+                  </button>
                 </div>
               </div>
-  
-              <!-- Observaciones de Aprobación -->
-              <div class="card mt-3" id="cardObservacionesAprobacion" style="display: none;">
-                <div class="card-header">
-                  <h6 class="card-title mb-0">Observaciones de Aprobación</h6>
-                </div>
-                <div class="card-body">
-                  <p id="detalleObservacionesAprobacion">-</p>
+            </div>
+
+            <!-- Acciones de Surtimiento -->
+            <div class="card mt-3" id="cardAccionesSurtimiento" style="display: none;">
+              <div class="card-header">
+                <h6 class="card-title mb-0">Gestión de Surtimiento</h6>
+              </div>
+              <div class="card-body">
+                <div class="d-grid gap-2">
+                  <button type="button" class="btn btn-warning" id="btnSurtirRequisicion">
+                    <i class="bi bi-box-seam"></i> Surtir Artículos
+                  </button>
                   <small class="text-muted">
-                    Aprobado por: <span id="detalleAprobadoPor">-</span><br>
-                    Fecha: <span id="detalleFechaAprobacion">-</span>
+                    <i class="bi bi-info-circle"></i>
+                    Registre la entrega de artículos con evidencia fotográfica
                   </small>
                 </div>
               </div>
             </div>
-  
-            <!-- Artículos y Acciones -->
-            <div class="col-md-6">
-              <!-- Artículos -->
-              <div class="card">
-                <div class="card-header">
-                  <h6 class="card-title mb-0">Artículos Solicitados</h6>
-                </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-sm" id="tablaDetalleArticulos">
-                      <thead>
-                        <tr>
-                          <th>Artículo</th>
-                          <th>Solicitado</th>
-                          <th>Aprobado</th>
-                          <th>Surtido</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <!-- Se llenará dinámicamente -->
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-  
-              <!-- Acciones de Aprobación -->
-              <div class="card mt-3" id="cardAccionesAprobacion">
-                <div class="card-header">
-                  <h6 class="card-title mb-0">Acciones</h6>
-                </div>
-                <div class="card-body">
-                  <div class="mb-3">
-                    <label for="observacionesAprobacion" class="form-label">Observaciones</label>
-                    <textarea class="form-control" id="observacionesAprobacion" rows="3" placeholder="Comentarios sobre la aprobación/rechazo..."></textarea>
-                  </div>
-                  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button type="button" class="btn btn-success" id="btnAprobarRequisicion">
-                      <i class="bi bi-check-circle"></i> Aprobar
-                    </button>
-                    <button type="button" class="btn btn-danger" id="btnRechazarRequisicion">
-                      <i class="bi bi-x-circle"></i> Rechazar
-                    </button>
-                  </div>
-                </div>
-              </div>
 
-              <!-- Acciones de Surtimiento -->
-              <div class="card mt-3" id="cardAccionesSurtimiento" style="display: none;">
-                <div class="card-header">
-                  <h6 class="card-title mb-0">Gestión de Surtimiento</h6>
-                </div>
-                <div class="card-body">
-                  <div class="d-grid gap-2">
-                    <button type="button" class="btn btn-warning" id="btnSurtirRequisicion">
-                      <i class="bi bi-box-seam"></i> Surtir Artículos
-                    </button>
-                    <small class="text-muted">
-                      <i class="bi bi-info-circle"></i> 
-                      Registre la entrega de artículos con evidencia fotográfica
-                    </small>
-                  </div>
-                </div>
+            <!-- Historial de Seguimiento -->
+            <div class="card mt-3">
+              <div class="card-header">
+                <h6 class="card-title mb-0">Historial de Seguimiento</h6>
               </div>
-  
-              <!-- Historial de Seguimiento -->
-              <div class="card mt-3">
-                <div class="card-header">
-                  <h6 class="card-title mb-0">Historial de Seguimiento</h6>
-                </div>
-                <div class="card-body">
-                  <div class="timeline" id="timelineHistorial">
-                    <!-- Se llenará dinámicamente -->
-                  </div>
-                </div>
-              </div>
-
-              <!-- Evidencias de Surtimiento -->
-              <div class="card mt-3" id="cardEvidenciasSurtimiento" style="display: none;">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                  <h6 class="card-title mb-0">Evidencias de Surtimiento</h6>
-                  <span class="badge bg-secondary" id="contadorEvidencias">0 imágenes</span>
-                </div>
-                <div class="card-body">
-                  <div class="row" id="galeriaEvidencias">
-                    <!-- Se llenará dinámicamente -->
-                  </div>
-                  <div id="sinEvidencias" class="text-center text-muted py-3" style="display: none;">
-                    <i class="bi bi-image"></i>
-                    <p class="mb-0">No hay evidencias disponibles</p>
-                  </div>
+              <div class="card-body">
+                <div class="timeline" id="timelineHistorial">
+                  <!-- Se llenará dinámicamente -->
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Cerrar
-          </button>
-          <button type="button" class="btn btn-info" id="btnDetalleSurtimiento" style="display: none;" data-bs-toggle="modal" data-bs-target="#detalleSurtimientoModal">
-            <i class="bi bi-box-seam-fill"></i> Detalle de Surtimiento
-          </button>
-          <button type="button" class="btn btn-primary" id="btnImprimirRequisicion" style="display: none;">
-            <i class="bi bi-printer"></i> Imprimir
-          </button>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cerrar
+        </button>
+        <button type="button" class="btn btn-success" id="btnGenerarExcel" style="display: none;">
+          <i class="bi bi-file-earmark-excel"></i> Generar Excel
+        </button>
+        <button onclick="mostrarDetalleSurtimiento()" id="btnDetalleSurtimiento" class="btn btn-info btn-sm" title="Ver detalles">
+          <i class="bi bi-eye"></i> Ver Detalle
+        </button>
+        <button type="button" class="btn btn-primary" id="btnImprimirRequisicion" style="display: none;">
+          <i class="bi bi-printer"></i> Imprimir
+        </button>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Modal para ver evidencia ampliada -->
-  <div class="modal fade" id="evidenciaModal" tabindex="-1" aria-labelledby="evidenciaModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="evidenciaModalLabel">Evidencia de Surtimiento</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body text-center">
-          <img id="evidenciaImagenAmpliada" src="" alt="Evidencia" class="img-fluid rounded" style="max-height: 500px;">
-          <div class="mt-3">
-            <p class="mb-1"><strong>Descripción:</strong> <span id="evidenciaDescripcion">-</span></p>
-            <p class="mb-1"><strong>Fecha:</strong> <span id="evidenciaFecha">-</span></p>
-            <p class="mb-0"><strong>Persona que recibió:</strong> <span id="evidenciaPersonaRecibe">-</span></p>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <a href="#" id="evidenciaDescargar" class="btn btn-primary" target="_blank">
-            <i class="bi bi-download"></i> Descargar
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <style>
-    .timeline {
-      max-height: 300px;
-      overflow-y: auto;
-    }
-    
-    .timeline-item {
-      padding: 10px 0;
-      border-bottom: 1px solid #eee;
-    }
-    
-    .timeline-item:last-child {
-      border-bottom: none;
-    }
-    
-    .timeline-date {
-      font-size: 0.85em;
-      color: #6c757d;
-    }
-    
-    .badge-urgente {
-      background-color: #dc3545;
-    }
-    
-    .badge-normal {
-      background-color: #0d6efd;
-    }
-    
-    .badge-baja {
-      background-color: #6c757d;
-    }
-    
-    .badge-borrador {
-      background-color: #ffc107;
-      color: #000;
-    }
-    
-    .badge-pendiente {
-      background-color: #17a2b8;
-    }
-    
-    .badge-aprobada {
-      background-color: #28a745;
-    }
-    
-    .badge-rechazada {
-      background-color: #dc3545;
-    }
-    
-    .badge-parcialmente_surtida {
-      background-color: #fd7e14;
-    }
-    
-    .badge-completada {
-      background-color: #20c997;
-    }
-    
-    .badge-pausada {
-      background-color: #6f42c1;
-    }
-  
-    #tablaDetalleArticulos {
-      font-size: 0.9em;
-    }
+<style>
+  .timeline {
+    max-height: 300px;
+    overflow-y: auto;
+  }
 
-    .evidencia-thumbnail {
-      width: 100px;
-      height: 80px;
-      object-fit: cover;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: transform 0.2s;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
+  .timeline-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+  }
 
-    .evidencia-thumbnail:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
+  .timeline-item:last-child {
+    border-bottom: none;
+  }
 
-    .evidencia-container {
-      position: relative;
-      margin-bottom: 10px;
-    }
+  .timeline-date {
+    font-size: 0.85em;
+    color: #6c757d;
+  }
 
-    .evidencia-info {
-      font-size: 0.75em;
-      color: #6c757d;
-      text-align: center;
-      margin-top: 5px;
-    }
-  </style>
+  .badge-urgente {
+    background-color: #dc3545;
+  }
 
-  <script>
-    // Cuando la requisición esté completa
-    document.getElementById('btnDetalleSurtimiento').style.display = 'inline-block';
-    document.getElementById('btnImprimirRequisicion').style.display = 'inline-block';
-  </script>
+  .badge-normal {
+    background-color: #0d6efd;
+  }
+
+  .badge-baja {
+    background-color: #6c757d;
+  }
+
+  .badge-borrador {
+    background-color: #ffc107;
+    color: #000;
+  }
+
+  .badge-pendiente {
+    background-color: #17a2b8;
+  }
+
+  .badge-aprobada {
+    background-color: #28a745;
+  }
+
+  .badge-rechazada {
+    background-color: #dc3545;
+  }
+
+  .badge-parcialmente_surtida {
+    background-color: #fd7e14;
+  }
+
+  .badge-completada {
+    background-color: #20c997;
+  }
+
+  .badge-pausada {
+    background-color: #6f42c1;
+  }
+
+  #tablaDetalleArticulos {
+    font-size: 0.9em;
+  }
+</style>
+
+<script>
+  // Cuando la requisición esté completa
+  document.getElementById('btnDetalleSurtimiento').style.display = 'inline-block';
+  document.getElementById('btnImprimirRequisicion').style.display = 'inline-block';
+  document.getElementById('btnGenerarExcel').style.display = 'inline-block';
+</script>

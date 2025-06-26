@@ -1331,7 +1331,7 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
         const badges = {
           borrador: "badge bg-warning text-dark",
           pendiente: "badge bg-info",
-          aprobada: "badge bg-success",
+          aprobada: "badge bg-primary",
           rechazada: "badge bg-danger",
           parcialmente_surtida: "badge bg-warning",
           completada: "badge bg-success",
@@ -1429,9 +1429,23 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
           `;
         }
 
+        // Mostrar botón de ver surtimiento si está completada o parcialmente surtida
+        if (row.estatus === "completada" || row.estatus === "parcialmente_surtida") {
+          buttons += `
+            <div class="d-flex gap-1 justify-content-center">
+              <button class="btn btn-sm btn-info btn-ver-surtimiento" data-id="${row.id_requisicion}" data-surtimiento-id="${row.id_surtimiento}" title="Ver detalles del surtimiento">
+                <i class="bi bi-eye"></i>
+              </button>
+            </div>
+          `;
+        }
+
         return buttons || '<span class="text-muted">-</span>';
       },
     },
+    {
+      data: "id_surtimiento",
+    }
   ],
   columnDefs: [
     { targets: 0, title: "Número", className: "all", width: "100px" },
@@ -1465,6 +1479,7 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
       orderable: false,
       width: "120px",
     },
+    { targets: 14, title: "ID Surtimiento", visible: false },
   ],
   dom: 'Bl<"dataTables_toolbar">frtip',
   buttons: [
@@ -5376,7 +5391,7 @@ function cargarDetallesRequisicionCompletos() {
   const estatusBadges = {
     borrador: "badge bg-warning text-dark",
     pendiente: "badge bg-info",
-    aprobada: "badge bg-success",
+    aprobada: "badge bg-primary",
     rechazada: "badge bg-danger",
     parcialmente_surtida: "badge bg-warning",
     completada: "badge bg-success",
@@ -5440,6 +5455,12 @@ function cargarDetallesRequisicionCompletos() {
     $("#btnDetalleSurtimiento").show();
   } else {
     $("#btnDetalleSurtimiento").hide();
+  }
+
+  if (rowSelectedRequisicion.estatus === "aprobada" || rowSelectedRequisicion.estatus === "completada") {
+    $("#btnGenerarExcel").show();
+  } else {
+    $("#btnGenerarExcel").hide();
   }
 
   // Cargar artículos de la requisición
@@ -5895,6 +5916,43 @@ $(document).on("click", ".btn-rechazar-requisicion", function (e) {
       );
     }
   });
+});
+
+// Evento para ver detalles del surtimiento
+$(document).on("click", ".btn-ver-surtimiento", function (e) {
+  e.preventDefault();
+  e.stopImmediatePropagation();
+
+  let idRequisicion = $(this).data("id");
+  let idSurtimiento = $(this).data("surtimiento-id");
+  
+  console.log("Ver surtimiento - Requisición:", idRequisicion, "Surtimiento:", idSurtimiento);
+
+  if (!idRequisicion || !idSurtimiento) {
+    alertToast("ID de requisición o surtimiento no válido", "warning", 3000);
+    return;
+  }
+
+  // Buscar la requisición en la tabla para establecer rowSelectedRequisicion
+  let requisicionData = null;
+  if (tableCatRequisiciones && tableCatRequisiciones.data()) {
+    requisicionData = tableCatRequisiciones
+      .data()
+      .toArray()
+      .find((req) => req.id_requisicion == idRequisicion);
+  }
+
+  if (requisicionData) {
+    // Asegurarnos de que el id_surtimiento esté disponible
+    requisicionData.id_surtimiento = idSurtimiento;
+    // Establecer la fila seleccionada temporalmente
+    rowSelectedRequisicion = requisicionData;
+    
+    // Llamar a la función existente
+    mostrarDetalleSurtimiento();
+  } else {
+    alertToast("No se encontraron datos de la requisición", "warning", 3000);
+  }
 });
 
 // Función para procesar aprobación/rechazo desde la tabla
@@ -7015,6 +7073,9 @@ function guardarSurtimiento() {
 // ==================== FUNCIONALIDAD DE EVIDENCIAS DE SURTIMIENTO ====================
 
 function cargarEvidenciasSurtimiento(requisicionId) {
+  console.log("🔍 Cargando evidencias para requisición ID:", requisicionId);
+  console.log("🔍 Tipo de requisicionId:", typeof requisicionId);
+  
   $.ajax({
     url: "../../../api/inventarios_api.php",
     type: "POST",
@@ -7025,27 +7086,40 @@ function cargarEvidenciasSurtimiento(requisicionId) {
     },
     success: function (response) {
       console.log("Evidencias de surtimiento:", response);
+      
+      // Verificar diferentes estructuras de respuesta
+      let evidencias = [];
+      if (response && response.response && response.response.data && response.response.data.data) {
+        evidencias = response.response.data.data;
+        console.log("📷 Usando estructura anidada response.response.data.data:", evidencias);
+      } else if (response && response.response && response.response.data) {
+        evidencias = response.response.data;
+        console.log("📷 Usando estructura response.response.data:", evidencias);
+      } else if (response && response.data) {
+        evidencias = response.data;
+        console.log("📷 Usando estructura response.data:", evidencias);
+      }
+      
+      console.log("📷 Evidencias procesadas:", evidencias);
+      console.log("📷 Total evidencias:", evidencias.length);
 
-      if (
-        response &&
-        response.code == 1 &&
-        response.data &&
-        response.data.length > 0
-      ) {
-        mostrarEvidencias(response.data);
+      if (evidencias && evidencias.length > 0) {
+        mostrarEvidencias(evidencias);
       } else {
+        console.warn("⚠️ No se encontraron evidencias para requisición ID:", requisicionId);
         ocultarEvidencias();
       }
     },
     error: function (xhr, status, error) {
       console.error("Error al cargar evidencias:", error);
+      console.error("Respuesta completa:", xhr.responseText);
       ocultarEvidencias();
     },
   });
 }
 
 function mostrarEvidencias(evidencias) {
-  let galeria = $("#galeriaEvidencias");
+  let galeria = $("#galeriaEvidenciasSurtimiento");
   galeria.empty();
 
   evidencias.forEach(function (evidencia, index) {
@@ -7053,20 +7127,36 @@ function mostrarEvidencias(evidencias) {
       "es-MX"
     );
 
-    let card = `
-      <div class="col-md-3 col-sm-4 col-6">
-        <div class="evidencia-container">
+    // Obtener la extensión del archivo (como en el patrón del DataTable)
+    let extension = evidencia.ruta_archivo.split(".").pop().toLowerCase();
+    let contenidoImagen = "";
+
+    if (extension === "pdf") {
+      // Si es PDF, mostrar icono de PDF (siguiendo el patrón del DataTable)
+      contenidoImagen = `
+        <a href="${evidencia.ruta_archivo}" target="_blank" class="text-decoration-none">
+          <i class="bi bi-file-earmark-pdf-fill text-danger" style="font-size: 3rem;" title="Ver PDF"></i>
+        </a>
+      `;
+    } else {
+      // Si es imagen, mostrar como antes (siguiendo el patrón del DataTable)
+      contenidoImagen = `
+        <a href="${evidencia.ruta_archivo}" target="_blank">
           <img src="${evidencia.ruta_archivo}" 
                alt="${evidencia.descripcion}" 
-               class="evidencia-thumbnail"
-               onclick="mostrarEvidenciaAmpliada('${
-                 evidencia.ruta_archivo
-               }', '${evidencia.descripcion}', '${fechaFormateada}', '${
-      evidencia.persona_recibe
-    }')">
-          <div class="evidencia-info">
-            <small>${evidencia.descripcion || "Evidencia"}</small><br>
-            <small class="text-muted">${fechaFormateada}</small>
+               class="evidencia-thumbnail">
+        </a>
+      `;
+    }
+
+    let card = `
+      <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-3">
+        <div class="evidencia-container text-center">
+          ${contenidoImagen}
+          <div class="evidencia-info mt-2">
+            <small class="fw-bold d-block">${evidencia.descripcion || "Evidencia"}</small>
+            <small class="text-muted d-block">${fechaFormateada}</small>
+            <small class="text-muted d-block">Por: ${evidencia.persona_recibe || "N/A"}</small>
           </div>
         </div>
       </div>
@@ -7100,6 +7190,8 @@ function mostrarEvidenciaAmpliada(
 
   $("#evidenciaModal").modal("show");
 }
+
+
 
 console.log("Funcionalidad de surtimiento cargada correctamente");
 
