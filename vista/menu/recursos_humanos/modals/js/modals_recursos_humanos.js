@@ -1133,3 +1133,137 @@ $("#registrarSustanciaForm").submit(function (event) {
     1
   );
 });
+
+// Editar Detalles del Puesto
+$("#editarDetallesPuestoForm").submit(function (event) {
+  event.preventDefault();
+
+  var form = document.getElementById("editarDetallesPuestoForm");
+  var formData = new FormData(form);
+
+  // Obtener valores del formulario
+  let puestoId = $("#detallePuestoId").val();
+  let objetivos = $("#objetivosPuesto").val().trim();
+  let competencias = $("#competenciasPuesto").val().trim();
+  let bandaSalarial = $("#bandaSalarialPuesto").val().trim();
+  let puestoNombre = $("#puestoNombreDetalle").val();
+
+  // Validación básica
+  if (!puestoId) {
+    alertToast("Error: No se encontró el ID del puesto", "error", 3000);
+    return;
+  }
+
+  console.log("Valores a enviar:");
+  console.log("ID Puesto:", puestoId);
+  console.log("Objetivos:", objetivos);
+  console.log("Competencias:", competencias);
+  console.log("Banda Salarial:", bandaSalarial);
+
+  alertMensajeConfirm(
+    {
+      title: "¿Está a punto de actualizar los detalles del puesto?",
+      text: `Se actualizarán los detalles del puesto: ${puestoNombre}`,
+      icon: "warning",
+    },
+    function () {
+      ajaxAwaitFormData(
+        {
+          api: 10, // Usar el API 10 que definimos para actualizar detalles
+          id_puesto: puestoId,
+          objetivos: objetivos,
+          competencias: competencias,
+          banda_salarial: bandaSalarial
+        },
+        "recursos_humanos_api",
+        "editarDetallesPuestoForm",
+        { callbackAfter: true },
+        false,
+        function (data) {
+          if (data.response.code == 1) {
+            $("#editarDetallesPuestoForm")[0].reset();
+            $("#editarDetallesPuestoModal").modal("hide");
+            alertToast("Detalles del puesto actualizados exitosamente!", "success", 4000);
+            
+            // Recargar las tablas relacionadas
+            if (tableCatPuestosDetalles) tableCatPuestosDetalles.ajax.reload();
+            if (tableCatPuestos) tableCatPuestos.ajax.reload();
+            
+            // Si existe una función para recargar selects de puestos en otros modales
+            if (typeof cargarPuestosVacanteSelect === 'function') {
+              cargarPuestosVacanteSelect();
+            }
+          } else {
+            alertToast(
+              data.response.message || "Error al actualizar los detalles del puesto",
+              "error",
+              4000
+            );
+          }
+        }
+      );
+    }
+  );
+
+  return false;
+});
+
+// Event handlers para los botones de detalles de puestos
+$(document).on('click', '.btn-ver-detalles-puesto', function() {
+  const puestoId = $(this).data('id');
+  const puestoNombre = $(this).data('nombre');
+  
+  console.log("Ver detalles del puesto:", puestoId, puestoNombre);
+  
+  // Filtrar la tabla de detalles por el puesto seleccionado
+  if (typeof dataTableCatPuestosDetalles !== 'undefined') {
+    dataTableCatPuestosDetalles.id_puesto = puestoId;
+    tableCatPuestosDetalles.ajax.reload();
+  }
+  
+  $('#detallesPuestoModalLabel').text(`Detalles del Puesto: ${puestoNombre}`);
+  $('#detallesPuestoModal').modal('show');
+});
+
+$(document).on('click', '.btn-editar-detalles-puesto', function() {
+  const puestoId = $(this).data('id');
+  const puestoNombre = $(this).data('nombre');
+  const objetivos = $(this).data('objetivos') || '';
+  const competencias = $(this).data('competencias') || '';
+  const banda = $(this).data('banda') || '';
+  
+  console.log("Editar detalles del puesto:", puestoId, puestoNombre);
+  console.log("Datos actuales:", { objetivos, competencias, banda });
+  
+  // Llenar el formulario con los datos actuales
+  $('#detallePuestoId').val(puestoId);
+  $('#puestoNombreDetalle').val(puestoNombre);
+  $('#objetivosPuesto').val(objetivos);
+  $('#competenciasPuesto').val(competencias);
+  $('#bandaSalarialPuesto').val(banda);
+  
+  $('#editarDetallesPuestoModalLabel').text(`Editar Detalles: ${puestoNombre}`);
+  $('#editarDetallesPuestoModal').modal('show');
+});
+
+// Limpiar formulario cuando se cierre el modal de editar detalles
+$('#editarDetallesPuestoModal').on('hidden.bs.modal', function() {
+  $('#editarDetallesPuestoForm')[0].reset();
+  
+  // Si hay una bandera para reabrir el modal de catálogos
+  if (typeof debeReabrirModalRequisicion !== 'undefined' && debeReabrirModalRequisicion) {
+    setTimeout(function() {
+      $('#registrarCatalogoModal').modal('show');
+    }, 300);
+  }
+});
+
+// Limpiar datos cuando se cierre el modal de ver detalles
+$('#detallesPuestoModal').on('hidden.bs.modal', function() {
+  // Si hay una bandera para reabrir el modal de catálogos
+  if (typeof debeReabrirModalRequisicion !== 'undefined' && debeReabrirModalRequisicion) {
+    setTimeout(function() {
+      $('#registrarCatalogoModal').modal('show');
+    }, 300);
+  }
+});

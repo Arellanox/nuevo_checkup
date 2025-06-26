@@ -52,6 +52,7 @@
 
             // Oculta el botón de registrar vacante
             ocultarBotonVacante();
+            ocultarBotonCatalogo();
             
             // Oculta la sección de módulos
             document.getElementById("modulos-rrhh").style.display = "none";
@@ -94,6 +95,7 @@ tableCatVacantes = $("#tableCatVacantes").DataTable({
     lengthChange: false,
     info: true,
     paging: true,
+    pageLength: 5, // Agregar esta línea
     scrollY: "40vh",
     scrollCollapse: true,
     ajax: {
@@ -113,9 +115,7 @@ tableCatVacantes = $("#tableCatVacantes").DataTable({
     buttons: [],
 });
 
-        
 //Data table para el catálogo de departamentos
-
 tableCatDepartamentos = $("#tableCatDepartamentos").DataTable({
     language: {
       url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
@@ -124,6 +124,7 @@ tableCatDepartamentos = $("#tableCatDepartamentos").DataTable({
     lengthChange: false,
     info: true,
     paging: true,
+    pageLength: 5, // Agregar esta línea
     scrollY: "40vh",
     scrollCollapse: true,
     ajax: {
@@ -152,47 +153,47 @@ tableCatDepartamentos = $("#tableCatDepartamentos").DataTable({
       {
         data: null,
         render: function (data, type, row) {
-          return `
+            return `
             <button class="btn btn-sm btn-warning btn-editar-departamento" 
-                    data-id="${row.id_departamento}" 
-                    data-nombre="${row.descripcion}" 
-                    data-activo="${row.activo}">
-                <i class="bi bi-pencil"></i>
+                data-id="${row.id_departamento}" 
+                data-nombre="${row.descripcion}" 
+                data-activo="${row.activo}">
+              <i class="bi bi-pencil"></i>
             </button>
             <button class="btn btn-sm btn-danger btn-eliminar-departamento" 
-                    data-id="${row.id_departamento}">
-                <i class="bi bi-trash"></i>
+                data-id="${row.id_departamento}">
+              <i class="bi bi-trash"></i>
             </button>
-        `;
-        },
-      },
-    ],
-    dom: 'Bl<"dataTables_toolbar">frtip',
-    buttons: [
-      {
-        text: '<i class="bi bi-plus-lg"></i> Nuevo Departamento',
-        className: "btn btn-success",
-        attr: {
-          "data-bs-toggle": "modal",
-          "data-bs-target": "#registrarDepartamentoModal",
-        },
-        action: function () {
-          $("#registrarDepartamentoModal").modal("show");
-        },
-      },
-      {
-        text: '<i class="bi bi-funnel"></i> Filtrar',
-        className: "btn btn-warning",
-        attr: {
-          "data-bs-toggle": "modal",
-          "data-bs-target": "#filtrarDepartamentosModal",
-        },
-        action: function () {
-          $("#filtrarDepartamentosModal").modal("show");
-        },
-      },
-    ],
-  });
+          `;
+          },
+          },
+        ],
+        dom: 'Bl<"dataTables_toolbar">frtip',
+        buttons: [
+          {
+          text: '<i class="bi bi-plus-lg"></i> Nuevo Departamento',
+          className: "btn btn-success bg-gradient-primary",
+          attr: {
+            "data-bs-toggle": "modal",
+            "data-bs-target": "#registrarDepartamentoModal",
+          },
+          action: function () {
+            $("#registrarDepartamentoModal").modal("show");
+          },
+          },
+          {
+          text: '<i class="bi bi-funnel"></i> Filtrar',
+          className: "btn btn-warning bg-gradient-filter",
+          attr: {
+            "data-bs-toggle": "modal",
+            "data-bs-target": "#filtrarDepartamentosModal",
+          },
+          action: function () {
+            $("#filtrarDepartamentosModal").modal("show");
+          },
+          },
+        ],
+        });
 
 
 // Datatable para el catálogo de puestos
@@ -204,6 +205,7 @@ tableCatPuestos = $("#tableCatPuestos").DataTable({
     lengthChange: false,
     info: true,
     paging: true,
+    pageLength: 5, // Agregar esta línea
     scrollY: "40vh",
     scrollCollapse: true,
     ajax: {
@@ -234,17 +236,23 @@ tableCatPuestos = $("#tableCatPuestos").DataTable({
         data: null,
         render: function (data, type, row) {
           return `
-                    <button class="btn btn-sm btn-warning btn-editar-puesto" 
-                            data-id="${row.id_puesto}" 
-                            data-nombre="${row.descripcion}" 
-                            data-departamento="${row.id_departamento}"
-                            data-activo="${row.activo}">
-                        <i class="bi bi-pencil"></i>
-                    </button>
-                    <button class="btn btn-sm btn-danger btn-eliminar-puesto" data-id="${row.id_puesto}">
-                        <i class="bi bi-trash"></i>
-                    </button>
-                `;
+      <button class="btn btn-sm btn-info btn-ver-detalles-puesto" 
+              data-id="${row.id_puesto}" 
+              data-nombre="${row.descripcion}"
+              title="Ver detalles">
+          <i class="bi bi-eye"></i>
+      </button>
+      <button class="btn btn-sm btn-warning btn-editar-puesto" 
+              data-id="${row.id_puesto}" 
+              data-nombre="${row.descripcion}" 
+              data-departamento="${row.id_departamento}"
+              data-activo="${row.activo}">
+          <i class="bi bi-pencil"></i>
+      </button>
+      <button class="btn btn-sm btn-danger btn-eliminar-puesto" data-id="${row.id_puesto}">
+          <i class="bi bi-trash"></i>
+      </button>
+    `;
         },
       },
     ],
@@ -252,7 +260,7 @@ tableCatPuestos = $("#tableCatPuestos").DataTable({
     buttons: [
       {
         text: '<i class="bi bi-plus-lg"></i> Nuevo Puesto',
-        className: "btn btn-success",
+        className: "btn btn-success bg-gradient-primary",
         attr: {
           "data-bs-toggle": "modal",
           "data-bs-target": "#registrarPuestoModal",
@@ -263,7 +271,7 @@ tableCatPuestos = $("#tableCatPuestos").DataTable({
       },
       {
         text: '<i class="bi bi-funnel"></i> Filtrar',
-        className: "btn btn-warning",
+        className: "btn btn-warning btn-warning bg-gradient-filter",
         attr: {
           "data-bs-toggle": "modal",
           "data-bs-target": "#filtrarPuestosModal",
@@ -274,6 +282,121 @@ tableCatPuestos = $("#tableCatPuestos").DataTable({
       },
     ],
   });
+
+
+// Nueva DataTable para detalles de puestos
+tableCatPuestosDetalles = $("#tableCatPuestosDetalles").DataTable({
+  language: {
+    url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+  },
+  autoWidth: false, // Cambiar a false para mejor control
+  lengthChange: false,
+  info: true,
+  paging: true,
+  pageLength: 5,
+  scrollY: "40vh",
+  scrollCollapse: true,
+  scrollX: true, // Agregar scroll horizontal para contenido amplio
+  ajax: {
+    dataType: "json",
+    data: function (d) {
+      return $.extend(d, dataTableCatPuestosDetalles);
+    },
+    method: "POST",
+    url: "../../../api/recursos_humanos_api.php",
+    error: function (jqXHR, textStatus, errorThrown) {
+      alertErrorAJAX(jqXHR, textStatus, errorThrown);
+    },
+    dataSrc: "response.data",
+  },
+  columns: [
+    { 
+      data: "descripcion",
+      width: "15%"
+    },
+    { 
+      data: "objetivos",
+      width: "30%",
+      render: function(data) {
+        // Mostrar el texto completo sin truncar
+        return data || 'Sin objetivos';
+      }
+    },
+    { 
+      data: "competencias",
+      width: "30%",
+      render: function(data) {
+        // Mostrar el texto completo sin truncar
+        return data || 'Sin competencias';
+      }
+    },
+    { 
+      data: "banda_salarial",
+      width: "15%",
+      render: function(data) {
+        return data || 'No definida';
+      }
+    },
+    {
+      data: null,
+      width: "10%",
+      render: function (data, type, row) {
+        return `
+          <button class="btn btn-sm btn-warning btn-editar-detalles-puesto" 
+                  data-id="${row.id_puesto}" 
+                  data-nombre="${row.descripcion}"
+                  data-objetivos="${row.objetivos || ''}"
+                  data-competencias="${row.competencias || ''}"
+                  data-banda="${row.banda_salarial || ''}">
+              <i class="bi bi-pencil"></i>
+          </button>
+        `;
+      },
+    },
+  ],
+  dom: 'Bfrtip',
+  columnDefs: [
+    {
+      targets: [1, 2], // Columnas de objetivos y competencias
+      render: function(data, type, row) {
+        if (type === 'display') {
+          // Para mostrar en pantalla, usar el texto completo con saltos de línea
+          return data ? '<div style="white-space: pre-wrap; word-wrap: break-word; max-width: none;">' + data + '</div>' : (row === 1 ? 'Sin objetivos' : 'Sin competencias');
+        }
+        return data; // Para otros tipos (sorting, filtering) usar el dato original
+      }
+    }
+  ]
+});
+
+// Event handlers para los nuevos botones
+$(document).on('click', '.btn-ver-detalles-puesto', function() {
+  const puestoId = $(this).data('id');
+  const puestoNombre = $(this).data('nombre');
+  
+  // Filtrar la tabla de detalles por el puesto seleccionado
+  dataTableCatPuestosDetalles.id_puesto = puestoId;
+  tableCatPuestosDetalles.ajax.reload();
+  
+  $('#detallesPuestoModalLabel').text(`Detalles del Puesto: ${puestoNombre}`);
+  $('#detallesPuestoModal').modal('show');
+});
+
+$(document).on('click', '.btn-editar-detalles-puesto', function() {
+  const puestoId = $(this).data('id');
+  const puestoNombre = $(this).data('nombre');
+  const objetivos = $(this).data('objetivos');
+  const competencias = $(this).data('competencias');
+  const banda = $(this).data('banda');
+  
+  $('#detallePuestoId').val(puestoId);
+  $('#puestoNombreDetalle').val(puestoNombre);
+  $('#objetivosPuesto').val(objetivos);
+  $('#competenciasPuesto').val(competencias);
+  $('#bandaSalarialPuesto').val(banda);
+  
+  $('#editarDetallesPuestoModal').modal('show');
+});
 
 
 // Función para cargar departamentos en el select del modal de puestos
@@ -391,3 +514,4 @@ $(document).on('show.bs.modal', '#registrarDepartamentoModal', function(e) {
         $('#registrarDepartamentoModalLabel').text('Registrar Departamento');
     }
 });
+

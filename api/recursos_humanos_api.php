@@ -19,6 +19,9 @@ $descripcion = isset($_POST['descripcion']) ? trim($_POST['descripcion']) : '';
 $activo = isset($_POST['activo']) ? (int)$_POST['activo'] : 1;
 $creado_por = $_SESSION['id'];
 $id_puesto = isset($_POST['id_puesto']) ? (int)$_POST['id_puesto'] : null;
+$objetivos = isset($_POST['objetivos']) ? trim($_POST['objetivos']) : '';
+$competencias = isset($_POST['competencias']) ? trim($_POST['competencias']) : '';
+$banda_salarial = isset($_POST['banda_salarial']) ? trim($_POST['banda_salarial']) : '';
 
 switch ($api) {
     case 1:
@@ -37,11 +40,11 @@ switch ($api) {
         ]);
         break;
     case 3:
-        # Eliminar una caja
-        $response = $master->deleteByProcedure("sp_caja_chica_e", [
-            $id_caja, 
-            $_SESSION['id']
-        ]);
+        // # Eliminar una caja
+        // $response = $master->deleteByProcedure("sp_caja_chica_e", [
+        //     $id_caja, 
+        //     $_SESSION['id']
+        // ]);
         break;
     case 4:
         # cambiar el responsable de la caja chica
@@ -82,6 +85,21 @@ switch ($api) {
     case 8:
         # recuperar puestos.
         $response = $master->getByProcedure("sp_rh_cat_puestos_b", []);
+        break;
+    case 9:
+        # recuperar detalles de puestos (con filtro opcional por puesto)
+        $response = $master->getByProcedure("sp_rh_cat_puestos_detalles_b", [
+            $id_puesto
+        ]);
+        break;
+    case 10:
+        # actualizar detalles de puesto
+        $response = $master->updateByProcedure("sp_rh_cat_puestos_detalles_u", [
+            $id_puesto,
+            $objetivos,
+            $competencias,
+            $banda_salarial
+        ]);
         break;
     default:
         # default

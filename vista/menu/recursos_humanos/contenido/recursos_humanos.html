@@ -45,10 +45,10 @@
             <!-- MÓDULO REQUISICIÓN -->
             <div class="rounded p-3 shadow my-2 mx-2 content-module card" id="moduloRequisicion">                
                 <div class="d-flex align-items-center pb-3 mb-3 border-bottom">
-                    <button class="btn btn-link p-0 me-3 btnVolver">
-                        <i class="bi bi-arrow-left fs-4 text-primary"></i>
+                    <button class="btn btn-back btn-back-requisicion btnVolver" id="btnVolver">
+                        <i class="bi bi-arrow-left"></i>
                     </button>
-                    <h2 class="mb-0 text-primary">Requisición de Personal</h2>
+                    <h2 class="mb-0" style="color: #43e97b;">Requisición de Personal</h2>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
@@ -77,10 +77,10 @@
             <!-- MÓDULO RECLUTAMIENTO -->
             <div class="rounded p-3 shadow my-2 mx-2 content-module card" id="moduloReclutamiento">                
                 <div class="d-flex align-items-center pb-3 mb-3 border-bottom">
-                    <button class="btn btn-link p-0 me-3 btnVolver">
-                        <i class="bi bi-arrow-left fs-4 text-primary"></i>
+                    <button class="btn btn-back btn-back-reclutamiento btnVolver" id="btnVolver">
+                        <i class="bi bi-arrow-left"></i>
                     </button>
-                    <h2 class="mb-0 text-primary">Reclutamiento</h2>
+                    <h2 class="mb-0" style="color: #f093fb;">Reclutamiento</h2>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
@@ -114,10 +114,10 @@
             <!-- MÓDULO SELECCIÓN -->
             <div class="rounded p-3 shadow my-2 mx-2 content-module card" id="moduloSeleccion">                
                 <div class="d-flex align-items-center pb-3 mb-3 border-bottom">
-                    <button class="btn btn-link p-0 me-3 btnVolver">
-                        <i class="bi bi-arrow-left fs-4 text-primary"></i>
+                    <button class="btn btn-back btn-back-seleccion btnVolver" id="btnVolver">
+                        <i class="bi bi-arrow-left"></i>
                     </button>
-                    <h2 class="mb-0 text-primary">Proceso de Selección</h2>
+                    <h2 class="mb-0" style="color: #4facfe;">Proceso de Selección</h2>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
@@ -151,8 +151,8 @@
             <!-- MÓDULO EXPEDIENTE -->
             <div class="rounded p-3 shadow my-2 mx-2 content-module card" id="moduloExpediente">                
                 <div class="d-flex align-items-center pb-3 mb-3 border-bottom">
-                    <button class="btn btn-link p-0 me-3 btnVolver">
-                        <i class="bi bi-arrow-left fs-4 text-primary"></i>
+                    <button class="btn btn-back btn-back-expediente btnVolver" id="btnVolver">
+                        <i class="bi bi-arrow-left"></i>
                     </button>
                     <h2 class="mb-0 text-primary">Expedientes de Personal</h2>
                 </div>
@@ -188,8 +188,8 @@
             <!-- MÓDULO ONBOARDING -->
             <div class="rounded p-3 shadow my-2 mx-2 content-module card" id="moduloOnboarding">                
                 <div class="d-flex align-items-center pb-3 mb-3 border-bottom">
-                    <button class="btn btn-link p-0 me-3 btnVolver">
-                        <i class="bi bi-arrow-left fs-4 text-primary"></i>
+                    <button class="btn btn-back btn-back-onboarding btnVolver" id="btnVolver">
+                        <i class="bi bi-arrow-left"></i>
                     </button>
                     <h2 class="mb-0 text-primary">Onboarding</h2>
                 </div>
@@ -225,8 +225,8 @@
             <!-- MÓDULO EVALUACIONES -->
             <div class="rounded p-3 shadow my-2 mx-2 content-module card" id="moduloEvaluaciones">                
                 <div class="d-flex align-items-center pb-3 mb-3 border-bottom">
-                    <button class="btn btn-link p-0 me-3 btnVolver">
-                        <i class="bi bi-arrow-left fs-4 text-primary"></i>
+                    <button class="btn btn-back btn-back-evaluaciones btnVolver" id="btnVolver">
+                        <i class="bi bi-arrow-left"></i>
                     </button>
                     <h2 class="mb-0 text-primary">Evaluaciones de Desempeño</h2>
                 </div>
@@ -262,8 +262,8 @@
             <!-- MÓDULO INCIDENCIAS -->
             <div class="rounded p-3 shadow my-2 mx-2 content-module card" id="moduloIncidencias">                
                 <div class="d-flex align-items-center pb-3 mb-3 border-bottom">
-                    <button class="btn btn-link p-0 me-3 btnVolver">
-                        <i class="bi bi-arrow-left fs-4 text-primary"></i>
+                    <button class="btn btn-back btn-back-incidencias btnVolver" id="btnVolver">
+                        <i class="bi bi-arrow-left"></i>
                     </button>
                     <h2 class="mb-0 text-primary">Incidencias</h2>
                 </div>
@@ -299,8 +299,8 @@
             <!-- MÓDULO DESVINCULACIÓN -->
             <div class="rounded p-3 shadow my-2 mx-2 content-module card" id="moduloDesvinculacion">                
                 <div class="d-flex align-items-center pb-3 mb-3 border-bottom">
-                    <button class="btn btn-link p-0 me-3 btnVolver">
-                        <i class="bi bi-arrow-left fs-4 text-primary"></i>
+                    <button class="btn btn-back btn-back-desvinculacion btnVolver" id="btnVolver">
+                        <i class="bi bi-arrow-left"></i>
                     </button>
                     <h2 class="mb-0 text-primary">Desvinculación</h2>
                 </div>
@@ -431,6 +431,10 @@
             filter: drop-shadow(2px 2px 4px rgba(205, 233, 67, 0.3));
         }
 
+        .bg-gradient-filter {
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+        }
+
         .icono-onboarding {
             background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
             -webkit-background-clip: text;
@@ -521,6 +525,289 @@
                 grid-template-columns: 1fr;
                 gap: 10px;
             }
-        }    
+        }
+
+        /* Estilos para DataTables */
+        
+        /* Barra de búsqueda moderna */
+        .dataTables_filter {
+            float: none !important;
+            text-align: center !important;
+            margin-bottom: 20px !important;
+        }
+
+        .dataTables_filter label {
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .dataTables_filter input {
+            border: 2px solid #e9ecef !important;
+            border-radius: 25px !important;
+            padding: 10px 20px !important;
+            font-size: 14px !important;
+            background-color: #ffffff !important;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+            transition: all 0.3s ease !important;
+            width: 500px !important;
+            margin-left: 10px !important;
+            max-width: 80% !important;
+        }
+
+        .dataTables_filter input:focus {
+            border-color: #667eea !important;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25) !important;
+            outline: none !important;
+            transform: translateY(-1px) !important;
+        }
+
+        .dataTables_filter input::placeholder {
+            color: #adb5bd;
+            font-style: italic;
+        }
+
+        /* Botones de DataTable sin marco */
+        .dt-buttons {
+            margin-bottom: 15px !important;
+        }
+
+        .dt-button {
+            border: none !important;
+            border-radius: 8px !important;
+            font-weight: 500 !important;
+            transition: all 0.3s ease !important;
+            margin-right: 10px !important;
+            padding: 8px 16px !important;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .dt-button:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        /* Remover marcos de botones específicos */
+        .btn.bg-gradient-primary {
+            border: none !important;
+            outline: none !important;
+        }
+
+        .btn.bg-gradient-filter {
+            border: none !important;
+            outline: none !important;
+        }
+
+        .btn:focus,
+        .btn:active {
+            box-shadow: none !important;
+            outline: none !important;
+        }
+
+        /* Estilo de la tabla */
+        .table-responsive {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .table thead th {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: none;
+            font-weight: 600;
+            color: #495057;
+            padding: 12px 15px;
+        }
+
+        .table tbody td {
+            padding: 8px 15px !important;
+            vertical-align: middle !important;
+        }
+
+        .table tbody tr {
+            height: 45px !important;
+        }
+
+        .table tbody tr:hover {
+            background-color: rgba(102, 126, 234, 0.1);
+            transform: translateY(-1px);
+            transition: all 0.3s ease;
+        }
+
+        /* Info de la tabla */
+        .dataTables_info {
+            color: #6c757d;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+
+        /* Paginación */
+        .dataTables_paginate {
+            margin-top: 15px;
+        }
+
+        .paginate_button {
+            border-radius: 5px !important;
+            margin: 0 2px !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .paginate_button:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            color: white !important;
+            transform: translateY(-1px) !important;
+        }
+
+        .paginate_button.current {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            color: white !important;
+        }
+
+        /* Estilos para botones de regreso modernos */
+        .btn-back {
+            border-radius: 50% !important;
+            border: none !important;
+            padding: 8px 12px !important;
+            margin-right: 15px !important;
+            font-size: 1.2rem !important;
+            transition: all 0.5s ease !important;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-back:hover {
+            transform: translateX(-5px) !important;
+            box-shadow: 5px 0px 18px 0px rgba(105,105,105,0.4) !important;
+        }
+
+        .btn-back:focus {
+            box-shadow: none !important;
+            outline: none !important;
+        }
+
+        /* Colores específicos para cada módulo */
+        .btn-back-requisicion {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+        }
+
+        .btn-back-requisicion:hover {
+            background: rgba(67, 233, 123, 0.9);
+            color: white;
+        }
+
+        .btn-back-reclutamiento {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .btn-back-reclutamiento:hover {
+            background: rgba(240, 147, 251, 0.9);
+            color: white;
+        }
+
+        .btn-back-seleccion {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        .btn-back-seleccion:hover {
+            background: rgba(79, 172, 254, 0.9);
+            color: white;
+        }
+
+        .btn-back-expediente {
+            background: linear-gradient(135deg, #e9d643 0%, #fee140 100%);
+            color: #333;
+        }
+
+        .btn-back-expediente:hover {
+            background: rgba(233, 214, 67, 0.9);
+            color: #333;
+        }
+
+        .btn-back-onboarding {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+        }
+
+        .btn-back-onboarding:hover {
+            background: rgba(250, 112, 154, 0.9);
+            color: white;
+        }
+
+        .btn-back-evaluaciones {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #333;
+        }
+
+        .btn-back-evaluaciones:hover {
+            background: rgba(168, 237, 234, 0.9);
+            color: #333;
+        }
+
+        .btn-back-incidencias {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            color: white;
+        }
+
+        .btn-back-incidencias:hover {
+            background: rgba(255, 154, 158, 0.9);
+            color: white;
+        }
+
+        .btn-back-desvinculacion {
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+            color: white;
+        }
+
+        .btn-back-desvinculacion:hover {
+            background: rgba(161, 196, 253, 0.9);
+            color: white;
+        }
+
+        /* Estilos para la tabla de detalles de puestos - contenido centrado */
+        #tableCatPuestosDetalles td {
+            white-space: normal !important;
+            word-wrap: break-word !important;
+            vertical-align: middle !important;
+            padding: 12px 8px !important;
+            text-align: center !important;
+        }
+
+        #tableCatPuestosDetalles th {
+            text-align: center !important;
+            vertical-align: middle !important;
+            font-weight: 600 !important;
+        }
+
+        /* Centrar el contenido de las celdas con texto largo */
+        #tableCatPuestosDetalles td div {
+            line-height: 1.4;
+            font-size: 0.9em;
+            text-align: center !important;
+            margin: 0 auto;
+        }
+
+        /* Ajustar el modal para mejor visualización */
+        #detallesPuestoModal .modal-dialog {
+            max-width: 95vw !important;
+        }
+
+        #detallesPuestoModal .table-responsive {
+            overflow-x: auto;
+            max-height: 60vh;
+        }
+
+        /* Centrar la información de la tabla (parte inferior) */
+        #tableCatPuestosDetalles_info {
+            text-align: center !important;
+        }
+
+        /* Centrar la paginación */
+        #tableCatPuestosDetalles_paginate {
+            text-align: center !important;
+        }
         </style>
 

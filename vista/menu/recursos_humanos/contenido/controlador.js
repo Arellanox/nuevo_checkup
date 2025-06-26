@@ -16,6 +16,7 @@ async function obtenerContenidoRecursosHumanos() {
 
 var tableCatDepartamentos;
 var tableCatPuestos;
+var tableCatPuestosDetalles;
 
 
 const dataTableCatDepartamentos = {
@@ -24,4 +25,8 @@ const dataTableCatDepartamentos = {
 
 const dataTableCatPuestos = {
     api: 8 // Case 8 para obtener puestos
+};
+
+const dataTableCatPuestosDetalles = {
+    api: 9 // Case 9 para obtener detalles de puestos
 };

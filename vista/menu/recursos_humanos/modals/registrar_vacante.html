@@ -1,45 +1,37 @@
 <!-- Modal para nueva requisición -->
 <div class="modal fade" id="registrarVacanteModal" tabindex="-1" aria-labelledby="registrarVacanteModalLabel" aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="true">
     <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="registrarVacanteModalLabel">Nueva Requisición de Personal</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content shadow-lg border-0">
+            <div class="modal-header bg-gradient-custom text-white border-0">
+                <h5 class="modal-title fw-bold" id="registrarVacanteModalLabel">
+                    <i class="bi bi-file-earmark-text me-2"></i>Nueva Requisición de Personal
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+            <div class="modal-body bg-light" style="max-height: 70vh; overflow-y: auto;">
                 <!-- Contenido del formulario -->
                 <form id="formRegistrarVacante" name="formRegistrarVacante">
                     
                     <!-- INFORMACIÓN GENERAL -->
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h6 class="mb-0">Información General</h6>
+                    <div class="card mb-4 border-0 shadow-sm">
+                        <div class="card-header bg-radient-custom border-0" style="color: #004E59;">
+                            <h6 class="mb-0 fw-bold"><i class="bi bi-info-circle me-2"></i>Información General</h6>
                         </div>
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="solicitante" class="form-label">Solicitante</label>
-                                        <input type="text" class="form-control" id="solicitante" name="solicitante" readonly>
-                                        <input type="hidden" id="usuario_id" name="usuario_id">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="fecha_solicitud" class="form-label">Fecha de Solicitud</label>
-                                        <input type="date" class="form-control" id="fecha_solicitud" name="fecha_solicitud" required readonly>
-                                    </div>
-                                </div>
-                            </div>
+                            <!-- Campos ocultos para solicitante y fecha -->
+                            <input type="hidden" id="solicitante" name="solicitante">
+                            <input type="hidden" id="usuario_id" name="usuario_id">
+                            <input type="hidden" id="fecha_solicitud" name="fecha_solicitud">
+                            
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="departamento" class="form-label">Departamento</label>
                                         <div class="input-group">
-                                            <select class="form-select" id="departamento" name="departamento" required>
+                                            <select class="form-select rounded-3 border-2" id="departamento" name="departamento" required>
                                                 <option value="">Seleccionar departamento...</option>
                                             </select>
-                                            <button class="btn btn-outline-primary" type="button" id="btnCatalogoDepartamentos" title="Gestionar Departamentos">
+                                            <button class="btn btn-outline-primary rounded-3" type="button" id="btnCatalogoDepartamentos" title="Gestionar Departamentos">
                                                 <i class="bi bi-plus"></i>
                                             </button>
                                         </div>
@@ -48,7 +40,7 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="motivo_requisicion" class="form-label">Motivo de la Requisición</label>
-                                        <select class="form-select" id="motivo_requisicion" name="motivo_requisicion" required>
+                                        <select class="form-select rounded-3 border-2" id="motivo_requisicion" name="motivo_requisicion" required>
                                             <option value="">Seleccionar motivo...</option>
                                             <option value="nueva_posicion">Nueva posición</option>
                                             <option value="reemplazo_renuncia">Reemplazo por renuncia</option>
@@ -65,9 +57,9 @@
                     </div>
 
                     <!-- DETALLES DEL PUESTO -->
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h6 class="mb-0">Detalles del Puesto</h6>
+                    <div class="card mb-4 border-0 shadow-sm">
+                        <div class="card-header bg-radient-custom border-0" style="color: #004E59;">
+                            <h6 class="mb-0 fw-bold"><i class="bi bi-briefcase me-2"></i>Detalles del Puesto</h6>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -75,10 +67,10 @@
                                     <div class="mb-3" id="puestoContainer">
                                         <label for="puesto" class="form-label">Cargo o Título Solicitado</label>
                                         <div class="input-group">                                            
-                                            <select class="form-select" id="puesto" name="puesto">
+                                            <select class="form-select rounded-3 border-2" id="puesto" name="puesto">
                                                 <option value="">Seleccionar puesto...</option>
                                             </select>
-                                            <button class="btn btn-outline-primary" type="button" id="btnCatalogoPuestos" title="Gestionar Puestos">
+                                            <button class="btn btn-outline-primary rounded-3" type="button" id="btnCatalogoPuestos" title="Gestionar Puestos">
                                                 <i class="bi bi-plus"></i>
                                              </button>
                                         </div>
@@ -86,26 +78,20 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="numero_vacantes" class="form-label">Número de Vacantes</label>
-                                        <input type="number" class="form-control" id="numero_vacantes" name="numero_vacantes" min="1" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
                                         <label for="tipo_contrato" class="form-label">Tipo de Contrato</label>
-                                        <select class="form-select" id="tipo_contrato" name="tipo_contrato" required>
+                                        <select class="form-select rounded-3 border-2" id="tipo_contrato" name="tipo_contrato" required>
                                             <option value="">Seleccionar tipo...</option>
                                             <option value="permanente">Permanente</option>
                                             <option value="temporal">Temporal</option>
                                         </select>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="tipo_jornada" class="form-label">Tipo de Jornada</label>
-                                        <select class="form-select" id="tipo_jornada" name="tipo_jornada" required>
+                                        <select class="form-select rounded-3 border-2" id="tipo_jornada" name="tipo_jornada" required>
                                             <option value="">Seleccionar jornada...</option>
                                             <option value="tiempo_completo">Tiempo completo</option>
                                             <option value="medio_tiempo">Medio tiempo</option>
@@ -117,16 +103,16 @@
                     </div>
 
                     <!-- PERFIL DESEADO -->
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h6 class="mb-0">Perfil Deseado</h6>
+                    <div class="card mb-4 border-0 shadow-sm">
+                        <div class="card-header bg-radient-custom border-0" style="color: #004E59;">
+                            <h6 class="mb-0 fw-bold"><i class="bi bi-person-badge me-2"></i>Perfil Deseado</h6>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="escolaridad_minima" class="form-label">Escolaridad Mínima Requerida</label>
-                                        <select class="form-select" id="escolaridad_minima" name="escolaridad_minima" required>
+                                        <select class="form-select rounded-3 border-2" id="escolaridad_minima" name="escolaridad_minima" required>
                                             <option value="">Seleccionar escolaridad...</option>
                                             <option value="primaria">Primaria</option>
                                             <option value="secundaria">Secundaria</option>
@@ -141,7 +127,7 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="experiencia_anos" class="form-label">Experiencia Laboral (años)</label>
-                                        <select class="form-select" id="experiencia_anos" name="experiencia_anos" required>
+                                        <select class="form-select rounded-3 border-2" id="experiencia_anos" name="experiencia_anos" required>
                                             <option value="">Seleccionar experiencia...</option>
                                             <option value="sin_experiencia">Sin experiencia</option>
                                             <option value="1">1 año</option>
@@ -156,40 +142,40 @@
                             </div>
                             <div class="mb-3">
                                 <label for="experiencia_area" class="form-label">Área de Experiencia</label>
-                                <input type="text" class="form-control" id="experiencia_area" name="experiencia_area" placeholder="Ej: Ventas, Marketing, Administración...">
+                                <input type="text" class="form-control rounded-3 border-2" id="experiencia_area" name="experiencia_area" placeholder="Ej: Ventas, Marketing, Administración...">
                             </div>
                             <div class="mb-3">
                                 <label for="conocimientos_tecnicos" class="form-label">Conocimientos Específicos o Técnicos</label>
-                                <textarea class="form-control" id="conocimientos_tecnicos" name="conocimientos_tecnicos" rows="3" placeholder="Ej: Office, sistemas específicos, certificaciones..."></textarea>
+                                <textarea class="form-control rounded-3 border-2" id="conocimientos_tecnicos" name="conocimientos_tecnicos" rows="3" placeholder="Ej: Office, sistemas específicos, certificaciones..."></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="habilidades_blandas" class="form-label">Habilidades Blandas Esperadas</label>
-                                <textarea class="form-control" id="habilidades_blandas" name="habilidades_blandas" rows="3" placeholder="Ej: Trabajo en equipo, comunicación efectiva, liderazgo..."></textarea>
+                                <textarea class="form-control rounded-3 border-2" id="habilidades_blandas" name="habilidades_blandas" rows="3" placeholder="Ej: Trabajo en equipo, comunicación efectiva, liderazgo..."></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="idiomas" class="form-label">Idiomas Requeridos</label>
-                                <input type="text" class="form-control" id="idiomas" name="idiomas" placeholder="Ej: Inglés intermedio, Francés básico...">
+                                <input type="text" class="form-control rounded-3 border-2" id="idiomas" name="idiomas" placeholder="Ej: Inglés intermedio, Francés básico...">
                             </div>
                         </div>
                     </div>
 
                     <!-- CONDICIONES LABORALES -->
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h6 class="mb-0">Condiciones Laborales</h6>
+                    <div class="card mb-4 border-0 shadow-sm">
+                        <div class="card-header bg-radient-custom border-0" style="color: #004E59;">
+                            <h6 class="mb-0 fw-bold"><i class="bi bi-clock me-2"></i>Condiciones Laborales</h6>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="horario_trabajo" class="form-label">Horario de Trabajo</label>
-                                        <input type="text" class="form-control" id="horario_trabajo" name="horario_trabajo" placeholder="Ej: 8:00 AM - 5:00 PM, L-V" required>
+                                        <input type="text" class="form-control rounded-3 border-2" id="horario_trabajo" name="horario_trabajo" placeholder="Ej: 8:00 AM - 5:00 PM, L-V" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="rango_salarial" class="form-label">Rango Salarial (Opcional)</label>
-                                        <input type="text" class="form-control" id="rango_salarial" name="rango_salarial" placeholder="Ej: $15,000 - $25,000">
+                                        <input type="text" class="form-control rounded-3 border-2" id="rango_salarial" name="rango_salarial" placeholder="Ej: $15,000 - $25,000">
                                     </div>
                                 </div>
                             </div>
@@ -197,23 +183,27 @@
                     </div>
 
                     <!-- COMENTARIOS ADICIONALES -->
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h6 class="mb-0">Información Adicional</h6>
+                    <div class="card mb-4 border-0 shadow-sm">
+                        <div class="card-header bg-radient-custom border-0" style="color: #004E59;">
+                            <h6 class="mb-0 fw-bold"><i class="bi bi-chat-text me-2"></i>Información Adicional</h6>
                         </div>
                         <div class="card-body">
                             <div class="mb-3">
                                 <label for="comentarios_adicionales" class="form-label">Comentarios Adicionales</label>
-                                <textarea class="form-control" id="comentarios_adicionales" name="comentarios_adicionales" rows="4" placeholder="Cualquier detalle extra que ayude a entender la necesidad de la vacante o el contexto del área..."></textarea>
+                                <textarea class="form-control rounded-3 border-2" id="comentarios_adicionales" name="comentarios_adicionales" rows="4" placeholder="Cualquier detalle extra que ayude a entender la necesidad de la vacante o el contexto del área..."></textarea>
                             </div>
                         </div>
                     </div>
 
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" form="formRegistrarVacante" class="btn btn-confirmar">Guardar Requisición</button>
+            <div class="modal-footer bg-light border-0">
+                <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle me-2"></i>Cancelar
+                </button>
+                <button type="submit" form="formRegistrarVacante" class="btn btn-gradient-custom rounded-pill px-4 fw-bold">
+                    <i class="bi bi-check-circle me-2"></i>Guardar Requisición
+                </button>
             </div>
         </div>
     </div>
@@ -327,3 +317,137 @@ $("#registrarDepartamentoModal").on('hidden.bs.modal', function() {
     }
 });
 </script>
+
+<style>
+/* Estilos para el modal de registrar vacante - coincidentes con recursos_humanos.html */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.modal-content {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.bg-gradient-custom {
+    background: linear-gradient(135deg, #004E59 0%, #007d8f 100%);
+}
+
+.bg-gradient-success {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.bg-gradient-info {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.bg-gradient-warning {
+    background: linear-gradient(135deg, #e9d643 0%, #fee140 100%);
+}
+
+.bg-gradient-secondary {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.bg-gradient-dark {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+}
+
+.btn-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.btn-gradient-custom {
+    background: linear-gradient(135deg, #004E59 0%, #007d8f 100%);
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.btn-gradient-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(102, 126, 234, 0.3);
+    color: white;
+}
+
+.card {
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-control, .form-select {
+    transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    transform: translateY(-1px);
+}
+
+.btn-outline-primary {
+    border-color: #667eea;
+    color: #667eea;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background-color: #667eea;
+    border-color: #667eea;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+}
+
+.btn-outline-secondary {
+    transition: all 0.3s ease;
+}
+
+.btn-outline-secondary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3);
+}
+
+.rounded-pill {
+    border-radius: 50rem !important;
+}
+
+.shadow-lg {
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+}
+
+.fw-bold {
+    font-weight: 700 !important;
+}
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(10px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+.modal.fade .modal-dialog {
+    transition: transform 0.3s ease-out;
+}
+
+.modal.show .modal-dialog {
+    animation: fadeIn 0.3s ease-in;
+}
+</style>
