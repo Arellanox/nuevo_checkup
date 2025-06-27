@@ -2,6 +2,7 @@
 include "../clases/master_class.php";
 require_once "../clases/token_auth.php";
 include_once "../clases/ExcelReport_class.php";
+include_once "../clases/ExcelFileManager_class.php";
 include_once "../clases/Pdf.php";
 
 $tokenVerification = new TokenVerificacion();
@@ -99,6 +100,10 @@ switch ($api) {
             "IVA" => "IVA",
             "TOTAL" => "Total",
             "FECHA_RECEPCION" => "Fecha Recepción",
+            "MES" => "Mes",
+            "DIA" => "Dia",
+            "ANIO" => "Año",
+            "FORMA_PAGO" => "Forma de Pago",
             "FACTURA" => "Factura",
             "PROCEDENCIA" => "Procedencia",
             "US_INTERPRETADO_POR" => "Interpretó",
@@ -131,9 +136,7 @@ switch ($api) {
             ];
 
             $columnas = array_merge($columnas, $columnasBeneficiario);
-
         }
-     
 
         $columnasMoneda = [
             'PRECIO_UNITARIO',
@@ -166,7 +169,7 @@ switch ($api) {
 
         # Guardar archivo en la carpeta
         try {
-            ExcelFileManager::guardar($reporte->getSpreadsheet(), $rutaFisica);
+            ExcelFileManagerClass::guardar($reporte->getSpreadsheet(), $rutaFisica);
 
             $urlDescarga = $host . 'reportes/excel/reporte_pacientes/' . $nombreArchivo;
             $response = ['url' => $urlDescarga];

@@ -1,8 +1,6 @@
 <?php
 require_once 'PhpSpreadsheet/vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 class ExcelReport {
     private $spreadsheet;
@@ -118,34 +116,5 @@ class ExcelReport {
 
     private function columnaLetra($num) {
         return \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($num);
-    }
-}
-
-
-class ExcelFileManager {
-    /**
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     */
-    public static function guardar($spreadsheet, $rutaArchivo) {
-        $writer = new Xlsx($spreadsheet);
-        $writer->save($rutaArchivo);
-    }
-
-    public static function descargar($spreadsheet, $filename = 'reporte.xlsx') {
-        // Limpiar cualquier salida previa
-        ob_end_clean();
-
-        // Crear el escritor de Excel
-        $writer = new Xlsx($spreadsheet);
-        
-        // Encabezados HTTP para la descarga
-        header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        header("Content-Disposition: attachment; filename=reporte.xlsx");
-        header("Pragma: no-cache");
-        header("Expires: 0");
-        
-        // Enviar el archivo al navegador
-        $writer->save('php://output');
-        exit;
     }
 }
