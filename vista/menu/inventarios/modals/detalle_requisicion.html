@@ -160,93 +160,95 @@
           </div>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Cerrar
+      <div class="modal-footer d-flex justify-content-between">
+        <button type="button" class="btn btn-secondary px-4 py-2" data-bs-dismiss="modal">
+          <i class="bi bi-x-circle me-2"></i>Cerrar
         </button>
-        <button type="button" class="btn btn-success" id="btnGenerarExcel" style="display: none;">
-          <i class="bi bi-file-earmark-excel"></i> Generar Excel
-        </button>
-        <button onclick="mostrarDetalleSurtimiento()" id="btnDetalleSurtimiento" class="btn btn-info btn-sm" title="Ver detalles">
-          <i class="bi bi-eye"></i> Ver Detalle
-        </button>
-        <button type="button" class="btn btn-primary" id="btnImprimirRequisicion" style="display: none;">
-          <i class="bi bi-printer"></i> Imprimir
-        </button>
+        <div class="d-flex gap-2">
+          <button type="button" class="btn btn-success px-4 py-2" id="btnGenerarExcel" style="display: none;">
+            <i class="bi bi-file-earmark-excel me-2"></i>Excel
+          </button>
+          <button onclick="mostrarDetalleSurtimiento()" id="btnDetalleSurtimiento" class="btn btn-info px-4 py-2"
+            title="Ver detalles del surtimiento">
+            <i class="bi bi-eye me-2"></i>Ver Detalle
+          </button>
+          <button type="button" class="btn btn-primary px-4 py-2" id="btnImprimirRequisicion" style="display: none;">
+            <i class="bi bi-printer me-2"></i>Imprimir
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<style>
-  .timeline {
-    max-height: 300px;
-    overflow-y: auto;
-  }
+  <style>
+    .timeline {
+      max-height: 300px;
+      overflow-y: auto;
+    }
 
-  .timeline-item {
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-  }
+    .timeline-item {
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
 
-  .timeline-item:last-child {
-    border-bottom: none;
-  }
+    .timeline-item:last-child {
+      border-bottom: none;
+    }
 
-  .timeline-date {
-    font-size: 0.85em;
-    color: #6c757d;
-  }
+    .timeline-date {
+      font-size: 0.85em;
+      color: #6c757d;
+    }
 
-  .badge-urgente {
-    background-color: #dc3545;
-  }
+    .badge-urgente {
+      background-color: #dc3545;
+    }
 
-  .badge-normal {
-    background-color: #0d6efd;
-  }
+    .badge-normal {
+      background-color: #0d6efd;
+    }
 
-  .badge-baja {
-    background-color: #6c757d;
-  }
+    .badge-baja {
+      background-color: #6c757d;
+    }
 
-  .badge-borrador {
-    background-color: #ffc107;
-    color: #000;
-  }
+    .badge-borrador {
+      background-color: #ffc107;
+      color: #000;
+    }
 
-  .badge-pendiente {
-    background-color: #17a2b8;
-  }
+    .badge-pendiente {
+      background-color: #17a2b8;
+    }
 
-  .badge-aprobada {
-    background-color: #28a745;
-  }
+    .badge-aprobada {
+      background-color: #28a745;
+    }
 
-  .badge-rechazada {
-    background-color: #dc3545;
-  }
+    .badge-rechazada {
+      background-color: #dc3545;
+    }
 
-  .badge-parcialmente_surtida {
-    background-color: #fd7e14;
-  }
+    .badge-parcialmente_surtida {
+      background-color: #fd7e14;
+    }
 
-  .badge-completada {
-    background-color: #20c997;
-  }
+    .badge-completada {
+      background-color: #20c997;
+    }
 
-  .badge-pausada {
-    background-color: #6f42c1;
-  }
+    .badge-pausada {
+      background-color: #6f42c1;
+    }
 
-  #tablaDetalleArticulos {
-    font-size: 0.9em;
-  }
-</style>
+    #tablaDetalleArticulos {
+      font-size: 0.9em;
+    }
+  </style>
 
-<script>
-  // Cuando la requisición esté completa
-  document.getElementById('btnDetalleSurtimiento').style.display = 'inline-block';
-  document.getElementById('btnImprimirRequisicion').style.display = 'inline-block';
-  document.getElementById('btnGenerarExcel').style.display = 'inline-block';
-</script>
+  <script>
+    // Cuando la requisición esté completa
+    document.getElementById('btnDetalleSurtimiento').style.display = 'inline-block';
+    document.getElementById('btnImprimirRequisicion').style.display = 'inline-block';
+    document.getElementById('btnGenerarExcel').style.display = 'inline-block';
+  </script>

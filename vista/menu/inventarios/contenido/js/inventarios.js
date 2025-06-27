@@ -5457,7 +5457,7 @@ function cargarDetallesRequisicionCompletos() {
     $("#btnDetalleSurtimiento").hide();
   }
 
-  if (rowSelectedRequisicion.estatus === "aprobada" || rowSelectedRequisicion.estatus === "completada") {
+  if (rowSelectedRequisicion.estatus === "aprobada" || rowSelectedRequisicion.estatus === "completada" || rowSelectedRequisicion.estatus === "pendiente") {
     $("#btnGenerarExcel").show();
   } else {
     $("#btnGenerarExcel").hide();
