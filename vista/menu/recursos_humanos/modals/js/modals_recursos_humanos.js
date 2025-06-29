@@ -68,130 +68,6 @@ $("#registrarArticuloForm").submit(function (event) {
   return false;
 });
 
-// Función personalizada para mostrar alerta con opciones después de crear artículo
-function mostrarAlertaArticuloCreado(
-  articuloId,
-  nombreArticulo,
-  claveArticulo
-) {
-  console.log("ID del artículo creado:", articuloId); // Para depuración
-
-  const Toast = Swal.mixin({
-    toast: true,
-    position: "bottom-end",
-    showConfirmButton: false,
-    showCloseButton: true,
-    timerProgressBar: true,
-    timer: 8000,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
-
-  Toast.fire({
-    icon: "success",
-    title: "¡Artículo creado exitosamente!",
-    html: `
-      <div style="margin-top: 10px;">
-        <p><strong>${nombreArticulo}</strong> (${claveArticulo})</p>
-        <div style="display: flex; gap: 8px; justify-content: center; margin-top: 15px;">
-          <button id="btnIrRegistrarEntrada" class="btn btn-primary btn-sm" style="font-size: 12px; padding: 5px 10px;">
-            <i class="bi bi-plus-circle"></i> Registrar entrada
-          </button>
-        </div>
-      </div>
-    `,
-    didOpen: () => {
-      // Evento para registrar entrada
-      const btnRegistrarEntrada = document.getElementById(
-        "btnIrRegistrarEntrada"
-      );
-      const btnEditar = document.getElementById("btnEditarArticulo");
-
-      if (btnRegistrarEntrada) {
-        btnRegistrarEntrada.addEventListener("click", () => {
-          Swal.close();
-          abrirModalRegistrarEntrada(articuloId, nombreArticulo, claveArticulo);
-        });
-      }
-
-      // Evento para editar artículo
-      if (btnEditar) {
-        btnEditar.addEventListener("click", () => {
-          Swal.close();
-          abrirModalEditarArticulo(articuloId, nombreArticulo, claveArticulo);
-        });
-      }
-    },
-  });
-}
-
-// Función para abrir modal de registrar entrada con el artículo recién creado
-function abrirModalRegistrarEntrada(articuloId, nombreArticulo, claveArticulo) {
-  console.log("Buscando artículo con ID:", articuloId); // Para depuración
-
-  // Buscar el artículo en la tabla para obtener los datos completos
-  tableCatEntradas.ajax.reload(function () {
-    // Buscar la fila correspondiente al artículo recién creado
-    const data = tableCatEntradas.data().toArray();
-    console.log("Datos de la tabla:", data); // Para depuración
-
-    const articuloEncontrado = data.find((item) => {
-      console.log("Comparando:", item.ID_ARTICULO, "con", articuloId); // Para depuración
-      return item.ID_ARTICULO == articuloId;
-    });
-
-    if (articuloEncontrado) {
-      console.log("Artículo encontrado:", articuloEncontrado); // Para depuración
-
-      // Establecer como fila seleccionada
-      rowSelected = articuloEncontrado;
-
-      // Abrir modal de registrar entrada
-      $("#registrarEntradaModal").modal("show");
-      $("#registrandoEntrada").text(
-        ` ${nombreArticulo} (Clave: ${claveArticulo})`
-      );
-      $("#registrandoCantidad").text(` ${articuloEncontrado.CANTIDAD || "0"}`);
-
-      // Colocar los valores al formulario
-      $("#registrarEntradaForm #no_art").val(articuloId);
-      $("#registrarEntradaForm #nombre_comercial").val(nombreArticulo);
-
-      // Establecer estatus
-      if (articuloEncontrado.ESTATUS == 1) {
-        $("#registrarEntradaForm #estatus").prop("checked", true);
-      } else {
-        $("#registrarEntradaForm #estatus").prop("checked", false);
-      }
-    } else {
-      console.log("No se encontró el artículo en la tabla de entradas"); // Para depuración
-      // Intentar buscar directamente por nombre y clave como fallback
-      const articuloPorNombre = data.find(
-        (item) =>
-          item.NOMBRE_COMERCIAL === nombreArticulo &&
-          item.CLAVE_ART === claveArticulo
-      );
-
-      if (articuloPorNombre) {
-        console.log("Artículo encontrado por nombre:", articuloPorNombre); // Para depuración
-        rowSelected = articuloPorNombre;
-        $("#registrarEntradaModal").modal("show");
-        $("#registrandoEntrada").text(
-          ` ${nombreArticulo} (Clave: ${claveArticulo})`
-        );
-        $("#registrandoCantidad").text(` ${articuloPorNombre.CANTIDAD || "0"}`);
-      } else {
-        alertToast(
-          "El artículo fue creado exitosamente. Actualiza la página para registrar una entrada.",
-          "info",
-          6000
-        );
-      }
-    }
-  });
-}
 
 // editar un articulo
 $("#editarArticuloForm").submit(function (event) {
@@ -243,130 +119,11 @@ $("#editarArticuloForm").submit(function (event) {
           }
         );
       }
-    );
-  });
+    );
+  });
 });
 
-// registrar una entrada
-$("#registrarEntradaForm").submit(function (event) {
-  event.preventDefault();
-  var form = document.getElementById("registrarEntradaForm");
-  var formData = new FormData(form);
 
-  var activo;
-
-  if ($("#registrarEntradaForm #estatus").is(":checked")) {
-    activo = 1;
-  } else {
-    activo = 0;
-  }
-
-  alertMensajeConfirm(
-    {
-      title: "¿Está a punto de registrar este movimiento?",
-      text: "Asegúrate que los datos sean correctos.",
-      icon: "warning",
-    },
-    function () {
-      ajaxAwaitFormData(
-        {
-          api: 6,
-          id_articulo: rowSelected.ID_ARTICULO,
-        },
-        "inventarios_api",
-        "registrarEntradaForm",
-        { callbackAfter: true },
-        false,
-        function (data) {
-          if (data.response.code == 1) {
-            $("#registrarEntradaForm")[0].reset();
-            $("#registrarEntradaModal").modal("hide");
-            alertToast("Artículo actualizado!", "success", 4000);
-            tableCatEntradas.ajax.reload();
-            tableCatArticulos.ajax.reload();
-            tableCatDetallesEntradas.ajax.reload();
-            tableCatTransacciones.ajax.reload();
-            $("#cantidad").closest(".mb-3").hide();
-            $("#fecha_ultima_entrada").closest(".mb-3").hide();
-            $("#costo_ultima_entrada").closest(".mb-3").hide();
-            $("#proveedorDiv").hide();
-            $("#cantidad").prop("required", false);
-            $("#fecha_ultima_entrada").prop("required", false);
-            $("#costo_ultima_entrada").prop("required", false);
-            $("#id_proveedores").prop("required", false);
-            $("#facturaDiv").hide();
-            $("#img_factura").prop("required", false);
-            $("#motivoSalidaDiv").hide();
-            $("#motivoSalidaDiv").prop("required", false);
-            $("#ordenCompraDiv").hide();
-            $("#registrarMovimientoButton")
-              .html('<i class="bi bi-pencil-square"></i> Registrar movimiento')
-              .hide();
-            $("#modalTitleRegistrarEntrada").html(
-              "Registrando movimiento de <strong><span id='registrandoEntrada'>" +
-                ($("#registrandoEntrada").text() || "") +
-                "</span></strong>"
-            );
-          }
-        }
-      );
-    }
-  );
-});
-
-//Editar una entrada
-$("#editarMovimientoForm").submit(function (event) {
-  event.preventDefault();
-  var form = document.getElementById("editarMovimientoForm");
-  var formData = new FormData(form);
-
-  var activo;
-
-  if ($("#editarMovimientoForm #estatus").is(":checked")) {
-    activo = 1;
-  } else {
-    activo = 0;
-  }
-
-  alertMensajeConfirm(
-    {
-      title: "¿Está a punto de editar este movimiento?",
-      text: "Asegúrate que los datos sean correctos.",
-      icon: "warning",
-    },
-    function () {
-      ajaxAwaitFormData(
-        {
-          api: 6,
-          id_articulo: rowSelected.ID_ARTICULO,
-          id_cat_movimientos: rowSelected.id_cat_movimientos,
-          fecha_ultima_entrada: $("#fecha_ultima_entrada").val(),
-          id_movimiento:
-            rowSelected.id_movimiento == 1
-              ? 4
-              : rowSelected.id_movimiento == 2
-              ? 5
-              : rowSelected.id_movimiento,
-        },
-        "inventarios_api",
-        "editarMovimientoForm",
-        { callbackAfter: true },
-        false,
-        function (data) {
-          if (data.response.code == 1) {
-            $("#editarMovimientoForm")[0].reset();
-            $("#editarMovimientoModal").modal("hide");
-            alertToast("Movimiento actualizado!", "success", 4000);
-            tableCatArticulos.ajax.reload();
-            tableCatEntradas.ajax.reload();
-            tableCatDetallesEntradas.ajax.reload();
-            tableCatTransacciones.ajax.reload();
-          }
-        }
-      );
-    }
-  );
-});
 
 // Registrar/Editar Departamento
 $("#registrarDepartamentoForm").submit(function (event) {
@@ -578,12 +335,9 @@ $("#registrarMarcaForm").submit(function (event) {
 // Registrar/Editar Motivo
 $("#registrarMotivoForm").submit(function (event) {
   event.preventDefault();
-
   var form = document.getElementById("registrarMotivoForm");
   var formData = new FormData(form);
-
   $("#motivoDescripcion").removeClass("is-invalid");
-
   // Obtener el valor del checkbox de activo
   var activo;
   if ($("#registrarMotivoForm #motivoActivoCheck").is(":checked")) {
@@ -591,13 +345,10 @@ $("#registrarMotivoForm").submit(function (event) {
   } else {
     activo = 0;
   }
-  var tipoMovimiento = $("#registrarMotivoForm #motivoTipoMovimiento").val();
-  console.log("Tipo de movimiento:", tipoMovimiento);
-
+  console.log("Activo motivo:", activo);
   // Obtener el ID del motivo desde el campo hidden
   let motivoIdValue = $("#motivoId").val();
   let esEdicion = motivoIdValue && motivoIdValue !== "";
-
   alertMensajeConfirm(
     {
       title: esEdicion
@@ -609,12 +360,11 @@ $("#registrarMotivoForm").submit(function (event) {
     function () {
       ajaxAwaitFormData(
         {
-          api: 14,
+          api: 11,
           activo: activo,
-          tipo_movimiento: tipoMovimiento,
           id_motivos: motivoIdValue || null,
         },
-        "inventarios_api",
+        "recursos_humanos_api",
         "registrarMotivoForm",
         { callbackAfter: true },
         false,
@@ -627,7 +377,6 @@ $("#registrarMotivoForm").submit(function (event) {
               "success",
               4000
             );
-
             if (tableCatMotivos) tableCatMotivos.ajax.reload();
           } else {
             alertToast(
@@ -643,86 +392,6 @@ $("#registrarMotivoForm").submit(function (event) {
   return false;
 });
 
-// Registrar/Editar Proveedor
-$("#registrarProveedorForm").submit(function (event) {
-  event.preventDefault();
-
-  var form = document.getElementById("registrarProveedorForm");
-  var formData = new FormData(form);
-
-  let proveedorId = $("#proveedorId").val();
-  let nombre = $("#proveedorNombre").val().trim();
-  let contacto = $("#proveedorContacto").val().trim();
-  let telefono = $("#proveedorTelefono").val().trim();
-  let email = $("#proveedorEmail").val().trim();
-
-  if (!nombre) {
-    $("#proveedorNombre").addClass("is-invalid");
-    alertToast("El nombre del proveedor es obligatorio", "warning", 3000);
-    return;
-  }
-
-  $("#proveedorNombre").removeClass("is-invalid");
-
-  var activo;
-  if ($("#registrarProveedorForm #proveedorActivoCheck").is(":checked")) {
-    activo = 1;
-  } else {
-    activo = 0;
-  }
-  let esEdicion = proveedorId && proveedorId !== "";
-
-  alertMensajeConfirm(
-    {
-      title: esEdicion
-        ? "¿Está a punto de editar este proveedor?"
-        : "¿Está a punto de registrar un nuevo proveedor?",
-      text: "Asegúrate que los datos sean correctos.",
-      icon: "warning",
-    },
-    function () {
-      ajaxAwaitFormData(
-        {
-          api: 17,
-          id_proveedores: proveedorId || null,
-          nombre: nombre,
-          contacto: contacto,
-          telefono: telefono,
-          email: email,
-          activo: activo,
-        },
-        "inventarios_api",
-        "registrarProveedorForm",
-        { callbackAfter: true },
-        false,
-        function (data) {
-          if (data.response.code == 1) {
-            $("#registrarProveedorForm")[0].reset();
-            $("#registrarProveedorModal").modal("hide");
-            alertToast(
-              esEdicion ? "Proveedor actualizado!" : "Proveedor registrado!",
-              "success",
-              4000
-            );
-
-            // Recargar tablas y selects
-            if (tableCatProveedores) tableCatProveedores.ajax.reload();
-            // cargarProveedoresRegistrar();
-            // cargarProveedoresEditar();
-          } else {
-            alertToast(
-              data.response.message || "Error al procesar la solicitud",
-              "error",
-              4000
-            );
-          }
-        }
-      );
-    }
-  );
-
-  return false;
-});
 
 // Filtrar departamentos
 $("#filtrarDepartamentosForm").submit(function (event) {
@@ -1132,6 +801,119 @@ $("#registrarSustanciaForm").submit(function (event) {
     },
     1
   );
+});
+
+// Registrar una nueva vacante/requisición
+$("#formRegistrarVacante").submit(function (event) {
+  event.preventDefault();
+
+  var form = document.getElementById("formRegistrarVacante");
+  var formData = new FormData(form);
+
+  // Validaciones básicas - usar los names correctos del formulario
+  var departamento = $("#departamento").val();
+  var motivo = $("#motivo").val();
+  var prioridad = $("#prioridad").val();
+  var justificacion = $("#justificacion").val().trim();
+  var tipo_contrato = $("#tipo_contrato").val();
+  var tipo_jornada = $("#tipo_jornada").val();
+  var escolaridad_minima = $("#escolaridad_minima").val();
+  var experiencia_anos = $("#experiencia_anos").val();
+  var horario_trabajo = $("#horario_trabajo").val().trim();
+
+  // Validar campos obligatorios según el stored procedure
+  if (!departamento) {
+    alertToast("Debe seleccionar un departamento", "warning", 3000);
+    return;
+  }
+
+  if (!motivo) {
+    alertToast("Debe seleccionar un motivo", "warning", 3000);
+    return;
+  }
+
+  if (!prioridad) {
+    alertToast("Debe seleccionar una prioridad", "warning", 3000);
+    return;
+  }
+
+  if (!justificacion) {
+    alertToast("La justificación es obligatoria", "warning", 3000);
+    return;
+  }
+
+  if (!tipo_contrato) {
+    alertToast("Debe seleccionar el tipo de contrato", "warning", 3000);
+    return;
+  }
+
+  if (!tipo_jornada) {
+    alertToast("Debe seleccionar el tipo de jornada", "warning", 3000);
+    return;
+  }
+
+  if (!escolaridad_minima) {
+    alertToast("Debe seleccionar la escolaridad mínima", "warning", 3000);
+    return;
+  }
+
+  if (!experiencia_anos) {
+    alertToast("Debe seleccionar los años de experiencia", "warning", 3000);
+    return;
+  }
+
+  if (!horario_trabajo) {
+    alertToast("El horario de trabajo es obligatorio", "warning", 3000);
+    return;
+  }
+
+  alertMensajeConfirm(
+    {
+      title: "¿Está a punto de registrar una nueva requisición?",
+      text: "Verifique que todos los datos sean correctos.",
+      icon: "warning",
+    },
+    function () {
+      ajaxAwaitFormData(
+        { 
+          api: 1, // API para requisiciones
+          accion: 'CREATE' // Especificar que es una creación
+        },
+        "recursos_humanos_api",
+        "formRegistrarVacante",
+        { callbackAfter: true },
+        false,
+        function (data) {
+          if (data.response.code == 1) {
+            // El ID de la requisición recién creada
+            const requisicionId = data.response.data;
+            const numeroRequisicion = data.response.numero_requisicion || requisicionId;
+
+            $("#formRegistrarVacante")[0].reset();
+            $("#registrarVacanteModal").modal("hide");
+
+            alertToast(
+              `Requisición #${numeroRequisicion} registrada exitosamente!`,
+              "success",
+              4000
+            );
+
+            // Recargar tabla de requisiciones
+            tableCatRequisiciones.ajax.reload();
+          } else {
+            alertToast(
+              data.response.message || "Error al registrar la requisición",
+              "error",
+              4000
+            );
+          }
+        }
+      );
+    },
+    1
+  );
+
+  return false;
 });
 
 // Editar Detalles del Puesto

@@ -12,6 +12,18 @@
 
 <body class="" id="body-controlador"> </body>
 <script type="text/javascript">
+      var edit = <?php echo empty($_SESSION['permisos']['rhRegVac']) ? 0 : $_SESSION['permisos']['rhRegVac']; ?>;
+    var supr = <?php echo empty($_SESSION['permisos']['invEliArt']) ? 0 : $_SESSION['permisos']['invEliArt']; ?>;
+    var editEntradas = <?php echo empty($_SESSION['permisos']['invRegEnt']) ? 0 : $_SESSION['permisos']['invRegEnt']; ?>;
+    var invVerTrans = <?php echo (isset($_SESSION['permisos']['invVerTrans']) && $_SESSION['permisos']['invVerTrans'] == 1) ? 1 : 0; ?>;
+
+    var userPermissions = {
+        canEdit: edit === 1,
+        canDelete: supr === 1,
+        canEditEntradas: editEntradas === 1,
+        canViewTransactions: invVerTrans === 1
+    }
+
     vista('<?php echo $menu; ?>', '<?php echo $https . $url . '/' . $appname . '/vista/menu/controlador/controlador.php'; ?>')
 
     function vista(menu, url) {

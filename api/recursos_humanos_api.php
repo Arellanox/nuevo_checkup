@@ -2,7 +2,6 @@
 require_once "../clases/token_auth.php";
 include_once '../clases/master_class.php';
 
-
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
 if (!$tokenValido) {
@@ -13,7 +12,7 @@ if (!$tokenValido) {
 $master = new Master();
 $api = $_POST['api'];
 
-# Obtener y sanitizar variables de entrada
+# Variables existentes
 $id_departamento = isset($_POST['id_departamento']) ? (int)$_POST['id_departamento'] : null;
 $descripcion = isset($_POST['descripcion']) ? trim($_POST['descripcion']) : '';
 $activo = isset($_POST['activo']) ? (int)$_POST['activo'] : 1;
@@ -22,22 +21,55 @@ $id_puesto = isset($_POST['id_puesto']) ? (int)$_POST['id_puesto'] : null;
 $objetivos = isset($_POST['objetivos']) ? trim($_POST['objetivos']) : '';
 $competencias = isset($_POST['competencias']) ? trim($_POST['competencias']) : '';
 $banda_salarial = isset($_POST['banda_salarial']) ? trim($_POST['banda_salarial']) : '';
+$id_motivos = isset($_POST['id_motivos']) ? (int)$_POST['id_motivos'] : null;
+
+# Variables para requisiciones de personal
+$id_requisicion = isset($_POST['id_requisicion']) ? (int)$_POST['id_requisicion'] : null;
+$id_motivo = isset($_POST['motivo']) ? (int)$_POST['motivo'] : null;
+$departamento = isset($_POST['departamento']) ? (int)$_POST['departamento'] : null;
+$usuario_solicitante_id = isset($_POST['usuario_solicitante_id']) ? (int)$_POST['usuario_solicitante_id'] : $_SESSION['id'];
+$prioridad = isset($_POST['prioridad']) ? trim($_POST['prioridad']) : 'normal';
+$justificacion = isset($_POST['justificacion']) ? trim($_POST['justificacion']) : '';
+$estatus = isset($_POST['estatus']) ? trim($_POST['estatus']) : 'borrador';
+$puesto = isset($_POST['puesto']) ? (int)$_POST['puesto'] : null;
+$tipo_contrato = isset($_POST['tipo_contrato']) ? trim($_POST['tipo_contrato']) : '';
+$tipo_jornada = isset($_POST['tipo_jornada']) ? trim($_POST['tipo_jornada']) : '';
+$escolaridad_minima = isset($_POST['escolaridad_minima']) ? trim($_POST['escolaridad_minima']) : '';
+$experiencia_anos = isset($_POST['experiencia_anos']) ? trim($_POST['experiencia_anos']) : '';
+$experiencia_area = isset($_POST['experiencia_area']) ? trim($_POST['experiencia_area']) : null;
+$conocimientos_tecnicos = isset($_POST['conocimientos_tecnicos']) ? trim($_POST['conocimientos_tecnicos']) : null;
+$habilidades_blandas = isset($_POST['habilidades_blandas']) ? trim($_POST['habilidades_blandas']) : null;
+$idiomas = isset($_POST['idiomas']) ? trim($_POST['idiomas']) : null;
+$horario_trabajo = isset($_POST['horario_trabajo']) ? trim($_POST['horario_trabajo']) : '';
+$rango_salarial = isset($_POST['rango_salarial']) ? trim($_POST['rango_salarial']) : null;
 
 switch ($api) {
     case 1:
-        # Crear/actualizar una vacante
+        # Crear/actualizar una requisición de personal
         $response = $master->insertByProcedure('sp_rh_cat_requisiciones_g', [
             $id_requisicion,
-            $descripcion,
-            $creado_por,
-            $responsable
+            $departamento, //Parametro para registrar una vacante
+            $id_motivo,
+            $usuario_solicitante_id,
+            $prioridad,
+            $justificacion,
+            $estatus,
+            $puesto,
+            $tipo_contrato,
+            $tipo_jornada,
+            $escolaridad_minima,
+            $experiencia_anos,
+            $experiencia_area,
+            $conocimientos_tecnicos,
+            $habilidades_blandas,
+            $idiomas,
+            $horario_trabajo,
+            $rango_salarial
         ]);
         break;
     case 2:
-        # recuperar todas las cajas o caja asignada.
-        $response = $master->getByProcedure('sp_caja_chica_b', [
-            $_SESSION['id']
-        ]);
+        # recuperar todas las requisiciones
+        $response = $master->getByProcedure('sp_rh_cat_requisiciones_b', []);
         break;
     case 3:
         // # Eliminar una caja
@@ -100,6 +132,31 @@ switch ($api) {
             $competencias,
             $banda_salarial
         ]);
+        break;
+    case 11:
+        # Registrar un motivo
+        $response = $master->insertByProcedure("sp_rh_cat_motivos_g", [
+            $id_motivos,
+            $descripcion,
+            $activo
+        ]);
+        break;
+    case 12:
+        # recuperar motivos.
+        $response = $master->getByProcedure("sp_rh_cat_motivos_b", []);
+        break;
+    case 13:
+        # DEBUG TEMPORAL: Verificar qué está llegando
+        error_log("API 13 - ID Departamento recibido: " . var_export($id_departamento, true));
+        error_log("API 13 - POST completo: " . var_export($_POST, true));
+        
+        # recuperar puestos filtrados por departamento específico
+        $response = $master->getByProcedure("sp_rh_cat_puestos_por_departamento_b", [
+            $id_departamento
+        ]);
+        
+        # DEBUG TEMPORAL: Ver qué devuelve el SP
+        error_log("API 13 - Respuesta del SP: " . var_export($response, true));
         break;
     default:
         # default

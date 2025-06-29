@@ -86,8 +86,8 @@
 
 
 
-//Data table para las vacantes
-tableCatVacantes = $("#tableCatVacantes").DataTable({
+// DataTable para requisiciones
+tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
     language: {
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
     },
@@ -95,13 +95,13 @@ tableCatVacantes = $("#tableCatVacantes").DataTable({
     lengthChange: false,
     info: true,
     paging: true,
-    pageLength: 5, // Agregar esta línea
-    scrollY: "40vh",
+    pageLength: 10,
+    scrollY: "60vh",
     scrollCollapse: true,
     ajax: {
         dataType: "json",
         data: function (d) {
-            return $.extend(d, dataTableCatVacantes);
+            return $.extend(d, dataTableCatRequisiciones);
         },
         method: "POST",
         url: "../../../api/recursos_humanos_api.php",
@@ -110,10 +110,82 @@ tableCatVacantes = $("#tableCatVacantes").DataTable({
         },
         dataSrc: "response.data",
     },
-    columns: [],
-    dom: '',
-    buttons: [],
+    columns: [
+        { data: "numero_requisicion", title: "No. Requisición" },
+        { data: "departamento_nombre", title: "Departamento" },
+        { data: "motivo_descripcion", title: "Motivo" },
+        { data: "puesto_nombre", title: "Puesto", defaultContent: "Sin especificar" },
+        { 
+            data: "prioridad", 
+            title: "Prioridad",
+            render: function(data) {
+                const badges = {
+                    'urgente': '<span class="badge bg-danger">Urgente</span>',
+                    'normal': '<span class="badge bg-primary">Normal</span>',
+                    'baja': '<span class="badge bg-secondary">Baja</span>'
+                };
+                return badges[data] || '<span class="badge bg-light">N/A</span>';
+            }
+        },
+        { 
+            data: "estatus", 
+            title: "Estado",
+            render: function(data) {
+                const badges = {
+                    'borrador': '<span class="badge bg-light text-dark">Borrador</span>',
+                    'pendiente': '<span class="badge bg-warning">Pendiente</span>',
+                    'aprobada': '<span class="badge bg-success">Aprobada</span>',
+                    'rechazada': '<span class="badge bg-danger">Rechazada</span>',
+                    'en_proceso': '<span class="badge bg-info">En Proceso</span>',
+                    'completada': '<span class="badge bg-dark">Completada</span>'
+                };
+                return badges[data] || '<span class="badge bg-light">N/A</span>';
+            }
+        },
+        { data: "fecha_creacion", title: "Fecha Creación" },
+        {
+            data: null,
+            title: "Acciones",
+            render: function(data, type, row) {
+                return `
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-sm btn-primary btn-ver-requisicion" 
+                            data-id="${row.id_requisicion}" title="Ver detalles">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-warning btn-editar-requisicion" 
+                            data-id="${row.id_requisicion}" title="Editar">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                        ${row.estatus === 'borrador' ? `
+                        <button class="btn btn-sm btn-danger btn-eliminar-requisicion" 
+                            data-id="${row.id_requisicion}" title="Eliminar">
+                            <i class="bi bi-trash"></i>
+                        </button>` : ''}
+                    </div>
+                `;
+            }
+        }
+    ],
+    dom: 'Bl<"dataTables_toolbar">frtip',
+    buttons: [
+        {
+            text: '<i class="bi bi-funnel-fill"></i> Filtrar Requisición',
+            className: "btn btn-success bg-gradient-primary",
+            attr: {
+                "data-bs-toggle": "modal",
+                "data-bs-target": "#",
+            },
+            // action: function () {
+            //     // Limpiar formulario
+            //     $('#formRegistrarVacante')[0].reset();
+            //     $('#usuario_solicitante_id').val($_SESSION.id || userId);
+            //     $("#registrarVacanteModal").modal("show");
+            // },
+        }
+    ],
 });
+
 
 //Data table para el catálogo de departamentos
 tableCatDepartamentos = $("#tableCatDepartamentos").DataTable({
@@ -369,6 +441,87 @@ tableCatPuestosDetalles = $("#tableCatPuestosDetalles").DataTable({
   ]
 });
 
+//Data table para el catálogo de departamentos
+tableCatMotivos = $("#tableCatMotivos").DataTable({
+    language: {
+      url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+    },
+    autoWidth: true,
+    lengthChange: false,
+    info: true,
+    paging: true,
+    pageLength: 5, // Agregar esta línea
+    scrollY: "40vh",
+    scrollCollapse: true,
+    ajax: {
+      dataType: "json",
+      data: function (d) {
+        return $.extend(d, dataTableCatMotivos);
+      },
+      method: "POST",
+      url: "../../../api/recursos_humanos_api.php",
+      error: function (jqXHR, textStatus, errorThrown) {
+        alertErrorAJAX(jqXHR, textStatus, errorThrown);
+      },
+      dataSrc: "response.data",
+    },
+    columns: [
+      { data: "id_motivos" },
+      { data: "descripcion" },
+      {
+        data: "activo",
+        render: function (data) {
+          return data == 1
+            ? '<i class="bi bi-toggle-on fs-4 text-success"></i>'
+            : '<i class="bi bi-toggle-off fs-4"></i>';
+        },
+      },
+      {
+        data: null,
+        render: function (data, type, row) {
+            return `
+            <button class="btn btn-sm btn-warning btn-editar-motivo" 
+                data-id="${row.id_motivos}" 
+                data-nombre="${row.descripcion}" 
+                data-activo="${row.activo}">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-sm btn-danger btn-eliminar-motivo" 
+                data-id="${row.id_motivos}">
+              <i class="bi bi-trash"></i>
+            </button>
+          `;
+          },
+          },
+        ],
+        dom: 'Bl<"dataTables_toolbar">frtip',
+        buttons: [
+          {
+          text: '<i class="bi bi-plus-lg"></i> Nuevo Motivo',
+          className: "btn btn-success bg-gradient-primary",
+          attr: {
+            "data-bs-toggle": "modal",
+            "data-bs-target": "#registrarMotivoModal",
+          },
+          action: function () {
+            $("#registrarMotivoModal").modal("show");
+          },
+          },
+          {
+          text: '<i class="bi bi-funnel"></i> Filtrar',
+          className: "btn btn-warning bg-gradient-filter",
+          attr: {
+            "data-bs-toggle": "modal",
+            "data-bs-target": "#filtrarMotivosModal",
+          },
+          action: function () {
+            $("#filtrarMotivosModal").modal("show");
+          },
+          },
+        ],
+        });
+
+
 // Event handlers para los nuevos botones
 $(document).on('click', '.btn-ver-detalles-puesto', function() {
   const puestoId = $(this).data('id');
@@ -456,7 +609,7 @@ function cargarPuestosVacanteSelect() {
     $.ajax({
         url: '../../../api/recursos_humanos_api.php',
         type: 'POST',
-        data: { api: 8 }, // Case 8 para obtener puestos
+        data: { api: 8 ,}, // Case 8 para obtener puestos
         success: function(response) {
             const data = JSON.parse(response);
             if (data.response && data.response.data) {
@@ -474,10 +627,34 @@ function cargarPuestosVacanteSelect() {
     });
 }
 
+//Función para cargar motivos en el select del modal de vacantes
+function cargarMotivosVacanteSelect() {
+    $.ajax({
+        url: '../../../api/recursos_humanos_api.php',
+        type: 'POST',
+        data: { api: 12 }, // Case 12 para obtener motivos
+        success: function(response) {
+            const data = JSON.parse(response);
+            if (data.response && data.response.data) {
+                const select = $('#motivo');
+                select.empty();
+                select.append('<option value="">Seleccionar motivo...</option>');
+                
+                data.response.data.forEach(function(motivo) {
+                    if (motivo.activo == 1) { // Solo motivos activos
+                        select.append(`<option value="${motivo.id_motivos}">${motivo.descripcion}</option>`);
+                    }
+                });
+            }
+        }
+    });
+}
+
 // Cargar departamentos y puestos cuando se abre el modal de registrar vacante
 $(document).on('show.bs.modal', '#registrarVacanteModal', function () {
     cargarDepartamentosVacanteSelect();
     cargarPuestosVacanteSelect();
+    cargarMotivosVacanteSelect();
 });
 
 // Event listener para botones de editar departamento

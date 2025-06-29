@@ -21,6 +21,11 @@
               <i class="bi bi-briefcase me-2"></i>Puestos
             </button>
           </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link rounded-top fw-bold" id="motivos-tab" data-bs-toggle="tab" data-bs-target="#motivos" type="button" role="tab" aria-controls="motivos" aria-selected="false" data-tabla="tableCatmotivos">
+              <i class="bi bi-briefcase me-2"></i>Motivos
+            </button>
+          </li>
         </ul>
 
         <!-- Contenido de las pestañas -->
@@ -61,6 +66,28 @@
                     <th class="fw-bold">ID</th>
                     <th class="fw-bold">Descripción</th>
                     <th class="fw-bold">Departamento</th>
+                    <th class="fw-bold">Estado</th>
+                    <th class="fw-bold">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Pestaña de Motivos -->
+           <div
+            class="tab-pane fade"
+            id="motivos"
+            role="tabpanel"
+            aria-labelledby="motivos-tab"
+          >
+            <div class="table-responsive">
+              <table id="tableCatMotivos" class="table table-hover border-0 shadow-sm" style="width: 100%">
+                <thead class="table-light">
+                  <tr>
+                    <th class="fw-bold">ID</th>
+                    <th class="fw-bold">Descripción</th>
                     <th class="fw-bold">Estado</th>
                     <th class="fw-bold">Acciones</th>
                   </tr>
@@ -317,16 +344,59 @@
   </div>
 </div>
 
+<!-- Modal para Registrar/Editar Motivo -->
+<div class="modal fade" id="registrarMotivoModal" tabindex="-1" aria-labelledby="registrarMotivoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow-lg border-0">
+      <div class="modal-header bg-gradient-success text-white border-0">
+        <h5 class="modal-title fw-bold" id="registrarMotivoModalLabel">
+          <i class="bi bi-building me-2"></i>Registrar Motivo
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body bg-light">
+        <form id="registrarMotivoForm">
+          <input type="hidden" id="motivoId" name="motivoId" value="" />
+          <div class="mb-3">
+            <label for="motivoDescripcion" class="form-label"
+              >Descripción del Motivo</label
+            >
+            <input type="text" class="form-control rounded-3 border-2" id="motivoDescripcion" name="descripcion" placeholder="Ingrese la descripción del motvio" required />
+            <div class="invalid-feedback">Este campo es obligatorio.</div>
+          </div>
+          <div class="mb-3">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox"
+              id="motivoActivoCheck" name="motivoActivoCheck" checked />
+              <label class="form-check-label" for="motivoActivoCheck">
+                Motivo activo
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer bg-light border-0">
+        <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">
+          <i class="bi bi-x-circle me-2"></i>Cancelar
+        </button>
+        <button type="submit" form="registrarMotivoForm" class="btn btn-gradient-success rounded-pill px-4 fw-bold" id="btnGuardarMotivo">
+          <i class="bi bi-check-circle me-2"></i>Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 $(document).ready(function() {
     // Simplemente reabrir el modal principal cuando se cierren los modales secundarios
-    $('#registrarDepartamentoModal, #registrarPuestoModal').on('hidden.bs.modal', function() {
+    $('#registrarDepartamentoModal, #registrarPuestoModal, #registrarMotivoModal').on('hidden.bs.modal', function() {
         $('#registrarCatalogoModal').modal('show');
     });
 });
 
 // 2. Interceptar TODOS los botones de acción dentro de las tablas (editar y nuevos)
-$(document).on('click', '.btn-editar-departamento, .btn-editar-puesto, .btn-nuevo-departamento, .btn-nuevo-puesto', function(e) {
+$(document).on('click', '.btn-editar-departamento, .btn-editar-puesto, .btn-nuevo-departamento, .btn-nuevo-puesto, btn-nuevo-motivo', function(e) {
     $('#registrarCatalogoModal').modal('hide');
 });
 

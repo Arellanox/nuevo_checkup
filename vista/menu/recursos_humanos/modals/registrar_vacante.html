@@ -22,6 +22,9 @@
                             <input type="hidden" id="solicitante" name="solicitante">
                             <input type="hidden" id="usuario_id" name="usuario_id">
                             <input type="hidden" id="fecha_solicitud" name="fecha_solicitud">
+                            <!-- Campos ocultos actualizados -->
+                            <input type="hidden" id="usuario_solicitante_id" name="usuario_solicitante_id">
+                            <input type="hidden" id="numero_requisicion" name="numero_requisicion">
                             
                             <div class="row">
                                 <div class="col-md-6">
@@ -31,7 +34,7 @@
                                             <select class="form-select rounded-3 border-2" id="departamento" name="departamento" required>
                                                 <option value="">Seleccionar departamento...</option>
                                             </select>
-                                            <button class="btn btn-outline-primary rounded-3" type="button" id="btnCatalogoDepartamentos" title="Gestionar Departamentos">
+                                            <button class="btn btn-outline-primary rounded-3" type="button" id="btnCatalogoDepartamentos" title="Agregar Departamentos">
                                                 <i class="bi bi-plus"></i>
                                             </button>
                                         </div>
@@ -39,16 +42,27 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="motivo_requisicion" class="form-label">Motivo de la Requisición</label>
-                                        <select class="form-select rounded-3 border-2" id="motivo_requisicion" name="motivo_requisicion" required>
-                                            <option value="">Seleccionar motivo...</option>
-                                            <option value="nueva_posicion">Nueva posición</option>
-                                            <option value="reemplazo_renuncia">Reemplazo por renuncia</option>
-                                            <option value="reemplazo_despido">Reemplazo por despido</option>
-                                            <option value="reemplazo_incapacidad">Reemplazo por incapacidad</option>
-                                            <option value="crecimiento_area">Crecimiento del área</option>
-                                            <option value="proyecto_temporal">Proyecto temporal</option>
-                                            <option value="carga_trabajo">Incremento de carga de trabajo</option>
+                                        <label for="motivo" class="form-label">Motivo de la Requisición</label>
+                                        <div class="input-group">
+                                        <select class="form-select rounded-3 border-2" id="motivo" name="motivo" required>
+                                            <option value="">Seleccionar motivo...</option>                                           
+                                        </select>
+                                        <button class="btn btn-outline-primary rounded-3" type="button" id="btnCatalogoMotivos" title="Agregar Motivos">
+                                                <i class="bi bi-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Agregar campos de prioridad y fecha límite en Información General -->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="prioridad" class="form-label">Prioridad</label>
+                                        <select class="form-select rounded-3 border-2" id="prioridad" name="prioridad" required>
+                                            <option value="normal">Normal</option>
+                                            <option value="urgente">Urgente</option>
+                                            <option value="baja">Baja</option>
                                         </select>
                                     </div>
                                 </div>
@@ -182,15 +196,15 @@
                         </div>
                     </div>
 
-                    <!-- COMENTARIOS ADICIONALES -->
+                    <!-- JUSTIFICACIÓN -->
                     <div class="card mb-4 border-0 shadow-sm">
                         <div class="card-header bg-radient-custom border-0" style="color: #004E59;">
-                            <h6 class="mb-0 fw-bold"><i class="bi bi-chat-text me-2"></i>Información Adicional</h6>
+                            <h6 class="mb-0 fw-bold"><i class="bi bi-justify-left me-2"></i>Justificación</h6>
                         </div>
                         <div class="card-body">
                             <div class="mb-3">
-                                <label for="comentarios_adicionales" class="form-label">Comentarios Adicionales</label>
-                                <textarea class="form-control rounded-3 border-2" id="comentarios_adicionales" name="comentarios_adicionales" rows="4" placeholder="Cualquier detalle extra que ayude a entender la necesidad de la vacante o el contexto del área..."></textarea>
+                                <label for="justificacion" class="form-label">Justificación de la Requisición</label>
+                                <textarea class="form-control rounded-3 border-2" id="justificacion" name="justificacion" rows="4" placeholder="Explique las razones por las cuales se requiere cubrir esta vacante..." required></textarea>
                             </div>
                         </div>
                     </div>
@@ -280,6 +294,43 @@ $(document).on('click', '#btnCatalogoPuestos', function(e) {
                     setTimeout(function() {
                         $("#registrarPuestoModal").modal("show");
                         console.log("Modal de registro de puestos abierto automáticamente");
+                    }, 500); // Esperar un poco más para que se establezca la pestaña
+                });
+            }, 300);
+        }
+    });
+});
+
+// Event listener para el botón de catálogo de motivos
+$(document).on('click', '#btnCatalogoMotivos', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    debeReabrirModalRequisicion = true;
+    console.log("Botón catálogo motivos clickeado, bandera activada:", debeReabrirModalRequisicion);
+    
+    // Cerrar el modal de requisición
+    $("#registrarVacanteModal").modal("hide");
+    
+    // Esperar a que se cierre completamente y luego abrir el modal de catálogos
+    $("#registrarVacanteModal").on('hidden.bs.modal', function(e) {
+        if (debeReabrirModalRequisicion) {
+            // Remover el event listener para evitar múltiples ejecuciones
+            $(this).off('hidden.bs.modal');
+            
+            setTimeout(function() {
+                $("#registrarCatalogoModal").modal("show");
+                
+                // Cuando se abra el modal de catálogos, cambiar a la pestaña de motivos
+                $("#registrarCatalogoModal").on('shown.bs.modal', function() {
+                    $(this).off('shown.bs.modal'); // Remover listener
+                    $("#motivos-tab").tab("show");
+                    console.log("Modal de catálogos abierto y pestaña de motivos activada");
+                    
+                    // Después de activar la pestaña, abrir el modal de registro
+                    setTimeout(function() {
+                        $("#registrarMotivoModal").modal("show");
+                        console.log("Modal de registro de motivo abierto automáticamente");
                     }, 500); // Esperar un poco más para que se establezca la pestaña
                 });
             }, 300);
