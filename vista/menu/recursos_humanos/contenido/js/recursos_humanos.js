@@ -1,90 +1,86 @@
 // Al cargar la página, solo muestra el menú principal
-        document.addEventListener("DOMContentLoaded", function () {
-            // Oculta los módulos al inicio
-            document.getElementById("modulos-rrhh").style.display = "none";
+document.addEventListener("DOMContentLoaded", function () {
+  // Oculta los módulos al inicio
+  document.getElementById("modulos-rrhh").style.display = "none";
 
-            // Oculta el botón de registrar vacante al inicio
-            ocultarBotonVacante();
+  // Oculta el botón de registrar vacante al inicio
+  ocultarBotonVacante();
 
-            // Muestra el menú principal
-            document.getElementById("tab-menu").style.display = "";
-            
-            // Oculta todos los módulos
-            document.querySelectorAll('.content-module').forEach(module => {
-                module.style.display = 'none';
-            });
-        });
-        
-        // Cuando el usuario haga clic en una opción del menú
-        document.querySelectorAll("#menu-grid a").forEach(function (link) {
-            link.addEventListener("click", function (e) {
-                e.preventDefault();
-                
-                // Oculta el menú principal
-                document.getElementById("tab-menu").style.display = "none";
-                
-                // Muestra la sección de módulos
-                document.getElementById("modulos-rrhh").style.display = "block";
-                
-                // Oculta todos los módulos
-                document.querySelectorAll('.content-module').forEach(module => {
-                    module.style.display = 'none';
-                });
-                
-                // Muestra el módulo seleccionado
-                const targetModule = this.getAttribute('data-target');
-                document.getElementById(targetModule).style.display = 'block';
+  // Muestra el menú principal
+  document.getElementById("tab-menu").style.display = "";
 
-                // Mostrar u ocultar el botón de vacante según el módulo
-                if (targetModule === "moduloRequisicion") {
-                    mostrarBotonVacante();
-                    mostrarBotonCatalogo();
-                } else {
-                    ocultarBotonVacante();
-                    ocultarBotonCatalogo();
-                }
-            });
-        });
-        // Funcionalidad para volver al menú principal
-    document.addEventListener('click', function(e) {
-        if (e.target.closest('.btnVolver')) {
-            e.preventDefault();
+  // Oculta todos los módulos
+  document.querySelectorAll(".content-module").forEach((module) => {
+    module.style.display = "none";
+  });
+});
 
-            // Oculta el botón de registrar vacante
-            ocultarBotonVacante();
-            ocultarBotonCatalogo();
-            
-            // Oculta la sección de módulos
-            document.getElementById("modulos-rrhh").style.display = "none";
-            
-            // Muestra el menú principal
-            document.getElementById("tab-menu").style.display = "block";
-        }
+// Cuando el usuario haga clic en una opción del menú
+document.querySelectorAll("#menu-grid a").forEach(function (link) {
+  link.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    // Oculta el menú principal
+    document.getElementById("tab-menu").style.display = "none";
+
+    // Muestra la sección de módulos
+    document.getElementById("modulos-rrhh").style.display = "block";
+
+    // Oculta todos los módulos
+    document.querySelectorAll(".content-module").forEach((module) => {
+      module.style.display = "none";
     });
 
-        // Funciones para mostrar/ocultar el botón
-        function mostrarBotonVacante() {
-            const btn = document.getElementById("btnRegistrarVacante");
-            if (btn) btn.style.display = "inline-block";
-        }
-        function ocultarBotonVacante() {
-            const btn = document.getElementById("btnRegistrarVacante");
-            if (btn) btn.style.display = "none";
-        }
+    // Muestra el módulo seleccionado
+    const targetModule = this.getAttribute("data-target");
+    document.getElementById(targetModule).style.display = "block";
 
-        // Funciones para mostrar/ocultar el botón de catálogos
-        function mostrarBotonCatalogo() {
-            const btn = document.getElementById("btnRegistrarCatalogo");
-            if (btn) btn.style.display = "inline-block";
-        }
-        function ocultarBotonCatalogo() {
-            const btn = document.getElementById("btnRegistrarCatalogo");
-            if (btn) btn.style.display = "none";
-        }
+    // Mostrar u ocultar el botón de vacante según el módulo
+    if (targetModule === "moduloRequisicion") {
+      mostrarBotonVacante();
+      mostrarBotonCatalogo();
+    } else {
+      ocultarBotonVacante();
+      ocultarBotonCatalogo();
+    }
+  });
+});
+// Funcionalidad para volver al menú principal
+document.addEventListener("click", function (e) {
+  if (e.target.closest(".btnVolver")) {
+    e.preventDefault();
 
+    // Oculta el botón de registrar vacante
+    ocultarBotonVacante();
+    ocultarBotonCatalogo();
 
+    // Oculta la sección de módulos
+    document.getElementById("modulos-rrhh").style.display = "none";
 
+    // Muestra el menú principal
+    document.getElementById("tab-menu").style.display = "block";
+  }
+});
 
+// Funciones para mostrar/ocultar el botón
+function mostrarBotonVacante() {
+  const btn = document.getElementById("btnRegistrarVacante");
+  if (btn) btn.style.display = "inline-block";
+}
+function ocultarBotonVacante() {
+  const btn = document.getElementById("btnRegistrarVacante");
+  if (btn) btn.style.display = "none";
+}
+
+// Funciones para mostrar/ocultar el botón de catálogos
+function mostrarBotonCatalogo() {
+  const btn = document.getElementById("btnRegistrarCatalogo");
+  if (btn) btn.style.display = "inline-block";
+}
+function ocultarBotonCatalogo() {
+  const btn = document.getElementById("btnRegistrarCatalogo");
+  if (btn) btn.style.display = "none";
+}
 
 // DataTable para requisiciones
 tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
@@ -114,9 +110,10 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
         { data: "numero_requisicion"},
         { data: "departamento_nombre"},
         { data: "motivo_descripcion" },
-        { data: "puesto_nombre"},
+        { data: "puesto_nombre", defaultContent: "Sin especificar" },
         { 
-            data: "prioridad",
+            data: "prioridad", 
+            title: "Prioridad",
             render: function(data) {
                 const badges = {
                     'urgente': '<span class="badge bg-danger">Urgente</span>',
@@ -161,10 +158,9 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
                 return `
                     <div class="btn-group" role="group">
                         <button class="btn btn-sm btn-primary btn-ver-requisicion" 
-                            data-id="${row.id_requisicion}" title="Ver detalles"
+                             data-id="${row.id_requisicion}" title="Ver detalles"
                             data-bs-target="#detallesRequisicionModal"
                             data-bs-toggle="modal"
-                            title="Ver detalles">
                             <i class="bi bi-eye"></i>
                         </button>
                         <button class="btn btn-sm btn-primary bg-gradient-warning btn-editar-requisicion" 
@@ -178,7 +174,9 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
                         <button class="btn btn-sm btn-primary bg-gradient-secondary btn-eliminar-requisicion" 
                             data-id="${row.id_requisicion}" title="Eliminar">
                             <i class="bi bi-trash"></i>
-                        </button>` : ''}
+                        </button>`
+                            : ""
+                        }
                     </div>
                 `;
             }
@@ -228,7 +226,6 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
     ],
 });
 
-
 //Data table para el catálogo de departamentos
 tableCatDepartamentos = $("#tableCatDepartamentos").DataTable({
     language: {
@@ -270,7 +267,7 @@ tableCatDepartamentos = $("#tableCatDepartamentos").DataTable({
             return `
             <button class="btn btn-sm btn-primary bg-gradient-warning btn-editar-departamento" 
                 data-id="${row.id_departamento}" 
-                data-nombre="${row.descripcion}" 
+                data-descripcion="${row.descripcion}" 
                 data-activo="${row.activo}">
               <i class="bi bi-pencil"></i>
             </button>
@@ -297,9 +294,13 @@ tableCatDepartamentos = $("#tableCatDepartamentos").DataTable({
           },
           {
           text: '<i class="bi bi-funnel me-2"></i>Filtrar <i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;"></i>',
-          className: "btn btn-warning bg-gradient-filter d-flex align-items-center",
+          className: "btn btn-warning bg-gradient-filter d-flex",
+          attr: {
+            "data-bs-toggle": "modal",
+            "data-bs-target": "#filtrarDepartamentosModal",
+          },
           action: function () {
-            // No hacer nada, el toggle se maneja por separado
+            //No hacer nada, el toggle se maneja por separado
           },
           },
         ],
@@ -308,8 +309,7 @@ tableCatDepartamentos = $("#tableCatDepartamentos").DataTable({
             setupToggleFiltro();
             setupResetFiltros();
         }
-});
-
+        });
 
 // Datatable para el catálogo de puestos
 tableCatPuestos = $("#tableCatPuestos").DataTable({
@@ -338,8 +338,8 @@ tableCatPuestos = $("#tableCatPuestos").DataTable({
     columns: [
       { data: "id_puesto"},
       { data: "descripcion"},
-      { data: "departamento_nombre"}, // Nueva columna
-      {
+      { data: "departamento_nombre", visible: false }, // Ocultar columna de ID de departamento PARA SOLO TOMAR EL ID Y LA DESCRIPCION SE TRAE DEL SP
+    {
         data: "activo",
         render: function (data) {
           return data == 1
@@ -359,7 +359,7 @@ tableCatPuestos = $("#tableCatPuestos").DataTable({
       </button>
       <button class="btn btn-sm btn-primary bg-gradient-warning btn-editar-puesto" 
               data-id="${row.id_puesto}" 
-              data-nombre="${row.descripcion}" 
+              data-descripcion="${row.descripcion}" 
               data-departamento="${row.id_departamento}"
               data-activo="${row.activo}">
           <i class="bi bi-pencil"></i>
@@ -398,7 +398,6 @@ tableCatPuestos = $("#tableCatPuestos").DataTable({
     ],
   });
 
-
 // Nueva DataTable para detalles de puestos
 tableCatPuestosDetalles = $("#tableCatPuestosDetalles").DataTable({
   language: {
@@ -425,32 +424,32 @@ tableCatPuestosDetalles = $("#tableCatPuestosDetalles").DataTable({
     dataSrc: "response.data",
   },
   columns: [
-    { 
+    {
       data: "descripcion",
-      width: "15%"
+      width: "15%",
     },
-    { 
+    {
       data: "objetivos",
       width: "30%",
-      render: function(data) {
+      render: function (data) {
         // Mostrar el texto completo sin truncar
-        return data || 'Sin objetivos';
-      }
+        return data || "Sin objetivos";
+      },
     },
-    { 
+    {
       data: "competencias",
       width: "30%",
-      render: function(data) {
+      render: function (data) {
         // Mostrar el texto completo sin truncar
-        return data || 'Sin competencias';
-      }
+        return data || "Sin competencias";
+      },
     },
-    { 
+    {
       data: "banda_salarial",
       width: "15%",
-      render: function(data) {
-        return data || 'No definida';
-      }
+      render: function (data) {
+        return data || "No definida";
+      },
     },
     {
       data: null,
@@ -460,31 +459,37 @@ tableCatPuestosDetalles = $("#tableCatPuestosDetalles").DataTable({
           <button class="btn btn-sm btn-primary bg-gradient-warning btn-editar-detalles-puesto" 
                   data-id="${row.id_puesto}" 
                   data-nombre="${row.descripcion}"
-                  data-objetivos="${row.objetivos || ''}"
-                  data-competencias="${row.competencias || ''}"
-                  data-banda="${row.banda_salarial || ''}">
+                  data-objetivos="${row.objetivos || ""}"
+                  data-competencias="${row.competencias || ""}"
+                  data-banda="${row.banda_salarial || ""}">
               <i class="bi bi-pencil"></i>
           </button>
         `;
       },
     },
   ],
-  dom: 'Bfrtip',
+  dom: "Bfrtip",
   columnDefs: [
     {
       targets: [1, 2], // Columnas de objetivos y competencias
-      render: function(data, type, row) {
-        if (type === 'display') {
+      render: function (data, type, row) {
+        if (type === "display") {
           // Para mostrar en pantalla, usar el texto completo con saltos de línea
-          return data ? '<div style="white-space: pre-wrap; word-wrap: break-word; max-width: none;">' + data + '</div>' : (row === 1 ? 'Sin objetivos' : 'Sin competencias');
+          return data
+            ? '<div style="white-space: pre-wrap; word-wrap: break-word; max-width: none;">' +
+                data +
+                "</div>"
+            : row === 1
+            ? "Sin objetivos"
+            : "Sin competencias";
         }
         return data; // Para otros tipos (sorting, filtering) usar el dato original
-      }
-    }
-  ]
+      },
+    },
+  ],
 });
 
-//Data table para el catálogo de departamentos
+//Data table para el catálogo de motivos
 tableCatMotivos = $("#tableCatMotivos").DataTable({
     language: {
       url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
@@ -523,14 +528,14 @@ tableCatMotivos = $("#tableCatMotivos").DataTable({
         data: null,
         render: function (data, type, row) {
             return `
-            <button class="btn btn-sm btn-primary bg-gradient-warning btn-editar-motivo" 
-                data-id="${row.id_motivo}" 
-                data-nombre="${row.descripcion}" 
+            <button class="btn btn-sm btn-warning btn-editar-motivo" 
+                data-id="${row.id_motivos}" 
+                data-descripcion="${row.descripcion}" 
                 data-activo="${row.activo}">
               <i class="bi bi-pencil"></i>
             </button>
             <button class="btn btn-sm btn-primary bg-gradient-secondary btn-eliminar-motivo" 
-                data-id="${row.id_motivo}">
+                data-id="${row.id_motivos}">
               <i class="bi bi-trash"></i>
             </button>
           `;
@@ -553,30 +558,28 @@ tableCatMotivos = $("#tableCatMotivos").DataTable({
           {
           text: '<i class="bi bi-funnel me-2"></i>Filtrar <i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;"></i>',
           className: "btn btn-warning bg-gradient-filter d-flex align-items-center",
+          attr: {
+            "data-bs-toggle": "modal",
+            "data-bs-target": "#filtrarMotivosModal",
+          },
           action: function () {
-            // No hacer nada, el toggle se maneja por separado
+            $("#filtrarMotivosModal").modal("show");
           },
           },
         ],
-        initComplete: function() {
-            // Agregar event listener al toggle después de que se inicialice la tabla
-            setupToggleFiltro();
-            setupResetFiltros();
-        }
-});
-
+        });
 
 // Event handlers para los nuevos botones
-$(document).on('click', '.btn-ver-detalles-puesto', function() {
-  const puestoId = $(this).data('id');
-  const puestoNombre = $(this).data('nombre');
-  
+$(document).on("click", ".btn-ver-detalles-puesto", function () {
+  const puestoId = $(this).data("id");
+  const puestoNombre = $(this).data("nombre");
+
   // Filtrar la tabla de detalles por el puesto seleccionado
   dataTableCatPuestosDetalles.id_puesto = puestoId;
   tableCatPuestosDetalles.ajax.reload();
-  
-  $('#detallesPuestoModalLabel').text(`Detalles del Puesto: ${puestoNombre}`);
-  $('#detallesPuestoModal').modal('show');
+
+  $("#detallesPuestoModalLabel").text(`Detalles del Puesto: ${puestoNombre}`);
+  $("#detallesPuestoModal").modal("show");
 });
 
 $(document).on('click', '.btn-editar-detalles-puesto', function() {
@@ -605,41 +608,6 @@ $(document).on('show.bs.modal', '#registrarVacanteModal', function () {
     cargarDepartamentos('#departamento');
     cargarPuestos('#puesto');
     cargarMotivos('#motivo');
-});
-
-// Event listener para botones de editar departamento
-$(document).on('click', '.btn-editar-departamento', function() {
-    const id = $(this).data('id');
-    const nombre = $(this).data('nombre');
-    const activo = $(this).data('activo');
-    
-    // Llenar el formulario con los datos
-    $('#departamentoId').val(id);
-    $('#departamentoDescripcion').val(nombre);
-    
-    // Establecer el estado del checkbox
-    if (activo == 1) {
-        $('#departamentoActivoCheck').prop('checked', true);
-    } else {
-        $('#departamentoActivoCheck').prop('checked', false);
-    }
-    
-    // Cambiar el título del modal
-    $('#registrarDepartamentoModalLabel').text('Editar Departamento');
-    
-    // Abrir el modal
-    $('#registrarDepartamentoModal').modal('show');
-});
-
-// Event listener para limpiar el formulario al abrir modal para nuevo registro
-$(document).on('show.bs.modal', '#registrarDepartamentoModal', function(e) {
-    // Si no fue disparado por un botón de editar, limpiar formulario
-    if (!$(e.relatedTarget).hasClass('btn-editar-departamento')) {
-        $('#registrarDepartamentoForm')[0].reset();
-        $('#departamentoId').val('');
-        $('#departamentoActivoCheck').prop('checked', true);
-        $('#registrarDepartamentoModalLabel').text('Registrar Departamento');
-    }
 });
 
 // Función genérica para cargar departamentos en cualquier select
@@ -801,23 +769,6 @@ function cargarPuestos(selectId, incluirTodos = false, filtrarPorDepartamento = 
     });
 }
 
-// Función para cargar catálogos en el formulario de edición
-function cargarCatalogosEdicion() {
-    return Promise.all([
-        cargarDepartamentos('#editar_departamento'),
-        cargarMotivos('#editar_motivo')
-    ]);
-}
-
-// Event listener para cambio de departamento en edición
-$(document).on('change', '#editar_departamento', function() {
-    const departamentoId = $(this).val();
-    if (departamentoId && departamentoId !== '') {
-        cargarPuestos('#editar_puesto', false, departamentoId);
-    } else {
-        $('#editar_puesto').html('<option value="">Primero seleccione un departamento</option>');
-    }
-});
 
 // Event listener para cambio de departamento en vacantes (filtrar puestos)
 $(document).on('change', '#departamento', function() {
@@ -957,6 +908,297 @@ function resetearFiltrosDepartamentos() {
     //     alertToast("Filtros restablecidos correctamente", "success", 3000);
     // });
 }
+
+// Editar departamento
+$(document).on("click", ".btn-editar-departamento", function () {
+  var departamentoId = $(this).data("id");
+  var descripcion = $(this).data("descripcion");
+  var activo = $(this).data("activo");
+
+  $("#registrarDepartamentoModalLabel").text("Editar Departamento");
+
+  $("#departamentoId").val(departamentoId);
+  $("#departamentoDescripcion").val(descripcion);
+  $("#departamentoActivoCheck").prop("checked", activo == 1);
+
+  $("#registrarDepartamentoModal").modal("show");
+});
+
+// Resetear el modal de registrar departamento al cerrarlo
+$("#registrarDepartamentoModal").on("hidden.bs.modal", function () {
+  $("#registrarDepartamentoModalLabel").text("Registrar Departamento");
+  $("#registrarDepartamentoForm")[0].reset();
+  $("#departamentoId").val("");
+});
+
+// Eliminar departamento
+$(document).on("click", ".btn-eliminar-departamento", function () {
+  var departamentoId = $(this).data("id");
+  var activo = $(this).data("activo");
+
+  console.log(
+    "Eliminando departamento:",
+    departamentoId,
+    "Activo actual:",
+    activo
+  );
+
+  alertMensajeConfirm(
+    {
+      title: "¿Está a punto de eliminar este departamento?",
+      text: "Asegúrate que la acción sea correcta.",
+      icon: "warning",
+    },
+    function () {
+      $.ajax({
+        url: "../../../api/recursos_humanos_api.php",
+        type: "POST",
+        data: {
+          api: 14,
+          id_departamento: departamentoId,
+          activo: 0,
+        },
+        beforeSend: function () {
+          console.log("Enviando datos:", {
+            api: 14,
+            id_departamento: departamentoId,
+            activo: 0,
+          });
+        },
+        success: function (response) {
+          console.log("Respuesta del servidor:", response);
+
+          let data;
+          try {
+            data =
+              typeof response === "string" ? JSON.parse(response) : response;
+          } catch (e) {
+            console.error("Error parseando respuesta:", e);
+            alertToast("Error en la respuesta del servidor", "error", 4000);
+            return;
+          }
+
+          if (data.response && data.response.code == 1) {
+            console.log("Departamento eliminado correctamente:", data);
+            alertToast("Departamento eliminado!", "success", 4000);
+            if (tableCatDepartamentos) tableCatDepartamentos.ajax.reload();
+          } else {
+            alertToast(
+              data.response?.message || "Error al procesar la solicitud",
+              "error",
+              4000
+            );
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error("Error AJAX:", error);
+          console.error("Respuesta:", xhr.responseText);
+          alertToast("Error de conexión", "error", 4000);
+        },
+      });
+    }
+  );
+});
+
+// ...existing code...
+
+// Editar puesto
+$(document).on("click", ".btn-editar-puesto", function () {
+  var puestoId = $(this).data("id");
+  var descripcion = $(this).data("descripcion");
+  var departamentoId = $(this).data("departamento");
+  var activo = $(this).data("activo");
+
+  $("#registrarPuestoModalLabel").text("Editar Puesto");
+
+  $("#puestoId").val(puestoId);
+  $("#puestoDescripcion").val(descripcion);
+  $("#id_departamento_puesto").val(departamentoId);
+  $("#puestoActivoCheck").prop("checked", activo == 1);
+
+  $("#registrarPuestoModal").modal("show");
+});
+
+// Resetear el modal de registrar puesto al cerrarlo
+$("#registrarPuestoModal").on("hidden.bs.modal", function () {
+  $("#registrarPuestoModalLabel").text("Registrar Puesto");
+  $("#registrarPuestoForm")[0].reset();
+  $("#puestoId").val("");
+});
+
+// Función para cargar departamentos en el select del modal de puestos
+function cargarDepartamentosSelect() {
+  $.ajax({
+    url: "../../../api/recursos_humanos_api.php",
+    type: "POST",
+    data: { api: 6 }, // Case 6 para obtener departamentos
+    success: function (response) {
+      const data = JSON.parse(response);
+      if (data.response && data.response.data) {
+        const select = $("#id_departamento_puesto");
+
+        data.response.data.forEach(function (dept) {
+          if (dept.activo == 1) {
+            // Solo departamentos activos
+            select.append(
+              `<option value="${dept.id_departamento}">${dept.descripcion}</option>`
+            );
+          }
+        });
+      }
+    },
+  });
+}
+
+// Eliminar puesto
+$(document).on("click", ".btn-eliminar-puesto", function () {
+  var puestoId = $(this).data("id");
+  var activo = $(this).data("activo");
+
+  console.log("Eliminando puesto:", puestoId, "Activo:", activo);
+
+  alertMensajeConfirm(
+    {
+      title: "¿Está a punto de eliminar este puesto?",
+      text: "Asegúrate que la acción sea correcta.",
+      icon: "warning",
+    },
+    function () {
+      $.ajax({
+        url: "../../../api/recursos_humanos_api.php",
+        type: "POST",
+        data: {
+          api: 15,
+          id_puesto: puestoId,
+          activo: 0,
+        },
+        beforeSend: function () {
+          console.log("Enviando datos:", {
+            api: 15,
+            id_puesto: puestoId,
+            activo: 0,
+          });
+        },
+        success: function (response) {
+          console.log("Respuesta del servidor:", response);
+
+          let data;
+          try {
+            data =
+              typeof response === "string" ? JSON.parse(response) : response;
+          } catch (e) {
+            console.error("Error parseando respuesta:", e);
+            alertToast("Error en la respuesta del servidor", "error", 4000);
+            return;
+          }
+
+          if (data.response && data.response.code == 1) {
+            console.log("Puesto eliminado correctamente:", data);
+            alertToast("Puesto eliminado!", "success", 4000);
+            if (tableCatPuestos) tableCatPuestos.ajax.reload();
+          } else {
+            alertToast(
+              data.response?.message || "Error al procesar la solicitud",
+              "error",
+              4000
+            );
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error("Error AJAX:", error);
+          console.error("Respuesta:", xhr.responseText);
+          alertToast("Error de conexión", "error", 4000);
+        },
+      });
+    }
+  );
+});
+
+// Editar motivo
+$(document).on("click", ".btn-editar-motivo", function () {
+  var motivoId = $(this).data("id");
+  var descripcion = $(this).data("descripcion");
+  var activo = $(this).data("activo");
+  console.log("Motivo ID:", motivoId);
+
+  $("#registrarMotivoModalLabel").text("Editar Motivo");
+
+  $("#motivoId").val(motivoId);
+  $("#motivoDescripcion").val(descripcion);
+  $("#motivoActivoCheck").prop("checked", activo == 1);
+  $("#registrarMotivoModal").modal("show");
+});
+
+// Resetear el modal de registrar motivo al cerrarlo
+$("#registrarMotivoModal").on("hidden.bs.modal", function () {
+  $("#registrarMotivoModalLabel").text("Registrar Motivo");
+  $("#registrarMotivoForm")[0].reset();
+  $("#motivoId").val("");
+});
+
+// Eliminar motivo
+$(document).on("click", ".btn-eliminar-motivo", function () {
+  var motivoId = $(this).data("id");
+  var activo = $(this).data("activo");
+
+  console.log("Eliminando motivo:", motivoId, "Activo:", activo);
+
+  alertMensajeConfirm(
+    {
+      title: "¿Está a punto de eliminar este motivo?",
+      text: "Asegúrate que la acción sea correcta.",
+      icon: "warning",
+    },
+    function () {
+      $.ajax({
+        url: "../../../api/recursos_humanos_api.php",
+        type: "POST",
+        data: {
+          api: 16,
+          id_motivo: motivoId,
+          activo: 0,
+        },
+        beforeSend: function () {
+          console.log("Enviando datos:", {
+            api: 16,
+            id_motivo: motivoId,
+            activo: 0,
+          });
+        },
+        success: function (response) {
+          console.log("Respuesta del servidor:", response);
+
+          let data;
+          try {
+            data =
+              typeof response === "string" ? JSON.parse(response) : response;
+          } catch (e) {
+            console.error("Error parseando respuesta:", e);
+            alertToast("Error en la respuesta del servidor", "error", 4000);
+            return;
+          }
+
+          if (data.response && data.response.code == 1) {
+            console.log("Motivo eliminado correctamente:", data);
+            alertToast("Motivo eliminado!", "success", 4000);
+            if (tableCatMotivos) tableCatMotivos.ajax.reload();
+          } else {
+            alertToast(
+              data.response?.message || "Error al procesar la solicitud",
+              "error",
+              4000
+            );
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error("Error AJAX:", error);
+          console.error("Respuesta:", xhr.responseText);
+          alertToast("Error de conexión", "error", 4000);
+        },
+      });
+    }
+  );
+});
 
 // ===== FUNCIONES PARA EL MODAL DE DETALLES DE REQUISICIÓN =====
 
@@ -1257,5 +1499,4 @@ function formatearEstatusBadge(estatus) {
     };
     return badges[estatus] || '<span class="badge bg-light text-dark">N/A</span>';
 }
-
 

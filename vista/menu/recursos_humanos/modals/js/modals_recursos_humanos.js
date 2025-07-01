@@ -1,130 +1,3 @@
-// Registrar una articulo
-$("#registrarArticuloForm").submit(function (event) {
-  event.preventDefault();
-
-  var form = document.getElementById("registrarArticuloForm");
-  var formData = new FormData(form);
-
-  var activo;
-
-  if ($("#regitrarArticuloForm #estatus").is(":checked")) {
-    activo = 1;
-  } else {
-    activo = 0;
-  }
-
-  // Validar duplicados antes de mostrar confirmación
-  validarDuplicadosArticulo("#registrarArticuloModal").then(function (
-    puedeEnviar
-  ) {
-    if (!puedeEnviar) {
-      return; // Usuario decidió no continuar
-    }
-
-    alertMensajeConfirm(
-      {
-        title: "¿Está a punto de registrar un artículo?",
-        text: "Seleccione una opción.",
-        icon: "warning",
-      },
-      function () {
-        ajaxAwaitFormData(
-          { api: 1, estatus: activo, id_proveedores: 3 },
-          "inventarios_api",
-          "registrarArticuloForm",
-          { callbackAfter: true },
-          false,
-          function (data) {
-            if (data.response.code == 1) {
-              // El ID del artículo recién creado está directamente en data.response.data
-              const articuloId = data.response.data;
-              const nombreArticulo = $(
-                "#registrarArticuloForm #nombre_comercial"
-              ).val();
-              const claveArticulo = $(
-                "#registrarArticuloForm #clave_art"
-              ).val();
-
-              $("#registrarArticuloForm")[0].reset();
-              $("#registrarArticuloModal").modal("hide");
-
-              // Mostrar alerta personalizada con opciones
-              mostrarAlertaArticuloCreado(
-                articuloId,
-                nombreArticulo,
-                claveArticulo
-              );
-
-              tableCatArticulos.ajax.reload();
-              tableCatEntradas.ajax.reload();
-            }
-          }
-        );
-      },
-      1
-    );
-  });
-
-  return false;
-});
-
-
-// editar un articulo
-$("#editarArticuloForm").submit(function (event) {
-  event.preventDefault();
-  var form = document.getElementById("editarArticuloForm");
-  var formData = new FormData(form);
-
-  var activo;
-
-  if ($("#editarArticuloForm #estatus").is(":checked")) {
-    activo = 1;
-  } else {
-    activo = 0;
-  }
-
-  // Validar duplicados antes de mostrar confirmación (excluyendo el artículo actual)
-  validarDuplicadosArticulo(
-    "#editarArticuloModal",
-    rowSelected.ID_ARTICULO
-  ).then(function (puedeEnviar) {
-    if (!puedeEnviar) {
-      return; // Usuario decidió no continuar
-    }
-
-    alertMensajeConfirm(
-      {
-        title: "¿Está a punto de editar este artículo?",
-        text: "Asegúrate que los datos sean correctos.",
-        icon: "warning",
-      },
-      function () {
-        ajaxAwaitFormData(
-          {
-            api: 1,
-            id_articulo: rowSelected.ID_ARTICULO,
-          },
-          "inventarios_api",
-          "editarArticuloForm",
-          { callbackAfter: true },
-          false,
-          function (data) {
-            if (data.response.code == 1) {
-              $("#editarArticuloForm")[0].reset();
-              $("#editarArticuloModal").modal("hide");
-              alertToast("Artículo actualizado!", "success", 4000);
-              tableCatArticulos.ajax.reload();
-              tableCatEntradas.ajax.reload();
-            }
-          }
-        );
-      }
-    );
-  });
-});
-
-
-
 // Registrar/Editar Departamento
 $("#registrarDepartamentoForm").submit(function (event) {
   event.preventDefault();
@@ -134,7 +7,6 @@ $("#registrarDepartamentoForm").submit(function (event) {
 
   $("#departamentoDescripcion").removeClass("is-invalid");
 
-  // Obtener el valor del checkbox de activo
   var activo;
   if ($("#registrarDepartamentoForm #departamentoActivoCheck").is(":checked")) {
     activo = 1;
@@ -142,18 +14,8 @@ $("#registrarDepartamentoForm").submit(function (event) {
     activo = 0;
   }
 
-  console.log("Activo tipo:", activo);
-
-  // Obtener el ID del departamento desde el campo hidden
   let departamentoIdValue = $("#departamentoId").val();
   let esEdicion = departamentoIdValue && departamentoIdValue !== "";
-
-  // En tu función de submit, antes del ajaxAwaitFormData, agrega:
-  console.log("Valores enviados:");
-  console.log("ID Departamento:", departamentoIdValue);
-  console.log("Descripción:", $("#departamentoDescripcion").val());
-  console.log("Activo:", activo);
-  console.log("Es edición:", esEdicion);
 
   alertMensajeConfirm(
     {
@@ -168,7 +30,7 @@ $("#registrarDepartamentoForm").submit(function (event) {
         {
           api: 5,
           activo: activo,
-          p_id_departamento: departamentoIdValue || null,
+          id_departamento: departamentoIdValue || null,
         },
         "recursos_humanos_api",
         "registrarDepartamentoForm",
@@ -199,25 +61,24 @@ $("#registrarDepartamentoForm").submit(function (event) {
   return false;
 });
 
+
 // Registrar/Editar Puesto
 $("#registrarPuestoForm").submit(function (event) {
   event.preventDefault();
 
-  var form = document.getElementById("registrarPuestoForm"); //estoForm"
+  var form = document.getElementById("registrarPuestoForm");
   var formData = new FormData(form);
 
   $("#puestoDescripcion").removeClass("is-invalid");
 
-  // Obtener el valor del checkbox de activo
   var activo;
-  if ($("#registrarPuestoForm #puestoActivoCheck").is(":checked")) { //estoForm"
+  if ($("#registrarPuestoForm #puestoActivoCheck").is(":checked")) {
     activo = 1;
   } else {
     activo = 0;
   }
 
-  // Obtener el ID del puesto desde el campo hidden
-  let puestoIdValue = $("#puestoId").val(); 
+  let puestoIdValue = $("#puestoId").val();
   let esEdicion = puestoIdValue && puestoIdValue !== "";
 
   alertMensajeConfirm(
@@ -233,15 +94,15 @@ $("#registrarPuestoForm").submit(function (event) {
         {
           api: 7,
           activo: activo,
-          id_puesto: puestoIdValue || null, 
+          id_puesto: puestoIdValue || null,
         },
         "recursos_humanos_api",
-        "registrarPuestoForm", 
+        "registrarPuestoForm",
         { callbackAfter: true },
         false,
         function (data) {
           if (data.response.code == 1) {
-            $("#registrarPuestoForm")[0].reset(); 
+            $("#registrarPuestoForm")[0].reset();
             $("#registrarPuestoModal").modal("hide");
             alertToast(
               esEdicion ? "Puesto actualizado!" : "Puesto registrado!",
@@ -264,91 +125,25 @@ $("#registrarPuestoForm").submit(function (event) {
   return false;
 });
 
-// Registrar/Editar Marca
-$("#registrarMarcaForm").submit(function (event) {
-  event.preventDefault();
-
-  var form = document.getElementById("registrarMarcaForm");
-  var formData = new FormData(form);
-
-  $("#marcaDescripcion").removeClass("is-invalid");
-
-  // Obtener el valor del checkbox de activo
-  var activo;
-  if ($("#registrarMarcaForm #marcaActivoCheck").is(":checked")) {
-    activo = 1;
-  } else {
-    activo = 0;
-  }
-
-  console.log("Activo marca:", activo);
-
-  // Obtener el ID de la marca desde el campo hidden
-  let marcaIdValue = $("#marcaId").val();
-  let esEdicion = marcaIdValue && marcaIdValue !== "";
-
-  alertMensajeConfirm(
-    {
-      title: esEdicion
-        ? "¿Está a punto de editar esta marca?"
-        : "¿Está a punto de registrar una nueva marca?",
-      text: "Asegúrate que los datos sean correctos.",
-      icon: "warning",
-    },
-    function () {
-      ajaxAwaitFormData(
-        {
-          api: 11,
-          activo: activo,
-          id_marcas: marcaIdValue || null,
-        },
-        "inventarios_api",
-        "registrarMarcaForm",
-        { callbackAfter: true },
-        false,
-        function (data) {
-          if (data.response.code == 1) {
-            $("#registrarMarcaForm")[0].reset();
-            $("#registrarMarcaModal").modal("hide");
-            alertToast(
-              esEdicion ? "Marca actualizada!" : "Marca registrada!",
-              "success",
-              4000
-            );
-
-            if (tableCatMarcas) tableCatMarcas.ajax.reload();
-          } else {
-            alertToast(
-              data.response.message || "Error al procesar la solicitud",
-              "error",
-              4000
-            );
-          }
-        }
-      );
-    }
-  );
-
-  return false;
-});
-
 // Registrar/Editar Motivo
 $("#registrarMotivoForm").submit(function (event) {
   event.preventDefault();
+
   var form = document.getElementById("registrarMotivoForm");
   var formData = new FormData(form);
+
   $("#motivoDescripcion").removeClass("is-invalid");
-  // Obtener el valor del checkbox de activo
+
   var activo;
   if ($("#registrarMotivoForm #motivoActivoCheck").is(":checked")) {
     activo = 1;
   } else {
     activo = 0;
   }
-  console.log("Activo motivo:", activo);
-  // Obtener el ID del motivo desde el campo hidden
+
   let motivoIdValue = $("#motivoId").val();
   let esEdicion = motivoIdValue && motivoIdValue !== "";
+
   alertMensajeConfirm(
     {
       title: esEdicion
@@ -362,7 +157,7 @@ $("#registrarMotivoForm").submit(function (event) {
         {
           api: 11,
           activo: activo,
-          id_motivos: motivoIdValue || null,
+          id_motivo: motivoIdValue || null,
         },
         "recursos_humanos_api",
         "registrarMotivoForm",
@@ -372,6 +167,7 @@ $("#registrarMotivoForm").submit(function (event) {
           if (data.response.code == 1) {
             $("#registrarMotivoForm")[0].reset();
             $("#registrarMotivoModal").modal("hide");
+            console.log("Motivo ID:", motivoIdValue);
             alertToast(
               esEdicion ? "Motivo actualizado!" : "Motivo registrado!",
               "success",
@@ -389,8 +185,79 @@ $("#registrarMotivoForm").submit(function (event) {
       );
     }
   );
+
   return false;
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // Filtrar departamentos

@@ -21,11 +21,10 @@ $id_puesto = isset($_POST['id_puesto']) ? (int)$_POST['id_puesto'] : null;
 $objetivos = isset($_POST['objetivos']) ? trim($_POST['objetivos']) : '';
 $competencias = isset($_POST['competencias']) ? trim($_POST['competencias']) : '';
 $banda_salarial = isset($_POST['banda_salarial']) ? trim($_POST['banda_salarial']) : '';
-$id_motivos = isset($_POST['id_motivos']) ? (int)$_POST['id_motivos'] : null;
 
 # Variables para requisiciones de personal
 $id_requisicion = isset($_POST['id_requisicion']) ? (int)$_POST['id_requisicion'] : null;
-$id_motivo = isset($_POST['motivo']) ? (int)$_POST['motivo'] : null;
+$id_motivo = isset($_POST['id_motivo']) ? (int)$_POST['id_motivo'] : null;
 $departamento = isset($_POST['departamento']) ? (int)$_POST['departamento'] : null;
 $usuario_solicitante_id = isset($_POST['usuario_solicitante_id']) ? (int)$_POST['usuario_solicitante_id'] : $_SESSION['id'];
 $prioridad = isset($_POST['prioridad']) ? trim($_POST['prioridad']) : 'normal';
@@ -99,18 +98,12 @@ switch ($api) {
         ]);
         break;
     case 5:
-        # Debug temporal - quitar después
-        error_log("Debug - Valores recibidos:");
-        error_log("id_departamento: " . ($id_departamento ?? 'NULL'));
-        error_log("descripcion: " . ($descripcion ?? 'NULL'));
-        error_log("activo: " . ($activo ?? 'NULL'));
-        error_log("activo tipo: " . gettype($activo));
         
-        # Registrar un departamento
+        # Registrar/editar un departamento
         $response = $master->insertByProcedure("sp_rh_cat_departamentos_g", [
             $id_departamento,
             $descripcion,
-            (int)$activo  // Forzar conversión a entero
+            $activo
         ]);
         break;
     case 6:
@@ -118,7 +111,7 @@ switch ($api) {
         $response = $master->getByProcedure("sp_rh_cat_departamentos_b", []);
         break;
     case 7:
-        # Registrar un puesto
+        # Registrar/editar un puesto
         $response = $master->insertByProcedure("sp_rh_cat_puestos_g", [
             $id_puesto,
             $descripcion,
@@ -169,6 +162,24 @@ switch ($api) {
         
         # DEBUG TEMPORAL: Ver qué devuelve el SP
         error_log("API 13 - Respuesta del SP: " . var_export($response, true));
+        break;
+    case 14:
+        # eliminar departamentos (desactivar)
+        $response = $master->insertByProcedure("sp_rh_cat_departamentos_e", [
+            $id_departamento
+        ]);
+        break;
+    case 15:
+        # eliminar puestos (desactivar)
+        $response = $master->insertByProcedure("sp_rh_cat_puestos_e", [
+            $id_puesto
+        ]);
+        break;
+    case 16:
+        # eliminar motivos (desactivar)
+        $response = $master->insertByProcedure("sp_rh_cat_motivos_e", [
+            $id_motivo
+        ]);
         break;
     default:
         # default
