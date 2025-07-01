@@ -45,27 +45,39 @@ $rango_salarial = isset($_POST['rango_salarial']) ? trim($_POST['rango_salarial'
 
 switch ($api) {
     case 1:
-        # Crear/actualizar una requisición de personal
-        $response = $master->insertByProcedure('sp_rh_cat_requisiciones_g', [
-            $id_requisicion,
-            $departamento, //Parametro para registrar una vacante
-            $id_motivo,
-            $usuario_solicitante_id,
-            $prioridad,
-            $justificacion,
-            $estatus,
-            $puesto,
-            $tipo_contrato,
-            $tipo_jornada,
-            $escolaridad_minima,
-            $experiencia_anos,
-            $experiencia_area,
-            $conocimientos_tecnicos,
-            $habilidades_blandas,
-            $idiomas,
-            $horario_trabajo,
-            $rango_salarial
-        ]);
+        # AGREGAR VALIDACIÓN DEL USUARIO ANTES DE INSERTAR
+        if (empty($usuario_solicitante_id)) {
+            $response = [
+                'code' => 0,
+                'message' => 'Error: No se pudo identificar al usuario solicitante.',
+                'debug' => [
+                    'session_id' => $_SESSION['id'] ?? 'NO_EXISTE',
+                    'post_data' => $_POST
+                ]
+            ];
+        } else {
+            # Crear/actualizar una requisición de personal
+            $response = $master->insertByProcedure('sp_rh_cat_requisiciones_g', [
+                $id_requisicion,
+                $departamento,
+                $id_motivo,
+                $usuario_solicitante_id,
+                $prioridad,
+                $justificacion,
+                $estatus,
+                $puesto,
+                $tipo_contrato,
+                $tipo_jornada,
+                $escolaridad_minima,
+                $experiencia_anos,
+                $experiencia_area,
+                $conocimientos_tecnicos,
+                $habilidades_blandas,
+                $idiomas,
+                $horario_trabajo,
+                $rango_salarial
+            ]);
+        }
         break;
     case 2:
         # recuperar todas las requisiciones
@@ -136,7 +148,7 @@ switch ($api) {
     case 11:
         # Registrar un motivo
         $response = $master->insertByProcedure("sp_rh_cat_motivos_g", [
-            $id_motivos,
+            $id_motivo,
             $descripcion,
             $activo
         ]);

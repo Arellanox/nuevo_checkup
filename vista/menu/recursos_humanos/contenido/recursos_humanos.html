@@ -67,6 +67,18 @@
                                 <th>Acciones</th>
                                 <th>Prioridad</th>
                                 <th>Justificación</th>
+                                <th>Fecha Aprobación</th>
+                                <th>Observaciones</th>
+                                <th>solicitante</th>
+                                <th>Fecha Creación</th>
+                                <th>Fecha Modificación</th>
+                                <th>Usuario Aprobo</th>
+                                <th>Usuario Modificó</th>
+                                <th>Experiencia</th>
+                                <th>Educación</th>
+                                <th>Habilidades</th>
+                                <th>Conocimientos</th>
+                                <th>Cierre</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -437,6 +449,10 @@
             background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
         }
 
+        .bg-gradient-puesto-filter {
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+        }
+
         .icono-onboarding {
             background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
             -webkit-background-clip: text;
@@ -485,6 +501,70 @@
         .content-module.active {
             display: block;
         }
+
+        /* Estilos para el toggle de filtro */
+        .btn-group .btn:focus,
+        .btn-group .btn:active {
+            box-shadow: none !important;
+        }
+
+        #toggleFiltroActivos {
+            transition: all 0.3s ease;
+        }
+
+#toggleFiltroActivos:hover {
+    transform: scale(1.1);
+}
+
+/* Asegurar que el botón no se desactive al hacer clic en el toggle */
+.btn.bg-gradient-filter {
+    pointer-events: auto;
+}
+
+.btn.bg-gradient-filter .bi {
+    pointer-events: auto;
+}
+/* Agregar al final de tu archivo CSS */
+
+/* Estilos para el botón de filtro */
+#iconoFiltro {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+#iconoFiltro:hover {
+    color: #ff6b6b !important;
+    transform: scale(1.2);
+}
+
+#toggleFiltroActivos {
+    transition: all 0.3s ease;
+}
+
+#toggleFiltroActivos:hover {
+    transform: scale(1.1);
+}
+
+/* Tooltip personalizado */
+.btn.bg-gradient-filter [title] {
+    position: relative;
+}
+
+/* Efecto hover para el botón completo */
+.btn.bg-gradient-filter:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn.bg-gradient-puestofilter:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Separación visual entre elementos del botón */
+.btn.bg-gradient-filter i {
+    margin: 0 2px;
+}
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -597,6 +677,11 @@
         }
 
         .btn.bg-gradient-filter {
+            border: none !important;
+            outline: none !important;
+        }
+
+        .btn.bg-gradient-puesto-filter {
             border: none !important;
             outline: none !important;
         }

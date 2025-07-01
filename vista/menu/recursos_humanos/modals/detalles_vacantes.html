@@ -1,0 +1,194 @@
+<!-- Modal de Detalles de Requisición -->
+<div
+  class="modal fade"
+  id="detallesRequisicionModal"
+  tabindex="-1"
+  aria-labelledby="detalleRequisicionLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content shadow-lg border-0">
+      <div class="modal-header bg-gradient-primary text-white border-0" >
+        <h5 class="modal-title text-white fw-bold" id="detalleRequisicionLabel">
+          <i class="fas fa-file-alt me-2"></i>Detalles de la Requisición
+        </h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <!-- Columna izquierda: Información básica y estatus -->
+          <div class="col-md-4">
+            <div class="card mb-3 shadow-sm">
+              <div class="card-header bg-gradient-details text-white">
+                <h6 class="mb-0"><i class="fas fa-info-circle me-2"></i>Información General</h6>
+              </div>
+              <div class="card-body">
+                <div class="text-center mb-3">
+                  <h4 class="text-secondary" id="numeroRequisicion"></h4>
+                </div>
+                <ul class="list-group list-group-flush mb-2">
+                  <li class="list-group-item">
+                    <strong style="color: #495057;">Prioridad:</strong>
+                    <span id="badgePrioridad" class="badge badge-prioridad"></span>
+                  </li>
+                  <li class="list-group-item">
+                    <strong style="color: #495057;">Estatus:</strong>
+                    <span id="badgeEstatus" class="badge badge-estatus"></span>
+                  </li>
+                  <li class="list-group-item">
+                    <strong style="color: #495057;">Departamento:</strong>
+                    <div id="departamentoRequisicion" class="text-muted"></div>
+                  </li>
+                  
+                  <li class="list-group-item">
+                    <strong style="color: #495057;">Motivo:</strong>
+                    <div id="motivoRequisicion" class="text-muted"></div>
+                  </li>
+                  <li class="list-group-item">
+                    <strong style="color: #495057;">Solicitado por:</strong>
+                    <div id="usuarioSolicitante" class="text-muted"></div>
+                  </li>
+                  <li class="list-group-item">
+                    <strong style="color: #495057;">Fecha de Creación:</strong>
+                    <div id="fechaCreacion" class="text-muted"></div>
+                  </li>
+                  <li class="list-group-item" id="infoAprobacion" style="display: none;">
+                    <strong style="color: #495057;">Aprobado por:</strong>
+                    <div id="usuarioAprobador" class="text-muted"></div>
+                    <strong style="color: #495057;">Fecha de Aprobación:</strong>
+                    <div id="fechaAprobacion" class="text-muted"></div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna derecha: Detalles del puesto y requisitos -->
+          <div class="col-md-8">
+            <div class="row">
+              <!-- Información del Puesto -->
+              <div class="col-md-6">
+                <div class="card mb-3 shadow-sm">
+                  <div class="card-header bg-gradient-details text-white">
+                    <h6 class="mb-0"><i class="fas fa-briefcase me-2"></i>Información del Puesto</h6>
+                  </div>
+                  <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item">
+                        <strong style="color: #495057;">Puesto:</strong>
+                        <div id="puestoSolicitado" class="text-muted"></div>
+                      </li>
+                      <li class="list-group-item">
+                        <strong style="color: #495057;">Tipo de Contrato:</strong>
+                        <span id="tipoContrato" class="text-muted"></span>
+                      </li>
+                      <li class="list-group-item">
+                        <strong style="color: #495057;">Tipo de Jornada:</strong>
+                        <span id="tipoJornada" class="text-muted"></span>
+                      </li>
+                      <li class="list-group-item">
+                        <strong style="color: #495057;">Horario de Trabajo:</strong>
+                        <div id="horarioTrabajo" class="text-muted"></div>
+                      </li>
+                      <li class="list-group-item">
+                        <strong style="color: #495057;">Rango Salarial:</strong>
+                        <div id="rangoSalarial" class="text-muted text-success"></div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Requisitos Académicos y Experiencia -->
+              <div class="col-md-6">
+                <div class="card mb-3 shadow-sm">
+                  <div class="card-header bg-gradient-details text-white">
+                    <h6 class="mb-0"><i class="fas fa-graduation-cap me-2"></i>Requisitos Académicos</h6>
+                  </div>
+                  <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item">
+                        <strong style="color: #495057;">Escolaridad Mínima:</strong>
+                        <span id="escolaridadMinima" class="text-muted"></span>
+                      </li>
+                      <li class="list-group-item">
+                        <strong style="color: #495057;">Experiencia Requerida:</strong>
+                        <div id="experienciaAnos" class="text-muted"></div>
+                      </li>
+                      <li class="list-group-item">
+                        <strong style="color: #495057;">Experiencia en Área:</strong>
+                        <div id="experienciaArea" class="text-muted"></div>
+                      </li>
+                      <li class="list-group-item">
+                        <strong style="color: #495057;">Idiomas:</strong>
+                        <div id="idiomasRequeridos" class="text-muted"></div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Conocimientos y Habilidades -->
+              <div class="col-12">
+                <div class="card mb-3 shadow-sm">
+                  <div class="card-header bg-gradient-primary text-white">
+                    <h6 class="mb-0"><i class="fas fa-tools me-2"></i>Conocimientos y Habilidades</h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <h6 style="color: #495057;" class="fw-bold">Conocimientos Técnicos:</h6>
+                        <div id="conocimientosTecnicos" class="text-muted mb-3"></div>
+                      </div>
+                      <div class="col-md-6">
+                        <h6 style="color: #495057;" class="fw-bold">Habilidades Blandas:</h6>
+                        <div id="habilidadesBlandas" class="text-muted mb-3"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Justificación y Observaciones -->
+              <div class="col-12">
+                <div class="card mb-3 shadow-sm">
+                  <div class="card-header bg-gradient-primary text-white">
+                    <h6 class="mb-0"><i class="fas fa-comment-alt me-2"></i>Justificación y Observaciones</h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="mb-3">
+                      <h6 style="color: #495057;" class="fw-bold">Justificación de la Requisición:</h6>
+                      <div id="justificacionRequisicion" class="bg-light p-3 rounded text-muted"></div>
+                    </div>
+                    <div id="observacionesAprobacion" style="display: none;">
+                      <h6 style="color: #495057;" class="fw-bold">Observaciones de Aprobación:</h6>
+                      <div id="observacionesTexto" class="bg-light p-3 rounded text-muted"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer bg-light border-0">
+        <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">
+          <i class="bi bi-x-circle me-2"></i>Cancelar
+        </button>
+        <!-- <button type="button" class="btn btn-gradient-primary" id="btnEditarRequisicion">
+          <i class="fas fa-edit me-2"></i>Editar Requisición
+        </button> -->
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+    .bg-gradient-details {
+        background: linear-gradient(135deg, #A1C4EB 0%, #C2EAF0 100%)
+    }
+</style>

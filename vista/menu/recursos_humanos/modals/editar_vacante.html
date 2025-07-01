@@ -1,0 +1,290 @@
+<!-- Modal para editar requisición -->
+<div class="modal fade" id="editarVacanteModal" tabindex="-1" aria-labelledby="editarVacanteModalLabel" aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content shadow-lg border-0">
+            <div class="modal-header bg-gradient-warning text-white border-0">
+                <h5 class="modal-title fw-bold" id="editarVacanteModalLabel">
+                    <i class="bi bi-pencil-square me-2"></i>Editar Requisición de Personal
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body bg-light" style="max-height: 70vh; overflow-y: auto;">
+                <!-- Contenido del formulario -->
+                <form id="formEditarVacante" name="formEditarVacante">
+                    
+                    <!-- Campos ocultos para identificación -->
+                    <input type="hidden" id="editar_id_requisicion" name="id_requisicion">
+                    <input type="hidden" id="editar_numero_requisicion" name="numero_requisicion">
+                    <input type="hidden" id="editar_usuario_solicitante_id" name="usuario_solicitante_id">
+                    <input type="hidden" id="editar_fecha_creacion" name="fecha_creacion">
+
+                    <!-- INFORMACIÓN DE LA REQUISICIÓN -->
+                    <div class="card mb-4 border-0 shadow-sm">
+                        <div class="card-header bg-radient-custom border-0" style="color: #ffc107;">
+                            <h6 class="mb-0 fw-bold"><i class="bi bi-info-circle me-2"></i>Información de la Requisición</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">No. Requisición</label>
+                                        <input type="text" class="form-control-plaintext fw-bold text-primary" id="editar_numero_display" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Fecha de Creación</label>
+                                        <input type="text" class="form-control-plaintext" id="editar_fecha_display" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="editar_estatus" class="form-label fw-bold">Estado de la Requisición</label>
+                                        <select class="form-select rounded-3 border-2" id="editar_estatus" name="estatus" required>
+                                            <option value="borrador">Borrador</option>
+                                            <option value="pendiente">Pendiente</option>
+                                            <option value="aprobada">Aprobada</option>
+                                            <option value="rechazada">Rechazada</option>
+                                            <option value="en_proceso">En Proceso</option>
+                                            <option value="completada">Completada</option>
+                                            <option value="pausada">Pausada</option>
+                                            <option value="cancelada">Cancelada</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- INFORMACIÓN GENERAL -->
+                    <div class="card mb-4 border-0 shadow-sm">
+                        <div class="card-header bg-radient-custom border-0" style="color: #ffc107;">
+                            <h6 class="mb-0 fw-bold"><i class="bi bi-info-circle me-2"></i>Información General</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="editar_departamento" class="form-label">Departamento</label>
+                                        <select class="form-select rounded-3 border-2" id="editar_departamento" name="departamento" required>
+                                            <option value="">Seleccionar departamento...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="editar_motivo" class="form-label">Motivo de la Requisición</label>
+                                        <select class="form-select rounded-3 border-2" id="editar_motivo" name="motivo" required>
+                                            <option value="">Seleccionar motivo...</option>                                           
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="editar_prioridad" class="form-label">Prioridad</label>
+                                        <select class="form-select rounded-3 border-2" id="editar_prioridad" name="prioridad" required>
+                                            <option value="normal">Normal</option>
+                                            <option value="urgente">Urgente</option>
+                                            <option value="baja">Baja</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DETALLES DEL PUESTO -->
+                    <div class="card mb-4 border-0 shadow-sm">
+                        <div class="card-header bg-radient-custom border-0" style="color: #ffc107;">
+                            <h6 class="mb-0 fw-bold"><i class="bi bi-briefcase me-2"></i>Detalles del Puesto</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="editar_puesto" class="form-label">Cargo o Título Solicitado</label>
+                                        <select class="form-select rounded-3 border-2" id="editar_puesto" name="puesto">
+                                            <option value="">Seleccionar puesto...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="editar_tipo_contrato" class="form-label">Tipo de Contrato</label>
+                                        <select class="form-select rounded-3 border-2" id="editar_tipo_contrato" name="tipo_contrato" required>
+                                            <option value="">Seleccionar tipo...</option>
+                                            <option value="permanente">Permanente</option>
+                                            <option value="temporal">Temporal</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="editar_tipo_jornada" class="form-label">Tipo de Jornada</label>
+                                        <select class="form-select rounded-3 border-2" id="editar_tipo_jornada" name="tipo_jornada" required>
+                                            <option value="">Seleccionar jornada...</option>
+                                            <option value="tiempo_completo">Tiempo completo</option>
+                                            <option value="medio_tiempo">Medio tiempo</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PERFIL DESEADO -->
+                    <div class="card mb-4 border-0 shadow-sm">
+                        <div class="card-header bg-radient-custom border-0" style="color: #ffc107;">
+                            <h6 class="mb-0 fw-bold"><i class="bi bi-person-badge me-2"></i>Perfil Deseado</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="editar_escolaridad_minima" class="form-label">Escolaridad Mínima Requerida</label>
+                                        <select class="form-select rounded-3 border-2" id="editar_escolaridad_minima" name="escolaridad_minima" required>
+                                            <option value="">Seleccionar escolaridad...</option>
+                                            <option value="primaria">Primaria</option>
+                                            <option value="secundaria">Secundaria</option>
+                                            <option value="preparatoria">Preparatoria/Bachillerato</option>
+                                            <option value="tecnico">Técnico</option>
+                                            <option value="licenciatura">Licenciatura</option>
+                                            <option value="maestria">Maestría</option>
+                                            <option value="doctorado">Doctorado</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="editar_experiencia_anos" class="form-label">Experiencia Laboral (años)</label>
+                                        <select class="form-select rounded-3 border-2" id="editar_experiencia_anos" name="experiencia_anos" required>
+                                            <option value="">Seleccionar experiencia...</option>
+                                            <option value="Sin experiencia">Sin experiencia</option>
+                                            <option value="1 año">1 año</option>
+                                            <option value="2 años">2 años</option>
+                                            <option value="3 años">3 años</option>
+                                            <option value="4 años">4 años</option>
+                                            <option value="más de 5 años">Más de 5 años</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editar_experiencia_area" class="form-label">Área de Experiencia</label>
+                                <input type="text" class="form-control rounded-3 border-2" id="editar_experiencia_area" name="experiencia_area" placeholder="Ej: Ventas, Marketing, Administración...">
+                            </div>
+                            <div class="mb-3">
+                                <label for="editar_conocimientos_tecnicos" class="form-label">Conocimientos Específicos o Técnicos</label>
+                                <textarea class="form-control rounded-3 border-2" id="editar_conocimientos_tecnicos" name="conocimientos_tecnicos" rows="3" placeholder="Ej: Office, sistemas específicos, certificaciones..."></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editar_habilidades_blandas" class="form-label">Habilidades Blandas Esperadas</label>
+                                <textarea class="form-control rounded-3 border-2" id="editar_habilidades_blandas" name="habilidades_blandas" rows="3" placeholder="Ej: Trabajo en equipo, comunicación efectiva, liderazgo..."></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editar_idiomas" class="form-label">Idiomas Requeridos</label>
+                                <input type="text" class="form-control rounded-3 border-2" id="editar_idiomas" name="idiomas" placeholder="Ej: Inglés intermedio, Francés básico...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CONDICIONES LABORALES -->
+                    <div class="card mb-4 border-0 shadow-sm">
+                        <div class="card-header bg-radient-custom border-0" style="color: #ffc107;">
+                            <h6 class="mb-0 fw-bold"><i class="bi bi-clock me-2"></i>Condiciones Laborales</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="editar_horario_trabajo" class="form-label">Horario de Trabajo</label>
+                                        <input type="text" class="form-control rounded-3 border-2" id="editar_horario_trabajo" name="horario_trabajo" placeholder="Ej: 8:00 AM - 5:00 PM, L-V" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="editar_rango_salarial" class="form-label">Rango Salarial (Opcional)</label>
+                                        <input type="text" class="form-control rounded-3 border-2" id="editar_rango_salarial" name="rango_salarial" placeholder="Ej: $15,000 - $25,000">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- JUSTIFICACIÓN -->
+                    <div class="card mb-4 border-0 shadow-sm">
+                        <div class="card-header bg-radient-custom border-0" style="color: #ffc107;">
+                            <h6 class="mb-0 fw-bold"><i class="bi bi-justify-left me-2"></i>Justificación</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="editar_justificacion" class="form-label">Justificación de la Requisición</label>
+                                <textarea class="form-control rounded-3 border-2" id="editar_justificacion" name="justificacion" rows="4" placeholder="Explique las razones por las cuales se requiere cubrir esta vacante..." required></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- OBSERVACIONES DE APROBACIÓN (Solo visible si es necesario) -->
+                    <div class="card mb-4 border-0 shadow-sm" id="editar_seccion_observaciones" style="display: none;">
+                        <div class="card-header bg-gradient-secondary text-white border-0">
+                            <h6 class="mb-0 fw-bold"><i class="bi bi-chat-dots me-2"></i>Observaciones</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="editar_observaciones_aprobacion" class="form-label">Observaciones de Aprobación/Rechazo</label>
+                                <textarea class="form-control rounded-3 border-2" id="editar_observaciones_aprobacion" name="observaciones_aprobacion" rows="3" placeholder="Agregar observaciones sobre la aprobación o rechazo..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer bg-light border-0">
+                <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle me-2"></i>Cancelar
+                </button>
+                <button type="submit" form="formEditarVacante" class="btn btn-gradient-warning rounded-pill px-4 fw-bold">
+                    <i class="bi bi-check-circle me-2"></i>Actualizar Requisición
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+</script>
+
+<style>
+/* Estilos adicionales para el modal de edición */
+.bg-gradient-warning {
+    background: linear-gradient(135deg, #ffc107 0%, #ff8a00 100%);
+}
+
+.btn-gradient-warning {
+    background: linear-gradient(135deg, #ffc107 0%, #ff8a00 100%);
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.btn-gradient-warning:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(255, 193, 7, 0.3);
+    color: white;
+}
+
+.form-control-plaintext {
+    padding-left: 0;
+    padding-right: 0;
+    border: none;
+    background-color: transparent;
+}
+
+.text-primary {
+    color: #0d6efd !important;
+}
+</style>
