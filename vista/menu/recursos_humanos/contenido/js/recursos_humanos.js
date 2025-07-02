@@ -338,7 +338,8 @@ tableCatPuestos = $("#tableCatPuestos").DataTable({
     columns: [
       { data: "id_puesto"},
       { data: "descripcion"},
-      { data: "departamento_nombre", visible: false }, // Ocultar columna de ID de departamento PARA SOLO TOMAR EL ID Y LA DESCRIPCION SE TRAE DEL SP
+      { data: "departamento_nombre"},
+      { data: "departamento_id", visible: false },
     {
         data: "activo",
         render: function (data) {
@@ -528,14 +529,14 @@ tableCatMotivos = $("#tableCatMotivos").DataTable({
         data: null,
         render: function (data, type, row) {
             return `
-            <button class="btn btn-sm btn-warning btn-editar-motivo" 
-                data-id="${row.id_motivos}" 
+            <button class="btn btn-sm btn-primary bg-gradient-warning btn-editar-motivo" 
+                data-id="${row.id_motivo}" 
                 data-descripcion="${row.descripcion}" 
                 data-activo="${row.activo}">
               <i class="bi bi-pencil"></i>
             </button>
             <button class="btn btn-sm btn-primary bg-gradient-secondary btn-eliminar-motivo" 
-                data-id="${row.id_motivos}">
+                data-id="${row.id_motivo}">
               <i class="bi bi-trash"></i>
             </button>
           `;
@@ -1000,8 +1001,6 @@ $(document).on("click", ".btn-eliminar-departamento", function () {
   );
 });
 
-// ...existing code...
-
 // Editar puesto
 $(document).on("click", ".btn-editar-puesto", function () {
   var puestoId = $(this).data("id");
@@ -1025,30 +1024,6 @@ $("#registrarPuestoModal").on("hidden.bs.modal", function () {
   $("#registrarPuestoForm")[0].reset();
   $("#puestoId").val("");
 });
-
-// Función para cargar departamentos en el select del modal de puestos
-function cargarDepartamentosSelect() {
-  $.ajax({
-    url: "../../../api/recursos_humanos_api.php",
-    type: "POST",
-    data: { api: 6 }, // Case 6 para obtener departamentos
-    success: function (response) {
-      const data = JSON.parse(response);
-      if (data.response && data.response.data) {
-        const select = $("#id_departamento_puesto");
-
-        data.response.data.forEach(function (dept) {
-          if (dept.activo == 1) {
-            // Solo departamentos activos
-            select.append(
-              `<option value="${dept.id_departamento}">${dept.descripcion}</option>`
-            );
-          }
-        });
-      }
-    },
-  });
-}
 
 // Eliminar puesto
 $(document).on("click", ".btn-eliminar-puesto", function () {

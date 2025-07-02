@@ -1,35 +1,85 @@
 <!-- Modal de Catálogos -->
-<div class="modal fade" id="registrarCatalogoModal" tabindex="-1" aria-labelledby="catalogosModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+<div
+  class="modal fade"
+  id="registrarCatalogoModal"
+  tabindex="-1"
+  aria-labelledby="catalogosModalLabel"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"
+  >
     <div class="modal-content shadow-lg border-0">
       <div class="modal-header bg-gradient-primary text-white border-0">
         <h5 class="modal-title fw-bold" id="catalogosModalLabel">
           <i class="bi bi-collection me-2"></i>Catálogos de Requisiciones
         </h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body bg-light">
         <!-- Pestañas para diferentes catálogos -->
-        <ul class="nav nav-tabs nav-fill border-0" id="catalogosTab" role="tablist">
+        <ul
+          class="nav nav-tabs nav-fill border-0"
+          id="catalogosTab"
+          role="tablist"
+        >
           <li class="nav-item" role="presentation">
-            <button class="nav-link active rounded-top fw-bold" id="departamentos-tab" data-bs-toggle="tab" data-bs-target="#departamentos" type="button" role="tab" aria-controls="departamentos" aria-selected="true" data-tabla="tableCatDepartamentos">
+            <button
+              class="nav-link active rounded-top fw-bold"
+              id="departamentos-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#departamentos"
+              type="button"
+              role="tab"
+              aria-controls="departamentos"
+              aria-selected="true"
+              data-tabla="tableCatDepartamentos"
+            >
               <i class="bi bi-building me-2"></i>Departamentos
             </button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link rounded-top fw-bold" id="puestos-tab" data-bs-toggle="tab" data-bs-target="#puestos" type="button" role="tab" aria-controls="puestos" aria-selected="false" data-tabla="tableCatPuestos">
+            <button
+              class="nav-link rounded-top fw-bold"
+              id="puestos-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#puestos"
+              type="button"
+              role="tab"
+              aria-controls="puestos"
+              aria-selected="false"
+              data-tabla="tableCatPuestos"
+            >
               <i class="bi bi-briefcase me-2"></i>Puestos
             </button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link rounded-top fw-bold" id="motivos-tab" data-bs-toggle="tab" data-bs-target="#motivos" type="button" role="tab" aria-controls="motivos" aria-selected="false" data-tabla="tableCatmotivos">
+            <button
+              class="nav-link rounded-top fw-bold"
+              id="motivos-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#motivos"
+              type="button"
+              role="tab"
+              aria-controls="motivos"
+              aria-selected="false"
+              data-tabla="tableCatmotivos"
+            >
               <i class="bi bi-briefcase me-2"></i>Motivos
             </button>
           </li>
         </ul>
 
         <!-- Contenido de las pestañas -->
-        <div class="tab-content p-4 bg-white border-0 rounded-bottom shadow-sm" id="catalogosTabContent">
+        <div
+          class="tab-content p-4 bg-white border-0 rounded-bottom shadow-sm"
+          id="catalogosTabContent"
+        >
           <!-- Pestaña de departamentos -->
           <div
             class="tab-pane fade show active"
@@ -38,7 +88,11 @@
             aria-labelledby="departamentos-tab"
           >
             <div class="table-responsive">
-              <table id="tableCatDepartamentos" class="table table-hover border-0 shadow-sm" style="width: 100%">
+              <table
+                id="tableCatDepartamentos"
+                class="table table-hover border-0 shadow-sm"
+                style="width: 100%"
+              >
                 <thead class="table-light">
                   <tr>
                     <th class="fw-bold">ID</th>
@@ -60,7 +114,11 @@
             aria-labelledby="puestos-tab"
           >
             <div class="table-responsive">
-              <table id="tableCatPuestos" class="table table-hover border-0 shadow-sm" style="width: 100%">
+              <table
+                id="tableCatPuestos"
+                class="table table-hover border-0 shadow-sm"
+                style="width: 100%"
+              >
                 <thead class="table-light">
                   <tr>
                     <th class="fw-bold">ID</th>
@@ -77,14 +135,18 @@
           </div>
 
           <!-- Pestaña de Motivos -->
-           <div
+          <div
             class="tab-pane fade"
             id="motivos"
             role="tabpanel"
             aria-labelledby="motivos-tab"
           >
             <div class="table-responsive">
-              <table id="tableCatMotivos" class="table table-hover border-0 shadow-sm" style="width: 100%">
+              <table
+                id="tableCatMotivos"
+                class="table table-hover border-0 shadow-sm"
+                style="width: 100%"
+              >
                 <thead class="table-light">
                   <tr>
                     <th class="fw-bold">ID</th>
@@ -100,7 +162,11 @@
         </div>
       </div>
       <div class="modal-footer bg-light border-0">
-        <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">
+        <button
+          type="button"
+          class="btn btn-outline-secondary rounded-pill px-4"
+          data-bs-dismiss="modal"
+        >
           <i class="bi bi-x-circle me-2"></i>Cerrar
         </button>
       </div>
@@ -109,29 +175,57 @@
 </div>
 
 <!-- Modal para Registrar/Editar Departamento -->
-<div class="modal fade" id="registrarDepartamentoModal" tabindex="-1" aria-labelledby="registrarDepartamentoModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="registrarDepartamentoModal"
+  tabindex="-1"
+  aria-labelledby="registrarDepartamentoModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content shadow-lg border-0">
       <div class="modal-header bg-gradient-success text-white border-0">
         <h5 class="modal-title fw-bold" id="registrarDepartamentoModalLabel">
           <i class="bi bi-building me-2"></i>Registrar Departamento
         </h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body bg-light">
         <form id="registrarDepartamentoForm">
-          <input type="hidden" id="departamentoId" name="departamentoId" value="" />
+          <input
+            type="hidden"
+            id="departamentoId"
+            name="id_departamento"
+            value=""
+          />
           <div class="mb-3">
             <label for="departamentoDescripcion" class="form-label"
               >Descripción del Departamento</label
             >
-            <input type="text" class="form-control rounded-3 border-2" id="departamentoDescripcion" name="descripcion" placeholder="Ingrese la descripción del departamento" required />
+            <input
+              type="text"
+              class="form-control rounded-3 border-2"
+              id="departamentoDescripcion"
+              name="descripcion"
+              placeholder="Ingrese la descripción del departamento"
+              required
+            />
             <div class="invalid-feedback">Este campo es obligatorio.</div>
           </div>
           <div class="mb-3">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox"
-              id="departamentoActivoCheck" name="departamentoActivoCheck" checked />
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="departamentoActivoCheck"
+                name="departamentoActivoCheck"
+                checked
+              />
               <label class="form-check-label" for="departamentoActivoCheck">
                 Departamento activo
               </label>
@@ -140,10 +234,19 @@
         </form>
       </div>
       <div class="modal-footer bg-light border-0">
-        <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">
+        <button
+          type="button"
+          class="btn btn-outline-secondary rounded-pill px-4"
+          data-bs-dismiss="modal"
+        >
           <i class="bi bi-x-circle me-2"></i>Cancelar
         </button>
-        <button type="submit" form="registrarDepartamentoForm" class="btn btn-gradient-success rounded-pill px-4 fw-bold" id="btnGuardarDepartamento">
+        <button
+          type="submit"
+          form="registrarDepartamentoForm"
+          class="btn btn-gradient-success rounded-pill px-4 fw-bold"
+          id="btnGuardarDepartamento"
+        >
           <i class="bi bi-check-circle me-2"></i>Guardar
         </button>
       </div>
@@ -211,36 +314,66 @@
 </div> -->
 
 <!-- Modal para Registrar/Editar Puesto -->
-<div class="modal fade" id="registrarPuestoModal" tabindex="-1" aria-labelledby="registrarPuestoModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="registrarPuestoModal"
+  tabindex="-1"
+  aria-labelledby="registrarPuestoModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content shadow-lg border-0">
       <div class="modal-header bg-gradient-info text-white border-0">
         <h5 class="modal-title fw-bold" id="registrarPuestoModalLabel">
           <i class="bi bi-briefcase me-2"></i>Registrar Puesto
         </h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body bg-light">
         <form id="registrarPuestoForm">
-          <input type="hidden" id="puestoId" name="puestoId" value="" />
+          <input type="hidden" id="puestoId" name="id_puesto" value="" />
           <div class="mb-3">
             <label for="marcaDescripcion" class="form-label"
               >Nombre del Puesto</label
             >
-            <input type="text" class="form-control rounded-3 border-2" id="puestoDescripcion" name="descripcion" placeholder="Ingrese el nombre del puesto" required />
+            <input
+              type="text"
+              class="form-control rounded-3 border-2"
+              id="puestoDescripcion"
+              name="descripcion"
+              placeholder="Ingrese el nombre del puesto"
+              required
+            />
             <div class="invalid-feedback">Este campo es obligatorio.</div>
           </div>
           <div class="mb-3">
-            <label for="id_departamento_puesto" class="form-label">Departamento</label>
-                <select class="form-select rounded-3 border-2" id="id_departamento_puesto" name="id_departamento" required>
-                    <option value="">Seleccionar departamento...</option>
-                            <!-- Opciones se cargan dinámicamente -->
-                </select>
-            </div>
+            <label for="id_departamento_puesto" class="form-label"
+              >Departamento</label
+            >
+            <select
+              class="form-select rounded-3 border-2"
+              id="id_departamento_puesto"
+              name="id_departamento"
+              required
+            >
+              <option value="">Seleccionar departamento...</option>
+              <!-- Opciones se cargan dinámicamente -->
+            </select>
+          </div>
           <div class="mb-3">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox"
-              id="puestoActivoCheck" name="puestoActivoCheck" checked />
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="puestoActivoCheck"
+                name="puestoActivoCheck"
+                checked
+              />
               <label class="form-check-label" for="puestoActivoCheck">
                 Puesto activo
               </label>
@@ -249,10 +382,19 @@
         </form>
       </div>
       <div class="modal-footer bg-light border-0">
-        <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">
+        <button
+          type="button"
+          class="btn btn-outline-secondary rounded-pill px-4"
+          data-bs-dismiss="modal"
+        >
           <i class="bi bi-x-circle me-2"></i>Cancelar
         </button>
-        <button type="submit" form="registrarPuestoForm" class="btn btn-gradient-info rounded-pill px-4 fw-bold" id="btnGuardarPuesto">
+        <button
+          type="submit"
+          form="registrarPuestoForm"
+          class="btn btn-gradient-info rounded-pill px-4 fw-bold"
+          id="btnGuardarPuesto"
+        >
           <i class="bi bi-check-circle me-2"></i>Guardar
         </button>
       </div>
@@ -261,18 +403,35 @@
 </div>
 
 <!-- Modal para Ver Detalles del Puesto -->
-<div class="modal fade" id="detallesPuestoModal" tabindex="-1" aria-labelledby="detallesPuestoModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+<div
+  class="modal fade"
+  id="detallesPuestoModal"
+  tabindex="-1"
+  aria-labelledby="detallesPuestoModalLabel"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"
+  >
     <div class="modal-content shadow-lg border-0">
       <div class="modal-header bg-gradient-info text-dark border-0">
         <h5 class="modal-title fw-bold" id="detallesPuestoModalLabel">
           <i class="bi bi-eye me-2"></i>Detalles del Puesto
         </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body bg-light">
         <div class="table-responsive">
-          <table id="tableCatPuestosDetalles" class="table table-hover border-0 shadow-sm" style="width: 100%">
+          <table
+            id="tableCatPuestosDetalles"
+            class="table table-hover border-0 shadow-sm"
+            style="width: 100%"
+          >
             <thead class="table-light">
               <tr>
                 <th class="fw-bold">Puesto</th>
@@ -287,7 +446,11 @@
         </div>
       </div>
       <div class="modal-footer bg-light border-0">
-        <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">
+        <button
+          type="button"
+          class="btn btn-outline-secondary rounded-pill px-4"
+          data-bs-dismiss="modal"
+        >
           <i class="bi bi-x-circle me-2"></i>Cerrar
         </button>
       </div>
@@ -296,45 +459,92 @@
 </div>
 
 <!-- Modal para Editar Detalles del Puesto -->
-<div class="modal fade" id="editarDetallesPuestoModal" tabindex="-1" aria-labelledby="editarDetallesPuestoModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="editarDetallesPuestoModal"
+  tabindex="-1"
+  aria-labelledby="editarDetallesPuestoModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content shadow-lg border-0">
       <div class="modal-header bg-gradient-secondary text-white border-0">
         <h5 class="modal-title fw-bold" id="editarDetallesPuestoModalLabel">
           <i class="bi bi-pencil-square me-2"></i>Editar Detalles del Puesto
         </h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body bg-light">
         <form id="editarDetallesPuestoForm">
           <input type="hidden" id="detallePuestoId" name="id_puesto" value="" />
-          
+
           <div class="mb-3">
             <label for="puestoNombreDetalle" class="form-label">Puesto</label>
-            <input type="text" class="form-control rounded-3 border-2" id="puestoNombreDetalle" readonly />
+            <input
+              type="text"
+              class="form-control rounded-3 border-2"
+              id="puestoNombreDetalle"
+              readonly
+            />
           </div>
 
           <div class="mb-3">
             <label for="objetivosPuesto" class="form-label">Objetivos</label>
-            <textarea class="form-control rounded-3 border-2" id="objetivosPuesto" name="objetivos" rows="4" placeholder="Ingrese los objetivos del puesto"></textarea>
+            <textarea
+              class="form-control rounded-3 border-2"
+              id="objetivosPuesto"
+              name="objetivos"
+              rows="4"
+              placeholder="Ingrese los objetivos del puesto"
+            ></textarea>
           </div>
 
           <div class="mb-3">
-            <label for="competenciasPuesto" class="form-label">Competencias</label>
-            <textarea class="form-control rounded-3 border-2" id="competenciasPuesto" name="competencias" rows="4" placeholder="Ingrese las competencias requeridas"></textarea>
+            <label for="competenciasPuesto" class="form-label"
+              >Competencias</label
+            >
+            <textarea
+              class="form-control rounded-3 border-2"
+              id="competenciasPuesto"
+              name="competencias"
+              rows="4"
+              placeholder="Ingrese las competencias requeridas"
+            ></textarea>
           </div>
 
           <div class="mb-3">
-            <label for="bandaSalarialPuesto" class="form-label">Banda Salarial</label>
-            <input type="text" class="form-control rounded-3 border-2" id="bandaSalarialPuesto" name="banda_salarial" placeholder="Ej: $15,000 - $25,000" />
+            <label for="bandaSalarialPuesto" class="form-label"
+              >Banda Salarial</label
+            >
+            <input
+              type="text"
+              class="form-control rounded-3 border-2"
+              id="bandaSalarialPuesto"
+              name="banda_salarial"
+              placeholder="Ej: $15,000 - $25,000"
+            />
           </div>
         </form>
       </div>
       <div class="modal-footer bg-light border-0">
-        <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">
+        <button
+          type="button"
+          class="btn btn-outline-secondary rounded-pill px-4"
+          data-bs-dismiss="modal"
+        >
           <i class="bi bi-x-circle me-2"></i>Cancelar
         </button>
-        <button type="submit" form="editarDetallesPuestoForm" class="btn btn-gradient-secondary rounded-pill px-4 fw-bold" id="btnGuardarDetallesPuesto">
+        <button
+          type="submit"
+          form="editarDetallesPuestoForm"
+          class="btn btn-gradient-secondary rounded-pill px-4 fw-bold"
+          id="btnGuardarDetallesPuesto"
+        >
           <i class="bi bi-check-circle me-2"></i>Guardar
         </button>
       </div>
@@ -343,29 +553,52 @@
 </div>
 
 <!-- Modal para Registrar/Editar Motivo -->
-<div class="modal fade" id="registrarMotivoModal" tabindex="-1" aria-labelledby="registrarMotivoModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="registrarMotivoModal"
+  tabindex="-1"
+  aria-labelledby="registrarMotivoModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content shadow-lg border-0">
       <div class="modal-header bg-gradient-success text-white border-0">
         <h5 class="modal-title fw-bold" id="registrarMotivoModalLabel">
           <i class="bi bi-building me-2"></i>Registrar Motivo
         </h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body bg-light">
         <form id="registrarMotivoForm">
-          <input type="hidden" id="motivoId" name="motivoId" value="" />
+          <input type="hidden" id="motivoId" name="id_motivo" value="" />
           <div class="mb-3">
             <label for="motivoDescripcion" class="form-label"
               >Descripción del Motivo</label
             >
-            <input type="text" class="form-control rounded-3 border-2" id="motivoDescripcion" name="descripcion" placeholder="Ingrese la descripción del motvio" required />
+            <input
+              type="text"
+              class="form-control rounded-3 border-2"
+              id="motivoDescripcion"
+              name="descripcion"
+              placeholder="Ingrese la descripción del motvio"
+              required
+            />
             <div class="invalid-feedback">Este campo es obligatorio.</div>
           </div>
           <div class="mb-3">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox"
-              id="motivoActivoCheck" name="motivoActivoCheck" checked />
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="motivoActivoCheck"
+                name="motivoActivoCheck"
+                checked
+              />
               <label class="form-check-label" for="motivoActivoCheck">
                 Motivo activo
               </label>
@@ -374,10 +607,19 @@
         </form>
       </div>
       <div class="modal-footer bg-light border-0">
-        <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">
+        <button
+          type="button"
+          class="btn btn-outline-secondary rounded-pill px-4"
+          data-bs-dismiss="modal"
+        >
           <i class="bi bi-x-circle me-2"></i>Cancelar
         </button>
-        <button type="submit" form="registrarMotivoForm" class="btn btn-gradient-success rounded-pill px-4 fw-bold" id="btnGuardarMotivo">
+        <button
+          type="submit"
+          form="registrarMotivoForm"
+          class="btn btn-gradient-success rounded-pill px-4 fw-bold"
+          id="btnGuardarMotivo"
+        >
           <i class="bi bi-check-circle me-2"></i>Guardar
         </button>
       </div>
@@ -386,207 +628,222 @@
 </div>
 
 <script>
-$(document).ready(function() {
+  $(document).ready(function () {
     // Simplemente reabrir el modal principal cuando se cierren los modales secundarios
-    $('#registrarDepartamentoModal, #registrarPuestoModal, #registrarMotivoModal').on('hidden.bs.modal', function() {
-        $('#registrarCatalogoModal').modal('show');
+    $(
+      "#registrarDepartamentoModal, #registrarPuestoModal, #registrarMotivoModal"
+    ).on("hidden.bs.modal", function () {
+      $("#registrarCatalogoModal").modal("show");
     });
-});
+  });
 
-// 2. Interceptar TODOS los botones de acción dentro de las tablas (editar y nuevos)
-$(document).on('click', '.btn-editar-departamento, .btn-editar-puesto, .btn-nuevo-departamento, .btn-nuevo-puesto, btn-nuevo-motivo', function(e) {
-    $('#registrarCatalogoModal').modal('hide');
-});
+  // 2. Interceptar TODOS los botones de acción dentro de las tablas (editar y nuevos)
+  $(document).on(
+    "click",
+    ".btn-editar-departamento, .btn-editar-puesto, .btn-nuevo-departamento, .btn-nuevo-puesto, btn-nuevo-motivo",
+    function (e) {
+      $("#registrarCatalogoModal").modal("hide");
+    }
+  );
 
-// Manejar modales de detalles
-$('#detallesPuestoModal, #editarDetallesPuestoModal').on('hidden.bs.modal', function() {
-    $('#registrarCatalogoModal').modal('show');
-});
+  // Manejar modales de detalles
+  $("#detallesPuestoModal, #editarDetallesPuestoModal").on(
+    "hidden.bs.modal",
+    function () {
+      $("#registrarCatalogoModal").modal("show");
+    }
+  );
 
-// Interceptar botones de detalles
-$(document).on('click', '.btn-ver-detalles-puesto, .btn-editar-detalles-puesto', function(e) {
-    $('#registrarCatalogoModal').modal('hide');
-});
+  // Interceptar botones de detalles
+  $(document).on(
+    "click",
+    ".btn-ver-detalles-puesto, .btn-editar-detalles-puesto",
+    function (e) {
+      $("#registrarCatalogoModal").modal("hide");
+    }
+  );
 </script>
 
 <style>
-/* Estilos para el modal de catálogos RH - coincidentes con recursos_humanos.html */
-body {
+  /* Estilos para el modal de catálogos RH - coincidentes con recursos_humanos.html */
+  body {
     background-color: #f8f9fa;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
 
-.modal-content {
+  .modal-content {
     border-radius: 15px;
     overflow: hidden;
-}
+  }
 
-.bg-gradient-primary {
+  .bg-gradient-primary {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
+  }
 
-.bg-gradient-success {
+  .bg-gradient-success {
     background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-}
+  }
 
-.bg-gradient-info {
+  .bg-gradient-info {
     background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-}
+  }
 
-.bg-gradient-warning {
+  .bg-gradient-warning {
     background: linear-gradient(135deg, #e9d643 0%, #fee140 100%);
-}
+  }
 
-.bg-gradient-secondary {
+  .bg-gradient-secondary {
     background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-}
+  }
 
-.bg-gradient-dark {
+  .bg-gradient-dark {
     background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-}
+  }
 
-.btn-gradient-primary {
+  .btn-gradient-primary {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border: none;
     color: white;
     transition: all 0.3s ease;
-}
+  }
 
-.btn-gradient-primary:hover {
+  .btn-gradient-primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 15px rgba(102, 126, 234, 0.3);
     color: white;
-}
+  }
 
-.btn-gradient-success {
+  .btn-gradient-success {
     background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
     border: none;
     color: white;
     transition: all 0.3s ease;
-}
+  }
 
-.btn-gradient-success:hover {
+  .btn-gradient-success:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 15px rgba(67, 233, 123, 0.3);
     color: white;
-}
+  }
 
-.btn-gradient-info {
+  .btn-gradient-info {
     background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
     border: none;
     color: white;
     transition: all 0.3s ease;
-}
+  }
 
-.btn-gradient-info:hover {
+  .btn-gradient-info:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 15px rgba(79, 172, 254, 0.3);
     color: white;
-}
+  }
 
-.btn-gradient-secondary {
+  .btn-gradient-secondary {
     background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
     border: none;
     color: white;
     transition: all 0.3s ease;
-}
+  }
 
-.btn-gradient-secondary:hover {
+  .btn-gradient-secondary:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 15px rgba(240, 147, 251, 0.3);
     color: white;
-}
+  }
 
-.nav-tabs .nav-link {
+  .nav-tabs .nav-link {
     border: none;
     color: #495057;
     font-weight: 500;
     transition: all 0.3s ease;
     margin-right: 10px;
-}
+  }
 
-.nav-tabs .nav-link.active {
+  .nav-tabs .nav-link.active {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border-radius: 10px 10px 0 0;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
-}
+  }
 
-.nav-tabs .nav-link:hover:not(.active) {
+  .nav-tabs .nav-link:hover:not(.active) {
     background-color: #f8f9fa;
     color: #667eea;
     transform: translateY(-1px);
-}
+  }
 
-.table {
+  .table {
     border-radius: 10px;
     overflow: hidden;
-}
+  }
 
-.table th {
+  .table th {
     border-top: none;
     color: #495057;
     background-color: #f8f9fa;
-}
+  }
 
-.table-hover tbody tr:hover {
+  .table-hover tbody tr:hover {
     background-color: rgba(102, 126, 234, 0.1);
     transform: translateY(-1px);
     transition: all 0.3s ease;
-}
+  }
 
-.form-control, .form-select {
+  .form-control,
+  .form-select {
     transition: all 0.3s ease;
-}
+  }
 
-.form-control:focus, .form-select:focus {
+  .form-control:focus,
+  .form-select:focus {
     border-color: #667eea;
     box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
     transform: translateY(-1px);
-}
+  }
 
-.btn-outline-secondary {
+  .btn-outline-secondary {
     transition: all 0.3s ease;
-}
+  }
 
-.btn-outline-secondary:hover {
+  .btn-outline-secondary:hover {
     transform: translateY(-1px);
     box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3);
-}
+  }
 
-.rounded-pill {
+  .rounded-pill {
     border-radius: 50rem !important;
-}
+  }
 
-.shadow-lg {
+  .shadow-lg {
     box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
-}
+  }
 
-.fw-bold {
+  .fw-bold {
     font-weight: 700 !important;
-}
+  }
 
-@keyframes fadeIn {
-    from { 
-        opacity: 0; 
-        transform: translateY(10px); 
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
     }
-    to { 
-        opacity: 1; 
-        transform: translateY(0); 
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
-}
+  }
 
-.modal.fade .modal-dialog {
+  .modal.fade .modal-dialog {
     transition: transform 0.3s ease-out;
-}
+  }
 
-.modal.show .modal-dialog {
+  .modal.show .modal-dialog {
     animation: fadeIn 0.3s ease-in;
-}
+  }
 
-.tab-content {
+  .tab-content {
     border-radius: 0 10px 10px 10px;
-}
+  }
 </style>

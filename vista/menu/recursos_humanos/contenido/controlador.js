@@ -1,17 +1,15 @@
-
-if (validarVista('RECURSOS_HUMANOS')) {
-    obtenerContenidoRecursosHumanos();
+if (validarVista("RECURSOS_HUMANOS")) {
+  obtenerContenidoRecursosHumanos();
 }
 
-
 async function obtenerContenidoRecursosHumanos() {
-    await obtenerTitulo('Recursos Humanos');
-    $.post("contenido/recursos_humanos.html", function (html) {
-        $("#body-js").html(html);
-    }).done(function () {
-        // Para cargar modales y scripts necesarios
-        $.getScript("contenido/js/recursos_humanos.js");
-    });
+  await obtenerTitulo("Recursos Humanos");
+  $.post("contenido/recursos_humanos.html", function (html) {
+    $("#body-js").html(html);
+  }).done(function () {
+    // Para cargar modales y scripts necesarios
+    $.getScript("contenido/js/recursos_humanos.js");
+  });
 }
 
 var tableCatDepartamentos;
@@ -21,21 +19,21 @@ var tableCatMotivos;
 var tableCatRequisiciones;
 
 const dataTableCatRequisiciones = {
-    api: 2 // Case 2 para obtener requisiciones
+  api: 2, // Case 2 para obtener requisiciones
 };
 
 const dataTableCatDepartamentos = {
-    api: 6
+  api: 6,
 };
 
 const dataTableCatPuestos = {
-    api: 8 // Case 8 para obtener puestos
+  api: 8, // Case 8 para obtener puestos
 };
 
 const dataTableCatPuestosDetalles = {
-    api: 9 // Case 9 para obtener detalles de puestos
+  api: 9, // Case 9 para obtener detalles de puestos
 };
 
 const dataTableCatMotivos = {
-    api: 12 // Case 11 para obtener motivos
+  api: 12, // Case 11 para obtener motivos
 };
