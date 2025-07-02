@@ -102,9 +102,6 @@ switch ($api) {
             $id_paciente, $curp, $pasaporte, $id_turno, $idFranquicia
         ]);
 
-        $master->setLog($response, 'pacientes_api.php [case 2]');
-
-
         foreach ($response as $key => $value) {
             $value['ordenes'] = $master->decodeJson([$value['ordenes']]);
             $response[$key]['ordenes'] = $value['ordenes'];
@@ -112,7 +109,6 @@ switch ($api) {
 
         $response = $master->decodeJsonRecursively($response);
         $master->setLog($response, 'pacientes_api.php [case 3]');
-
         break;
     case 3:
         $medios = array_map('intval', explode(',', $medios_entrega));

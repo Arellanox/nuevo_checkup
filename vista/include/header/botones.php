@@ -46,7 +46,6 @@ $menu = $_POST['menu']; ?>
 <?php if ($menu == "Menú principal" ||
     $menu == "Reporte de Excel" ||
     $menu == "Reporte de Excel Laboratorios"
-
 ) : ?>
     <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" data-bs-toggle="modal"
             data-bs-target="#modalFiltrarTabla">

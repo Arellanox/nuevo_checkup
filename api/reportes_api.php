@@ -18,16 +18,11 @@ $cliente_id = $master->setToNull([$_POST['id_cliente']])[0];
 $area_id = $master->setToNull([$_POST['area_id']])[0];
 $servicio_id = $master->setToNull([$_POST['servicio_id']])[0];
 
+$tipo_cliente = $master->setToNull([$_POST['tipo_cliente']])[0];
+$tiene_factura = $master->setToNull([$_POST['tiene_factura']])[0];
+
 switch ($api) {
     case 1:
-        # reporte laboratorios
-        // var_dump( [
-        //     $fecha_inicio,
-        //     $fecha_final,
-        //     $cliente_id,
-        //     $area_id,
-        //     $servicio_id
-        // ]);
         $response = $master->getByProcedure('sp_reportes_laboratorio', [
             $fecha_inicio,
             $fecha_final,
@@ -36,7 +31,16 @@ switch ($api) {
             $servicio_id
         ]);
         break;
-    
+    case 2: #Obtener reporte de areas checkups
+        $response = $master->getByProcedure('sp_obtener_reporte_areas_b', [
+            $fecha_inicio,
+            $fecha_final,
+            $cliente_id,
+            $area_id,
+            $tipo_cliente,
+            $tiene_factura
+        ]);
+        break;
     default:
         # code...
         break;
