@@ -42,6 +42,7 @@ $tipo_contrato = isset($_POST['tipo_contrato']) ? trim($_POST['tipo_contrato']) 
 $tipo_jornada = isset($_POST['tipo_jornada']) ? trim($_POST['tipo_jornada']) : '';
 $escolaridad_minima = isset($_POST['escolaridad_minima']) ? trim($_POST['escolaridad_minima']) : '';
 $experiencia_anos = isset($_POST['experiencia_anos']) ? trim($_POST['experiencia_anos']) : '';
+$experiencia_anios = isset($_POST['experiencia_anios']) ? trim($_POST['experiencia_anios']) : '';
 $experiencia_area = isset($_POST['experiencia_area']) ? trim($_POST['experiencia_area']) : null;
 $conocimientos_tecnicos = isset($_POST['conocimientos_tecnicos']) ? trim($_POST['conocimientos_tecnicos']) : null;
 $habilidades_blandas = isset($_POST['habilidades_blandas']) ? trim($_POST['habilidades_blandas']) : null;
@@ -49,6 +50,9 @@ $idiomas = isset($_POST['idiomas']) ? trim($_POST['idiomas']) : null;
 $horario_trabajo = isset($_POST['horario_trabajo']) ? trim($_POST['horario_trabajo']) : '';
 $rango_salarial = isset($_POST['rango_salarial']) ? trim($_POST['rango_salarial']) : null;
 $observaciones_aprobacion = isset($_POST['observaciones_aprobacion']) ? trim($_POST['observaciones_aprobacion']) : null;
+
+# Variable para la editar requisición de personal
+$usuario_aprobador_id = isset($_POST['usuario_aprobador_id']) && $_POST['usuario_aprobador_id'] !== '' ? (int)$_POST['usuario_aprobador_id'] : null;
 
 # Variables adicionales para puestos (detalles)
 $objetivos = isset($_POST['objetivos']) ? trim($_POST['objetivos']) : '';
@@ -117,7 +121,10 @@ switch ($api) {
                 $habilidades_blandas,     // Habilidades blandas
                 $idiomas,                 // Idiomas
                 $horario_trabajo,         // Horario de trabajo
-                $rango_salarial          // Rango salarial
+                $rango_salarial,        // Rango salarial
+                // Parametros de aprobación
+                $usuario_aprobador_id,    // ID del usuario aprobador
+                $observaciones_aprobacion // Observaciones de aprobación
             ]);
 
             // VERIFICAR si hay errores del stored procedure
@@ -189,7 +196,12 @@ switch ($api) {
         $response = $master->insertByProcedure("sp_rh_cat_puestos_g", [
             $id_puesto,
             $descripcion,
+            $escolaridad_minima,
+            $experiencia_anios,
             $id_departamento,
+            $objetivos,
+            $competencias,
+            $banda_salarial,
             $activo
         ]);
         break;
@@ -203,15 +215,17 @@ switch ($api) {
             $id_puesto
         ]);
         break;
-    case 10:
-        # actualizar detalles de puesto
-        $response = $master->updateByProcedure("sp_rh_cat_puestos_detalles_u", [
-            $id_puesto,
-            $objetivos,
-            $competencias,
-            $banda_salarial
-        ]);
-        break;
+    // case 10:
+    //     # actualizar detalles de puesto
+    //     $response = $master->updateByProcedure("sp_rh_cat_puestos_detalles_u", [
+    //         $id_puesto,
+    //         $escolaridad_minima,
+    //         $experiencia_anios,
+    //         $objetivos,
+    //         $competencias,
+    //         $banda_salarial
+    //     ]);
+    //     break;
     case 11:
         # Registrar un motivo
         $response = $master->insertByProcedure("sp_rh_cat_motivos_g", [

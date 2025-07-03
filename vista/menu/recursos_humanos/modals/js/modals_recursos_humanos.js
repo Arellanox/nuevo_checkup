@@ -192,85 +192,114 @@ $("#registrarMotivoForm").submit(function (event) {
 // Registrar una nueva vacante/requisición
 // Poner aqui la logica para registrar una nueva vacante
 
-//Ver/Editar detalles de un puesto en requisición
-// Editar Detalles del Puesto
-$("#editarDetallesPuestoForm").submit(function (event) {
-  event.preventDefault();
 
-  var form = document.getElementById("editarDetallesPuestoForm");
-  var formData = new FormData(form);
+// // Editar Detalles del Puesto
+// $("#editarDetallesPuestoForm").submit(function (event) {
+//   event.preventDefault();
 
-  // Obtener valores del formulario
-  let puestoId = $("#detallePuestoId").val();
-  let objetivos = $("#objetivosPuesto").val().trim();
-  let competencias = $("#competenciasPuesto").val().trim();
-  let bandaSalarial = $("#bandaSalarialPuesto").val().trim();
-  let puestoNombre = $("#puestoNombreDetalle").val();
+//   var form = document.getElementById("editarDetallesPuestoForm");
+//   var formData = new FormData(form);
 
-  // Validación básica
-  if (!puestoId) {
-    alertToast("Error: No se encontró el ID del puesto", "error", 3000);
-    return;
-  }
+//   // Obtener valores del formulario - USANDO LOS NUEVOS IDs
+//   let puestoId = $("#detallePuestoId").val();
+//   let escolaridadMinima = $("#detalle_escolaridad_minima").val(); // NUEVO ID
+//   let experienciaAnios = $("#detalle_experiencia_anios").val(); // NUEVO ID
+//   let objetivos = $("#objetivosPuesto").val().trim();
+//   let competencias = $("#competenciasPuesto").val().trim();
+//   let bandaSalarial = $("#bandaSalarialPuesto").val().trim();
+//   let puestoNombre = $("#puestoNombreDetalle").val();
 
-  console.log("Valores a enviar:");
-  console.log("ID Puesto:", puestoId);
-  console.log("Objetivos:", objetivos);
-  console.log("Competencias:", competencias);
-  console.log("Banda Salarial:", bandaSalarial);
+//   // DEBUG: Verificar los valores obtenidos
+//   console.log("=== DEBUG EDITAR DETALLES PUESTO ===");
+//   console.log("Puesto ID:", puestoId);
+//   console.log("Escolaridad Mínima:", escolaridadMinima);
+//   console.log("Experiencia Años:", experienciaAnios);
+//   console.log("Objetivos:", objetivos);
+//   console.log("Competencias:", competencias);
+//   console.log("Banda Salarial:", bandaSalarial);
+//   console.log("Puesto Nombre:", puestoNombre);
 
-  alertMensajeConfirm(
-    {
-      title: "¿Está a punto de actualizar los detalles del puesto?",
-      text: `Se actualizarán los detalles del puesto: ${puestoNombre}`,
-      icon: "warning",
-    },
-    function () {
-      ajaxAwaitFormData(
-        {
-          api: 10, // Usar el API 10 que definimos para actualizar detalles
-          id_puesto: puestoId,
-          objetivos: objetivos,
-          competencias: competencias,
-          banda_salarial: bandaSalarial,
-        },
-        "recursos_humanos_api",
-        "editarDetallesPuestoForm",
-        { callbackAfter: true },
-        false,
-        function (data) {
-          if (data.response.code == 1) {
-            $("#editarDetallesPuestoForm")[0].reset();
-            $("#editarDetallesPuestoModal").modal("hide");
-            alertToast(
-              "Detalles del puesto actualizados exitosamente!",
-              "success",
-              4000
-            );
+//   // Validación básica
+//   if (!puestoId) {
+//     alertToast("Error: No se encontró el ID del puesto", "error", 3000);
+//     return;
+//   }
 
-            // Recargar las tablas relacionadas
-            if (tableCatPuestosDetalles) tableCatPuestosDetalles.ajax.reload();
-            if (tableCatPuestos) tableCatPuestos.ajax.reload();
+//   // Validaciones adicionales para los nuevos campos
+//   if (!escolaridadMinima || escolaridadMinima.trim() === '') {
+//     alertToast("La escolaridad mínima es obligatoria", "warning", 3000);
+//     $("#detalle_escolaridad_minima").focus();
+//     return;
+//   }
 
-            // Si existe una función para recargar selects de puestos en otros modales
-            if (typeof cargarPuestosVacanteSelect === "function") {
-              cargarPuestosVacanteSelect();
-            }
-          } else {
-            alertToast(
-              data.response.message ||
-                "Error al actualizar los detalles del puesto",
-              "error",
-              4000
-            );
-          }
-        }
-      );
-    }
-  );
+//   if (!experienciaAnios || experienciaAnios.trim() === '') {
+//     alertToast("Los años de experiencia son obligatorios", "warning", 3000);
+//     $("#detalle_experiencia_anios").focus();
+//     return;
+//   }
 
-  return false;
-});
+//   console.log("Valores a enviar:");
+//   console.log("ID Puesto:", puestoId);
+//   console.log("Escolaridad Mínima:", escolaridadMinima);
+//   console.log("Experiencia Años:", experienciaAnios);
+//   console.log("Objetivos:", objetivos);
+//   console.log("Competencias:", competencias);
+//   console.log("Banda Salarial:", bandaSalarial);
+
+//   alertMensajeConfirm(
+//     {
+//       title: "¿Está a punto de actualizar los detalles del puesto?",
+//       text: `Se actualizarán los detalles del puesto: ${puestoNombre}`,
+//       icon: "warning",
+//     },
+//     function () {
+//       ajaxAwaitFormData(
+//         {
+//           api: 10, // Usar el API 10 que definimos para actualizar detalles
+//           id_puesto: puestoId,
+//           escolaridad_minima: escolaridadMinima,
+//           experiencia_anios: experienciaAnios,
+//           objetivos: objetivos,
+//           competencias: competencias,
+//           banda_salarial: bandaSalarial,
+//         },
+//         "recursos_humanos_api",
+//         "editarDetallesPuestoForm",
+//         { callbackAfter: true },
+//         false,
+//         function (data) {
+//           if (data.response.code == 1) {
+//             $("#editarDetallesPuestoForm")[0].reset();
+//             $("#editarDetallesPuestoModal").modal("hide");
+//             alertToast(
+//               "Detalles del puesto actualizados exitosamente!",
+//               "success",
+//               4000
+//             );
+
+//             // Recargar las tablas relacionadas
+//             if (tableCatPuestosDetalles) tableCatPuestosDetalles.ajax.reload();
+//             if (tableCatPuestos) tableCatPuestos.ajax.reload();
+
+//             // Si existe una función para recargar selects de puestos en otros modales
+//             if (typeof cargarPuestosVacanteSelect === "function") {
+//               cargarPuestosVacanteSelect();
+//             }
+//           } else {
+//             alertToast(
+//               data.response.message ||
+//                 "Error al actualizar los detalles del puesto",
+//               "error",
+//               4000
+//             );
+//           }
+//         }
+//       );
+//     }
+//   );
+
+//   return false;
+// });
 
 // Evento para registrar una nueva vacante
 // Registrar una nueva requisición de vacante - VARIABLES UNIFICADAS
@@ -425,68 +454,3 @@ $("#formRegistrarVacante").submit(function (event) {
     return false;
 });
 
-// Event handlers para los botones de detalles de puestos
-$(document).on("click", ".btn-ver-detalles-puesto", function () {
-  const puestoId = $(this).data("id");
-  const puestoNombre = $(this).data("nombre");
-
-  console.log("Ver detalles del puesto:", puestoId, puestoNombre);
-
-  // Filtrar la tabla de detalles por el puesto seleccionado
-  if (typeof dataTableCatPuestosDetalles !== "undefined") {
-    dataTableCatPuestosDetalles.id_puesto = puestoId;
-    tableCatPuestosDetalles.ajax.reload();
-  }
-
-  $("#detallesPuestoModalLabel").text(`Detalles del Puesto: ${puestoNombre}`);
-  $("#detallesPuestoModal").modal("show");
-});
-
-$(document).on("click", ".btn-editar-detalles-puesto", function () {
-  const puestoId = $(this).data("id");
-  const puestoNombre = $(this).data("nombre");
-  const objetivos = $(this).data("objetivos") || "";
-  const competencias = $(this).data("competencias") || "";
-  const banda = $(this).data("banda") || "";
-
-  console.log("Editar detalles del puesto:", puestoId, puestoNombre);
-  console.log("Datos actuales:", { objetivos, competencias, banda });
-
-  // Llenar el formulario con los datos actuales
-  $("#detallePuestoId").val(puestoId);
-  $("#puestoNombreDetalle").val(puestoNombre);
-  $("#objetivosPuesto").val(objetivos);
-  $("#competenciasPuesto").val(competencias);
-  $("#bandaSalarialPuesto").val(banda);
-
-  $("#editarDetallesPuestoModalLabel").text(`Editar Detalles: ${puestoNombre}`);
-  $("#editarDetallesPuestoModal").modal("show");
-});
-
-// Limpiar formulario cuando se cierre el modal de editar detalles
-$("#editarDetallesPuestoModal").on("hidden.bs.modal", function () {
-  $("#editarDetallesPuestoForm")[0].reset();
-
-  // Si hay una bandera para reabrir el modal de catálogos
-  if (
-    typeof debeReabrirModalRequisicion !== "undefined" &&
-    debeReabrirModalRequisicion
-  ) {
-    setTimeout(function () {
-      $("#registrarCatalogoModal").modal("show");
-    }, 300);
-  }
-});
-
-// Limpiar datos cuando se cierre el modal de ver detalles
-$("#detallesPuestoModal").on("hidden.bs.modal", function () {
-  // Si hay una bandera para reabrir el modal de catálogos
-  if (
-    typeof debeReabrirModalRequisicion !== "undefined" &&
-    debeReabrirModalRequisicion
-  ) {
-    setTimeout(function () {
-      $("#registrarCatalogoModal").modal("show");
-    }, 300);
-  }
-});

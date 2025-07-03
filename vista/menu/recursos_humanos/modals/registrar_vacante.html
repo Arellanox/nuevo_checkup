@@ -112,11 +112,22 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="tipo_modalidad" class="form-label">Tipo de Modalidad</label>
+                                        <select class="form-select rounded-3 border-2" id="tipo_modalidad" name="tipo_modalidad" required>
+                                            <option value="">Seleccionar tipo...</option>
+                                            <option value="presencial">Presencial</option>
+                                            <option value="remoto">Remoto</option>
+                                            <option value="hibrido">Híbrido</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- PERFIL DESEADO -->
+                    <!-- PERFIL DESEADO ahora se utiliza desde puestos
                     <div class="card mb-4 border-0 shadow-sm">
                         <div class="card-header bg-radient-custom border-0" style="color: #004E59;">
                             <h6 class="mb-0 fw-bold"><i class="bi bi-person-badge me-2"></i>Perfil Deseado</h6>
@@ -171,7 +182,7 @@
                                 <input type="text" class="form-control rounded-3 border-2" id="idiomas" name="idiomas" placeholder="Ej: Inglés intermedio, Francés básico...">
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- CONDICIONES LABORALES -->
                     <div class="card mb-4 border-0 shadow-sm">
@@ -183,13 +194,38 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="horario_trabajo" class="form-label">Horario de Trabajo</label>
-                                        <input type="text" class="form-control rounded-3 border-2" id="horario_trabajo" name="horario_trabajo" placeholder="Ej: 8:00 AM - 5:00 PM, L-V" required>
+                                        <div class="input-group">
+                                            <select class="form-select rounded-3 border-2" id="dias_trabajo" name="dias_trabajo" required>
+                                                <option value="">Seleccionar días...</option>
+                                                <option value="L-V">Lunes a Viernes</option>
+                                                <option value="L-S">Lunes a Sábado</option>
+                                                <option value="L-D">Lunes a Domingo</option>
+                                                <option value="Fines de semana">Fines de semana</option>
+                                                <option value="Otro">Otro</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <!-- Input para días personalizados (inicialmente oculto) -->
+                                        <div class="input-group mt-2" id="dias_personalizados_container" style="display: none;">
+                                            <input type="text" class="form-control rounded-3 border-2" id="dias_personalizados" name="dias_personalizados" placeholder="Especifique los días de trabajo...">
+                                        </div>
+                                        
+                                        <div class="input-group mt-2">
+                                            <input type="time" class="form-control rounded-3 border-2" id="hora_inicio" name="hora_inicio" required>
+                                            <span class="input-group-text">a</span>
+                                            <input type="time" class="form-control rounded-3 border-2" id="hora_fin" name="hora_fin" required>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="rango_salarial" class="form-label">Rango Salarial (Opcional)</label>
-                                        <input type="text" class="form-control rounded-3 border-2" id="rango_salarial" name="rango_salarial" placeholder="Ej: $15,000 - $25,000">
+                                        <label class="form-label">Rango Salarial (Opcional)</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <input type="number" class="form-control rounded-3 border-2" id="salario_min" name="salario_min" placeholder="Mínimo" min="0" step="100">
+                                            <span class="input-group-text">-</span>
+                                            <input type="number" class="form-control rounded-3 border-2" id="salario_max" name="salario_max" placeholder="Máximo" min="0" step="100">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -199,11 +235,11 @@
                     <!-- JUSTIFICACIÓN -->
                     <div class="card mb-4 border-0 shadow-sm">
                         <div class="card-header bg-radient-custom border-0" style="color: #004E59;">
-                            <h6 class="mb-0 fw-bold"><i class="bi bi-justify-left me-2"></i>Justificación</h6>
+                            <h6 class="mb-0 fw-bold"><i class="bi bi-justify-left me-2"></i>Descripción</h6>
                         </div>
                         <div class="card-body">
                             <div class="mb-3">
-                                <label for="justificacion" class="form-label">Justificación de la Requisición</label>
+                                <label for="justificacion" class="form-label">Descripción de la Requisición</label>
                                 <textarea class="form-control rounded-3 border-2" id="justificacion" name="justificacion" rows="4" placeholder="Explique las razones por las cuales se requiere cubrir esta vacante..." required></textarea>
                             </div>
                         </div>
@@ -284,17 +320,17 @@ $(document).on('click', '#btnCatalogoPuestos', function(e) {
             setTimeout(function() {
                 $("#registrarCatalogoModal").modal("show");
                 
-                // Cuando se abra el modal de catálogos, cambiar a la pestaña de departamentos
+                // Cuando se abra el modal de catálogos, cambiar a la pestaña de puestos
                 $("#registrarCatalogoModal").on('shown.bs.modal', function() {
                     $(this).off('shown.bs.modal'); // Remover listener
                     $("#puestos-tab").tab("show");
-                    console.log("Modal de catálogos abierto y pestaña de departamentos activada");
+                    console.log("Modal de catálogos abierto y pestaña de puestos activada");
                     
-                    // Después de activar la pestaña, abrir el modal de registro
-                    setTimeout(function() {
-                        $("#registrarPuestoModal").modal("show");
-                        console.log("Modal de registro de puestos abierto automáticamente");
-                    }, 500); // Esperar un poco más para que se establezca la pestaña
+                    // // Después de activar la pestaña, abrir el modal de registro
+                    // setTimeout(function() {
+                    //     $("#registrarPuestoModal").modal("show");
+                    //     console.log("Modal de registro de puestos abierto automáticamente");
+                    // }, 500); // Esperar un poco más para que se establezca la pestaña
                 });
             }, 300);
         }
@@ -366,6 +402,45 @@ $("#registrarDepartamentoModal").on('hidden.bs.modal', function() {
         // No hacer nada aquí, dejar que el modal de catálogos maneje el flujo
         // El modal de catálogos seguirá abierto en segundo plano
     }
+});
+
+$(document).ready(function() {
+    // Event listener para el select de días de trabajo
+    $('#dias_trabajo').on('change', function() {
+        var valorSeleccionado = $(this).val();
+        var containerDiasPersonalizados = $('#dias_personalizados_container');
+        var inputDiasPersonalizados = $('#dias_personalizados');
+        
+        console.log('Días de trabajo seleccionado:', valorSeleccionado);
+        
+        if (valorSeleccionado === 'Otro') {
+            // Mostrar el input para días personalizados con animación
+            containerDiasPersonalizados.slideDown(300);
+            inputDiasPersonalizados.attr('required', true);
+            inputDiasPersonalizados.focus(); // Enfocar automáticamente el input
+            
+            // Agregar clase para destacar
+            containerDiasPersonalizados.addClass('campo-personalizado');
+            
+        } else {
+            // Ocultar el input para días personalizados
+            containerDiasPersonalizados.slideUp(300);
+            inputDiasPersonalizados.removeAttr('required');
+            inputDiasPersonalizados.val(''); // Limpiar el valor
+            
+            // Remover clase de destacado
+            containerDiasPersonalizados.removeClass('campo-personalizado');
+        }
+    });
+    
+    // Limpiar campos cuando se cierre el modal
+    $('#registrarVacanteModal').on('hidden.bs.modal', function() {
+        $('#dias_trabajo').val('');
+        $('#dias_personalizados_container').hide();
+        $('#dias_personalizados').removeAttr('required').val('');
+        $('#hora_inicio').val('');
+        $('#hora_fin').val('');
+    });
 });
 </script>
 

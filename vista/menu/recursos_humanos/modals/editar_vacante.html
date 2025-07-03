@@ -42,13 +42,7 @@
                                         <label for="editar_estatus" class="form-label fw-bold">Estado de la Requisición</label>
                                         <select class="form-select rounded-3 border-2" id="editar_estatus" name="estatus" required>
                                             <option value="borrador">Borrador</option>
-                                            <option value="pendiente">Pendiente</option>
-                                            <option value="aprobada">Aprobada</option>
-                                            <option value="rechazada">Rechazada</option>
                                             <option value="en_proceso">En Proceso</option>
-                                            <option value="completada">Completada</option>
-                                            <option value="pausada">Pausada</option>
-                                            <option value="cancelada">Cancelada</option>
                                         </select>
                                     </div>
                                 </div>
@@ -230,13 +224,31 @@
 
                     <!-- OBSERVACIONES DE APROBACIÓN (Solo visible si es necesario) -->
                     <div class="card mb-4 border-0 shadow-sm" id="editar_seccion_observaciones" style="display: none;">
-                        <div class="card-header bg-gradient-secondary text-white border-0">
-                            <h6 class="mb-0 fw-bold"><i class="bi bi-chat-dots me-2"></i>Observaciones</h6>
+                        <div class="card-header bg-gradient-info text-white border-0">
+                            <h6 class="mb-0 fw-bold"><i class="bi bi-check-circle me-2"></i>Información de Aprobación</h6>
                         </div>
                         <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Estado Actual</label>
+                                        <div class="p-3 bg-light rounded border">
+                                            <span id="editar_estatus_display" class="badge bg-secondary fs-6">Borrador</span>
+                                        </div>
+                                        <div class="form-text">
+                                            <i class="bi bi-clock me-1"></i>
+                                            La fecha de aprobación se registrará automáticamente con su usuario
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="mb-3">
-                                <label for="editar_observaciones_aprobacion" class="form-label">Observaciones de Aprobación/Rechazo</label>
-                                <textarea class="form-control rounded-3 border-2" id="editar_observaciones_aprobacion" name="observaciones_aprobacion" rows="3" placeholder="Agregar observaciones sobre la aprobación o rechazo..."></textarea>
+                                <label for="editar_observaciones_aprobacion" class="form-label fw-bold">Observaciones de Aprobación/Rechazo</label>
+                                <textarea class="form-control rounded-3 border-2" id="editar_observaciones_aprobacion" name="observaciones_aprobacion" rows="3" placeholder="Agregar observaciones sobre la aprobación, rechazo o comentarios adicionales..."></textarea>
+                                <div class="form-text">
+                                    <i class="bi bi-pencil me-1"></i>
+                                    Opcional: Agregue comentarios sobre la decisión tomada
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -256,6 +268,100 @@
 </div>
 
 <script>
+$(document).ready(function() {
+    // Evento para manejar el cambio de estado de la requisición
+    $('#editar_estatus').on('change', function() {
+        var estatusSeleccionado = $(this).val();
+        var seccionObservaciones = $('#editar_seccion_observaciones');
+        var estatusDisplay = $('#editar_estatus_display');
+        
+        console.log('Estado seleccionado:', estatusSeleccionado);
+        
+        // Actualizar el badge de estado
+        actualizarBadgeEstado(estatusSeleccionado, estatusDisplay);
+        
+        // Mostrar/ocultar sección de aprobación según el estado
+        if (estatusSeleccionado && estatusSeleccionado !== 'borrador') {
+            // Mostrar sección de aprobación con animación
+            seccionObservaciones.slideDown(300);
+            
+            // Mostrar mensaje de ayuda según el estado
+            if (estatusSeleccionado === 'en_proceso') {
+                mostrarMensajeAyuda('La requisición está en proceso de reclutamiento', 'info');
+            }
+            
+        } else {
+            // Ocultar sección de aprobación
+            seccionObservaciones.slideUp(300);
+            
+            // Limpiar campos de aprobación
+            $('#editar_observaciones_aprobacion').val('');
+        }
+    });
+    
+    // Función para actualizar el badge de estado
+    function actualizarBadgeEstado(estado, elemento) {
+        var clases = {
+            'borrador': 'bg-secondary',
+            'en_proceso': 'bg-info'
+        };
+        
+        var textos = {
+            'borrador': 'Borrador',
+            'en_proceso': 'En Proceso'
+        };
+        
+        elemento.removeClass().addClass('badge ' + (clases[estado] || 'bg-secondary') + ' fs-6');
+        elemento.text(textos[estado] || 'Desconocido');
+    }
+    
+    // Función para mostrar mensajes de ayuda
+    function mostrarMensajeAyuda(mensaje, tipo) {
+        // Remover mensaje anterior si existe
+        $('#mensaje-ayuda-estado').remove();
+        
+        var alertClass = 'alert-' + tipo;
+        var iconos = {
+            'info': 'bi-info-circle'
+        };
+        
+        var icono = iconos[tipo] || 'bi-info-circle';
+        
+        var mensajeHtml = `
+            <div class="alert ${alertClass} alert-dismissible fade show mt-2" role="alert" id="mensaje-ayuda-estado">
+                <i class="bi ${icono} me-2"></i>
+                ${mensaje}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        `;
+        
+        $('#editar_seccion_observaciones .card-body').prepend(mensajeHtml);
+        
+        // Auto-ocultar después de 5 segundos
+        setTimeout(function() {
+            $('#mensaje-ayuda-estado').fadeOut();
+        }, 5000);
+    }
+    
+    // Función para inicializar el estado al abrir el modal
+    function inicializarEstadoModal() {
+        var estatusActual = $('#editar_estatus').val();
+        if (estatusActual && estatusActual !== 'borrador') {
+            $('#editar_estatus').trigger('change');
+        }
+    }
+    
+    // Evento cuando se abre el modal
+    $('#editarVacanteModal').on('shown.bs.modal', function() {
+        inicializarEstadoModal();
+    });
+    
+    // Limpiar campos cuando se cierre el modal
+    $('#editarVacanteModal').on('hidden.bs.modal', function() {
+        $('#editar_seccion_observaciones').hide();
+        $('#mensaje-ayuda-estado').remove();
+    });
+});
 </script>
 
 <style>

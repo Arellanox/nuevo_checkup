@@ -127,6 +127,11 @@
                     <th class="fw-bold">Departamento id</th>
                     <th class="fw-bold">Estado</th>
                     <th class="fw-bold">Acciones</th>
+                    <th class="fw-bold">Escolaridad Mínima</th>
+                    <th class="fw-bold">Experiencia (años)</th>
+                    <th class="fw-bold">Objetivos</th>
+                    <th class="fw-bold">Competencias</th>
+                    <th class="fw-bold">Banda Salarial</th>
                   </tr>
                 </thead>
                 <tbody></tbody>
@@ -321,7 +326,7 @@
   aria-labelledby="registrarPuestoModalLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content shadow-lg border-0">
       <div class="modal-header bg-gradient-info text-white border-0">
         <h5 class="modal-title fw-bold" id="registrarPuestoModalLabel">
@@ -337,48 +342,137 @@
       <div class="modal-body bg-light">
         <form id="registrarPuestoForm">
           <input type="hidden" id="puestoId" name="id_puesto" value="" />
-          <div class="mb-3">
-            <label for="marcaDescripcion" class="form-label"
-              >Nombre del Puesto</label
-            >
-            <input
-              type="text"
-              class="form-control rounded-3 border-2"
-              id="puestoDescripcion"
-              name="descripcion"
-              placeholder="Ingrese el nombre del puesto"
-              required
-            />
-            <div class="invalid-feedback">Este campo es obligatorio.</div>
-          </div>
-          <div class="mb-3">
-            <label for="id_departamento_puesto" class="form-label"
-              >Departamento</label
-            >
-            <select
-              class="form-select rounded-3 border-2"
-              id="id_departamento_puesto"
-              name="id_departamento"
-              required
-            >
-              <option value="">Seleccionar departamento...</option>
-              <!-- Opciones se cargan dinámicamente -->
-            </select>
-          </div>
-          <div class="mb-3">
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                id="puestoActivoCheck"
-                name="puestoActivoCheck"
-                checked
-              />
-              <label class="form-check-label" for="puestoActivoCheck">
-                Puesto activo
-              </label>
+
+          <!-- Sección 1: Información básica del puesto -->
+          <div class="card mb-3 border-0 shadow-sm">
+            <div class="card-header bg-gradient-info text-white">
+              <h6 class="mb-0 fw-bold">
+                <i class="bi bi-info-circle me-2"></i>Información Básica
+              </h6>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="puestoDescripcion" class="form-label">Nombre del Puesto</label>
+                    <input
+                      type="text"
+                      class="form-control rounded-3 border-2"
+                      id="puestoDescripcion"
+                      name="descripcion"
+                      placeholder="Ingrese el nombre del puesto"
+                      required
+                    />
+                    <div class="invalid-feedback">Este campo es obligatorio.</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="id_departamento_puesto" class="form-label">Departamento</label>
+                    <select
+                      class="form-select rounded-3 border-2"
+                      id="id_departamento_puesto"
+                      name="id_departamento"
+                      required
+                    >
+                      <option value="">Seleccionar departamento...</option>
+                      <!-- Opciones se cargan dinámicamente -->
+                    </select>
+                  </div>
+                  <!-- Puesto activo aquí debajo del nombre -->
+                  <div class="mb-3">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="puestoActivoCheck"
+                        name="puestoActivoCheck"
+                        checked
+                      />
+                      <label class="form-check-label" for="puestoActivoCheck">
+                        Puesto activo
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+
+          <!-- Sección 2: Perfil deseado -->
+          <div class="card mb-3 border-0 shadow-sm">
+            <div class="card-header bg-gradient-info text-white">
+              <h6 class="mb-0 fw-bold">
+                <i class="bi bi-person-badge me-2"></i>Perfil Deseado
+              </h6>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="detalle_escolaridad_minima" class="form-label">Escolaridad Mínima Requerida</label>
+                    <select class="form-select rounded-3 border-2" id="detalle_escolaridad_minima" name="escolaridad_minima" required>
+                      <option value="">Seleccionar escolaridad...</option>
+                      <option value="primaria">Primaria</option>
+                      <option value="secundaria">Secundaria</option>
+                      <option value="preparatoria">Preparatoria/Bachillerato</option>
+                      <option value="tecnico">Técnico</option>
+                      <option value="licenciatura">Licenciatura</option>
+                      <option value="maestria">Maestría</option>
+                      <option value="doctorado">Doctorado</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="detalle_experiencia_anios" class="form-label">Experiencia Laboral (años)</label>
+                    <select class="form-select rounded-3 border-2" id="detalle_experiencia_anios" name="experiencia_anios" required>
+                      <option value="">Seleccionar experiencia...</option>
+                      <option value="Sin experiencia">Sin experiencia</option>
+                      <option value="1 año">1 año</option>
+                      <option value="2 años">2 años</option>
+                      <option value="3 años">3 años</option>
+                      <option value="4 años">4 años</option>
+                      <option value="más de 5 años">Más de 5 años</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="objetivosPuesto" class="form-label">Objetivos</label>
+                <textarea
+                  class="form-control rounded-3 border-2"
+                  id="objetivosPuesto"
+                  name="objetivos"
+                  rows="4"
+                  placeholder="Ingrese los objetivos del puesto"
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="competenciasPuesto" class="form-label">Competencias</label>
+                <textarea
+                  class="form-control rounded-3 border-2"
+                  id="competenciasPuesto"
+                  name="competencias"
+                  rows="4"
+                  placeholder="Ingrese las competencias requeridas"
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="bandaSalarialPuesto" class="form-label">Banda Salarial</label>
+                <input
+                  type="text"
+                  class="form-control rounded-3 border-2"
+                  id="bandaSalarialPuesto"
+                  name="banda_salarial"
+                  placeholder="Ej: $15,000 - $25,000"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Sección 3: Estado del puesto (eliminada, ya está en la primera card) -->
+
         </form>
       </div>
       <div class="modal-footer bg-light border-0">
@@ -435,6 +529,8 @@
             <thead class="table-light">
               <tr>
                 <th class="fw-bold">Puesto</th>
+                <th class="fw-bold">Escolaridad Mínima</th>
+                <th class="fw-bold">Experiencia (años)</th>
                 <th class="fw-bold">Objetivos</th>
                 <th class="fw-bold">Competencias</th>
                 <th class="fw-bold">Banda Salarial</th>
@@ -459,7 +555,7 @@
 </div>
 
 <!-- Modal para Editar Detalles del Puesto -->
-<div
+<!-- <div
   class="modal fade"
   id="editarDetallesPuestoModal"
   tabindex="-1"
@@ -483,7 +579,7 @@
         <form id="editarDetallesPuestoForm">
           <input type="hidden" id="detallePuestoId" name="id_puesto" value="" />
 
-          <!-- <div class="mb-3">
+           <div class="mb-3">
             <label for="puestoNombreDetalle" class="form-label">Puesto</label>
             <input
               type="text"
@@ -491,7 +587,46 @@
               id="puestoNombreDetalle"
               readonly
             />
-          </div> -->
+          </div> 
+
+                     Requisitos del perfil 
+  
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="escolaridad_minima" class="form-label">Escolaridad Mínima Requerida</label>
+                    <select class="form-select rounded-3 border-2" id="detalle_escolaridad_minima" name="escolaridad_minima" required>
+                      <option value="">Seleccionar escolaridad...</option>
+                      <option value="primaria">Primaria</option>
+                      <option value="secundaria">Secundaria</option>
+                      <option value="preparatoria">Preparatoria/Bachillerato</option>
+                      <option value="tecnico">Técnico</option>
+                      <option value="licenciatura">Licenciatura</option>
+                      <option value="maestria">Maestría</option>
+                      <option value="doctorado">Doctorado</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="experiencia_anios" class="form-label">Experiencia Laboral (años)</label>
+                      <select class="form-select rounded-3 border-2" id="detalle_experiencia_anios" name="experiencia_anios" required>
+                      <option value="">Seleccionar experiencia...</option>
+                      <option value="Sin experiencia">Sin experiencia</option>
+                      <option value="1 año">1 año</option>
+                      <option value="2 años">2 años</option>
+                      <option value="3 años">3 años</option>
+                      <option value="4 años">4 años</option>
+                      <option value="más de 5 años">Más de 5 años</option>
+                      </select>
+                  </div>
+                </div>
+                  <div class="mb-3">
+                    <label for="idiomas" class="form-label">Idiomas Requeridos</label>
+                    <input type="text" class="form-control rounded-3 border-2" id="idiomas" name="idiomas" placeholder="Ej: Inglés intermedio, Francés básico...">
+                  </div> 
+              </div>
+            
 
           <div class="mb-3">
             <label for="objetivosPuesto" class="form-label">Objetivos</label>
@@ -550,7 +685,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- Modal para Registrar/Editar Motivo -->
 <div

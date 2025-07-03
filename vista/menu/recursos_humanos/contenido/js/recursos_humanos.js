@@ -151,6 +151,9 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
         { data: "idiomas"},
         { data: "horario_trabajo"},
         { data: "rango_salarial"},
+        { data: "usuario_aprobador_id"},
+        { data: "fecha_aprobacion"},
+        { data: "observaciones_aprobacion"},
         {
             data: null,
             title: "Acciones",
@@ -205,7 +208,10 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
         { targets: 16, title: "Idiomas", visible: false },
         { targets: 17, title: "Horario Trabajo", visible: false },
         { targets: 18, title: "Rango Salarial", visible: false },
-        { targets: 19, title: "Acciones", className: "all" }
+        { targets: 19, title: "ID Usuario Aprobador", visible: false },
+        { targets: 20, title: "Fecha Aprobación", visible: false },
+        { targets: 21, title: "Observaciones Aprobación", visible: false },
+        { targets: 22, title: "Acciones", className: "all" }
     ],
     dom: 'Bl<"dataTables_toolbar">frtip',
     buttons: [
@@ -343,8 +349,13 @@ tableCatPuestos = $("#tableCatPuestos").DataTable({
   columns: [
     { data: "id_puesto" },
     { data: "descripcion" },
+    { data: "escolaridad_minima", visible: false },
+    { data: "experiencia_anios", visible: false },
     { data: "departamento_nombre" },
     { data: "departamento_id", visible: false },
+    { data: "objetivos", visible: false },
+    { data: "competencias", visible: false },
+    {data: "banda_salarial", visible: false},
     {
       data: "activo",
       render: function (data) {
@@ -366,8 +377,13 @@ tableCatPuestos = $("#tableCatPuestos").DataTable({
           </button>
           <button class="btn btn-sm btn-primary bg-gradient-warning btn-editar-puesto" 
               data-id="${row.id_puesto}" 
+              data-escolaridad="${row.escolaridad_minima || ""}"
+              data-experiencia="${row.experiencia_anios || ""}"
               data-descripcion="${row.descripcion}" 
               data-departamento="${row.id_departamento}"
+              data-objetivos="${row.objetivos || ""}"
+              data-competencias="${row.competencias || ""}"
+              data-banda="${row.banda_salarial || ""}"
               data-activo="${row.activo}">
             <i class="bi bi-pencil"></i>
           </button>
@@ -410,20 +426,19 @@ tableCatPuestos = $("#tableCatPuestos").DataTable({
     { targets: -1, className: "text-center align-middle" } // acciones
   ]
 });
-
 // Nueva DataTable para detalles de puestos
 tableCatPuestosDetalles = $("#tableCatPuestosDetalles").DataTable({
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
   },
-  autoWidth: false, // Cambiar a false para mejor control
+  autoWidth: false,
   lengthChange: false,
   info: true,
   paging: true,
   pageLength: 5,
   scrollY: "40vh",
   scrollCollapse: true,
-  scrollX: true, // Agregar scroll horizontal para contenido amplio
+  scrollX: true,
   ajax: {
     dataType: "json",
     data: function (d) {
@@ -441,11 +456,12 @@ tableCatPuestosDetalles = $("#tableCatPuestosDetalles").DataTable({
       data: "descripcion",
       width: "15%",
     },
+    { data: "escolaridad_minima", width: "10%" },
+    { data: "experiencia_anios", width: "10%" },
     {
       data: "objetivos",
       width: "30%",
       render: function (data) {
-        // Mostrar el texto completo sin truncar
         return data || "Sin objetivos";
       },
     },
@@ -453,7 +469,6 @@ tableCatPuestosDetalles = $("#tableCatPuestosDetalles").DataTable({
       data: "competencias",
       width: "30%",
       render: function (data) {
-        // Mostrar el texto completo sin truncar
         return data || "Sin competencias";
       },
     },
@@ -471,6 +486,8 @@ tableCatPuestosDetalles = $("#tableCatPuestosDetalles").DataTable({
         return `
           <button class="btn btn-sm btn-primary bg-gradient-warning btn-editar-detalles-puesto" 
                   data-id="${row.id_puesto}" 
+                  data-escolaridad="${row.escolaridad_minima || ""}"
+                  data-experiencia="${row.experiencia_anios || ""}"
                   data-nombre="${row.descripcion}"
                   data-objetivos="${row.objetivos || ""}"
                   data-competencias="${row.competencias || ""}"
@@ -483,22 +500,7 @@ tableCatPuestosDetalles = $("#tableCatPuestosDetalles").DataTable({
   ],
   dom: "Bfrtip",
   columnDefs: [
-    {
-      targets: [1, 2], // Columnas de objetivos y competencias
-      render: function (data, type, row) {
-        if (type === "display") {
-          // Para mostrar en pantalla, usar el texto completo con saltos de línea
-          return data
-            ? '<div style="white-space: pre-wrap; word-wrap: break-word; max-width: none;">' +
-                data +
-                "</div>"
-            : row === 1
-            ? "Sin objetivos"
-            : "Sin competencias";
-        }
-        return data; // Para otros tipos (sorting, filtering) usar el dato original
-      },
-    },
+    { targets: "_all", className: "text-center align-middle" }
   ],
 });
 
@@ -1021,17 +1023,45 @@ $(document).on("click", ".btn-eliminar-departamento", function () {
   );
 });
 
-// Editar puesto
+// Editar puesto - UNIFICADO CON TODOS LOS CAMPOS
 $(document).on("click", ".btn-editar-puesto", function () {
   var puestoId = $(this).data("id");
   var descripcion = $(this).data("descripcion");
   var departamentoId = $(this).data("departamento");
   var activo = $(this).data("activo");
+  
+  // Datos adicionales de perfil del puesto
+  var escolaridadMinima = $(this).data("escolaridad") || "";
+  var experienciaAnios = $(this).data("experiencia") || "";
+  var objetivos = $(this).data("objetivos") || "";
+  var competencias = $(this).data("competencias") || "";
+  var bandaSalarial = $(this).data("banda") || "";
 
+  console.log("=== DEBUG EDITAR PUESTO UNIFICADO ===");
+  console.log("Puesto ID:", puestoId);
+  console.log("Descripción:", descripcion);
+  console.log("Departamento ID:", departamentoId);
+  console.log("Activo:", activo);
+  console.log("Escolaridad Mínima:", escolaridadMinima);
+  console.log("Experiencia Años:", experienciaAnios);
+  console.log("Objetivos:", objetivos);
+  console.log("Competencias:", competencias);
+  console.log("Banda Salarial:", bandaSalarial);
+
+  // Cambiar título del modal
   $("#registrarPuestoModalLabel").text("Editar Puesto");
+  
+  // Llenar campos básicos del puesto
   $("#puestoId").val(puestoId);
   $("#puestoDescripcion").val(descripcion);
   $("#puestoActivoCheck").prop("checked", activo == 1);
+
+  // Llenar campos de perfil del puesto
+  $("#detalle_escolaridad_minima").val(escolaridadMinima);
+  $("#detalle_experiencia_anios").val(experienciaAnios);
+  $("#objetivosPuesto").val(objetivos);
+  $("#competenciasPuesto").val(competencias);
+  $("#bandaSalarialPuesto").val(bandaSalarial);
 
   // CORREGIDO: Cargar departamentos y DESPUÉS seleccionar el correcto
   cargarDepartamentos('#id_departamento_puesto')
@@ -1041,6 +1071,16 @@ $(document).on("click", ".btn-editar-puesto", function () {
       // Preseleccionar el departamento DESPUÉS de cargar las opciones
       $("#id_departamento_puesto").val(departamentoId);
       console.log(`Departamento preseleccionado: ${departamentoId}`);
+      
+      // Verificar que los campos de perfil se asignaron correctamente
+      setTimeout(function() {
+        console.log("=== VERIFICACIÓN DESPUÉS DE CARGAR ===");
+        console.log("Escolaridad en select:", $("#detalle_escolaridad_minima").val());
+        console.log("Experiencia en select:", $("#detalle_experiencia_anios").val());
+        console.log("Objetivos:", $("#objetivosPuesto").val());
+        console.log("Competencias:", $("#competenciasPuesto").val());
+        console.log("Banda Salarial:", $("#bandaSalarialPuesto").val());
+      }, 100);
     })
     .catch(function(error) {
       console.error('Error al cargar departamentos para edición de puesto:', error);
@@ -1055,8 +1095,23 @@ $("#registrarPuestoModal").on("hidden.bs.modal", function () {
   $("#registrarPuestoModalLabel").text("Registrar Puesto");
   $("#registrarPuestoForm")[0].reset();
   $("#puestoId").val("");
+  
+  // Limpiar también los campos de perfil
+  $("#detalle_escolaridad_minima").val("");
+  $("#detalle_experiencia_anios").val("");
+  $("#objetivosPuesto").val("");
+  $("#competenciasPuesto").val("");
+  $("#bandaSalarialPuesto").val("");
 });
 
+// ELIMINAR LOS EVENT HANDLERS ANTIGUOS DE DETALLES PUESTO
+// Ya no necesitas estos porque todo estará en el modal de editar puesto:
+/*
+$(document).on("click", ".btn-ver-detalles-puesto", function () { ... });
+$(document).on("click", ".btn-editar-detalles-puesto", function () { ... });
+$("#editarDetallesPuestoModal").on("hidden.bs.modal", function () { ... });
+$("#detallesPuestoModal").on("hidden.bs.modal", function () { ... });
+*/
 // Eliminar puesto
 $(document).on("click", ".btn-eliminar-puesto", function () {
   var puestoId = $(this).data("id");
@@ -1120,6 +1175,83 @@ $(document).on("click", ".btn-eliminar-puesto", function () {
     }
   );
 });
+
+// Event handlers para los botones de detalles de puestos
+$(document).on("click", ".btn-ver-detalles-puesto", function () {
+  const puestoId = $(this).data("id");
+  const puestoNombre = $(this).data("nombre");
+
+  console.log("Ver detalles del puesto:", puestoId, puestoNombre);
+
+  // Filtrar la tabla de detalles por el puesto seleccionado
+  if (typeof dataTableCatPuestosDetalles !== "undefined") {
+    dataTableCatPuestosDetalles.id_puesto = puestoId;
+    tableCatPuestosDetalles.ajax.reload();
+  }
+
+  $("#detallesPuestoModalLabel").text(`Detalles del Puesto: ${puestoNombre}`);
+  $("#detallesPuestoModal").modal("show");
+});
+
+// $(document).on("click", ".btn-editar-detalles-puesto", function () {
+//   const puestoId = $(this).data("id");
+//   const puestoNombre = $(this).data("nombre");
+//   const escolaridadMinima = $(this).data("escolaridad") || "";
+//   const experienciaAnios = $(this).data("experiencia") || "";
+//   const objetivos = $(this).data("objetivos") || "";
+//   const competencias = $(this).data("competencias") || "";
+//   const banda = $(this).data("banda") || "";
+
+//   console.log("Editar detalles del puesto:", puestoId, puestoNombre);
+//   console.log("Datos actuales:", { 
+//     escolaridadMinima, 
+//     experienciaAnios, 
+//     objetivos, 
+//     competencias, 
+//     banda 
+//   });
+
+//   // Llenar el formulario con los datos actuales
+//   $("#detallePuestoId").val(puestoId);
+//   $("#puestoNombreDetalle").val(puestoNombre);
+//   $("#detalle_escolaridad_minima").val(escolaridadMinima);
+//   $("#detalle_experiencia_anios").val(experienciaAnios);
+//   $("#objetivosPuesto").val(objetivos);
+//   $("#competenciasPuesto").val(competencias);
+//   $("#bandaSalarialPuesto").val(banda);
+
+//   $("#editarDetallesPuestoModalLabel").text(`Editar Detalles: ${puestoNombre}`);
+//   $("#editarDetallesPuestoModal").modal("show");
+// });
+
+// // Limpiar formulario cuando se cierre el modal de editar detalles
+// $("#editarDetallesPuestoModal").on("hidden.bs.modal", function () {
+//   $("#editarDetallesPuestoForm")[0].reset();
+
+//   // Si hay una bandera para reabrir el modal de catálogos
+//   if (
+//     typeof debeReabrirModalRequisicion !== "undefined" &&
+//     debeReabrirModalRequisicion
+//   ) {
+//     setTimeout(function () {
+//       $("#registrarCatalogoModal").modal("show");
+//     }, 300);
+//   }
+// });
+
+// // Limpiar datos cuando se cierre el modal de ver detalles
+// $("#detallesPuestoModal").on("hidden.bs.modal", function () {
+//   // Si hay una bandera para reabrir el modal de catálogos
+//   if (
+//     typeof debeReabrirModalRequisicion !== "undefined" &&
+//     debeReabrirModalRequisicion
+//   ) {
+//     setTimeout(function () {
+//       $("#registrarCatalogoModal").modal("show");
+//     }, 300);
+//   }
+// });
+
 
 // Editar motivo
 $(document).on("click", ".btn-editar-motivo", function () {
