@@ -183,7 +183,8 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
                     </div>
                 `;
             }
-        }
+        },
+        { data: "activo", visible: false }, // Columna para el estado activo/inactivo
     ],
     columnDefs: [
         // Ajustes de estilo para todas las columnas
@@ -596,7 +597,6 @@ $(document).on("click", ".btn-ver-detalles-puesto", function () {
 
   // Filtrar la tabla de detalles por el puesto seleccionado
   dataTableCatPuestosDetalles.id_puesto = puestoId;
-  tableCatPuestosDetalles.ajax.reload();
 
   $("#detallesPuestoModalLabel").text(`Detalles del Puesto: ${puestoNombre}`);
   $("#detallesPuestoModal").modal("show");
@@ -1321,6 +1321,70 @@ $(document).on("click", ".btn-eliminar-motivo", function () {
             console.log("Motivo eliminado correctamente:", data);
             alertToast("Motivo eliminado!", "success", 4000);
             if (tableCatMotivos) tableCatMotivos.ajax.reload();
+          } else {
+            alertToast(
+              data.response?.message || "Error al procesar la solicitud",
+              "error",
+              4000
+            );
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error("Error AJAX:", error);
+          console.error("Respuesta:", xhr.responseText);
+          alertToast("Error de conexión", "error", 4000);
+        },
+      });
+    }
+  );
+});
+
+// Eliminar requisición (desactivar)
+$(document).on("click", ".btn-eliminar-requisicion", function () {
+  var requisicionId = $(this).data("id");
+  var activo = $(this).data("activo");
+
+  console.log("Eliminando requisición:", requisicionId, "Activo:", activo);
+
+  alertMensajeConfirm(
+    {
+      title: "¿Está a punto de eliminar este requisición?",
+      text: "Asegúrate que la acción sea correcta.",
+      icon: "warning",
+    },
+    function () {
+      $.ajax({
+        url: "../../../api/recursos_humanos_api.php",
+        type: "POST",
+        data: {
+          api: 17,
+          id_requisicion: requisicionId,
+          activo: 0,
+        },
+        beforeSend: function () {
+          console.log("Enviando datos:", {
+            api: 16,
+            id_requisicion: requisicionId,
+            activo: 0,
+          });
+        },
+        success: function (response) {
+          console.log("Respuesta del servidor:", response);
+
+          let data;
+          try {
+            data =
+              typeof response === "string" ? JSON.parse(response) : response;
+          } catch (e) {
+            console.error("Error parseando respuesta:", e);
+            alertToast("Error en la respuesta del servidor", "error", 4000);
+            return;
+          }
+
+          if (data.response && data.response.code == 1) {
+            console.log("Requisicion eliminado correctamente:", data);
+            alertToast("Requisicion eliminado!", "success", 4000);
+            if (tableCatRequisiciones) tableCatRequisiciones.ajax.reload();
           } else {
             alertToast(
               data.response?.message || "Error al procesar la solicitud",

@@ -269,6 +269,12 @@ switch ($api) {
             $id_motivo
         ]);
         break;
+    case 17:
+        # eliminar requisiciones (desactivar)
+        $response = $master->insertByProcedure("sp_rh_cat_requisiciones_e", [
+            $id_requisicion
+        ]);
+        break;
     default:
         # default
         $response = "API no definida";
