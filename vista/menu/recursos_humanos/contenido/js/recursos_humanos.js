@@ -160,7 +160,7 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
                         <button class="btn btn-sm btn-primary btn-ver-requisicion" 
                              data-id="${row.id_requisicion}" title="Ver detalles"
                             data-bs-target="#detallesRequisicionModal"
-                            data-bs-toggle="modal"
+                            data-bs-toggle="modal">
                             <i class="bi bi-eye"></i>
                         </button>
                         <button class="btn btn-sm btn-primary bg-gradient-warning btn-editar-requisicion" 
@@ -308,96 +308,108 @@ tableCatDepartamentos = $("#tableCatDepartamentos").DataTable({
             // Agregar event listener al toggle después de que se inicialice la tabla
             setupToggleFiltro();
             setupResetFiltros();
-        }
-        });
+        },
+      columnDefs: [
+          { targets: 0, className: "text-center align-middle" }, // id
+          { targets: 2, className: "text-center align-middle" }, // estado
+          { targets: -1, className: "text-center align-middle" } // acciones
+        ]
+      });
 
 // Datatable para el catálogo de puestos
 tableCatPuestos = $("#tableCatPuestos").DataTable({
-    language: {
-      url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+  language: {
+    url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+  },
+  autoWidth: true,
+  lengthChange: false,
+  info: true,
+  paging: true,
+  pageLength: 5, // Agregar esta línea
+  scrollY: "40vh",
+  scrollCollapse: true,
+  ajax: {
+    dataType: "json",
+    data: function (d) {
+      return $.extend(d, dataTableCatPuestos);
     },
-    autoWidth: true,
-    lengthChange: false,
-    info: true,
-    paging: true,
-    pageLength: 5, // Agregar esta línea
-    scrollY: "40vh",
-    scrollCollapse: true,
-    ajax: {
-      dataType: "json",
-      data: function (d) {
-        return $.extend(d, dataTableCatPuestos);
-      },
-      method: "POST",
-      url: "../../../api/recursos_humanos_api.php",
-      error: function (jqXHR, textStatus, errorThrown) {
-        alertErrorAJAX(jqXHR, textStatus, errorThrown);
-      },
-      dataSrc: "response.data",
+    method: "POST",
+    url: "../../../api/recursos_humanos_api.php",
+    error: function (jqXHR, textStatus, errorThrown) {
+      alertErrorAJAX(jqXHR, textStatus, errorThrown);
     },
-    columns: [
-      { data: "id_puesto"},
-      { data: "descripcion"},
-      { data: "departamento_nombre"},
-      { data: "departamento_id", visible: false },
+    dataSrc: "response.data",
+  },
+  columns: [
+    { data: "id_puesto" },
+    { data: "descripcion" },
+    { data: "departamento_nombre" },
+    { data: "departamento_id", visible: false },
     {
-        data: "activo",
-        render: function (data) {
-          return data == 1
-            ? '<i class="bi bi-toggle-on fs-4 text-success"></i>'
-            : '<i class="bi bi-toggle-off fs-4"></i>';
-        },
+      data: "activo",
+      render: function (data) {
+        return data == 1
+          ? '<i class="bi bi-toggle-on fs-4 text-success"></i>'
+          : '<i class="bi bi-toggle-off fs-4"></i>';
       },
-      {
-        data: null,
-        render: function (data, type, row) {
-          return `
-      <button class="btn btn-sm btn-primary btn-ver-detalles-puesto" 
+    },
+    {
+      data: null,
+      render: function (data, type, row) {
+        return `
+        <div class="d-flex justify-content-center gap-1">
+          <button class="btn btn-sm btn-primary btn-ver-detalles-puesto" 
               data-id="${row.id_puesto}" 
               data-nombre="${row.descripcion}"
               title="Ver detalles">
-          <i class="bi bi-eye"></i>
-      </button>
-      <button class="btn btn-sm btn-primary bg-gradient-warning btn-editar-puesto" 
+            <i class="bi bi-eye"></i>
+          </button>
+          <button class="btn btn-sm btn-primary bg-gradient-warning btn-editar-puesto" 
               data-id="${row.id_puesto}" 
               data-descripcion="${row.descripcion}" 
               data-departamento="${row.id_departamento}"
               data-activo="${row.activo}">
-          <i class="bi bi-pencil"></i>
-      </button>
-      <button class="btn btn-sm btn-primary bg-gradient-secondary btn-eliminar-puesto" data-id="${row.id_puesto}">
-          <i class="bi bi-trash"></i>
-      </button>
-    `;
-        },
+            <i class="bi bi-pencil"></i>
+          </button>
+          <button class="btn btn-sm btn-primary bg-gradient-secondary btn-eliminar-puesto" data-id="${row.id_puesto}">
+            <i class="bi bi-trash"></i>
+          </button>
+        </div>
+        `;
       },
-    ],
-    dom: 'Bl<"dataTables_toolbar">frtip',
-    buttons: [
-      {
-        text: '<i class="bi bi-plus-lg"></i> Nuevo Puesto',
-        className: "btn btn-success bg-gradient-primary",
-        attr: {
-          "data-bs-toggle": "modal",
-          "data-bs-target": "#registrarPuestoModal",
-        },
-        action: function () {
-          $("#registrarPuestoModal").modal("show");
-        },
+    },
+  ],
+  dom: 'Bl<"dataTables_toolbar">frtip',
+  buttons: [
+    {
+      text: '<i class="bi bi-plus-lg"></i> Nuevo Puesto',
+      className: "btn btn-success bg-gradient-primary",
+      attr: {
+        "data-bs-toggle": "modal",
+        "data-bs-target": "#registrarPuestoModal",
       },
-      {
-        text: '<i class="bi bi-funnel"></i> Filtrar',
-        className: "btn btn-warning btn-warning bg-gradient-puesto-filter",
-        attr: {
-          "data-bs-toggle": "modal",
-          "data-bs-target": "#filtrarPuestosModal",
-        },
-        action: function () {
-          $("#filtrarPuestosModal").modal("show");
-        },
+      action: function () {
+        $("#registrarPuestoModal").modal("show");
       },
-    ],
-  });
+    },
+    {
+      text: '<i class="bi bi-funnel"></i> Filtrar',
+      className: "btn btn-warning btn-warning bg-gradient-puesto-filter",
+      attr: {
+        "data-bs-toggle": "modal",
+        "data-bs-target": "#filtrarPuestosModal",
+      },
+      action: function () {
+        $("#filtrarPuestosModal").modal("show");
+      },
+    },
+  ],
+  columnDefs: [
+    { targets: 0, className: "text-center align-middle" }, // id
+    { targets: 4, className: "text-center align-middle" }, // estado
+    { targets: -1, className: "text-center align-middle" } // acciones
+  ]
+});
 
 // Nueva DataTable para detalles de puestos
 tableCatPuestosDetalles = $("#tableCatPuestosDetalles").DataTable({
@@ -568,7 +580,12 @@ tableCatMotivos = $("#tableCatMotivos").DataTable({
           },
           },
         ],
-        });
+        columnDefs: [
+          { targets: 0, className: "text-center align-middle" }, // id
+          { targets: 2, className: "text-center align-middle" }, // estado
+          { targets: -1, className: "text-center align-middle" } // acciones
+        ]
+      });
 
 // Event handlers para los nuevos botones
 $(document).on("click", ".btn-ver-detalles-puesto", function () {
@@ -630,7 +647,10 @@ function cargarDepartamentos(selectId, incluirTodos = false) {
                             return;
                         }
                         
-                        select.empty();
+                        // Solo limpiar el select si está dentro del modal de registrar vacante
+                        if ($(selectId).closest('#registrarVacanteModal').length > 0) {
+                          select.empty();
+                        }
                         
                         // Opción por defecto
                         select.append('<option value="">Seleccionar departamento...</option>');
@@ -1009,11 +1029,23 @@ $(document).on("click", ".btn-editar-puesto", function () {
   var activo = $(this).data("activo");
 
   $("#registrarPuestoModalLabel").text("Editar Puesto");
-
   $("#puestoId").val(puestoId);
   $("#puestoDescripcion").val(descripcion);
-  $("#id_departamento_puesto").val(departamentoId);
   $("#puestoActivoCheck").prop("checked", activo == 1);
+
+  // CORREGIDO: Cargar departamentos y DESPUÉS seleccionar el correcto
+  cargarDepartamentos('#id_departamento_puesto')
+    .then(function(departamentos) {
+      console.log('Departamentos cargados para edición de puesto:', departamentos.length);
+      
+      // Preseleccionar el departamento DESPUÉS de cargar las opciones
+      $("#id_departamento_puesto").val(departamentoId);
+      console.log(`Departamento preseleccionado: ${departamentoId}`);
+    })
+    .catch(function(error) {
+      console.error('Error al cargar departamentos para edición de puesto:', error);
+      alertToast("Error al cargar los departamentos", "error", 3000);
+    });
 
   $("#registrarPuestoModal").modal("show");
 });

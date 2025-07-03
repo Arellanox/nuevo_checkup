@@ -12,47 +12,144 @@ if (!$tokenValido) {
 $master = new Master();
 $api = $_POST['api'];
 
-# Variables de catalogos
+# Variables de catalogos - UNIFICADAS
 $id_departamento = isset($_POST['id_departamento']) && $_POST['id_departamento'] !== '' ? (int)$_POST['id_departamento'] : null;
 $id_puesto = isset($_POST['id_puesto']) && $_POST['id_puesto'] !== '' ? (int)$_POST['id_puesto'] : null;
 $id_motivo = isset($_POST['id_motivo']) && $_POST['id_motivo'] !== '' ? (int)$_POST['id_motivo'] : null;
 $activo = isset($_POST['activo']) ? (int)$_POST['activo'] : 1;
 $descripcion = isset($_POST['descripcion']) ? trim($_POST['descripcion']) : '';
 
+# Variables para requisiciones de personal - RENOMBRADAS PARA CONSISTENCIA
+$id_requisicion = isset($_POST['id_requisicion']) ? (int)$_POST['id_requisicion'] : null;
+
+// // RENOMBRADAS: Ahora usan id_ en lugar de nombres simples
+// $id_departamento = isset($_POST['id_departamento']) ? (int)$_POST['id_departamento'] : null; // Era $departamento
+// $id_motivo = isset($_POST['id_motivo']) ? (int)$_POST['id_motivo'] : null; // Era $motivo  
+// $id_puesto = isset($_POST['id_puesto']) ? (int)$_POST['id_puesto'] : null; // Era $puesto
+
+// MANEJO MEJORADO del usuario solicitante
+$usuario_solicitante_id = null;
+if (isset($_POST['usuario_solicitante_id']) && !empty($_POST['usuario_solicitante_id'])) {
+    $usuario_solicitante_id = (int)$_POST['usuario_solicitante_id'];
+} elseif (isset($_SESSION['id']) && !empty($_SESSION['id'])) {
+    $usuario_solicitante_id = (int)$_SESSION['id'];
+}
+
+$prioridad = isset($_POST['prioridad']) ? trim($_POST['prioridad']) : 'normal';
+$justificacion = isset($_POST['justificacion']) ? trim($_POST['justificacion']) : '';
+$estatus = isset($_POST['estatus']) ? trim($_POST['estatus']) : 'borrador';
+$tipo_contrato = isset($_POST['tipo_contrato']) ? trim($_POST['tipo_contrato']) : '';
+$tipo_jornada = isset($_POST['tipo_jornada']) ? trim($_POST['tipo_jornada']) : '';
+$escolaridad_minima = isset($_POST['escolaridad_minima']) ? trim($_POST['escolaridad_minima']) : '';
+$experiencia_anos = isset($_POST['experiencia_anos']) ? trim($_POST['experiencia_anos']) : '';
+$experiencia_area = isset($_POST['experiencia_area']) ? trim($_POST['experiencia_area']) : null;
+$conocimientos_tecnicos = isset($_POST['conocimientos_tecnicos']) ? trim($_POST['conocimientos_tecnicos']) : null;
+$habilidades_blandas = isset($_POST['habilidades_blandas']) ? trim($_POST['habilidades_blandas']) : null;
+$idiomas = isset($_POST['idiomas']) ? trim($_POST['idiomas']) : null;
+$horario_trabajo = isset($_POST['horario_trabajo']) ? trim($_POST['horario_trabajo']) : '';
+$rango_salarial = isset($_POST['rango_salarial']) ? trim($_POST['rango_salarial']) : null;
+$observaciones_aprobacion = isset($_POST['observaciones_aprobacion']) ? trim($_POST['observaciones_aprobacion']) : null;
+
+# Variables adicionales para puestos (detalles)
+$objetivos = isset($_POST['objetivos']) ? trim($_POST['objetivos']) : '';
+$competencias = isset($_POST['competencias']) ? trim($_POST['competencias']) : '';
+$banda_salarial = isset($_POST['banda_salarial']) ? trim($_POST['banda_salarial']) : '';
+
+# Variables para otros módulos (si las necesitas)
+$responsable = isset($_POST['responsable']) ? (int)$_POST['responsable'] : null;
+$id_caja = isset($_POST['id_caja']) ? (int)$_POST['id_caja'] : null;
+
+// Debug para verificar los valores
+error_log("DEBUG - Variables unificadas:");
+error_log("id_departamento: " . var_export($id_departamento, true));
+error_log("id_motivo: " . var_export($id_motivo, true));
+error_log("id_puesto: " . var_export($id_puesto, true));
+error_log("usuario_solicitante_id: " . var_export($usuario_solicitante_id, true));
+
 switch ($api) {
     case 1:
-        # AGREGAR VALIDACIÓN DEL USUARIO ANTES DE INSERTAR
-        if (empty($usuario_solicitante_id)) {
+        # VALIDACIÓN MEJORADA
+        if (empty($usuario_solicitante_id) || $usuario_solicitante_id <= 0) {
             $response = [
                 'code' => 0,
                 'message' => 'Error: No se pudo identificar al usuario solicitante.',
                 'debug' => [
                     'session_id' => $_SESSION['id'] ?? 'NO_EXISTE',
-                    'post_data' => $_POST
+                    'post_usuario_solicitante_id' => $_POST['usuario_solicitante_id'] ?? 'NO_EXISTE',
+                    'usuario_final' => $usuario_solicitante_id,
+                ]
+            ];
+        } elseif (empty($id_motivo) || $id_motivo <= 0) {
+            $response = [
+                'code' => 0,
+                'message' => 'Error: Debe seleccionar un motivo válido.',
+                'debug' => [
+                    'post_id_motivo' => $_POST['id_motivo'] ?? 'NO_EXISTE',
+                    'id_motivo_final' => $id_motivo,
+                ]
+            ];
+        } elseif (empty($id_departamento) || $id_departamento <= 0) {
+            $response = [
+                'code' => 0,
+                'message' => 'Error: Debe seleccionar un departamento válido.',
+                'debug' => [
+                    'post_id_departamento' => $_POST['id_departamento'] ?? 'NO_EXISTE',
+                    'id_departamento_final' => $id_departamento,
                 ]
             ];
         } else {
-            # Crear/actualizar una requisición de personal
-            $response = $master->insertByProcedure('sp_rh_cat_requisiciones_g', [
-                $id_requisicion,
-                $departamento,
-                $motivo,
-                $usuario_solicitante_id,
-                $prioridad,
-                $justificacion,
-                $estatus,
-                $puesto,
-                $tipo_contrato,
-                $tipo_jornada,
-                $escolaridad_minima,
-                $experiencia_anos,
-                $experiencia_area,
-                $conocimientos_tecnicos,
-                $habilidades_blandas,
-                $idiomas,
-                $horario_trabajo,
-                $rango_salarial
+            # Crear/actualizar una requisición de personal - VARIABLES ACTUALIZADAS
+            $resultado = $master->insertByProcedure('sp_rh_cat_requisiciones_g', [
+                $id_requisicion,           // ID de requisición (null para crear, valor para editar)
+                $id_departamento,          // ID del departamento (RENOMBRADO)
+                $id_motivo,               // ID del motivo (RENOMBRADO)
+                $usuario_solicitante_id,   // Usuario solicitante
+                $prioridad,               // Prioridad
+                $justificacion,           // Justificación
+                $estatus,                 // Estatus
+                $id_puesto,               // ID del puesto (RENOMBRADO)
+                $tipo_contrato,           // Tipo de contrato
+                $tipo_jornada,            // Tipo de jornada
+                $escolaridad_minima,      // Escolaridad mínima
+                $experiencia_anos,        // Años de experiencia
+                $experiencia_area,        // Área de experiencia
+                $conocimientos_tecnicos,  // Conocimientos técnicos
+                $habilidades_blandas,     // Habilidades blandas
+                $idiomas,                 // Idiomas
+                $horario_trabajo,         // Horario de trabajo
+                $rango_salarial          // Rango salarial
             ]);
+
+            // VERIFICAR si hay errores del stored procedure
+            if (isset($resultado['data']) && is_array($resultado['data']) && !empty($resultado['data'])) {
+                $primerRegistro = $resultado['data'][0];
+                
+                if (isset($primerRegistro['ERROR'])) {
+                    $response = [
+                        'code' => 0,
+                        'message' => 'Error del stored procedure: ' . $primerRegistro['ERROR'],
+                        'data' => null
+                    ];
+                } else {
+                    // Éxito - formatear la respuesta correctamente
+                    $mensaje = $id_requisicion ? 'Requisición actualizada exitosamente' : 'Requisición registrada exitosamente';
+                    $response = [
+                        'code' => 1,
+                        'message' => $mensaje,
+                        'data' => [
+                            'id_requisicion' => $primerRegistro['id_requisicion'] ?? null,
+                            'numero_requisicion' => $primerRegistro['numero_requisicion'] ?? null
+                        ]
+                    ];
+                }
+            } else {
+                $response = [
+                    'code' => 0,
+                    'message' => 'Error: No se recibió respuesta válida del stored procedure',
+                    'data' => null,
+                    'debug' => $resultado
+                ];
+            }
         }
         break;
     case 2:

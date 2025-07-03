@@ -272,6 +272,159 @@ $("#editarDetallesPuestoForm").submit(function (event) {
   return false;
 });
 
+// Evento para registrar una nueva vacante
+// Registrar una nueva requisición de vacante - VARIABLES UNIFICADAS
+$("#formRegistrarVacante").submit(function (event) {
+    event.preventDefault();
+
+    // Agregar el campo oculto usuario_solicitante_id si no está presente
+    var usuarioSolicitanteId = $("#usuario_solicitante_id").val();
+    if (!usuarioSolicitanteId || usuarioSolicitanteId === '') {
+        $("#usuario_solicitante_id").val('118'); // Tu ID de sesión o valor por defecto
+    }
+
+    var form = document.getElementById("formRegistrarVacante");
+    var formData = new FormData(form);
+
+    // Validaciones básicas usando las variables unificadas
+    var id_departamento = $("#departamento").val(); // name="id_departamento"
+    var id_motivo = $("#motivo").val(); // name="id_motivo"
+    var prioridad = $("#prioridad").val();
+    var justificacion = $("#justificacion").val().trim();
+    var tipo_contrato = $("#tipo_contrato").val();
+    var tipo_jornada = $("#tipo_jornada").val();
+    var escolaridad_minima = $("#escolaridad_minima").val();
+    var experiencia_anos = $("#experiencia_anos").val();
+    var horario_trabajo = $("#horario_trabajo").val().trim();
+
+    // Validar campos obligatorios
+    if (!id_departamento) {
+        alertToast("Debe seleccionar un departamento", "warning", 3000);
+        return;
+    }
+
+    if (!id_motivo) {
+        alertToast("Debe seleccionar un motivo", "warning", 3000);
+        return;
+    }
+
+    if (!prioridad) {
+        alertToast("Debe seleccionar una prioridad", "warning", 3000);
+        return;
+    }
+
+    if (!justificacion) {
+        alertToast("La justificación es obligatoria", "warning", 3000);
+        return;
+    }
+
+    if (!tipo_contrato) {
+        alertToast("Debe seleccionar el tipo de contrato", "warning", 3000);
+        return;
+    }
+
+    if (!tipo_jornada) {
+        alertToast("Debe seleccionar el tipo de jornada", "warning", 3000);
+        return;
+    }
+
+    if (!escolaridad_minima) {
+        alertToast("Debe seleccionar la escolaridad mínima", "warning", 3000);
+        return;
+    }
+
+    if (!experiencia_anos) {
+        alertToast("Debe seleccionar los años de experiencia", "warning", 3000);
+        return;
+    }
+
+    if (!horario_trabajo) {
+        alertToast("El horario de trabajo es obligatorio", "warning", 3000);
+        return;
+    }
+
+    // DEBUG: Verificar que los datos se envían correctamente
+    console.log("=== DEBUG FORMULARIO REQUISICIÓN ===");
+    console.log("ID Departamento:", id_departamento);
+    console.log("ID Motivo:", id_motivo);
+    console.log("ID Puesto:", $("#puesto").val());
+    console.log("Usuario Solicitante ID:", $("#usuario_solicitante_id").val());
+    
+    // Mostrar todos los datos del formulario
+    for (let pair of formData.entries()) {
+        console.log(pair[0] + ': ' + pair[1]);
+    }
+
+    alertMensajeConfirm(
+        {
+            title: "¿Está a punto de registrar esta requisición?",
+            text: "Verifique que todos los datos sean correctos.",
+            icon: "warning",
+        },
+        function () {
+            ajaxAwaitFormData(
+                {
+                    api: 1, // API para crear/actualizar requisiciones
+                },
+                "recursos_humanos_api",
+                "formRegistrarVacante",
+                { callbackAfter: true },
+                false,
+                function (data) {
+                    console.log("=== RESPUESTA DEL SERVIDOR ===");
+                    console.log("Respuesta completa:", data);
+                    
+                    if (data.response.code == 1) {
+                        // Limpiar formulario
+                        $("#formRegistrarVacante")[0].reset();
+                        $("#registrarVacanteModal").modal("hide");
+
+                        // Obtener el número de requisición de la respuesta
+                        let numeroRequisicion = "N/A";
+                        if (data.response.data && data.response.data.numero_requisicion) {
+                            numeroRequisicion = data.response.data.numero_requisicion;
+                        }
+
+                        alertToast(
+                            `Requisición #${numeroRequisicion} registrada exitosamente!`,
+                            "success",
+                            4000
+                        );
+
+                        // Recargar tabla de requisiciones si existe
+                        if (typeof tableCatRequisiciones !== 'undefined' && tableCatRequisiciones) {
+                            tableCatRequisiciones.ajax.reload();
+                        }
+                        
+                        // También recargar si se llama con otro nombre
+                        if (typeof tableRequisiciones !== 'undefined' && tableRequisiciones) {
+                            tableRequisiciones.ajax.reload();
+                        }
+                    } else {
+                        console.error("Error en la respuesta:", data);
+                        
+                        // Mostrar mensaje de error más específico
+                        let mensajeError = "Error al registrar la requisición";
+                        if (data.response && data.response.message) {
+                            mensajeError = data.response.message;
+                        }
+                        
+                        // Mostrar debug si está disponible
+                        if (data.response && data.response.debug) {
+                            console.error("Debug del servidor:", data.response.debug);
+                        }
+                        
+                        alertToast(mensajeError, "error", 4000);
+                    }
+                }
+            );
+        },
+        1
+    );
+
+    return false;
+});
+
 // Event handlers para los botones de detalles de puestos
 $(document).on("click", ".btn-ver-detalles-puesto", function () {
   const puestoId = $(this).data("id");
