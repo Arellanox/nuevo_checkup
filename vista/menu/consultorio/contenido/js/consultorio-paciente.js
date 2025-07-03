@@ -137,161 +137,148 @@ function consultarConsultaMedica(id) {
     </button>`)
       }
 
-
-
       resolve(1);
     })
   });
 }
 
 function obtenerHistorialConsultas(id) {
-  return new Promise(resolve => {
-    $.ajax({
-      url: `${http}${servidor}/${appname}/api/consulta_api.php`,
-      type: "POST",
-      dataType: "json",
-      data: {
-        id_paciente: id,
-        api: 2
-      },
-      success: function (data) {
-        if (mensajeAjax(data)) {
-          // console.log(data);
-          $('#historial-consultas-paciente').html('')
+    return new Promise(resolve => {
+        $.ajax({
+            url: `${http}${servidor}/${appname}/api/consulta_api.php`,
+            type: "POST",
+            dataType: "json",
+            data: {
+              id_paciente: id,
+              api: 2
+            },
+            success: function (data) {
+                if (mensajeAjax(data)) {
+                    $('#historial-consultas-paciente').html('')
+                    let row = data.response.data
 
-          let row = data.response.data
+                    for (var i = 0; i < row.length; i++) {
+                        if (row[i]['COMPLETADO'] == 1) {
+                            let fecha = formatoFecha2(row[i]['FECHA_CONSULTA'], [0, 1, 2, 2, 0, 0, 0]);
+                            let nombre = row[i]['MEDICO'];
+                            let motivo = row[i]['MOTIVO_CONSULTA'];
 
-          for (var i = 0; i < row.length; i++) {
-            if (row[i]['COMPLETADO'] == 1) {
-              let fecha = formatoFecha2(row[i]['FECHA_CONSULTA'], [0, 1, 2, 2, 0, 0, 0]);
-              let nombre = row[i]['MEDICO'];
-              let motivo = row[i]['MOTIVO_CONSULTA'];
+                            api = encodeURIComponent(window.btoa('consultorio'));
+                            turno = encodeURIComponent(window.btoa(row[i]['TURNO_ID']));
+                            area = encodeURIComponent(window.btoa(1));
 
+                            let resultado = `${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`
 
-              api = encodeURIComponent(window.btoa('consultorio'));
-              turno = encodeURIComponent(window.btoa(row[i]['TURNO_ID']));
-              area = encodeURIComponent(window.btoa(1));
-
-              let resultado = `${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`
-
-
-              // window.open(``, "_blank");
-
-
-              $('#historial-consultas-paciente').append(`<div class="row line-top" style="margin:0px">
-                                                            <div class="col-3 line-right text-center">
-                                                              ${fecha} <br>
-                                                              <!-- Example split danger button -->
-                                                              <div class="btn-group mb-2">
-                                                                <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                  <i class="bi bi-file-earmark-pdf"></i>
-                                                                </button>
-                                                                <ul class="dropdown-menu">
-                                                                  <li><a class="dropdown-item" href="${row[i]['RUTA_REPORTE'] ? this : resultado}" target="_blank"><i class="bi bi-file-earmark-pdf"></i> Resultado</a></li>
-                                                                </ul>
-                                                              </div>
-                                                            </div>
-                                                            <div class="col-9">
-                                                              <p>${nombre}</p> 
-                                                              <p class="none-p">${motivo}</p>
-                                                            </div>
-                                                          </div>`)
-            }
-          }
-
-
-
-        }
-      },
-      complete: function () {
-        resolve(1);
-      },
-      error: function (jqXHR, exception, data) {
-        alertErrorAJAX(jqXHR, exception, data)
-      },
+                            $('#historial-consultas-paciente').append(`
+                                 <div class="row line-top" style="margin:0px">
+                                     <div class="col-3 line-right text-center">
+                                         ${fecha} <br>
+                                         <!-- Example split danger button -->
+                                         <div class="btn-group mb-2">
+                                             <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                 <i class="bi bi-file-earmark-pdf"></i>
+                                             </button>
+                                             <ul class="dropdown-menu">
+                                                 <li>
+                                                     <a class="dropdown-item" href="${row[i]['RUTA_REPORTE'] ? this : resultado}" target="_blank">
+                                                         <i class="bi bi-file-earmark-pdf"></i> Resultado
+                                                     </a>
+                                                 </li>
+                                             </ul>
+                                         </div>
+                                     </div>
+                                     <div class="col-9">
+                                         <p>${nombre}</p> 
+                                         <p class="none-p">${motivo}</p>
+                                     </div>
+                                 </div>
+                            `)
+                        }
+                    }
+                }
+            },
+            complete: function () {
+                resolve(1);
+            },
+            error: function (jqXHR, exception, data) {
+                alertErrorAJAX(jqXHR, exception, data)
+            },
+        });
     });
-  });
 }
 
 function obtenerHistorialConsultaMedica(turno) {
-  console.log("aqui empieza obtener consulta medica")
-  console.log(turno);
+    return new Promise(resolve => {
+        $.ajax({
+            url: `${http}${servidor}/${appname}/api/consultorio2_api.php`,
+            type: "POST",
+            dataType: "json",
+            data: {
+              api: 2,
+              turno_id: pacienteActivo.array['ID_TURNO']
+            },
+            success: function (data) {
+                if (mensajeAjax(data)) {
+                    $('#historial-consultas-medicas').html('')
+                    let row = data.response.data
 
-  return new Promise(resolve => {
-    $.ajax({
-      url: `${http}${servidor}/${appname}/api/consultorio2_api.php`,
-      type: "POST",
-      dataType: "json",
-      data: {
-        api: 2,
-        turno_id: pacienteActivo.array['ID_TURNO']
-      },
-      success: function (data) {
-        if (mensajeAjax(data)) {
-          // console.log(data);
-          $('#historial-consultas-medicas').html('')
+                    for (var i = 0; i < row.length; i++) {
+                        if (row[i]['CONSULTA_TERMINADA'] == 1) {
+                            let fecha = formatoFecha2(row[i]['FECHA_CONSULTA'], [0, 1, 2, 2, 0, 0, 0]);
+                            let nombre_medico = row[i]['NOMBRE_COMPLETO'];
+                            let motivo = row[i]['MOTIVO_CONSULTA'];
 
-          let row = data.response.data
-
-          for (var i = 0; i < row.length; i++) {
-            if (row[i]['CONSULTA_TERMINADA'] == 1) {
-              let fecha = formatoFecha2(row[i]['FECHA_CONSULTA'], [0, 1, 2, 2, 0, 0, 0]);
-              let nombre_medico = row[i]['NOMBRE_COMPLETO'];
-              let motivo = row[i]['MOTIVO_CONSULTA'];
-
-
-
-              $('#historial-consultas-medicas').append(`<div class="row line-top" style="margin:0px">
-                                                            <div class="col-3 line-right text-center">
-                                                              ${fecha} <br>
-                                                              <!-- Example split danger button -->
-                                                              <div class="btn-group mb-2">
-                                                                <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                  <i class="bi bi-file-earmark-pdf"></i>
-                                                                </button>
-                                                                <ul class="dropdown-menu">
-                                                                  <li><a class="dropdown-item" href="${row[i]['RUTA_REPORTE']}" target="_blank"><i class="bi bi-file-earmark-pdf"></i> Reporte</a></li>
-                                                                  <li><a class="dropdown-item" href="${row[i]['RUTA_RECETAS']}" target="_blank"><i class="bi bi-file-earmark-pdf"></i> Recetas</a></li>
-                                                                  <li><a class="dropdown-item" href="${row[i]['RUTA_SOLICITUDES']}" target="_blank"><i class="bi bi-file-earmark-pdf"></i> Solicitud de estudios</a></li>
-                                                                </ul>
-                                                              </div>
-                                                            </div>
-                                                            <div class="col-9">
-                                                              <p>${nombre_medico}</p> 
-                                                              <p class="none-p">${motivo}</p>
-                                                            </div>
-                                                          </div>`)
-            }
-          }
-
-
-        }
-      },
-      complete: function () {
-        resolve(1);
-      },
-      error: function (jqXHR, exception, data) {
-        alertErrorAJAX(jqXHR, exception, data)
-      },
+                            $('#historial-consultas-medicas').append(`
+                                <div class="row line-top" style="margin:0px">
+                                    <div class="col-3 line-right text-center">
+                                        ${fecha} 
+                                        <br>
+                                        <!-- Example split danger button -->
+                                        <div class="btn-group mb-2">
+                                            <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                              <i class="bi bi-file-earmark-pdf"></i>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="${row[i]['RUTA_REPORTE']}" target="_blank"><i class="bi bi-file-earmark-pdf"></i> Reporte</a></li>
+                                                <li><a class="dropdown-item" href="${row[i]['RUTA_RECETAS']}" target="_blank"><i class="bi bi-file-earmark-pdf"></i> Recetas</a></li>
+                                                <li><a class="dropdown-item" href="${row[i]['RUTA_SOLICITUDES']}" target="_blank"><i class="bi bi-file-earmark-pdf"></i> Solicitud de estudios</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-9">
+                                        <p>${nombre_medico}</p> 
+                                        <p class="none-p">${motivo}</p>
+                                    </div>
+                              </div>
+                            `)
+                        }
+                    }
+                }
+            },
+            complete: function () {
+              resolve(1);
+            },
+            error: function (jqXHR, exception, data) {
+              alertErrorAJAX(jqXHR, exception, data)
+            },
+        });
     });
-  });
 }
 
 function getConclusionesHistoria(id_turno) {
-  ajaxAwait({
-    api: 23, turno_id: id_turno
-  }, 'consulta_api', { callbackAfter: true }, false, (data) => {
-    let row = data.response.data;
+    ajaxAwait({
+      api: 23, turno_id: id_turno
+    }, 'consulta_api', { callbackAfter: true }, false, (data) => {
+        let row = data.response.data;
 
-    for (const key in row) {
-      if (Object.hasOwnProperty.call(row, key)) {
-        const element = row[key];
+        for (const key in row) {
+          if (Object.hasOwnProperty.call(row, key)) {
+            const element = row[key];
 
-        agregarNotaConsulta(element.MEDICO, formatoFecha2(element.FECHA_FINALIZADA, [0, 1, 5, 2, 2, 2, 0]), element.CONCLUSION, '#consultorio-conclusiones');
+            agregarNotaConsulta(element.MEDICO, formatoFecha2(element.FECHA_FINALIZADA, [0, 1, 5, 2, 2, 2, 0]), element.CONCLUSION, '#consultorio-conclusiones');
+          }
+        }
 
-
-      }
-    }
-
-  })
+        console.log(row);
+    })
 }

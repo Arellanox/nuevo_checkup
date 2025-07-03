@@ -68,11 +68,7 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
       }
     },
   ]
-
-
 })
-
-
 
 function parseDataTable(data) {
   let parsedData;
@@ -99,8 +95,6 @@ inputBusquedaTable('tablaPrincipal', tablaPrincipal, [
   },
 ], {}, 'col-12')
 
-
-
 // Agregar un evento clic a las filas de grupo
 $('#tablaPrincipal tbody').on('click', '.background-group', function () {
   // $(this).toggleClass('group-hidden');
@@ -110,5 +104,4 @@ $('#tablaPrincipal tbody').on('click', '.background-group', function () {
   } else {
     rows.nodes().to$().addClass('d-none');
   }
-
 });

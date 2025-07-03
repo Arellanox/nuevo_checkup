@@ -16,8 +16,7 @@ $(document).on('submit', '#formMotivoConsultaMedica', function (e) {
             obtenerConsultorioConsultaMedica(pacienteActivo.array, data);
 
             //Lo oculta una vez realizada la insercion
-            $('#modalMotivoConsultaMedica').modal('hide')
-
+            $('#modalMotivoConsultaMedica').modal('hide');
         })
     }, 1)
 })

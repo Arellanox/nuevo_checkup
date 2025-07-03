@@ -108,7 +108,6 @@ switch ($api) {
         }
 
         $response = $master->decodeJsonRecursively($response);
-        $master->setLog($response, 'pacientes_api.php [case 3]');
         break;
     case 3:
         $medios = array_map('intval', explode(',', $medios_entrega));

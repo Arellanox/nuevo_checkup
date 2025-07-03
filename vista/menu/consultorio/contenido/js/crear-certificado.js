@@ -1,4 +1,4 @@
-$('#btn-crear-certificado').on('click', function (e) {
+$('#btn-crear-certificado').on('click', async function (e) {
     e.preventDefault(); // Detiene la recarga
 
     const vigencia = $('select[name="vigencia"]').val();
@@ -37,8 +37,14 @@ $('#btn-crear-certificado').on('click', function (e) {
             api: 3
         }
 
-        ajaxAwait(params, 'certificado_medico_api', { callbackAfter: true }, false, function (data) {
+        ajaxAwait(params, 'certificado_medico_api', { callbackAfter: true }, false, async function () {
             alertToast('Certificado generado exitosamente!', 'success', 4000);
+
+            await obtenerPanelInformacion(
+                pacienteActivo.array['ID_TURNO'],
+                'consulta_api', 'listado_resultados', '#listado-resultados'
+            );
+
             $('#modalCrearCertificadoBimo').modal('hide');
         });
     })

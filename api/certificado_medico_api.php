@@ -37,32 +37,36 @@ switch ($api) {
         $response = $master->getByProcedure("sp_certificados_medicos_tmp_b", [$turno_id]);
         break;
     case 3:
-        $response = $master->getByProcedure("sp_historial_conclusiones_historia_clinica", [$turno_id]);
-        if (count($response) > 0) {
-            #CREAR CERTIFICADO
-            $QR_NAME = 'CertificadoMedico-' . $turno_id . '-' . date('Y-m-d');
-            $HASH_CERTIFICADO = generarHashCertificado($turno_id, 'Pruebas');
-            $URL_VALIDAR_CERTIFICADO = $host."vista/certificado/?codigo=".$HASH_CERTIFICADO;
+        try {
+            # VALIDAR QUE TENGA UNA CONSULTA MEDICA REGISTRADA PREAVIAMENTE
+            $response = $master->getByProcedure("sp_consultorio2_consulta_b", [$turno_id, null]);
 
-            $PDF_CERTIFICADO = $master->reportador($master, $turno_id, -10, "certificado_bimo");
-            $QR_VALIDAR_CERTIFICADO = $master->generarQRURL("CertificadoMedico", $URL_VALIDAR_CERTIFICADO, $QR_NAME, QR_ECLEVEL_H);
+            if (count($response) > 0) { #CREACIÓN DEL CERTIFICADO MEDICO DE VINCO
+                $NOMBRE_DE_QR = 'QR-CertificadoMedico-' . $turno_id . '-' . date('Y-m-d');
+                $HASH_VALIDAR_CERTIFICADO = generarHash($turno_id, 'BIMO-CERTIFICADO'.$turno_id);
+                $RUTA_VALIDAR_CERTIFICADO = $host."vista/certificado/?codigo=".$HASH_VALIDAR_CERTIFICADO;
+                $RUTA_QR_VALIDAR_CERTIFICADO = $master->generarQRURL("CertificadoMedico", $RUTA_VALIDAR_CERTIFICADO, $NOMBRE_DE_QR, QR_ECLEVEL_H);
+                $TEMP_RUTA_PDF_CERTIFICADO = $host . 'reportes/certificados/' . $turno_id . '/' . date('Ymd')
+                    . '/CertificadoMedico-' . date('Ymd') . '.pdf';
 
-            $master->insertByProcedure("sp_consultorio_certificado_g", [
-                $turno_id, $QR_VALIDAR_CERTIFICADO, $PDF_CERTIFICADO, $URL_VALIDAR_CERTIFICADO, $vigencia, $fecha_vigencia,
-                $grado_salud, $tipo_examen_medico, $aptitud_trabajo, $_SESSION['id'], $HASH_CERTIFICADO
-            ]);
+                $master->insertByProcedure("sp_consultorio_certificado_g", [
+                    $turno_id, # ID DEL TURNO
+                    $RUTA_QR_VALIDAR_CERTIFICADO, # RUTA DEL QR
+                    $TEMP_RUTA_PDF_CERTIFICADO, # RUTA DEL PDF DEL CERTIFICADO MANUAL
+                    $RUTA_VALIDAR_CERTIFICADO, # RUTA PARA VALIDAR EL CERTIFICADO
+                    $vigencia, $fecha_vigencia, $grado_salud, $tipo_examen_medico, $aptitud_trabajo, # DATOS DEL CERTIFICADO
+                    $_SESSION['id'], $HASH_VALIDAR_CERTIFICADO # HASH DE VALIDACION DEL CERTIFICADO
+                ]);
 
-            $attachment = $master->cleanAttachFilesImage($master, $turno_id, 10, 1);
+                $REAL_RUTA_PDF_CERTIFICADO = $master->reportador($master, $turno_id, -10, "certificado_bimo"); # CREACIÓN DEL PDF
+                $master->cleanAttachFilesImage($master, $turno_id, 10, 1);
 
-            if (!empty($attachment[0])) {
-                $mail = new Correo();
-                if ($mail->sendEmail('resultados', '[bimo] Resultados de consulta', [$attachment[1]], null, $attachment[0], 1, $turno_id, 1, $master)) {
-                    $master->setLog("Correo enviado.", "Consulta");
-                }
-            }
-
-            $response = $master->getByProcedure("sp_consultorio_certificado_b", [$turno_id, null]);
-        } else $response = 'Debes terminar la Historia Clínica para generar el Certificado Médico.';
+                $response = $master->getByProcedure("sp_consultorio_certificado_b", [$turno_id, null]);
+            } else $response = 'Debes terminar la Consulta Médica para generar el Certificado Médico.';
+        } catch (Exception $e) {
+            $response = $e->getMessage();
+            $master->setLog($e->getMessage(), 'certificado_medico_api.php [case 3] ERROR');
+        }
         break;
     case 4:
         #Recuperar certificado
@@ -72,13 +76,13 @@ switch ($api) {
         $response = "Api no definida.";
 }
 
-function generarHashCertificado($idTurno, $nombrePaciente, $fechaActual = null): string
+function generarHash($idTurno, $texto, $fechaActual = null): string
 {
     if (!$fechaActual) {
         $fechaActual = date('Y-m-d H:i:s');
     }
 
-    $cadena = $idTurno . '|' . $nombrePaciente . '|' . $fechaActual . '|' . bin2hex(random_bytes(4));
+    $cadena = $idTurno . '|' . $texto . '|' . $fechaActual . '|' . bin2hex(random_bytes(4));
     return hash('sha256', $cadena);
 }
 
