@@ -17,6 +17,8 @@ var tableCatPuestos;
 var tableCatPuestosDetalles;
 var tableCatMotivos;
 var tableCatRequisiciones;
+var tableCatBlandas;
+var tableCatTecnicas;
 
 const dataTableCatRequisiciones = {
   api: 2, // Case 2 para obtener requisiciones
@@ -36,4 +38,12 @@ const dataTableCatPuestosDetalles = {
 
 const dataTableCatMotivos = {
   api: 12, // Case 11 para obtener motivos
+};
+
+const dataTableCatBlandas = {
+  api: 18, // Case 18 para obtener habilidades blandas
+};
+
+const dataTableCatTecnicas = {
+  api: 21, // Case 19 para obtener habilidades técnicas
 };

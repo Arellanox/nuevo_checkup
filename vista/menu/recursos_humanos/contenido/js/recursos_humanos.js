@@ -378,6 +378,13 @@ tableCatPuestos = $("#tableCatPuestos").DataTable({
           <button class="btn btn-sm btn-primary btn-ver-detalles-puesto" 
               data-id="${row.id_puesto}" 
               data-nombre="${row.descripcion}"
+              data-departamento="${row.departamento_nombre}"
+              data-escolaridad="${row.escolaridad_minima || ""}"
+              data-experiencia="${row.experiencia_anios || ""}"
+              data-objetivos="${row.objetivos || ""}"
+              data-competencias="${row.competencias || ""}"
+              data-banda="${row.banda_salarial || ""}"
+              data-activo="${row.activo}"
               title="Ver detalles">
             <i class="bi bi-eye"></i>
           </button>
@@ -585,6 +592,176 @@ tableCatMotivos = $("#tableCatMotivos").DataTable({
           },
           action: function () {
             $("#filtrarMotivosModal").modal("show");
+          },
+          },
+        ],
+        columnDefs: [
+          { targets: 0, className: "text-center align-middle" }, // id
+          { targets: 2, className: "text-center align-middle" }, // estado
+          { targets: -1, className: "text-center align-middle" } // acciones
+        ]
+      });
+
+// DataTable para el catalogo de habilidades blandas
+tableCatBlandas = $("#tableCatBlandas").DataTable({
+    language: {
+      url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+    },
+    autoWidth: true,
+    lengthChange: false,
+    info: true,
+    paging: true,
+    pageLength: 5, // Agregar esta línea
+    scrollY: "40vh",
+    scrollCollapse: true,
+    ajax: {
+      dataType: "json",
+      data: function (d) {
+        return $.extend(d, dataTableCatBlandas);
+      },
+      method: "POST",
+      url: "../../../api/recursos_humanos_api.php",
+      error: function (jqXHR, textStatus, errorThrown) {
+        alertErrorAJAX(jqXHR, textStatus, errorThrown);
+      },
+      dataSrc: "response.data",
+    },
+    columns: [
+      { data: "id_blanda" },
+      { data: "descripcion" },
+      {
+        data: "activo",
+        render: function (data) {
+          return data == 1
+            ? '<i class="bi bi-toggle-on fs-4 text-success"></i>'
+            : '<i class="bi bi-toggle-off fs-4"></i>';
+        },
+      },
+      {
+        data: null,
+        render: function (data, type, row) {
+            return `
+            <button class="btn btn-sm btn-primary bg-gradient-warning btn-editar-blanda" 
+                data-id="${row.id_blanda}" 
+                data-descripcion="${row.descripcion}" 
+                data-activo="${row.activo}">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-sm btn-primary bg-gradient-secondary btn-eliminar-blanda" 
+                data-id="${row.id_blanda}">
+              <i class="bi bi-trash"></i>
+            </button>
+          `;
+          },
+          },
+        ],
+        dom: 'Bl<"dataTables_toolbar">frtip',
+        buttons: [
+          {
+          text: '<i class="bi bi-plus-lg"></i> Nuevo Habilidad Blanda',
+          className: "btn btn-success bg-gradient-primary",
+          attr: {
+            "data-bs-toggle": "modal",
+            "data-bs-target": "#registrarBlandasModal",
+          },
+          action: function () {
+            $("#registrarBlandasModal").modal("show");
+          },
+          },
+          {
+          text: '<i class="bi bi-funnel me-2"></i>Filtrar <i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;"></i>',
+          className: "btn btn-warning bg-gradient-filter d-flex align-items-center",
+          attr: {
+            "data-bs-toggle": "modal",
+            "data-bs-target": "#filtrarBlandasModal",
+          },
+          action: function () {
+            $("#filtrarBlandasModal").modal("show");
+          },
+          },
+        ],
+        columnDefs: [
+          { targets: 0, className: "text-center align-middle" }, // id
+          { targets: 2, className: "text-center align-middle" }, // estado
+          { targets: -1, className: "text-center align-middle" } // acciones
+        ]
+      });
+
+// DataTable para el catalogo de habilidades técnicas
+tableCatTecnicas = $("#tableCatTecnicas").DataTable({
+    language: {
+      url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+    },
+    autoWidth: true,
+    lengthChange: false,
+    info: true,
+    paging: true,
+    pageLength: 5,
+    scrollY: "40vh",
+    scrollCollapse: true,
+    ajax: {
+      dataType: "json",
+      data: function (d) {
+        return $.extend(d, dataTableCatTecnicas);
+      },
+      method: "POST",
+      url: "../../../api/recursos_humanos_api.php",
+      error: function (jqXHR, textStatus, errorThrown) {
+        alertErrorAJAX(jqXHR, textStatus, errorThrown);
+      },
+      dataSrc: "response.data",
+    },
+    columns: [
+      { data: "id_tecnica" },
+      { data: "descripcion" },
+      {
+        data: "activo",
+        render: function (data) {
+          return data == 1
+            ? '<i class="bi bi-toggle-on fs-4 text-success"></i>'
+            : '<i class="bi bi-toggle-off fs-4"></i>';
+        },
+      },
+      {
+        data: null,
+        render: function (data, type, row) {
+            return `
+            <button class="btn btn-sm btn-primary bg-gradient-warning btn-editar-tecnica" 
+                data-id="${row.id_tecnica}" 
+                data-descripcion="${row.descripcion}" 
+                data-activo="${row.activo}">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-sm btn-primary bg-gradient-secondary btn-eliminar-tecnica" 
+                data-id="${row.id_tecnica}">
+              <i class="bi bi-trash"></i>
+            </button>
+          `;
+          },
+          },
+        ],
+        dom: 'Bl<"dataTables_toolbar">frtip',
+        buttons: [
+          {
+          text: '<i class="bi bi-plus-lg"></i> Nueva Habilidad Técnica',
+          className: "btn btn-success bg-gradient-primary",
+          attr: {
+            "data-bs-toggle": "modal",
+            "data-bs-target": "#registrarTecnicasModal",
+          },
+          action: function () {
+            $("#registrarTecnicasModal").modal("show");
+          },
+          },
+          {
+          text: '<i class="bi bi-funnel me-2"></i>Filtrar <i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;"></i>',
+          className: "btn btn-warning bg-gradient-filter d-flex align-items-center",
+          attr: {
+            "data-bs-toggle": "modal",
+            "data-bs-target": "#filtrarTecnicasModal",
+          },
+          action: function () {
+            $("#filtrarTecnicasModal").modal("show");
           },
           },
         ],
@@ -1182,20 +1359,52 @@ $(document).on("click", ".btn-eliminar-puesto", function () {
 });
 
 // Event handlers para los botones de detalles de puestos
-$(document).on("click", ".btn-ver-detalles-puesto", function () {
-  const puestoId = $(this).data("id");
-  const puestoNombre = $(this).data("nombre");
-
-  console.log("Ver detalles del puesto:", puestoId, puestoNombre);
-
-  // Filtrar la tabla de detalles por el puesto seleccionado
-  if (typeof dataTableCatPuestosDetalles !== "undefined") {
-    dataTableCatPuestosDetalles.id_puesto = puestoId;
-    tableCatPuestosDetalles.ajax.reload();
+$(document).on("click", ".btn-ver-detalles-puesto", function (e) {
+  // Prevenir múltiples clics
+  if ($(this).hasClass('processing')) {
+    return;
   }
+  
+  $(this).addClass('processing');
+  
+  var puestoId = $(this).data("id");
+  var descripcion = $(this).data("nombre");
+  
+  // Obtener los datos del row de la DataTable
+  var row = tableCatPuestos.row($(this).closest('tr')).data();
+  
+  console.log("=== DEBUG VER DETALLES PUESTO ===");
+  console.log("Puesto ID:", puestoId);
+  console.log("Descripción:", descripcion);
+  console.log("Datos del row:", row);
 
-  $("#detallesPuestoModalLabel").text(`Detalles del Puesto: ${puestoNombre}`);
+  // Llenar los campos de información básica
+  $("#detallePuestoNombre").text(row.descripcion || "-");
+  $("#detallePuestoDepartamento").text(row.departamento_nombre || "-");
+  
+  // Mostrar estado del puesto con estilos mejorados
+  var estadoBadge = row.activo == 1 
+    ? '<span class="badge" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); font-size: 0.875rem; padding: 0.5rem 1rem; font-weight: 600;">Activo</span>' 
+    : '<span class="badge" style="background: linear-gradient(135deg, #a0aec0 0%, #718096 100%); font-size: 0.875rem; padding: 0.5rem 1rem; font-weight: 600;">Inactivo</span>';
+  $("#detallePuestoEstado").html(estadoBadge);
+
+  // Llenar campos de perfil del puesto con mejor formateo
+  $("#detalleEscolaridadMinima").text(row.escolaridad_minima || "No especificada");
+  $("#detalleExperienciaAnios").text(row.experiencia_anios ? row.experiencia_anios : "No especificada");
+  $("#detalleObjetivos").text(row.objetivos || "No definidos");
+  $("#detalleCompetencias").text(row.competencias || "No definidas");
+  $("#detalleBandaSalarial").text(row.banda_salarial || "No definida");
+
+  // Actualizar título del modal con mejor formato
+  $("#detallesPuestoModalLabel").html(`<i class="bi bi-eye me-2"></i>Detalles del Puesto: ${row.descripcion}`);
+  
+  // Mostrar el modal con efecto
   $("#detallesPuestoModal").modal("show");
+  
+  // Remover la clase de procesamiento después de un breve delay
+  setTimeout(() => {
+    $(this).removeClass('processing');
+  }, 500);
 });
 
 // $(document).on("click", ".btn-editar-detalles-puesto", function () {
@@ -1342,6 +1551,149 @@ $(document).on("click", ".btn-eliminar-motivo", function () {
       });
     }
   );
+});
+
+// Editar blanda
+$(document).on("click", ".btn-editar-blanda", function () {
+  var blandaId = $(this).data("id");
+  var descripcion = $(this).data("descripcion");
+  var activo = $(this).data("activo");
+  console.log("Blanda ID:", blandaId);
+
+  $("#registrarBlandasModalLabel").text("Editar habilidad blanda");
+
+  $("#blandasId").val(blandaId);
+  $("#blandasDescripcion").val(descripcion);
+  $("#blandasActivoCheck").prop("checked", activo == 1);
+  $("#registrarBlandasModal").modal("show");
+});
+
+// Resetear el modal de registrar blanda al cerrarlo
+$("#registrarBlandasModal").on("hidden.bs.modal", function () {
+  $("#registrarBlandasModalLabel").text("Registrar Blandas");
+  $("#registrarBlandasForm")[0].reset();
+  $("#blandasId").val("");
+});
+
+// Eliminar blanda
+$(document).on("click", ".btn-eliminar-blanda", function () {
+  var blandaId = $(this).data("id");
+  var activo = $(this).data("activo");
+  alertMensajeConfirm(
+    {
+      title: "¿Está a punto de eliminar esta habilidad blanda?",
+      text: "Asegúrate que la acción sea correcta.",
+      icon: "warning",
+    },
+    function () {
+      $.ajax({
+        url: "../../../api/recursos_humanos_api.php",
+        type: "POST",
+        data: {
+          api: 20,
+          id_blanda: blandaId,
+          activo: 0,
+        },
+        beforeSend: function () {
+          console.log("Enviando datos:", {
+            api: 20,
+            id_blanda: blandaId,
+            activo: 0,
+          });
+        },
+        success: function (response) {
+          console.log("Respuesta del servidor:", response);
+
+          let data;
+          try {
+            data =
+              typeof response === "string" ? JSON.parse(response) : response;
+          } catch (e) {
+            console.error("Error parseando respuesta:", e);
+            alertToast("Error en la respuesta del servidor", "error", 4000);
+            return;
+          }
+
+          if (data.response && data.response.code == 1) {
+            console.log("Habilidad blanda eliminada correctamente:", data);
+            alertToast("Habilidad blanda eliminada!", "success", 4000);
+            if (tableCatBlandas) tableCatBlandas.ajax.reload();
+          } else {
+            alertToast(
+              data.response?.message || "Error al procesar la solicitud",
+              "error",
+              4000
+            );
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error("Error AJAX:", error);
+          console.error("Respuesta:", xhr.responseText);
+          alertToast("Error de conexión", "error", 4000);
+        },
+      });
+    }
+  );
+});
+
+// Editar habilidad técnica
+$(document).on("click", ".btn-editar-tecnica", function () {
+  var tecnicaId = $(this).data("id");
+  var descripcion = $(this).data("descripcion");
+  var activo = $(this).data("activo");
+  console.log("Técnica ID:", tecnicaId);
+
+  $("#registrarTecnicasModalLabel").text("Editar habilidad técnica");
+
+  $("#tecnicasId").val(tecnicaId);
+  $("#tecnicasDescripcion").val(descripcion);
+  $("#tecnicasActivoCheck").prop("checked", activo == 1);
+  $("#registrarTecnicasModal").modal("show");
+});
+
+// Eliminar habilidad técnica
+$(document).on("click", ".btn-eliminar-tecnica", function () {
+  var tecnicaId = $(this).data("id");
+  var descripcion = $(this).closest("tr").find("td:eq(1)").text();
+  
+  alertMensajeConfirm(
+    {
+      title: "¿Está seguro de eliminar esta habilidad técnica?",
+      text: `Se eliminará la habilidad técnica: ${descripcion}`,
+      icon: "warning",
+    },
+    function () {
+      ajaxAwaitFormData(
+        {
+          api: 23,
+          id_tecnica: tecnicaId,
+        },
+        "recursos_humanos_api",
+        null,
+        { callbackAfter: true },
+        false,
+        function (data) {
+          if (data.response.code == 1) {
+            alertToast("Habilidad técnica eliminada exitosamente!", "success", 4000);
+            if (tableCatTecnicas) tableCatTecnicas.ajax.reload();
+          } else {
+            alertToast(
+              data.response.message || "Error al eliminar la habilidad técnica",
+              "error",
+              4000
+            );
+                   }
+        }
+      );
+    }
+  );
+});
+
+// Resetear el modal de registrar técnica al cerrarlo
+$("#registrarTecnicasModal").on("hidden.bs.modal", function () {
+  $("#registrarTecnicasModalLabel").text("Registrar Habilidad Técnica");
+  $("#registrarTecnicasForm")[0].reset();
+  $("#tecnicasId").val("");
 });
 
 // Eliminar requisición (desactivar)

@@ -16,6 +16,8 @@ $api = $_POST['api'];
 $id_departamento = isset($_POST['id_departamento']) && $_POST['id_departamento'] !== '' ? (int)$_POST['id_departamento'] : null;
 $id_puesto = isset($_POST['id_puesto']) && $_POST['id_puesto'] !== '' ? (int)$_POST['id_puesto'] : null;
 $id_motivo = isset($_POST['id_motivo']) && $_POST['id_motivo'] !== '' ? (int)$_POST['id_motivo'] : null;
+$id_blanda = isset($_POST['id_blanda']) && $_POST['id_blanda'] !== '' ? (int)$_POST['id_blanda'] : null;
+$id_tecnica = isset($_POST['id_tecnica']) && $_POST['id_tecnica'] !== '' ? (int)$_POST['id_tecnica'] : null;
 $activo = isset($_POST['activo']) ? (int)$_POST['activo'] : 1;
 $descripcion = isset($_POST['descripcion']) ? trim($_POST['descripcion']) : '';
 
@@ -282,6 +284,42 @@ switch ($api) {
         # eliminar requisiciones (desactivar)
         $response = $master->insertByProcedure("sp_rh_cat_requisiciones_e", [
             $id_requisicion
+        ]);
+        break;
+    case 18:
+        # recuperar habildiad es blandas.
+        $response = $master->getByProcedure("sp_rh_cat_blandas_b", []);
+        break;
+    case 19:
+        # Registrar habildiad es blandas.
+        $response = $master->insertByProcedure("sp_rh_cat_blandas_g", [
+            $id_blanda,
+            $descripcion,
+            $activo
+        ]);
+        break;
+    case 20:
+        # Eliminar habildiad es blandas (desactivar)
+        $response = $master->insertByProcedure("sp_rh_cat_blandas_e", [
+            $id_blanda
+        ]);
+        break;
+    case 21:
+        # recuperar habilidades técnicas.
+        $response = $master->getByProcedure("sp_rh_cat_tecnicas_b", []);
+        break;
+    case 22:
+        # Registrar habilidades técnicas.
+        $response = $master->insertByProcedure("sp_rh_cat_tecnicas_g", [
+            $id_tecnica,
+            $descripcion,
+            $activo
+        ]);
+        break;
+    case 23:
+        # Eliminar habilidades técnicas (desactivar)
+        $response = $master->insertByProcedure("sp_rh_cat_tecnicas_e", [
+            $id_tecnica
         ]);
         break;
     default:

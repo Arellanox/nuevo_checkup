@@ -73,6 +73,36 @@
               <i class="bi bi-briefcase me-2"></i>Motivos
             </button>
           </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link rounded-top fw-bold"
+              id="blandas-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#blandas"
+              type="button"
+              role="tab"
+              aria-controls="blandas"
+              aria-selected="false"
+              data-tabla="tableCatBlandas"
+            >
+              <i class="bi bi-heart me-2"></i>Blandas
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link rounded-top fw-bold"
+              id="tecnicas-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#tecnicas"
+              type="button"
+              role="tab"
+              aria-controls="tecnicas"
+              aria-selected="false"
+              data-tabla="tableCatTecnicas"
+            >
+              <i class="bi bi-gear me-2"></i>Técnicas
+            </button>
+          </li>
         </ul>
 
         <!-- Contenido de las pestañas -->
@@ -149,6 +179,58 @@
             <div class="table-responsive">
               <table
                 id="tableCatMotivos"
+                class="table table-hover border-0 shadow-sm"
+                style="width: 100%"
+              >
+                <thead class="table-light">
+                  <tr>
+                    <th class="fw-bold">ID</th>
+                    <th class="fw-bold">Descripción</th>
+                    <th class="fw-bold">Estado</th>
+                    <th class="fw-bold">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Pestaña de Blandas -->
+          <div
+            class="tab-pane fade"
+            id="blandas"
+            role="tabpanel"
+            aria-labelledby="blandas-tab"
+          >
+            <div class="table-responsive">
+              <table
+                id="tableCatBlandas"
+                class="table table-hover border-0 shadow-sm"
+                style="width: 100%"
+              >
+                <thead class="table-light">
+                  <tr>
+                    <th class="fw-bold">ID</th>
+                    <th class="fw-bold">Descripción</th>
+                    <th class="fw-bold">Estado</th>
+                    <th class="fw-bold">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Pestaña de Técnicas -->
+          <div
+            class="tab-pane fade"
+            id="tecnicas"
+            role="tabpanel"
+            aria-labelledby="tecnicas-tab"
+          >
+            <div class="table-responsive">
+              <table
+                id="tableCatTecnicas"
                 class="table table-hover border-0 shadow-sm"
                 style="width: 100%"
               >
@@ -259,65 +341,6 @@
   </div>
 </div>
 
-<!-- <div class="modal fade" id="filtrarDepartamentosModal" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false"
-    data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-        <div class="modal-content shadow-lg border-0">
-            <div class="modal-header bg-gradient-primary text-white border-0">
-                <h5 class="modal-title fw-bold" id="filtrarDepartamentosTitle">
-                    <i class="bi bi-funnel me-2"></i>Filtrar Departamentos
-                </h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body bg-light">
-                <div class="container-fluid">
-                    <div class="row">
-                         Formulario para filtrar departamentos 
-                        <div class="col-12">
-                            <div class="text-start">
-                                <div class="card border-0 shadow-sm">
-                                    <div class="card-body">
-                                      <form id="filtrarDepartamentosForm" name="filtrarDepartamentosForm">
-                                        Activo 
-                                            <div class="card mb-3">
-                                                    <div class="card-body">
-                                                        <label class="form-label">Estatus</label>
-                                                        <div id="activoDepartamentosRadios">
-                                                            <input type="radio" class="btn-check" name="activoDepartamentos" id="activoDepartamentos1" value="1" >
-                                                            <label class="btn btn-outline-primary" for="activoDepartamentos1">Activo</label>
-                                                            
-                                                            <input type="radio" class="btn-check" name="activoDepartamentos" id="activoDepartamentos0" value="0" > 
-                                                            <label class="btn btn-outline-secondary" for="activoDepartamentos0">Inactivo</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer bg-light border-0">
-                <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">
-                    <i class="bi bi-x-circle me-2"></i>Cancelar
-                </button>
-                
-                <button type="submit" id="enviarFiltrosDepartamentosBtn" class="btn btn-gradient-primary rounded-pill px-4 fw-bold"
-                    form="filtrarDepartamentosForm">
-                    <i class="bi bi-funnel me-2"></i>Aplicar Filtros
-                </button>
-                
-                 Botón Restablecer filtro
-                <button type="button" id="resetFiltrosDepartamentosBtn" class="btn btn-outline-warning rounded-pill px-4">
-                    <i class="bi bi-arrow-clockwise me-2"></i>Restablecer
-                </button>
-            </div>
-        </div>
-    </div>
-</div> -->
-
 <!-- Modal para Registrar/Editar Puesto -->
 <div
   class="modal fade"
@@ -354,7 +377,9 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label for="puestoDescripcion" class="form-label">Nombre del Puesto</label>
+                    <label for="puestoDescripcion" class="form-label"
+                      >Nombre del Puesto</label
+                    >
                     <input
                       type="text"
                       class="form-control rounded-3 border-2"
@@ -363,12 +388,16 @@
                       placeholder="Ingrese el nombre del puesto"
                       required
                     />
-                    <div class="invalid-feedback">Este campo es obligatorio.</div>
+                    <div class="invalid-feedback">
+                      Este campo es obligatorio.
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label for="id_departamento_puesto" class="form-label">Departamento</label>
+                    <label for="id_departamento_puesto" class="form-label"
+                      >Departamento</label
+                    >
                     <select
                       class="form-select rounded-3 border-2"
                       id="id_departamento_puesto"
@@ -410,12 +439,21 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label for="detalle_escolaridad_minima" class="form-label">Escolaridad Mínima Requerida</label>
-                    <select class="form-select rounded-3 border-2" id="detalle_escolaridad_minima" name="escolaridad_minima" required>
+                    <label for="detalle_escolaridad_minima" class="form-label"
+                      >Escolaridad Mínima Requerida</label
+                    >
+                    <select
+                      class="form-select rounded-3 border-2"
+                      id="detalle_escolaridad_minima"
+                      name="escolaridad_minima"
+                      required
+                    >
                       <option value="">Seleccionar escolaridad...</option>
                       <option value="primaria">Primaria</option>
                       <option value="secundaria">Secundaria</option>
-                      <option value="preparatoria">Preparatoria/Bachillerato</option>
+                      <option value="preparatoria">
+                        Preparatoria/Bachillerato
+                      </option>
                       <option value="tecnico">Técnico</option>
                       <option value="licenciatura">Licenciatura</option>
                       <option value="maestria">Maestría</option>
@@ -425,8 +463,15 @@
                 </div>
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label for="detalle_experiencia_anios" class="form-label">Experiencia Laboral (años)</label>
-                    <select class="form-select rounded-3 border-2" id="detalle_experiencia_anios" name="experiencia_anios" required>
+                    <label for="detalle_experiencia_anios" class="form-label"
+                      >Experiencia Laboral (años)</label
+                    >
+                    <select
+                      class="form-select rounded-3 border-2"
+                      id="detalle_experiencia_anios"
+                      name="experiencia_anios"
+                      required
+                    >
                       <option value="">Seleccionar experiencia...</option>
                       <option value="Sin experiencia">Sin experiencia</option>
                       <option value="1 año">1 año</option>
@@ -439,7 +484,9 @@
                 </div>
               </div>
               <div class="mb-3">
-                <label for="objetivosPuesto" class="form-label">Objetivos</label>
+                <label for="objetivosPuesto" class="form-label"
+                  >Objetivos</label
+                >
                 <textarea
                   class="form-control rounded-3 border-2"
                   id="objetivosPuesto"
@@ -449,7 +496,9 @@
                 ></textarea>
               </div>
               <div class="mb-3">
-                <label for="competenciasPuesto" class="form-label">Competencias</label>
+                <label for="competenciasPuesto" class="form-label"
+                  >Competencias</label
+                >
                 <textarea
                   class="form-control rounded-3 border-2"
                   id="competenciasPuesto"
@@ -459,7 +508,9 @@
                 ></textarea>
               </div>
               <div class="mb-3">
-                <label for="bandaSalarialPuesto" class="form-label">Banda Salarial</label>
+                <label for="bandaSalarialPuesto" class="form-label"
+                  >Banda Salarial</label
+                >
                 <input
                   type="text"
                   class="form-control rounded-3 border-2"
@@ -472,7 +523,6 @@
           </div>
 
           <!-- Sección 3: Estado del puesto (eliminada, ya está en la primera card) -->
-
         </form>
       </div>
       <div class="modal-footer bg-light border-0">
@@ -504,69 +554,11 @@
   aria-labelledby="detallesPuestoModalLabel"
   aria-hidden="true"
 >
-  <div
-    class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"
-  >
-    <div class="modal-content shadow-lg border-0">
-      <div class="modal-header bg-gradient-info text-dark border-0">
-        <h5 class="modal-title fw-bold" id="detallesPuestoModalLabel">
-          <i class="bi bi-eye me-2"></i>Detalles del Puesto
-        </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body bg-light">
-        <div class="table-responsive">
-          <table
-            id="tableCatPuestosDetalles"
-            class="table table-hover border-0 shadow-sm"
-            style="width: 100%"
-          >
-            <thead class="table-light">
-              <tr>
-                <th class="fw-bold">Puesto</th>
-                <th class="fw-bold">Escolaridad Mínima</th>
-                <th class="fw-bold">Experiencia (años)</th>
-                <th class="fw-bold">Objetivos</th>
-                <th class="fw-bold">Competencias</th>
-                <th class="fw-bold">Banda Salarial</th>
-                <th class="fw-bold">Acciones</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
-      </div>
-      <div class="modal-footer bg-light border-0">
-        <button
-          type="button"
-          class="btn btn-outline-secondary rounded-pill px-4"
-          data-bs-dismiss="modal"
-        >
-          <i class="bi bi-x-circle me-2"></i>Cerrar
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal para Editar Detalles del Puesto -->
-<!-- <div
-  class="modal fade"
-  id="editarDetallesPuestoModal"
-  tabindex="-1"
-  aria-labelledby="editarDetallesPuestoModalLabel"
-  aria-hidden="true"
->
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content shadow-lg border-0">
-      <div class="modal-header bg-gradient-secondary text-white border-0">
-        <h5 class="modal-title fw-bold" id="editarDetallesPuestoModalLabel">
-          <i class="bi bi-pencil-square me-2"></i>Editar Detalles del Puesto
+      <div class="modal-header text-white border-0" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <h5 class="modal-title fw-bold" id="detallesPuestoModalLabel">
+          <i class="bi bi-eye me-2"></i>Detalles del Puesto
         </h5>
         <button
           type="button"
@@ -575,117 +567,134 @@
           aria-label="Close"
         ></button>
       </div>
-      <div class="modal-body bg-light">
-        <form id="editarDetallesPuestoForm">
-          <input type="hidden" id="detallePuestoId" name="id_puesto" value="" />
-
-           <div class="mb-3">
-            <label for="puestoNombreDetalle" class="form-label">Puesto</label>
-            <input
-              type="text"
-              class="form-control rounded-3 border-2"
-              id="puestoNombreDetalle"
-              readonly
-            />
-          </div> 
-
-                     Requisitos del perfil 
-  
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label for="escolaridad_minima" class="form-label">Escolaridad Mínima Requerida</label>
-                    <select class="form-select rounded-3 border-2" id="detalle_escolaridad_minima" name="escolaridad_minima" required>
-                      <option value="">Seleccionar escolaridad...</option>
-                      <option value="primaria">Primaria</option>
-                      <option value="secundaria">Secundaria</option>
-                      <option value="preparatoria">Preparatoria/Bachillerato</option>
-                      <option value="tecnico">Técnico</option>
-                      <option value="licenciatura">Licenciatura</option>
-                      <option value="maestria">Maestría</option>
-                      <option value="doctorado">Doctorado</option>
-                    </select>
-                  </div>
+      <div class="modal-body" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+        <!-- Sección 1: Información básica del puesto -->
+        <div class="card mb-3 border-0 shadow-sm">
+          <div class="card-header text-white" style="background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);">
+            <h6 class="mb-0 fw-bold">
+              <i class="bi bi-info-circle me-2"></i>Información Básica
+            </h6>
+          </div>
+          <div class="card-body" style="background-color: #ffffff;">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label fw-bold" style="color: #2d3748;">Nombre del Puesto</label>
+                  <p
+                    class="form-control-plaintext border rounded p-3"
+                    style="background-color: #f7fafc; color: #1a202c; border-color: #e2e8f0 !important; font-weight: 500;"
+                    id="detallePuestoNombre"
+                  >
+                    -
+                  </p>
                 </div>
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label for="experiencia_anios" class="form-label">Experiencia Laboral (años)</label>
-                      <select class="form-select rounded-3 border-2" id="detalle_experiencia_anios" name="experiencia_anios" required>
-                      <option value="">Seleccionar experiencia...</option>
-                      <option value="Sin experiencia">Sin experiencia</option>
-                      <option value="1 año">1 año</option>
-                      <option value="2 años">2 años</option>
-                      <option value="3 años">3 años</option>
-                      <option value="4 años">4 años</option>
-                      <option value="más de 5 años">Más de 5 años</option>
-                      </select>
-                  </div>
-                </div>
-                  <div class="mb-3">
-                    <label for="idiomas" class="form-label">Idiomas Requeridos</label>
-                    <input type="text" class="form-control rounded-3 border-2" id="idiomas" name="idiomas" placeholder="Ej: Inglés intermedio, Francés básico...">
-                  </div> 
               </div>
-            
-
-          <div class="mb-3">
-            <label for="objetivosPuesto" class="form-label">Objetivos</label>
-            <textarea
-              class="form-control rounded-3 border-2"
-              id="objetivosPuesto"
-              name="objetivos"
-              rows="4"
-              placeholder="Ingrese los objetivos del puesto"
-            ></textarea>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label fw-bold" style="color: #2d3748;">Departamento</label>
+                  <p
+                    class="form-control-plaintext border rounded p-3"
+                    style="background-color: #f7fafc; color: #1a202c; border-color: #e2e8f0 !important; font-weight: 500;"
+                    id="detallePuestoDepartamento"
+                  >
+                    -
+                  </p>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold" style="color: #2d3748;">Estado</label>
+                  <p class="form-control-plaintext" id="detallePuestoEstado">
+                    <span class="badge" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); font-size: 0.875rem; padding: 0.5rem 1rem;">Activo</span>
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
 
-          <div class="mb-3">
-            <label for="competenciasPuesto" class="form-label"
-              >Competencias</label
-            >
-            <textarea
-              class="form-control rounded-3 border-2"
-              id="competenciasPuesto"
-              name="competencias"
-              rows="4"
-              placeholder="Ingrese las competencias requeridas"
-            ></textarea>
+        <!-- Sección 2: Perfil deseado -->
+        <div class="card mb-3 border-0 shadow-sm">
+          <div class="card-header text-white" style="background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);">
+            <h6 class="mb-0 fw-bold">
+              <i class="bi bi-person-badge me-2"></i>Perfil Deseado
+            </h6>
           </div>
-
-          <div class="mb-3">
-            <label for="bandaSalarialPuesto" class="form-label"
-              >Banda Salarial</label
-            >
-            <input
-              type="text"
-              class="form-control rounded-3 border-2"
-              id="bandaSalarialPuesto"
-              name="banda_salarial"
-              placeholder="Ej: $15,000 - $25,000"
-            />
+          <div class="card-body" style="background-color: #ffffff;">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label fw-bold" style="color: #2d3748;"
+                    >Escolaridad Mínima Requerida</label
+                  >
+                  <p
+                    class="form-control-plaintext border rounded p-3"
+                    style="background-color: #f7fafc; color: #1a202c; border-color: #e2e8f0 !important; font-weight: 500;"
+                    id="detalleEscolaridadMinima"
+                  >
+                    -
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label fw-bold" style="color: #2d3748;"
+                    >Experiencia Laboral (años)</label
+                  >
+                  <p
+                    class="form-control-plaintext border rounded p-3"
+                    style="background-color: #f7fafc; color: #1a202c; border-color: #e2e8f0 !important; font-weight: 500;"
+                    id="detalleExperienciaAnios"
+                  >
+                    -
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold" style="color: #2d3748;">Objetivos</label>
+              <div
+                class="border rounded p-3"
+                style="min-height: 120px; background-color: #f7fafc; border-color: #e2e8f0 !important; line-height: 1.6;"
+              >
+                <p class="mb-0" style="color: #1a202c; font-weight: 500;" id="detalleObjetivos">-</p>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold" style="color: #2d3748;">Competencias</label>
+              <div
+                class="border rounded p-3"
+                style="min-height: 120px; background-color: #f7fafc; border-color: #e2e8f0 !important; line-height: 1.6;"
+              >
+                <p class="mb-0" style="color: #1a202c; font-weight: 500;" id="detalleCompetencias">-</p>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold" style="color: #2d3748;">Banda Salarial</label>
+              <p
+                class="form-control-plaintext border rounded p-3"
+                style="background-color: #f7fafc; color: #1a202c; border-color: #e2e8f0 !important; font-weight: 500;"
+                id="detalleBandaSalarial"
+              >
+                -
+              </p>
+            </div>
           </div>
-        </form>
+        </div>
       </div>
-      <div class="modal-footer bg-light border-0">
+      <div class="modal-footer border-0" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
         <button
           type="button"
-          class="btn btn-outline-secondary rounded-pill px-4"
+          class="btn rounded-pill px-4 fw-bold"
           data-bs-dismiss="modal"
+          style="background: linear-gradient(135deg, #a0aec0 0%, #718096 100%); color: white; border: none; transition: all 0.3s ease;"
+          onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 15px rgba(160, 174, 192, 0.3)';"
+          onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';"
         >
-          <i class="bi bi-x-circle me-2"></i>Cancelar
-        </button>
-        <button
-          type="submit"
-          form="editarDetallesPuestoForm"
-          class="btn btn-gradient-secondary rounded-pill px-4 fw-bold"
-          id="btnGuardarDetallesPuesto"
-        >
-          <i class="bi bi-check-circle me-2"></i>Guardar
+          <i class="bi bi-x-circle me-2"></i>Cerrar
         </button>
       </div>
     </div>
   </div>
-</div> -->
+</div>
 
 <!-- Modal para Registrar/Editar Motivo -->
 <div
@@ -762,11 +771,161 @@
   </div>
 </div>
 
+<!-- Modal para Registrar/Editar Blandas -->
+<div
+  class="modal fade"
+  id="registrarBlandasModal"
+  tabindex="-1"
+  aria-labelledby="registrarBlandasModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow-lg border-0">
+      <div class="modal-header bg-gradient-success text-white border-0">
+        <h5 class="modal-title fw-bold" id="registrarBlandasModalLabel">
+          <i class="bi bi-building me-2"></i>Registrar Blandas
+        </h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body bg-light">
+        <form id="registrarBlandasForm">
+          <input type="hidden" id="blandasId" name="id_blanda" value="" />
+          <div class="mb-3">
+            <label for="blandasDescripcion" class="form-label"
+              >Descripción de la habilidad blanda</label
+            >
+            <input
+              type="text"
+              class="form-control rounded-3 border-2"
+              id="blandasDescripcion"
+              name="descripcion"
+              placeholder="Ingrese la descripción de la habilidad blanda"
+              required
+            />
+            <div class="invalid-feedback">Este campo es obligatorio.</div>
+          </div>
+          <div class="mb-3">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="blandasActivoCheck"
+                name="blandasActivoCheck"
+                checked
+              />
+              <label class="form-check-label" for="blandasActivoCheck">
+                Habilidad blanda activa
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer bg-light border-0">
+        <button
+          type="button"
+          class="btn btn-outline-secondary rounded-pill px-4"
+          data-bs-dismiss="modal"
+        >
+          <i class="bi bi-x-circle me-2"></i>Cancelar
+        </button>
+        <button
+          type="submit"
+          form="registrarBlandasForm"
+          class="btn btn-gradient-success rounded-pill px-4 fw-bold"
+          id="btnGuardarBlandas"
+        >
+          <i class="bi bi-check-circle me-2"></i>Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para Registrar/Editar Técnicas -->
+<div
+  class="modal fade"
+  id="registrarTecnicasModal"
+  tabindex="-1"
+  aria-labelledby="registrarTecnicasModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow-lg border-0">
+      <div class="modal-header bg-gradient-info text-white border-0">
+        <h5 class="modal-title fw-bold" id="registrarTecnicasModalLabel">
+          <i class="bi bi-gear me-2"></i>Registrar Habilidad Técnica
+        </h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body bg-light">
+        <form id="registrarTecnicasForm">
+          <input type="hidden" id="tecnicasId" name="id_tecnica" value="" />
+          <div class="mb-3">
+            <label for="tecnicasDescripcion" class="form-label"
+              >Descripción de la habilidad técnica</label
+            >
+            <input
+              type="text"
+              class="form-control rounded-3 border-2"
+              id="tecnicasDescripcion"
+              name="descripcion"
+              placeholder="Ingrese la descripción de la habilidad técnica"
+              required
+            />
+            <div class="invalid-feedback">Este campo es obligatorio.</div>
+          </div>
+          <div class="mb-3">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="tecnicasActivoCheck"
+                name="tecnicasActivoCheck"
+                checked
+              />
+              <label class="form-check-label" for="tecnicasActivoCheck">
+                Habilidad técnica activa
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer bg-light border-0">
+        <button
+          type="button"
+          class="btn btn-outline-secondary rounded-pill px-4"
+          data-bs-dismiss="modal"
+        >
+          <i class="bi bi-x-circle me-2"></i>Cancelar
+        </button>
+        <button
+          type="submit"
+          form="registrarTecnicasForm"
+          class="btn btn-gradient-info rounded-pill px-4 fw-bold"
+          id="btnGuardarTecnicas"
+        >
+          <i class="bi bi-check-circle me-2"></i>Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   $(document).ready(function () {
     // Simplemente reabrir el modal principal cuando se cierren los modales secundarios
     $(
-      "#registrarDepartamentoModal, #registrarPuestoModal, #registrarMotivoModal"
+      "#registrarDepartamentoModal, #registrarPuestoModal, #registrarMotivoModal, #registrarBlandasModal, #registrarTecnicasModal"
     ).on("hidden.bs.modal", function () {
       $("#registrarCatalogoModal").modal("show");
     });
@@ -775,28 +934,30 @@
   // 2. Interceptar TODOS los botones de acción dentro de las tablas (editar y nuevos)
   $(document).on(
     "click",
-    ".btn-editar-departamento, .btn-editar-puesto, .btn-nuevo-departamento, .btn-nuevo-puesto, btn-nuevo-motivo",
+    ".btn-editar-departamento, .btn-editar-puesto, .btn-nuevo-departamento, .btn-nuevo-puesto, btn-nuevo-motivo, .btn-nuevo-blandas, .btn-nuevo-tecnicas",
     function (e) {
       $("#registrarCatalogoModal").modal("hide");
     }
   );
 
-  // Manejar modales de detalles
-  $("#detallesPuestoModal, #editarDetallesPuestoModal").on(
-    "hidden.bs.modal",
-    function () {
-      $("#registrarCatalogoModal").modal("show");
+  // Manejar modales de detalles - SIMPLIFICADO PARA EVITAR BUGS
+  $("#detallesPuestoModal").on("hidden.bs.modal", function () {
+    // Solo reabrir el modal principal si viene desde el catálogo
+    if ($(this).data('from-catalog') === true) {
+      setTimeout(function() {
+        $("#registrarCatalogoModal").modal("show");
+      }, 100);
     }
-  );
+    // Limpiar la bandera
+    $(this).removeData('from-catalog');
+  });
 
-  // Interceptar botones de detalles
-  $(document).on(
-    "click",
-    ".btn-ver-detalles-puesto, .btn-editar-detalles-puesto",
-    function (e) {
-      $("#registrarCatalogoModal").modal("hide");
-    }
-  );
+  // Interceptar botones de detalles - MEJORADO
+  $(document).on("click", ".btn-ver-detalles-puesto", function (e) {
+    // Marcar que el modal viene del catálogo
+    $("#detallesPuestoModal").data('from-catalog', true);
+    $("#registrarCatalogoModal").modal("hide");
+  });
 </script>
 
 <style>
@@ -980,5 +1141,69 @@
 
   .tab-content {
     border-radius: 0 10px 10px 10px;
+  }
+
+  /* Estilos específicos para el modal de detalles */
+  #detallesPuestoModal .modal-content {
+    border-radius: 15px;
+    overflow: hidden;
+  }
+
+  #detallesPuestoModal .card {
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+
+  #detallesPuestoModal .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  #detallesPuestoModal .card-header {
+    border-radius: 12px 12px 0 0;
+    padding: 15px 20px;
+  }
+
+  #detallesPuestoModal .card-body {
+    padding: 20px;
+  }
+
+  #detallesPuestoModal .form-control-plaintext {
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+
+  #detallesPuestoModal .form-control-plaintext:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  #detallesPuestoModal .modal-header {
+    border-radius: 15px 15px 0 0;
+    padding: 20px 25px;
+  }
+
+  #detallesPuestoModal .modal-footer {
+    border-radius: 0 0 15px 15px;
+    padding: 20px 25px;
+  }
+
+  #detallesPuestoModal .badge {
+    border-radius: 20px;
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+  }
+
+  #detallesPuestoModal .form-label {
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+  }
+
+  /* Prevenir clics múltiples en botones */
+  .btn-ver-detalles-puesto.processing {
+    opacity: 0.6;
+    pointer-events: none;
   }
 </style>
