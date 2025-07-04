@@ -188,6 +188,132 @@ $("#registrarMotivoForm").submit(function (event) {
   return false;
 });
 
+// Registrar/Editar Blandas
+$("#registrarBlandasForm").submit(function (event) {
+  event.preventDefault();
+
+  var form = document.getElementById("registrarBlandasForm");
+  var formData = new FormData(form);
+
+  $("#blandasDescripcion").removeClass("is-invalid");
+
+  var activo;
+  if ($("#registrarBlandasForm #blandasActivoCheck").is(":checked")) {
+    activo = 1;
+  } else {
+    activo = 0;
+  }
+
+  let blandasIdValue = $("#blandasId").val();
+  let esEdicion = blandasIdValue && blandasIdValue !== "";
+
+  alertMensajeConfirm(
+    {
+      title: esEdicion
+        ? "¿Está a punto de editar esta habilidad blanda?"
+        : "¿Está a punto de registrar una nueva habilidad blanda?",
+      text: "Asegúrate que los datos sean correctos.",
+      icon: "warning",
+    },
+    function () {
+      ajaxAwaitFormData(
+        {
+          api: 19,
+          activo: activo,
+        },
+        "recursos_humanos_api",
+        "registrarBlandasForm",
+        { callbackAfter: true },
+        false,
+        function (data) {
+          if (data.response.code == 1) {
+            console.log("Blanda ID:", blandasIdValue);
+            $("#registrarBlandasForm")[0].reset();
+            $("#registrarBlandasModal").modal("hide");
+            alertToast(
+              esEdicion ? "Habilidad blanda actualizada!" : "Habilidad blanda registradoa!",
+              "success",
+              4000
+            );
+            if (tableCatBlandas) tableCatBlandas.ajax.reload();
+          } else {
+            alertToast(
+              data.response.message || "Error al procesar la solicitud",
+              "error",
+              4000
+            );
+          }
+        }
+      );
+    }
+  );
+
+  return false;
+});
+
+// Registrar/Editar Técnicas
+$("#registrarTecnicasForm").submit(function (event) {
+  event.preventDefault();
+
+  var form = document.getElementById("registrarTecnicasForm");
+  var formData = new FormData(form);
+
+  $("#tecnicasDescripcion").removeClass("is-invalid");
+
+  var activo;
+  if ($("#registrarTecnicasForm #tecnicasActivoCheck").is(":checked")) {
+    activo = 1;
+  } else {
+    activo = 0;
+  }
+
+  let tecnicasIdValue = $("#tecnicasId").val();
+  let esEdicion = tecnicasIdValue && tecnicasIdValue !== "";
+
+  alertMensajeConfirm(
+    {
+      title: esEdicion
+        ? "¿Está a punto de editar esta habilidad técnica?"
+        : "¿Está a punto de registrar una nueva habilidad técnica?",
+      text: "Asegúrate que los datos sean correctos.",
+      icon: "warning",
+    },
+    function () {
+      ajaxAwaitFormData(
+        {
+          api: 22,
+          activo: activo,
+        },
+        "recursos_humanos_api",
+        "registrarTecnicasForm",
+        { callbackAfter: true },
+        false,
+        function (data) {
+          if (data.response.code == 1) {
+            console.log("Técnica ID:", tecnicasIdValue);
+            $("#registrarTecnicasForm")[0].reset();
+            $("#registrarTecnicasModal").modal("hide");
+            alertToast(
+              esEdicion ? "Habilidad técnica actualizada!" : "Habilidad técnica registrada!",
+              "success",
+              4000
+            );
+            if (tableCatTecnicas) tableCatTecnicas.ajax.reload();
+          } else {
+            alertToast(
+              data.response.message || "Error al procesar la solicitud",
+              "error",
+              4000
+            );
+          }
+        }
+      );
+    }
+  );
+
+  return false;
+});
+
 // Requisiciones de Recursos Humanos
 // Registrar una nueva vacante/requisición
 // Poner aqui la logica para registrar una nueva vacante
