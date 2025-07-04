@@ -769,8 +769,14 @@ class Miscelaneus
                 $servicios = $master->getByProcedure("sp_paciente_servicios_cargados", [$turno_id, null]);
                 $paciente = $master->getByProcedure("sp_consultorio_certificado_b", [$turno_id, null]);
                 $medicos = $master->getByProcedure("sp_info_medicos", [$turno_id, 1]);
+                $consulta = $master->getByProcedure("sp_consultorio2_consulta_b", [$turno_id, null]);
 
-                $arregloPaciente = ['SERVICIOS' => $servicios, 'PACIENTE' => $paciente, 'MEDICOS' => $medicos];
+                $arregloPaciente = [
+                    'SERVICIOS' => $servicios,
+                    'PACIENTE' => $paciente,
+                    'MEDICOS' => $medicos,
+                    'CONSULTA' => $consulta
+                ];
                 break;
             case -11:
                 $cliente_id = $master->insertByProcedure('sp_get_cliente', [$turno_id]);

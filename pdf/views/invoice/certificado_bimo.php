@@ -41,6 +41,7 @@
         $paciente = $resultados->PACIENTE[0] ?? [];
         $servicios = $resultados->SERVICIOS ?? [];
         $medicos = $resultados->MEDICOS ?? [];
+        $consulta = $resultados->CONSULTA[0] ?? [];
 
         $array_aptitud = json_decode($paciente->APTITUD ?? "[]");
         $array_tipo_exam = json_decode($paciente->TIPO_EXAMEN_MEDICO ?? "[]");
@@ -131,7 +132,7 @@
         <tr>
             <td colspan="24">
                 <strong>
-                    <?= $paciente->DIAGNOSTICO ?? '' ?>
+                    <?= $consulta->DIAGNOSTICO ?? '' ?>
                 </strong>
             </td>
         </tr>
