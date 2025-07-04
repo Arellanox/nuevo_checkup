@@ -36,20 +36,27 @@ if (isset($_POST['usuario_solicitante_id']) && !empty($_POST['usuario_solicitant
 }
 
 $prioridad = isset($_POST['prioridad']) ? trim($_POST['prioridad']) : 'normal';
+$tipo_modalidad = isset($_POST['tipo_modalidad']) ? trim($_POST['tipo_modalidad']) : '';
 $justificacion = isset($_POST['justificacion']) ? trim($_POST['justificacion']) : '';
 $estatus = isset($_POST['estatus']) ? trim($_POST['estatus']) : 'borrador';
 $tipo_contrato = isset($_POST['tipo_contrato']) ? trim($_POST['tipo_contrato']) : '';
 $tipo_jornada = isset($_POST['tipo_jornada']) ? trim($_POST['tipo_jornada']) : '';
 $escolaridad_minima = isset($_POST['escolaridad_minima']) ? trim($_POST['escolaridad_minima']) : '';
-$experiencia_anos = isset($_POST['experiencia_anos']) ? trim($_POST['experiencia_anos']) : '';
+// $experiencia_anos = isset($_POST['experiencia_anos']) ? trim($_POST['experiencia_anos']) : ''; Obsoleto, ahora es experiencia_anios
 $experiencia_anios = isset($_POST['experiencia_anios']) ? trim($_POST['experiencia_anios']) : '';
-$experiencia_area = isset($_POST['experiencia_area']) ? trim($_POST['experiencia_area']) : null;
-$conocimientos_tecnicos = isset($_POST['conocimientos_tecnicos']) ? trim($_POST['conocimientos_tecnicos']) : null;
-$habilidades_blandas = isset($_POST['habilidades_blandas']) ? trim($_POST['habilidades_blandas']) : null;
-$idiomas = isset($_POST['idiomas']) ? trim($_POST['idiomas']) : null;
-$horario_trabajo = isset($_POST['horario_trabajo']) ? trim($_POST['horario_trabajo']) : '';
-$rango_salarial = isset($_POST['rango_salarial']) ? trim($_POST['rango_salarial']) : null;
-$observaciones_aprobacion = isset($_POST['observaciones_aprobacion']) ? trim($_POST['observaciones_aprobacion']) : null;
+// $conocimientos_tecnicos = isset($_POST['conocimientos_tecnicos']) ? trim($_POST['conocimientos_tecnicos']) : null;
+// $habilidades_blandas = isset($_POST['habilidades_blandas']) ? trim($_POST['habilidades_blandas']) : null; cambio para catalogo
+// $idiomas = isset($_POST['idiomas']) ? trim($_POST['idiomas']) : null; por definir
+
+// Campos de horario actualizados
+    $dias_trabajo = isset($_POST['dias_trabajo']) ? trim($_POST['dias_trabajo']) : '';
+    $dias_personalizados = isset($_POST['dias_personalizados']) ? trim($_POST['dias_personalizados']) : null;
+    $hora_inicio = isset($_POST['hora_inicio']) ? trim($_POST['hora_inicio']) : '';
+    $hora_fin = isset($_POST['hora_fin']) ? trim($_POST['hora_fin']) : '';
+    
+    // Campos de salario actualizados (opcionales)
+    $salario_min = isset($_POST['salario_min']) && $_POST['salario_min'] !== '' ? (float)$_POST['salario_min'] : null;
+    $salario_max = isset($_POST['salario_max']) && $_POST['salario_max'] !== '' ? (float)$_POST['salario_max'] : null;
 
 # Variable para la editar requisición de personal
 $usuario_aprobador_id = isset($_POST['usuario_aprobador_id']) && $_POST['usuario_aprobador_id'] !== '' ? (int)$_POST['usuario_aprobador_id'] : null;
@@ -114,14 +121,16 @@ switch ($api) {
                 $id_puesto,               // ID del puesto (RENOMBRADO)
                 $tipo_contrato,           // Tipo de contrato
                 $tipo_jornada,            // Tipo de jornada
-                $escolaridad_minima,      // Escolaridad mínima
-                $experiencia_anos,        // Años de experiencia
-                $experiencia_area,        // Área de experiencia
-                $conocimientos_tecnicos,  // Conocimientos técnicos
-                $habilidades_blandas,     // Habilidades blandas
-                $idiomas,                 // Idiomas
-                $horario_trabajo,         // Horario de trabajo
-                $rango_salarial,        // Rango salarial
+                $tipo_modalidad,         // Tipo de modalidad (nuevo campo)
+                // $conocimientos_tecnicos,  // Conocimientos técnicos
+                // $habilidades_blandas,     // Habilidades blandas
+                // $idiomas,                 // Idiomas
+                $dias_trabajo,
+                $dias_personalizados,
+                $hora_inicio,
+                $hora_fin,
+                $salario_min,
+                $salario_max,
                 // Parametros de aprobación
                 $usuario_aprobador_id,    // ID del usuario aprobador
                 $observaciones_aprobacion // Observaciones de aprobación

@@ -127,7 +127,7 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
             data: "estatus", 
             render: function(data) {
                 const badges = {
-                    'borrador': '<span class="badge bg-light text-dark">Borrador</span>',
+                    'borrador': '<span class="badge bg-warning text-dark">Borrador</span>',
                     'pendiente': '<span class="badge bg-warning">Pendiente</span>',
                     'aprobada': '<span class="badge bg-success">Aprobada</span>',
                     'rechazada': '<span class="badge bg-danger">Rechazada</span>',
@@ -143,14 +143,16 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
         { data: "justificacion"},
         { data: "tipo_contrato"},
         { data: "tipo_jornada"},
-        { data: "escolaridad_minima"},
-        { data: "experiencia_anos"},
-        { data: "experiencia_area"},
-        { data: "conocimientos_tecnicos"},
-        { data: "habilidades_blandas"},
-        { data: "idiomas"},
-        { data: "horario_trabajo"},
-        { data: "rango_salarial"},
+        { data: "tipo_modalidad"}, // Nuevo campo para tipo de modalidad
+        // { data: "conocimientos_tecnicos"},
+        // { data: "habilidades_blandas"},
+        // { data: "idiomas"},
+        { data: "dias_trabajo"},
+        { data: "dias_personalizados"},
+        { data: "hora_inicio"},
+        { data: "hora_fin"},
+        { data: "salario_min"},
+        { data: "salario_max"},
         { data: "usuario_aprobador_id"},
         { data: "fecha_aprobacion"},
         { data: "observaciones_aprobacion"},
@@ -201,18 +203,21 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
         { targets: 8, title: "Justificación", visible: false },
         { targets: 9, title: "Tipo Contrato", visible: false },
         { targets: 10, title: "Tipo Jornada", visible: false },
-        { targets: 11, title: "Escolaridad Mínima", visible: false },
-        { targets: 12, title: "Experiencia Años", visible: false },
-        { targets: 13, title: "Experiencia Área", visible: false },
-        { targets: 14, title: "Conocimientos Técnicos", visible: false },
-        { targets: 15, title: "Habilidades Blandas", visible: false },
-        { targets: 16, title: "Idiomas", visible: false },
-        { targets: 17, title: "Horario Trabajo", visible: false },
-        { targets: 18, title: "Rango Salarial", visible: false },
-        { targets: 19, title: "ID Usuario Aprobador", visible: false },
-        { targets: 20, title: "Fecha Aprobación", visible: false },
-        { targets: 21, title: "Observaciones Aprobación", visible: false },
-        { targets: 22, title: "Acciones", className: "all" }
+        { targets: 11, title: "Tipo Modalidad", visible: false },
+        // { targets: 14, title: "Conocimientos Técnicos", visible: false },
+        // { targets: 15, title: "Habilidades Blandas", visible: false },
+        // { targets: 16, title: "Idiomas", visible: false },
+        { targets: 12, title: "Días de Trabajo", visible: false },
+        { targets: 13, title: "Días Personalizados", visible: false },
+        { targets: 14, title: "Hora Inicio", visible: false },
+        { targets: 15, title: "Hora Fin", visible: false },
+        { targets: 16, title: "Salario Mínimo", visible: false },
+        { targets: 17, title: "Salario Máximo", visible: false },
+        { targets: 18, title: "ID Usuario Aprobador", visible: false },
+        { targets: 19, title: "Fecha Aprobación", visible: false },
+        { targets: 20, title: "Observaciones Aprobación", visible: false },
+        { targets: 21, title: "Acciones", className: "all" },
+        { targets: 22, title: "Activo", visible: false } // Columna para el estado activo/inactivo
     ],
     dom: 'Bl<"dataTables_toolbar">frtip',
     buttons: [
@@ -1613,21 +1618,24 @@ function llenarModalDetallesRequisicion(data) {
         $("#puestoSolicitado").text(data.puesto_nombre || 'N/A');
         $("#tipoContrato").text(formatearTipoContrato(data.tipo_contrato) || 'N/A');
         $("#tipoJornada").text(formatearTipoJornada(data.tipo_jornada) || 'N/A');
-        $("#horarioTrabajo").text(data.horario_trabajo || 'N/A');
-        $("#rangoSalarial").text(data.rango_salarial || 'N/A');
+        $("#diaTrabajo").text(data.dias_trabajo || 'N/A');
+        $("#diaPersonalizado").text(data.dia_personalizado || 'N/A');
+        $("#horaInicio").text(data.hora_inicio || 'N/A');
+        $("#horaFin").text(data.hora_fin || 'N/A');
+        $("#salarioMin").text(data.salario_minimo || 'N/A');
+        $("#salarioMax").text(data.salario_maximo || 'N/A');
         
         // === REQUISITOS ACADÉMICOS ===
         $("#escolaridadMinima").text(formatearEscolaridad(data.escolaridad_minima) || 'N/A');
-        $("#experienciaAnos").text(formatearExperiencia(data.experiencia_anos) || 'N/A');
-        $("#experienciaArea").text(data.experiencia_area || 'N/A');
-        $("#idiomasRequeridos").text(data.idiomas || 'N/A');
+        $("#experienciaAnos").text(formatearExperiencia(data.experiencia_anios) || 'N/A');
+        $("#idiomasRequeridos").text(data.idiomas || 'Español'); // Asumir español si no se especifica
         
         // === CONOCIMIENTOS Y HABILIDADES ===
         $("#conocimientosTecnicos").text(data.conocimientos_tecnicos || 'No especificado');
         $("#habilidadesBlandas").text(data.habilidades_blandas || 'No especificado');
         
         // === JUSTIFICACIÓN ===
-        $("#justificacionRequisicion").text(data.justificacion || 'Sin justificación');
+        $("#justificacionRequisicion").text(data.justificacion || 'Sin descripción');
         
         // === INFORMACIÓN DE APROBACIÓN ===
         // Solo mostrar si está aprobada y hay datos de aprobación
@@ -1691,7 +1699,7 @@ function formatearPrioridadBadge(prioridad) {
 
 function formatearEstatusBadge(estatus) {
     const badges = {
-        'borrador': '<span class="badge bg-light text-dark">Borrador</span>',
+        'borrador': '<span class="badge bg-warning text-dark">Borrador</span>',
         'pendiente': '<span class="badge bg-warning">Pendiente</span>',
         'aprobada': '<span class="badge bg-success">Aprobada</span>',
         'rechazada': '<span class="badge bg-danger">Rechazada</span>',
