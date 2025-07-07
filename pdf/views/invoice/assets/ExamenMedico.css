@@ -66,6 +66,13 @@ table {
     font-weight: lighter;
     font-size: 10px;
 }
+.text-soma-result {
+    color: #393939;
+    font-weight: bolder;
+    font-size: 10px;
+    margin: 4px 4px;
+}
+
 
 .table_body_common tr td{
     background: #ffffff;

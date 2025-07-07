@@ -73,7 +73,7 @@
             <th>Especifique</th>
         </tr>
 
-        <tr>
+        <tr class="break">
             <td class="text-table-result"><span>Cilindrico</span></td>
             <td class="text-table-result"><span class="center"><?= $resultados[7]->{23}->RESPUESTA == "Normal" ? "X" : "" ?></span></td>
             <td class="text-table-result"><span class="center"><?= $resultados[7]->{23}->RESPUESTA == "Anormal" ? "X" : "" ?></span></td>
@@ -121,7 +121,7 @@
             <td class="text-table-result"><span class="center"><?= $resultados[7]->{617}->OBSERVACIONES ?></span></td>
         </tr>
 
-        <tr class="break"> <!-- SALTO DE PÁGINA -->
+        <tr class=""> <!-- SALTO DE PÁGINA -->
             <td class="text-table-result"><span>Ganglios / Tiroides</span></td>
             <td class="text-table-result"><span class="center"><?= $resultados[7]->{225}->RESPUESTA == "Sí" ? "X" : "" ?></span></td>
             <td class="text-table-result"><span class="center"><?= $resultados[7]->{225}->RESPUESTA == "No" ? "X" : "" ?></span></td>

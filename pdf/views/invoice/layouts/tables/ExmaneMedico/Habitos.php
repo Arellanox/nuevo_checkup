@@ -75,27 +75,6 @@
             </td>
         </tr>
         <tr>
-            <td colspan="3" class="text-table-result"><span>Drogas 2</span></td>
-            <td colspan="3" class="text-table-result">
-                <span>              </span><!-- RELLENAR -->
-            </td>
-            <td colspan="3" class="text-table-result">
-                <span>              </span><!-- RELLENAR -->
-            </td>
-            <td colspan="3" class="text-table-result">
-                <span>              </span><!-- RELLENAR -->
-            </td>
-            <td colspan="3" class="text-table-result">
-                <span>              </span><!-- RELLENAR -->
-            </td>
-            <td colspan="3" class="text-table-result">
-                <span>              </span><!-- RELLENAR -->
-            </td>
-            <td colspan="3" class="text-table-result">
-                <span>                 </span><!-- RELLENAR -->
-            </td>
-        </tr>
-        <tr>
             <td class="text-table-result" colspan="15">
                 <span>¿Realiza con frecuencia Deporte / Ejercicio?</span>
                 <span><?= $resultados[1]->{21}->RESPUESTA  == "Sí" ? 'Sí' : 'No'?></span><!-- RELLENAR -->

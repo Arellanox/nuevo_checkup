@@ -77,7 +77,6 @@
         </h1>
         <?php include 'layouts/tables/ExmaneMedico/ExploracionFisica.php'; ?>
         <?php include 'layouts/tables/ExmaneMedico/ExploracionFisicaExtremidades.php'; ?>
-        <div class="break"></div> <!-- SALTO DE PÁGINA -->
         <?php include 'layouts/tables/ExmaneMedico/ExploracionFisicaInterpretacion.php'; ?>
 
         <?php include 'layouts/tables/ExmaneMedico/Firma.php'; ?>

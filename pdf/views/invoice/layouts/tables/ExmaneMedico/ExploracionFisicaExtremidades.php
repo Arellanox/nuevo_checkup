@@ -262,7 +262,7 @@
             <td class="text-table-result"><span class="center"><?= $resultados[7]->{1546}->OBSERVACIONES ?></span></td>
         </tr>
 
-        <tr>
+        <tr class="break">
             <td class="text-table-result"><span>Conformación</span></td>
             <td class="text-table-result" colspan="3"><!-- RELLENAR -->
                 <span class="checked <?= $resultados[7]->{1135}->RESPUESTA == 'Plano'? '' : 'empty' ?>">X</span> <!-- RELLENAR -->

@@ -22,7 +22,7 @@
             </th>
             <th colspan="3">
                 <div style="position: relative">
-                    Edad: <div><?= $resultados[5]->EDAD  ?></div>
+                    Edad: <div><?= $resultados[0]->EDAD ?? $encabezado->EDAD  ?></div>
                 </div>
             </th>
         </tr>
@@ -34,14 +34,14 @@
             </th>
             <th colspan="6">
                 <div style="position: relative">
-                    Teléfono: <div><?= $resultados[5]->CELULAR ?></div>
+                    Teléfono: <div><?= $resultados[0]->CELULAR ?? $encabezado->CELULAR ?></div>
                 </div>
             </th>
         </tr>
         <tr>
             <th colspan="6">
                 <div style="position: relative">
-                    Correo Electrónico: <div><?= '' ?></div>
+                    Correo Electrónico: <div><?= $resultados[0]->CORREO ?? $encabezado->CORREO ?></div>
                 </div>
             </th>
             <th colspan="6">
@@ -53,17 +53,17 @@
         <tr>
             <th colspan="4">
                 <div style="position: relative">
-                    Estado Civil: <div><?= $resultados[5]->ESTADO_CIVIL ?></div>
+                    Estado Civil: <div><?= $resultados[0]->ESTADO_CIVIL ?? 'No Aplica' ?></div>
                 </div>
             </th>
             <th colspan="4">
                 <div style="position: relative">
-                    Tipo de Sangre: <div><?= 'SIN INFORMACIÓN' ?></div>
+                    Tipo de Sangre: <div><?= 'No Aplica' ?></div>
                 </div>
             </th>
             <th colspan="4">
                 <div style="position: relative">
-                    Número de IMSS: <div><?= $resultados[5]->NO_IMSS ?></div>
+                    Número de IMSS: <div><?= $resultados[0]->NO_IMSS ?? 'No Aplica' ?></div>
                 </div>
             </th>
         </tr>

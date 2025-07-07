@@ -348,8 +348,10 @@ class Miscelaneus
                 $carpeta_guardado = "etiquetas";
                 $datos_medicos = array();
                 break;
-            case 6: case '6':
-            case 12: case '12': //<-- Biomolecular
+            case 6:
+            case '6':
+            case 12:
+            case '12': //<-- Biomolecular
                 $arregloPaciente = $this->getBodyInfoLab($master, $turno_id, $area_id);
                 $clave = $master->getByProcedure("sp_generar_clave", []);
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $clave[0]['TOKEN'];
@@ -364,7 +366,8 @@ class Miscelaneus
                     $folio = $infoPaciente[0]['FOLIO_BIOMOLECULAR'];
                 }
                 break;
-            case 8: case '8':
+            case 8:
+            case '8':
                 $arregloPaciente = $this->getBodyInfoImg($master, $turno_id, $area_id);
                 $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
                 $datos_medicos = $this->getMedicalCarrier($info);
@@ -376,7 +379,8 @@ class Miscelaneus
                 $infoPaciente[0]['FOLIO_IMAGEN'] = $infoPaciente[0]['FOLIO_IMAGEN_US'];
                 $folio = $infoPaciente[0]['FOLIO_IMAGEN'];
                 break;
-            case 11: case '11':
+            case 11:
+            case '11':
                 $arregloPaciente = $this->getBodyInfoImg($master, $turno_id, $area_id);
                 $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
                 $datos_medicos = $this->getMedicalCarrier($info);
@@ -388,7 +392,8 @@ class Miscelaneus
                 $infoPaciente[0]['FOLIO_IMAGEN'] = $infoPaciente[0]['FOLIO_IMAGEN_RX'];
                 $folio = $infoPaciente[0]['FOLIO_IMAGEN'];
                 break;
-            case 3: case '3': #Oftalmologia
+            case 3:
+            case '3': #Oftalmologia
                 $arregloPaciente = $this->getBodyInfoOftal($master, $turno_id);
                 $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $arregloPaciente['CLAVE'];
@@ -397,7 +402,8 @@ class Miscelaneus
                 $carpeta_guardado = 'oftalmologia';
                 $folio = $infoPaciente[0]['FOLIO_OFTALMO'];
                 break;
-            case 1: case '1':
+            case 1:
+            case '1':
                 # CONSULTORIO
                 $cliente_id = $master->insertByProcedure('sp_get_cliente', [$turno_id]);
                 if ($cliente_id == 51) { # 51 es sigma
@@ -536,19 +542,19 @@ class Miscelaneus
 
                     $arregloOftalmoResultados = [];
                     foreach ($infoOftalmoResultados as $key => $value) {
-                            $arregloOftalmoResultados = array_filter($value, function ($k) {
-                                $allowedKeys = ['OD', 'OI', 'CON_OD', 'CON_OI'];
-                                return in_array($k, $allowedKeys, true);
-                            }, ARRAY_FILTER_USE_KEY);
+                        $arregloOftalmoResultados = array_filter($value, function ($k) {
+                            $allowedKeys = ['OD', 'OI', 'CON_OD', 'CON_OI'];
+                            return in_array($k, $allowedKeys, true);
+                        }, ARRAY_FILTER_USE_KEY);
                     }
 
                     $arregloConsultorioConsulta = [];
                     foreach ($infoConsultorioConsulta as $key => $value) {
-                            $arregloConsultorioConsulta = array_filter($value, function ($k) {
-                                $allowedKeys = ['NOTAS_PADECIMIENTO', 'DIAGNOSTICO', 'OBSERVACIONES'];
-                                return in_array($k, $allowedKeys, true);
-                            }, ARRAY_FILTER_USE_KEY);    
-                    } 
+                        $arregloConsultorioConsulta = array_filter($value, function ($k) {
+                            $allowedKeys = ['NOTAS_PADECIMIENTO', 'DIAGNOSTICO', 'OBSERVACIONES'];
+                            return in_array($k, $allowedKeys, true);
+                        }, ARRAY_FILTER_USE_KEY);
+                    }
 
                     $arregloSigmaLesiones = [];
                     foreach ($infoSigmaLesiones as $key => $value) {
@@ -579,15 +585,16 @@ class Miscelaneus
                 } else {
                     $arregloPaciente = $this->getBodyInfoConsultorio($master, $turno_id, $id_consulta);
                 }
-                
+
                 $info = $master->getByProcedure("sp_info_medicos", [$turno_id, $area_id]);
                 $datos_medicos = $this->getMedicalCarrier($info);
                 $fecha_resultado = $infoPaciente[0]['FECHA_CARPETA_CONSULTA'];
                 $infoPaciente[0]['FECHA_RESULTADO'] =
-                $infoPaciente[0]['FECHA_CONSULTA_HISTORIA'];
+                    $infoPaciente[0]['FECHA_CONSULTA_HISTORIA'];
                 $carpeta_guardado = 'consultorio';
                 $folio = $infoPaciente[0]['FOLIO_CONSULTA'];
                 $infoPaciente[0]['CLAVE_IMAGEN'] = $infoPaciente[0]['CLAVE_CONSULTA'];
+
                 break;
             case 10: case '10':
                 # ELECTROCARDIOGRAMA
@@ -679,6 +686,7 @@ class Miscelaneus
                 $folio = $infoPaciente[array_key_last($infoPaciente)]['FOLIO_CONSULTA2'];
                 $fecha_resultado = $infoPaciente[array_key_last($infoPaciente)]['FECHA_CARPETA_CONSULTA2'];
                 $carpeta_guardado = "consulta_medica";
+
                 break;
 
             case -1:

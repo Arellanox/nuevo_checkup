@@ -30,37 +30,27 @@
 <h2 style="font-weight: bold; margin-top: 15px">Somatometría:</h2>
 
 <p>
-    Temperatura: <span class="text-table-result"><?= $resultados[6]->{4}->VALOR . ' ' . $resultados[6]->{4}->UNIDAD_MEDIDA; ?> </span><!-- RELLENAR -->
-    Altura: <span class="text-table-result"><?= $resultados[6]->{1}->VALOR . ' ' . $resultados[6]->{1}->UNIDAD_MEDIDA; ?> </span><!-- RELLENAR -->
-    Peso: <span class="text-table-result"><?= $resultados[6]->{2}->VALOR . ' ' . $resultados[6]->{2}->UNIDAD_MEDIDA; ?> </span><!-- RELLENAR -->
-    IMC: <span class="text-table-result"><?= $resultados[6]->{3}->VALOR; ?></span><!-- RELLENAR -->
-    Presión Arterial: <span class="text-table-result"><?= $resultados[6]->{0}->VALOR . ' ' . $resultados[6]->{0}->UNIDAD_MEDIDA; ?> </span><!-- RELLENAR -->
-    Frecuencia Cardíaca: <span class="text-table-result"><?= $resultados[6]->{5}->VALOR . ' ' . $resultados[6]->{5}->UNIDAD_MEDIDA; ?> </span><!-- RELLENAR -->
-    Presión sistólica:<span class="text-table-result">_________ </span><!-- RELLENAR -->
-    <br>
-    Presión diastólica:<span class="text-table-result">_________ </span><!-- RELLENAR -->
-    Rango de presión arterial:<span class="text-table-result">_________ </span><!-- RELLENAR -->
-    Glucosa:<span class="text-table-result">_________ </span><!-- RELLENAR -->
-    Detalle glucosa:<span class="text-table-result">_________ </span><!-- RELLENAR -->
-    HbA1c:<span class="text-table-result">_________ </span><!-- RELLENAR -->
-    <br>
-    Perímetro de cintura:<span class="text-table-result">_________ </span><!-- RELLENAR -->
-    Perímetro de cadera:<span class="text-table-result">_________ </span><!-- RELLENAR -->
-    Indice CC:<span class="text-table-result">_________ </span><!-- RELLENAR -->
-    Oximetría:<span class="text-table-result">
-        <?= $resultados[6]->{6}->VALOR . ' ' . $resultados[6]->{6}->UNIDAD_MEDIDA; ?>
-    </span><!-- RELLENAR -->
-    Frecuencia Respiratoria:<span class="text-table-result">_________ </span><!-- RELLENAR -->
-    <br>
-    Tipo de sangre:<span class="text-table-result">_________ </span><!-- RELLENAR -->
-    Colesterol:<span class="text-table-result">_________ </span><!-- RELLENAR -->
-    Trigliceridos:<span class="text-table-result">_________ </span><!-- RELLENAR -->
+    Temperatura: <span class="text-soma-result"><?= $resultados[6]->{4}->VALOR . ' ' . $resultados[6]->{4}->UNIDAD_MEDIDA; ?></span>
+    Altura: <span class="text-soma-result"><?= $resultados[6]->{1}->VALOR . ' ' . $resultados[6]->{1}->UNIDAD_MEDIDA; ?></span>
+    Peso: <span class="text-soma-result"><?= $resultados[6]->{2}->VALOR . ' ' . $resultados[6]->{2}->UNIDAD_MEDIDA; ?></span>
+    IMC: <span class="text-soma-result"><?= $resultados[6]->{3}->VALOR . ' ' . $resultados[6]->{3}->UNIDAD_MEDIDA; ?></span>
+    Presión Arterial: <span class="text-soma-result"><?= $resultados[6]->{5}->VALOR . ' ' . $resultados[6]->{5}->UNIDAD_MEDIDA; ?></span>
+    Frecuencia Cardíaca: <span class="text-soma-result"><?= $resultados[6]->{8}->VALOR . ' ' . $resultados[6]->{8}->UNIDAD_MEDIDA; ?></span>
+    Presión sistólica:<span class="text-soma-result"><?= $resultados[6]->{6}->VALOR . ' ' . $resultados[6]->{6}->UNIDAD_MEDIDA; ?></span>
+    Presión diastólica:<span class="text-soma-result"><?= $resultados[6]->{7}->VALOR . ' ' . $resultados[6]->{7}->UNIDAD_MEDIDA; ?></span><!-- RELLENAR -->
+    Rango de presión arterial:<span class="text-soma-result">_________ </span><!-- RELLENAR -->
+    Glucosa:<span class="text-soma-result">_________ </span><!-- RELLENAR -->
+    Detalle glucosa:<span class="text-soma-result">_________ </span><!-- RELLENAR -->
+    HbA1c:<span class="text-soma-result">_________ </span><!-- RELLENAR -->
+    Perímetro de cintura:<span class="text-soma-result">_________ </span><!-- RELLENAR -->
+    Perímetro de cadera:<span class="text-soma-result">_________ </span><!-- RELLENAR -->
+    Indice CC:<span class="text-soma-result">_________ </span><!-- RELLENAR -->
+    Oximetría:<span class="text-soma-result">_________ </span><!-- RELLENAR -->
+    Frecuencia Respiratoria:<span class="text-soma-result">_________ </span><!-- RELLENAR -->
+    Tipo de sangre:<span class="text-soma-result">_________ </span><!-- RELLENAR -->
+    Colesterol:<span class="text-soma-result">_________ </span><!-- RELLENAR -->
+    Trigliceridos:<span class="text-soma-result">_________ </span><!-- RELLENAR -->
 </p>
-
-
-
-
-
 
 
 
