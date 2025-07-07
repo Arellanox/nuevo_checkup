@@ -131,8 +131,8 @@ switch ($api) {
                 $dias_personalizados,
                 $hora_inicio,
                 $hora_fin,
-                $salario_min,
-                $salario_max,
+                // $salario_min,
+                // $salario_max,
                 // Parametros de aprobación
                 $usuario_aprobador_id,    // ID del usuario aprobador
                 $observaciones_aprobacion // Observaciones de aprobación
@@ -212,7 +212,8 @@ switch ($api) {
             $id_departamento,
             $objetivos,
             $competencias,
-            $banda_salarial,
+            $salario_min,
+            $salario_max,
             $activo
         ]);
         break;

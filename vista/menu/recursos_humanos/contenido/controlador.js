@@ -37,7 +37,7 @@ const dataTableCatPuestosDetalles = {
 };
 
 const dataTableCatMotivos = {
-  api: 12, // Case 11 para obtener motivos
+  api: 12,  // Case 12 para obtener motivos
 };
 
 const dataTableCatBlandas = {

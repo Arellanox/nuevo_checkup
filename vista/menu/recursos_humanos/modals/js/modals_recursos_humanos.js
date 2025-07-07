@@ -314,129 +314,16 @@ $("#registrarTecnicasForm").submit(function (event) {
   return false;
 });
 
-// Requisiciones de Recursos Humanos
-// Registrar una nueva vacante/requisición
-// Poner aqui la logica para registrar una nueva vacante
 
-
-// // Editar Detalles del Puesto
-// $("#editarDetallesPuestoForm").submit(function (event) {
-//   event.preventDefault();
-
-//   var form = document.getElementById("editarDetallesPuestoForm");
-//   var formData = new FormData(form);
-
-//   // Obtener valores del formulario - USANDO LOS NUEVOS IDs
-//   let puestoId = $("#detallePuestoId").val();
-//   let escolaridadMinima = $("#detalle_escolaridad_minima").val(); // NUEVO ID
-//   let experienciaAnios = $("#detalle_experiencia_anios").val(); // NUEVO ID
-//   let objetivos = $("#objetivosPuesto").val().trim();
-//   let competencias = $("#competenciasPuesto").val().trim();
-//   let bandaSalarial = $("#bandaSalarialPuesto").val().trim();
-//   let puestoNombre = $("#puestoNombreDetalle").val();
-
-//   // DEBUG: Verificar los valores obtenidos
-//   console.log("=== DEBUG EDITAR DETALLES PUESTO ===");
-//   console.log("Puesto ID:", puestoId);
-//   console.log("Escolaridad Mínima:", escolaridadMinima);
-//   console.log("Experiencia Años:", experienciaAnios);
-//   console.log("Objetivos:", objetivos);
-//   console.log("Competencias:", competencias);
-//   console.log("Banda Salarial:", bandaSalarial);
-//   console.log("Puesto Nombre:", puestoNombre);
-
-//   // Validación básica
-//   if (!puestoId) {
-//     alertToast("Error: No se encontró el ID del puesto", "error", 3000);
-//     return;
-//   }
-
-//   // Validaciones adicionales para los nuevos campos
-//   if (!escolaridadMinima || escolaridadMinima.trim() === '') {
-//     alertToast("La escolaridad mínima es obligatoria", "warning", 3000);
-//     $("#detalle_escolaridad_minima").focus();
-//     return;
-//   }
-
-//   if (!experienciaAnios || experienciaAnios.trim() === '') {
-//     alertToast("Los años de experiencia son obligatorios", "warning", 3000);
-//     $("#detalle_experiencia_anios").focus();
-//     return;
-//   }
-
-//   console.log("Valores a enviar:");
-//   console.log("ID Puesto:", puestoId);
-//   console.log("Escolaridad Mínima:", escolaridadMinima);
-//   console.log("Experiencia Años:", experienciaAnios);
-//   console.log("Objetivos:", objetivos);
-//   console.log("Competencias:", competencias);
-//   console.log("Banda Salarial:", bandaSalarial);
-
-//   alertMensajeConfirm(
-//     {
-//       title: "¿Está a punto de actualizar los detalles del puesto?",
-//       text: `Se actualizarán los detalles del puesto: ${puestoNombre}`,
-//       icon: "warning",
-//     },
-//     function () {
-//       ajaxAwaitFormData(
-//         {
-//           api: 10, // Usar el API 10 que definimos para actualizar detalles
-//           id_puesto: puestoId,
-//           escolaridad_minima: escolaridadMinima,
-//           experiencia_anios: experienciaAnios,
-//           objetivos: objetivos,
-//           competencias: competencias,
-//           banda_salarial: bandaSalarial,
-//         },
-//         "recursos_humanos_api",
-//         "editarDetallesPuestoForm",
-//         { callbackAfter: true },
-//         false,
-//         function (data) {
-//           if (data.response.code == 1) {
-//             $("#editarDetallesPuestoForm")[0].reset();
-//             $("#editarDetallesPuestoModal").modal("hide");
-//             alertToast(
-//               "Detalles del puesto actualizados exitosamente!",
-//               "success",
-//               4000
-//             );
-
-//             // Recargar las tablas relacionadas
-//             if (tableCatPuestosDetalles) tableCatPuestosDetalles.ajax.reload();
-//             if (tableCatPuestos) tableCatPuestos.ajax.reload();
-
-//             // Si existe una función para recargar selects de puestos en otros modales
-//             if (typeof cargarPuestosVacanteSelect === "function") {
-//               cargarPuestosVacanteSelect();
-//             }
-//           } else {
-//             alertToast(
-//               data.response.message ||
-//                 "Error al actualizar los detalles del puesto",
-//               "error",
-//               4000
-//             );
-//           }
-//         }
-//       );
-//     }
-//   );
-
-//   return false;
-// });
-
-// Evento para registrar una nueva vacante
 // Registrar una nueva requisición de vacante - VARIABLES UNIFICADAS
 $("#formRegistrarVacante").submit(function (event) {
     event.preventDefault();
 
     // Agregar el campo oculto usuario_solicitante_id si no está presente
     var usuarioSolicitanteId = $("#usuario_solicitante_id").val();
-    if (!usuarioSolicitanteId || usuarioSolicitanteId === '') {
-        $("#usuario_solicitante_id").val('118'); // Tu ID de sesión o valor por defecto
-    }
+    // if (!usuarioSolicitanteId || usuarioSolicitanteId === '') {
+    //     $("#usuario_solicitante_id").val('118'); // Tu ID de sesión o valor por defecto
+    // }
 
     var form = document.getElementById("formRegistrarVacante");
     var formData = new FormData(form);

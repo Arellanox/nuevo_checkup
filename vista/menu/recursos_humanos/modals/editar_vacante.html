@@ -130,7 +130,7 @@
                         </div>
                     </div>
 
-                    <!-- PERFIL DESEADO -->
+                    <!-- PERFIL DESEADO
                     <div class="card mb-4 border-0 shadow-sm">
                         <div class="card-header bg-radient-custom border-0" style="color: #ffc107;">
                             <h6 class="mb-0 fw-bold"><i class="bi bi-person-badge me-2"></i>Perfil Deseado</h6>
@@ -184,39 +184,69 @@
                                 <input type="text" class="form-control rounded-3 border-2" id="editar_idiomas" name="idiomas" placeholder="Ej: Inglés intermedio, Francés básico...">
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- CONDICIONES LABORALES -->
                     <div class="card mb-4 border-0 shadow-sm">
-                        <div class="card-header bg-radient-custom border-0" style="color: #ffc107;">
+                        <div class="card-header bg-radient-custom border-0" style="color: #004E59;">
                             <h6 class="mb-0 fw-bold"><i class="bi bi-clock me-2"></i>Condiciones Laborales</h6>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="editar_horario_trabajo" class="form-label">Horario de Trabajo</label>
-                                        <input type="text" class="form-control rounded-3 border-2" id="editar_horario_trabajo" name="horario_trabajo" placeholder="Ej: 8:00 AM - 5:00 PM, L-V" required>
+                                        <label for="horario_trabajo" class="form-label">Días de Trabajo</label>
+                                        <div class="input-group">
+                                            <select class="form-select rounded-3 border-2" id="editar_dias_trabajo" name="dias_trabajo" required>
+                                                <option value="">Seleccionar días...</option>
+                                                <option value="L-V">Lunes a Viernes</option>
+                                                <option value="L-S">Lunes a Sábado</option>
+                                                <option value="L-D">Lunes a Domingo</option>
+                                                <option value="Fines de semana">Fines de semana</option>
+                                                <option value="Otro">Otro</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="editar_rango_salarial" class="form-label">Rango Salarial (Opcional)</label>
-                                        <input type="text" class="form-control rounded-3 border-2" id="editar_rango_salarial" name="rango_salarial" placeholder="Ej: $15,000 - $25,000">
+                                        <label for="horario_trabajo" class="form-label">Horario de Trabajo</label>
+                                        <!-- Input para días personalizados (inicialmente oculto) -->
+                                        <div class="input-group mt-2" id="editar_dias_personalizados_container" style="display: none;">
+                                            <input type="text" class="form-control rounded-3 border-2" id="editar_dias_personalizados" name="dias_personalizados" placeholder="Especifique los días de trabajo...">
+                                        </div>
+                                        
+                                        <div class="input-group mt-2" id="editar_horas_trabajo_container" style="display: none;">
+                                            <input type="time" class="form-control rounded-3 border-2" id="editar_hora_inicio" name="hora_inicio" required>
+                                            <span class="input-group-text">a</span>
+                                            <input type="time" class="form-control rounded-3 border-2" id="editar_hora_fin" name="hora_fin" required>
+                                        </div>
                                     </div>
-                                </div>
+                                 </div>
+                               <!-- <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Rango Salarial (Opcional)</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <input type="number" class="form-control rounded-3 border-2" id="salario_min" name="salario_min" placeholder="Mínimo" min="0" step="100">
+                                            <span class="input-group-text">-</span>
+                                            <input type="number" class="form-control rounded-3 border-2" id="salario_max" name="salario_max" placeholder="Máximo" min="0" step="100">
+                                        </div>
+                                    </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
 
+
                     <!-- JUSTIFICACIÓN -->
                     <div class="card mb-4 border-0 shadow-sm">
                         <div class="card-header bg-radient-custom border-0" style="color: #ffc107;">
-                            <h6 class="mb-0 fw-bold"><i class="bi bi-justify-left me-2"></i>Justificación</h6>
+                            <h6 class="mb-0 fw-bold"><i class="bi bi-justify-left me-2"></i>Descripción</h6>
                         </div>
                         <div class="card-body">
                             <div class="mb-3">
-                                <label for="editar_justificacion" class="form-label">Justificación de la Requisición</label>
+                                <label for="editar_justificacion" class="form-label">Descripción de la Requisición</label>
                                 <textarea class="form-control rounded-3 border-2" id="editar_justificacion" name="justificacion" rows="4" placeholder="Explique las razones por las cuales se requiere cubrir esta vacante..." required></textarea>
                             </div>
                         </div>
@@ -224,7 +254,7 @@
 
                     <!-- OBSERVACIONES DE APROBACIÓN (Solo visible si es necesario) -->
                     <div class="card mb-4 border-0 shadow-sm" id="editar_seccion_observaciones" style="display: none;">
-                        <div class="card-header bg-gradient-info text-white border-0">
+                        <div class="card-header bg-radient-custom border-0" style="color: #ffc107;">
                             <h6 class="mb-0 fw-bold"><i class="bi bi-check-circle me-2"></i>Información de Aprobación</h6>
                         </div>
                         <div class="card-body">
@@ -287,7 +317,7 @@ $(document).ready(function() {
             
             // Mostrar mensaje de ayuda según el estado
             if (estatusSeleccionado === 'en_proceso') {
-                mostrarMensajeAyuda('La requisición está en proceso de reclutamiento', 'info');
+                mostrarMensajeAyuda('La requisición está en proceso de ser aprobada', 'info');
             }
             
         } else {
@@ -298,6 +328,7 @@ $(document).ready(function() {
             $('#editar_observaciones_aprobacion').val('');
         }
     });
+    
     
     // Función para actualizar el badge de estado
     function actualizarBadgeEstado(estado, elemento) {
@@ -360,6 +391,50 @@ $(document).ready(function() {
     $('#editarVacanteModal').on('hidden.bs.modal', function() {
         $('#editar_seccion_observaciones').hide();
         $('#mensaje-ayuda-estado').remove();
+    });
+
+     $('#editar_dias_trabajo').on('change', function() {
+        var valorSeleccionado = $(this).val();
+        var containerDiasPersonalizados = $('#editar_dias_personalizados_container');
+        var containerHorasTrabajo = $('#editar_horas_trabajo_container');
+        var inputDiasPersonalizados = $('#editar_dias_personalizados');
+        var inputHoraInicio = $('#editar_hora_inicio');
+        var inputHoraFin = $('#editar_hora_fin');
+
+        console.log('Días de trabajo seleccionado:', valorSeleccionado);
+
+        // Mostrar siempre el input de horas de trabajo y hacerlo requerido
+        containerHorasTrabajo.slideDown(300);
+        inputHoraInicio.attr('required', true);
+        inputHoraFin.attr('required', true);
+
+        if (valorSeleccionado === 'Otro') {
+            // Mostrar el input para días personalizados con animación
+            containerDiasPersonalizados.slideDown(300);
+            inputDiasPersonalizados.attr('required', true);
+            inputDiasPersonalizados.focus(); // Enfocar automáticamente el input
+
+            // Agregar clase para destacar
+            containerDiasPersonalizados.addClass('campo-personalizado');
+        } else {
+            // Ocultar el input para días personalizados
+            containerDiasPersonalizados.slideUp(300);
+            inputDiasPersonalizados.removeAttr('required');
+            inputDiasPersonalizados.val(''); // Limpiar el valor
+
+            // Remover clase de destacado
+            containerDiasPersonalizados.removeClass('campo-personalizado');
+        }
+    });
+
+    // Limpiar campos cuando se cierre el modal
+    $('#editarVacanteModal').on('hidden.bs.modal', function() {
+        $('#editar_dias_trabajo').val('');
+        $('#editar_dias_personalizados_container').hide();
+        $('#editar_dias_personalizados').removeAttr('required').val('');
+        $('#editar_hora_inicio').val('').removeAttr('required');
+        $('#editar_hora_fin').val('').removeAttr('required');
+        $('#editar_horas_trabajo_container').hide();
     });
 });
 </script>
