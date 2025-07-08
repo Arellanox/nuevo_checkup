@@ -13,6 +13,11 @@ document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".content-module").forEach((module) => {
     module.style.display = "none";
   });
+
+  // Inicializar filtros por defecto
+  window.dataTableCatPuestos = {
+    filtro_estado: "1" // Por defecto mostrar solo activos
+  };
 });
 
 // Cuando el usuario haga clic en una opción del menú
@@ -305,22 +310,13 @@ tableCatDepartamentos = $("#tableCatDepartamentos").DataTable({
           },
           },
           {
-          text: '<i class="bi bi-funnel me-2"></i>Filtrar <i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;"></i>',
+          text: '<i class="bi bi-funnel me-2 id="iconoFiltroDepartamentos" title="Restablecer filtros"></i>Filtrar <i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;"></i>',
           className: "btn btn-warning bg-gradient-filter d-flex",
-          attr: {
-            "data-bs-toggle": "modal",
-            "data-bs-target": "#filtrarDepartamentosModal",
-          },
           action: function () {
             //No hacer nada, el toggle se maneja por separado
           },
           },
         ],
-        initComplete: function() {
-            // Agregar event listener al toggle después de que se inicialice la tabla
-            setupToggleFiltro();
-            setupResetFiltros();
-        },
       columnDefs: [
           { targets: 0, className: "text-center align-middle" }, // id
           { targets: 2, className: "text-center align-middle" }, // estado
@@ -337,13 +333,28 @@ tableCatPuestos = $("#tableCatPuestos").DataTable({
   lengthChange: false,
   info: true,
   paging: true,
-  pageLength: 5, // Agregar esta línea
+  pageLength: 5,
   scrollY: "40vh",
   scrollCollapse: true,
   ajax: {
     dataType: "json",
     data: function (d) {
-      return $.extend(d, dataTableCatPuestos);
+      // MODIFICADO: Manejar filtros correctamente
+      const filtros = window.dataTableCatPuestos || {};
+      
+      // Si no hay filtro de estado definido, usar "1" (activos) por defecto
+      const filtroEstado = filtros.filtro_estado !== undefined ? filtros.filtro_estado : "1";
+      
+      console.log("Enviando filtros:", {
+        filtro_estado: filtroEstado,
+        filtro_departamento: filtros.filtro_departamento || null
+      });
+      
+      return {
+        api: 8,
+        filtro_estado: filtroEstado,
+        filtro_departamento: filtros.filtro_departamento || null
+      };    
     },
     method: "POST",
     url: "../../../api/recursos_humanos_api.php",
@@ -352,6 +363,7 @@ tableCatPuestos = $("#tableCatPuestos").DataTable({
     },
     dataSrc: "response.data",
   },
+
   columns: [
     { data: "id_puesto", title: "ID" },
     { data: "descripcion", title: "Descripción" },
@@ -421,18 +433,162 @@ tableCatPuestos = $("#tableCatPuestos").DataTable({
         "data-bs-target": "#registrarPuestoModal",
       },
       action: function () {
-        $("#registrarPuestoModal").modal("show");
+        $("#registrarPuestoModal").modal("show"); 
       },
     },
     {
       text: '<i class="bi bi-funnel"></i> Filtrar',
-      className: "btn btn-warning btn-warning bg-gradient-puesto-filter",
+      className: "btn btn-warning bg-gradient-puesto-filter",
       attr: {
-        "data-bs-toggle": "modal",
-        "data-bs-target": "#filtrarPuestosModal",
+        id: "btnFiltroPuestos",
+        "data-bs-toggle": "tooltip",
+        "data-bs-placement": "top",
+        title: "Filtrar puestos",
       },
-      action: function () {
-        $("#filtrarPuestosModal").modal("show");
+      action: function (e, dt, node, config) {
+        // Si el menú ya existe, lo elimina (oculta)
+        if ($("#dropdownFiltrosPuestosMenu").length > 0) {
+          $("#dropdownFiltrosPuestosMenu").remove();
+          $(document).off("mousedown.dropdownFiltrosPuestos");
+          return;
+        }
+        
+var $menu = $(`
+  <div id="dropdownFiltrosPuestosMenu" class="dropdown-menu show" style="position:absolute;z-index:9999;min-width:220px;max-height:405px;overflow-y:auto;">
+    <h6 class="dropdown-header"><i class="bi bi-funnel me-2"></i>Filtrar por:</h6>
+    <div class="dropdown-divider"></div>
+    
+    <!-- Filtro por Estado -->
+    <h6 class="dropdown-header text-muted small">Estado</h6>
+    <button class="dropdown-item py-1" data-filtro="estado" data-value="1">
+      <i class="bi bi-toggle-on text-success me-2"></i>Activos
+    </button>
+    <button class="dropdown-item py-1" data-filtro="estado" data-value="0">
+      <i class="bi bi-toggle-off text-secondary me-2"></i>Inactivos
+    </button>
+    <button class="dropdown-item py-1" data-filtro="estado" data-value="">
+      <i class="bi bi-list me-2"></i>Todos
+    </button>
+    
+    <div class="dropdown-divider my-1"></div>
+    
+    <!-- Filtro por Departamento -->
+    <h6 class="dropdown-header text-muted small">Departamento</h6>
+    <div id="departamentosDropdown" style="max-height:120px;overflow-y:auto;">
+      <div class="dropdown-item-text text-center py-2">
+        <div class="spinner-border spinner-border-sm text-primary" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+        <small class="d-block mt-1">Cargando...</small>
+      </div>
+    </div>
+    
+    <div class="dropdown-divider my-1"></div>
+    
+    <!-- Botones de acción -->
+    <div class="px-2 py-1">
+      <button class="btn btn-sm btn-outline-secondary w-100" id="limpiarFiltrosPuestos">
+        <i class="bi bi-arrow-clockwise me-1"></i>Limpiar Filtros
+      </button>
+    </div>
+  </div>
+`);
+
+
+        // Posiciona el menú debajo del botón
+        var offset = $(node).offset();
+        $menu.css({
+          top: offset.top + $(node).outerHeight(),
+          left: offset.left,
+        });
+
+        $("body").append($menu);
+
+        // Cargar departamentos dinámicamente
+        cargarDepartamentosDropdown();
+
+         setTimeout(function() {
+      marcarFiltrosActivos($menu);
+    }, 100);
+
+        // Evento para seleccionar filtros
+        $menu.on("click", "[data-filtro]", function (e) {
+          e.preventDefault();
+          var $item = $(this);
+          var filtro = $(this).data("filtro");
+          var valor = $(this).data("value");
+          
+          console.log(`Filtro aplicado: ${filtro} = ${valor}`);
+
+          // Remover clase activa de otros elementos del mismo grupo
+          $menu.find(`[data-filtro="${filtro}"]`).removeClass("active bg-primary text-white");
+      
+      // Agregar clase activa al elemento seleccionado
+      $item.addClass("active bg-primary text-white");
+
+          
+          // Aplicar filtro según el tipo
+          window.dataTableCatPuestos = window.dataTableCatPuestos || {};
+          
+          switch(filtro) {
+            case 'estado':
+              dataTableCatPuestos.filtro_estado = valor;
+              break;
+            case 'departamento':
+              dataTableCatPuestos.filtro_departamento = valor;
+              break;
+            // case 'escolaridad':
+            //   dataTableCatPuestos.filtro_escolaridad = valor;
+            //   break;
+          }
+          
+          // Recargar tabla con filtros
+          tableCatPuestos.ajax.reload();
+          
+          // Mostrar notificación
+          const tipoFiltro = filtro.charAt(0).toUpperCase() + filtro.slice(1);
+          const valorTexto = valor === "" ? "Todos" : $(this).text().trim();
+          alertToast(`Filtro aplicado: ${tipoFiltro} - ${valorTexto}`, 'info', 2000);
+          
+           // Cerrar menú después de seleccionar
+           $("#dropdownFiltrosPuestosMenu").hide();
+          $(document).off("mousedown.dropdownFiltrosPuestos");
+        });
+
+        // Evento para limpiar filtros
+        $menu.on("click", "#limpiarFiltrosPuestos", function (e) {
+          e.preventDefault();
+          
+          // MODIFICADO: Limpiar filtros pero mantener "Activos" como default
+  window.dataTableCatPuestos = window.dataTableCatPuestos || {};
+  dataTableCatPuestos.filtro_estado = "1"; // Siempre volver a activos
+  delete dataTableCatPuestos.filtro_departamento;
+          // delete dataTableCatPuestos.filtro_escolaridad;
+
+      // MODIFICADO: Marcar "Activos" como activo en estado y "Todos" en departamento
+  $menu.find('[data-filtro="estado"]').removeClass("active bg-primary text-white");
+  $menu.find('[data-filtro="estado"][data-value="1"]').addClass("active bg-primary text-white");
+  $menu.find('[data-filtro="departamento"]').removeClass("active bg-primary text-white");
+  $menu.find('[data-filtro="departamento"][data-value=""]').addClass("active bg-primary text-white");
+      
+          
+          // Recargar tabla sin filtros
+          tableCatPuestos.ajax.reload();
+          
+          alertToast('Filtros limpiados', 'success', 2000);
+          
+          // Cerrar menú
+          $("#dropdownFiltrosPuestosMenu").remove();
+          $(document).off("mousedown.dropdownFiltrosPuestos");
+        });
+
+        // Cerrar el menú si se hace clic fuera de él
+        $(document).on("mousedown.dropdownFiltrosPuestos", function (e) {
+          if (!$(e.target).closest("#dropdownFiltrosPuestosMenu, #btnFiltroPuestos").length) {
+            $("#dropdownFiltrosPuestosMenu").remove();
+            $(document).off("mousedown.dropdownFiltrosPuestos");
+          }
+        });
       },
     },
   ],
@@ -453,7 +609,7 @@ tableCatMotivos = $("#tableCatMotivos").DataTable({
     lengthChange: false,
     info: true,
     paging: true,
-    pageLength: 5, // Agregar esta línea
+    pageLength: 5,
     scrollY: "40vh",
     scrollCollapse: true,
     ajax: {
@@ -464,9 +620,22 @@ tableCatMotivos = $("#tableCatMotivos").DataTable({
       method: "POST",
       url: "../../../api/recursos_humanos_api.php",
       error: function (jqXHR, textStatus, errorThrown) {
+        console.error("Error en AJAX de motivos:", textStatus, errorThrown);
+        console.error("Respuesta completa:", jqXHR.responseText);
         alertErrorAJAX(jqXHR, textStatus, errorThrown);
       },
-      dataSrc: "response.data",
+      dataSrc: function(json) {
+        // Validar la respuesta antes de devolver los datos
+        console.log("Respuesta del servidor para motivos:", json);
+        
+        if (json && json.response && json.response.data && Array.isArray(json.response.data)) {
+          return json.response.data;
+        } else {
+          console.error("Respuesta inválida del servidor para motivos:", json);
+          alertToast("Error: No se pudieron cargar los motivos", "error", 4000);
+          return []; // Devolver array vacío para evitar el error
+        }
+      }
     },
     columns: [
       { data: "id_motivo" },
@@ -511,14 +680,10 @@ tableCatMotivos = $("#tableCatMotivos").DataTable({
           },
           },
           {
-          text: '<i class="bi bi-funnel me-2"></i>Filtrar <i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;"></i>',
+          text: '<i class="bi bi-funnel me-2"></i>Filtrar <i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;" title="Mostrando activos - Click para ver inactivos"></i>',
           className: "btn btn-warning bg-gradient-filter d-flex align-items-center",
-          attr: {
-            "data-bs-toggle": "modal",
-            "data-bs-target": "#filtrarMotivosModal",
-          },
           action: function () {
-            $("#filtrarMotivosModal").modal("show");
+            // No hacer nada, el toggle se maneja por separado
           },
           },
         ],
@@ -598,12 +763,7 @@ tableCatBlandas = $("#tableCatBlandas").DataTable({
           {
           text: '<i class="bi bi-funnel me-2"></i>Filtrar <i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;"></i>',
           className: "btn btn-warning bg-gradient-filter d-flex align-items-center",
-          attr: {
-            "data-bs-toggle": "modal",
-            "data-bs-target": "#filtrarBlandasModal",
-          },
           action: function () {
-            $("#filtrarBlandasModal").modal("show");
           },
           },
         ],
@@ -683,12 +843,7 @@ tableCatTecnicas = $("#tableCatTecnicas").DataTable({
           {
           text: '<i class="bi bi-funnel me-2"></i>Filtrar <i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;"></i>',
           className: "btn btn-warning bg-gradient-filter d-flex align-items-center",
-          attr: {
-            "data-bs-toggle": "modal",
-            "data-bs-target": "#filtrarTecnicasModal",
-          },
           action: function () {
-            $("#filtrarTecnicasModal").modal("show");
           },
           },
         ],
@@ -888,6 +1043,88 @@ function cargarPuestos(selectId, incluirTodos = false, filtrarPorDepartamento = 
 }
 
 
+function marcarFiltrosActivos($menu) {
+  // Obtener filtros activos actuales
+  const filtroEstado = dataTableCatPuestos.filtro_estado;
+  const filtroDepartamento = dataTableCatPuestos.filtro_departamento;
+
+  console.log('Marcando filtros activos:', { filtroEstado, filtroDepartamento });
+
+  // Marcar filtro de estado activo
+  if (filtroEstado !== undefined) {
+    $menu.find(`[data-filtro="estado"][data-value="${filtroEstado}"]`).addClass("active bg-primary text-white");
+  } else {
+    $menu.find('[data-filtro="estado"][data-value="1"]').addClass("active bg-primary text-white");
+  }
+
+  // Marcar filtro de departamento activo
+  if (filtroDepartamento !== undefined && filtroDepartamento !== "") {
+    $menu.find(`[data-filtro="departamento"][data-value="${filtroDepartamento}"]`).addClass("active bg-primary text-white");
+  } else {
+    $menu.find('[data-filtro="departamento"][data-value=""]').addClass("active bg-primary text-white");
+  }
+}
+
+// Función para cargar departamentos en el dropdown de filtros
+function cargarDepartamentosDropdown() {
+  $.ajax({
+    url: '../../../api/recursos_humanos_api.php',
+    type: 'POST',
+    data: { api: 6 }, // Case 6 para obtener departamentos
+    success: function(response) {
+      try {
+        const data = JSON.parse(response);
+        if (data.response && data.response.data) {
+          let opciones = `
+            <button class="dropdown-item py-1" data-filtro="departamento" data-value="">
+              <i class="bi bi-building me-2"></i>Todos
+            </button>
+          `;
+
+          data.response.data.forEach(function(dept) {
+            if (dept.activo == 1) {
+              opciones += `
+                <button class="dropdown-item py-1" data-filtro="departamento" data-value="${dept.id_departamento}" title="${dept.descripcion}">
+                  <i class="bi bi-building me-2"></i>${dept.descripcion.length > 20 ? dept.descripcion.substring(0, 20) + '...' : dept.descripcion}
+                </button>
+              `;
+            }
+          });
+
+          $('#departamentosDropdown').html(opciones);
+
+          // Marcar el filtro activo después de cargar los departamentos
+          setTimeout(function() {
+            marcarFiltrosActivos($("#dropdownFiltrosPuestosMenu"));
+          }, 50);
+
+        } else {
+          $('#departamentosDropdown').html(`
+            <div class="dropdown-item-text text-center text-muted py-2">
+              <i class="bi bi-exclamation-circle"></i> Error al cargar
+            </div>
+          `);
+        }
+      } catch (error) {
+        $('#departamentosDropdown').html(`
+          <div class="dropdown-item-text text-center text-muted py-2">
+            <i class="bi bi-exclamation-circle"></i> Error
+          </div>
+        `);
+      }
+    },
+    error: function() {
+      $('#departamentosDropdown').html(`
+        <div class="dropdown-item-text text-center text-muted py-2">
+          <i class="bi bi-wifi-off"></i> Sin conexión
+        </div>
+      `);
+    }
+  });
+}
+
+
+
 // Event listener para cambio de departamento en vacantes (filtrar puestos)
 $(document).on('change', '#departamento', function() {
     const departamentoId = $(this).val();
@@ -902,130 +1139,7 @@ $(document).on('change', '#departamento', function() {
 });
 
 
-// Variable global para controlar el estado del filtro
-let mostrarSoloActivos = true;
 
-// Función para configurar el toggle de filtro
-function setupToggleFiltro() {
-    // Event listener para el toggle
-    $(document).on('click', '#toggleFiltroActivos', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        const toggle = $(this);
-        
-        if (mostrarSoloActivos) {
-            // Cambiar a mostrar inactivos
-            toggle.removeClass('bi-toggle-on text-secondary')
-                  .addClass('bi-toggle-off text-secondary')
-                  .attr('title', 'Mostrando inactivos - Click para ver activos');
-            mostrarSoloActivos = false;
-            
-            // Agregar filtro para mostrar solo inactivos
-            dataTableCatDepartamentos.filtro_activo = 0;
-            dataTableCatMotivos.filtro_activo = 0;
-            
-            // Actualizar el texto del botón
-            updateFilterButtonText();
-            
-            console.log("Mostrando  INACTIVOS");
-            
-            // Mostrar toast informativo
-            alertToast("Mostrando  inactivos", "info", 2000);
-        } else {
-            // Cambiar a mostrar activos
-            toggle.removeClass('bi-toggle-off text-secondary')
-                  .addClass('bi-toggle-on text-secondary')
-                  .attr('title', 'Mostrando activos - Click para ver inactivos');
-            mostrarSoloActivos = true;
-            
-            // Agregar filtro para activos
-            dataTableCatDepartamentos.filtro_activo = 1;
-            dataTableCatMotivos.filtro_activo = 1;
-            
-            // Actualizar el texto del botón
-            updateFilterButtonText();
-            
-            console.log("Mostrando  ACTIVOS");
-            
-            // Mostrar toast informativo
-            alertToast("Mostrando  activos", "success", 2000);
-        }
-        
-        // Recargar la tabla con el nuevo filtro
-        // tableCatDepartamentos.ajax.reload();
-    });
-}
-
-// Función para actualizar el texto del botón de filtro
-function updateFilterButtonText() {
-    const iconoToggle = mostrarSoloActivos ? 
-        '<i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;" title="Mostrando activos - Click para ver inactivos"></i>' :
-        '<i class="bi bi-toggle-off fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;" title="Mostrando inactivos - Click para ver activos"></i>';
-    
-    const botonCompleto = `<i class="bi bi-funnel me-2" id="iconoFiltro" title="Restablecer filtros"></i>Filtrar ${iconoToggle}`;
-    
-    // Buscar el botón y actualizar su contenido
-    $('.btn.bg-gradient-filter').html(botonCompleto);
-}
-
-// Función para configurar el reset de filtros
-function setupResetFiltros() {
-    // Event listener para el icono de funnel (reset)
-    $(document).on('click', '#iconoFiltro', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        // Verificar si hay filtros aplicados
-        const hayFiltrosAplicados = 
-            !mostrarSoloActivos ||
-            dataTableCatDepartamentos.filtro_activo !== undefined ||
-            dataTableCatMotivos.filtro_activo !== undefined;
-        
-        if (!hayFiltrosAplicados) {
-            alertToast("No hay filtros aplicados para restablecer", "info", 3000);
-            return;
-        }
-        
-        // Mostrar confirmación usando tu función existente alertMensajeConfirm
-        alertMensajeConfirm(
-            {
-                title: "¿Restablecer filtros?",
-                text: "Esto volverá a mostrar todos los datos activos y restablecerá las preferencias de filtrado.",
-                icon: "question",
-                showCancelButton: true,
-                confirmButtonText: "Sí, restablecer",
-                cancelButtonText: "Cancelar"
-            },
-            function () {
-                // Callback cuando el usuario confirma
-                resetearFiltrosDepartamentos();
-            },
-            2 // Tipo 2 para mostrar botón de cancelar
-        );
-    });
-}
-
-// Función para resetear los filtros
-function resetearFiltrosDepartamentos() {
-    console.log("Restableciendo filtros...");
-    
-    // Resetear variables globales
-    mostrarSoloActivos = true;
-    
-    // Limpiar filtros del dataTable
-    delete dataTableCatDepartamentos.filtro_activo;
-    delete dataTableCatMotivos.filtro_activo;
-    
-    // Actualizar el botón visualmente
-    updateFilterButtonText();
-    
-    // // Recargar la tabla
-    // tableCatDepartamentos.ajax.reload(function() {
-    //     // Callback después de recargar
-    //     alertToast("Filtros restablecidos correctamente", "success", 3000);
-    // });
-}
 
 // Editar departamento
 $(document).on("click", ".btn-editar-departamento", function () {
@@ -1294,7 +1408,7 @@ $(document).on("click", ".btn-ver-detalles-puesto", function (e) {
   
   // Mostrar estado del puesto con estilos mejorados
   var estadoBadge = row.activo == 1 
-    ? '<span >Activo</span>' 
+    ? '<span class="badge bg-success">Activo</span>' 
     : '<span class="badge bg-secondary">Inactivo</span>';
   $("#detallePuestoEstado").html(estadoBadge);
 

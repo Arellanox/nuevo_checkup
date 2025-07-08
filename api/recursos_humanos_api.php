@@ -21,6 +21,23 @@ $id_tecnica = isset($_POST['id_tecnica']) && $_POST['id_tecnica'] !== '' ? (int)
 $activo = isset($_POST['activo']) ? (int)$_POST['activo'] : 1;
 $descripcion = isset($_POST['descripcion']) ? trim($_POST['descripcion']) : '';
 
+# Variables de filtros para puestos
+$filtro_estado = null;
+$filtro_departamento = null;
+
+// Manejar filtro de estado
+if (isset($_POST['filtro_estado'])) {
+    if ($_POST['filtro_estado'] !== '' && $_POST['filtro_estado'] !== null) {
+        $filtro_estado = (int)$_POST['filtro_estado'];
+    }
+    // Si es cadena vacía, significa "todos", entonces filtro_estado queda null
+}
+
+// Manejar filtro de departamento
+if (isset($_POST['filtro_departamento']) && $_POST['filtro_departamento'] !== '' && $_POST['filtro_departamento'] !== null) {
+    $filtro_departamento = (int)$_POST['filtro_departamento'];
+}
+
 # Variables para requisiciones de personal - RENOMBRADAS PARA CONSISTENCIA
 $id_requisicion = isset($_POST['id_requisicion']) ? (int)$_POST['id_requisicion'] : null;
 
@@ -219,7 +236,10 @@ switch ($api) {
         break;
     case 8:
         # recuperar puestos.
-        $response = $master->getByProcedure("sp_rh_cat_puestos_b", []);
+        $response = $master->getByProcedure("sp_rh_cat_puestos_b", [
+            $filtro_estado,
+            $filtro_departamento
+        ]);
         break;
     case 9:
         # recuperar detalles de puestos (con filtro opcional por puesto)
@@ -322,6 +342,22 @@ switch ($api) {
         $response = $master->insertByProcedure("sp_rh_cat_tecnicas_e", [
             $id_tecnica
         ]);
+        break;
+    case 24:
+        # Recuperar Motivos inactivos
+        $response = $master->getByProcedure("sp_rh_cat_motivos_inactivos_b", []);
+        break;
+    case 25:
+        # Recuperar Habilidades blandas inactivas
+        $response = $master->getByProcedure("sp_rh_cat_blandas_inactivas_b", []);
+        break;
+    case 26:
+        # Recuperar Habilidades técnicas inactivas
+        $response = $master->getByProcedure("sp_rh_cat_tecnicas_inactivas_b", []);
+        break;
+    case 27:
+        # Recuperar Departamentos inactivos
+        $response = $master->getByProcedure("sp_rh_cat_departamentos_inactivos_b", []);
         break;
     default:
         # default

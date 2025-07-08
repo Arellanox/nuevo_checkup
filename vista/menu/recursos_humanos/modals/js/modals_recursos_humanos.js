@@ -63,6 +63,138 @@ $("#registrarDepartamentoForm").submit(function (event) {
   return false;
 });
 
+//Filtrar Departamentos
+
+// Variable para controlar el estado del filtro de Departamentos
+let mostrarActivosDepartamentos = true;
+
+// Función para configurar el toggle de filtro para Departamentos
+function setupToggleFiltroDepartamentos() {
+    // Event listener específico para el toggle de Departamentos
+    $(document).on('click', '#toggleFiltroActivos', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const toggle = $(this);
+        
+
+        
+        if (mostrarActivosDepartamentos) {
+            // Cambiar a mostrar inactivos
+            toggle.removeClass('bi-toggle-on text-secondary')
+                  .addClass('bi-toggle-off text-secondary')
+                  .attr('title', 'Mostrando inactivos - Click para ver activos');
+            
+            mostrarActivosDepartamentos = false;
+            
+            // Cambiar el API para mostrar inactivos
+            dataTableCatDepartamentos = { api: 27 };
+            
+            console.log("Departamentos: Mostrando INACTIVOS");
+            alertToast("Mostrando Departamentos inactivos", "info", 2000);
+            
+        } else {
+            // Cambiar a mostrar activos
+            toggle.removeClass('bi-toggle-off text-secondary')
+                  .addClass('bi-toggle-on text-secondary')
+                  .attr('title', 'Mostrando activos - Click para ver inactivos');
+            
+            mostrarActivosDepartamentos = true;
+            
+            // Cambiar el API para mostrar activos
+            dataTableCatDepartamentos = { api: 6 };
+            
+            console.log("Departamentos: Mostrando ACTIVOS");
+            alertToast("Mostrando Departamentos activos", "success", 2000);
+        }
+        
+        // Recargar la tabla con el nuevo API
+        tableCatDepartamentos.ajax.reload();
+        
+        // Actualizar el texto del botón
+        updateFilterButtonTextDepartamentos();
+    });
+}
+
+// Función para actualizar el texto del botón de filtro de Departamentos
+function updateFilterButtonTextDepartamentos() {
+    const iconoToggle = mostrarActivosDepartamentos ? 
+        '<i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;" title="Mostrando activos - Click para ver inactivos"></i>' :
+        '<i class="bi bi-toggle-off fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;" title="Mostrando inactivos - Click para ver activos"></i>';
+    
+    const botonCompleto = `<i class="bi bi-funnel me-2" id="iconoFiltroDepartamentos" title="Restablecer filtros"></i>Filtrar ${iconoToggle}`;
+    
+    // Buscar específicamente el botón de Departamentos y actualizar su contenido
+    $('#tableCatDepartamentos_wrapper .btn.bg-gradient-filter').html(botonCompleto);
+}
+
+// Función para configurar el reset de filtros de Departamentos
+function setupResetFiltrosDepartamentos() {
+    // Event listener para el icono de funnel (reset) de Departamentos
+    $(document).on('click', '#iconoFiltroDepartamentos', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Verificar si hay filtros aplicados
+        if (mostrarActivosDepartamentos && dataTableCatDepartamentos.api === 6) {
+            alertToast("No hay filtros aplicados para restablecer", "info", 3000);
+            return;
+        }
+        
+        // Mostrar confirmación
+        alertMensajeConfirm(
+            {
+                title: "¿Restablecer filtros de Departamentos?",
+                text: "Esto volverá a mostrar todos los Departamentos activos.",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Sí, restablecer",
+                cancelButtonText: "Cancelar"
+            },
+            function () {
+                // Callback cuando el usuario confirma
+                resetearFiltrosDepartamentos();
+            },
+            2 // Tipo 2 para mostrar botón de cancelar
+        );
+    });
+}
+
+// Función para resetear los filtros de Departamentos
+function resetearFiltrosDepartamentos() {
+    console.log("Restableciendo filtros de Departamentos...");
+    
+    // Resetear variables globales
+    mostrarActivosDepartamentos = true;
+    
+    // Restablecer API por defecto (activos)
+    dataTableCatDepartamentos = { api: 6 };
+    
+    // Actualizar el botón visualmente
+    updateFilterButtonTextDepartamentos();
+    
+    // Recargar la tabla
+    tableCatDepartamentos.ajax.reload(function() {
+        // Callback después de recargar
+        alertToast("Filtros de Departamentos restablecidos correctamente", "success", 3000);
+    });
+}
+
+// Inicializar configuraciones de filtro al cargar las tablas
+function inicializarFiltrosDepartamentos() {
+    // Configurar los event listeners
+    setupToggleFiltroDepartamentos();
+    setupResetFiltrosDepartamentos();
+}
+
+// Llamar a la inicialización después de que se configuren las DataTables
+$(document).ready(function() {
+    // Esperar un momento para que las tablas se inicialicen
+    setTimeout(function() {
+        inicializarFiltrosDepartamentos();
+    }, 1000);
+});
+
 // Registrar/Editar Puesto
 $("#registrarPuestoForm").submit(function (event) {
   event.preventDefault();
@@ -188,6 +320,138 @@ $("#registrarMotivoForm").submit(function (event) {
   return false;
 });
 
+//Filtrar Motivos
+
+// Variable para controlar el estado del filtro de motivos
+let mostrarActivosMotivos = true;
+
+// Función para configurar el toggle de filtro para motivos
+function setupToggleFiltroMotivos() {
+    // Event listener específico para el toggle de motivos
+    $(document).on('click', '#toggleFiltroActivos', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const toggle = $(this);
+        
+
+        
+        if (mostrarActivosMotivos) {
+            // Cambiar a mostrar inactivos
+            toggle.removeClass('bi-toggle-on text-secondary')
+                  .addClass('bi-toggle-off text-secondary')
+                  .attr('title', 'Mostrando inactivos - Click para ver activos');
+            
+            mostrarActivosMotivos = false;
+            
+            // Cambiar el API para mostrar inactivos
+            dataTableCatMotivos = { api: 24 };
+            
+            console.log("Motivos: Mostrando INACTIVOS");
+            alertToast("Mostrando motivos inactivos", "info", 2000);
+            
+        } else {
+            // Cambiar a mostrar activos
+            toggle.removeClass('bi-toggle-off text-secondary')
+                  .addClass('bi-toggle-on text-secondary')
+                  .attr('title', 'Mostrando activos - Click para ver inactivos');
+            
+            mostrarActivosMotivos = true;
+            
+            // Cambiar el API para mostrar activos
+            dataTableCatMotivos = { api: 12 };
+            
+            console.log("Motivos: Mostrando ACTIVOS");
+            alertToast("Mostrando motivos activos", "success", 2000);
+        }
+        
+        // Recargar la tabla con el nuevo API
+        tableCatMotivos.ajax.reload();
+        
+        // Actualizar el texto del botón
+        updateFilterButtonTextMotivos();
+    });
+}
+
+// Función para actualizar el texto del botón de filtro de motivos
+function updateFilterButtonTextMotivos() {
+    const iconoToggle = mostrarActivosMotivos ? 
+        '<i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;" title="Mostrando activos - Click para ver inactivos"></i>' :
+        '<i class="bi bi-toggle-off fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;" title="Mostrando inactivos - Click para ver activos"></i>';
+    
+    const botonCompleto = `<i class="bi bi-funnel me-2" id="iconoFiltroMotivos" title="Restablecer filtros"></i>Filtrar ${iconoToggle}`;
+    
+    // Buscar específicamente el botón de motivos y actualizar su contenido
+    $('#tableCatMotivos_wrapper .btn.bg-gradient-filter').html(botonCompleto);
+}
+
+// Función para configurar el reset de filtros de motivos
+function setupResetFiltrosMotivos() {
+    // Event listener para el icono de funnel (reset) de motivos
+    $(document).on('click', '#iconoFiltroMotivos', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Verificar si hay filtros aplicados
+        if (mostrarActivosMotivos && dataTableCatMotivos.api === 12) {
+            alertToast("No hay filtros aplicados para restablecer", "info", 3000);
+            return;
+        }
+        
+        // Mostrar confirmación
+        alertMensajeConfirm(
+            {
+                title: "¿Restablecer filtros de motivos?",
+                text: "Esto volverá a mostrar todos los motivos activos.",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Sí, restablecer",
+                cancelButtonText: "Cancelar"
+            },
+            function () {
+                // Callback cuando el usuario confirma
+                resetearFiltrosMotivos();
+            },
+            2 // Tipo 2 para mostrar botón de cancelar
+        );
+    });
+}
+
+// Función para resetear los filtros de motivos
+function resetearFiltrosMotivos() {
+    console.log("Restableciendo filtros de motivos...");
+    
+    // Resetear variables globales
+    mostrarActivosMotivos = true;
+    
+    // Restablecer API por defecto (activos)
+    dataTableCatMotivos = { api: 12 };
+    
+    // Actualizar el botón visualmente
+    updateFilterButtonTextMotivos();
+    
+    // Recargar la tabla
+    tableCatMotivos.ajax.reload(function() {
+        // Callback después de recargar
+        alertToast("Filtros de motivos restablecidos correctamente", "success", 3000);
+    });
+}
+
+// Inicializar configuraciones de filtro al cargar las tablas
+function inicializarFiltrosMotivos() {
+    // Configurar los event listeners
+    setupToggleFiltroMotivos();
+    setupResetFiltrosMotivos();
+}
+
+// Llamar a la inicialización después de que se configuren las DataTables
+$(document).ready(function() {
+    // Esperar un momento para que las tablas se inicialicen
+    setTimeout(function() {
+        inicializarFiltrosMotivos();
+    }, 1000);
+});
+
 // Registrar/Editar Blandas
 $("#registrarBlandasForm").submit(function (event) {
   event.preventDefault();
@@ -249,6 +513,138 @@ $("#registrarBlandasForm").submit(function (event) {
   );
 
   return false;
+});
+
+//Filtrar Blandas
+
+// Variable para controlar el estado del filtro de blandas
+let mostrarActivosBlandas = true;
+
+// Función para configurar el toggle de filtro para Blandas
+function setupToggleFiltroBlandas() {
+    // Event listener específico para el toggle de blandas
+    $(document).on('click', '#toggleFiltroActivos', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const toggle = $(this);
+        
+
+        
+        if (mostrarActivosBlandas) {
+            // Cambiar a mostrar inactivos
+            toggle.removeClass('bi-toggle-on text-secondary')
+                  .addClass('bi-toggle-off text-secondary')
+                  .attr('title', 'Mostrando inactivos - Click para ver activos');
+            
+            mostrarActivosBlandas = false;
+            
+            // Cambiar el API para mostrar inactivos
+            dataTableCatBlandas = { api: 25 };
+            
+            console.log("Blandas: Mostrando INACTIVOS");
+            alertToast("Mostrando Blandas inactivos", "info", 2000);
+            
+        } else {
+            // Cambiar a mostrar activos
+            toggle.removeClass('bi-toggle-off text-secondary')
+                  .addClass('bi-toggle-on text-secondary')
+                  .attr('title', 'Mostrando activos - Click para ver inactivos');
+            
+            mostrarActivosBlandas = true;
+            
+            // Cambiar el API para mostrar activos
+            dataTableCatBlandas = { api: 18 };
+            
+            console.log("Blandas: Mostrando ACTIVOS");
+            alertToast("Mostrando Blandas activos", "success", 2000);
+        }
+        
+        // Recargar la tabla con el nuevo API
+        tableCatBlandas.ajax.reload();
+        
+        // Actualizar el texto del botón
+        updateFilterButtonTextBlandas();
+    });
+}
+
+// Función para actualizar el texto del botón de filtro de blandas
+function updateFilterButtonTextBlandas() {
+    const iconoToggle = mostrarActivosBlandas ? 
+        '<i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;" title="Mostrando activos - Click para ver inactivos"></i>' :
+        '<i class="bi bi-toggle-off fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;" title="Mostrando inactivos - Click para ver activos"></i>';
+    
+    const botonCompleto = `<i class="bi bi-funnel me-2" id="iconoFiltroBlandas" title="Restablecer filtros"></i>Filtrar ${iconoToggle}`;
+    
+    // Buscar específicamente el botón de blandas y actualizar su contenido
+    $('#tableCatBlandas_wrapper .btn.bg-gradient-filter').html(botonCompleto);
+}
+
+// Función para configurar el reset de filtros de blandas
+function setupResetFiltrosBlandas() {
+    // Event listener para el icono de funnel (reset) de blandas
+    $(document).on('click', '#iconoFiltroBlandas', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Verificar si hay filtros aplicados
+        if (mostrarActivosBlandas && dataTableCatBlandas.api === 18) {
+            alertToast("No hay filtros aplicados para restablecer", "info", 3000);
+            return;
+        }
+        
+        // Mostrar confirmación
+        alertMensajeConfirm(
+            {
+                title: "¿Restablecer filtros de blandas?",
+                text: "Esto volverá a mostrar todos los blandas activos.",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Sí, restablecer",
+                cancelButtonText: "Cancelar"
+            },
+            function () {
+                // Callback cuando el usuario confirma
+                resetearFiltrosBlandas();
+            },
+            2 // Tipo 2 para mostrar botón de cancelar
+        );
+    });
+}
+
+// Función para resetear los filtros de blandas
+function resetearFiltrosBlandas() {
+    console.log("Restableciendo filtros de Blandas...");
+    
+    // Resetear variables globales
+    mostrarActivosBlandas = true;
+    
+    // Restablecer API por defecto (activos)
+    dataTableCatBlandas = { api: 18 };
+    
+    // Actualizar el botón visualmente
+    updateFilterButtonTextBlandas();
+    
+    // Recargar la tabla
+    tableCatBlandas.ajax.reload(function() {
+        // Callback después de recargar
+        alertToast("Filtros de Blandas restablecidos correctamente", "success", 3000);
+    });
+}
+
+// Inicializar configuraciones de filtro al cargar las tablas
+function inicializarFiltrosBlandas() {
+    // Configurar los event listeners
+    setupToggleFiltroBlandas();
+    setupResetFiltrosBlandas();
+}
+
+// Llamar a la inicialización después de que se configuren las DataTables
+$(document).ready(function() {
+    // Esperar un momento para que las tablas se inicialicen
+    setTimeout(function() {
+        inicializarFiltrosBlandas();
+    }, 1000);
 });
 
 // Registrar/Editar Técnicas
@@ -313,6 +709,139 @@ $("#registrarTecnicasForm").submit(function (event) {
 
   return false;
 });
+
+//Filtrar Técnicas
+
+// Variable para controlar el estado del filtro de técnicas
+let mostrarActivosTecnicas = true;
+
+// Función para configurar el toggle de filtro para técnicas
+function setupToggleFiltroTecnicas() {
+    // Event listener específico para el toggle de técnicas
+    $(document).on('click', '#toggleFiltroActivos', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const toggle = $(this);
+        
+
+        
+        if (mostrarActivosTecnicas) {
+            // Cambiar a mostrar inactivos
+            toggle.removeClass('bi-toggle-on text-secondary')
+                  .addClass('bi-toggle-off text-secondary')
+                  .attr('title', 'Mostrando inactivos - Click para ver activos');
+            
+            mostrarActivosTecnicas = false;
+            
+            // Cambiar el API para mostrar inactivos
+            dataTableCatTecnicas = { api: 26 };
+            
+            console.log("Tecnicas: Mostrando INACTIVOS");
+            alertToast("Mostrando Tecnicas inactivos", "info", 2000);
+            
+        } else {
+            // Cambiar a mostrar activos
+            toggle.removeClass('bi-toggle-off text-secondary')
+                  .addClass('bi-toggle-on text-secondary')
+                  .attr('title', 'Mostrando activos - Click para ver inactivos');
+            
+            mostrarActivosTecnicas = true;
+            
+            // Cambiar el API para mostrar activos
+            dataTableCatTecnicas = { api: 21 };
+            
+            console.log("Tecnicas: Mostrando ACTIVOS");
+            alertToast("Mostrando Tecnicas activos", "success", 2000);
+        }
+        
+        // Recargar la tabla con el nuevo API
+        tableCatTecnicas.ajax.reload();
+        
+        // Actualizar el texto del botón
+        updateFilterButtonTextTecnicas();
+    });
+}
+
+// Función para actualizar el texto del botón de filtro de Tecnicas
+function updateFilterButtonTextTecnicas() {
+    const iconoToggle = mostrarActivosTecnicas ? 
+        '<i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;" title="Mostrando activos - Click para ver inactivos"></i>' :
+        '<i class="bi bi-toggle-off fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;" title="Mostrando inactivos - Click para ver activos"></i>';
+    
+    const botonCompleto = `<i class="bi bi-funnel me-2" id="iconoFiltroTecnicas" title="Restablecer filtros"></i>Filtrar ${iconoToggle}`;
+    
+    // Buscar específicamente el botón de Tecnicas y actualizar su contenido
+    $('#tableCatTecnicas_wrapper .btn.bg-gradient-filter').html(botonCompleto);
+}
+
+// Función para configurar el reset de filtros de Tecnicas
+function setupResetFiltrosTecnicas() {
+    // Event listener para el icono de funnel (reset) de Tecnicas
+    $(document).on('click', '#iconoFiltroTecnicas', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Verificar si hay filtros aplicados
+        if (mostrarActivosTecnicas && dataTableCatTecnicas.api === 21) {
+            alertToast("No hay filtros aplicados para restablecer", "info", 3000);
+            return;
+        }
+        
+        // Mostrar confirmación
+        alertMensajeConfirm(
+            {
+                title: "¿Restablecer filtros de Tecnicas?",
+                text: "Esto volverá a mostrar todos los Tecnicas activos.",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Sí, restablecer",
+                cancelButtonText: "Cancelar"
+            },
+            function () {
+                // Callback cuando el usuario confirma
+                resetearFiltrosTecnicas();
+            },
+            2 // Tipo 2 para mostrar botón de cancelar
+        );
+    });
+}
+
+// Función para resetear los filtros de Tecnicas
+function resetearFiltrosTecnicas() {
+    console.log("Restableciendo filtros de Tecnicas...");
+    
+    // Resetear variables globales
+    mostrarActivosTecnicas = true;
+    
+    // Restablecer API por defecto (activos)
+    dataTableCatTecnicas = { api: 21 };
+    
+    // Actualizar el botón visualmente
+    updateFilterButtonTextTecnicas();
+    
+    // Recargar la tabla
+    tableCatTecnicas.ajax.reload(function() {
+        // Callback después de recargar
+        alertToast("Filtros de Tecnicas restablecidos correctamente", "success", 3000);
+    });
+}
+
+// Inicializar configuraciones de filtro al cargar las tablas
+function inicializarFiltrosTecnicas() {
+    // Configurar los event listeners
+    setupToggleFiltroTecnicas();
+    setupResetFiltrosTecnicas();
+}
+
+// Llamar a la inicialización después de que se configuren las DataTables
+$(document).ready(function() {
+    // Esperar un momento para que las tablas se inicialicen
+    setTimeout(function() {
+        inicializarFiltrosTecnicas();
+    }, 1000);
+});
+
 
 
 // Registrar una nueva requisición de vacante - VARIABLES UNIFICADAS

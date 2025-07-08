@@ -20,30 +20,30 @@ var tableCatRequisiciones;
 var tableCatBlandas;
 var tableCatTecnicas;
 
-const dataTableCatRequisiciones = {
+dataTableCatRequisiciones = {
   api: 2, // Case 2 para obtener requisiciones
 };
 
-const dataTableCatDepartamentos = {
+dataTableCatDepartamentos = {
   api: 6,
 };
 
-const dataTableCatPuestos = {
-  api: 8, // Case 8 para obtener puestos
-};
+// dataTableCatPuestos = {
+//   api: 8, // Case 8 para obtener puestos
+// };
 
-const dataTableCatPuestosDetalles = {
+dataTableCatPuestosDetalles = {
   api: 9, // Case 9 para obtener detalles de puestos
 };
 
-const dataTableCatMotivos = {
+dataTableCatMotivos = {
   api: 12,  // Case 12 para obtener motivos
 };
 
-const dataTableCatBlandas = {
+dataTableCatBlandas = {
   api: 18, // Case 18 para obtener habilidades blandas
 };
 
-const dataTableCatTecnicas = {
+dataTableCatTecnicas = {
   api: 21, // Case 19 para obtener habilidades técnicas
 };
