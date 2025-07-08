@@ -666,9 +666,7 @@ function generarFormularioPaciente(id) {
               if(parseInt(row['PENDIENTE']) === 1){
                 html+=`
                     <div class="dropdown">
-                      <span class="btn btn-outline-danger dropdown-toggle" role="button" 
-                        data-bs-toggle="dropdown" aria-expanded="false"
-                      >
+                      <span class="btn btn-outline-danger dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
                           <i class="bi bi-three-dots"></i>
                       </span>
                       <ul class="dropdown-menu">
@@ -681,7 +679,7 @@ function generarFormularioPaciente(id) {
                           </label>
                         </li>
                         <li>
-                          <div class="dropdown-item btn-maquila-estudios" role="button">
+                          <div class="dropdown-item btn-maquila-estudios" role="button" data-bs-id="${row['ID_GRUPO']}" >
                             Maquilar
                             <i class="bi bi-file-earmark-break-fill"></i>
                           </div>
@@ -707,7 +705,7 @@ function generarFormularioPaciente(id) {
                           </label>
                         </li>
                         <li>
-                          <div class="dropdown-item btn-maquila-estudios" role="button">
+                          <div class="dropdown-item btn-maquila-estudios" role="button" data-bs-id="${row['ID_GRUPO']}" >
                             Maquilar
                             <i class="bi bi-file-earmark-break-fill"></i>
                           </div>

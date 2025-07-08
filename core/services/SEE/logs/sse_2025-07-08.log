@@ -1,0 +1,172 @@
+[2025-07-08 21:27:47] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:27:47] [ERROR] JSON Error: Syntax error
+[2025-07-08 21:28:00] [INFO] Iniciando SSE - Usuario: 115, Último ID: 0
+[2025-07-08 21:28:01] [ERROR] JSON Error: Syntax error
+[2025-07-08 21:28:01] [INFO] Estado SSE - Usuario: 115, Duración: 0s, Sin cambios: 1, Intervalo: 20s
+[2025-07-08 21:28:02] [ERROR] JSON Error: Syntax error
+[2025-07-08 21:28:02] [INFO] Cerrando SSE - Usuario: 115, Duración total: 88s
+[2025-07-08 21:28:21] [ERROR] JSON Error: Syntax error
+[2025-07-08 21:28:41] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:28:41] [ERROR] JSON Error: Syntax error
+[2025-07-08 21:28:56] [ERROR] JSON Error: Syntax error
+[2025-07-08 21:29:12] [ERROR] JSON Error: Syntax error
+[2025-07-08 21:29:27] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:29:27] [ERROR] JSON Error: Syntax error
+[2025-07-08 21:29:42] [ERROR] JSON Error: Syntax error
+[2025-07-08 21:29:57] [ERROR] JSON Error: Syntax error
+[2025-07-08 21:30:12] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:30:12] [ERROR] JSON Error: Syntax error
+[2025-07-08 21:30:28] [INFO] Notificaciones enviadas - Usuario: 115, Nuevas: 5
+[2025-07-08 21:30:49] [WARINING] No hay Notificaciones
+[2025-07-08 21:30:50] [INFO] Iniciando SSE - Usuario: 115, Último ID: 0
+[2025-07-08 21:30:50] [INFO] Notificaciones enviadas - Usuario: 115, Nuevas: 5
+[2025-07-08 21:31:09] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:31:09] [WARINING] No hay Notificaciones
+[2025-07-08 21:31:11] [WARINING] No hay Notificaciones
+[2025-07-08 21:31:30] [WARINING] No hay Notificaciones
+[2025-07-08 21:31:31] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:31:32] [WARINING] No hay Notificaciones
+[2025-07-08 21:31:45] [WARINING] No hay Notificaciones
+[2025-07-08 21:31:52] [WARINING] No hay Notificaciones
+[2025-07-08 21:32:08] [WARINING] No hay Notificaciones
+[2025-07-08 21:32:23] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:32:23] [WARINING] No hay Notificaciones
+[2025-07-08 21:32:39] [WARINING] No hay Notificaciones
+[2025-07-08 21:32:55] [WARINING] No hay Notificaciones
+[2025-07-08 21:33:10] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:33:10] [WARINING] No hay Notificaciones
+[2025-07-08 21:33:12] [INFO] Iniciando SSE - Usuario: 115, Último ID: 0
+[2025-07-08 21:33:12] [INFO] Notificaciones enviadas - Usuario: 115, Nuevas: 5
+[2025-07-08 21:33:26] [WARINING] No hay Notificaciones
+[2025-07-08 21:33:33] [WARINING] No hay Notificaciones
+[2025-07-08 21:33:41] [WARINING] No hay Notificaciones
+[2025-07-08 21:33:53] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:33:54] [WARINING] No hay Notificaciones
+[2025-07-08 21:33:56] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:33:57] [WARINING] No hay Notificaciones
+[2025-07-08 21:34:12] [WARINING] No hay Notificaciones
+[2025-07-08 21:34:14] [WARINING] No hay Notificaciones
+[2025-07-08 21:34:28] [WARINING] No hay Notificaciones
+[2025-07-08 21:34:30] [WARINING] No hay Notificaciones
+[2025-07-08 21:34:45] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:34:45] [WARINING] No hay Notificaciones
+[2025-07-08 21:35:01] [WARINING] No hay Notificaciones
+[2025-07-08 21:35:04] [INFO] Iniciando SSE - Usuario: 115, Último ID: 0
+[2025-07-08 21:35:05] [INFO] Notificaciones enviadas - Usuario: 115, Nuevas: 5
+[2025-07-08 21:35:11] [INFO] Iniciando SSE - Usuario: 115, Último ID: 0
+[2025-07-08 21:35:11] [INFO] Notificaciones enviadas - Usuario: 115, Nuevas: 5
+[2025-07-08 21:35:17] [WARINING] No hay Notificaciones
+[2025-07-08 21:35:25] [WARINING] No hay Notificaciones
+[2025-07-08 21:35:32] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:35:32] [WARINING] No hay Notificaciones
+[2025-07-08 21:35:32] [WARINING] No hay Notificaciones
+[2025-07-08 21:35:45] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:35:46] [WARINING] No hay Notificaciones
+[2025-07-08 21:35:48] [WARINING] No hay Notificaciones
+[2025-07-08 21:35:52] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:35:53] [WARINING] No hay Notificaciones
+[2025-07-08 21:36:03] [WARINING] No hay Notificaciones
+[2025-07-08 21:36:06] [WARINING] No hay Notificaciones
+[2025-07-08 21:36:13] [WARINING] No hay Notificaciones
+[2025-07-08 21:36:22] [WARINING] No hay Notificaciones
+[2025-07-08 21:36:29] [WARINING] No hay Notificaciones
+[2025-07-08 21:36:44] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:36:44] [WARINING] No hay Notificaciones
+[2025-07-08 21:37:00] [WARINING] No hay Notificaciones
+[2025-07-08 21:37:16] [WARINING] No hay Notificaciones
+[2025-07-08 21:37:31] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:37:31] [WARINING] No hay Notificaciones
+[2025-07-08 21:37:47] [WARINING] No hay Notificaciones
+[2025-07-08 21:38:03] [WARINING] No hay Notificaciones
+[2025-07-08 21:38:18] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:38:18] [WARINING] No hay Notificaciones
+[2025-07-08 21:38:24] [INFO] Iniciando SSE - Usuario: 115, Último ID: 0
+[2025-07-08 21:38:25] [INFO] Notificaciones enviadas - Usuario: 115, Nuevas: 5
+[2025-07-08 21:38:34] [WARINING] No hay Notificaciones
+[2025-07-08 21:38:45] [WARINING] No hay Notificaciones
+[2025-07-08 21:38:49] [WARINING] No hay Notificaciones
+[2025-07-08 21:39:04] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:39:05] [WARINING] No hay Notificaciones
+[2025-07-08 21:39:05] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:39:06] [WARINING] No hay Notificaciones
+[2025-07-08 21:39:20] [WARINING] No hay Notificaciones
+[2025-07-08 21:39:27] [WARINING] No hay Notificaciones
+[2025-07-08 21:39:31] [INFO] Iniciando SSE - Usuario: 115, Último ID: 0
+[2025-07-08 21:39:32] [INFO] Notificaciones enviadas - Usuario: 115, Nuevas: 4
+[2025-07-08 21:39:36] [WARINING] No hay Notificaciones
+[2025-07-08 21:39:42] [WARINING] No hay Notificaciones
+[2025-07-08 21:39:52] [WARINING] No hay Notificaciones
+[2025-07-08 21:39:57] [INFO] Iniciando SSE - Usuario: 115, Último ID: 0
+[2025-07-08 21:39:57] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:39:58] [INFO] Notificaciones enviadas - Usuario: 115, Nuevas: 2
+[2025-07-08 21:39:58] [WARINING] No hay Notificaciones
+[2025-07-08 21:40:12] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:40:13] [WARINING] No hay Notificaciones
+[2025-07-08 21:40:13] [WARINING] No hay Notificaciones
+[2025-07-08 21:40:18] [WARINING] No hay Notificaciones
+[2025-07-08 21:40:29] [WARINING] No hay Notificaciones
+[2025-07-08 21:40:34] [WARINING] No hay Notificaciones
+[2025-07-08 21:40:38] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:40:39] [WARINING] No hay Notificaciones
+[2025-07-08 21:40:49] [WARINING] No hay Notificaciones
+[2025-07-08 21:40:59] [WARINING] No hay Notificaciones
+[2025-07-08 21:41:15] [WARINING] No hay Notificaciones
+[2025-07-08 21:41:30] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:41:30] [WARINING] No hay Notificaciones
+[2025-07-08 21:41:46] [WARINING] No hay Notificaciones
+[2025-07-08 21:42:02] [WARINING] No hay Notificaciones
+[2025-07-08 21:42:17] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:42:17] [WARINING] No hay Notificaciones
+[2025-07-08 21:42:33] [WARINING] No hay Notificaciones
+[2025-07-08 21:42:49] [WARINING] No hay Notificaciones
+[2025-07-08 21:43:04] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:43:04] [WARINING] No hay Notificaciones
+[2025-07-08 21:43:14] [INFO] Iniciando SSE - Usuario: 115, Último ID: 0
+[2025-07-08 21:43:14] [INFO] Notificaciones enviadas - Usuario: 115, Nuevas: 1
+[2025-07-08 21:43:20] [WARINING] No hay Notificaciones
+[2025-07-08 21:43:35] [WARINING] No hay Notificaciones
+[2025-07-08 21:43:35] [WARINING] No hay Notificaciones
+[2025-07-08 21:43:50] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:43:51] [WARINING] No hay Notificaciones
+[2025-07-08 21:43:55] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:43:56] [WARINING] No hay Notificaciones
+[2025-07-08 21:44:07] [WARINING] No hay Notificaciones
+[2025-07-08 21:44:16] [WARINING] No hay Notificaciones
+[2025-07-08 21:44:22] [WARINING] No hay Notificaciones
+[2025-07-08 21:44:32] [WARINING] No hay Notificaciones
+[2025-07-08 21:44:47] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:44:47] [WARINING] No hay Notificaciones
+[2025-07-08 21:44:53] [INFO] Iniciando SSE - Usuario: 115, Último ID: 0
+[2025-07-08 21:44:53] [INFO] Notificaciones enviadas - Usuario: 115, Nuevas: 1
+[2025-07-08 21:45:03] [WARINING] No hay Notificaciones
+[2025-07-08 21:45:14] [WARINING] No hay Notificaciones
+[2025-07-08 21:45:19] [WARINING] No hay Notificaciones
+[2025-07-08 21:45:34] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:45:34] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:45:34] [WARINING] No hay Notificaciones
+[2025-07-08 21:45:34] [WARINING] No hay Notificaciones
+[2025-07-08 21:45:48] [INFO] Iniciando SSE - Usuario: 115, Último ID: 0
+[2025-07-08 21:45:48] [INFO] Notificaciones enviadas - Usuario: 115, Nuevas: 1
+[2025-07-08 21:45:50] [WARINING] No hay Notificaciones
+[2025-07-08 21:45:55] [WARINING] No hay Notificaciones
+[2025-07-08 21:46:05] [WARINING] No hay Notificaciones
+[2025-07-08 21:46:09] [WARINING] No hay Notificaciones
+[2025-07-08 21:46:11] [WARINING] No hay Notificaciones
+[2025-07-08 21:46:26] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:46:26] [WARINING] No hay Notificaciones
+[2025-07-08 21:46:29] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:46:30] [WARINING] No hay Notificaciones
+[2025-07-08 21:46:42] [WARINING] No hay Notificaciones
+[2025-07-08 21:46:50] [WARINING] No hay Notificaciones
+[2025-07-08 21:46:57] [WARINING] No hay Notificaciones
+[2025-07-08 21:47:06] [WARINING] No hay Notificaciones
+[2025-07-08 21:47:21] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:47:21] [WARINING] No hay Notificaciones
+[2025-07-08 21:47:37] [WARINING] No hay Notificaciones
+[2025-07-08 21:47:53] [WARINING] No hay Notificaciones
+[2025-07-08 21:48:08] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:48:08] [WARINING] No hay Notificaciones
+[2025-07-08 21:48:24] [WARINING] No hay Notificaciones
+[2025-07-08 21:48:39] [WARINING] No hay Notificaciones
+[2025-07-08 21:48:54] [INFO] Heartbeat enviado - Usuario: 115
+[2025-07-08 21:48:55] [WARINING] No hay Notificaciones

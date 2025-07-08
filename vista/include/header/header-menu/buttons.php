@@ -3,7 +3,7 @@
         <i class="bi bi-bell-fill"></i> Notificaciones
     </a>
     <span class="notification-bell-display hidden"></span>
-    <?php if ($menu != 'procedencia' && $_SESSION['id_cliente'] == 15): ?>
+    <?php if ($_SESSION['id_cliente'] == 15): ?>
         <?php include __DIR__ . '/../modals/modal-notifications-user.php'; ?>
     <?php endif; ?>
 </div>

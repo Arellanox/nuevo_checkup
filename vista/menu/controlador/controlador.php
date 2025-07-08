@@ -16,6 +16,6 @@
 <?php include __DIR__. "/../../../core/includes/menu_includes.php"; ?>
 <?php include __DIR__. "/../../../core/includes/inputs_includes.php"; ?>
 
-<?php if ($menu != 'procedencia' && $_SESSION['id_cliente'] == 15): ?>
-    <?php include __DIR__. "/../../../core/services/notifications/notifications.php "; ?>
+<?php if ($_SESSION['id_cliente'] == 15): ?>
+    <?php include __DIR__. "/../../../core/services/SEE/NotificationManager.php "; ?>
 <?php endif; ?>

@@ -245,26 +245,31 @@ $(document).on('click', '.btn-modal-maquila-confirm', function (event) {
         confirmButtonText: 'Sí'
     }, function () {
         //GUARDAR MAQUILACIÓN
-        const servicio_id = $('.btn-estudios-pendientes').attr('data-bs-id');
+        const servicio_id = $('.dropdown-item .btn-maquila-estudios').attr('data-bs-id');
 
-        //crearNotificacion(session['id'],
-        //    `Solicitud de Revisión de Maquilación de ${session['nombre']}`, '#', [15, 2, 20]
-        //).then(r => '');
+        console.log(servicio_id);
 
         ajaxAwait({
             api: 1,
             LABORATORIO_MAQUILA_ID: laboratorio_id,
             TURNO_ID: selectListaLab.ID_TURNO,
             SERVICIO_ID: servicio_id
-        }, 'laboratorio_estudios_maquila_api', {callbackAfter: true}, false, function (data) {
+        }, 'laboratorio_estudios_maquila_api', {callbackAfter: true}, false, function () {
             alertToast('Se registro la maquila exiotsamente.', 'success', 4000);
             $('#modalMaquilaEstudios').modal('hide');
         }).then(r => {
+            ajaxAwait({
+                api: 3,
+                viculo: '#',
+                mensaje: 'Solicitud de aprobación de maquilación generada por ' + session.nombre,
+                lab_maquila_id: laboratorio_id,
+                turno_id: selectListaLab.ID_TURNO,
+                servicio_id: servicio_id
+            }, 'notificaciones_api', {callbackAfter: true}, false, function () {
+                alertToast('Solicitud de aprobación enviada', 'success', 4000);
+            });
         });
-    }, 1, function () {
-        alert("Acción cancelada.");
-    }, () => {
-    });
+    }, 1, function () {}, () => {});
 });
 
 $(document).on('click', '.btn-maquila-estudios', function (event) {

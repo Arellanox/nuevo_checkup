@@ -1,6 +1,4 @@
-<ul class="dropdown-menu bg-navbar-drop dropdown-menu-lg-end" aria-labelledby="dropNotifications"
-    style="padding: 0px; width: 300px;"
->
+<ul class="dropdown-menu bg-navbar-drop dropdown-menu-lg-end" aria-labelledby="dropNotifications" style="padding: 0px; width: 300px;">
     <div id="notifications-content">
         <!--Head-->
         <div class="header">
@@ -14,7 +12,7 @@
             <?php if (isset($notifications)): ?>
 
             <?php else: ?>
-            <p class="not-found">Sin notificaciónes disponibles</p>
+                <p class="not-found">Sin notificaciónes disponibles</p>
             <?php endif; ?>
         </div>
         <!-- Footer -->

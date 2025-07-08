@@ -1,6 +1,6 @@
 <script type="text/javascript">
     const scripts = [
-        "<?= $current_url . '/core/helpers/inputs/order-fill-selects.js'; ?>",
+        "<?= $current_url . '/core/helpers/inputs/ordenadoSelects.js'; ?>",
         "<?= $current_url . '/core/helpers/inputs/direcciones.js'; ?>",
     ];
 
