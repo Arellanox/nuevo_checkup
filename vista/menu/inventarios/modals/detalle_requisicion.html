@@ -1,13 +1,24 @@
 <!-- vista/menu/inventarios/modals/detalle_requisicion.html -->
-<div class="modal fade" id="detalleRequisicionModal" tabindex="-1" aria-labelledby="detalleRequisicionLabel"
-  aria-hidden="true">
+<div
+  class="modal fade"
+  id="detalleRequisicionModal"
+  tabindex="-1"
+  aria-labelledby="detalleRequisicionLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="detalleRequisicionLabel">
-          Detalle de Requisición <span id="numeroRequisicionDetalle" class="text-primary"></span>
+          Detalle de Requisición
+          <span id="numeroRequisicionDetalle" class="text-primary"></span>
         </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -66,14 +77,18 @@
             </div>
 
             <!-- Observaciones de Aprobación -->
-            <div class="card mt-3" id="cardObservacionesAprobacion" style="display: none;">
+            <div
+              class="card mt-3"
+              id="cardObservacionesAprobacion"
+              style="display: none"
+            >
               <div class="card-header">
                 <h6 class="card-title mb-0">Observaciones de Aprobación</h6>
               </div>
               <div class="card-body">
                 <p id="detalleObservacionesAprobacion">-</p>
                 <small class="text-muted">
-                  Aprobado por: <span id="detalleAprobadoPor">-</span><br>
+                  Aprobado por: <span id="detalleAprobadoPor">-</span><br />
                   Fecha: <span id="detalleFechaAprobacion">-</span>
                 </small>
               </div>
@@ -96,6 +111,7 @@
                         <th>Solicitado</th>
                         <th>Aprobado</th>
                         <th>Surtido</th>
+                        <th>Observaciones</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -113,15 +129,29 @@
               </div>
               <div class="card-body">
                 <div class="mb-3">
-                  <label for="observacionesAprobacion" class="form-label">Observaciones</label>
-                  <textarea class="form-control" id="observacionesAprobacion" rows="3"
-                    placeholder="Comentarios sobre la aprobación/rechazo..."></textarea>
+                  <label for="observacionesAprobacion" class="form-label"
+                    >Observaciones</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="observacionesAprobacion"
+                    rows="3"
+                    placeholder="Comentarios sobre la aprobación/rechazo..."
+                  ></textarea>
                 </div>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                  <button type="button" class="btn btn-success" id="btnAprobarRequisicion">
+                  <button
+                    type="button"
+                    class="btn btn-success"
+                    id="btnAprobarRequisicion"
+                  >
                     <i class="bi bi-check-circle"></i> Aprobar
                   </button>
-                  <button type="button" class="btn btn-danger" id="btnRechazarRequisicion">
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    id="btnRechazarRequisicion"
+                  >
                     <i class="bi bi-x-circle"></i> Rechazar
                   </button>
                 </div>
@@ -129,13 +159,21 @@
             </div>
 
             <!-- Acciones de Surtimiento -->
-            <div class="card mt-3" id="cardAccionesSurtimiento" style="display: none;">
+            <div
+              class="card mt-3"
+              id="cardAccionesSurtimiento"
+              style="display: none"
+            >
               <div class="card-header">
                 <h6 class="card-title mb-0">Gestión de Surtimiento</h6>
               </div>
               <div class="card-body">
                 <div class="d-grid gap-2">
-                  <button type="button" class="btn btn-warning" id="btnSurtirRequisicion">
+                  <button
+                    type="button"
+                    class="btn btn-warning"
+                    id="btnSurtirRequisicion"
+                  >
                     <i class="bi bi-box-seam"></i> Surtir Artículos
                   </button>
                   <small class="text-muted">
@@ -161,94 +199,115 @@
         </div>
       </div>
       <div class="modal-footer d-flex justify-content-between">
-        <button type="button" class="btn btn-secondary px-4 py-2" data-bs-dismiss="modal">
+        <button
+          type="button"
+          class="btn btn-secondary px-4 py-2"
+          data-bs-dismiss="modal"
+        >
           <i class="bi bi-x-circle me-2"></i>Cerrar
         </button>
         <div class="d-flex gap-2">
-          <button type="button" class="btn btn-success px-4 py-2" id="btnGenerarExcel" style="display: none;">
+          <button
+            type="button"
+            class="btn btn-success px-4 py-2"
+            id="btnGenerarExcel"
+            style="display: none"
+          >
             <i class="bi bi-file-earmark-excel me-2"></i>Excel
           </button>
-          <button onclick="mostrarDetalleSurtimiento()" id="btnDetalleSurtimiento" class="btn btn-info px-4 py-2"
-            title="Ver detalles del surtimiento">
+          <button
+            onclick="mostrarDetalleSurtimiento()"
+            id="btnDetalleSurtimiento"
+            class="btn btn-info px-4 py-2"
+            title="Ver detalles del surtimiento"
+          >
             <i class="bi bi-eye me-2"></i>Ver Detalle
           </button>
-          <button type="button" class="btn btn-primary px-4 py-2" id="btnImprimirRequisicion" style="display: none;">
+          <button
+            type="button"
+            class="btn btn-primary px-4 py-2"
+            id="btnImprimirRequisicion"
+            style="display: none"
+          >
             <i class="bi bi-printer me-2"></i>Imprimir
           </button>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <style>
-    .timeline {
-      max-height: 300px;
-      overflow-y: auto;
-    }
+<style>
+  .timeline {
+    max-height: 300px;
+    overflow-y: auto;
+  }
 
-    .timeline-item {
-      padding: 10px 0;
-      border-bottom: 1px solid #eee;
-    }
+  .timeline-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+  }
 
-    .timeline-item:last-child {
-      border-bottom: none;
-    }
+  .timeline-item:last-child {
+    border-bottom: none;
+  }
 
-    .timeline-date {
-      font-size: 0.85em;
-      color: #6c757d;
-    }
+  .timeline-date {
+    font-size: 0.85em;
+    color: #6c757d;
+  }
 
-    .badge-urgente {
-      background-color: #dc3545;
-    }
+  .badge-urgente {
+    background-color: #dc3545;
+  }
 
-    .badge-normal {
-      background-color: #0d6efd;
-    }
+  .badge-normal {
+    background-color: #0d6efd;
+  }
 
-    .badge-baja {
-      background-color: #6c757d;
-    }
+  .badge-baja {
+    background-color: #6c757d;
+  }
 
-    .badge-borrador {
-      background-color: #ffc107;
-      color: #000;
-    }
+  .badge-borrador {
+    background-color: #ffc107;
+    color: #000;
+  }
 
-    .badge-pendiente {
-      background-color: #17a2b8;
-    }
+  .badge-pendiente {
+    background-color: #17a2b8;
+  }
 
-    .badge-aprobada {
-      background-color: #28a745;
-    }
+  .badge-aprobada {
+    background-color: #28a745;
+  }
 
-    .badge-rechazada {
-      background-color: #dc3545;
-    }
+  .badge-rechazada {
+    background-color: #dc3545;
+  }
 
-    .badge-parcialmente_surtida {
-      background-color: #fd7e14;
-    }
+  .badge-parcialmente_surtida {
+    background-color: #fd7e14;
+  }
 
-    .badge-completada {
-      background-color: #20c997;
-    }
+  .badge-completada {
+    background-color: #20c997;
+  }
 
-    .badge-pausada {
-      background-color: #6f42c1;
-    }
+  .badge-pausada {
+    background-color: #6f42c1;
+  }
 
-    #tablaDetalleArticulos {
-      font-size: 0.9em;
-    }
-  </style>
+  #tablaDetalleArticulos {
+    font-size: 0.9em;
+  }
+</style>
 
-  <script>
-    // Cuando la requisición esté completa
-    document.getElementById('btnDetalleSurtimiento').style.display = 'inline-block';
-    document.getElementById('btnImprimirRequisicion').style.display = 'inline-block';
-    document.getElementById('btnGenerarExcel').style.display = 'inline-block';
-  </script>
+<script>
+  // Cuando la requisición esté completa
+  document.getElementById("btnDetalleSurtimiento").style.display =
+    "inline-block";
+  document.getElementById("btnImprimirRequisicion").style.display =
+    "inline-block";
+  document.getElementById("btnGenerarExcel").style.display = "inline-block";
+</script>

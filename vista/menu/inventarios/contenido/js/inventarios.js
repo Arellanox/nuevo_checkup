@@ -697,7 +697,8 @@ buttonsEntradas.push({
         tableCatEntradas.column(6).visible(true);
         tableCatDetallesEntradas.column(3).header().textContent =
           "Cantidad de entrada";
-        tableCatDetallesEntradas.column(0).header().textContent =
+        tableCatDetallesEntradas.column(0).visible(true);
+        tableCatDetallesEntradas.column(1).header().textContent =
           "Fecha y hora última entrada";
         tableCatDetallesEntradas.column(1).visible(true);
         tableCatDetallesEntradas.column(2).visible(true);
@@ -742,9 +743,10 @@ buttonsEntradas.push({
         tableCatEntradas.column(6).visible(false); // Oculta proveedor
         tableCatDetallesEntradas.column(3).header().textContent =
           "Cantidad de salida";
-        tableCatDetallesEntradas.column(0).header().textContent =
+        tableCatDetallesEntradas.column(0).visible(false);
+        tableCatDetallesEntradas.column(1).header().textContent =
           "Fecha y hora última salida";
-        tableCatDetallesEntradas.column(1).visible(false);
+        tableCatDetallesEntradas.column(1).visible(true);
         tableCatDetallesEntradas.column(2).visible(false);
         tableCatDetallesEntradas.column(6).header().textContent =
           "Motivo de salida";
@@ -1413,10 +1415,20 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
     {
       data: null,
       render: function (data, type, row) {
+        // Determinar qué botones mostrar
+        const showApprovalButtons = row.estatus === "pendiente";
+        const showViewDetails = row.estatus === "completada" || row.estatus === "parcialmente_surtida";
+        const showSurtir = row.estatus === "aprobada" || row.estatus === "parcialmente_surtida";
+
+        // Si no hay botones que mostrar
+        if (!showApprovalButtons && !showViewDetails && !showSurtir) {
+          return '<span class="text-muted">-</span>';
+        }
+
         let buttons = "";
 
-        // Solo mostrar botones de aprobación si está pendiente
-        if (row.estatus === "pendiente") {
+        // Botones de aprobación (solo cuando está pendiente)
+        if (showApprovalButtons) {
           buttons += `
             <div class="d-flex gap-1 justify-content-center">
               <button class="btn btn-sm btn-success btn-aprobar-requisicion" data-id="${row.id_requisicion}" title="Aprobar">
@@ -1429,8 +1441,21 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
           `;
         }
 
-        // Mostrar botón de ver surtimiento si está completada o parcialmente surtida
-        if (row.estatus === "completada" || row.estatus === "parcialmente_surtida") {
+        // Botones de ver detalles y surtir (cuando ambos deben mostrarse juntos)
+        if (showViewDetails && showSurtir) {
+          buttons += `
+            <div class="d-flex gap-1 justify-content-center">
+              <button class="btn btn-sm btn-info btn-ver-surtimiento" data-id="${row.id_requisicion}" data-surtimiento-id="${row.id_surtimiento}" title="Ver detalles del surtimiento">
+                <i class="bi bi-eye"></i>
+              </button>
+              <button id="btnSurtirRequisicion" class="btn btn-sm btn-warning" title="Surtir requisición">
+                <i class="bi bi-box-seam"></i>
+              </button>
+            </div>
+          `;
+        }
+        // Solo mostrar ver detalles
+        else if (showViewDetails && !showSurtir) {
           buttons += `
             <div class="d-flex gap-1 justify-content-center">
               <button class="btn btn-sm btn-info btn-ver-surtimiento" data-id="${row.id_requisicion}" data-surtimiento-id="${row.id_surtimiento}" title="Ver detalles del surtimiento">
@@ -1439,13 +1464,23 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
             </div>
           `;
         }
+        // Solo mostrar surtir
+        else if (!showViewDetails && showSurtir) {
+          buttons += `
+            <div class="d-flex gap-1 justify-content-center">
+              <button id="btnSurtirRequisicion" class="btn btn-sm btn-warning" title="Surtir requisición">
+                <i class="bi bi-box-seam"></i>
+              </button>
+            </div>
+          `;
+        }
 
-        return buttons || '<span class="text-muted">-</span>';
+        return buttons;
       },
     },
     {
       data: "id_surtimiento",
-    }
+    },
   ],
   columnDefs: [
     { targets: 0, title: "Número", className: "all", width: "100px" },
@@ -1935,40 +1970,64 @@ selectDatatable(
 
     // AGREGAR: Llenar los nuevos campos del modal de detalles
     // Sustancia activa (buscar el nombre si hay ID)
-    if (rowSelected.SUSTANCIA_ACTIVA && rowSelected.SUSTANCIA_ACTIVA !== 'null' && rowSelected.SUSTANCIA_ACTIVA !== null) {
-        $("#sustanciaActiva").text(rowSelected.SUSTANCIA_ACTIVA);
+    if (
+      rowSelected.SUSTANCIA_ACTIVA &&
+      rowSelected.SUSTANCIA_ACTIVA !== "null" &&
+      rowSelected.SUSTANCIA_ACTIVA !== null
+    ) {
+      $("#sustanciaActiva").text(rowSelected.SUSTANCIA_ACTIVA);
     } else {
-        $("#sustanciaActiva").text("Sin asignar");
+      $("#sustanciaActiva").text("Sin asignar");
     }
 
     // Stock mínimo
     $("#stockMinimo").text(rowSelected.UNIDAD_MINIMA || "Sin definir");
 
     // Costo más alto (duplicar la lógica existente)
-    if (rowSelected.COSTO_MAS_ALTO && rowSelected.COSTO_MAS_ALTO !== "null" && rowSelected.COSTO_MAS_ALTO !== null) {
-        $("#costoMasAltoDetalle").text("$" + Number(rowSelected.COSTO_MAS_ALTO).toLocaleString("es-MX", {
+    if (
+      rowSelected.COSTO_MAS_ALTO &&
+      rowSelected.COSTO_MAS_ALTO !== "null" &&
+      rowSelected.COSTO_MAS_ALTO !== null
+    ) {
+      $("#costoMasAltoDetalle").text(
+        "$" +
+          Number(rowSelected.COSTO_MAS_ALTO).toLocaleString("es-MX", {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2,
-        }));
+          })
+      );
     } else {
-        $("#costoMasAltoDetalle").text("Sin registros");
+      $("#costoMasAltoDetalle").text("Sin registros");
     }
 
     // Enlaces a documentos
-    if (rowSelected.INSERTO && rowSelected.INSERTO.trim() !== '') {
-        $("#insertoLink").html('<a href="' + rowSelected.INSERTO + '" target="_blank" class="btn btn-sm btn-outline-danger"><i class="bi bi-file-earmark-pdf"></i> Ver inserto</a>');
-        $("#insertoDetalle").show();
+    if (rowSelected.INSERTO && rowSelected.INSERTO.trim() !== "") {
+      $("#insertoLink").html(
+        '<a href="' +
+          rowSelected.INSERTO +
+          '" target="_blank" class="btn btn-sm btn-outline-danger"><i class="bi bi-file-earmark-pdf"></i> Ver inserto</a>'
+      );
+      $("#insertoDetalle").show();
     } else {
-        $("#insertoLink").html('<span class="text-muted">No disponible</span>');
-        $("#insertoDetalle").show();
+      $("#insertoLink").html('<span class="text-muted">No disponible</span>');
+      $("#insertoDetalle").show();
     }
 
-    if (rowSelected.PROCEDIMIENTO_PRUEBA && rowSelected.PROCEDIMIENTO_PRUEBA.trim() !== '') {
-        $("#procedimientoLink").html('<a href="' + rowSelected.PROCEDIMIENTO_PRUEBA + '" target="_blank" class="btn btn-sm btn-outline-secondary"><i class="bi bi-file-earmark-pdf"></i> Ver procedimiento</a>');
-        $("#procedimientoDetalle").show();
+    if (
+      rowSelected.PROCEDIMIENTO_PRUEBA &&
+      rowSelected.PROCEDIMIENTO_PRUEBA.trim() !== ""
+    ) {
+      $("#procedimientoLink").html(
+        '<a href="' +
+          rowSelected.PROCEDIMIENTO_PRUEBA +
+          '" target="_blank" class="btn btn-sm btn-outline-secondary"><i class="bi bi-file-earmark-pdf"></i> Ver procedimiento</a>'
+      );
+      $("#procedimientoDetalle").show();
     } else {
-        $("#procedimientoLink").html('<span class="text-muted">No disponible</span>');
-        $("#procedimientoDetalle").show();
+      $("#procedimientoLink").html(
+        '<span class="text-muted">No disponible</span>'
+      );
+      $("#procedimientoDetalle").show();
     }
 
     //mostrar el modal
@@ -2744,6 +2803,7 @@ $(document).ready(function () {
     let articuloId = $(this).data("id");
     let nombreArticulo = $(this).data("nombre");
     let claveArticulo = $(this).data("clave");
+    let observaciones = $(this).data("observaciones") || "Sin observaciones";
 
     // Verificar si ya está agregado
     if (articulosRequisicion.find((art) => art.id == articuloId)) {
@@ -2761,6 +2821,7 @@ $(document).ready(function () {
       nombre: nombreArticulo,
       clave: claveArticulo,
       cantidad: 1,
+      observaciones: observaciones,
     };
 
     articulosRequisicion.push(nuevoArticulo);
@@ -2784,7 +2845,7 @@ $(document).ready(function () {
     if (articulosRequisicion.length === 0) {
       tbody.append(`
         <tr id="filaVaciaArticulos">
-          <td colspan="3" class="text-center text-muted">
+          <td colspan="4" class="text-center text-muted">
             <i class="bi bi-inbox"></i><br>
             No hay artículos agregados
           </td>
@@ -2800,6 +2861,9 @@ $(document).ready(function () {
             </td>
             <td class="text-center">
               <span class="badge bg-primary">${articulo.cantidad}</span>
+            </td>
+            <td class="text-center">
+              <span class="badge bg-primary">${articulo.observaciones}</span>
             </td>
             <td class="text-center">
               <i class="bi bi-pencil btn-editar-articulo me-2" 
@@ -2826,11 +2890,13 @@ $(document).ready(function () {
   $(document).on("click", ".btn-editar-articulo", function () {
     let index = $(this).data("index");
     let articulo = articulosRequisicion[index];
+    console.log("Editar artículo:", articulo);
 
     $("#editarArticuloId").val(articulo.id);
     $("#editarIndiceTabla").val(index);
     $("#editarNombreArticulo").text(`${articulo.clave} - ${articulo.nombre}`);
     $("#editarCantidad").val(articulo.cantidad);
+    $("#editarObservaciones").val(articulo.observaciones);
 
     $("#editarArticuloRequisicionModal").modal("show");
   });
@@ -2845,7 +2911,10 @@ $(document).ready(function () {
       return;
     }
 
+    let observaciones = $("#editarObservaciones").val().trim();
+
     articulosRequisicion[index].cantidad = cantidad;
+    articulosRequisicion[index].observaciones = observaciones;
 
     actualizarTablaArticulos();
     actualizarContadorYTotal();
@@ -3075,6 +3144,7 @@ $(document).ready(function () {
         requisicion_id: requisicionId,
         articulo_id: articulo.id,
         cantidad_solicitada: articulo.cantidad,
+        observaciones: articulo.observaciones || "Sin observaciones",
         operacion: "INSERT",
       };
 
@@ -4303,12 +4373,12 @@ function inicializarDataTablesCatalogos() {
     columns: [
       { data: "ID_SUSTANCIA" },
       { data: "NOMBRE" },
-      { 
+      {
         data: "TIPO",
         render: function (data) {
           // Capitalizar primera letra
           return data.charAt(0).toUpperCase() + data.slice(1);
-        }
+        },
       },
       {
         data: "ESTATUS",
@@ -4326,11 +4396,13 @@ function inicializarDataTablesCatalogos() {
                             data-id="${row.ID_SUSTANCIA}" 
                             data-nombre="${row.NOMBRE}" 
                             data-tipo="${row.TIPO}" 
-                            data-descripcion="${row.DESCRIPCION || ''}" 
+                            data-descripcion="${row.DESCRIPCION || ""}" 
                             data-estatus="${row.ESTATUS}">
                         <i class="bi bi-pencil"></i>
                     </button>
-                    <button class="btn btn-sm btn-danger btn-eliminar-sustancia" data-id="${row.ID_SUSTANCIA}">
+                    <button class="btn btn-sm btn-danger btn-eliminar-sustancia" data-id="${
+                      row.ID_SUSTANCIA
+                    }">
                         <i class="bi bi-trash"></i>
                     </button>
                 `;
@@ -4827,14 +4899,18 @@ function inicializarEventosCatalogos() {
           {
             api: 38, // API para CRUD de sustancias en inventarios_api
             id_sustancia: sustanciaId,
-            accion: 'DELETE',
+            accion: "DELETE",
           },
           "inventarios_api",
           { callbackAfter: true },
           false,
           function (data) {
             if (data.response.code == 1) {
-              alertToast("Sustancia desactivada correctamente!", "success", 4000);
+              alertToast(
+                "Sustancia desactivada correctamente!",
+                "success",
+                4000
+              );
               tableCatSustancias.ajax.reload();
             } else {
               alertToast("Error al desactivar la sustancia", "error", 4000);
@@ -5451,13 +5527,20 @@ function cargarDetallesRequisicionCompletos() {
     $("#btnImprimirRequisicion").hide();
   }
 
-  if (rowSelectedRequisicion.estatus === "parcialmente_surtida" || rowSelectedRequisicion.estatus === "completada") {
+  if (
+    rowSelectedRequisicion.estatus === "parcialmente_surtida" ||
+    rowSelectedRequisicion.estatus === "completada"
+  ) {
     $("#btnDetalleSurtimiento").show();
   } else {
     $("#btnDetalleSurtimiento").hide();
   }
 
-  if (rowSelectedRequisicion.estatus === "aprobada" || rowSelectedRequisicion.estatus === "completada" || rowSelectedRequisicion.estatus === "pendiente") {
+  if (
+    rowSelectedRequisicion.estatus === "aprobada" ||
+    rowSelectedRequisicion.estatus === "completada" ||
+    rowSelectedRequisicion.estatus === "pendiente"
+  ) {
     $("#btnGenerarExcel").show();
   } else {
     $("#btnGenerarExcel").hide();
@@ -5519,6 +5602,8 @@ function cargarArticulosDetalle(requisicionId) {
               detalle.cantidad_aprobada || detalle.CANTIDAD_APROBADA || "-",
             cantidad_surtida:
               detalle.cantidad_surtida || detalle.CANTIDAD_SURTIDA || "-",
+            observaciones:
+              detalle.observaciones || detalle.OBSERVACIONES ||" Sin observaciones ",
           };
 
           let fila = `
@@ -5530,6 +5615,7 @@ function cargarArticulosDetalle(requisicionId) {
               <td class="text-center">${articulo.cantidad_solicitada}</td>
               <td class="text-center">${articulo.cantidad_aprobada}</td>
               <td class="text-center">${articulo.cantidad_surtida}</td>
+              <td class="text-center">${articulo.observaciones}</td>
             </tr>
           `;
 
@@ -5925,8 +6011,13 @@ $(document).on("click", ".btn-ver-surtimiento", function (e) {
 
   let idRequisicion = $(this).data("id");
   let idSurtimiento = $(this).data("surtimiento-id");
-  
-  console.log("Ver surtimiento - Requisición:", idRequisicion, "Surtimiento:", idSurtimiento);
+
+  console.log(
+    "Ver surtimiento - Requisición:",
+    idRequisicion,
+    "Surtimiento:",
+    idSurtimiento
+  );
 
   if (!idRequisicion || !idSurtimiento) {
     alertToast("ID de requisición o surtimiento no válido", "warning", 3000);
@@ -5947,7 +6038,7 @@ $(document).on("click", ".btn-ver-surtimiento", function (e) {
     requisicionData.id_surtimiento = idSurtimiento;
     // Establecer la fila seleccionada temporalmente
     rowSelectedRequisicion = requisicionData;
-    
+
     // Llamar a la función existente
     mostrarDetalleSurtimiento();
   } else {
@@ -7075,7 +7166,7 @@ function guardarSurtimiento() {
 function cargarEvidenciasSurtimiento(requisicionId) {
   console.log("🔍 Cargando evidencias para requisición ID:", requisicionId);
   console.log("🔍 Tipo de requisicionId:", typeof requisicionId);
-  
+
   $.ajax({
     url: "../../../api/inventarios_api.php",
     type: "POST",
@@ -7086,12 +7177,20 @@ function cargarEvidenciasSurtimiento(requisicionId) {
     },
     success: function (response) {
       console.log("Evidencias de surtimiento:", response);
-      
+
       // Verificar diferentes estructuras de respuesta
       let evidencias = [];
-      if (response && response.response && response.response.data && response.response.data.data) {
+      if (
+        response &&
+        response.response &&
+        response.response.data &&
+        response.response.data.data
+      ) {
         evidencias = response.response.data.data;
-        console.log("📷 Usando estructura anidada response.response.data.data:", evidencias);
+        console.log(
+          "📷 Usando estructura anidada response.response.data.data:",
+          evidencias
+        );
       } else if (response && response.response && response.response.data) {
         evidencias = response.response.data;
         console.log("📷 Usando estructura response.response.data:", evidencias);
@@ -7099,14 +7198,17 @@ function cargarEvidenciasSurtimiento(requisicionId) {
         evidencias = response.data;
         console.log("📷 Usando estructura response.data:", evidencias);
       }
-      
+
       console.log("📷 Evidencias procesadas:", evidencias);
       console.log("📷 Total evidencias:", evidencias.length);
 
       if (evidencias && evidencias.length > 0) {
         mostrarEvidencias(evidencias);
       } else {
-        console.warn("⚠️ No se encontraron evidencias para requisición ID:", requisicionId);
+        console.warn(
+          "⚠️ No se encontraron evidencias para requisición ID:",
+          requisicionId
+        );
         ocultarEvidencias();
       }
     },
@@ -7154,9 +7256,13 @@ function mostrarEvidencias(evidencias) {
         <div class="evidencia-container text-center">
           ${contenidoImagen}
           <div class="evidencia-info mt-2">
-            <small class="fw-bold d-block">${evidencia.descripcion || "Evidencia"}</small>
+            <small class="fw-bold d-block">${
+              evidencia.descripcion || "Evidencia"
+            }</small>
             <small class="text-muted d-block">${fechaFormateada}</small>
-            <small class="text-muted d-block">Por: ${evidencia.persona_recibe || "N/A"}</small>
+            <small class="text-muted d-block">Por: ${
+              evidencia.persona_recibe || "N/A"
+            }</small>
           </div>
         </div>
       </div>
@@ -7190,8 +7296,6 @@ function mostrarEvidenciaAmpliada(
 
   $("#evidenciaModal").modal("show");
 }
-
-
 
 console.log("Funcionalidad de surtimiento cargada correctamente");
 

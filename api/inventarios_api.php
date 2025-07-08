@@ -566,6 +566,7 @@ switch ($api) {
         $precio_estimado = isset($_POST['precio_estimado']) && $_POST['precio_estimado'] !== '' && $_POST['precio_estimado'] !== 'null' ? $_POST['precio_estimado'] : null;
         $operacion = isset($_POST['operacion']) ? $_POST['operacion'] : null;
         $id_detalle = isset($_POST['id_detalle']) && $_POST['id_detalle'] !== '' && $_POST['id_detalle'] !== 'null' ? $_POST['id_detalle'] : null;
+        $observaciones = isset($_POST['observaciones']) ? $_POST['observaciones'] : null;
 
         // Log de debugging
         error_log("API 27 - Parámetros recibidos: " . json_encode([
@@ -584,7 +585,8 @@ switch ($api) {
             $cantidad_solicitada,
             $precio_estimado,
             $operacion,
-            $id_detalle
+            $id_detalle,
+            $observaciones
         ]);
 
         // Log de la respuesta
@@ -1129,7 +1131,7 @@ switch ($api) {
                     $data[] = $rows;
                 }
             } while ($result->nextRowset());
-            
+
             $conexion = null;
 
             $response = array(
@@ -1237,21 +1239,21 @@ switch ($api) {
 
         try {
             $conexion = $master->connectDb();
-            
+
             // Primero verificar si la requisición existe
             $check_req_sql = "SELECT COUNT(*) as total FROM inventarios_cat_requisiciones WHERE id_requisicion = ?";
             $check_req_stmt = $conexion->prepare($check_req_sql);
             $check_req_stmt->execute([$requisicion_id]);
             $requisicion_exists = $check_req_stmt->fetch(PDO::FETCH_ASSOC);
             error_log("API 33 - Requisición existe: " . json_encode($requisicion_exists));
-            
+
             // Verificar si hay surtimientos para esta requisición
             $check_surt_sql = "SELECT id_surtimiento, fecha_surtimiento, persona_recibe FROM inventarios_cat_surtimientos WHERE requisicion_id = ?";
             $check_surt_stmt = $conexion->prepare($check_surt_sql);
             $check_surt_stmt->execute([$requisicion_id]);
             $surtimientos = $check_surt_stmt->fetchAll(PDO::FETCH_ASSOC);
             error_log("API 33 - Surtimientos encontrados: " . json_encode($surtimientos));
-            
+
             // Verificar si hay evidencias en total
             $check_ev_sql = "SELECT COUNT(*) as total FROM inventarios_cat_surtimientos_evidencia";
             $check_ev_stmt = $conexion->prepare($check_ev_sql);
@@ -1279,10 +1281,10 @@ switch ($api) {
             $stmt = $conexion->prepare($sql);
             $stmt->execute([$requisicion_id]);
             $evidencias = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            
+
             error_log("API 33 - Evidencias encontradas para requisición: " . count($evidencias));
             error_log("API 33 - Datos de evidencias: " . json_encode($evidencias));
-            
+
             $conexion = null;
 
             $response = array(

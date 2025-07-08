@@ -1,189 +1,137 @@
-<div class="modal fade" id="registrarEntradaModal" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false"
-    data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+<div class="modal fade modal-lg" id="registrarEntradaModal" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalTitleRegistrarEntrada">Registrando movimiento de<strong><span
-                            id="registrandoEntrada"></span></strong> con una cantidad en almacén de:<strong><span id="registrandoCantidad"></span></strong></h5>
+                <h5 class="modal-title" id="modalTitleRegistrarEntrada">Registrando movimiento de <strong><span id="registrandoEntrada"></span></strong> con una cantidad en almacén de: <strong><span id="registrandoCantidad"></span></strong></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            
             <div class="modal-body container-fluid">
-                <div class="container-fluid">
-                    <div class="row">
-                        <!-- Formulario para crear una nueva caja -->
-                        <div class="col-12">
-                            <div class="text-start">
-                                <div class="shadow-sm rounded p-3 card-body">
-                                    <div class="row align-items-end">
-                                        <h5 class="text-dark">Ingresa los siguientes datos</h5>
-                                        <div class="col-12">
-                                            <form id="registrarEntradaForm" name="registrarEntradaForm">
-
-                                                <!-- Movimiento -->
-                                                <div class="mb-3">
-                                                    <label for="id_movimiento" class="form-label">Tipo de
-                                                        movimiento</label>
-                                                    <select class="form-select input-form" id="id_movimiento"
-                                                        name="id_movimiento">
-                                                        <option value="" disabled selected>Seleccione...</option>
-                                                        <option value="1">Entrada</option>
-                                                        <option value="2">Salida</option>
-                                                    </select>
-                                                </div>
-
-                                                <!-- Cantidad -->
-                                                <div class="mb-3">
-                                                    <label for="cantidad" class="form-label">Cantidad a ingresar</label>
-                                                    <input type="number" class="form-control input-form" id="cantidad"
-                                                        name="cantidad" required placeholder="Ej. 10">
-                                                </div>
-
-                                                <!-- Fecha Última Entrada 
-                                                <div class="mb-3">
-                                                    <label for="fecha_ultima_entrada" class="form-label">Fecha y hora del movimiento</label>
-                                                    <input type="datetime-local" class="form-control input-form" id="fecha_ultima_entrada" name="fecha_ultima_entrada" required>
-                                                </div>-->
-
-                                                <!-- Costo Última Entrada -->
-                                                <div class="mb-3">
-                                                    <label for="costo_ultima_entrada" class="form-label">Costo
-                                                        unitario</label>
-                                                    <input type="number" step="any" class="form-control input-form"
-                                                        id="costo_ultima_entrada" name="costo_ultima_entrada" required
-                                                        placeholder="Ej. 10.50">
-                                                    <small id="costoTotal" class="form-text text-secondary fw-bold" style="display: none;">
-                                                        <i class="bi bi-calculator"></i> Costo total: $<span id="costoTotalValor">0.00</span>
-                                                    </small>
-                                                </div>
-
-                                                <!-- Proveedor -->
-                                                <div class="mb-3" id="proveedorDiv">
-                                                    <label for="id_proveedores" class="form-label">Proveedor</label>
-                                                    <div class="row">
-                                                        <div class="col-10">
-                                                            <select class="form-select input-form" id="id_proveedores" name="id_proveedores">
-                                                                <option value="" disabled selected>Seleccione...</option>
-                                                                <!-- Las opciones se cargarán dinámicamente -->
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <!-- Botón para agregar nuevo proveedor -->
-                                                            <button type="button" class="btn btn-outline-success btn-sm w-100 h-100" 
-                                                                    id="btnNuevoProveedor" data-bs-toggle="modal" data-bs-target="#registrarCatalogoModal"
-                                                                    title="Agregar nuevo proveedor">
-                                                                <i class="bi bi-plus-lg"></i><br>
-                                                                <small>Nuevo</small>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
-
-                                                <!-- Factura o número de documento -->
-                                                <div class="col-12" id="facturaDiv">
-                                                    <div class="mb-3">
-                                                        <label for="protocolo" class="form-label">Factura o número de documento</label>
-                                                        <input type="file" class="form-control input-form" id="img_factura" required name="img_factura[]">
-                                                        <div class="invalid-feedback">Este campo es obligatorio.</div>
-                                                        <small class="form-text text-muted">Adjunte la imagen de la factura o número de protocolo.</small>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Orden de compra -->
-                                                <div class="col-12" id="ordenCompraDiv">
-                                                    <div class="mb-3">
-                                                        <label for="orden_compra" class="form-label">Orden de compra (opcional)</label>
-                                                        <input type="text" class="form-control input-form" id="orden_compra"
-                                                            name="orden_compra" placeholder="Ej. 10">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="orden_compra" class="form-label">Documento de orden de compra (opcional)</label>
-                                                        <input type="file" class="form-control input-form" id="img_orden_compra"
-                                                        name="img_orden_compra[]">
-                                                        <div class="invalid-feedback">Este campo es opcional.</div>
-                                                        <small class="form-text text-muted">Adjunte el documento de orden de compra.</small>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Motivo de salida -->
-                                            <div class="mb-3" id="motivoSalidaDiv">
-                                                    <label for="motivo_salida" class="form-label">Motivo de entrada</label>
-                                                <div class="row">
-                                                    <div class="col-10">
-                                                        <select class="form-select input-form" id="motivo_salida" name="motivo_salida" required>
-                                                        <option value="">Seleccione un motivo de entrada</option>
-                                                        <!-- Las opciones se cargarán dinámicamente -->
-                                                        </select>
-                                                            <div class="invalid-feedback">Este campo es obligatorio.</div>
-                                                            <small class="form-text text-muted">Seleccione el motivo de entrada del artículo.</small>
-                                                    </div>
-                                                    <div class="col-2">
-                                                    <!-- Botón para agregar nuevo motivo -->
-                                                        <button type="button" class="btn btn-outline-success btn-sm w-100 h-100" 
-                                                            id="btnNuevoMotivo"data-bs-toggle="modal" data-bs-target="#registrarCatalogoModal"
-                                                                    title="Agregar nuevo motivo">
-                                                                <i class="bi bi-plus-lg"></i><br>
-                                                            <small>Nuevo</small>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                                <!-- Campos de lote y caducidad (solo para entradas) -->
-                                                <div id="lotesCaducidadDiv" style="display: none;">
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <div class="mb-3">
-                                                                <label for="numero_lote" class="form-label">Número de Lote</label>
-                                                                <input type="text" class="form-control input-form" id="numero_lote" name="numero_lote" placeholder="Ej. LOT123456">
-                                                                <small class="form-text text-muted">Ingrese el número de lote del producto.</small>
-                                                            </div>
-                                                        </div>
-                                                        <!-- COMENTADO: Fecha de lote ya no es requerida
-                                                        <div class="col-6">
-                                                            <div class="mb-3">
-                                                                <label for="fecha_lote" class="form-label">Fecha de Lote</label>
-                                                                <input type="date" class="form-control input-form" id="fecha_lote" name="fecha_lote">
-                                                                <small class="form-text text-muted">Fecha de fabricación del lote.</small>
-                                                            </div>
-                                                        </div>
-                                                        -->
-                                                        <div class="col-6" id="fechaCaducidadDiv">
-                                                            <div class="mb-3">
-                                                                <label for="fecha_caducidad" class="form-label">Fecha de Caducidad</label>
-                                                                <input type="date" class="form-control input-form" id="fecha_caducidad" name="fecha_caducidad">
-                                                                <small class="form-text text-muted">Fecha de vencimiento del producto.</small>
-                                                            </div>
-                                                        </div>
-                                                        <!-- Campo oculto para fecha_lote - envía null -->
-                                                        <input type="hidden" id="fecha_lote" name="fecha_lote" value="">
-                                                    </div>
-                                                </div>
-
-                                                <!-- Campo oculto para la fecha y hora del movimiento -->
-                                                <input type="hidden" id="fecha_ultima_entrada"
-                                                    name="fecha_ultima_entrada">
-                                            </form>
-
-                                        </div>
-                                        <div class="col-12 d-flex justify-content-end">
-                                        </div>
+                <form id="registrarEntradaForm" name="registrarEntradaForm">
+                    <!-- Card 1: Información Básica del Movimiento -->
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h6 class="card-title">Información del Movimiento</h6>
+                            <div class="row">
+                                <!-- Tipo de Movimiento -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="id_movimiento" class="form-label">Tipo de movimiento</label>
+                                    <select class="form-select" id="id_movimiento" name="id_movimiento" required>
+                                        <option value="" disabled selected>Seleccione...</option>
+                                        <option value="1">Entrada</option>
+                                        <option value="2">Salida</option>
+                                    </select>
+                                </div>
+                                
+                                <!-- Cantidad -->
+                                <div class="col-md-6 mb-3" id="cantidad-container" style="display:none;">
+                                    <label for="cantidad" class="form-label" id="label-cantidad">Cantidad</label>
+                                    <input type="number" class="form-control" id="cantidad" name="cantidad" required>
+                                </div>
+                            </div>
+                            
+                            <!-- Precio de Compra (solo visible para entradas) -->
+                            <div class="row" id="precio-compra-container" style="display:none;">
+                                <div class="col-md-12 mb-3">
+                                    <label for="costo_ultima_entrada" class="form-label">Precio de compra</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                        <input type="number" step="0.01" class="form-control" id="costo_ultima_entrada" name="costo_ultima_entrada">
                                     </div>
+                                    <small id="costoTotal" class="form-text text-secondary fw-bold mt-2" style="display:none;">
+                                        <i class="bi bi-calculator"></i> Costo total: $<span id="costoTotalValor">0.00</span>
+                                    </small>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal"><i
-                        class="bi bi-arrow-left-short"></i>
-                    Cancelar</button>
-                </button>
 
-                <button id="registrarMovimientoButton" type="submit" class="btn btn-confirmar"
-                    form="registrarEntradaForm">
+                    <!-- Card 2: Detalles de Entrada (solo visible para entradas) -->
+                    <div class="card mb-4" id="entrada-details-card" style="display:none;">
+                        <div class="card-body">
+                            <h6 class="card-title">Detalles de Entrada</h6>
+                            <div class="row">
+                                <!-- Proveedor -->
+                                <div class="col-md-8 mb-3">
+                                    <label for="id_proveedores" class="form-label">Proveedor</label>
+                                    <select class="form-select" id="id_proveedores" name="id_proveedores">
+                                        <option value="" disabled selected>Seleccione...</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3 d-flex align-items-end">
+                                    <button type="button" class="btn btn-outline-success w-100" id="btnNuevoProveedor" data-bs-toggle="modal" data-bs-target="#registrarCatalogoModal">
+                                        <i class="bi bi-plus-lg"></i> Nuevo
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Factura -->
+                            <div class="mb-3">
+                                <label for="img_factura" class="form-label">Documento de compra</label>
+                                <input type="file" class="form-control" id="img_factura" name="img_factura[]">
+                                <small class="text-muted">Factura, remisión o comprobante</small>
+                            </div>
+                            
+                            <!-- Lote y Caducidad -->
+                            <div class="row" id="lotesCaducidadDiv">
+                                <div class="col-md-6 mb-3">
+                                    <label for="numero_lote" class="form-label">Número de Lote</label>
+                                    <input type="text" class="form-control" id="numero_lote" name="numero_lote">
+                                </div>
+                                <div class="col-md-6 mb-3" id="fechaCaducidadDiv">
+                                    <label for="fecha_caducidad" class="form-label">Fecha de Caducidad</label>
+                                    <input type="date" class="form-control" id="fecha_caducidad" name="fecha_caducidad">
+                                </div>
+                                <input type="hidden" id="fecha_lote" name="fecha_lote" value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Motivo del Movimiento -->
+                    <div class="card mb-4" id="motivo-card">
+                        <div class="card-body">
+                            <h6 class="card-title">Motivo</h6>
+                            <div class="row">
+                                <div class="col-md-10 mb-3">
+                                    <label for="motivo_salida" class="form-label" id="label-motivo">Motivo</label>
+                                    <select class="form-select" id="motivo_salida" name="motivo_salida" required>
+                                        <option value="" disabled selected>Seleccione...</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 mb-3 d-flex align-items-end">
+                                    <button type="button" class="btn btn-outline-success w-100" id="btnNuevoMotivo" data-bs-toggle="modal" data-bs-target="#registrarCatalogoModal">
+                                        <i class="bi bi-plus-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Documentación Adicional (Opcional) -->
+                    <div class="card mb-4" id="doc-extra-card" style="display:none;">
+                        <div class="card-body">
+                            <h6 class="card-title">Documentación Adicional</h6>
+                            <div class="mb-3">
+                                <label for="orden_compra" class="form-label">Número de orden de compra</label>
+                                <input type="text" class="form-control" id="orden_compra" name="orden_compra">
+                            </div>
+                            <div class="mb-3">
+                                <label for="img_orden_compra" class="form-label">Documento de orden</label>
+                                <input type="file" class="form-control" id="img_orden_compra" name="img_orden_compra[]">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Campo oculto para la fecha y hora del movimiento -->
+                    <input type="hidden" id="fecha_ultima_entrada" name="fecha_ultima_entrada">
+                </form>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
+                    <i class="bi bi-arrow-left-short"></i> Cancelar
+                </button>
+                <button id="registrarMovimientoButton" type="submit" class="btn btn-confirmar" form="registrarEntradaForm" style="display:none;">
                     <i class="bi bi-pencil-square"></i> Registrar movimiento
                 </button>
             </div>
@@ -193,24 +141,23 @@
 
 <script>
     $(document).ready(function () {
-        // Oculta todos los campos excepto el selector de movimiento al inicio
-        $("#cantidad").closest(".mb-3").hide();
-        $("#fecha_ultima_entrada").closest(".mb-3").hide();
-        $("#costo_ultima_entrada").closest(".mb-3").hide();
-        $("#proveedorDiv").hide();
-        $("#motivoSalidaDiv").hide();
+        // Inicialización de elementos ocultos
+        $("#precio-compra-container").hide();
+        $("#cantidad-container").hide();
+        $("#entrada-details-card").hide();
+        $("#motivo-card").hide();
+        $("#doc-extra-card").hide();
+        $("#lotesCaducidadDiv").hide();
         $("#registrarMovimientoButton").hide();
-        $("#facturaDiv").hide();
-        $("#costoTotal").hide(); // AGREGAR: Ocultar costo total inicialmente
-        $("#lotesCaducidadDiv").hide(); // AGREGAR: Ocultar campos de lote y caducidad inicialmente
 
-        $("#ordenCompraDiv").hide();
+        // Variable para controlar si se debe reabrir el modal de entrada
+        let debeReabrirModalEntrada = false;
 
-        // AGREGAR: Función para calcular y mostrar el costo total
+        // Función para calcular y mostrar el costo total
         function calcularCostoTotal() {
             const cantidad = parseFloat($("#cantidad").val()) || 0;
             const costoUnitario = parseFloat($("#costo_ultima_entrada").val()) || 0;
-            
+
             if (cantidad > 0 && costoUnitario > 0) {
                 const costoTotal = cantidad * costoUnitario;
                 $("#costoTotalValor").text(costoTotal.toLocaleString('es-MX', {
@@ -223,20 +170,31 @@
             }
         }
 
-        $("#id_movimiento").on("change", function () {
-            if ($(this).val() == "1") {
-                $("#motivoSalidaDiv").show();
-                $("label[for='motivo_salida']").text("Motivo de entrada");
-                $("label[for='cantidad']").text("Cantidad a ingresar");
-                $("#cantidad").attr("placeholder", "Ej. 10");
-                $("#cantidad").closest(".mb-3").show();
-                $("#fecha_ultima_entrada").closest(".mb-3").show();
-                $("#costo_ultima_entrada").closest(".mb-3").show();
-                $("#proveedorDiv").show();
-                $("#cantidad").prop("required", true);
-                $("#fecha_ultima_entrada").prop("required", true);
-                $("#costo_ultima_entrada").prop("required", true);
-                $("#id_proveedores").prop("required", true);
+        // Control de visibilidad basado en tipo de movimiento
+        $('#id_movimiento').change(function() {
+            const isEntrada = $(this).val() === '1';
+            const isSalida = $(this).val() === '2';
+            
+            // Mostrar elementos comunes
+            $("#motivo-card").show();
+            $("#registrarMovimientoButton").show();
+            
+            if (isEntrada) {
+                // Configuración para ENTRADAS
+                $("#label-cantidad").text('Cantidad a ingresar');
+                $("#label-motivo").text('Motivo de entrada');
+                $("#precio-compra-container").show();
+                $("#cantidad-container").show();
+                $("#entrada-details-card").show();
+                $("#doc-extra-card").show();
+                $("#lotesCaducidadDiv").show();
+                
+                // Configurar campos requeridos
+                $("#costo_ultima_entrada").prop('required', true);
+                $("#id_proveedores").prop('required', true);
+                $("#img_factura").prop('required', true);
+                
+                // Configurar botón y título
                 $("#registrarMovimientoButton").html('<i class="bi bi-pencil-square"></i> Registrar entrada');
                 $("#modalTitleRegistrarEntrada").html(
                     "Registrando entrada de <strong><span id='registrandoEntrada'>" +
@@ -245,32 +203,32 @@
                     ($("#registrandoCantidad").text() || "") +
                     "</span></strong>"
                 );
-                $("#registrarMovimientoButton").show();
-
+                
+                // Habilitar cálculo de costo
+                $("#cantidad, #costo_ultima_entrada").on("input keyup change", calcularCostoTotal);
+                calcularCostoTotal();
+                
+                // Cargar datos específicos
                 cargarProveedoresEntrada();
                 cargarMotivosPorTipo("entrada");
-
-                $("#facturaDiv").show();
-                $("#img_factura").prop("required", true);
-                // AGREGAR: Habilitar cálculo de costo total para entradas
-                $("#cantidad, #costo_ultima_entrada").on("input keyup change", calcularCostoTotal);
-                calcularCostoTotal(); // Calcular inmediatamente si ya hay valores
-
-                $("#ordenCompraDiv").show();
-                $("#lotesCaducidadDiv").show(); // AGREGAR: Mostrar campos de lote y caducidad para entradas
-            } else if ($(this).val() == "2") {
-                $("#motivoSalidaDiv").show();
-                $("label[for='motivo_salida']").text("Motivo de salida");
-                $("label[for='cantidad']").text("Cantidad a retirar");
-                $("#cantidad").attr("placeholder", "Ej. 5");
-                $("#cantidad").closest(".mb-3").show();
-                $("#fecha_ultima_entrada").closest(".mb-3").show();
-                $("#costo_ultima_entrada").closest(".mb-3").hide();
-                $("#costo_ultima_entrada").prop("required", false);
-                $("#proveedorDiv").hide();
-                $("#id_proveedores").prop("required", false);
-                $("#cantidad").prop("required", true);
-                $("#fecha_ultima_entrada").prop("required", true);
+                consultarManejaCaducidadRegistrar(/* ID del artículo debería ir aquí */);
+                
+            } else if (isSalida) {
+                // Configuración para SALIDAS
+                $("#label-cantidad").text('Cantidad a retirar');
+                $("#label-motivo").text('Motivo de salida');
+                $("#precio-compra-container").hide();
+                $("#cantidad-container").show();
+                $("#entrada-details-card").hide();
+                $("#doc-extra-card").hide();
+                $("#lotesCaducidadDiv").hide();
+                
+                // Quitar requeridos
+                $("#costo_ultima_entrada").prop('required', false);
+                $("#id_proveedores").prop('required', false);
+                $("#img_factura").prop('required', false);
+                
+                // Configurar botón y título
                 $("#registrarMovimientoButton").html('<i class="bi bi-pencil-square"></i> Registrar salida');
                 $("#modalTitleRegistrarEntrada").html(
                     "Registrando salida de <strong><span id='registrandoEntrada'>" +
@@ -279,276 +237,200 @@
                     ($("#registrandoCantidad").text() || "") +
                     "</span></strong>"
                 );
-                $("#registrarMovimientoButton").show();
-
-                cargarMotivosPorTipo("salida");
-                $("#facturaDiv").hide();
-                $("#img_factura").prop("required", false);
-
-                // AGREGAR: Ocultar y deshabilitar cálculo de costo total para salidas
-                $("#costoTotal").hide();
+                
+                // Deshabilitar cálculo de costo
                 $("#cantidad, #costo_ultima_entrada").off("input keyup change", calcularCostoTotal);
-
-                $("#ordenCompraDiv").hide();
-                $("#lotesCaducidadDiv").hide(); // AGREGAR: Ocultar campos de lote y caducidad para salidas
-            } else {
-                $("#cantidad").closest(".mb-3").hide();
-                $("#fecha_ultima_entrada").closest(".mb-3").hide();
-                $("#costo_ultima_entrada").closest(".mb-3").hide();
-                $("#proveedorDiv").hide();
-                $("#cantidad").prop("required", false);
-                $("#fecha_ultima_entrada").prop("required", false);
-                $("#costo_ultima_entrada").prop("required", false);
-                $("#id_proveedores").prop("required", false);
-                $("#facturaDiv").hide();
-                $("#img_factura").prop("required", false);
-                $("#motivoSalidaDiv").hide();
-                // AGREGAR: Ocultar costo total cuando no hay selección
                 $("#costoTotal").hide();
-
-                $("#ordenCompraDiv").hide();
-                $("#lotesCaducidadDiv").hide(); // AGREGAR: Ocultar campos de lote y caducidad cuando no hay selección
+                
+                // Cargar datos específicos
+                cargarMotivosPorTipo("salida");
+            } else {
+                // Ninguna opción seleccionada
+                $("#precio-compra-container").hide();
+                $("#cantidad-container").hide();
+                $("#entrada-details-card").hide();
+                $("#motivo-card").hide();
+                $("#doc-extra-card").hide();
+                $("#lotesCaducidadDiv").hide();
+                $("#registrarMovimientoButton").hide();
+                $("#costoTotal").hide();
             }
         });
-
-
-         // AGREGAR: Variable para controlar si se debe reabrir el modal de entrada
-        let debeReabrirModalEntrada = false;
 
         // FUNCIÓN para el botón de nuevo proveedor
-        $("#btnNuevoProveedor").click(function(e) {
+        $("#btnNuevoProveedor").click(function (e) {
             e.preventDefault();
             e.stopPropagation();
-            
             debeReabrirModalEntrada = true;
-            console.log("Botón nuevo proveedor clickeado, bandera activada:", debeReabrirModalEntrada);
             
             $("#registrarEntradaModal").modal("hide");
-            
-            setTimeout(function() {
+            setTimeout(function () {
                 $("#registrarCatalogoModal").modal("show");
-                
-                setTimeout(function() {
+                setTimeout(function () {
                     $("#proveedores-tab").tab("show");
-                    console.log("Cambiando a pestaña de proveedores");
-                    
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $("#registrarProveedorModal").modal("show");
-                        console.log("Modal de registro de proveedor abierto");
                     }, 400);
                 }, 300);
             }, 200);
         });
 
-        // AGREGAR: Función para el botón de nuevo motivo
-        $("#btnNuevoMotivo").click(function(e) {
+        // FUNCIÓN para el botón de nuevo motivo
+        $("#btnNuevoMotivo").click(function (e) {
             e.preventDefault();
             e.stopPropagation();
-    
             debeReabrirModalEntrada = true;
-            console.log("Botón nuevo motivo clickeado, bandera activada:", debeReabrirModalEntrada);
-    
-            $("#registrarEntradaModal").modal("hide");
-    
-            setTimeout(function() {
-            $("#registrarCatalogoModal").modal("show");
-        
-                setTimeout(function() {
-                // Cambiar a la pestaña de motivos (ajusta el selector según tu implementación)
-                $("#motivos-tab").tab("show");
-                console.log("Cambiando a pestaña de motivos");
             
-                    setTimeout(function() {
+            $("#registrarEntradaModal").modal("hide");
+            setTimeout(function () {
+                $("#registrarCatalogoModal").modal("show");
+                setTimeout(function () {
+                    $("#motivos-tab").tab("show");
+                    setTimeout(function () {
                         $("#registrarMotivoModal").modal("show");
-                        console.log("Modal de registro de motivo abierto");
                     }, 400);
                 }, 300);
             }, 200);
         });
 
-        // MODIFICAR: Event listener para cuando se cierra el modal de catálogo
-        $("#registrarCatalogoModal").on("hidden.bs.modal", function() {
-            console.log("Modal de catálogo cerrado, bandera:", debeReabrirModalEntrada);
-            
-            // Solo reabrir si se marcó la bandera
+        // Evento cuando se cierra el modal de catálogo
+        $("#registrarCatalogoModal").on("hidden.bs.modal", function () {
             if (debeReabrirModalEntrada) {
-                console.log("Reabriendo modal de entrada...");
-                
-                setTimeout(function() {
+                setTimeout(function () {
                     $("#registrarEntradaModal").modal("show");
-                    
-                    // Recargar la lista de proveedores Y motivos para incluir los nuevos
-                    setTimeout(function() {
-                        cargarProveedoresEntrada();
-                        
-                        // AGREGAR: Recargar motivos según el tipo de movimiento actual
-                        const tipoMovimiento = $("#id_movimiento").val();
-                        if (tipoMovimiento == "1") {
+                    setTimeout(function () {
+                        // Recargar datos si es necesario
+                        if ($("#id_movimiento").val() == "1") {
+                            cargarProveedoresEntrada();
                             cargarMotivosPorTipo("entrada");
-                        } else if (tipoMovimiento == "2") {
+                        } else if ($("#id_movimiento").val() == "2") {
                             cargarMotivosPorTipo("salida");
                         }
-                        
-                        console.log("Modal de entrada reabierto, proveedores y motivos recargados");
                     }, 300);
                 }, 200);
-                
-                // Resetear la bandera
                 debeReabrirModalEntrada = false;
-                console.log("Bandera reseteada");
             }
         });
 
-        // AGREGAR: Solo resetear si el usuario cancela manualmente
-        $(".btn-cancelar, .btn-close").click(function() {
+        // Resetear bandera si el usuario cancela manualmente
+        $(".btn-cancelar, .btn-close").click(function () {
             debeReabrirModalEntrada = false;
-            console.log("Usuario canceló manualmente, bandera reseteada");
         });
 
         // FUNCIÓN PARA CARGAR PROVEEDORES
-    function cargarProveedoresEntrada() {
-        cargarCatalogoEnModal("#registrarEntradaModal #id_proveedores", {
-            api: 16, // API para proveedores activos
-            campoId: "id_proveedores",
-            campoTexto: "nombre",
-            placeholder: "Seleccione un proveedor"
-        });
-    }
+        function cargarProveedoresEntrada() {
+            cargarCatalogoEnModal("#id_proveedores", {
+                api: 16,
+                campoId: "id_proveedores",
+                campoTexto: "nombre",
+                placeholder: "Seleccione un proveedor"
+            });
+        }
 
-    // FUNCIÓN PARA CARGAR MOTIVOS FILTRADOS POR TIPO
-    function cargarMotivosPorTipo(tipoMovimiento) {
-        $.ajax({
-            url: "../../../api/inventarios_api.php",
-            type: "POST",
-            dataType: "json",
-            data: {
-                api: 15, // API para motivos
-                tipo_movimiento: tipoMovimiento
-            },
-            success: function (response) {
-                if (response.response && response.response.code == 1) {
-                    let selectElement = $("#motivo_salida");
-                    
-                    selectElement.empty();
-                    selectElement.append(`<option value="">Seleccione un motivo de ${tipoMovimiento}</option>`);
-
-                    // Filtrar por tipo de movimiento
-                    let datosFiltrados = response.response.data.filter(function(item) {
-                        return item.tipo_movimiento === tipoMovimiento || item.tipo_movimiento === 'ambos';
-                    });
-
-                    datosFiltrados.forEach(function (item) {
-                        selectElement.append(
-                            `<option value="${item.id_motivos}">${item.descripcion}</option>`
-                        );
-                    });
-
-                    console.log(`Motivos de ${tipoMovimiento} cargados`);
-                } else {
-                    console.log("Error al cargar motivos:", response);
-                    alertToast("Error al cargar motivos", "error", 3000);
-                }
-            },
-            error: function (xhr, status, error) {
-                console.log("Error AJAX:", error);
-                alertToast("Error de conexión al cargar motivos", "error", 3000);
-            }
-        });
-    }
-
-    // FUNCIÓN GENÉRICA PARA CARGAR CATÁLOGOS (reutilizable)
-    function cargarCatalogoEnModal(selectorSelect, opciones) {
-        $.ajax({
-            url: "../../../api/inventarios_api.php",
-            type: "POST",
-            dataType: "json",
-            data: {
-                api: opciones.api
-            },
-            success: function (response) {
-                if (response.response && response.response.code == 1) {
-                    let selectElement = $(selectorSelect);
-                    let valorActual = selectElement.val();
-
-                    selectElement.empty();
-                    selectElement.append(`<option value="">${opciones.placeholder}</option>`);
-
-                    response.response.data.forEach(function (item) {
-                        selectElement.append(
-                            `<option value="${item[opciones.campoId]}">${item[opciones.campoTexto]}</option>`
-                        );
-                    });
-
-                    // Mantener la selección previa si existe
-                    if (valorActual) {
-                        selectElement.val(valorActual);
-                    }
-
-                    console.log(`${opciones.placeholder} cargados`);
-                } else {
-                    console.log(`Error al cargar ${opciones.placeholder}:`, response);
-                    alertToast(`Error al cargar ${opciones.placeholder}`, "error", 3000);
-                }
-            },
-            error: function (xhr, status, error) {
-                console.log("Error AJAX:", error);
-                alertToast(`Error de conexión al cargar ${opciones.placeholder}`, "error", 3000);
-            }
-        });
-    }
-
-    // FUNCIÓN PARA CONSULTAR SI EL ARTÍCULO MANEJA CADUCIDAD (para modal de registrar entrada)
-    function consultarManejaCaducidadRegistrar(idArticulo) {
-        if (idArticulo) {
+        // FUNCIÓN PARA CARGAR MOTIVOS FILTRADOS POR TIPO
+        function cargarMotivosPorTipo(tipoMovimiento) {
             $.ajax({
                 url: "../../../api/inventarios_api.php",
                 type: "POST",
                 dataType: "json",
                 data: {
-                    api: 7, // API para obtener detalles del artículo
-                    id_articulo: idArticulo,
-                    id_movimiento: 1 // Para obtener detalles de entrada
+                    api: 15,
+                    tipo_movimiento: tipoMovimiento
                 },
                 success: function (response) {
-                    if (response.response && response.response.code == 1 && response.response.data.length > 0) {
-                        var articulo = response.response.data[0];
-                        var manejaCaducidad = articulo.MANEJA_CADUCIDAD == 1 || articulo.MANEJA_CADUCIDAD == '1';
+                    if (response.response?.code == 1) {
+                        let selectElement = $("#motivo_salida");
+                        selectElement.empty().append(`<option value="">Seleccione un motivo de ${tipoMovimiento}</option>`);
                         
-                        // Mostrar u ocultar fecha de caducidad según configuración
-                        if (manejaCaducidad) {
-                            $("#fechaCaducidadDiv").show();
-                        } else {
-                            $("#fechaCaducidadDiv").hide();
-                            $("#fecha_caducidad").val(''); // Limpiar valor
-                        }
-                        
-                        console.log("Artículo maneja caducidad (registrar):", manejaCaducidad);
+                        response.response.data.filter(item => 
+                            item.tipo_movimiento === tipoMovimiento || item.tipo_movimiento === 'ambos'
+                        ).forEach(item => {
+                            selectElement.append(`<option value="${item.id_motivos}">${item.descripcion}</option>`);
+                        });
                     } else {
-                        console.log("Error al obtener información del artículo:", response);
-                        // En caso de error, mostrar todos los campos por defecto
+                        console.error("Error al cargar motivos:", response);
+                        alertToast("Error al cargar motivos", "error", 3000);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error AJAX:", error);
+                    alertToast("Error de conexión al cargar motivos", "error", 3000);
+                }
+            });
+        }
+
+        // FUNCIÓN GENÉRICA PARA CARGAR CATÁLOGOS
+        function cargarCatalogoEnModal(selectorSelect, opciones) {
+            $.ajax({
+                url: "../../../api/inventarios_api.php",
+                type: "POST",
+                dataType: "json",
+                data: { api: opciones.api },
+                success: function (response) {
+                    if (response.response?.code == 1) {
+                        let selectElement = $(selectorSelect);
+                        let valorActual = selectElement.val();
+                        
+                        selectElement.empty().append(`<option value="">${opciones.placeholder}</option>`);
+                        
+                        response.response.data.forEach(item => {
+                            selectElement.append(`<option value="${item[opciones.campoId]}">${item[opciones.campoTexto]}</option>`);
+                        });
+                        
+                        if (valorActual) selectElement.val(valorActual);
+                    } else {
+                        console.error(`Error al cargar ${opciones.placeholder}:`, response);
+                        alertToast(`Error al cargar ${opciones.placeholder}`, "error", 3000);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error AJAX:", error);
+                    alertToast(`Error de conexión al cargar ${opciones.placeholder}`, "error", 3000);
+                }
+            });
+        }
+
+        // FUNCIÓN PARA CONSULTAR SI EL ARTÍCULO MANEJA CADUCIDAD
+        function consultarManejaCaducidadRegistrar(idArticulo) {
+            if (!idArticulo) return;
+            
+            $.ajax({
+                url: "../../../api/inventarios_api.php",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    api: 7,
+                    id_articulo: idArticulo,
+                    id_movimiento: 1
+                },
+                success: function (response) {
+                    if (response.response?.code == 1 && response.response.data.length > 0) {
+                        const manejaCaducidad = response.response.data[0].MANEJA_CADUCIDAD == 1;
+                        $("#fechaCaducidadDiv").toggle(manejaCaducidad);
+                        if (!manejaCaducidad) $("#fecha_caducidad").val('');
+                    } else {
+                        console.error("Error al obtener información del artículo:", response);
                         $("#fechaCaducidadDiv").show();
                     }
                 },
                 error: function (xhr, status, error) {
-                    console.log("Error AJAX al consultar artículo:", error);
-                    // En caso de error, mostrar todos los campos por defecto
+                    console.error("Error AJAX al consultar artículo:", error);
                     $("#fechaCaducidadDiv").show();
                 }
             });
         }
-    }
 
+        // Evento submit del formulario
         $("#registrarEntradaForm").submit(function (event) {
-            // Asigna la fecha y hora actual en formato compatible con MySQL DATETIME
-            var now = new Date();
-            var fechaHora = now.getFullYear() + "-" +
+            const now = new Date();
+            $("#fecha_ultima_entrada").val(
+                now.getFullYear() + "-" +
                 String(now.getMonth() + 1).padStart(2, '0') + "-" +
                 String(now.getDate()).padStart(2, '0') + " " +
                 String(now.getHours()).padStart(2, '0') + ":" +
                 String(now.getMinutes()).padStart(2, '0') + ":" +
-                String(now.getSeconds()).padStart(2, '0');
-            $("#fecha_ultima_entrada").val(fechaHora);
-            // ...tu código de envío...
+                String(now.getSeconds()).padStart(2, '0')
+            );
         });
     });
 </script>

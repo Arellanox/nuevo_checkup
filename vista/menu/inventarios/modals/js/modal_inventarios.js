@@ -247,71 +247,73 @@ $("#editarArticuloForm").submit(function (event) {
   });
 });
 
-// registrar una entrada
+// Registrar un movimiento (entrada o salida)
 $("#registrarEntradaForm").submit(function (event) {
-  event.preventDefault();
-  var form = document.getElementById("registrarEntradaForm");
-  var formData = new FormData(form);
+    event.preventDefault();
+    var form = document.getElementById("registrarEntradaForm");
+    var formData = new FormData(form);
 
-  var activo;
+    // Obtener el estatus (si existe en tu formulario)
+    var activo = $("#registrarEntradaForm #estatus").is(":checked") ? 1 : 0;
+    formData.append('activo', activo);
 
-  if ($("#registrarEntradaForm #estatus").is(":checked")) {
-    activo = 1;
-  } else {
-    activo = 0;
-  }
-
-  alertMensajeConfirm(
-    {
-      title: "¿Está a punto de registrar este movimiento?",
-      text: "Asegúrate que los datos sean correctos.",
-      icon: "warning",
-    },
-    function () {
-      ajaxAwaitFormData(
-        {
-          api: 6,
-          id_articulo: rowSelected.ID_ARTICULO,
-        },
-        "inventarios_api",
-        "registrarEntradaForm",
-        { callbackAfter: true },
-        false,
-        function (data) {
-          if (data.response.code == 1) {
-            $("#registrarEntradaForm")[0].reset();
-            $("#registrarEntradaModal").modal("hide");
-            alertToast("Artículo actualizado!", "success", 4000);
-            tableCatEntradas.ajax.reload();
-            tableCatArticulos.ajax.reload();
-            tableCatDetallesEntradas.ajax.reload();
-            tableCatTransacciones.ajax.reload();
-            $("#cantidad").closest(".mb-3").hide();
-            $("#fecha_ultima_entrada").closest(".mb-3").hide();
-            $("#costo_ultima_entrada").closest(".mb-3").hide();
-            $("#proveedorDiv").hide();
-            $("#cantidad").prop("required", false);
-            $("#fecha_ultima_entrada").prop("required", false);
-            $("#costo_ultima_entrada").prop("required", false);
-            $("#id_proveedores").prop("required", false);
-            $("#facturaDiv").hide();
-            $("#img_factura").prop("required", false);
-            $("#motivoSalidaDiv").hide();
-            $("#motivoSalidaDiv").prop("required", false);
-            $("#ordenCompraDiv").hide();
-            $("#registrarMovimientoButton")
-              .html('<i class="bi bi-pencil-square"></i> Registrar movimiento')
-              .hide();
-            $("#modalTitleRegistrarEntrada").html(
-              "Registrando movimiento de <strong><span id='registrandoEntrada'>" +
-                ($("#registrandoEntrada").text() || "") +
-                "</span></strong>"
-            );
-          }
-        }
-      );
-    }
-  );
+    alertMensajeConfirm({
+        title: "¿Está a punto de registrar este movimiento?",
+        text: "Asegúrate que los datos sean correctos.",
+        icon: "warning"
+    }, function () {
+        ajaxAwaitFormData({
+            api: 6,
+            id_articulo: rowSelected.ID_ARTICULO
+        }, "inventarios_api", "registrarEntradaForm", { callbackAfter: true }, false, function (data) {
+            if (data.response.code == 1) {
+                // Resetear y ocultar elementos
+                $("#registrarEntradaForm")[0].reset();
+                $("#registrarEntradaModal").modal("hide");
+                
+                // Mostrar notificación
+                alertToast("Movimiento registrado correctamente!", "success", 4000);
+                
+                // Recargar tablas
+                tableCatEntradas.ajax.reload();
+                tableCatArticulos.ajax.reload();
+                tableCatDetallesEntradas.ajax.reload();
+                tableCatTransacciones.ajax.reload();
+                
+                // Resetear visibilidad de los elementos
+                $("#precio-compra-container").hide();
+                $("#cantidad-container").hide();
+                $("#entrada-details-card").hide();
+                $("#motivo-card").hide();
+                $("#doc-extra-card").hide();
+                $("#lotesCaducidadDiv").hide();
+                
+                // Resetear campos requeridos
+                $("#cantidad").prop("required", false);
+                $("#costo_ultima_entrada").prop("required", false);
+                $("#id_proveedores").prop("required", false);
+                $("#img_factura").prop("required", false);
+                $("#motivo_salida").prop("required", false);
+                
+                // Resetear botón y título
+                $("#registrarMovimientoButton")
+                    .html('<i class="bi bi-pencil-square"></i> Registrar movimiento')
+                    .hide();
+                
+                $("#modalTitleRegistrarEntrada").html(
+                    "Registrando movimiento de <strong><span id='registrandoEntrada'>" +
+                    ($("#registrandoEntrada").text() || "") +
+                    "</span></strong>"
+                );
+                
+                // Limpiar cálculo de costo total
+                $("#costoTotal").hide();
+                $("#costoTotalValor").text("0.00");
+            } else {
+                alertToast("Error al registrar el movimiento", "error", 4000);
+            }
+        });
+    });
 });
 
 //Editar una entrada

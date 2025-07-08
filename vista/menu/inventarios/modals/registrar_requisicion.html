@@ -1,12 +1,23 @@
 <!-- Modal Registrar Requisición -->
-<div class="modal fade" id="registrarRequisicionModal" tabindex="-1" aria-labelledby="registrarRequisicionLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="registrarRequisicionModal"
+  tabindex="-1"
+  aria-labelledby="registrarRequisicionLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="registrarRequisicionLabel">
           Registrar Nueva Requisición
         </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body">
         <form id="formRegistrarRequisicion">
@@ -14,29 +25,60 @@
             <!-- Columna izquierda -->
             <div class="col-md-6">
               <div class="mb-3">
-                <label for="areaSolicitante" class="form-label">Área Solicitante <span class="text-danger">*</span></label>
-                <select class="form-select" id="areaSolicitante" name="areaSolicitante" required>
+                <label for="areaSolicitante" class="form-label"
+                  >Área Solicitante <span class="text-danger">*</span></label
+                >
+                <select
+                  class="form-select"
+                  id="areaSolicitante"
+                  name="areaSolicitante"
+                  required
+                >
                   <option value="">Seleccione un área</option>
                   <!-- Las opciones se cargarán dinámicamente -->
                 </select>
               </div>
 
               <div class="mb-3">
-                <label for="justificacion" class="form-label">Justificación <span class="text-danger">*</span></label>
-                <textarea class="form-control" id="justificacion" name="justificacion" rows="4" required 
-                          placeholder="Describa la justificación para esta requisición..."></textarea>
+                <label for="justificacion" class="form-label"
+                  >Justificación <span class="text-danger">*</span></label
+                >
+                <textarea
+                  class="form-control"
+                  id="justificacion"
+                  name="justificacion"
+                  rows="4"
+                  required
+                  placeholder="Describa la justificación para esta requisición..."
+                ></textarea>
                 <div class="form-text">Mínimo 10 caracteres</div>
               </div>
 
               <div class="mb-3">
-                <label for="fechaLimite" class="form-label">Fecha Límite Necesaria <span class="text-danger">*</span></label>
-                <input type="date" class="form-control" id="fechaLimite" name="fechaLimite" required>
+                <label for="fechaLimite" class="form-label"
+                  >Fecha Límite Necesaria
+                  <span class="text-danger">*</span></label
+                >
+                <input
+                  type="date"
+                  class="form-control"
+                  id="fechaLimite"
+                  name="fechaLimite"
+                  required
+                />
                 <div class="form-text">La fecha debe ser posterior a hoy</div>
               </div>
 
               <div class="mb-3">
-                <label for="prioridad" class="form-label">Prioridad <span class="text-danger">*</span></label>
-                <select class="form-select" id="prioridad" name="prioridad" required>
+                <label for="prioridad" class="form-label"
+                  >Prioridad <span class="text-danger">*</span></label
+                >
+                <select
+                  class="form-select"
+                  id="prioridad"
+                  name="prioridad"
+                  required
+                >
                   <option value="">Seleccione la prioridad</option>
                   <option value="urgente">🔴 Urgente</option>
                   <option value="normal" selected>🟡 Normal</option>
@@ -45,12 +87,21 @@
               </div>
 
               <div class="mb-3">
-                <label for="estatusRequisicion" class="form-label">Estado Inicial</label>
-                <select class="form-select" id="estatusRequisicion" name="estatusRequisicion">
+                <label for="estatusRequisicion" class="form-label"
+                  >Estado Inicial</label
+                >
+                <select
+                  class="form-select"
+                  id="estatusRequisicion"
+                  name="estatusRequisicion"
+                >
                   <option value="borrador" selected>📝 Borrador</option>
                   <option value="pendiente">⏳ Enviar para Aprobación</option>
                 </select>
-                <div class="form-text">Puede guardar como borrador o enviar directamente para aprobación</div>
+                <div class="form-text">
+                  Puede guardar como borrador o enviar directamente para
+                  aprobación
+                </div>
               </div>
             </div>
 
@@ -59,29 +110,42 @@
               <div class="mb-3">
                 <label class="form-label">
                   Artículos Requeridos <span class="text-danger">*</span>
-                  <span class="badge bg-secondary ms-2" id="contadorArticulos">0 artículos</span>
+                  <span class="badge bg-secondary ms-2" id="contadorArticulos"
+                    >0 artículos</span
+                  >
                 </label>
                 <div class="d-grid gap-2">
-                  <button type="button" class="btn btn-primary" id="btnAgregarArticulo">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="btnAgregarArticulo"
+                  >
                     <i class="bi bi-plus-circle"></i> Agregar Artículo
                   </button>
                 </div>
               </div>
 
               <!-- Tabla de artículos -->
-              <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
-                <table class="table table-bordered table-sm" id="tablaArticulosRequisicion">
+              <div
+                class="table-responsive"
+                style="max-height: 400px; overflow-y: auto"
+              >
+                <table
+                  class="table table-bordered table-sm"
+                  id="tablaArticulosRequisicion"
+                >
                   <thead class="table-light sticky-top">
                     <tr>
-                      <th style="min-width: 200px;">Artículo</th>
-                      <th style="width: 100px;">Cantidad</th>
-                      <th style="width: 80px;">Acciones</th>
+                      <th style="width: 200px">Artículo</th>
+                      <th style="width: 100px">Cantidad</th>
+                      <th style="width: 200px">Observaciones</th>
+                      <th style="width: 80px">Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr id="filaVaciaArticulos">
                       <td colspan="3" class="text-center text-muted">
-                        <i class="bi bi-inbox"></i><br>
+                        <i class="bi bi-inbox"></i><br />
                         No hay artículos agregados
                       </td>
                     </tr>
@@ -99,10 +163,19 @@
           </small>
         </div>
         <div>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
             <i class="bi bi-x-circle"></i> Cancelar
           </button>
-          <button type="submit" class="btn btn-success" form="formRegistrarRequisicion" id="btnGuardarRequisicion">
+          <button
+            type="submit"
+            class="btn btn-success"
+            form="formRegistrarRequisicion"
+            id="btnGuardarRequisicion"
+          >
             <i class="bi bi-check-circle"></i> Guardar Requisición
           </button>
         </div>
@@ -112,23 +185,38 @@
 </div>
 
 <!-- Modal para Seleccionar Artículo -->
-<div class="modal fade" id="seleccionarArticuloModal" tabindex="-1" aria-labelledby="seleccionarArticuloLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="seleccionarArticuloModal"
+  tabindex="-1"
+  aria-labelledby="seleccionarArticuloLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="seleccionarArticuloLabel">
           <i class="bi bi-search"></i> Seleccionar Artículo
         </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body">
         <div class="mb-3">
           <label for="buscarArticulo" class="form-label">Buscar Artículo</label>
-          <input type="text" class="form-control" id="buscarArticulo" 
-                 placeholder="Escriba el nombre o clave del artículo...">
+          <input
+            type="text"
+            class="form-control"
+            id="buscarArticulo"
+            placeholder="Escriba el nombre o clave del artículo..."
+          />
         </div>
-        
-        <div class="table-responsive" style="max-height: 400px;">
+
+        <div class="table-responsive" style="max-height: 400px">
           <table class="table table-hover" id="tablaSeleccionArticulos">
             <thead class="table-light sticky-top">
               <tr>
@@ -155,29 +243,61 @@
 </div>
 
 <!-- Modal para Editar Cantidad -->
-<div class="modal fade" id="editarArticuloRequisicionModal" tabindex="-1" aria-labelledby="editarArticuloRequisicionLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="editarArticuloRequisicionModal"
+  tabindex="-1"
+  aria-labelledby="editarArticuloRequisicionLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="editarArticuloRequisicionLabel">
           <i class="bi bi-pencil-square"></i> Editar Artículo
         </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body">
         <form id="formEditarArticuloRequisicion">
-          <input type="hidden" id="editarArticuloId">
-          <input type="hidden" id="editarIndiceTabla">
-          
+          <input type="hidden" id="editarArticuloId" />
+          <input type="hidden" id="editarIndiceTabla" />
+
           <div class="mb-3">
             <label class="form-label"><strong>Artículo:</strong></label>
             <p id="editarNombreArticulo" class="mb-0 text-muted"></p>
           </div>
-          
+
           <div class="mb-3">
-            <label for="editarCantidad" class="form-label">Cantidad Solicitada <span class="text-danger">*</span></label>
-            <input type="number" class="form-control" id="editarCantidad" 
-                   min="0.01" step="0.01" required>
+            <label for="editarCantidad" class="form-label"
+              >Cantidad Solicitada <span class="text-danger">*</span></label
+            >
+            <input
+              type="number"
+              class="form-control"
+              id="editarCantidad"
+              min="0.01"
+              step="0.01"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="editarObservaciones" class="form-label"
+              >Observaciones</label
+            >
+            <textarea
+              class="form-control"
+              id="editarObservaciones"
+              rows="3"
+              placeholder="Agregue observaciones especiales sobre este artículo..."
+              maxlength="500"
+            ></textarea>
+            <div class="form-text">Máximo 500 caracteres</div>
           </div>
         </form>
       </div>
@@ -197,50 +317,50 @@
   #tablaArticulosRequisicion {
     min-width: 600px;
   }
-  
+
   #tablaSeleccionArticulos {
     min-width: 700px;
   }
-  
+
   .btn-eliminar-articulo {
     color: #dc3545;
     cursor: pointer;
   }
-  
+
   .btn-eliminar-articulo:hover {
     color: #bb2d3b;
   }
-  
+
   .btn-editar-articulo {
     color: #ffc107;
     cursor: pointer;
   }
-  
+
   .btn-editar-articulo:hover {
     color: #ffca2c;
   }
-  
+
   .btn-seleccionar-articulo {
     padding: 2px 8px;
     font-size: 0.875rem;
   }
-  
+
   .sticky-top {
     position: sticky;
     top: 0;
     z-index: 10;
   }
-  
+
   .table-sm th,
   .table-sm td {
     padding: 0.5rem;
     vertical-align: middle;
   }
-  
+
   .badge {
     font-size: 0.8em;
   }
-  
+
   .text-truncate-custom {
     max-width: 200px;
     white-space: nowrap;
