@@ -1,0 +1,537 @@
+<!-- Modal para Registrar/Editar Proveedor -->
+<div class="modal fade" id="registrarProveedorModal" tabindex="-1" aria-labelledby="registrarProveedorModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content shadow-lg border-0">
+      <div class="modal-header text-white" style="background-color: #004e59;">
+        <div class="d-flex align-items-center">
+          <i class="bi bi-person-plus-fill me-2 fs-4"></i>
+          <h5 class="modal-title mb-0" id="registrarProveedorModalLabel">
+            Registrar Proveedor
+          </h5>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="registrarProveedorForm">
+          <input type="hidden" id="proveedorId" name="proveedorId" value="" />
+
+          <!-- Información Básica -->
+          <div class="card mb-3 border-0 shadow-sm">
+            <div class="card-header bg-light">
+              <h6 class="card-title mb-0">
+                <i class="bi bi-building me-2" style="color: #004e59;"></i>Información General
+              </h6>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="proveedorNombre" class="form-label">Nombre del Proveedor *</label>
+                    <input type="text" class="form-control" id="proveedorNombre" name="nombre"
+                      placeholder="Ingrese el nombre del proveedor" required />
+                    <div class="invalid-feedback">Este campo es obligatorio.</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="proveedorRazonSocial" class="form-label">Razón Social</label>
+                    <input type="text" class="form-control" id="proveedorRazonSocial" name="razon_social"
+                      placeholder="Ingrese la razón social" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="proveedorRfc" class="form-label">RFC</label>
+                    <input type="text" class="form-control" id="proveedorRfc" name="rfc" placeholder="Ingrese el RFC" />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="proveedorVerificacionEfo"
+                        name="verificacion_efo" value="1" />
+                      <label class="form-check-label" for="proveedorVerificacionEfo">
+                        Verificación EFO
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Documentos -->
+          <div class="card mb-3 border-0 shadow-sm">
+            <div class="card-header bg-light">
+              <h6 class="card-title mb-0">
+                <i class="bi bi-files me-2" style="color: #006b7a;"></i>Documentos
+              </h6>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="mb-3">
+                    <label for="proveedorConstanciaFiscal" class="form-label">Constancia de Situación Fiscal</label>
+                    <input type="file" class="form-control" id="proveedorConstanciaFiscal"
+                      name="constancia_situacion_fiscal" accept=".pdf,.jpg,.jpeg,.png" />
+                    <small class="form-text text-muted">Formatos: PDF, JPG, PNG</small>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="mb-3">
+                    <label for="proveedorCaratulaBancaria" class="form-label">Carátula Bancaria</label>
+                    <input type="file" class="form-control" id="proveedorCaratulaBancaria" name="caratula_bancaria"
+                      accept=".pdf,.jpg,.jpeg,.png" />
+                    <small class="form-text text-muted">Formatos: PDF, JPG, PNG</small>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="mb-3">
+                    <label for="proveedorComprobanteDomicilio" class="form-label">Comprobante de Domicilio</label>
+                    <input type="file" class="form-control" id="proveedorComprobanteDomicilio"
+                      name="comprobante_domicilio" accept=".pdf,.jpg,.jpeg,.png" />
+                    <small class="form-text text-muted">Formatos: PDF, JPG, PNG</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Información de Contacto -->
+          <div class="card mb-3 border-0 shadow-sm">
+            <div class="card-header bg-light">
+              <h6 class="card-title mb-0">
+                <i class="bi bi-telephone me-2" style="color: #007b8a;"></i>Contacto
+              </h6>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="mb-3">
+                    <label for="proveedorContacto" class="form-label">Persona de Contacto</label>
+                    <input type="text" class="form-control" id="proveedorContacto" name="contacto"
+                      placeholder="Ingrese la persona de contacto" />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="mb-3">
+                    <label for="proveedorTelefono" class="form-label">Teléfono</label>
+                    <input type="tel" class="form-control" id="proveedorTelefono" name="telefono"
+                      placeholder="Ingrese el teléfono" />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="mb-3">
+                    <label for="proveedorEmail" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="proveedorEmail" name="email"
+                      placeholder="Ingrese el email" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Estado -->
+          <div class="card mb-3 border-0 shadow-sm">
+            <div class="card-header bg-light">
+              <h6 class="card-title mb-0">
+                <i class="bi bi-toggle2-on me-2" style="color: #005866;"></i>Estado
+              </h6>
+            </div>
+            <div class="card-body">
+              <div class="mb-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="proveedorActivoCheck" name="activo" value="1"
+                    checked />
+                  <label class="form-check-label" for="proveedorActivoCheck">
+                    Proveedor activo
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer border-0" style="background-color: #f8f9fa; border-top: 3px solid #004e59 !important;">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+          <i class="bi bi-x-lg"></i> Cancelar
+        </button>
+        <button type="submit" form="registrarProveedorForm" class="btn"
+          style="background-color: #004e59; color: white; border-color: #004e59;" id="btnGuardarProveedor">
+          <i class="bi bi-check-lg"></i> Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para Filtrar Proveedores -->
+<div class="modal fade" id="filtrarProveedoresModal" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false"
+  data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+
+    <div class="modal-content shadow-lg border-0">
+      <div class="modal-header text-white" style="background-color: #004e59;">
+        <div class="d-flex align-items-center">
+          <i class="bi bi-funnel-fill me-2 fs-4"></i>
+          <h5 class="modal-title mb-0" id="filtrarProveedoresTitle">Filtrar Proveedores</h5>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body container-fluid">
+        <div class="container-fluid">
+          <div class="row">
+            <!-- Formulario para filtrar proveedores -->
+            <div class="col-12">
+              <div class="text-start">
+                <div class="shadow-sm rounded p-3 card-body">
+                  <div class="row align-items-end">
+                    <div class="col-12">
+                      <form id="filtrarProveedoresForm" name="filtrarProveedoresForm">
+                        <!-- Activo -->
+                        <div class="card mb-3 border-0 shadow-sm">
+                          <div class="card-header bg-light">
+                            <h6 class="card-title mb-0">
+                              <i class="bi bi-funnel me-2" style="color: #004e59;"></i>Filtros de Estado
+                            </h6>
+                          </div>
+                          <div class="card-body">
+                            <label class="form-label fw-semibold">Seleccione el estado del proveedor</label>
+                            <div id="activoProveedorRadios">
+                              <input type="radio" class="btn-check" name="activoProveedor" id="activoProveedor1"
+                                value="1">
+                              <label class="btn btn-outline-corporativo" for="activoProveedor1"
+                                style="border-color: #004e59; color: #004e59;">
+                                <i class="bi bi-check-circle me-1"></i>Activo
+                              </label>
+
+                              <input type="radio" class="btn-check" name="activoProveedor" id="activoProveedor0"
+                                value="0">
+                              <label class="btn btn-outline-secondary" for="activoProveedor0">
+                                <i class="bi bi-x-circle me-1"></i>Inactivo
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-12 d-flex justify-content-end">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer border-0" style="background-color: #f8f9fa; border-top: 3px solid #004e59 !important;">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+          <i class="bi bi-arrow-left-short"></i> Cancelar
+        </button>
+        <button type="submit" id="enviarFiltrosProveedoresBtn" class="btn"
+          style="background-color: #004e59; color: white; border-color: #004e59;" form="filtrarProveedoresForm">
+          <i class="bi bi-funnel"></i> Filtrar
+        </button>
+        <button type="button" id="resetFiltrosProveedoresBtn" class="btn btn-outline-secondary"
+          style="border-color: #004e59; color: #004e59;">
+          <i class="bi bi-arrow-clockwise"></i> Restablecer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para Ver Proveedor -->
+<div class="modal fade" id="verProveedorModal" tabindex="-1" aria-labelledby="verProveedorModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content shadow-lg border-0">
+      <div class="modal-header text-white" style="background-color: #004e59;">
+        <div class="d-flex align-items-center">
+          <i class="bi bi-person-badge-fill me-2 fs-4"></i>
+          <h5 class="modal-title mb-0" id="verProveedorModalLabel">Información del Proveedor</h5>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="container-fluid p-4">
+
+          <!-- Información Principal -->
+          <div class="card mb-3 border-0 shadow-sm">
+            <div class="card-header bg-light">
+              <h6 class="card-title mb-0">
+                <i class="bi bi-building me-2" style="color: #004e59;"></i>Información General
+              </h6>
+            </div>
+            <div class="card-body">
+              <div class="row g-3">
+                <div class="col-lg-6">
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-tag-fill text-muted me-2"></i>
+                    <small class="text-muted mb-0">Nombre</small>
+                  </div>
+                  <p class="fw-semibold mb-0" id="verProveedorNombre">-</p>
+                </div>
+                <div class="col-lg-6">
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-card-text text-muted me-2"></i>
+                    <small class="text-muted mb-0">Razón Social</small>
+                  </div>
+                  <p class="fw-semibold mb-0" id="verProveedorRazonSocial">-</p>
+                </div>
+                <div class="col-lg-6">
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-file-text text-muted me-2"></i>
+                    <small class="text-muted mb-0">RFC</small>
+                  </div>
+                  <p class="fw-semibold mb-0" id="verProveedorRfc">-</p>
+                </div>
+                <div class="col-lg-6">
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-shield-check text-muted me-2"></i>
+                    <small class="text-muted mb-0">Verificación EFO</small>
+                  </div>
+                  <div id="verProveedorVerificacionEfo">-</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Documentos -->
+          <div class="card mb-3 border-0 shadow-sm">
+            <div class="card-header bg-light">
+              <h6 class="card-title mb-0">
+                <i class="bi bi-files me-2" style="color: #006b7a;"></i>Documentos
+              </h6>
+            </div>
+            <div class="card-body">
+              <div class="row g-3">
+                <div class="col-lg-4">
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-file-earmark-pdf text-muted me-2"></i>
+                    <small class="text-muted mb-0">Constancia Fiscal</small>
+                  </div>
+                  <div id="verProveedorConstanciaFiscal" class="fw-semibold">-</div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-bank text-muted me-2"></i>
+                    <small class="text-muted mb-0">Carátula Bancaria</small>
+                  </div>
+                  <div id="verProveedorCaratulaBancaria" class="fw-semibold">-</div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-house text-muted me-2"></i>
+                    <small class="text-muted mb-0">Comprobante Domicilio</small>
+                  </div>
+                  <div id="verProveedorComprobanteDomicilio" class="fw-semibold">-</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Información de Contacto -->
+          <div class="card mb-3 border-0 shadow-sm">
+            <div class="card-header bg-light">
+              <h6 class="card-title mb-0">
+                <i class="bi bi-telephone me-2" style="color: #007b8a;"></i>Contacto
+              </h6>
+            </div>
+            <div class="card-body">
+              <div class="row g-3">
+                <div class="col-lg-4">
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-person text-muted me-2"></i>
+                    <small class="text-muted mb-0">Persona de Contacto</small>
+                  </div>
+                  <p class="fw-semibold mb-0" id="verProveedorContacto">-</p>
+                </div>
+                <div class="col-lg-4">
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-telephone-fill text-muted me-2"></i>
+                    <small class="text-muted mb-0">Teléfono</small>
+                  </div>
+                  <p class="fw-semibold mb-0" id="verProveedorTelefono">-</p>
+                </div>
+                <div class="col-lg-4">
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-envelope text-muted me-2"></i>
+                    <small class="text-muted mb-0">Email</small>
+                  </div>
+                  <p class="fw-semibold mb-0" id="verProveedorEmail">-</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Estado y Fechas -->
+          <div class="row g-3">
+            <div class="col-lg-6">
+              <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-light">
+                  <h6 class="card-title mb-0">
+                    <i class="bi bi-toggle2-on me-2" style="color: #005866;"></i>Estado
+                  </h6>
+                </div>
+                <div class="card-body d-flex align-items-center justify-content-center">
+                  <div id="verProveedorActivo" class="text-center">-</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-light">
+                  <h6 class="card-title mb-0">
+                    <i class="bi bi-clock-history me-2" style="color: #6c757d;"></i>Historial
+                  </h6>
+                </div>
+                <div class="card-body">
+                  <div class="row g-2">
+                    <div class="col-12">
+                      <div class="d-flex align-items-center mb-1">
+                        <i class="bi bi-plus-circle text-muted me-2"></i>
+                        <small class="text-muted">Creado</small>
+                      </div>
+                      <small class="fw-semibold" id="verProveedorFechaCreacion">-</small>
+                    </div>
+                    <div class="col-12">
+                      <div class="d-flex align-items-center mb-1">
+                        <i class="bi bi-pencil text-muted me-2"></i>
+                        <small class="text-muted">Actualizado</small>
+                      </div>
+                      <small class="fw-semibold" id="verProveedorFechaActualizacion">-</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer border-0" style="background-color: #f8f9fa; border-top: 3px solid #004e59 !important;">
+        <button type="button" class="btn px-4" style="background-color: #004e59; color: white; border-color: #004e59;"
+          data-bs-dismiss="modal">
+          <i class="bi bi-x-lg me-1"></i> Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Estilos corporativos para todos los modales de proveedores */
+
+  /* Colores corporativos */
+  :root {
+    --color-corporativo: #004e59;
+    --color-corporativo-hover: #003d47;
+    --color-corporativo-light: #f0f8f9;
+  }
+
+  /* Botones con estilo corporativo */
+  #registrarProveedorModal .btn:hover,
+  #filtrarProveedoresModal .btn:hover,
+  #verProveedorModal .btn:hover {
+    background-color: var(--color-corporativo-hover) !important;
+    border-color: var(--color-corporativo-hover) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 78, 89, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  /* Efectos para cards en el modal de ver */
+  #verProveedorModal .card {
+    transition: transform 0.2s ease;
+  }
+
+  #verProveedorModal .card:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Efectos en iconos */
+  #registrarProveedorModal .bi,
+  #filtrarProveedoresModal .bi,
+  #verProveedorModal .bi {
+    transition: transform 0.2s ease;
+  }
+
+  #verProveedorModal .card-header:hover .bi {
+    transform: scale(1.1);
+  }
+
+  /* Radio buttons corporativos */
+  #filtrarProveedoresModal .btn-check:checked+.btn-outline-corporativo {
+    background-color: var(--color-corporativo) !important;
+    border-color: var(--color-corporativo) !important;
+    color: white !important;
+  }
+
+  #filtrarProveedoresModal .btn-outline-corporativo:hover {
+    background-color: var(--color-corporativo) !important;
+    border-color: var(--color-corporativo) !important;
+    color: white !important;
+  }
+
+  /* Formularios con mejor estilo */
+  #registrarProveedorModal .form-control:focus {
+    border-color: var(--color-corporativo);
+    box-shadow: 0 0 0 0.2rem rgba(0, 78, 89, 0.15);
+  }
+
+  #registrarProveedorModal .form-check-input:checked {
+    background-color: var(--color-corporativo);
+    border-color: var(--color-corporativo);
+  }
+
+  #registrarProveedorModal .form-check-input:focus {
+    box-shadow: 0 0 0 0.25rem rgba(0, 78, 89, 0.15);
+  }
+
+  /* Sombras corporativas para modales */
+  #registrarProveedorModal .modal-content,
+  #filtrarProveedoresModal .modal-content,
+  #verProveedorModal .modal-content {
+    box-shadow: 0 10px 30px rgba(0, 78, 89, 0.1);
+  }
+</style>
+
+<script>
+  $(document).on("click", ".btn-ver-proveedor", function () {
+    $("#verProveedorNombre").text($(this).data("nombre") || "");
+    $("#verProveedorRazonSocial").text($(this).data("razon_social") || "");
+    $("#verProveedorRfc").text($(this).data("rfc") || "");
+    $("#verProveedorVerificacionEfo").html($(this).data("verificacion_efo") == 1 ? '<i class="bi bi-check-lg text-success"></i>' : '<i class="bi bi-x-lg text-danger"></i>');
+
+    var constancia = $(this).data("constancia_situacion_fiscal");
+    if (constancia) {
+      $("#verProveedorConstanciaFiscal").html('<a href="' + constancia + '" target="_blank">Ver archivo</a>');
+    } else {
+      $("#verProveedorConstanciaFiscal").text("");
+    }
+    var caratula = $(this).data("caratula_bancaria");
+    if (caratula) {
+      $("#verProveedorCaratulaBancaria").html('<a href="' + caratula + '" target="_blank">Ver archivo</a>');
+    } else {
+      $("#verProveedorCaratulaBancaria").text("");
+    }
+    var comprobante = $(this).data("comprobante_domicilio");
+    if (comprobante) {
+      $("#verProveedorComprobanteDomicilio").html('<a href="' + comprobante + '" target="_blank">Ver archivo</a>');
+    } else {
+      $("#verProveedorComprobanteDomicilio").text("");
+    }
+
+    $("#verProveedorContacto").text($(this).data("contacto") || "");
+    $("#verProveedorTelefono").text($(this).data("telefono") || "");
+    $("#verProveedorEmail").text($(this).data("email") || "");
+    $("#verProveedorFechaCreacion").text($(this).data("fecha_creacion") || "");
+    $("#verProveedorFechaActualizacion").text($(this).data("fecha_actualizacion") || "");
+    $("#verProveedorActivo").html($(this).data("activo") == 1 ? '<span class="badge bg-success">Activo</span>' : '<span class="badge bg-secondary">Inactivo</span>');
+  });
+</script>

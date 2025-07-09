@@ -1,0 +1,541 @@
+<!-- Modal para Registrar/Editar Orden de compra -->
+<div class="modal fade" id="registrarOrdenCompraModal" tabindex="-1" aria-labelledby="registrarOrdenCompraModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content shadow-lg border-0">
+      <div class="modal-header text-white" style="background-color: #004e59;">
+        <div class="d-flex align-items-center">
+          <i class="bi bi-person-plus-fill me-2 fs-4"></i>
+          <h5 class="modal-title mb-0" id="registrarOrdenCompraModalLabel">
+            Registrar Orden de compra
+          </h5>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="registrarOrdenCompraForm">
+          <input type="hidden" id="ordenCompraId" name="ordenCompraId" value="" />
+
+          <!-- Información Básica -->
+          <div class="card mb-3 border-0 shadow-sm">
+            <div class="card-header bg-light">
+              <h6 class="card-title mb-0">
+                <i class="bi bi-building me-2" style="color: #004e59;"></i>Información General
+              </h6>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="ordenCompraFechaOrden" class="form-label">Fecha de Orden *</label>
+                    <input type="date" class="form-control" id="ordenCompraFechaOrden" name="fecha_orden"
+                      placeholder="Ingrese la fecha de orden" required />
+                    <div class="invalid-feedback">Este campo es obligatorio.</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="ordenCompraIdProveedores" class="form-label">Proveedor *</label>
+                    <select class="form-select" id="ordenCompraIdProveedores" name="id_proveedores" required>
+                      <option value="">Seleccione un proveedor</option>
+                      <option value="1">Proveedor 1</option>
+                      <option value="2">Proveedor 2</option>
+                      <option value="3">Proveedor 3</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="ordenCompraTotal" class="form-label">Total *</label>
+                    <input type="number" class="form-control" id="ordenCompraTotal" name="total" placeholder="Ingrese el total" required />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="ordenCompraActivo"
+                        name="activo" value="1" />
+                      <label class="form-check-label" for="ordenCompraActivo">
+                        Orden de compra activa
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Documentos -->
+          <div class="card mb-3 border-0 shadow-sm">
+            <div class="card-header bg-light">
+              <h6 class="card-title mb-0">
+                <i class="bi bi-files me-2" style="color: #006b7a;"></i>Documentos
+              </h6>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="mb-3">
+                    <label for="ordenCompraDocumento" class="form-label">Documento</label>
+                    <input type="file" class="form-control" id="ordenCompraDocumento" name="documento"
+                      accept=".pdf,.jpg,.jpeg,.png" />
+                    <small class="form-text text-muted">Formatos: PDF, JPG, PNG</small>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="mb-3">
+                    <label for="ordenCompraDocumento" class="form-label">Documento</label>
+                    <input type="file" class="form-control" id="ordenCompraDocumento" name="documento"
+                      accept=".pdf,.jpg,.jpeg,.png" />
+                    <small class="form-text text-muted">Formatos: PDF, JPG, PNG</small>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="mb-3">
+                    <label for="ordenCompraDocumento" class="form-label">Documento</label>
+                    <input type="file" class="form-control" id="ordenCompraDocumento" name="documento"
+                      accept=".pdf,.jpg,.jpeg,.png" />
+                    <small class="form-text text-muted">Formatos: PDF, JPG, PNG</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Información de Contacto -->
+          <div class="card mb-3 border-0 shadow-sm">
+            <div class="card-header bg-light">
+              <h6 class="card-title mb-0">
+                <i class="bi bi-telephone me-2" style="color: #007b8a;"></i>Contacto
+              </h6>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="mb-3">
+                    <label for="ordenCompraContacto" class="form-label">Contacto</label>
+                    <input type="text" class="form-control" id="ordenCompraContacto" name="contacto"
+                      placeholder="Ingrese el contacto" />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="mb-3">
+                    <label for="ordenCompraTelefono" class="form-label">Teléfono</label>
+                    <input type="tel" class="form-control" id="ordenCompraTelefono" name="telefono"
+                      placeholder="Ingrese el teléfono" />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="mb-3">
+                    <label for="ordenCompraEmail" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="ordenCompraEmail" name="email"
+                      placeholder="Ingrese el email" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Estado -->
+          <div class="card mb-3 border-0 shadow-sm">
+            <div class="card-header bg-light">
+              <h6 class="card-title mb-0">
+                <i class="bi bi-toggle2-on me-2" style="color: #005866;"></i>Estado
+              </h6>
+            </div>
+            <div class="card-body">
+              <div class="mb-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="ordenCompraActivoCheck" name="activo" value="1"
+                    checked />
+                  <label class="form-check-label" for="ordenCompraActivoCheck">
+                    Orden de compra activa
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer border-0" style="background-color: #f8f9fa; border-top: 3px solid #004e59 !important;">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+          <i class="bi bi-x-lg"></i> Cancelar
+        </button>
+        <button type="submit" form="registrarOrdenCompraForm" class="btn"
+          style="background-color: #004e59; color: white; border-color: #004e59;" id="btnGuardarOrdenCompra">
+          <i class="bi bi-check-lg"></i> Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para Filtrar Proveedores -->
+<div class="modal fade" id="filtrarOrdenesCompraModal" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false"
+  data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+
+    <div class="modal-content shadow-lg border-0">
+      <div class="modal-header text-white" style="background-color: #004e59;">
+        <div class="d-flex align-items-center">
+          <i class="bi bi-funnel-fill me-2 fs-4"></i>
+          <h5 class="modal-title mb-0" id="filtrarOrdenesCompraTitle">Filtrar Ordenes de Compra</h5>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body container-fluid">
+        <div class="container-fluid">
+          <div class="row">
+            <!-- Formulario para filtrar ordenes de compra -->
+            <div class="col-12">
+              <div class="text-start">
+                <div class="shadow-sm rounded p-3 card-body">
+                  <div class="row align-items-end">
+                    <div class="col-12">
+                      <form id="filtrarOrdenesCompraForm" name="filtrarOrdenesCompraForm">
+                        <!-- Activo -->
+                        <div class="card mb-3 border-0 shadow-sm">
+                          <div class="card-header bg-light">
+                            <h6 class="card-title mb-0">
+                              <i class="bi bi-funnel me-2" style="color: #004e59;"></i>Filtros de Estado
+                            </h6>
+                          </div>
+                          <div class="card-body">
+                            <label class="form-label fw-semibold">Seleccione el estado de la orden de compra</label>
+                            <div id="activoOrdenCompraRadios">
+                              <input type="radio" class="btn-check" name="activoOrdenCompra" id="activoOrdenCompra1"
+                                value="1">
+                              <label class="btn btn-outline-corporativo" for="activoProveedor1"
+                                style="border-color: #004e59; color: #004e59;">
+                                <i class="bi bi-check-circle me-1"></i>Activo
+                              </label>
+
+                              <input type="radio" class="btn-check" name="activoOrdenCompra" id="activoOrdenCompra0"
+                                value="0">
+                              <label class="btn btn-outline-secondary" for="activoOrdenCompra0">
+                                <i class="bi bi-x-circle me-1"></i>Inactivo
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-12 d-flex justify-content-end">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer border-0" style="background-color: #f8f9fa; border-top: 3px solid #004e59 !important;">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+          <i class="bi bi-arrow-left-short"></i> Cancelar
+        </button>
+        <button type="submit" id="enviarFiltrosOrdenesCompraBtn" class="btn"
+          style="background-color: #004e59; color: white; border-color: #004e59;" form="filtrarOrdenesCompraForm">
+          <i class="bi bi-funnel"></i> Filtrar
+        </button>
+        <button type="button" id="resetFiltrosOrdenesCompraBtn" class="btn btn-outline-secondary"
+          style="border-color: #004e59; color: #004e59;">
+          <i class="bi bi-arrow-clockwise"></i> Restablecer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para Ver Orden de Compra -->
+<div class="modal fade" id="verOrdenCompraModal" tabindex="-1" aria-labelledby="verOrdenCompraModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content shadow-lg border-0">
+      <div class="modal-header text-white" style="background-color: #004e59;">
+        <div class="d-flex align-items-center">
+          <i class="bi bi-person-badge-fill me-2 fs-4"></i>
+          <h5 class="modal-title mb-0" id="verOrdenCompraModalLabel">Información de la Orden de Compra</h5>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="container-fluid p-4">
+
+          <!-- Información Principal -->
+          <div class="card mb-3 border-0 shadow-sm">
+            <div class="card-header bg-light">
+              <h6 class="card-title mb-0">
+                <i class="bi bi-building me-2" style="color: #004e59;"></i>Información General
+              </h6>
+            </div>
+            <div class="card-body">
+              <div class="row g-3">
+                <div class="col-lg-6">
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-tag-fill text-muted me-2"></i>
+                    <small class="text-muted mb-0">Nombre</small>
+                  </div>
+                  <p class="fw-semibold mb-0" id="verOrdenCompraNombre">-</p>
+                </div>
+                <div class="col-lg-6">
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-card-text text-muted me-2"></i>
+                    <small class="text-muted mb-0">Razón Social</small>
+                  </div>
+                  <p class="fw-semibold mb-0" id="verOrdenCompraRazonSocial">-</p>
+                </div>
+                <div class="col-lg-6">
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-file-text text-muted me-2"></i>
+                    <small class="text-muted mb-0">RFC</small>
+                  </div>
+                  <p class="fw-semibold mb-0" id="verOrdenCompraRfc">-</p>
+                </div>
+                <div class="col-lg-6">
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-shield-check text-muted me-2"></i>
+                    <small class="text-muted mb-0">Verificación EFO</small>
+                  </div>
+                  <div id="verOrdenCompraVerificacionEfo">-</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Documentos -->
+          <div class="card mb-3 border-0 shadow-sm">
+            <div class="card-header bg-light">
+              <h6 class="card-title mb-0">
+                <i class="bi bi-files me-2" style="color: #006b7a;"></i>Documentos
+              </h6>
+            </div>
+            <div class="card-body">
+              <div class="row g-3">
+                <div class="col-lg-4">
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-file-earmark-pdf text-muted me-2"></i>
+                    <small class="text-muted mb-0">Constancia Fiscal</small>
+                  </div>
+                  <div id="verOrdenCompraConstanciaFiscal" class="fw-semibold">-</div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-bank text-muted me-2"></i>
+                    <small class="text-muted mb-0">Carátula Bancaria</small>
+                  </div>
+                  <div id="verOrdenCompraCaratulaBancaria" class="fw-semibold">-</div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-house text-muted me-2"></i>
+                    <small class="text-muted mb-0">Comprobante Domicilio</small>
+                  </div>
+                  <div id="verOrdenCompraComprobanteDomicilio" class="fw-semibold">-</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Información de Contacto -->
+          <div class="card mb-3 border-0 shadow-sm">
+            <div class="card-header bg-light">
+              <h6 class="card-title mb-0">
+                <i class="bi bi-telephone me-2" style="color: #007b8a;"></i>Contacto
+              </h6>
+            </div>
+            <div class="card-body">
+              <div class="row g-3">
+                <div class="col-lg-4">
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-person text-muted me-2"></i>
+                    <small class="text-muted mb-0">Persona de Contacto</small>
+                  </div>
+                  <p class="fw-semibold mb-0" id="verOrdenCompraContacto">-</p>
+                </div>
+                <div class="col-lg-4">
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-telephone-fill text-muted me-2"></i>
+                    <small class="text-muted mb-0">Teléfono</small>
+                  </div>
+                  <p class="fw-semibold mb-0" id="verOrdenCompraTelefono">-</p>
+                </div>
+                <div class="col-lg-4">
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-envelope text-muted me-2"></i>
+                    <small class="text-muted mb-0">Email</small>
+                  </div>
+                  <p class="fw-semibold mb-0" id="verOrdenCompraEmail">-</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Estado y Fechas -->
+          <div class="row g-3">
+            <div class="col-lg-6">
+              <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-light">
+                  <h6 class="card-title mb-0">
+                    <i class="bi bi-toggle2-on me-2" style="color: #005866;"></i>Estado
+                  </h6>
+                </div>
+                <div class="card-body d-flex align-items-center justify-content-center">
+                  <div id="verOrdenCompraActivo" class="text-center">-</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-light">
+                  <h6 class="card-title mb-0">
+                    <i class="bi bi-clock-history me-2" style="color: #6c757d;"></i>Historial
+                  </h6>
+                </div>
+                <div class="card-body">
+                  <div class="row g-2">
+                    <div class="col-12">
+                      <div class="d-flex align-items-center mb-1">
+                        <i class="bi bi-plus-circle text-muted me-2"></i>
+                        <small class="text-muted">Creado</small>
+                      </div>
+                      <small class="fw-semibold" id="verOrdenCompraFechaCreacion">-</small>
+                    </div>
+                    <div class="col-12">
+                      <div class="d-flex align-items-center mb-1">
+                        <i class="bi bi-pencil text-muted me-2"></i>
+                        <small class="text-muted">Actualizado</small>
+                      </div>
+                      <small class="fw-semibold" id="verOrdenCompraFechaActualizacion">-</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer border-0" style="background-color: #f8f9fa; border-top: 3px solid #004e59 !important;">
+        <button type="button" class="btn px-4" style="background-color: #004e59; color: white; border-color: #004e59;"
+          data-bs-dismiss="modal">
+          <i class="bi bi-x-lg me-1"></i> Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Estilos corporativos para todos los modales de ordenes de compra */
+
+  /* Colores corporativos */
+  :root {
+    --color-corporativo: #004e59;
+    --color-corporativo-hover: #003d47;
+    --color-corporativo-light: #f0f8f9;
+  }
+
+  /* Botones con estilo corporativo */
+  #registrarOrdenCompraModal .btn:hover,
+  #filtrarOrdenesCompraModal .btn:hover,
+  #verOrdenCompraModal .btn:hover {
+    background-color: var(--color-corporativo-hover) !important;
+    border-color: var(--color-corporativo-hover) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 78, 89, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  /* Efectos para cards en el modal de ver */
+  #verOrdenCompraModal .card {
+    transition: transform 0.2s ease;
+  }
+
+  #verOrdenCompraModal .card:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Efectos en iconos */
+  #registrarOrdenCompraModal .bi,
+  #filtrarOrdenesCompraModal .bi,
+  #verOrdenCompraModal .bi {
+    transition: transform 0.2s ease;
+  }
+
+  #verOrdenCompraModal .card-header:hover .bi {
+    transform: scale(1.1);
+  }
+
+  /* Radio buttons corporativos */
+  #filtrarOrdenesCompraModal .btn-check:checked+.btn-outline-corporativo {
+    background-color: var(--color-corporativo) !important;
+    border-color: var(--color-corporativo) !important;
+    color: white !important;
+  }
+
+  #filtrarOrdenesCompraModal .btn-outline-corporativo:hover {
+    background-color: var(--color-corporativo) !important;
+    border-color: var(--color-corporativo) !important;
+    color: white !important;
+  }
+
+  /* Formularios con mejor estilo */
+  #registrarOrdenCompraModal .form-control:focus {
+    border-color: var(--color-corporativo);
+    box-shadow: 0 0 0 0.2rem rgba(0, 78, 89, 0.15);
+  }
+
+  #registrarOrdenCompraModal .form-check-input:checked {
+    background-color: var(--color-corporativo);
+    border-color: var(--color-corporativo);
+  }
+
+  #registrarOrdenCompraModal .form-check-input:focus {
+    box-shadow: 0 0 0 0.25rem rgba(0, 78, 89, 0.15);
+  }
+
+  /* Sombras corporativas para modales */
+  #registrarOrdenCompraModal .modal-content,
+  #filtrarOrdenesCompraModal .modal-content,
+  #verOrdenCompraModal .modal-content {
+    box-shadow: 0 10px 30px rgba(0, 78, 89, 0.1);
+  }
+</style>
+
+<script>
+  $(document).on("click", ".btn-ver-orden-compra", function () {
+    $("#verOrdenCompraNombre").text($(this).data("nombre") || "");
+    $("#verOrdenCompraRazonSocial").text($(this).data("razon_social") || "");
+    $("#verOrdenCompraRfc").text($(this).data("rfc") || "");
+    $("#verOrdenCompraVerificacionEfo").html($(this).data("verificacion_efo") == 1 ? '<i class="bi bi-check-lg text-success"></i>' : '<i class="bi bi-x-lg text-danger"></i>');
+
+    var constancia = $(this).data("constancia_situacion_fiscal");
+    if (constancia) {
+      $("#verOrdenCompraConstanciaFiscal").html('<a href="' + constancia + '" target="_blank">Ver archivo</a>');
+    } else {
+      $("#verOrdenCompraConstanciaFiscal").text("");
+    }
+    var caratula = $(this).data("caratula_bancaria");
+    if (caratula) {
+      $("#verOrdenCompraCaratulaBancaria").html('<a href="' + caratula + '" target="_blank">Ver archivo</a>');
+    } else {
+      $("#verOrdenCompraCaratulaBancaria").text("");
+    }
+    var comprobante = $(this).data("comprobante_domicilio");
+    if (comprobante) {
+      $("#verOrdenCompraComprobanteDomicilio").html('<a href="' + comprobante + '" target="_blank">Ver archivo</a>');
+    } else {
+      $("#verOrdenCompraComprobanteDomicilio").text("");
+    }
+
+    $("#verOrdenCompraContacto").text($(this).data("contacto") || "");
+    $("#verOrdenCompraTelefono").text($(this).data("telefono") || "");
+    $("#verOrdenCompraEmail").text($(this).data("email") || "");
+    $("#verOrdenCompraFechaCreacion").text($(this).data("fecha_creacion") || "");
+    $("#verOrdenCompraFechaActualizacion").text($(this).data("fecha_actualizacion") || "");
+    $("#verOrdenCompraActivo").html($(this).data("activo") == 1 ? '<span class="badge bg-success">Activo</span>' : '<span class="badge bg-secondary">Inactivo</span>');
+  });
+</script>

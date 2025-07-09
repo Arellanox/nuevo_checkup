@@ -1,0 +1,69 @@
+<div class="row">
+    <div class="col-6 tab-first" id="tab-menu" style="margin: auto">
+        <div class="rounded p-3 shadow my-2 card" id="lista-pacientes">
+            <!-- Menu -->
+            <h5>Elija una opción</h5>
+            <div class="vertical-menu" id="menu-grid">
+                <a href="#ordenes-compra" data-target="moduloOrdenesCompra">
+                    <i class="bi bi-cart-check icono-menu icono-orden-compra"></i>
+                    <span>Órdenes de compra</span>
+                </a>
+                <a href="#proveedores" data-target="moduloProveedores">
+                    <i class="bi bi-file-earmark-text-fill icono-menu icono-proveedores"></i>
+                    <span>Gestión de proveedores</span>
+                </a>
+                <a href="#informes" data-target="moduloInformes">
+                    <i class="bi bi-file-earmark-text-fill icono-menu icono-informes"></i>
+                    <span>Informes y análisis</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Modulos -->
+    <div class="col-12 col-xl-12 tab-second" id="modulos-orden-compra" style="display: none">
+        <div class="rounded p-3 shadow my-2 content-module card" id="moduloOrdenesCompra">
+            <div class="d-flex align-items-start pb-3 mb-3 text-white rounded">
+                <h2 class="mx-2">Órdenes de compra</h2>
+            </div>
+            <div class="table-responsive">
+                <table class="table responsive table-hover" style="min-width: 1470px" id="tableCatOrdenesCompra">
+                </table>
+            </div>
+        </div>
+        <div class="rounded p-3 shadow my-2 content-module card" id="moduloProveedores">
+            <div class="d-flex align-items-start pb-3 mb-3 text-white rounded">
+                <h2 class="mx-2">Gestión de proveedores</h2>
+            </div>
+            <div class="table-responsive">
+                <table class="table responsive table-hover" style="min-width: 1470px" id="tableCatProveedores">
+                </table>
+            </div>
+        </div>
+        <div class="rounded p-3 shadow my-2 content-module card" id="moduloInformes">
+            <div class="d-flex align-items-start pb-3 mb-3 text-white rounded">
+                <h2 class="mx-2">Informes y análisis</h2>
+            </div>
+            <div class="table-responsive">
+                <table class="table responsive table-hover" style="min-width: 1470px" id="tableCatInformes"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("modulos-orden-compra").style.display = "none";
+        document.getElementById("tab-menu").style.display = "";
+    });
+
+    document.querySelectorAll("#menu-grid a").forEach(function (link) {
+        link.addEventListener("click", function (e) {
+            e.preventDefault();
+            document.getElementById("tab-menu").style.display = "none";
+            document.getElementById("modulos-orden-compra").style.display = "";
+        });
+    });
+</script>
+
+<style>
+</style>
