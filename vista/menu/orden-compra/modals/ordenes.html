@@ -5,7 +5,7 @@
     <div class="modal-content shadow-lg border-0">
       <div class="modal-header text-white" style="background-color: #004e59;">
         <div class="d-flex align-items-center">
-          <i class="bi bi-person-plus-fill me-2 fs-4"></i>
+          <i class="bi bi-cart-plus-fill me-2 fs-4"></i>
           <h5 class="modal-title mb-0" id="registrarOrdenCompraModalLabel">
             Registrar Orden de compra
           </h5>
@@ -14,127 +14,119 @@
       </div>
       <div class="modal-body">
         <form id="registrarOrdenCompraForm">
-          <input type="hidden" id="ordenCompraId" name="ordenCompraId" value="" />
+          <input type="hidden" id="ID_ORDEN_COMPRA" name="ID_ORDEN_COMPRA" value="" />
 
           <!-- Información Básica -->
           <div class="card mb-3 border-0 shadow-sm">
             <div class="card-header bg-light">
               <h6 class="card-title mb-0">
-                <i class="bi bi-building me-2" style="color: #004e59;"></i>Información General
+                <i class="bi bi-info-circle me-2" style="color: #004e59;"></i>Información General
               </h6>
             </div>
             <div class="card-body">
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label for="ordenCompraFechaOrden" class="form-label">Fecha de Orden *</label>
-                    <input type="date" class="form-control" id="ordenCompraFechaOrden" name="fecha_orden"
-                      placeholder="Ingrese la fecha de orden" required />
+                    <label for="NUMERO_ORDEN_COMPRA" class="form-label">Número de Orden *</label>
+                    <input type="text" class="form-control" id="NUMERO_ORDEN_COMPRA" name="NUMERO_ORDEN_COMPRA"
+                      placeholder="Ingrese el número de orden" required />
                     <div class="invalid-feedback">Este campo es obligatorio.</div>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label for="ordenCompraIdProveedores" class="form-label">Proveedor *</label>
-                    <select class="form-select" id="ordenCompraIdProveedores" name="id_proveedores" required>
-                      <option value="">Seleccione un proveedor</option>
-                      <option value="1">Proveedor 1</option>
-                      <option value="2">Proveedor 2</option>
-                      <option value="3">Proveedor 3</option>
+                    <label for="FECHA_ORDEN_COMPRA" class="form-label">Fecha de Orden *</label>
+                    <input type="date" class="form-control" id="FECHA_ORDEN_COMPRA" name="FECHA_ORDEN_COMPRA"
+                      placeholder="Ingrese la fecha de orden" required />
+                    <div class="invalid-feedback">Este campo es obligatorio.</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="ID_PROVEEDOR" class="form-label">Proveedor *</label>
+                    <select class="form-select" id="ID_PROVEEDOR" name="ID_PROVEEDOR" required></select>
+                    <div class="invalid-feedback">Este campo es obligatorio.</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="ESTADO" class="form-label">Estado *</label>
+                    <select class="form-select" id="ESTADO" name="ESTADO" required>
+                      <option value="">Seleccione un estado</option>
+                      <option value="PENDIENTE">Pendiente</option>
+                      <option value="APROBADA">Aprobada</option>
+                      <option value="RECHAZADA">Rechazada</option>
+                      <option value="RECIBIDA">Recibida</option>
+                      <option value="CANCELADA">Cancelada</option>
                     </select>
+                    <div class="invalid-feedback">Este campo es obligatorio.</div>
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
 
+          <!-- Información Financiera -->
+          <div class="card mb-3 border-0 shadow-sm">
+            <div class="card-header bg-light">
+              <h6 class="card-title mb-0">
+                <i class="bi bi-currency-dollar me-2" style="color: #004e59;"></i>Información Financiera
+              </h6>
+            </div>
+            <div class="card-body">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="mb-3">
-                    <label for="ordenCompraTotal" class="form-label">Total *</label>
-                    <input type="number" class="form-control" id="ordenCompraTotal" name="total" placeholder="Ingrese el total" required />
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="ordenCompraActivo"
-                        name="activo" value="1" />
-                      <label class="form-check-label" for="ordenCompraActivo">
-                        Orden de compra activa
-                      </label>
+                    <label for="SUBTOTAL" class="form-label">Subtotal *</label>
+                    <div class="input-group">
+                      <span class="input-group-text">$</span>
+                      <input type="number" class="form-control" id="SUBTOTAL" name="SUBTOTAL" placeholder="0.00"
+                        step="0.01" min="0" required />
                     </div>
+                    <div class="invalid-feedback">Este campo es obligatorio.</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="mb-3">
+                    <label for="IVA" class="form-label">IVA *</label>
+                    <div class="input-group">
+                      <span class="input-group-text">$</span>
+                      <input type="number" class="form-control" id="IVA" name="IVA" placeholder="0.00" step="0.01"
+                        min="0" required />
+                    </div>
+                    <div class="invalid-feedback">Este campo es obligatorio.</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="mb-3">
+                    <label for="TOTAL" class="form-label">Total *</label>
+                    <div class="input-group">
+                      <span class="input-group-text">$</span>
+                      <input type="number" class="form-control" id="TOTAL" name="TOTAL" placeholder="0.00" step="0.01"
+                        min="0" required />
+                    </div>
+                    <div class="invalid-feedback">Este campo es obligatorio.</div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Documentos -->
+          <!-- Observaciones -->
           <div class="card mb-3 border-0 shadow-sm">
             <div class="card-header bg-light">
               <h6 class="card-title mb-0">
-                <i class="bi bi-files me-2" style="color: #006b7a;"></i>Documentos
+                <i class="bi bi-chat-text me-2" style="color: #004e59;"></i>Observaciones
               </h6>
             </div>
             <div class="card-body">
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="mb-3">
-                    <label for="ordenCompraDocumento" class="form-label">Documento</label>
-                    <input type="file" class="form-control" id="ordenCompraDocumento" name="documento"
-                      accept=".pdf,.jpg,.jpeg,.png" />
-                    <small class="form-text text-muted">Formatos: PDF, JPG, PNG</small>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="mb-3">
-                    <label for="ordenCompraDocumento" class="form-label">Documento</label>
-                    <input type="file" class="form-control" id="ordenCompraDocumento" name="documento"
-                      accept=".pdf,.jpg,.jpeg,.png" />
-                    <small class="form-text text-muted">Formatos: PDF, JPG, PNG</small>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="mb-3">
-                    <label for="ordenCompraDocumento" class="form-label">Documento</label>
-                    <input type="file" class="form-control" id="ordenCompraDocumento" name="documento"
-                      accept=".pdf,.jpg,.jpeg,.png" />
-                    <small class="form-text text-muted">Formatos: PDF, JPG, PNG</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Información de Contacto -->
-          <div class="card mb-3 border-0 shadow-sm">
-            <div class="card-header bg-light">
-              <h6 class="card-title mb-0">
-                <i class="bi bi-telephone me-2" style="color: #007b8a;"></i>Contacto
-              </h6>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="mb-3">
-                    <label for="ordenCompraContacto" class="form-label">Contacto</label>
-                    <input type="text" class="form-control" id="ordenCompraContacto" name="contacto"
-                      placeholder="Ingrese el contacto" />
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="mb-3">
-                    <label for="ordenCompraTelefono" class="form-label">Teléfono</label>
-                    <input type="tel" class="form-control" id="ordenCompraTelefono" name="telefono"
-                      placeholder="Ingrese el teléfono" />
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="mb-3">
-                    <label for="ordenCompraEmail" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="ordenCompraEmail" name="email"
-                      placeholder="Ingrese el email" />
-                  </div>
-                </div>
+              <div class="mb-3">
+                <label for="OBSERVACIONES" class="form-label">Observaciones</label>
+                <textarea class="form-control" id="OBSERVACIONES" name="OBSERVACIONES" rows="3"
+                  placeholder="Ingrese observaciones adicionales..."></textarea>
               </div>
             </div>
           </div>
@@ -143,18 +135,16 @@
           <div class="card mb-3 border-0 shadow-sm">
             <div class="card-header bg-light">
               <h6 class="card-title mb-0">
-                <i class="bi bi-toggle2-on me-2" style="color: #005866;"></i>Estado
+                <i class="bi bi-toggle2-on me-2" style="color: #004e59;"></i>Estado de Actividad
               </h6>
             </div>
             <div class="card-body">
-              <div class="mb-3">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="ordenCompraActivoCheck" name="activo" value="1"
-                    checked />
-                  <label class="form-check-label" for="ordenCompraActivoCheck">
-                    Orden de compra activa
-                  </label>
-                </div>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="ACTIVO" name="ACTIVO" value="1" checked />
+                <label class="form-check-label" for="ACTIVO">
+                  <strong>Orden de compra activa</strong>
+                  <small class="text-muted d-block">La orden estará disponible para su procesamiento</small>
+                </label>
               </div>
             </div>
           </div>
@@ -166,7 +156,7 @@
         </button>
         <button type="submit" form="registrarOrdenCompraForm" class="btn"
           style="background-color: #004e59; color: white; border-color: #004e59;" id="btnGuardarOrdenCompra">
-          <i class="bi bi-check-lg"></i> Guardar
+          <i class="bi bi-check-lg"></i> Guardar Orden
         </button>
       </div>
     </div>
@@ -483,7 +473,8 @@
   }
 
   /* Formularios con mejor estilo */
-  #registrarOrdenCompraModal .form-control:focus {
+  #registrarOrdenCompraModal .form-control:focus,
+  #registrarOrdenCompraModal .form-select:focus {
     border-color: var(--color-corporativo);
     box-shadow: 0 0 0 0.2rem rgba(0, 78, 89, 0.15);
   }
@@ -497,11 +488,36 @@
     box-shadow: 0 0 0 0.25rem rgba(0, 78, 89, 0.15);
   }
 
+  /* Input groups con colores corporativos */
+  #registrarOrdenCompraModal .input-group-text {
+    background-color: var(--color-corporativo-light);
+    border-color: #dee2e6;
+    color: var(--color-corporativo);
+    font-weight: 600;
+  }
+
+  /* Switch mejorado */
+  #registrarOrdenCompraModal .form-switch .form-check-input:checked {
+    background-color: var(--color-corporativo);
+    border-color: var(--color-corporativo);
+  }
+
+  #registrarOrdenCompraModal .form-switch .form-check-input:focus {
+    border-color: var(--color-corporativo);
+    box-shadow: 0 0 0 0.25rem rgba(0, 78, 89, 0.15);
+  }
+
   /* Sombras corporativas para modales */
   #registrarOrdenCompraModal .modal-content,
   #filtrarOrdenesCompraModal .modal-content,
   #verOrdenCompraModal .modal-content {
     box-shadow: 0 10px 30px rgba(0, 78, 89, 0.1);
+  }
+
+  /* Animaciones para inputs de números */
+  #registrarOrdenCompraModal input[type="number"]:focus {
+    transform: scale(1.02);
+    transition: transform 0.2s ease;
   }
 </style>
 
@@ -537,5 +553,5 @@
     $("#verOrdenCompraFechaCreacion").text($(this).data("fecha_creacion") || "");
     $("#verOrdenCompraFechaActualizacion").text($(this).data("fecha_actualizacion") || "");
     $("#verOrdenCompraActivo").html($(this).data("activo") == 1 ? '<span class="badge bg-success">Activo</span>' : '<span class="badge bg-secondary">Inactivo</span>');
-  });
+  }); 
 </script>

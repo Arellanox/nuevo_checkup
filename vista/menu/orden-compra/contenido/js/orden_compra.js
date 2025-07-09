@@ -502,3 +502,72 @@ $(document).on("click", ".btn-ver-proveedor", function () {
   // Mostrar el modal
   $("#verProveedorModal").modal("show");
 });
+
+// ==================== FUNCIONALIDADES PARA CARGAR CATÁLOGOS ====================
+function cargarCatalogoEnSelect(selectorSelect, opciones, callback) {
+  const config = {
+    soloActivos: true,
+    ...opciones,
+  };
+
+  $.ajax({
+    url: "../../../api/orden_compra_api.php",
+    type: "POST",
+    dataType: "json",
+    data: { api: config.api },
+
+    success: function (response) {
+      if (response.response && response.response.code == 1) {
+        const selectElement = $(selectorSelect);
+        const valorActual = selectElement.val();
+
+        selectElement
+          .empty()
+          .append(`<option value="">${config.placeholder}</option>`);
+
+        let totalElementos = 0;
+        response.response.data.forEach(function (item) {
+          const esActivo = item.activo == 1 || item.ACTIVO == 1;
+          if (!config.soloActivos || esActivo) {
+            selectElement.append(
+              `<option value="${item[config.campoId]}">${
+                item[config.campoTexto]
+              }</option>`
+            );
+            totalElementos++;
+          }
+        });
+
+        if (valorActual) selectElement.val(valorActual);
+
+        console.log(
+          `✅ Catálogo cargado: ${totalElementos} elementos en ${selectorSelect}`
+        );
+
+        if (callback && typeof callback === "function") callback();
+      } else {
+        alertToast(`Error al cargar ${config.placeholder}`, "error", 3000);
+        console.error("Error en respuesta API:", response);
+      }
+    },
+
+    error: function (xhr, status, error) {
+      alertToast(
+        `Error de conexión al cargar ${config.placeholder}`,
+        "error",
+        3000
+      );
+      console.error("Error AJAX:", { xhr, status, error });
+    },
+  });
+}
+function cargarProveedoresOrdenCompra() {
+  cargarCatalogoEnSelect("#registrarOrdenCompraModal #ID_PROVEEDOR", {
+    api: 2,
+    campoId: "id_proveedores",
+    campoTexto: "nombre",
+    placeholder: "Seleccione un proveedor",
+    soloActivos: true,
+  });
+}
+cargarProveedoresOrdenCompra();

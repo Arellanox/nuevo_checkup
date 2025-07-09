@@ -16,6 +16,8 @@ if (empty($_SESSION['id'])) {
 $master = new Master();
 $api = $_POST['api'];
 
+$id_almacen = isset($_POST['id_almacen']) && $_POST['id_almacen'] !== '' && $_POST['id_almacen'] !== 'null' ? intval($_POST['id_almacen']) : 1;
+
 # catalogo de articulos
 $id_articulo = $_POST['id_articulo'];
 $no_art = $_POST['no_art'];
@@ -284,21 +286,19 @@ switch ($api) {
             $id_articulo,
             $id_cat_movimientos,
             $imagen_documento,
-            //$nombre_comercial,
             $cantidad,
             $fecha_ultima_entrada,
             $costo_ultima_entrada,
-            //$costo_mas_alto,
             $id_proveedores,
             $id_movimiento,
             $motivo_salida,
             $orden_compra,
             $imagen_orden_compra,
             $_SESSION['id'],
-            // NUEVOS PARÁMETROS AGREGADOS
             $fecha_caducidad,
             $numero_lote,
-            $fecha_lote
+            $fecha_lote,
+            $id_almacen
         ]);
         break;
     case 7:

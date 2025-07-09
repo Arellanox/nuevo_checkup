@@ -17,6 +17,7 @@ $master = new Master();
 $api = $_POST['api'];
 
 $id_proveedores = isset($_POST['id_proveedores']) && $_POST['id_proveedores'] !== '' && $_POST['id_proveedores'] !== 'null' ? $_POST['id_proveedores'] : null;
+$id_orden_compra = isset($_POST['id_orden_compra']) && $_POST['id_orden_compra'] !== '' && $_POST['id_orden_compra'] !== 'null' ? $_POST['id_orden_compra'] : null;
 
 $host = $master->selectHost($_SERVER['SERVER_NAME']);
 
@@ -54,15 +55,27 @@ switch ($api) {
         break;
     case 5:
         #registrar orden de compra
+        $fecha_actual = date('Y-m-d H:i:s');
         $response = $master->insertByProcedure("sp_inventarios_cat_orden_compra_g", [
-            $_POST['ID_ORDEN_COMPRA'],
-            $_POST['NUMERO_ORDEN_'],
-            $_POST['FECHA_ORDEN'],
-            $_POST['ESTADO'],
-            $_POST['ID_USUARIO'],
-            $_POST['ID_ALMACEN'],
-            $_POST['observaciones'],
+            $id_orden_compra,
+            $_POST['NUMERO_ORDEN_COMPRA'] ?? null,
+            $_POST['FECHA_ORDEN_COMPRA'] ?? null,
+            $_POST['ESTADO'] ?? null,
+            $_POST['ID_PROVEEDOR'] ?? null,
+            $_POST['SUBTOTAL'] ?? null,
+            $_POST['IVA'] ?? null,
+            $_POST['TOTAL'] ?? null,
+            $_POST['OBSERVACIONES'] ?? null,
+            $_SESSION['id'] ?? null,
+            isset($_POST['ACTIVO']) ? 1 : 0
         ]);
+        break;
+    case 6:
+        #eliminar orden de compra
+        $response = $master->insertByProcedure("sp_inventarios_cat_orden_compra_e", [
+            $_POST['ID_ORDEN_COMPRA'] ?? null,
+        ]);
+        break;
     default:
         $response = "API no definida.";
 }
