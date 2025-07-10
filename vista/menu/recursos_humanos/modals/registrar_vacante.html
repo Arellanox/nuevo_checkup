@@ -200,8 +200,8 @@
                                                 <option value="L-V">Lunes a Viernes</option>
                                                 <option value="L-S">Lunes a Sábado</option>
                                                 <option value="L-D">Lunes a Domingo</option>
-                                                <option value="Fines de semana">Fines de semana</option>
-                                                <option value="Otro">Otro</option>
+                                                <option value="fines_semana">Fines de semana</option>
+                                                <option value="otro">Otro</option>
                                             </select>
                                         </div>
                                     </div>
@@ -330,11 +330,6 @@ $(document).on('click', '#btnCatalogoPuestos', function(e) {
                     $("#puestos-tab").tab("show");
                     console.log("Modal de catálogos abierto y pestaña de puestos activada");
                     
-                    // // Después de activar la pestaña, abrir el modal de registro
-                    // setTimeout(function() {
-                    //     $("#registrarPuestoModal").modal("show");
-                    //     console.log("Modal de registro de puestos abierto automáticamente");
-                    // }, 500); // Esperar un poco más para que se establezca la pestaña
                 });
             }, 300);
         }
@@ -425,7 +420,7 @@ $(document).ready(function() {
         inputHoraInicio.attr('required', true);
         inputHoraFin.attr('required', true);
 
-        if (valorSeleccionado === 'Otro') {
+        if (valorSeleccionado === 'otro') {
             // Mostrar el input para días personalizados con animación
             containerDiasPersonalizados.slideDown(300);
             inputDiasPersonalizados.attr('required', true);
@@ -444,15 +439,15 @@ $(document).ready(function() {
         }
     });
 
-    // Limpiar campos cuando se cierre el modal
-    $('#registrarVacanteModal').on('hidden.bs.modal', function() {
-        $('#dias_trabajo').val('');
-        $('#dias_personalizados_container').hide();
-        $('#dias_personalizados').removeAttr('required').val('');
-        $('#hora_inicio').val('').removeAttr('required');
-        $('#hora_fin').val('').removeAttr('required');
-        $('#horas_trabajo_container').hide();
-    });
+    // // Limpiar campos cuando se cierre el modal
+    // $('#registrarVacanteModal').on('hidden.bs.modal', function() {
+    //     $('#dias_trabajo').val('');
+    //     $('#dias_personalizados_container').hide();
+    //     $('#dias_personalizados').removeAttr('required').val('');
+    //     $('#hora_inicio').val('').removeAttr('required');
+    //     $('#hora_fin').val('').removeAttr('required');
+    //     $('#horas_trabajo_container').hide();
+    // });
 });
 </script>
 

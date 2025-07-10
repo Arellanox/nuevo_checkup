@@ -71,7 +71,7 @@ let mostrarActivosDepartamentos = true;
 // Función para configurar el toggle de filtro para Departamentos
 function setupToggleFiltroDepartamentos() {
     // Event listener específico para el toggle de Departamentos
-    $(document).on('click', '#toggleFiltroActivos', function(e) {
+    $(document).on('click', '#toggleFiltroActivosDep', function(e) {
         e.preventDefault();
         e.stopPropagation();
         
@@ -119,8 +119,8 @@ function setupToggleFiltroDepartamentos() {
 // Función para actualizar el texto del botón de filtro de Departamentos
 function updateFilterButtonTextDepartamentos() {
     const iconoToggle = mostrarActivosDepartamentos ? 
-        '<i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;" title="Mostrando activos - Click para ver inactivos"></i>' :
-        '<i class="bi bi-toggle-off fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;" title="Mostrando inactivos - Click para ver activos"></i>';
+        '<i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivosDep" style="cursor: pointer; margin-left: 8px;" title="Mostrando activos - Click para ver inactivos"></i>' :
+        '<i class="bi bi-toggle-off fs-5 text-secondary" id="toggleFiltroActivosDep" style="cursor: pointer; margin-left: 8px;" title="Mostrando inactivos - Click para ver activos"></i>';
     
     const botonCompleto = `<i class="bi bi-funnel me-2" id="iconoFiltroDepartamentos" title="Restablecer filtros"></i>Filtrar ${iconoToggle}`;
     
@@ -328,7 +328,7 @@ let mostrarActivosMotivos = true;
 // Función para configurar el toggle de filtro para motivos
 function setupToggleFiltroMotivos() {
     // Event listener específico para el toggle de motivos
-    $(document).on('click', '#toggleFiltroActivos', function(e) {
+    $(document).on('click', '#toggleFiltroActivosMov', function(e) {
         e.preventDefault();
         e.stopPropagation();
         
@@ -376,8 +376,8 @@ function setupToggleFiltroMotivos() {
 // Función para actualizar el texto del botón de filtro de motivos
 function updateFilterButtonTextMotivos() {
     const iconoToggle = mostrarActivosMotivos ? 
-        '<i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;" title="Mostrando activos - Click para ver inactivos"></i>' :
-        '<i class="bi bi-toggle-off fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;" title="Mostrando inactivos - Click para ver activos"></i>';
+        '<i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivosMov" style="cursor: pointer; margin-left: 8px;" title="Mostrando activos - Click para ver inactivos"></i>' :
+        '<i class="bi bi-toggle-off fs-5 text-secondary" id="toggleFiltroActivosMov" style="cursor: pointer; margin-left: 8px;" title="Mostrando inactivos - Click para ver activos"></i>';
     
     const botonCompleto = `<i class="bi bi-funnel me-2" id="iconoFiltroMotivos" title="Restablecer filtros"></i>Filtrar ${iconoToggle}`;
     
@@ -523,7 +523,7 @@ let mostrarActivosBlandas = true;
 // Función para configurar el toggle de filtro para Blandas
 function setupToggleFiltroBlandas() {
     // Event listener específico para el toggle de blandas
-    $(document).on('click', '#toggleFiltroActivos', function(e) {
+    $(document).on('click', '#toggleFiltroActivosBla', function(e) {
         e.preventDefault();
         e.stopPropagation();
         
@@ -571,8 +571,8 @@ function setupToggleFiltroBlandas() {
 // Función para actualizar el texto del botón de filtro de blandas
 function updateFilterButtonTextBlandas() {
     const iconoToggle = mostrarActivosBlandas ? 
-        '<i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;" title="Mostrando activos - Click para ver inactivos"></i>' :
-        '<i class="bi bi-toggle-off fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;" title="Mostrando inactivos - Click para ver activos"></i>';
+        '<i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivosBla" style="cursor: pointer; margin-left: 8px;" title="Mostrando activos - Click para ver inactivos"></i>' :
+        '<i class="bi bi-toggle-off fs-5 text-secondary" id="toggleFiltroActivosBla" style="cursor: pointer; margin-left: 8px;" title="Mostrando inactivos - Click para ver activos"></i>';
     
     const botonCompleto = `<i class="bi bi-funnel me-2" id="iconoFiltroBlandas" title="Restablecer filtros"></i>Filtrar ${iconoToggle}`;
     
@@ -718,7 +718,7 @@ let mostrarActivosTecnicas = true;
 // Función para configurar el toggle de filtro para técnicas
 function setupToggleFiltroTecnicas() {
     // Event listener específico para el toggle de técnicas
-    $(document).on('click', '#toggleFiltroActivos', function(e) {
+    $(document).on('click', '#toggleFiltroActivosTec', function(e) {
         e.preventDefault();
         e.stopPropagation();
         
@@ -766,8 +766,8 @@ function setupToggleFiltroTecnicas() {
 // Función para actualizar el texto del botón de filtro de Tecnicas
 function updateFilterButtonTextTecnicas() {
     const iconoToggle = mostrarActivosTecnicas ? 
-        '<i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;" title="Mostrando activos - Click para ver inactivos"></i>' :
-        '<i class="bi bi-toggle-off fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;" title="Mostrando inactivos - Click para ver activos"></i>';
+        '<i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivosTec" style="cursor: pointer; margin-left: 8px;" title="Mostrando activos - Click para ver inactivos"></i>' :
+        '<i class="bi bi-toggle-off fs-5 text-secondary" id="toggleFiltroActivosTec" style="cursor: pointer; margin-left: 8px;" title="Mostrando inactivos - Click para ver activos"></i>';
     
     const botonCompleto = `<i class="bi bi-funnel me-2" id="iconoFiltroTecnicas" title="Restablecer filtros"></i>Filtrar ${iconoToggle}`;
     
@@ -844,31 +844,26 @@ $(document).ready(function() {
 
 
 
-// Registrar una nueva requisición de vacante - VARIABLES UNIFICADAS
+// Registrar una nueva requisición de vacante - CORREGIDO
 $("#formRegistrarVacante").submit(function (event) {
     event.preventDefault();
-
-    // Agregar el campo oculto usuario_solicitante_id si no está presente
-    var usuarioSolicitanteId = $("#usuario_solicitante_id").val();
-    // if (!usuarioSolicitanteId || usuarioSolicitanteId === '') {
-    //     $("#usuario_solicitante_id").val('118'); // Tu ID de sesión o valor por defecto
-    // }
 
     var form = document.getElementById("formRegistrarVacante");
     var formData = new FormData(form);
 
-    // Validaciones básicas usando las variables unificadas
+    // Validaciones básicas usando los campos que SÍ existen en el formulario
     var id_departamento = $("#departamento").val(); // name="id_departamento"
     var id_motivo = $("#motivo").val(); // name="id_motivo"
     var prioridad = $("#prioridad").val();
     var justificacion = $("#justificacion").val().trim();
     var tipo_contrato = $("#tipo_contrato").val();
     var tipo_jornada = $("#tipo_jornada").val();
-    var escolaridad_minima = $("#escolaridad_minima").val();
-    var experiencia_anos = $("#experiencia_anos").val();
-    var horario_trabajo = $("#horario_trabajo").val().trim();
+    var tipo_modalidad = $("#tipo_modalidad").val();
+    var dias_trabajo = $("#dias_trabajo").val();
+    var hora_inicio = $("#hora_inicio").val();
+    var hora_fin = $("#hora_fin").val();
 
-    // Validar campos obligatorios
+    // Validar campos obligatorios ACTUALIZADOS
     if (!id_departamento) {
         alertToast("Debe seleccionar un departamento", "warning", 3000);
         return;
@@ -899,18 +894,19 @@ $("#formRegistrarVacante").submit(function (event) {
         return;
     }
 
-    if (!escolaridad_minima) {
-        alertToast("Debe seleccionar la escolaridad mínima", "warning", 3000);
+    if (!tipo_modalidad) {
+        alertToast("Debe seleccionar el tipo de modalidad", "warning", 3000);
         return;
     }
 
-    if (!experiencia_anos) {
-        alertToast("Debe seleccionar los años de experiencia", "warning", 3000);
+    if (!dias_trabajo) {
+        alertToast("Debe seleccionar los días de trabajo", "warning", 3000);
         return;
     }
 
-    if (!horario_trabajo) {
-        alertToast("El horario de trabajo es obligatorio", "warning", 3000);
+    // Validar horarios solo si se seleccionaron días
+    if (dias_trabajo && (!hora_inicio || !hora_fin)) {
+        alertToast("Debe especificar el horario de trabajo", "warning", 3000);
         return;
     }
 
@@ -920,6 +916,10 @@ $("#formRegistrarVacante").submit(function (event) {
     console.log("ID Motivo:", id_motivo);
     console.log("ID Puesto:", $("#puesto").val());
     console.log("Usuario Solicitante ID:", $("#usuario_solicitante_id").val());
+    console.log("Tipo Modalidad:", tipo_modalidad);
+    console.log("Días Trabajo:", dias_trabajo);
+    console.log("Hora Inicio:", hora_inicio);
+    console.log("Hora Fin:", hora_fin);
     
     // Mostrar todos los datos del formulario
     for (let pair of formData.entries()) {
@@ -950,14 +950,9 @@ $("#formRegistrarVacante").submit(function (event) {
                         $("#formRegistrarVacante")[0].reset();
                         $("#registrarVacanteModal").modal("hide");
 
-                        // Obtener el número de requisición de la respuesta
-                        let numeroRequisicion = "N/A";
-                        if (data.response.data && data.response.data.numero_requisicion) {
-                            numeroRequisicion = data.response.data.numero_requisicion;
-                        }
 
                         alertToast(
-                            `Requisición #${numeroRequisicion} registrada exitosamente!`,
+                            `Requisición registrada exitosamente!`,
                             "success",
                             4000
                         );
@@ -996,3 +991,83 @@ $("#formRegistrarVacante").submit(function (event) {
     return false;
 });
 
+// === ENVÍO DEL FORMULARIO DE EDICIÓN ===
+$(document).on('submit', '#formEditarRequisicion', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    const idRequisicion = formData.get('id_requisicion');
+    
+    console.log("Enviando formulario de edición para requisición:", idRequisicion);
+    
+    // Preparar datos para la API usando los nombres correctos del stored procedure
+    // Obtener el valor de días de trabajo y ajustarlo si es null o vacío
+    let diasTrabajo = formData.get('dias_trabajo');
+    if (diasTrabajo === null || diasTrabajo === "") {
+      diasTrabajo = "otro";
+    }
+    const datosActualizacion = {
+      api: 1, // Case 1 para crear/actualizar requisiciones
+      id_requisicion: idRequisicion,
+      id_departamento: formData.get('departamento') || $("#editarDepartamento").val(),
+      id_motivo: formData.get('motivo') || $("#editarMotivo").val(),
+      usuario_solicitante_id: formData.get('usuario_solicitante_id'), // El usuario original que solicitó
+      prioridad: formData.get('prioridad'),
+      justificacion: formData.get('justificacion'),
+      estatus: formData.get('estatus'),
+      id_puesto: formData.get('puesto') || $("#editarPuesto").val(),
+      tipo_contrato: formData.get('tipo_contrato'),
+      tipo_jornada: formData.get('tipo_jornada'),
+      tipo_modalidad: formData.get('tipo_modalidad') || null,
+      // idiomas: formData.get('idiomas') || null,
+      dias_trabajo: diasTrabajo,
+      dias_personalizados: formData.get('dias_personalizados') || null,
+      hora_inicio: formData.get('hora_inicio'),
+      hora_fin: formData.get('hora_fin'),
+      observaciones_aprobacion: formData.get('observaciones_aprobacion') || null
+    };
+    
+    console.log("Datos para actualización:", datosActualizacion);
+    
+    $.ajax({
+        url: '../../../api/recursos_humanos_api.php',
+        type: 'POST',
+        data: datosActualizacion,
+        beforeSend: function() {
+            $('button[type="submit"]').html('<i class="spinner-border spinner-border-sm me-2"></i>Actualizando...');
+            $('button[type="submit"]').prop('disabled', true);
+        },
+        success: function(response) {
+            try {
+                const data = JSON.parse(response);
+                console.log("Respuesta de actualización:", data);
+                
+                if (data.response && data.response.code === 1) {
+                    alertToast("¡Requisición actualizada exitosamente!", "success", 3000);
+                    
+                    // Cerrar modal
+                    $("#editarRequisicionModal").modal("hide");
+                    
+                    // Recargar tabla
+                    if (typeof tableCatRequisiciones !== 'undefined') {
+                        tableCatRequisiciones.ajax.reload();
+                    }
+                    
+                } else {
+                    alertToast(data.response?.message || "Error al actualizar la requisición", "error", 4000);
+                }
+            } catch (error) {
+                console.error("Error al procesar respuesta:", error);
+                alertToast("Error al procesar la respuesta del servidor", "error", 3000);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("Error AJAX:", error);
+            alertToast("Error de conexión al actualizar", "error", 3000);
+        },
+        complete: function() {
+            $('button[type="submit"]').html('<i class="bi bi-check-circle me-2"></i>Actualizar Requisición');
+            $('button[type="submit"]').prop('disabled', false);
+        }
+    });
+});

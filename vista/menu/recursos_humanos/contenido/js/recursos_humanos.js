@@ -121,9 +121,9 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
             title: "Prioridad",
             render: function(data) {
                 const badges = {
-                    'urgente': '<span class="badge bg-danger">Urgente</span>',
-                    'normal': '<span class="badge bg-primary">Normal</span>',
-                    'baja': '<span class="badge bg-secondary">Baja</span>'
+                  'urgente': '<span class="badge bg-gradient-secondary">Urgente</span>',
+                  'normal': '<span class="badge bg-gradient-primary">Normal</span>',
+                  'baja': '<span class="badge bg-secondary">Baja</span>'
                 };
                 return badges[data] || '<span class="badge bg-light">N/A</span>';
             }
@@ -132,12 +132,10 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
             data: "estatus", 
             render: function(data) {
                 const badges = {
-                    'borrador': '<span class="badge bg-warning text-dark">Borrador</span>',
-                    'pendiente': '<span class="badge bg-warning">Pendiente</span>',
-                    'aprobada': '<span class="badge bg-success">Aprobada</span>',
-                    'rechazada': '<span class="badge bg-danger">Rechazada</span>',
-                    'en_proceso': '<span class="badge bg-info">En Proceso</span>',
-                    'completada': '<span class="badge bg-dark">Completada</span>'
+                  'borrador': '<span class="badge bg-gradient-warning text-dark">Borrador</span>',
+                  'aprobada': '<span class="badge bg-gradient-success">Aprobada</span>',
+                  'rechazada': '<span class="badge bg-gradient-secondary">Rechazada</span>',
+                  'en_proceso': '<span class="badge bg-gradient-primary">En Proceso</span>'
                 };
                 return badges[data] || '<span class="badge bg-light">N/A</span>';
             }
@@ -148,10 +146,7 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
         { data: "justificacion"},
         { data: "tipo_contrato"},
         { data: "tipo_jornada"},
-        { data: "tipo_modalidad"}, // Nuevo campo para tipo de modalidad
-        // { data: "conocimientos_tecnicos"},
-        // { data: "habilidades_blandas"},
-        // { data: "idiomas"},
+        { data: "tipo_modalidad"},
         { data: "dias_trabajo"},
         { data: "dias_personalizados"},
         { data: "hora_inicio"},
@@ -167,20 +162,43 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
             render: function(data, type, row) {
                 return `
                     <div class="btn-group" role="group">
+                    ${row.estatus !== 'borrador' ? `
                         <button class="btn btn-sm btn-primary btn-ver-requisicion" 
                              data-id="${row.id_requisicion}" title="Ver detalles"
                             data-bs-target="#detallesRequisicionModal"
                             data-bs-toggle="modal">
                             <i class="bi bi-eye"></i>
+                        </button>`
+                        : ""
+                    }
+
+                    ${row.estatus === 'en_proceso' ? `
+                        <button class="btn btn-sm btn-primary bg-gradient-success btn-aprobar-requisicion"
+                            data-id="${row.id_requisicion}"
+                            data-numero="${row.numero_requisicion}"
+                            title="Aprobar">
+                            <i class="bi bi-check-circle"></i>
                         </button>
+                        <button class="btn btn-sm btn-primary bg-gradient-secondary btn-rechazar-requisicion"
+                            data-id="${row.id_requisicion}"
+                            data-numero="${row.numero_requisicion}"
+                            title="Rechazar">
+                            <i class="bi bi-x-circle"></i>
+                        </button>`
+                        : ""
+                    }
+                    
+                    ${row.estatus === 'borrador' ? `
                         <button class="btn btn-sm btn-primary bg-gradient-warning btn-editar-requisicion" 
                             data-id="${row.id_requisicion}" 
-                            data-bs-target="#editarVacanteModal"
+                            data-bs-target="#editarRequisicionModal"
                             data-bs-toggle="modal"
                             title="Editar">
                             <i class="bi bi-pencil"></i>
-                        </button>
-                        ${row.estatus === 'borrador' ? `
+                        </button>`
+                        : ""
+                    }
+                        ${row.estatus === '' ? `
                         <button class="btn btn-sm btn-primary bg-gradient-secondary btn-eliminar-requisicion" 
                             data-id="${row.id_requisicion}" title="Eliminar">
                             <i class="bi bi-trash"></i>
@@ -191,7 +209,7 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
                 `;
             }
         },
-        { data: "activo", visible: false }, // Columna para el estado activo/inactivo
+        { data: "activo", visible: false },
     ],
     columnDefs: [
         // Ajustes de estilo para todas las columnas
@@ -209,9 +227,6 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
         { targets: 9, title: "Tipo Contrato", visible: false },
         { targets: 10, title: "Tipo Jornada", visible: false },
         { targets: 11, title: "Tipo Modalidad", visible: false },
-        // { targets: 14, title: "Conocimientos Técnicos", visible: false },
-        // { targets: 15, title: "Habilidades Blandas", visible: false },
-        // { targets: 16, title: "Idiomas", visible: false },
         { targets: 12, title: "Días de Trabajo", visible: false },
         { targets: 13, title: "Días Personalizados", visible: false },
         { targets: 14, title: "Hora Inicio", visible: false },
@@ -222,7 +237,7 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
         { targets: 19, title: "Fecha Aprobación", visible: false },
         { targets: 20, title: "Observaciones Aprobación", visible: false },
         { targets: 21, title: "Acciones", className: "all" },
-        { targets: 22, title: "Activo", visible: false } // Columna para el estado activo/inactivo
+        { targets: 22, title: "Activo", visible: false }
     ],
     dom: 'Bl<"dataTables_toolbar">frtip',
     buttons: [
@@ -233,12 +248,6 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
                 "data-bs-toggle": "modal",
                 "data-bs-target": "#",
             },
-            // action: function () {
-            //     // Limpiar formulario
-            //     $('#formRegistrarVacante')[0].reset();
-            //     $('#usuario_solicitante_id').val($_SESSION.id || userId);
-            //     $("#registrarVacanteModal").modal("show");
-            // },
         }
     ],
 });
@@ -310,7 +319,7 @@ tableCatDepartamentos = $("#tableCatDepartamentos").DataTable({
           },
           },
           {
-          text: '<i class="bi bi-funnel me-2 id="iconoFiltroDepartamentos" title="Restablecer filtros"></i>Filtrar <i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;"></i>',
+          text: '<i class="bi bi-funnel me-2 id="iconoFiltroDepartamentos" title="Restablecer filtros"></i>Filtrar <i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivosDep" style="cursor: pointer; margin-left: 8px;"></i>',
           className: "btn btn-warning bg-gradient-filter d-flex",
           action: function () {
             //No hacer nada, el toggle se maneja por separado
@@ -680,7 +689,7 @@ tableCatMotivos = $("#tableCatMotivos").DataTable({
           },
           },
           {
-          text: '<i class="bi bi-funnel me-2"></i>Filtrar <i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;" title="Mostrando activos - Click para ver inactivos"></i>',
+          text: '<i class="bi bi-funnel me-2"></i>Filtrar <i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivosMov" style="cursor: pointer; margin-left: 8px;" title="Mostrando activos - Click para ver inactivos"></i>',
           className: "btn btn-warning bg-gradient-filter d-flex align-items-center",
           action: function () {
             // No hacer nada, el toggle se maneja por separado
@@ -761,7 +770,7 @@ tableCatBlandas = $("#tableCatBlandas").DataTable({
           },
           },
           {
-          text: '<i class="bi bi-funnel me-2"></i>Filtrar <i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;"></i>',
+          text: '<i class="bi bi-funnel me-2"></i>Filtrar <i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivosBla" style="cursor: pointer; margin-left: 8px;"></i>',
           className: "btn btn-warning bg-gradient-filter d-flex align-items-center",
           action: function () {
           },
@@ -841,7 +850,7 @@ tableCatTecnicas = $("#tableCatTecnicas").DataTable({
           },
           },
           {
-          text: '<i class="bi bi-funnel me-2"></i>Filtrar <i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivos" style="cursor: pointer; margin-left: 8px;"></i>',
+          text: '<i class="bi bi-funnel me-2"></i>Filtrar <i class="bi bi-toggle-on fs-5 text-secondary" id="toggleFiltroActivosTec" style="cursor: pointer; margin-left: 8px;"></i>',
           className: "btn btn-warning bg-gradient-filter d-flex align-items-center",
           action: function () {
           },
@@ -878,6 +887,12 @@ $(document).on('show.bs.modal', '#registrarVacanteModal', function () {
     cargarDepartamentos('#departamento');
     cargarPuestos('#puesto');
     cargarMotivos('#motivo');
+});
+
+$(document).on('show.bs.modal', '#editarRequisicionModal', function () {
+    cargarDepartamentos('#editarDepartamento');
+    cargarPuestos('#editarPuesto');
+    cargarMotivos('#editarMotivo');
 });
 
 // Función genérica para cargar departamentos en cualquier select
@@ -957,7 +972,11 @@ function cargarMotivos(selectId, incluirTodos = false) {
                             return;
                         }
                         
-                        select.empty();
+                        // Solo limpiar el select si está dentro del modal de registrar vacante
+                        if ($(selectId).closest('#registrarVacanteModal').length > 0) {
+                          select.empty();
+                        }
+
                         select.append('<option value="">Seleccionar motivo...</option>');
                         
                         if (incluirTodos) {
@@ -1122,6 +1141,142 @@ function cargarDepartamentosDropdown() {
     }
   });
 }
+
+// ==================== EVENTOS PARA APROBACIÓN/RECHAZO DE REQUISICIONES ====================
+
+// Eventos para botones de acción en la tabla de requisiciones
+$(document).on("click", ".btn-aprobar-requisicion", function (e) {
+  e.preventDefault();
+  e.stopImmediatePropagation();
+
+  let idRequisicion = $(this).data("id");
+  let numeroRequisicion = $(this).data("numero");
+  
+  console.log("Aprobar requisición desde tabla:", idRequisicion);
+
+  if (!idRequisicion) {
+    alertToast("ID de requisición no válido", "warning", 3000);
+    return;
+  }
+
+  // Buscar la requisición en los datos de la tabla
+  let requisicionData = null;
+  if (tableCatRequisiciones && tableCatRequisiciones.data()) {
+    requisicionData = tableCatRequisiciones
+      .data()
+      .toArray()
+      .find((req) => req.id_requisicion == idRequisicion);
+  }
+
+  if (!requisicionData) {
+    alertToast("No se encontraron datos de la requisición", "warning", 3000);
+    return;
+  }
+
+  if (requisicionData.estatus !== "en_proceso") {
+    alertToast(
+      "Solo se pueden aprobar requisiciones en estado 'En Proceso'",
+      "warning",
+      4000
+    );
+    return;
+  }
+
+  // Solicitar observaciones para la aprobación (opcional)
+  Swal.fire({
+    title: "Aprobar Requisición",
+    text: `Requisición: ${numeroRequisicion || requisicionData.numero_requisicion}`,
+    input: "textarea",
+    inputPlaceholder: "Observaciones de aprobación (opcional)...",
+    inputAttributes: {
+      "aria-label": "Observaciones de aprobación",
+    },
+    showCancelButton: true,
+    confirmButtonText: "Aprobar",
+    cancelButtonText: "Cancelar",
+    confirmButtonColor: "#28a745",
+    cancelButtonColor: "#6c757d",
+    allowOutsideClick: false,
+    preConfirm: (observaciones) => {
+      // Las observaciones son opcionales para aprobación
+      return observaciones || "Sin observaciones";
+    }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      procesarAprobacionRechazoTabla(
+        "aprobar",
+        idRequisicion,
+        result.value
+      );
+    }
+  });
+});
+
+$(document).on("click", ".btn-rechazar-requisicion", function (e) {
+  e.preventDefault();
+  e.stopImmediatePropagation();
+
+  let idRequisicion = $(this).data("id");
+  console.log("Rechazar requisición desde tabla:", idRequisicion);
+
+  if (!idRequisicion) {
+    alertToast("ID de requisición no válido", "warning", 3000);
+    return;
+  }
+
+  // Buscar la requisición en los datos de la tabla
+  let requisicionData = null;
+  if (tableCatRequisiciones && tableCatRequisiciones.data()) {
+    requisicionData = tableCatRequisiciones
+      .data()
+      .toArray()
+      .find((req) => req.id_requisicion == idRequisicion);
+  }
+
+  if (!requisicionData) {
+    alertToast("No se encontraron datos de la requisición", "warning", 3000);
+    return;
+  }
+
+  if (requisicionData.estatus !== "en_proceso") {
+    alertToast(
+      "Solo se pueden rechazar requisiciones en estado Pendiente",
+      "warning",
+      4000
+    );
+    return;
+  }
+
+  // Solicitar observaciones para el rechazo
+  Swal.fire({
+    title: "Rechazar Requisición",
+    text: `Ingrese las observaciones para rechazar la requisición ${requisicionData.numero_requisicion}:`,
+    input: "textarea",
+    inputPlaceholder:
+      "Las observaciones son obligatorias para rechazar una requisición...",
+    inputAttributes: {
+      "aria-label": "Observaciones de rechazo",
+    },
+    showCancelButton: true,
+    confirmButtonText: "Rechazar",
+    cancelButtonText: "Cancelar",
+    confirmButtonColor: "#dc3545",
+    cancelButtonColor: "#6c757d",
+    inputValidator: (value) => {
+      if (!value || value.trim() === "") {
+        return "Las observaciones son obligatorias para rechazar una requisición";
+      }
+    },
+  }).then((result) => {
+    if (result.isConfirmed && result.value && result.value.trim()) {
+      procesarAprobacionRechazoTabla(
+        "rechazar",
+        idRequisicion,
+        result.value.trim()
+      );
+    }
+  });
+});
 
 
 
@@ -1777,10 +1932,11 @@ function cargarDetallesRequisicion(idRequisicion) {
                 $('#detalle_puesto').text(data.puesto || '-');
                 $('#detalle_tipo_contrato').text(formatearTipoContrato(data.tipo_contrato) || '-');
                 $('#detalle_tipo_jornada').text(formatearTipoJornada(data.tipo_jornada) || '-');
+                $('#detalle_tipo_modalidad').text(formatearTipoModalidad(data.tipo_modalidad) || '-');
                 
                 // Llenar perfil deseado
                 $('#detalle_escolaridad_minima').text(formatearEscolaridad(data.escolaridad_minima) || '-');
-                $('#detalle_experiencia_anos').text(formatearExperiencia(data.experiencia_anos) || '-');
+                $('#detalle_experiencia_anos').text(formatearExperiencia(data.experiencia_anios) || '-');
                 $('#detalle_experiencia_area').text(data.experiencia_area || '-');
                 $('#detalle_idiomas').text(data.idiomas || '-');
                 // Llenar conocimientos técnicos y habilidades (usar divs en lugar de p)
@@ -1788,9 +1944,10 @@ function cargarDetallesRequisicion(idRequisicion) {
                 $('#detalle_habilidades_blandas').text(data.habilidades_blandas || '-');
                 
                 // Llenar condiciones laborales
+                $('#detalle_dias_trabajo').text(formatearDiasTrabajo(data.dias_trabajo) || '-');
+                $('#detalle_dias_personalizados').text(data.dias_personalizados || '-');
                 $('#detalle_horario_trabajo').text(data.horario_trabajo || '-');
-                $('#detalle_rango_salarial').text(data.rango_salarial || '-');
-                
+                                
                 // Llenar justificación (usar div en lugar de p)
                 $('#detalle_justificacion').text(data.justificacion || '-');
                 
@@ -1830,11 +1987,79 @@ function cargarDetallesRequisicion(idRequisicion) {
     });
 }
 
+// === FUNCIÓN PARA ACTUALIZAR TEXTOS DE LA SECCIÓN DE OBSERVACIONES SEGÚN EL ESTATUS ===
+function actualizarTextosSeccionObservaciones(estatus) {
+    const configuraciones = {
+        'aprobada': {
+            titulo: 'Aprobación y Observaciones',
+            usuario: 'Aprobado por:',
+            fecha: 'Fecha de Aprobación:',
+            observaciones: 'Observaciones de Aprobación:',
+            colorHeader: 'bg-gradient-details'
+            
+        },
+        'rechazada': {
+            titulo: 'Rechazo y Observaciones',
+            usuario: 'Rechazado por:',
+            fecha: 'Fecha de Rechazo:',
+            observaciones: 'Observaciones de Rechazo:',
+            colorHeader: 'bg-gradient-details'
+            },
+        'en_proceso': {
+            titulo: 'Estado y Observaciones',
+            usuario: 'Evaluado por:',
+            fecha: 'Fecha de Evaluación:',
+            observaciones: 'Observaciones de Evaluación:',
+            colorHeader: 'bg-gradient-details'
+            
+        },
+        'completada': {
+            titulo: 'Finalización y Observaciones',
+            usuario: 'Completado por:',
+            fecha: 'Fecha de Finalización:',
+            observaciones: 'Observaciones de Finalización:',
+            colorHeader: 'bg-gradient-details'
+            
+        },
+        'borrador': {
+            titulo: 'Estado y Observaciones',
+            usuario: 'Creado por:',
+            fecha: 'Fecha de Creación:',
+            observaciones: 'Observaciones:',
+            colorHeader: 'bg-gradient-details'
+            
+        },
+        'default': {
+            titulo: 'Estado y Observaciones',
+            usuario: 'Procesado por:',
+            fecha: 'Fecha de Proceso:',
+            observaciones: 'Observaciones:',
+            colorHeader: 'bg-gradient-details'
+            
+        }
+    };
+    
+    const config = configuraciones[estatus] || configuraciones['default'];
+    
+    // Actualizar textos
+    $("#tituloSeccionObservaciones").text(config.titulo);
+    $("#etiquetaUsuarioAccion").text(config.usuario);
+    $("#etiquetaFechaAccion").text(config.fecha);
+    $("#etiquetaObservacionesAccion").text(config.observaciones);
+    
+    // Actualizar color del header de la card
+    const cardHeader = $("#tituloSeccionObservaciones").closest('.card-header');
+    cardHeader.removeClass('bg-gradient-details bg-success bg-danger bg-info bg-dark bg-warning bg-secondary');
+    cardHeader.addClass(config.colorHeader);
+    
+    console.log(`Textos de sección actualizados para estatus: ${estatus}`);
+}
+
 // Funciones auxiliares para formatear datos en el modal de detalles
 function formatearPrioridadDetalle(prioridad) {
     const badges = {
-        'urgente': '<span class="badge bg-danger">Urgente</span>',
-        'normal': '<span class="badge bg-primary">Normal</span>',
+        'urgente': '<span class="badge bg-gradient-secondary">Urgente</span>',
+        'normal': '<span class="badge bg-gradient-primary">Normal</span>',
         'baja': '<span class="badge bg-secondary">Baja</span>'
     };
     return badges[prioridad] || '<span class="badge bg-light text-dark">N/A</span>';
@@ -1842,12 +2067,10 @@ function formatearPrioridadDetalle(prioridad) {
 
 function formatearEstatusDetalle(estatus) {
     const badges = {
-        'borrador': '<span class="badge bg-light text-dark">Borrador</span>',
-        'pendiente': '<span class="badge bg-warning">Pendiente</span>',
-        'aprobada': '<span class="badge bg-success">Aprobada</span>',
-        'rechazada': '<span class="badge bg-danger">Rechazada</span>',
-        'en_proceso': '<span class="badge bg-info">En Proceso</span>',
-        'completada': '<span class="badge bg-dark">Completada</span>'
+        'borrador': '<span class="badge bg-gradient-warning text-dark">Borrador</span>',
+        'aprobada': '<span class="badge bg-gradient-success">Aprobada</span>',
+        'rechazada': '<span class="badge bg-gradient-secondary">Rechazada</span>',
+        'en_proceso': '<span class="badge bg-gradient-primary">En Proceso</span>'
     };
     return badges[estatus] || '<span class="badge bg-light text-dark">N/A</span>';
 }
@@ -1866,6 +2089,26 @@ function formatearTipoJornada(tipo) {
         'medio_tiempo': 'Medio Tiempo'
     };
     return tipos[tipo] || tipo;
+}
+
+function formatearTipoModalidad(tipo) {
+  const tipos = {
+    'presencial': 'Presencial',
+    'remoto': 'Remoto',
+    'hibrido': 'Híbrido'
+  };
+  return tipos[tipo] || tipo;
+}
+
+function formatearDiasTrabajo(dia) {
+  const dias = {
+    'L-V': 'Lunes a Viernes',
+    'L-S': 'Lunes a Sábado',
+    'L-D': 'Lunes a Domingo',
+    'fines_semana': 'Fines de Semana',
+    'otro': 'Personalizado'
+  };
+  return dias[dia] || dia;
 }
 
 function formatearEscolaridad(escolaridad) {
@@ -1911,6 +2154,43 @@ $(document).on('click', '.btn-ver-requisicion', function() {
     $("#detallesRequisicionModal").modal("show");
 });
 
+// Event handler para editar requisición desde la tabla
+$(document).on('click', '.btn-editar-requisicion', function() {
+    const requisicionId = $(this).data('id');
+    console.log("Editando requisición desde tabla:", requisicionId);
+    
+    if (!requisicionId) {
+        alertToast("Error: No se encontró el ID de la requisición", "error", 3000);
+        return;
+    }
+    
+    // Mostrar indicador de carga en el botón
+    const originalHtml = $(this).html();
+    $(this).html('<i class="spinner-border spinner-border-sm"></i>');
+    $(this).prop('disabled', true);
+    
+    // Obtener los datos de la requisición
+    obtenerRequisicionPorId(requisicionId)
+        .then(requisicionData => {
+            console.log("Datos de requisición obtenidos:", requisicionData);
+            
+            // Cargar el formulario de edición con los datos de la requisición
+            llenarModalEditarRequisicion(requisicionData);
+            
+            // Mostrar el modal de edición
+            $("#editarRequisicionModal").modal("show");
+        })
+        .catch(error => {
+            console.error("Error al obtener datos de la requisición:", error);
+            alertToast("Error al cargar los datos de la requisición", "error", 3000);
+        })
+        .finally(() => {
+            // Restaurar botón
+            $(this).html(originalHtml);
+            $(this).prop('disabled', false);
+        });
+});
+
 // Función para llenar el modal de detalles con los datos de la requisición
 function llenarModalDetallesRequisicion(data) {
     try {
@@ -1937,17 +2217,21 @@ function llenarModalDetallesRequisicion(data) {
         $("#puestoSolicitado").text(data.puesto_nombre || 'N/A');
         $("#tipoContrato").text(formatearTipoContrato(data.tipo_contrato) || 'N/A');
         $("#tipoJornada").text(formatearTipoJornada(data.tipo_jornada) || 'N/A');
-        $("#diaTrabajo").text(data.dias_trabajo || 'N/A');
-        $("#diaPersonalizado").text(data.dia_personalizado || 'N/A');
+        $("#tipoModalidad").text(formatearTipoModalidad(data.tipo_modalidad) || 'N/A');
+        $("#diaTrabajo").text(formatearDiasTrabajo(data.dias_trabajo) || 'N/A');
+        if (data.dias_personalizados && data.dias_personalizados !== '' && data.dias_personalizados !== 'N/A') {
+            $("#diaPersonalizado").text(data.dias_personalizados);
+            $("#diaPersonalizadoContainer").show();
+        } else {
+            $("#diaPersonalizadoContainer").hide();
+        }
         $("#horaInicio").text(data.hora_inicio || 'N/A');
         $("#horaFin").text(data.hora_fin || 'N/A');
-        $("#salarioMin").text(data.salario_minimo || 'N/A');
-        $("#salarioMax").text(data.salario_maximo || 'N/A');
         
         // === REQUISITOS ACADÉMICOS ===
         $("#escolaridadMinima").text(formatearEscolaridad(data.escolaridad_minima) || 'N/A');
         $("#experienciaAnos").text(formatearExperiencia(data.experiencia_anios) || 'N/A');
-        $("#idiomasRequeridos").text(data.idiomas || 'Español'); // Asumir español si no se especifica
+        $("#idiomasRequeridos").text(data.idiomas || 'Español');
         
         // === CONOCIMIENTOS Y HABILIDADES ===
         $("#conocimientosTecnicos").text(data.conocimientos_tecnicos || 'No especificado');
@@ -1956,29 +2240,11 @@ function llenarModalDetallesRequisicion(data) {
         // === JUSTIFICACIÓN ===
         $("#justificacionRequisicion").text(data.justificacion || 'Sin descripción');
         
-        // === INFORMACIÓN DE APROBACIÓN ===
-        // Solo mostrar si está aprobada y hay datos de aprobación
-        if (data.estatus === 'aprobada' && (data.usuario_aprobador_id || data.fecha_aprobacion)) {
-            $("#infoAprobacion").show();
-            $("#usuarioAprobador").text(data.usuario_aprobador_nombre || `ID: ${data.usuario_aprobador_id}` || 'N/A');
-            
-            let fechaAprobacion = 'N/A';
-            if (data.fecha_aprobacion) {
-                fechaAprobacion = formatearFecha(data.fecha_aprobacion);
-            }
-            $("#fechaAprobacion").text(fechaAprobacion);
-            
-            // Mostrar observaciones de aprobación si existen
-            if (data.observaciones_aprobacion) {
-                $("#observacionesAprobacion").show();
-                $("#observacionesTexto").text(data.observaciones_aprobacion);
-            } else {
-                $("#observacionesAprobacion").hide();
-            }
-        } else {
-            $("#infoAprobacion").hide();
-            $("#observacionesAprobacion").hide();
-        }
+        // === INFORMACIÓN DE APROBACIÓN/RECHAZO - DINÁMICO SEGÚN ESTATUS ===
+        actualizarTextosSeccionObservaciones(data.estatus);
+        
+        $("#fechaAprobacion").text(data.fecha_aprobacion ? formatearFecha(data.fecha_aprobacion) : 'N/A');
+        $("#observacionesAprobacion").text(data.observaciones_aprobacion || 'Sin observaciones');
         
         console.log("Modal de detalles llenado correctamente");
         
@@ -1987,6 +2253,468 @@ function llenarModalDetallesRequisicion(data) {
         alertToast("Error al cargar los detalles de la requisición", "error", 3000);
     }
 }
+
+// Función para llenar el modal de edición de requisiciones
+function llenarModalEditarRequisicion(data) {
+  try {
+    console.log("Llenando modal de edición con datos:", data);
+    
+    // === CAMPOS OCULTOS ===
+    $("#editar_id_requisicion").val(data.id_requisicion || '');
+    // $("#editar_numero_requisicion").val(data.numero_requisicion || '');
+    // $("#editar_usuario_solicitante_id").val(data.usuario_solicitante_id || '');
+    // $("#editar_fecha_creacion").val(data.fecha_creacion || '');
+    
+    // === INFORMACIÓN DE LA REQUISICIÓN ===
+    $("#editarNumeroDisplay").val(data.numero_requisicion || 'N/A');
+    
+    // Formatear fecha de creación
+    let fechaCreacion = 'N/A';
+    if (data.fecha_creacion) {
+      fechaCreacion = formatearFecha(data.fecha_creacion);
+    }
+    $("#editarFechaDisplay").val(fechaCreacion);
+    $("#editarSolicitanteDisplay").val(data.usuario_solicitante_nombre || `ID: ${data.usuario_solicitante_id}` || 'N/A');
+    
+    // === INFORMACIÓN GENERAL ===
+    $("#editarEstatus").val(data.estatus || 'borrador');
+    $("#editarPrioridad").val(data.prioridad || 'normal');
+    
+    // === DETALLES DEL PUESTO ===
+    $("#editarTipoContrato").val(data.tipo_contrato || '');
+    $("#editarTipoJornada").val(data.tipo_jornada || '');
+    $("#editarTipoModalidad").val(data.tipo_modalidad || '');
+    
+    // === CONDICIONES LABORALES ===
+    $("#editarDiasTrabajo").val(data.dias_trabajo || '');
+    $("#editarDiasPersonalizados").val(data.dias_personalizados || '');
+    $("#editarHoraInicio").val(data.hora_inicio || '');
+    $("#editarHoraFin").val(data.hora_fin || '');
+    
+    // === JUSTIFICACIÓN ===
+    $("#editarJustificacion").val(data.justificacion || '');
+    
+    // === OBSERVACIONES DE APROBACIÓN ===
+    $("#editarObservacionesAprobacion").val(data.observaciones_aprobacion || '');
+    
+    // Mostrar/ocultar sección de observaciones según el estatus
+    if (data.estatus === 'aprobada' || data.estatus === 'rechazada' || data.estatus === 'en_proceso') {
+      $("#editarSeccionObservaciones").show();
+      $("#editarEstatusDisplay").html(formatearEstatusBadge(data.estatus));
+    } else {
+      $("#editarSeccionObservaciones").hide();
+    }
+
+    // CORREGIDO: Cargar departamentos y DESPUÉS seleccionar el correcto
+  cargarDepartamentos('#editarDepartamento')
+    .then(function(departamentos) {
+      console.log('Departamentos cargados para edición de requisición:', departamentos.length);
+      
+      // Preseleccionar el departamento DESPUÉS de cargar las opciones
+      $("#editarDepartamento").val(data.id_departamento);
+      console.log(`Departamento preseleccionado: ${data.id_departamento}`);
+       // Cargar puestos del departamento seleccionado
+        if (data.id_departamento) {
+          return cargarPuestos('#editarPuesto', false, data.id_departamento);
+        }
+      })
+      .then(function() {
+        // Preseleccionar el puesto DESPUÉS de cargar las opciones
+        if (data.id_puesto) {
+          $("#editarPuesto").val(data.id_puesto);
+          console.log(`Puesto preseleccionado: ${data.id_puesto}`);
+        }
+      })
+      .catch(error => {
+        console.error("Error al cargar catálogos:", error);
+        alertToast("Error al cargar los catálogos", "error", 3000);
+      });
+    
+    cargarMotivos('#editarMotivo')
+    .then(function(motivos) {
+      console.log('Motivos cargados para edición de requisición:', motivos.length);
+      // Preseleccionar el motivo DESPUÉS de cargar las opciones
+      $("#editarMotivo").val(data.id_motivo);
+      console.log(`Motivo preseleccionado: ${data.id_motivo}`);
+    })
+    .catch(error => {
+      console.error("Error al cargar motivos:", error);
+      alertToast("Error al cargar los motivos", "error", 3000);
+    });
+    
+    // === MANEJAR DÍAS DE TRABAJO ===
+    // Mostrar/ocultar campos según el tipo de días seleccionado
+    if (data.dias_trabajo === 'otro') {
+      $("#diasPersonalizadosContainer").show();
+      $("#editarHorasTrabajoContainer").show();
+      $("#editarDiasPersonalizados").attr('required', true);
+      // $("#editarDiasTrabajoContainer").hide();
+      // Remover required del select de días de trabajo
+      $("#editarDiasTrabajo").removeAttr('required');
+    } else if (data.dias_trabajo && data.dias_trabajo !== '') {
+      $("#diasPersonalizadosContainer").hide();
+      $("#editarHorasTrabajoContainer").show();
+    } else {
+      $("#diasPersonalizadosContainer").hide();
+      $("#editarHorasTrabajoContainer").hide();
+    }
+    
+  } catch (error) {
+    console.error("Error al llenar el modal de edición:", error);
+    alertToast("Error al cargar los datos de la requisición", "error", 3000);
+  }
+}
+
+// Función para obtener los datos de una requisición específica
+function obtenerRequisicionPorId(idRequisicion) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: '../../../api/recursos_humanos_api.php',
+            type: 'POST',
+            data: { api: 2 }, // Case 2 para obtener todas las requisiciones
+            success: function(response) {
+                try {
+                    const data = JSON.parse(response);
+                    if (data.response && data.response.data) {
+                        // Filtrar por ID específico
+                        const requisicion = data.response.data.find(req => req.id_requisicion == idRequisicion);
+                        if (requisicion) {
+                            resolve(requisicion);
+                        } else {
+                            reject('Requisición no encontrada');
+                        }
+                    } else {
+                        reject('Error en respuesta del servidor');
+                    }
+                } catch (error) {
+                    reject('Error al parsear respuesta');
+                }
+            },
+            error: function(xhr, status, error) {
+                reject('Error de conexión');
+            }
+        });
+    });
+}
+
+
+// === FUNCIÓN PARA ACTUALIZAR ETIQUETAS EN EL FORMULARIO DE EDICIÓN ===
+function actualizarEtiquetasFormularioEdicion(estatus) {
+    const configuraciones = {
+        'aprobada': {
+            etiqueta: 'Observaciones de Aprobación/Rechazo',
+            placeholder: 'Agregar observaciones sobre la aprobación o comentarios adicionales...',
+            ayuda: 'Opcional: Agregue comentarios sobre la decisión de aprobación'
+        },
+        'rechazada': {
+            etiqueta: 'Observaciones de Rechazo',
+            placeholder: 'Especificar las razones del rechazo de la requisición...',
+            ayuda: 'Obligatorio: Especifique las razones del rechazo'
+        },
+        'en_proceso': {
+            etiqueta: 'Observaciones de Evaluación',
+            placeholder: 'Agregar comentarios sobre el proceso de evaluación...',
+            ayuda: 'Opcional: Agregue observaciones sobre el proceso de evaluación'
+        },
+        'borrador': {
+            etiqueta: 'Observaciones',
+            placeholder: 'Agregar observaciones o comentarios...',
+            ayuda: 'Opcional: Agregue comentarios adicionales'
+        },
+        'completada': {
+            etiqueta: 'Observaciones de Finalización',
+            placeholder: 'Agregar observaciones sobre la finalización...',
+            ayuda: 'Opcional: Agregue comentarios sobre la finalización'
+        }
+    };
+    
+    const config = configuraciones[estatus] || configuraciones['borrador'];
+    
+    // Actualizar etiqueta
+    $('label[for="editarObservacionesAprobacion"]').html(`<i class="bi bi-chat-text me-1"></i>${config.etiqueta}`);
+    
+    // Actualizar placeholder
+    $('#editarObservacionesAprobacion').attr('placeholder', config.placeholder);
+    
+    // Actualizar texto de ayuda
+    $('#editarSeccionObservaciones .form-text').html(`<i class="bi bi-pencil me-1"></i>${config.ayuda}`);
+    
+    console.log(`Etiquetas del formulario actualizadas para estatus: ${estatus}`);
+}
+
+// Función para procesar aprobación/rechazo desde la tabla
+function procesarAprobacionRechazoTabla(accion, idRequisicion, observaciones) {
+  console.log(
+    `Procesando ${accion} de requisición desde tabla:`,
+    idRequisicion
+  );
+
+  // Buscar y deshabilitar los botones de la fila específica
+  let btnAprobar = $(`.btn-aprobar-requisicion[data-id="${idRequisicion}"]`);
+  let btnRechazar = $(`.btn-rechazar-requisicion[data-id="${idRequisicion}"]`);
+
+  btnAprobar.prop("disabled", true);
+  btnRechazar.prop("disabled", true);
+
+  // Obtener los datos de la requisición para la actualización
+  obtenerRequisicionPorId(idRequisicion)
+    .then(requisicionData => {
+      console.log("Datos de requisición obtenidos para aprobación/rechazo:", requisicionData);
+      
+      // Determinar el nuevo estatus
+      const nuevoEstatus = accion === "aprobar" ? "aprobada" : "rechazada";
+      
+      // Preparar datos para la API usando el case 1 (actualización)
+      const datosActualizacion = {
+        api: 1, // Case 1 para actualizar requisiciones
+        id_requisicion: idRequisicion,
+        id_departamento: requisicionData.id_departamento,
+        id_motivo: requisicionData.id_motivo,
+        usuario_solicitante_id: requisicionData.usuario_solicitante_id,
+        prioridad: requisicionData.prioridad || 'normal',
+        justificacion: requisicionData.justificacion || 'Actualización de estatus',
+        estatus: nuevoEstatus,
+        id_puesto: requisicionData.id_puesto,
+        tipo_contrato: requisicionData.tipo_contrato,
+        tipo_jornada: requisicionData.tipo_jornada,
+        tipo_modalidad: requisicionData.tipo_modalidad,
+        idiomas: requisicionData.idiomas,
+        dias_trabajo: requisicionData.dias_trabajo,
+        dias_personalizados: requisicionData.dias_personalizados,
+        hora_inicio: requisicionData.hora_inicio,
+        hora_fin: requisicionData.hora_fin,
+        observaciones_aprobacion: observaciones
+      };
+      
+      console.log("Datos preparados para actualización:", datosActualizacion);
+      
+      $.ajax({
+        url: "../../../api/recursos_humanos_api.php",
+        type: "POST",
+        dataType: "json",
+        data: datosActualizacion,
+        success: function (response) {
+          console.log(`Respuesta de ${accion} desde tabla:`, response);
+
+          // Verificar condiciones de éxito
+          let esExitoso = false;
+
+          if (response.response && response.response.code == 1) {
+            esExitoso = true;
+          } else if (response.code == 1) {
+            esExitoso = true;
+          }
+
+          if (esExitoso) {
+            // Éxito
+            let mensaje = accion === "aprobar" ? "aprobada" : "rechazada";
+            alertToast(`¡Requisición ${mensaje} exitosamente!`, "success", 3000);
+
+            // Recargar la tabla principal
+            setTimeout(function () {
+              try {
+                if (
+                  typeof tableCatRequisiciones !== "undefined" &&
+                  tableCatRequisiciones
+                ) {
+                  tableCatRequisiciones.ajax.reload(function (json) {
+                    console.log(
+                      "Tabla de requisiciones recargada después de aprobación/rechazo desde tabla"
+                    );
+                  }, false);
+                }
+              } catch (error) {
+                console.error("Error al recargar tabla principal:", error);
+              }
+            }, 500);
+          } else {
+            // Error
+            console.error(`Error al ${accion} requisión desde tabla:`, response);
+            let mensajeError =
+              response.response && response.response.message
+                ? response.response.message
+                : `Error al ${accion} la requisición`;
+            alertToast(mensajeError, "error", 4000);
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error(
+            `Error AJAX al ${accion} requisición desde tabla:`,
+            xhr.responseText
+          );
+          alertToast(
+            `Error de conexión al ${accion} la requisición`,
+            "error",
+            4000
+          );
+        },
+        complete: function () {
+          // Rehabilitar botones
+          btnAprobar.prop("disabled", false);
+          btnRechazar.prop("disabled", false);
+        },
+      });
+    })
+    .catch(error => {
+      console.error("Error al obtener datos de la requisición:", error);
+      alertToast("Error al obtener los datos de la requisición", "error", 3000);
+      
+      // Rehabilitar botones en caso de error
+      btnAprobar.prop("disabled", false);
+      btnRechazar.prop("disabled", false);
+    });
+}
+
+// Event listener para cambio de días de trabajo en el modal de edición
+$(document).on('change', '#editarDiasTrabajo', function() {
+    const diasTrabajo = $(this).val();
+    console.log("Días de trabajo seleccionados en edición:", diasTrabajo);
+    
+    if (diasTrabajo === 'Otro') {
+        $("#diasPersonalizadosContainer").show();
+        $("#editarHorasTrabajoContainer").show();
+        $("#editarDiasPersonalizados").attr('required', true);
+    } else if (diasTrabajo && diasTrabajo !== '') {
+        $("#diasPersonalizadosContainer").hide();
+        $("#editarHorasTrabajoContainer").show();
+        $("#editarDiasPersonalizados").attr('required', false);
+    } else {
+        $("#diasPersonalizadosContainer").hide();
+        $("#editarHorasTrabajoContainer").hide();
+        $("#editarDiasPersonalizados").attr('required', false);
+    }
+});
+
+// Event listener para cambio de departamento en el modal de edición (filtrar puestos)
+$(document).on('change', '#editarDepartamento', function() {
+    const departamentoId = $(this).val();
+    console.log("Departamento seleccionado en edición:", departamentoId);
+    
+    if (departamentoId && departamentoId !== '') {
+        cargarPuestos('#editarPuesto', false, departamentoId);
+    } else {
+        // Si no se selecciona departamento, cargar todos los puestos
+        cargarPuestos('#editarPuesto');
+    }
+});
+
+// === EVENTO PARA MANEJAR CAMBIO DE ESTATUS ===
+$(document).on('change', '#editarEstatus', function() {
+    const estatusSeleccionado = $(this).val();
+    const seccionObservaciones = $('#editarSeccionObservaciones');
+    const estatusDisplay = $('#editarEstatusDisplay');
+    
+    console.log('Estado seleccionado:', estatusSeleccionado);
+    
+    // Limpiar mensajes anteriores
+    $('#mensaje-ayuda-estado').remove();
+    
+    // Actualizar el badge de estado
+    actualizarBadgeEstado(estatusSeleccionado, estatusDisplay);
+    
+    // Mostrar/ocultar sección de observaciones según el estado
+    if (estatusSeleccionado && estatusSeleccionado !== 'borrador') {
+        // Mostrar sección de observaciones con animación
+        seccionObservaciones.slideDown(300);
+        
+        // Mostrar mensaje de ayuda según el estado
+        if (estatusSeleccionado === 'en_proceso') {
+            mostrarMensajeAyuda('La requisición está en proceso de evaluación. Al actualizar la requisición tendrá que esperar a que un supervisor tome acciones.', 'info');
+        } else if (estatusSeleccionado === 'aprobada') {
+            mostrarMensajeAyuda('La requisición ha sido aprobada. Agrega observaciones sobre la aprobación.', 'success');
+        } else if (estatusSeleccionado === 'rechazada') {
+            mostrarMensajeAyuda('La requisición ha sido rechazada. Es necesario especificar las razones del rechazo.', 'warning');
+        }
+        
+    } else {
+        // Ocultar sección de observaciones
+        seccionObservaciones.slideUp(300);
+        
+        // Limpiar campos de observaciones
+        $('#editarObservacionesAprobacion').val('');
+    }
+});
+
+// === FUNCIÓN PARA ACTUALIZAR BADGE DE ESTADO ===
+function actualizarBadgeEstado(estado, elemento) {
+    const badges = {
+        'borrador': '<span class="badge bg-gradient-warning text-dark">Borrador</span>',
+        'aprobada': '<span class="badge bg-gradient-success">Aprobada</span>',
+        'rechazada': '<span class="badge bg-gradient-secondary">Rechazada</span>',
+        'en_proceso': '<span class="badge bg-gradient-primary">En Proceso</span>'
+    };
+    
+    elemento.html(badges[estado] || '<span class="badge bg-secondary fs-6">Desconocido</span>');
+}
+
+// === FUNCIÓN PARA MOSTRAR MENSAJES DE AYUDA ===
+function mostrarMensajeAyuda(mensaje, tipo) {
+    // Remover mensaje anterior si existe
+    $('#mensaje-ayuda-estado').remove();
+    
+    const alertClass = 'alert-' + tipo;
+    const iconos = {
+        'info': 'bi-info-circle',
+        'success': 'bi-check-circle',
+        'warning': 'bi-exclamation-triangle',
+        'danger': 'bi-exclamation-triangle'
+    };
+    
+    const icono = iconos[tipo] || 'bi-info-circle';
+    
+    const mensajeHtml = `
+        <div class="alert ${alertClass} alert-dismissible fade show mt-2" role="alert" id="mensaje-ayuda-estado">
+            <i class="bi ${icono} me-2"></i>
+            ${mensaje}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    `;
+    
+    $('#editarSeccionObservaciones .card-body').prepend(mensajeHtml);
+    
+    // Auto-ocultar después de 8 segundos
+    setTimeout(function() {
+        $('#mensaje-ayuda-estado').fadeOut();
+    }, 8000);
+}
+
+// === FUNCIÓN PARA INICIALIZAR ESTADO AL ABRIR EL MODAL ===
+function inicializarEstadoModal() {
+    const estatusActual = $('#editarEstatus').val();
+    console.log('Inicializando estado del modal:', estatusActual);
+    
+    if (estatusActual && estatusActual !== 'borrador') {
+        // Mostrar sección de observaciones sin animación
+        $('#editarSeccionObservaciones').show();
+        
+        // Actualizar el badge de estado
+        const estatusDisplay = $('#editarEstatusDisplay');
+        actualizarBadgeEstado(estatusActual, estatusDisplay);
+    } else {
+        // Ocultar sección de observaciones
+        $('#editarSeccionObservaciones').hide();
+    }
+}
+
+// Resetear el modal de edición al cerrarlo
+$(document).on('hidden.bs.modal', '#editarRequisicionModal', function() {
+    console.log("Modal de edición cerrado - limpiando formulario");
+    $("#formEditarRequisicion")[0].reset();
+    
+    // Ocultar campos opcionales
+    $("#diasPersonalizadosContainer").hide();
+    $("#editarHorasTrabajoContainer").hide();
+    $("#editarSeccionObservaciones").hide();
+    
+    // Limpiar campos ocultos
+    $("#editar_id_requisicion").val("");
+    $("#editar_numero_requisicion").val("");
+    $("#editar_usuario_solicitante_id").val("");
+    $("#editar_fecha_creacion").val("");
+    
+    // Limpiar mensajes de ayuda
+    $('#mensaje-ayuda-estado').remove();
+});
 
 // === FUNCIONES AUXILIARES PARA FORMATEAR DATOS ===
 
@@ -2009,8 +2737,8 @@ function formatearFecha(fecha) {
 
 function formatearPrioridadBadge(prioridad) {
     const badges = {
-        'urgente': '<span class="badge bg-danger">Urgente</span>',
-        'normal': '<span class="badge bg-primary">Normal</span>',
+        'urgente': '<span class="badge bg-gradient-secondary">Urgente</span>',
+        'normal': '<span class="badge bg-gradient-primary">Normal</span>',
         'baja': '<span class="badge bg-secondary">Baja</span>'
     };
     return badges[prioridad] || '<span class="badge bg-light text-dark">N/A</span>';
@@ -2018,15 +2746,10 @@ function formatearPrioridadBadge(prioridad) {
 
 function formatearEstatusBadge(estatus) {
     const badges = {
-        'borrador': '<span class="badge bg-warning text-dark">Borrador</span>',
-        'pendiente': '<span class="badge bg-warning">Pendiente</span>',
-        'aprobada': '<span class="badge bg-success">Aprobada</span>',
-        'rechazada': '<span class="badge bg-danger">Rechazada</span>',
-        'en_proceso': '<span class="badge bg-info">En Proceso</span>',
-        'completada': '<span class="badge bg-dark">Completada</span>',
-        'pausada': '<span class="badge bg-secondary">Pausada</span>',
-        'cancelada': '<span class="badge bg-dark">Cancelada</span>'
+        'borrador': '<span class="badge bg-gradient-warning text-dark">Borrador</span>',
+        'aprobada': '<span class="badge bg-gradient-success">Aprobada</span>',
+        'rechazada': '<span class="badge bg-gradient-secondary">Rechazada</span>',
+        'en_proceso': '<span class="badge bg-gradient-primary">En Proceso</span>'
     };
     return badges[estatus] || '<span class="badge bg-light text-dark">N/A</span>';
 }
-

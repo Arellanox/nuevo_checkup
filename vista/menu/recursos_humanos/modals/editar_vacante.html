@@ -1,16 +1,16 @@
 <!-- Modal para editar requisición -->
-<div class="modal fade" id="editarVacanteModal" tabindex="-1" aria-labelledby="editarVacanteModalLabel" aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="true">
+<div class="modal fade" id="editarRequisicionModal" tabindex="-1" aria-labelledby="editarRequisicionModalLabel" aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content shadow-lg border-0">
             <div class="modal-header bg-gradient-warning text-white border-0">
-                <h5 class="modal-title fw-bold" id="editarVacanteModalLabel">
+                <h5 class="modal-title fw-bold" id="editarRequisicionModalLabel">
                     <i class="bi bi-pencil-square me-2"></i>Editar Requisición de Personal
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body bg-light" style="max-height: 70vh; overflow-y: auto;">
                 <!-- Contenido del formulario -->
-                <form id="formEditarVacante" name="formEditarVacante">
+                <form id="formEditarRequisicion" name="formEditarRequisicion">
                     
                     <!-- Campos ocultos para identificación -->
                     <input type="hidden" id="editar_id_requisicion" name="id_requisicion">
@@ -28,19 +28,25 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="form-label fw-bold">No. Requisición</label>
-                                        <input type="text" class="form-control-plaintext fw-bold text-primary" id="editar_numero_display" readonly>
+                                        <input type="text" class="form-control-plaintext fw-bold text-primary" id="editarNumeroDisplay" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="form-label fw-bold">Fecha de Creación</label>
-                                        <input type="text" class="form-control-plaintext" id="editar_fecha_display" readonly>
+                                        <input type="text" class="form-control-plaintext" id="editarFechaDisplay" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
-                                        <label for="editar_estatus" class="form-label fw-bold">Estado de la Requisición</label>
-                                        <select class="form-select rounded-3 border-2" id="editar_estatus" name="estatus" required>
+                                        <label class="form-label fw-bold">Creado por</label>
+                                        <input type="text" class="form-control-plaintext" id="editarSolicitanteDisplay" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="editarEstatus" class="form-label fw-bold">Estado de la Requisición</label>
+                                        <select class="form-select rounded-3 border-2" id="editarEstatus" name="estatus" required>
                                             <option value="borrador">Borrador</option>
                                             <option value="en_proceso">En Proceso</option>
                                         </select>
@@ -59,16 +65,16 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="editar_departamento" class="form-label">Departamento</label>
-                                        <select class="form-select rounded-3 border-2" id="editar_departamento" name="departamento" required>
+                                        <label for="editarDepartamento" class="form-label">Departamento</label>
+                                        <select class="form-select rounded-3 border-2" id="editarDepartamento" name="departamento" required>
                                             <option value="">Seleccionar departamento...</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="editar_motivo" class="form-label">Motivo de la Requisición</label>
-                                        <select class="form-select rounded-3 border-2" id="editar_motivo" name="motivo" required>
+                                        <label for="editarMotivo" class="form-label">Motivo de la Requisición</label>
+                                        <select class="form-select rounded-3 border-2" id="editarMotivo" name="motivo" required>
                                             <option value="">Seleccionar motivo...</option>                                           
                                         </select>
                                     </div>
@@ -77,8 +83,8 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="mb-3">
-                                        <label for="editar_prioridad" class="form-label">Prioridad</label>
-                                        <select class="form-select rounded-3 border-2" id="editar_prioridad" name="prioridad" required>
+                                        <label for="editarPrioridad" class="form-label">Prioridad</label>
+                                        <select class="form-select rounded-3 border-2" id="editarPrioridad" name="prioridad" required>
                                             <option value="normal">Normal</option>
                                             <option value="urgente">Urgente</option>
                                             <option value="baja">Baja</option>
@@ -98,16 +104,16 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="editar_puesto" class="form-label">Cargo o Título Solicitado</label>
-                                        <select class="form-select rounded-3 border-2" id="editar_puesto" name="puesto">
+                                        <label for="editarPuesto" class="form-label">Cargo o Título Solicitado</label>
+                                        <select class="form-select rounded-3 border-2" id="editarPuesto" name="puesto">
                                             <option value="">Seleccionar puesto...</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="editar_tipo_contrato" class="form-label">Tipo de Contrato</label>
-                                        <select class="form-select rounded-3 border-2" id="editar_tipo_contrato" name="tipo_contrato" required>
+                                        <label for="editarTipoContrato" class="form-label">Tipo de Contrato</label>
+                                        <select class="form-select rounded-3 border-2" id="editarTipoContrato" name="tipo_contrato" required>
                                             <option value="">Seleccionar tipo...</option>
                                             <option value="permanente">Permanente</option>
                                             <option value="temporal">Temporal</option>
@@ -118,11 +124,22 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="editar_tipo_jornada" class="form-label">Tipo de Jornada</label>
-                                        <select class="form-select rounded-3 border-2" id="editar_tipo_jornada" name="tipo_jornada" required>
+                                        <label for="editarTipoJornada" class="form-label">Tipo de Jornada</label>
+                                        <select class="form-select rounded-3 border-2" id="editarTipoJornada" name="tipo_jornada" required>
                                             <option value="">Seleccionar jornada...</option>
                                             <option value="tiempo_completo">Tiempo completo</option>
                                             <option value="medio_tiempo">Medio tiempo</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="editarTipoModalidad" class="form-label">Tipo de Modalidad</label>
+                                        <select class="form-select rounded-3 border-2" id="editarTipoModalidad" name="tipo_modalidad" required>
+                                            <option value="">Seleccionar tipo...</option>
+                                            <option value="presencial">Presencial</option>
+                                            <option value="remoto">Remoto</option>
+                                            <option value="hibrido">Híbrido</option>
                                         </select>
                                     </div>
                                 </div>
@@ -194,32 +211,32 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="horario_trabajo" class="form-label">Días de Trabajo</label>
+                                    <div class="mb-3" id="editarDiasTrabajoContainer">
+                                        <label for="diaTrabajo" class="form-label">Días de Trabajo</label>
                                         <div class="input-group">
-                                            <select class="form-select rounded-3 border-2" id="editar_dias_trabajo" name="dias_trabajo" required>
+                                            <select class="form-select rounded-3 border-2" id="editarDiasTrabajo" name="dias_trabajo" required>
                                                 <option value="">Seleccionar días...</option>
                                                 <option value="L-V">Lunes a Viernes</option>
                                                 <option value="L-S">Lunes a Sábado</option>
                                                 <option value="L-D">Lunes a Domingo</option>
                                                 <option value="Fines de semana">Fines de semana</option>
-                                                <option value="Otro">Otro</option>
+                                                <option value="otro">Otro</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="horario_trabajo" class="form-label">Horario de Trabajo</label>
+                                        <label for="horarioTrabajo" class="form-label">Horario de Trabajo</label>
                                         <!-- Input para días personalizados (inicialmente oculto) -->
-                                        <div class="input-group mt-2" id="editar_dias_personalizados_container" style="display: none;">
-                                            <input type="text" class="form-control rounded-3 border-2" id="editar_dias_personalizados" name="dias_personalizados" placeholder="Especifique los días de trabajo...">
+                                        <div class="input-group mt-2" id="diasPersonalizadosContainer" style="display: none;">
+                                            <input type="text" class="form-control rounded-3 border-2" id="editarDiasPersonalizados" name="dias_personalizados" placeholder="Especifique los días de trabajo...">
                                         </div>
                                         
-                                        <div class="input-group mt-2" id="editar_horas_trabajo_container" style="display: none;">
-                                            <input type="time" class="form-control rounded-3 border-2" id="editar_hora_inicio" name="hora_inicio" required>
+                                        <div class="input-group mt-2" id="editarHorasTrabajoContainer" style="display: none;">
+                                            <input type="time" class="form-control rounded-3 border-2" id="editarHoraInicio" name="hora_inicio" required>
                                             <span class="input-group-text">a</span>
-                                            <input type="time" class="form-control rounded-3 border-2" id="editar_hora_fin" name="hora_fin" required>
+                                            <input type="time" class="form-control rounded-3 border-2" id="editarHoraFin" name="hora_fin" required>
                                         </div>
                                     </div>
                                  </div>
@@ -246,14 +263,14 @@
                         </div>
                         <div class="card-body">
                             <div class="mb-3">
-                                <label for="editar_justificacion" class="form-label">Descripción de la Requisición</label>
-                                <textarea class="form-control rounded-3 border-2" id="editar_justificacion" name="justificacion" rows="4" placeholder="Explique las razones por las cuales se requiere cubrir esta vacante..." required></textarea>
+                                <label for="editarJustificacion" class="form-label">Descripción de la Requisición</label>
+                                <textarea class="form-control rounded-3 border-2" id="editarJustificacion" name="justificacion" rows="4" placeholder="Explique las razones por las cuales se requiere cubrir esta vacante..." required></textarea>
                             </div>
                         </div>
                     </div>
 
                     <!-- OBSERVACIONES DE APROBACIÓN (Solo visible si es necesario) -->
-                    <div class="card mb-4 border-0 shadow-sm" id="editar_seccion_observaciones" style="display: none;">
+                    <div class="card mb-4 border-0 shadow-sm" id="editarSeccionObservaciones" style="display: none;">
                         <div class="card-header bg-radient-custom border-0" style="color: #ffc107;">
                             <h6 class="mb-0 fw-bold"><i class="bi bi-check-circle me-2"></i>Información de Aprobación</h6>
                         </div>
@@ -263,7 +280,7 @@
                                     <div class="mb-3">
                                         <label class="form-label fw-bold">Estado Actual</label>
                                         <div class="p-3 bg-light rounded border">
-                                            <span id="editar_estatus_display" class="badge bg-secondary fs-6">Borrador</span>
+                                            <span id="editarEstatusDisplay" class="badge bg-gradient-primary fs-6">Borrador</span>
                                         </div>
                                         <div class="form-text">
                                             <i class="bi bi-clock me-1"></i>
@@ -272,14 +289,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="editar_observaciones_aprobacion" class="form-label fw-bold">Observaciones de Aprobación/Rechazo</label>
-                                <textarea class="form-control rounded-3 border-2" id="editar_observaciones_aprobacion" name="observaciones_aprobacion" rows="3" placeholder="Agregar observaciones sobre la aprobación, rechazo o comentarios adicionales..."></textarea>
+                            <!-- <div class="mb-3">
+                                <label for="editarObservacionesAprobacion" class="form-label fw-bold">Observaciones de Aprobación/Rechazo</label>
+                                <textarea class="form-control rounded-3 border-2" id="editarObservacionesAprobacion" name="observaciones_aprobacion" rows="3" placeholder="Agregar observaciones sobre la aprobación, rechazo o comentarios adicionales..."></textarea>
                                 <div class="form-text">
                                     <i class="bi bi-pencil me-1"></i>
                                     Opcional: Agregue comentarios sobre la decisión tomada
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
@@ -289,155 +306,13 @@
                 <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">
                     <i class="bi bi-x-circle me-2"></i>Cancelar
                 </button>
-                <button type="submit" form="formEditarVacante" class="btn btn-gradient-warning rounded-pill px-4 fw-bold">
+                <button type="submit" form="formEditarRequisicion" class="btn btn-gradient-warning rounded-pill px-4 fw-bold">
                     <i class="bi bi-check-circle me-2"></i>Actualizar Requisición
                 </button>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-$(document).ready(function() {
-    // Evento para manejar el cambio de estado de la requisición
-    $('#editar_estatus').on('change', function() {
-        var estatusSeleccionado = $(this).val();
-        var seccionObservaciones = $('#editar_seccion_observaciones');
-        var estatusDisplay = $('#editar_estatus_display');
-        
-        console.log('Estado seleccionado:', estatusSeleccionado);
-        
-        // Actualizar el badge de estado
-        actualizarBadgeEstado(estatusSeleccionado, estatusDisplay);
-        
-        // Mostrar/ocultar sección de aprobación según el estado
-        if (estatusSeleccionado && estatusSeleccionado !== 'borrador') {
-            // Mostrar sección de aprobación con animación
-            seccionObservaciones.slideDown(300);
-            
-            // Mostrar mensaje de ayuda según el estado
-            if (estatusSeleccionado === 'en_proceso') {
-                mostrarMensajeAyuda('La requisición está en proceso de ser aprobada', 'info');
-            }
-            
-        } else {
-            // Ocultar sección de aprobación
-            seccionObservaciones.slideUp(300);
-            
-            // Limpiar campos de aprobación
-            $('#editar_observaciones_aprobacion').val('');
-        }
-    });
-    
-    
-    // Función para actualizar el badge de estado
-    function actualizarBadgeEstado(estado, elemento) {
-        var clases = {
-            'borrador': 'bg-secondary',
-            'en_proceso': 'bg-info'
-        };
-        
-        var textos = {
-            'borrador': 'Borrador',
-            'en_proceso': 'En Proceso'
-        };
-        
-        elemento.removeClass().addClass('badge ' + (clases[estado] || 'bg-secondary') + ' fs-6');
-        elemento.text(textos[estado] || 'Desconocido');
-    }
-    
-    // Función para mostrar mensajes de ayuda
-    function mostrarMensajeAyuda(mensaje, tipo) {
-        // Remover mensaje anterior si existe
-        $('#mensaje-ayuda-estado').remove();
-        
-        var alertClass = 'alert-' + tipo;
-        var iconos = {
-            'info': 'bi-info-circle'
-        };
-        
-        var icono = iconos[tipo] || 'bi-info-circle';
-        
-        var mensajeHtml = `
-            <div class="alert ${alertClass} alert-dismissible fade show mt-2" role="alert" id="mensaje-ayuda-estado">
-                <i class="bi ${icono} me-2"></i>
-                ${mensaje}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-        `;
-        
-        $('#editar_seccion_observaciones .card-body').prepend(mensajeHtml);
-        
-        // Auto-ocultar después de 5 segundos
-        setTimeout(function() {
-            $('#mensaje-ayuda-estado').fadeOut();
-        }, 5000);
-    }
-    
-    // Función para inicializar el estado al abrir el modal
-    function inicializarEstadoModal() {
-        var estatusActual = $('#editar_estatus').val();
-        if (estatusActual && estatusActual !== 'borrador') {
-            $('#editar_estatus').trigger('change');
-        }
-    }
-    
-    // Evento cuando se abre el modal
-    $('#editarVacanteModal').on('shown.bs.modal', function() {
-        inicializarEstadoModal();
-    });
-    
-    // Limpiar campos cuando se cierre el modal
-    $('#editarVacanteModal').on('hidden.bs.modal', function() {
-        $('#editar_seccion_observaciones').hide();
-        $('#mensaje-ayuda-estado').remove();
-    });
-
-     $('#editar_dias_trabajo').on('change', function() {
-        var valorSeleccionado = $(this).val();
-        var containerDiasPersonalizados = $('#editar_dias_personalizados_container');
-        var containerHorasTrabajo = $('#editar_horas_trabajo_container');
-        var inputDiasPersonalizados = $('#editar_dias_personalizados');
-        var inputHoraInicio = $('#editar_hora_inicio');
-        var inputHoraFin = $('#editar_hora_fin');
-
-        console.log('Días de trabajo seleccionado:', valorSeleccionado);
-
-        // Mostrar siempre el input de horas de trabajo y hacerlo requerido
-        containerHorasTrabajo.slideDown(300);
-        inputHoraInicio.attr('required', true);
-        inputHoraFin.attr('required', true);
-
-        if (valorSeleccionado === 'Otro') {
-            // Mostrar el input para días personalizados con animación
-            containerDiasPersonalizados.slideDown(300);
-            inputDiasPersonalizados.attr('required', true);
-            inputDiasPersonalizados.focus(); // Enfocar automáticamente el input
-
-            // Agregar clase para destacar
-            containerDiasPersonalizados.addClass('campo-personalizado');
-        } else {
-            // Ocultar el input para días personalizados
-            containerDiasPersonalizados.slideUp(300);
-            inputDiasPersonalizados.removeAttr('required');
-            inputDiasPersonalizados.val(''); // Limpiar el valor
-
-            // Remover clase de destacado
-            containerDiasPersonalizados.removeClass('campo-personalizado');
-        }
-    });
-
-    // Limpiar campos cuando se cierre el modal
-    $('#editarVacanteModal').on('hidden.bs.modal', function() {
-        $('#editar_dias_trabajo').val('');
-        $('#editar_dias_personalizados_container').hide();
-        $('#editar_dias_personalizados').removeAttr('required').val('');
-        $('#editar_hora_inicio').val('').removeAttr('required');
-        $('#editar_hora_fin').val('').removeAttr('required');
-        $('#editar_horas_trabajo_container').hide();
-    });
-});
-</script>
 
 <style>
 /* Estilos adicionales para el modal de edición */

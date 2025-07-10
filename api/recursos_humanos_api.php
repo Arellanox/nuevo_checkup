@@ -41,11 +41,6 @@ if (isset($_POST['filtro_departamento']) && $_POST['filtro_departamento'] !== ''
 # Variables para requisiciones de personal - RENOMBRADAS PARA CONSISTENCIA
 $id_requisicion = isset($_POST['id_requisicion']) ? (int)$_POST['id_requisicion'] : null;
 
-// // RENOMBRADAS: Ahora usan id_ en lugar de nombres simples
-// $id_departamento = isset($_POST['id_departamento']) ? (int)$_POST['id_departamento'] : null; // Era $departamento
-// $id_motivo = isset($_POST['id_motivo']) ? (int)$_POST['id_motivo'] : null; // Era $motivo  
-// $id_puesto = isset($_POST['id_puesto']) ? (int)$_POST['id_puesto'] : null; // Era $puesto
-
 // MANEJO MEJORADO del usuario solicitante
 $usuario_solicitante_id = null;
 if (isset($_POST['usuario_solicitante_id']) && !empty($_POST['usuario_solicitante_id'])) {
@@ -61,11 +56,8 @@ $estatus = isset($_POST['estatus']) ? trim($_POST['estatus']) : 'borrador';
 $tipo_contrato = isset($_POST['tipo_contrato']) ? trim($_POST['tipo_contrato']) : '';
 $tipo_jornada = isset($_POST['tipo_jornada']) ? trim($_POST['tipo_jornada']) : '';
 $escolaridad_minima = isset($_POST['escolaridad_minima']) ? trim($_POST['escolaridad_minima']) : '';
-// $experiencia_anos = isset($_POST['experiencia_anos']) ? trim($_POST['experiencia_anos']) : ''; Obsoleto, ahora es experiencia_anios
 $experiencia_anios = isset($_POST['experiencia_anios']) ? trim($_POST['experiencia_anios']) : '';
-// $conocimientos_tecnicos = isset($_POST['conocimientos_tecnicos']) ? trim($_POST['conocimientos_tecnicos']) : null;
-// $habilidades_blandas = isset($_POST['habilidades_blandas']) ? trim($_POST['habilidades_blandas']) : null; cambio para catalogo
-// $idiomas = isset($_POST['idiomas']) ? trim($_POST['idiomas']) : null; por definir
+$idiomas = isset($_POST['idiomas']) ? trim($_POST['idiomas']) : null; //por definir
 
 // Campos de horario actualizados
     $dias_trabajo = isset($_POST['dias_trabajo']) ? trim($_POST['dias_trabajo']) : '';
@@ -79,22 +71,16 @@ $experiencia_anios = isset($_POST['experiencia_anios']) ? trim($_POST['experienc
 
 # Variable para la editar requisición de personal
 $usuario_aprobador_id = isset($_POST['usuario_aprobador_id']) && $_POST['usuario_aprobador_id'] !== '' ? (int)$_POST['usuario_aprobador_id'] : null;
+$observaciones_aprobacion = isset($_POST['observaciones_aprobacion']) ? trim($_POST['observaciones_aprobacion']) : null;
 
 # Variables adicionales para puestos (detalles)
 $objetivos = isset($_POST['objetivos']) ? trim($_POST['objetivos']) : '';
 $competencias = isset($_POST['competencias']) ? trim($_POST['competencias']) : '';
 $banda_salarial = isset($_POST['banda_salarial']) ? trim($_POST['banda_salarial']) : '';
+// $conocimientos_tecnicos = isset($_POST['conocimientos_tecnicos']) ? trim($_POST['conocimientos_tecnicos']) : null;
+// $habilidades_blandas = isset($_POST['habilidades_blandas']) ? trim($_POST['habilidades_blandas']) : null;
 
-# Variables para otros módulos (si las necesitas)
-$responsable = isset($_POST['responsable']) ? (int)$_POST['responsable'] : null;
-$id_caja = isset($_POST['id_caja']) ? (int)$_POST['id_caja'] : null;
 
-// Debug para verificar los valores
-error_log("DEBUG - Variables unificadas:");
-error_log("id_departamento: " . var_export($id_departamento, true));
-error_log("id_motivo: " . var_export($id_motivo, true));
-error_log("id_puesto: " . var_export($id_puesto, true));
-error_log("usuario_solicitante_id: " . var_export($usuario_solicitante_id, true));
 
 switch ($api) {
     case 1:
@@ -141,9 +127,7 @@ switch ($api) {
                 $tipo_contrato,           // Tipo de contrato
                 $tipo_jornada,            // Tipo de jornada
                 $tipo_modalidad,         // Tipo de modalidad (nuevo campo)
-                // $conocimientos_tecnicos,  // Conocimientos técnicos
-                // $habilidades_blandas,     // Habilidades blandas
-                // $idiomas,                 // Idiomas
+                $idiomas,                 // Idiomas (Aún por definir)
                 $dias_trabajo,
                 $dias_personalizados,
                 $hora_inicio,
@@ -151,8 +135,8 @@ switch ($api) {
                 // $salario_min,
                 // $salario_max,
                 // Parametros de aprobación
-                $usuario_aprobador_id,    // ID del usuario aprobador
-                $observaciones_aprobacion // Observaciones de aprobación
+              //  $usuario_aprobador_id,     ID del usuario aprobador (Todavía falta por implementar)
+                $observaciones_aprobacion  //Observaciones de aprobación
             ]);
 
             // VERIFICAR si hay errores del stored procedure
@@ -199,7 +183,7 @@ switch ($api) {
         // ]);
         break;
     case 4:
-        # cambiar el responsable de la caja chica
+        # CAMBIAR ESTE API CASE REPOSICIONAR (OBSOLETO)
         $response = $master->updateByProcedure("sp_caja_chica_cambiar_responsable", [
             $responsable,
             $_SESSION["id"],
@@ -242,12 +226,12 @@ switch ($api) {
         ]);
         break;
     case 9:
-        # recuperar detalles de puestos (con filtro opcional por puesto)
+        # CAMBIAR ESTE API CASE REPOSICIONAR (OBSOLETO)
         $response = $master->getByProcedure("sp_rh_cat_puestos_detalles_b", [
             $id_puesto
         ]);
         break;
-    // case 10:
+    // case 10: CAMBIAR ESTE API CASE REPOSICIONAR (OBSOLETO)
     //     # actualizar detalles de puesto
     //     $response = $master->updateByProcedure("sp_rh_cat_puestos_detalles_u", [
     //         $id_puesto,
@@ -271,7 +255,7 @@ switch ($api) {
         $response = $master->getByProcedure("sp_rh_cat_motivos_b", []);
         break;
     case 13:
-        # DEBUG TEMPORAL: Verificar qué está llegando
+        # CAMBIAR ESTE API CASE REPOSICIONAR (OBSOLETO)
         error_log("API 13 - ID Departamento recibido: " . var_export($id_departamento, true));
         error_log("API 13 - POST completo: " . var_export($_POST, true));
 
