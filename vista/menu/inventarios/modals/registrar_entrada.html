@@ -50,21 +50,6 @@
                     <div class="card mb-4" id="entrada-details-card" style="display:none;">
                         <div class="card-body">
                             <h6 class="card-title">Detalles de Entrada</h6>
-                            <div class="row">
-                                <!-- Proveedor -->
-                                <div class="col-md-8 mb-3">
-                                    <label for="id_proveedores" class="form-label">Proveedor</label>
-                                    <select class="form-select" id="id_proveedores" name="id_proveedores">
-                                        <option value="" disabled selected>Seleccione...</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4 mb-3 d-flex align-items-end">
-                                    <button type="button" class="btn btn-outline-success w-100" id="btnNuevoProveedor" data-bs-toggle="modal" data-bs-target="#registrarCatalogoModal">
-                                        <i class="bi bi-plus-lg"></i> Nuevo
-                                    </button>
-                                </div>
-                            </div>
-                            
                             <!-- Factura -->
                             <div class="mb-3">
                                 <label for="img_factura" class="form-label">Documento de compra</label>
@@ -191,7 +176,6 @@
                 
                 // Configurar campos requeridos
                 $("#costo_ultima_entrada").prop('required', true);
-                $("#id_proveedores").prop('required', true);
                 $("#img_factura").prop('required', true);
                 
                 // Configurar botón y título
@@ -209,7 +193,6 @@
                 calcularCostoTotal();
                 
                 // Cargar datos específicos
-                cargarProveedoresEntrada();
                 cargarMotivosPorTipo("entrada");
                 consultarManejaCaducidadRegistrar(/* ID del artículo debería ir aquí */);
                 
@@ -225,7 +208,6 @@
                 
                 // Quitar requeridos
                 $("#costo_ultima_entrada").prop('required', false);
-                $("#id_proveedores").prop('required', false);
                 $("#img_factura").prop('required', false);
                 
                 // Configurar botón y título
@@ -257,24 +239,6 @@
             }
         });
 
-        // FUNCIÓN para el botón de nuevo proveedor
-        $("#btnNuevoProveedor").click(function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            debeReabrirModalEntrada = true;
-            
-            $("#registrarEntradaModal").modal("hide");
-            setTimeout(function () {
-                $("#registrarCatalogoModal").modal("show");
-                setTimeout(function () {
-                    $("#proveedores-tab").tab("show");
-                    setTimeout(function () {
-                        $("#registrarProveedorModal").modal("show");
-                    }, 400);
-                }, 300);
-            }, 200);
-        });
-
         // FUNCIÓN para el botón de nuevo motivo
         $("#btnNuevoMotivo").click(function (e) {
             e.preventDefault();
@@ -301,7 +265,6 @@
                     setTimeout(function () {
                         // Recargar datos si es necesario
                         if ($("#id_movimiento").val() == "1") {
-                            cargarProveedoresEntrada();
                             cargarMotivosPorTipo("entrada");
                         } else if ($("#id_movimiento").val() == "2") {
                             cargarMotivosPorTipo("salida");
@@ -316,16 +279,6 @@
         $(".btn-cancelar, .btn-close").click(function () {
             debeReabrirModalEntrada = false;
         });
-
-        // FUNCIÓN PARA CARGAR PROVEEDORES
-        function cargarProveedoresEntrada() {
-            cargarCatalogoEnModal("#id_proveedores", {
-                api: 16,
-                campoId: "id_proveedores",
-                campoTexto: "nombre",
-                placeholder: "Seleccione un proveedor"
-            });
-        }
 
         // FUNCIÓN PARA CARGAR MOTIVOS FILTRADOS POR TIPO
         function cargarMotivosPorTipo(tipoMovimiento) {

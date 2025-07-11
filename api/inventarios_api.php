@@ -122,6 +122,16 @@ switch ($api) {
         // Campo de sustancia activa agregado
         $id_sustancia = isset($_POST['id_sustancia']) && $_POST['id_sustancia'] !== '' && $_POST['id_sustancia'] !== 'null' ? $_POST['id_sustancia'] : null;
 
+        // NUEVO: Procesar múltiples proveedores desde el frontend
+        $proveedores_json = isset($_POST['proveedores_json']) ? $_POST['proveedores_json'] : null;
+        
+        // Si no hay JSON, crear uno con el proveedor individual para compatibilidad
+        if (empty($proveedores_json) && !empty($id_proveedores)) {
+            $proveedores_json = json_encode([
+                ["id" => $id_proveedores, "principal" => "1"]
+            ]);
+        }
+
         $response = $master->insertByProcedure("sp_inventarios_cat_articulos_g", [
             $id_articulo,
             $no_art,
@@ -147,7 +157,7 @@ switch ($api) {
             $procedimientoUrl,
             $rendimiento_paciente,
             $cantidad,
-            $id_proveedores,
+            $proveedores_json, // CAMBIADO: JSON en lugar de ID individual
             $id_marcas,
             $codigo_barras,
             $id_sustancia
@@ -289,7 +299,6 @@ switch ($api) {
             $cantidad,
             $fecha_ultima_entrada,
             $costo_ultima_entrada,
-            $id_proveedores,
             $id_movimiento,
             $motivo_salida,
             $orden_compra,
@@ -1401,6 +1410,32 @@ switch ($api) {
                 'data' => $evidencias
             );
         } catch (Exception $e) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: ' . $e->getMessage(),
+                'data' => array()
+            );
+        }
+        break;
+    case 42:
+        // Obtener proveedores de un artículo específico (para edición)
+        $id_articulo = isset($_POST['id_articulo']) ? intval($_POST['id_articulo']) : null;
+
+        if ($id_articulo === null) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: Falta el ID del artículo',
+                'data' => array()
+            );
+            break;
+        }
+
+        try {
+            $response = $master->getByProcedure("sp_inventarios_articulo_proveedores_b", [
+                $id_articulo
+            ]);
+        } catch (Exception $e) {
+            error_log("API 42 - Error: " . $e->getMessage());
             $response = array(
                 'code' => 0,
                 'message' => 'ERROR: ' . $e->getMessage(),

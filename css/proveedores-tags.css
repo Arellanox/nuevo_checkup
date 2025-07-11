@@ -1,0 +1,139 @@
+/* CSS para tags de múltiples proveedores */
+
+#proveedoresSelectedContainer {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 2px dashed #dee2e6;
+    transition: all 0.3s ease;
+}
+
+#proveedoresSelectedContainer:hover {
+    border-color: #0d6efd;
+    background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+}
+
+#proveedoresTagsArea {
+    min-height: 30px;
+}
+
+#proveedoresPlaceholder {
+    color: #6c757d;
+    font-style: italic;
+    margin: 0;
+    align-self: center;
+}
+
+/* Estilo para los tags de proveedores */
+.proveedor-tag {
+    background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+    border: 1px solid #dee2e6;
+    border-radius: 20px;
+    padding: 4px 12px;
+    margin: 2px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.proveedor-tag:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    border-color: #0d6efd;
+}
+
+/* Tag principal (estrella dorada) */
+.proveedor-tag.principal {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white;
+    border-color: #0056b3;
+}
+
+.proveedor-tag.principal:hover {
+    background: linear-gradient(135deg, #0056b3 0%, #003d82 100%);
+}
+
+/* Icono de estrella */
+.proveedor-tag .bi-star,
+.proveedor-tag .bi-star-fill {
+    color: #ffc107;
+    margin-right: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.proveedor-tag .bi-star:hover {
+    color: #ffca2c;
+    transform: scale(1.1);
+}
+
+.proveedor-tag.principal .bi-star-fill {
+    color: #fff200;
+}
+
+/* Botón de cerrar */
+.proveedor-tag .btn-close-tag {
+    background: none;
+    border: none;
+    color: #6c757d;
+    margin-left: 8px;
+    padding: 0;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.proveedor-tag .btn-close-tag:hover {
+    background-color: #dc3545;
+    color: white;
+    transform: scale(1.1);
+}
+
+.proveedor-tag.principal .btn-close-tag {
+    color: rgba(255,255,255,0.8);
+}
+
+.proveedor-tag.principal .btn-close-tag:hover {
+    background-color: rgba(255,255,255,0.2);
+    color: white;
+}
+
+/* Animaciones */
+@keyframes slideInTag {
+    from {
+        opacity: 0;
+        transform: translateX(-20px) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+.proveedor-tag {
+    animation: slideInTag 0.3s ease-out;
+}
+
+/* Select de proveedores */
+#id_proveedores option:disabled {
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    #proveedoresTagsArea {
+        gap: 4px;
+    }
+    
+    .proveedor-tag {
+        font-size: 0.8rem;
+        padding: 3px 8px;
+        margin: 1px;
+    }
+} 

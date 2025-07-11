@@ -1954,14 +1954,23 @@ selectDatatable(
 
     //mostrar proveedores del articulo seleccionado
     $("#proveedoresArt").html(
-      rowSelected.PROVEEDORES
+      rowSelected.PROVEEDORES && rowSelected.PROVEEDORES !== "Sin proveedor"
         ? rowSelected.PROVEEDORES.split("|")
-            .filter(
-              (proveedor) =>
-                proveedor.trim().toUpperCase() !== "SIN PROVEEDOR" &&
-                proveedor.trim() !== "3"
-            )
-            .map((proveedor) => `<br><span>${proveedor}</span>`)
+            .filter(proveedor => proveedor.trim() !== "")
+            .map((proveedor, index) => {
+              // Determinar si es el proveedor principal (generalmente el primero en la lista)
+              const isPrincipal = index === 0;
+              const iconClass = isPrincipal ? 'bi-star-fill text-warning' : 'bi-building';
+              const badgeClass = isPrincipal ? 'badge bg-primary' : 'badge bg-secondary';
+              const titleText = isPrincipal ? 'Proveedor Principal' : 'Proveedor';
+              
+              return `
+                <div class="d-flex align-items-center mb-1">
+                  <i class="bi ${iconClass} me-2" title="${titleText}"></i>
+                  <span class="${badgeClass}">${proveedor.trim()}</span>
+                </div>
+              `;
+            })
             .join("") || "No hay proveedores registrados."
         : "No hay proveedores registrados."
     );

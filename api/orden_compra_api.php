@@ -58,16 +58,16 @@ switch ($api) {
         $fecha_actual = date('Y-m-d H:i:s');
         $response = $master->insertByProcedure("sp_inventarios_cat_orden_compra_g", [
             $id_orden_compra,
-            $_POST['NUMERO_ORDEN_COMPRA'] ?? null,
-            $_POST['FECHA_ORDEN_COMPRA'] ?? null,
-            $_POST['ESTADO'] ?? null,
-            $_POST['ID_PROVEEDOR'] ?? null,
-            $_POST['SUBTOTAL'] ?? null,
-            $_POST['IVA'] ?? null,
-            $_POST['TOTAL'] ?? null,
-            $_POST['OBSERVACIONES'] ?? null,
+            $_POST['numero_orden'] ?? null,
+            $_POST['fecha_orden'] ?? null,
+            $_POST['estado'] ?? null,
+            $_POST['id_proveedor'] ?? null,
+            $_POST['subtotal'] ?? null,
+            $_POST['iva'] ?? null,
+            $_POST['total'] ?? null,
+            $_POST['observaciones'] ?? null,
             $_SESSION['id'] ?? null,
-            isset($_POST['ACTIVO']) ? 1 : 0
+            isset($_POST['activo']) ? 1 : 0
         ]);
         break;
     case 6:
@@ -75,6 +75,64 @@ switch ($api) {
         $response = $master->insertByProcedure("sp_inventarios_cat_orden_compra_e", [
             $_POST['ID_ORDEN_COMPRA'] ?? null,
         ]);
+        break;
+    case 7:
+        #obtener artículos para orden de compra
+        $id_almacen = $_POST['id_almacen'] ?? 1;
+        $response = $master->getByProcedure("sp_inventarios_articulos_orden_compra_b", [$id_almacen]);
+        break;
+    case 8:
+        #guardar detalles de orden de compra
+        $response = $master->insertByProcedure("sp_inventarios_orden_compra_detalle_g", [
+            $_POST['id_orden_compra'],
+            $_POST['detalles_json']
+        ]);
+        break;
+    case 9:
+        #obtener detalles de orden de compra
+        $response = $master->getByProcedure("sp_inventarios_orden_compra_detalle_b", [
+            $_POST['id_orden_compra']
+        ]);
+        break;
+    case 10:
+        #validar número de orden (verificar si ya existe)
+        $numero_orden = $_POST['numero_orden'] ?? null;
+        $id_orden_actual = isset($_POST['id_orden_compra']) && $_POST['id_orden_compra'] !== '' && $_POST['id_orden_compra'] !== 'null' ? $_POST['id_orden_compra'] : null;
+        
+        if ($numero_orden) {
+            // Crear un SP simple para verificar duplicados
+            $conexion = $master->connectDb();
+            
+            if ($id_orden_actual) {
+                $stmt = $conexion->prepare("SELECT COUNT(*) as existe FROM inventarios_cat_orden_compra WHERE NUMERO_ORDEN = ? AND ID_ORDEN_COMPRA != ?");
+                $stmt->execute([$numero_orden, $id_orden_actual]);
+            } else {
+                $stmt = $conexion->prepare("SELECT COUNT(*) as existe FROM inventarios_cat_orden_compra WHERE NUMERO_ORDEN = ?");
+                $stmt->execute([$numero_orden]);
+            }
+            
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $existe = $result['existe'] > 0;
+            
+            $response = [
+                'response' => [
+                    'code' => 1,
+                    'message' => $existe ? 'El número de orden ya existe' : 'Número de orden disponible',
+                    'data' => [
+                        'existe' => $existe,
+                        'numero_orden' => $numero_orden
+                    ]
+                ]
+            ];
+        } else {
+            $response = [
+                'response' => [
+                    'code' => 0,
+                    'message' => 'Número de orden requerido',
+                    'data' => null
+                ]
+            ];
+        }
         break;
     default:
         $response = "API no definida.";
