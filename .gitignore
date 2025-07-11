@@ -16,3 +16,5 @@ vista/menu/administracion/modals/user_agregar_usuario.html~
 *~
 api/log.txt~
 */*.~
+core/services/SEE/logs/*.log
+/core/services/SEE/logs/*.log
