@@ -18,3 +18,4 @@ api/log.txt~
 */*.~
 core/services/SEE/logs/*.log
 /core/services/SEE/logs/*.log
+/core/services/SEE/logs/*
