@@ -199,6 +199,23 @@ tableCatOrdenesCompra = $("#tableCatOrdenesCompra").DataTable({
   ],
 });
 
+// ESTILOS PARA LA BARRA DE BUSQUEDA DE ORDENES DE COMPRA
+setTimeout(() => {
+  inputBusquedaTable(
+    "tableCatOrdenesCompra",
+    tableCatOrdenesCompra,
+    [
+      {
+        msj: "Filtre los registros por coincidencia",
+        place: "top",
+      },
+    ],
+    [],
+    "col-12"
+  );
+  tableCatOrdenesCompra.columns.adjust().draw();
+}, 1000);
+
 // DATATABLE DE PROVEEDORES
 tableCatProveedores = $("#tableCatProveedores").DataTable({
   language: {
@@ -341,6 +358,23 @@ tableCatProveedores = $("#tableCatProveedores").DataTable({
     },
   ],
 });
+
+// ESTILOS PARA LA BARRA DE BUSQUEDA DE PROVEEDORES
+setTimeout(() => {
+  inputBusquedaTable(
+    "tableCatProveedores",
+    tableCatProveedores,
+    [
+      {
+        msj: "Filtre los registros por coincidencia",
+        place: "top",
+      },
+    ],
+    [],
+    "col-12"
+  );
+  tableCatProveedores.columns.adjust().draw();
+}, 1000);
 
 // ============ FUNCIONALIDADES DE BOTONES POR DATATABLE ============ //
 
@@ -501,6 +535,160 @@ $(document).on("click", ".btn-ver-proveedor", function () {
 
   // Mostrar el modal
   $("#verProveedorModal").modal("show");
+});
+
+// ============================================
+// FUNCIONES PARA ÓRDENES DE COMPRA
+// ============================================
+
+// Eliminar orden de compra
+$(document).on("click", ".btn-eliminar-orden-compra", function () {
+  var ordenCompraId = $(this).data("id");
+
+  alertMensajeConfirm(
+    {
+      title: "¿Está a punto de eliminar esta orden de compra?",
+      text: "La orden será marcada como inactiva. Esta acción se puede revertir.",
+      icon: "warning",
+    },
+    function () {
+      $.ajax({
+        url: "../../../api/orden_compra_api.php",
+        type: "POST",
+        data: {
+          api: 11,
+          id_orden_compra: ordenCompraId,
+        },
+        beforeSend: function () {
+          console.log("Enviando datos:", {
+            api: 11,
+            id_orden_compra: ordenCompraId,
+          });
+        },
+        success: function (response) {
+          console.log("Respuesta del servidor:", response);
+
+          let data;
+          try {
+            data =
+              typeof response === "string" ? JSON.parse(response) : response;
+          } catch (e) {
+            console.error("Error parseando respuesta:", e);
+            alertToast("Error en la respuesta del servidor", "error", 4000);
+            return;
+          }
+
+          if (data.response && data.response.code == 1) {
+            console.log("Orden de compra eliminada correctamente:", data);
+            alertToast("Orden de compra eliminada!", "success", 4000);
+            if (tableCatOrdenesCompra) tableCatOrdenesCompra.ajax.reload();
+          } else {
+            alertToast(
+              data.response?.message || "Error al procesar la solicitud",
+              "error",
+              4000
+            );
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error("Error AJAX:", error);
+          console.error("Respuesta:", xhr.responseText);
+          alertToast("Error de conexión", "error", 4000);
+        },
+      });
+    }
+  );
+});
+
+// Ver orden de compra
+$(document).on("click", ".btn-ver-orden-compra", function () {
+  var ordenCompraId = $(this).data("id");
+  
+  // Obtener los datos de la fila del DataTable
+  var rowData = tableCatOrdenesCompra.row($(this).closest('tr')).data();
+  
+  if (!rowData) {
+    alertToast("Error al obtener datos de la orden", "error", 3000);
+    return;
+  }
+
+  // Llenar el modal con los datos
+  $("#verOrdenCompraNumero").text(rowData.NUMERO_ORDEN || "-");
+  $("#verOrdenCompraFecha").text(rowData.FECHA_ORDEN ? moment(rowData.FECHA_ORDEN).format("DD/MM/YYYY") : "-");
+  $("#verOrdenCompraEstado").text(rowData.ESTADO || "-");
+  $("#verOrdenCompraProveedor").text(rowData.PROVEEDOR_RAZON_SOCIAL || "-");
+  $("#verOrdenCompraSubtotal").text(rowData.SUBTOTAL ? `$${parseFloat(rowData.SUBTOTAL).toFixed(2)}` : "$0.00");
+  $("#verOrdenCompraIva").text(rowData.IVA ? `$${parseFloat(rowData.IVA).toFixed(2)}` : "$0.00");
+  $("#verOrdenCompraTotal").text(rowData.TOTAL ? `$${parseFloat(rowData.TOTAL).toFixed(2)}` : "$0.00");
+  $("#verOrdenCompraObservaciones").text(rowData.OBSERVACIONES || "Sin observaciones");
+  $("#verOrdenCompraResponsable").text(rowData.RESPONSABLE || "-");
+  $("#verOrdenCompraFechaCreacion").text(rowData.FECHA_CREACION ? moment(rowData.FECHA_CREACION).format("DD/MM/YYYY HH:mm") : "-");
+  $("#verOrdenCompraFechaActualizacion").text(rowData.FECHA_ACTUALIZACION ? moment(rowData.FECHA_ACTUALIZACION).format("DD/MM/YYYY HH:mm") : "-");
+  
+  // Estado activo
+  if (rowData.ACTIVO == 1) {
+    $("#verOrdenCompraActivo").html('<span class="badge bg-success"><i class="bi bi-check-lg"></i> Activa</span>');
+  } else {
+    $("#verOrdenCompraActivo").html('<span class="badge bg-secondary"><i class="bi bi-x-lg"></i> Inactiva</span>');
+  }
+
+  // Mostrar el modal
+  $("#verOrdenCompraModal").modal("show");
+});
+
+// Editar orden de compra
+$(document).on("click", ".btn-editar-orden-compra", function () {
+  var ordenCompraId = $(this).data("id");
+  
+  // Obtener los datos de la fila del DataTable
+  var rowData = tableCatOrdenesCompra.row($(this).closest('tr')).data();
+  
+  if (!rowData) {
+    alertToast("Error al obtener datos de la orden", "error", 3000);
+    return;
+  }
+
+  // Cambiar el título del modal
+  $("#registrarOrdenCompraModalLabel").text("Editar Orden de Compra");
+  $("#btnGuardarOrdenCompra").html('<i class="bi bi-check-lg"></i> Actualizar Orden');
+
+  // Llenar el formulario con los datos existentes
+  $("#ID_ORDEN_COMPRA").val(ordenCompraId);
+  $("#NUMERO_ORDEN_COMPRA").val(rowData.NUMERO_ORDEN || "");
+  $("#FECHA_ORDEN_COMPRA").val(rowData.FECHA_ORDEN || "");
+  $("#ESTADO").val(rowData.ESTADO || "");
+  $("#SUBTOTAL").val(rowData.SUBTOTAL || "0.00");
+  $("#IVA").val(rowData.IVA || "0.00");
+  $("#TOTAL").val(rowData.TOTAL || "0.00");
+  $("#OBSERVACIONES").val(rowData.OBSERVACIONES || "");
+  $("#ACTIVO").prop("checked", rowData.ACTIVO == 1);
+  
+  // Limpiar validaciones previas
+  $("#NUMERO_ORDEN_COMPRA").removeClass("is-valid is-invalid");
+
+  // Inicializar artículos (por ahora vacío, se puede implementar después)
+  if (typeof inicializarArticulosOrdenCompra !== 'undefined') {
+    inicializarArticulosOrdenCompra();
+  }
+
+  // Mostrar el modal
+  $("#registrarOrdenCompraModal").modal("show");
+});
+
+// Limpiar formulario cuando se cierre el modal de orden de compra
+$("#registrarOrdenCompraModal").on("hidden.bs.modal", function () {
+  $("#registrarOrdenCompraModalLabel").text("Registrar Orden de Compra");
+  $("#btnGuardarOrdenCompra").html('<i class="bi bi-check-lg"></i> Guardar Orden');
+  $("#registrarOrdenCompraForm")[0].reset();
+  $("#ID_ORDEN_COMPRA").val("");
+  
+  // Limpiar validaciones
+  $("#NUMERO_ORDEN_COMPRA").removeClass("is-valid is-invalid");
+  
+  // Reinicializar artículos
+  if (typeof inicializarArticulosOrdenCompra !== 'undefined') {
+    inicializarArticulosOrdenCompra();
+  }
 });
 
 // ==================== FUNCIONALIDADES PARA CARGAR CATÁLOGOS ====================

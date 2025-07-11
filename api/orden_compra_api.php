@@ -56,6 +56,25 @@ switch ($api) {
     case 5:
         #registrar orden de compra
         $fecha_actual = date('Y-m-d H:i:s');
+        
+        // Obtener JSON de detalles de artículos
+        $detalles_json = null;
+        if (isset($_POST['detalles_articulos']) && !empty($_POST['detalles_articulos'])) {
+            // Verificar si es un string JSON válido
+            if (is_string($_POST['detalles_articulos'])) {
+                $detalles_json = $_POST['detalles_articulos'];
+            } else {
+                // Si es un array, convertirlo a JSON
+                $detalles_json = json_encode($_POST['detalles_articulos']);
+            }
+            
+            // Validar que el JSON es válido
+            json_decode($detalles_json);
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                $detalles_json = null;
+            }
+        }
+        
         $response = $master->insertByProcedure("sp_inventarios_cat_orden_compra_g", [
             $id_orden_compra,
             $_POST['numero_orden'] ?? null,
@@ -67,7 +86,8 @@ switch ($api) {
             $_POST['total'] ?? null,
             $_POST['observaciones'] ?? null,
             $_SESSION['id'] ?? null,
-            isset($_POST['activo']) ? 1 : 0
+            isset($_POST['activo']) ? 1 : 0,
+            $detalles_json // Parámetro JSON de detalles
         ]);
         break;
     case 6:
@@ -77,32 +97,18 @@ switch ($api) {
         ]);
         break;
     case 7:
-        #obtener artículos para orden de compra
+        #obtener art para  orden de compra
         $id_almacen = $_POST['id_almacen'] ?? 1;
         $response = $master->getByProcedure("sp_inventarios_articulos_orden_compra_b", [$id_almacen]);
         break;
-    case 8:
-        #guardar detalles de orden de compra
-        $response = $master->insertByProcedure("sp_inventarios_orden_compra_detalle_g", [
-            $_POST['id_orden_compra'],
-            $_POST['detalles_json']
-        ]);
-        break;
-    case 9:
-        #obtener detalles de orden de compra
-        $response = $master->getByProcedure("sp_inventarios_orden_compra_detalle_b", [
-            $_POST['id_orden_compra']
-        ]);
-        break;
     case 10:
-        #validar número de orden (verificar si ya existe)
+        #validar nujmm de orden (verificar si ya existe)
         $numero_orden = $_POST['numero_orden'] ?? null;
         $id_orden_actual = isset($_POST['id_orden_compra']) && $_POST['id_orden_compra'] !== '' && $_POST['id_orden_compra'] !== 'null' ? $_POST['id_orden_compra'] : null;
-        
+
         if ($numero_orden) {
-            // Crear un SP simple para verificar duplicados
             $conexion = $master->connectDb();
-            
+
             if ($id_orden_actual) {
                 $stmt = $conexion->prepare("SELECT COUNT(*) as existe FROM inventarios_cat_orden_compra WHERE NUMERO_ORDEN = ? AND ID_ORDEN_COMPRA != ?");
                 $stmt->execute([$numero_orden, $id_orden_actual]);
@@ -110,10 +116,10 @@ switch ($api) {
                 $stmt = $conexion->prepare("SELECT COUNT(*) as existe FROM inventarios_cat_orden_compra WHERE NUMERO_ORDEN = ?");
                 $stmt->execute([$numero_orden]);
             }
-            
+
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             $existe = $result['existe'] > 0;
-            
+
             $response = [
                 'response' => [
                     'code' => 1,
@@ -133,6 +139,11 @@ switch ($api) {
                 ]
             ];
         }
+        break;
+    case 11:
+        $response = $master->insertByProcedure("sp_inventarios_cat_orden_compra_e", [
+            $id_orden_compra,
+        ]);
         break;
     default:
         $response = "API no definida.";

@@ -267,16 +267,20 @@
                                                         <div class="mb-3">
                                                             <label for="id_proveedores"
                                                                 class="form-label">Proveedores</label>
-                                                            
+
                                                             <!-- Área de Tags de Proveedores Seleccionados -->
-                                                            <div id="proveedoresSelectedContainer" class="mb-2" style="min-height: 40px; border: 1px solid #dee2e6; border-radius: 0.375rem; padding: 8px; background-color: #f8f9fa;">
-                                                                <div id="proveedoresTagsArea" class="d-flex flex-wrap gap-2">
-                                                                    <small class="text-muted align-self-center" id="proveedoresPlaceholder">
-                                                                        No hay proveedores seleccionados. Seleccione uno o más proveedores del menú desplegable.
+                                                            <div id="proveedoresSelectedContainer" class="mb-2"
+                                                                style="min-height: 40px; border: 1px solid #dee2e6; border-radius: 0.375rem; padding: 8px; background-color: #f8f9fa;">
+                                                                <div id="proveedoresTagsArea"
+                                                                    class="d-flex flex-wrap gap-2">
+                                                                    <small class="text-muted align-self-center"
+                                                                        id="proveedoresPlaceholder">
+                                                                        No hay proveedores seleccionados. Seleccione uno
+                                                                        o más proveedores del menú desplegable.
                                                                     </small>
                                                                 </div>
                                                             </div>
-                                                            
+
                                                             <div class="input-group">
                                                                 <select class="form-select input-form"
                                                                     id="id_proveedores" name="id_proveedores">
@@ -290,11 +294,14 @@
                                                                     <i class="bi bi-plus"></i>
                                                                 </button>
                                                             </div>
-                                                            
+
                                                             <!-- Campo hidden para enviar JSON de proveedores -->
-                                                            <input type="hidden" id="proveedores_json" name="proveedores_json" value="">
-                                                            
-                                                            <small class="form-text text-muted">Seleccione uno o más proveedores. El primer proveedor será considerado como principal.</small>
+                                                            <input type="hidden" id="proveedores_json"
+                                                                name="proveedores_json" value="">
+
+                                                            <small class="form-text text-muted">Seleccione uno o más
+                                                                proveedores. El primer proveedor será considerado como
+                                                                principal.</small>
                                                         </div>
                                                     </div>
                                                     <div class="col-6">
@@ -517,17 +524,17 @@
                 </div>
                 </form>
             </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
-            <i class="bi bi-arrow-left-short"></i>
-            Cancelar
-        </button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
+                    <i class="bi bi-arrow-left-short"></i>
+                    Cancelar
+                </button>
 
-        <button type="submit" class="btn btn-confirmar" form="registrarArticuloForm">
-            <i class="bi bi-floppy-fill"></i> Guardar
-        </button>
+                <button type="submit" class="btn btn-confirmar" form="registrarArticuloForm">
+                    <i class="bi bi-floppy-fill"></i> Guardar
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 </div>
@@ -1237,7 +1244,7 @@
                     });
 
                     if (valorActual) selectElement.val(valorActual);
-                    
+
                     // Si es el select de proveedores, actualizar opciones disponibles
                     if (selectorSelect === "#id_proveedores") {
                         actualizarOpcionesProveedores();
@@ -1314,21 +1321,21 @@
     function hacerProveedorPrincipal(id) {
         // Quitar principal de todos
         proveedoresSeleccionados.forEach(p => p.principal = false);
-        
+
         // Hacer principal al seleccionado
         const proveedor = proveedoresSeleccionados.find(p => p.id === id);
         if (proveedor) {
             proveedor.principal = true;
-            
+
             // Mover al principio del array
             const index = proveedoresSeleccionados.indexOf(proveedor);
             proveedoresSeleccionados.splice(index, 1);
             proveedoresSeleccionados.unshift(proveedor);
-            
+
             // Actualizar UI
             actualizarTagsProveedores();
             actualizarJSONProveedores();
-            
+
             alertToast(`"${proveedor.nombre}" es ahora el proveedor principal`, "success", 2000);
         }
     }
@@ -1366,7 +1373,7 @@
             `);
 
             // Click en el icono de estrella para hacer principal
-            tag.find('.bi-star, .bi-star-fill').click(function(e) {
+            tag.find('.bi-star, .bi-star-fill').click(function (e) {
                 e.preventDefault();
                 e.stopPropagation();
                 if (!isPrincipal) {
@@ -1383,10 +1390,10 @@
         const select = $("#id_proveedores");
         const options = select.find('option');
 
-        options.each(function() {
+        options.each(function () {
             const optionValue = $(this).val();
             const isSelected = proveedoresSeleccionados.find(p => p.id === optionValue);
-            
+
             if (optionValue && isSelected) {
                 $(this).hide();
             } else {
@@ -1401,13 +1408,13 @@
             id: p.id,
             principal: p.principal ? "1" : "0"
         })));
-        
+
         $("#proveedores_json").val(json);
         console.log("JSON Proveedores actualizado:", json);
     }
 
     // Event listener para selección de proveedor
-    $("#id_proveedores").on("change", function() {
+    $("#id_proveedores").on("change", function () {
         const selectedId = $(this).val();
         const selectedName = $(this).find("option:selected").text();
 
@@ -1435,19 +1442,19 @@
             url: "../../../api/inventarios_api.php",
             type: "POST",
             dataType: "json",
-            data: { 
+            data: {
                 api: 42,
-                id_articulo: idArticulo 
+                id_articulo: idArticulo
             },
             success: function (response) {
                 if (response.response?.code == 1 && response.response.data) {
                     // Limpiar proveedores actuales
                     limpiarProveedores();
-                    
+
                     // Cargar proveedores existentes
                     response.response.data.forEach(proveedor => {
                         const esPrincipal = proveedor.principal === "1" || proveedor.principal === 1;
-                        
+
                         proveedoresSeleccionados.push({
                             id: proveedor.id.toString(),
                             nombre: proveedor.nombre,
@@ -1462,12 +1469,12 @@
                             proveedoresSeleccionados[0].principal = true;
                         }
                     }
-                    
+
                     // Actualizar UI
                     actualizarTagsProveedores();
                     actualizarOpcionesProveedores();
                     actualizarJSONProveedores();
-                    
+
                     console.log("Proveedores cargados:", proveedoresSeleccionados);
                 } else {
                     console.log("No se encontraron proveedores para el artículo:", idArticulo);

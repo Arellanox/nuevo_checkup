@@ -601,6 +601,8 @@ function obtenerArticulosOrdenJSON() {
     return {
       id_articulo: articulo.id_articulo,
       id_proveedor: articulo.id_proveedor,
+      codigo_articulo: articulo.clave_articulo,
+      descripcion_articulo: articulo.nombre_articulo,
       cantidad_solicitada: articulo.cantidad_solicitada,
       precio_unitario: articulo.precio_unitario,
       observaciones_detalle: articulo.observaciones_detalle
@@ -608,54 +610,6 @@ function obtenerArticulosOrdenJSON() {
   }));
 }
 
-// Función para cargar artículos existentes (para edición)
-function cargarArticulosExistentesOrden(idOrdenCompra) {
-  if (!idOrdenCompra) return;
-  
-  $.ajax({
-    url: '../../../api/orden_compra_api.php',
-    type: 'POST',
-    dataType: 'json',
-    data: {
-      api: 9,
-      id_orden_compra: idOrdenCompra
-    },
-    success: function (response) {
-      if (response.response && response.response.data) {
-        const detalles = response.response.data;
-        articulosOrdenCompra = [];
-        contadorArticulos = 0;
-        
-        detalles.forEach(function (detalle) {
-          const articuloOrden = {
-            id_articulo: detalle.id_articulo,
-            clave_articulo: detalle.CLAVE_ART,
-            nombre_articulo: detalle.NOMBRE_COMERCIAL,
-            unidad: detalle.UNIDAD_DESCRIPCION || 'N/A',
-            cantidad_actual: parseFloat(detalle.CANTIDAD_ACTUAL),
-            id_proveedor: detalle.id_proveedor,
-            nombre_proveedor: detalle.PROVEEDOR_NOMBRE,
-            cantidad_solicitada: parseFloat(detalle.cantidad_solicitada),
-            precio_unitario: parseFloat(detalle.precio_unitario),
-            subtotal_detalle: parseFloat(detalle.subtotal_detalle),
-            observaciones_detalle: detalle.observaciones_detalle || '',
-            indice: contadorArticulos++
-          };
-          articulosOrdenCompra.push(articuloOrden);
-        });
-        
-        actualizarTablaArticulosOrden();
-        actualizarContadorArticulos();
-        calcularTotalesOrden();
-      }
-    },
-    error: function (xhr, status, error) {
-      console.error('Error al cargar artículos de la orden:', error);
-    }
-  });
-}
-
 // Exponer funciones globalmente
 window.obtenerArticulosOrdenJSON = obtenerArticulosOrdenJSON;
-window.cargarArticulosExistentesOrden = cargarArticulosExistentesOrden;
 window.inicializarArticulosOrdenCompra = inicializarArticulosOrdenCompra; 

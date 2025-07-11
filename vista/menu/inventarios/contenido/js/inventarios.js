@@ -679,112 +679,112 @@ buttonsEntradas.push({
     $("body").append($menu);
 
     // Evento para seleccionar opción
-    $menu.on("click", ".dropdown-item", function () {
-      var tipo = $(this).data("value");
-      window.dataTableCatEntradas = window.dataTableCatEntradas || {};
-      dataTableCatEntradas.id_movimiento = tipo;
-      tableCatEntradas.ajax.reload();
+    // $menu.on("click", ".dropdown-item", function () {
+    //   var tipo = $(this).data("value");
+    //   window.dataTableCatEntradas = window.dataTableCatEntradas || {};
+    //   dataTableCatEntradas.id_movimiento = tipo;
+    //   tableCatEntradas.ajax.reload();
 
-      // Cambia visibilidad y títulos de columnas según el tipo de movimiento
-      if (tipo == "1") {
-        // Entradas
-        $("#titulosEntradasSalidas").text("Entradas");
-        tableCatEntradas.column(3).visible(true);
-        tableCatEntradas.column(7).header().textContent = "Motivo de entrada";
-        tableCatEntradas.column(4).header().textContent =
-          "Fecha última entrada";
-        tableCatEntradas.column(5).visible(true);
-        tableCatEntradas.column(6).visible(true);
-        tableCatDetallesEntradas.column(3).header().textContent =
-          "Cantidad de entrada";
-        tableCatDetallesEntradas.column(0).visible(true);
-        tableCatDetallesEntradas.column(1).header().textContent =
-          "Fecha y hora última entrada";
-        tableCatDetallesEntradas.column(1).visible(true);
-        tableCatDetallesEntradas.column(2).visible(true);
-        tableCatDetallesEntradas.column(6).header().textContent =
-          "Motivo de entrada";
-        tableCatDetallesEntradas.column(7).visible(true);
-        detalleEntradaLabel.textContent = "Detalles de entrada";
+    //   // Cambia visibilidad y títulos de columnas según el tipo de movimiento
+    //   if (tipo == "1") {
+    //     // Entradas
+    //     $("#titulosEntradasSalidas").text("Entradas");
+    //     tableCatEntradas.column(3).visible(true);
+    //     tableCatEntradas.column(7).header().textContent = "Motivo de entrada";
+    //     tableCatEntradas.column(4).header().textContent =
+    //       "Fecha última entrada";
+    //     tableCatEntradas.column(5).visible(true);
+    //     tableCatEntradas.column(6).visible(true);
+    //     tableCatDetallesEntradas.column(3).header().textContent =
+    //       "Cantidad de entrada";
+    //     tableCatDetallesEntradas.column(0).visible(true);
+    //     tableCatDetallesEntradas.column(1).header().textContent =
+    //       "Fecha y hora última entrada";
+    //     tableCatDetallesEntradas.column(1).visible(true);
+    //     tableCatDetallesEntradas.column(2).visible(true);
+    //     tableCatDetallesEntradas.column(6).header().textContent =
+    //       "Motivo de entrada";
+    //     tableCatDetallesEntradas.column(7).visible(true);
+    //     detalleEntradaLabel.textContent = "Detalles de entrada";
 
-        //cambiar dep osicion post
-        tableCatDetallesEntradas.column(10).visible(true);
-        tableCatDetallesEntradas.column(11).visible(true);
+    //     //cambiar dep osicion post
+    //     tableCatDetallesEntradas.column(10).visible(true);
+    //     tableCatDetallesEntradas.column(11).visible(true);
 
-        //Editar en detalles entradas
-        cantidadEditarMovLabel.textContent = "Cantidad a ingresar";
-        $("#editarMovimientoModal #costoUltimaEntradaDiv").show();
-        $("#editarMovimientoModal #costo_ultima_entrada").prop(
-          "required",
-          true
-        );
-        $("#editarMovimientoModal #proveedorDiv").show();
-        $("#editarMovimientoModal #id_proveedores").prop("required", true);
-        $("#editarMovimientoModal .modal-title").html(
-          'Editando entrada con fecha: <span id="mostrandoDetallesEntrada"></span>'
-        );
-        $("#editarMovimientoModal #motivo_salida_label").text(
-          "Motivo de entrada"
-        );
+    //     //Editar en detalles entradas
+    //     cantidadEditarMovLabel.textContent = "Cantidad a ingresar";
+    //     $("#editarMovimientoModal #costoUltimaEntradaDiv").show();
+    //     $("#editarMovimientoModal #costo_ultima_entrada").prop(
+    //       "required",
+    //       true
+    //     );
+    //     $("#editarMovimientoModal #proveedorDiv").show();
+    //     $("#editarMovimientoModal #id_proveedores").prop("required", true);
+    //     $("#editarMovimientoModal .modal-title").html(
+    //       'Editando entrada con fecha: <span id="mostrandoDetallesEntrada"></span>'
+    //     );
+    //     $("#editarMovimientoModal #motivo_salida_label").text(
+    //       "Motivo de entrada"
+    //     );
 
-        $("#editarMovimientoModal #facturaEditDiv").show();
-        $("#editarMovimientoModal #img_factura").prop("required", false);
+    //     $("#editarMovimientoModal #facturaEditDiv").show();
+    //     $("#editarMovimientoModal #img_factura").prop("required", false);
 
-        // AGREGAR: Mostrar campos de lote y caducidad para entradas
-        $("#editarMovimientoModal #lotesCaducidadEditDiv").show();
-        $("#editarMovimientoModal #ordenCompraDiva").show();
-      } else {
-        // Salidas
-        $("#titulosEntradasSalidas").text("Salidas");
-        tableCatEntradas.column(3).visible(false); // Oculta costo última entrada
-        tableCatEntradas.column(7).header().textContent = "Motivo de salida";
-        tableCatEntradas.column(4).header().textContent = "Fecha última salida";
-        tableCatEntradas.column(5).visible(false); // Oculta costo más alto
-        tableCatEntradas.column(6).visible(false); // Oculta proveedor
-        tableCatDetallesEntradas.column(3).header().textContent =
-          "Cantidad de salida";
-        tableCatDetallesEntradas.column(0).visible(false);
-        tableCatDetallesEntradas.column(1).header().textContent =
-          "Fecha y hora última salida";
-        tableCatDetallesEntradas.column(1).visible(true);
-        tableCatDetallesEntradas.column(2).visible(false);
-        tableCatDetallesEntradas.column(6).header().textContent =
-          "Motivo de salida";
-        tableCatDetallesEntradas.column(7).visible(false);
-        tableCatDetallesEntradas.columns.adjust().draw();
-        detalleEntradaLabel.textContent = "Detalles de salida";
+    //     // AGREGAR: Mostrar campos de lote y caducidad para entradas
+    //     $("#editarMovimientoModal #lotesCaducidadEditDiv").show();
+    //     $("#editarMovimientoModal #ordenCompraDiva").show();
+    //   } else {
+    //     // Salidas
+    //     $("#titulosEntradasSalidas").text("Salidas");
+    //     tableCatEntradas.column(3).visible(false); // Oculta costo última entrada
+    //     tableCatEntradas.column(7).header().textContent = "Motivo de salida";
+    //     tableCatEntradas.column(4).header().textContent = "Fecha última salida";
+    //     tableCatEntradas.column(5).visible(false); // Oculta costo más alto
+    //     tableCatEntradas.column(6).visible(false); // Oculta proveedor
+    //     tableCatDetallesEntradas.column(3).header().textContent =
+    //       "Cantidad de salida";
+    //     tableCatDetallesEntradas.column(0).visible(false);
+    //     tableCatDetallesEntradas.column(1).header().textContent =
+    //       "Fecha y hora última salida";
+    //     tableCatDetallesEntradas.column(1).visible(true);
+    //     tableCatDetallesEntradas.column(2).visible(false);
+    //     tableCatDetallesEntradas.column(6).header().textContent =
+    //       "Motivo de salida";
+    //     tableCatDetallesEntradas.column(7).visible(false);
+    //     tableCatDetallesEntradas.columns.adjust().draw();
+    //     detalleEntradaLabel.textContent = "Detalles de salida";
 
-        //Editar en detalles salidas
-        cantidadEditarMovLabel.textContent = "Cantidad a retirar";
-        $("#editarMovimientoModal #costoUltimaEntradaDiv").hide();
-        $("#editarMovimientoModal #costo_ultima_entrada").prop(
-          "required",
-          false
-        );
-        $("#editarMovimientoModal #proveedorDiv").hide();
-        $("#editarMovimientoModal #id_proveedores").prop("required", false); //false, se pone auto id 3 (SIN PROVEEDOR)
-        $("#editarMovimientoModal .modal-title").html(
-          'Editando salida con fecha: <span id="mostrandoDetallesEntrada"></span>'
-        );
-        $("#editarMovimientoModal #motivo_salida_label").text(
-          "Motivo de salida"
-        );
+    //     //Editar en detalles salidas
+    //     cantidadEditarMovLabel.textContent = "Cantidad a retirar";
+    //     $("#editarMovimientoModal #costoUltimaEntradaDiv").hide();
+    //     $("#editarMovimientoModal #costo_ultima_entrada").prop(
+    //       "required",
+    //       false
+    //     );
+    //     $("#editarMovimientoModal #proveedorDiv").hide();
+    //     $("#editarMovimientoModal #id_proveedores").prop("required", false); //false, se pone auto id 3 (SIN PROVEEDOR)
+    //     $("#editarMovimientoModal .modal-title").html(
+    //       'Editando salida con fecha: <span id="mostrandoDetallesEntrada"></span>'
+    //     );
+    //     $("#editarMovimientoModal #motivo_salida_label").text(
+    //       "Motivo de salida"
+    //     );
 
-        $("#editarMovimientoModal #facturaEditDiv").hide();
-        $("#editarMovimientoModal #img_factura").prop("required", false);
+    //     $("#editarMovimientoModal #facturaEditDiv").hide();
+    //     $("#editarMovimientoModal #img_factura").prop("required", false);
 
-        // AGREGAR: Ocultar campos de lote y caducidad para salidas
-        $("#editarMovimientoModal #lotesCaducidadEditDiv").hide();
-        $("#editarMovimientoModal #ordenCompraDiva").hide();
+    //     // AGREGAR: Ocultar campos de lote y caducidad para salidas
+    //     $("#editarMovimientoModal #lotesCaducidadEditDiv").hide();
+    //     $("#editarMovimientoModal #ordenCompraDiva").hide();
 
-        //cambiar dep osicion post
+    //     //cambiar dep osicion post
 
-        tableCatDetallesEntradas.column(10).visible(false);
-        tableCatDetallesEntradas.column(11).visible(false);
-      }
-      tableCatEntradas.columns.adjust().draw();
-      $menu.remove();
-    });
+    //     tableCatDetallesEntradas.column(10).visible(false);
+    //     tableCatDetallesEntradas.column(11).visible(false);
+    //   }
+    //   tableCatEntradas.columns.adjust().draw();
+    //   $menu.remove();
+    // });
 
     // Cierra el menú si haces click fuera
     $(document).on("mousedown.dropdownTipoMovimiento", function (event) {
@@ -921,7 +921,12 @@ tableCatEntradas = $("#tableCatEntradas").DataTable({
     {
       data: "MOTIVO_SALIDA",
     },
-    { data: "CANTIDAD" },
+    {
+      data: "CANTIDAD",
+      render: function(data, type, row) {
+        return Math.round(data);
+      }
+    },
     { data: "USUARIO" },
     { data: "ORDEN_COMPRA" },
     {

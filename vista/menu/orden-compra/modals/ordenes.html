@@ -31,16 +31,8 @@
                     <div class="input-group">
                       <input type="text" class="form-control" id="NUMERO_ORDEN_COMPRA" name="NUMERO_ORDEN_COMPRA"
                         placeholder="Ingrese el número de orden" required />
-                      <button type="button" class="btn btn-outline-primary" id="btnGenerarNumero" 
-                        onclick="generarNumeroAutomatico()" title="Generar número automáticamente">
-                        <i class="bi bi-magic"></i>
-                      </button>
                     </div>
                     <div class="invalid-feedback">Este campo es obligatorio.</div>
-                    <small class="form-text text-muted">
-                      <i class="bi bi-info-circle"></i> 
-                      Use el botón <i class="bi bi-magic"></i> para generar un número automáticamente
-                    </small>
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -94,11 +86,8 @@
                     <label for="ESTADO" class="form-label">Estado *</label>
                     <select class="form-select" id="ESTADO" name="ESTADO" required>
                       <option value="">Seleccione un estado</option>
-                      <option value="PENDIENTE">Pendiente</option>
-                      <option value="APROBADA">Aprobada</option>
-                      <option value="RECHAZADA">Rechazada</option>
-                      <option value="RECIBIDA">Recibida</option>
-                      <option value="CANCELADA">Cancelada</option>
+                      <option value="BORRADOR">Borrador</option>
+                      <option value="PENDIENTE">Enviar para aprobación</option>
                     </select>
                     <div class="invalid-feedback">Este campo es obligatorio.</div>
                   </div>
@@ -122,7 +111,7 @@
                     <div class="input-group">
                       <span class="input-group-text">$</span>
                       <input type="number" class="form-control" id="SUBTOTAL" name="SUBTOTAL" placeholder="0.00"
-                        step="0.01" min="0" required />
+                        step="0.01" min="0" required readonly style="cursor: not-allowed;"/>
                     </div>
                     <div class="invalid-feedback">Este campo es obligatorio.</div>
                   </div>
@@ -133,7 +122,7 @@
                     <div class="input-group">
                       <span class="input-group-text">$</span>
                       <input type="number" class="form-control" id="IVA" name="IVA" placeholder="0.00" step="0.01"
-                        min="0" required />
+                        min="0" required readonly style="cursor: not-allowed;"/>
                     </div>
                     <div class="invalid-feedback">Este campo es obligatorio.</div>
                   </div>
@@ -144,7 +133,7 @@
                     <div class="input-group">
                       <span class="input-group-text">$</span>
                       <input type="number" class="form-control" id="TOTAL" name="TOTAL" placeholder="0.00" step="0.01"
-                        min="0" required />
+                        min="0" required readonly style="cursor: not-allowed;"/>
                     </div>
                     <div class="invalid-feedback">Este campo es obligatorio.</div>
                   </div>
@@ -357,12 +346,12 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label for="configurarPrecioUnitario" class="form-label">Precio Unitario (Opcional)</label>
+                    <label for="configurarPrecioUnitario" class="form-label">Precio Unitario</label>
                     <div class="input-group">
                       <span class="input-group-text">$</span>
-                      <input type="number" class="form-control" id="configurarPrecioUnitario" min="0" step="0.01" placeholder="0.00" />
+                      <input type="number" class="form-control" id="configurarPrecioUnitario" min="0" step="0.01" placeholder="0.00" required step="any" />
                     </div>
-                    <div class="form-text">Puede dejarlo en blanco si no conoce el precio</div>
+                    <div class="form-text">Este campo es obligatorio</div>
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -587,7 +576,7 @@
     <div class="modal-content shadow-lg border-0">
       <div class="modal-header text-white" style="background-color: #004e59;">
         <div class="d-flex align-items-center">
-          <i class="bi bi-person-badge-fill me-2 fs-4"></i>
+          <i class="bi bi-cart-check-fill me-2 fs-4"></i>
           <h5 class="modal-title mb-0" id="verOrdenCompraModalLabel">Información de la Orden de Compra</h5>
         </div>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -599,118 +588,112 @@
           <div class="card mb-3 border-0 shadow-sm">
             <div class="card-header bg-light">
               <h6 class="card-title mb-0">
-                <i class="bi bi-building me-2" style="color: #004e59;"></i>Información General
+                <i class="bi bi-info-circle me-2" style="color: #004e59;"></i>Información General
               </h6>
             </div>
             <div class="card-body">
               <div class="row g-3">
                 <div class="col-lg-6">
                   <div class="d-flex align-items-center mb-2">
-                    <i class="bi bi-tag-fill text-muted me-2"></i>
-                    <small class="text-muted mb-0">Nombre</small>
+                    <i class="bi bi-hash text-muted me-2"></i>
+                    <small class="text-muted mb-0">Número de Orden</small>
                   </div>
-                  <p class="fw-semibold mb-0" id="verOrdenCompraNombre">-</p>
+                  <p class="fw-semibold mb-0" id="verOrdenCompraNumero">-</p>
                 </div>
                 <div class="col-lg-6">
                   <div class="d-flex align-items-center mb-2">
-                    <i class="bi bi-card-text text-muted me-2"></i>
-                    <small class="text-muted mb-0">Razón Social</small>
+                    <i class="bi bi-calendar-date text-muted me-2"></i>
+                    <small class="text-muted mb-0">Fecha de Orden</small>
                   </div>
-                  <p class="fw-semibold mb-0" id="verOrdenCompraRazonSocial">-</p>
+                  <p class="fw-semibold mb-0" id="verOrdenCompraFecha">-</p>
                 </div>
                 <div class="col-lg-6">
                   <div class="d-flex align-items-center mb-2">
-                    <i class="bi bi-file-text text-muted me-2"></i>
-                    <small class="text-muted mb-0">RFC</small>
+                    <i class="bi bi-flag text-muted me-2"></i>
+                    <small class="text-muted mb-0">Estado</small>
                   </div>
-                  <p class="fw-semibold mb-0" id="verOrdenCompraRfc">-</p>
+                  <p class="fw-semibold mb-0" id="verOrdenCompraEstado">-</p>
                 </div>
                 <div class="col-lg-6">
                   <div class="d-flex align-items-center mb-2">
-                    <i class="bi bi-shield-check text-muted me-2"></i>
-                    <small class="text-muted mb-0">Verificación EFO</small>
+                    <i class="bi bi-building text-muted me-2"></i>
+                    <small class="text-muted mb-0">Proveedor</small>
                   </div>
-                  <div id="verOrdenCompraVerificacionEfo">-</div>
+                  <p class="fw-semibold mb-0" id="verOrdenCompraProveedor">-</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Documentos -->
+          <!-- Información Financiera -->
           <div class="card mb-3 border-0 shadow-sm">
             <div class="card-header bg-light">
               <h6 class="card-title mb-0">
-                <i class="bi bi-files me-2" style="color: #006b7a;"></i>Documentos
+                <i class="bi bi-currency-dollar me-2" style="color: #004e59;"></i>Información Financiera
               </h6>
             </div>
             <div class="card-body">
               <div class="row g-3">
                 <div class="col-lg-4">
                   <div class="d-flex align-items-center mb-2">
-                    <i class="bi bi-file-earmark-pdf text-muted me-2"></i>
-                    <small class="text-muted mb-0">Constancia Fiscal</small>
+                    <i class="bi bi-calculator text-muted me-2"></i>
+                    <small class="text-muted mb-0">Subtotal</small>
                   </div>
-                  <div id="verOrdenCompraConstanciaFiscal" class="fw-semibold">-</div>
+                  <p class="fw-semibold mb-0 text-info" id="verOrdenCompraSubtotal">-</p>
                 </div>
                 <div class="col-lg-4">
                   <div class="d-flex align-items-center mb-2">
-                    <i class="bi bi-bank text-muted me-2"></i>
-                    <small class="text-muted mb-0">Carátula Bancaria</small>
+                    <i class="bi bi-percent text-muted me-2"></i>
+                    <small class="text-muted mb-0">IVA</small>
                   </div>
-                  <div id="verOrdenCompraCaratulaBancaria" class="fw-semibold">-</div>
+                  <p class="fw-semibold mb-0 text-warning" id="verOrdenCompraIva">-</p>
                 </div>
                 <div class="col-lg-4">
                   <div class="d-flex align-items-center mb-2">
-                    <i class="bi bi-house text-muted me-2"></i>
-                    <small class="text-muted mb-0">Comprobante Domicilio</small>
+                    <i class="bi bi-cash-stack text-muted me-2"></i>
+                    <small class="text-muted mb-0">Total</small>
                   </div>
-                  <div id="verOrdenCompraComprobanteDomicilio" class="fw-semibold">-</div>
+                  <p class="fw-semibold mb-0 text-success" id="verOrdenCompraTotal">-</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Información de Contacto -->
+          <!-- Observaciones -->
           <div class="card mb-3 border-0 shadow-sm">
             <div class="card-header bg-light">
               <h6 class="card-title mb-0">
-                <i class="bi bi-telephone me-2" style="color: #007b8a;"></i>Contacto
+                <i class="bi bi-chat-text me-2" style="color: #004e59;"></i>Observaciones
               </h6>
             </div>
             <div class="card-body">
-              <div class="row g-3">
-                <div class="col-lg-4">
-                  <div class="d-flex align-items-center mb-2">
-                    <i class="bi bi-person text-muted me-2"></i>
-                    <small class="text-muted mb-0">Persona de Contacto</small>
-                  </div>
-                  <p class="fw-semibold mb-0" id="verOrdenCompraContacto">-</p>
-                </div>
-                <div class="col-lg-4">
-                  <div class="d-flex align-items-center mb-2">
-                    <i class="bi bi-telephone-fill text-muted me-2"></i>
-                    <small class="text-muted mb-0">Teléfono</small>
-                  </div>
-                  <p class="fw-semibold mb-0" id="verOrdenCompraTelefono">-</p>
-                </div>
-                <div class="col-lg-4">
-                  <div class="d-flex align-items-center mb-2">
-                    <i class="bi bi-envelope text-muted me-2"></i>
-                    <small class="text-muted mb-0">Email</small>
-                  </div>
-                  <p class="fw-semibold mb-0" id="verOrdenCompraEmail">-</p>
-                </div>
+              <div class="d-flex align-items-center mb-2">
+                <i class="bi bi-chat-left-text text-muted me-2"></i>
+                <small class="text-muted mb-0">Comentarios</small>
               </div>
+              <p class="fw-semibold mb-0" id="verOrdenCompraObservaciones">-</p>
             </div>
           </div>
 
-          <!-- Estado y Fechas -->
+          <!-- Información de Responsable y Fechas -->
           <div class="row g-3">
             <div class="col-lg-6">
               <div class="card border-0 shadow-sm h-100">
                 <div class="card-header bg-light">
                   <h6 class="card-title mb-0">
-                    <i class="bi bi-toggle2-on me-2" style="color: #005866;"></i>Estado
+                    <i class="bi bi-person-circle me-2" style="color: #004e59;"></i>Responsable
+                  </h6>
+                </div>
+                <div class="card-body d-flex align-items-center justify-content-center">
+                  <p class="fw-semibold mb-0 text-center" id="verOrdenCompraResponsable">-</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-light">
+                  <h6 class="card-title mb-0">
+                    <i class="bi bi-toggle2-on me-2" style="color: #004e59;"></i>Estado
                   </h6>
                 </div>
                 <div class="card-body d-flex align-items-center justify-content-center">
@@ -718,30 +701,30 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-6">
-              <div class="card border-0 shadow-sm h-100">
-                <div class="card-header bg-light">
-                  <h6 class="card-title mb-0">
-                    <i class="bi bi-clock-history me-2" style="color: #6c757d;"></i>Historial
-                  </h6>
-                </div>
-                <div class="card-body">
-                  <div class="row g-2">
-                    <div class="col-12">
-                      <div class="d-flex align-items-center mb-1">
-                        <i class="bi bi-plus-circle text-muted me-2"></i>
-                        <small class="text-muted">Creado</small>
-                      </div>
-                      <small class="fw-semibold" id="verOrdenCompraFechaCreacion">-</small>
-                    </div>
-                    <div class="col-12">
-                      <div class="d-flex align-items-center mb-1">
-                        <i class="bi bi-pencil text-muted me-2"></i>
-                        <small class="text-muted">Actualizado</small>
-                      </div>
-                      <small class="fw-semibold" id="verOrdenCompraFechaActualizacion">-</small>
-                    </div>
+          </div>
+
+          <!-- Historial de Fechas -->
+          <div class="card mt-3 border-0 shadow-sm">
+            <div class="card-header bg-light">
+              <h6 class="card-title mb-0">
+                <i class="bi bi-clock-history me-2" style="color: #004e59;"></i>Historial
+              </h6>
+            </div>
+            <div class="card-body">
+              <div class="row g-3">
+                <div class="col-lg-6">
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-plus-circle text-muted me-2"></i>
+                    <small class="text-muted mb-0">Fecha de Creación</small>
                   </div>
+                  <small class="fw-semibold" id="verOrdenCompraFechaCreacion">-</small>
+                </div>
+                <div class="col-lg-6">
+                  <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-pencil text-muted me-2"></i>
+                    <small class="text-muted mb-0">Última Actualización</small>
+                  </div>
+                  <small class="fw-semibold" id="verOrdenCompraFechaActualizacion">-</small>
                 </div>
               </div>
             </div>
@@ -864,67 +847,3 @@
   
   <!-- Incluir JavaScript para manejo de artículos -->
   <script src="modals/js/articulos_orden_compra.js"></script>
-  
-  <script>
-  $(document).on("click", ".btn-ver-orden-compra", function () {
-    $("#verOrdenCompraNombre").text($(this).data("nombre") || "");
-    $("#verOrdenCompraRazonSocial").text($(this).data("razon_social") || "");
-    $("#verOrdenCompraRfc").text($(this).data("rfc") || "");
-    $("#verOrdenCompraVerificacionEfo").html($(this).data("verificacion_efo") == 1 ? '<i class="bi bi-check-lg text-success"></i>' : '<i class="bi bi-x-lg text-danger"></i>');
-
-    var constancia = $(this).data("constancia_situacion_fiscal");
-    if (constancia) {
-      $("#verOrdenCompraConstanciaFiscal").html('<a href="' + constancia + '" target="_blank">Ver archivo</a>');
-    } else {
-      $("#verOrdenCompraConstanciaFiscal").text("");
-    }
-    var caratula = $(this).data("caratula_bancaria");
-    if (caratula) {
-      $("#verOrdenCompraCaratulaBancaria").html('<a href="' + caratula + '" target="_blank">Ver archivo</a>');
-    } else {
-      $("#verOrdenCompraCaratulaBancaria").text("");
-    }
-    var comprobante = $(this).data("comprobante_domicilio");
-    if (comprobante) {
-      $("#verOrdenCompraComprobanteDomicilio").html('<a href="' + comprobante + '" target="_blank">Ver archivo</a>');
-    } else {
-      $("#verOrdenCompraComprobanteDomicilio").text("");
-    }
-
-    $("#verOrdenCompraContacto").text($(this).data("contacto") || "");
-    $("#verOrdenCompraTelefono").text($(this).data("telefono") || "");
-    $("#verOrdenCompraEmail").text($(this).data("email") || "");
-    $("#verOrdenCompraFechaCreacion").text($(this).data("fecha_creacion") || "");
-    $("#verOrdenCompraFechaActualizacion").text($(this).data("fecha_actualizacion") || "");
-        $("#verOrdenCompraActivo").html($(this).data("activo") == 1 ? '<span class="badge bg-success">Activo</span>' : '<span class="badge bg-secondary">Inactivo</span>');
-  });
-
-  // Eventos para botones de editar orden de compra
-  $(document).on("click", ".btn-editar-orden-compra", function () {
-    const idOrdenCompra = $(this).data("id");
-    
-    // Limpiar formulario
-    $("#registrarOrdenCompraForm")[0].reset();
-    $("#ID_ORDEN_COMPRA").val(idOrdenCompra);
-    
-    // Cambiar título del modal
-    $("#registrarOrdenCompraModalLabel").text("Editar Orden de Compra");
-    $("#btnGuardarOrdenCompra").html('<i class="bi bi-check-lg"></i> Actualizar Orden');
-    
-    // Cargar datos de la orden (aquí deberías implementar la carga de datos)
-    // Por ahora solo cargamos los artículos existentes
-    cargarArticulosExistentesOrden(idOrdenCompra);
-    
-    // Mostrar modal
-    $("#registrarOrdenCompraModal").modal("show");
-  });
-
-  // Limpiar modal al cerrarse
-  $('#registrarOrdenCompraModal').on('hidden.bs.modal', function () {
-    $("#registrarOrdenCompraForm")[0].reset();
-    $("#ID_ORDEN_COMPRA").val("");
-    $("#registrarOrdenCompraModalLabel").text("Registrar Orden de Compra");
-    $("#btnGuardarOrdenCompra").html('<i class="bi bi-check-lg"></i> Guardar Orden');
-    inicializarArticulosOrdenCompra();
-  });
-  </script>
