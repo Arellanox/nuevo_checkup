@@ -163,6 +163,10 @@
                     <th class="fw-bold">Competencias</th>
                     <th class="fw-bold">Banda Salarial</th>
                     <th class="fw-bold">Salario Mínimo</th>
+                    <th class="fw-bold">Habilidades Blandas (IDs)</th>
+                    <th class="fw-bold">Habilidades Técnicas (IDs)</th>
+                    <th class="fw-bold">Habilidades Blandas</th>
+                    <th class="fw-bold">Habilidades Técnicas</th>
                   </tr>
                 </thead>
                 <tbody></tbody>
@@ -492,6 +496,43 @@
                     </select>
                   </div>
                 </div>
+              </div>
+              <!-- Habilidades Blandas -->
+              <div class="mb-4">
+                <label class="form-label fw-bold">
+                  <i class="fas fa-heart me-2"></i>Habilidades Blandas
+                </label>
+                
+                <!-- Tags de habilidades blandas seleccionadas -->
+                <div id="habilidadesBlandasTags" class="mb-3" style="min-height: 40px;">
+                  <div class="d-flex flex-wrap gap-2" id="habilidadesBlandasContainer">
+                    <!-- Los tags aparecerán aquí -->
+                  </div>
+                </div>
+                
+                <!-- Select para elegir habilidades blandas -->
+                <select class="form-select rounded-3 border-2" id="selectHabilidadesBlandas">
+                  <option value="">Seleccione una habilidad blanda...</option>
+                </select>
+              </div>
+
+              <!-- Habilidades Técnicas -->
+              <div class="mb-4">
+                <label class="form-label fw-bold">
+                  <i class="fas fa-cogs me-2"></i>Habilidades Técnicas
+                </label>
+                
+                <!-- Tags de habilidades técnicas seleccionadas -->
+                <div id="habilidadesTecnicasTags" class="mb-3" style="min-height: 40px;">
+                  <div class="d-flex flex-wrap gap-2" id="habilidadesTecnicasContainer">
+                    <!-- Los tags aparecerán aquí -->
+                  </div>
+                </div>
+                
+                <!-- Select para elegir habilidades técnicas -->
+                <select class="form-select rounded-3 border-2" id="selectHabilidadesTecnicas">
+                  <option value="">Seleccione una habilidad técnica...</option>
+                </select>
               </div>
               <div class="mb-3">
                 <label for="objetivosPuesto" class="form-label"
@@ -957,6 +998,282 @@
     $("#detallesPuestoModal").data('from-catalog', true);
     $("#registrarCatalogoModal").modal("hide");
   });
+
+  // ===========================================
+  // SISTEMA DE TAGS DINÁMICOS PARA HABILIDADES
+  // ===========================================
+
+  // Arrays para almacenar las habilidades seleccionadas
+  let habilidadesBlandasSeleccionadas = [];
+  let habilidadesTecnicasSeleccionadas = [];
+
+  // Arrays para almacenar todas las habilidades disponibles (cargadas desde API)
+  let habilidadesBlandas = [];
+  let habilidadesTecnicas = [];
+
+  // Función para cargar habilidades blandas desde la API
+  function cargarHabilidadesBlandasAPI() {
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        url: "../../../api/recursos_humanos_api.php",
+        type: "POST",
+        dataType: "json",
+        data: { api: 18 }, // sp_rh_cat_blandas_b
+        beforeSend: function() {
+          $('#selectHabilidadesBlandas').addClass('select-loading');
+        },
+        success: function(response) {
+          $('#selectHabilidadesBlandas').removeClass('select-loading');
+          if (response && response.response && response.response.code === 1) {
+            // Mapear los datos de la API al formato esperado
+            habilidadesBlandas = response.response.data.map(item => ({
+              id: parseInt(item.id_blanda),
+              nombre: item.descripcion
+            }));
+            resolve(habilidadesBlandas);
+          } else {
+            console.error("Error al cargar habilidades blandas:", response);
+            alertToast("Error al cargar habilidades blandas", "error", 3000);
+            resolve([]);
+          }
+        },
+        error: function(xhr, status, error) {
+          $('#selectHabilidadesBlandas').removeClass('select-loading');
+          console.error("Error AJAX al cargar habilidades blandas:", error);
+          alertToast("Error de conexión al cargar habilidades blandas", "error", 3000);
+          resolve([]);
+        }
+      });
+    });
+  }
+
+  // Función para cargar habilidades técnicas desde la API
+  function cargarHabilidadesTecnicasAPI() {
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        url: "../../../api/recursos_humanos_api.php",
+        type: "POST",
+        dataType: "json",
+        data: { api: 21 }, // sp_rh_cat_tecnicas_b
+        beforeSend: function() {
+          $('#selectHabilidadesTecnicas').addClass('select-loading');
+        },
+        success: function(response) {
+          $('#selectHabilidadesTecnicas').removeClass('select-loading');
+          if (response && response.response && response.response.code === 1) {
+            // Mapear los datos de la API al formato esperado
+            habilidadesTecnicas = response.response.data.map(item => ({
+              id: parseInt(item.id_tecnica),
+              nombre: item.descripcion
+            }));
+            resolve(habilidadesTecnicas);
+          } else {
+            console.error("Error al cargar habilidades técnicas:", response);
+            alertToast("Error al cargar habilidades técnicas", "error", 3000);
+            resolve([]);
+          }
+        },
+        error: function(xhr, status, error) {
+          $('#selectHabilidadesTecnicas').removeClass('select-loading');
+          console.error("Error AJAX al cargar habilidades técnicas:", error);
+          alertToast("Error de conexión al cargar habilidades técnicas", "error", 3000);
+          resolve([]);
+        }
+      });
+    });
+  }
+
+  // Función para cargar las opciones en los selects
+  function cargarHabilidades() {
+    // Cargar habilidades blandas
+    const selectBlandas = $('#selectHabilidadesBlandas');
+    selectBlandas.empty().append('<option value="">Seleccione una habilidad blanda...</option>');
+    habilidadesBlandas.forEach(habilidad => {
+      if (!habilidadesBlandasSeleccionadas.find(h => h.id === habilidad.id)) {
+        selectBlandas.append(`<option value="${habilidad.id}">${habilidad.nombre}</option>`);
+      }
+    });
+
+    // Cargar habilidades técnicas
+    const selectTecnicas = $('#selectHabilidadesTecnicas');
+    selectTecnicas.empty().append('<option value="">Seleccione una habilidad técnica...</option>');
+    habilidadesTecnicas.forEach(habilidad => {
+      if (!habilidadesTecnicasSeleccionadas.find(h => h.id === habilidad.id)) {
+        selectTecnicas.append(`<option value="${habilidad.id}">${habilidad.nombre}</option>`);
+      }
+    });
+  }
+
+  // Función principal para inicializar las habilidades
+  async function inicializarHabilidades() {
+    try {
+      // Cargar ambos tipos de habilidades en paralelo
+      await Promise.all([
+        cargarHabilidadesBlandasAPI(),
+        cargarHabilidadesTecnicasAPI()
+      ]);
+      
+      // Una vez cargadas, actualizar los selects
+      cargarHabilidades();
+      
+    } catch (error) {
+      console.error("Error al inicializar habilidades:", error);
+      alertToast("Error al cargar las habilidades del sistema", "error", 5000);
+    }
+  }
+
+  // Función para crear un tag
+  function crearTag(habilidad, tipo) {
+    const colorClass = tipo === 'blanda' ? 'bg-success' : 'bg-info';
+    const iconClass = tipo === 'blanda' ? 'fas fa-heart' : 'fas fa-cogs';
+    
+    return `
+      <span class="badge ${colorClass} text-white d-flex align-items-center gap-2 px-3 py-2 fs-6 tag-habilidad" 
+            data-id="${habilidad.id}" 
+            data-tipo="${tipo}"
+            style="border-radius: 20px; cursor: default; transition: all 0.3s ease;">
+        <i class="${iconClass}"></i>
+        ${habilidad.nombre}
+        <button type="button" class="btn-close btn-close-white btn-sm ms-1 btn-eliminar-tag" 
+                style="font-size: 0.7rem; padding: 0; width: 18px; height: 18px; opacity: 0.8;"
+                data-id="${habilidad.id}" 
+                data-tipo="${tipo}">
+        </button>
+      </span>
+    `;
+  }
+
+  // Función para actualizar los tags mostrados
+  function actualizarTags() {
+    // Actualizar tags de habilidades blandas
+    const containerBlandas = $('#habilidadesBlandasContainer');
+    containerBlandas.empty();
+    habilidadesBlandasSeleccionadas.forEach(habilidad => {
+      containerBlandas.append(crearTag(habilidad, 'blanda'));
+    });
+
+    // Actualizar tags de habilidades técnicas
+    const containerTecnicas = $('#habilidadesTecnicasContainer');
+    containerTecnicas.empty();
+    habilidadesTecnicasSeleccionadas.forEach(habilidad => {
+      containerTecnicas.append(crearTag(habilidad, 'tecnica'));
+    });
+
+    // Actualizar los selects
+    cargarHabilidades();
+  }
+
+  // Event listener para seleccionar habilidades blandas
+  $('#selectHabilidadesBlandas').on('change', function() {
+    const habilidadId = parseInt($(this).val());
+    if (habilidadId) {
+      const habilidad = habilidadesBlandas.find(h => h.id === habilidadId);
+      if (habilidad && !habilidadesBlandasSeleccionadas.find(h => h.id === habilidad.id)) {
+        habilidadesBlandasSeleccionadas.push(habilidad);
+        actualizarTags();
+        $(this).val(''); // Resetear el select
+        
+        // DEBUG: Mostrar habilidades seleccionadas
+        console.log("Habilidad blanda agregada:", habilidad);
+        console.log("Total habilidades blandas seleccionadas:", habilidadesBlandasSeleccionadas);
+        
+        // Animación suave del nuevo tag
+        setTimeout(() => {
+          $('.tag-habilidad').last().hide().fadeIn(300);
+        }, 50);
+      }
+    }
+  });
+
+  // Event listener para seleccionar habilidades técnicas
+  $('#selectHabilidadesTecnicas').on('change', function() {
+    const habilidadId = parseInt($(this).val());
+    if (habilidadId) {
+      const habilidad = habilidadesTecnicas.find(h => h.id === habilidadId);
+      if (habilidad && !habilidadesTecnicasSeleccionadas.find(h => h.id === habilidad.id)) {
+        habilidadesTecnicasSeleccionadas.push(habilidad);
+        actualizarTags();
+        $(this).val(''); // Resetear el select
+        
+        // DEBUG: Mostrar habilidades seleccionadas
+        console.log("Habilidad técnica agregada:", habilidad);
+        console.log("Total habilidades técnicas seleccionadas:", habilidadesTecnicasSeleccionadas);
+        
+        // Animación suave del nuevo tag
+        setTimeout(() => {
+          $('.tag-habilidad').last().hide().fadeIn(300);
+        }, 50);
+      }
+    }
+  });
+
+  // Event listener para eliminar tags (usando delegación de eventos)
+  $(document).on('click', '.btn-eliminar-tag', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const habilidadId = parseInt($(this).data('id'));
+    const tipo = $(this).data('tipo');
+    
+    // Animación de salida
+    $(this).closest('.tag-habilidad').fadeOut(200, function() {
+      if (tipo === 'blanda') {
+        habilidadesBlandasSeleccionadas = habilidadesBlandasSeleccionadas.filter(h => h.id !== habilidadId);
+      } else {
+        habilidadesTecnicasSeleccionadas = habilidadesTecnicasSeleccionadas.filter(h => h.id !== habilidadId);
+      }
+      actualizarTags();
+    });
+  });
+
+  // Función para obtener las habilidades seleccionadas (para usar al enviar el formulario)
+  function obtenerHabilidadesSeleccionadas() {
+    const resultado = {
+      blandas: habilidadesBlandasSeleccionadas.map(h => h.id),
+      tecnicas: habilidadesTecnicasSeleccionadas.map(h => h.id)
+    };
+    
+    // DEBUG: Mostrar qué se está devolviendo
+    console.log("=== DEBUG obtenerHabilidadesSeleccionadas ===");
+    console.log("Habilidades blandas raw:", habilidadesBlandasSeleccionadas);
+    console.log("Habilidades técnicas raw:", habilidadesTecnicasSeleccionadas);
+    console.log("IDs resultantes:", resultado);
+    
+    return resultado;
+  }
+
+  // Función para establecer habilidades seleccionadas (para usar al editar)
+  function establecerHabilidadesSeleccionadas(blandasIds = [], tecnicasIds = []) {
+    habilidadesBlandasSeleccionadas = habilidadesBlandas.filter(h => blandasIds.includes(h.id));
+    habilidadesTecnicasSeleccionadas = habilidadesTecnicas.filter(h => tecnicasIds.includes(h.id));
+    actualizarTags();
+  }
+
+  // Inicializar el sistema cuando se abre el modal
+  $('#registrarPuestoModal').on('shown.bs.modal', function() {
+    inicializarHabilidades();
+  });
+
+  // Limpiar habilidades al cerrar el modal
+  $('#registrarPuestoModal').on('hidden.bs.modal', function() {
+    habilidadesBlandasSeleccionadas = [];
+    habilidadesTecnicasSeleccionadas = [];
+    actualizarTags();
+  });
+
+  // Hacer las funciones disponibles globalmente para uso externo
+  window.habilidadesManager = {
+    obtenerHabilidadesSeleccionadas: obtenerHabilidadesSeleccionadas,
+    establecerHabilidadesSeleccionadas: establecerHabilidadesSeleccionadas,
+    cargarHabilidades: cargarHabilidades,
+    inicializarHabilidades: inicializarHabilidades,
+    cargarHabilidadesBlandasAPI: cargarHabilidadesBlandasAPI,
+    cargarHabilidadesTecnicasAPI: cargarHabilidadesTecnicasAPI
+  };
+
+  // ===============================================
+  // FIN DEL SISTEMA DE TAGS DINÁMICOS
+  // ===============================================
 </script>
 
 <style>
@@ -1205,4 +1522,159 @@
     opacity: 0.6;
     pointer-events: none;
   }
+
+  /* ==========================================
+     ESTILOS PARA EL SISTEMA DE TAGS DINÁMICOS
+     ========================================== */
+  
+  .tag-habilidad {
+    border-radius: 20px !important;
+    cursor: default;
+    transition: all 0.3s ease;
+    font-size: 0.875rem !important;
+    font-weight: 500;
+    display: inline-flex !important;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px !important;
+    margin: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    animation: slideInFromRight 0.3s ease-out;
+  }
+
+  .tag-habilidad:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .tag-habilidad .btn-eliminar-tag {
+    border: none;
+    background: none;
+    color: inherit;
+    font-size: 0.7rem !important;
+    padding: 0 !important;
+    width: 18px !important;
+    height: 18px !important;
+    opacity: 0.8;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tag-habilidad .btn-eliminar-tag:hover {
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+  }
+
+  .tag-habilidad .btn-eliminar-tag:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+  }
+
+  /* Colores específicos para diferentes tipos de habilidades */
+  .tag-habilidad.bg-success {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%) !important;
+  }
+
+  .tag-habilidad.bg-info {
+    background: linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%) !important;
+  }
+
+  /* Contenedores de tags */
+  #habilidadesBlandasContainer,
+  #habilidadesTecnicasContainer {
+    min-height: 50px;
+    border: 2px dashed #e9ecef;
+    border-radius: 12px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+  }
+
+  #habilidadesBlandasContainer:hover,
+  #habilidadesTecnicasContainer:hover {
+    border-color: #dee2e6;
+    background-color: #ffffff;
+  }
+
+  /* Mensaje cuando no hay tags */
+  #habilidadesBlandasContainer:empty::before {
+    content: "No hay habilidades blandas seleccionadas";
+    color: #6c757d;
+    font-style: italic;
+    font-size: 0.875rem;
+  }
+
+  #habilidadesTecnicasContainer:empty::before {
+    content: "No hay habilidades técnicas seleccionadas";
+    color: #6c757d;
+    font-style: italic;
+    font-size: 0.875rem;
+  }
+
+  /* Animaciones */
+  @keyframes slideInFromRight {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+  }
+
+  /* Mejorar la apariencia de los selects */
+  #selectHabilidadesBlandas,
+  #selectHabilidadesTecnicas {
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+  }
+
+  #selectHabilidadesBlandas:focus,
+  #selectHabilidadesTecnicas:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    transform: translateY(-1px);
+  }
+
+  /* Responsive para tags */
+  @media (max-width: 768px) {
+    .tag-habilidad {
+      font-size: 0.8rem !important;
+      padding: 6px 12px !important;
+      margin: 2px;
+    }
+    
+    #habilidadesBlandasContainer,
+    #habilidadesTecnicasContainer {
+      padding: 10px;
+    }
+  }
+
+  /* Estados de loading para los selects */
+  .select-loading {
+    background-image: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M10 3.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM10 2a8 8 0 110 16 8 8 0 010-16z' fill='%23dee2e6'/%3e%3cpath d='M10 5.5a4.5 4.5 0 100 9 4.5 4.5 0 000-9z' fill='%23999'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+  }
+
+  /* ==========================================
+     FIN DE ESTILOS PARA TAGS DINÁMICOS
+     ========================================== */
 </style>

@@ -16,8 +16,8 @@ $api = $_POST['api'];
 $id_departamento = isset($_POST['id_departamento']) && $_POST['id_departamento'] !== '' ? (int)$_POST['id_departamento'] : null;
 $id_puesto = isset($_POST['id_puesto']) && $_POST['id_puesto'] !== '' ? (int)$_POST['id_puesto'] : null;
 $id_motivo = isset($_POST['id_motivo']) && $_POST['id_motivo'] !== '' ? (int)$_POST['id_motivo'] : null;
-$id_blanda = isset($_POST['id_blanda']) && $_POST['id_blanda'] !== '' ? (int)$_POST['id_blanda'] : null;
-$id_tecnica = isset($_POST['id_tecnica']) && $_POST['id_tecnica'] !== '' ? (int)$_POST['id_tecnica'] : null;
+$id_blanda = isset($_POST['id_blanda']) && $_POST['id_blanda'] !== '' ? $_POST['id_blanda'] : null;
+$id_tecnica = isset($_POST['id_tecnica']) && $_POST['id_tecnica'] !== '' ? $_POST['id_tecnica'] : null;
 $activo = isset($_POST['activo']) ? (int)$_POST['activo'] : 1;
 $descripcion = isset($_POST['descripcion']) ? trim($_POST['descripcion']) : '';
 
@@ -172,8 +172,8 @@ switch ($api) {
         }
         break;
     case 2:
-        # recuperar todas las requisiciones
-        $response = $master->getByProcedure('sp_rh_cat_requisiciones_b', []);
+        # recuperar todas las requisiciones con habilidades del puesto
+        $response = $master->getByProcedure('sp_rh_cat_requisiciones_b_mejorado', []);
         break;
     case 3:
         // # Eliminar una caja
@@ -205,6 +205,14 @@ switch ($api) {
         break;
     case 7:
         # Registrar/editar un puesto
+        
+        // DEBUG: Log de las habilidades recibidas
+        error_log("=== DEBUG API CASE 7 ===");
+        error_log("id_blanda recibido: " . var_export($id_blanda, true));
+        error_log("id_tecnica recibido: " . var_export($id_tecnica, true));
+        error_log("Tipo id_blanda: " . gettype($id_blanda));
+        error_log("Tipo id_tecnica: " . gettype($id_tecnica));
+        
         $response = $master->insertByProcedure("sp_rh_cat_puestos_g", [
             $id_puesto,
             $descripcion,
@@ -215,11 +223,13 @@ switch ($api) {
             $competencias,
             $salario_min,
             $salario_max,
-            $activo
+            $activo,
+            $id_blanda,
+            $id_tecnica
         ]);
         break;
     case 8:
-        # recuperar puestos.
+        # recuperar puestos con habilidades.
         $response = $master->getByProcedure("sp_rh_cat_puestos_b", [
             $filtro_estado,
             $filtro_departamento

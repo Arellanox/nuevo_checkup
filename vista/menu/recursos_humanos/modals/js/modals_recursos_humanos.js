@@ -223,10 +223,33 @@ $("#registrarPuestoForm").submit(function (event) {
       icon: "warning",
     },
     function () {
+      // Obtener las habilidades seleccionadas del sistema de tags
+      let habilidadesSeleccionadas = { blandas: [], tecnicas: [] };
+      if (window.habilidadesManager && typeof window.habilidadesManager.obtenerHabilidadesSeleccionadas === 'function') {
+        habilidadesSeleccionadas = window.habilidadesManager.obtenerHabilidadesSeleccionadas();
+      }
+
+      // Convertir arrays de IDs a formato JSON para enviar al backend
+      // Si el array está vacío, enviar null en lugar de "[]"
+      const habilidadesBlandasJson = habilidadesSeleccionadas.blandas.length > 0 
+        ? JSON.stringify(habilidadesSeleccionadas.blandas) 
+        : null;
+      const habilidadesTecnicasJson = habilidadesSeleccionadas.tecnicas.length > 0 
+        ? JSON.stringify(habilidadesSeleccionadas.tecnicas) 
+        : null;
+
+      console.log("=== DEBUG ENVÍO DE HABILIDADES ===");
+      console.log("Habilidades Blandas:", habilidadesSeleccionadas.blandas);
+      console.log("Habilidades Técnicas:", habilidadesSeleccionadas.tecnicas);
+      console.log("Habilidades Blandas JSON:", habilidadesBlandasJson);
+      console.log("Habilidades Técnicas JSON:", habilidadesTecnicasJson);
+
       ajaxAwaitFormData(
         {
           api: 7,
           activo: activo,
+          id_blanda: habilidadesBlandasJson,
+          id_tecnica: habilidadesTecnicasJson
         },
         "recursos_humanos_api",
         "registrarPuestoForm",
@@ -242,6 +265,11 @@ $("#registrarPuestoForm").submit(function (event) {
               4000
             );
             if (tableCatPuestos) tableCatPuestos.ajax.reload();
+            
+            // Limpiar las habilidades seleccionadas
+            if (window.habilidadesManager && typeof window.habilidadesManager.establecerHabilidadesSeleccionadas === 'function') {
+              window.habilidadesManager.establecerHabilidadesSeleccionadas([], []);
+            }
           } else {
             alertToast(
               data.response.message || "Error al procesar la solicitud",

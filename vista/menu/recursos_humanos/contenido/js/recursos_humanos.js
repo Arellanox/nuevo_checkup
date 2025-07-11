@@ -421,7 +421,9 @@ tableCatPuestos = $("#tableCatPuestos").DataTable({
               data-competencias="${row.competencias || ""}"
               data-salario_min="${row.salario_min || ""}"
               data-salario_max="${row.salario_max || ""}"
-              data-activo="${row.activo}">
+              data-activo="${row.activo}"
+              data-habilidades-blandas="${row.id_blanda || ''}"
+              data-habilidades-tecnicas="${row.id_tecnica || ''}">
             <i class="bi bi-pencil"></i>
           </button>
           <button class="btn btn-sm btn-primary bg-gradient-secondary btn-eliminar-puesto" data-id="${row.id_puesto}">
@@ -430,6 +432,40 @@ tableCatPuestos = $("#tableCatPuestos").DataTable({
         </div>
         `;
       },
+    },
+    { data: "id_blanda", visible: false },
+    { data: "id_tecnica", visible: false },
+    { 
+      data: "habilidades_blandas_descripcion", 
+      title: "Habilidades Blandas",
+      render: function (data, type, row) {
+        if (!data || data === 'Sin habilidades blandas') {
+          return '<span class="text-muted fst-italic">Sin habilidades blandas</span>';
+        }
+        // Dividir las habilidades y crear badges
+        const habilidades = data.split(', ');
+        let html = '';
+        habilidades.forEach(function(habilidad) {
+          html += `<span class="badge bg-soft-info text-info me-1 mb-1" style="font-size: 0.75em;">${habilidad.trim()}</span>`;
+        });
+        return html;
+      }
+    },
+    { 
+      data: "habilidades_tecnicas_descripcion", 
+      title: "Habilidades Técnicas",
+      render: function (data, type, row) {
+        if (!data || data === 'Sin habilidades técnicas') {
+          return '<span class="text-muted fst-italic">Sin habilidades técnicas</span>';
+        }
+        // Dividir las habilidades y crear badges
+        const habilidades = data.split(', ');
+        let html = '';
+        habilidades.forEach(function(habilidad) {
+          html += `<span class="badge bg-soft-success text-success me-1 mb-1" style="font-size: 0.75em;">${habilidad.trim()}</span>`;
+        });
+        return html;
+      }
     },
   ],
   dom: 'Bl<"dataTables_toolbar">frtip',
@@ -1389,18 +1425,23 @@ $(document).on("click", ".btn-eliminar-departamento", function () {
 
 // Editar puesto - UNIFICADO CON TODOS LOS CAMPOS
 $(document).on("click", ".btn-editar-puesto", function () {
-  var puestoId = $(this).data("id");
-  var descripcion = $(this).data("descripcion");
-  var departamentoId = $(this).data("departamento");
-  var activo = $(this).data("activo");
+  var $btnEditar = $(this); // Guardar referencia al botón
+  var puestoId = $btnEditar.data("id");
+  var descripcion = $btnEditar.data("descripcion");
+  var departamentoId = $btnEditar.data("departamento");
+  var activo = $btnEditar.data("activo");
   
   // Datos adicionales de perfil del puesto
-  var escolaridadMinima = $(this).data("escolaridad") || "";
-  var experienciaAnios = $(this).data("experiencia") || "";
-  var objetivos = $(this).data("objetivos") || "";
-  var competencias = $(this).data("competencias") || "";
-  var salarioMinimo = $(this).data('salario_min') || "";
-  var salarioMaximo = $(this).data('salario_max') || "";
+  var escolaridadMinima = $btnEditar.data("escolaridad") || "";
+  var experienciaAnios = $btnEditar.data("experiencia") || "";
+  var objetivos = $btnEditar.data("objetivos") || "";
+  var competencias = $btnEditar.data("competencias") || "";
+  var salarioMinimo = $btnEditar.data('salario_min') || "";
+  var salarioMaximo = $btnEditar.data('salario_max') || "";
+  
+  // Obtener habilidades existentes del puesto (si están disponibles)
+  var habilidadesBlandas = $btnEditar.data('habilidades-blandas') || "";
+  var habilidadesTecnicas = $btnEditar.data('habilidades-tecnicas') || "";
 
   console.log("=== DEBUG EDITAR PUESTO UNIFICADO ===");
   console.log("Puesto ID:", puestoId);
@@ -1413,6 +1454,8 @@ $(document).on("click", ".btn-editar-puesto", function () {
   console.log("Competencias:", competencias);
   console.log("Salario Minimo:", salarioMinimo);
   console.log("Salario Maximo:", salarioMaximo);
+  console.log("Habilidades Blandas raw:", habilidadesBlandas);
+  console.log("Habilidades Técnicas raw:", habilidadesTecnicas);
 
   // Cambiar título del modal
   $("#registrarPuestoModalLabel").text("Editar Puesto");
@@ -1439,6 +1482,37 @@ $(document).on("click", ".btn-editar-puesto", function () {
       $("#id_departamento_puesto").val(departamentoId);
       console.log(`Departamento preseleccionado: ${departamentoId}`);
       
+      // Procesar y cargar habilidades existentes del puesto
+      let habilidadesBlandasIds = [];
+      let habilidadesTecnicasIds = [];
+      
+      // Intentar parsear las habilidades desde los data attributes
+      try {
+        if (habilidadesBlandas && habilidadesBlandas.trim() !== "") {
+          habilidadesBlandasIds = typeof habilidadesBlandas === 'string' ? JSON.parse(habilidadesBlandas) : habilidadesBlandas;
+          // Asegurar que sea array
+          if (!Array.isArray(habilidadesBlandasIds)) habilidadesBlandasIds = [];
+        }
+        if (habilidadesTecnicas && habilidadesTecnicas.trim() !== "") {
+          habilidadesTecnicasIds = typeof habilidadesTecnicas === 'string' ? JSON.parse(habilidadesTecnicas) : habilidadesTecnicas;
+          // Asegurar que sea array
+          if (!Array.isArray(habilidadesTecnicasIds)) habilidadesTecnicasIds = [];
+        }
+      } catch (e) {
+        console.warn("Error al parsear habilidades existentes:", e);
+        habilidadesBlandasIds = [];
+        habilidadesTecnicasIds = [];
+      }
+      
+      // Establecer las habilidades en el sistema de tags
+      if (window.habilidadesManager && typeof window.habilidadesManager.establecerHabilidadesSeleccionadas === 'function') {
+        // Esperar a que se inicialicen las habilidades y luego establecer las seleccionadas
+        window.habilidadesManager.inicializarHabilidades().then(() => {
+          console.log("Estableciendo habilidades existentes:", habilidadesBlandasIds, habilidadesTecnicasIds);
+          window.habilidadesManager.establecerHabilidadesSeleccionadas(habilidadesBlandasIds, habilidadesTecnicasIds);
+        });
+      }
+      
       // Verificar que los campos de perfil se asignaron correctamente
       setTimeout(function() {
         console.log("=== VERIFICACIÓN DESPUÉS DE CARGAR ===");
@@ -1446,7 +1520,8 @@ $(document).on("click", ".btn-editar-puesto", function () {
         console.log("Experiencia en select:", $("#detalle_experiencia_anios").val());
         console.log("Objetivos:", $("#objetivosPuesto").val());
         console.log("Competencias:", $("#competenciasPuesto").val());
-        console.log("Banda Salarial:", $("#bandaSalarialPuesto").val());
+        console.log("Habilidades Blandas IDs cargados:", habilidadesBlandasIds);
+        console.log("Habilidades Técnicas IDs cargados:", habilidadesTecnicasIds);
       }, 100);
     })
     .catch(function(error) {
@@ -1470,6 +1545,11 @@ $("#registrarPuestoModal").on("hidden.bs.modal", function () {
   $("#competenciasPuesto").val("");
   $("#salario_min").val("");
   $("#salario_max").val("");
+  
+  // Limpiar las habilidades seleccionadas
+  if (window.habilidadesManager && typeof window.habilidadesManager.establecerHabilidadesSeleccionadas === 'function') {
+    window.habilidadesManager.establecerHabilidadesSeleccionadas([], []);
+  }
 });
 
 
@@ -2152,6 +2232,26 @@ $(document).on('click', '.btn-ver-requisicion', function() {
     
     // Mostrar el modal
     $("#detallesRequisicionModal").modal("show");
+    
+    // Ejecutar las habilidades INMEDIATAMENTE (para testing)
+    console.log("=== EJECUTANDO HABILIDADES INMEDIATAMENTE ===");
+    const habilidadesBlandas = dataClick.habilidades_blandas_descripcion || dataClick['34'] || null;
+    const habilidadesTecnicas = dataClick.habilidades_tecnicas_descripcion || dataClick['35'] || null;
+    
+    console.log("Habilidades blandas a procesar:", habilidadesBlandas);
+    console.log("Habilidades técnicas a procesar:", habilidadesTecnicas);
+    
+    mostrarHabilidadesComoTags(habilidadesBlandas, 'detallesHabilidadesBlandasContainer', 'blanda');
+    mostrarHabilidadesComoTags(habilidadesTecnicas, 'detallesHabilidadesTecnicasContainer', 'tecnica');
+    
+    // También con setTimeout como respaldo  
+    setTimeout(() => {
+        console.log("=== EJECUTANDO HABILIDADES DESPUÉS DE MOSTRAR MODAL ===");
+        console.log("Modal visible ahora:", $('#detallesRequisicionModal').is(':visible'));
+        
+        mostrarHabilidadesComoTags(habilidadesBlandas, 'detallesHabilidadesBlandasContainer', 'blanda');
+        mostrarHabilidadesComoTags(habilidadesTecnicas, 'detallesHabilidadesTecnicasContainer', 'tecnica');
+    }, 500);
 });
 
 // Event handler para editar requisición desde la tabla
@@ -2190,6 +2290,46 @@ $(document).on('click', '.btn-editar-requisicion', function() {
             $(this).prop('disabled', false);
         });
 });
+
+// === FUNCIÓN PARA MOSTRAR HABILIDADES COMO TAGS ===
+function mostrarHabilidadesComoTags(habilidadesTexto, containerId, tipo) {
+    console.log(`=== mostrarHabilidadesComoTags ===`);
+    console.log(`Procesando: "${habilidadesTexto}" en container "${containerId}"`);
+    
+    const container = $(`#${containerId}`);
+    
+    // Limpiar contenido previo
+    container.empty();
+    
+    if (!habilidadesTexto || habilidadesTexto.trim() === '' || habilidadesTexto === 'null') {
+        container.html('<span class="sin-habilidades">Sin habilidades especificadas</span>');
+        return;
+    }
+    
+    // Dividir las habilidades por coma
+    const habilidades = habilidadesTexto.split(',').map(h => h.trim()).filter(h => h !== '');
+    
+    if (habilidades.length === 0) {
+        container.html('<span class="sin-habilidades">Sin habilidades especificadas</span>');
+        return;
+    }
+    
+    // Crear tags para cada habilidad
+    habilidades.forEach(habilidad => {
+        const tagClass = tipo === 'tecnica' ? 'habilidad-tag tecnica' : 'habilidad-tag';
+        
+        // Estilos inline
+        const baseStyle = 'display: inline-block; padding: 0.4rem 0.8rem; margin: 0.2rem 0.3rem 0.2rem 0; color: white; border-radius: 1rem; font-size: 0.75rem; font-weight: 500;';
+        const bgStyle = tipo === 'tecnica' 
+            ? 'background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);' 
+            : 'background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);';
+        
+        const tag = `<span class="${tagClass}" style="${baseStyle}${bgStyle}">${habilidad}</span>`;
+        container.append(tag);
+    });
+    
+    console.log(`✅ ${habilidades.length} tags de habilidades agregados a ${containerId}`);
+}
 
 // Función para llenar el modal de detalles con los datos de la requisición
 function llenarModalDetallesRequisicion(data) {
@@ -2231,11 +2371,36 @@ function llenarModalDetallesRequisicion(data) {
         // === REQUISITOS ACADÉMICOS ===
         $("#escolaridadMinima").text(formatearEscolaridad(data.escolaridad_minima) || 'N/A');
         $("#experienciaAnos").text(formatearExperiencia(data.experiencia_anios) || 'N/A');
-        $("#idiomasRequeridos").text(data.idiomas || 'Español');
+        $("#objetivosPuesto").text(data.objetivos || 'N/A');
+        $("#competenciasPuesto").text(data.competencias || 'N/A');
+        $("#bandaSalarialPuesto").text(data.salario_min && data.salario_max ? `$${data.salario_min} - $${data.salario_max}` : 'No especificado');
         
-        // === CONOCIMIENTOS Y HABILIDADES ===
-        $("#conocimientosTecnicos").text(data.conocimientos_tecnicos || 'No especificado');
-        $("#habilidadesBlandas").text(data.habilidades_blandas || 'No especificado');
+        // === HABILIDADES COMO TAGS ===
+        console.log("=== DEBUG HABILIDADES (PRIMERA EJECUCIÓN) ===");
+        console.log("Data completa:", data);
+        console.log("Habilidades blandas (propiedad):", data.habilidades_blandas_descripcion);
+        console.log("Habilidades técnicas (propiedad):", data.habilidades_tecnicas_descripcion);
+        console.log("Habilidades blandas (índice 34):", data['34']);
+        console.log("Habilidades técnicas (índice 35):", data['35']);
+        
+        // Intentar obtener las habilidades de diferentes formas
+        const habilidadesBlandas = data.habilidades_blandas_descripcion || data['34'] || null;
+        const habilidadesTecnicas = data.habilidades_tecnicas_descripcion || data['35'] || null;
+        
+        console.log("Habilidades blandas finales:", habilidadesBlandas);
+        console.log("Habilidades técnicas finales:", habilidadesTecnicas);
+        
+        // COMENTADO: Se ejecutará después de mostrar el modal
+        // mostrarHabilidadesComoTags(habilidadesBlandas, 'habilidadesBlandasTags', 'blanda');
+        // mostrarHabilidadesComoTags(habilidadesTecnicas, 'habilidadesTecnicasTags', 'tecnica');
+        
+        // Verificar qué modal está siendo usado
+        console.log("=== VERIFICACIÓN MODAL (ANTES DE MOSTRAR) ===");
+        console.log("Modal detallesRequisicionModal visible:", $('#detallesRequisicionModal').is(':visible'));
+        console.log("Modal detallesVacanteModal visible:", $('#detallesVacanteModal').is(':visible'));
+        console.log("Containers en modal activo:");
+        console.log("- detallesHabilidadesBlandasContainer encontrado:", $('#detallesHabilidadesBlandasContainer').length);
+        console.log("- detallesHabilidadesTecnicasContainer encontrado:", $('#detallesHabilidadesTecnicasContainer').length);
         
         // === JUSTIFICACIÓN ===
         $("#justificacionRequisicion").text(data.justificacion || 'Sin descripción');

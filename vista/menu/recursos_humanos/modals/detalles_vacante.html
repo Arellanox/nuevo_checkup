@@ -170,16 +170,28 @@
         <li class="list-group-item bg-white  px-0">
           <div class="row">
             <div class="col-md-4">
-              <strong style="color: #495057;">Habilidades Blandas:</strong>
-              <div id="habilidadesBlandas" class="text-muted ms-2"></div>
-            </div>
-            <div class="col-md-4">
               <strong style="color: #495057;">Competencias Requeridas:</strong>
               <div id="competenciasPuesto" class="text-muted ms-2"></div>
             </div>
             <div class="col-md-4">
               <strong style="color: #495057;">Banda Salarial del Puesto:</strong>
               <div id="bandaSalarialPuesto" class="text-muted ms-2"></div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item bg-white  px-0">
+          <div class="row">
+            <div class="col-md-6">
+              <strong style="color: #495057;">Habilidades Blandas:</strong>
+              <div class="d-flex flex-wrap gap-2" id="detallesHabilidadesBlandasContainer">
+                <!-- Los tags aparecerán aquí -->
+              </div>
+            </div>
+            <div class="col-md-6">
+              <strong style="color: #495057;">Habilidades Técnicas:</strong>
+              <div class="d-flex flex-wrap gap-2" id="detallesHabilidadesTecnicasContainer">
+                <!-- Los tags aparecerán aquí -->
+              </div>
             </div>
           </div>
         </li>
@@ -234,5 +246,39 @@
 <style>
     .bg-gradient-details {
         background: linear-gradient(135deg, #713DC5  0%, #E8E0F1 128%)
+    }
+    
+    /* Estilos para tags de habilidades */
+    .habilidad-tag {
+        display: inline-block;
+        padding: 0.4rem 0.8rem;
+        margin: 0.2rem 0.3rem 0.2rem 0;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 1rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        box-shadow: 0 2px 4px rgba(102, 126, 234, 0.25);
+        transition: all 0.2s ease;
+    }
+    
+    .habilidad-tag.tecnica {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        box-shadow: 0 2px 4px rgba(240, 147, 251, 0.25);
+    }
+    
+    .habilidad-tag:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+    }
+    
+    .habilidad-tag.tecnica:hover {
+        box-shadow: 0 4px 8px rgba(240, 147, 251, 0.3);
+    }
+    
+    .sin-habilidades {
+        color: #6c757d;
+        font-style: italic;
+        font-size: 0.9rem;
     }
 </style>
