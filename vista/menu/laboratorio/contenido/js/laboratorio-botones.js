@@ -232,6 +232,8 @@ $(document).on('click', '.btn-estudios-pendientes', async function (event) {
     )
 });
 
+var selectServicioMaquila = null;
+
 //Maquilación
 $(document).on('click', '.btn-modal-maquila-confirm', function (event) {
     event.preventDefault();
@@ -245,28 +247,30 @@ $(document).on('click', '.btn-modal-maquila-confirm', function (event) {
         confirmButtonText: 'Sí'
     }, function () {
         //GUARDAR MAQUILACIÓN
-        const servicio_id = $('.dropdown-item .btn-maquila-estudios').attr('data-bs-id');
-
-        console.log(servicio_id);
-
         ajaxAwait({
             api: 1,
             LABORATORIO_MAQUILA_ID: laboratorio_id,
             TURNO_ID: selectListaLab.ID_TURNO,
-            SERVICIO_ID: servicio_id
+            SERVICIO_ID: selectServicioMaquila
         }, 'laboratorio_estudios_maquila_api', {callbackAfter: true}, false, function () {
             alertToast('Se registro la maquila exiotsamente.', 'success', 4000);
             $('#modalMaquilaEstudios').modal('hide');
-        }).then(r => {
+
+            const vinculo = `${current_url}/vista/menu/maquilas/`;
+
             ajaxAwait({
                 api: 3,
-                viculo: '#',
+                viculo: vinculo,
                 mensaje: 'Solicitud de aprobación de maquilación generada por ' + session.nombre,
                 lab_maquila_id: laboratorio_id,
                 turno_id: selectListaLab.ID_TURNO,
-                servicio_id: servicio_id
+                servicio_id: selectServicioMaquila
             }, 'notificaciones_api', {callbackAfter: true}, false, function () {
                 alertToast('Solicitud de aprobación enviada', 'success', 4000);
+            }).finally( () => {
+                console.log('NOTIFICACION ENVIADA');
+                console.log(vinculo);
+                tableEstudiosPendientes.ajax.reload();
             });
         });
     }, 1, function () {}, () => {});
@@ -274,6 +278,8 @@ $(document).on('click', '.btn-modal-maquila-confirm', function (event) {
 
 $(document).on('click', '.btn-maquila-estudios', function (event) {
     event.preventDefault();
+    selectServicioMaquila = $(this).attr('data-bs-id');
+
     $('#modalMaquilaEstudios').modal('show');
     rellenarOrdenarSelect('#select-laboratorios-maquila', 'laboratorio_maquila_api', 2, 'ID_LABORATORIO', 'DESCRIPCION');
 });

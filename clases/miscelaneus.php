@@ -734,7 +734,7 @@ class Miscelaneus
                 $arregloPaciente = $master->getByProcedure("sp_lista_de_trabajo_barras", [$turno_id, 6, null, null, null]);
                 break;
             case -8:
-                $laboratorio_id = $_GET['laboratorio_id'];
+                $laboratorio_id = $_POST['laboratorio_id'];
                 $arregloPaciente = $master->getByProcedure("sp_laboratorio_estudios_maquila_b", [
                     null, null, $laboratorio_id, 1
                 ]);
@@ -787,6 +787,7 @@ class Miscelaneus
                 ];
                 break;
             case -11:
+                $carpeta_guardado = 'requisicion_maquilas';
                 $cliente_id = $master->insertByProcedure('sp_get_cliente', [$turno_id]);
 
                 if ($cliente_id == 51) { # 51 es sigma
@@ -972,8 +973,7 @@ class Miscelaneus
         $nombre = str_replace(" ", "_", $nombre_paciente);  #Crear directorio
 
         # Proceso para crear la carpeta para guardar los reportes
-        if ($area_id == 15)
-        {
+        if ($area_id == 15) {
             $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/";
             $this->setRutaReporte($ruta_saved); # Seteamos la ruta  para recuperarla con $ruta_reporte.
             $r = $master->createDir("../" . $ruta_saved); # Crear el directorio si no existe
@@ -987,8 +987,7 @@ class Miscelaneus
             } else $this->setLog("Imposible crear la ruta del archivo", "[cotizaciones, reportador]");
 
             exit;
-        } else if ($area_id == -10)
-        {
+        } else if ($area_id == -10)  {
             $fecha_resultado = date("Ymd");
             $nombre = "CertificadoMedico";
             $ruta_saved = "reportes/certificados/$turno_id/$fecha_resultado/";
@@ -1000,9 +999,20 @@ class Miscelaneus
 
             $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview, $area_id);
             $renderpdf = $pdf->build();
-        } else
-        {
-            $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/$turno_id/";
+        } elseif ($area_id == -8) {
+            $fecha_resultado = date("Ymd");
+            $nombre = "Solicitud_Laboratorio_Maquilas";
+            $ruta_saved = "reportes/modulo/laboratorio/solicitud_laboratorio_maquila/$fecha_resultado/";
+
+            $this->setRutaReporte($ruta_saved);
+            $master->createDir("../" . $ruta_saved);
+            $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . '-' . $fecha_resultado);
+            $pie_pagina = array("folio" => $folio, "modulo" => $area_id);
+
+            $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview, $area_id);
+            $renderpdf = $pdf->build();
+        } else {
+            $ruta_saved = $ruta_saved ?? "reportes/modulo/$carpeta_guardado/$fecha_resultado/$turno_id/";
             $this->setRutaReporte($ruta_saved); # Seteamos la ruta  para recuperarla con $ruta_reporte.
 
             $master->createDir("../" . $ruta_saved); # Crear el directorio si no existe

@@ -95,15 +95,23 @@ switch ($api) {
         break;
     case 'form_datos':
         # para confirmar los datos del paciente de forma impresa.
-        $r = $master->reportador($master, $turno_id, -6, 'form_datos', 'mostrar', 0, 0, 0);
+        $r = $master->reportador($master, $turno_id, -6, 'form_datos', 'mostrar');
         break;
     case 'lista-barras':
         # imprimir lista de trabajo con codigo de barras
-        $r = $master->reportador($master, $turno_id, -7, 'lista-barras', 'mostrar', $preview, 0, 0);
+        $r = $master->reportador($master, $turno_id, -7, 'lista-barras', 'mostrar', $preview);
         break;
     case 'estados_cuentas':
         # imprimir estado de cuentas
         $r = $master->reportador($master, $turno_id, -9, 'estados_cuentas', 'mostrar', $preview);
+        break;
+    case 'examen_medico':
+        # imprimir examen médico de adminisión
+        $r = $master->reportador($master, $turno_id, -11, 'examen_medico', 'mostrar', $preview);
+        break;
+    case 'maquilas':
+        # imprimir maquilas aprobadas
+        $r = $master->reportador($master, $turno_id, -8, 'maquilas', 'mostrar', $preview);
         break;
     default:
         echo '<script language="javascript">alert("¡URL invalida! '.$api.'"); window.close()</script>';

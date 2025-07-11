@@ -455,12 +455,14 @@
                             <div class="sender-name">${notificacion.REMITENTE_NOMBRE}</div>
                             <div class="timestamp">${notificacion.FECHA_SOLICITADO}</div>
                         </div>
-                        <button class="close-btn" onclick="notificationManager.cerrarNotificacion(${toast})">×</button>
+                        <button class="close-btn" onclick="notificationManager.cerrarNotificacion(this)">×</button>
                     </div>
                     <div class="message">${notificacion.MENSAJE}</div>
                     <div class="toast-actions">
-                        <a href="${notificacion.vinculo}" class="action-btn primary">Abrir</a>
-                        <button class="action-btn secondary" onclick="notificationManager.marcarNotificacion([${notificacion.ID_NOTIFICACION}])">Marcar como leído</button>
+                        <a href="${notificacion.VINCULO}" class="action-btn primary">Abrir</a>
+                        <button class="action-btn secondary" onclick="notificationManager.marcarNotificacion([${notificacion.ID_NOTIFICACION}])">
+                            Marcar como leído
+                        </button>
                     </div>
                 </div>
                 <div class="progress-bar"></div>
@@ -586,11 +588,17 @@
             this.notificationsIds = notificaciones.map(notificacion => Number(notificacion.ID_NOTIFICACION));
         }
 
+        marcarNotificacionAndRedirigir(notificacionId) {
+            this.marcarNotificaciones([notificacionId], () => {
+                window.location.href = notificaciones[notificacionId].VINCULO;
+            })
+        }
+
         generarHTMLNotificaciones(notificaciones) {
             return notificaciones.map(notification => `
                 <a href="${notification.VINCULO}"
                    data-notification-id="${notification.ID_NOTIFICACION}"
-                   onclick="notificationManager.marcarNotificacion([${notification.ID_NOTIFICACION}]); return false;"
+                   onclick="notificationManager.marcarNotificacionAndRedirigir(${notification.ID_NOTIFICACION});"
                    class="notification-item">
                     <p class="date">${notification.FECHA_SOLICITADO}</p>
                     <p class="message">${notification.MENSAJE}</p>

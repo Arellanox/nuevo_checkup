@@ -471,6 +471,19 @@ $menu == 'Laboratorio Biomolecular'
         </button>
     <?php endif; ?>
 
+    <?php if($menu == "Requisición Maquilas"): ?>
+        <div class="d-flex align-items-center justify-content-end">
+            <button id="btn-aprobar-todos" type="button" role="button" class="btn btn-hover btn-aprobar-all">
+                Aprobar todas
+                <i class="fa fa-check"></i>
+            </button>
+            <button id="btn-generar-reportes" type="button" role="button" class="btn btn-hover btn-generar-reporte">
+                Generar Reporte
+                <i class="fa fa-file-pdf-o"></i>
+            </button>
+        </div>
+    <?php endif; ?>
+
     <script>
         // Abrir el dropdown al pasar el mouse
         $('.btn-group').on('mouseenter', '.dropdown-toggle', function () {

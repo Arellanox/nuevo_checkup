@@ -42,11 +42,6 @@ switch ($api){
     case 3: #Generar Notificación Para Aprobación de Maquila
         $cargos_ids = '15,2,20';
 
-        $master->setLog(
-            json_encode([$usuario_id, $mensaje, $vinculo, $cargos_ids, $turno_id, $servicio_id, $id_laboratorio_maquila]),
-            'notificaciones_api.php'
-        );
-
         $response = $master->insertByProcedure("sp_notificaciones_generar_g", [
             $usuario_id, $mensaje, $vinculo, $cargos_ids, $turno_id, $servicio_id, $id_laboratorio_maquila
         ]);

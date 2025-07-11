@@ -28,14 +28,20 @@ switch ($api) {
         ]);
         break;
     case 3: // Actualizar campo "activo" del estudio a maquilar
+        $ids = is_array($id_maquila) ? implode(',', $id_maquila) : $id_maquila;
+
         $response = $master->updateByProcedure('sp_laboratorio_estudios_maquila_a', [
-            $id_maquila, $maquila_estatus
+            $ids, $maquila_estatus
         ]);
         break;
     case 4: // Eliminar estudio a maquilar
         $response = $master->deleteByProcedure('sp_laboratorio_estudios_maquila_e', [
             $id_maquila
         ]);
+        break;
+    case 5: // Generer reporte de estudios a maquilar
+        $url = $master->reportador($master, $turno_id, -8, 'maquilas');
+        $response = ['url' => $url];
         break;
     default:
         $response = "API no definida";;

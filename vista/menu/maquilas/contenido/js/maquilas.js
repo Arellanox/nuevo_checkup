@@ -65,30 +65,30 @@ const tablaMaquilaasPorAprobar = $('#TablaMaquilaasPorAprobar').DataTable({
             }
         },
         {data: "FECHA_REGISTRO"},
-        {
+        { // Botones de acciones
             data: null,
             render: function (data, type, row) {
                 return `
                     <div class="d-flex gap-2 align-items-center justify-content-center">
-                        <buttton type="button" role="button" class="btnRechazar" 
+                        <button type="button" role="button" class="btnRechazar" 
                             data-bs-toggle="tooltip" data-bs-title="Rechazar maquila"
-                            onclick="rechazarMaquila(${row.ID_MAQUILA})"
+                            onclick="rechazarMaquila(${row.ID_MAQUILA})" `+ (row.ESTATUS != 0 ? 'disabled' : '') +`
                         >
                             <i class="bi bi-file-earmark-excel-fill"></i>
-                       </buttton>
-                        <buttton type="button" role="button" class="btnAprobar" 
+                       </button>
+                        <button type="button" role="button" class="btnAprobar" 
                             data-bs-toggle="tooltip" data-bs-title="Aprobar maquila"
-                            onclick="aprobarMaquila(${row.ID_MAQUILA})"
+                            onclick="aprobarMaquila(${row.ID_MAQUILA})" `+ (row.ESTATUS != 0 ? 'disabled' : '') +`
                         >
                             <i class="bi bi-file-earmark-check-fill"></i>
-                        </buttton>
+                        </button>
                         
-                       <buttton type="button" role="button" class="btnEliminar" 
+                       <button type="button" role="button" class="btnEliminar" 
                             data-bs-toggle="tooltip" data-bs-title="Eliminar maquila"
-                            onclick="eliminarMaquila(${row.ID_MAQUILA})"
+                            onclick="eliminarMaquila(${row.ID_MAQUILA})" `+ (row.ESTATUS == 1 ? 'disabled' : '') +`
                         >
                             <i class="bi bi-trash-fill"></i>
-                       </buttton>
+                       </button>
                     </div>
                 `;
             }
@@ -104,7 +104,7 @@ function guardarMaquilasPorEstatus(response) {
     return response.reduce(
         (acc, maquila) => {
             const estatus = maquila.ESTATUS?.toString(); // Convierte a string para evitar inconsistencias
-            console.log(maquila.ESTATUS?.toString())
+
             if (estatus === null || estatus === undefined || estatus === "0") {
                 acc.maquilasPendientes.push(maquila.ID_MAQUILA);
             } else if (estatus === "1") {
@@ -124,8 +124,6 @@ function guardarMaquilasPorEstatus(response) {
 $('#btn-aprobar-todos').on('click', function () { aprobarTodasMaquilas(maquilasPendientes); });
 
 function aprobarTodasMaquilas(ids){
-    console.log('aprobarTodasMaquilas')
-    console.log(ids);
     alertMensajeConfirm({
         title: '¿Está seguro de aprobar todas las maquilas?',
         text: 'No podrá revertir los cambios',
@@ -137,28 +135,18 @@ function aprobarTodasMaquilas(ids){
         cancelButtonText: 'Cancelar'
     }, function () {
         if (ids && ids.length > 0) {
-            // Array de promesas para aprobar cada maquila
-            const promises = ids.map(id => {
-                return ajaxAwait({
-                    api: 5,
-                    ID_MAQUILA: id,
-                    MAQUILA_ESTATUS: 1
-                }, 'laboratorio_estudios_maquila_api', { callbackAfter: true }, false);
-            });
-
-            console.log(promises)
-
             Toast.fire({ icon: 'info', title: 'Espere un momento, estamos procesando su solicitud.' });
 
-            // Esperar a que todas las solicitudes terminen antes de continuar
-            Promise.all(promises)
-                .then(() => {
-                    Toast.fire({ icon: 'success', title: '¡Maquilas aprobadas!', timer: 2000});
+            ajaxAwait({
+                api: 3,
+                ID_MAQUILA: ids,
+                MAQUILA_ESTATUS: 1
+            }, 'laboratorio_estudios_maquila_api', { callbackAfter: true }, false, function (response) {
+                if (response.response.code) {
+                    Toast.fire({ icon: 'success', title: '¡Maquilas aprobadas!', timer: 2000 });
                     tablaMaquilaasPorAprobar.ajax.reload();
-                })
-                .catch(() => {
-                    Toast.fire({ icon: 'error', title: '¡Ocurrió un error en el proceso de aprobación de maquilas!' });
-                });
+                }
+            });
         }
     });
 }

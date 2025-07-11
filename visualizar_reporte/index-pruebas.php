@@ -12,7 +12,7 @@ $turno_id = mb_convert_encoding(base64_decode(urldecode($_GET['turno'])), 'UTF-8
 $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8');
 $usuario_id = $_SESSION['id'];
 
-$api = "examen_medico";
+$api = "maquilas";
 $area_id = -11;
 $turno_id = 8628;
 $id_cliente = 15;
@@ -92,6 +92,9 @@ switch ($api) {
     case 'examen_medico':
         # imprimir exmane médico de adminisión
         $r = $master->reportador($master, $turno_id, -11, 'examen_medico', 'mostrar', $preview);
+        break;
+    case 'maquilas':
+        $r = $master->reportador($master, $turno_id, -8, 'maquilas', 'mostrar', $preview, 0, 0);
         break;
     default:
         echo '<script language="javascript">alert("¡URL invalida!"); window.close()</script>';

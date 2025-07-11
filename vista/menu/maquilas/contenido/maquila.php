@@ -50,10 +50,31 @@
         align-items: center;
         gap: 8px;
         padding: 4px 10px;
-        margin: 2px 4px;
         cursor: pointer;
         color: white;
-        border-radius: 8px;
+        border-radius: 4px;
+        border: none;
+    }
+
+    .btnAprobar,
+    .btnRechazar,
+    .btnEliminar{
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
+    }
+
+    .btnRechazar:disabled {
+        opacity: .5;
+        cursor: not-allowed;
+    }
+
+    .btnAprobar:disabled {
+        opacity: .5;
+        cursor: not-allowed;
+    }
+
+    .btnEliminar:disabled {
+        opacity: .5;
+        cursor: not-allowed;
     }
 
     .btn-aprobar-all:hover{ color: #004f5a; }
@@ -62,5 +83,5 @@
 
     .btnEliminar{ background-color: #761c19; }
     .btnAprobar{ background-color: #004f5a; }
-    .btnRechazar{ background-color: #dc3545; }
+    .btnRechazar{ background-color: #aa4b28; }
 </style>

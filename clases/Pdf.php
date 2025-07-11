@@ -249,7 +249,7 @@ class Reporte
             case 'maquilas':
                 $template = render_view('invoice/maquilas.php', $view_vars);
                 $pdf->loadHtml($template);
-                $pdf->setPaper('letter', 'portrait');
+                $pdf->setPaper('letter');
                 break;
             case "certificado_bimo":
                 $template = render_view('invoice/certificado_bimo.php', $view_vars);

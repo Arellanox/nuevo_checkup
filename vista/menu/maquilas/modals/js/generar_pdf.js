@@ -5,8 +5,7 @@ $('#btn-generar-pdf').on('click', function (event) { generarReporteMaquilas(even
 function abrirSeleccionDeReportesPorLaboratorio(event){
     event.preventDefault();
     $('#modalMaquilaEstudios').modal('show');
-    orderAndFillSelects('#select-laboratorios-maquila', 'laboratorio_maquila_api', 2, 'ID_LABORATORIO', 'DESCRIPCION')
-        .then(r => {});
+    rellenarOrdenarSelect('#select-laboratorios-maquila', 'laboratorio_maquila_api', 2, 'ID_LABORATORIO', 'DESCRIPCION');
 }
 
 function generarReporteMaquilas(event){
@@ -15,7 +14,7 @@ function generarReporteMaquilas(event){
     const laboratorio_id = $('#select-laboratorios-maquila').val();
 
     if(laboratorio_id !== '9'){
-        Toast.fire({icon: 'error', title: '¡No se puede generar reporte de maquilas para este laboratorio!', timer: 2000});
+        Toast.fire({icon: 'error', title: '¡No se puede generar reporte de maquilas para este laboratorio en este momento!', timer: 2000});
         return;
     }
 
@@ -40,9 +39,14 @@ function generarReporteMaquilas(event){
         icon: 'warning',
         confirmButtonText: 'Sí'
     }, function () {
-        //Abrir ventana para generar reporte
-        const url = `${current_url}/visualizar_reporte/index-pruebas.php?laboratorio_id=${laboratorio_id}`;
-        window.open(url, '_blank');
+        ajaxAwait({
+            api: 5,
+            laboratorio_id: laboratorio_id
+        }, 'laboratorio_estudios_maquila_api', { callbackAfter: true }, false, function (response) {
+            const url = response.response.data.url;
+            window.open(url, '_blank');
+        });
+
     }, 1, function () { alert("Acción cancelada."); }, () => {});
 }
 //---
