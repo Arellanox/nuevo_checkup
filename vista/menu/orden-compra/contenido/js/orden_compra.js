@@ -378,14 +378,6 @@ setTimeout(() => {
 
 // ============ FUNCIONALIDADES DE BOTONES POR DATATABLE ============ //
 
-// Editar orden de compra
-
-// Limpiar formulario cuando se cierra el modal de orden de compra
-
-// Eliminar orden de compra
-
-// Ver orden de compra
-
 // Editar proveedor
 $(document).on("click", ".btn-editar-proveedor", function () {
   var proveedorId = $(this).data("id");
