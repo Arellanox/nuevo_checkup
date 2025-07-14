@@ -32,7 +32,7 @@
         $encabezado->ESTADO = $REPOSICION[0]->ESTADO;
         $encabezado->RESPONSABLE = $REPOSICION[0]->RESPONSABLE;
 
-        include 'layouts/header/certificado_bimo.php';
+        include 'layouts/header/header_certificado_vinco.php';
     ?>
 </header>
 
@@ -243,7 +243,7 @@
         $ruta_validacion = file_get_contents($ruta_qr);
         $encode_validacion = base64_encode($ruta_validacion);
 
-        include 'layouts/footer/certificado_bimo.php';
+        include 'layouts/footer/footer_certificado_vinco.php';
     ?>
 </footer>
 </body>

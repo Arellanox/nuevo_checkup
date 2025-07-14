@@ -109,9 +109,13 @@ switch ($api) {
         # imprimir examen médico de adminisión
         $r = $master->reportador($master, $turno_id, -11, 'examen_medico', 'mostrar', $preview);
         break;
-    case 'maquilas':
+    case 'solicitud_maquila_diagnostica':
+        # imprimir maquilas aprobadas de diagnostica
+        $r = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_diagnostica', 'mostrar', $preview);
+        break;
+    case 'solicitud_maquila_general':
         # imprimir maquilas aprobadas
-        $r = $master->reportador($master, $turno_id, -8, 'maquilas', 'mostrar', $preview);
+        $r = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_general', 'mostrar', $preview);
         break;
     default:
         echo '<script language="javascript">alert("¡URL invalida! '.$api.'"); window.close()</script>';

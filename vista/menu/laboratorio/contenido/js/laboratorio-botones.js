@@ -252,7 +252,7 @@ $(document).on('click', '.btn-modal-maquila-confirm', function (event) {
             LABORATORIO_MAQUILA_ID: laboratorio_id,
             TURNO_ID: selectListaLab.ID_TURNO,
             SERVICIO_ID: selectServicioMaquila
-        }, 'laboratorio_estudios_maquila_api', {callbackAfter: true}, false, function () {
+        }, 'laboratorio_solicitud_maquila_api', {callbackAfter: true}, false, function () {
             alertToast('Se registro la maquila exiotsamente.', 'success', 4000);
             $('#modalMaquilaEstudios').modal('hide');
 

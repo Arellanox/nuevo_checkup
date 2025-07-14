@@ -246,18 +246,23 @@ class Reporte
                 $pdf->setPaper('letter', 'landscape');
                 //$path    = 'pdf/public/oftalmologia/E00001.pdf';
                 break;
-            case 'maquilas':
-                $template = render_view('invoice/maquilas.php', $view_vars);
+            case 'solicitud_maquila_diagnostica':
+                $template = render_view('invoice/solicitud_maquila_diagnostica.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter');
+                break;
+            case 'solicitud_maquila_general':
+                $template = render_view('invoice/solicitud_maquila_general.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter');
                 break;
             case "certificado_bimo":
-                $template = render_view('invoice/certificado_bimo.php', $view_vars);
+                $template = render_view('invoice/footer_certificado_vinco.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter');
                 break;
             case "examen_medico":
-                $template = render_view('invoice/examen_medico.php', $view_vars);
+                $template = render_view('invoice/footer_examen_medico.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter');
                 break;

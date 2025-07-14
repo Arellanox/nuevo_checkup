@@ -2,7 +2,6 @@
     <table class="table table-hover display" id="TablaMaquilaasPorAprobar">
         <thead>
         <tr>
-            <th>Folio</th>
             <th>Prefolio</th>
             <th>Laboratorio</th>
             <th>Servicio</th>

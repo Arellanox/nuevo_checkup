@@ -52,7 +52,6 @@ switch ($api) {
     case 1:
         # agregar una agenda
         if (isset($_SESSION['id'])) {
-            $master->setLog(json_encode($params), 'Parametros: ');
             $result = $master->getByNext("sp_agenda_g", $params);
             
             $response = [];

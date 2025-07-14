@@ -23,7 +23,7 @@
     <meta charset="UTF-8">
     <title>Examen Médico</title>
     <style>
-        <?php include 'assets/ExamenMedico.css'; ?>
+        <?php include 'assets/examen_medico.css'; ?>
         .break {
             page-break-after: always;
         }
@@ -35,7 +35,7 @@
 </head>
 <body>
     <header class="header">
-        <?php include 'layouts/header/ExamenMedico.php'; ?>
+        <?php include 'layouts/header/header_examen_medico.php'; ?>
     </header>
     <main>
         <h1 style="font-weight: bold; font-size: 14px">
@@ -82,7 +82,7 @@
         <?php include 'layouts/tables/ExmaneMedico/Firma.php'; ?>
     </main>
     <footer class="footer">
-        <?php include 'layouts/footer/ExamenMedico.php'; ?>
+        <?php include 'layouts/footer/footer_examen_medico.php'; ?>
     </footer>
 </body>
 </html>

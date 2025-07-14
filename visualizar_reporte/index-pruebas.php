@@ -93,8 +93,13 @@ switch ($api) {
         # imprimir exmane médico de adminisión
         $r = $master->reportador($master, $turno_id, -11, 'examen_medico', 'mostrar', $preview);
         break;
-    case 'maquilas':
-        $r = $master->reportador($master, $turno_id, -8, 'maquilas', 'mostrar', $preview, 0, 0);
+    case 'solicitud_maquila_diagnostica':
+        # imprimir maquilas aprobadas de diagnostica
+        $r = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_diagnostica', 'mostrar', $preview);
+        break;
+    case 'solicitud_maquila_general':
+        # imprimir maquilas aprobadas
+        $r = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_general', 'mostrar', $preview);
         break;
     default:
         echo '<script language="javascript">alert("¡URL invalida!"); window.close()</script>';

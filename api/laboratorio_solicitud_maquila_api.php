@@ -24,7 +24,7 @@ switch ($api) {
         break;
     case 2: // Recuperar información del estudio pendiente a maquilar
         $response = $master->getByProcedure('sp_laboratorio_estudios_maquila_b', [
-            $id_maquila, $mostrar_ocultos, null, null
+            $id_maquila, $mostrar_ocultos, NULL, NULL, NULL
         ]);
         break;
     case 3: // Actualizar campo "activo" del estudio a maquilar
@@ -39,8 +39,12 @@ switch ($api) {
             $id_maquila
         ]);
         break;
-    case 5: // Generer reporte de estudios a maquilar
-        $url = $master->reportador($master, $turno_id, -8, 'maquilas');
+    case 5: // Generer reporte de estudios a maquilar para diagnostica
+        $url = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_diagnostica');
+        $response = ['url' => $url];
+        break;
+    case 6: // Generer reporte de estudios a maquilar general
+        $url = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_general');
         $response = ['url' => $url];
         break;
     default:

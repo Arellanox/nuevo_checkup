@@ -12,7 +12,7 @@ let maquilas_pendientes = $('#TablaMaquilasPendientesAprovacion').DataTable({
         dataType: "json",
         data: { api: 2, MOSTRAR_OCULTOS: 1 },
         method: "POST",
-        url: "../../../api/laboratorio_estudios_maquila_api.php",
+        url: "../../../api/laboratorio_solicitud_maquila_api.php",
         dataSrc: "response.data",
     },
     columns: [
@@ -81,7 +81,7 @@ function ocultarMaquilasPendientes(idMaquila) {
             dataType: "json",
             data: { api: 3, ID_MAQUILA: idMaquila, ACTIVO: 2},
             method: "POST",
-            url: "../../../api/laboratorio_estudios_maquila_api.php",
+            url: "../../../api/laboratorio_solicitud_maquila_api.php",
             success: function (response) {
                 if (response.response.code) {
                     Toast.fire({
@@ -107,7 +107,7 @@ function eliminarMaquilaPendiente(idMaquila) {
             dataType: "json",
             data: {api: 4, ID_MAQUILA: idMaquila},
             method: "POST",
-            url: "../../../api/laboratorio_estudios_maquila_api.php",
+            url: "../../../api/laboratorio_solicitud_maquila_api.php",
             success: function (response) {
                 if (response.response.code) {
                     Toast.fire({

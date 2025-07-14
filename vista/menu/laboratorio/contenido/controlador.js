@@ -33,7 +33,7 @@ async function obtenerContenidoLaboratorio(titulo) {
 
         ajaxAwait({
             api: 2, MOSTRAR_OCULTOS: 1
-        }, 'laboratorio_estudios_maquila_api', {callbackAfter: true}, false, function (data) {
+        }, 'laboratorio_solicitud_maquila_api', {callbackAfter: true}, false, function (data) {
             if (data.response.data?.length > 0) {
                 $('#badge-maquila-icon').removeClass('hidden');
                 $('#maquilas-pendientes-notificacion').text(data.response.data?.length);

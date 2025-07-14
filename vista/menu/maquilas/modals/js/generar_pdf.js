@@ -13,10 +13,10 @@ function generarReporteMaquilas(event){
     const laboratorio_texto = $('#select-laboratorios-maquila option:selected').text();
     const laboratorio_id = $('#select-laboratorios-maquila').val();
 
-    if(laboratorio_id !== '9'){
+    /*if(laboratorio_id !== '9'){
         Toast.fire({icon: 'error', title: '¡No se puede generar reporte de maquilas para este laboratorio en este momento!', timer: 2000});
         return;
-    }
+    }*/
 
     if(maquilasCompletadas < 0){
         Toast.fire({icon: 'error', title: '¡No se puede generar reporte de maquilas con estatus pendiente!', timer: 2000});
@@ -25,7 +25,7 @@ function generarReporteMaquilas(event){
 
     const maquilasDelLaboratorio = listaMaquilas.filter(maquila =>
         maquilasCompletadas.includes(maquila.ID_MAQUILA) &&
-        maquila.LABORATORIO_MAQUILA_ID.toString() === laboratorio_id.toString()
+        maquila.ID_LABORATORIO.toString() === laboratorio_id.toString()
     );
 
     if (maquilasDelLaboratorio.length <= 0) {
@@ -40,9 +40,9 @@ function generarReporteMaquilas(event){
         confirmButtonText: 'Sí'
     }, function () {
         ajaxAwait({
-            api: 5,
+            api: (laboratorio_id !== '9' ? 6 : 5),
             laboratorio_id: laboratorio_id
-        }, 'laboratorio_estudios_maquila_api', { callbackAfter: true }, false, function (response) {
+        }, 'laboratorio_solicitud_maquila_api', { callbackAfter: true }, false, function (response) {
             const url = response.response.data.url;
             window.open(url, '_blank');
         });

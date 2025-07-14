@@ -1,54 +1,4 @@
-<?php
-$pacientes = []; // Inicializamos un array para almacenar los pacientes agrupados con sus estudios
-$numeracion = 1; // Contador para la columna de numeración en la tabla
-
-
-foreach ($resultados as $resultado) {
-    // Construimos el nombre completo del paciente
-    $nombreCompleto = trim($resultado->PACIENTE_NOMBRE . " " .
-        $resultado->PACIENTE_APELLIDO_PATERNO . " " . $resultado->PACIENTE_APELLIDO_MATERNO);
-
-    // Generamos una clave única basada en el nombre completo para evitar duplicados
-    $pacienteKey = md5($nombreCompleto);
-
-    // Si el paciente aún no está en la lista, lo agregamos con su información básica
-    if (!isset($pacientes[$pacienteKey])) {
-        $pacientes[$pacienteKey] = [
-            'nombre' => $nombreCompleto,
-            'sexo' => $resultado->PACIENTE_GENERO,
-            'edad' => intval($resultado->PACIENTE_EDAD),
-            'estudios' => [] // Inicializamos un array para almacenar sus estudios
-        ];
-    }
-
-
-    // Agregamos el estudio a la lista de estudios del paciente
-    $pacientes[$pacienteKey]['estudios'][] = [
-        'servicio' => $resultado->SERVICIO, // Nombre del estudio
-        'servicio_clave' => $resultado->SERVICIO_CLAVE, // Clave del estudio
-        'precio' => formatCurrency($resultado->PRECIO) ?? 'No definido' // Puedes reemplazar esto con el precio real si está disponible en los datos
-    ];
-}
-
-
-function formatCurrency($amount): string
-{
-    if (!is_numeric($amount)) {
-        return 'Monto invalido o no registrado';
-    }
-
-    $amount = floatval($amount);
-
-    $formattedAmount = number_format($amount, 2, '.', '');
-
-    $parts = explode('.', $formattedAmount);
-
-    $parts[0] = number_format($parts[0]);
-
-    return '$' . implode('.', $parts);
-}
-
-?>
+<?php require_once __DIR__.'/includes/solicitud_maquilas_config.php';  ?>
 
 <html lang="es">
 <head>
@@ -58,14 +8,14 @@ function formatCurrency($amount): string
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
-    <style> <?php require_once __DIR__.'/assets/Diagnostica.css'; ?> </style>
+    <style><?php require_once __DIR__.'/assets/diagnostica.css'; ?></style>
 </head>
 <body>
 <!-- header -->
 <header>
     <?php
-    $titulo = 'Maquilas para Laboratorios Diagnóstica';
-    include 'layouts/header/header-diagnostica.php';
+        $titulo = 'Maquilas para Laboratorios Diagnóstica';
+        include 'layouts/header/header_solicitud_maquila_diagnostica.php';
     ?>
 </header>
 
@@ -116,7 +66,7 @@ function formatCurrency($amount): string
 </main>
 
 <footer>
-    <?php include 'layouts/footer/footer-diagnostica.php'; ?>
+    <?php include 'layouts/footer/footer_solicitud_maquila_diagnostica.php'; ?>
 </footer>
 </body>
 </html>

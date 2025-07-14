@@ -736,7 +736,7 @@ class Miscelaneus
             case -8:
                 $laboratorio_id = $_POST['laboratorio_id'];
                 $arregloPaciente = $master->getByProcedure("sp_laboratorio_estudios_maquila_b", [
-                    null, null, $laboratorio_id, 1
+                    NULL, NULL, $laboratorio_id, 1, NULL
                 ]);
                 break;
             case -9:
