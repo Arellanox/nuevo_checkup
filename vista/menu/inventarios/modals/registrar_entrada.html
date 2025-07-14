@@ -35,13 +35,16 @@
                             <h6 class="card-title">Selección de Orden de Compra</h6>
                             <div class="row">
                                 <div class="col-md-10 mb-3">
-                                    <label for="select_orden_compra" class="form-label">Seleccionar orden de compra <span class="text-danger">*</span></label>
-                                    <select class="form-select" id="select_orden_compra" name="select_orden_compra" required>
+                                    <label for="select_orden_compra" class="form-label">Seleccionar orden de compra
+                                        <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="select_orden_compra" name="select_orden_compra"
+                                        required>
                                         <option value="" disabled selected>Seleccione una orden de compra...</option>
                                     </select>
                                 </div>
                                 <div class="col-md-2 mb-3 d-flex align-items-end">
-                                    <button type="button" class="btn btn-outline-primary w-100" id="btnRecargarOrdenes" title="Recargar órdenes">
+                                    <button type="button" class="btn btn-outline-primary w-100" id="btnRecargarOrdenes"
+                                        title="Recargar órdenes">
                                         <i class="bi bi-arrow-clockwise"></i>
                                     </button>
                                 </div>
@@ -55,7 +58,8 @@
                             <h6 class="card-title">Información del Proveedor</h6>
                             <div class="row">
                                 <div class="col-md-8 mb-3">
-                                    <label for="proveedor" class="form-label">Proveedor <span class="text-danger">*</span></label>
+                                    <label for="proveedor" class="form-label">Proveedor <span
+                                            class="text-danger">*</span></label>
                                     <select class="form-select" id="proveedor" name="proveedor" required>
                                         <option value="" disabled selected>Seleccione un proveedor...</option>
                                     </select>
@@ -79,11 +83,13 @@
                                         placeholder="Ej: OC-2024-001 o Factura #123">
                                 </div>
                                 <div class="col-md-4 mb-3">
-                                    <label for="cantidad" class="form-label">Cantidad a ingresar <span class="text-danger">*</span></label>
+                                    <label for="cantidad" class="form-label">Cantidad a ingresar <span
+                                            class="text-danger">*</span></label>
                                     <input type="number" class="form-control" id="cantidad" name="cantidad" required>
                                 </div>
                                 <div class="col-md-4 mb-3">
-                                    <label for="costo_ultima_entrada" class="form-label">Precio de compra <span class="text-danger">*</span></label>
+                                    <label for="costo_ultima_entrada" class="form-label">Precio de compra <span
+                                            class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <span class="input-group-text">$</span>
                                         <input type="number" step="0.01" class="form-control" id="costo_ultima_entrada"
@@ -498,7 +504,7 @@
                         selectElement.empty().append('<option value="" disabled selected>Seleccione un proveedor...</option>');
 
                         response.response.data.forEach(proveedor => {
-                            selectElement.append(`<option value="${proveedor.id_proveedor}">${proveedor.nombre_proveedor}</option>`);
+                            selectElement.append(`<option value="${proveedor.id_proveedores}">${proveedor.nombre}</option>`);
                         });
                     } else {
                         console.error("Error al cargar proveedores:", response);
