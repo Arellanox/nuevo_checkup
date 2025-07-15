@@ -1,3 +1,6 @@
+<!-- CSS para tags de proveedores -->
+<link href="../../../css/proveedores-tags.css" rel="stylesheet">
+
 <div
   class="modal fade"
   id="editarArticuloModal"
@@ -81,20 +84,50 @@
                               <label for="id_marcas" class="form-label"
                                 >Marca</label
                               >
-                              <select
-                                class="form-select input-form"
-                                id="id_marcas"
-                                name="id_marcas"
-                                required
-                              >
-                                <option value="">Seleccione una marca</option>
-                              </select>
+                              <div class="input-group">
+                                <select
+                                  class="form-select input-form"
+                                  id="id_marcas"
+                                  name="id_marcas"
+                                  required
+                                >
+                                  <option value="">Seleccione una marca</option>
+                                </select>
+                                <button
+                                  style="height: 38px; padding-top: 0; padding-bottom: 0;"
+                                  class="btn btn-outline-primary" type="button"
+                                  id="btnCatalogoMarcas" title="Gestionar Marcas">
+                                  <i class="bi bi-plus"></i>
+                                </button>
+                              </div>
                               <div class="invalid-feedback">
                                 Este campo es obligatorio.
                               </div>
                               <small class="form-text text-muted"
                                 >Seleccione la marca del artículo.</small
                               >
+                            </div>
+                            <div class="mb-3">
+                              <label for="id_sustancia" class="form-label">Sustancia
+                                Activa</label>
+                              <div class="input-group">
+                                <select class="form-select input-form" id="id_sustancia"
+                                  name="id_sustancia">
+                                  <option value="">Seleccione una sustancia activa
+                                  </option>
+                                </select>
+                                <button
+                                  style="height: 38px; padding-top: 0; padding-bottom: 0;"
+                                  class="btn btn-outline-primary" type="button"
+                                  id="btnCatalogoSustancias"
+                                  title="Gestionar Sustancias Activas">
+                                  <i class="bi bi-plus"></i>
+                                </button>
+                              </div>
+                              <small class="form-text text-muted">Para medicamentos:
+                                seleccione la sustancia activa. Para genéricos, agregue
+                                solo el gramaje en "Nombre Comercial" (ej: 500mg). Para
+                                patentes, use el nombre comercial completo.</small>
                             </div>
                           </div>
                         </div>
@@ -151,18 +184,27 @@
                               <label for="tipo_articulo" class="form-label"
                                 >Tipo Descripción</label
                               >
-                              <select
-                                class="form-select tipo_articulo input-form"
-                                id="tipo_articulo"
-                                name="tipo_articulo"
-                                required
-                              >
-                                <option value="">Seleccione un tipo</option>
-                                <option value="1">Reactivo</option>
-                                <option value="2">Insumo</option>
-                                <option value="3">Medicamento</option>
-                                <option value="4">Otro</option>
-                              </select>
+                              <div class="input-group">
+                                <select
+                                  class="form-select tipo_articulo input-form"
+                                  id="tipo_articulo"
+                                  name="tipo_articulo"
+                                  required
+                                >
+                                  <option value="">Seleccione un tipo</option>
+                                  <option value="1">Reactivo</option>
+                                  <option value="2">Insumo</option>
+                                  <option value="3">Medicamento</option>
+                                  <option value="60">Otros</option>
+                                </select>
+                                <button
+                                  style="height: 38px; padding-top: 0; padding-bottom: 0;"
+                                  class="btn btn-outline-primary" type="button"
+                                  id="btnCatalogoTipos"
+                                  title="Gestionar Tipos de Artículos">
+                                  <i class="bi bi-plus"></i>
+                                </button>
+                              </div>
                               <div class="invalid-feedback">
                                 Este campo es obligatorio.
                               </div>
@@ -202,81 +244,8 @@
                               >
                             </div>
                           </div>
-                          <!-- <div class="col-6">
-                            <div class="mb-3">
-                              <label for="maneja_caducidad" class="form-label"
-                                >Maneja Caducidad</label
-                              >
-                              <select
-                                class="form-select input-form"
-                                id="maneja_caducidad"
-                                name="maneja_caducidad"
-                              >
-                                <option value="1">Sí</option>
-                                <option value="0">No</option>
-                              </select>
-                              <div class="invalid-feedback">
-                                Este campo es obligatorio.
-                              </div>
-                              <small class="form-text text-muted"
-                                >Seleccione si el artículo maneja
-                                caducidad.</small
-                              >
-                            </div>
-                          </div> -->
-                          <div
-                            class="col-6"
-                            id="fechaCaducidadDiva"
-                            style="display: none"
-                          >
-                            <div class="mb-3">
-                              <label for="fecha_caducidad" class="form-label"
-                                >Fecha de Caducidad</label
-                              >
-                              <input
-                                type="date"
-                                class="form-control input-form"
-                                id="fecha_caducidad"
-                                name="fecha_caducidad"
-                              />
-                              <div class="invalid-feedback">
-                                Este campo es obligatorio.
-                              </div>
-                              <small class="form-text text-muted"
-                                >Ingrese la fecha de caducidad del
-                                artículo.</small
-                              >
-                            </div>
-                          </div>
-                          <!-- Campos que aparecen en lotes -->
-                          <div id="lotesFields" style="display: none;">
-                            <div class="row">
-                              <div class="col-md-12">
-                                <div class="mb-3">
-                                  <label for="numero_lote" class="form-label"
-                                    >Número de Lote</label
-                                  >
-                                  <input
-                                    type="text"
-                                    class="form-control input-form"
-                                    id="numero_lote"
-                                    name="numero_lote"
-                                  />
-                                  <small class="form-text text-muted"
-                                    >Ingrese el número de lote del
-                                    producto.</small
-                                  >
-                                </div>
-                              </div>
-                              <div class="col-md-6">
-                                    <div class="mb-3">
-                                    <label for="fecha_lote" class="form-label">Fecha de Lote</label>
-                                    <input type="date" class="form-control input-form" id="fecha_lote" name="fecha_lote">
-                                    <small class="form-text text-muted">Ingrese la fecha de fabricación del lote.</small>
-                                    </div>
-                                </div>
-                            </div>
-                          </div>
+                          <!-- Nota: Los campos de fecha de caducidad, número de lote y fecha de lote 
+                               ahora se manejan en el modal de entrada para mejor control de inventario -->
                         </div>
                       </div>
                     </div>
@@ -291,15 +260,36 @@
                               <label for="unidad_venta" class="form-label"
                                 >Unidad de Venta</label
                               >
-                              <select
-                                class="form-select input-form"
-                                id="unidad_venta"
-                                name="unidad_venta"
-                                required
-                              >
-                                <option value="">Seleccione una unidad</option>
-                                <!-- Las opciones se cargarán dinámicamente -->
-                              </select>
+                              <div class="input-group">
+                                <select
+                                  class="form-select input-form"
+                                  id="unidad_venta"
+                                  name="unidad_venta"
+                                  required
+                                >
+                                  <option value="">Seleccione una unidad</option>
+                                  <option value="Por pieza (unidad)">Por pieza
+                                    (unidad)</option>
+                                  <option value="Por caja">Por caja</option>
+                                  <option value="Por blíster (tira)">Por blíster
+                                    (tira)</option>
+                                  <option value="Por frasco / botella">Por frasco /
+                                    botella</option>
+                                  <option value="Por ampolla o vial">Por ampolla o
+                                    vial</option>
+                                  <option value="Por gramo / mililitro">Por gramo /
+                                    mililitro</option>
+                                  <option value="Por kit o presentación combinada">Por
+                                    kit o presentación combinada</option>
+                                </select>
+                                <button
+                                  style="height: 38px; padding-top: 0; padding-bottom: 0;"
+                                  class="btn btn-outline-primary" type="button"
+                                  id="btnCatalogoUnidades"
+                                  title="Gestionar Unidades de Venta">
+                                  <i class="bi bi-plus"></i>
+                                </button>
+                              </div>
                               <div class="invalid-feedback">
                                 Este campo es obligatorio.
                               </div>
@@ -312,7 +302,7 @@
                           <div class="col-6">
                             <div class="mb-3">
                               <label for="unidad_minima" class="form-label"
-                                >Stock Mínimo (Opcional)</label
+                                >Stock Mínimo</label
                               >
                               <input
                                 type="number"
@@ -347,6 +337,47 @@
                                 >Detalles específicos del contenido (ej: "100ml
                                 por frasco", "50 tiras por caja", etc.).</small
                               >
+                            </div>
+                          </div>
+                          <div class="col-12">
+                            <div class="mb-3">
+                              <label for="id_proveedores"
+                                class="form-label">Proveedores</label>
+
+                              <!-- Área de Tags de Proveedores Seleccionados -->
+                              <div id="proveedoresSelectedContainer" class="mb-2"
+                                style="min-height: 40px; border: 1px solid #dee2e6; border-radius: 0.375rem; padding: 8px; background-color: #f8f9fa;">
+                                <div id="proveedoresTagsArea"
+                                  class="d-flex flex-wrap gap-2">
+                                  <small class="text-muted align-self-center"
+                                    id="proveedoresPlaceholder">
+                                    No hay proveedores seleccionados. Seleccione uno
+                                    o más proveedores del menú desplegable.
+                                  </small>
+                                </div>
+                              </div>
+
+                              <div class="input-group">
+                                <select class="form-select input-form"
+                                  id="id_proveedores" name="id_proveedores">
+                                  <option value="">Seleccione un proveedor</option>
+                                </select>
+                                <button
+                                  style="height: 38px; padding-top: 0; padding-bottom: 0;"
+                                  class="btn btn-outline-primary" type="button"
+                                  id="btnNuevoProveedor"
+                                  title="Gestionar Proveedores">
+                                  <i class="bi bi-plus"></i>
+                                </button>
+                              </div>
+
+                              <!-- Campo hidden para enviar JSON de proveedores -->
+                              <input type="hidden" id="proveedores_json"
+                                name="proveedores_json" value="">
+
+                              <small class="form-text text-muted">Seleccione uno o más
+                                proveedores. El primer proveedor será considerado como
+                                principal.</small>
                             </div>
                           </div>
                           <div class="col-6">
@@ -394,31 +425,6 @@
                               >
                             </div>
                           </div>
-                          <!-- Proveedor y rendimiento
-                          <div class="col-6">
-                            <div class="mb-3">
-                              <label for="id_proveedores" class="form-label"
-                                >Proveedor</label
-                              >
-                              <select
-                                class="form-select input-form"
-                                id="id_proveedores"
-                                name="id_proveedores"
-                                required
-                              >
-                                <option value="">Seleccione un área</option>
-                                <option value="1">Farmacias Guadalajara</option>
-                                <option value="2">Farmacias Similares</option>
-                              </select>
-                              <div class="invalid-feedback">
-                                Este campo es obligatorio.
-                              </div>
-                              <small class="form-text text-muted"
-                                >Seleccione que proveedor surte el
-                                artículo.</small
-                              >
-                            </div>
-                          </div>-->
                           <div
                             class="col-12"
                             id="rendimientoEstimadoDiv"
@@ -488,7 +494,7 @@
                                 type="file"
                                 class="form-control input-form"
                                 id="inserto"
-                                name="inserto[]"
+                                name="inserto"
                               />
                               <div class="invalid-feedback">
                                 Este campo es obligatorio.
@@ -511,7 +517,7 @@
                                 type="file"
                                 class="form-control input-form"
                                 id="procedimiento"
-                                name="procedimiento[]"
+                                name="procedimiento"
                               />
                               <div class="invalid-feedback">
                                 Este campo es obligatorio.
@@ -545,12 +551,68 @@
                       </div>
                     </div>
 
-                    <!-- Sección 5: Códigos de Identificación -->
+                    <!-- Sección 5: Vista Previa del Inserto -->
+                    <div class="card mb-4" id="vistaPreviaInsertoCard" style="display: none;">
+                      <div class="card-body">
+                        <h6 class="card-title">Vista Previa del Inserto</h6>
+                        <div class="row">
+                          <!-- Botones de control -->
+                          <div class="col-6">
+                            <div class="mb-3">
+                              <div class="d-flex gap-3 mt-2 flex-wrap">
+                                <button
+                                  class="btn btn-outline-secondary btn-sm d-flex flex-column align-items-center"
+                                  type="button" id="verPreviaInserto" style="width:97px;"
+                                  disabled>
+                                  <i class="bi bi-eye fs-5"></i>
+                                  <span class="mt-1">Ver Previa</span>
+                                </button>
+                                <button
+                                  class="btn btn-outline-secondary btn-sm d-flex flex-column align-items-center d-none"
+                                  type="button" id="descargarInserto" style="width:97px;">
+                                  <i class="bi bi-download fs-5"></i>
+                                  <span class="mt-1">Descargar</span>
+                                </button>
+                                <button
+                                  class="btn btn-outline-success btn-sm d-flex flex-column align-items-center d-none"
+                                  type="button" id="abrirNuevaVentana" style="width:97px;">
+                                  <i class="bi bi-box-arrow-up-right fs-5"></i>
+                                  <span class="mt-1">Vista completa</span>
+                                </button>
+                              </div>
+                              <small class="form-text text-muted">Previsualice el PDF antes de
+                                guardar el artículo. <br>Nota: complete código y nombre
+                                comercial para visualizar.</small>
+                            </div>
+                          </div>
+                          <!-- Vista previa del PDF -->
+                          <div class="col-6">
+                            <div class="h-100 d-flex flex-column">
+                              <div id="pdfPreviewContainer"
+                                class="border p-3 rounded flex-grow-1 d-flex align-items-center justify-content-center flex-column"
+                                style="min-height: 200px;">
+                                <small class="text-muted text-center">La vista previa del PDF
+                                  aparecerá aquí</small>
+                                <!-- Este iframe contendrá el PDF -->
+                                <iframe id="pdfPreviewFrame"
+                                  style="width: 100%; height: 100%; display: none;"
+                                  frameborder="0">
+                                </iframe>
+                                <!-- Información del archivo -->
+                                <div id="pdfInfoDisplay" class="fw-bold text-center mt-2"
+                                  style="font-size: 0.9rem;"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Sección 6: Código de Barras -->
                     <div class="card mb-4">
                       <div class="card-body">
-                        <h6 class="card-title">Identificación del Producto</h6>
+                        <h6 class="card-title">Código de Barras</h6>
                         <div class="row">
-                          <!-- Código de barras -->
                           <div class="col-6">
                             <div class="mb-3">
                               <label for="codigo_barras" class="form-label"
@@ -568,7 +630,7 @@
                                 <button
                                   class="btn btn-outline-secondary d-flex align-items-center"
                                   type="button"
-                                  id="limpiarCodigoBarra"
+                                  id="limpiarCodigoBarras"
                                   title="Limpiar código"
                                   style="
                                     height: 38px;
@@ -579,96 +641,21 @@
                                   <i class="bi bi-x-lg"></i>
                                 </button>
                               </div>
-                              <!-- El div para mensajes de error se agregará dinámicamente -->
-
-                              <div class="d-flex gap-3 mt-2 flex-wrap">
-                                <!-- <button class="btn btn-outline-secondary btn-sm d-flex flex-column align-items-center" type="button" id="generarCodigoBarras" style="width: 97px;">
-                                <i class="bi bi-upc-scan fs-5"></i>
-                                <span class="mt-1">Mostrar</span>
-                              </button> -->
-                                <button
-                                  class="btn btn-outline-secondary btn-sm d-flex flex-column align-items-center"
-                                  type="button"
-                                  id="leerCodigoBarras"
-                                  style="width: 97px"
-                                >
-                                  <i class="bi bi-upc-scan fs-5"></i>
-                                  <span class="mt-1">Escanear</span>
-                                </button>
-                                <button
-                                  class="btn btn-outline-secondary btn-sm d-flex flex-column align-items-center"
-                                  type="button"
-                                  id="generarQr"
-                                  style="width: 97px"
-                                >
-                                  <i class="bi bi-qr-code fs-5"></i>
-                                  <span class="mt-1">Generar QR</span>
-                                </button>
-                              </div>
-                              <div class="d-flex gap-3 mt-2 flex-wrap">
-                                <button
-                                  class="btn btn-outline-secondary btn-sm d-flex flex-column align-items-center d-none"
-                                  type="button"
-                                  id="descargarQRIMG"
-                                  style="width: 97px"
-                                >
-                                  <i class="bi bi-filetype-png fs-5"></i>
-                                  <span class="mt-1">Descargar Imagen</span>
-                                </button>
-                                <button
-                                  id="descargarQRpdf"
-                                  class="btn btn-outline-secondary btn-sm d-flex flex-column align-items-center d-none"
-                                  type="button"
-                                  style="width: 97px"
-                                >
-                                  <i class="bi bi-filetype-pdf fs-5"></i>
-                                  <span class="mt-1">Descargar PDF</span>
-                                </button>
-                                <button
-                                  id="imprimirQRpdf"
-                                  class="btn btn-outline-secondary btn-sm d-flex flex-column align-items-center d-none"
-                                  type="button"
-                                  style="width: 97px"
-                                >
-                                  <i class="bi bi-file-earmark-pdf fs-5"></i>
-                                  <span class="mt-1">Imprimir PDF</span>
-                                </button>
-                              </div>
-
-                              <!-- AGREGAR ESTE CONTENEDOR PARA EL CÓDIGO DE BARRAS VISUAL
-                            <div id="codigoBarrasContainer" class="mt-3" style="display: none;">
-                              <div class="border p-3 rounded text-center bg-light">
-                                <h6>Código de Barras:</h6>
-                                <canvas id="codigoBarras" class="mb-2"></canvas>
-                                <div id="codigoBarrasTexto" class="fw-bold"></div>
-                              </div>
-                            </div>
-                            
-                            <small class="form-text text-muted">
-                              Formatos soportados: EAN13 (13 dígitos), EAN8 (8 dígitos), UPC (12 dígitos), CODE128, CODE39
-                            </small> -->
+                              <small class="form-text text-muted">Ingrese el código de barras del
+                                artículo.</small>
                             </div>
                           </div>
-                          <!-- Visualización del QR -->
-                          <div class="col-6">
-                            <div class="h-100 d-flex flex-column">
-                              <div
-                                id="qrCodePreview"
-                                class="border p-3 rounded flex-grow-1 d-flex align-items-center justify-content-center flex-column"
-                                style="min-height: 150px"
-                              >
-                                <small class="text-muted text-center"
-                                  >El código QR aparecerá aquí</small
-                                >
-                                <!-- Este div contendrá el QR -->
-                                <div id="qrCodeContainers" class="mb-2"></div>
-                                <!-- Este div mostrará la clave y nombre -->
-                                <div
-                                  id="qrClaveDisplays"
-                                  class="fw-bold text-center"
-                                  style="font-size: 1.1rem"
-                                ></div>
-                              </div>
+                          <div class="col-6 d-flex justify-content-center align-items-center">
+                            <div class="mb-3 text-center w-100">
+                              <button
+                                class="btn btn-outline-secondary btn-lg d-flex flex-column align-items-center justify-content-center mx-auto"
+                                type="button" id="leerCodigoBarras"
+                                style="width: 106px; height: 77px;">
+                                <i class="bi bi-upc-scan fs-2"></i>
+                                <span>Escanear</span>
+                              </button>
+                              <small class="form-text text-muted d-block mt-2">Puede escanear el
+                                código de barras.</small>
                             </div>
                           </div>
                         </div>
@@ -696,386 +683,162 @@
     </div>
   </div>
 </div>
+
 <script>
-  // Función para generar y mostrar el código de barras visual
-  function mostrarCodigoBarras(codigo) {
-    if (!codigo || codigo.trim() === "") {
-      document.getElementById("codigoBarrasContainer").style.display = "none";
-      return;
-    }
-
-    try {
-      document.getElementById("codigoBarrasContainer").style.display = "block";
-
-      JsBarcode("#codigoBarras", codigo, {
-        format: "CODE128",
-        width: 2,
-        height: 60,
-        displayValue: true,
-        fontSize: 12,
-        textMargin: 5,
-        background: "#ffffff",
-        lineColor: "#000000",
-      });
-
-      document.getElementById("codigoBarrasTexto").textContent = codigo;
-    } catch (error) {
-      console.error("Error al generar código de barras:", error);
-      document.getElementById("codigoBarrasTexto").textContent =
-        "Código: " + codigo;
-    }
-  }
-
-  function detectarFormatoCodigo(codigo) {
-    if (/^\d{13}$/.test(codigo)) {
-      return "EAN13";
-    } else if (/^\d{12}$/.test(codigo)) {
-      return "UPC";
-    } else if (/^\d{8}$/.test(codigo)) {
-      return "EAN8";
+  // Validación en Tiempo Real
+  $('#editarArticuloForm input').on('input', function () {
+    if ($(this).val() === '') {
+      $(this).addClass('');
     } else {
-      return "CODE128";
+      $(this).removeClass('is-invalid');
     }
-  }
+  });
+
+  // Actualización del Progreso
+  $('#editarArticuloForm input, #editarArticuloForm select').on('input change', function () {
+    let completedSections = 0;
+    if ($('#clave_art').val() !== '' && $('#nombre_comercial').val() !== '') {
+      completedSections++;
+    }
+    if ($('#estatus').is(':checked') || $('#red_frio').val() !== '') {
+      completedSections++;
+    }
+    if ($('#inserto').val() !== '' || $('#procedimiento').val() !== '' || $('#img_producto').val() !== '') {
+      completedSections++;
+    }
+  });
 
   // Función para validar código de barras
   function validarCodigoBarras(codigo) {
-    // Remover espacios en blanco
-    codigo = codigo.replace(/\s/g, "");
+    if (!codigo || codigo.length < 8) {
+      return { valido: false, mensaje: 'Código muy corto' };
+    }
 
-    // Validaciones para diferentes formatos con límites exactos
-    const validaciones = {
-      EAN13: {
-        regex: /^\d{13}$/,
-        maxLength: 13,
-        minLength: 13,
-        caracteresPermitidos: /^[0-9]*$/,
-        nombre: "EAN13",
-      },
-      EAN8: {
-        regex: /^\d{8}$/,
-        maxLength: 8,
-        minLength: 8,
-        caracteresPermitidos: /^[0-9]*$/,
-        nombre: "EAN8",
-      },
-      UPC: {
-        regex: /^\d{12}$/,
-        maxLength: 12,
-        minLength: 12,
-        caracteresPermitidos: /^[0-9]*$/,
-        nombre: "UPC",
-      },
-      CODE128: {
-        regex: /^[0-9A-Za-z\-\.\ \_\$\/\+\%]{1,48}$/,
-        maxLength: 48,
-        minLength: 1,
-        caracteresPermitidos: /^[0-9A-Za-z\-\.\ \_\$\/\+\%]*$/,
-        nombre: "CODE128",
-      },
-      CODE39: {
-        regex: /^[0-9A-Z\-\.\ \$\/\+\%]{1,32}$/,
-        maxLength: 32,
-        minLength: 1,
-        caracteresPermitidos: /^[0-9A-Z\-\.\ \$\/\+\%]*$/,
-        nombre: "CODE39",
-      },
-    };
+    // Validar EAN-13 (13 dígitos)
+    if (codigo.length === 13 && /^\d+$/.test(codigo)) {
+      let sum = 0;
+      for (let i = 0; i < 12; i++) {
+        sum += parseInt(codigo.charAt(i)) * (i % 2 === 0 ? 1 : 3);
+      }
+      let checksum = (10 - (sum % 10)) % 10;
+      if (checksum === parseInt(codigo.charAt(12))) {
+        return { valido: true, tipo: 'EAN-13' };
+      }
+    }
 
-    // Verificar longitud exacta para formatos numéricos
-    if (codigo.length === 13 && validaciones.EAN13.regex.test(codigo)) {
-      return { valido: true, formato: "EAN13", codigo: codigo };
-    } else if (codigo.length === 8 && validaciones.EAN8.regex.test(codigo)) {
-      return { valido: true, formato: "EAN8", codigo: codigo };
-    } else if (codigo.length === 12 && validaciones.UPC.regex.test(codigo)) {
-      return { valido: true, formato: "UPC", codigo: codigo };
-    } else if (
-      validaciones.CODE128.caracteresPermitidos.test(codigo) &&
-      codigo.length >= validaciones.CODE128.minLength &&
-      codigo.length <= validaciones.CODE128.maxLength
-    ) {
-      return { valido: true, formato: "CODE128", codigo: codigo };
-    } else if (
-      validaciones.CODE39.caracteresPermitidos.test(codigo) &&
-      codigo.length >= validaciones.CODE39.minLength &&
-      codigo.length <= validaciones.CODE39.maxLength
-    ) {
-      return { valido: true, formato: "CODE39", codigo: codigo };
+    // Validar EAN-8 (8 dígitos)
+    if (codigo.length === 8 && /^\d+$/.test(codigo)) {
+      let sum = 0;
+      for (let i = 0; i < 7; i++) {
+        sum += parseInt(codigo.charAt(i)) * (i % 2 === 0 ? 3 : 1);
+      }
+      let checksum = (10 - (sum % 10)) % 10;
+      if (checksum === parseInt(codigo.charAt(7))) {
+        return { valido: true, tipo: 'EAN-8' };
+      }
+    }
+
+    // Validar UPC-A (12 dígitos)
+    if (codigo.length === 12 && /^\d+$/.test(codigo)) {
+      let sum = 0;
+      for (let i = 0; i < 11; i++) {
+        sum += parseInt(codigo.charAt(i)) * (i % 2 === 0 ? 3 : 1);
+      }
+      let checksum = (10 - (sum % 10)) % 10;
+      if (checksum === parseInt(codigo.charAt(11))) {
+        return { valido: true, tipo: 'UPC-A' };
+      }
+    }
+
+    return { valido: false, mensaje: 'Formato de código de barras no válido' };
+  }
+
+  // Función para mostrar error en código de barras
+  function mostrarErrorCodigoBarras(mensaje) {
+    $('#codigo_barras').addClass('is-invalid');
+    // Remover feedback anterior
+    $('#codigo_barras').siblings('.formato-feedback').remove();
+    // Agregar nuevo feedback
+    $('<div class="formato-feedback text-danger small mt-1"></div>')
+      .text(mensaje)
+      .insertAfter('#codigo_barras');
+  }
+
+  // Función para limpiar errores del código de barras
+  function limpiarErrorCodigoBarras() {
+    $('#codigo_barras').removeClass('is-invalid');
+    $('#codigo_barras').siblings('.formato-feedback').remove();
+  }
+
+  // Función para limpiar el código de barras
+  function limpiarCodigoBarras() {
+    $('#editarArticuloForm #codigo_barras').val('');
+    limpiarErrorCodigoBarras();
+    $('#editarArticuloForm #codigo_barras').siblings('.formato-feedback').remove();
+  }
+
+  // Event listener para limpiar código de barras
+  $(document).on('click', '#limpiarCodigoBarras', function (e) {
+    e.preventDefault();
+    limpiarCodigoBarras();
+  });
+
+  // Event listener para validar al perder el foco
+  $('#editarArticuloForm #codigo_barras').on('blur', function () {
+    const codigo = $(this).val().trim();
+
+    if (codigo !== '') {
+      const validacion = validarCodigoBarras(codigo);
+
+      if (!validacion.valido) {
+        mostrarErrorCodigoBarras('Debe completar un código de barras válido.');
+      } else {
+        limpiarErrorCodigoBarras();
+        // Mostrar tipo de código válido
+        $('<div class="formato-feedback text-success small mt-1"></div>')
+          .text(`✓ Código ${validacion.tipo} válido`)
+          .insertAfter('#codigo_barras');
+      }
     } else {
-      return { valido: false, formato: null, codigo: codigo };
+      limpiarErrorCodigoBarras();
     }
-  }
+  });
 
-  // Función para detectar el formato probable basado en la longitud actual
-  function detectarFormatoProbable(codigo) {
-    codigo = codigo.replace(/\s/g, "");
+  // Event listener para validar mientras escribe
+  $('#editarArticuloForm #codigo_barras').on('input', function () {
+    const codigo = $(this).val().trim();
 
-    if (/^\d+$/.test(codigo)) {
-      if (codigo.length <= 8) return "EAN8";
-      if (codigo.length <= 12) return "UPC";
-      if (codigo.length <= 13) return "EAN13";
-    }
-
-    if (/^[0-9A-Za-z\-\.\ \_\$\/\+\%]*$/.test(codigo)) {
-      if (codigo.length <= 32) return "CODE39";
-      if (codigo.length <= 48) return "CODE128";
-    }
-
-    return "CODE128"; // Por defecto
-  }
-
-  // Función para obtener el límite máximo según el formato detectado
-  function obtenerLimiteCaracteres(codigo) {
-    const formato = detectarFormatoProbable(codigo);
-
-    const limites = {
-      EAN8: 8,
-      UPC: 12,
-      EAN13: 13,
-      CODE39: 32,
-      CODE128: 48,
-    };
-
-    return limites[formato] || 48;
-  }
-
-  // Event listener para validar y limitar caracteres en tiempo real
-  $("#editarArticuloForm #codigo_barras").on("input", function (e) {
-    let codigo = $(this).val();
-    const cursorPos = this.selectionStart;
-
-    // Obtener el límite según el formato detectado
-    const limite = obtenerLimiteCaracteres(codigo);
-
-    // Limitar longitud
-    if (codigo.length > limite) {
-      codigo = codigo.substring(0, limite);
-      $(this).val(codigo);
-      // Restaurar posición del cursor
-      this.setSelectionRange(
-        Math.min(cursorPos, limite),
-        Math.min(cursorPos, limite)
-      );
-    }
-
-    // Si está vacío, limpiar errores y NO mostrar código de barras
-    if (codigo.trim() === "") {
+    if (codigo === '') {
       limpiarErrorCodigoBarras();
       return;
     }
 
-    // Detectar formato probable para dar feedback
-    const formatoProbable = detectarFormatoProbable(codigo);
-    const limiteActual = obtenerLimiteCaracteres(codigo);
-
-    // Validar caracteres permitidos según el formato probable
-    let caracteresValidos = true;
-    if (
-      formatoProbable === "EAN8" ||
-      formatoProbable === "UPC" ||
-      formatoProbable === "EAN13"
-    ) {
-      caracteresValidos = /^[0-9]*$/.test(codigo);
-    } else if (formatoProbable === "CODE39") {
-      caracteresValidos = /^[0-9A-Z\-\.\ \$\/\+\%]*$/.test(codigo);
-    } else if (formatoProbable === "CODE128") {
-      caracteresValidos = /^[0-9A-Za-z\-\.\ \_\$\/\+\%]*$/.test(codigo);
-    }
-
-    if (!caracteresValidos) {
-      mostrarErrorCodigoBarras(
-        `Caracteres no permitidos para formato ${formatoProbable}`
-      );
-      return;
-    }
-
-    // Validar el código completo
+    // Validación en tiempo real
     const validacion = validarCodigoBarras(codigo);
 
     if (validacion.valido) {
       limpiarErrorCodigoBarras();
-      // Mostrar mensaje de formato detectado
-      mostrarMensajeFormato(validacion.formato, "success");
+      $(this).removeClass('is-invalid').addClass('is-valid');
+    } else if (codigo.length >= 8) {
+      // Solo mostrar error si ya tiene suficientes caracteres
+      $(this).removeClass('is-valid').addClass('is-invalid');
     } else {
-      // Mostrar progreso para formatos numéricos
-      if (
-        formatoProbable === "EAN8" ||
-        formatoProbable === "UPC" ||
-        formatoProbable === "EAN13"
-      ) {
-        mostrarMensajeFormato(
-          `${formatoProbable}: ${codigo.length}/${limiteActual} dígitos`,
-          "info"
-        );
-      } else {
-        mostrarMensajeFormato(
-          `${formatoProbable}: ${codigo.length}/${limiteActual} caracteres`,
-          "info"
-        );
-      }
+      // Limpiar estados mientras escribe
+      $(this).removeClass('is-valid is-invalid');
       limpiarErrorCodigoBarras();
     }
   });
 
-  // // Función para mostrar mensajes de formato
-  // function mostrarMensajeFormato(mensaje, tipo) {
-  //     const input = $('#editarArticuloForm #codigo_barras');
-  //     let feedbackDiv = input.siblings('.formato-feedback');
-
-  //     if (feedbackDiv.length === 0) {
-  //         input.after(`<div class="formato-feedback small mt-1"></div>`);
-  //         feedbackDiv = input.siblings('.formato-feedback');
-  //     }
-
-  //     feedbackDiv.removeClass('text-success text-info text-warning')
-  //               .addClass(`text-${tipo === 'success' ? 'success' : tipo === 'info' ? 'info' : 'warning'}`)
-  //               .text(mensaje);
-  // }
-
-  // Función para limpiar errores del input
-  function limpiarErrorCodigoBarras() {
-    const input = $("#editarArticuloForm #codigo_barras");
-    input.removeClass("is-invalid");
-    input.siblings(".invalid-feedback").remove();
-  }
-
-  // // Event listener modificado para el botón "Mostrar Código de Barras"
-  // $(document).on('click', '#generarCodigoBarras', function(e) {
-  //     e.preventDefault();
-  //     console.log('Botón mostrar código de barras clickeado');
-
-  //     const codigo = $('#editarArticuloForm #codigo_barras').val().trim();
-
-  //     if (codigo === '') {
-  //         if (typeof alertToast === 'function') {
-  //             alertToast("Primero ingrese un código de barras", "warning", 3000);
-  //         } else {
-  //             alert("Primero ingrese un código de barras");
-  //         }
-  //         $('#editarArticuloForm #codigo_barras').focus();
-  //         return;
-  //     }
-
-  //     // Validar el código antes de generar la imagen
-  //     const validacion = validarCodigoBarras(codigo);
-
-  //     if (!validacion.valido) {
-  //         mostrarErrorCodigoBarras('El código ingresado no tiene un formato válido o está incompleto.');
-  //         $('#editarArticuloForm #codigo_barras').focus();
-  //         return;
-  //     }
-
-  //     // Si es válido, mostrar la imagen del código de barras
-  //     mostrarCodigoBarrasInteligente(validacion.codigo);
-
-  //     if (typeof alertToast === 'function') {
-  //         alertToast(`Código de barras mostrado en formato ${validacion.formato}`, "success", 3000);
-  //     }
-  // });
-
-  // Función mejorada para mostrar código de barras SOLO cuando se presiona el botón
-  function mostrarCodigoBarrasInteligente(codigo) {
-    if (!codigo || codigo.trim() === "") {
-      document.getElementById("codigoBarrasContainer").style.display = "none";
-      return;
-    }
-
-    // Validar antes de mostrar
-    const validacion = validarCodigoBarras(codigo);
-    if (!validacion.valido) {
-      console.error("Código de barras inválido:", codigo);
-      return;
-    }
-
-    try {
-      // MOSTRAR el contenedor
-      document.getElementById("codigoBarrasContainer").style.display = "block";
-
-      // Limpiar canvas anterior
-      const canvas = document.getElementById("codigoBarras");
-      if (canvas) {
-        const ctx = canvas.getContext("2d");
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-      }
-
-      JsBarcode("#codigoBarras", validacion.codigo, {
-        format: validacion.formato,
-        width: validacion.formato === "CODE128" ? 1.5 : 2,
-        height: 60,
-        displayValue: true,
-        fontSize: 12,
-        textMargin: 5,
-        background: "#ffffff",
-        lineColor: "#000000",
-      });
-
-      document.getElementById(
-        "codigoBarrasTexto"
-      ).textContent = `${validacion.codigo} (${validacion.formato})`;
-    } catch (error) {
-      console.error("Error al generar código de barras:", error);
-      document.getElementById("codigoBarrasTexto").textContent =
-        "Error al generar código: " + validacion.codigo;
-
-      if (typeof alertToast === "function") {
-        alertToast(
-          "Error al generar la imagen del código de barras",
-          "error",
-          3000
-        );
-      }
-    }
-  }
-
-  // Función para limpiar el código de barras
-  function limpiarCodigoBarra() {
-    $("#editarArticuloForm #codigo_barras").val("");
-    limpiarErrorCodigoBarras();
-    $("#editarArticuloForm #codigo_barras")
-      .siblings(".formato-feedback")
-      .remove();
-    $("#codigoBarrasContainer").hide(); // Ocultar el canvas
-  }
-
-  // Event listener para limpiar código de barras
-  $(document).on("click", "#limpiarCodigoBarra", function (e) {
-    e.preventDefault();
-    limpiarCodigoBarra();
-  });
-
-  // Event listener para validar al perder el foco
-  $("#editarArticuloForm #codigo_barras").on("blur", function () {
-    const codigo = $(this).val().trim();
-
-    if (codigo !== "") {
-      const validacion = validarCodigoBarras(codigo);
-
-      if (!validacion.valido) {
-        mostrarErrorCodigoBarras("Debe completar un código de barras válido.");
-      }
-    }
-  });
-
-  // Mostrar u ocultar la fecha de caducidad según el valor seleccionado
-  $("#maneja_caducidad").on("change", function () {
-    if ($(this).val() == "1") {
-      $("#fechaCaducidadDiva").show();
-    } else {
-      $("#fechaCaducidadDiva").hide();
-      $("#fecha_caducidad").val("");
-    }
-  });
-
   // Mostrar u ocultar los campos de rendimiento según el valor seleccionado
-  $("#maneja_rendimiento").on("change", function () {
-    if ($(this).val() == "0") {
-      $("#rendimientoEstimadoDiv").show();
-      $("#rendimientoPacienteDiv").show();
+  $('#maneja_rendimiento').on('change', function () {
+    if ($(this).val() == '0') {
+      $('#rendimientoEstimadoDiv').show();
+      $('#rendimientoPacienteDiv').show();
       $("#rendimiento_estimado").attr("required", true);
       $("#rendimiento_paciente").attr("required", true);
     } else {
-      $("#rendimientoEstimadoDiv").hide();
-      $("#rendimientoPacienteDiv").hide();
+      $('#rendimientoEstimadoDiv').hide();
+      $('#rendimientoPacienteDiv').hide();
       $("#rendimiento_estimado").val("");
       $("#rendimiento_paciente").val("");
       $("#rendimiento_estimado").removeAttr("required");
@@ -1086,418 +849,869 @@
   });
 
   // Mostrar u ocultar los campos de inserto y procedimiento prueba según el valor seleccionado
-  $("#maneja_inserto").on("change", function () {
-    if ($(this).val() == "0") {
+  $('#maneja_inserto').on('change', function () {
+    if ($(this).val() == '0') {
       $("#insertoDiv").show();
       $("#protocoloDiv").show();
+      $('#vistaPreviaInsertoCard').show();
     } else {
-      $("#insertoDiv").hide();
-      $("#protocoloDiv").hide();
+      $('#insertoDiv').hide();
+      $('#protocoloDiv').hide();
       $("#insertoDiv").hide();
       $("#protocoloDiv").hide();
       $("#inserto").val("");
+      $("#vistaPreviaInsertoCard").hide();
     }
   });
+
   // Ejecutar al cargar para el valor inicial
   $(document).ready(function () {
-    $("#maneja_caducidad").trigger("change");
-    $("#maneja_rendimiento").trigger("change");
-    $("#maneja_inserto").trigger("change");
+    $('#maneja_rendimiento').trigger('change');
+    $('#maneja_inserto').trigger('change');
   });
 
-  // Event listeners para los botones - usando delegación de eventos
-  $(document).on("click", "#generarCodigoBarras", function (e) {
-    e.preventDefault();
-    console.log("Botón generar código de barras clickeado");
+  // NUEVO CÓDIGO PARA VISTA PREVIA DEL PDF
+  // Variables para vista previa del PDF
+  let archivoPDFInserto = null;
+  let urlPDFInserto = null;
 
-    // ESPECIFICAR EL FORMULARIO
-    $("#editarArticuloForm #codigo_barras").val(fullCode);
+  // Event listener para el campo de inserto - Vista previa
+  $('#inserto').on('change', function (e) {
+    const archivo = e.target.files[0];
 
-    // Mostrar el código de barras visual
-    mostrarCodigoBarrasInteligente(fullCode);
-  });
-
-  // Event listener para generar QR - VERSIÓN CORREGIDA CON MEJOR DEBUG
-  $(document).on("click", "#generarQr", function (e) {
-    e.preventDefault();
-    console.log("Botón generar QR clickeado");
-
-    // Obtener la clave del artículo
-    const clave = $("#editarArticuloForm #clave_art").val();
-    console.log("Clave obtenida:", clave);
-    if (!clave) {
-      if (typeof alertToast === "function") {
-        alertToast("La clave del artículo es requerida", "warning", 3000);
-      } else {
-        alert("La clave del artículo es requerida");
-      }
-      return;
+    // Limpiar URL anterior si existe
+    if (urlPDFInserto) {
+      URL.revokeObjectURL(urlPDFInserto);
+      urlPDFInserto = null;
     }
 
-    // Obtener el nombre comercial del artículo
-    const nombre_comercial = $("#editarArticuloForm #nombre_comercial").val();
-    console.log("Nombre comercial obtenido:", nombre_comercial);
-    if (!nombre_comercial) {
-      if (typeof alertToast === "function") {
-        alertToast("El nombre del artículo es requerido", "warning", 3000);
-      } else {
-        alert("El nombre del artículo es requerido");
+    // Limpiar vista previa
+    limpiarVistaPrevia();
+
+    if (archivo) {
+      // Validar que sea un PDF
+      if (archivo.type !== 'application/pdf') {
+        alertToast("Solo se permiten archivos PDF", "error", 3000);
+        $(this).val('');
+        archivoPDFInserto = null;
+        urlPDFInserto = null;
+        deshabilitarBotonesPrevia();
+        return;
       }
-      return;
-    }
 
-    const codigo_barras = $("#editarArticuloForm #codigo_barras").val();
-    if (!codigo_barras) {
-      if (typeof alertToast === "function") {
-        alertToast(
-          "Primero genere o ingrese un código de barras",
-          "warning",
-          3000
-        );
-      } else {
-        alert("Primero genere o ingrese un código de barras");
+      // Validar tamaño del archivo (máximo 50MB)
+      const maxSize = 50 * 1024 * 1024; // 50MB en bytes
+      if (archivo.size > maxSize) {
+        alertToast("El archivo PDF es demasiado grande (máximo 50MB)", "error", 3000);
+        $(this).val('');
+        archivoPDFInserto = null;
+        urlPDFInserto = null;
+        deshabilitarBotonesPrevia();
+        return;
       }
-      return;
-    }
 
-    // Generar código QR con los datos del artículo - FILTRAR VALORES NULL
-    const qrCampos = {
-      clave: clave,
-      nombre_comercial: nombre_comercial,
-      codigo_barras: codigo_barras,
-      id_marcas: $("#editarArticuloForm #id_marcas").val(),
-      red_frio: $("#editarArticuloForm #red_frio").val(),
-      tipo_articulo: $("#editarArticuloForm #tipo_articulo").val(),
-      area_id: $("#editarArticuloForm #area_id").val(),
-      maneja_caducidad: $("#editarArticuloForm #maneja_caducidad").val(),
-      fecha_caducidad: $("#editarArticuloForm #fecha_caducidad").val(),
-      unidad_venta: $("#editarArticuloForm #unidad_venta").val(),
-      unidad_minima: $("#editarArticuloForm #unidad_minima").val(),
-      contenido: $("#editarArticuloForm #contenido").val(),
-      numero_lote: $("#editarArticuloForm #numero_lote").val(),
-      fecha_lote: $("#editarArticuloForm #fecha_lote").val(),
-      fecha_qr: new Date().toISOString().split("T")[0],
-    };
+      // Almacenar archivo y crear URL temporal
+      archivoPDFInserto = archivo;
+      urlPDFInserto = URL.createObjectURL(archivo);
 
-    console.log("Datos del QR antes de filtrar:", qrCampos);
+      // Verificar campos requeridos para habilitar vista previa
+      verificarCamposParaPrevia();
 
-    // Filtrar valores null, undefined y vacíos más estrictamente
-    const qrDataObj = {};
-    for (const key in qrCampos) {
-      const value = qrCampos[key];
-      if (
-        value !== null &&
-        value !== undefined &&
-        value !== "" &&
-        value !== "null" &&
-        value !== "undefined"
-      ) {
-        qrDataObj[key] = value;
-      }
-    }
-
-    console.log("Datos del QR después de filtrar:", qrDataObj);
-
-    const qrData = JSON.stringify(qrDataObj);
-    console.log("JSON del QR:", qrData);
-    console.log("Longitud del JSON:", qrData.length);
-
-    // Verificar que el contenedor existe
-    const qrContainer = document.getElementById("qrCodeContainers");
-    console.log("Contenedor QR encontrado:", qrContainer);
-
-    if (!qrContainer) {
-      console.error("No se encontró el contenedor qrCodeContainers");
-      alert("Error: No se encontró el contenedor del QR");
-      return;
-    }
-
-    // Limpiar los contenedores
-    $("#editarArticuloForm #qrCodeContainers").empty();
-    $("#editarArticuloForm #qrClaveDisplays").empty();
-
-    // Verificar que la librería QRCode esté disponible
-    console.log("QRCode disponible:", typeof QRCode);
-
-    if (typeof QRCode !== "undefined") {
-      try {
-        console.log("Generando QR...");
-
-        // Crear el QR con manejo de errores
-        const qr = new QRCode(qrContainer, {
-          text: qrData,
-          width: 150,
-          height: 150,
-          colorDark: "#000000",
-          colorLight: "#ffffff",
-          correctLevel: QRCode.CorrectLevel.H,
-        });
-
-        console.log("QR generado exitosamente");
-
-        // Verificar que se generó el canvas/img
-        setTimeout(function () {
-          const qrContent = $("#qrCodeContainers").html();
-          console.log(
-            "Contenido del contenedor QR después de generar:",
-            qrContent
-          );
-
-          if (qrContent.trim() !== "") {
-            // Mostrar la clave debajo del QR
-            $("#qrClaveDisplays").html(
-              `Clave: ${clave}<br>Nombre Comercial: ${nombre_comercial}`
-            );
-
-            // Ocultar el placeholder
-            $("#qrCodePreview small").hide();
-
-            // Mostrar los botones de descargar
-            $("#descargarQRIMG").removeClass("d-none").addClass("d-flex");
-            $("#descargarQRpdf").removeClass("d-none").addClass("d-flex");
-            $("#imprimirQRpdf").removeClass("d-none").addClass("d-flex");
-
-            console.log("QR mostrado correctamente");
-          } else {
-            console.error(
-              "El QR no se generó correctamente - contenedor vacío"
-            );
-            alert("Error: El QR no se generó correctamente");
-          }
-        }, 100);
-      } catch (error) {
-        console.error("Error al crear el QR:", error);
-        alert("Error al crear el QR: " + error.message);
-      }
+      alertToast(`PDF cargado: ${archivo.name} (${(archivo.size / 1024 / 1024).toFixed(2)}MB)`, "success", 3000);
     } else {
-      console.error("Librería QRCode no cargada");
-      if (typeof alertToast === "function") {
-        alertToast("Error: Librería QRCode no cargada", "error", 3000);
-      } else {
-        alert("Error: Librería QRCode no cargada");
-      }
+      // Si no hay archivo, deshabilitar botones
+      archivoPDFInserto = null;
+      urlPDFInserto = null;
+      deshabilitarBotonesPrevia();
     }
   });
 
-  // Event listeners para los botones de descarga e impresión - CORREGIDOS
-  $(document).on("click", "#editarArticuloForm #descargarQRIMG", function (e) {
-    e.preventDefault();
-    if (!$("#qrCodeContainers").html()) {
-      if (typeof alertToast === "function") {
-        alertToast("Primero genere un código QR", "warning", 3000);
-      } else {
-        alert("Primero genere un código QR");
-      }
-      return;
+  // Función: Verificar campos requeridos para habilitar vista previa
+  function verificarCamposParaPrevia() {
+    const clave = $('#clave_art').val();
+    const nombre_comercial = $('#nombre_comercial').val();
+
+    if (archivoPDFInserto && clave && nombre_comercial) {
+      habilitarBotonesPrevia();
+    } else {
+      deshabilitarBotonesPrevia();
     }
+  }
 
-    // Obtener datos - ESPECIFICAR EL FORMULARIO
-    const qrCanvas = $("#qrCodeContainers canvas")[0];
-    const clave = $("#editarArticuloForm #clave_art").val();
-    const nombre_comercial = $("#editarArticuloForm #nombre_comercial").val();
+  // Función: Habilitar botones de vista previa
+  function habilitarBotonesPrevia() {
+    $('#verPreviaInserto')
+      .prop('disabled', false)
+      .removeClass('btn-outline-secondary')
+      .addClass('btn-outline-primary');
+  }
 
-    // Crear canvas combinado
-    const combinedCanvas = document.createElement("canvas");
-    const ctx = combinedCanvas.getContext("2d");
+  // Función: Deshabilitar botones de vista previa
+  function deshabilitarBotonesPrevia() {
+    $('#verPreviaInserto')
+      .prop('disabled', true)
+      .removeClass('btn-outline-primary')
+      .addClass('btn-outline-secondary');
 
-    // Definir altura extra para 2 líneas de texto
-    const extraHeight = 50;
-    combinedCanvas.width = qrCanvas.width;
-    combinedCanvas.height = qrCanvas.height + extraHeight;
+    $('#descargarInserto').addClass('d-none');
+    $('#abrirNuevaVentana').addClass('d-none');
+  }
 
-    // Dibujar el QR
-    ctx.drawImage(qrCanvas, 0, 0);
+  // Función: Limpiar vista previa
+  function limpiarVistaPrevia() {
+    $('#pdfPreviewFrame').hide();
+    $('#pdfInfoDisplay').empty();
+    $('#pdfPreviewContainer small').show();
+    $('#descargarInserto').addClass('d-none');
+    $('#abrirNuevaVentana').addClass('d-none');
+  }
 
-    // Estilo del texto
-    ctx.font = "16px Arial";
-    ctx.textAlign = "center";
-    ctx.fillStyle = "black";
-
-    // Dibujar cada línea de texto debajo del QR
-    const centerX = qrCanvas.width / 2;
-    const startY = qrCanvas.height + 20;
-
-    ctx.fillText(`Clave: ${clave}`, centerX, startY);
-    ctx.fillText(`Nombre: ${nombre_comercial}`, centerX, startY + 20);
-
-    // Descargar imagen
-    const imgData = combinedCanvas.toDataURL("image/png");
-    const link = document.createElement("a");
-    link.download = `QR_${clave}.png`;
-    link.href = imgData;
-    link.click();
+  // Event: Verificar campos al cambiar clave o nombre
+  $('#clave_art, #nombre_comercial').on('input', function () {
+    verificarCamposParaPrevia();
   });
 
-  $(document).on("click", "#editarArticuloForm #descargarQRpdf", function (e) {
+  // Event: Botón para ver vista previa del PDF
+  $('#verPreviaInserto').click(function () {
+    if (!archivoPDFInserto) {
+      alertToast("Primero debe cargar un archivo PDF", "warning", 3000);
+      return;
+    }
+
+    const clave = $('#clave_art').val();
+    const nombre_comercial = $('#nombre_comercial').val();
+
+    if (!clave || !nombre_comercial) {
+      alertToast("La clave y nombre del artículo son requeridos", "warning", 3000);
+      return;
+    }
+
+    try {
+      // Mostrar el PDF en el iframe
+      const iframe = document.getElementById('pdfPreviewFrame');
+      iframe.src = urlPDFInserto;
+
+      // Mostrar el iframe y ocultar placeholder
+      $('#pdfPreviewFrame').show();
+      $('#pdfPreviewContainer small').hide();
+
+      // Mostrar información del archivo
+      $('#pdfInfoDisplay').html(`
+        <strong>${clave}</strong><br>
+        ${nombre_comercial}<br>
+        <small class="text-danger">📄 ${archivoPDFInserto.name}</small><br>
+        <small class="text-success">${(archivoPDFInserto.size / 1024 / 1024).toFixed(2)} MB</small>
+      `);
+
+      // Mostrar botones adicionales
+      $('#descargarInserto').removeClass('d-none');
+      $('#abrirNuevaVentana').removeClass('d-none');
+
+      alertToast("Vista previa del PDF cargada", "success", 2000);
+
+    } catch (error) {
+      console.error('Error al mostrar vista previa:', error);
+      alertToast("Error al mostrar la vista previa del PDF", "error", 3000);
+    }
+  });
+
+  // Event: Botón para descargar el PDF
+  $('#descargarInserto').click(function () {
+    if (!urlPDFInserto || !archivoPDFInserto) {
+      alertToast("No hay archivo PDF para descargar", "warning", 3000);
+      return;
+    }
+
+    try {
+      const clave = $('#clave_art').val();
+      const link = document.createElement('a');
+      link.href = urlPDFInserto;
+      link.download = `Inserto_${clave}_${archivoPDFInserto.name}`;
+      link.click();
+
+      alertToast("Descarga del PDF iniciada", "success", 2000);
+    } catch (error) {
+      console.error('Error al descargar:', error);
+      alertToast("Error al descargar el PDF", "error", 3000);
+    }
+  });
+
+  // Event: Botón para abrir en nueva ventana
+  $('#abrirNuevaVentana').click(function () {
+    if (!urlPDFInserto) {
+      alertToast("No hay archivo PDF para abrir", "warning", 3000);
+      return;
+    }
+
+    try {
+      const clave = $('#clave_art').val();
+      const nombre_comercial = $('#nombre_comercial').val();
+
+      // Abrir en nueva ventana con título personalizado
+      const nuevaVentana = window.open(urlPDFInserto, '_blank',
+        'width=800,height=600,scrollbars=yes,resizable=yes');
+
+      if (nuevaVentana) {
+        // Intentar cambiar el título de la ventana (limitado por seguridad del navegador)
+        setTimeout(() => {
+          try {
+            nuevaVentana.document.title = `Inserto - ${clave} - ${nombre_comercial}`;
+          } catch (e) {
+            // Ignorar error de seguridad
+          }
+        }, 1000);
+
+        alertToast("PDF abierto en nueva ventana", "success", 2000);
+      } else {
+        alertToast("No se pudo abrir la nueva ventana. Verifique que no esté bloqueada por el navegador.", "warning", 4000);
+      }
+    } catch (error) {
+      console.error('Error al abrir nueva ventana:', error);
+      alertToast("Error al abrir el PDF en nueva ventana", "error", 3000);
+    }
+  });
+
+  // AGREGAR: Variable para controlar si se debe reabrir el modal de artículo
+  let debeReabrirModalArticulo = false;
+
+  // FUNCIÓN para el botón de catálogo de marcas
+  $("#btnCatalogoMarcas").click(function (e) {
     e.preventDefault();
-    if (!$("#qrCodeContainers").html()) {
-      if (typeof alertToast === "function") {
-        alertToast("Primero genere un código QR", "warning", 3000);
-      } else {
-        alert("Primero genere un código QR");
+    e.stopPropagation();
+
+    debeReabrirModalArticulo = true;
+    $("#editarArticuloModal").modal("hide");
+
+    setTimeout(function () {
+      $("#registrarCatalogoModal").modal("show");
+      setTimeout(function () {
+        $("#marcas-tab").tab("show");
+        setTimeout(function () {
+          $("#registrarMarcaModal").modal("show");
+        }, 400);
+      }, 300);
+    }, 200);
+  });
+
+  // FUNCIÓN para el botón de catálogo de sustancias
+  $("#btnCatalogoSustancias").click(function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    debeReabrirModalArticulo = true;
+    $("#editarArticuloModal").modal("hide");
+
+    setTimeout(function () {
+      $("#registrarCatalogoModal").modal("show");
+      setTimeout(function () {
+        $("#sustancias-tab").tab("show");
+        setTimeout(function () {
+          $("#registrarSustanciaModal").modal("show");
+        }, 400);
+      }, 300);
+    }, 200);
+  });
+
+  // FUNCIÓN para el botón de catálogo de tipos
+  $("#btnCatalogoTipos").click(function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    debeReabrirModalArticulo = true;
+    $("#editarArticuloModal").modal("hide");
+
+    setTimeout(function () {
+      $("#registrarCatalogoModal").modal("show");
+      setTimeout(function () {
+        $("#tipos-tab").tab("show");
+        setTimeout(function () {
+          $("#registrarTipoModal").modal("show");
+        }, 400);
+      }, 300);
+    }, 200);
+  });
+
+  // FUNCIÓN para el botón de catálogo de unidades
+  $("#btnCatalogoUnidades").click(function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    debeReabrirModalArticulo = true;
+    $("#editarArticuloModal").modal("hide");
+
+    setTimeout(function () {
+      $("#registrarCatalogoModal").modal("show");
+      setTimeout(function () {
+        $("#unidades-tab").tab("show");
+        setTimeout(function () {
+          $("#registrarUnidadModal").modal("show");
+        }, 400);
+      }, 300);
+    }, 200);
+  });
+
+  // FUNCIÓN para el botón de nuevo proveedor
+  $("#btnNuevoProveedor").click(function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    debeReabrirModalArticulo = true;
+
+    $("#editarArticuloModal").modal("hide");
+    setTimeout(function () {
+      $("#registrarCatalogoModal").modal("show");
+      setTimeout(function () {
+        $("#proveedores-tab").tab("show");
+        setTimeout(function () {
+          $("#registrarProveedorModal").modal("show");
+        }, 400);
+      }, 300);
+    }, 200);
+  });
+
+  // Event listener para cuando se cierra el modal de catálogo
+  $("#registrarCatalogoModal").on("hidden.bs.modal", function () {
+    if (debeReabrirModalArticulo) {
+      setTimeout(function () {
+        $("#editarArticuloModal").modal("show");
+        setTimeout(function () {
+          cargarMarcas();
+          cargarSustancias();
+          cargarTipos();
+          cargarUnidades();
+          cargarProveedoresArticulo();
+        }, 300);
+      }, 200);
+      debeReabrirModalArticulo = false;
+    }
+  });
+
+  // Resetear bandera si el usuario cancela manualmente
+  $("#editarArticuloModal .btn-cancelar, #editarArticuloModal .btn-close").click(function () {
+    debeReabrirModalArticulo = false;
+  });
+
+  // FUNCIÓN PARA CARGAR PROVEEDORES
+  function cargarProveedoresArticulo() {
+    console.log("Cargando proveedores para el modal de editar...");
+    
+    $.ajax({
+      url: "../../../api/inventarios_api.php",
+      type: "POST",
+      dataType: "json",
+      data: { api: 16 },
+      success: function (response) {
+        console.log("Respuesta API 16 proveedores:", response);
+        
+        if (response.response?.code == 1) {
+          let selectElement = $("#id_proveedores");
+          let valorActual = selectElement.val();
+
+          selectElement.empty().append(`<option value="">Seleccione un proveedor</option>`);
+
+          if (response.response.data && response.response.data.length > 0) {
+            response.response.data.forEach(item => {
+              console.log("Proveedor item:", item);
+              // Usar los nombres de campo correctos del API
+              let id = item.id_proveedores || item.ID_PROVEEDORES;
+              let nombre = item.nombre || item.NOMBRE;
+              
+              if (id && nombre) {
+                selectElement.append(`<option value="${id}">${nombre}</option>`);
+              }
+            });
+
+            if (valorActual) selectElement.val(valorActual);
+            
+            // Actualizar opciones disponibles
+            actualizarOpcionesProveedores();
+            
+            console.log("Proveedores cargados exitosamente:", response.response.data.length, "elementos");
+          } else {
+            console.warn("No se encontraron proveedores en la respuesta");
+          }
+        } else {
+          console.error("Error al cargar proveedores:", response);
+          alertToast("Error al cargar proveedores", "error", 3000);
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Error AJAX al cargar proveedores:", error);
+        console.error("Response text:", xhr.responseText);
+        alertToast("Error de conexión al cargar proveedores", "error", 3000);
       }
+    });
+  }
+
+  // FUNCIÓN PARA CARGAR MARCAS
+  function cargarMarcas() {
+    console.log("Cargando marcas para el modal de editar...");
+    
+    $.ajax({
+      url: "../../../api/inventarios_api.php",
+      type: "POST",
+      dataType: "json",
+      data: { api: 9 }, // API para marcas
+      success: function (response) {
+        console.log("Respuesta API 9 marcas:", response);
+        
+        if (response.response?.code == 1) {
+          let selectElement = $("#id_marcas");
+          let valorActual = selectElement.val();
+
+          selectElement.empty().append(`<option value="">Seleccione una marca</option>`);
+
+          if (response.response.data && response.response.data.length > 0) {
+            response.response.data.forEach(item => {
+              console.log("Marca item:", item);
+              // Usar los nombres de campo correctos del API
+              let id = item.id_marcas || item.ID_MARCAS;
+              let nombre = item.descripcion || item.DESCRIPCION || item.nombre || item.NOMBRE;
+              
+              if (id && nombre) {
+                selectElement.append(`<option value="${id}">${nombre}</option>`);
+              }
+            });
+
+            if (valorActual) selectElement.val(valorActual);
+            
+            console.log("Marcas cargadas exitosamente:", response.response.data.length, "elementos");
+          } else {
+            console.warn("No se encontraron marcas en la respuesta");
+          }
+        } else {
+          console.error("Error al cargar marcas:", response);
+          alertToast("Error al cargar marcas", "error", 3000);
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Error AJAX al cargar marcas:", error);
+        console.error("Response text:", xhr.responseText);
+        alertToast("Error de conexión al cargar marcas", "error", 3000);
+      }
+    });
+  }
+
+  // FUNCIÓN PARA CARGAR SUSTANCIAS
+  function cargarSustancias() {
+    console.log("Cargando sustancias para el modal de editar...");
+    
+    $.ajax({
+      url: "../../../api/inventarios_api.php",
+      type: "POST",
+      dataType: "json",
+      data: { api: 37 }, // API para sustancias activas
+      success: function (response) {
+        console.log("Respuesta API 37 sustancias:", response);
+        
+        if (response.response?.code == 1) {
+          let selectElement = $("#id_sustancia");
+          let valorActual = selectElement.val();
+
+          selectElement.empty().append(`<option value="">Seleccione una sustancia activa</option>`);
+
+          if (response.response.data && response.response.data.length > 0) {
+            response.response.data.forEach(item => {
+              console.log("Sustancia item:", item);
+              // Usar los nombres de campo correctos del API
+              let id = item.ID_SUSTANCIA || item.id_sustancia;
+              let nombre = item.NOMBRE || item.nombre;
+              
+              if (id && nombre) {
+                selectElement.append(`<option value="${id}">${nombre}</option>`);
+              }
+            });
+
+            if (valorActual) selectElement.val(valorActual);
+            
+            console.log("Sustancias cargadas exitosamente:", response.response.data.length, "elementos");
+          } else {
+            console.warn("No se encontraron sustancias en la respuesta");
+          }
+        } else {
+          console.error("Error al cargar sustancias:", response);
+          alertToast("Error al cargar sustancias", "error", 3000);
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Error AJAX al cargar sustancias:", error);
+        console.error("Response text:", xhr.responseText);
+        alertToast("Error de conexión al cargar sustancias", "error", 3000);
+      }
+    });
+  }
+
+  // FUNCIÓN PARA CARGAR TIPOS
+  function cargarTipos() {
+    // Los tipos están hardcodeados en el HTML, no necesita carga dinámica
+  }
+
+  // FUNCIÓN PARA CARGAR UNIDADES
+  function cargarUnidades() {
+    // Las unidades están hardcodeadas en el HTML, no necesita carga dinámica
+  }
+
+  // FUNCIÓN GENÉRICA PARA CARGAR CATÁLOGOS
+  function cargarCatalogoEnModal(selectorSelect, opciones) {
+    $.ajax({
+      url: "../../../api/inventarios_api.php",
+      type: "POST",
+      dataType: "json",
+      data: { api: opciones.api },
+      success: function (response) {
+        if (response.response?.code == 1) {
+          let selectElement = $(selectorSelect);
+          let valorActual = selectElement.val();
+
+          selectElement.empty().append(`<option value="">${opciones.placeholder}</option>`);
+
+          response.response.data.forEach(item => {
+            selectElement.append(`<option value="${item[opciones.campoId]}">${item[opciones.campoTexto]}</option>`);
+          });
+
+          if (valorActual) selectElement.val(valorActual);
+
+          // Si es el select de proveedores, actualizar opciones disponibles
+          if (selectorSelect === "#id_proveedores") {
+            actualizarOpcionesProveedores();
+          }
+        } else {
+          console.error(`Error al cargar ${opciones.placeholder}:`, response);
+          alertToast(`Error al cargar ${opciones.placeholder}`, "error", 3000);
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Error AJAX:", error);
+        alertToast(`Error de conexión al cargar ${opciones.placeholder}`, "error", 3000);
+      }
+    });
+  }
+
+  // ===== SISTEMA DE TAGS PARA MÚLTIPLES PROVEEDORES =====
+
+  // Array para almacenar proveedores seleccionados
+  let proveedoresSeleccionados = [];
+
+  // Función para agregar proveedor como tag
+  function agregarProveedorTag(id, nombre) {
+    // Verificar si ya está seleccionado
+    if (proveedoresSeleccionados.find(p => p.id === id)) {
+      alertToast("Este proveedor ya está seleccionado", "warning", 2000);
       return;
     }
 
-    const qrImage = $("#qrCodeContainers canvas")[0].toDataURL("image/png");
-    // ESPECIFICAR EL FORMULARIO
-    const clave = $("#editarArticuloForm #clave_art").val();
-    const nombre_comercial = $("#editarArticuloForm #nombre_comercial").val();
-    const fecha = new Date().toLocaleDateString();
-
-    // Verificar que jsPDF esté disponible
-    if (typeof window.jspdf === "undefined") {
-      console.error("jsPDF no está cargado");
-      if (typeof alertToast === "function") {
-        alertToast("Error: jsPDF no está cargado", "error", 3000);
-      } else {
-        alert("Error: jsPDF no está cargado");
-      }
-      return;
-    }
-
-    // Crear PDF
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF({
-      orientation: "portrait",
-      unit: "mm",
+    // Agregar a la lista
+    const esPrimero = proveedoresSeleccionados.length === 0;
+    proveedoresSeleccionados.push({
+      id: id,
+      nombre: nombre,
+      principal: esPrimero
     });
 
-    // Configuración de márgenes y tamaños
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const margin = 15;
-    const qrWidth = 50;
-    const qrX = (pageWidth - qrWidth) / 2;
+    // Actualizar UI
+    actualizarTagsProveedores();
+    actualizarOpcionesProveedores();
+    actualizarJSONProveedores();
 
-    // Agregar título
-    pdf.setFontSize(16);
-    pdf.setTextColor(40);
-    pdf.text(`Reporte QR - ${nombre_comercial}`, 105, 20, { align: "center" });
+    // Limpiar select
+    $("#id_proveedores").val("");
 
-    // Agregar imagen del QR
-    pdf.addImage(qrImage, "PNG", qrX, margin + 10, qrWidth, qrWidth);
+    alertToast(`Proveedor "${nombre}" agregado${esPrimero ? ' como principal' : ''}`, "success", 2000);
+  }
 
-    // Agregar información del artículo
-    pdf.setFontSize(12);
-    pdf.text(`Clave: ${clave}`, margin, margin + qrWidth + 25);
-    pdf.text(`Nombre: ${nombre_comercial}`, margin, margin + qrWidth + 30);
-    pdf.text(`Fecha: ${fecha}`, margin, margin + qrWidth + 35);
+  // Función para quitar proveedor tag
+  function quitarProveedorTag(id) {
+    const index = proveedoresSeleccionados.findIndex(p => p.id === id);
+    if (index === -1) return;
 
-    // Línea decorativa
-    pdf.setDrawColor(200);
-    pdf.line(
-      margin,
-      margin + qrWidth + 40,
-      pageWidth - margin,
-      margin + qrWidth + 40
-    );
+    const proveedor = proveedoresSeleccionados[index];
+    const eraPrincipal = proveedor.principal;
 
-    // Descargar PDF
-    pdf.save(`QR_${clave}.pdf`);
-  });
+    // Quitar de la lista
+    proveedoresSeleccionados.splice(index, 1);
 
-  $(document).on("click", "#imprimirQRpdf", function (e) {
-    e.preventDefault();
-    if (!$("#qrCodeContainers").html()) {
-      if (typeof alertToast === "function") {
-        alertToast("Primero genere un código QR", "warning", 3000);
-      } else {
-        alert("Primero genere un código QR");
-      }
+    // Si era principal y hay más proveedores, hacer principal al primero
+    if (eraPrincipal && proveedoresSeleccionados.length > 0) {
+      proveedoresSeleccionados[0].principal = true;
+    }
+
+    // Actualizar UI
+    actualizarTagsProveedores();
+    actualizarOpcionesProveedores();
+    actualizarJSONProveedores();
+
+    alertToast(`Proveedor "${proveedor.nombre}" eliminado`, "info", 2000);
+  }
+
+  // Función para hacer proveedor principal
+  function hacerProveedorPrincipal(id) {
+    // Quitar principal de todos
+    proveedoresSeleccionados.forEach(p => p.principal = false);
+
+    // Hacer principal al seleccionado
+    const proveedor = proveedoresSeleccionados.find(p => p.id === id);
+    if (proveedor) {
+      proveedor.principal = true;
+
+      // Mover al principio del array
+      const index = proveedoresSeleccionados.indexOf(proveedor);
+      proveedoresSeleccionados.splice(index, 1);
+      proveedoresSeleccionados.unshift(proveedor);
+
+      // Actualizar UI
+      actualizarTagsProveedores();
+      actualizarJSONProveedores();
+
+      alertToast(`"${proveedor.nombre}" es ahora el proveedor principal`, "success", 2000);
+    }
+  }
+
+  // Función para actualizar la vista de tags
+  function actualizarTagsProveedores() {
+    const container = $("#proveedoresTagsArea");
+    const placeholder = $("#proveedoresPlaceholder");
+
+    if (proveedoresSeleccionados.length === 0) {
+      placeholder.show();
+      container.empty().append(placeholder);
       return;
     }
 
-    const qrImage = $("#qrCodeContainers canvas")[0].toDataURL("image/png");
-    // ESPECIFICAR EL FORMULARIO
-    const clave = $("#editarArticuloForm #clave_art").val();
-    const nombre_comercial = $("#editarArticuloForm #nombre_comercial").val();
-    const fecha = new Date().toLocaleDateString();
+    placeholder.hide();
+    container.empty();
 
-    const ventanaImpresion = window.open("", "_blank", "width=400,height=600");
+    proveedoresSeleccionados.forEach(proveedor => {
+      const isPrincipal = proveedor.principal;
+      const tagClass = isPrincipal ? 'proveedor-tag principal' : 'proveedor-tag';
+      const iconClass = isPrincipal ? 'bi-star-fill' : 'bi-star';
+      const titleText = isPrincipal ? 'Proveedor principal - Click para cambiar' : 'Click para hacer principal';
 
-    const htmlContent = `
-        <html>
-            <head>
-                <title>LABORATORIO BIOMOLECULAR S.A DE C.V</title>
-                <style>
-                    body { 
-                        font-family: Arial, sans-serif; 
-                        margin: 20px;
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                    }
-                    .header {
-                        text-align: center;
-                        margin-bottom: 20px;
-                    }
-                    .qr-container {
-                        margin: 20px 0;
-                        text-align: center;
-                    }
-                    .qr-container img {
-                        width: 150px;
-                        height: 150px;
-                    }
-                    .info {
-                        margin-top: 20px;
-                        text-align: left;
-                        width: 100%;
-                        max-width: 300px;
-                        border-top: 1px solid #eee;
-                        padding-top: 10px;
-                    }
-                    .info p {
-                        margin: 5px 0;
-                    }
-                    @media print {
-                        body { margin: 0; padding: 10px; }
-                        .no-print { display: none; }
-                    }
-                </style>
-            </head>
-            <body>
-                <div class="header">
-                    <h3>Reporte QR - ${nombre_comercial}</h3>
-                </div>
-                
-                <div class="qr-container">
-                    <img src="${qrImage}" alt="Código QR">
-                </div>
-                
-                <div class="info">
-                    <p><strong>Clave:</strong> ${clave}</p>
-                    <p><strong>Nombre:</strong> ${nombre_comercial}</p>
-                    <p><strong>Fecha:</strong> ${fecha}</p>
-                </div>
-                
-                <button class="no-print" onclick="window.print()" style="margin-top: 20px; padding: 8px 15px; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">
-                    Imprimir
-                </button>
-            </body>
-        </html>
-    `;
+      const tag = $(`
+        <div class="${tagClass}">
+          <i class="${iconClass}" title="${titleText}"></i>
+          <span class="proveedor-nombre">${proveedor.nombre}</span>
+          <button type="button" class="btn-close-tag" 
+                  onclick="quitarProveedorTag('${proveedor.id}')" 
+                  title="Eliminar proveedor">
+            <i class="bi bi-x"></i>
+          </button>
+        </div>
+      `);
 
-    ventanaImpresion.document.open();
-    ventanaImpresion.document.write(htmlContent);
-    ventanaImpresion.document.close();
+      // Click en el icono de estrella para hacer principal
+      tag.find('.bi-star, .bi-star-fill').click(function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!isPrincipal) {
+          hacerProveedorPrincipal(proveedor.id);
+        }
+      });
+
+      container.append(tag);
+    });
+  }
+
+  // Función para actualizar opciones disponibles en el select
+  function actualizarOpcionesProveedores() {
+    const select = $("#id_proveedores");
+    const options = select.find('option');
+
+    options.each(function () {
+      const optionValue = $(this).val();
+      const isSelected = proveedoresSeleccionados.find(p => p.id === optionValue);
+
+      if (optionValue && isSelected) {
+        $(this).hide();
+      } else {
+        $(this).show();
+      }
+    });
+  }
+
+  // Función para actualizar el JSON hidden
+  function actualizarJSONProveedores() {
+    const json = JSON.stringify(proveedoresSeleccionados.map(p => ({
+      id: p.id,
+      principal: p.principal ? "1" : "0"
+    })));
+
+    $("#proveedores_json").val(json);
+  }
+
+  // Event listener para selección de proveedor
+  $("#id_proveedores").on("change", function () {
+    const selectedId = $(this).val();
+    const selectedName = $(this).find("option:selected").text();
+
+    if (selectedId && selectedName !== "Seleccione un proveedor") {
+      agregarProveedorTag(selectedId, selectedName);
+    }
   });
 
-  // Agregar evento para mostrar código de barras cuando se escriba manualmente
-  $("#codigo_barras").on("input blur", function () {
-    const codigo = $(this).val();
-    mostrarCodigoBarrasInteligente(codigo);
+  // Función para limpiar proveedores
+  function limpiarProveedores() {
+    proveedoresSeleccionados = [];
+    actualizarTagsProveedores();
+    actualizarOpcionesProveedores();
+    actualizarJSONProveedores();
+  }
+
+  // Función para cargar proveedores existentes de un artículo (para edición)
+  function cargarProveedoresExistentes(idArticulo) {
+    if (!idArticulo) {
+      limpiarProveedores();
+      return;
+    }
+
+    // Usar los datos de rowSelected.PROVEEDORES en lugar de hacer otra llamada AJAX
+    if (window.rowSelected && window.rowSelected.PROVEEDORES) {
+      console.log("Cargando proveedores desde rowSelected:", window.rowSelected.PROVEEDORES);
+      
+      // Limpiar proveedores actuales
+      limpiarProveedores();
+
+      // Los proveedores vienen separados por "|" en el string
+      const proveedoresString = window.rowSelected.PROVEEDORES;
+      
+      if (proveedoresString && proveedoresString !== "Sin proveedor" && proveedoresString.trim() !== "") {
+        const proveedoresArray = proveedoresString.split("|").filter(p => p.trim() !== "");
+        
+        proveedoresArray.forEach((nombreProveedor, index) => {
+          // Buscar el ID del proveedor en el select
+          const proveedorOption = $("#id_proveedores option").filter(function() {
+            return $(this).text().trim() === nombreProveedor.trim();
+          });
+          
+          if (proveedorOption.length > 0) {
+            const proveedorId = proveedorOption.val();
+            const esPrincipal = index === 0; // El primer proveedor es principal
+            
+            proveedoresSeleccionados.push({
+              id: proveedorId,
+              nombre: nombreProveedor.trim(),
+              principal: esPrincipal
+            });
+          } else {
+            console.warn(`No se encontró ID para el proveedor: ${nombreProveedor}`);
+          }
+        });
+
+        // Asegurar que hay al menos un proveedor principal
+        if (proveedoresSeleccionados.length > 0) {
+          const hasPrincipal = proveedoresSeleccionados.some(p => p.principal);
+          if (!hasPrincipal) {
+            proveedoresSeleccionados[0].principal = true;
+          }
+        }
+
+        // Actualizar UI
+        actualizarTagsProveedores();
+        actualizarOpcionesProveedores();
+        actualizarJSONProveedores();
+        
+        console.log("Proveedores cargados:", proveedoresSeleccionados);
+      } else {
+        console.log("No hay proveedores para este artículo");
+        limpiarProveedores();
+      }
+    } else {
+      // Fallback: usar API si no hay datos en rowSelected
+      console.log("Intentando cargar proveedores usando API 42...");
+      
+      $.ajax({
+        url: "../../../api/inventarios_api.php",
+        type: "POST",
+        dataType: "json",
+        data: {
+          api: 42,
+          id_articulo: idArticulo
+        },
+        success: function (response) {
+          if (response.response?.code == 1 && response.response.data) {
+            // Limpiar proveedores actuales
+            limpiarProveedores();
+
+            // Cargar proveedores existentes
+            response.response.data.forEach(proveedor => {
+              const esPrincipal = proveedor.principal === "1" || proveedor.principal === 1;
+
+              proveedoresSeleccionados.push({
+                id: proveedor.id.toString(),
+                nombre: proveedor.nombre,
+                principal: esPrincipal
+              });
+            });
+
+            // Asegurar que hay al menos un proveedor principal
+            if (proveedoresSeleccionados.length > 0) {
+              const hasPrincipal = proveedoresSeleccionados.some(p => p.principal);
+              if (!hasPrincipal) {
+                proveedoresSeleccionados[0].principal = true;
+              }
+            }
+
+            // Actualizar UI
+            actualizarTagsProveedores();
+            actualizarOpcionesProveedores();
+            actualizarJSONProveedores();
+          } else {
+            limpiarProveedores();
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error("Error al cargar proveedores del artículo:", error);
+          alertToast("Error al cargar proveedores del artículo", "error", 3000);
+          limpiarProveedores();
+        }
+      });
+    }
+  }
+
+  // Función para configurar modal en modo edición
+  function configurarModalEdicion(idArticulo) {
+    if (idArticulo) {
+      // Cargar proveedores después de un pequeño delay para asegurar que el select está poblado
+      setTimeout(() => {
+        cargarProveedoresExistentes(idArticulo);
+      }, 100);
+    } else {
+      limpiarProveedores();
+    }
+  }
+
+  // Modificar: Limpiar todo al cerrar modal
+  $('#editarArticuloModal').on('hidden.bs.modal', function () {
+    // Limpiar vista previa
+    limpiarVistaPrevia();
+
+    // Limpiar variables de PDF y liberar memoria
+    if (urlPDFInserto) {
+      URL.revokeObjectURL(urlPDFInserto);
+    }
+    archivoPDFInserto = null;
+    urlPDFInserto = null;
+
+    // Deshabilitar botones
+    deshabilitarBotonesPrevia();
+
+    // Limpiar validaciones de código de barras
+    limpiarErrorCodigoBarras();
+
+    // Limpiar proveedores
+    limpiarProveedores();
   });
 
-  // Al resetear el formulario
-  $("#editarArticuloModal").on("hidden.bs.modal", function () {
-    $("#qrClaveDisplays").empty();
-    $("#qrCodeContainers").empty();
-    $("#qrCodePreview small").show();
-    $("#descargarQRIMG").addClass("d-none").removeClass("d-flex");
-    $("#descargarQRpdf").addClass("d-none").removeClass("d-flex");
-    $("#imprimirQRpdf").addClass("d-none").removeClass("d-flex");
+  // Inicializar: Cargar catálogos al cargar el documento
+  $(document).ready(function () {
+    cargarMarcas();
+    cargarSustancias();
+    cargarProveedoresArticulo();
+    deshabilitarBotonesPrevia();
   });
+
+  // Exposer funciones globalmente para que otros scripts las puedan usar
+  window.configurarModalEdicion = configurarModalEdicion;
+  window.limpiarProveedores = limpiarProveedores;
+  window.cargarProveedoresExistentes = cargarProveedoresExistentes;
 </script>
 
 <!-- Asegurar que las librerías estén incluidas -->

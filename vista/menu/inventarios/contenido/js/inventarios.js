@@ -116,111 +116,51 @@ if (edit == 1) {
     },
     action: function () {
       if (rowSelected) {
+        // Configurar el modal para edición con el ID del artículo
+        if (typeof window.configurarModalEdicion === "function") {
+          window.configurarModalEdicion(rowSelected.ID_ARTICULO);
+        }
+
         $("#editarArticuloModal").modal("show");
         $("#editandoArticulo").text(` ${rowSelected.CLAVE_ART}`);
 
-        // Colocar los valores al formulario
-        $("#editarArticuloForm #no_art").val(rowSelected.NO_ART);
+        // Colocar los valores básicos al formulario
         $("#editarArticuloForm #clave_art").val(rowSelected.CLAVE_ART);
-        $("#editarArticuloForm #nombre_comercial").val(
-          rowSelected.NOMBRE_COMERCIAL
-        );
+        $("#editarArticuloForm #nombre_comercial").val(rowSelected.NOMBRE_COMERCIAL);
 
+        // Estatus
         if (rowSelected.ESTATUS == 1) {
           $("#editarArticuloForm #estatus").prop("checked", true);
         } else {
           $("#editarArticuloForm #estatus").prop("checked", false);
         }
+
+        // Campos básicos
         $("#editarArticuloForm #red_frio").val(rowSelected.RED_FRIO);
         $("#editarArticuloForm #unidad_minima").val(rowSelected.UNIDAD_MINIMA);
         $("#editarArticuloForm #contenido").val(rowSelected.CONTENIDO);
-
-        // // Validación para tipo_articulo (Reactivo)
-        // if (rowSelected.TIPO_ARTICULO_ID == 1) {
-        //   $("#editarArticuloForm #rendimientoEstimadoDiv").show();
-        //   $("#editarArticuloForm #rendimientoPacienteDiv").show();
-        //   $("#editarArticuloForm #insertoDiv").show();
-        //   $("#editarArticuloForm #protocoloDiv").show();
-        // } else {
-        //   $("#editarArticuloForm #rendimientoEstimadoDiv").hide();
-        //   $("#editarArticuloForm #rendimientoPacienteDiv").hide();
-        //   $("#editarArticuloForm #insertoDiv").hide();
-        //   $("#editarArticuloForm #protocoloDiv").hide();
-        //   $("#editarArticuloForm #rendimiento_estimado").val("");
-        //   $("#editarArticuloForm #rendimiento_paciente").val("");
-        //   $("#editarArticuloForm #inserto").val("");
-        //   $("#editarArticuloForm #procedimiento").val("");
-        // }
-        // $("#editarArticuloForm #tipo_articulo")
-        //   .off("change")
-        //   .on("change", function () {
-        //     if ($(this).val() == "1") {
-        //       $("#editarArticuloForm #rendimientoEstimadoDiv").show();
-        //       $("#editarArticuloForm #rendimientoPacienteDiv").show();
-        //       $("#editarArticuloForm #insertoDiv").show();
-        //       $("#editarArticuloForm #protocoloDiv").show();
-        //     } else {
-        //       $("#editarArticuloForm #rendimientoEstimadoDiv").hide();
-        //       $("#editarArticuloForm #rendimientoPacienteDiv").hide();
-        //       $("#editarArticuloForm #insertoDiv").hide();
-        //       $("#editarArticuloForm #protocoloDiv").hide();
-        //       $("#editarArticuloForm #rendimiento_estimado").val("");
-        //       $("#editarArticuloForm #rendimiento_paciente").val("");
-        //       $("#editarArticuloForm #inserto").val("");
-        //       $("#editarArticuloForm #procedimiento").val("");
-        //     }
-        //   });
-        $("#editarArticuloForm #maneja_caducidad").val(
-          rowSelected.MANEJA_CADUCIDAD
-        );
-
-        $("#editarArticuloForm #fecha_caducidad").val(
-          rowSelected.FECHA_CADUCIDAD
-        );
-
-        //para mostrar la fecha de caducidad traida de la bd y si no maneja caducidad ocultar el campo
-        if (rowSelected.MANEJA_CADUCIDAD == 1) {
-          $("#editarArticuloForm #fecha_caducidad").closest(".mb-3").show();
-        } else {
-          $("#editarArticuloForm #fecha_caducidad").closest(".mb-3").hide();
-          $("#editarArticuloForm #fecha_caducidad").val("");
-        }
-        $("#editarArticuloForm #maneja_caducidad")
-          .off("change")
-          .on("change", function () {
-            if ($(this).val() == "1") {
-              $("#editarArticuloForm #fecha_caducidad").closest(".mb-3").show();
-            } else {
-              $("#editarArticuloForm #fecha_caducidad").closest(".mb-3").hide();
-              $("#editarArticuloForm #fecha_caducidad").val("");
-            }
-          });
-
         $("#editarArticuloForm #codigo_barras").val(rowSelected.codigo_barras);
 
-        $("#editarArticuloForm #numero_lote").val(rowSelected.numero_lote);
+        // Campos de rendimiento
+        $("#editarArticuloForm #maneja_rendimiento").val(rowSelected.MANEJA_RENDIMIENTO || "1");
+        $("#editarArticuloForm #maneja_inserto").val(rowSelected.MANEJA_INSERTO || "1");
+        $("#editarArticuloForm #rendimiento_estimado").val(rowSelected.RENDIMIENTO_ESTIMADO);
+        $("#editarArticuloForm #rendimiento_paciente").val(rowSelected.RENDIMIENTO_PACIENTE);
 
-        // COMENTADO: Fecha de lote ya no es requerida
-        // $("#editarArticuloForm #fecha_lote").val(rowSelected.fecha_lote);
-
-        $("#editarArticuloForm #costo_mas_alto").val(
-          rowSelected.COSTO_MAS_ALTO
-        );
-        $("#editarArticuloForm #costo_ultima_entrada").val(
-          rowSelected.COSTO_ULTIMA_ENTRADA
-        );
-        $("#editarArticuloForm #fecha_ultima_entrada").val(
-          rowSelected.FECHA_ULTIMA_ENTRADA
-            ? rowSelected.FECHA_ULTIMA_ENTRADA.split(" ")[0]
-            : ""
-        );
-
-        $("#editarArticuloForm #rendimiento_estimado").val(
-          rowSelected.RENDIMIENTO_ESTIMADO
-        );
-        $("#editarArticuloForm #rendimiento_paciente").val(
-          rowSelected.RENDIMIENTO_PACIENTE
-        );
+        // Usar la función existente para establecer valores de selects
+        setTimeout(function() {
+          // Asegurar que rowSelected esté disponible globalmente
+          window.rowSelected = rowSelected;
+          
+          establecerValoresFormularioEditar();
+          
+          // Cargar proveedores después de que se carguen los catálogos
+          setTimeout(function() {
+            if (typeof window.cargarProveedoresExistentes === "function") {
+              window.cargarProveedoresExistentes(rowSelected.ID_ARTICULO);
+            }
+          }, 500);
+        }, 200);
         $("#editarArticuloForm #inserto").val(rowSelected.INSERTO);
 
         // Agregar la configuración para maneja_inserto
@@ -563,6 +503,7 @@ tableCatArticulos = $("#tableCatArticulos").DataTable({
     */
     { data: "codigo_barras" },
     { data: "SUSTANCIA_ACTIVA" },
+    { data: "PROVEEDORES" },
   ],
   columnDefs: [
     // Ajusta los anchos de columna según el contenido esperado
@@ -574,20 +515,21 @@ tableCatArticulos = $("#tableCatArticulos").DataTable({
     { target: 4, title: "Estatus", className: "all" },
     { target: 5, title: "Red frío", className: "all" },
     { target: 6, title: "Unid. venta", className: "all" },
-    { target: 7, title: "Stock mínimo", className: "all", visible: false }, // OCULTAR: Se ve en detalles
-    { target: 8, title: "Especificaciones", className: "all", visible: false }, // OCULTAR: Se ve en detalles como "Descripción"
+    { target: 7, title: "Stock mínimo", className: "all", visible: false },
+    { target: 8, title: "Especificaciones", className: "all", visible: false },
     { target: 9, title: "Tipo", className: "all" },
-    { target: 10, title: "Maneja caducidad", className: "all", visible: false }, // YA OCULTA
+    { target: 10, title: "Maneja caducidad", className: "all", visible: false },
     { target: 11, title: "Fecha caducidad", className: "all" },
     { target: 12, title: "Área", className: "all" },
-    { target: 13, title: "Costo más alto", className: "all", visible: false }, // OCULTAR: Se ve en detalles
-    { target: 14, title: "Inserto", className: "all", visible: false }, // OCULTAR: Es un documento, mejor en detalles
-    { target: 15, title: "Proc. de prueba", className: "all", visible: false }, // OCULTAR: Es un documento, mejor en detalles
-    { target: 16, title: "CAS", className: "all" }, // MANTENER: Código importante para búsqueda rápida
-    { target: 17, title: "Número de lote", className: "all", visible: false }, // OCULTAR: Se ve en detalles
-    // COMENTADO: { target: 18, title: "Fecha de lote", className: "all" },
-    { target: 18, title: "Código de barras", className: "all", visible: false }, // YA OCULTA
-    { target: 19, title: "Sustancia", className: "all", visible: false }, // OCULTAR: Información detallada, mejor en detalles
+    { target: 13, title: "Costo más alto", className: "all", visible: false },
+    { target: 14, title: "Inserto", className: "all", visible: false },
+    { target: 15, title: "Proc. de prueba", className: "all", visible: false },
+    { target: 16, title: "CAS", className: "all" },
+    { target: 17, title: "Número de lote", className: "all", visible: false },
+    { target: 18, title: "Fecha de lote", className: "all" },
+    { target: 19, title: "Código de barras", className: "all", visible: false },
+    { target: 20, title: "Sustancia", className: "all", visible: false },
+    { target: 21, title: "Proveedores", className: "all", visible: false },
   ],
   dom: 'Bl<"dataTables_toolbar">frtip',
   buttons: buttonsArticulos,
@@ -2388,10 +2330,14 @@ $(document).ready(function () {
   function establecerValoresFormularioEditar() {
     if (!rowSelected) return;
 
-    // Establecer tipo
+    console.log("Estableciendo valores del formulario con rowSelected:", rowSelected);
+
+    // Establecer tipo de artículo
     const tipoId = rowSelected.TIPO_ARTICULO_ID || rowSelected.ID_TIPO;
     if (tipoId) {
       $("#editarArticuloForm #tipo_articulo").val(tipoId);
+      // Trigger change para mostrar/ocultar campos dependientes
+      $("#editarArticuloForm #tipo_articulo").trigger('change');
     }
 
     // Establecer marca
@@ -2423,18 +2369,26 @@ $(document).ready(function () {
       $("#editarArticuloForm #unidad_venta").val(rowSelected.UNIDAD_VENTA_ID);
     } else if (rowSelected.UNIDAD_VENTA) {
       $("#editarArticuloForm #unidad_venta").val(rowSelected.UNIDAD_VENTA);
-
-      // Verificar qué se estableció
-      const valorSeleccionado = $("#editarArticuloForm #unidad_venta").val();
-      const textoSeleccionado = $(
-        "#editarArticuloForm #unidad_venta option:selected"
-      ).text();
     }
 
     // Establecer sustancia activa
     if (rowSelected.ID_SUSTANCIA) {
       $("#editarArticuloForm #id_sustancia").val(rowSelected.ID_SUSTANCIA);
     }
+
+    // Establecer campos de rendimiento y trigger change events
+    if (rowSelected.MANEJA_RENDIMIENTO !== undefined) {
+      $("#editarArticuloForm #maneja_rendimiento").val(rowSelected.MANEJA_RENDIMIENTO);
+      $("#editarArticuloForm #maneja_rendimiento").trigger('change');
+    }
+
+    // Establecer campos de inserto y trigger change events
+    if (rowSelected.MANEJA_INSERTO !== undefined) {
+      $("#editarArticuloForm #maneja_inserto").val(rowSelected.MANEJA_INSERTO);
+      $("#editarArticuloForm #maneja_inserto").trigger('change');
+    }
+
+    console.log("Valores establecidos correctamente");
   }
 
   // ==================== CARGAS PARA MODAL REGISTRAR ENTRADA ====================
