@@ -50,9 +50,8 @@
         gap: 8px;
         padding: 4px 10px;
         cursor: pointer;
-        color: white;
         border-radius: 4px;
-        border: none;
+        margin-right: 10px;
     }
 
     .btnAprobar,
@@ -76,8 +75,8 @@
         cursor: not-allowed;
     }
 
-    .btn-aprobar-all:hover{ color: #004f5a; }
-    .btn-generar-reporte:hover{ color: #761c19; }
+    .btn-aprobar-all:hover{ background: #004f5a; color: white; }
+    .btn-generar-reporte:hover{ background: #761c19; color: white }
     .btn-aprobar-all, .btn-generar-reporte{ color: #2b2b2b; }
 
     .btnEliminar{ background-color: #761c19; }

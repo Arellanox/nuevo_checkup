@@ -1,9 +1,10 @@
-let listaMaquilas = [];
-let maquilasPendientes = [];
-let maquilasCompletadas = [];
-let maquilasRechazadas = [];
+var listaMaquilas = [];
+var maquilasPendientes = [];
+var maquilasCompletadas = [];
+var maquilasRechazadas = [];
+var rangoFechas = [new Date().toISOString().split('T')[0],new Date().toISOString().split('T')[0]];
 
-const tablaMaquilaasPorAprobar = $('#TablaMaquilaasPorAprobar').DataTable({
+var tablaMaquilaasPorAprobar = $('#TablaMaquilaasPorAprobar').DataTable({
     language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json" },
     lengthChange: false,
     info: false,
@@ -12,7 +13,13 @@ const tablaMaquilaasPorAprobar = $('#TablaMaquilaasPorAprobar').DataTable({
     scrollCollapse: true,
     ajax: {
         dataType: 'json',
-        data: { api: 2 },
+        data: function (d) {
+            return {
+                api: 2,
+                FECHA_INICIO: rangoFechas[0] ?? null,
+                FECHA_FIN: rangoFechas[1] ?? null
+            }
+        },
         method: 'POST',
         url: '../../../api/laboratorio_solicitud_maquila_api.php',
         dataSrc: 'response.data',
@@ -113,6 +120,24 @@ function guardarMaquilasPorEstatus(response) {
 
 //---Aprobación de todas las maquilas pendientes
 $('#btn-aprobar-todos').on('click', function () { aprobarTodasMaquilas(maquilasPendientes); });
+
+$('#btn-select-fechas').on('click', function () {
+    $('#modal-select-fechas').modal('show');
+})
+
+$('#btn-confirmar-seleccion-fechas').on('click', function () {
+    const fecha_inicial = $('[name="fecha_inicio"]').val();
+    const fecha_final = $('[name="fecha_final"]').val();
+
+    rangoFechas = [fecha_inicial, fecha_final];
+    console.log(rangoFechas);
+    tablaMaquilaasPorAprobar.ajax.reload();
+
+    $('#modal-select-fechas').modal('hide');
+
+    alertToast('Cambios guardados', 'success', 2000);
+})
+
 
 function aprobarTodasMaquilas(ids){
     alertMensajeConfirm({

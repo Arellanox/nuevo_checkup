@@ -9,6 +9,8 @@ clases/credenciales_access/email_connect.php
 api/archivos/splittedSql
 api/archivos/sql
 api/log.txt
+/api/log.txt
+/api/*.txt
 .idea
 .idea/*.xml
 .idea/*.iml

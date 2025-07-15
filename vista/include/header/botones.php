@@ -427,7 +427,8 @@ $menu == 'Laboratorio Biomolecular'
 
             <input type="radio" class="btn-check" name="selectPaquete" id="check-editar" value="2" autocomplete="off">
             <label class="btn btn-outline-success" for="check-editar"><i class="bi bi-list"></i>
-                Mantenimiento</label>
+                Mantenimiento
+            </label>
         </div>
 
     <?php endif; ?>
@@ -475,7 +476,11 @@ $menu == 'Laboratorio Biomolecular'
         <div class="d-flex align-items-center justify-content-end">
             <button id="btn-aprobar-todos" type="button" role="button" class="btn btn-hover btn-aprobar-all">
                 Aprobar todas
-                <i class="fa fa-check"></i>
+                <i class="bi bi-check-all fs-4"></i>
+            </button>
+            <button id="btn-select-fechas" type="button" role="button" class="btn btn-hover btn-aprobar-all">
+                Seleccionar Rango de Fechas
+                <i class="fa fa-calendar"></i>
             </button>
             <button id="btn-generar-reportes" type="button" role="button" class="btn btn-hover btn-generar-reporte">
                 Generar Reporte

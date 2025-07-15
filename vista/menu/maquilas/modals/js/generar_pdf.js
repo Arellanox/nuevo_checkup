@@ -41,7 +41,9 @@ function generarReporteMaquilas(event){
     }, function () {
         ajaxAwait({
             api: (laboratorio_id !== '9' ? 6 : 5),
-            laboratorio_id: laboratorio_id
+            laboratorio_id: laboratorio_id,
+            fecha_inicio: rangoFechas[0],
+            fecha_final: rangoFechas[1]
         }, 'laboratorio_solicitud_maquila_api', { callbackAfter: true }, false, function (response) {
             const url = response.response.data.url;
             window.open(url, '_blank');

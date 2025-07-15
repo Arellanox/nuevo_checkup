@@ -735,8 +735,11 @@ class Miscelaneus
                 break;
             case -8:
                 $laboratorio_id = $_POST['laboratorio_id'];
+                $fecha_inicio = $_POST['fecha_inicio'];
+                $fecha_fin = $_POST['fecha_fin'];
+
                 $arregloPaciente = $master->getByProcedure("sp_laboratorio_estudios_maquila_b", [
-                    NULL, NULL, $laboratorio_id, 1, NULL
+                    NULL, NULL, $laboratorio_id, 1, $fecha_inicio, $fecha_fin
                 ]);
                 break;
             case -9:

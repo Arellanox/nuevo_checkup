@@ -15,6 +15,8 @@ $id_maquila = $_POST['ID_MAQUILA']; // ESTATUS => NULL: PENDIENTE, 1: APROBADO, 
 $maquila_estatus = $_POST['MAQUILA_ESTATUS']; // 0: INACTIVO, 1: ACTIVO, 2: OCULTO, 3: ELIMINADO
 $activo = $_POST['ACTIVO'];
 $mostrar_ocultos = $_POST['MOSTRAR_OCULTOS'];
+$fecha_inicio = $_POST['FECHA_INICIO'];
+$fecha_fin = $_POST['FECHA_FIN'];
 
 switch ($api) {
     case 1:
@@ -24,7 +26,7 @@ switch ($api) {
         break;
     case 2: // Recuperar información del estudio pendiente a maquilar
         $response = $master->getByProcedure('sp_laboratorio_estudios_maquila_b', [
-            $id_maquila, $mostrar_ocultos, NULL, NULL, NULL
+            $id_maquila, $mostrar_ocultos, NULL, NULL, $fecha_inicio, $fecha_fin
         ]);
         break;
     case 3: // Actualizar campo "activo" del estudio a maquilar
