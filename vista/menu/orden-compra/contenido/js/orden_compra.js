@@ -251,6 +251,14 @@ tableCatOrdenesCompra = $("#tableCatOrdenesCompra").DataTable({
       visible: false,
     },
     {
+      data: "ARTICULOS_DETALLE",
+      title: "Artículos Detalle",
+      render: function (data) {
+        return data ? JSON.stringify(data) : "[]";
+      },
+      visible: false, // Columna oculta para almacenar los artículos
+    },
+    {
       data: null,
       title: "Acciones",
       width: "130px",
@@ -627,6 +635,16 @@ setTimeout(() => {
       
       .acciones-columna .btn {
         margin: 0 1px;
+      }
+      
+      /* Animación para el loading */
+      .spin {
+        animation: spin 1s linear infinite;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
       }
     `;
     document.head.appendChild(style);
@@ -1117,6 +1135,9 @@ $(document).on("click", ".btn-ver-orden-compra", function () {
       : "-"
   );
 
+  // Cargar y mostrar artículos mediante API
+  cargarArticulosOrdenCompra(ordenCompraId);
+
   // Mostrar el modal
   $("#verOrdenCompraModal").modal("show");
 });
@@ -1153,10 +1174,8 @@ $(document).on("click", ".btn-editar-orden-compra", function () {
   // Limpiar validaciones previas
   $("#NUMERO_ORDEN_COMPRA").removeClass("is-valid is-invalid");
 
-  // Inicializar artículos (por ahora vacío, se puede implementar después)
-  if (typeof inicializarArticulosOrdenCompra !== "undefined") {
-    inicializarArticulosOrdenCompra();
-  }
+  // Cargar los artículos existentes para edición
+  cargarArticulosParaEdicion(ordenCompraId);
 
   // Mostrar el modal
   $("#registrarOrdenCompraModal").modal("show");
@@ -1173,6 +1192,14 @@ $("#registrarOrdenCompraModal").on("hidden.bs.modal", function () {
 
   // Limpiar validaciones
   $("#NUMERO_ORDEN_COMPRA").removeClass("is-valid is-invalid");
+
+  // Limpiar artículos cargados para edición
+  window.articulosOrdenCompraEditando = null;
+  
+  // Limpiar resumen de artículos si existe
+  if ($("#articulosResumenEdicion").length) {
+    $("#articulosResumenEdicion").html("");
+  }
 
   // Reinicializar artículos
   if (typeof inicializarArticulosOrdenCompra !== "undefined") {
@@ -1248,3 +1275,145 @@ function cargarProveedoresOrdenCompra() {
   });
 }
 cargarProveedoresOrdenCompra();
+
+// ==================== FUNCIÓN PARA CARGAR ARTÍCULOS DE LA ORDEN ====================
+function cargarArticulosOrdenCompra(idOrdenCompra) {
+  if (!idOrdenCompra) {
+    $("#verOrdenCompraArticulos").html('<span class="badge bg-light text-dark">Sin artículos</span>');
+    return;
+  }
+
+  // Mostrar loading
+  $("#verOrdenCompraArticulos").html('<span class="badge bg-secondary"><i class="bi bi-arrow-repeat spin"></i> Cargando...</span>');
+
+  $.ajax({
+    url: "../../../api/orden_compra_api.php",
+    type: "POST",
+    dataType: "json",
+    data: { 
+      api: 13,
+      id_orden_compra: idOrdenCompra
+    },
+    success: function (response) {
+      console.log("Artículos de orden de compra:", response);
+
+      if (response.response && response.response.code == 1 && response.response.data) {
+        const articulos = response.response.data;
+        
+        if (articulos.length > 0) {
+          let articulosHtml = '';
+          let proveedoresSet = new Set();
+          
+          articulos.forEach(function(articulo) {
+            // Agregar badge por cada artículo
+            articulosHtml += `
+              <span class="badge bg-primary me-1 mb-1" title="Cantidad: ${articulo.cantidad_solicitada || 0} | Precio: $${parseFloat(articulo.PRECIO_UNITARIO || 0).toFixed(2)}">
+                <i class="bi bi-box me-1"></i>${articulo.DESCRIPCION_ARTICULO || articulo.CODIGO_ARTICULO || 'Artículo'}
+              </span>
+            `;
+
+            // Recopilar proveedores únicos
+            if (articulo.PROVEEDOR_NOMBRE) {
+              proveedoresSet.add(articulo.PROVEEDOR_NOMBRE);
+            }
+          });
+
+          // Mostrar artículos
+          $("#verOrdenCompraArticulos").html(articulosHtml);
+
+          // Mostrar proveedores únicos
+          if (proveedoresSet.size > 0) {
+            let proveedoresHtml = '';
+            proveedoresSet.forEach(function(proveedor) {
+              proveedoresHtml += `<span class="badge bg-info me-1 mb-1"><i class="bi bi-building me-1"></i>${proveedor}</span>`;
+            });
+            $("#verOrdenCompraProveedoresArticulos").html(proveedoresHtml);
+          } else {
+            $("#verOrdenCompraProveedoresArticulos").html('<span class="badge bg-light text-dark">Sin proveedores definidos</span>');
+          }
+
+        } else {
+          $("#verOrdenCompraArticulos").html('<span class="badge bg-light text-dark">Sin artículos</span>');
+          $("#verOrdenCompraProveedoresArticulos").html('<span class="badge bg-light text-dark">Sin proveedores</span>');
+        }
+      } else {
+        $("#verOrdenCompraArticulos").html('<span class="badge bg-warning text-dark">Error al cargar artículos</span>');
+        $("#verOrdenCompraProveedoresArticulos").html('<span class="badge bg-warning text-dark">Error al cargar proveedores</span>');
+      }
+    },
+    error: function (xhr, status, error) {
+      console.error("Error cargando artículos:", error);
+      $("#verOrdenCompraArticulos").html('<span class="badge bg-danger">Error de conexión</span>');
+      $("#verOrdenCompraProveedoresArticulos").html('<span class="badge bg-danger">Error de conexión</span>');
+    }
+  });
+}
+
+// ==================== FUNCIÓN PARA CARGAR ARTÍCULOS PARA EDICIÓN ====================
+function cargarArticulosParaEdicion(idOrdenCompra) {
+  if (!idOrdenCompra) {
+    console.log("No hay ID de orden de compra para cargar artículos");
+    // Inicializar formulario vacío si no hay función específica
+    if (typeof inicializarArticulosOrdenCompra !== "undefined") {
+      inicializarArticulosOrdenCompra();
+    }
+    return;
+  }
+
+  console.log("Cargando artículos para edición de orden:", idOrdenCompra);
+
+  $.ajax({
+    url: "../../../api/orden_compra_api.php",
+    type: "POST",
+    dataType: "json",
+    data: { 
+      api: 13,
+      id_orden_compra: idOrdenCompra
+    },
+    success: function (response) {
+      console.log("Artículos cargados para edición:", response);
+
+      if (response.response && response.response.code == 1 && response.response.data) {
+        const articulos = response.response.data;
+        
+        // Aquí puedes implementar la lógica específica para poblar el formulario de edición
+        // Por ejemplo, si tienes una tabla de artículos en el modal de edición:
+        
+        if (typeof poblarTablaArticulosEdicion === "function") {
+          // Si existe una función específica para poblar la tabla de edición
+          poblarTablaArticulosEdicion(articulos);
+        } else {
+          // Implementación básica - mostrar información en consola
+          console.log(`✅ ${articulos.length} artículos cargados para edición:`, articulos);
+          
+          // Mostrar un resumen en el formulario (opcional)
+          if ($("#articulosResumenEdicion").length) {
+            let resumenHtml = `<small class="text-muted">Cargados ${articulos.length} artículos existentes</small>`;
+            $("#articulosResumenEdicion").html(resumenHtml);
+          }
+          
+          // Almacenar los artículos en una variable global para uso posterior
+          window.articulosOrdenCompraEditando = articulos;
+        }
+        
+      } else {
+        console.log("No se encontraron artículos para esta orden");
+        alertToast("No se encontraron artículos para esta orden", "info", 3000);
+        
+        // Inicializar formulario vacío
+        if (typeof inicializarArticulosOrdenCompra !== "undefined") {
+          inicializarArticulosOrdenCompra();
+        }
+      }
+    },
+    error: function (xhr, status, error) {
+      console.error("Error cargando artículos para edición:", error);
+      alertToast("Error al cargar artículos existentes", "error", 3000);
+      
+      // Inicializar formulario vacío en caso de error
+      if (typeof inicializarArticulosOrdenCompra !== "undefined") {
+        inicializarArticulosOrdenCompra();
+      }
+    }
+  });
+}

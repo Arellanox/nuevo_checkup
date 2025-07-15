@@ -207,6 +207,36 @@ switch ($api) {
             );
         }
         break;
+    case 13:
+        // obtener detalles de artículos de una orden de compra específica
+        if (!$id_orden_compra) {
+            $response = array(
+                'response' => array(
+                    'code' => 0,
+                    'message' => 'ERROR: ID de orden de compra es obligatorio',
+                    'data' => array()
+                )
+            );
+            break;
+        }
+
+        try {
+            $response = $master->getByProcedure("sp_inventarios_cat_orden_compra_detalle_b", [
+                $id_orden_compra
+            ]);
+
+            error_log("API 13 - Detalles de orden: " . json_encode($response));
+        } catch (Exception $e) {
+            error_log("API 13 - Error en SP: " . $e->getMessage());
+            $response = array(
+                'response' => array(
+                    'code' => 0,
+                    'message' => 'ERROR: ' . $e->getMessage(),
+                    'data' => array()
+                )
+            );
+        }
+        break;
     default:
         $response = "API no definida.";
 }
