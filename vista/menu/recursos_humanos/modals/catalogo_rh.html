@@ -1124,18 +1124,18 @@
 
   // Función para crear un tag
   function crearTag(habilidad, tipo) {
-    const colorClass = tipo === 'blanda' ? 'bg-success' : 'bg-info';
+    const colorClass = tipo === 'blanda' ? 'bg-gradient-info' : 'bg-gradient-success';
     const iconClass = tipo === 'blanda' ? 'fas fa-heart' : 'fas fa-cogs';
     
     return `
-      <span class="badge ${colorClass} text-white d-flex align-items-center gap-2 px-3 py-2 fs-6 tag-habilidad" 
+      <span class="badge ${colorClass} text-white d-flex align-items-center gap-2 px-2 py-1 fs-6 tag-habilidad" 
             data-id="${habilidad.id}" 
             data-tipo="${tipo}"
-            style="border-radius: 20px; cursor: default; transition: all 0.3s ease;">
-        <i class="${iconClass}"></i>
+            style="font-size: 0.7em; padding: 0.4em 0.6em; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); cursor: default; transition: all 0.3s ease;">
+        <i class="${iconClass}" style="font-size: 0.8em;"></i>
         ${habilidad.nombre}
         <button type="button" class="btn-close btn-close-white btn-sm ms-1 btn-eliminar-tag" 
-                style="font-size: 0.7rem; padding: 0; width: 18px; height: 18px; opacity: 0.8;"
+                style="font-size: 0.6rem; padding: 0; width: 16px; height: 16px; opacity: 0.8;"
                 data-id="${habilidad.id}" 
                 data-tipo="${tipo}">
         </button>
@@ -1244,9 +1244,27 @@
 
   // Función para establecer habilidades seleccionadas (para usar al editar)
   function establecerHabilidadesSeleccionadas(blandasIds = [], tecnicasIds = []) {
+    console.log("Estableciendo habilidades - Blandas IDs:", blandasIds, "Técnicas IDs:", tecnicasIds);
+    console.log("Habilidades disponibles - Blandas:", habilidadesBlandas.length, "Técnicas:", habilidadesTecnicas.length);
+    
+    // Filtrar habilidades blandas seleccionadas
     habilidadesBlandasSeleccionadas = habilidadesBlandas.filter(h => blandasIds.includes(h.id));
+    console.log("Habilidades blandas seleccionadas:", habilidadesBlandasSeleccionadas);
+    
+    // Filtrar habilidades técnicas seleccionadas
     habilidadesTecnicasSeleccionadas = habilidadesTecnicas.filter(h => tecnicasIds.includes(h.id));
+    console.log("Habilidades técnicas seleccionadas:", habilidadesTecnicasSeleccionadas);
+    
+    // Actualizar los tags visuales
     actualizarTags();
+    
+    // Si no se encontraron habilidades, mostrar advertencia
+    if (blandasIds.length > 0 && habilidadesBlandasSeleccionadas.length === 0) {
+      console.warn("No se encontraron habilidades blandas para los IDs:", blandasIds);
+    }
+    if (tecnicasIds.length > 0 && habilidadesTecnicasSeleccionadas.length === 0) {
+      console.warn("No se encontraron habilidades técnicas para los IDs:", tecnicasIds);
+    }
   }
 
   // Inicializar el sistema cuando se abre el modal
