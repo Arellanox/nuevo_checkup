@@ -1,0 +1,814 @@
+<!-- Modal de Publicación de Vacantes -->
+<div
+  class="modal fade"
+  id="publicarVacanteModal"
+  tabindex="-1"
+  aria-labelledby="publicarVacanteModalLabel"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"
+  >
+    <div class="modal-content shadow-lg border-0">
+      <div class="modal-header bg-gradient-primary text-white border-0">
+        <h5 class="modal-title fw-bold" id="publicarVacanteModalLabel">
+          <i class="bi bi-megaphone me-2"></i>Publicación de Vacantes
+        </h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body bg-light">
+        <!-- Información sobre el proceso -->
+        <div class="alert alert-info d-flex align-items-center mb-4" role="alert">
+          <i class="bi bi-info-circle-fill me-3 fs-5"></i>
+          <div>
+            <strong>Gestión de Vacantes:</strong> Aquí puede visualizar todas las requisiciones aprobadas y gestionar su publicación. 
+            Las requisiciones aprobadas pueden ser publicadas como vacantes activas para el proceso de reclutamiento.
+          </div>
+        </div>
+
+        <!-- Pestañas para diferentes estados -->
+        <ul
+          class="nav nav-tabs nav-fill border-0"
+          id="vacantesTab"
+          role="tablist"
+        >
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link active rounded-top fw-bold"
+              id="aprobadas-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#aprobadas"
+              type="button"
+              role="tab"
+              aria-controls="aprobadas"
+              aria-selected="true"
+              data-tabla="tableVacantesAprobadas"
+            >
+              <i class="bi bi-check-circle me-2"></i>Requisiciones Aprobadas
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link rounded-top fw-bold"
+              id="publicadas-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#publicadas"
+              type="button"
+              role="tab"
+              aria-controls="publicadas"
+              aria-selected="false"
+              data-tabla="tableVacantesPublicadas"
+            >
+              <i class="bi bi-megaphone me-2"></i>Vacantes Publicadas
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link rounded-top fw-bold"
+              id="finalizadas-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#finalizadas"
+              type="button"
+              role="tab"
+              aria-controls="finalizadas"
+              aria-selected="false"
+              data-tabla="tableVacantesFinalizadas"
+            >
+              <i class="bi bi-archive me-2"></i>Vacantes Finalizadas
+            </button>
+          </li>
+        </ul>
+
+        <!-- Contenido de las pestañas -->
+        <div
+          class="tab-content p-4 bg-white border-0 rounded-bottom shadow-sm"
+          id="vacantesTabContent"
+        >
+          <!-- Pestaña de Requisiciones Aprobadas -->
+          <div
+            class="tab-pane fade show active"
+            id="aprobadas"
+            role="tabpanel"
+            aria-labelledby="aprobadas-tab"
+          >
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h6 class="text-muted mb-0">
+                <i class="bi bi-list-check me-2"></i>Requisiciones listas para publicar
+              </h6>
+              <span class="badge bg-gradient-success fs-6" id="contadorAprobadas">0 requisiciones</span>
+            </div>
+            <div class="table-responsive">
+              <table
+                id="tableVacantesAprobadas"
+                class="table table-hover border-0 shadow-sm"
+                style="width: 100%"
+              >
+                <thead class="table-light">
+                  <tr>
+                    <th class="fw-bold">No. Requisición</th>
+                    <th class="fw-bold">Departamento</th>
+                    <th class="fw-bold">Puesto</th>
+                    <th class="fw-bold">Prioridad</th>
+                    <th class="fw-bold">Fecha Aprobación</th>
+                    <th class="fw-bold">Aprobado por</th>
+                    <th class="fw-bold">Estado</th>
+                    <th class="fw-bold">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Pestaña de Vacantes Publicadas -->
+          <div
+            class="tab-pane fade"
+            id="publicadas"
+            role="tabpanel"
+            aria-labelledby="publicadas-tab"
+          >
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h6 class="text-muted mb-0">
+                <i class="bi bi-broadcast me-2"></i>Vacantes actualmente publicadas
+              </h6>
+              <span class="badge bg-gradient-info fs-6" id="contadorPublicadas">0 vacantes</span>
+            </div>
+            <div class="table-responsive">
+              <table
+                id="tableVacantesPublicadas"
+                class="table table-hover border-0 shadow-sm"
+                style="width: 100%"
+              >
+                <thead class="table-light">
+                  <tr>
+                    <th class="fw-bold">No. Vacante</th>
+                    <th class="fw-bold">Departamento</th>
+                    <th class="fw-bold">Puesto</th>
+                    <th class="fw-bold">Prioridad</th>
+                    <th class="fw-bold">Fecha Publicación</th>
+                    <th class="fw-bold">Fecha Límite</th>
+                    <th class="fw-bold">Estado</th>
+                    <th class="fw-bold">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Pestaña de Vacantes Finalizadas -->
+          <div
+            class="tab-pane fade"
+            id="finalizadas"
+            role="tabpanel"
+            aria-labelledby="finalizadas-tab"
+          >
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h6 class="text-muted mb-0">
+                <i class="bi bi-check2-all me-2"></i>Vacantes completadas o cerradas
+              </h6>
+              <span class="badge bg-gradient-secondary fs-6" id="contadorFinalizadas">0 vacantes</span>
+            </div>
+            <div class="table-responsive">
+              <table
+                id="tableVacantesFinalizadas"
+                class="table table-hover border-0 shadow-sm"
+                style="width: 100%"
+              >
+                <thead class="table-light">
+                  <tr>
+                    <th class="fw-bold">No. Vacante</th>
+                    <th class="fw-bold">Departamento</th>
+                    <th class="fw-bold">Puesto</th>
+                    <th class="fw-bold">Fecha Finalización</th>
+                    <th class="fw-bold">Motivo Cierre</th>
+                    <th class="fw-bold">Estado</th>
+                    <th class="fw-bold">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer bg-light border-0">
+        <button
+          type="button"
+          class="btn btn-outline-secondary rounded-pill px-4"
+          data-bs-dismiss="modal"
+        >
+          <i class="bi bi-x-circle me-2"></i>Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para Publicar Vacante -->
+<div
+  class="modal fade"
+  id="modalPublicarVacante"
+  tabindex="-1"
+  aria-labelledby="modalPublicarVacanteLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content shadow-lg border-0">
+      <div class="modal-header bg-gradient-success text-white border-0">
+        <h5 class="modal-title fw-bold" id="modalPublicarVacanteLabel">
+          <i class="bi bi-megaphone me-2"></i>Publicar Vacante
+        </h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body bg-light">
+        <form id="formPublicarVacante">
+          <input type="hidden" id="requisicion_id_publicar" name="requisicion_id" value="" />
+          
+          <!-- Información de la Requisición -->
+          <div class="card mb-3 border-0 shadow-sm">
+            <div class="card-header bg-gradient-info text-white">
+              <h6 class="mb-0 fw-bold">
+                <i class="bi bi-info-circle me-2"></i>Información de la Requisición
+              </h6>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">No. Requisición:</label>
+                    <div id="numeroRequisicionPublicar" class="form-control-plaintext bg-light p-2 rounded">-</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">Departamento:</label>
+                    <div id="departamentoPublicar" class="form-control-plaintext bg-light p-2 rounded">-</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">Puesto:</label>
+                    <div id="puestoPublicar" class="form-control-plaintext bg-light p-2 rounded">-</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">Prioridad:</label>
+                    <div id="prioridadPublicar" class="form-control-plaintext bg-light p-2 rounded">-</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Configuración de Publicación -->
+          <div class="card mb-3 border-0 shadow-sm">
+            <div class="card-header bg-gradient-success text-white">
+              <h6 class="mb-0 fw-bold">
+                <i class="bi bi-gear me-2"></i>Configuración de Publicación
+              </h6>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="fechaInicioPublicacion" class="form-label fw-bold">Fecha de Inicio</label>
+                    <input
+                      type="date"
+                      class="form-control rounded-3 border-2"
+                      id="fechaInicioPublicacion"
+                      name="fecha_inicio"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="fechaLimitePublicacion" class="form-label fw-bold">Fecha Límite</label>
+                    <input
+                      type="date"
+                      class="form-control rounded-3 border-2"
+                      id="fechaLimitePublicacion"
+                      name="fecha_limite"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="plataformasPublicacion" class="form-label fw-bold">Plataformas de Publicación</label>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="plataforma_web" name="plataformas[]" value="web" checked>
+                      <label class="form-check-label" for="plataforma_web">
+                        Sitio Web Corporativo
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="plataforma_linkedin" name="plataformas[]" value="linkedin">
+                      <label class="form-check-label" for="plataforma_linkedin">
+                        LinkedIn
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="plataforma_indeed" name="plataformas[]" value="indeed">
+                      <label class="form-check-label" for="plataforma_indeed">
+                        Indeed
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="plataforma_computrabajo" name="plataformas[]" value="computrabajo">
+                      <label class="form-check-label" for="plataforma_computrabajo">
+                        CompuTrabajo
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="modalidadTrabajo" class="form-label fw-bold">Modalidad de Trabajo</label>
+                    <select class="form-select rounded-3 border-2" id="modalidadTrabajo" name="modalidad_trabajo" required>
+                      <option value="">Seleccionar modalidad...</option>
+                      <option value="presencial">Presencial</option>
+                      <option value="remoto">Remoto</option>
+                      <option value="hibrido">Híbrido</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="mb-3">
+                <label for="descripcionAdicional" class="form-label fw-bold">Descripción Adicional</label>
+                <textarea
+                  class="form-control rounded-3 border-2"
+                  id="descripcionAdicional"
+                  name="descripcion_adicional"
+                  rows="4"
+                  placeholder="Agregue información adicional para la publicación de la vacante..."
+                ></textarea>
+              </div>
+
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="publicacionInmediata"
+                  name="publicacion_inmediata"
+                  checked
+                />
+                <label class="form-check-label fw-bold" for="publicacionInmediata">
+                  Publicar inmediatamente
+                </label>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer bg-light border-0">
+        <button
+          type="button"
+          class="btn btn-outline-secondary rounded-pill px-4"
+          data-bs-dismiss="modal"
+        >
+          <i class="bi bi-x-circle me-2"></i>Cancelar
+        </button>
+        <button
+          type="submit"
+          form="formPublicarVacante"
+          class="btn btn-gradient-success rounded-pill px-4 fw-bold"
+          id="btnConfirmarPublicacion"
+        >
+          <i class="bi bi-megaphone me-2"></i>Publicar Vacante
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para Ver Detalles de Vacante -->
+<div
+  class="modal fade"
+  id="detallesVacanteModal"
+  tabindex="-1"
+  aria-labelledby="detallesVacanteModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content shadow-lg border-0">
+      <div class="modal-header bg-gradient-details text-white border-0">
+        <h5 class="modal-title text-white fw-bold" id="detallesVacanteModalLabel">
+          <i class="fas fa-file-alt me-2"></i>Detalles de la Vacante
+        </h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body bg-white p-4">
+        <div class="row h-100">
+          <!-- Columna izquierda: Información básica -->
+          <div class="col-md-4">
+            <div class="card mb-3 shadow-sm border-0 h-100">
+              <div class="card-header bg-gradient-details text-white">
+                <h6 class="mb-0"><i class="fas fa-info-circle me-2"></i>Información Básica</h6>
+              </div>
+              <div class="card-body bg-white p-3">
+                <div class="text-center mb-3">
+                  <h4 class="text-secondary" id="detalleVacanteNumero">-</h4>
+                  <span id="detalleVacanteEstado" class="badge bg-success">Publicada</span>
+                </div>
+                <ul class="list-group list-group-flush mb-2">
+                  <li class="list-group-item bg-white border-0 px-0">
+                    <strong style="color: #495057;">Departamento:</strong>
+                    <div id="detalleVacanteDepartamento" class="text-muted ms-2">-</div>
+                  </li>
+                  <li class="list-group-item bg-white border-0 px-0">
+                    <strong style="color: #495057;">Puesto:</strong>
+                    <div id="detalleVacantePuesto" class="text-muted ms-2">-</div>
+                  </li>
+                  <li class="list-group-item bg-white border-0 px-0">
+                    <strong style="color: #495057;">Prioridad:</strong>
+                    <div id="detalleVacantePrioridad" class="text-muted ms-2">-</div>
+                  </li>
+                  <li class="list-group-item bg-white border-0 px-0">
+                    <strong style="color: #495057;">Fecha Publicación:</strong>
+                    <div id="detalleVacanteFechaPublicacion" class="text-muted ms-2">-</div>
+                  </li>
+                  <li class="list-group-item bg-white border-0 px-0">
+                    <strong style="color: #495057;">Fecha Límite:</strong>
+                    <div id="detalleVacanteFechaLimite" class="text-muted ms-2">-</div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna derecha: Detalles adicionales -->
+          <div class="col-md-8">
+            <div class="row h-100">
+              <!-- Plataformas de Publicación -->
+              <div class="col-md-6 mb-3">
+                <div class="card shadow-sm border-0 h-100">
+                  <div class="card-header bg-gradient-details text-white">
+                    <h6 class="mb-0"><i class="fas fa-broadcast-tower me-2"></i>Plataformas</h6>
+                  </div>
+                  <div class="card-body bg-white p-3">
+                    <div id="detalleVacantePlataformas" class="text-muted">-</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Modalidad y Descripción -->
+              <div class="col-md-6 mb-3">
+                <div class="card shadow-sm border-0 h-100">
+                  <div class="card-header bg-gradient-details text-white">
+                    <h6 class="mb-0"><i class="fas fa-cog me-2"></i>Configuración</h6>
+                  </div>
+                  <div class="card-body bg-white p-3">
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item bg-white border-0 px-0">
+                        <strong style="color: #495057;">Modalidad:</strong>
+                        <div id="detalleVacanteModalidad" class="text-muted ms-2">-</div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Descripción Adicional -->
+              <div class="col-12 mb-3">
+                <div class="card shadow-sm border-0 h-100">
+                  <div class="card-header bg-gradient-details text-white">
+                    <h6 class="mb-0"><i class="fas fa-file-text me-2"></i>Descripción Adicional</h6>
+                  </div>
+                  <div class="card-body bg-white p-3">
+                    <div id="detalleVacanteDescripcion" class="bg-light p-3 rounded text-muted">-</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer bg-white border-0 p-3">
+        <button type="button" class="btn text-white rounded-pill px-4" style="background-color:#667eea;" data-bs-dismiss="modal">
+          <i class="bi bi-x-circle me-2"></i>Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <style>
+  /* Estilos para el modal de publicación de vacantes */
+  body {
+    background-color: #f8f9fa;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .modal-content {
+    border-radius: 15px;
+    overflow: hidden;
+  }
+
+  .bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .bg-gradient-success {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  }
+
+  .bg-gradient-info {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  }
+
+  .bg-gradient-warning {
+    background: linear-gradient(135deg, #e9d643 0%, #fee140 100%);
+  }
+
+  .bg-gradient-secondary {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  }
+
+  /* .bg-gradient-details {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  } */
+
+  .btn-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+  }
+
+  .btn-gradient-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(102, 126, 234, 0.3);
+    color: white;
+  }
+
+  .btn-gradient-success {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+  }
+
+  .btn-gradient-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(67, 233, 123, 0.3);
+    color: white;
+  }
+
+  .btn-gradient-info {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+  }
+
+  .btn-gradient-info:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(79, 172, 254, 0.3);
+    color: white;
+  }
+
+  .btn-gradient-secondary {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+  }
+
+  .btn-gradient-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(240, 147, 251, 0.3);
+    color: white;
+  }
+
+  .btn-gradient-warning {
+    background: linear-gradient(135deg, #e9d643 0%, #fee140 100%);
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+  }
+
+  .btn-gradient-warning:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(233, 214, 67, 0.3);
+    color: white;
+  }
+
+  .nav-tabs .nav-link {
+    border: none;
+    color: #495057;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin-right: 10px;
+  }
+
+  .nav-tabs .nav-link.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 10px 10px 0 0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+  }
+
+  .nav-tabs .nav-link:hover:not(.active) {
+    background-color: #f8f9fa;
+    color: #667eea;
+    transform: translateY(-1px);
+  }
+
+  .table {
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .table th {
+    border-top: none;
+    color: #495057;
+    background-color: #f8f9fa;
+  }
+
+  .table-hover tbody tr:hover {
+    background-color: rgba(102, 126, 234, 0.1);
+    transform: translateY(-1px);
+    transition: all 0.3s ease;
+  }
+
+  .form-control,
+  .form-select {
+    transition: all 0.3s ease;
+  }
+
+  .form-control:focus,
+  .form-select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    transform: translateY(-1px);
+  }
+
+  .btn-outline-secondary {
+    transition: all 0.3s ease;
+  }
+
+  .btn-outline-secondary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3);
+  }
+
+  .rounded-pill {
+    border-radius: 50rem !important;
+  }
+
+  .shadow-lg {
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+  }
+
+  .fw-bold {
+    font-weight: 700 !important;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .modal.fade .modal-dialog {
+    transition: transform 0.3s ease-out;
+  }
+
+  .modal.show .modal-dialog {
+    animation: fadeIn 0.3s ease-in;
+  }
+
+  .tab-content {
+    border-radius: 0 10px 10px 10px;
+  }
+
+  /* Estilos específicos para badges */
+  .badge {
+    border-radius: 20px;
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+  }
+
+  /* Estilos para cards */
+  .card {
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .card-header {
+    border-radius: 12px 12px 0 0;
+    padding: 15px 20px;
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  .form-control-plaintext {
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .form-control-plaintext:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Prevenir clics múltiples en botones */
+  .btn.processing {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  /* Mejoras para checkboxes */
+  .form-check-input:checked {
+    background-color: #667eea;
+    border-color: #667eea;
+  }
+
+  .form-check-input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+  }
+</style> -->
+
+<script>
+  $(document).ready(function () {
+    // Configurar fechas por defecto
+    const hoy = new Date().toISOString().split('T')[0];
+    const fechaLimite = new Date();
+    fechaLimite.setDate(fechaLimite.getDate() + 30); // 30 días después
+    
+    $('#fechaInicioPublicacion').val(hoy);
+    $('#fechaLimitePublicacion').val(fechaLimite.toISOString().split('T')[0]);
+
+    // Simplemente reabrir el modal principal cuando se cierren los modales secundarios
+    $("#modalPublicarVacante, #detallesVacanteModal").on("hidden.bs.modal", function () {
+      $("#publicarVacanteModal").modal("show");
+    });
+
+    // Interceptar botones de acción
+    $(document).on("click", ".btn-publicar-vacante, .btn-ver-vacante, .btn-finalizar-vacante, .btn-editar-vacante", function (e) {
+      $("#publicarVacanteModal").modal("hide");
+    });
+
+    // Manejar modal de detalles
+    $("#detallesVacanteModal").on("hidden.bs.modal", function () {
+      if ($(this).data('from-vacantes') === true) {
+        setTimeout(function() {
+          $("#publicarVacanteModal").modal("show");
+        }, 100);
+      }
+      $(this).removeData('from-vacantes');
+    });
+
+    // Interceptar botones de detalles
+    $(document).on("click", ".btn-ver-vacante", function (e) {
+      $("#detallesVacanteModal").data('from-vacantes', true);
+      $("#publicarVacanteModal").modal("hide");
+    });
+
+    // Actualizar contadores al cambiar de pestaña
+    $('#vacantesTab button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
+      const targetTab = $(e.target).attr('data-bs-target');
+      actualizarContadores(targetTab);
+    });
+  });
+
+  // Función para actualizar contadores
+  function actualizarContadores(tab) {
+    // Esta función se puede implementar cuando se configuren los DataTables
+    console.log('Actualizando contadores para tab:', tab);
+  }
+</script>

@@ -172,8 +172,8 @@ switch ($api) {
         }
         break;
     case 2:
-        # recuperar todas las requisiciones con habilidades del puesto
-        $response = $master->getByProcedure('sp_rh_cat_requisiciones_b_mejorado', []);
+        # recuperar todas las requisiciones
+        $response = $master->getByProcedure('sp_rh_cat_requisiciones_b', []);
         break;
     case 3:
         // # Eliminar una caja
@@ -205,14 +205,6 @@ switch ($api) {
         break;
     case 7:
         # Registrar/editar un puesto
-        
-        // DEBUG: Log de las habilidades recibidas
-        error_log("=== DEBUG API CASE 7 ===");
-        error_log("id_blanda recibido: " . var_export($id_blanda, true));
-        error_log("id_tecnica recibido: " . var_export($id_tecnica, true));
-        error_log("Tipo id_blanda: " . gettype($id_blanda));
-        error_log("Tipo id_tecnica: " . gettype($id_tecnica));
-        
         $response = $master->insertByProcedure("sp_rh_cat_puestos_g", [
             $id_puesto,
             $descripcion,
@@ -229,7 +221,7 @@ switch ($api) {
         ]);
         break;
     case 8:
-        # recuperar puestos con habilidades.
+        # recuperar puestos.
         $response = $master->getByProcedure("sp_rh_cat_puestos_b", [
             $filtro_estado,
             $filtro_departamento

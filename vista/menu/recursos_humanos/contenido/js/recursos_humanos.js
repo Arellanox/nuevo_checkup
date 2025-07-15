@@ -48,6 +48,13 @@ document.querySelectorAll("#menu-grid a").forEach(function (link) {
       ocultarBotonVacante();
       ocultarBotonCatalogo();
     }
+
+    // Mostrar u ocultar el botón de publicar vacante
+    if (targetModule === "moduloReclutamiento") {
+      mostrarBotonPublicarVacante();
+    } else {
+      ocultarBotonPublicarVacante();
+    }
   });
 });
 // Funcionalidad para volver al menú principal
@@ -58,6 +65,7 @@ document.addEventListener("click", function (e) {
     // Oculta el botón de registrar vacante
     ocultarBotonVacante();
     ocultarBotonCatalogo();
+    ocultarBotonPublicarVacante();
 
     // Oculta la sección de módulos
     document.getElementById("modulos-rrhh").style.display = "none";
@@ -87,6 +95,16 @@ function ocultarBotonCatalogo() {
   if (btn) btn.style.display = "none";
 }
 
+//Funciones para mostrar/ocultar el botón de publicar vacante
+function mostrarBotonPublicarVacante() {
+  const btn = document.getElementById("btnRegistrarPublicacion");
+  if (btn) btn.style.display = "inline-block";
+}
+function ocultarBotonPublicarVacante() {
+  const btn = document.getElementById("btnRegistrarPublicacion");
+  if (btn) btn.style.display = "none";
+}
+
 // DataTable para requisiciones
 tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
     language: {
@@ -97,6 +115,7 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
     info: true,
     paging: true,
     pageLength: 10,
+    sorting: [4, 'desc'],
     scrollY: "60vh",
     scrollCollapse: true,
     ajax: {
@@ -2018,6 +2037,8 @@ function cargarDetallesRequisicion(idRequisicion) {
                 $('#detalle_escolaridad_minima').text(formatearEscolaridad(data.escolaridad_minima) || '-');
                 $('#detalle_experiencia_anos').text(formatearExperiencia(data.experiencia_anios) || '-');
                 $('#detalle_experiencia_area').text(data.experiencia_area || '-');
+                $('#detalle_objetivos').text(data.objetivos || '-');
+                $('#detalle_competencias').text(data.competencias || '-');
                 $('#detalle_idiomas').text(data.idiomas || '-');
                 // Llenar conocimientos técnicos y habilidades (usar divs en lugar de p)
                 $('#detalle_conocimientos_tecnicos').text(data.conocimientos_tecnicos || '-');
@@ -2371,13 +2392,15 @@ function llenarModalDetallesRequisicion(data) {
         // === REQUISITOS ACADÉMICOS ===
         $("#escolaridadMinima").text(formatearEscolaridad(data.escolaridad_minima) || 'N/A');
         $("#experienciaAnos").text(formatearExperiencia(data.experiencia_anios) || 'N/A');
-        $("#objetivosPuesto").text(data.objetivos || 'N/A');
-        $("#competenciasPuesto").text(data.competencias || 'N/A');
+        $("#objetivoss").text(data.objetivos || 'N/A');
+        $("#competenciass").text(data.competencias || 'N/A');
         $("#bandaSalarialPuesto").text(data.salario_min && data.salario_max ? `$${data.salario_min} - $${data.salario_max}` : 'No especificado');
         
         // === HABILIDADES COMO TAGS ===
         console.log("=== DEBUG HABILIDADES (PRIMERA EJECUCIÓN) ===");
         console.log("Data completa:", data);
+        console.log("Objetivos del puesto:", data.objetivos);
+        console.log("Competencias del puesto:", data.competencias);
         console.log("Habilidades blandas (propiedad):", data.habilidades_blandas_descripcion);
         console.log("Habilidades técnicas (propiedad):", data.habilidades_tecnicas_descripcion);
         console.log("Habilidades blandas (índice 34):", data['34']);
@@ -2784,7 +2807,7 @@ $(document).on('change', '#editarEstatus', function() {
         
         // Mostrar mensaje de ayuda según el estado
         if (estatusSeleccionado === 'en_proceso') {
-            mostrarMensajeAyuda('La requisición está en proceso de evaluación. Al actualizar la requisición tendrá que esperar a que un supervisor tome acciones.', 'info');
+            mostrarMensajeAyuda('La requisición está en proceso de aprobación. Al actualizar la requisición tendrá que esperar a que un supervisor tome acciones.', 'info');
         } else if (estatusSeleccionado === 'aprobada') {
             mostrarMensajeAyuda('La requisición ha sido aprobada. Agrega observaciones sobre la aprobación.', 'success');
         } else if (estatusSeleccionado === 'rechazada') {
