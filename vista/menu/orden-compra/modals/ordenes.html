@@ -111,7 +111,7 @@
                     <div class="input-group">
                       <span class="input-group-text">$</span>
                       <input type="number" class="form-control" id="SUBTOTAL" name="SUBTOTAL" placeholder="0.00"
-                        step="0.01" min="0" required readonly style="cursor: not-allowed;"/>
+                        step="0.01" min="0" required readonly style="cursor: not-allowed;" />
                     </div>
                     <div class="invalid-feedback">Este campo es obligatorio.</div>
                   </div>
@@ -122,7 +122,7 @@
                     <div class="input-group">
                       <span class="input-group-text">$</span>
                       <input type="number" class="form-control" id="IVA" name="IVA" placeholder="0.00" step="0.01"
-                        min="0" required readonly style="cursor: not-allowed;"/>
+                        min="0" required readonly style="cursor: not-allowed;" />
                     </div>
                     <div class="invalid-feedback">Este campo es obligatorio.</div>
                   </div>
@@ -133,7 +133,7 @@
                     <div class="input-group">
                       <span class="input-group-text">$</span>
                       <input type="number" class="form-control" id="TOTAL" name="TOTAL" placeholder="0.00" step="0.01"
-                        min="0" required readonly style="cursor: not-allowed;"/>
+                        min="0" required readonly style="cursor: not-allowed;" />
                     </div>
                     <div class="invalid-feedback">Este campo es obligatorio.</div>
                   </div>
@@ -266,8 +266,8 @@
 </div>
 
 <!-- Modal para Configurar Artículo de Orden de Compra -->
-<div class="modal fade" id="configurarArticuloOrdenModal" tabindex="-1"
-  aria-labelledby="configurarArticuloOrdenLabel" aria-hidden="true">
+<div class="modal fade" id="configurarArticuloOrdenModal" tabindex="-1" aria-labelledby="configurarArticuloOrdenLabel"
+  aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header" style="background-color: #004e59; color: white;">
@@ -326,7 +326,8 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label for="configurarProveedor" class="form-label">Proveedor <span class="text-danger">*</span></label>
+                    <label for="configurarProveedor" class="form-label">Proveedor <span
+                        class="text-danger">*</span></label>
                     <select class="form-select" id="configurarProveedor" required>
                       <option value="">Seleccione un proveedor</option>
                     </select>
@@ -335,9 +336,11 @@
                 </div>
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label for="configurarCantidad" class="form-label">Cantidad Solicitada <span class="text-danger">*</span></label>
+                    <label for="configurarCantidad" class="form-label">Cantidad Solicitada <span
+                        class="text-danger">*</span></label>
                     <div class="input-group">
-                      <input type="number" class="form-control" id="configurarCantidad" min="0.01" step="0.01" required />
+                      <input type="number" class="form-control" id="configurarCantidad" min="0.01" step="0.01"
+                        required />
                       <span class="input-group-text" id="configurarUnidadSpan">Unidad</span>
                     </div>
                   </div>
@@ -349,7 +352,8 @@
                     <label for="configurarPrecioUnitario" class="form-label">Precio Unitario</label>
                     <div class="input-group">
                       <span class="input-group-text">$</span>
-                      <input type="number" class="form-control" id="configurarPrecioUnitario" min="0" step="0.01" placeholder="0.00" required step="any" />
+                      <input type="number" class="form-control" id="configurarPrecioUnitario" min="0" step="0.01"
+                        placeholder="0.00" required step="any" />
                     </div>
                     <div class="form-text">Este campo es obligatorio</div>
                   </div>
@@ -359,7 +363,8 @@
                     <label class="form-label">Subtotal Estimado</label>
                     <div class="input-group">
                       <span class="input-group-text">$</span>
-                      <input type="text" class="form-control" id="configurarSubtotalEstimado" readonly placeholder="0.00" />
+                      <input type="text" class="form-control" id="configurarSubtotalEstimado" readonly
+                        placeholder="0.00" />
                     </div>
                   </div>
                 </div>
@@ -387,8 +392,8 @@
 </div>
 
 <!-- Modal para Editar Artículo en Orden -->
-<div class="modal fade" id="editarArticuloOrdenModal" tabindex="-1"
-  aria-labelledby="editarArticuloOrdenLabel" aria-hidden="true">
+<div class="modal fade" id="editarArticuloOrdenModal" tabindex="-1" aria-labelledby="editarArticuloOrdenLabel"
+  aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header" style="background-color: #004e59; color: white;">
@@ -446,7 +451,8 @@
                 </div>
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label for="editarCantidad" class="form-label">Cantidad Solicitada <span class="text-danger">*</span></label>
+                    <label for="editarCantidad" class="form-label">Cantidad Solicitada <span
+                        class="text-danger">*</span></label>
                     <input type="number" class="form-control" id="editarCantidad" min="0.01" step="0.01" required />
                   </div>
                 </div>
@@ -572,175 +578,310 @@
 <!-- Modal para Ver Orden de Compra -->
 <div class="modal fade" id="verOrdenCompraModal" tabindex="-1" aria-labelledby="verOrdenCompraModalLabel"
   aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content shadow-lg border-0">
+  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content border-0">
+      <!-- Encabezado del Modal -->
       <div class="modal-header text-white" style="background-color: #004e59;">
         <div class="d-flex align-items-center">
-          <i class="bi bi-cart-check-fill me-2 fs-4"></i>
-          <h5 class="modal-title mb-0" id="verOrdenCompraModalLabel">Información de la Orden de Compra</h5>
+          <i class="bi bi-file-earmark-text me-2 fs-4"></i>
+          <h5 class="modal-title mb-0" id="verOrdenCompraModalLabel">Detalles de Orden de Compra</h5>
         </div>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+
+      <!-- Cuerpo del Modal -->
       <div class="modal-body p-0">
         <div class="container-fluid p-4">
-
-          <!-- Información Principal -->
-          <div class="card mb-3 border-0 shadow-sm">
-            <div class="card-header bg-light">
-              <h6 class="card-title mb-0">
-                <i class="bi bi-info-circle me-2" style="color: #004e59;"></i>Información General
-              </h6>
-            </div>
-            <div class="card-body">
-              <div class="row g-3">
-                <div class="col-lg-6">
-                  <div class="d-flex align-items-center mb-2">
-                    <i class="bi bi-hash text-muted me-2"></i>
-                    <small class="text-muted mb-0">Número de Orden</small>
-                  </div>
-                  <p class="fw-semibold mb-0" id="verOrdenCompraNumero">-</p>
+          <div class="row">
+            <!-- Columna Izquierda - Información Principal -->
+            <div class="col-lg-6 pe-lg-3">
+              <!-- Tarjeta de Información Básica -->
+              <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                  <h6 class="mb-0">
+                    <i class="bi bi-card-checklist me-2" style="color: #004e59;"></i>Información Básica
+                  </h6>
+                  <span id="verOrdenCompraEstado"></span>
                 </div>
-                <div class="col-lg-6">
-                  <div class="d-flex align-items-center mb-2">
-                    <i class="bi bi-calendar-date text-muted me-2"></i>
-                    <small class="text-muted mb-0">Fecha de Orden</small>
+                <div class="card-body">
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <div class="info-item">
+                        <small class="text-muted d-block">Número de Orden</small>
+                        <strong class="d-block fs-5 text-primary" id="verOrdenCompraNumero"></strong>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="info-item">
+                        <small class="text-muted d-block">Fecha de Orden</small>
+                        <strong class="d-block" id="verOrdenCompraFecha"></strong>
+                      </div>
+                    </div>
+                    <!-- <div class="col-12">
+                      <div class="info-item">
+                        <small class="text-muted d-block">Proveedor Principal</small>
+                        <strong class="d-block fs-6" id="verOrdenCompraProveedor"></strong>
+                      </div>
+                    </div> -->
                   </div>
-                  <p class="fw-semibold mb-0" id="verOrdenCompraFecha">-</p>
-                </div>
-                <div class="col-lg-6">
-                  <div class="d-flex align-items-center mb-2">
-                    <i class="bi bi-flag text-muted me-2"></i>
-                    <small class="text-muted mb-0">Estado</small>
-                  </div>
-                  <p class="fw-semibold mb-0" id="verOrdenCompraEstado">-</p>
-                </div>
-                <div class="col-lg-6">
-                  <div class="d-flex align-items-center mb-2">
-                    <i class="bi bi-building text-muted me-2"></i>
-                    <small class="text-muted mb-0">Proveedor</small>
-                  </div>
-                  <p class="fw-semibold mb-0" id="verOrdenCompraProveedor">-</p>
                 </div>
               </div>
-            </div>
-          </div>
 
-          <!-- Información Financiera -->
-          <div class="card mb-3 border-0 shadow-sm">
-            <div class="card-header bg-light">
-              <h6 class="card-title mb-0">
-                <i class="bi bi-currency-dollar me-2" style="color: #004e59;"></i>Información Financiera
-              </h6>
-            </div>
-            <div class="card-body">
-              <div class="row g-3">
-                <div class="col-lg-4">
-                  <div class="d-flex align-items-center mb-2">
-                    <i class="bi bi-calculator text-muted me-2"></i>
-                    <small class="text-muted mb-0">Subtotal</small>
-                  </div>
-                  <p class="fw-semibold mb-0 text-info" id="verOrdenCompraSubtotal">-</p>
-                </div>
-                <div class="col-lg-4">
-                  <div class="d-flex align-items-center mb-2">
-                    <i class="bi bi-percent text-muted me-2"></i>
-                    <small class="text-muted mb-0">IVA</small>
-                  </div>
-                  <p class="fw-semibold mb-0 text-warning" id="verOrdenCompraIva">-</p>
-                </div>
-                <div class="col-lg-4">
-                  <div class="d-flex align-items-center mb-2">
-                    <i class="bi bi-cash-stack text-muted me-2"></i>
-                    <small class="text-muted mb-0">Total</small>
-                  </div>
-                  <p class="fw-semibold mb-0 text-success" id="verOrdenCompraTotal">-</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Observaciones -->
-          <div class="card mb-3 border-0 shadow-sm">
-            <div class="card-header bg-light">
-              <h6 class="card-title mb-0">
-                <i class="bi bi-chat-text me-2" style="color: #004e59;"></i>Observaciones
-              </h6>
-            </div>
-            <div class="card-body">
-              <div class="d-flex align-items-center mb-2">
-                <i class="bi bi-chat-left-text text-muted me-2"></i>
-                <small class="text-muted mb-0">Comentarios</small>
-              </div>
-              <p class="fw-semibold mb-0" id="verOrdenCompraObservaciones">-</p>
-            </div>
-          </div>
-
-          <!-- Información de Responsable y Fechas -->
-          <div class="row g-3">
-            <div class="col-lg-6">
-              <div class="card border-0 shadow-sm h-100">
+              <!-- Tarjeta de Artículos -->
+              <div class="card mb-4 border-0 shadow-sm">
                 <div class="card-header bg-light">
-                  <h6 class="card-title mb-0">
-                    <i class="bi bi-person-circle me-2" style="color: #004e59;"></i>Responsable
+                  <h6 class="mb-0">
+                    <i class="bi bi-box-seam me-2" style="color: #004e59;"></i>Artículos
                   </h6>
                 </div>
-                <div class="card-body d-flex align-items-center justify-content-center">
-                  <p class="fw-semibold mb-0 text-center" id="verOrdenCompraResponsable">-</p>
+                <div class="card-body">
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <div class="info-item">
+                        <small class="text-muted d-block">Cantidad de Artículos</small>
+                        <strong class="d-block fs-4 text-primary" id="verOrdenCompraCantidadArticulos"></strong>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="info-item">
+                        <small class="text-muted d-block">Proveedores Involucrados</small>
+                        <strong class="d-block fs-4 text-info" id="verOrdenCompraCantidadProveedoresArticulos"></strong>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="info-item">
+                        <small class="text-muted d-block">Lista de Proveedores</small>
+                        <div class="d-flex flex-wrap gap-2 mt-2" id="verOrdenCompraProveedoresArticulos">
+                          <span class="badge bg-light text-dark"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="card border-0 shadow-sm h-100">
+
+              <!-- Tarjeta de Observaciones -->
+              <div class="card border-0 shadow-sm">
                 <div class="card-header bg-light">
-                  <h6 class="card-title mb-0">
-                    <i class="bi bi-toggle2-on me-2" style="color: #004e59;"></i>Estado
+                  <h6 class="mb-0">
+                    <i class="bi bi-chat-square-text me-2" style="color: #004e59;"></i>Observaciones
                   </h6>
                 </div>
-                <div class="card-body d-flex align-items-center justify-content-center">
-                  <div id="verOrdenCompraActivo" class="text-center">-</div>
+                <div class="card-body">
+                  <div class="info-item mb-3">
+                    <small class="text-muted d-block">Observaciones de la Orden de Compra</small>
+                    <div class="p-3 bg-light rounded mt-2" id="verOrdenCompraObservaciones">
+
+                    </div>
+                  </div>
+                  <div class="info-item">
+                    <small class="text-muted d-block">Comentarios de Aprobación/Rechazo</small>
+                    <div class="p-3 bg-light rounded mt-2" id="verOrdenCompraObservacionesAprobacion">
+
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- Historial de Fechas -->
-          <div class="card mt-3 border-0 shadow-sm">
-            <div class="card-header bg-light">
-              <h6 class="card-title mb-0">
-                <i class="bi bi-clock-history me-2" style="color: #004e59;"></i>Historial
-              </h6>
-            </div>
-            <div class="card-body">
-              <div class="row g-3">
-                <div class="col-lg-6">
-                  <div class="d-flex align-items-center mb-2">
-                    <i class="bi bi-plus-circle text-muted me-2"></i>
-                    <small class="text-muted mb-0">Fecha de Creación</small>
-                  </div>
-                  <small class="fw-semibold" id="verOrdenCompraFechaCreacion">-</small>
+            <!-- Columna Derecha - Información Adicional -->
+            <div class="col-lg-6 ps-lg-3">
+              <!-- Tarjeta de Información Financiera -->
+              <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-header bg-light">
+                  <h6 class="mb-0">
+                    <i class="bi bi-cash-stack me-2" style="color: #004e59;"></i>Resumen Financiero
+                  </h6>
                 </div>
-                <div class="col-lg-6">
-                  <div class="d-flex align-items-center mb-2">
-                    <i class="bi bi-pencil text-muted me-2"></i>
-                    <small class="text-muted mb-0">Última Actualización</small>
+                <div class="card-body">
+                  <div class="row g-3">
+                    <div class="col-md-4">
+                      <div class="info-item text-center">
+                        <small class="text-muted d-block">Subtotal</small>
+                        <strong class="d-block fs-4 text-info" id="verOrdenCompraSubtotal"></strong>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="info-item text-center">
+                        <small class="text-muted d-block">IVA (16%)</small>
+                        <strong class="d-block fs-4 text-warning" id="verOrdenCompraIva"></strong>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="info-item text-center">
+                        <small class="text-muted d-block">Total</small>
+                        <strong class="d-block fs-3 text-success" id="verOrdenCompraTotal"></strong>
+                      </div>
+                    </div>
+                    <div class="col-12 mt-3">
+                      <div class="progress" style="height: 8px;">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100"
+                          aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                      <small class="text-muted d-block text-center mt-1">100% del presupuesto asignado</small>
+                    </div>
                   </div>
-                  <small class="fw-semibold" id="verOrdenCompraFechaActualizacion">-</small>
                 </div>
               </div>
+
+              <!-- Tarjeta de Personal -->
+              <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-header bg-light">
+                  <h6 class="mb-0">
+                    <i class="bi bi-person-lines-fill me-2" style="color: #004e59;"></i>Responsables
+                  </h6>
+                </div>
+                <div class="card-body">
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <div class="info-item">
+                        <small class="text-muted d-block">Creado por</small>
+                        <div class="d-flex align-items-center mt-2">
+                          <div
+                            class="avatar bg-primary text-white rounded-circle me-2 d-flex align-items-center justify-content-center"
+                            style="width: 32px; height: 32px;">
+                            <i class="bi bi-person-fill"></i>
+                          </div>
+                          <strong class="d-block" id="verOrdenCompraResponsable"></strong>
+                        </div>
+                        <small class="text-muted d-block mt-1" id="verOrdenCompraFechaCreacion"></small>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="info-item">
+                        <small class="text-muted d-block">Aprobado/Rechazado por</small>
+                        <div class="d-flex align-items-center mt-2">
+                          <div
+                            class="avatar bg-success text-white rounded-circle me-2 d-flex align-items-center justify-content-center"
+                            style="width: 32px; height: 32px;">
+                            <i class="bi bi-check-circle-fill"></i>
+                          </div>
+                          <strong class="d-block" id="verOrdenCompraUsuarioAprobacion"></strong>
+                        </div>
+                        <small class="text-muted d-block mt-1" id="verOrdenCompraFechaAprobacion"></small>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="info-item">
+                        <small class="text-muted d-block">Última Actualización</small>
+                        <div class="d-flex align-items-center mt-2">
+                          <div
+                            class="avatar bg-secondary text-white rounded-circle me-2 d-flex align-items-center justify-content-center"
+                            style="width: 32px; height: 32px;">
+                            <i class="bi bi-arrow-repeat"></i>
+                          </div>
+                          <strong class="d-block" id="verOrdenCompraFechaActualizacion"></strong>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tarjeta de Historial -->
+              <!-- <div class="card border-0 shadow-sm">
+                <div class="card-header bg-light">
+                  <h6 class="mb-0">
+                    <i class="bi bi-clock-history me-2" style="color: #004e59;"></i>Historial de Estados
+                  </h6>
+                </div>
+                <div class="card-body">
+                  <div class="timeline">
+                    <div class="timeline-item">
+                      <div class="timeline-point bg-primary"></div>
+                      <div class="timeline-content">
+                        <h6 class="mb-1">Creada</h6>
+                        <p class="text-muted mb-0"></p>
+                        <small class="text-muted">Por: <strong id="verOrdenCompraResponsableTimeLine"></strong></small>
+                      </div>
+                    </div>
+                    <div class="timeline-item">
+                      <div class="timeline-point bg-warning"></div>
+                      <div class="timeline-content">
+                        <h6 class="mb-1">En Revisión</h6>
+                        <p class="text-muted mb-0"></p>
+                        <small class="text-muted">Por: Sistema</small>
+                      </div>
+                    </div>
+                    <div class="timeline-item">
+                      <div class="timeline-point bg-success"></div>
+                      <div class="timeline-content">
+                        <h6 class="mb-1">Aprobada</h6>
+                        <p class="text-muted mb-0"></p>
+                        <small class="text-muted">Por:</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
             </div>
           </div>
-
         </div>
       </div>
-      <div class="modal-footer border-0" style="background-color: #f8f9fa; border-top: 3px solid #004e59 !important;">
-        <button type="button" class="btn px-4" style="background-color: #004e59; color: white; border-color: #004e59;"
-          data-bs-dismiss="modal">
+
+      <!-- Pie del Modal -->
+      <div class="modal-footer border-0" style="background-color: #f8f9fa;">
+        <button type="button" class="btn btn-outline-secondary me-2" data-bs-dismiss="modal">
           <i class="bi bi-x-lg me-1"></i> Cerrar
         </button>
+        <!-- <button type="button" class="btn text-white" style="background-color: #004e59;">
+          <i class="bi bi-printer me-1"></i> Imprimir
+        </button>
+        <button type="button" class="btn btn-success">
+          <i class="bi bi-file-earmark-pdf me-1"></i> Exportar PDF
+        </button> -->
       </div>
     </div>
   </div>
 </div>
+
+<!-- Estilos adicionales -->
+<style>
+  .info-item {
+    margin-bottom: 1rem;
+  }
+
+  .avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 1rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-bottom: 1.5rem;
+    padding-left: 1.5rem;
+    border-left: 1px solid #dee2e6;
+  }
+
+  .timeline-item:last-child {
+    padding-bottom: 0;
+    border-left: 1px solid transparent;
+  }
+
+  .timeline-point {
+    position: absolute;
+    left: -0.5rem;
+    top: 0;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+  }
+
+  .timeline-content {
+    margin-left: 0.5rem;
+  }
+
+  .progress {
+    background-color: #e9ecef;
+  }
+</style>
 
 <style>
   /* Estilos corporativos para todos los modales de ordenes de compra */
@@ -843,7 +984,7 @@
     transform: scale(1.02);
     transition: transform 0.2s ease;
   }
-  </style>
-  
-  <!-- Incluir JavaScript para manejo de artículos -->
-  <script src="modals/js/articulos_orden_compra.js"></script>
+</style>
+
+<!-- Incluir JavaScript para manejo de artículos -->
+<script src="modals/js/articulos_orden_compra.js"></script>

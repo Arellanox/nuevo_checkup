@@ -56,7 +56,7 @@ switch ($api) {
     case 5:
         #registrar orden de compra
         $fecha_actual = date('Y-m-d H:i:s');
-        
+
         // Obtener JSON de detalles de artículos
         $detalles_json = null;
         if (isset($_POST['detalles_articulos']) && !empty($_POST['detalles_articulos'])) {
@@ -67,14 +67,14 @@ switch ($api) {
                 // Si es un array, convertirlo a JSON
                 $detalles_json = json_encode($_POST['detalles_articulos']);
             }
-            
+
             // Validar que el JSON es válido
             json_decode($detalles_json);
             if (json_last_error() !== JSON_ERROR_NONE) {
                 $detalles_json = null;
             }
         }
-        
+
         $response = $master->insertByProcedure("sp_inventarios_cat_orden_compra_g", [
             $id_orden_compra,
             $_POST['numero_orden'] ?? null,
@@ -144,6 +144,68 @@ switch ($api) {
         $response = $master->insertByProcedure("sp_inventarios_cat_orden_compra_e", [
             $id_orden_compra,
         ]);
+        break;
+    case 12: // Aceptar/Rechazar orden de compra
+        //aceptar o rechazar ordenes de compra
+        $id_orden_compra = isset($_POST['id_orden_compra']) ? $_POST['id_orden_compra'] : null;
+        $accion = isset($_POST['accion']) ? $_POST['accion'] : null; // 'aceptar' o 'rechazar'
+        $observaciones = isset($_POST['observaciones']) ? $_POST['observaciones'] : null;
+
+        // Validar parámetros obligatorios
+        if ($id_orden_compra === null || $accion === null) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: Faltan parámetros obligatorios (ID orden de compra y acción)',
+                'data' => array()
+            );
+            break;
+        }
+
+        // Validar que la acción sea válida
+        if (!in_array(strtolower($accion), ['aceptar', 'rechazar'])) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: Acción no válida. Use "aceptar" o "rechazar"',
+                'data' => array()
+            );
+            break;
+        }
+
+        // Validar sesión de usuario
+        if (!isset($_SESSION['id']) || empty($_SESSION['id'])) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: No se ha identificado el usuario en la sesión',
+                'data' => array()
+            );
+            break;
+        }
+
+        // Log de debugging
+        error_log("API 12 - Parámetros recibidos: " . json_encode([
+            'id_orden_compra' => $id_orden_compra,
+            'accion' => $accion,
+            'usuario_aprobador_id' => $_SESSION['id'],
+            'observaciones' => $observaciones
+        ]));
+
+        try {
+            $response = $master->insertByProcedure("sp_inventarios_cat_orden_compra_aprobar", [
+                $id_orden_compra,
+                $accion,
+                $_SESSION['id'],
+                $observaciones
+            ]);
+
+            error_log("API 12 - Respuesta del SP: " . json_encode($response));
+        } catch (Exception $e) {
+            error_log("API 12 - Error en SP: " . $e->getMessage());
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: ' . $e->getMessage(),
+                'data' => array()
+            );
+        }
         break;
     default:
         $response = "API no definida.";
