@@ -70,6 +70,7 @@ $idiomas = isset($_POST['idiomas']) ? trim($_POST['idiomas']) : null; //por defi
     $salario_max = isset($_POST['salario_max']) && $_POST['salario_max'] !== '' ? (float)$_POST['salario_max'] : null;
 
 # Variable para la editar requisición de personal
+$accion = isset($_POST['accion']) ? $_POST['accion'] : null; // 'aprobar' o 'rechazar'
 $usuario_aprobador_id = isset($_POST['usuario_aprobador_id']) && $_POST['usuario_aprobador_id'] !== '' ? (int)$_POST['usuario_aprobador_id'] : null;
 $observaciones_aprobacion = isset($_POST['observaciones_aprobacion']) ? trim($_POST['observaciones_aprobacion']) : null;
 
@@ -119,7 +120,7 @@ switch ($api) {
                 $id_requisicion,           // ID de requisición (null para crear, valor para editar)
                 $id_departamento,          // ID del departamento (RENOMBRADO)
                 $id_motivo,               // ID del motivo (RENOMBRADO)
-                $usuario_solicitante_id,   // Usuario solicitante
+                $_SESSION['id'],   // Usuario solicitante
                 $prioridad,               // Prioridad
                 $justificacion,           // Justificación
                 $estatus,                 // Estatus
@@ -136,7 +137,7 @@ switch ($api) {
                 // $salario_max,
                 // Parametros de aprobación
               //  $usuario_aprobador_id,     ID del usuario aprobador (Todavía falta por implementar)
-                $observaciones_aprobacion  //Observaciones de aprobación
+              //  $observaciones_aprobacion  //Observaciones de aprobación
             ]);
 
             // VERIFICAR si hay errores del stored procedure
@@ -182,13 +183,62 @@ switch ($api) {
         //     $_SESSION['id']
         // ]);
         break;
-    case 4:
-        # CAMBIAR ESTE API CASE REPOSICIONAR (OBSOLETO)
-        $response = $master->updateByProcedure("sp_caja_chica_cambiar_responsable", [
-            $responsable,
-            $_SESSION["id"],
-            $id_caja
-        ]);
+   case 4:
+        // Validar parámetros obligatorios
+        if ($id_requisicion === null || $accion === null) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: Faltan parámetros obligatorios (ID requisición y acción)',
+                'data' => array()
+            );
+            break;
+        }
+
+        // Validar que la acción sea válida
+        if (!in_array(strtolower($accion), ['aprobar', 'rechazar'])) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: Acción no válida. Use "aprobar" o "rechazar"',
+                'data' => array()
+            );
+            break;
+        }
+
+        // Validar sesión de usuario
+        if (!isset($_SESSION['id']) || empty($_SESSION['id'])) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: No se ha identificado el usuario en la sesión',
+                'data' => array()
+            );
+            break;
+        }
+
+        // Log de debugging
+        error_log("API 4 - Parámetros recibidos: " . json_encode([
+            'id_requisicion' => $id_requisicion,
+            'accion' => $accion,
+            'usuario_aprobador_id' => $_SESSION['id'],
+            'observaciones_aprobacion' => $observaciones_aprobacion
+        ]));
+
+        try {
+            $response = $master->insertByProcedure("sp_rh_cat_requisiciones_aprobar", [
+                $id_requisicion,
+                $accion,
+                $_SESSION['id'], // usuario_aprobador_id
+                $observaciones_aprobacion
+            ]);
+
+            error_log("API 4 - Respuesta del SP: " . json_encode($response));
+        } catch (Exception $e) {
+            error_log("API 4 - Error en SP: " . $e->getMessage());
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: ' . $e->getMessage(),
+                'data' => array()
+            );
+        }
         break;
     case 5:
 

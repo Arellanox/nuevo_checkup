@@ -2433,7 +2433,7 @@ function llenarModalDetallesRequisicion(data) {
         $("#fechaCreacion").text(fechaCreacion);
         
         // Usuario solicitante (necesitarás obtener el nombre del usuario por ID)
-        $("#usuarioSolicitante").text(data.usuario_solicitante_nombre || `ID: ${data.usuario_solicitante_id}` || 'N/A');
+        $("#usuarioSolicitante").text(data.solicitante || `ID: ${data.usuario_solicitante_id}` || 'N/A');
         
         // === BADGES DE PRIORIDAD Y ESTATUS ===
         $("#badgePrioridad").html(formatearPrioridadBadge(data.prioridad));
@@ -2495,9 +2495,9 @@ function llenarModalDetallesRequisicion(data) {
         
         // === INFORMACIÓN DE APROBACIÓN/RECHAZO - DINÁMICO SEGÚN ESTATUS ===
         actualizarTextosSeccionObservaciones(data.estatus);
-        
-        $("#fechaAprobacion").text(data.fecha_aprobacion ? formatearFecha(data.fecha_aprobacion) : 'N/A');
-        $("#observacionesAprobacion").text(data.observaciones_aprobacion || 'Sin observaciones');
+        $("#usuarioAprobador").text(data.aprobador || 'Aún sin evaluar');
+        $("#fechaAprobacion").text(data.fecha_aprobacion ? formatearFecha(data.fecha_aprobacion) : 'Aún sin evaluar');
+        $("#observacionesAprobacion").text(data.observaciones_aprobacion || 'Aún sin observaciones');
         
         console.log("Modal de detalles llenado correctamente");
         
@@ -2527,7 +2527,7 @@ function llenarModalEditarRequisicion(data) {
       fechaCreacion = formatearFecha(data.fecha_creacion);
     }
     $("#editarFechaDisplay").val(fechaCreacion);
-    $("#editarSolicitanteDisplay").val(data.usuario_solicitante_nombre || `ID: ${data.usuario_solicitante_id}` || 'N/A');
+    $("#editarSolicitanteDisplay").val(data.solicitante || `ID: ${data.usuario_solicitante_id}` || 'N/A');
     
     // === INFORMACIÓN GENERAL ===
     $("#editarEstatus").val(data.estatus || 'borrador');
@@ -2709,113 +2709,89 @@ function procesarAprobacionRechazoTabla(accion, idRequisicion, observaciones) {
   btnAprobar.prop("disabled", true);
   btnRechazar.prop("disabled", true);
 
-  // Obtener los datos de la requisición para la actualización
-  obtenerRequisicionPorId(idRequisicion)
-    .then(requisicionData => {
-      console.log("Datos de requisición obtenidos para aprobación/rechazo:", requisicionData);
-      
-      // Determinar el nuevo estatus
-      const nuevoEstatus = accion === "aprobar" ? "aprobada" : "rechazada";
-      
-      // Preparar datos para la API usando el case 1 (actualización)
-      const datosActualizacion = {
-        api: 1, // Case 1 para actualizar requisiciones
-        id_requisicion: idRequisicion,
-        id_departamento: requisicionData.id_departamento,
-        id_motivo: requisicionData.id_motivo,
-        usuario_solicitante_id: requisicionData.usuario_solicitante_id,
-        prioridad: requisicionData.prioridad || 'normal',
-        justificacion: requisicionData.justificacion || 'Actualización de estatus',
-        estatus: nuevoEstatus,
-        id_puesto: requisicionData.id_puesto,
-        tipo_contrato: requisicionData.tipo_contrato,
-        tipo_jornada: requisicionData.tipo_jornada,
-        tipo_modalidad: requisicionData.tipo_modalidad,
-        idiomas: requisicionData.idiomas,
-        dias_trabajo: requisicionData.dias_trabajo,
-        dias_personalizados: requisicionData.dias_personalizados,
-        hora_inicio: requisicionData.hora_inicio,
-        hora_fin: requisicionData.hora_fin,
-        observaciones_aprobacion: observaciones
-      };
-      
-      console.log("Datos preparados para actualización:", datosActualizacion);
-      
-      $.ajax({
-        url: "../../../api/recursos_humanos_api.php",
-        type: "POST",
-        dataType: "json",
-        data: datosActualizacion,
-        success: function (response) {
-          console.log(`Respuesta de ${accion} desde tabla:`, response);
+  $.ajax({
+    url: "../../../api/recursos_humanos_api.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      api: 4, // Usar el nuevo case 4 para aprobaciones
+      id_requisicion: idRequisicion,
+      accion: accion,
+      observaciones_aprobacion: observaciones,
+    },
+    success: function (response) {
+      console.log(`Respuesta de ${accion} desde tabla:`, response);
 
-          // Verificar condiciones de éxito
-          let esExitoso = false;
+      // Verificar múltiples condiciones de éxito
+      let esExitoso = false;
 
-          if (response.response && response.response.code == 1) {
-            esExitoso = true;
-          } else if (response.code == 1) {
-            esExitoso = true;
+      if (
+        response.response &&
+        (response.response.code == 1 || response.response.code == 2)
+      ) {
+        esExitoso = true;
+      } else if (
+        response.response &&
+        response.response.data &&
+        response.response.data.length > 0
+      ) {
+        let primeraFila = response.response.data[0];
+        if (primeraFila.RESULT === "SUCCESS" || primeraFila.MESSAGE) {
+          esExitoso = true;
+        }
+      } else if (response.code == 1 || response.code == 2) {
+        esExitoso = true;
+      }
+
+      if (esExitoso) {
+        // Éxito
+        let mensaje = accion === "aprobar" ? "aprobada" : "rechazada";
+        alertToast(`Requisición ${mensaje} exitosamente`, "success", 3000);
+
+        // Recargar la tabla principal
+        setTimeout(function () {
+          try {
+            if (
+              typeof tableCatRequisiciones !== "undefined" &&
+              tableCatRequisiciones
+            ) {
+              tableCatRequisiciones.ajax.reload(function (json) {
+                console.log(
+                  "Tabla de requisiciones recargada después de aprobación/rechazo desde tabla"
+                );
+              }, false);
+            }
+          } catch (error) {
+            console.error("Error al recargar tabla principal:", error);
           }
-
-          if (esExitoso) {
-            // Éxito
-            let mensaje = accion === "aprobar" ? "aprobada" : "rechazada";
-            alertToast(`¡Requisición ${mensaje} exitosamente!`, "success", 3000);
-
-            // Recargar la tabla principal
-            setTimeout(function () {
-              try {
-                if (
-                  typeof tableCatRequisiciones !== "undefined" &&
-                  tableCatRequisiciones
-                ) {
-                  tableCatRequisiciones.ajax.reload(function (json) {
-                    console.log(
-                      "Tabla de requisiciones recargada después de aprobación/rechazo desde tabla"
-                    );
-                  }, false);
-                }
-              } catch (error) {
-                console.error("Error al recargar tabla principal:", error);
-              }
-            }, 500);
-          } else {
-            // Error
-            console.error(`Error al ${accion} requisión desde tabla:`, response);
-            let mensajeError =
-              response.response && response.response.message
-                ? response.response.message
-                : `Error al ${accion} la requisición`;
-            alertToast(mensajeError, "error", 4000);
-          }
-        },
-        error: function (xhr, status, error) {
-          console.error(
-            `Error AJAX al ${accion} requisición desde tabla:`,
-            xhr.responseText
-          );
-          alertToast(
-            `Error de conexión al ${accion} la requisición`,
-            "error",
-            4000
-          );
-        },
-        complete: function () {
-          // Rehabilitar botones
-          btnAprobar.prop("disabled", false);
-          btnRechazar.prop("disabled", false);
-        },
-      });
-    })
-    .catch(error => {
-      console.error("Error al obtener datos de la requisición:", error);
-      alertToast("Error al obtener los datos de la requisición", "error", 3000);
-      
-      // Rehabilitar botones en caso de error
+        }, 500);
+      } else {
+        // Error
+        console.error(`Error al ${accion} requisición desde tabla:`, response);
+        let mensajeError =
+          response.response && response.response.message
+            ? response.response.message
+            : `Error al ${accion} la requisición`;
+        alertToast(mensajeError, "error", 4000);
+      }
+    },
+    error: function (xhr, status, error) {
+      console.error(
+        `Error AJAX al ${accion} requisición desde tabla:`,
+        xhr.responseText
+      );
+      alertToast(
+        `Error de conexión al ${accion} la requisición`,
+        "error",
+        4000
+      );
+    },
+    complete: function () {
+      // Rehabilitar botones
       btnAprobar.prop("disabled", false);
       btnRechazar.prop("disabled", false);
-    });
+    },
+  });
 }
 
 // Event listener para cambio de días de trabajo en el modal de edición
