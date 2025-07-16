@@ -13,6 +13,10 @@
           <i class="bi bi-arrow-down-up icono-menu icono-entradas"></i>
           <span>Entradas y salidas</span>
         </a>
+        <a href="#entradas_estable" data-target="moduloCatEntradasEstable">
+          <i class="bi bi-arrow-down-up icono-menu icono-entradas"></i>
+          <span>Entradas</span>
+        </a>
         <a href="inventarios-fisicos" data-target="moduloInventariosFisicos">
           <i class="bi bi-pencil-square icono-menu icono-inventarios"></i>
           <span>Inventarios Físicos</span>
@@ -25,16 +29,9 @@
     </div>
   </div>
 
-  <div
-    class="col-12 col-xl-12 tab-second"
-    id="modulos-inventario"
-    style="display: none"
-  >
+  <div class="col-12 col-xl-12 tab-second" id="modulos-inventario" style="display: none">
     <!-- CATALOGO DE ARTICULOS -->
-    <div
-      class="rounded p-3 shadow my-2 content-module card"
-      id="moduloCatArticulos"
-    >
+    <div class="rounded p-3 shadow my-2 content-module card" id="moduloCatArticulos">
       <!-- Barra de título -->
       <div class="d-flex align-items-start pb-3 mb-3 text-white rounded">
         <h2 class="mx-2">Catálogo de Artículos</h2>
@@ -47,11 +44,7 @@
 
       <!-- Tabla -->
       <div class="table-responsive">
-        <table
-          class="table responsive table-hover"
-          style="min-width: 1470px"
-          id="tableCatArticulos"
-        ></table>
+        <table class="table responsive table-hover" style="min-width: 1470px" id="tableCatArticulos"></table>
       </div>
     </div>
 
@@ -63,38 +56,36 @@
       </div>
       <!-- Tabla -->
       <div class="table-responsive">
-        <table
-          class="table responsive table-hover"
-          style="min-width: 1470px"
-          id="tableCatEntradas"
-        ></table>
+        <table class="table responsive table-hover" style="min-width: 1470px" id="tableCatEntradas"></table>
+      </div>
+    </div>
+
+    <!-- ENTRADAS ESTABLE-->
+    <div class="rounded p-3 shadow my-2 content-module" id="moduloCatEntradasEstable">
+      <!-- Barra de título -->
+      <div class="d-flex align-items-start pb-3 mb-3 text-white rounded">
+        <h2 class="mx-2" id="titulosEntradasEstable">Entradas</h2>
+      </div>
+      <!-- Tabla -->
+      <div class="table-responsive">
+        <table class="table responsive table-hover" style="min-width: 1470px" id="tableCatEntradasEstable"></table>
       </div>
     </div>
 
     <!-- INVENTARIOS FISICOS -->
-    <div
-      class="rounded p-3 shadow my-2 content-module"
-      id="moduloInventariosFisicos"
-    >
+    <div class="rounded p-3 shadow my-2 content-module" id="moduloInventariosFisicos">
       <!-- Barra de título -->
       <div class="d-flex align-items-start pb-3 mb-3 text-white rounded">
         <h2 class="mx-2">Inventarios fisicos</h2>
       </div>
     </div>
     <!-- REQUISICIONES -->
-    <div
-      class="rounded p-3 shadow my-2 content-module"
-      id="moduloRequisiciones"
-    >
+    <div class="rounded p-3 shadow my-2 content-module" id="moduloRequisiciones">
       <div class="d-flex align-items-start pb-3 mb-3 text-white rounded">
         <h2 class="mx-2">Requisiciones</h2>
       </div>
       <div class="table-responsive">
-        <table
-          class="table responsive table-hover"
-          style="min-width: 1470px"
-          id="tableCatRequisiciones"
-        ></table>
+        <table class="table responsive table-hover" style="min-width: 1470px" id="tableCatRequisiciones"></table>
       </div>
     </div>
   </div>
@@ -166,6 +157,10 @@
     background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   }
 
+  #menu-grid a[data-target="moduloCatEntradasEstable"]::after {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  }
+
   #menu-grid a[data-target="moduloInventariosFisicos"]::after {
     background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
   }
@@ -226,6 +221,7 @@
       grid-template-columns: repeat(2, 1fr);
     }
   }
+
   @media (max-width: 575px) {
     #menu-grid {
       grid-template-columns: 1fr;

@@ -964,10 +964,6 @@ $(document).on("click", ".btn-ver-proveedor", function () {
   $("#verProveedorModal").modal("show");
 });
 
-// ============================================
-// FUNCIONES PARA ÓRDENES DE COMPRA
-// ============================================
-
 // Eliminar orden de compra
 $(document).on("click", ".btn-eliminar-orden-compra", function () {
   var ordenCompraId = $(this).data("id");

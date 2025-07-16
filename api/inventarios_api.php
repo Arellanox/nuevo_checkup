@@ -124,7 +124,7 @@ switch ($api) {
 
         // NUEVO: Procesar múltiples proveedores desde el frontend
         $proveedores_json = isset($_POST['proveedores_json']) ? $_POST['proveedores_json'] : null;
-        
+
         // Si no hay JSON, crear uno con el proveedor individual para compatibilidad
         if (empty($proveedores_json) && !empty($id_proveedores)) {
             $proveedores_json = json_encode([
@@ -178,10 +178,23 @@ switch ($api) {
         ]);
         break;
     case 4:
-        # recuperar los articulos de entrada
-        // Por defecto, muestra entradas (1) si no se envía nada
-        $id_movimiento = isset($_POST['id_movimiento']) ? $_POST['id_movimiento'] : 1;
-        $response = $master->getByProcedure("sp_inventarios_entrada_articulos_b", [$id_movimiento]);
+        # recuperar las entradas
+        $id_entrada = isset($_POST['id_entrada']) && $_POST['id_entrada'] !== '' ? intval($_POST['id_entrada']) : null;
+        $id_articulo = isset($_POST['id_articulo']) && $_POST['id_articulo'] !== '' ? intval($_POST['id_articulo']) : null;
+        $id_proveedor = isset($_POST['id_proveedor']) && $_POST['id_proveedor'] !== '' ? intval($_POST['id_proveedor']) : null;
+        $fecha_inicio = isset($_POST['fecha_inicio']) && $_POST['fecha_inicio'] !== '' ? $_POST['fecha_inicio'] : null;
+        $fecha_fin = isset($_POST['fecha_fin']) && $_POST['fecha_fin'] !== '' ? $_POST['fecha_fin'] : null;
+        $activo = isset($_POST['activo']) && $_POST['activo'] !== '' ? intval($_POST['activo']) : 1;
+
+        $response = $master->getByProcedure("sp_inventarios_entradas_b", [
+            $id_entrada,
+            $id_articulo,
+            $id_almacen,
+            $id_proveedor,
+            $fecha_inicio,
+            $fecha_fin,
+            $activo
+        ]);
         break;
     case 5:
         # eliminar un articulo

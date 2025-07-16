@@ -14,6 +14,7 @@ async function contenidoInventario(){
         $("#body-js").html(html);
     }).done(function(){
         $.getScript("contenido/js/inventarios.js");
+        $.getScript("modals/js/movimientos.js");
     })
 }
 
@@ -72,4 +73,8 @@ dataTableCatProveedores = {
 
 dataTableCatRequisiciones = {
     api: 25
+}
+
+dataTableCatEntradasEstable = {
+    api: 4
 }
