@@ -618,6 +618,7 @@ class Miscelaneus
                 break;
             case 15: case "15":
                 # COTIZACIONES
+                $carpeta_guardado = "cotizacion";
                 $arregloPaciente = $this->getBodyInfoCotizacion($master, $id_cotizacion, $cliente_id);
 
                 if($_SESSION['franquiciario']){
@@ -630,7 +631,6 @@ class Miscelaneus
 
                 $fecha_resultado = $arregloPaciente['FECHA_CREACION'];
                 $fecha_resultado = date('dmY', strtotime($fecha_resultado));
-                $carpeta_guardado = "cotizacion";
 
                 $folio = $arregloPaciente['FOLIO'];
                 $nombre_paciente = 'COT_' . $folio . '_' . $arregloPaciente['ABREVIATURA'] ;
@@ -968,6 +968,16 @@ class Miscelaneus
                     ];
                 }
                 break;
+            case -12:
+                $carpeta_guardado = 'reporte_ventas';
+                $soloNuevos = $_POST['solo_nuevos'];
+                $fechaInicio = $_POST['fecha_inicio'];
+	            $fechaFin = $_POST['fecha_fin'];
+
+                $arregloPaciente = $master->getByProcedure("sp_obtener_reporte_ventas", [
+                    $soloNuevos, $fechaInicio, $fechaFin
+                ]);
+                break;
         }
 
         if ($area_id == 0) $area_id = 6;
@@ -1035,6 +1045,8 @@ class Miscelaneus
         if ($lab == 1 && $tipo == 'url') {
             $master->insertByProcedure('sp_reportes_areas_g', [null, $turno_id, $area_id, $infoPaciente[0]['CLAVE_IMAGEN'], $renderpdf, null]);
         }
+
+        return $renderpdf;
     }
 
     private function getBodyFormDatos($master, $id_paciente)
