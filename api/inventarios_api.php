@@ -41,6 +41,12 @@ $contenido = $_POST['contenido'];
 $reactivo = $_POST['reactivo'];
 $insumo = $_POST['insumo'];
 
+$id_motivo = $_POST['id_motivo'] ?? $_POST['motivo_salida'] ?? null;
+$costo_unitario = $_POST['costo_unitario'] ?? null;
+$fecha_entrada = $_POST['fecha_entrada'] ?? null;
+$observaciones = $_POST['observaciones'] ?? null;
+$numero_documento = $_POST['numero_documento'] ?? null;
+
 $maneja_caducidad = $_POST['maneja_caducidad'];
 $fecha_caducidad = $_POST['fecha_caducidad'];
 $costo_mas_alto = $_POST['costo_mas_alto'];
@@ -216,8 +222,8 @@ switch ($api) {
             break;
         }
 
-        // Inicializar variable imagen_documento
-        $imagen_documento = null;
+        // Inicializar variable documento_factura
+        $documento_factura = null;
         $imagen_orden_compra = null;
 
         // imagen
@@ -253,8 +259,8 @@ switch ($api) {
             $img = $master->guardarFiles($_FILES, 'img_factura', $dir, $nombreImagen);
 
             if (!empty($img) && is_array($img) && isset($img[0]['url'])) {
-                $imagen_documento = str_replace('../', $host, $img[0]['url']);
-                $imagen_documento = $master->setToNull([$imagen_documento])[0];
+                $documento_factura = str_replace('../', $host, $img[0]['url']);
+                $documento_factura = $master->setToNull([$documento_factura])[0];
             } else {
                 $response = "Error al procesar el archivo. Intente nuevamente.";
                 break;
@@ -263,64 +269,67 @@ switch ($api) {
             $response = "No se recibió archivo de factura o está vacío";
         }
 
-        if (isset($_FILES["img_orden_compra"]) && !empty($_FILES['img_orden_compra']['name']) && !empty($_FILES['img_orden_compra']['name'][0])) {
+        // if (isset($_FILES["img_orden_compra"]) && !empty($_FILES['img_orden_compra']['name']) && !empty($_FILES['img_orden_compra']['name'][0])) {
 
-            // Verificar errores de subida de archivos
-            $uploadError = $_FILES['img_orden_compra']['error'][0];
-            $tmpName = $_FILES['img_orden_compra']['tmp_name'][0];
-            $fileSize = $_FILES['img_orden_compra']['size'][0];
+        //     // Verificar errores de subida de archivos
+        //     $uploadError = $_FILES['img_orden_compra']['error'][0];
+        //     $tmpName = $_FILES['img_orden_compra']['tmp_name'][0];
+        //     $fileSize = $_FILES['img_orden_compra']['size'][0];
 
-            if ($uploadError !== UPLOAD_ERR_OK) {
-                $errorMessages = [
-                    UPLOAD_ERR_INI_SIZE => 'El archivo excede upload_max_filesize en php.ini',
-                    UPLOAD_ERR_FORM_SIZE => 'El archivo excede MAX_FILE_SIZE del formulario HTML',
-                    UPLOAD_ERR_PARTIAL => 'El archivo se subió parcialmente',
-                    UPLOAD_ERR_NO_FILE => 'No se subió ningún archivo',
-                    UPLOAD_ERR_NO_TMP_DIR => 'Falta la carpeta temporal',
-                    UPLOAD_ERR_CANT_WRITE => 'Error al escribir el archivo al disco',
-                    UPLOAD_ERR_EXTENSION => 'Subida de archivo detenida por extensión'
-                ];
+        //     if ($uploadError !== UPLOAD_ERR_OK) {
+        //         $errorMessages = [
+        //             UPLOAD_ERR_INI_SIZE => 'El archivo excede upload_max_filesize en php.ini',
+        //             UPLOAD_ERR_FORM_SIZE => 'El archivo excede MAX_FILE_SIZE del formulario HTML',
+        //             UPLOAD_ERR_PARTIAL => 'El archivo se subió parcialmente',
+        //             UPLOAD_ERR_NO_FILE => 'No se subió ningún archivo',
+        //             UPLOAD_ERR_NO_TMP_DIR => 'Falta la carpeta temporal',
+        //             UPLOAD_ERR_CANT_WRITE => 'Error al escribir el archivo al disco',
+        //             UPLOAD_ERR_EXTENSION => 'Subida de archivo detenida por extensión'
+        //         ];
 
-                $errorMsg = isset($errorMessages[$uploadError]) ? $errorMessages[$uploadError] : 'Error desconocido';
-                $response = "Error al subir archivo: $errorMsg. Verifique el tamaño del archivo.";
-                break;
-            }
+        //         $errorMsg = isset($errorMessages[$uploadError]) ? $errorMessages[$uploadError] : 'Error desconocido';
+        //         $response = "Error al subir archivo: $errorMsg. Verifique el tamaño del archivo.";
+        //         break;
+        //     }
 
-            if (empty($tmpName) || $fileSize == 0) {
-                $response = "Error: El archivo no se subió correctamente. Verifique el tamaño del archivo.";
-                break;
-            }
+        //     if (empty($tmpName) || $fileSize == 0) {
+        //         $response = "Error: El archivo no se subió correctamente. Verifique el tamaño del archivo.";
+        //         break;
+        //     }
 
-            $img = $master->guardarFiles($_FILES, 'img_orden_compra', $dir, $nombreOrdenCompra);
+        //     $img = $master->guardarFiles($_FILES, 'img_orden_compra', $dir, $nombreOrdenCompra);
 
-            if (!empty($img) && is_array($img) && isset($img[0]['url'])) {
-                $imagen_orden_compra = str_replace('../', $host, $img[0]['url']);
-                $imagen_orden_compra = $master->setToNull([$imagen_orden_compra])[0];
-            } else {
-                $response = "Error al procesar el archivo. Intente nuevamente.";
-                break;
-            }
-        } else {
-            $response = "No se recibió archivo de orden de compra o está vacío";
-        }
+        //     if (!empty($img) && is_array($img) && isset($img[0]['url'])) {
+        //         $imagen_orden_compra = str_replace('../', $host, $img[0]['url']);
+        //         $imagen_orden_compra = $master->setToNull([$imagen_orden_compra])[0];
+        //     } else {
+        //         $response = "Error al procesar el archivo. Intente nuevamente.";
+        //         break;
+        //     }
+        // } else {
+        //     $response = "No se recibió archivo de orden de compra o está vacío";
+        // }
 
         # ingresar datos faltantates a la tabla de entradas
-        $response = $master->insertByProcedure("sp_inventarios_cat_entradas_g", [
+        $response = $master->insertByProcedure("sp_inventarios_entradas_g", [
+            $id_entrada,
             $id_articulo,
-            $id_cat_movimientos,
-            $imagen_documento,
+            $id_almacen,
+            $id_proveedores,
+            $id_motivo,
             $cantidad,
-            $fecha_ultima_entrada,
-            $costo_ultima_entrada,
-            $id_movimiento,
-            $motivo_salida,
-            $orden_compra,
-            $imagen_orden_compra,
-            $_SESSION['id'],
-            $fecha_caducidad,
+            $costo_unitario,
+            $costo_total,
+            $numero_documento,
+            $fecha_entrada,
+            $fecha_compra,
             $numero_lote,
-            $fecha_lote,
-            $id_almacen
+            $fecha_caducidad,
+            $documento_factura,
+            $orden_compra_numero,
+            $orden_compra_documento,
+            $observaciones,
+            $_SESSION['id']
         ]);
         break;
     case 7:

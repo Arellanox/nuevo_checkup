@@ -1,0 +1,95 @@
+<div class="modal fade modal-xl" id="detalleEntradaEstableModal" tabindex="-1" data-bs-backdrop="static"
+    data-bs-focus="false" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleDetalleEntradaEstable"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content shadow-lg border-0">
+            <div class="modal-header text-white" style="background-color: #004e59;">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-eye me-2 fs-4"></i>
+                    <h5 class="modal-title mb-0" id="modalTitleDetalleEntradaEstable">
+                        Detalles de Entrada - <strong><span id="detalleArticuloSeleccionadoEstable"></span></strong>
+                    </h5>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body container-fluid">
+
+                <!-- Espacio para el DataTable de historial de entradas/movimientos -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-light">
+                                <h6 class="card-title mb-0"><i class="bi bi-clock-history me-2" style="color: #004e59;"></i>Historial de Entradas de <span id="detalleArticuloSeleccionadoTableEstable"></span></h6>
+                            </div>
+                            <div class="card-body">
+                                <div id="detalleEntradasEstableTableContainer">
+                                    <!-- Aquí irá el DataTable de historial de entradas -->
+                                    <table id="detalleEntradasEstableTable" class="table table-striped table-bordered w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>Fecha</th>
+                                                <th>Cantidad</th>
+                                                <th>Proveedor</th>
+                                                <th>Factura</th>
+                                                <th>Responsable</th>
+                                                <th>Motivo</th>
+                                                <th>Observaciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Se llenará dinámicamente -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer border-0" style="background-color: #f8f9fa; border-top: 3px solid #004e59 !important;">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle me-2"></i>Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Función para llenar los detalles del modal con los datos de la fila seleccionada
+function mostrarDetalleEntradaEstable(rowData) {
+    $("#detalleArticuloSeleccionadoEstable").text(rowData.NOMBRE_COMERCIAL || "");
+    $("#detalleNombreArticuloEstable").val(rowData.NOMBRE_COMERCIAL || "");
+    $("#detalleClaveArticuloEstable").val(rowData.CLAVE_ART || "");
+    $("#detalleExistenciaActualEstable").val(rowData.EXISTENCIA_ACTUAL || "");
+    $("#detalleUnidadMedidaEstable").text(rowData.UNIDAD_MEDIDA || "unid");
+    $("#detalleAlmacenEstable").val(rowData.ALMACEN_NOMBRE || "");
+    $("#detalleProveedorEstable").val(rowData.PROVEEDOR_NOMBRE || "");
+    $("#detalleFechaCompraEstable").val(rowData.FECHA_COMPRA || "");
+    $("#detalleCantidadEstable").val(rowData.CANTIDAD || "");
+    $("#detallePrecioCompraEstable").val(rowData.COSTO_UNITARIO ? `$${parseFloat(rowData.COSTO_UNITARIO).toFixed(2)}` : "");
+    $("#detalleCostoTotal").text(rowData.COSTO_TOTAL ? parseFloat(rowData.COSTO_TOTAL).toFixed(2) : "0.00");
+    $("#detalleNumeroFacturaEstable").val(rowData.NUMERO_DOCUMENTO || "");
+    // Documento de compra (PDF o imagen)
+    if (rowData.DOCUMENTO_FACTURA) {
+        var extension = rowData.DOCUMENTO_FACTURA.split(".").pop().toLowerCase();
+        if (extension === "pdf") {
+            $("#detalleDocumentoFacturaEstable").html(`<a href="${rowData.DOCUMENTO_FACTURA}" target="_blank"><i class="bi bi-file-earmark-pdf-fill text-danger fs-4" title="Ver PDF"></i></a>`);
+        } else {
+            $("#detalleDocumentoFacturaEstable").html(`<a href="${rowData.DOCUMENTO_FACTURA}" target="_blank"><img src="${rowData.DOCUMENTO_FACTURA}" alt="Imagen del Documento" style="width: 50px; height: auto;"/></a>`);
+        }
+    } else {
+        $("#detalleDocumentoFacturaEstable").html("-");
+    }
+    $("#detalleNumeroLoteEstable").val(rowData.NUMERO_LOTE || "");
+    $("#detalleFechaCaducidadEstable").val(rowData.FECHA_CADUCIDAD || "");
+    $("#detalleMotivoEntradaEstable").val(rowData.MOTIVO_DESCRIPCION || "");
+    $("#detalleObservacionesEstable").val(rowData.OBSERVACIONES || "");
+    // Mostrar el modal
+    $("#detalleEntradaEstableModal").modal("show");
+}
+// El llenado del DataTable de historial se implementará en el JS correspondiente
+</script>

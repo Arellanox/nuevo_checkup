@@ -247,73 +247,116 @@ $("#editarArticuloForm").submit(function (event) {
   });
 });
 
+// Registrar una entrada estable
+$("#registrarEntradaEstableForm").submit(function (event) {
+  event.preventDefault();
+  var form = document.getElementById("registrarEntradaEstableForm");
+  var formData = new FormData(form);
+
+  alertMensajeConfirm(
+    {
+      title: "¿Está a punto de registrar esta entrada?",
+      text: "Asegúrate que los datos sean correctos.",
+      icon: "warning",
+    },
+    function () {
+      ajaxAwaitFormData(
+        {
+          api: 6,
+          id_articulo: rowSelected.ID_ARTICULO,
+        },
+        "inventarios_api",
+        "registrarEntradaEstableForm",
+        { callbackAfter: true },
+        false,
+        function (data) {
+          if (data.response.code == 1) {
+            $("#registrarEntradaEstableForm")[0].reset();
+            $("#registrarEntradaEstableModal").modal("hide");
+          }
+        }
+      );
+    }
+  );
+});
+
 // Registrar un movimiento (entrada o salida)
 $("#registrarEntradaForm").submit(function (event) {
-    event.preventDefault();
-    var form = document.getElementById("registrarEntradaForm");
-    var formData = new FormData(form);
+  event.preventDefault();
+  var form = document.getElementById("registrarEntradaForm");
+  var formData = new FormData(form);
 
-    // Obtener el estatus (si existe en tu formulario)
-    var activo = $("#registrarEntradaForm #estatus").is(":checked") ? 1 : 0;
-    formData.append('activo', activo);
+  // Obtener el estatus (si existe en tu formulario)
+  var activo = $("#registrarEntradaForm #estatus").is(":checked") ? 1 : 0;
+  formData.append("activo", activo);
 
-    alertMensajeConfirm({
-        title: "¿Está a punto de registrar este movimiento?",
-        text: "Asegúrate que los datos sean correctos.",
-        icon: "warning"
-    }, function () {
-        ajaxAwaitFormData({
-            api: 6,
-            id_articulo: rowSelected.ID_ARTICULO
-        }, "inventarios_api", "registrarEntradaForm", { callbackAfter: true }, false, function (data) {
-            if (data.response.code == 1) {
-                // Resetear y ocultar elementos
-                $("#registrarEntradaForm")[0].reset();
-                $("#registrarEntradaModal").modal("hide");
-                
-                // Mostrar notificación
-                alertToast("Movimiento registrado correctamente!", "success", 4000);
-                
-                // Recargar tablas
-                tableCatEntradas.ajax.reload();
-                tableCatArticulos.ajax.reload();
-                tableCatDetallesEntradas.ajax.reload();
-                tableCatTransacciones.ajax.reload();
-                
-                // Resetear visibilidad de los elementos
-                $("#precio-compra-container").hide();
-                $("#cantidad-container").hide();
-                $("#entrada-details-card").hide();
-                $("#motivo-card").hide();
-                $("#doc-extra-card").hide();
-                $("#lotesCaducidadDiv").hide();
-                
-                // Resetear campos requeridos
-                $("#cantidad").prop("required", false);
-                $("#costo_ultima_entrada").prop("required", false);
-                $("#id_proveedores").prop("required", false);
-                $("#img_factura").prop("required", false);
-                $("#motivo_salida").prop("required", false);
-                
-                // Resetear botón y título
-                $("#registrarMovimientoButton")
-                    .html('<i class="bi bi-pencil-square"></i> Registrar movimiento')
-                    .hide();
-                
-                $("#modalTitleRegistrarEntrada").html(
-                    "Registrando movimiento de <strong><span id='registrandoEntrada'>" +
-                    ($("#registrandoEntrada").text() || "") +
-                    "</span></strong>"
-                );
-                
-                // Limpiar cálculo de costo total
-                $("#costoTotal").hide();
-                $("#costoTotalValor").text("0.00");
-            } else {
-                alertToast("Error al registrar el movimiento", "error", 4000);
-            }
-        });
-    });
+  alertMensajeConfirm(
+    {
+      title: "¿Está a punto de registrar este movimiento?",
+      text: "Asegúrate que los datos sean correctos.",
+      icon: "warning",
+    },
+    function () {
+      ajaxAwaitFormData(
+        {
+          api: 6,
+          id_articulo: rowSelected.ID_ARTICULO,
+        },
+        "inventarios_api",
+        "registrarEntradaForm",
+        { callbackAfter: true },
+        false,
+        function (data) {
+          if (data.response.code == 1) {
+            // Resetear y ocultar elementos
+            $("#registrarEntradaForm")[0].reset();
+            $("#registrarEntradaModal").modal("hide");
+
+            // Mostrar notificación
+            alertToast("Movimiento registrado correctamente!", "success", 4000);
+
+            // Recargar tablas
+            tableCatEntradas.ajax.reload();
+            tableCatArticulos.ajax.reload();
+            tableCatDetallesEntradas.ajax.reload();
+            tableCatTransacciones.ajax.reload();
+
+            // Resetear visibilidad de los elementos
+            $("#precio-compra-container").hide();
+            $("#cantidad-container").hide();
+            $("#entrada-details-card").hide();
+            $("#motivo-card").hide();
+            $("#doc-extra-card").hide();
+            $("#lotesCaducidadDiv").hide();
+
+            // Resetear campos requeridos
+            $("#cantidad").prop("required", false);
+            $("#costo_ultima_entrada").prop("required", false);
+            $("#id_proveedores").prop("required", false);
+            $("#img_factura").prop("required", false);
+            $("#motivo_salida").prop("required", false);
+
+            // Resetear botón y título
+            $("#registrarMovimientoButton")
+              .html('<i class="bi bi-pencil-square"></i> Registrar movimiento')
+              .hide();
+
+            $("#modalTitleRegistrarEntrada").html(
+              "Registrando movimiento de <strong><span id='registrandoEntrada'>" +
+                ($("#registrandoEntrada").text() || "") +
+                "</span></strong>"
+            );
+
+            // Limpiar cálculo de costo total
+            $("#costoTotal").hide();
+            $("#costoTotalValor").text("0.00");
+          } else {
+            alertToast("Error al registrar el movimiento", "error", 4000);
+          }
+        }
+      );
+    }
+  );
 });
 
 //Editar una entrada
@@ -1074,9 +1117,13 @@ $("#registrarSustanciaForm").submit(function (event) {
     return;
   }
 
-  var accion = sustanciaId ? 'UPDATE' : 'CREATE';
-  var tituloConfirm = sustanciaId ? "¿Actualizar sustancia activa?" : "¿Registrar nueva sustancia activa?";
-  var textoConfirm = sustanciaId ? "Se actualizará la sustancia activa." : "Se creará una nueva sustancia activa.";
+  var accion = sustanciaId ? "UPDATE" : "CREATE";
+  var tituloConfirm = sustanciaId
+    ? "¿Actualizar sustancia activa?"
+    : "¿Registrar nueva sustancia activa?";
+  var textoConfirm = sustanciaId
+    ? "Se actualizará la sustancia activa."
+    : "Se creará una nueva sustancia activa.";
 
   alertMensajeConfirm(
     {
@@ -1100,12 +1147,14 @@ $("#registrarSustanciaForm").submit(function (event) {
         false,
         function (data) {
           if (data.response.code == 1) {
-            var mensaje = sustanciaId ? "Sustancia actualizada exitosamente!" : "Sustancia registrada exitosamente!";
+            var mensaje = sustanciaId
+              ? "Sustancia actualizada exitosamente!"
+              : "Sustancia registrada exitosamente!";
             alertToast(mensaje, "success", 4000);
-            
+
             $("#registrarSustanciaForm")[0].reset();
             $("#registrarSustanciaModal").modal("hide");
-            
+
             // Recargar tabla de sustancias
             if (typeof tableCatSustancias !== "undefined") {
               tableCatSustancias.ajax.reload();
@@ -1119,7 +1168,8 @@ $("#registrarSustanciaForm").submit(function (event) {
               cargarSustanciasEditar();
             }
           } else {
-            var errorMsg = data.response.message || "Error al procesar la sustancia";
+            var errorMsg =
+              data.response.message || "Error al procesar la sustancia";
             alertToast(errorMsg, "error", 4000);
           }
         }

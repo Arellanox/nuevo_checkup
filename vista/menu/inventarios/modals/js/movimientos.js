@@ -23,24 +23,28 @@ tableCatEntradasEstable = $("#tableCatEntradasEstable").DataTable({
   },
   columns: [
     {
-      data: "ID_ENTRADA",
-      title: "ID",
+      data: "CLAVE_ART",
+      title: "Clave",
       width: "50px",
+    },
+    {
+      data: "NOMBRE_COMERCIAL",
+      title: "Artículo",
     },
     {
       data: "FECHA_ENTRADA",
       title: "Fecha de Entrada",
       render: function (data) {
+        if (!data || data === "0000-00-00" || data === "0000-00-00 00:00:00")
+          return "-";
         return data ? moment(data).format("DD/MM/YYYY HH:mm") : "-";
       },
     },
     {
-      data: "NOMBRE_COMERCIAL",
-      title: "Artículo",
-      render: function (data, type, row) {
-        return `<strong>${data}</strong><br><small class="text-muted">Clave: ${
-          row.CLAVE_ART || "-"
-        }</small>`;
+      data: "RESPONSABLE",
+      title: "Responsable",
+      render: function (data) {
+        return data;
       },
     },
     {
@@ -57,7 +61,7 @@ tableCatEntradasEstable = $("#tableCatEntradasEstable").DataTable({
       title: "Costo Unitario",
       className: "text-end",
       render: function (data) {
-        return data ? `$${parseFloat(data).toFixed(2)}` : "$0.00";
+        return data ? `$${parseFloat(data).toFixed(2)}` : "-";
       },
     },
     {
@@ -65,16 +69,14 @@ tableCatEntradasEstable = $("#tableCatEntradasEstable").DataTable({
       title: "Costo Total",
       className: "text-end",
       render: function (data) {
-        return data
-          ? `<strong>$${parseFloat(data).toFixed(2)}</strong>`
-          : "$0.00";
+        return data ? `<strong>$${parseFloat(data).toFixed(2)}</strong>` : "-";
       },
     },
     {
       data: "PROVEEDOR_NOMBRE",
       title: "Proveedor",
       render: function (data) {
-        return data || "Sin proveedor";
+        return data || "-";
       },
     },
     {
@@ -102,7 +104,6 @@ tableCatEntradasEstable = $("#tableCatEntradasEstable").DataTable({
     {
       data: "FECHA_CADUCIDAD",
       title: "Caducidad",
-      visible: false,
       render: function (data) {
         if (!data || data === "0000-00-00") return "-";
         const fechaCad = moment(data);
@@ -121,10 +122,28 @@ tableCatEntradasEstable = $("#tableCatEntradasEstable").DataTable({
     {
       data: "DOCUMENTO_FACTURA",
       title: "Factura",
-      render: function (data) {
-        return data
-          ? '<i class="bi bi-receipt text-primary" title="Factura"></i>'
-          : "-";
+      render: function (data, type, row) {
+        if (data) {
+          var extension = data.split(".").pop().toLowerCase();
+
+          if (extension === "pdf") {
+            return (
+              '<a href="' +
+              data +
+              '" target="_blank"><i class="bi bi-file-earmark-pdf-fill text-danger fs-4" title="Ver PDF"></i></a>'
+            );
+          } else {
+            return (
+              '<a href="' +
+              data +
+              '" target="_blank"><img src="' +
+              data +
+              '" alt="Imagen del Documento" style="width: 50px; height: auto;"/></a>'
+            );
+          }
+        } else {
+          return "-";
+        }
       },
     },
     {
@@ -136,14 +155,6 @@ tableCatEntradasEstable = $("#tableCatEntradasEstable").DataTable({
       },
     },
     {
-      data: "ESTADO_CADUCIDAD",
-      title: "Estado Caducidad",
-      render: function (data) {
-        return data || "-";
-      },
-    },
-    // Puedes agregar más columnas si necesitas mostrar más campos del SP
-    {
       data: null,
       title: "Acciones",
       orderable: false,
@@ -152,7 +163,7 @@ tableCatEntradasEstable = $("#tableCatEntradasEstable").DataTable({
       render: function (data, type, row) {
         return `
                 <button class="btn btn-sm btn-info btn-ver-entrada" 
-                    data-id="${row.ID_ENTRADA}" title="Ver detalles">
+                    data-id="${row.ID_ENTRADA}" data-nombre="${row.NOMBRE_COMERCIAL}" title="Ver detalles">
                     <i class="bi bi-eye"></i>
                 </button>
                 <button class="btn btn-sm btn-warning btn-editar-entrada" 
@@ -179,6 +190,7 @@ tableCatEntradasEstable = $("#tableCatEntradasEstable").DataTable({
 
           // Llenar información del artículo
           $("#articuloSeleccionadoEstable").text(rowSelected.NOMBRE_COMERCIAL);
+          $("#existenciaActualTittleEstable").text(rowSelected.CANTIDAD || "0");
           $("#nombreArticuloEstable").val(rowSelected.NOMBRE_COMERCIAL);
           $("#claveArticuloEstable").val(rowSelected.CLAVE_ART || "");
           $("#existenciaActualEstable").val(rowSelected.CANTIDAD || "0");
@@ -213,13 +225,28 @@ tableCatEntradasEstable = $("#tableCatEntradasEstable").DataTable({
   },
 });
 
+// row selected
 $("#tableCatEntradasEstable tbody").on("click", "tr", function () {
   $("#tableCatEntradasEstable tbody tr.selected").removeClass("selected");
   $(this).addClass("selected");
   rowSelected = tableCatEntradasEstable.row(this).data();
 });
 
-// ESTILOS PARA LA BARRA DE BUSQUEDA DE PROVEEDORES
+// ver detalle de entrada
+$("#tableCatEntradasEstable tbody").on(
+  "click",
+  ".btn-ver-entrada",
+  function () {
+    nombre = $(this).data("nombre");
+    //asignar valores a los campos del modal de detalles de entrada
+    $("#detalleArticuloSeleccionadoEstable").text(nombre);
+    $("#detalleArticuloSeleccionadoTableEstable").text(nombre);
+
+    $("#detalleEntradaEstableModal").modal("show");
+  }
+);
+
+// ESTILOS PARA LA BARRA DE BUSQUEDA DE ENTRADAS
 setTimeout(() => {
   inputBusquedaTable(
     "tableCatEntradasEstable",
@@ -306,13 +333,16 @@ function cargarProveedoresEstable() {
 }
 
 function cargarMotivosEstable() {
-  cargarCatalogoEnSelect("#registrarEntradaEstableModal #motivoEntradaEstable", {
-    api: 15,
-    campoId: "id_motivos",
-    campoTexto: "descripcion",
-    placeholder: "Seleccione un motivo",
-    soloActivos: true,
-  });
+  cargarCatalogoEnSelect(
+    "#registrarEntradaEstableModal #motivoEntradaEstable",
+    {
+      api: 15,
+      campoId: "id_motivos",
+      campoTexto: "descripcion",
+      placeholder: "Seleccione un motivo",
+      soloActivos: true,
+    }
+  );
 }
 
 cargarProveedoresEstable();

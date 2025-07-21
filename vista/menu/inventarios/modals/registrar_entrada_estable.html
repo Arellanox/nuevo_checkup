@@ -1,13 +1,15 @@
 <div class="modal fade modal-xl" id="registrarEntradaEstableModal" tabindex="-1" data-bs-backdrop="static"
     data-bs-focus="false" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleEntradaEstable"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="background-color: #004e59; color: white;">
-                <h5 class="modal-title" id="modalTitleEntradaEstable">
-                    <i class="bi bi-box-arrow-in-down me-2"></i>
-                    Registrar Entrada - <strong><span id="articuloSeleccionadoEstable"></span></strong>
-                </h5>
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content shadow-lg border-0">
+            <div class="modal-header text-white" style="background-color: #004e59;">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-box-arrow-in-down me-2 fs-4"></i>
+                    <h5 class="modal-title mb-0" id="modalTitleEntradaEstable">
+                        Registrar Entrada - <strong><span id="articuloSeleccionadoEstable"></span></strong> - Cantidad actual en almacén: <strong><span id="existenciaActualTittleEstable"></span></strong>
+                    </h5>
+                </div>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>
@@ -18,10 +20,9 @@
                         <!-- COLUMNA IZQUIERDA -->
                         <div class="col-md-6">
                             <!-- Card 1: Información del Artículo -->
-                            <div class="card mb-3 border-primary">
+                            <div class="card mb-3 border-0 shadow-sm">
                                 <div class="card-header bg-light">
-                                    <h6 class="card-title mb-0"><i class="bi bi-box-seam me-2"></i>Información del
-                                        Artículo</h6>
+                                    <h6 class="card-title mb-0"><i class="bi bi-box-seam me-2" style="color: #004e59;"></i>Información del Artículo</h6>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
@@ -56,9 +57,9 @@
                             </div>
 
                             <!-- Card 2: Información del Proveedor -->
-                            <div class="card mb-3 border-warning">
+                            <div class="card mb-3 border-0 shadow-sm">
                                 <div class="card-header bg-light">
-                                    <h6 class="card-title mb-0"><i class="bi bi-building me-2"></i>Proveedor</h6>
+                                    <h6 class="card-title mb-0"><i class="bi bi-building me-2" style="color: #004e59;"></i>Proveedor</h6>
                                 </div>
                                 <div class="card-body">
                                     <div class="mb-3">
@@ -85,9 +86,9 @@
                             </div>
 
                             <!-- Card 3: Información de Cantidad y Precio -->
-                            <div class="card mb-3 border-success">
+                            <div class="card mb-3 border-0 shadow-sm">
                                 <div class="card-header bg-light">
-                                    <h6 class="card-title mb-0"><i class="bi bi-calculator me-2"></i>Cantidad y Precio
+                                    <h6 class="card-title mb-0"><i class="bi bi-calculator me-2" style="color: #007b8a;"></i>Cantidad y Precio
                                     </h6>
                                 </div>
                                 <div class="card-body">
@@ -108,7 +109,7 @@
                                                 <span class="input-group-text">$</span>
                                                 <input type="number" step="0.01" min="0"
                                                     class="form-control form-control-lg" id="precioCompraEstable"
-                                                    name="costo_ultima_entrada" required placeholder="0.00">
+                                                    name="costo_unitario" required placeholder="0.00">
                                             </div>
                                         </div>
                                     </div>
@@ -116,7 +117,7 @@
                                         <div class="col-12">
                                             <div class="alert alert-info d-none" id="costoTotalEstableAlert">
                                                 <strong><i class="bi bi-calculator me-2"></i>Costo Total: $<span
-                                                        id="costoTotalEstableValor">0.00</span></strong>
+                                                        id="costo_total" name="costo_total"></span></strong>
                                             </div>
                                         </div>
                                     </div>
@@ -127,10 +128,10 @@
                         <!-- COLUMNA DERECHA -->
                         <div class="col-md-6">
                             <!-- Card 4: Documentación -->
-                            <div class="card mb-3 border-info">
+                            <div class="card mb-3 border-0 shadow-sm">
                                 <div class="card-header bg-light">
                                     <h6 class="card-title mb-0"><i
-                                            class="bi bi-file-earmark-text me-2"></i>Documentación</h6>
+                                            class="bi bi-file-earmark-text me-2" style="color: #006b7a;"></i>Documentación</h6>
                                 </div>
                                 <div class="card-body">
                                     <div class="mb-3">
@@ -138,7 +139,7 @@
                                             Número de Factura/Documento
                                         </label>
                                         <input type="text" class="form-control" id="numeroFacturaEstable"
-                                            name="orden_compra" placeholder="Ej: FACT-2024-001, REM-001">
+                                            name="numero_documento" placeholder="Ej: FACT-2024-001, REM-001">
                                     </div>
                                     <div class="mb-3">
                                         <label for="documentoFacturaEstable" class="form-label fw-bold">
@@ -155,9 +156,9 @@
                             </div>
 
                             <!-- Card 5: Lote y Caducidad -->
-                            <div class="card mb-3 border-secondary" id="lotesCaducidadCardEstable">
+                            <div class="card mb-3 border-0 shadow-sm" id="lotesCaducidadCardEstable">
                                 <div class="card-header bg-light">
-                                    <h6 class="card-title mb-0"><i class="bi bi-calendar-check me-2"></i>Control de Lote
+                                    <h6 class="card-title mb-0"><i class="bi bi-calendar-check me-2" style="color: #005866;"></i>Control de Lote
                                         y Caducidad</h6>
                                 </div>
                                 <div class="card-body">
@@ -180,9 +181,9 @@
                             </div>
 
                             <!-- Card 6: Motivo y Observaciones -->
-                            <div class="card mb-3 border-dark">
+                            <div class="card mb-3 border-0 shadow-sm">
                                 <div class="card-header bg-light">
-                                    <h6 class="card-title mb-0"><i class="bi bi-chat-square-text me-2"></i>Motivo y
+                                    <h6 class="card-title mb-0"><i class="bi bi-chat-square-text me-2" style="color: #004e59;"></i>Motivo y
                                         Observaciones</h6>
                                 </div>
                                 <div class="card-body">
@@ -191,7 +192,7 @@
                                             Motivo de Entrada <span class="text-danger">*</span>
                                         </label>
                                         <div class="input-group">
-                                            <select class="form-select" id="motivoEntradaEstable" name="motivo_salida"
+                                            <select class="form-select" id="motivoEntradaEstable" name="id_motivo"
                                                 required>
                                                 <option value="" disabled selected>Seleccione un motivo...</option>
                                             </select>
@@ -212,7 +213,8 @@
                         </div>
                     </div>
 
-                    <!-- Campos ocultos necesarios -->
+                    <input type="hidden" id="fecha_entrada" name="fecha_entrada">
+
                     <input type="hidden" id="idArticuloEstable" name="id_articulo">
                     <input type="hidden" id="nombreComercialEstable" name="nombre_comercial">
                     <input type="hidden" id="noArtEstable" name="no_art">
@@ -223,16 +225,12 @@
                 </form>
             </div>
 
-            <div class="modal-footer bg-light">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            <div class="modal-footer border-0" style="background-color: #f8f9fa; border-top: 3px solid #004e59 !important;">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                     <i class="bi bi-x-circle me-2"></i>Cancelar
                 </button>
-                <button type="button" class="btn btn-primary" id="btnValidarEntradaEstable">
-                    <i class="bi bi-shield-check me-2"></i>Validar Datos
-                </button>
-                <button type="submit" class="btn btn-success" id="btnGuardarEntradaEstable"
-                    form="registrarEntradaEstableForm" disabled>
-                    <i class="bi bi-check-circle me-2"></i>Registrar Entrada
+                <button id="registrarEntradaEstableButton" type="submit" class="btn" style="background-color: #004e59; color: white; border-color: #004e59;" form="registrarEntradaEstableForm">
+                    <i class="bi bi-pencil-square"></i> Registrar entrada
                 </button>
             </div>
         </div>
@@ -248,7 +246,7 @@
 
             if (cantidad > 0 && precio > 0) {
                 const total = cantidad * precio;
-                $("#costoTotalEstableValor").text(total.toLocaleString('es-MX', {
+                $("#costo_total").text(total.toLocaleString('es-MX', {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2
                 }));
@@ -311,5 +309,17 @@
 
         // Exponer función para validar (puedes usarla desde movimientos.js)
         window.validarFormularioEntradaEstable = validarFormularioEstable;
+
+        $("#registrarEntradaEstableForm").submit(function (event) {
+            const now = new Date();
+            $("#fecha_entrada").val(
+                now.getFullYear() + "-" +
+                String(now.getMonth() + 1).padStart(2, '0') + "-" +
+                String(now.getDate()).padStart(2, '0') + " " +
+                String(now.getHours()).padStart(2, '0') + ":" +
+                String(now.getMinutes()).padStart(2, '0') + ":" +
+                String(now.getSeconds()).padStart(2, '0')
+            );
+        });
     });
 </script>
