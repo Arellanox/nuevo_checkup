@@ -40,46 +40,33 @@
         width: 100% !important;
     }
 
-    .btnRechazar,
-    .btnEliminar,
-    .btnAprobar,
+
     .btn-generar-reporte,
     .btn-aprobar-all{
         display: flex;
         align-items: center;
-        gap: 8px;
         padding: 4px 10px;
         cursor: pointer;
         border-radius: 4px;
         margin-right: 10px;
+        color: #2b2b2b;
+        gap: 8px;
     }
 
     .btnAprobar,
     .btnRechazar,
-    .btnEliminar{
-        box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
+    .btnEliminar {
+        background: #004f5a;
+        color: white;
     }
 
-    .btnRechazar:disabled {
-        opacity: .5;
-        cursor: not-allowed;
-    }
-
-    .btnAprobar:disabled {
-        opacity: .5;
-        cursor: not-allowed;
-    }
-
-    .btnEliminar:disabled {
-        opacity: .5;
-        cursor: not-allowed;
+    .btnAprobar:hover,
+    .btnRechazar:hover,
+    .btnEliminar:hover {
+        background: #007587;
+        color: white;
     }
 
     .btn-aprobar-all:hover{ background: #004f5a; color: white; }
     .btn-generar-reporte:hover{ background: #761c19; color: white }
-    .btn-aprobar-all, .btn-generar-reporte{ color: #2b2b2b; }
-
-    .btnEliminar{ background-color: #761c19; }
-    .btnAprobar{ background-color: #004f5a; }
-    .btnRechazar{ background-color: #aa4b28; }
 </style>

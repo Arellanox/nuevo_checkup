@@ -33,7 +33,7 @@ switch ($api) {
         $ids = is_array($id_maquila) ? implode(',', $id_maquila) : $id_maquila;
 
         $response = $master->updateByProcedure('sp_laboratorio_estudios_maquila_a', [
-            $ids, $maquila_estatus
+            $ids, $maquila_estatus, $fecha_inicio, $fecha_fin
         ]);
         break;
     case 4: // Eliminar estudio a maquilar

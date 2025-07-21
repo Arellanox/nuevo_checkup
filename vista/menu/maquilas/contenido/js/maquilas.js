@@ -66,29 +66,33 @@ var tablaMaquilaasPorAprobar = $('#TablaMaquilaasPorAprobar').DataTable({
         { // Botones de acciones
             data: null,
             render: function (data, type, row) {
-                return `
-                    <div class="d-flex gap-2 align-items-center justify-content-center">
-                        <button type="button" role="button" class="btnRechazar" 
-                            data-bs-toggle="tooltip" data-bs-title="Rechazar maquila"
-                            onclick="rechazarMaquila(${row.ID_MAQUILA})" `+ (row.LAB_MAQUILA_ESTATUS != 0 ? 'disabled' : '') +`
-                        >
-                            <i class="bi bi-file-earmark-excel-fill"></i>
+                let buttons = ``;
+
+                if (row.LAB_MAQUILA_ESTATUS == 0 || row.LAB_MAQUILA_ESTATUS == null || row.LAB_MAQUILA_ESTATUS == 1) {
+                    buttons += `
+                        <button onclick="rechazarMaquila(${row.ID_MAQUILA})" type="button" role="button" class="btn btnRechazar" data-bs-toggle="tooltip" data-bs-title="Rechazar maquila">
+                            <i class="bi bi-file-earmark-excel-fill"></i> Rechazar
                        </button>
-                        <button type="button" role="button" class="btnAprobar" 
-                            data-bs-toggle="tooltip" data-bs-title="Aprobar maquila"
-                            onclick="aprobarMaquila(${row.ID_MAQUILA})" `+ (row.LAB_MAQUILA_ESTATUS != 0 ? 'disabled' : '') +`
-                        >
-                            <i class="bi bi-file-earmark-check-fill"></i>
+                    `;
+                }
+
+                if (row.LAB_MAQUILA_ESTATUS != 1) {
+                    buttons += `
+                        <button onclick="aprobarMaquila(${row.ID_MAQUILA})" type="button" role="button" class="btn btnAprobar" data-bs-toggle="tooltip" data-bs-title="Aprobar maquila">
+                            <i class="bi bi-file-earmark-check-fill"></i> Aprobar
                         </button>
-                        
-                       <button type="button" role="button" class="btnEliminar" 
-                            data-bs-toggle="tooltip" data-bs-title="Eliminar maquila"
-                            onclick="eliminarMaquila(${row.ID_MAQUILA})" `+ (row.LAB_MAQUILA_ESTATUS == 1 ? 'disabled' : '') +`
-                        >
-                            <i class="bi bi-trash-fill"></i>
-                       </button>
-                    </div>
-                `;
+                    `;
+                }
+
+                if (row.LAB_MAQUILA_ESTATUS != 1) {
+                    buttons += `
+                        <button onclick="eliminarMaquila(${row.ID_MAQUILA})" type="button" role="button" class="btn btnEliminar" data-bs-toggle="tooltip" data-bs-title="Eliminar maquila">
+                            <i class="bi bi-trash-fill"></i> Eliminar
+                        </button>
+                    `;
+                }
+
+                return buttons;
             }
         }
     ],
