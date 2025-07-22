@@ -15,3 +15,5 @@ include "surtir_requisicion.html";
 include "detalle_surtimiento.html";
 include "registrar_entrada_estable.html";
 include "detalle_entrada_estable.html";
+include "editar_entrada_estable.html";
+include "registrar_entrada_orden_estable.html";

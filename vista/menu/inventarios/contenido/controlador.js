@@ -28,6 +28,8 @@ var dataTableCatMarcas;
 var dataTableCatUnidades;
 var dataTableCatMotivos;
 var dataTableCatProveedores;
+var dataTableCatDetEntradasEstable;
+var dataTableCatOrdenesCompraArticulos;
 
 
 var rowSelected;
@@ -77,4 +79,12 @@ dataTableCatRequisiciones = {
 
 dataTableCatEntradasEstable = {
     api: 4
+}
+
+dataTableCatDetEntradasEstable = {
+    api: 7
+}
+
+dataTableCatOrdenesCompraArticulos = {
+    api: 43
 }

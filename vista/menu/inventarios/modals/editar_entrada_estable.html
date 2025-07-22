@@ -1,0 +1,339 @@
+<div class="modal fade modal-xl" id="editarEntradaEstableModal" tabindex="-1" data-bs-backdrop="static"
+    data-bs-focus="false" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleEntradaEstable"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content shadow-lg border-0">
+            <div class="modal-header text-white" style="background-color: #004e59;">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-box-arrow-in-down me-2 fs-4"></i>
+                    <h5 class="modal-title mb-0" id="modalTitleEntradaEstable">
+                        Editar Entrada - <strong><span id="articuloSeleccionadoEstableEditar"></span></strong> -
+                        Cantidad
+                        actual en almacén: <strong><span id="existenciaActualTittleEstableEditar"></span></strong>
+                    </h5>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body container-fluid">
+                <form id="editarEntradaEstableForm" name="editarEntradaEstableForm">
+                    <div class="row">
+                        <!-- COLUMNA IZQUIERDA -->
+                        <div class="col-md-6">
+                            <!-- Card 1: Información del Artículo -->
+                            <div class="card mb-3 border-0 shadow-sm">
+                                <div class="card-header bg-light">
+                                    <h6 class="card-title mb-0"><i class="bi bi-box-seam me-2"
+                                            style="color: #004e59;"></i>Información del Artículo</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <label class="form-label fw-bold">Artículo</label>
+                                            <input type="text" class="form-control-plaintext fw-bold"
+                                                id="nombreArticuloEstableEditar" readonly>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label fw-bold">Clave</label>
+                                            <input type="text" class="form-control-plaintext"
+                                                id="claveArticuloEstableEditar" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Existencia Actual</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control-plaintext text-primary fw-bold"
+                                                    id="existenciaActualEstableEditar" readonly>
+                                                <span class="input-group-text"
+                                                    id="unidadMedidaEstableEditar">unid</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Almacén</label>
+                                            <select class="form-select" id="almacenEstableEditar" name="id_almacen"
+                                                required>
+                                                <option value="1" selected>Almacén Principal</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 2: Información del Proveedor -->
+                            <div class="card mb-3 border-0 shadow-sm">
+                                <div class="card-header bg-light">
+                                    <h6 class="card-title mb-0"><i class="bi bi-building me-2"
+                                            style="color: #004e59;"></i>Proveedor</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label for="proveedorEstableEditar" class="form-label fw-bold">
+                                            Seleccionar Proveedor <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="input-group">
+                                            <select class="form-select" id="proveedorEstableEditar"
+                                                name="id_proveedores" required>
+                                                <option value="" disabled selected>Seleccione un proveedor...</option>
+                                            </select>
+                                            <button type="button" class="btn btn-outline-success"
+                                                id="btnNuevoProveedorEstableEditar" title="Agregar nuevo proveedor">
+                                                <i class="bi bi-plus-lg"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="fechaCompraEstableEditar" class="form-label">Fecha de Compra</label>
+                                        <input type="date" class="form-control" id="fechaCompraEstableEditar"
+                                            name="fecha_compra">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 3: Información de Cantidad y Precio -->
+                            <div class="card mb-3 border-0 shadow-sm">
+                                <div class="card-header bg-light">
+                                    <h6 class="card-title mb-0"><i class="bi bi-calculator me-2"
+                                            style="color: #007b8a;"></i>Cantidad y Precio
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="cantidadEstableEditar" class="form-label fw-bold">
+                                                Cantidad a Ingresar <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="number" step="0.01" min="0.01"
+                                                class="form-control form-control-lg" id="cantidadEstableEditar"
+                                                name="cantidad" required placeholder="Ej: 50">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="precioCompraEstableEditar" class="form-label fw-bold">
+                                                Precio de Compra <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="number" step="0.01" min="0"
+                                                    class="form-control form-control-lg" id="precioCompraEstableEditar"
+                                                    name="costo_unitario" required placeholder="0.00">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="alert alert-info d-none" id="costoTotalEstableAlertEditar">
+                                                <strong><i class="bi bi-calculator me-2"></i>Costo Total: $<span
+                                                        id="costo_total" name="costo_total"></span></strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- COLUMNA DERECHA -->
+                        <div class="col-md-6">
+                            <!-- Card 4: Documentación -->
+                            <div class="card mb-3 border-0 shadow-sm">
+                                <div class="card-header bg-light">
+                                    <h6 class="card-title mb-0"><i class="bi bi-file-earmark-text me-2"
+                                            style="color: #006b7a;"></i>Documentación</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label for="numeroFacturaEstableEditar" class="form-label">
+                                            Número de Factura/Documento
+                                        </label>
+                                        <input type="text" class="form-control" id="numeroFacturaEstableEditar"
+                                            name="numero_documento" placeholder="Ej: FACT-2024-001, REM-001">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="documentoFacturaEstableEditar" class="form-label fw-bold">
+                                            Documento de Compra <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="file" class="form-control" id="documentoFacturaEstableEditar"
+                                            name="img_factura[]" accept=".pdf,.jpg,.jpeg,.png" required>
+                                        <small class="text-muted">
+                                            <i class="bi bi-info-circle me-1"></i>
+                                            Formatos permitidos: PDF, JPG, PNG (Máx. 5MB)
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 5: Lote y Caducidad -->
+                            <div class="card mb-3 border-0 shadow-sm" id="lotesCaducidadCardEstable">
+                                <div class="card-header bg-light">
+                                    <h6 class="card-title mb-0"><i class="bi bi-calendar-check me-2"
+                                            style="color: #005866;"></i>Control de Lote
+                                        y Caducidad</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="numeroLoteEstableEditar" class="form-label">Número de
+                                                Lote</label>
+                                            <input type="text" class="form-control" id="numeroLoteEstableEditar"
+                                                name="numero_lote" placeholder="Ej: LOTE2024001">
+                                            <small class="text-muted">Opcional - Solo si aplica</small>
+                                        </div>
+                                        <div class="col-md-6 mb-3" id="fechaCaducidadDivEstableEditar">
+                                            <label for="fechaCaducidadEstableEditar" class="form-label">Fecha de
+                                                Caducidad</label>
+                                            <input type="date" class="form-control" id="fechaCaducidadEstableEditar"
+                                                name="fecha_caducidad">
+                                            <small class="text-muted">Solo si el artículo maneja caducidad</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 6: Motivo y Observaciones -->
+                            <div class="card mb-3 border-0 shadow-sm">
+                                <div class="card-header bg-light">
+                                    <h6 class="card-title mb-0"><i class="bi bi-chat-square-text me-2"
+                                            style="color: #004e59;"></i>Motivo y
+                                        Observaciones</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label for="motivoEntradaEstableEditar" class="form-label fw-bold">
+                                            Motivo de Entrada <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="input-group">
+                                            <select class="form-select" id="motivoEntradaEstableEditar" name="id_motivo"
+                                                required>
+                                                <option value="" disabled selected>Seleccione un motivo...</option>
+                                            </select>
+                                            <button type="button" class="btn btn-outline-success"
+                                                id="btnNuevoMotivoEstableEditar" title="Agregar nuevo motivo">
+                                                <i class="bi bi-plus-lg"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="observacionesEstableEditar" class="form-label">Observaciones</label>
+                                        <textarea class="form-control" id="observacionesEstableEditar"
+                                            name="observaciones" rows="3"
+                                            placeholder="Información adicional sobre la entrada..."></textarea>
+                                        <small class="text-muted">Opcional - Detalles adicionales del movimiento</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="fecha_entradaEditar" name="fecha_entrada">
+
+                    <input type="hidden" id="idArticuloEstableEditar" name="id_articulo">
+                    <input type="hidden" id="nombreComercialEstableEditar" name="nombre_comercial">
+                    <input type="hidden" id="noArtEstableEditar" name="no_art">
+                    <input type="hidden" id="idMovimientoEstableEditar" name="id_movimiento" value="1">
+                    <input type="hidden" id="fechaUltimaEntradaEstableEditar" name="fecha_ultima_entrada">
+                    <input type="hidden" id="fechaLoteEstableEditar" name="fecha_lote" value="">
+                    <input type="hidden" id="activoEstableEditar" name="activo" value="1">
+                </form>
+            </div>
+
+            <div class="modal-footer border-0"
+                style="background-color: #f8f9fa; border-top: 3px solid #004e59 !important;">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle me-2"></i>Cancelar
+                </button>
+                <button id="editarEntradaEstableButton" type="submit" class="btn"
+                    style="background-color: #004e59; color: white; border-color: #004e59;"
+                    form="editarEntradaEstableForm">
+                    <i class="bi bi-pencil-square"></i> Editar entrada
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // Función para calcular costo total
+        function calcularCostoTotalEstable() {
+            const cantidad = parseFloat($("#cantidadEstableEditar").val()) || 0;
+            const precio = parseFloat($("#precioCompraEstableEditar").val()) || 0;
+
+            if (cantidad > 0 && precio > 0) {
+                const total = cantidad * precio;
+                $("#costo_total").text(total.toLocaleString('es-MX', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }));
+                $("#costoTotalEstableAlertEditar").removeClass("d-none");
+            } else {
+                $("#costoTotalEstableAlertEditar").addClass("d-none");
+            }
+        }
+
+        // Eventos de cálculo en tiempo real
+        $("#cantidadEstableEditar, #precioCompraEstableEditar").on("input keyup change", function () {
+            calcularCostoTotalEstable();
+        });
+
+        // Función para validar todos los campos obligatorios
+        function validarFormularioEstable() {
+            const errores = [];
+
+            // Validaciones obligatorias
+            if (!$("#proveedorEstableEditar").val()) errores.push("Debe seleccionar un proveedor");
+            if (!$("#cantidadEstableEditar").val() || parseFloat($("#cantidadEstableEditar").val()) <= 0) errores.push("La cantidad debe ser mayor a 0");
+            if (!$("#precioCompraEstableEditar").val() || parseFloat($("#precioCompraEstableEditar").val()) <= 0) errores.push("El precio debe ser mayor a 0");
+            if (!$("#motivoEntradaEstableEditar").val()) errores.push("Debe seleccionar un motivo de entrada");
+            if (!$("#documentoFacturaEstableEditar")[0].files.length) errores.push("Debe adjuntar el documento de compra");
+
+            // Validar tamaño de archivo
+            const archivo = $("#documentoFacturaEstableEditar")[0].files[0];
+            if (archivo && archivo.size > 5 * 1024 * 1024) {
+                errores.push("El archivo no debe exceder 5MB");
+            }
+
+            // Validar fecha de caducidad si es visible
+            if ($("#fechaCaducidadDivEstableEditar").is(':visible') && $("#fechaCaducidadEstableEditar").val()) {
+                const fechaCad = new Date($("#fechaCaducidadEstableEditar").val());
+                const hoy = new Date();
+                hoy.setHours(0, 0, 0, 0);
+
+                if (fechaCad <= hoy) {
+                    errores.push("La fecha de caducidad debe ser posterior a hoy");
+                }
+            }
+
+            return errores;
+        }
+
+        // Limpiar formulario al cerrar modal
+        $("#editarEntradaEstableModal").on("hidden.bs.modal", function () {
+            $("#editarEntradaEstableForm")[0].reset();
+            $("#costoTotalEstableAlertEditar").addClass("d-none");
+        });
+
+        // Eventos para botones de agregar nuevos elementos
+        $("#btnNuevoProveedorEstableEditar").click(function () {
+            alertToast("Funcionalidad de nuevo proveedor disponible en el módulo de orden de compras", "info", 3000);
+        });
+
+        $("#btnNuevoMotivoEstableEditar").click(function () {
+            alertToast("Funcionalidad de nuevo motivo disponible en catálogos", "info", 3000);
+        });
+
+        // Exponer función para validar (puedes usarla desde movimientos.js)
+        window.validarFormularioEntradaEstable = validarFormularioEstable;
+
+        $("#editarEntradaEstableForm").submit(function (event) {
+            const now = new Date();
+            $("#fecha_entradaEditar").val(
+                now.getFullYear() + "-" +
+                String(now.getMonth() + 1).padStart(2, '0') + "-" +
+                String(now.getDate()).padStart(2, '0') + " " +
+                String(now.getHours()).padStart(2, '0') + ":" +
+                String(now.getMinutes()).padStart(2, '0') + ":" +
+                String(now.getSeconds()).padStart(2, '0')
+            );
+        });
+    });
+</script>

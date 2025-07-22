@@ -333,15 +333,8 @@ switch ($api) {
         ]);
         break;
     case 7:
-        // Recuperar los datos de un solo articulo
-        $id_movimiento = isset($_POST['id_movimiento']) ? intval($_POST['id_movimiento']) : 1;
-        if ($id_movimiento == 1) {
-            // Entradas
-            $response = $master->getByProcedure("sp_inventarios_entrada_articulos_detalle", [$id_articulo]);
-        } else {
-            // Salidas
-            $response = $master->getByProcedure("sp_inventarios_salida_articulos_detalle", [$id_articulo]);
-        }
+        // Entradas detalles
+        $response = $master->getByProcedure("sp_inventarios_entradas_detalle_b", [$id_articulo]);
         break;
     case 8:
         // Lógica para devolver las transacciones
@@ -1464,6 +1457,42 @@ switch ($api) {
                 'data' => array()
             );
         }
+        break;
+    case 43:
+        // obtener detalles de artículos de una orden de compra específica
+        $id_orden_compra = isset($_POST['id_orden_compra']) && $_POST['id_orden_compra'] !== '' && $_POST['id_orden_compra'] !== 'null' ? $_POST['id_orden_compra'] : null;
+
+        if (!$id_orden_compra) {
+            $response = array(
+                'response' => array(
+                    'code' => 0,
+                    'message' => 'ERROR: ID de orden de compra es obligatorio',
+                    'data' => array()
+                )
+            );
+            break;
+        }
+
+        try {
+            $response = $master->getByProcedure("sp_inventarios_cat_orden_compra_detalle_b", [
+                $id_orden_compra
+            ]);
+
+            error_log("API 43 - Detalles de orden: " . json_encode($response));
+        } catch (Exception $e) {
+            error_log("API 43 - Error en SP: " . $e->getMessage());
+            $response = array(
+                'response' => array(
+                    'code' => 0,
+                    'message' => 'ERROR: ' . $e->getMessage(),
+                    'data' => array()
+                )
+            );
+        }
+        break;
+    case 44:
+        #recuperar ordenes de compra
+        $response = $master->getByProcedure("sp_inventarios_cat_orden_compra_b", []);
         break;
     default:
         $response = "API no definida.";

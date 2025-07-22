@@ -23,6 +23,11 @@ tableCatEntradasEstable = $("#tableCatEntradasEstable").DataTable({
   },
   columns: [
     {
+      data: "ID_ARTICULO",
+      title: "ID Artículo",
+      visible: false,
+    },
+    {
       data: "CLAVE_ART",
       title: "Clave",
       width: "50px",
@@ -120,6 +125,14 @@ tableCatEntradasEstable = $("#tableCatEntradasEstable").DataTable({
       },
     },
     {
+      data: "NUMERO_DOCUMENTO",
+      title: "Número de Documento",
+      render: function (data) {
+        return data || "-";
+      },
+      visible: false,
+    },
+    {
       data: "DOCUMENTO_FACTURA",
       title: "Factura",
       render: function (data, type, row) {
@@ -157,24 +170,11 @@ tableCatEntradasEstable = $("#tableCatEntradasEstable").DataTable({
     {
       data: null,
       title: "Acciones",
+      className: "all",
       orderable: false,
-      className: "text-center",
       width: "120px",
       render: function (data, type, row) {
-        return `
-                <button class="btn btn-sm btn-info btn-ver-entrada" 
-                    data-id="${row.ID_ENTRADA}" data-nombre="${row.NOMBRE_COMERCIAL}" title="Ver detalles">
-                    <i class="bi bi-eye"></i>
-                </button>
-                <button class="btn btn-sm btn-warning btn-editar-entrada" 
-                    data-id="${row.ID_ENTRADA}" title="Editar entrada">
-                    <i class="bi bi-pencil"></i>
-                </button>
-                <button class="btn btn-sm btn-danger btn-anular-entrada" 
-                    data-id="${row.ID_ENTRADA}" title="Anular entrada">
-                    <i class="bi bi-x-lg"></i>
-                </button>
-            `;
+        return '<button class="btn btn-warning btn-sm btn-editar-entrada" data-bs-toggle="tooltip" title="Editar entrada"><i class="bi bi-pencil-square"></i></button>';
       },
     },
   ],
@@ -216,33 +216,305 @@ tableCatEntradasEstable = $("#tableCatEntradasEstable").DataTable({
       text: '<i class="bi bi-file-earmark-arrow-down"></i> Entrada con Orden',
       className: "btn btn-info",
       action: function () {
-        $("#entradaConOrdenModal").modal("show");
+        $("#registrarEntradaOrdenEstableModal").modal("show");
       },
     },
   ],
-  select: {
-    style: "single",
+});
+
+$(document).on("click", ".btn-editar-entrada", function () {
+  //pendiente darle func en modal_inventarios.js
+  $("#articuloSeleccionadoEstableEditar").text(rowSelected.NOMBRE_COMERCIAL);
+  $("#existenciaActualTittleEstableEditar").text(
+    rowSelected.EXISTENCIA_ACTUAL || "-"
+  );
+  $("#numeroFacturaEstableEditar").val(rowSelected.NUMERO_DOCUMENTO);
+  $("#numeroLoteEstableEditar").val(rowSelected.NUMERO_LOTE);
+  $("#cantidadEstableEditar").val(rowSelected.CANTIDAD);
+  $("#precioCompraEstableEditar").val(rowSelected.COSTO_UNITARIO);
+  var fechaSolo = rowSelected.FECHA_ENTRADA
+    ? rowSelected.FECHA_ENTRADA.split(" ")[0]
+    : "";
+  $("#fechaCompraEstableEditar").val(fechaSolo);
+  $("#fechaCaducidadEstableEditar").val(rowSelected.FECHA_CADUCIDAD);
+  $("#motivoEntradaEstableEditar").val(rowSelected.MOTIVO_DESCRIPCION);
+  $("#proveedorEstableEditar").val(rowSelected.ID_PROVEEDORES);
+  $("#observacionesEstableEditar").val(rowSelected.OBSERVACIONES);
+  $("#unidadMedidaEstableEditar").text(rowSelected.UNIDAD_MEDIDA);
+
+  $("#editarEntradaEstableModal").modal("show");
+});
+
+selectDatatable(
+  "tableCatEntradasEstable",
+  tableCatEntradasEstable,
+  0,
+  0,
+  0,
+  0,
+  async function (select, dataClick) {
+    rowSelected = dataClick;
   },
-});
-
-// row selected
-$("#tableCatEntradasEstable tbody").on("click", "tr", function () {
-  $("#tableCatEntradasEstable tbody tr.selected").removeClass("selected");
-  $(this).addClass("selected");
-  rowSelected = tableCatEntradasEstable.row(this).data();
-});
-
-// ver detalle de entrada
-$("#tableCatEntradasEstable tbody").on(
-  "click",
-  ".btn-ver-entrada",
-  function () {
-    nombre = $(this).data("nombre");
-    //asignar valores a los campos del modal de detalles de entrada
-    $("#detalleArticuloSeleccionadoEstable").text(nombre);
-    $("#detalleArticuloSeleccionadoTableEstable").text(nombre);
-
+  async function () {
+    $("#detalleArticuloSeleccionadoEstable").text(rowSelected.NOMBRE_COMERCIAL);
+    $("#detalleArticuloSeleccionadoTableEstable").text(
+      rowSelected.NOMBRE_COMERCIAL
+    );
+    dataTableCatDetEntradasEstable = {
+      api: 7,
+      id_articulo: rowSelected.ID_ARTICULO,
+    };
+    tableCatDetEntradasEstable.ajax.reload();
     $("#detalleEntradaEstableModal").modal("show");
+  }
+);
+
+// DATATABLE DE DETALLES DE ENTRADA
+tableCatDetEntradasEstable = $("#tableCatDetEntradasEstable").DataTable({
+  language: {
+    url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+  },
+  autoWidth: true,
+  lengthChange: false,
+  info: true,
+  paging: true,
+  scrollY: "40vh",
+  scrollCollapse: true,
+  ajax: {
+    dataType: "json",
+    data: function (d) {
+      return $.extend(d, dataTableCatDetEntradasEstable);
+    },
+    method: "POST",
+    url: "../../../api/inventarios_api.php",
+    error: function (jqXHR, textStatus, errorThrown) {
+      alertErrorAJAX(jqXHR, textStatus, errorThrown);
+    },
+    dataSrc: "response.data",
+  },
+  columns: [
+    {
+      data: "fecha_entrada",
+      title: "Fecha de Entrada",
+      render: function (data) {
+        if (!data || data === "0000-00-00" || data === "0000-00-00 00:00:00")
+          return "-";
+        return data ? moment(data).format("DD/MM/YYYY HH:mm") : "-";
+      },
+    },
+    {
+      data: "CANTIDAD_ENTRADA",
+      title: "Cantidad Ingresada",
+      className: "text-center",
+      render: function (data) {
+        return data ? data : "-";
+      },
+    },
+    {
+      data: "PROVEEDOR",
+      title: "Proveedor",
+      render: function (data) {
+        return data ? data : "-";
+      },
+    },
+    {
+      data: "FACTURA",
+      title: "Factura",
+      render: function (data, type, row) {
+        if (data) {
+          var extension = data.split(".").pop().toLowerCase();
+
+          if (extension === "pdf") {
+            return (
+              '<a href="' +
+              data +
+              '" target="_blank"><i class="bi bi-file-earmark-pdf-fill text-danger fs-4" title="Ver PDF"></i></a>'
+            );
+          } else {
+            return (
+              '<a href="' +
+              data +
+              '" target="_blank"><img src="' +
+              data +
+              '" alt="Imagen del Documento" style="width: 50px; height: auto;"/></a>'
+            );
+          }
+        } else {
+          return "-";
+        }
+      },
+    },
+    {
+      data: "RESPONSABLE",
+      title: "Responsable",
+      render: function (data) {
+        return data ? data : "-";
+      },
+    },
+    {
+      data: "MOTIVO",
+      title: "Motivo",
+      render: function (data) {
+        return data ? data : "-";
+      },
+    },
+    // {
+    //   data: "OBSERVACIONES",
+    //   title: "Observaciones",
+    //   render: function (data) {
+    //     return data ? data : "-";
+    //   },
+    // },
+  ],
+  columnDefs: [{ targets: "_all", className: "text-center align-middle" }],
+  dom: 'Bl<"dataTables_toolbar">frtip',
+  buttons: [
+    {
+      text: '<i class="bi bi-funnel"></i> Filtrar',
+      className: "btn btn-warning",
+      action: function () {
+        $("#filtrosEntradasModal").modal("show");
+      },
+    },
+  ],
+});
+
+// DATATABLE DE ARTICULOS DE ORDEN DE COMPRA
+tableCatOrdenesCompraArticulos = $("#tableCatOrdenesCompraArticulos").DataTable(
+  {
+    language: {
+      url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+    },
+    autoWidth: true,
+    lengthChange: false,
+    info: true,
+    paging: true,
+    scrollY: "40vh",
+    scrollCollapse: true,
+    ajax: {
+      dataType: "json",
+      data: function (d) {
+        return $.extend(d, dataTableCatOrdenesCompraArticulos);
+      },
+      method: "POST",
+      url: "../../../api/inventarios_api.php",
+      error: function (jqXHR, textStatus, errorThrown) {
+        alertErrorAJAX(jqXHR, textStatus, errorThrown);
+      },
+      dataSrc: "response.data",
+    },
+    columns: [
+      {
+        data: "ARTICULO_CLAVE",
+        title: "Clave",
+        render: function (data) {
+          return data ? data : "-";
+        },
+      },
+      {
+        data: "ARTICULO_NOMBRE",
+        title: "Artículo",
+        render: function (data) {
+          return data ? data : "-";
+        },
+      },
+      {
+        data: "cantidad_solicitada",
+        title: "Cantidad Ordenada",
+        className: "text-center",
+        render: function (data) {
+          return data ? data : "-";
+        },
+      },
+      // {
+      //   data: "CANTIDAD_RECIBIDA",
+      //   title: "Cantidad Recibida",
+      //   render: function (data) {
+      //     return data ? data : "-";
+      //   },
+      // },
+      // {
+      //   data: "CANTIDAD_A_SURTIR",
+      //   title: "Cantidad a Surtir",
+      // },
+      {
+        data: "PRECIO_UNITARIO",
+        title: "Precio Unitario",
+        render: function (data) {
+          return data ? `$${parseFloat(data).toFixed(2)}` : "-";
+        },
+      },
+      {
+        data: "PROVEEDOR_NOMBRE",
+        title: "Proveedor",
+        render: function (data) {
+          return data ? data : "-";
+        },
+      },
+
+      // {
+      //   data: "DOCUMENTO",
+      //   title: "Documento",
+
+      //   render: function (data, type, row) {
+      //     if (data) {
+      //       var extension = data.split(".").pop().toLowerCase();
+
+      //       if (extension === "pdf") {
+      //         return (
+      //           '<a href="' +
+      //           data +
+      //           '" target="_blank"><i class="bi bi-file-earmark-pdf-fill text-danger fs-4" title="Ver PDF"></i></a>'
+      //         );
+      //       } else {
+      //         return (
+      //           '<a href="' +
+      //           data +
+      //           '" target="_blank"><img src="' +
+      //           data +
+      //           '" alt="Imagen del Documento" style="width: 50px; height: auto;"/></a>'
+      //         );
+      //       }
+      //     } else {
+      //       return "-";
+      //     }
+      //   },
+      // },
+      // {
+      //   data: "LOTE",
+      //   title: "Lote",
+      //   render: function (data) {
+      //     return data ? data : "-";
+      //   },
+      // },
+      // {
+      //   data: "FECHA_CADUCIDAD",
+      //   title: "Caducidad",
+      //   render: function (data) {
+      //     if (!data || data === "0000-00-00" || data === "0000-00-00 00:00:00")
+      //       return "-";
+      //     return data ? moment(data).format("DD/MM/YYYY HH:mm") : "-";
+      //   },
+      // },
+      {
+        data: "observaciones_detalle",
+        title: "Observaciones",
+        render: function (data) {
+          return data ? data : "-";
+        },
+      },
+    ],
+    columnDefs: [{ targets: "_all", className: "text-center align-middle" }],
+    dom: 'Bl<"dataTables_toolbar">frtip',
+    buttons: [
+      {
+        text: '<i class="bi bi-funnel"></i> Filtrar',
+        className: "btn btn-warning",
+        action: function () {
+          $("#filtrosEntradasModal").modal("show");
+        },
+      },
+    ],
   }
 );
 
@@ -261,6 +533,38 @@ setTimeout(() => {
     "col-12"
   );
   tableCatEntradasEstable.columns.adjust().draw();
+}, 1000);
+
+setTimeout(() => {
+  inputBusquedaTable(
+    "tableCatDetEntradasEstable",
+    tableCatDetEntradasEstable,
+    [
+      {
+        msj: "Filtre los registros por coincidencia",
+        place: "top",
+      },
+    ],
+    [],
+    "col-12"
+  );
+  tableCatDetEntradasEstable.columns.adjust().draw();
+}, 1000);
+
+setTimeout(() => {
+  inputBusquedaTable(
+    "tableCatOrdenesCompraArticulos",
+    tableCatOrdenesCompraArticulos,
+    [
+      {
+        msj: "Filtre los registros por coincidencia",
+        place: "top",
+      },
+    ],
+    [],
+    "col-12"
+  );
+  tableCatOrdenesCompraArticulos.columns.adjust().draw();
 }, 1000);
 
 // ==================== FUNCIONALIDADES PARA CARGAR CATÁLOGOS ====================
@@ -345,5 +649,19 @@ function cargarMotivosEstable() {
   );
 }
 
+function cargarOrdenesCompraEstable() {
+  cargarCatalogoEnSelect(
+    "#registrarEntradaOrdenEstableModal #ordenCompraSelect",
+    {
+      api: 44,
+      campoId: "ID_ORDEN_COMPRA",
+      campoTexto: "NUMERO_ORDEN",
+      placeholder: "Seleccione una orden de compra",
+      soloActivos: true,
+    }
+  );
+}
+
+cargarOrdenesCompraEstable();
 cargarProveedoresEstable();
 cargarMotivosEstable();
