@@ -379,7 +379,7 @@ tableCatPuestos = $("#tableCatPuestos").DataTable({
       });
       
       return {
-        api: 8,
+        api: 7,
         filtro_estado: filtroEstado,
         filtro_departamento: filtros.filtro_departamento || null
       };    
@@ -966,7 +966,7 @@ function cargarDepartamentos(selectId, incluirTodos = false) {
         $.ajax({
             url: '../../../api/recursos_humanos_api.php',
             type: 'POST',
-            data: { api: 6 }, // Case 6 para obtener departamentos
+            data: { api: 5 }, // Case 6 para obtener departamentos
             success: function(response) {
                 try {
                     const data = JSON.parse(response);
@@ -1024,7 +1024,7 @@ function cargarMotivos(selectId, incluirTodos = false) {
         $.ajax({
             url: '../../../api/recursos_humanos_api.php',
             type: 'POST',
-            data: { api: 12 }, // Case 12 para obtener motivos
+            data: { api: 11 }, // Case 11 para obtener motivos
             success: function(response) {
                 try {
                     const data = JSON.parse(response);
@@ -1076,7 +1076,7 @@ function cargarPuestos(selectId, incluirTodos = false, filtrarPorDepartamento = 
         $.ajax({
             url: '../../../api/recursos_humanos_api.php',
             type: 'POST',
-            data: { api: 8 }, // Case 8 para obtener puestos
+            data: { api: 7 }, // Case 7 para obtener puestos
             success: function(response) {
                 try {
                     const data = JSON.parse(response);
@@ -1154,7 +1154,7 @@ function cargarDepartamentosDropdown() {
   $.ajax({
     url: '../../../api/recursos_humanos_api.php',
     type: 'POST',
-    data: { api: 6 }, // Case 6 para obtener departamentos
+    data: { api: 5 }, // Case 6 para obtener departamentos
     success: function(response) {
       try {
         const data = JSON.parse(response);
@@ -1406,13 +1406,13 @@ $(document).on("click", ".btn-eliminar-departamento", function () {
         url: "../../../api/recursos_humanos_api.php",
         type: "POST",
         data: {
-          api: 14,
+          api: 12,
           id_departamento: departamentoId,
           activo: 0,
         },
         beforeSend: function () {
           console.log("Enviando datos:", {
-            api: 14,
+            api: 12,
             id_departamento: departamentoId,
             activo: 0,
           });
@@ -1621,13 +1621,13 @@ $(document).on("click", ".btn-eliminar-puesto", function () {
         url: "../../../api/recursos_humanos_api.php",
         type: "POST",
         data: {
-          api: 15,
+          api: 13,
           id_puesto: puestoId,
           activo: 0,
         },
         beforeSend: function () {
           console.log("Enviando datos:", {
-            api: 15,
+            api: 13,
             id_puesto: puestoId,
             activo: 0,
           });
@@ -1793,13 +1793,13 @@ $(document).on("click", ".btn-eliminar-motivo", function () {
         url: "../../../api/recursos_humanos_api.php",
         type: "POST",
         data: {
-          api: 16,
+          api: 14,
           id_motivo: motivoId,
           activo: 0,
         },
         beforeSend: function () {
           console.log("Enviando datos:", {
-            api: 16,
+            api: 14,
             id_motivo: motivoId,
             activo: 0,
           });
@@ -1876,13 +1876,13 @@ $(document).on("click", ".btn-eliminar-blanda", function () {
         url: "../../../api/recursos_humanos_api.php",
         type: "POST",
         data: {
-          api: 20,
+          api: 18,
           id_blanda: blandaId,
           activo: 0,
         },
         beforeSend: function () {
           console.log("Enviando datos:", {
-            api: 20,
+            api: 18,
             id_blanda: blandaId,
             activo: 0,
           });
@@ -1951,7 +1951,7 @@ $(document).on("click", ".btn-eliminar-tecnica", function () {
     function () {
       ajaxAwaitFormData(
         {
-          api: 23,
+          api: 21,
           id_tecnica: tecnicaId,
         },
         "recursos_humanos_api",
@@ -2000,13 +2000,13 @@ $(document).on("click", ".btn-eliminar-requisicion", function () {
         url: "../../../api/recursos_humanos_api.php",
         type: "POST",
         data: {
-          api: 17,
+          api: 15,
           id_requisicion: requisicionId,
           activo: 0,
         },
         beforeSend: function () {
           console.log("Enviando datos:", {
-            api: 16,
+            api: 14,
             id_requisicion: requisicionId,
             activo: 0,
           });
@@ -2444,13 +2444,21 @@ function llenarModalDetallesRequisicion(data) {
         $("#tipoContrato").text(formatearTipoContrato(data.tipo_contrato) || 'N/A');
         $("#tipoJornada").text(formatearTipoJornada(data.tipo_jornada) || 'N/A');
         $("#tipoModalidad").text(formatearTipoModalidad(data.tipo_modalidad) || 'N/A');
-        $("#diaTrabajo").text(formatearDiasTrabajo(data.dias_trabajo) || 'N/A');
-        if (data.dias_personalizados && data.dias_personalizados !== '' && data.dias_personalizados !== 'N/A') {
-            $("#diaPersonalizado").text(data.dias_personalizados);
+
+        if (data.dias_trabajo && data.dias_trabajo === 'otro') {
+            $("#diaTrabajo").text('Personalizado');
             $("#diaPersonalizadoContainer").show();
-        } else {
-            $("#diaPersonalizadoContainer").hide();
+            $("#diaPersonalizado").text(data.dias_personalizados || 'N/A');
+        } else { 
+          $("#diaTrabajo").text(formatearDiasTrabajo(data.dias_trabajo) || 'N/A')
+          $("#diaPersonalizadoContainer").hide();
         }
+        // if (data.dias_personalizados && data.dias_personalizados !== '' && data.dias_personalizados !== 'N/A') {
+        //     $("#diaPersonalizado").text(data.dias_personalizados);
+        //     $("#diaPersonalizadoContainer").show();
+        // } else {
+        //     $("#diaPersonalizadoContainer").hide();
+        // }
         $("#horaInicio").text(data.hora_inicio || 'N/A');
         $("#horaFin").text(data.hora_fin || 'N/A');
         
@@ -2673,11 +2681,6 @@ function actualizarEtiquetasFormularioEdicion(estatus) {
             etiqueta: 'Observaciones',
             placeholder: 'Agregar observaciones o comentarios...',
             ayuda: 'Opcional: Agregue comentarios adicionales'
-        },
-        'completada': {
-            etiqueta: 'Observaciones de Finalización',
-            placeholder: 'Agregar observaciones sobre la finalización...',
-            ayuda: 'Opcional: Agregue comentarios sobre la finalización'
         }
     };
     
@@ -2714,7 +2717,7 @@ function procesarAprobacionRechazoTabla(accion, idRequisicion, observaciones) {
     type: "POST",
     dataType: "json",
     data: {
-      api: 4, // Usar el nuevo case 4 para aprobaciones
+      api: 3, // Usar el nuevo case 4 para aprobaciones
       id_requisicion: idRequisicion,
       accion: accion,
       observaciones_aprobacion: observaciones,

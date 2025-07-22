@@ -29,7 +29,7 @@ $("#registrarDepartamentoForm").submit(function (event) {
     function () {
       ajaxAwaitFormData(
         {
-          api: 5,
+          api: 4,
           activo: activo,
         },
         "recursos_humanos_api",
@@ -88,7 +88,7 @@ function setupToggleFiltroDepartamentos() {
             mostrarActivosDepartamentos = false;
             
             // Cambiar el API para mostrar inactivos
-            dataTableCatDepartamentos = { api: 27 };
+            dataTableCatDepartamentos = { api: 25 };
             
             console.log("Departamentos: Mostrando INACTIVOS");
             alertToast("Mostrando Departamentos inactivos", "info", 2000);
@@ -102,7 +102,7 @@ function setupToggleFiltroDepartamentos() {
             mostrarActivosDepartamentos = true;
             
             // Cambiar el API para mostrar activos
-            dataTableCatDepartamentos = { api: 6 };
+            dataTableCatDepartamentos = { api: 5 };
             
             console.log("Departamentos: Mostrando ACTIVOS");
             alertToast("Mostrando Departamentos activos", "success", 2000);
@@ -168,7 +168,7 @@ function resetearFiltrosDepartamentos() {
     mostrarActivosDepartamentos = true;
     
     // Restablecer API por defecto (activos)
-    dataTableCatDepartamentos = { api: 6 };
+    dataTableCatDepartamentos = { api: 5 };
     
     // Actualizar el botón visualmente
     updateFilterButtonTextDepartamentos();
@@ -246,7 +246,7 @@ $("#registrarPuestoForm").submit(function (event) {
 
       ajaxAwaitFormData(
         {
-          api: 7,
+          api: 6,
           activo: activo,
           id_blanda: habilidadesBlandasJson,
           id_tecnica: habilidadesTecnicasJson
@@ -315,7 +315,7 @@ $("#registrarMotivoForm").submit(function (event) {
     function () {
       ajaxAwaitFormData(
         {
-          api: 11,
+          api: 10,
           activo: activo,
         },
         "recursos_humanos_api",
@@ -373,7 +373,7 @@ function setupToggleFiltroMotivos() {
             mostrarActivosMotivos = false;
             
             // Cambiar el API para mostrar inactivos
-            dataTableCatMotivos = { api: 24 };
+            dataTableCatMotivos = { api: 22 };
             
             console.log("Motivos: Mostrando INACTIVOS");
             alertToast("Mostrando motivos inactivos", "info", 2000);
@@ -387,7 +387,7 @@ function setupToggleFiltroMotivos() {
             mostrarActivosMotivos = true;
             
             // Cambiar el API para mostrar activos
-            dataTableCatMotivos = { api: 12 };
+            dataTableCatMotivos = { api: 11 };
             
             console.log("Motivos: Mostrando ACTIVOS");
             alertToast("Mostrando motivos activos", "success", 2000);
@@ -453,7 +453,7 @@ function resetearFiltrosMotivos() {
     mostrarActivosMotivos = true;
     
     // Restablecer API por defecto (activos)
-    dataTableCatMotivos = { api: 12 };
+    dataTableCatMotivos = { api: 11 };
     
     // Actualizar el botón visualmente
     updateFilterButtonTextMotivos();
@@ -510,7 +510,7 @@ $("#registrarBlandasForm").submit(function (event) {
     function () {
       ajaxAwaitFormData(
         {
-          api: 19,
+          api: 17,
           activo: activo,
         },
         "recursos_humanos_api",
@@ -568,7 +568,7 @@ function setupToggleFiltroBlandas() {
             mostrarActivosBlandas = false;
             
             // Cambiar el API para mostrar inactivos
-            dataTableCatBlandas = { api: 25 };
+            dataTableCatBlandas = { api: 23 };
             
             console.log("Blandas: Mostrando INACTIVOS");
             alertToast("Mostrando Blandas inactivos", "info", 2000);
@@ -582,7 +582,7 @@ function setupToggleFiltroBlandas() {
             mostrarActivosBlandas = true;
             
             // Cambiar el API para mostrar activos
-            dataTableCatBlandas = { api: 18 };
+            dataTableCatBlandas = { api: 16 };
             
             console.log("Blandas: Mostrando ACTIVOS");
             alertToast("Mostrando Blandas activos", "success", 2000);
@@ -648,7 +648,7 @@ function resetearFiltrosBlandas() {
     mostrarActivosBlandas = true;
     
     // Restablecer API por defecto (activos)
-    dataTableCatBlandas = { api: 18 };
+    dataTableCatBlandas = { api: 16 };
     
     // Actualizar el botón visualmente
     updateFilterButtonTextBlandas();
@@ -705,7 +705,7 @@ $("#registrarTecnicasForm").submit(function (event) {
     function () {
       ajaxAwaitFormData(
         {
-          api: 22,
+          api: 20,
           activo: activo,
         },
         "recursos_humanos_api",
@@ -763,7 +763,7 @@ function setupToggleFiltroTecnicas() {
             mostrarActivosTecnicas = false;
             
             // Cambiar el API para mostrar inactivos
-            dataTableCatTecnicas = { api: 26 };
+            dataTableCatTecnicas = { api: 24 };
             
             console.log("Tecnicas: Mostrando INACTIVOS");
             alertToast("Mostrando Tecnicas inactivos", "info", 2000);
@@ -777,7 +777,7 @@ function setupToggleFiltroTecnicas() {
             mostrarActivosTecnicas = true;
             
             // Cambiar el API para mostrar activos
-            dataTableCatTecnicas = { api: 21 };
+            dataTableCatTecnicas = { api: 19 };
             
             console.log("Tecnicas: Mostrando ACTIVOS");
             alertToast("Mostrando Tecnicas activos", "success", 2000);
@@ -843,7 +843,7 @@ function resetearFiltrosTecnicas() {
     mostrarActivosTecnicas = true;
     
     // Restablecer API por defecto (activos)
-    dataTableCatTecnicas = { api: 21 };
+    dataTableCatTecnicas = { api: 19 };
     
     // Actualizar el botón visualmente
     updateFilterButtonTextTecnicas();
@@ -1096,6 +1096,145 @@ $(document).on('submit', '#formEditarRequisicion', function(e) {
         complete: function() {
             $('button[type="submit"]').html('<i class="bi bi-check-circle me-2"></i>Actualizar Requisición');
             $('button[type="submit"]').prop('disabled', false);
+        }
+    });
+});
+
+// === ENVÍO DEL FORMULARIO DE PUBLICACIÓN DE VACANTE ===
+$(document).on('submit', '#formPublicarVacante', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    
+    // Validaciones del formulario
+    const idRequisicion = formData.get('id_requisicion');
+    const tituloVacante = formData.get('titulo_vacante');
+    const tipoPublicacion = formData.get('tipo_publicacion');
+    const fechaLimite = formData.get('fecha_limite_publicacion');
+    const maxPostulantes = formData.get('max_postulantes');
+    
+    // Validaciones
+    if (!idRequisicion || !tituloVacante || !tipoPublicacion || !fechaLimite || !maxPostulantes) {
+        alertToast('Por favor complete todos los campos obligatorios', 'error', 4000);
+        return;
+    }
+    
+    if (maxPostulantes < 1 || maxPostulantes > 500) {
+        alertToast('La cantidad máxima de postulantes debe estar entre 1 y 500', 'error', 4000);
+        return;
+    }
+    
+    // Validar fecha no sea anterior a hoy
+    const hoy = new Date().toISOString().split('T')[0];
+    if (fechaLimite < hoy) {
+        alertToast('La fecha límite no puede ser anterior a hoy', 'error', 4000);
+        return;
+    }
+    
+    // Convertir FormData a objeto para enviar a la función
+    const formDataObj = {
+        id_requisicion: idRequisicion,
+        titulo_vacante: tituloVacante,
+        tipo_publicacion: tipoPublicacion,
+        estado_publicacion: 'publicada_normal', // SIEMPRE será 'publicada'
+        fecha_limite_publicacion: fechaLimite,
+        max_postulantes: maxPostulantes,
+        descripcion_adicional: formData.get('descripcion_adicional') || ''
+    };
+    
+    console.log('Datos del formulario de publicación:', formDataObj);
+    
+    // Mensaje de confirmación personalizado según el tipo
+    let mensajeConfirmacion = '';
+    switch(tipoPublicacion) {
+        case 'interna':
+            mensajeConfirmacion = '¿Confirma que desea publicar esta vacante SOLO INTERNAMENTE?';
+            break;
+        case 'externa':
+            mensajeConfirmacion = '¿Confirma que desea publicar esta vacante SOLO EXTERNAMENTE?';
+            break;
+        case 'ambas':
+            mensajeConfirmacion = '¿Confirma que desea publicar esta vacante INTERNA Y EXTERNAMENTE?';
+            break;
+    }
+    
+    Swal.fire({
+        title: 'Confirmar Publicación',
+        text: mensajeConfirmacion,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#28a745',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Sí, publicar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Llamar a la función de publicación
+            publicarVacanteConParametros(formDataObj);
+        }
+    });
+});
+
+// === ENVÍO DEL FORMULARIO DE EDICIÓN DE PUBLICACIÓN ===
+$(document).on('submit', '#formEditarPublicacion', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    
+    // Validaciones del formulario
+    const idPublicacion = formData.get('id_publicacion');
+    const idRequisicion = formData.get('id_requisicion');
+    const tituloVacante = formData.get('titulo_vacante');
+    const tipoPublicacion = formData.get('tipo_publicacion');
+    const fechaLimite = formData.get('fecha_limite_publicacion');
+    const maxPostulantes = formData.get('max_postulantes');
+    
+    // Validaciones
+    if (!idPublicacion || !idRequisicion || !tituloVacante || !tipoPublicacion || !fechaLimite || !maxPostulantes) {
+        alertToast('Por favor complete todos los campos obligatorios', 'error', 4000);
+        return;
+    }
+    
+    if (maxPostulantes < 1 || maxPostulantes > 500) {
+        alertToast('La cantidad máxima de postulantes debe estar entre 1 y 500', 'error', 4000);
+        return;
+    }
+    
+    // Validar fecha no sea anterior a hoy
+    const hoy = new Date().toISOString().split('T')[0];
+    if (fechaLimite < hoy) {
+        alertToast('La fecha límite no puede ser anterior a hoy', 'error', 4000);
+        return;
+    }
+    
+    // Convertir FormData a objeto para enviar a la función
+    const formDataObj = {
+        id_publicacion: idPublicacion,
+        id_requisicion: idRequisicion,
+        titulo_vacante: tituloVacante,
+        tipo_publicacion: tipoPublicacion,
+        estado_publicacion: 'publicada_editada', // Será edición siempre
+        fecha_limite_publicacion: fechaLimite,
+        max_postulantes: maxPostulantes,
+        descripcion_adicional: formData.get('descripcion_adicional') || ''
+    };
+    
+    console.log('Datos del formulario de edición:', formDataObj);
+    
+    // Mensaje de confirmación
+    Swal.fire({
+        title: 'Confirmar Actualización',
+        text: '¿Confirma que desea guardar los cambios en esta publicación?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#ffc107',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Sí, guardar cambios',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Llamar a la función de actualización
+            actualizarPublicacionVacante(formDataObj);
         }
     });
 });

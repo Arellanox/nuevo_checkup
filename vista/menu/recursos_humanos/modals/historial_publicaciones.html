@@ -1,0 +1,263 @@
+<!-- Modal de Historial de Publicaciones -->
+<div class="modal fade" id="historialPublicacionesModal" tabindex="-1" aria-labelledby="historialPublicacionesLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header bg-gradient-primary text-white">
+        <h5 class="modal-title fw-bold" id="historialPublicacionesLabel">
+          <i class="bi bi-clock-history me-2"></i>Historial de Publicaciones de Vacantes
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-body">
+                        <table id="tableHistorialPublicaciones" class="table table-striped table-bordered"
+                          style="width: 100%">
+                          <thead>
+                            <tr>
+                              <th>ID</th>
+                              <th>Publicación</th>
+                              <th>Vacante</th>
+                              <th>Estado Anterior</th>
+                              <th>Estado Nuevo</th>
+                              <th>Comentarios</th>
+                              <th>Usuario</th>
+                              <th>Fecha/Hora</th>
+                              <th>Acciones</th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              
+                            </tr>
+                          </thead>
+                          <tbody></tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-footer bg-light border-0">
+        <!-- <button type="button" class="btn btn-gradient-secondary rounded-pill px-4" id="btnExportarHistorial">
+          <i class="bi bi-download me-1"></i>Exportar
+        </button> -->
+        <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Detalles del Cambio -->
+<!-- <div class="modal fade" id="detallesCambioModal" tabindex="-1" aria-labelledby="detallesCambioLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-gradient-info text-white">
+        <h5 class="modal-title fw-bold" id="detallesCambioLabel">
+          <i class="bi bi-info-circle me-2"></i>Detalles del Cambio
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header bg-gradient-primary text-white">
+                <h6 class="mb-0">Información de la Publicación</h6>
+              </div>
+              <div class="card-body">
+                <div class="mb-2">
+                  <strong>Número:</strong>
+                  <span id="detalleNumeroPublicacion" class="text-muted">-</span>
+                </div>
+                <div class="mb-2">
+                  <strong>Título:</strong>
+                  <span id="detalleTituloVacante" class="text-muted">-</span>
+                </div>
+                <div class="mb-2">
+                  <strong>Área:</strong>
+                  <span id="detalleDepartamento" class="text-muted">-</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header bg-gradient-success text-white">
+                <h6 class="mb-0">Información del Cambio</h6>
+              </div>
+              <div class="card-body">
+                <div class="mb-2">
+                  <strong>Estado Anterior:</strong>
+                  <span id="detalleEstadoAnterior" class="badge">-</span>
+                </div>
+                <div class="mb-2">
+                  <strong>Estado Nuevo:</strong>
+                  <span id="detalleEstadoNuevo" class="badge">-</span>
+                </div>
+                <div class="mb-2">
+                  <strong>Usuario:</strong>
+                  <span id="detalleUsuario" class="text-muted">-</span>
+                </div>
+                <div class="mb-2">
+                  <strong>Fecha/Hora:</strong>
+                  <span id="detalleFechaCambio" class="text-muted">-</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row mt-3">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header bg-gradient-warning text-white">
+                <h6 class="mb-0">Comentarios</h6>
+              </div>
+              <div class="card-body">
+                <div id="detalleComentarios" class="text-muted p-3 bg-light rounded">
+                  Sin comentarios registrados
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<style>
+  /* Estilos para el modal de historial - siguiendo el tema RH */
+  body {
+    background-color: #f8f9fa;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+
+  .table {
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .table th {
+    border-top: none;
+    color: #495057;
+    background-color: #f8f9fa;
+  }
+
+  .table-hover tbody tr:hover {
+    background-color: rgba(102, 126, 234, 0.1);
+    transform: translateY(-1px);
+    transition: all 0.3s ease;
+  }
+
+  .form-control,
+  .form-select {
+    transition: all 0.3s ease;
+  }
+
+  .form-control:focus,
+  .form-select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    transform: translateY(-1px);
+  }
+
+  .btn-outline-secondary {
+    transition: all 0.3s ease;
+  }
+
+  .btn-outline-secondary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3);
+  }
+
+  .rounded-pill {
+    border-radius: 50rem !important;
+  }
+
+  .shadow-lg {
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+  }
+
+  .fw-bold {
+    font-weight: 700 !important;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .modal.fade .modal-dialog {
+    transition: transform 0.3s ease-out;
+  }
+
+  .modal.show .modal-dialog {
+    animation: fadeIn 0.3s ease-in;
+  }
+
+  /* Contenedor para centrar SVG */
+  .containerSvg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+  }
+
+  /* Estados específicos para badges */
+  .estado-no-publicada {
+    background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+    color: white;
+  }
+
+  .estado-publicada-interna {
+    background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+    color: white;
+  }
+
+  .estado-publicada-externa {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white;
+  }
+
+  .estado-detenida {
+    background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+    color: #212529;
+  }
+
+  .estado-cerrada {
+    background: linear-gradient(135deg, #343a40 0%, #23272b 100%);
+    color: white;
+  }
+</style>

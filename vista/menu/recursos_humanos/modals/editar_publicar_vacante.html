@@ -1,66 +1,66 @@
-<!-- Modal para publicar vacante -->
-<div class="modal fade" id="publicarVacanteModal" tabindex="-1" aria-labelledby="publicarVacanteModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+<!-- Modal para editar publicación de vacante -->
+<div class="modal fade" id="editarPublicacionModal" tabindex="-1" aria-labelledby="editarPublicacionModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-lg">
         <div class="modal-content shadow-lg border-0">
-            <div class="modal-header bg-gradient-custom text-white border-0">
-                <h5 class="modal-title fw-bold" id="publicarVacanteModalLabel">
-                    <i class="bi bi-megaphone me-2"></i>Publicar Vacante
+            <div class="modal-header bg-gradient-warning text-white border-0">
+                <h5 class="modal-title fw-bold" id="editarPublicacionModalLabel">
+                    <i class="bi bi-pencil-square me-2"></i>Editar Publicación de Vacante
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body bg-light" style="max-height: 70vh; overflow-y: auto;">
                 <!-- Contenido del formulario -->
-                <form id="formPublicarVacante" name="formPublicarVacante">
+                <form id="formEditarPublicacion" name="formEditarPublicacion">
                     
                     <!-- Campos ocultos -->
-                    <input type="hidden" id="id_requisicion_pub" name="id_requisicion">
-                    <input type="hidden" id="titulo_vacante_hidden" name="titulo_vacante">
+                    <input type="hidden" id="id_publicacion_edit" name="id_publicacion">
+                    <input type="hidden" id="id_requisicion_edit" name="id_requisicion">
+                    <input type="hidden" id="editarTituloVacanteHidden" name="titulo_vacante">
                     
-                    <!-- INFORMACIÓN DE LA REQUISICIÓN -->
+                    <!-- INFORMACIÓN DE LA PUBLICACIÓN -->
                     <div class="card mb-4 border-0 shadow-sm">
-                        <div class="card-header bg-radient-custom border-0" style="color: #004E59;">
-                            <h6 class="mb-0 fw-bold"><i class="bi bi-info-circle me-2"></i>Información de la Vacante</h6>
+                        <div class="card-header bg-radient-warning border-0" style="color: #ffc107;">
+                            <h6 class="mb-0 fw-bold"><i class="bi bi-info-circle me-2"></i>Información de la Publicación</h6>
                         </div>
                         <div class="card-body">
                             <div class="row">
-                              <div class="col-12">
+                                <div class="col-12">
                                     <div class="mb-3">
-                                        <!-- <label class="form-label fw-bold">Título de la Publicación:</label> -->
-                                        <span class="mb-0 text-success fw-bold" id="titulo_vacante_display">-</span>
+                                        <label class="form-label fw-bold">Título de la Publicación <span class="text-danger">*</span></label>
+                                        <span class="form-control rounded-3 border-2" id="editarTituloVacanteDisplay"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label class="form-label fw-bold">No. Requisición:</label>
-                                        <p class="mb-0 text-primary fw-bold" id="numero_requisicion_display">#000</p>
+                                        <label for="editarNumeroRequisicionDisplay" class="form-label fw-bold">No. Requisición:</label>
+                                        <p class="mb-0 text-warning fw-bold" id="editarNumeroRequisicionDisplay">#000</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label class="form-label fw-bold">Puesto:</label>
-                                        <p class="mb-0" id="puesto_nombre_display">-</p>
+                                        <label for="editarPuestoNombreDisplay" class="form-label fw-bold">Puesto:</label>
+                                        <p class="mb-0 fw-bold" id="editarPuestoNombreDisplay">-</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label class="form-label fw-bold">Departamento:</label>
-                                        <p class="mb-0" id="departamento_nombre_display">-</p>
+                                        <label for="editarDepartamentoNombreDisplay" class="form-label fw-bold">Departamento:</label>
+                                        <p class="mb-0 fw-bold" id="editarDepartamentoNombreDisplay">-</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label class="form-label fw-bold">Prioridad:</label>
-                                        <p id="prioridad_display">-</p>
+                                        <label for="editarEstadoActualDisplay" class="form-label fw-bold">Estado Actual:</label>
+                                        <div id="editarEstadoActualDisplay">-</div>
                                     </div>
                                 </div>
-                                
                             </div>
                         </div>
                     </div>
                     
                     <!-- CONFIGURACIÓN DE PUBLICACIÓN -->
                     <div class="card mb-4 border-0 shadow-sm">
-                        <div class="card-header bg-radient-custom border-0" style="color: #004E59;">
+                        <div class="card-header bg-radient-warning border-0" style="color: #ffc107;">
                             <h6 class="mb-0 fw-bold"><i class="bi bi-gear me-2"></i>Configuración de Publicación</h6>
                         </div>
                         <div class="card-body">
@@ -68,8 +68,8 @@
                                 <!-- Tipo de Publicación -->
                                 <div class="col-md-4">
                                     <div class="mb-3">
-                                        <label for="tipo_publicacion" class="form-label fw-bold">Tipo de Publicación <span class="text-danger">*</span></label>
-                                        <select class="form-select rounded-3 border-2" id="tipo_publicacion" name="tipo_publicacion" required>
+                                        <label for="editarTipoPublicacion" class="form-label fw-bold">Tipo de Publicación <span class="text-danger">*</span></label>
+                                        <select class="form-select rounded-3 border-2" id="editarTipoPublicacion" name="tipo_publicacion" required>
                                             <option value="">Seleccionar tipo...</option>
                                             <option value="interna">Solo Interna</option>
                                             <option value="externa">Solo Externa</option>
@@ -82,8 +82,8 @@
                                 <!-- Fecha Límite -->
                                 <div class="col-md-4">
                                     <div class="mb-3">
-                                        <label for="fecha_limite_publicacion" class="form-label fw-bold">Fecha Límite <span class="text-danger">*</span></label>
-                                        <input type="date" class="form-control rounded-3 border-2" id="fecha_limite_publicacion" name="fecha_limite_publicacion" required>
+                                        <label for="editarFechaLimite" class="form-label fw-bold">Fecha Límite <span class="text-danger">*</span></label>
+                                        <input type="date" class="form-control rounded-3 border-2" id="editarFechaLimite" name="fecha_limite_publicacion" required>
                                         <small class="text-muted">La publicación se cerrará automáticamente en esta fecha</small>
                                     </div>
                                 </div>
@@ -91,8 +91,8 @@
                                 <!-- Máximo Postulantes -->
                                 <div class="col-md-4">
                                     <div class="mb-3">
-                                        <label for="max_postulantes" class="form-label fw-bold">Máximo de Postulantes <span class="text-danger">*</span></label>
-                                        <input type="number" class="form-control rounded-3 border-2" id="max_postulantes" name="max_postulantes" min="1" max="500" required>
+                                        <label for="editarMaxPostulantes" class="form-label fw-bold">Máximo de Postulantes <span class="text-danger">*</span></label>
+                                        <input type="number" class="form-control rounded-3 border-2" id="editarMaxPostulantes" name="max_postulantes" min="1" max="500" required>
                                         <small class="text-muted">La publicación se cerrará al alcanzar este número</small>
                                     </div>
                                 </div>
@@ -100,9 +100,9 @@
                                 <!-- Descripción Adicional -->
                                 <div class="col-12">
                                     <div class="mb-3">
-                                        <label for="descripcion_adicional" class="form-label fw-bold">Descripción Adicional</label>
-                                        <textarea class="form-control rounded-3 border-2" id="descripcion_adicional" name="descripcion_adicional" rows="4" maxlength="1000" placeholder="Información adicional sobre la vacante (opcional)..."></textarea>
-                                        <small class="text-muted">Este texto aparecerá en la publicación.</small>
+                                        <label for="editarDescripcionAdicional" class="form-label fw-bold">Descripción Adicional</label>
+                                        <textarea class="form-control rounded-3 border-2" id="editarDescripcionAdicional" name="descripcion_adicional" rows="4" maxlength="1000" placeholder="Información adicional sobre la vacante (opcional)..."></textarea>
+                                        <small class="text-muted">Máximo 1000 caracteres. Este texto aparecerá en la publicación.</small>
                                     </div>
                                 </div>
                             </div>
@@ -111,15 +111,15 @@
                     
                     <!-- CONFIGURACIÓN AVANZADA -->
                     <div class="card mb-4 border-0 shadow-sm">
-                        <div class="card-header bg-radient-custom border-0" style="color: #004E59;">
+                        <div class="card-header bg-radient-warning border-0" style="color: #ffc107;">
                             <h6 class="mb-0 fw-bold">
                                 <i class="bi bi-sliders me-2"></i>Configuración Avanzada
-                                <button type="button" class="btn btn-sm btn-outline-primary float-end" data-bs-toggle="collapse" data-bs-target="#configAvanzada" aria-expanded="false">
+                                <button type="button" class="btn btn-sm btn-outline-warning float-end" data-bs-toggle="collapse" data-bs-target="#configAvanzadaEdit" aria-expanded="false">
                                     <i class="bi bi-chevron-down"></i>
                                 </button>
                             </h6>
                         </div>
-                        <div class="collapse" id="configAvanzada">
+                        <div class="collapse" id="configAvanzadaEdit">
                             <div class="card-body">
                                 <div class="row">
                                     <!-- Plataformas de Publicación -->
@@ -127,20 +127,20 @@
                                         <div class="mb-3">
                                             <label class="form-label fw-bold">Plataformas de Publicación</label>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="plataforma_web" name="plataformas[]" value="web" checked>
-                                                <label class="form-check-label" for="plataforma_web">
+                                                <input class="form-check-input" type="checkbox" id="editarPlataforma_web" name="plataformas[]" value="web">
+                                                <label class="form-check-label" for="editarPlataforma_web">
                                                     Portal Web Interno
                                                 </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="plataforma_linkedin" name="plataformas[]" value="linkedin">
-                                                <label class="form-check-label" for="plataforma_linkedin">
+                                                <input class="form-check-input" type="checkbox" id="editarPlataforma_linkedin" name="plataformas[]" value="linkedin">
+                                                <label class="form-check-label" for="editarPlataforma_linkedin">
                                                     LinkedIn
                                                 </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="plataforma_indeed" name="plataformas[]" value="indeed">
-                                                <label class="form-check-label" for="plataforma_indeed">
+                                                <input class="form-check-input" type="checkbox" id="editarPlataforma_indeed" name="plataformas[]" value="indeed">
+                                                <label class="form-check-label" for="editarPlataforma_indeed">
                                                     Indeed
                                                 </label>
                                             </div>
@@ -152,20 +152,20 @@
                                         <div class="mb-3">
                                             <label class="form-label fw-bold">Criterios de Cierre Automático</label>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="cierre_por_fecha" name="criterios_cierre[]" value="fecha_limite" checked disabled>
-                                                <label class="form-check-label" for="cierre_por_fecha">
+                                                <input class="form-check-input" type="checkbox" id="editarCierrePorFecha" name="criterios_cierre[]" value="fecha_limite" checked disabled>
+                                                <label class="form-check-label" for="editarCierrePorFecha">
                                                     Por fecha límite
                                                 </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="cierre_por_postulantes" name="criterios_cierre[]" value="max_postulantes" checked disabled>
-                                                <label class="form-check-label" for="cierre_por_postulantes">
+                                                <input class="form-check-input" type="checkbox" id="editarCierrePorPostulantes" name="criterios_cierre[]" value="max_postulantes" checked disabled>
+                                                <label class="form-check-label" for="editarCierrePorPostulantes">
                                                     Por máximo de postulantes
                                                 </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="cierre_por_vacantes" name="criterios_cierre[]" value="vacantes_cubiertas">
-                                                <label class="form-check-label" for="cierre_por_vacantes">
+                                                <input class="form-check-input" type="checkbox" id="editarCierrePorVacantes" name="criterios_cierre[]" value="vacantes_cubiertas">
+                                                <label class="form-check-label" for="editarCierrePorVacantes">
                                                     Por vacantes cubiertas (1)
                                                 </label>
                                             </div>
@@ -182,8 +182,8 @@
                 <button type="button" class="btn btn-secondary rounded-3" data-bs-dismiss="modal">
                     <i class="bi bi-x-circle me-1"></i>Cancelar
                 </button>
-                <button type="submit" form="formPublicarVacante" class="btn btn-success rounded-3">
-                    <i class="bi bi-megaphone me-1"></i>Publicar Vacante
+                <button type="submit" form="formEditarPublicacion" class="btn btn-warning rounded-3">
+                    <i class="bi bi-save me-1"></i>Guardar Cambios
                 </button>
             </div>
         </div>

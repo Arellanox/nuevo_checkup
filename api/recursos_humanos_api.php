@@ -81,7 +81,38 @@ $banda_salarial = isset($_POST['banda_salarial']) ? trim($_POST['banda_salarial'
 // $conocimientos_tecnicos = isset($_POST['conocimientos_tecnicos']) ? trim($_POST['conocimientos_tecnicos']) : null;
 // $habilidades_blandas = isset($_POST['habilidades_blandas']) ? trim($_POST['habilidades_blandas']) : null;
 
+# Variables para las publicaciones de vacantes
+$id_publicacion = isset($_POST['id_publicacion']) ? (int)$_POST['id_publicacion'] : null;
+$titulo_vacante = isset($_POST['titulo_vacante']) ? trim($_POST['titulo_vacante']) : '';
+$descripcion_adicional = isset($_POST['descripcion_adicional']) ? trim($_POST['descripcion_adicional']) : '';
+$estado_publicacion = isset($_POST['estado_publicacion']) ? trim($_POST['estado_publicacion']) : '';
+$tipo_publicacion = isset($_POST['tipo_publicacion']) ? trim($_POST['tipo_publicacion']) : '';
+$fecha_inicio_publicacion = isset($_POST['fecha_inicio_publicacion']) ? $_POST['fecha_inicio_publicacion'] : null;
+$fecha_limite_publicacion = isset($_POST['fecha_limite_publicacion']) ? $_POST['fecha_limite_publicacion'] : null;
+$motivo_cierre = isset($_POST['motivo_cierre']) ? trim($_POST['motivo_cierre']) : null;
+$plataformas_publicacion = isset($_POST['plataformas_publicacion']) ? $_POST['plataformas_publicacion'] : null;
+$criterios_cierre_automatico = isset($_POST['criterios_cierre_automatico']) ? $_POST['criterios_cierre_automatico'] : null;
+$configuracion_adicional = isset($_POST['configuracion_adicional']) ? $_POST['configuracion_adicional'] : null;
+$max_postulantes = isset($_POST['max_postulantes']) ? (int)$_POST['max_postulantes'] : 20;
 
+# Variables para el filtro de publicaciones
+$estado_filtro = isset($_POST['estado']) ? $_POST['estado'] : null;
+$tipo_filtro = isset($_POST['tipo']) ? $_POST['tipo'] : null;
+// Convertir arrays a strings separados por comas para el SP
+if (is_array($estado_filtro)) {
+    $estado_filtro = implode(',', $estado_filtro);
+}
+if (is_array($tipo_filtro)) {
+    $tipo_filtro = implode(',', $tipo_filtro);
+}
+
+# Variable para el historial de publicaciones
+$id_historial = isset($_POST['id_historial']) ? (int)$_POST['id_historial'] : null;
+$estado_anterior = isset($_POST['estado_anterior']) ? trim($_POST['estado_anterior']) : '';
+$estado_nuevo = isset($_POST['estado_nuevo']) ? trim($_POST['estado_nuevo']) : '';
+$comentarios = isset($_POST['comentarios']) ? trim($_POST['comentarios']) : '';
+$fecha_cambio = isset($_POST['fecha_cambio']) ? $_POST['fecha_cambio'] : null;
+$usuario_responsable = isset($_POST['usuario_responsable']) ? (int)$_POST['usuario_responsable'] : null;
 
 switch ($api) {
     case 1:
@@ -176,14 +207,7 @@ switch ($api) {
         # recuperar todas las requisiciones
         $response = $master->getByProcedure('sp_rh_cat_requisiciones_b', []);
         break;
-    case 3:
-        // # Eliminar una caja
-        // $response = $master->deleteByProcedure("sp_caja_chica_e", [
-        //     $id_caja, 
-        //     $_SESSION['id']
-        // ]);
-        break;
-   case 4:
+   case 3:
         // Validar parámetros obligatorios
         if ($id_requisicion === null || $accion === null) {
             $response = array(
@@ -240,7 +264,7 @@ switch ($api) {
             );
         }
         break;
-    case 5:
+    case 4:
 
         # Registrar/editar un departamento
         $response = $master->insertByProcedure("sp_rh_cat_departamentos_g", [
@@ -249,11 +273,11 @@ switch ($api) {
             $activo
         ]);
         break;
-    case 6:
+    case 5:
         # recuperar departamentos.
         $response = $master->getByProcedure("sp_rh_cat_departamentos_b", []);
         break;
-    case 7:
+    case 6:
         # Registrar/editar un puesto
         $response = $master->insertByProcedure("sp_rh_cat_puestos_g", [
             $id_puesto,
@@ -270,31 +294,24 @@ switch ($api) {
             $id_tecnica
         ]);
         break;
-    case 8:
+    case 7:
         # recuperar puestos.
         $response = $master->getByProcedure("sp_rh_cat_puestos_b", [
             $filtro_estado,
             $filtro_departamento
         ]);
         break;
-    case 9:
+    case 8:
         # CAMBIAR ESTE API CASE REPOSICIONAR (OBSOLETO)
         $response = $master->getByProcedure("sp_rh_cat_puestos_detalles_b", [
             $id_puesto
         ]);
         break;
-    // case 10: CAMBIAR ESTE API CASE REPOSICIONAR (OBSOLETO)
-    //     # actualizar detalles de puesto
-    //     $response = $master->updateByProcedure("sp_rh_cat_puestos_detalles_u", [
-    //         $id_puesto,
-    //         $escolaridad_minima,
-    //         $experiencia_anios,
-    //         $objetivos,
-    //         $competencias,
-    //         $banda_salarial
-    //     ]);
-    //     break;
-    case 11:
+    case 9:
+        # Mostrar requisiciones aprobadas
+        $response = $master->getByProcedure("sp_rh_cat_requisiciones_aprobadas_b", []);
+        break;
+    case 10:
         # Registrar un motivo
         $response = $master->insertByProcedure("sp_rh_cat_motivos_g", [
             $id_motivo,
@@ -302,52 +319,39 @@ switch ($api) {
             $activo
         ]);
         break;
-    case 12:
+    case 11:
         # recuperar motivos.
         $response = $master->getByProcedure("sp_rh_cat_motivos_b", []);
         break;
-    case 13:
-        # CAMBIAR ESTE API CASE REPOSICIONAR (OBSOLETO)
-        error_log("API 13 - ID Departamento recibido: " . var_export($id_departamento, true));
-        error_log("API 13 - POST completo: " . var_export($_POST, true));
-
-        # recuperar puestos filtrados por departamento específico
-        $response = $master->getByProcedure("sp_rh_cat_puestos_por_departamento_b", [
-            $id_departamento
-        ]);
-
-        # DEBUG TEMPORAL: Ver qué devuelve el SP
-        error_log("API 13 - Respuesta del SP: " . var_export($response, true));
-        break;
-    case 14:
+    case 12:
         # eliminar departamentos (desactivar)
         $response = $master->insertByProcedure("sp_rh_cat_departamentos_e", [
             $id_departamento
         ]);
         break;
-    case 15:
+    case 13:
         # eliminar puestos (desactivar)
         $response = $master->insertByProcedure("sp_rh_cat_puestos_e", [
             $id_puesto
         ]);
         break;
-    case 16:
+    case 14:
         # eliminar motivos (desactivar)
         $response = $master->insertByProcedure("sp_rh_cat_motivos_e", [
             $id_motivo
         ]);
         break;
-    case 17:
+    case 15:
         # eliminar requisiciones (desactivar)
         $response = $master->insertByProcedure("sp_rh_cat_requisiciones_e", [
             $id_requisicion
         ]);
         break;
-    case 18:
+    case 16:
         # recuperar habildiad es blandas.
         $response = $master->getByProcedure("sp_rh_cat_blandas_b", []);
         break;
-    case 19:
+    case 17:
         # Registrar habildiad es blandas.
         $response = $master->insertByProcedure("sp_rh_cat_blandas_g", [
             $id_blanda,
@@ -355,17 +359,17 @@ switch ($api) {
             $activo
         ]);
         break;
-    case 20:
+    case 18:
         # Eliminar habildiad es blandas (desactivar)
         $response = $master->insertByProcedure("sp_rh_cat_blandas_e", [
             $id_blanda
         ]);
         break;
-    case 21:
+    case 19:
         # recuperar habilidades técnicas.
         $response = $master->getByProcedure("sp_rh_cat_tecnicas_b", []);
         break;
-    case 22:
+    case 20:
         # Registrar habilidades técnicas.
         $response = $master->insertByProcedure("sp_rh_cat_tecnicas_g", [
             $id_tecnica,
@@ -373,27 +377,100 @@ switch ($api) {
             $activo
         ]);
         break;
-    case 23:
+    case 21:
         # Eliminar habilidades técnicas (desactivar)
         $response = $master->insertByProcedure("sp_rh_cat_tecnicas_e", [
             $id_tecnica
         ]);
         break;
-    case 24:
+    case 22:
         # Recuperar Motivos inactivos
         $response = $master->getByProcedure("sp_rh_cat_motivos_inactivos_b", []);
         break;
-    case 25:
+    case 23:
         # Recuperar Habilidades blandas inactivas
         $response = $master->getByProcedure("sp_rh_cat_blandas_inactivas_b", []);
         break;
-    case 26:
+    case 24:
         # Recuperar Habilidades técnicas inactivas
         $response = $master->getByProcedure("sp_rh_cat_tecnicas_inactivas_b", []);
         break;
-    case 27:
+    case 25:
         # Recuperar Departamentos inactivos
         $response = $master->getByProcedure("sp_rh_cat_departamentos_inactivos_b", []);
+        break;
+    case 26:
+        # Crear/actualizar publicación de vacante
+        if ($id_requisicion === null) {
+            $response = [
+                'code' => 0,
+                'message' => 'Error: ID de requisición es obligatorio',
+                'data' => null
+            ];
+        } else {
+            // Validar JSON si se proporcionan
+            $criterios_json = null;
+            $plataformas_json = null;
+            $config_json = null;
+            
+            if ($criterios_cierre_automatico && $criterios_cierre_automatico !== '') {
+                $criterios_json = $criterios_cierre_automatico;
+            }
+            
+            if ($plataformas_publicacion && $plataformas_publicacion !== '') {
+                $plataformas_json = $plataformas_publicacion;
+            }
+            
+            if ($configuracion_adicional && $configuracion_adicional !== '') {
+                $config_json = $configuracion_adicional;
+            }
+            
+            $response = $master->insertByProcedure("sp_rh_cat_publicaciones_g", [
+                $id_publicacion,
+                $id_requisicion,
+                $titulo_vacante,
+                $descripcion_adicional,
+                $estado_publicacion,
+                $tipo_publicacion,
+                $fecha_inicio_publicacion,
+                $fecha_limite_publicacion,
+                $criterios_json,
+                $plataformas_json,
+                $config_json,
+                $max_postulantes,
+                $_SESSION['id'] // usuario_publicador_id
+            ]);
+        }
+        break;
+    case 27:
+        # Cambiar estado de publicación
+        if ($id_publicacion === null || $estado_publicacion === null) {
+            $response = [
+                'code' => 0,
+                'message' => 'Error: ID de publicación y nuevo estado son obligatorios',
+                'data' => null
+            ];
+        } else {
+            $response = $master->insertByProcedure("sp_rh_cat_publicaciones_cambiar_estado", [
+                $id_publicacion,
+                $estado_publicacion,
+                $motivo_cierre,
+                $_SESSION['id']
+            ]);
+        }
+        break;
+    case 28:
+        # Listar publicaciones por estado
+        $response = $master->getByProcedure("sp_rh_cat_publicaciones_por_estado_b", [
+            $estado_filtro,
+            $tipo_filtro
+        ]);
+        break;
+    case 29:
+        # Historial de publicaciones
+        $response = $master->getByProcedure("sp_rh_cat_historial_publicaciones_b", [
+            $id_publicacion
+        ]);
         break;
     default:
         # default

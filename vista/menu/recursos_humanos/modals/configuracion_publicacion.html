@@ -1,20 +1,20 @@
 <!-- Modal para publicar vacante -->
-<div class="modal fade" id="publicarVacanteModal" tabindex="-1" aria-labelledby="publicarVacanteModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+<div class="modal fade" id="editarVacanteModal" tabindex="-1" aria-labelledby="editarVacanteModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-lg">
         <div class="modal-content shadow-lg border-0">
             <div class="modal-header bg-gradient-custom text-white border-0">
-                <h5 class="modal-title fw-bold" id="publicarVacanteModalLabel">
-                    <i class="bi bi-megaphone me-2"></i>Publicar Vacante
+                <h5 class="modal-title fw-bold" id="editarVacanteModalLabel">
+                    <i class="bi bi-megaphone me-2"></i>Editar publicación
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body bg-light" style="max-height: 70vh; overflow-y: auto;">
                 <!-- Contenido del formulario -->
-                <form id="formPublicarVacante" name="formPublicarVacante">
+                <form id="formEditarVacante" name="formEditarVacante">
                     
                     <!-- Campos ocultos -->
-                    <input type="hidden" id="id_requisicion_pub" name="id_requisicion">
-                    <input type="hidden" id="titulo_vacante_hidden" name="titulo_vacante">
+                    <input type="hidden" id="id_requisicion_pub_edit" name="id_requisicion">
+                    <input type="hidden" id="titulo_vacante__edit_hidden" name="titulo_vacante">
                     
                     <!-- INFORMACIÓN DE LA REQUISICIÓN -->
                     <div class="card mb-4 border-0 shadow-sm">
@@ -69,7 +69,7 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="tipo_publicacion" class="form-label fw-bold">Tipo de Publicación <span class="text-danger">*</span></label>
-                                        <select class="form-select rounded-3 border-2" id="tipo_publicacion" name="tipo_publicacion" required>
+                                        <select class="form-select rounded-3 border-2" id="tipo_publicacion_edit" name="tipo_publicacion" required>
                                             <option value="">Seleccionar tipo...</option>
                                             <option value="interna">Solo Interna</option>
                                             <option value="externa">Solo Externa</option>
@@ -83,7 +83,7 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="fecha_limite_publicacion" class="form-label fw-bold">Fecha Límite <span class="text-danger">*</span></label>
-                                        <input type="date" class="form-control rounded-3 border-2" id="fecha_limite_publicacion" name="fecha_limite_publicacion" required>
+                                        <input type="date" class="form-control rounded-3 border-2" id="fecha_limite_publicacion_edit" name="fecha_limite_publicacion" required>
                                         <small class="text-muted">La publicación se cerrará automáticamente en esta fecha</small>
                                     </div>
                                 </div>
@@ -92,7 +92,7 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="max_postulantes" class="form-label fw-bold">Máximo de Postulantes <span class="text-danger">*</span></label>
-                                        <input type="number" class="form-control rounded-3 border-2" id="max_postulantes" name="max_postulantes" min="1" max="500" required>
+                                        <input type="number" class="form-control rounded-3 border-2" id="max_postulantes_edit" name="max_postulantes" min="1" max="500" required>
                                         <small class="text-muted">La publicación se cerrará al alcanzar este número</small>
                                     </div>
                                 </div>
@@ -101,7 +101,7 @@
                                 <div class="col-12">
                                     <div class="mb-3">
                                         <label for="descripcion_adicional" class="form-label fw-bold">Descripción Adicional</label>
-                                        <textarea class="form-control rounded-3 border-2" id="descripcion_adicional" name="descripcion_adicional" rows="4" maxlength="1000" placeholder="Información adicional sobre la vacante (opcional)..."></textarea>
+                                        <textarea class="form-control rounded-3 border-2" id="descripcion_adicional_edit" name="descripcion_adicional" rows="4" maxlength="1000" placeholder="Información adicional sobre la vacante (opcional)..."></textarea>
                                         <small class="text-muted">Este texto aparecerá en la publicación.</small>
                                     </div>
                                 </div>
@@ -127,19 +127,19 @@
                                         <div class="mb-3">
                                             <label class="form-label fw-bold">Plataformas de Publicación</label>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="plataforma_web" name="plataformas[]" value="web" checked>
+                                                <input class="form-check-input" type="checkbox" id="plataforma_web_edit" name="plataformas[]" value="web" checked>
                                                 <label class="form-check-label" for="plataforma_web">
                                                     Portal Web Interno
                                                 </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="plataforma_linkedin" name="plataformas[]" value="linkedin">
+                                                <input class="form-check-input" type="checkbox" id="plataforma_linkedin_edit" name="plataformas[]" value="linkedin">
                                                 <label class="form-check-label" for="plataforma_linkedin">
                                                     LinkedIn
                                                 </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="plataforma_indeed" name="plataformas[]" value="indeed">
+                                                <input class="form-check-input" type="checkbox" id="plataforma_indeed_edit" name="plataformas[]" value="indeed">
                                                 <label class="form-check-label" for="plataforma_indeed">
                                                     Indeed
                                                 </label>
@@ -152,19 +152,19 @@
                                         <div class="mb-3">
                                             <label class="form-label fw-bold">Criterios de Cierre Automático</label>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="cierre_por_fecha" name="criterios_cierre[]" value="fecha_limite" checked disabled>
+                                                <input class="form-check-input" type="checkbox" id="cierre_por_fecha_edit" name="criterios_cierre[]" value="fecha_limite" checked disabled>
                                                 <label class="form-check-label" for="cierre_por_fecha">
                                                     Por fecha límite
                                                 </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="cierre_por_postulantes" name="criterios_cierre[]" value="max_postulantes" checked disabled>
+                                                <input class="form-check-input" type="checkbox" id="cierre_por_postulantes_edit" name="criterios_cierre[]" value="max_postulantes" checked disabled>
                                                 <label class="form-check-label" for="cierre_por_postulantes">
                                                     Por máximo de postulantes
                                                 </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="cierre_por_vacantes" name="criterios_cierre[]" value="vacantes_cubiertas">
+                                                <input class="form-check-input" type="checkbox" id="cierre_por_vacantes_edit" name="criterios_cierre[]" value="vacantes_cubiertas">
                                                 <label class="form-check-label" for="cierre_por_vacantes">
                                                     Por vacantes cubiertas (1)
                                                 </label>
@@ -182,8 +182,8 @@
                 <button type="button" class="btn btn-secondary rounded-3" data-bs-dismiss="modal">
                     <i class="bi bi-x-circle me-1"></i>Cancelar
                 </button>
-                <button type="submit" form="formPublicarVacante" class="btn btn-success rounded-3">
-                    <i class="bi bi-megaphone me-1"></i>Publicar Vacante
+                <button type="submit" form="formEditarVacante" class="btn btn-success rounded-3">
+                    <i class="bi bi-megaphone me-1"></i>Editar Vacante
                 </button>
             </div>
         </div>
