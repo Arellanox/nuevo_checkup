@@ -112,9 +112,16 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
                 <div class="collapse" id="board-ExcelFacturacion">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                         <?php if ($_SESSION['vista']['FACTURACION_EXCEL'] == 1) : ?>
-                            <li> <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/documentacion/reporte-paciente/'; ?>">
+                            <li>
+                                <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/documentacion/reporte-paciente/'; ?>">
                                     <i class="bi bi-dot"></i> Pacientes
-                                </a> </li>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-a" type="button" class="btn btn-primary" href="<?php echo $https . $url . '/' . $appname . '/vista/documentacion/reporte-ventas/'; ?>">
+                                    <i class="bi bi-dot"></i> Ventas
+                                </a>
+                            </li>
                         <?php endif; ?>
                         <hr class="dropdown-divider">
                     </ul>
