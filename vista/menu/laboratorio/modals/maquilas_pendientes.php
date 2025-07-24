@@ -16,10 +16,11 @@
                             <tr>
                                 <th scope="col d-flex justify-content-center min-w-full" class="all">Servicio</th>
                                 <th scope="col d-flex justify-content-center min-w-full" class="all">Laboratorio</th>
+                                <th scope="col d-flex justify-content-center min-w-full" class="all">Abrevitatura</th>
+                                <th scope="col d-flex justify-content-center min-w-full" class="all">Paciente</th>
                                 <th scope="col d-flex justify-content-center min-w-full" class="all">Solicitado Por</th>
                                 <th scope="col d-flex justify-content-center min-w-full" class="all">Estatus</th>
                                 <th scope="col d-flex justify-content-center min-w-full" class="all">Fecha de Registro</th>
-                                <th scope="col d-flex justify-content-center min-w-full" class="all">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>

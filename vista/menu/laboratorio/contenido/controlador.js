@@ -1,7 +1,6 @@
-var areaActiva;
-var tablaListaPaciente, dataListaPaciente;
-var idsEstudiosa, selectListaLab;
-var totalNotificacionesDisponibles = 0;
+var areaActiva, totalNotificacionesDisponibles = 0, idsEstudiosa;
+var tablaListaPaciente, dataListaPaciente, selectListaLab;
+var rangoFechas = [new Date().toISOString().split('T')[0],new Date().toISOString().split('T')[0]];
 
 async function obtenerContenidoLaboratorio(titulo) {
     await obtenerTitulo(titulo);
@@ -14,10 +13,10 @@ async function obtenerContenidoLaboratorio(titulo) {
             fecha_busqueda: $('#fechaListadoLaboratorio').val(),
             area_id: areaActiva
         };
-        // DataTable
+
         $.getScript('contenido/js/lista-tabla.js')
-        // Botones
         $.getScript('contenido/js/laboratorio-botones.js')
+
         // notificacion estudios pendientes
         ajaxAwait({
             api: 7
@@ -27,12 +26,16 @@ async function obtenerContenidoLaboratorio(titulo) {
                 $('#estudios-pendientes-notificacion').text(data.response.data?.length);
                 totalNotificacionesDisponibles += data.response.data?.length;
             } else {
-                $('#badge-maquila-icon').addClass('hidden');
+                $('#badge-estudios-icon').addClass('hidden');
             }
         });
 
+        // notificacion maquilas pendientes
         ajaxAwait({
-            api: 2, MOSTRAR_OCULTOS: 1
+            api: 2,
+            MOSTRAR_OCULTOS: 1,
+            FECHA_INICIO: dataListaPaciente['fecha_busqueda'] ?? rangoFechas[0] ?? null,
+            FECHA_FIN: dataListaPaciente['fecha_busqueda_final'] ?? rangoFechas[1] ?? null
         }, 'laboratorio_solicitud_maquila_api', {callbackAfter: true}, false, function (data) {
             if (data.response.data?.length > 0) {
                 $('#badge-maquila-icon').removeClass('hidden');
@@ -41,14 +44,14 @@ async function obtenerContenidoLaboratorio(titulo) {
             } else {
                 $('#badge-maquila-icon').addClass('hidden');
             }
-
-            if (totalNotificacionesDisponibles > 0) {
-                $('#base-pendientes-notificacion').removeClass('hidden');
-                $('#base-pendientes-notificacion').text(totalNotificacionesDisponibles);
-            } else {
-                $('#base-pendientes-notificacion').addClass('hidden');
-            }
         });
+
+        if (totalNotificacionesDisponibles > 0) {
+            $('#base-pendientes-notificacion').removeClass('hidden');
+            $('#base-pendientes-notificacion').text(totalNotificacionesDisponibles);
+        } else {
+            $('#base-pendientes-notificacion').addClass('hidden');
+        }
     });
 }
 

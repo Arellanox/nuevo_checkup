@@ -1,8 +1,5 @@
-
 let tableEstudiosPendientes = $('#TablaEstudiosPendientes').DataTable({
-    language: {
-        url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
-    },
+    language: {url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",},
     // searching: false,
     lengthChange: false,
     info: false,
@@ -37,11 +34,9 @@ let tableEstudiosPendientes = $('#TablaEstudiosPendientes').DataTable({
         }
     ],
     columnDefs: [
-        { width: "3px", targets: 0 }
+        { width: "50px", targets: 0 }
     ],
 });
-
-
 
 function eliminarEstudioPendiente(id_turno, idServicio, servicio){
     alertMensajeConfirm({

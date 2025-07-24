@@ -1,3 +1,54 @@
+<style>
+    .css000001 {
+        margin-bottom: 10px !important;
+        display: block !important;
+    }
+    .css000002 {
+        border-radius: 8px !important;
+        margin:0 !important;
+        background: rgb(0 0 0 / 5%) !important;
+        width: 100% !important;
+        padding: 10px 0 10px 0 !important;
+        text-align: center !important;
+    }
+    .css000003 {
+        margin-left:14px !important;
+    }
+    .css000004 {
+        font-size: 20px !important;
+        font-weight: 600 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .css000005 {
+        padding: 0 !important;
+    }
+    .css000006 {
+        font-size: 20px !important;
+        padding: 0 !important;
+        margin-right: 14px !important;
+    }
+    .css000007 {
+        margin-bottom: 10px;
+        display: block
+    }
+    .css000008 {
+        border-radius: 8px;
+        margin:0;
+        background: rgb(0 0 0 / 5%);
+        width: 100%;
+        padding: 10px 0 10px 0;
+        text-align: center;
+    }
+    .css000009 {
+        font-size: 20px;
+        font-weight: 600;
+        padding: 0;
+        margin: 0;
+    }
+</style>
+
+
 <div class="col-12 loader" id="loader">
   <div class="preloader" id="preloader"> </div>
 </div>

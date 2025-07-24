@@ -23,7 +23,7 @@ var tablaMaquilaasPorAprobar = $('#TablaMaquilaasPorAprobar').DataTable({
         method: 'POST',
         url: '../../../api/laboratorio_solicitud_maquila_api.php',
         dataSrc: 'response.data',
-        beforeSend: function () { },
+        beforeSend: function () { console.info('📣 System: Obtencion de maquilas iniciada.') },
         complete: function (data) {
             if (data.responseJSON && data.responseJSON.response) {
                 listaMaquilas = data.responseJSON.response.data ?? [];
@@ -31,13 +31,33 @@ var tablaMaquilaasPorAprobar = $('#TablaMaquilaasPorAprobar').DataTable({
                 ({ maquilasPendientes, maquilasCompletadas, maquilasRechazadas } =
                     guardarMaquilasPorEstatus(listaMaquilas));
             }
+
+            console.info('📣 System: Obtencion de maquilas completada.')
         },
         error: function () { Toast.fire({icon: 'error', title: '¡Error al recuperar las maquilas!'}); }
     },
     columns: [
-        {data: "TURNO_PREFOLIO"},
+        {
+            data: "TURNO_PREFOLIO",
+            render: function (data, type, row) {
+                return `
+                    <div class="d-flex align-items-center dt-control" style="cursor:pointer; color: #00bbb9 !important;">
+                        <i class="bi bi-caret-down-fill"></i>
+                        <div class="ms-2">
+                            <p class="text-xs font-weight-bold mb-0" style="color: #00bbb9 !important">${data}</p>
+                        </div>
+                    </div>
+                `;
+            }
+        },
         {data: "LABORATORIO_NOMBRE"},
-        {data: "SERVICIO_ABREVIATURA"},
+        {data: "SERVICIO"},
+        {
+            data: "LISTA_ESTUDIOS",
+            render: function (data, type, row) {
+                return data.length;
+            }
+        },
         {data: "PACIENTE_NOMBRE"},
         {data: "USUARIO_SOLICITANTE"},
         {
@@ -46,15 +66,13 @@ var tablaMaquilaasPorAprobar = $('#TablaMaquilaasPorAprobar').DataTable({
                 let text = "Desconocido: " + data;
                 let className = "badge bg-secondary"; // Estilos por defecto
 
-                if (data === null || data === 0 || data === '0') {
+                if (data === null || data == 0) {
                     text = "Pendiente";
                     className = "badge bg-warning text-dark"; // Amarillo
-                }
-                if (data === 1 || data === '1') {
+                } else if (data == 1) {
                     text = "Aprobado";
                     className = "badge bg-success"; // Verde
-                }
-                if (data === 2 || data === '2') {
+                } else if (data == 2) {
                     text = "Rechazado";
                     className = "badge bg-danger"; // Rojo
                 }
@@ -66,6 +84,11 @@ var tablaMaquilaasPorAprobar = $('#TablaMaquilaasPorAprobar').DataTable({
         { // Botones de acciones
             data: null,
             render: function (data, type, row) {
+                //Si no tiene permisos de aprobar no se monstraran los botones
+                if(session['permisos']['AprobarSolictudMaquilas'] != 1) {
+                    return '';
+                }
+
                 let buttons = ``;
 
                 if (row.LAB_MAQUILA_ESTATUS == 0 || row.LAB_MAQUILA_ESTATUS == null || row.LAB_MAQUILA_ESTATUS == 1) {
@@ -96,10 +119,84 @@ var tablaMaquilaasPorAprobar = $('#TablaMaquilaasPorAprobar').DataTable({
             }
         }
     ],
-    columnDefs: [
-        { width: "50px", targets: 0 }
-    ]
+    columnDefs: [ { width: "50px", targets: 0 } ],
 });
+
+//---Desplegar detalles de los estudios de servicio de maquilación
+$('#TablaMaquilaasPorAprobar tbody').on('click', 'tr', function (event) {
+    if ($(event.target).closest('button').length > 0 || $(event.target).is('i')) return;
+
+    const tr = $(this);
+    const row = tablaMaquilaasPorAprobar.row(tr);
+
+    if (row.child.isShown()) {
+        row.child.hide();
+        tr.removeClass('shown');
+    } else {
+        row.child(formatearEstudios(row.data().DETALLES_ESTUDIOS)).show();
+        tr.addClass('shown');
+    }
+});
+
+//---Aprobación de todas las maquilas pendientes
+$('#btn-aprobar-todos').on('click', function () { aprobarTodasMaquilas(maquilasPendientes); });
+
+$('#btn-select-fechas').on('click', function () {
+    $('#modal-select-fechas').modal('show');
+})
+
+$('#btn-confirmar-seleccion-fechas').on('click', function () {
+    const fecha_inicial = $('[name="fecha_inicio"]').val();
+    const fecha_final = $('[name="fecha_final"]').val();
+
+    rangoFechas = [fecha_inicial, fecha_final];
+    tablaMaquilaasPorAprobar.ajax.reload();
+
+    $('#modal-select-fechas').modal('hide');
+
+    alertToast('Cambios guardados', 'success', 2000);
+})
+
+//---Mostrar detalles de estudios
+function formatearEstudios(estudios) {
+    console.log(estudios)
+    if (!Array.isArray(estudios) || estudios.length === 0) {
+        return '<div class="p-2 text-muted">Sin estudios relacionados.</div>';
+    }
+
+    let table = `
+        <div class="table-responsive">
+            <table class="table align-items-center mb-0" style="border-left: 1px solid #e9ecef; border-right: 1px solid #e9ecef">
+                <thead>
+                    <tr>
+                        <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">#</th>
+                        <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Estudio</th>
+                        <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Grupo</th>
+                        <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Clasificación</th>
+                        <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Abreviatura</th>
+                        <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Abreviatura Estudio</th>
+                    </tr>
+                </thead>
+                <tbody>
+    `;
+
+    estudios.forEach((estudio, index) => {
+        table += `
+            <tr>
+                <td><p class="text-xs mb-0" style="color: #0c0c0c; font-weight: 300">${index}</p></td>
+                <td><p class="text-xs mb-0" style="color: #0c0c0c; font-weight: 300">${estudio.NOMBRE_ESTUDIO}</p></td>
+                <td><p class="text-xs mb-0" style="color: #0c0c0c; font-weight: 300">${estudio.NOMBRE_GRUPO}</p></td>
+                <td><p class="text-xs mb-0" style="color: #0c0c0c; font-weight: 300">${estudio.CLASIFICACION}</p></td>
+                <td><p class="text-xs mb-0" style="color: #0c0c0c; font-weight: 300">${estudio.ABREVIATURA_GRUPO}</p></td>
+                <td><p class="text-xs mb-0" style="color: #0c0c0c; font-weight: 300">${estudio.ABREVIATURA_ESTUDIO}</p></td>
+            </tr>
+        `;
+    });
+
+    table += `</tbody></table></div>`;
+
+    return table;
+}
 
 //---Guardar maquilas por estatus
 function guardarMaquilasPorEstatus(response) {
@@ -120,29 +217,8 @@ function guardarMaquilasPorEstatus(response) {
         { maquilasPendientes: [], maquilasCompletadas: [], maquilasRechazadas: [] }
     );
 }
-//---
 
-//---Aprobación de todas las maquilas pendientes
-$('#btn-aprobar-todos').on('click', function () { aprobarTodasMaquilas(maquilasPendientes); });
-
-$('#btn-select-fechas').on('click', function () {
-    $('#modal-select-fechas').modal('show');
-})
-
-$('#btn-confirmar-seleccion-fechas').on('click', function () {
-    const fecha_inicial = $('[name="fecha_inicio"]').val();
-    const fecha_final = $('[name="fecha_final"]').val();
-
-    rangoFechas = [fecha_inicial, fecha_final];
-    console.log(rangoFechas);
-    tablaMaquilaasPorAprobar.ajax.reload();
-
-    $('#modal-select-fechas').modal('hide');
-
-    alertToast('Cambios guardados', 'success', 2000);
-})
-
-
+//---Aprobación de todas las maquilas pendientes por fechas
 function aprobarTodasMaquilas(ids){
     alertMensajeConfirm({
         title: '¿Está seguro de aprobar todas las maquilas?',
@@ -165,14 +241,22 @@ function aprobarTodasMaquilas(ids){
                 if (response.response.code) {
                     Toast.fire({ icon: 'success', title: '¡Maquilas aprobadas!', timer: 2000 });
                     tablaMaquilaasPorAprobar.ajax.reload();
+
+                    ajaxAwait({
+                        api: 3,
+                        viculo: `${current_url}/vista/menu/maquilas/`,
+                        mensaje: 'Sus solicitudes de maquilación ha sido aprobadas por ' + session.nombre,
+                        cargos_id: '11,2'
+                    }, 'notificaciones_api', {callbackAfter: true}, false, function () {
+                        alertToast('Notificación de aprovación enviada', 'success', 4000);
+                    });
                 }
             });
         }
     });
 }
-//---
 
-//---Aprobación de una maquila
+//---Aprobación de una maquila por fechas
 function aprobarMaquila(id) {
     alertMensajeConfirm({
         title: '¿Está seguro de aprobar esta maquila?',
@@ -192,11 +276,19 @@ function aprobarMaquila(id) {
             if (response.response.code) {
                 Toast.fire({icon: 'success', title: '¡Maquila aprobada!', timer: 2000});
                 tablaMaquilaasPorAprobar.ajax.reload();
+
+                ajaxAwait({
+                    api: 3,
+                    viculo: `${current_url}/vista/menu/maquilas/`,
+                    mensaje: 'Su solicitud de maquila ha sido aprobada por ' + session.nombre,
+                    cargos_id: '11,2'
+                }, 'notificaciones_api', {callbackAfter: true}, false, function () {
+                    alertToast('Notificación de aprovación enviada', 'success', 4000);
+                });
             }
         }).then(r => {});
     });
 }
-//---
 
 //---Rechazo de una maquila
 function rechazarMaquila(id) {
@@ -218,12 +310,21 @@ function rechazarMaquila(id) {
             if (response.response.code) {
                 Toast.fire({icon: 'success', title: '¡Maquila rechazada!', timer: 2000});
                 tablaMaquilaasPorAprobar.ajax.reload();
+
+                ajaxAwait({
+                    api: 3,
+                    viculo: `${current_url}/vista/menu/maquilas/`,
+                    mensaje: 'Su solicitud de maquilación ha sido rechazada por ' + session.nombre,
+                    cargos_id: '11,2'
+                }, 'notificaciones_api', {callbackAfter: true}, false, function () {
+                    alertToast('Notificación de rechazo enviada', 'success', 4000);
+                });
             }
         }).then(r => {});
     });
 }
-//---
 
+//---Eliminación de una maquila
 function eliminarMaquila(id) {
     alertMensajeConfirm({
         title: '¿Está seguro de eliminar esta maquila?',

@@ -238,7 +238,7 @@ $menu == 'Laboratorio Biomolecular'
                 <i class="fa fa-clock-o"></i> Pendientes
                 <span id="base-pendientes-notificacion" class="position-absolute top-0 start-100 translate-middle
                     badge rounded-pill bg-danger hidden">
-                    </span>
+                </span>
             </button>
 
             <ul class="dropdown-menu">

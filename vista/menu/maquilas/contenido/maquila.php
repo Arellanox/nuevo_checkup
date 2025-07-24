@@ -5,6 +5,7 @@
             <th>Prefolio</th>
             <th>Laboratorio</th>
             <th>Servicio</th>
+            <th>Total Estudios</th>
             <th>Paciente</th>
             <th>Solicitado Por</th>
             <th>Estado</th>

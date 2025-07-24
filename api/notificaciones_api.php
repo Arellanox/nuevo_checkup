@@ -18,6 +18,7 @@ $mensaje = $_POST['mensaje'] ?? null;
 $vinculo = $_POST['viculo'] ?? null;
 $servicio_id = $_POST['servicio_id'];
 $id_laboratorio_maquila = $_POST['lab_maquila_id'];
+$cargos_ids = $_POST['cargos_ids'] ?? null;
 
 #Para obtener las notificaciones
 $remitente = $json_data['user_id'] ?? $_POST['user_id'] ?? null;
@@ -29,7 +30,9 @@ $notificacion_ids = $json_data['ids'] ?? $_POST['ids'] ?? null;
 
 switch ($api){
     case 1: //Obtener todas las notifiaciónes de acuerdo a su cargo
-        $response = $master->getByProcedure("sp_notificaciones_obtener_b", [$remitente, $last_notificacion_id]);
+        $response = $master->getByProcedure("sp_notificaciones_obtener_b", [
+            $remitente, $last_notificacion_id
+        ]);
 
         break;
     case 2: //Marcar Notificaciones
@@ -40,7 +43,7 @@ switch ($api){
         ]);
         break;
     case 3: #Generar Notificación Para Aprobación de Maquila
-        $cargos_ids = '15,2,20';
+        $cargos_ids = '16,2,20';
 
         $response = $master->insertByProcedure("sp_notificaciones_generar_g", [
             $usuario_id, $mensaje, $vinculo, $cargos_ids, $turno_id, $servicio_id, $id_laboratorio_maquila
