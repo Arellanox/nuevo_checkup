@@ -738,9 +738,30 @@ class Miscelaneus
                 $fecha_inicio = $_POST['fecha_inicio'];
                 $fecha_fin = $_POST['fecha_fin'];
 
-                $arregloPaciente = $master->getByProcedure("sp_laboratorio_estudios_maquila_b", [
+                $maquilas = $master->getByProcedure("sp_laboratorio_estudios_maquila_b", [
                     NULL, NULL, $laboratorio_id, 1, $fecha_inicio, $fecha_fin
                 ]);
+
+                if (is_array($maquilas)) {
+                    foreach ($maquilas as $index => $maquila) {
+                        $data_estudios_filtrados = [];
+                        $decode_lista_estudios = json_decode($maquila['LISTA_ESTUDIOS'], true);
+                        $data_estudios = $master->getByProcedure('sp_obtener_estudios_de_servicio', [
+                            $maquila['ID_SERVICIO']
+                        ]);
+
+                        if (is_array($decode_lista_estudios) and is_array($data_estudios)) {
+                            $data_estudios_filtrados = array_filter($data_estudios, function ($estudio) use ($decode_lista_estudios) {
+                                return in_array($estudio['ID_ESTUDIO'], $decode_lista_estudios);
+                            });
+                        }
+
+                        $maquilas[$index]['DETALLES_ESTUDIOS'] = array_values($data_estudios_filtrados);
+                        $maquilas[$index]['LISTA_ESTUDIOS'] = $decode_lista_estudios;
+                    }
+                }
+
+                $arregloPaciente = $maquilas;
                 break;
             case -9:
                 $ujat_inicial = $_POST['fecha_inicial'];

@@ -36,7 +36,7 @@
         <tbody>
         <?php foreach ($pacientes as $paciente): ?>
             <!-- Iteramos sobre los estudios de cada paciente -->
-            <?php foreach ($paciente['estudios'] as $index => $estudio): ?>
+            <?php foreach ($paciente['detalle_estudios'] as $index => $estudio): ?>
                 <tr>
                     <?php if ($index === 0): ?>
                         <!-- En la primera fila mostramos los datos del paciente -->
@@ -54,9 +54,14 @@
                         <td colspan="1"></td>
                     <?php endif; ?>
                     <td colspan="1"></td> <!-- Columna vacía según el formato -->
-                    <td colspan="4"><?= $estudio['servicio'] ?></td> <!-- Nombre del estudio -->
-                    <td colspan="2"><?= $estudio['servicio_clave'] ?></td> <!-- Clave del estudio -->
-                    <td colspan="3"><?= $estudio['precio'] ?></td> <!-- Precio del estudio -->
+                    <td colspan="4"><?= $estudio->NOMBRE_ESTUDIO ?></td> <!-- Nombre del estudio -->
+                    <td colspan="2"><?= $estudio->ABREVIATURA_ESTUDIO ?></td> <!-- Clave del estudio -->
+
+                    <?php if ($index === 0): ?>
+                        <td colspan="3"><?= $paciente['precio_general'] ?></td> <!-- Precio general del paciente -->
+                    <?php else: ?>
+                        <td colspan="3"></td>
+                    <?php endif; ?>
                 </tr>
             <?php endforeach; ?>
             <?php $numeracion++; ?>

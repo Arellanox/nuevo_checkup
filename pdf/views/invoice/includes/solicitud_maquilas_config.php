@@ -12,10 +12,11 @@ foreach ($resultados as $resultado) {
             'nombre' => $resultado->PACIENTE_NOMBRE,
             'sexo' => $resultado->PACIENTE_GENERO,
             'edad' => intval($resultado->PACIENTE_EDAD),
-            'estudios' => [] // Inicializamos un array para almacenar sus estudios
+            'estudios' => [], // Inicializamos un array para almacenar sus estudios
+            'precio_general' => formatCurrency($resultado->SERVICIO_PRECIO) ?? 'No definido',
+            'detalle_estudios' => $resultado->DETALLES_ESTUDIOS
         ];
     }
-
 
     // Agregamos el estudio a la lista de estudios del paciente
     $pacientes[$pacienteKey]['estudios'][] = [
