@@ -55,7 +55,7 @@
                         </div>
                     </div>
 
-                    <div id="infoOrdenCompra" class="row d-none">
+                    <!-- <div id="infoOrdenCompra" class="row d-none">
                         <div class="col-12">
                             <div class="card border-0 shadow-sm">
                                 <div class="card-header bg-light">
@@ -95,7 +95,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <input type="hidden" id="fecha_entrada_orden" name="fecha_entrada">
                 </form>
@@ -155,6 +155,7 @@
                 });
 
                 dataTableCatOrdenesCompraArticulos.id_orden_compra = idOrden;
+                $('#surtirOrdenCompraModal').val(idOrden);
 
                 if (typeof tableCatOrdenesCompraArticulos !== "undefined") {
                     tableCatOrdenesCompraArticulos.ajax.reload();
@@ -180,6 +181,7 @@
         $('#registrarEntradaOrdenEstableModal').on('hidden.bs.modal', function () {
             $('#registrarEntradaOrdenEstableForm')[0].reset();
             $('#infoOrdenCompra').addClass('d-none');
+            $('#cardArtOrdenCompra').addClass('d-none');
             $("#registrarEntradaOrdenEstableButton").addClass('d-none');
             $('#tableCatOrdenesCompraArticulos tbody').empty();
             $('#alertaSurtidoOrden').addClass('d-none');

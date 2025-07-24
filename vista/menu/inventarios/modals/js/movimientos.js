@@ -513,20 +513,41 @@ tableCatOrdenesCompraArticulos = $("#tableCatOrdenesCompraArticulos").DataTable(
           return data ? data : "-";
         },
       },
+      {
+        data: null,
+        title: "Acciones",
+        render: function (data, type, row) {
+          return `
+          <button type="button" class="btn btn-warning btn-sm btn-surtir-orden-compra" data-bs-toggle="tooltip" title="Surtir orden de compra"><i class="bi bi-box-seam"></i></button>
+        `;
+        },
+      },
     ],
     columnDefs: [{ targets: "_all", className: "text-center align-middle" }],
     dom: 'Bl<"dataTables_toolbar">frtip',
     buttons: [
+      // {
+      //   text: '<i class="bi bi-funnel"></i> Filtrar',
+      //   className: "btn btn-warning",
+      //   action: function () {
+      //     $("#filtrosEntradasModal").modal("show");
+      //   },
+      // },
       {
-        text: '<i class="bi bi-funnel"></i> Filtrar',
-        className: "btn btn-warning",
+        text: '<i class="bi bi-box-seam"></i> Ingresar todo',
+        className: "btn btn-success",
         action: function () {
-          $("#filtrosEntradasModal").modal("show");
+          $("#surtirOrdenCompraModal").modal("show");
         },
       },
     ],
   }
 );
+
+$(document).on("click", ".btn-surtir-orden-compra", function () {
+  
+  $("#surtirOrdenCompraIndividualModal").modal("show");
+});
 
 // ESTILOS PARA LA BARRA DE BUSQUEDA DE ENTRADAS
 setTimeout(() => {

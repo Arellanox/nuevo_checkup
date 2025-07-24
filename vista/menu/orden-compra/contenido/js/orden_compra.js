@@ -111,10 +111,14 @@ tableCatOrdenesCompra = $("#tableCatOrdenesCompra").DataTable({
           return `<span class="badge bg-secondary">${
             data.charAt(0).toUpperCase() + data.slice(1).toLowerCase()
           }</span>`;
-        } else if (data === "recibida") {
-          return `<span class="badge bg-success">Aceptada</span>`;
-        } else if (data === "cancelada") {
-          return `<span class="badge bg-danger">Rechazada</span>`;
+        } else if (data === "aprobada") {
+          return `<span class="badge bg-success">${
+            data.charAt(0).toUpperCase() + data.slice(1).toLowerCase()
+          }</span>`;
+        } else if (data === "rechazada") {
+          return `<span class="badge bg-danger">${
+            data.charAt(0).toUpperCase() + data.slice(1).toLowerCase()
+          }</span>`;
         } else if (data === "enviada") {
           return `<span class="badge bg-info">${
             data.charAt(0).toUpperCase() + data.slice(1).toLowerCase()
@@ -298,8 +302,8 @@ tableCatOrdenesCompra = $("#tableCatOrdenesCompra").DataTable({
               <i class="bi bi-pencil"></i>
           </button>
         `
-            : row.ESTADO === "recibida" ||
-              row.ESTADO === "cancelada" ||
+            : row.ESTADO === "aprobada" ||
+              row.ESTADO === "rechazada" ||
               row.ESTADO === "enviada"
             ? `
           <button class="btn btn-sm btn-info btn-ver-orden-compra" 
@@ -618,9 +622,9 @@ setTimeout(() => {
   });
 
   // CSS para evitar que los botones de acción se colapsen
-  if (!document.getElementById('ordenes-compra-styles')) {
-    const style = document.createElement('style');
-    style.id = 'ordenes-compra-styles';
+  if (!document.getElementById("ordenes-compra-styles")) {
+    const style = document.createElement("style");
+    style.id = "ordenes-compra-styles";
     style.textContent = `
       .acciones-columna {
         white-space: nowrap !important;
@@ -1040,24 +1044,32 @@ $(document).on("click", ".btn-ver-orden-compra", function () {
   $("#verOrdenCompraFecha").text(
     rowData.FECHA_ORDEN ? moment(rowData.FECHA_ORDEN).format("DD/MM/YYYY") : "-"
   );
-  
+
   // Estado con formato mejorado
   let estadoHtml = "";
   if (rowData.ESTADO === "pendiente") {
-    estadoHtml = `<span class="badge bg-primary fs-6"><i class="bi bi-clock"></i> ${rowData.ESTADO.charAt(0).toUpperCase() + rowData.ESTADO.slice(1)}</span>`;
+    estadoHtml = `<span class="badge bg-primary fs-6"><i class="bi bi-clock"></i> ${
+      rowData.ESTADO.charAt(0).toUpperCase() + rowData.ESTADO.slice(1)
+    }</span>`;
   } else if (rowData.ESTADO === "borrador") {
-    estadoHtml = `<span class="badge bg-secondary fs-6"><i class="bi bi-pencil"></i> ${rowData.ESTADO.charAt(0).toUpperCase() + rowData.ESTADO.slice(1)}</span>`;
-  } else if (rowData.ESTADO === "recibida") {
+    estadoHtml = `<span class="badge bg-secondary fs-6"><i class="bi bi-pencil"></i> ${
+      rowData.ESTADO.charAt(0).toUpperCase() + rowData.ESTADO.slice(1)
+    }</span>`;
+  } else if (rowData.ESTADO === "aprobada") {
     estadoHtml = `<span class="badge bg-success fs-6"><i class="bi bi-check-lg"></i> Aceptada</span>`;
-  } else if (rowData.ESTADO === "cancelada") {
+  } else if (rowData.ESTADO === "rechazada") {
     estadoHtml = `<span class="badge bg-danger fs-6"><i class="bi bi-x-lg"></i> Rechazada</span>`;
   } else if (rowData.ESTADO === "enviada") {
-    estadoHtml = `<span class="badge bg-info fs-6"><i class="bi bi-send"></i> ${rowData.ESTADO.charAt(0).toUpperCase() + rowData.ESTADO.slice(1)}</span>`;
+    estadoHtml = `<span class="badge bg-info fs-6"><i class="bi bi-send"></i> ${
+      rowData.ESTADO.charAt(0).toUpperCase() + rowData.ESTADO.slice(1)
+    }</span>`;
   } else {
-    estadoHtml = `<span class="badge bg-warning fs-6">${rowData.ESTADO || "-"}</span>`;
+    estadoHtml = `<span class="badge bg-warning fs-6">${
+      rowData.ESTADO || "-"
+    }</span>`;
   }
   $("#verOrdenCompraEstado").html(estadoHtml);
-  
+
   $("#verOrdenCompraProveedor").text(rowData.PROVEEDOR_RAZON_SOCIAL || "-");
 
   // Información de artículos y proveedores
@@ -1079,7 +1091,7 @@ $(document).on("click", ".btn-ver-orden-compra", function () {
   $("#verOrdenCompraTotal").text(
     rowData.TOTAL ? `$${parseFloat(rowData.TOTAL).toFixed(2)}` : "$0.00"
   );
-  
+
   // Observaciones
   $("#verOrdenCompraObservaciones").text(
     rowData.OBSERVACIONES || "Sin observaciones"
@@ -1090,7 +1102,9 @@ $(document).on("click", ".btn-ver-orden-compra", function () {
 
   // Personal involucrado
   $("#verOrdenCompraResponsable").text(rowData.USUARIO_CREACION_NOMBRE || "-");
-  $("#verOrdenCompraResponsableTimeLine").text(rowData.USUARIO_CREACION_NOMBRE || "-");
+  $("#verOrdenCompraResponsableTimeLine").text(
+    rowData.USUARIO_CREACION_NOMBRE || "-"
+  );
   $("#verOrdenCompraUsuarioAprobacion").text(
     rowData.USUARIO_APROBACION_RECHAZO_NOMBRE || "-"
   );
@@ -1191,7 +1205,7 @@ $("#registrarOrdenCompraModal").on("hidden.bs.modal", function () {
 
   // Limpiar artículos cargados para edición
   window.articulosOrdenCompraEditando = null;
-  
+
   // Limpiar resumen de artículos si existe
   if ($("#articulosResumenEdicion").length) {
     $("#articulosResumenEdicion").html("");
@@ -1275,36 +1289,52 @@ cargarProveedoresOrdenCompra();
 // ==================== FUNCIÓN PARA CARGAR ARTÍCULOS DE LA ORDEN ====================
 function cargarArticulosOrdenCompra(idOrdenCompra) {
   if (!idOrdenCompra) {
-    $("#verOrdenCompraArticulos").html('<span class="badge bg-light text-dark">Sin artículos</span>');
+    $("#verOrdenCompraArticulos").html(
+      '<span class="badge bg-light text-dark">Sin artículos</span>'
+    );
     return;
   }
 
   // Mostrar loading
-  $("#verOrdenCompraArticulos").html('<span class="badge bg-secondary"><i class="bi bi-arrow-repeat spin"></i> Cargando...</span>');
+  $("#verOrdenCompraArticulos").html(
+    '<span class="badge bg-secondary"><i class="bi bi-arrow-repeat spin"></i> Cargando...</span>'
+  );
 
   $.ajax({
     url: "../../../api/orden_compra_api.php",
     type: "POST",
     dataType: "json",
-    data: { 
+    data: {
       api: 13,
-      id_orden_compra: idOrdenCompra
+      id_orden_compra: idOrdenCompra,
     },
     success: function (response) {
       console.log("Artículos de orden de compra:", response);
 
-      if (response.response && response.response.code == 1 && response.response.data) {
+      if (
+        response.response &&
+        response.response.code == 1 &&
+        response.response.data
+      ) {
         const articulos = response.response.data;
-        
+
         if (articulos.length > 0) {
-          let articulosHtml = '';
+          let articulosHtml = "";
           let proveedoresSet = new Set();
-          
-          articulos.forEach(function(articulo) {
+
+          articulos.forEach(function (articulo) {
             // Agregar badge por cada artículo
             articulosHtml += `
-              <span class="badge bg-primary me-1 mb-1" title="Cantidad: ${articulo.cantidad_solicitada || 0} | Precio: $${parseFloat(articulo.PRECIO_UNITARIO || 0).toFixed(2)}">
-                <i class="bi bi-box me-1"></i>${articulo.DESCRIPCION_ARTICULO || articulo.CODIGO_ARTICULO || 'Artículo'}
+              <span class="badge bg-primary me-1 mb-1" title="Cantidad: ${
+                articulo.cantidad_solicitada || 0
+              } | Precio: $${parseFloat(articulo.PRECIO_UNITARIO || 0).toFixed(
+              2
+            )}">
+                <i class="bi bi-box me-1"></i>${
+                  articulo.DESCRIPCION_ARTICULO ||
+                  articulo.CODIGO_ARTICULO ||
+                  "Artículo"
+                }
               </span>
             `;
 
@@ -1319,29 +1349,42 @@ function cargarArticulosOrdenCompra(idOrdenCompra) {
 
           // Mostrar proveedores únicos
           if (proveedoresSet.size > 0) {
-            let proveedoresHtml = '';
-            proveedoresSet.forEach(function(proveedor) {
+            let proveedoresHtml = "";
+            proveedoresSet.forEach(function (proveedor) {
               proveedoresHtml += `<span class="badge bg-info me-1 mb-1"><i class="bi bi-building me-1"></i>${proveedor}</span>`;
             });
             $("#verOrdenCompraProveedoresArticulos").html(proveedoresHtml);
           } else {
-            $("#verOrdenCompraProveedoresArticulos").html('<span class="badge bg-light text-dark">Sin proveedores definidos</span>');
+            $("#verOrdenCompraProveedoresArticulos").html(
+              '<span class="badge bg-light text-dark">Sin proveedores definidos</span>'
+            );
           }
-
         } else {
-          $("#verOrdenCompraArticulos").html('<span class="badge bg-light text-dark">Sin artículos</span>');
-          $("#verOrdenCompraProveedoresArticulos").html('<span class="badge bg-light text-dark">Sin proveedores</span>');
+          $("#verOrdenCompraArticulos").html(
+            '<span class="badge bg-light text-dark">Sin artículos</span>'
+          );
+          $("#verOrdenCompraProveedoresArticulos").html(
+            '<span class="badge bg-light text-dark">Sin proveedores</span>'
+          );
         }
       } else {
-        $("#verOrdenCompraArticulos").html('<span class="badge bg-warning text-dark">Error al cargar artículos</span>');
-        $("#verOrdenCompraProveedoresArticulos").html('<span class="badge bg-warning text-dark">Error al cargar proveedores</span>');
+        $("#verOrdenCompraArticulos").html(
+          '<span class="badge bg-warning text-dark">Error al cargar artículos</span>'
+        );
+        $("#verOrdenCompraProveedoresArticulos").html(
+          '<span class="badge bg-warning text-dark">Error al cargar proveedores</span>'
+        );
       }
     },
     error: function (xhr, status, error) {
       console.error("Error cargando artículos:", error);
-      $("#verOrdenCompraArticulos").html('<span class="badge bg-danger">Error de conexión</span>');
-      $("#verOrdenCompraProveedoresArticulos").html('<span class="badge bg-danger">Error de conexión</span>');
-    }
+      $("#verOrdenCompraArticulos").html(
+        '<span class="badge bg-danger">Error de conexión</span>'
+      );
+      $("#verOrdenCompraProveedoresArticulos").html(
+        '<span class="badge bg-danger">Error de conexión</span>'
+      );
+    },
   });
 }
 
@@ -1362,40 +1405,46 @@ function cargarArticulosParaEdicion(idOrdenCompra) {
     url: "../../../api/orden_compra_api.php",
     type: "POST",
     dataType: "json",
-    data: { 
+    data: {
       api: 13,
-      id_orden_compra: idOrdenCompra
+      id_orden_compra: idOrdenCompra,
     },
     success: function (response) {
       console.log("Artículos cargados para edición:", response);
 
-      if (response.response && response.response.code == 1 && response.response.data) {
+      if (
+        response.response &&
+        response.response.code == 1 &&
+        response.response.data
+      ) {
         const articulos = response.response.data;
-        
+
         // Aquí puedes implementar la lógica específica para poblar el formulario de edición
         // Por ejemplo, si tienes una tabla de artículos en el modal de edición:
-        
+
         if (typeof poblarTablaArticulosEdicion === "function") {
           // Si existe una función específica para poblar la tabla de edición
           poblarTablaArticulosEdicion(articulos);
         } else {
           // Implementación básica - mostrar información en consola
-          console.log(`✅ ${articulos.length} artículos cargados para edición:`, articulos);
-          
+          console.log(
+            `✅ ${articulos.length} artículos cargados para edición:`,
+            articulos
+          );
+
           // Mostrar un resumen en el formulario (opcional)
           if ($("#articulosResumenEdicion").length) {
             let resumenHtml = `<small class="text-muted">Cargados ${articulos.length} artículos existentes</small>`;
             $("#articulosResumenEdicion").html(resumenHtml);
           }
-          
+
           // Almacenar los artículos en una variable global para uso posterior
           window.articulosOrdenCompraEditando = articulos;
         }
-        
       } else {
         console.log("No se encontraron artículos para esta orden");
         alertToast("No se encontraron artículos para esta orden", "info", 3000);
-        
+
         // Inicializar formulario vacío
         if (typeof inicializarArticulosOrdenCompra !== "undefined") {
           inicializarArticulosOrdenCompra();
@@ -1405,11 +1454,11 @@ function cargarArticulosParaEdicion(idOrdenCompra) {
     error: function (xhr, status, error) {
       console.error("Error cargando artículos para edición:", error);
       alertToast("Error al cargar artículos existentes", "error", 3000);
-      
+
       // Inicializar formulario vacío en caso de error
       if (typeof inicializarArticulosOrdenCompra !== "undefined") {
         inicializarArticulosOrdenCompra();
       }
-    }
+    },
   });
 }
