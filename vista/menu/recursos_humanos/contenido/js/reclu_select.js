@@ -106,11 +106,6 @@ tableRequisicionesAprobadas = $("#tableRequisicionesAprobadas").DataTable({
                                     data-id-publicacion="${row.id_publicacion}" 
                                     title="Detener publicación">
                                 <i class="bi bi-pause-circle"></i>
-                            </button>
-                            <button class="btn btn-primary btn-sm bg-gradient-warning btn-editar-publicacion" 
-                                    data-id-publicacion="${row.id_publicacion}"
-                                    title="Editar publicación">
-                                <i class="bi bi-pencil"></i>
                             </button>`;
                         break;
 
@@ -120,11 +115,6 @@ tableRequisicionesAprobadas = $("#tableRequisicionesAprobadas").DataTable({
                                     data-id-publicacion="${row.id_publicacion}" 
                                     title="Detener publicación">
                                 <i class="bi bi-pause-circle"></i>
-                            </button>
-                            <button class="btn btn-primary btn-sm bg-gradient-warning btn-editar-publicacion" 
-                                    data-id-publicacion="${row.id_publicacion}"
-                                    title="Editar publicación">
-                                <i class="bi bi-pencil"></i>
                             </button>`;
                         break;
                         
@@ -134,6 +124,11 @@ tableRequisicionesAprobadas = $("#tableRequisicionesAprobadas").DataTable({
                                     data-id-publicacion="${row.id_publicacion}" 
                                     title="Reanudar publicación">
                                 <i class="bi bi-play-circle"></i>
+                            </button>
+                            <button class="btn btn-primary btn-sm bg-gradient-warning btn-editar-publicacion" 
+                                    data-id-publicacion="${row.id_publicacion}"
+                                    title="Editar publicación">
+                                <i class="bi bi-pencil"></i>
                             </button>
                             <button class="btn btn-sm btn-dark btn-cerrar-publicacion" 
                                     data-id-publicacion="${row.id_publicacion}" 
@@ -146,10 +141,10 @@ tableRequisicionesAprobadas = $("#tableRequisicionesAprobadas").DataTable({
                 // Botón de ver detalles solo si no es 'no_publicada'
                 if (mostrarVerDetalles) {
                     botones += `
-                        <button class="btn btn-sm btn-primary btn-ver-requisicion" 
+                        <button class="btn btn-sm btn-primary btn-ver-publicacion" 
                                 data-id="${row.id_publicacion}" 
                                 title="Ver detalles"
-                                data-bs-target="#"
+                                data-bs-target="#detallesPublicacionModal"
                                 data-bs-toggle="modal">
                             <i class="bi bi-eye"></i>
                         </button>`;
@@ -165,6 +160,7 @@ tableRequisicionesAprobadas = $("#tableRequisicionesAprobadas").DataTable({
         { data: "descripcion_adicional", visible: false },
         { data: "max_postulantes", visible: false },
         { data: "fecha_limite_publicacion", visible: false },
+        { data: "fecha_cierre_real", visible: false },
         { data: "plataformas_publicacion", visible: false },
         { data: "criterios_cierre_automatico", visible: false }
     ],
@@ -411,6 +407,72 @@ $(document).on('click', '.btn-editar-publicacion', function() {
 });
 
 
+// Event listener para ver los detalles de una publicación
+$(document).on('click', '.btn-ver-publicacion', function() {
+    let idPublicacion = $(this).data('id');
+    const tabla = tableRequisicionesAprobadas;
+    const fila = $(this).closest('tr');
+    const dataClick = tabla.row(fila).data();
+    
+    if (!idPublicacion) {
+        alertToast('ID de publicación no válido', 'error', 3000);
+        return;
+    }
+    
+    // Buscar datos de la publicación en la tabla
+    let publicacionData = tableRequisicionesAprobadas.row(function(idx, data, node) {
+        return data.id_publicacion == idPublicacion;
+    }).data();
+    
+    if (!publicacionData) {
+        alertToast('Error: No se encontraron los datos de la publicación', 'error', 4000);
+        return;
+    }
+    
+    // Mostrar loading en el botón mientras se cargan los datos
+    const $btn = $(this);
+    const originalHtml = $btn.html();
+    $btn.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+    $btn.prop('disabled', true);
+
+    // Llamar a la función para llenar el modal de detalles
+    if (llenarModalDetallesPublicacion(publicacionData)) {
+        // Solo mostrar el modal si se llenaron los datos exitosamente
+        $('#detallesPublicacionModal').modal('show');
+    
+        // Ejecutar las habilidades INMEDIATAMENTE (para testing)
+    console.log("=== EJECUTANDO HABILIDADES INMEDIATAMENTE ===");
+    const habilidadesBlandas = dataClick.habilidades_blandas_descripcion || dataClick['34'] || null;
+    const habilidadesTecnicas = dataClick.habilidades_tecnicas_descripcion || dataClick['35'] || null;
+    
+    console.log("Habilidades blandas a procesar:", habilidadesBlandas);
+    console.log("Habilidades técnicas a procesar:", habilidadesTecnicas);
+    
+    mostrarHabilidadesComoTags(habilidadesBlandas, 'habilidadesBlandasPubContainer', 'blanda');
+    mostrarHabilidadesComoTags(habilidadesTecnicas, 'habilidadesTecnicasPubContainer', 'tecnica');
+    
+    // También con setTimeout como respaldo  
+    setTimeout(() => {
+        console.log("=== EJECUTANDO HABILIDADES DESPUÉS DE MOSTRAR MODAL ===");
+        console.log("Modal visible ahora:", $('#detallesPublicacionModal').is(':visible'));
+        
+        mostrarHabilidadesComoTags(habilidadesBlandas, 'habilidadesBlandasPubContainer', 'blanda');
+        mostrarHabilidadesComoTags(habilidadesTecnicas, 'habilidadesTecnicasPubContainer', 'tecnica');
+    }, 500);
+
+    } else {
+        alertToast('Error al cargar los datos de la publicación', 'error', 3000);
+    }
+
+    // Restaurar botón
+    setTimeout(() => {
+        $btn.html(originalHtml);
+        $btn.prop('disabled', false);
+    }, 500);
+});
+
+
+
 // Event listener para detener publicación
 $(document).on('click', '.btn-detener-publicacion', function() {
     let idPublicacion = $(this).data('id-publicacion');
@@ -430,6 +492,7 @@ $(document).on('click', '.btn-detener-publicacion', function() {
         }
     });
 });
+
 
 // Event listener para reanudar publicación
 $(document).on('click', '.btn-reanudar-publicacion', function() {
@@ -453,7 +516,6 @@ $(document).on('click', '.btn-reanudar-publicacion', function() {
 });
 
 
-
 // Cerrar la publicación
 $(document).on('click', '.btn-cerrar-publicacion', function() {
     let idPublicacion = $(this).data('id-publicacion');
@@ -472,6 +534,18 @@ $(document).on('click', '.btn-cerrar-publicacion', function() {
             cambiarEstadoPublicacion(idPublicacion, 'cerrada', 'Publicación cerrada definitivamente');
         }
     });
+});
+
+// Event listener para abrir el modal de gestión de postulantes
+$(document).on('click', '#btnVerPostulantes', function() {
+    console.log('🔄 Abriendo modal de gestión de postulantes...');
+    let idPublicacion = $('#btnVerPostulantes').data('id-publicacion');
+
+    console.log('📋 ID de publicación obtenido:', idPublicacion);
+
+    // Mostrar modal
+    $('#gestionPostulantesModal').modal('show');
+    
 });
 
 // Función para publicar vacante con parámetros personalizados (SIMPLIFICADA)
@@ -511,6 +585,7 @@ function publicarVacanteConParametros(formData) {
     let datosPublicacion = {
         api: 26,
         id_requisicion: idRequisicion,
+        numero_postulantes: formData.numero_postulantes || 0,
         titulo_vacante: formData.titulo_vacante,
         descripcion_adicional: formData.descripcion_adicional || 'Sin observaciones',
         estado_publicacion: 'publicada_normal', // SIEMPRE será 'publicada'
@@ -708,6 +783,232 @@ function llenarModalEdicionPublicacion(publicacionData) {
     return true;
 }
 
+// === FUNCIÓN PARA MOSTRAR HABILIDADES COMO TAGS ===
+function mostrarHabilidadesComoTags(habilidadesTexto, containerId, tipo) {
+    console.log(`=== mostrarHabilidadesComoTags ===`);
+    console.log(`Procesando: "${habilidadesTexto}" en container "${containerId}"`);
+    
+    const container = $(`#${containerId}`);
+    
+    // Limpiar contenido previo
+    container.empty();
+    
+    if (!habilidadesTexto || habilidadesTexto.trim() === '' || habilidadesTexto === 'null') {
+        container.html('<span class="sin-habilidades">Sin habilidades especificadas</span>');
+        return;
+    }
+    
+    // Dividir las habilidades por coma
+    const habilidades = habilidadesTexto.split(',').map(h => h.trim()).filter(h => h !== '');
+    
+    if (habilidades.length === 0) {
+        container.html('<span class="sin-habilidades">Sin habilidades especificadas</span>');
+        return;
+    }
+    
+    // Crear tags para cada habilidad
+    habilidades.forEach(habilidad => {
+        const tagClass = tipo === 'tecnica' ? 'habilidad-tag tecnica' : 'habilidad-tag';
+        
+        // Estilos inline
+        const baseStyle = 'display: inline-block; padding: 0.4rem 0.8rem; margin: 0.2rem 0.3rem 0.2rem 0; color: white; border-radius: 1rem; font-size: 0.75rem; font-weight: 500;';
+        const bgStyle = tipo === 'tecnica' 
+            ? 'background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);' 
+            : 'background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);';
+        
+        const tag = `<span class="${tagClass}" style="${baseStyle}${bgStyle}">${habilidad}</span>`;
+        container.append(tag);
+    });
+    
+    console.log(`✅ ${habilidades.length} tags de habilidades agregados a ${containerId}`);
+}
+
+// Función para llenar el modal de detalles de publicación
+function llenarModalDetallesPublicacion(publicacionData) {
+    if (!publicacionData) {
+        console.error('No se proporcionaron datos de publicación');
+        return false;
+    }
+    
+    console.log('Datos de publicación para detalles:', publicacionData);
+    
+    try {
+        // === INFORMACIÓN GENERAL ===
+        $('#numeroRequisicionPub').text('#' + publicacionData.numero_requisicion);
+        
+        // Estado de publicación
+        const estadoBadges = {
+            'no_publicada': '<span class="badge bg-secondary">No Publicada</span>',
+            'publicada_normal': '<span class="badge bg-success">Publicada</span>',
+            'publicada_editada': '<span class="badge bg-info">Publicada (Editada)</span>',
+            'detenida': '<span class="badge bg-warning">Detenida</span>',
+            'cerrada': '<span class="badge bg-dark">Cerrada</span>'
+        };
+        $('#badgeEstadoPublicacion').html(estadoBadges[publicacionData.estado_publicacion] || 
+            '<span class="badge bg-secondary">Sin estado</span>');
+        
+        // Tipo de publicación
+        const tipoBadges = {
+            'interna': '<span class="badge bg-success">Interna</span>',
+            'externa': '<span class="badge bg-info">Externa</span>',
+            'ambas': '<span class="badge bg-warning">Ambas</span>'
+        };
+        $('#badgeTipoPublicacion').html(tipoBadges[publicacionData.tipo_publicacion] || 
+            '<span class="badge bg-secondary">Sin especificar</span>');
+        
+        $('#tituloVacante').text(publicacionData.titulo_vacante || 'Sin título especificado');
+        $('#departamentoPublicacion').text(publicacionData.departamento_nombre || 'Sin especificar');
+        $('#puestoPublicacion').text(publicacionData.puesto_nombre || 'Sin especificar');
+        
+        // Fecha de publicación
+        if (publicacionData.fecha_inicio_publicacion) {
+            let fechaInicio = new Date(publicacionData.fecha_inicio_publicacion);
+            $('#fechaInicioPublicacion').text(fechaInicio.toLocaleDateString('es-MX') + ' ' + 
+                fechaInicio.toLocaleTimeString('es-MX', {hour: '2-digit', minute: '2-digit'}));
+        } else {
+            $('#fechaInicioPublicacion').text('Sin fecha registrada');
+        }
+        
+        $('#descripcionAdicional').text(publicacionData.descripcion_adicional || 'Sin descripción adicional');
+        
+        // === GESTIÓN DE POSTULANTES ===
+        
+        // Extraer datos de criterios de cierre
+        let maxPostulantes = 'Sin límite';
+        let criteriosCierreTexto = 'Fecha límite únicamente';
+        
+        if (publicacionData.criterios_cierre_automatico) {
+            try {
+                let criterios = typeof publicacionData.criterios_cierre_automatico === 'string' 
+                    ? JSON.parse(publicacionData.criterios_cierre_automatico) 
+                    : publicacionData.criterios_cierre_automatico;
+                    
+                if (criterios.max_postulantes) {
+                    maxPostulantes = criterios.max_postulantes + ' postulantes';
+                }
+                
+                let criteriosArray = [];
+                if (criterios.max_postulantes) criteriosArray.push(`Máx. ${criterios.max_postulantes} postulantes`);
+                if (criterios.vacantes_cubiertas && criterios.vacantes_cubiertas > 0) criteriosArray.push('Vacantes cubiertas');
+                if (criterios.fecha_limite) criteriosArray.push('Fecha límite');
+                
+                criteriosCierreTexto = criteriosArray.length > 0 ? criteriosArray.join(', ') : 'Sin criterios específicos';
+                
+            } catch (e) {
+                console.warn('Error al parsear criterios de cierre:', e);
+            }
+        }
+        
+        $('#maxPostulantes').text(maxPostulantes);
+        $('#criteriosCierre').text(criteriosCierreTexto);
+        
+        // Fecha límite
+        if (publicacionData.fecha_limite_publicacion) {
+            let fechaLimite = new Date(publicacionData.fecha_limite_publicacion);
+            $('#fechaLimitePublicacion').text(fechaLimite.toLocaleDateString('es-MX'));
+        } else {
+            $('#fechaLimitePublicacion').text('Sin fecha límite');
+        }
+        
+        // Total de postulaciones (por ahora 0, se puede conectar con API después)
+        $('#totalPostulaciones').text(publicacionData.numero_postulantes || '0 postulaciones');
+        
+        // Plataformas de publicación
+        let plataformasTexto = 'No especificadas';
+        if (publicacionData.plataformas_publicacion) {
+            try {
+                let plataformas = typeof publicacionData.plataformas_publicacion === 'string' 
+                    ? JSON.parse(publicacionData.plataformas_publicacion) 
+                    : publicacionData.plataformas_publicacion;
+                    
+                if (Array.isArray(plataformas) && plataformas.length > 0) {
+                    const plataformasNombres = {
+                        'web': 'Sitio Web',
+                        'linkedin': 'LinkedIn',
+                        'indeed': 'Indeed',
+                        'computrabajo': 'CompuTrabajo',
+                        'occ': 'OCC Mundial'
+                    };
+                    
+                    plataformasTexto = plataformas.map(p => plataformasNombres[p] || p).join(', ');
+                }
+            } catch (e) {
+                console.warn('Error al parsear plataformas:', e);
+            }
+        }
+        $('#plataformasPublicacion').text(plataformasTexto);
+        
+        // === INFORMACIÓN DEL PUESTO ===
+        $('#puestoSolicitadoPub').text(publicacionData.puesto_nombre || 'Sin especificar');
+        $('#tipoContratoPub').text(formatearTipoContrato(publicacionData.tipo_contrato) || 'Sin especificar');
+        $('#tipoJornadaPub').text(formatearTipoJornada(publicacionData.tipo_jornada) || 'Sin especificar');
+        $('#tipoModalidadPub').text(formatearTipoModalidad(publicacionData.tipo_modalidad) || 'Sin especificar');
+
+        // === CONFIGURACIÓN DE CIERRE ===
+        // Prioridad
+        $('#prioridadPublicacion').html(formatearPrioridadDetalle(publicacionData.prioridad));
+
+        // Fecha de publicación
+        if (publicacionData.fecha_cierre_real) {
+            let fechaCierre = new Date(publicacionData.fecha_cierre_real);
+            $('#fechaCierrePublicacion').text(fechaCierre.toLocaleDateString('es-MX') + ' ' + 
+                fechaCierre.toLocaleTimeString('es-MX', {hour: '2-digit', minute: '2-digit'}));
+        } else {
+            $('#fechaCierrePublicacion').text('Sin fecha registrada');
+        }
+        
+        // === CONDICIONES LABORALES ===
+        if (publicacionData.dias_trabajo && publicacionData.dias_trabajo === 'otro') {
+            $("#diaTrabajoPub").text('Personalizado');
+            $("#diaPersonalizadoPubContainer").show();
+            $("#diaPersonalizadoPub").text(publicacionData.dias_personalizados || 'N/A');
+        } else { 
+          $("#diaTrabajoPub").text(formatearDiasTrabajo(publicacionData.dias_trabajo) || 'N/A')
+          $("#diaPersonalizadoPubContainer").hide();
+        }
+        $('#horaInicioPub').text(publicacionData.hora_inicio || 'Sin especificar');
+        $('#horaFinPub').text(publicacionData.hora_fin || 'Sin especificar');
+
+        // === REQUISITOS DEL PERFIL ===
+        $('#escolaridadMinimaPub').text(formatearEscolaridad(publicacionData.escolaridad_minima) || 'Sin especificar');
+        $('#experienciaAnosPub').text(formatearExperiencia(publicacionData.experiencia_anios) || 'Sin especificar');
+        $('#bandaSalarialPub').text(publicacionData.salario_min && publicacionData.salario_max ? `$${publicacionData.salario_min} - $${publicacionData.salario_max}` : 'No especificado');
+        $('#competenciasPub').text(publicacionData.competencias || 'Sin especificar');
+        $('#objetivosPub').text(publicacionData.objetivos || 'Sin especificar');
+        
+        // Habilidades blandas y técnicas (si están disponibles)
+        // Por ahora mostrar mensaje indicativo
+        $('#habilidadesBlandasPubContainer').html('<span class="sin-habilidades">No especificadas</span>');
+        $('#habilidadesTecnicasPubContainer').html('<span class="sin-habilidades">No especificadas</span>');
+        
+        // === ESTADO DE LA PUBLICACIÓN ===
+        // Última actualización (usar fecha actual si no está disponible)
+        let fechaActualizacion = new Date();
+        if (publicacionData.fecha_actualizacion) {
+            fechaActualizacion = new Date(publicacionData.fecha_actualizacion);
+        }
+        $('#fechaActualizacion').text(fechaActualizacion.toLocaleDateString('es-MX') + ' ' + 
+            fechaActualizacion.toLocaleTimeString('es-MX', {hour: '2-digit', minute: '2-digit'}));
+        
+        $('#estadoRequisicion').text(publicacionData.estatus_requisicion || 'Aprobada');
+        $('#motivoRequisicionPub').text(publicacionData.motivo || 'Sin motivo especificado');
+        
+        // === ESTABLECER ID DE PUBLICACIÓN EN EL BOTÓN DE GESTIONAR POSTULANTES ===
+        $('#btnVerPostulantes').data('id-publicacion', publicacionData.id_publicacion);
+        
+        // También guardarlo en localStorage como respaldo
+        localStorage.setItem('idPublicacionActual', publicacionData.id_publicacion);
+        
+        console.log('✅ ID de publicación establecido:', publicacionData.id_publicacion);
+        
+        return true;
+        
+    } catch (error) {
+        console.error('Error al llenar modal de detalles:', error);
+        return false;
+    }
+}
+
 // Función para editar una publicación
 function actualizarPublicacionVacante(formData) {
     const idPublicacion = formData.id_publicacion;
@@ -736,6 +1037,7 @@ function actualizarPublicacionVacante(formData) {
         api: 26, // Usar el mismo case para actualizar
         id_publicacion: idPublicacion, // IMPORTANTE: Incluir ID para actualización
         id_requisicion: formData.id_requisicion,
+        numero_postulantes: formData.numero_postulantes || 0,
         titulo_vacante: formData.titulo_vacante,
         descripcion_adicional: formData.descripcion_adicional || 'Sin observaciones',
         estado_publicacion: 'publicada_editada', // Siempre será 'editada' al actualizar
@@ -806,8 +1108,6 @@ function actualizarPublicacionVacante(formData) {
         }
     });
 }
-
-
 
 // Función para cambiar estado de publicación (SIMPLIFICADA)
 function cambiarEstadoPublicacion(idPublicacion, nuevoEstado, motivo) {

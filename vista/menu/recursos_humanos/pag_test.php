@@ -381,14 +381,18 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6 mb-3">
+                            <!-- <div class="col-md-6 mb-3">
                                 <label class="form-label">Nacionalidad <span class="required-field">*</span></label>
                                 <input type="text" class="form-control" name="nacionalidad" value="Mexicana" required>
-                            </div>
-                             <div class="col-md-6 mb-3">
+                            </div> -->
+                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Teléfono de contacto <span class="required-field">*</span></label>
                                 <input type="tel" class="form-control" name="telefono" required>
                             </div>
+                            <div class="col-md-8 mb-3">
+                            <label class="form-label">Domicilio completo <span class="required-field">*</span></label>
+                            <textarea class="form-control" name="domicilio" required></textarea>
+                        </div>
                             <!-- <div class="col-md-6 mb-3">
                                 <label class="form-label">CURP <span class="required-field">*</span></label>
                                 <input type="text" class="form-control" name="curp" maxlength="18"  required>
@@ -414,10 +418,10 @@
                             </div>
                         </div> -->
 
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label class="form-label">Domicilio completo <span class="required-field">*</span></label>
                             <textarea class="form-control" name="domicilio" rows="3" required></textarea>
-                        </div>
+                        </div> -->
 
                         <!-- <div class="row">
                             <div class="col-md-6 mb-3">
@@ -891,20 +895,20 @@
                 }
             });
             
-            // Validación de CURP
-            const curpInput = document.querySelector('input[name="curp"]');
-            curpInput?.addEventListener('input', function() {
-                this.value = this.value.toUpperCase();
-            });
+            // // Validación de CURP
+            // const curpInput = document.querySelector('input[name="curp"]');
+            // curpInput?.addEventListener('input', function() {
+            //     this.value = this.value.toUpperCase();
+            // });
             
-            // Validación de RFC
-            const rfcInput = document.querySelector('input[name="rfc"]');
-            rfcInput?.addEventListener('input', function() {
-                this.value = this.value.toUpperCase();
-            });
+            // // Validación de RFC
+            // const rfcInput = document.querySelector('input[name="rfc"]');
+            // rfcInput?.addEventListener('input', function() {
+            //     this.value = this.value.toUpperCase();
+            // });
         });
         
-        // Envío del formulario
+        // Envío del formulario - VERSIÓN SIMPLIFICADA
         document.getElementById('postulacionForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -920,51 +924,56 @@
             
             // Preparar datos del formulario
             const formData = new FormData(this);
-            formData.append('api', '28'); // Caso 28 en la API de recursos humanos
+            formData.append('api', '30');
             
             // Enviar formulario
             fetch('../../../api/recursos_humanos_api.php', {
                 method: 'POST',
                 body: formData
             })
-            .then(response => {
-                // Verificar si la respuesta es exitosa
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                // Obtener el texto de respuesta primero
-                return response.text();
-            })
+            .then(response => response.text())
             .then(responseText => {
                 console.log('Respuesta cruda de la API:', responseText);
                 
-                // Intentar parsear como JSON
                 try {
                     const data = JSON.parse(responseText);
                     console.log('Respuesta parseada de la API:', data);
                     
-                    // Manejar diferentes estructuras de respuesta
+                    // Manejar tanto formato directo como con wrapper "response"
                     let responseData = data;
                     if (data.response) {
-                        // Si viene envuelta en el formato del returnApi
                         responseData = data.response;
                     }
                     
-                    if (responseData.code === 1) {
-                        alert('¡Postulación guardada exitosamente en la base de datos!\n\n' + (responseData.message || responseData.msj || 'Datos guardados correctamente'));
+                    // Aceptar tanto code: 1 como code: 2 (tu sistema usa 2 para SUCCESS)
+                    if (responseData.code === 1 || responseData.code === 2) {
+                        // Mostrar mensaje de éxito
+                        const mensaje = responseData.message || responseData.msj || 'Postulación enviada exitosamente';
+                        alert('¡Éxito!\n\n' + mensaje);
+                        
                         // Limpiar formulario
                         document.getElementById('postulacionForm').reset();
+                        
                         // Volver a la primera sección
                         nextSection(1);
+                        
+                        // Ocultar formulario
+                        $('#formularioPostulacion').hide();
+                        
+                        // Recargar vacantes
+                        if (typeof cargarVacantesDisponibles === 'function') {
+                            cargarVacantesDisponibles();
+                        }
                     } else {
-                        alert('Error al guardar la postulación: ' + (responseData.message || responseData.msj || 'Error desconocido'));
+                        // Error
+                        const errorMsg = responseData.message || responseData.msj || 'Error desconocido';
+                        alert('Error al enviar la postulación:\n\n' + errorMsg);
                         console.error('Error de API:', responseData);
                     }
                 } catch (parseError) {
                     console.error('Error al parsear JSON:', parseError);
                     console.error('Respuesta recibida:', responseText);
-                    alert('Error en la respuesta del servidor. Por favor revise la consola para más detalles.');
+                    alert('Error en la respuesta del servidor. Revise la consola para más detalles.');
                 }
             })
             .catch(error => {
@@ -972,7 +981,6 @@
                 alert('Error de conexión. Por favor intente nuevamente.');
             })
             .finally(() => {
-                // Restaurar botón
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
             });

@@ -1,0 +1,327 @@
+<!-- Modal de Gestión de Postulantes -->
+<div class="modal fade" id="gestionPostulantesModal" tabindex="-1" aria-labelledby="gestionPostulantesLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content shadow-lg border-0">
+      <div class="modal-header bg-gradient-primary text-white border-0">
+        <h5 class="modal-title text-white fw-bold" id="gestionPostulantesLabel">
+          <i class="fas fa-users me-2"></i>Gestión de Postulantes
+        </h5>
+        <div class="d-flex align-items-center me-3">
+          <span class="badge bg-light text-dark me-2" id="contadorPostulantes"></span>
+          <span class="text-white-50" id="tituloVacantePostulantes"></span>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      
+      <div class="modal-body p-0" style="background-color: #f8f9fa;">
+        <div class="container-fluid h-100">
+          <div class="row h-100">
+            <!-- COLUMNA IZQUIERDA: Lista de Postulantes -->
+            <div class="col-md-4 p-3 border-end" style="background-color: white; height: 80vh; overflow-y: auto;">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 class="mb-0 fw-bold text-secondary">
+                  <i class="fas fa-list me-2"></i>Lista de Postulantes
+                </h6>
+                <div class="dropdown">
+                  <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <i class="fas fa-filter"></i>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item filtro-estado" href="#" data-estado="todos">Todos</a></li>
+                    <li><a class="dropdown-item filtro-estado" href="#" data-estado="nueva">Nuevas</a></li>
+                    <li><a class="dropdown-item filtro-estado" href="#" data-estado="en_revision">En Revisión</a></li>
+                    <li><a class="dropdown-item filtro-estado" href="#" data-estado="preseleccionado">Preseleccionados</a></li>
+                    <li><a class="dropdown-item filtro-estado" href="#" data-estado="entrevista">Para Entrevista</a></li>
+                    <li><a class="dropdown-item filtro-estado" href="#" data-estado="rechazado">Rechazados</a></li>
+                    <li><a class="dropdown-item filtro-estado" href="#" data-estado="contratado">Contratados</a></li>
+                  </ul>
+                </div>
+              </div>
+              
+              <!-- Buscador -->
+              <div class="mb-3">
+                <div class="input-group">
+                  <span class="input-group-text bg-light border-end-0">
+                    <i class="fas fa-search text-muted"></i>
+                  </span>
+                  <input type="text" class="form-control border-start-0" id="buscarPostulante" placeholder="Buscar por nombre...">
+                </div>
+              </div>
+              
+              <!-- Lista de Postulantes -->
+              <div id="listaPostulantes">
+                <div class="text-center py-4">
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Cargando...</span>
+                  </div>
+                  <p class="mt-2 text-muted">Cargando postulantes...</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- COLUMNA DERECHA: Detalles del Postulante -->
+            <div class="col-md-8 p-3" style="height: 80vh; overflow-y: auto;">
+              <div id="detallePostulante">
+                <div class="text-center py-5">
+                  <i class="fas fa-user-plus fa-3x text-muted mb-3"></i>
+                  <h5 class="text-muted">Selecciona un postulante para ver sus detalles</h5>
+                  <p class="text-muted">Haz clic en cualquier postulante de la lista para revisar su información completa</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-footer border-0 p-3" style="background-color: #f8f9fa;">
+        <button type="button" class="btn btn-gradient-secondary rounded-pill px-4" data-bs-dismiss="modal">
+          <i class="bi bi-x-circle me-2"></i>Cerrar
+        </button>
+        <button type="button" class="btn btn-gradient-primary rounded-pill px-4" id="btnExportarPostulantes">
+          <i class="fas fa-download me-2"></i>Exportar Lista
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para Vista Previa de Archivos -->
+<div class="modal fade" id="vistaPreviewModal" tabindex="-1" aria-labelledby="vistaPreviewLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-gradient-info text-white">
+        <h5 class="modal-title" id="vistaPreviewLabel">
+          <i class="fas fa-file me-2"></i>Vista Previa de Archivo
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-center p-4">
+        <div id="previewContent">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Cargando...</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <a href="#" class="btn btn-primary" id="btnDescargarArchivo" target="_blank">
+          <i class="fas fa-download me-2"></i>Descargar
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Estilos específicos para el modal de gestión de postulantes */
+#gestionPostulantesModal .modal-content {
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+/* Lista de postulantes */
+.postulante-item {
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+  position: relative;
+}
+
+.postulante-item:hover {
+  border-color: #667eea;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+
+.postulante-item.active {
+  border-color: #667eea;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+.postulante-avatar {
+  width: 45px;
+  height: 45px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.estado-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 0.7rem;
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+
+/* Estados de postulación */
+.estado-nueva { background-color: #e3f2fd; color: #1976d2; }
+.estado-en_revision { background-color: #fff3e0; color: #f57c00; }
+.estado-preseleccionado { background-color: #e8f5e8; color: #388e3c; }
+.estado-entrevista { background-color: #f3e5f5; color: #7b1fa2; }
+.estado-rechazado { background-color: #ffebee; color: #d32f2f; }
+.estado-contratado { background-color: #e0f2f1; color: #00796b; }
+
+/* Sección de detalles */
+.detalle-section {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.detalle-section h6 {
+  color: #495057;
+  font-weight: 600;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.info-group {
+  margin-bottom: 15px;
+}
+
+.info-label {
+  font-weight: 600;
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.info-value {
+  color: #495057;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Botones de acción */
+.btn-accion {
+  border-radius: 25px;
+  padding: 8px 20px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: none;
+  margin: 5px;
+}
+
+.btn-accion:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-aprobar {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  color: white;
+}
+
+.btn-rechazar {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+  color: white;
+}
+
+.btn-entrevista {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+}
+
+.btn-archivo {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-size: 0.85rem;
+  padding: 6px 15px;
+  margin: 2px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  #gestionPostulantesModal .modal-dialog {
+    margin: 0;
+    height: 100vh;
+    max-width: 100%;
+  }
+  
+  .col-md-4, .col-md-8 {
+    padding: 10px !important;
+  }
+  
+  .postulante-item {
+    padding: 10px;
+  }
+  
+  .detalle-section {
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+}
+
+/* Filtros y búsqueda */
+.dropdown-item.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+#buscarPostulante:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+/* Animaciones */
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.postulante-item {
+  animation: slideInFromLeft 0.3s ease-out;
+}
+
+#detallePostulante .detalle-section {
+  animation: slideInFromRight 0.3s ease-out;
+}
+
+/* Vista previa de archivos */
+#previewContent iframe {
+  width: 100%;
+  height: 500px;
+  border: none;
+  border-radius: 8px;
+}
+
+#previewContent .archivo-no-disponible {
+  padding: 40px;
+  text-align: center;
+  background: #f8f9fa;
+  border-radius: 8px;
+  color: #6c757d;
+}
+</style>

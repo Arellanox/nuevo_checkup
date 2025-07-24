@@ -7,3 +7,4 @@ include 'publicar_vacante.html';
 include 'configuracion_publicacion.html';
 include 'historial_publicaciones.html';
 include 'editar_publicar_vacante.html';
+include 'gestionar_postulantes.html';
