@@ -48,7 +48,7 @@
                                     </div>
                                     <div class="alert alert-info mt-2 d-none" id="alertaSurtidoOrden">
                                         <i class="bi bi-info-circle me-2"></i>Puede surtir parcial o totalmente los
-                                        artículos de la orden.
+                                        artículos de la orden <span id="nombreOrdenCompra"></span>.
                                     </div>
                                 </div>
                             </div>
@@ -106,7 +106,7 @@
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                     <i class="bi bi-x-circle me-2"></i>Cancelar
                 </button>
-                <button id="registrarEntradaOrdenEstableButton" type="submit" class="btn"
+                <button id="registrarEntradaOrdenEstableButton" type="submit" class="btn d-none"
                     style="background-color: #004e59; color: white; border-color: #004e59;"
                     form="registrarEntradaOrdenEstableForm">
                     <i class="bi bi-pencil-square"></i> Registrar entrada
@@ -121,7 +121,6 @@
         $('#ordenCompraSelect').on('change', function () {
             const idOrden = $(this).val();
             if (idOrden) {
-
                 $.ajax({
                     url: "../../../api/inventarios_api.php",
                     type: "POST",
@@ -134,15 +133,18 @@
 
                             $('#infoOrdenCompra').removeClass('d-none');
                             $('#cardArtOrdenCompra').removeClass('d-none');
+                            $("#registrarEntradaOrdenEstableButton").removeClass('d-none');
 
                             $('#creadaPorOrdenCompra').text(orden.USUARIO_CREACION);
                             $('#aprobadaRechazadaPorOrdenCompra').text(orden.APROBADO_RECHAZADO_POR);
                             $('#almacenOrdenCompra').text(orden.ALMACEN);
                             $('#fechaOrdenCompra').text(orden.FECHA_ORDEN);
-                            $('#estadoOrdenCompra').text(orden.ESTADO);
+                            $('#estadoOrdenCompra').text(orden.ESTADO.charAt(0).toUpperCase() + orden.ESTADO.slice(1));
+                            $("#nombreOrdenCompra").text(orden.NUMERO_ORDEN);
                         } else {
                             $('#infoOrdenCompra').addClass('d-none');
                             $('#cardArtOrdenCompra').addClass('d-none');
+                            $("#registrarEntradaOrdenEstableButton").addClass('d-none');
                             $('#tableCatOrdenesCompraArticulos tbody').empty();
                             $('#alertaSurtidoOrden').addClass('d-none');
                         }
@@ -152,40 +154,25 @@
                     }
                 });
 
-                // // Limpiar y cargar artículos en la tabla
-                // const tbody = $('#tableCatOrdenesCompraArticulos tbody');
-                // tbody.empty();
-                // // Simulación de artículos
-                // [
-                //     { nombre: 'Guantes', clave: 'GUA-001', cantidad_ordenada: 100, cantidad_recibida: 50, precio: 10.5 },
-                //     { nombre: 'Cubrebocas', clave: 'CUB-002', cantidad_ordenada: 200, cantidad_recibida: 0, precio: 2.5 }
-                // ].forEach((art, idx) => {
-                //     tbody.append(`
-                //         <tr>
-                //             <td>
-                //                 <input type="hidden" name="articulos[${idx}][nombre]" value="${art.nombre}">
-                //                 ${art.nombre}
-                //             </td>
-                //             <td>${art.clave}</td>
-                //             <td>${art.cantidad_ordenada}</td>
-                //             <td>${art.cantidad_recibida}</td>
-                //             <td><input type="number" class="form-control form-control-sm" name="articulos[${idx}][cantidad_surtir]" min="0" max="${art.cantidad_ordenada - art.cantidad_recibida}" value="0"></td>
-                //             <td>$${art.precio.toFixed(2)}</td>
-                //             <td><input type="file" class="form-control form-control-sm" name="articulos[${idx}][documento]" accept=".pdf,.jpg,.jpeg,.png"></td>
-                //             <td><input type="text" class="form-control form-control-sm" name="articulos[${idx}][lote]" placeholder="Opcional"></td>
-                //             <td><input type="date" class="form-control form-control-sm" name="articulos[${idx}][caducidad]"></td>
-                //             <td><input type="text" class="form-control form-control-sm" name="articulos[${idx}][observaciones]" placeholder="Opcional"></td>
-                //             <td class="text-center"><input type="checkbox" name="articulos[${idx}][seleccionado]" checked></td>
-                //         </tr>
-                //     `);
-                // });
+                dataTableCatOrdenesCompraArticulos.id_orden_compra = idOrden;
+
+                if (typeof tableCatOrdenesCompraArticulos !== "undefined") {
+                    tableCatOrdenesCompraArticulos.ajax.reload();
+                }
+
                 $('#alertaSurtidoOrden').removeClass('d-none');
             } else {
                 $('#infoOrdenCompra').addClass('d-none');
                 $('#cardArtOrdenCompra').addClass('d-none');
+                $("#registrarEntradaOrdenEstableButton").addClass('d-none');
 
                 $('#tableCatOrdenesCompraArticulos tbody').empty();
                 $('#alertaSurtidoOrden').addClass('d-none');
+
+                dataTableCatOrdenesCompraArticulos.id_orden_compra = null;
+                if (typeof tableCatOrdenesCompraArticulos !== "undefined") {
+                    tableCatOrdenesCompraArticulos.ajax.reload();
+                }
             }
         });
 
@@ -193,6 +180,7 @@
         $('#registrarEntradaOrdenEstableModal').on('hidden.bs.modal', function () {
             $('#registrarEntradaOrdenEstableForm')[0].reset();
             $('#infoOrdenCompra').addClass('d-none');
+            $("#registrarEntradaOrdenEstableButton").addClass('d-none');
             $('#tableCatOrdenesCompraArticulos tbody').empty();
             $('#alertaSurtidoOrden').addClass('d-none');
         });

@@ -49,6 +49,7 @@ tableCatEntradasEstable = $("#tableCatEntradasEstable").DataTable({
       data: "RESPONSABLE",
       title: "Responsable",
       render: function (data) {
+        if (data === 0 || !data) return "-";
         return data;
       },
     },
@@ -57,6 +58,7 @@ tableCatEntradasEstable = $("#tableCatEntradasEstable").DataTable({
       title: "Cantidad Ingresada",
       className: "text-center",
       render: function (data, type, row) {
+        if (data === 0 || !data) return "-";
         const unidad = row.UNIDAD_MEDIDA || "unid";
         return `<span class="badge bg-primary">${data} ${unidad}</span>`;
       },
@@ -66,6 +68,7 @@ tableCatEntradasEstable = $("#tableCatEntradasEstable").DataTable({
       title: "Costo Unitario",
       className: "text-end",
       render: function (data) {
+        if (data === 0 || !data) return "-";
         return data ? `$${parseFloat(data).toFixed(2)}` : "-";
       },
     },
@@ -217,6 +220,13 @@ tableCatEntradasEstable = $("#tableCatEntradasEstable").DataTable({
       className: "btn btn-info",
       action: function () {
         $("#registrarEntradaOrdenEstableModal").modal("show");
+      },
+    },
+    {
+      text: '<i class="bi bi-file-earmark-arrow-down"></i> Ver Transacciones',
+      className: "btn btn-info",
+      action: function () {
+        $("#detalleTransaccionModal").modal("show");
       },
     },
   ],
@@ -571,6 +581,7 @@ setTimeout(() => {
 function cargarCatalogoEnSelect(selectorSelect, opciones, callback) {
   const config = {
     soloActivos: true,
+    soloAprobadas: true,
     ...opciones,
   };
 
@@ -592,26 +603,25 @@ function cargarCatalogoEnSelect(selectorSelect, opciones, callback) {
         let totalElementos = 0;
         response.response.data.forEach(function (item) {
           const esActivo = item.activo == 1 || item.ACTIVO == 1;
+          const esAprobada =
+            item.estado == "aprobada" || item.ESTADO == "aprobada";
           if (!config.soloActivos || esActivo) {
-            selectElement.append(
-              `<option value="${item[config.campoId]}">${
-                item[config.campoTexto]
-              }</option>`
-            );
+            if (!config.soloAprobadas || esAprobada) {
+              selectElement.append(
+                `<option value="${item[config.campoId]}">${
+                  item[config.campoTexto]
+                }</option>`
+              );
+            }
             totalElementos++;
           }
         });
 
         if (valorActual) selectElement.val(valorActual);
 
-        console.log(
-          `✅ Catálogo cargado: ${totalElementos} elementos en ${selectorSelect}`
-        );
-
         if (callback && typeof callback === "function") callback();
       } else {
         alertToast(`Error al cargar ${config.placeholder}`, "error", 3000);
-        console.error("Error en respuesta API:", response);
       }
     },
 
@@ -621,7 +631,6 @@ function cargarCatalogoEnSelect(selectorSelect, opciones, callback) {
         "error",
         3000
       );
-      console.error("Error AJAX:", { xhr, status, error });
     },
   });
 }
@@ -657,7 +666,7 @@ function cargarOrdenesCompraEstable() {
       campoId: "ID_ORDEN_COMPRA",
       campoTexto: "NUMERO_ORDEN",
       placeholder: "Seleccione una orden de compra",
-      soloActivos: true,
+      soloAprobadas: true,
     }
   );
 }

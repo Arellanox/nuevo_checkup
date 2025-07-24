@@ -86,5 +86,6 @@ dataTableCatDetEntradasEstable = {
 }
 
 dataTableCatOrdenesCompraArticulos = {
-    api: 43
+    api: 43,
+    id_orden_compra: null
 }
