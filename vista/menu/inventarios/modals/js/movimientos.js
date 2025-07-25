@@ -422,6 +422,16 @@ tableCatOrdenesCompraArticulos = $("#tableCatOrdenesCompraArticulos").DataTable(
         },
       },
       {
+        data: "ID_ARTICULO",
+        title: "ID Artículo",
+        visible: false,
+      },
+      {
+        data: "ID_ORDEN_COMPRA",
+        title: "ID Orden de Compra",
+        visible: false,
+      },
+      {
         data: "ARTICULO_NOMBRE",
         title: "Artículo",
         render: function (data) {
@@ -430,19 +440,19 @@ tableCatOrdenesCompraArticulos = $("#tableCatOrdenesCompraArticulos").DataTable(
       },
       {
         data: "cantidad_solicitada",
-        title: "Cantidad Ordenada",
+        title: "Cantidad Solicitada",
         className: "text-center",
         render: function (data) {
           return data ? data : "-";
         },
       },
-      // {
-      //   data: "CANTIDAD_RECIBIDA",
-      //   title: "Cantidad Recibida",
-      //   render: function (data) {
-      //     return data ? data : "-";
-      //   },
-      // },
+      {
+        data: "cantidad_recibida",
+        title: "Cantidad Recibida",
+        render: function (data) {
+          return data ? data : "-";
+        },
+      },
       // {
       //   data: "CANTIDAD_A_SURTIR",
       //   title: "Cantidad a Surtir",
@@ -517,9 +527,20 @@ tableCatOrdenesCompraArticulos = $("#tableCatOrdenesCompraArticulos").DataTable(
         data: null,
         title: "Acciones",
         render: function (data, type, row) {
-          return `
-          <button type="button" class="btn btn-warning btn-sm btn-surtir-orden-compra" data-bs-toggle="tooltip" title="Surtir orden de compra"><i class="bi bi-box-seam"></i></button>
+          if (row.cantidad_recibida >= row.cantidad_solicitada) {
+            return `<button type="button" class="btn btn-info btn-sm btn-ver-detalle-oc" data-bs-toggle="tooltip" title="Ver evidencia o detalles"><i class="bi bi-eye"></i></button>`;
+          } else {
+            return `
+            <button 
+            data-nombre-articulo="${row.ARTICULO_NOMBRE}" 
+            data-clave-articulo="${row.ARTICULO_CLAVE}" 
+            data-id-orden-compra="${row.ID_ORDEN_COMPRA}"
+            data-id-articulo="${row.ID_ARTICULO}"
+            data-cantidad-solicitada="${row.cantidad_solicitada}"
+            data-cantidad-recibida="${row.cantidad_recibida}"
+            type="button" class="btn btn-warning btn-sm btn-surtir-orden-compra" data-bs-toggle="tooltip" title="Surtir orden de compra"><i class="bi bi-box-seam"></i></button>
         `;
+          }
         },
       },
     ],
@@ -545,8 +566,186 @@ tableCatOrdenesCompraArticulos = $("#tableCatOrdenesCompraArticulos").DataTable(
 );
 
 $(document).on("click", ".btn-surtir-orden-compra", function () {
-  
+  var nombreArticulo = $(this).data("nombre-articulo");
+  var claveArticulo = $(this).data("clave-articulo");
+  var cantidadSolicitada = $(this).data("cantidad-solicitada");
+  var cantidadRecibida = $(this).data("cantidad-recibida") || "-";
+  var idArticulo = $(this).data("id-articulo");
+  var idOrdenCompra = $(this).data("id-orden-compra");
+  $("#nombreArticuloSurtirOC").text(nombreArticulo);
+  $("#nombreArticuloSurtirOCInput").val(nombreArticulo);
+  $("#claveArticuloSurtirOC").val(claveArticulo);
+  $("#cantidadOrdenadaSurtirOC").val(cantidadSolicitada);
+  $("#cantidadRecibidaSurtirOC").val(cantidadRecibida);
+  $("#idArticuloSurtirOC").val(idArticulo);
+  $("#idOrdenCompraSurtirOC").val(idOrdenCompra);
+
   $("#surtirOrdenCompraIndividualModal").modal("show");
+});
+
+// DATATABLE DE TRANSACCIONES
+tableCatTransacciones = $("#tableCatTransacciones").DataTable({
+  order: [[3, "desc"]],
+  autoWidth: true,
+  language: {
+    url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+  },
+  lengthChange: false,
+  info: true,
+  paging: true,
+  sorting: true,
+  scrollY: "68vh",
+  scrollX: true,
+  scrollCollapse: true,
+  ajax: {
+    dataType: "json",
+    data: function (d) {
+      return $.extend(d, dataTableCatTransacciones);
+    },
+    method: "POST",
+    url: "../../../api/inventarios_api.php",
+    error: function (jqXHR, textStatus, errorThrown) {
+      alertErrorAJAX(jqXHR, textStatus, errorThrown);
+    },
+    dataSrc: "response.data",
+  },
+  columns: [
+    {
+      data: "CLAVE_ART",
+      title: "Clave Artículo",
+      render: function (data) {
+        return data ? data : "-";
+      },
+    },
+    {
+      data: "NOMBRE_COMERCIAL",
+      title: "Nombre Comercial",
+      render: function (data) {
+        return data ? data : "-";
+      },
+    },
+    {
+      data: "CANTIDAD",
+      title: "Cantidad",
+      render: function (data) {
+        return data ? data : "-";
+      },
+    },
+    {
+      data: "FECHA_TRANSACCION",
+      title: "Fecha Transacción",
+      render: function (data) {
+        return data ? data : "-";
+      },
+    },
+    {
+      data: "COSTO_ULTIMA_TRANSACCION",
+      title: "Costo Última Transacción",
+      render: function (data, type, row) {
+        if ($.isNumeric(data)) {
+          return (
+            "$" +
+            Number(data).toLocaleString("es-MX", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })
+          );
+        } else {
+          return "$0.00";
+        }
+      },
+    },
+    {
+      data: "RESPONSABLE",
+      title: "Responsable",
+      render: function (data) {
+        return data ? data : "-";
+      },
+    },
+    {
+      data: "PROVEEDOR",
+      title: "Proveedor",
+      render: function (data) {
+        return data ? data : "-";
+      },
+    },
+    {
+      data: "IMAGEN_DOCUMENTO",
+      title: "Documento",
+      render: function (data, type, row) {
+        if (data) {
+          // Obtener la extensión del archivo
+          var extension = data.split(".").pop().toLowerCase();
+
+          if (extension === "pdf") {
+            // Si es PDF, mostrar icono de PDF
+            return (
+              '<a href="' +
+              data +
+              '" target="_blank"><i class="bi bi-file-earmark-pdf-fill text-danger fs-4" title="Ver PDF"></i></a>'
+            );
+          } else {
+            // Si es imagen, mostrar como antes
+            return (
+              '<a href="' +
+              data +
+              '" target="_blank"><img src="' +
+              data +
+              '" alt="Imagen del Documento" style="width: 50px; height: auto;"/></a>'
+            );
+          }
+        } else {
+          return "Sin documento";
+        }
+      },
+    },
+    {
+      data: "MOTIVO_ENTRADA",
+      title: "Motivo",
+      render: function (data) {
+        return data ? data : "-";
+      },
+    },
+    {
+      data: "ORDEN_COMPRA",
+      title: "Orden de compra",
+      render: function (data) {
+        return data ? data : "-";
+      },
+    },
+    {
+      data: "IMAGEN_ORDEN_COMPRA",
+      title: "Imagen de orden de compra",
+      render: function (data, type, row) {
+        if (data) {
+          // Obtener la extensión del archivo
+          var extension = data.split(".").pop().toLowerCase();
+
+          if (extension === "pdf") {
+            // Si es PDF, mostrar icono de PDF
+            return (
+              '<a href="' +
+              data +
+              '" target="_blank"><i class="bi bi-file-earmark-pdf-fill text-danger fs-4" title="Ver PDF"></i></a>'
+            );
+          } else {
+            // Si es imagen, mostrar como antes
+            return (
+              '<a href="' +
+              data +
+              '" target="_blank"><img src="' +
+              data +
+              '" alt="Imagen del Documento" style="width: 50px; height: auto;"/></a>'
+            );
+          }
+        } else {
+          return "Sin documento";
+        }
+      },
+    },
+  ],
+  dom: 'Bl<"dataTables_toolbar">frtip',
+  buttons: [],
 });
 
 // ESTILOS PARA LA BARRA DE BUSQUEDA DE ENTRADAS
@@ -598,6 +797,22 @@ setTimeout(() => {
   tableCatOrdenesCompraArticulos.columns.adjust().draw();
 }, 1000);
 
+setTimeout(() => {
+  inputBusquedaTable(
+    "tableCatTransacciones",
+    tableCatTransacciones,
+    [
+      {
+        msj: "Filtre los registros por coincidencia",
+        place: "top",
+      },
+    ],
+    [],
+    "col-12"
+  );
+  tableCatArticulos.columns.adjust().draw();
+}, 1000);
+
 // ==================== FUNCIONALIDADES PARA CARGAR CATÁLOGOS ====================
 function cargarCatalogoEnSelect(selectorSelect, opciones, callback) {
   const config = {
@@ -625,7 +840,9 @@ function cargarCatalogoEnSelect(selectorSelect, opciones, callback) {
         response.response.data.forEach(function (item) {
           const esActivo = item.activo == 1 || item.ACTIVO == 1;
           const esAprobada =
-            item.estado == "aprobada" || item.ESTADO == "aprobada";
+            item.estado == "aprobada" ||
+            item.ESTADO == "aprobada" ||
+            item.ESTADO == "parcial";
           if (!config.soloActivos || esActivo) {
             if (!config.soloAprobadas || esAprobada) {
               selectElement.append(
@@ -663,6 +880,7 @@ function cargarProveedoresEstable() {
     campoTexto: "nombre",
     placeholder: "Seleccione un proveedor",
     soloActivos: true,
+    soloAprobadas: false,
   });
 }
 
@@ -675,6 +893,7 @@ function cargarMotivosEstable() {
       campoTexto: "descripcion",
       placeholder: "Seleccione un motivo",
       soloActivos: true,
+      soloAprobadas: false,
     }
   );
 }

@@ -122,9 +122,6 @@ $("#registrarOrdenCompraForm").submit(async function (event) {
     numeroOrden,
     fechaOrden,
     estado,
-    subtotal,
-    iva,
-    total,
     observaciones;
 
   try {
@@ -140,14 +137,6 @@ $("#registrarOrdenCompraForm").submit(async function (event) {
     estado = ($("#ESTADO").val() || "").trim();
     console.log("📋 4. Estado:", estado);
 
-    subtotal = ($("#SUBTOTAL").val() || "0").trim();
-    console.log("📋 5. Subtotal:", subtotal);
-
-    iva = ($("#IVA").val() || "0").trim();
-    console.log("📋 6. IVA:", iva);
-
-    total = ($("#TOTAL").val() || "0").trim();
-    console.log("📋 7. Total:", total);
 
     observaciones = ($("#OBSERVACIONES").val() || "").trim();
     console.log("📋 8. Observaciones:", observaciones);
@@ -219,9 +208,7 @@ $("#registrarOrdenCompraForm").submit(async function (event) {
     const articulosIncompletos = articulos.filter(art => 
       !art.id_articulo || 
       !art.cantidad_solicitada || 
-      art.cantidad_solicitada <= 0 ||
-      !art.precio_unitario ||
-      art.precio_unitario < 0
+      art.cantidad_solicitada <= 0
     );
 
     if (articulosIncompletos.length > 0) {
@@ -266,9 +253,6 @@ $("#registrarOrdenCompraForm").submit(async function (event) {
         fecha_orden: fechaOrden || null,
         estado: estado || null,
         id_proveedor: idProveedor || null, // Puede ser null si no hay artículos
-        subtotal: subtotal || 0,
-        iva: iva || 0,
-        total: total || 0,
         observaciones: observaciones || null,
         activo: activo,
         detalles_articulos: detallesArticulos // Agregar detalles de artículos

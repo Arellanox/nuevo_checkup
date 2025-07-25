@@ -264,6 +264,7 @@ $("#registrarEntradaEstableForm").submit(function (event) {
         {
           api: 6,
           id_articulo: rowSelected.ID_ARTICULO,
+          esOrden: 0,
         },
         "inventarios_api",
         "registrarEntradaEstableForm",
@@ -273,6 +274,63 @@ $("#registrarEntradaEstableForm").submit(function (event) {
           if (data.response.code == 1) {
             $("#registrarEntradaEstableForm")[0].reset();
             $("#registrarEntradaEstableModal").modal("hide");
+            alertToast("Entrada exitosa", "success", 4000);
+            dataTableCatEntradasEstable.ajax.reload();
+            dataTableCatDetEntradasEstable.ajax.reload();
+          } else {
+            alertToast(
+              "Ocurrió un error al registrar la entrada",
+              "error",
+              4000
+            );
+          }
+        }
+      );
+    }
+  );
+});
+
+// Surtir una orden de compra
+$("#formSurtirOrdenCompraIndividual").submit(function (event) {
+  event.preventDefault();
+  var form = document.getElementById("formSurtirOrdenCompraIndividual");
+  var formData = new FormData(form);
+  var idArticulo = $("#idArticuloSurtirOC").val();
+  var fechaEntrada = $("#fecha_entrada_orden").val();
+  var ordenCompra = $("#idOrdenCompraSurtirOC").val();
+
+  alertMensajeConfirm(
+    {
+      title: "¿Está a punto de registrar esta entrada?",
+      text: "Asegúrate que los datos sean correctos.",
+      icon: "warning",
+    },
+    function () {
+      ajaxAwaitFormData(
+        {
+          api: 6,
+          id_articulo: parseInt(idArticulo),
+          id_motivo: 11,
+          esOrden: 1,
+          fecha_entrada: fechaEntrada,
+          id_orden_compra: ordenCompra,
+        },
+        "inventarios_api",
+        "formSurtirOrdenCompraIndividual",
+        { callbackAfter: true },
+        false,
+        function (data) {
+          if (data.response.code == 1) {
+            $("#formSurtirOrdenCompraIndividual")[0].reset();
+            $("#surtirOrdenCompraIndividualModal").modal("hide");
+            alertToast("Entrada exitosa", "success", 4000);
+            tableCatOrdenesCompraArticulos.ajax.reload();
+          } else {
+            alertToast(
+              "Ocurrió un error al registrar la entrada",
+              "error",
+              4000
+            );
           }
         }
       );

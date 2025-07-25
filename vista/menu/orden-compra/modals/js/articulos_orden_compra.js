@@ -51,11 +51,9 @@ $(document).ready(function () {
   $('#btnLimpiarFiltros').on('click', limpiarFiltrosArticulos);
 
   // Eventos del modal de configuración de artículo
-  $('#configurarCantidad, #configurarPrecioUnitario').on('input', calcularSubtotalConfiguracion);
   $('#btnConfirmarArticuloOrden').on('click', confirmarAgregarArticulo);
 
   // Eventos del modal de edición de artículo
-  $('#editarCantidad, #editarPrecioUnitario').on('input', calcularSubtotalEdicion);
   $('#btnConfirmarEdicionOrden').on('click', confirmarEditarArticulo);
 });
 
@@ -68,7 +66,6 @@ function inicializarArticulosOrdenCompra() {
   contadorArticulos = 0;
   actualizarTablaArticulosOrden();
   actualizarContadorArticulos();
-  limpiarTotalesOrden();
 }
 
 function abrirModalSeleccionarArticulo() {
@@ -251,18 +248,9 @@ function llenarModalConfiguracion(articulo) {
 
   // Limpiar campos
   $('#configurarCantidad').val('');
-  $('#configurarPrecioUnitario').val('');
-  $('#configurarSubtotalEstimado').val('0.00');
   $('#configurarObservaciones').val('');
 }
 
-function calcularSubtotalConfiguracion() {
-  const cantidad = parseFloat($('#configurarCantidad').val()) || 0;
-  const precio = parseFloat($('#configurarPrecioUnitario').val()) || 0;
-  const subtotal = cantidad * precio;
-  
-  $('#configurarSubtotalEstimado').val(subtotal.toFixed(2));
-}
 
 function confirmarAgregarArticulo() {
   // Validar campos obligatorios
@@ -283,7 +271,6 @@ function confirmarAgregarArticulo() {
 
   // Obtener datos del artículo
   const articuloData = JSON.parse($('#configurarArticuloJson').val());
-  const precio = parseFloat($('#configurarPrecioUnitario').val()) || 0;
   const observaciones = $('#configurarObservaciones').val();
   
   // Obtener nombre del proveedor seleccionado
@@ -299,8 +286,6 @@ function confirmarAgregarArticulo() {
     id_proveedor: idProveedor,
     nombre_proveedor: nombreProveedor.replace(' ★', ''),
     cantidad_solicitada: cantidad,
-    precio_unitario: precio,
-    subtotal_detalle: cantidad * precio,
     observaciones_detalle: observaciones,
     indice: contadorArticulos++
   };
@@ -311,7 +296,6 @@ function confirmarAgregarArticulo() {
   // Actualizar tabla y contadores
   actualizarTablaArticulosOrden();
   actualizarContadorArticulos();
-  calcularTotalesOrden();
   
   // Cerrar modal
   $('#configurarArticuloOrdenModal').modal('hide');
@@ -352,7 +336,6 @@ function actualizarTablaArticulosOrden() {
             <span class="fw-semibold">${articulo.cantidad_solicitada.toFixed(2)}</span>
             <br>
             <small class="text-muted">${articulo.unidad}</small>
-            ${articulo.precio_unitario > 0 ? `<br><small class="text-success">$${articulo.precio_unitario.toFixed(2)} c/u</small>` : ''}
           </div>
         </td>
         <td>
@@ -394,27 +377,6 @@ function actualizarContadorArticulos() {
   $('#contadorArticulos').text(`${articulosOrdenCompra.length} artículo${articulosOrdenCompra.length !== 1 ? 's' : ''}`);
 }
 
-function calcularTotalesOrden() {
-  let subtotal = 0;
-  
-  articulosOrdenCompra.forEach(function (articulo) {
-    subtotal += articulo.subtotal_detalle;
-  });
-  
-  const iva = subtotal * 0.16; // IVA del 16%
-  const total = subtotal + iva;
-  
-  // Actualizar campos del formulario
-  $('#SUBTOTAL').val(subtotal.toFixed(2));
-  $('#IVA').val(iva.toFixed(2));
-  $('#TOTAL').val(total.toFixed(2));
-}
-
-function limpiarTotalesOrden() {
-  $('#SUBTOTAL').val('0.00');
-  $('#IVA').val('0.00');
-  $('#TOTAL').val('0.00');
-}
 
 function editarArticuloOrden(indice) {
   const articulo = articulosOrdenCompra[indice];
@@ -427,14 +389,10 @@ function editarArticuloOrden(indice) {
   
   // Llenar campos actuales
   $('#editarCantidad').val(articulo.cantidad_solicitada);
-  $('#editarPrecioUnitario').val(articulo.precio_unitario);
   $('#editarObservaciones').val(articulo.observaciones_detalle);
   
   // Llenar select de proveedores (necesitamos obtener los proveedores del artículo original)
   cargarProveedoresParaEdicion(articulo.id_articulo, articulo.id_proveedor);
-  
-  // Calcular subtotal inicial
-  calcularSubtotalEdicion();
   
   // Mostrar modal
   $('#editarArticuloOrdenModal').modal('show');
@@ -465,14 +423,6 @@ function cargarProveedoresParaEdicion(idArticulo, idProveedorSeleccionado) {
   }
 }
 
-function calcularSubtotalEdicion() {
-  const cantidad = parseFloat($('#editarCantidad').val()) || 0;
-  const precio = parseFloat($('#editarPrecioUnitario').val()) || 0;
-  const subtotal = cantidad * precio;
-  
-  $('#editarSubtotalCalculado').val(subtotal.toFixed(2));
-}
-
 function confirmarEditarArticulo() {
   const indice = parseInt($('#editarIndiceTabla').val());
   const cantidad = parseFloat($('#editarCantidad').val());
@@ -491,20 +441,16 @@ function confirmarEditarArticulo() {
   }
 
   // Actualizar datos del artículo
-  const precio = parseFloat($('#editarPrecioUnitario').val()) || 0;
   const observaciones = $('#editarObservaciones').val();
   const nombreProveedor = $('#editarProveedor option:selected').text();
 
   articulosOrdenCompra[indice].id_proveedor = idProveedor;
   articulosOrdenCompra[indice].nombre_proveedor = nombreProveedor.replace(' ★', '');
   articulosOrdenCompra[indice].cantidad_solicitada = cantidad;
-  articulosOrdenCompra[indice].precio_unitario = precio;
-  articulosOrdenCompra[indice].subtotal_detalle = cantidad * precio;
   articulosOrdenCompra[indice].observaciones_detalle = observaciones;
   
   // Actualizar tabla y totales
   actualizarTablaArticulosOrden();
-  calcularTotalesOrden();
   
   // Cerrar modal
   $('#editarArticuloOrdenModal').modal('hide');
@@ -525,7 +471,6 @@ function quitarArticuloOrden(indice) {
       articulosOrdenCompra.splice(indice, 1);
       actualizarTablaArticulosOrden();
       actualizarContadorArticulos();
-      calcularTotalesOrden();
       alertToast('Artículo quitado de la orden', 'info', 3000);
     }
   );
@@ -604,7 +549,6 @@ function obtenerArticulosOrdenJSON() {
       codigo_articulo: articulo.clave_articulo,
       descripcion_articulo: articulo.nombre_articulo,
       cantidad_solicitada: articulo.cantidad_solicitada,
-      precio_unitario: articulo.precio_unitario,
       observaciones_detalle: articulo.observaciones_detalle
     };
   }));

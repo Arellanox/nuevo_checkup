@@ -54,6 +54,7 @@ tableCatOrdenesCompra = $("#tableCatOrdenesCompra").DataTable({
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
   },
+  order: [[1, "desc"]],
   autoWidth: false,
   lengthChange: false,
   info: true,
@@ -112,6 +113,10 @@ tableCatOrdenesCompra = $("#tableCatOrdenesCompra").DataTable({
             data.charAt(0).toUpperCase() + data.slice(1).toLowerCase()
           }</span>`;
         } else if (data === "aprobada") {
+          return `<span class="badge bg-info">${
+            data.charAt(0).toUpperCase() + data.slice(1).toLowerCase()
+          }</span>`;
+        } else if (data === "completada") {
           return `<span class="badge bg-success">${
             data.charAt(0).toUpperCase() + data.slice(1).toLowerCase()
           }</span>`;
@@ -180,6 +185,7 @@ tableCatOrdenesCompra = $("#tableCatOrdenesCompra").DataTable({
     {
       data: "TOTAL",
       title: "Total",
+      visible: false,
       render: function (data) {
         return data ? `$${parseFloat(data).toFixed(2)}` : "$0.00";
       },
@@ -1057,8 +1063,12 @@ $(document).on("click", ".btn-ver-orden-compra", function () {
     }</span>`;
   } else if (rowData.ESTADO === "aprobada") {
     estadoHtml = `<span class="badge bg-success fs-6"><i class="bi bi-check-lg"></i> Aceptada</span>`;
+  } else if (rowData.ESTADO === "completada") {
+    estadoHtml = `<span class="badge bg-success fs-6"><i class="bi bi-check-lg"></i> Completada</span>`;
   } else if (rowData.ESTADO === "rechazada") {
     estadoHtml = `<span class="badge bg-danger fs-6"><i class="bi bi-x-lg"></i> Rechazada</span>`;
+  } else if (rowData.ESTADO === "parcial") {
+    estadoHtml = `<span class="badge bg-warning fs-6"><i class="bi bi-check-lg"></i> Parcial</span>`;
   } else if (rowData.ESTADO === "enviada") {
     estadoHtml = `<span class="badge bg-info fs-6"><i class="bi bi-send"></i> ${
       rowData.ESTADO.charAt(0).toUpperCase() + rowData.ESTADO.slice(1)

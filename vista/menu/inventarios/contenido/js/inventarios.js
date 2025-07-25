@@ -400,7 +400,7 @@ tableCatArticulos = $("#tableCatArticulos").DataTable({
       },
       className: "text-center",
     },
-    { data: "UNIDAD_VENTA" },
+    { data: "UNIDAD_DESCRIPCION" },
     { data: "UNIDAD_MINIMA" },
     { data: "CONTENIDO" },
     { data: "TIPO_DESCRIPCION" },
@@ -1080,138 +1080,6 @@ var tableCatDetallesEntradas = $("#tableCatDetallesEntradas").DataTable({
   ],
 });
 
-// DATATABLE DE TRANSACCIONES
-tableCatTransacciones = $("#tableCatTransacciones").DataTable({
-  order: [[3, "desc"]],
-  autoWidth: true,
-  language: {
-    url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
-  },
-  lengthChange: false,
-  info: true,
-  paging: true,
-  sorting: true,
-  scrollY: "68vh",
-  scrollX: true,
-  scrollCollapse: true,
-  fixedHeader: true,
-  ajax: {
-    dataType: "json",
-    data: function (d) {
-      return $.extend(d, dataTableCatTransacciones);
-    },
-    method: "POST",
-    url: "../../../api/inventarios_api.php",
-    error: function (jqXHR, textStatus, errorThrown) {
-      alertErrorAJAX(jqXHR, textStatus, errorThrown);
-    },
-    dataSrc: "response.data",
-  },
-  columns: [
-    { data: "CLAVE_ART" },
-    { data: "NOMBRE_COMERCIAL" },
-    { data: "CANTIDAD" },
-    { data: "FECHA_TRANSACCION" },
-    {
-      data: "COSTO_ULTIMA_TRANSACCION",
-      render: function (data, type, row) {
-        if ($.isNumeric(data)) {
-          return (
-            "$" +
-            Number(data).toLocaleString("es-MX", {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            })
-          );
-        } else {
-          return "$0.00";
-        }
-      },
-    },
-    { data: "PROVEEDOR" },
-    { data: "ORDEN_COMPRA" },
-    {
-      data: "IMAGEN_ORDEN_COMPRA",
-      render: function (data, type, row) {
-        if (data) {
-          // Obtener la extensión del archivo
-          var extension = data.split(".").pop().toLowerCase();
-
-          if (extension === "pdf") {
-            // Si es PDF, mostrar icono de PDF
-            return (
-              '<a href="' +
-              data +
-              '" target="_blank"><i class="bi bi-file-earmark-pdf-fill text-danger fs-4" title="Ver PDF"></i></a>'
-            );
-          } else {
-            // Si es imagen, mostrar como antes
-            return (
-              '<a href="' +
-              data +
-              '" target="_blank"><img src="' +
-              data +
-              '" alt="Imagen del Documento" style="width: 50px; height: auto;"/></a>'
-            );
-          }
-        } else {
-          return "Sin documento";
-        }
-      },
-      className: "text-center",
-    },
-    { data: "TIPO_MOVIMIENTO" },
-    { data: "MOTIVO_SALIDA" },
-    {
-      data: "IMAGEN",
-      render: function (data, type, row) {
-        if (data) {
-          // Obtener la extensión del archivo
-          var extension = data.split(".").pop().toLowerCase();
-
-          if (extension === "pdf") {
-            // Si es PDF, mostrar icono de PDF
-            return (
-              '<a href="' +
-              data +
-              '" target="_blank"><i class="bi bi-file-earmark-pdf-fill text-danger fs-4" title="Ver PDF"></i></a>'
-            );
-          } else {
-            // Si es imagen, mostrar como antes
-            return (
-              '<a href="' +
-              data +
-              '" target="_blank"><img src="' +
-              data +
-              '" alt="Imagen del Documento" style="width: 50px; height: auto;"/></a>'
-            );
-          }
-        } else {
-          return "Sin documento";
-        }
-      },
-      className: "text-center",
-    },
-    { data: "RESPONSABLE" },
-  ],
-  columnDefs: [
-    { targets: 0, title: "Clave Artículo", className: "all" },
-    { targets: 1, title: "Nombre Comercial", className: "all" },
-    { targets: 2, title: "Cantidad", className: "all" },
-    { targets: 3, title: "Fecha Transacción", className: "all" },
-    { targets: 4, title: "Costo Última Transacción", className: "all" },
-    { targets: 5, title: "Proveedor", className: "all" },
-    { targets: 6, title: "Orden de compra", className: "all" },
-    { targets: 7, title: "Imagen de orden de compra", className: "all" },
-    { targets: 8, title: "Tipo de Movimiento", className: "all" },
-    { targets: 9, title: "Motivo", className: "all" },
-    { targets: 10, title: "Documento", className: "all" },
-    { targets: 11, title: "Responsable", className: "all" },
-  ],
-  dom: 'Bl<"dataTables_toolbar">frtip',
-  buttons: [],
-});
-
 //DATATABLE DE REQUISICIONES
 tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
   order: [[1, "desc"]], // Ordenar por fecha de creación
@@ -1764,7 +1632,7 @@ selectDatatable(
       $("#fechaUltimaEntrada").text("Sin registros");
     }
 
-    $("#unidadVenta").text(rowSelected.UNIDAD_VENTA);
+    $("#unidadVenta").text(rowSelected.UNIDAD_DESCRIPCION);
     $("#unidadMinima").text(rowSelected.UNIDAD_MINIMA);
     $("#contenidoDetalle").text(rowSelected.CONTENIDO);
     $("#tipo").text(rowSelected.TIPO_DESCRIPCION);
@@ -2024,21 +1892,6 @@ setTimeout(() => {
   tableCatArticulos.columns.adjust().draw();
 }, 1000);
 
-setTimeout(() => {
-  inputBusquedaTable(
-    "tableCatTransacciones",
-    tableCatTransacciones,
-    [
-      {
-        msj: "Filtre los registros por coincidencia",
-        place: "top",
-      },
-    ],
-    [],
-    "col-12"
-  );
-  tableCatArticulos.columns.adjust().draw();
-}, 1000);
 
 setTimeout(() => {
   inputBusquedaTable(
@@ -2229,12 +2082,6 @@ tableCatDetallesEntradas.on("draw", function () {
   });
 });
 
-tableCatTransacciones.on("draw", function () {
-  $(".dataTable th, .dataTable td").css({
-    "text-align": "center",
-    "vertical-align": "middle",
-  });
-});
 
 tableCatRequisiciones.on("draw", function () {
   $(".dataTable th, .dataTable td").css({
@@ -2243,30 +2090,6 @@ tableCatRequisiciones.on("draw", function () {
   });
 });
 
-// Guarda la instancia de FixedHeader para poder destruirla
-let fixedHeaderTransacciones = null;
-
-// Al abrir el modal, inicializa FixedHeader si no existe
-$("#detalleTransaccionModal").on("shown.bs.modal", function () {
-  if (!fixedHeaderTransacciones) {
-    fixedHeaderTransacciones = new $.fn.dataTable.FixedHeader(
-      tableCatTransacciones
-    );
-  }
-  // Ajusta el header por si acaso
-  fixedHeaderTransacciones.adjust();
-});
-
-// Al cerrar el modal, destruye el FixedHeader y elimina el header flotante
-$("#detalleTransaccionModal").on("hidden.bs.modal", function () {
-  if (fixedHeaderTransacciones) {
-    fixedHeaderTransacciones.destroy();
-    fixedHeaderTransacciones = null;
-  }
-  // Elimina cualquier header flotante que haya quedado
-  $(".fixedHeader-floating").remove();
-  $(".fixedHeader-locked").remove();
-});
 
 //cargas dinamica
 $(document).ready(function () {

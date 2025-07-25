@@ -214,7 +214,7 @@
                                     </div>
                                     <div class="row mt-2">
                                         <div class="col-md-6">
-                                            <label class="form-label">Cantidad Ordenada</label>
+                                            <label class="form-label">Cantidad Solicitada</label>
                                             <input type="text" class="form-control-plaintext text-primary fw-bold"
                                                 id="cantidadOrdenadaSurtirOC" readonly>
                                         </div>
@@ -225,11 +225,11 @@
                                         </div>
                                     </div>
                                     <div class="row mt-2">
-                                        <div class="col-md-6">
+                                        <!-- <div class="col-md-6">
                                             <label class="form-label">Por Surtir</label>
                                             <input type="text" class="form-control-plaintext text-warning fw-bold"
                                                 id="cantidadPorSurtirOC" readonly>
-                                        </div>
+                                        </div> -->
                                         <div class="col-md-6">
                                             <label class="form-label">Precio Unitario</label>
                                             <input type="text" class="form-control-plaintext"
@@ -253,6 +253,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="precioCompraSurtirOC" class="form-label fw-bold">Precio de Compra
+                                            Unitario
                                             <span class="text-danger">*</span></label>
                                         <div class="input-group">
                                             <span class="input-group-text">$</span>
@@ -278,7 +279,7 @@
                                         <label for="evidenciaFotoSurtirOC" class="form-label fw-bold">Subir Foto de
                                             Evidencia <span class="text-danger">*</span></label>
                                         <input type="file" class="form-control" id="evidenciaFotoSurtirOC"
-                                            name="evidencia_foto[]" accept="image/*" required>
+                                            name="evidencia_foto[]" accept="image/*">
                                         <small class="text-muted"><i class="bi bi-info-circle me-1"></i>Solo imágenes.
                                             Máx. 5MB</small>
                                     </div>
@@ -302,7 +303,7 @@
                                         <label for="documentoFacturaSurtirOC" class="form-label fw-bold">Documento de
                                             Compra <span class="text-danger">*</span></label>
                                         <input type="file" class="form-control" id="documentoFacturaSurtirOC"
-                                            name="img_factura[]" accept=".pdf,.jpg,.jpeg,.png" required>
+                                            name="img_factura[]" accept=".pdf,.jpg,.jpeg,.png">
                                         <small class="text-muted">
                                             <i class="bi bi-info-circle me-1"></i> Formatos permitidos: PDF, JPG, PNG
                                             (Máx. 5MB)
@@ -351,6 +352,7 @@
                     </div>
                     <input type="hidden" id="idArticuloSurtirOC" name="id_articulo">
                     <input type="hidden" id="idOrdenCompraSurtirOC" name="id_orden_compra">
+                    <input type="hidden" id="fecha_entrada_orden" name="fecha_entrada_orden">
                 </form>
             </div>
             <div class="modal-footer border-0"
@@ -410,6 +412,19 @@
             $("#formSurtirOrdenCompraIndividual")[0].reset();
             $("#costoTotalSurtirOCAlert").addClass("d-none");
             $("#previewEvidenciaFotoSurtirOC").empty();
+        });
+
+
+        $("#formSurtirOrdenCompraIndividual").submit(function (event) {
+            const now = new Date();
+            $("#fecha_entrada_orden").val(
+                now.getFullYear() + "-" +
+                String(now.getMonth() + 1).padStart(2, '0') + "-" +
+                String(now.getDate()).padStart(2, '0') + " " +
+                String(now.getHours()).padStart(2, '0') + ":" +
+                String(now.getMinutes()).padStart(2, '0') + ":" +
+                String(now.getSeconds()).padStart(2, '0')
+            );
         });
     });
 </script>

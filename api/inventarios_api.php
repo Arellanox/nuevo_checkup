@@ -81,6 +81,9 @@ $orden_compra = isset($_POST['orden_compra']) ? $_POST['orden_compra'] : null;
 
 $id_surtimiento = isset($_POST['id_surtimiento']) ? $_POST['id_surtimiento'] : null;
 
+$esOrden = isset($_POST['esOrden']) ? $_POST['esOrden'] : 0;
+$id_orden_compra = isset($_POST['id_orden_compra']) ? $_POST['id_orden_compra'] : null;
+
 $host = $master->selectHost($_SERVER['SERVER_NAME']);
 
 switch ($api) {
@@ -329,7 +332,9 @@ switch ($api) {
             $orden_compra_numero,
             $orden_compra_documento,
             $observaciones,
-            $_SESSION['id']
+            $_SESSION['id'],
+            $esOrden,
+            $id_orden_compra
         ]);
         break;
     case 7:
