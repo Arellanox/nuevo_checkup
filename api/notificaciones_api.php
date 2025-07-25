@@ -18,7 +18,7 @@ $mensaje = $_POST['mensaje'] ?? null;
 $vinculo = $_POST['viculo'] ?? null;
 $servicio_id = $_POST['servicio_id'];
 $id_laboratorio_maquila = $_POST['lab_maquila_id'];
-$cargos_ids = $_POST['cargos_ids'] ?? null;
+$cargos_ids = $_POST['cargos_id'] ?? null;
 
 #Para obtener las notificaciones
 $remitente = $json_data['user_id'] ?? $_POST['user_id'] ?? null;
@@ -43,8 +43,6 @@ switch ($api){
         ]);
         break;
     case 3: #Generar Notificación Para Aprobación de Maquila
-        $cargos_ids = '16,2,20';
-
         $response = $master->insertByProcedure("sp_notificaciones_generar_g", [
             $usuario_id, $mensaje, $vinculo, $cargos_ids, $turno_id, $servicio_id, $id_laboratorio_maquila
         ]);
