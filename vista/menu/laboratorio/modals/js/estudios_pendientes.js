@@ -67,6 +67,5 @@ function eliminarEstudioPendiente(id_turno, idServicio, servicio){
         });
 
         tableEstudiosPendientes.ajax.reload();
-
     }, 1)
 }
