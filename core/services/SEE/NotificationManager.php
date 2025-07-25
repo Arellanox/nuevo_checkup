@@ -9,6 +9,7 @@
             this.ultimoId = 0;
             this.sonidoHabilitado = false;
             this.notificationsIds = [];
+            this.isInitialized = false;
 
             // Configuración SSE
             this.eventSource = null;
@@ -408,7 +409,11 @@
                         if (notificacionesNuevas.length > 0) {
                             console.log(`📢 ${notificacionesNuevas.length} notificaciones nuevas`);
                             this.reproducirSonidoNotificaciones();
-                            this.mostrarNotificacionTemporalmente(notificacionesNuevas[0]);
+
+                            if (this.isInitialized) {
+                                this.mostrarNotificacionTemporalmente(notificacionesNuevas[0]);
+                            } else this.isInitialized = true;
+
                         }
 
                         this.actualizarNotificaciones(notificaciones);
