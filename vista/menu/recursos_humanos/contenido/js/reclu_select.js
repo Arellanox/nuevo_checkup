@@ -35,11 +35,11 @@ tableRequisicionesAprobadas = $("#tableRequisicionesAprobadas").DataTable({
             title: "Estado Publicación",
             render: function(data) {
                 const badges = {
-                    'no_publicada': '<span class="badge bg-secondary">No publicada</span>',
-                    'publicada_normal': '<span class="badge bg-primary">Publicada</span>',
-                    'publicada_editada': '<span class="badge bg-primary">Publicada</span>',
-                    'detenida': '<span class="badge bg-warning">Detenida</span>',
-                    'cerrada': '<span class="badge bg-dark">Cerrada</span>'
+                    'no_publicada': '<span class="badge bg-gradient-secondary">No Publicada</span>',
+                    'publicada_normal': '<span class="badge bg-gradient-primary">Publicada</span>',
+                    'publicada_editada': '<span class="badge bg-gradient-primary">Publicada</span>',
+                    'detenida': '<span class="badge bg-gradient-warning">Detenida</span>',
+                    'cerrada': '<span class="badge bg-gradient-info">Cerrada</span>'
                 };
                 // Manejar valores null o undefined
                 const estado = data || 'no_publicada';
@@ -49,9 +49,9 @@ tableRequisicionesAprobadas = $("#tableRequisicionesAprobadas").DataTable({
         { data: "tipo_publicacion", title: "Tipo de Publicación",
             render: function(data) {
                 const badges = {
-                    'interna' : '<span class="badge bg-success">Interna</span>',
-                    'externa' : '<span class="badge bg-info">Externa</span>',
-                    'ambas' : '<span class="badge bg-warning">Ambas</span>'
+                    'interna': '<span class="badge bg-gradient-primary">Interna</span>',
+                    'externa': '<span class="badge bg-gradient-info">Externa</span>',
+                    'ambas': '<span class="badge bg-gradient-warning">Ambas</span>'
                 };
                 return badges[data] || '<span class="badge bg-secondary">Sin publicación</span>';
             }
@@ -91,7 +91,7 @@ tableRequisicionesAprobadas = $("#tableRequisicionesAprobadas").DataTable({
                 switch(estadoPublicacion) {
                     case 'no_publicada':
                         botones = `
-                            <button type="button" class="btn btn-sm btn-primary bg-gradient-success btn-publicar-vacante" 
+                            <button type="button" class="btn btn-sm btn-primary bg-gradient-info btn-publicar-vacante" 
                                     data-id-requisicion="${row.id_requisicion}" 
                                     data-numero="${row.numero_requisicion}"
                                     title="Publicar vacante">
@@ -120,7 +120,7 @@ tableRequisicionesAprobadas = $("#tableRequisicionesAprobadas").DataTable({
                         
                     case 'detenida':
                         botones = `
-                            <button class="btn btn-sm btn-success btn-reanudar-publicacion" 
+                            <button class="btn btn-sm btn-gradient-success btn-reanudar-publicacion" 
                                     data-id-publicacion="${row.id_publicacion}" 
                                     title="Reanudar publicación">
                                 <i class="bi bi-play-circle"></i>
@@ -130,7 +130,7 @@ tableRequisicionesAprobadas = $("#tableRequisicionesAprobadas").DataTable({
                                     title="Editar publicación">
                                 <i class="bi bi-pencil"></i>
                             </button>
-                            <button class="btn btn-sm btn-dark btn-cerrar-publicacion" 
+                            <button class="btn btn-sm btn-gradient-dark btn-cerrar-publicacion" 
                                     data-id-publicacion="${row.id_publicacion}" 
                                     title="Cerrar publicación">
                                 <i class="bi bi-x-circle"></i>
@@ -252,11 +252,11 @@ tableHistorialPublicaciones = $("#tableHistorialPublicaciones").DataTable({
                 if (!data) return '<span class="badge bg-secondary">Inicial</span>';
 
                 const badges = {
-                    'no_publicada': '<span class="badge bg-secondary">No publicada</span>',
-                    'publicada_normal': '<span class="badge bg-success">Publicada</span>',
-                    'publicada_editada': '<span class="badge bg-info">Publicada (Editada)</span>',
-                    'detenida': '<span class="badge bg-warning">Pausada</span>',
-                    'cerrada': '<span class="badge bg-danger">Cerrada</span>'
+                    'no_publicada': '<span class="badge bg-gradient-secondary">No Publicada</span>',
+                    'publicada_normal': '<span class="badge bg-gradient-primary">Publicada</span>',
+                    'publicada_editada': '<span class="badge bg-gradient-primary">Publicada</span>',
+                    'detenida': '<span class="badge bg-gradient-warning">Detenida</span>',
+                    'cerrada': '<span class="badge bg-gradient-info">Cerrada</span>'
                 };
                 return badges[data] || `<span class="badge bg-light text-dark">${data}</span>`;
             }
@@ -267,11 +267,11 @@ tableHistorialPublicaciones = $("#tableHistorialPublicaciones").DataTable({
             visible: false,
             render: function(data) {
                 const badges = {
-                    'no_publicada': '<span class="badge bg-secondary">No publicada</span>',
-                    'publicada_normal': '<span class="badge bg-success">Publicada</span>',
-                    'publicada_editada': '<span class="badge bg-info">Publicada (Editada)</span>',
-                    'detenida': '<span class="badge bg-warning">Pausada</span>',
-                    'cerrada': '<span class="badge bg-danger">Cerrada</span>'
+                    'no_publicada': '<span class="badge bg-gradient-secondary">No Publicada</span>',
+                    'publicada_normal': '<span class="badge bg-gradient-primary">Publicada</span>',
+                    'publicada_editada': '<span class="badge bg-gradient-primary">Publicada</span>',
+                    'detenida': '<span class="badge bg-gradient-warning">Detenida</span>',
+                    'cerrada': '<span class="badge bg-gradient-info">Cerrada</span>'
                 };
                 return badges[data] || `<span class="badge bg-light text-dark">${data}</span>`;
             }
@@ -309,6 +309,56 @@ tableHistorialPublicaciones = $("#tableHistorialPublicaciones").DataTable({
     buttons: [],
 });
 
+// DataTable para la gestión de postulantes (placeholder)
+tableGestionPostulantes = $("#tableGestionPostulantes").DataTable({
+     language: {
+        url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+    },
+    autoWidth: true,
+    lengthChange: false,
+    info: true,
+    paging: true,
+    pageLength: 10,
+    sorting: [4, 'desc'],
+    scrollY: "60vh",
+    scrollCollapse: true,
+    ajax: {
+        dataType: "json",
+        data: function (d) {
+            return $.extend(d, dataTableGestionPostulantes);
+        },
+        method: "POST",
+        url: "../../../api/recursos_humanos_api.php",
+        error: function (jqXHR, textStatus, errorThrown) {
+            alertErrorAJAX(jqXHR, textStatus, errorThrown);
+        },
+        dataSrc: "response.data",
+    },
+    columns: [
+        { data: "id_postulacion", visible: false, title: "ID Postulación"},
+        { data: "id_publicacion", visible: false, title: "ID Publicación" },
+        { data: "nombre_completo", visible: false, title: "Nombre Completo" },
+        { data: "fecha_nacimiento", visible: false, title: "Fecha de Nacimiento" },
+        { data: "edad", visible: false, title: "Edad"},
+        { data: "sexo", visible: false, title: "Sexo" },
+        { data: "estado_civil", visible: false, title: "Estado Civil" },
+        { data: "telefono", visible: false, title: "Teléfono" },
+        { data: "domicilio", visible: false, title: "Domicilio" },
+        { data: "pregunta_1", visible: false, title: "Pregunta 1" },
+        { data: "pregunta_2", visible: false, title: "Pregunta 2" },
+        { data: "pregunta_3", visible: false, title: "Pregunta 3" },
+        { data: "pregunta_4", visible: false, title: "Pregunta 4" },
+        { data: "pregunta_5", visible: false, title: "Pregunta 5" },
+        { data: "pregunta_6", visible: false, title: "Pregunta 6" },
+        { data: "pregunta_7", visible: false, title: "Pregunta 7" },
+        { data: "pregunta_8", visible: false, title: "Pregunta 8" },
+        { data: "pregunta_9", visible: false, title: "Pregunta 9" },
+        { data: "pregunta_10", visible: false, title: "Pregunta 10" },
+        { data: "archivo_cv", visible: false, title: "Archivo CV" },
+        { data: "archivo_curp", visible: false, title: "Archivo CURP" },
+        { data: "fecha_postulacion", visible: false, title: "Fecha de Postulación" },
+    ],
+});
 
 // Event listeners para los botones de publicación
 
@@ -543,9 +593,19 @@ $(document).on('click', '#btnVerPostulantes', function() {
 
     console.log('📋 ID de publicación obtenido:', idPublicacion);
 
+    if (!idPublicacion) {
+        alertToast('Error: ID de publicación no válido', 'error', 3000);
+        return;
+    }
+
+    // Establecer el id_publicacion en el dataTable
+    dataTableGestionPostulantes.id_publicacion = idPublicacion;
+    
     // Mostrar modal
     $('#gestionPostulantesModal').modal('show');
     
+    // Cargar datos de postulantes
+    cargarPostulantesPublicacion(idPublicacion);
 });
 
 // Función para publicar vacante con parámetros personalizados (SIMPLIFICADA)
@@ -696,11 +756,11 @@ function llenarModalEdicionPublicacion(publicacionData) {
     
     // Establecer badge de estado actual
     const estadoBadges = {
-        'no_publicada': '<span class="badge bg-secondary">No Publicada</span>',
-        'publicada_normal': '<span class="badge bg-success">Publicada</span>',
-        'publicada_editada': '<span class="badge bg-success">Publicada</span>',
-        'detenida': '<span class="badge bg-warning">Detenida</span>',
-        'cerrada': '<span class="badge bg-danger">Cerrada</span>'
+        'no_publicada': '<span class="badge bg-gradient-secondary">No Publicada</span>',
+        'publicada_normal': '<span class="badge bg-gradient-primary">Publicada</span>',
+        'publicada_editada': '<span class="badge bg-gradient-primary">Publicada</span>',
+        'detenida': '<span class="badge bg-gradient-warning">Detenida</span>',
+        'cerrada': '<span class="badge bg-gradient-info">Cerrada</span>'
     };
     $('#editarEstadoActualDisplay').html(estadoBadges[publicacionData.estado_publicacion] || '<span class="badge bg-light text-dark">' + publicacionData.estado_publicacion + '</span>');
     
@@ -823,6 +883,656 @@ function mostrarHabilidadesComoTags(habilidadesTexto, containerId, tipo) {
     console.log(`✅ ${habilidades.length} tags de habilidades agregados a ${containerId}`);
 }
 
+// Función para cargar postulantes de una publicación específica
+function cargarPostulantesPublicacion(idPublicacion) {
+    console.log('🔄 Cargando postulantes para publicación:', idPublicacion);
+    
+    // Mostrar loading en la lista
+    $('#listaPostulantes').html(`
+        <div class="text-center py-4">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Cargando...</span>
+            </div>
+            <p class="mt-2 text-muted">Cargando postulantes...</p>
+        </div>
+    `);
+    
+    // Limpiar detalle
+    $('#detallePostulante').html(`
+        <div class="text-center py-5">
+            <i class="fas fa-user-plus fa-3x text-muted mb-3"></i>
+            <h5 class="text-muted">Selecciona un postulante para ver sus detalles</h5>
+            <p class="text-muted">Haz clic en cualquier postulante de la lista para revisar su información completa</p>
+        </div>
+    `);
+    
+    $.ajax({
+        url: '../../../api/recursos_humanos_api.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            api: 31,
+            id_publicacion: idPublicacion
+        },
+        success: function(response) {
+            console.log('📋 Respuesta del servidor (postulantes):', response);
+            
+            if (response.response && response.response.code === 1 && response.response.data) {
+                const postulantes = response.response.data;
+                
+                if (postulantes.length === 0) {
+                    // Sin postulantes
+                    $('#listaPostulantes').html(`
+                        <div class="text-center py-4">
+                            <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                            <h6 class="text-muted">Sin postulantes</h6>
+                            <p class="text-muted small">Aún no hay postulaciones para esta vacante</p>
+                        </div>
+                    `);
+                    $('#contadorPostulantes').text('0');
+                } else {
+                    // Mostrar postulantes
+                    mostrarListaPostulantes(postulantes);
+                    $('#contadorPostulantes').text(postulantes.length);
+                }
+                
+                // Establecer título de la vacante si está disponible
+                if (postulantes.length > 0 && postulantes[0].titulo_vacante) {
+                    $('#tituloVacantePostulantes').text(postulantes[0].titulo_vacante);
+                }
+                
+            } else {
+                console.error('Error en respuesta:', response);
+                $('#listaPostulantes').html(`
+                    <div class="text-center py-4">
+                        <i class="fas fa-exclamation-triangle fa-2x text-warning mb-3"></i>
+                        <h6 class="text-warning">Error al cargar</h6>
+                        <p class="text-muted small">No se pudieron cargar los postulantes</p>
+                    </div>
+                `);
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error('Error AJAX al cargar postulantes:', textStatus, errorThrown);
+            $('#listaPostulantes').html(`
+                <div class="text-center py-4">
+                    <i class="fas fa-exclamation-triangle fa-2x text-danger mb-3"></i>
+                    <h6 class="text-danger">Error de conexión</h6>
+                    <p class="text-muted small">Error al conectar con el servidor</p>
+                </div>
+            `);
+        }
+    });
+}
+
+// Función para mostrar la lista de postulantes en el HTML
+function mostrarListaPostulantes(postulantes) {
+    let htmlPostulantes = '';
+    
+    postulantes.forEach((postulante, index) => {
+        // Obtener iniciales del nombre
+        const iniciales = obtenerIniciales(postulante.NOMBRE_POSTULANTE || postulante.nombre_completo);
+        
+        // Formatear fecha de postulación
+        const fechaPostulacion = formatearFecha(postulante.fecha_postulacion);
+        
+        // Generar HTML para cada postulante
+        htmlPostulantes += `
+            <div class="postulante-item" data-postulante='${JSON.stringify(postulante)}' data-index="${index}">
+                <span class="estado-badge estado-${postulante.estado_postulacion}">
+                    ${formatearEstadoPostulacion(postulante.estado_postulacion)}
+                </span>
+                
+                <div class="d-flex align-items-center">
+                    <div class="postulante-avatar me-3">
+                        ${iniciales}
+                    </div>
+                    
+                    <div class="flex-grow-1">
+                        <div class="fw-bold text-dark mb-1" style="font-size: 0.95rem;">
+                            ${postulante.NOMBRE_POSTULANTE || postulante.nombre_completo}
+                        </div>
+                        <div class="text-muted small d-flex align-items-center mb-1">
+                            <i class="fas fa-calendar-alt me-1"></i>
+                            Edad: ${postulante.edad} años
+                        </div>
+                        <div class="text-muted small d-flex align-items-center">
+                            <i class="fas fa-clock me-1"></i>
+                            ${fechaPostulacion}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    
+    $('#listaPostulantes').html(htmlPostulantes);
+    
+    // Agregar event listeners para seleccionar postulante
+    $('.postulante-item').on('click', function() {
+        // Remover clase active de otros elementos
+        $('.postulante-item').removeClass('active');
+        
+        // Agregar clase active al elemento seleccionado
+        $(this).addClass('active');
+        
+        // Obtener datos del postulante
+        const postulante = JSON.parse($(this).attr('data-postulante'));
+        
+        // Mostrar detalles del postulante
+        mostrarDetallePostulante(postulante);
+    });
+}
+
+// Función para mostrar los detalles del postulante seleccionado
+function mostrarDetallePostulante(postulante) {
+    console.log('📋 Mostrando detalles del postulante:', postulante);
+    
+    const htmlDetalle = `
+        <div class="detalle-section">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6><i class="fas fa-user me-2"></i>Información Personal</h6>
+                <span class="badge estado-${postulante.estado_postulacion} fs-6">
+                    ${formatearEstadoPostulacion(postulante.estado_postulacion)}
+                </span>
+            </div>
+            
+            <!-- DATOS GENERALES - SECCIÓN 1 -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="info-group">
+                        <div class="info-label">Nombre Completo</div>
+                        <div class="info-value">${postulante.NOMBRE_POSTULANTE || 'No especificado'}</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="info-group">
+                        <div class="info-label">Apodo / Sobrenombre</div>
+                        <div class="info-value">${postulante.apodo || 'No especificado'}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="info-group">
+                        <div class="info-label">Lugar de Nacimiento</div>
+                        <div class="info-value">${postulante.lugar_nacimiento || 'No especificado'}</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="info-group">
+                        <div class="info-label">Fecha de Nacimiento</div>
+                        <div class="info-value">${formatearFecha(postulante.fecha_nacimiento)}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="info-group">
+                        <div class="info-label">Edad</div>
+                        <div class="info-value">${postulante.edad} años</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info-group">
+                        <div class="info-label">Sexo</div>
+                        <div class="info-value">${postulante.sexo === 'M' ? 'Masculino' : 'Femenino'}</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info-group">
+                        <div class="info-label">Estado Civil</div>
+                        <div class="info-value">${postulante.estado_civil || 'No especificado'}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="info-group">
+                        <div class="info-label">Correo Electrónico</div>
+                        <div class="info-value">
+                            <i class="fas fa-envelope me-2"></i>${postulante.correo_electronico || 'No especificado'}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info-group">
+                        <div class="info-label">Teléfono</div>
+                        <div class="info-value">
+                            <i class="fas fa-phone me-2"></i>${postulante.telefono || 'No especificado'}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info-group">
+                        <div class="info-label">CURP</div>
+                        <div class="info-value">
+                            <i class="fas fa-id-card me-2"></i>${postulante.curp || 'No especificado'}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="info-group">
+                <div class="info-label">Domicilio</div>
+                <div class="info-value">
+                    <i class="fas fa-map-marker-alt me-2"></i>${postulante.domicilio || 'No especificado'}
+                </div>
+            </div>
+        </div>
+        
+        <!-- EDUCACIÓN Y PROFESIÓN -->
+        <div class="detalle-section">
+            <h6><i class="fas fa-graduation-cap me-2"></i>Educación y Profesión</h6>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="info-group">
+                        <div class="info-label">Grado de Estudios</div>
+                        <div class="info-value">${postulante.grado_estudios || 'No especificado'}</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="info-group">
+                        <div class="info-label">Institución de Estudios</div>
+                        <div class="info-value">${postulante.institucion_estudios || 'No especificado'}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="info-group">
+                        <div class="info-label">Profesión</div>
+                        <div class="info-value">${postulante.profesion || 'No especificado'}</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="info-group">
+                        <div class="info-label">Idiomas</div>
+                        <div class="info-value">${postulante.idiomas || 'No especificado'}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- INFORMACIÓN FAMILIAR -->
+        <div class="detalle-section">
+            <h6><i class="fas fa-home me-2"></i>Información Familiar</h6>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="info-group">
+                        <div class="info-label">Tiene Hijos</div>
+                        <div class="info-value">${postulante.hijos || 'No especificado'}</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="info-group">
+                        <div class="info-label">Con Quién Vive</div>
+                        <div class="info-value">${postulante.con_quien_vive || 'No especificado'}</div>
+                    </div>
+                </div>
+            </div>
+            
+            ${postulante.nombre_conyuge ? `
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="info-group">
+                        <div class="info-label">Nombre del Cónyuge</div>
+                        <div class="info-value">${postulante.nombre_conyuge}</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="info-group">
+                        <div class="info-label">Ocupación del Cónyuge</div>
+                        <div class="info-value">${postulante.ocupacion_conyuge || 'No especificado'}</div>
+                    </div>
+                </div>
+            </div>
+            ` : ''}
+            
+            ${postulante.nombre_hijos ? `
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="info-group">
+                        <div class="info-label">Nombre de los Hijos</div>
+                        <div class="info-value">${postulante.nombre_hijos}</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="info-group">
+                        <div class="info-label">Edad de los Hijos</div>
+                        <div class="info-value">${postulante.edad_hijos || 'No especificado'}</div>
+                    </div>
+                </div>
+            </div>
+            ` : ''}
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="info-group">
+                        <div class="info-label">Ocupación de los Padres</div>
+                        <div class="info-value">${postulante.ocupacion_padres || 'No especificado'}</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="info-group">
+                        <div class="info-label">Ocupación de los Hermanos</div>
+                        <div class="info-value">${postulante.ocupacion_hermanos || 'No especificado'}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- INFORMACIÓN DE SALUD -->
+        <div class="detalle-section">
+            <h6><i class="fas fa-heartbeat me-2"></i>Estado de Salud</h6>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="info-group">
+                        <div class="info-label">Condición de Salud</div>
+                        <div class="info-value">
+                            <span class="badge ${postulante.condicion_salud === 'excelente' ? 'bg-success' : postulante.condicion_salud === 'buena' ? 'bg-warning' : 'bg-danger'}">
+                                ${postulante.condicion_salud || 'No especificado'}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info-group">
+                        <div class="info-label">Peso</div>
+                        <div class="info-value">${postulante.peso ? postulante.peso + ' kg' : 'No especificado'}</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info-group">
+                        <div class="info-label">Estatura</div>
+                        <div class="info-value">${postulante.estatura ? postulante.estatura + ' cm' : 'No especificado'}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                     <div class="info-group">
+                        <div class="info-label">Enfermedades Graves</div>
+                        <div class="info-value">${postulante.enfermedad_grave ? postulante.enfermedad_grave : 'No especificado'}</div>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="info-group">
+                        <div class="info-label">Padecimientos</div>
+                        <div class="info-value">${formatearPadecimientos(postulante.padecimientos)}</div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="info-group">
+                        <div class="info-label">Medicamentos con Prescripción</div>
+                        <div class="info-value">${postulante.medicamentos_prescritos ? postulante.medicamentos_prescritos : 'No especificado'}</div>
+                    </div>
+                </div>
+
+            
+                <div class="col-md-6">
+                    <div class="info-group">
+                        <div class="info-label">Medicamentos sin Prescripción</div>
+                        <div class="info-value">${postulante.medicamentos_sin_prescripcion ? postulante.medicamentos_sin_prescripcion : 'No especificado'}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="info-group">
+                        <div class="info-label">Último Consumo de Alcohol</div>
+                        <div class="info-value">${postulante.ultimo_consumo_alcohol ? postulante.ultimo_consumo_alcohol : 'No especificado'}</div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                        <div class="info-group">
+                        <div class="info-label">Último Consumo de Drogas</div>
+                        <div class="info-value">${postulante.ultimo_consumo_drogas ? postulante.ultimo_consumo_drogas : 'No especificado'}</div>
+                    </div>
+                </div>
+            </div>
+
+            
+            ${postulante.informacion_adicional_salud && postulante.informacion_adicional_salud !== '' ? `
+            <div class="info-group">
+                <div class="info-label">Información Adicional de Salud</div>
+                <div class="info-value">${postulante.informacion_adicional_salud}</div>
+            </div>
+            ` : ''}
+        </div>
+        
+        <!-- ANTECEDENTES LABORALES -->
+        <div class="detalle-section">
+            <h6><i class="fas fa-briefcase me-2"></i>Antecedentes Laborales</h6>
+            
+            <div class="info-group">
+                <div class="info-label">¿Cómo se enteró de la vacante?</div>
+                <div class="info-value">${postulante.como_se_entero_vacante || 'No especificado'}</div>
+            </div>
+            
+            <div class="info-group">
+                <div class="info-label">¿Por qué le interesa esta vacante?</div>
+                <div class="info-value">${postulante.porque_interesa_vacante || 'No especificado'}</div>
+            </div>
+            
+            <div class="info-group">
+                <div class="info-label">¿Cómo se ve en 5 años?</div>
+                <div class="info-value">${postulante.vida_en_5_anos || 'No especificado'}</div>
+            </div>
+            
+           ${postulante.historial_laboral && postulante.historial_laboral !== '' ? `
+            <div class="info-group">
+                <div class="info-label">Historial Laboral</div>
+                <div class="info-value">
+                    <div class="historial-laboral">
+                        ${formatearHistorialLaboral(postulante.historial_laboral)}
+                    </div>
+                </div>
+            </div>
+            ` : ''}
+        </div>
+        
+        <!-- DOCUMENTOS -->
+        <div class="detalle-section">
+            <h6><i class="fas fa-file-alt me-2"></i>Documentos</h6>
+            <div class="d-flex flex-wrap gap-2">
+                ${postulante.archivo_cv ? `
+                    <button class="btn btn-gradient-primary" onclick="verArchivo('${postulante.archivo_cv}', 'CV - ${postulante.NOMBRE_POSTULANTE || postulante.nombre_completo}')">
+                        <i class="fas fa-file-pdf me-1"></i>Ver CV
+                    </button>
+                ` : '<span class="text-muted small">Sin CV</span>'}
+                
+                ${postulante.archivo_curp ? `
+                    <button class="btn btn-gradient-primary" onclick="verArchivo('${postulante.archivo_curp}', 'CURP - ${postulante.NOMBRE_POSTULANTE || postulante.nombre_completo}')">
+                        <i class="fas fa-file-pdf me-1"></i>Ver CURP
+                    </button>
+                ` : '<span class="text-muted small">Sin CURP</span>'}
+            </div>
+        </div>
+        
+        <!-- INFORMACIÓN ADICIONAL -->
+        <div class="detalle-section">
+            <h6><i class="fas fa-clock me-2"></i>Información de Postulación</h6>
+            <div class="info-group">
+                <div class="info-label">Fecha de Postulación</div>
+                <div class="info-value">${formatearFechaCompleta(postulante.fecha_postulacion)}</div>
+            </div>
+        </div>
+    `;
+    
+    $('#detallePostulante').html(htmlDetalle);
+}
+
+// Funciones auxiliares
+function obtenerIniciales(nombreCompleto) {
+    if (!nombreCompleto) return '??';
+    const nombres = nombreCompleto.trim().split(' ');
+    if (nombres.length >= 2) {
+        return (nombres[0].charAt(0) + nombres[1].charAt(0)).toUpperCase();
+    }
+    return nombreCompleto.charAt(0).toUpperCase();
+}
+
+function formatearEstadoPostulacion(estado) {
+    const estados = {
+        'nueva': 'Nueva',
+        'en_revision': 'En Revisión',
+        'preseleccionado': 'Preseleccionado',
+        'entrevista': 'Para Entrevista',
+        'rechazado': 'Rechazado',
+        'contratado': 'Contratado'
+    };
+    return estados[estado] || estado;
+}
+
+function formatearFecha(fecha) {
+    if (!fecha) return 'Sin fecha';
+    const fechaObj = new Date(fecha);
+    return fechaObj.toLocaleDateString('es-MX');
+}
+
+function formatearFechaCompleta(fecha) {
+    if (!fecha) return 'Sin fecha';
+    const fechaObj = new Date(fecha);
+    return fechaObj.toLocaleDateString('es-MX') + ' ' + 
+           fechaObj.toLocaleTimeString('es-MX', {hour: '2-digit', minute: '2-digit'});
+}
+
+function verArchivo(rutaArchivo, titulo) {
+    if (!rutaArchivo) {
+        alertToast('Archivo no disponible', 'warning', 3000);
+        return;
+    }
+    
+    $('#vistaPreviewLabel').text(titulo);
+    $('#btnDescargarArchivo').attr('href', rutaArchivo);
+    
+    // Mostrar vista previa
+    if (rutaArchivo.toLowerCase().includes('.pdf')) {
+        $('#previewContent').html('<iframe src="' + rutaArchivo + '" type="application/pdf"></iframe>');
+    } else {
+        $('#previewContent').html('<div class="archivo-no-disponible"><i class="fas fa-file fa-3x mb-3"></i><h6>Vista previa no disponible</h6><p>Haz clic en "Descargar" para ver el archivo</p></div>');
+    }
+    
+    $('#vistaPreviewModal').modal('show');
+}
+
+// Función para formatear el historial laboral
+function formatearHistorialLaboral(historialJson) {
+    if (!historialJson) return 'Sin historial laboral registrado';
+    
+    try {
+        const historial = JSON.parse(historialJson);
+        if (!Array.isArray(historial) || historial.length === 0) {
+            return 'Sin historial laboral registrado';
+        }
+        
+        let html = '<div class="table-responsive"><table class="table table-sm table-bordered">';
+        html += '<thead class="table-light"><tr>';
+        html += '<th>Empresa</th><th>Puesto</th><th>Sueldo</th>';
+        html += '<th>Actividades</th><th>Motivo Separación</th><th>Referencias</th>';
+        html += '</tr></thead><tbody>';
+        
+        historial.forEach(trabajo => {
+            html += '<tr>';
+            html += '<td>' + (trabajo.empresa || '-') + '</td>';
+            html += '<td>' + (trabajo.puesto || '-') + '</td>';
+            html += '<td>' + (trabajo.sueldo || '-') + '</td>';
+            html += '<td>' + (trabajo.actividades || '-') + '</td>';
+            html += '<td>' + (trabajo.motivo_separacion || '-') + '</td>';
+            html += '<td>' + (trabajo.referencias || '-') + '</td>';
+            html += '</tr>';
+        });
+        
+        html += '</tbody></table></div>';
+        return html;
+    } catch (e) {
+        // Si no es JSON válido, mostrar como texto plano
+        return '<div class="alert alert-info small">' + historialJson + '</div>';
+    }
+}
+
+function cambiarEstadoPostulante(idPostulacion, nuevoEstado) {
+    // Placeholder para cambiar estado del postulante
+    console.log('Cambiar estado del postulante ' + idPostulacion + ' a ' + nuevoEstado);
+    alertToast('Función pendiente: Cambiar estado a ' + formatearEstadoPostulacion(nuevoEstado), 'info', 3000);
+}
+
+function llenarModalGestionPostulantes(postulacionData) {
+    if (!postulacionData) {
+        console.error('No se proporcionaron datos de postulación');
+        return false;
+    }
+    
+    console.log('Datos de postulante para gestión:', postulacionData);
+    
+    try{
+    $('#nombrePostulante').text(postulacionData.nombre || 'Sin nombre');
+    $('#correoPostulante').text(postulacionData.correo || 'Sin correo');
+    $('#telefonoPostulante').text(postulacionData.telefono || 'Sin teléfono');
+    }  catch (error) {
+        console.error('Error al llenar modal de detalles:', error);
+        return false;
+    }
+}
+
+// Función para formatear padecimientos como lista en 2 columnas
+function formatearPadecimientos(padecimientos) {
+    if (!padecimientos) return 'Ninguno';
+    
+    const lista = padecimientos.split(',').map(p => p.trim()).filter(p => p);
+    if (lista.length === 0) return 'Ninguno';
+    
+    // Calcular punto de división (mitad)
+    const puntoMedio = Math.ceil(lista.length / 2);
+    
+    // Dividir la lista por la mitad
+    const columnaIzquierda = lista.slice(0, puntoMedio);
+    const columnaDerecha = lista.slice(puntoMedio);
+    
+    let html = '<div class="row">';
+    
+    // Generar HTML para columna izquierda
+    html += '<div class="col-6">';
+    if (columnaIzquierda.length > 0) {
+        html += '<ul class="list-unstyled mb-0">';
+        columnaIzquierda.forEach(p => {
+            html += '<li class="mb-1"><i class="fas fa-check-circle text-warning me-1"></i>' + p + '</li>';
+        });
+        html += '</ul>';
+    }
+    html += '</div>';
+    
+    // Generar HTML para columna derecha
+    html += '<div class="col-6">';
+    if (columnaDerecha.length > 0) {
+        html += '<ul class="list-unstyled mb-0">';
+        columnaDerecha.forEach(p => {
+            html += '<li class="mb-1"><i class="fas fa-check-circle text-warning me-1"></i>' + p + '</li>';
+        });
+        html += '</ul>';
+    }
+    html += '</div>';
+    
+    html += '</div>';
+    
+    return html;
+}
+
 // Función para llenar el modal de detalles de publicación
 function llenarModalDetallesPublicacion(publicacionData) {
     if (!publicacionData) {
@@ -838,20 +1548,20 @@ function llenarModalDetallesPublicacion(publicacionData) {
         
         // Estado de publicación
         const estadoBadges = {
-            'no_publicada': '<span class="badge bg-secondary">No Publicada</span>',
-            'publicada_normal': '<span class="badge bg-success">Publicada</span>',
-            'publicada_editada': '<span class="badge bg-info">Publicada (Editada)</span>',
-            'detenida': '<span class="badge bg-warning">Detenida</span>',
-            'cerrada': '<span class="badge bg-dark">Cerrada</span>'
+        'no_publicada': '<span class="badge bg-gradient-secondary">No Publicada</span>',
+        'publicada_normal': '<span class="badge bg-gradient-primary">Publicada</span>',
+        'publicada_editada': '<span class="badge bg-gradient-primary">Publicada</span>',
+        'detenida': '<span class="badge bg-gradient-warning">Detenida</span>',
+        'cerrada': '<span class="badge bg-gradient-info">Cerrada</span>'
         };
         $('#badgeEstadoPublicacion').html(estadoBadges[publicacionData.estado_publicacion] || 
             '<span class="badge bg-secondary">Sin estado</span>');
         
         // Tipo de publicación
         const tipoBadges = {
-            'interna': '<span class="badge bg-success">Interna</span>',
-            'externa': '<span class="badge bg-info">Externa</span>',
-            'ambas': '<span class="badge bg-warning">Ambas</span>'
+            'interna': '<span class="badge bg-gradient-primary">Interna</span>',
+            'externa': '<span class="badge bg-gradient-info">Externa</span>',
+            'ambas': '<span class="badge bg-gradient-warning">Ambas</span>'
         };
         $('#badgeTipoPublicacion').html(tipoBadges[publicacionData.tipo_publicacion] || 
             '<span class="badge bg-secondary">Sin especificar</span>');
@@ -888,7 +1598,7 @@ function llenarModalDetallesPublicacion(publicacionData) {
                 }
                 
                 let criteriosArray = [];
-                if (criterios.max_postulantes) criteriosArray.push(`Máx. ${criterios.max_postulantes} postulantes`);
+                if (criterios.max_postulantes) criteriosArray.push('Máx. ' + criterios.max_postulantes + ' postulantes');
                 if (criterios.vacantes_cubiertas && criterios.vacantes_cubiertas > 0) criteriosArray.push('Vacantes cubiertas');
                 if (criterios.fecha_limite) criteriosArray.push('Fecha límite');
                 
@@ -972,7 +1682,7 @@ function llenarModalDetallesPublicacion(publicacionData) {
         // === REQUISITOS DEL PERFIL ===
         $('#escolaridadMinimaPub').text(formatearEscolaridad(publicacionData.escolaridad_minima) || 'Sin especificar');
         $('#experienciaAnosPub').text(formatearExperiencia(publicacionData.experiencia_anios) || 'Sin especificar');
-        $('#bandaSalarialPub').text(publicacionData.salario_min && publicacionData.salario_max ? `$${publicacionData.salario_min} - $${publicacionData.salario_max}` : 'No especificado');
+        $('#bandaSalarialPub').text(publicacionData.salario_min && publicacionData.salario_max ? '$' + publicacionData.salario_min + ' - $' + publicacionData.salario_max : 'No especificado');
         $('#competenciasPub').text(publicacionData.competencias || 'Sin especificar');
         $('#objetivosPub').text(publicacionData.objetivos || 'Sin especificar');
         
@@ -1014,7 +1724,7 @@ function actualizarPublicacionVacante(formData) {
     const idPublicacion = formData.id_publicacion;
     
     // Deshabilitar botón mientras se procesa
-    let btnEditar = $(`.btn-editar-publicacion[data-id-publicacion="${idPublicacion}"]`);
+    let btnEditar = $('.btn-editar-publicacion[data-id-publicacion="' + idPublicacion + '"]');
     btnEditar.prop('disabled', true);
     
     // Obtener plataformas seleccionadas
@@ -1073,7 +1783,7 @@ function actualizarPublicacionVacante(formData) {
             }
             
             if (esExitoso) {
-                alertToast(`Publicación actualizada exitosamente`, 'success', 3000);
+                alertToast('Publicación actualizada exitosamente', 'success', 3000);
                 
                 // Cerrar modal
                 $('#editarPublicacionModal').modal('hide');
@@ -1157,3 +1867,66 @@ function cambiarEstadoPublicacion(idPublicacion, nuevoEstado, motivo) {
         }
     });
 }
+
+// Event listeners para filtros y búsqueda de postulantes
+$(document).ready(function() {
+    // Filtro por estado
+    $(document).on('click', '.filtro-estado', function(e) {
+        e.preventDefault();
+        const estadoFiltro = $(this).data('estado');
+        
+        // Actualizar estado activo del filtro
+        $('.filtro-estado').removeClass('active');
+        $(this).addClass('active');
+        
+        // Aplicar filtro
+        if (estadoFiltro === 'todos') {
+            $('.postulante-item').show();
+        } else {
+            $('.postulante-item').hide();
+            $('.postulante-item').each(function() {
+                const postulante = JSON.parse($(this).attr('data-postulante'));
+                if (postulante.estado_postulacion === estadoFiltro) {
+                    $(this).show();
+                }
+            });
+        }
+        
+        // Actualizar contador
+        const postulantesMostrados = $('.postulante-item:visible').length;
+        $('#contadorPostulantes').text(postulantesMostrados);
+    });
+    
+    // Buscador por nombre
+    $(document).on('input', '#buscarPostulante', function() {
+        const termino = $(this).val().toLowerCase().trim();
+        
+        if (termino === '') {
+            $('.postulante-item').show();
+        } else {
+            $('.postulante-item').each(function() {
+                const postulante = JSON.parse($(this).attr('data-postulante'));
+                const nombre = (postulante.NOMBRE_POSTULANTE || postulante.nombre_completo || '').toLowerCase();
+                
+                if (nombre.includes(termino)) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+        
+        // Actualizar contador
+        const postulantesMostrados = $('.postulante-item:visible').length;
+        $('#contadorPostulantes').text(postulantesMostrados);
+    });
+    
+    // Limpiar filtros al cerrar el modal
+    $('#gestionPostulantesModal').on('hidden.bs.modal', function () {
+        $('#buscarPostulante').val('');
+        $('.filtro-estado').removeClass('active');
+        $('.filtro-estado[data-estado="todos"]').addClass('active');
+        $('#contadorPostulantes').text('0');
+        $('#tituloVacantePostulantes').text('Vacante: Example Vacancy');
+    });
+});

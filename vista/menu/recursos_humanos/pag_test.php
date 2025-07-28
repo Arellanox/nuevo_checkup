@@ -326,14 +326,15 @@
                     </div>
                 </div>
 
-                <!-- Barra de progreso -->
+                <!-- Barra de progreso actualizada para 4 secciones -->
                 <div class="form-section">
                     <div class="progress mb-3" style="height: 10px;">
                         <div class="progress-bar" role="progressbar" style="width: 0%" id="progressBar"></div>
                     </div>
                     <div class="d-flex justify-content-between">
                         <small class="text-muted">Datos Generales</small>
-                        <small class="text-muted">Cuestionario</small>
+                        <small class="text-muted">Información de Salud</small>
+                        <small class="text-muted">Antecedentes Laborales</small>
                         <small class="text-muted">Documentos</small>
                     </div>
                 </div>
@@ -346,30 +347,77 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Nombre completo <span class="required-field">*</span></label>
-                                <input type="text" class="form-control" name="nombre_completo" required>
+                                <input type="text" class="form-control" name="s_1_pregunta_1" required>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Fecha de nacimiento <span class="required-field">*</span></label>
-                                <input type="date" class="form-control" name="fecha_nacimiento" required>
+                                <label class="form-label">Apodo</label>
+                                <input type="text" class="form-control" name="s_1_pregunta_2" placeholder="Opcional">
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-4 mb-3">
-                                <label class="form-label">Edad <span class="required-field">*</span></label>
-                                <input type="number" class="form-control" name="edad" min="18" max="70" required>
+                                <label class="form-label">Lugar de nacimiento <span class="required-field">*</span></label>
+                                <input type="text" class="form-control" name="s_1_pregunta_3" required>
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label class="form-label">Sexo <span class="required-field">*</span></label>
-                                <select class="form-select" name="sexo" required>
-                                    <option value="">Seleccione...</option>
-                                    <option value="M">Masculino</option>
-                                    <option value="F">Femenino</option>
-                                </select>
+                                <label class="form-label">Fecha de nacimiento <span class="required-field">*</span></label>
+                                <input type="date" class="form-control" name="s_1_pregunta_4" required>
                             </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Edad <span class="required-field">*</span></label>
+                                <input type="number" class="form-control" name="s_1_pregunta_5" min="18" max="70" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Correo Electrónico <span class="required-field">*</span></label>
+                                <input type="email" class="form-control" name="s_1_pregunta_6" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Teléfono <span class="required-field">*</span></label>
+                                <input type="tel" class="form-control" name="s_1_pregunta_7" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">CURP <span class="required-field">*</span></label>
+                                <input type="text" class="form-control" name="s_1_pregunta_8" maxlength="18" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Domicilio completo <span class="required-field">*</span></label>
+                                <textarea class="form-control" name="s_1_pregunta_9" rows="2" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Grado Máximo de estudios <span class="required-field">*</span></label>
+                                <input type="text" class="form-control" name="s_1_pregunta_10" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Idiomas</label>
+                                <input type="text" class="form-control" name="s_1_pregunta_11" placeholder="Opcional">
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Institución donde realizó su último grado de estudios <span class="required-field">*</span></label>
+                                <input type="text" class="form-control" name="s_1_pregunta_12" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Profesión <span class="required-field">*</span></label>
+                                <input type="text" class="form-control" name="s_1_pregunta_13" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Estado civil <span class="required-field">*</span></label>
-                                <select class="form-select" name="estado_civil" required>
+                                <select class="form-select" name="s_1_select_1" required>
                                     <option value="">Seleccione...</option>
                                     <option value="Soltero(a)">Soltero(a)</option>
                                     <option value="Casado(a)">Casado(a)</option>
@@ -378,71 +426,66 @@
                                     <option value="Unión libre">Unión libre</option>
                                 </select>
                             </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Sexo <span class="required-field">*</span></label>
+                                <select class="form-select" name="s_1_select_2" required>
+                                    <option value="">Seleccione...</option>
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Femenino</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Hijos <span class="required-field">*</span></label>
+                                <select class="form-select" name="s_1_select_3" required>
+                                    <option value="">Seleccione...</option>
+                                    <option value="Si">Sí</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row" style="display: none;" id="conyugeSection">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Nombre cónyuge</label>
+                                <input type="text" class="form-control" name="s_1_pregunta_14" placeholder="En caso de que aplique">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Ocupación cónyuge</label>
+                                <input type="text" class="form-control" name="s_1_pregunta_15" placeholder="En caso de que aplique">
+                            </div>
+                        </div>
+
+                        <div class="row"  style="display: none;" id="hijosSection">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Nombre hijos</label>
+                                <input type="text" class="form-control" name="s_1_pregunta_16" placeholder="En caso de que aplique">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Edad hijos</label>
+                                <input type="text" class="form-control" name="s_1_pregunta_17" placeholder="En caso de que aplique">
+                            </div>
                         </div>
 
                         <div class="row">
-                            <!-- <div class="col-md-6 mb-3">
-                                <label class="form-label">Nacionalidad <span class="required-field">*</span></label>
-                                <input type="text" class="form-control" name="nacionalidad" value="Mexicana" required>
-                            </div> -->
-                             <div class="col-md-4 mb-3">
-                                <label class="form-label">Teléfono de contacto <span class="required-field">*</span></label>
-                                <input type="tel" class="form-control" name="telefono" required>
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">¿Con quién vive? <span class="required-field">*</span></label>
+                                <input type="text" class="form-control" name="s_1_pregunta_18" required>
                             </div>
-                            <div class="col-md-8 mb-3">
-                            <label class="form-label">Domicilio completo <span class="required-field">*</span></label>
-                            <textarea class="form-control" name="domicilio" required></textarea>
-                        </div>
-                            <!-- <div class="col-md-6 mb-3">
-                                <label class="form-label">CURP <span class="required-field">*</span></label>
-                                <input type="text" class="form-control" name="curp" maxlength="18"  required>
-                            </div> -->
                         </div>
 
-                        <!-- <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">RFC <span class="required-field">*</span></label>
-                                <input type="text" class="form-control" name="rfc" maxlength="13" required>
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Ocupación de padres</label>
+                                <input type="text" class="form-control" name="s_1_pregunta_19" placeholder="Opcional">
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Número de seguro social (NSS)</label>
-                                <input type="text" class="form-control" name="nss" maxlength="11">
-                            </div>
-                        </div> -->
+                        </div>
 
-                        <!-- <div class="row">
-                           
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Correo electrónico <span class="required-field">*</span></label>
-                                <input type="email" class="form-control" name="correo" required>
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Ocupación de hermanos</label>
+                                <input type="text" class="form-control" name="s_1_pregunta_20" placeholder="Opcional">
                             </div>
-                        </div> -->
-
-                        <!-- <div class="mb-3">
-                            <label class="form-label">Domicilio completo <span class="required-field">*</span></label>
-                            <textarea class="form-control" name="domicilio" rows="3" required></textarea>
-                        </div> -->
-
-                        <!-- <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">¿Cuenta con disponibilidad para cambio de residencia? <span class="required-field">*</span></label>
-                                <select class="form-select" name="disponibilidad_residencia" required>
-                                    <option value="">Seleccione...</option>
-                                    <option value="Si">Sí</option>
-                                    <option value="No">No</option>
-                                    <option value="Depende">Depende de las condiciones</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">¿Cuenta con disponibilidad para viajar? <span class="required-field">*</span></label>
-                                <select class="form-select" name="disponibilidad_viajes" required>
-                                    <option value="">Seleccione...</option>
-                                    <option value="Si">Sí</option>
-                                    <option value="No">No</option>
-                                    <option value="Ocasionalmente">Ocasionalmente</option>
-                                </select>
-                            </div>
-                        </div> -->
+                        </div>
 
                         <div class="text-end">
                             <button type="button" class="btn btn-primary" onclick="nextSection(2)">
@@ -451,63 +494,138 @@
                         </div>
                     </div>
 
-                    <!-- SECCIÓN 2: CUESTIONARIO INICIAL -->
+                    <!-- SECCIÓN 2: INFORMACIÓN GENERAL DE LA SALUD -->
                     <div class="form-section d-none" id="section2">
-                        <h3 class="section-title"><i class="fas fa-clipboard-question"></i> Cuestionario Inicial</h3>
-                        
-                        <div class="mb-4">
-                            <label class="form-label">¿Por qué le interesa esta vacante y qué le motiva a postularse? <span class="required-field">*</span></label>
-                            <textarea class="form-control" name="pregunta_1" rows="4" required></textarea>
+                        <h3 class="section-title"><i class="fas fa-heartbeat"></i> Información General de la Salud</h3>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Condición general de salud <span class="required-field">*</span></label>
+                                <select class="form-select" name="s_2_select_1" required>
+                                    <option value="">Seleccione...</option>
+                                    <option value="excelente">Excelente</option>
+                                    <option value="buena">Buena</option>
+                                    <option value="mala">Mala</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Peso <span class="required-field">*</span></label>
+                                <input type="number" class="form-control" name="s_2_pregunta_1" placeholder="kg" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Estatura <span class="required-field">*</span></label>
+                                <input type="number" class="form-control" name="s_2_pregunta_2" placeholder="cm" required>
+                            </div>
                         </div>
 
-                        <div class="mb-4">
-                            <label class="form-label">¿Qué metas profesionales tiene a corto y mediano plazo? <span class="required-field">*</span></label>
-                            <textarea class="form-control" name="pregunta_2" rows="4" required></textarea>
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Enfermedad más grave que haya padecido <span class="required-field">*</span></label>
+                                <input type="text" class="form-control" name="s_2_pregunta_3" required>
+                            </div>
                         </div>
 
-                        <div class="mb-4">
-                            <label class="form-label">Describa brevemente una situación en la que haya resuelto un problema importante en su trabajo anterior. <span class="required-field">*</span></label>
-                            <textarea class="form-control" name="pregunta_3" rows="4" required></textarea>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label"><strong>Indicaciones: Marque los padecimientos que apliquen para usted.</strong></label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="padecimientos[]" value="Diabetes" id="chkDiabetes">
+                                    <label class="form-check-label" for="chkDiabetes">Diabetes</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="padecimientos[]" value="Desmayos" id="chkDesmayos">
+                                    <label class="form-check-label" for="chkDesmayos">Desmayos</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="padecimientos[]" value="Problemas auditivos" id="chkAuditivos">
+                                    <label class="form-check-label" for="chkAuditivos">Problemas auditivos</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="padecimientos[]" value="Heridas en la cabeza" id="chkHeridasCabeza">
+                                    <label class="form-check-label" for="chkHeridasCabeza">Heridas en la cabeza</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="padecimientos[]" value="Problemas cardiacos" id="chkCardiacos">
+                                    <label class="form-check-label" for="chkCardiacos">Problemas cardiacos</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="padecimientos[]" value="Problemas Neuronales" id="chkNeuronales">
+                                    <label class="form-check-label" for="chkNeuronales">Problemas Neuronales (Convulsiones, epilepsias, etc.)</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="padecimientos[]" value="Hospitalizaciones" id="chkHospitalizaciones">
+                                    <label class="form-check-label" for="chkHospitalizaciones">Hospitalizaciones (Cirugías, transfusiones)</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="padecimientos[]" value="Tratamiento psicológico/psiquiátrico" id="chkPsicologico">
+                                    <label class="form-check-label" for="chkPsicologico">Tratamiento psicológico/psiquiátrico, control de peso (efectos)</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="padecimientos[]" value="Ataques de ansiedad/panico" id="chkAnsiedad">
+                                    <label class="form-check-label" for="chkAnsiedad">Ataques de ansiedad/pánico</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">&nbsp;</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="padecimientos[]" value="Enfermedades Respiratorias" id="chkRespiratorias">
+                                    <label class="form-check-label" for="chkRespiratorias">Enfermedades Respiratorias</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="padecimientos[]" value="Alergías" id="chkAlergias">
+                                    <label class="form-check-label" for="chkAlergias">Alergías</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="padecimientos[]" value="Presión Alta/Baja" id="chkPresion">
+                                    <label class="form-check-label" for="chkPresion">Presión Alta/Baja</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="padecimientos[]" value="Embarazos" id="chkEmbarazos">
+                                    <label class="form-check-label" for="chkEmbarazos">Embarazos</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="padecimientos[]" value="Úlceras" id="chkUlceras">
+                                    <label class="form-check-label" for="chkUlceras">Úlceras</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="padecimientos[]" value="Apoyo de Grupos" id="chkGrupos">
+                                    <label class="form-check-label" for="chkGrupos">Apoyo de Grupos (AA, DA, NA, RD)</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="padecimientos[]" value="Tatuajes/Perforaciones" id="chkTatuajes">
+                                    <label class="form-check-label" for="chkTatuajes">Tatuajes/Perforaciones</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="padecimientos[]" value="Dispuesto a examen médico" id="chkExamenMedico">
+                                    <label class="form-check-label" for="chkExamenMedico">¿Está dispuesto a realizarse un exámen médico?</label>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="mb-4">
-                            <label class="form-label">¿Qué espera de la empresa y del equipo de trabajo? <span class="required-field">*</span></label>
-                            <textarea class="form-control" name="pregunta_4" rows="4" required></textarea>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="form-label">¿Qué considera que podría aportar a la empresa? <span class="required-field">*</span></label>
-                            <textarea class="form-control" name="pregunta_5" rows="4" required></textarea>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="form-label">¿Cuándo podría integrarse en caso de ser seleccionado? <span class="required-field">*</span></label>
-                            <textarea class="form-control" name="pregunta_6" rows="3" required></textarea>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="form-label">¿Ha tenido conflictos en empleos anteriores? ¿Cómo los resolvió? <span class="required-field">*</span></label>
-                            <textarea class="form-control" name="pregunta_7" rows="4" required></textarea>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="form-label">¿Tiene familiares o conocidos trabajando en la empresa? <span class="required-field">*</span></label>
-                            <textarea class="form-control" name="pregunta_8" rows="3" required></textarea>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="form-label">¿Ha trabajado anteriormente bajo presión o con objetivos de venta? (en caso de aplicar) <span class="required-field">*</span></label>
-                            <textarea class="form-control" name="pregunta_9" rows="4" required></textarea>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="form-label">¿Está dispuesto a firmar contrato de confidencialidad y/o de no competencia? <span class="required-field">*</span></label>
-                            <select class="form-select" name="pregunta_10" required>
-                                <option value="">Seleccione...</option>
-                                <option value="Si">Sí</option>
-                                <option value="No">No</option>
-                                <option value="Necesito más información">Necesito más información</option>
-                            </select>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="form-label">En las últimas 36 horas ¿Qué medicamentos y/o sustancias ha tomado?</label>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Por prescripción médica</label>
+                                <input type="text" class="form-control" name="s_2_pregunta_4">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Último consumo de alcohol</label>
+                                <input type="text" class="form-control" name="s_2_pregunta_5">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Sin prescripción médica</label>
+                                <input type="text" class="form-control" name="s_2_pregunta_6">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Último consumo de drogas</label>
+                                <input type="text" class="form-control" name="s_2_pregunta_7">
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">¿Algo que no le haya preguntado y que considere importante mencionar?</label>
+                                <textarea class="form-control" name="s_2_pregunta_8" rows="3" placeholder="Opcional"></textarea>
+                            </div>
                         </div>
 
                         <div class="d-flex justify-content-between">
@@ -520,146 +638,359 @@
                         </div>
                     </div>
 
-                    <!-- SECCIÓN 3: SUBIDA DE DOCUMENTOS -->
+                    <!-- SECCIÓN 3: ANTECEDENTES LABORALES -->
                     <div class="form-section d-none" id="section3">
-                        <h3 class="section-title"><i class="fas fa-file-upload"></i> Documentos Requeridos</h3>
+                        <h3 class="section-title"><i class="fas fa-briefcase"></i> Antecedentes Laborales</h3>
                         
                         <div class="row">
-                            <!-- CV Actualizado -->
-                            <div class="col-md-6">
-                                <div class="document-item">
-                                    <div class="d-flex align-items-center mb-2">
-                                        <i class="fas fa-file-pdf text-danger me-2"></i>
-                                        <strong>CV actualizado <span class="required-field">*</span></strong>
-                                    </div>
-                                    <input type="file" class="form-control" name="cv" accept=".pdf,.doc,.docx" required>
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">¿Cómo se enteró de esta vacante? <span class="required-field">*</span></label>
+                                <input type="text" class="form-control" name="s_3_pregunta_1" required>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">¿Por qué le interesa esta vacante? <span class="required-field">*</span></label>
+                                <textarea class="form-control" name="s_3_pregunta_2" rows="3" required></textarea>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">¿Cómo ve su vida en 5 años? <span class="required-field">*</span></label>
+                                <textarea class="form-control" name="s_3_pregunta_3" rows="3" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <h4 class="mb-3"><i class="fas fa-history"></i> Historial Laboral</h4>
+                            
+                            <!-- Encabezados de la tabla -->
+                            <div class="row fw-bold text-center border-bottom pb-2 mb-3 bg-light rounded p-2">
+                                <div class="col-md-2">Empresa</div>
+                                <div class="col-md-2">Puesto</div>
+                                <div class="col-md-1">Sueldo</div>
+                                <div class="col-md-3">Principales Actividades</div>
+                                <div class="col-md-2">Motivo de Separación</div>
+                                <div class="col-md-2">Referencias</div>
+                            </div>
+
+                            <!-- Filas del historial laboral -->
+                            <div class="row mb-2">
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control form-control-sm" name="empresa[]" placeholder="Empresa 1">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control form-control-sm" name="puesto[]" placeholder="Puesto">
+                                </div>
+                                <div class="col-md-1">
+                                    <input type="text" class="form-control form-control-sm" name="sueldo[]" placeholder="$">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control form-control-sm" name="actividades[]" placeholder="Actividades principales">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control form-control-sm" name="separacion[]" placeholder="Motivo">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control form-control-sm" name="referencias[]" placeholder="Referencia">
                                 </div>
                             </div>
 
-                            <!-- Identificación oficial -->
-                            <!-- <div class="col-md-6">
+                            <div class="row mb-2">
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control form-control-sm" name="empresa[]" placeholder="Empresa 2">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control form-control-sm" name="puesto[]" placeholder="Puesto">
+                                </div>
+                                <div class="col-md-1">
+                                    <input type="text" class="form-control form-control-sm" name="sueldo[]" placeholder="$">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control form-control-sm" name="actividades[]" placeholder="Actividades principales">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control form-control-sm" name="separacion[]" placeholder="Motivo">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control form-control-sm" name="referencias[]" placeholder="Referencia">
+                                </div>
+                            </div>
+
+                            <div class="row mb-2">
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control form-control-sm" name="empresa[]" placeholder="Empresa 3">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control form-control-sm" name="puesto[]" placeholder="Puesto">
+                                </div>
+                                <div class="col-md-1">
+                                    <input type="text" class="form-control form-control-sm" name="sueldo[]" placeholder="$">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control form-control-sm" name="actividades[]" placeholder="Actividades principales">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control form-control-sm" name="separacion[]" placeholder="Motivo">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control form-control-sm" name="referencias[]" placeholder="Referencia">
+                                </div>
+                            </div>
+
+                            <div class="row mb-2">
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control form-control-sm" name="empresa[]" placeholder="Empresa 4">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control form-control-sm" name="puesto[]" placeholder="Puesto">
+                                </div>
+                                <div class="col-md-1">
+                                    <input type="text" class="form-control form-control-sm" name="sueldo[]" placeholder="$">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control form-control-sm" name="actividades[]" placeholder="Actividades principales">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control form-control-sm" name="separacion[]" placeholder="Motivo">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control form-control-sm" name="referencias[]" placeholder="Referencia">
+                                </div>
+                            </div>
+
+                            <div class="row mb-2">
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control form-control-sm" name="empresa[]" placeholder="Empresa 5">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control form-control-sm" name="puesto[]" placeholder="Puesto">
+                                </div>
+                                <div class="col-md-1">
+                                    <input type="text" class="form-control form-control-sm" name="sueldo[]" placeholder="$">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control form-control-sm" name="actividades[]" placeholder="Actividades principales">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control form-control-sm" name="separacion[]" placeholder="Motivo">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control form-control-sm" name="referencias[]" placeholder="Referencia">
+                                </div>
+                            </div>
+
+                            <div class="row mb-2">
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control form-control-sm" name="empresa[]" placeholder="Empresa 6">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control form-control-sm" name="puesto[]" placeholder="Puesto">
+                                </div>
+                                <div class="col-md-1">
+                                    <input type="text" class="form-control form-control-sm" name="sueldo[]" placeholder="$">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control form-control-sm" name="actividades[]" placeholder="Actividades principales">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control form-control-sm" name="separacion[]" placeholder="Motivo">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control form-control-sm" name="referencias[]" placeholder="Referencia">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <button type="button" class="btn btn-secondary" onclick="nextSection(2)">
+                                <i class="fas fa-arrow-left"></i> Anterior
+                            </button>
+                            <button type="button" class="btn btn-primary" onclick="nextSection(4)">
+                                Siguiente <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN 4: DOCUMENTOS -->
+                    <div class="form-section d-none" id="section4">
+                        <h3 class="section-title"><i class="fas fa-file-upload"></i> Documentos Requeridos</h3>
+                        
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>Instrucciones:</strong> Por favor adjunte los documentos solicitados en formato PDF, JPG o PNG. 
+                            Los archivos no deben exceder 5MB cada uno.
+                        </div>
+
+                        <div class="row">
+                            <!-- CV Actualizado -->
+                            <div class="col-md-6 mb-4">
                                 <div class="document-item">
                                     <div class="d-flex align-items-center mb-2">
-                                        <i class="fas fa-id-card text-primary me-2"></i>
-                                        <strong>Identificación oficial (INE/Pasaporte) <span class="required-field">*</span></strong>
+                                        <i class="fas fa-file-pdf text-danger me-2 fs-4"></i>
+                                        <div>
+                                            <strong>CV Actualizado <span class="required-field">*</span></strong>
+                                            <br><small class="text-muted">Formato: PDF, DOC, DOCX - Máximo 5MB</small>
+                                        </div>
+                                    </div>
+                                    <input type="file" class="form-control" name="cv" accept=".pdf,.doc,.docx" required>
+                                    <div class="invalid-feedback">
+                                        Por favor seleccione su CV actualizado.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- CURP -->
+                            <div class="col-md-6 mb-4">
+                                <div class="document-item">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="fas fa-file-alt text-info me-2 fs-4"></i>
+                                        <div>
+                                            <strong>CURP <span class="required-field">*</span></strong>
+                                            <br><small class="text-muted">Formato: PDF, JPG, PNG - Máximo 5MB</small>
+                                        </div>
+                                    </div>
+                                    <input type="file" class="form-control" name="doc_curp" accept=".pdf,.jpg,.jpeg,.png" required>
+                                    <div class="invalid-feedback">
+                                        Por favor adjunte su CURP.
+                                    </div>
+                                </div>
+                            <!-- Firma del Usuario -->
+                            <!-- <div class="col-md-12 mb-4">
+                                <div class="document-item">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="fas fa-signature text-primary me-2 fs-4"></i>
+                                        <div>
+                                            <strong>Firma del Usuario <span class="required-field">*</span></strong>
+                                            <br><small class="text-muted">Firme en el recuadro inferior usando su mouse o dedo (en móvil).</small>
+                                        </div>
+                                    </div>
+                                    <div style="border: 2px dashed #3498db; border-radius: 8px; padding: 10px; background: #fff;">
+                                        <canvas id="signature-pad" width="400" height="150" style="width:100%;max-width:400px;height:150px;touch-action: none; background: #f8f9fa; border-radius: 6px;"></canvas>
+                                        <div class="mt-2">
+                                            <button type="button" onclick="clearSignature()" class="btn btn-outline-secondary btn-sm">Limpiar</button>
+                                        </div>
+                                        <input type="hidden" name="firma_usuario" id="firmaInput" required>
+                                        <div class="invalid-feedback">
+                                            Por favor firme antes de enviar la postulación.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                  
+
+                            <!-- Identificación Oficial -->
+                            <!-- <div class="col-md-6 mb-4">
+                                <div class="document-item">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="fas fa-id-card text-primary me-2 fs-4"></i>
+                                        <div>
+                                            <strong>Identificación Oficial</strong>
+                                            <br><small class="text-muted">INE, Pasaporte o Cédula - Formato: PDF, JPG, PNG</small>
+                                        </div>
                                     </div>
                                     <input type="file" class="form-control" name="identificacion" accept=".pdf,.jpg,.jpeg,.png">
                                 </div>
                             </div> -->
 
-                            <!-- CURP -->
-                            <div class="col-md-6">
+                            <!-- Comprobante de Domicilio -->
+                            <!-- <div class="col-md-6 mb-4">
                                 <div class="document-item">
                                     <div class="d-flex align-items-center mb-2">
-                                        <i class="fas fa-file-alt text-info me-2"></i>
-                                        <strong>CURP <span class="required-field">*</span></strong>
-                                    </div>
-                                    <input type="file" class="form-control" name="doc_curp" accept=".pdf,.jpg,.jpeg,.png">
-                                </div>
-                            </div>
-
-                            <!-- RFC -->
-                            <!-- <div class="col-md-6">
-                                <div class="document-item">
-                                    <div class="d-flex align-items-center mb-2">
-                                        <i class="fas fa-file-invoice text-warning me-2"></i>
-                                        <strong>RFC <span class="required-field">*</span></strong>
-                                    </div>
-                                    <input type="file" class="form-control" name="doc_rfc" accept=".pdf,.jpg,.jpeg,.png">
-                                </div>
-                            </div> -->
-
-                            <!-- NSS -->
-                            <!-- <div class="col-md-6">
-                                <div class="document-item">
-                                    <div class="d-flex align-items-center mb-2">
-                                        <i class="fas fa-shield-alt text-success me-2"></i>
-                                        <strong>Número de Seguro Social</strong>
-                                    </div>
-                                    <input type="file" class="form-control" name="doc_nss" accept=".pdf,.jpg,.jpeg,.png">
-                                </div>
-                            </div> -->
-
-                            <!-- Comprobante de domicilio -->
-                            <!-- <div class="col-md-6">
-                                <div class="document-item">
-                                    <div class="d-flex align-items-center mb-2">
-                                        <i class="fas fa-home text-secondary me-2"></i>
-                                        <strong>Comprobante de domicilio (máximo 3 meses) <span class="required-field">*</span></strong>
+                                        <i class="fas fa-home text-secondary me-2 fs-4"></i>
+                                        <div>
+                                            <strong>Comprobante de Domicilio</strong>
+                                            <br><small class="text-muted">Reciente (máximo 3 meses) - Formato: PDF, JPG, PNG</small>
+                                        </div>
                                     </div>
                                     <input type="file" class="form-control" name="comprobante_domicilio" accept=".pdf,.jpg,.jpeg,.png">
                                 </div>
                             </div> -->
 
-                            <!-- Acta de nacimiento -->
-                            <!-- <div class="col-md-6">
+                            <!-- Acta de Nacimiento -->
+                            <!-- <div class="col-md-6 mb-4">
                                 <div class="document-item">
                                     <div class="d-flex align-items-center mb-2">
-                                        <i class="fas fa-certificate text-primary me-2"></i>
-                                        <strong>Acta de nacimiento <span class="required-field">*</span></strong>
+                                        <i class="fas fa-certificate text-primary me-2 fs-4"></i>
+                                        <div>
+                                            <strong>Acta de Nacimiento</strong>
+                                            <br><small class="text-muted">Formato: PDF, JPG, PNG - Máximo 5MB</small>
+                                        </div>
                                     </div>
-                                    <input type="file" class="form-control" name="acta_nacimiento" accept=".pdf,.jpg,.jpeg,.png" >
+                                    <input type="file" class="form-control" name="acta_nacimiento" accept=".pdf,.jpg,.jpeg,.png">
                                 </div>
                             </div> -->
 
-                            <!-- Certificado o título -->
-                            <!-- <div class="col-md-6">
+                            <!-- Certificado o Título -->
+                            <!-- <div class="col-md-6 mb-4">
                                 <div class="document-item">
                                     <div class="d-flex align-items-center mb-2">
-                                        <i class="fas fa-graduation-cap text-info me-2"></i>
-                                        <strong>Certificado/título del último grado de estudios <span class="required-field">*</span></strong>
+                                        <i class="fas fa-graduation-cap text-info me-2 fs-4"></i>
+                                        <div>
+                                            <strong>Certificado/Título del Último Grado de Estudios</strong>
+                                            <br><small class="text-muted">Formato: PDF, JPG, PNG - Máximo 5MB</small>
+                                        </div>
                                     </div>
-                                    <input type="file" class="form-control" name="certificado_estudios" accept=".pdf,.jpg,.jpeg,.png" >
+                                    <input type="file" class="form-control" name="certificado_estudios" accept=".pdf,.jpg,.jpeg,.png">
                                 </div>
                             </div> -->
 
-                            <!-- Cédula profesional -->
-                            <!-- <div class="col-md-6">
+                            <!-- Cédula Profesional -->
+                            <!-- <div class="col-md-6 mb-4">
                                 <div class="document-item">
                                     <div class="d-flex align-items-center mb-2">
-                                        <i class="fas fa-id-badge text-warning me-2"></i>
-                                        <strong>Cédula profesional (si aplica)</strong>
+                                        <i class="fas fa-id-badge text-warning me-2 fs-4"></i>
+                                        <div>
+                                            <strong>Cédula Profesional (si aplica)</strong>
+                                            <br><small class="text-muted">Formato: PDF, JPG, PNG - Máximo 5MB</small>
+                                        </div>
                                     </div>
                                     <input type="file" class="form-control" name="cedula_profesional" accept=".pdf,.jpg,.jpeg,.png">
                                 </div>
                             </div> -->
 
-                            <!-- Antecedentes no penales -->
-                            <!-- <div class="col-md-6">
+                            <!-- Antecedentes No Penales -->
+                            <!-- <div class="col-md-6 mb-4">
                                 <div class="document-item">
                                     <div class="d-flex align-items-center mb-2">
-                                        <i class="fas fa-gavel text-danger me-2"></i>
-                                        <strong>Carta de antecedentes no penales (opcional)</strong>
+                                        <i class="fas fa-gavel text-danger me-2 fs-4"></i>
+                                        <div>
+                                            <strong>Carta de Antecedentes No Penales (opcional)</strong>
+                                            <br><small class="text-muted">Formato: PDF, JPG, PNG - Máximo 5MB</small>
+                                        </div>
                                     </div>
                                     <input type="file" class="form-control" name="antecedentes_penales" accept=".pdf,.jpg,.jpeg,.png">
                                 </div>
                             </div> -->
 
-                            <!-- Cartas de recomendación -->
-                            <!-- <div class="col-md-6">
+                            <!-- Cartas de Recomendación -->
+                            <!-- <div class="col-md-6 mb-4">
                                 <div class="document-item">
                                     <div class="d-flex align-items-center mb-2">
-                                        <i class="fas fa-envelope text-success me-2"></i>
-                                        <strong>Cartas de recomendación (opcional)</strong>
+                                        <i class="fas fa-envelope text-success me-2 fs-4"></i>
+                                        <div>
+                                            <strong>Cartas de Recomendación (opcional)</strong>
+                                            <br><small class="text-muted">Formato: PDF, JPG, PNG - Máximo 5MB</small>
+                                        </div>
                                     </div>
                                     <input type="file" class="form-control" name="cartas_recomendacion" accept=".pdf,.jpg,.jpeg,.png" multiple>
                                 </div>
                             </div> -->
 
-                            <!-- Licencia de conducir -->
-                            <!-- <div class="col-md-6">
+                            <!-- Licencia de Conducir -->
+                            <!-- <div class="col-md-6 mb-4">
                                 <div class="document-item">
                                     <div class="d-flex align-items-center mb-2">
-                                        <i class="fas fa-car text-secondary me-2"></i>
-                                        <strong>Licencia de conducir (si aplica)</strong>
+                                        <i class="fas fa-car text-secondary me-2 fs-4"></i>
+                                        <div>
+                                            <strong>Licencia de Conducir (si aplica)</strong>
+                                            <br><small class="text-muted">Formato: PDF, JPG, PNG - Máximo 5MB</small>
+                                        </div>
                                     </div>
                                     <input type="file" class="form-control" name="licencia_conducir" accept=".pdf,.jpg,.jpeg,.png">
                                 </div>
-                            </div>
-                        </div> -->
+                            </div> -->
+                        </div>
 
                         <div class="d-flex justify-content-between mt-4">
-                            <button type="button" class="btn btn-secondary" onclick="nextSection(2)">
+                            <button type="button" class="btn btn-secondary" onclick="nextSection(3)">
                                 <i class="fas fa-arrow-left"></i> Anterior
                             </button>
                             <button type="submit" class="btn btn-success btn-lg">
@@ -674,7 +1005,101 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.6/dist/signature_pad.umd.min.js"></script>
+
     <script>
+
+        // Mostrar sección cónyuge si el estado civil es casado
+        $(document).on('change', 'select[name="s_1_select_1"]', function()
+        {
+            if ($(this).val() === 'Casado(a)') {
+                $('#conyugeSection').show();
+            } else {
+                $('#conyugeSection').hide();
+            }
+        });
+
+        // Mostrar sección hijos si tiene hijos
+        $(document).on('change', 'select[name="s_1_select_3"]', function()
+        {
+            if ($(this).val() === 'Si') {
+                $('#hijosSection').show();
+            } else {
+                $('#hijosSection').hide();
+            }
+        });
+
+//         let signaturePad;
+// document.addEventListener('DOMContentLoaded', function () {
+//     const canvas = document.getElementById('signature-pad');
+//     if (canvas) {
+//         resizeCanvas(); // <-- ¡Primero redimensiona!
+
+//         signaturePad = new SignaturePad(canvas, {
+//             backgroundColor: '#f8f9fa'
+//         });
+
+//         canvas.addEventListener('mouseup', updateFirmaInput);
+//         canvas.addEventListener('touchend', updateFirmaInput);
+
+//         // Vuelve a redimensionar si la pantalla cambia (opcional)
+//         window.addEventListener("resize", function () {
+//             const data = signaturePad.toData();
+//             resizeCanvas();
+//             signaturePad.clear();
+//             signaturePad.fromData(data); // restaura la firma anterior
+//         });
+//     }
+// });
+
+//     function resizeCanvas() {
+//     const canvas = document.getElementById('signature-pad');
+//     const ratio = Math.max(window.devicePixelRatio || 1, 1);
+
+//     // Obtiene las dimensiones actuales en CSS
+//     const width = canvas.offsetWidth;
+//     const height = canvas.offsetHeight;
+
+//     // Establece el tamaño real del canvas en píxeles
+//     canvas.width = width * ratio;
+//     canvas.height = height * ratio;
+
+//     // Escala el contexto para que el dibujo sea proporcional
+//     const ctx = canvas.getContext("2d");
+//     ctx.setTransform(ratio, 0, 0, ratio, 0, 0); // Corregido
+// }
+
+//                                 function clearSignature() {
+//                                     if (signaturePad) {
+//                                         signaturePad.clear();
+//                                         document.getElementById('firmaInput').value = '';
+//                                         document.getElementById('firmaInput').classList.remove('is-valid', 'is-invalid');
+//                                     }
+//                                 }
+
+//                                 function updateFirmaInput() {
+//                                     if (signaturePad && !signaturePad.isEmpty()) {
+//                                         document.getElementById('firmaInput').value = signaturePad.toDataURL();
+//                                         document.getElementById('firmaInput').classList.remove('is-invalid');
+//                                         document.getElementById('firmaInput').classList.add('is-valid');
+//                                     }
+//                                 }
+
+//                                 // Validar firma antes de enviar
+//                                 document.getElementById('postulacionForm').addEventListener('submit', function(e) {
+//                                     const firmaInput = document.getElementById('firmaInput');
+//                                     if (signaturePad && signaturePad.isEmpty()) {
+//                                         firmaInput.classList.add('is-invalid');
+//                                         alert('Por favor firme antes de enviar la postulación.');
+//                                         e.preventDefault();
+//                                         return false;
+//                                     } else if (signaturePad && !signaturePad.isEmpty()) {
+//                                         firmaInput.value = signaturePad.toDataURL();
+//                                         firmaInput.classList.remove('is-invalid');
+//                                         firmaInput.classList.add('is-valid');
+//                                     }
+//                                 });
+
         let currentSection = 1;
         let vacanteSeleccionadaId = null;
         
@@ -854,11 +1279,18 @@
             let isValid = true;
             
             requiredFields.forEach(field => {
-                if (!field.value.trim()) {
+                field.classList.remove('is-invalid', 'is-valid'); // Limpiar estados anteriores
+                
+                if (field.type === 'checkbox') {
+                    // Para checkboxes, verificar si al menos uno está marcado en grupos
+                    return; // Los checkboxes no son requeridos individualmente
+                }
+                
+                if (!field.value || !field.value.trim()) {
                     field.classList.add('is-invalid');
                     isValid = false;
                 } else {
-                    field.classList.remove('is-invalid');
+                    field.classList.add('is-valid');
                 }
             });
             
@@ -870,15 +1302,15 @@
         }
         
         function updateProgressBar() {
-            const progress = (currentSection / 3) * 100;
+            const progress = (currentSection / 4) * 100;
             document.getElementById('progressBar').style.width = progress + '%';
         }
         
-        // Validación en tiempo real
+        // Validación en tiempo real - ACTUALIZADO CON NUEVOS NOMBRES
         document.addEventListener('DOMContentLoaded', function() {
-            // Calcular edad automáticamente
-            const fechaNacimiento = document.querySelector('input[name="fecha_nacimiento"]');
-            const edad = document.querySelector('input[name="edad"]');
+            // Calcular edad automáticamente - ACTUALIZADO
+            const fechaNacimiento = document.querySelector('input[name="s_1_pregunta_4"]'); // Fecha de nacimiento
+            const edad = document.querySelector('input[name="s_1_pregunta_5"]'); // Edad
             
             fechaNacimiento?.addEventListener('change', function() {
                 if (this.value) {
@@ -895,24 +1327,145 @@
                 }
             });
             
-            // // Validación de CURP
-            // const curpInput = document.querySelector('input[name="curp"]');
-            // curpInput?.addEventListener('input', function() {
-            //     this.value = this.value.toUpperCase();
-            // });
+            // Validación de CURP - ACTUALIZADO
+            const curpInput = document.querySelector('input[name="s_1_pregunta_8"]'); // CURP
+            curpInput?.addEventListener('input', function() {
+                this.value = this.value.toUpperCase();
+                
+                // Validación básica de formato CURP (18 caracteres)
+                if (this.value.length === 18) {
+                    const curpRegex = /^[A-Z]{4}\d{6}[HM][A-Z]{5}[A-Z0-9]\d$/;
+                    if (curpRegex.test(this.value)) {
+                        this.classList.remove('is-invalid');
+                        this.classList.add('is-valid');
+                    } else {
+                        this.classList.remove('is-valid');
+                        this.classList.add('is-invalid');
+                    }
+                } else {
+                    this.classList.remove('is-valid', 'is-invalid');
+                }
+            });
             
-            // // Validación de RFC
-            // const rfcInput = document.querySelector('input[name="rfc"]');
-            // rfcInput?.addEventListener('input', function() {
-            //     this.value = this.value.toUpperCase();
-            // });
+            // Validación de email - ACTUALIZADO
+            const emailInput = document.querySelector('input[name="s_1_pregunta_6"]'); // Email
+            emailInput?.addEventListener('input', function() {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (emailRegex.test(this.value)) {
+                    this.classList.remove('is-invalid');
+                    this.classList.add('is-valid');
+                } else if (this.value.length > 0) {
+                    this.classList.remove('is-valid');
+                    this.classList.add('is-invalid');
+                } else {
+                    this.classList.remove('is-valid', 'is-invalid');
+                }
+            });
+            
+            // Validación de teléfono - ACTUALIZADO
+            const telefonoInput = document.querySelector('input[name="s_1_pregunta_7"]'); // Teléfono
+            telefonoInput?.addEventListener('input', function() {
+                // Solo números, espacios, guiones y paréntesis
+                this.value = this.value.replace(/[^0-9\s\-\(\)]/g, '');
+                
+                // Validar longitud mínima
+                if (this.value.replace(/[^0-9]/g, '').length >= 10) {
+                    this.classList.remove('is-invalid');
+                    this.classList.add('is-valid');
+                } else if (this.value.length > 0) {
+                    this.classList.remove('is-valid');
+                    this.classList.add('is-invalid');
+                } else {
+                    this.classList.remove('is-valid', 'is-invalid');
+                }
+            });
+            
+            // Validación de campos numéricos de salud
+            const pesoInput = document.querySelector('input[name="s_2_pregunta_1"]'); // Peso
+            const estaturaInput = document.querySelector('input[name="s_2_pregunta_2"]'); // Estatura
+            
+            pesoInput?.addEventListener('input', function() {
+                const peso = parseFloat(this.value);
+                if (peso >= 30 && peso <= 300) {
+                    this.classList.remove('is-invalid');
+                    this.classList.add('is-valid');
+                } else if (this.value.length > 0) {
+                    this.classList.remove('is-valid');
+                    this.classList.add('is-invalid');
+                } else {
+                    this.classList.remove('is-valid', 'is-invalid');
+                }
+            });
+            
+            estaturaInput?.addEventListener('input', function() {
+                const estatura = parseFloat(this.value);
+                if (estatura >= 120 && estatura <= 250) {
+                    this.classList.remove('is-invalid');
+                    this.classList.add('is-valid');
+                } else if (this.value.length > 0) {
+                    this.classList.remove('is-valid');
+                    this.classList.add('is-invalid');
+                } else {
+                    this.classList.remove('is-valid', 'is-invalid');
+                }
+            });
+            
+            // Validación de edad
+            edad?.addEventListener('input', function() {
+                const edadValue = parseInt(this.value);
+                if (edadValue >= 18 && edadValue <= 70) {
+                    this.classList.remove('is-invalid');
+                    this.classList.add('is-valid');
+                } else if (this.value.length > 0) {
+                    this.classList.remove('is-valid');
+                    this.classList.add('is-invalid');
+                } else {
+                    this.classList.remove('is-valid', 'is-invalid');
+                }
+            });
+            
+            // Validación de archivos
+            const fileInputs = document.querySelectorAll('input[type="file"]');
+            fileInputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    const file = this.files[0];
+                    if (file) {
+                        // Verificar tamaño (5MB = 5 * 1024 * 1024 bytes)
+                        if (file.size > 5 * 1024 * 1024) {
+                            alert('El archivo es demasiado grande. El tamaño máximo es 5MB.');
+                            this.value = '';
+                            this.classList.add('is-invalid');
+                            return;
+                        }
+                        
+                        // Verificar tipo de archivo
+                        const allowedTypes = this.accept.split(',').map(type => type.trim());
+                        const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
+                        
+                        if (allowedTypes.includes(fileExtension) || allowedTypes.some(type => file.type.match(type.replace('*', '.*')))) {
+                            this.classList.remove('is-invalid');
+                            this.classList.add('is-valid');
+                        } else {
+                            alert('Tipo de archivo no permitido. Revise los formatos aceptados.');
+                            this.value = '';
+                            this.classList.add('is-invalid');
+                        }
+                    }
+                });
+            });
         });
         
-        // Envío del formulario - VERSIÓN SIMPLIFICADA
+        // Envío del formulario - VERSIÓN ACTUALIZADA
         document.getElementById('postulacionForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             if (!validateCurrentSection()) {
+                return;
+            }
+            
+            // Validar que se haya seleccionado una vacante
+            if (!vacanteSeleccionadaId) {
+                alert('Por favor seleccione una vacante antes de enviar la postulación.');
                 return;
             }
             
@@ -925,6 +1478,17 @@
             // Preparar datos del formulario
             const formData = new FormData(this);
             formData.append('api', '30');
+            
+            // Agregar ID de vacante si no está presente
+            if (!formData.has('id_publicacion')) {
+                formData.append('id_publicacion', vacanteSeleccionadaId);
+            }
+            
+            // Debug: Mostrar datos que se envían
+            console.log('Datos del formulario que se envían:');
+            for (let pair of formData.entries()) {
+                console.log(pair[0] + ': ' + pair[1]);
+            }
             
             // Enviar formulario
             fetch('../../../api/recursos_humanos_api.php', {
@@ -954,16 +1518,37 @@
                         // Limpiar formulario
                         document.getElementById('postulacionForm').reset();
                         
+                        // Limpiar clases de validación
+                        document.querySelectorAll('.is-valid, .is-invalid').forEach(el => {
+                            el.classList.remove('is-valid', 'is-invalid');
+                        });
+                        
+                        // Ocultar secciones condicionales
+                        $('#conyugeSection').hide();
+                        $('#hijosSection').hide();
+                        
                         // Volver a la primera sección
-                        nextSection(1);
+                        currentSection = 1;
+                        document.querySelectorAll('[id^="section"]').forEach(section => {
+                            section.classList.add('d-none');
+                        });
+                        document.getElementById('section1').classList.remove('d-none');
+                        updateProgressBar();
                         
                         // Ocultar formulario
                         $('#formularioPostulacion').hide();
                         
+                        // Limpiar selección de vacante
+                        vacanteSeleccionadaId = null;
+                        $('.vacante-card').removeClass('border-primary border-3');
+                        $('#vacanteSeleccionada').text('-');
+                        
                         // Recargar vacantes
-                        if (typeof cargarVacantesDisponibles === 'function') {
-                            cargarVacantesDisponibles();
-                        }
+                        cargarVacantesDisponibles();
+                        
+                        // Scroll hacia arriba
+                        $('html, body').animate({scrollTop: 0}, 800);
+                        
                     } else {
                         // Error
                         const errorMsg = responseData.message || responseData.msj || 'Error desconocido';

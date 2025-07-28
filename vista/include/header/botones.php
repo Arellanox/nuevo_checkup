@@ -488,12 +488,12 @@ $menu == 'Laboratorio Biomolecular'
         </button>
     <?php endif; ?>
 
-    <?php if (strtolower($menu) == "recursos humanos" && $_SESSION["permisos"]["rhRegPub"]) : ?>
+    <!-- <?php if (strtolower($menu) == "recursos humanos" && $_SESSION["permisos"]["rhRegPub"]) : ?>
         <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px; display:none;" data-bs-toggle="modal"
                 data-bs-target="#publicarVacanteModal" id="btnRegistrarPublicacion">
             <i class="bi bi-journal-plus"></i> Gestionar vacantes
         </button>
-    <?php endif; ?>
+    <?php endif; ?> -->
 
     <script>
         // Abrir el dropdown al pasar el mouse

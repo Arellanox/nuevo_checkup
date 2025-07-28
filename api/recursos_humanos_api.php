@@ -116,32 +116,99 @@ $comentarios = isset($_POST['comentarios']) ? trim($_POST['comentarios']) : '';
 $fecha_cambio = isset($_POST['fecha_cambio']) ? $_POST['fecha_cambio'] : null;
 $usuario_responsable = isset($_POST['usuario_responsable']) ? (int)$_POST['usuario_responsable'] : null;
 
-# Variables para postulaciones de vacantes
+# Variables para postulaciones de vacantes - ESTRUCTURA EXTENDIDA
 $id_postulacion = isset($_POST['id_postulacion']) ? (int)$_POST['id_postulacion'] : null;
-$nombre_completo = isset($_POST['nombre_completo']) ? trim($_POST['nombre_completo']) : '';
-$fecha_nacimiento = isset($_POST['fecha_nacimiento']) ? $_POST['fecha_nacimiento'] : null;
-$edad = isset($_POST['edad']) ? (int)$_POST['edad'] : null;
-$sexo = isset($_POST['sexo']) ? trim($_POST['sexo']) : '';
-$estado_civil = isset($_POST['estado_civil']) ? trim($_POST['estado_civil']) : '';
-$telefono = isset($_POST['telefono']) ? trim($_POST['telefono']) : '';
-$domicilio = isset($_POST['domicilio']) ? trim($_POST['domicilio']) : '';
 
-// Preguntas del cuestionario
-$pregunta_1 = isset($_POST['pregunta_1']) ? trim($_POST['pregunta_1']) : '';
-$pregunta_2 = isset($_POST['pregunta_2']) ? trim($_POST['pregunta_2']) : '';
-$pregunta_3 = isset($_POST['pregunta_3']) ? trim($_POST['pregunta_3']) : '';
-$pregunta_4 = isset($_POST['pregunta_4']) ? trim($_POST['pregunta_4']) : '';
-$pregunta_5 = isset($_POST['pregunta_5']) ? trim($_POST['pregunta_5']) : '';
-$pregunta_6 = isset($_POST['pregunta_6']) ? trim($_POST['pregunta_6']) : '';
-$pregunta_7 = isset($_POST['pregunta_7']) ? trim($_POST['pregunta_7']) : '';
-$pregunta_8 = isset($_POST['pregunta_8']) ? trim($_POST['pregunta_8']) : '';
-$pregunta_9 = isset($_POST['pregunta_9']) ? trim($_POST['pregunta_9']) : '';
-$pregunta_10 = isset($_POST['pregunta_10']) ? trim($_POST['pregunta_10']) : '';
+// === SECCIÓN 1: DATOS GENERALES ===
+$nombre_completo = isset($_POST['s_1_pregunta_1']) ? trim($_POST['s_1_pregunta_1']) : '';
+$apodo = isset($_POST['s_1_pregunta_2']) ? trim($_POST['s_1_pregunta_2']) : '';
+$lugar_nacimiento = isset($_POST['s_1_pregunta_3']) ? trim($_POST['s_1_pregunta_3']) : '';
+$fecha_nacimiento = isset($_POST['s_1_pregunta_4']) ? $_POST['s_1_pregunta_4'] : null;
+$edad = isset($_POST['s_1_pregunta_5']) ? (int)$_POST['s_1_pregunta_5'] : null;
+$correo_electronico = isset($_POST['s_1_pregunta_6']) ? trim($_POST['s_1_pregunta_6']) : '';
+$telefono = isset($_POST['s_1_pregunta_7']) ? trim($_POST['s_1_pregunta_7']) : '';
+$curp = isset($_POST['s_1_pregunta_8']) ? trim($_POST['s_1_pregunta_8']) : '';
+$domicilio = isset($_POST['s_1_pregunta_9']) ? trim($_POST['s_1_pregunta_9']) : '';
+$grado_estudios = isset($_POST['s_1_pregunta_10']) ? trim($_POST['s_1_pregunta_10']) : '';
+$idiomas = isset($_POST['s_1_pregunta_11']) ? trim($_POST['s_1_pregunta_11']) : '';
+$institucion_estudios = isset($_POST['s_1_pregunta_12']) ? trim($_POST['s_1_pregunta_12']) : '';
+$profesion = isset($_POST['s_1_pregunta_13']) ? trim($_POST['s_1_pregunta_13']) : '';
+$estado_civil = isset($_POST['s_1_select_1']) ? trim($_POST['s_1_select_1']) : '';
+$sexo = isset($_POST['s_1_select_2']) ? trim($_POST['s_1_select_2']) : '';
+$hijos = isset($_POST['s_1_select_3']) ? trim($_POST['s_1_select_3']) : '';
+$nombre_conyuge = isset($_POST['s_1_pregunta_14']) ? trim($_POST['s_1_pregunta_14']) : '';
+$ocupacion_conyuge = isset($_POST['s_1_pregunta_15']) ? trim($_POST['s_1_pregunta_15']) : '';
+$nombre_hijos = isset($_POST['s_1_pregunta_16']) ? trim($_POST['s_1_pregunta_16']) : '';
+$edad_hijos = isset($_POST['s_1_pregunta_17']) ? trim($_POST['s_1_pregunta_17']) : '';
+$con_quien_vive = isset($_POST['s_1_pregunta_18']) ? trim($_POST['s_1_pregunta_18']) : '';
+$ocupacion_padres = isset($_POST['s_1_pregunta_19']) ? trim($_POST['s_1_pregunta_19']) : '';
+$ocupacion_hermanos = isset($_POST['s_1_pregunta_20']) ? trim($_POST['s_1_pregunta_20']) : '';
+
+// === SECCIÓN 2: DATOS DE SALUD ===
+$condicion_salud = isset($_POST['s_2_select_1']) ? trim($_POST['s_2_select_1']) : '';
+$peso = isset($_POST['s_2_pregunta_1']) && $_POST['s_2_pregunta_1'] !== '' ? (float)$_POST['s_2_pregunta_1'] : null;
+$estatura = isset($_POST['s_2_pregunta_2']) && $_POST['s_2_pregunta_2'] !== '' ? (float)$_POST['s_2_pregunta_2'] : null;
+$enfermedad_grave = isset($_POST['s_2_pregunta_3']) ? trim($_POST['s_2_pregunta_3']) : '';
+// CORRECCIÓN: Los padecimientos son checkboxes, no un campo de texto
+$padecimientos = isset($_POST['padecimientos']) && is_array($_POST['padecimientos']) ? implode(', ', $_POST['padecimientos']) : '';
+$medicamentos_prescritos = isset($_POST['s_2_pregunta_4']) ? trim($_POST['s_2_pregunta_4']) : '';
+$medicamentos_sin_prescripcion = isset($_POST['s_2_pregunta_5']) ? trim($_POST['s_2_pregunta_5']) : '';
+$ultimo_consumo_alcohol = isset($_POST['s_2_pregunta_6']) ? trim($_POST['s_2_pregunta_6']) : '';
+$ultimo_consumo_drogas = isset($_POST['s_2_pregunta_7']) ? trim($_POST['s_2_pregunta_7']) : '';
+$informacion_adicional_salud = isset($_POST['s_2_pregunta_8']) ? trim($_POST['s_2_pregunta_8']) : '';
+
+// === SECCIÓN 3: ANTECEDENTES LABORALES ===
+$como_se_entero_vacante = isset($_POST['s_3_pregunta_1']) ? trim($_POST['s_3_pregunta_1']) : '';
+$porque_interesa_vacante = isset($_POST['s_3_pregunta_2']) ? trim($_POST['s_3_pregunta_2']) : '';
+$vida_en_5_anos = isset($_POST['s_3_pregunta_3']) ? trim($_POST['s_3_pregunta_3']) : '';
+
+// CORRECCIÓN: Procesar historial laboral de arrays a JSON
+$historial_laboral = '';
+if (isset($_POST['empresa']) && is_array($_POST['empresa'])) {
+    $historial_data = [];
+    
+    for ($i = 0; $i < count($_POST['empresa']); $i++) {
+        $empresa = isset($_POST['empresa'][$i]) ? trim($_POST['empresa'][$i]) : '';
+        $puesto = isset($_POST['puesto'][$i]) ? trim($_POST['puesto'][$i]) : '';
+        $sueldo = isset($_POST['sueldo'][$i]) ? trim($_POST['sueldo'][$i]) : '';
+        $actividades = isset($_POST['actividades'][$i]) ? trim($_POST['actividades'][$i]) : '';
+        $separacion = isset($_POST['separacion'][$i]) ? trim($_POST['separacion'][$i]) : '';
+        $referencias = isset($_POST['referencias'][$i]) ? trim($_POST['referencias'][$i]) : '';
+        
+        // Solo agregar si al menos uno de los campos no está vacío
+        if ($empresa || $puesto || $sueldo || $actividades || $separacion || $referencias) {
+            $historial_data[] = [
+                'empresa' => $empresa,
+                'puesto' => $puesto,
+                'sueldo' => $sueldo,
+                'actividades' => $actividades,
+                'motivo_separacion' => $separacion,
+                'referencias' => $referencias
+            ];
+        }
+    }
+    
+    if (!empty($historial_data)) {
+        $historial_laboral = json_encode($historial_data, JSON_UNESCAPED_UNICODE);
+    }
+}
 
 // URLs de archivos (se generarán en el case)
 $url_cv = null;
 $url_curp = null;
 $estado_postulacion = isset($_POST['estado_postulacion']) ? trim($_POST['estado_postulacion']) : 'nueva';
+
+// Variables de compatibilidad para evitar errores en código existente
+$pregunta_1 = $porque_interesa_vacante;
+$pregunta_2 = $vida_en_5_anos;
+$pregunta_3 = '';
+$pregunta_4 = '';
+$pregunta_5 = '';
+$pregunta_6 = '';
+$pregunta_7 = '';
+$pregunta_8 = '';
+$pregunta_9 = '';
+$pregunta_10 = '';
 
 switch ($api) {
     case 1:
@@ -507,194 +574,232 @@ switch ($api) {
         # Registrar postulación a vacante
         require_once "../config/file_config.php";
         
+    if ($id_publicacion === null) {
+        $response = [
+            'code' => 0,
+            'message' => 'Error: ID de publicación es obligatorio',
+            'data' => null
+        ];
+    } elseif (empty($nombre_completo) || empty($telefono) || empty($correo_electronico)) {
+        $response = [
+            'code' => 0,
+            'message' => 'Error: Los campos básicos (nombre, teléfono, correo) son obligatorios',
+            'data' => null
+        ];
+    } else {
+        try {
+            // Crear estructura de directorios específica para postulaciones
+            $directories = FileConfig::createPostulacionesDirectoryStructure();
+            
+            // Variables para las rutas de archivos
+            $url_cv = null;
+            $url_curp = null;
+            $cvFullPath = null;
+            $curpFullPath = null;
+            
+            // Procesar archivo CV (requerido)
+            if (isset($_FILES['cv']) && $_FILES['cv']['error'] == 0) {
+                // Validar tipo de archivo CV
+                $allowedCvTypes = [
+                    'application/pdf', 
+                    'application/msword', 
+                    'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                ];
+                $maxCvSize = 5 * 1024 * 1024; // 5MB
+                
+                if (!FileConfig::isValidFileType($_FILES['cv']['type'], $allowedCvTypes)) {
+                    $response = [
+                        'code' => 0,
+                        'message' => 'Error: El CV debe ser un archivo PDF, DOC o DOCX',
+                        'data' => null
+                    ];
+                    break;
+                }
+                
+                if (!FileConfig::isValidFileSize($_FILES['cv']['size'], $maxCvSize)) {
+                    $response = [
+                        'code' => 0,
+                        'message' => 'Error: El CV no debe superar los 5MB',
+                        'data' => null
+                    ];
+                    break;
+                }
+                
+                // Generar nombre único para CV
+                $cvFileName = FileConfig::generateUniqueFileName($_FILES['cv']['name'], 'cv_');
+                $cvFullPath = $directories['full_path'] . $cvFileName;
+                
+                // Mover archivo CV
+                if (move_uploaded_file($_FILES['cv']['tmp_name'], $cvFullPath)) {
+                    $url_cv = $directories['url_path'] . $cvFileName;
+                } else {
+                    $response = [
+                        'code' => 0,
+                        'message' => 'Error: No se pudo guardar el archivo CV en la ruta: ' . $directories['full_path'],
+                        'data' => null
+                    ];
+                    break;
+                }
+            } else {
+                $response = [
+                    'code' => 0,
+                    'message' => 'Error: El CV es obligatorio',
+                    'data' => null
+                ];
+                break;
+            }
+            
+            // Procesar archivo CURP (opcional)
+            if (isset($_FILES['doc_curp']) && $_FILES['doc_curp']['error'] == 0) {
+                $allowedCurpTypes = [
+                    'application/pdf', 
+                    'image/jpeg', 
+                    'image/png', 
+                    'image/jpg'
+                ];
+                $maxCurpSize = 3 * 1024 * 1024; // 3MB
+                
+                if (FileConfig::isValidFileType($_FILES['doc_curp']['type'], $allowedCurpTypes) && 
+                    FileConfig::isValidFileSize($_FILES['doc_curp']['size'], $maxCurpSize)) {
+                    
+                    $curpFileName = FileConfig::generateUniqueFileName($_FILES['doc_curp']['name'], 'curp_');
+                    $curpFullPath = $directories['full_path'] . $curpFileName;
+                    
+                    if (move_uploaded_file($_FILES['doc_curp']['tmp_name'], $curpFullPath)) {
+                        $url_curp = $directories['url_path'] . $curpFileName;
+                    }
+                }
+            }
+            
+            // Llamar al stored procedure con todos los nuevos campos
+            $response = $master->insertByProcedure("sp_rh_gestion_postulaciones_g", [
+                $id_postulacion,            // NULL para nuevo registro
+                $id_publicacion,
+                // Datos generales (sección 1)
+                $nombre_completo,
+                $apodo,
+                $lugar_nacimiento,
+                $fecha_nacimiento,
+                $edad,
+                $correo_electronico,
+                $telefono,
+                $curp,
+                $domicilio,
+                $grado_estudios,
+                $idiomas,
+                $institucion_estudios,
+                $profesion,
+                $estado_civil,
+                $sexo,
+                $hijos,
+                $nombre_conyuge,
+                $ocupacion_conyuge,
+                $nombre_hijos,
+                $edad_hijos,
+                $con_quien_vive,
+                $ocupacion_padres,
+                $ocupacion_hermanos,
+                // Datos de salud (sección 2)
+                $condicion_salud,
+                $peso,
+                $estatura,
+                $enfermedad_grave,
+                $padecimientos,
+                $medicamentos_prescritos,
+                $ultimo_consumo_alcohol,
+                $medicamentos_sin_prescripcion,
+                $ultimo_consumo_drogas,
+                $informacion_adicional_salud,
+                // Antecedentes laborales (sección 3)
+                $como_se_entero_vacante,
+                $porque_interesa_vacante,
+                $vida_en_5_anos,
+                $historial_laboral,
+                // Archivos
+                $url_cv,
+                $url_curp,
+                $estado_postulacion
+            ]);
+            
+            // Verificar si el SP fue exitoso directamente desde $response
+            if (isset($response['data']) && is_array($response['data']) && !empty($response['data'])) {
+                $primerRegistro = $response['data'][0];
+                
+                if (isset($primerRegistro['RESULT']) && $primerRegistro['RESULT'] === 'SUCCESS') {
+                    // ✅ YA NO ES NECESARIO INCREMENTAR MANUALMENTE - EL SP LO HACE AUTOMÁTICAMENTE
+                    
+                    // Formatear respuesta exitosa
+                    $response = [
+                        'code' => 1,
+                        'message' => $primerRegistro['MESSAGE'] ?? 'Postulación registrada exitosamente',
+                        'data' => [
+                            'id_postulacion' => $primerRegistro['id_postulacion'] ?? null,
+                            'url_cv' => $url_cv,
+                            'url_curp' => $url_curp,
+                            'directorio_guardado' => $directories['relative_path']
+                        ]
+                    ];
+                } elseif (isset($primerRegistro['ERROR'])) {
+                    // Error del stored procedure
+                    $response = [
+                        'code' => 0,
+                        'message' => $primerRegistro['ERROR'],
+                        'data' => null
+                    ];
+                    
+                    // Eliminar archivos si hubo error en BD
+                    if ($url_cv && $cvFullPath && file_exists($cvFullPath)) {
+                        unlink($cvFullPath);
+                    }
+                    if ($url_curp && $curpFullPath && file_exists($curpFullPath)) {
+                        unlink($curpFullPath);
+                    }
+                } else {
+                    $response = [
+                        'code' => 0,
+                        'message' => 'Error: Respuesta inesperada del stored procedure',
+                        'data' => $spResult
+                    ];
+                }
+            } else {
+                $response = [
+                    'code' => 0,
+                    'message' => 'Error: No se recibió respuesta válida del stored procedure',
+                    'data' => $spResult
+                ];
+            }
+            
+        } catch (Exception $e) {
+            $response = [
+                'code' => 0,
+                'message' => 'Error interno del servidor: ' . $e->getMessage(),
+                'data' => null
+            ];
+            
+            error_log("Error en case 30 - Postulaciones: " . $e->getMessage());
+            
+            // Eliminar archivos si hubo error
+            if ($url_cv && $cvFullPath && file_exists($cvFullPath)) {
+                unlink($cvFullPath);
+            }
+            if ($url_curp && $curpFullPath && file_exists($curpFullPath)) {
+                unlink($curpFullPath);
+            }
+        }
+    }
+    break;
+    case 31:
+        # Listar postulaciones por publicación
         if ($id_publicacion === null) {
             $response = [
                 'code' => 0,
                 'message' => 'Error: ID de publicación es obligatorio',
                 'data' => null
             ];
-        } elseif (empty($nombre_completo) || empty($telefono) || empty($domicilio)) {
-            $response = [
-                'code' => 0,
-                'message' => 'Error: Los campos básicos (nombre, teléfono, domicilio) son obligatorios',
-                'data' => null
-            ];
         } else {
-            try {
-                // Crear estructura de directorios específica para postulaciones
-                $directories = FileConfig::createPostulacionesDirectoryStructure();
-                
-                // Variables para las rutas de archivos
-                $url_cv = null;
-                $url_curp = null;
-                $cvFullPath = null;
-                $curpFullPath = null;
-                
-                // Procesar archivo CV (requerido)
-                if (isset($_FILES['cv']) && $_FILES['cv']['error'] == 0) {
-                    // Validar tipo de archivo CV
-                    $allowedCvTypes = [
-                        'application/pdf', 
-                        'application/msword', 
-                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-                    ];
-                    $maxCvSize = 5 * 1024 * 1024; // 5MB
-                    
-                    if (!FileConfig::isValidFileType($_FILES['cv']['type'], $allowedCvTypes)) {
-                        $response = [
-                            'code' => 0,
-                            'message' => 'Error: El CV debe ser un archivo PDF, DOC o DOCX',
-                            'data' => null
-                        ];
-                        break;
-                    }
-                    
-                    if (!FileConfig::isValidFileSize($_FILES['cv']['size'], $maxCvSize)) {
-                        $response = [
-                            'code' => 0,
-                            'message' => 'Error: El CV no debe superar los 5MB',
-                            'data' => null
-                        ];
-                        break;
-                    }
-                    
-                    // Generar nombre único para CV
-                    $cvFileName = FileConfig::generateUniqueFileName($_FILES['cv']['name'], 'cv_');
-                    $cvFullPath = $directories['full_path'] . $cvFileName;
-                    
-                    // Mover archivo CV
-                    if (move_uploaded_file($_FILES['cv']['tmp_name'], $cvFullPath)) {
-                        $url_cv = $directories['url_path'] . $cvFileName;
-                    } else {
-                        $response = [
-                            'code' => 0,
-                            'message' => 'Error: No se pudo guardar el archivo CV en la ruta: ' . $directories['full_path'],
-                            'data' => null
-                        ];
-                        break;
-                    }
-                } else {
-                    $response = [
-                        'code' => 0,
-                        'message' => 'Error: El CV es obligatorio',
-                        'data' => null
-                    ];
-                    break;
-                }
-                
-                // Procesar archivo CURP (opcional)
-                if (isset($_FILES['doc_curp']) && $_FILES['doc_curp']['error'] == 0) {
-                    $allowedCurpTypes = [
-                        'application/pdf', 
-                        'image/jpeg', 
-                        'image/png', 
-                        'image/jpg'
-                    ];
-                    $maxCurpSize = 3 * 1024 * 1024; // 3MB
-                    
-                    if (FileConfig::isValidFileType($_FILES['doc_curp']['type'], $allowedCurpTypes) && 
-                        FileConfig::isValidFileSize($_FILES['doc_curp']['size'], $maxCurpSize)) {
-                        
-                        $curpFileName = FileConfig::generateUniqueFileName($_FILES['doc_curp']['name'], 'curp_');
-                        $curpFullPath = $directories['full_path'] . $curpFileName;
-                        
-                        if (move_uploaded_file($_FILES['doc_curp']['tmp_name'], $curpFullPath)) {
-                            $url_curp = $directories['url_path'] . $curpFileName;
-                        }
-                    }
-                }
-                
-                // Llamar al stored procedure con las URLs completas
-                $response = $master->insertByProcedure("sp_rh_gestion_postulaciones_g", [
-                    $id_postulacion,        // NULL para nuevo registro
-                    $id_publicacion,
-                    $nombre_completo,
-                    $fecha_nacimiento,
-                    $edad,
-                    $sexo,
-                    $estado_civil,
-                    $telefono,
-                    $domicilio,
-                    $pregunta_1,
-                    $pregunta_2,
-                    $pregunta_3,
-                    $pregunta_4,
-                    $pregunta_5,
-                    $pregunta_6,
-                    $pregunta_7,
-                    $pregunta_8,
-                    $pregunta_9,
-                    $pregunta_10,
-                    $url_cv,        // URL completa del CV
-                    $url_curp,      // URL completa del CURP
-                    $estado_postulacion
-                ]);
-                
-                // Verificar si el SP fue exitoso directamente desde $response
-                if (isset($response['data']) && is_array($response['data']) && !empty($response['data'])) {
-                    $primerRegistro = $response['data'][0];
-                    
-                    if (isset($primerRegistro['RESULT']) && $primerRegistro['RESULT'] === 'SUCCESS') {
-                        // ✅ YA NO ES NECESARIO INCREMENTAR MANUALMENTE - EL SP LO HACE AUTOMÁTICAMENTE
-                        
-                        // Formatear respuesta exitosa
-                        $response = [
-                            'code' => 1,
-                            'message' => $primerRegistro['MESSAGE'] ?? 'Postulación registrada exitosamente',
-                            'data' => [
-                                'id_postulacion' => $primerRegistro['id_postulacion'] ?? null,
-                                'url_cv' => $url_cv,
-                                'url_curp' => $url_curp,
-                                'directorio_guardado' => $directories['relative_path']
-                            ]
-                        ];
-                    } elseif (isset($primerRegistro['ERROR'])) {
-                        // Error del stored procedure
-                        $response = [
-                            'code' => 0,
-                            'message' => $primerRegistro['ERROR'],
-                            'data' => null
-                        ];
-                        
-                        // Eliminar archivos si hubo error en BD
-                        if ($url_cv && $cvFullPath && file_exists($cvFullPath)) {
-                            unlink($cvFullPath);
-                        }
-                        if ($url_curp && $curpFullPath && file_exists($curpFullPath)) {
-                            unlink($curpFullPath);
-                        }
-                    } else {
-                        $response = [
-                            'code' => 0,
-                            'message' => 'Error: Respuesta inesperada del stored procedure',
-                            'data' => $spResult
-                        ];
-                    }
-                } else {
-                    $response = [
-                        'code' => 0,
-                        'message' => 'Error: No se recibió respuesta válida del stored procedure',
-                        'data' => $spResult
-                    ];
-                }
-                
-            } catch (Exception $e) {
-                $response = [
-                    'code' => 0,
-                    'message' => 'Error interno del servidor: ' . $e->getMessage(),
-                    'data' => null
-                ];
-                
-                error_log("Error en case 30 - Postulaciones: " . $e->getMessage());
-                
-                // Eliminar archivos si hubo error
-                if ($url_cv && $cvFullPath && file_exists($cvFullPath)) {
-                    unlink($cvFullPath);
-                }
-                if ($url_curp && $curpFullPath && file_exists($curpFullPath)) {
-                    unlink($curpFullPath);
-                }
-            }
+            $response = $master->getByProcedure("sp_rh_gestion_postulaciones_b", [
+                $id_publicacion
+            ]);
         }
         break;
     default:
