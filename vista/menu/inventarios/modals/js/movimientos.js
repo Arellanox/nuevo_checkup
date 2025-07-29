@@ -170,16 +170,16 @@ tableCatEntradasEstable = $("#tableCatEntradasEstable").DataTable({
         return data !== null ? data : "-";
       },
     },
-    {
-      data: null,
-      title: "Acciones",
-      className: "all",
-      orderable: false,
-      width: "120px",
-      render: function (data, type, row) {
-        return '<button class="btn btn-warning btn-sm btn-editar-entrada" data-bs-toggle="tooltip" title="Editar entrada"><i class="bi bi-pencil-square"></i></button>';
-      },
-    },
+    // {
+    //   data: null,
+    //   title: "Acciones",
+    //   className: "all",
+    //   orderable: false,
+    //   width: "120px",
+    //   render: function (data, type, row) {
+    //     return '<button class="btn btn-warning btn-sm btn-editar-entrada" data-bs-toggle="tooltip" title="Editar entrada"><i class="bi bi-pencil-square"></i></button>';
+    //   },
+    // },
   ],
   columnDefs: [{ targets: "_all", className: "text-center align-middle" }],
   dom: 'Bl<"dataTables_toolbar">frtip',
@@ -232,52 +232,28 @@ tableCatEntradasEstable = $("#tableCatEntradasEstable").DataTable({
   ],
 });
 
-$(document).on("click", ".btn-editar-entrada", function () {
-  //pendiente darle func en modal_inventarios.js
-  $("#articuloSeleccionadoEstableEditar").text(rowSelected.NOMBRE_COMERCIAL);
-  $("#existenciaActualTittleEstableEditar").text(
-    rowSelected.EXISTENCIA_ACTUAL || "-"
-  );
-  $("#numeroFacturaEstableEditar").val(rowSelected.NUMERO_DOCUMENTO);
-  $("#numeroLoteEstableEditar").val(rowSelected.NUMERO_LOTE);
-  $("#cantidadEstableEditar").val(rowSelected.CANTIDAD);
-  $("#precioCompraEstableEditar").val(rowSelected.COSTO_UNITARIO);
-  var fechaSolo = rowSelected.FECHA_ENTRADA
-    ? rowSelected.FECHA_ENTRADA.split(" ")[0]
-    : "";
-  $("#fechaCompraEstableEditar").val(fechaSolo);
-  $("#fechaCaducidadEstableEditar").val(rowSelected.FECHA_CADUCIDAD);
-  $("#motivoEntradaEstableEditar").val(rowSelected.MOTIVO_DESCRIPCION);
-  $("#proveedorEstableEditar").val(rowSelected.ID_PROVEEDORES);
-  $("#observacionesEstableEditar").val(rowSelected.OBSERVACIONES);
-  $("#unidadMedidaEstableEditar").text(rowSelected.UNIDAD_MEDIDA);
+// $(document).on("click", ".btn-editar-entrada", function () {
+//   //pendiente darle func en modal_inventarios.js
+//   $("#articuloSeleccionadoEstableEditar").text(rowSelected.NOMBRE_COMERCIAL);
+//   $("#existenciaActualTittleEstableEditar").text(
+//     rowSelected.EXISTENCIA_ACTUAL || "-"
+//   );
+//   $("#numeroFacturaEstableEditar").val(rowSelected.NUMERO_DOCUMENTO);
+//   $("#numeroLoteEstableEditar").val(rowSelected.NUMERO_LOTE);
+//   $("#cantidadEstableEditar").val(rowSelected.CANTIDAD);
+//   $("#precioCompraEstableEditar").val(rowSelected.COSTO_UNITARIO);
+//   var fechaSolo = rowSelected.FECHA_ENTRADA
+//     ? rowSelected.FECHA_ENTRADA.split(" ")[0]
+//     : "";
+//   $("#fechaCompraEstableEditar").val(fechaSolo);
+//   $("#fechaCaducidadEstableEditar").val(rowSelected.FECHA_CADUCIDAD);
+//   $("#motivoEntradaEstableEditar").val(rowSelected.MOTIVO_DESCRIPCION);
+//   $("#proveedorEstableEditar").val(rowSelected.ID_PROVEEDORES);
+//   $("#observacionesEstableEditar").val(rowSelected.OBSERVACIONES);
+//   $("#unidadMedidaEstableEditar").text(rowSelected.UNIDAD_MEDIDA);
 
-  $("#editarEntradaEstableModal").modal("show");
-});
-
-selectDatatable(
-  "tableCatEntradasEstable",
-  tableCatEntradasEstable,
-  0,
-  0,
-  0,
-  0,
-  async function (select, dataClick) {
-    rowSelected = dataClick;
-  },
-  async function () {
-    $("#detalleArticuloSeleccionadoEstable").text(rowSelected.NOMBRE_COMERCIAL);
-    $("#detalleArticuloSeleccionadoTableEstable").text(
-      rowSelected.NOMBRE_COMERCIAL
-    );
-    dataTableCatDetEntradasEstable = {
-      api: 7,
-      id_articulo: rowSelected.ID_ARTICULO,
-    };
-    tableCatDetEntradasEstable.ajax.reload();
-    $("#detalleEntradaEstableModal").modal("show");
-  }
-);
+//   $("#editarEntradaEstableModal").modal("show");
+// });
 
 // DATATABLE DE DETALLES DE ENTRADA
 tableCatDetEntradasEstable = $("#tableCatDetEntradasEstable").DataTable({
@@ -453,17 +429,24 @@ tableCatOrdenesCompraArticulos = $("#tableCatOrdenesCompraArticulos").DataTable(
           return data ? data : "-";
         },
       },
-      // {
-      //   data: "CANTIDAD_A_SURTIR",
-      //   title: "Cantidad a Surtir",
-      // },
       {
-        data: "PRECIO_UNITARIO",
-        title: "Precio Unitario",
-        render: function (data) {
-          return data ? `$${parseFloat(data).toFixed(2)}` : "-";
+        data: "CANTIDAD_A_SURTIR",
+        title: "Cantidad a Surtir",
+        render: function (data, type, row) {
+          if (row.cantidad_recibida === row.cantidad_solicitada) {
+            return "-";
+          } else {
+            return row.cantidad_solicitada - row.cantidad_recibida || 0;
+          }
         },
       },
+      // {
+      //   data: "PRECIO_UNITARIO_ODC",
+      //   title: "Precio Unitario",
+      //   render: function (data) {
+      //     return data ? `$${parseFloat(data).toFixed(2)}` : "-";
+      //   },
+      // },
       {
         data: "PROVEEDOR_NOMBRE",
         title: "Proveedor",
@@ -527,8 +510,11 @@ tableCatOrdenesCompraArticulos = $("#tableCatOrdenesCompraArticulos").DataTable(
         data: null,
         title: "Acciones",
         render: function (data, type, row) {
-          if (row.cantidad_recibida >= row.cantidad_solicitada) {
-            return `<button type="button" class="btn btn-info btn-sm btn-ver-detalle-oc" data-bs-toggle="tooltip" title="Ver evidencia o detalles"><i class="bi bi-eye"></i></button>`;
+          if (
+            row.cantidad_recibida === row.cantidad_solicitada &&
+            row.cantidad_recibida >= row.cantidad_solicitada
+          ) {
+            return `<button type="button" class="btn btn-success btn-sm" disabled><i class="bi bi-check-circle-fill"></i> Completado</button>`;
           } else {
             return `
             <button 
@@ -554,13 +540,13 @@ tableCatOrdenesCompraArticulos = $("#tableCatOrdenesCompraArticulos").DataTable(
       //     $("#filtrosEntradasModal").modal("show");
       //   },
       // },
-      {
-        text: '<i class="bi bi-box-seam"></i> Ingresar todo',
-        className: "btn btn-success",
-        action: function () {
-          $("#surtirOrdenCompraModal").modal("show");
-        },
-      },
+      // {
+      //   text: '<i class="bi bi-box-seam"></i> Ingresar todo',
+      //   className: "btn btn-success",
+      //   action: function () {
+      //     $("#surtirOrdenCompraModal").modal("show");
+      //   },
+      // },
     ],
   }
 );
@@ -749,6 +735,30 @@ tableCatTransacciones = $("#tableCatTransacciones").DataTable({
 });
 
 // ESTILOS PARA LA BARRA DE BUSQUEDA DE ENTRADAS
+selectDatatable(
+  "tableCatEntradasEstable",
+  tableCatEntradasEstable,
+  0,
+  0,
+  0,
+  0,
+  async function (select, dataClick) {
+    rowSelected = dataClick;
+  },
+  async function () {
+    $("#detalleArticuloSeleccionadoEstable").text(rowSelected.NOMBRE_COMERCIAL);
+    $("#detalleArticuloSeleccionadoTableEstable").text(
+      rowSelected.NOMBRE_COMERCIAL
+    );
+    dataTableCatDetEntradasEstable = {
+      api: 7,
+      id_articulo: rowSelected.ID_ARTICULO,
+    };
+    tableCatDetEntradasEstable.ajax.reload();
+    $("#detalleEntradaEstableModal").modal("show");
+  }
+);
+
 setTimeout(() => {
   inputBusquedaTable(
     "tableCatEntradasEstable",

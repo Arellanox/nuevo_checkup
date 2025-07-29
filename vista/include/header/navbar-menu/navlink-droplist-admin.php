@@ -204,6 +204,6 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
 <?php if ($_SESSION['vista']['ORDEN_COMPRA'] == 1) : ?>
         <a class="dropdown-a align-items-center" href="<?php echo "$https$url/$appname/vista/menu/orden-compra"; ?>">
                     <!-- preguntar la ecepcion medicos_tratantes -->
-            <i class="bi bi-cart-check"></i> Ordenes de Compra
+            <i class="bi bi-cart-check"></i> Órdenes de Compra
         </a>
 <?php endif; ?>

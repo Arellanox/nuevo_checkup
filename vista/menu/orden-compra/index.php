@@ -2,7 +2,7 @@
 //Variables dinamicas;
 session_start();
 include "../../variables.php";
-$menu = "Ordenes de Compra";
+$menu = "Órdenes de Compra";
 
 ?>
 <!DOCTYPE html>
@@ -10,7 +10,7 @@ $menu = "Ordenes de Compra";
 
 <head>
     <?php include "../../include/head.php"; ?>
-    <title>Ordenes de Compra | Bimo</title>
+    <title>Órdenes de Compra | Bimo</title>
 </head>
 
 <body class="" id="body-controlador"> </body>

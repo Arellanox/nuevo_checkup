@@ -29,7 +29,7 @@ $("#registrarArticuloForm").submit(function (event) {
       },
       function () {
         ajaxAwaitFormData(
-          { api: 1, estatus: activo, id_proveedores: 3 },
+          { api: 1, estatus: activo },
           "inventarios_api",
           "registrarArticuloForm",
           { callbackAfter: true },
