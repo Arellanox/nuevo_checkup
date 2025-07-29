@@ -359,7 +359,7 @@ $menu == 'Laboratorio Biomolecular'
             </div>
             <div class="col-auto d-flex align-items-center">
                 <input type="date" class="form-control input-form" name="fechaFinalListadoAreaMaster"
-                       value="<?php echo date('Y-m-d', strtotime('+30 days')) ?>"
+                       value="<?php echo date('Y-m-d', strtotime('+30 days')) ?>" required
                        id="fechaFinalListadoAreaMaster">
             </div>
             <div class="col-auto d-flex align-items-center" data-bs-toggle="tooltip" data-bs-placement="bottom"

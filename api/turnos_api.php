@@ -110,6 +110,7 @@ switch ($api) {
         $response = $master->getByProcedure('sp_lista_de_trabajo', [
             $fecha, $fechaFinal, $area, NULL, $_SESSION['id'], $cliente_id
         ]);
+
         break;
     case 10:
         #historial de servicios

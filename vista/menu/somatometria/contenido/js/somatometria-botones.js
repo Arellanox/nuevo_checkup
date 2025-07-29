@@ -69,11 +69,14 @@ $('#checkDiaAnalisis').click(function () {
 function recargarVistaLab(fecha = 1) {
     dataListaPaciente = {
         api: 5,
-        area_id: 2
+        area_id: 2,
+        fecha_busqueda: $('#fechaListadoAreaMaster').val() ?? dataListaPaciente['fecha_busqueda'],
+        fecha_busqueda_final: $('#fechaFinalListadoAreaMaster').val() ?? dataListaPaciente['fecha_busqueda_final']
     }
+
     if (fecha) {
         dataListaPaciente['fecha_busqueda'] = $('#fechaListadoAreaMaster').val();
-        dataListaPaciente['fecha_busqueda_final'] = $('#fechaFilnalListadoAreaMaster').val();
+        dataListaPaciente['fecha_busqueda_final'] = $('#fechaFinalListadoAreaMaster').val();
     }
 
     tablaSignos.ajax.reload();
