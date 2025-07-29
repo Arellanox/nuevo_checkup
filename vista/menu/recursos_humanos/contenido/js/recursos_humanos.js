@@ -2749,7 +2749,14 @@ function procesarAprobacionRechazoTabla(accion, idRequisicion, observaciones) {
       if (esExitoso) {
         // Éxito
         let mensaje = accion === "aprobar" ? "aprobada" : "rechazada";
-        alertToast(`Requisición ${mensaje} exitosamente`, "success", 3000);
+        
+        if (accion === "aprobar") {
+          // Mostrar alert toast especial para aprobación con opción de publicar vacante
+          mostrarAlertaRequisicionAprobada(idRequisicion);
+        } else {
+          // Para rechazo, mostrar mensaje normal
+          alertToast(`Requisición ${mensaje} exitosamente`, "success", 3000);
+        }
 
         // Recargar la tabla principal
         setTimeout(function () {
@@ -2795,6 +2802,136 @@ function procesarAprobacionRechazoTabla(accion, idRequisicion, observaciones) {
       btnRechazar.prop("disabled", false);
     },
   });
+}
+
+// Función personalizada para mostrar alerta con opciones después de aprobar requisición
+function mostrarAlertaRequisicionAprobada(idRequisicion) {
+  console.log("ID de la requisición aprobada:", idRequisicion); // Para depuración
+
+  // Buscar datos de la requisición aprobada
+  let requisicionData = null;
+  if (tableCatRequisiciones && tableCatRequisiciones.data()) {
+    requisicionData = tableCatRequisiciones
+      .data()
+      .toArray()
+      .find((req) => req.id_requisicion == idRequisicion);
+  }
+
+  const numeroRequisicion = requisicionData ? requisicionData.numero_requisicion : 'N/A';
+  const puestoNombre = requisicionData ? requisicionData.puesto_nombre : 'Sin especificar';
+  const departamentoNombre = requisicionData ? requisicionData.departamento_nombre : 'Sin especificar';
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "bottom-end",
+    showConfirmButton: false,
+    showCloseButton: true,
+    timerProgressBar: true,
+    timer: 8000,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
+  Toast.fire({
+    icon: "success",
+    title: "¡Requisición aprobada exitosamente!",
+    html: `
+      <div style="margin-top: 10px;">
+        <p><strong>Requisición #${numeroRequisicion}</strong></p>
+        <p style="font-size: 12px; color: #666;">${puestoNombre} - ${departamentoNombre}</p>
+        <div style="display: flex; gap: 8px; justify-content: center; margin-top: 15px;">
+          <button id="btnIrPublicarVacante" class="btn btn-primary btn-sm" style="font-size: 12px; padding: 5px 10px;">
+            <i class="bi bi-megaphone"></i> Publicar vacante
+          </button>
+        </div>
+      </div>
+    `,
+    didOpen: () => {
+      // Evento para publicar vacante
+      const btnPublicarVacante = document.getElementById("btnIrPublicarVacante");
+
+      if (btnPublicarVacante) {
+        btnPublicarVacante.addEventListener("click", () => {
+          Swal.close();
+          abrirModalPublicarVacante(idRequisicion, requisicionData);
+        });
+      }
+    },
+  });
+}
+
+// Función para abrir modal de publicar vacante con la requisición recién aprobada
+function abrirModalPublicarVacante(idRequisicion, requisicionData) {
+  console.log("Abriendo modal de publicar vacante para requisición:", idRequisicion); // Para depuración
+
+  if (!requisicionData) {
+    console.log("No se encontraron datos de la requisición, buscando en la tabla..."); // Para depuración
+    
+    // Buscar la requisición en la tabla para obtener los datos completos
+    if (tableCatRequisiciones && tableCatRequisiciones.data()) {
+      const data = tableCatRequisiciones.data().toArray();
+      console.log("Datos de la tabla:", data); // Para depuración
+
+      requisicionData = data.find((item) => {
+        console.log("Comparando:", item.id_requisicion, "con", idRequisicion); // Para depuración
+        return item.id_requisicion == idRequisicion;
+      });
+    }
+  }
+
+  if (requisicionData) {
+    console.log("Datos de requisición encontrados:", requisicionData); // Para depuración
+
+    // Establecer fecha límite por defecto (30 días)
+    let fechaLimiteDefault = new Date();
+    fechaLimiteDefault.setDate(fechaLimiteDefault.getDate() + 30);
+    let fechaFormateada = fechaLimiteDefault.toISOString().split('T')[0];
+    
+    // Generar título automáticamente
+    const tituloGenerado = `Vacante: ${requisicionData.puesto_nombre || 'Sin especificar'}`;
+    
+    // Llenar los datos del modal
+    $('#id_requisicion_pub').val(idRequisicion);
+    $('#titulo_vacante_hidden').val(tituloGenerado);
+    $('#numero_requisicion_display').text('#' + (requisicionData.numero_requisicion || 'N/A'));
+    $('#puesto_nombre_display').text(requisicionData.puesto_nombre || 'Sin especificar');
+    $('#departamento_nombre_display').text(requisicionData.departamento_nombre || 'Sin especificar');
+    $('#titulo_vacante_display').text(tituloGenerado);
+    
+    // Establecer badge de prioridad
+    const prioridadBadges = {
+      'urgente': '<span class="badge bg-danger">Urgente</span>',
+      'normal': '<span class="badge bg-primary">Normal</span>',
+      'baja': '<span class="badge bg-secondary">Baja</span>'
+    };
+    $('#prioridad_display').html(prioridadBadges[requisicionData.prioridad] || '<span class="badge bg-light">N/A</span>');
+    
+    // Pre-llenar campos
+    $('#fecha_limite_publicacion').val(fechaFormateada);
+    $('#fecha_limite_publicacion').attr('min', new Date().toISOString().split('T')[0]);
+    $('#max_postulantes').val('50'); // Valor por defecto
+    
+    // Resetear formulario
+    $('#tipo_publicacion').val('');
+    $('#descripcion_adicional').val('');
+    
+    // Limpiar configuración avanzada
+    $('#configAvanzada').removeClass('show');
+    $('input[name="plataformas[]"]').prop('checked', false);
+    $('#plataforma_web').prop('checked', true); // Web siempre marcado por defecto
+    
+    // Mostrar el modal
+    $('#publicarVacanteModal').modal('show');
+  } else {
+    console.log("No se encontró la requisición en la tabla"); // Para depuración
+    alertToast(
+      "La requisición fue aprobada exitosamente. Actualiza la página para publicar una vacante.",
+      "info",
+      6000
+    );
+  }
 }
 
 // Event listener para cambio de días de trabajo en el modal de edición
