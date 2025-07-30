@@ -48,6 +48,11 @@ $("#UsarPaquete").on("click", function () {
         }
     }
 
+    select2Multiple(
+        '#select-correo-cotizaciones', 'modalInfoDetalleCotizacion',
+        'Precione enter para agregar un correo', '100%'
+    );
+
     const id_cotizacion = $("#select-presupuestos").val();
     const value = $('input[type=radio][name=selectPaquete]:checked').val()
 
@@ -60,10 +65,11 @@ $("#UsarPaquete").on("click", function () {
     calcularFilasTR();
 
     $("#input-atencion-cortizaciones").val("");
-    $("#input-correo-cortizaciones").val("");
+    //$("#input-correo-cortizaciones").val("");
     $("#input-domicilio_fiscal").val("");
     $("#input-fecha-vigencia").val("");
     $("#input-observaciones-cortizaciones").val("");
+    $('#select-correo-cotizaciones').empty().trigger('change');
 
     if (parseInt(value) === 2) {
         tablaContenido(true);
@@ -89,10 +95,23 @@ $("#UsarPaquete").on("click", function () {
                         `No. Int. ${row2["NUMERO_INTERIOR"] ?? 'SN'}`;
 
                 $("#input-atencion-cortizaciones").val(row2["ATENCION"]);
-                $("#input-correo-cortizaciones").val(row2["CORREO"]);
+                //$("#input-correo-cortizaciones").val(row2["CORREO"]);
                 $("#input-fecha-vigencia").val(fechaFormateada);
                 $("#input-observaciones-cortizaciones").val(row2["OBSERVACIONES"]);
                 $("#input-domicilio_fiscal").val(domicilio_fiscal);
+
+                let correos = row2["CORREO"]?.split(";") || [];
+                correos.forEach(correo => {
+                    // Si no existe la opción, la agregamos
+                    if ($("#select-correo-cotizaciones option[value='" + correo + "']").length === 0) {
+                        $("#select-correo-cotizaciones").append(
+                            new Option(correo, correo, true, true)
+                        );
+                    }
+                });
+
+                // Seleccionamos y refrescamos
+                $('#select-correo-cotizaciones').val(correos).trigger('change');
 
                 SelectedFolio = row2["FOLIO"];
 
@@ -163,6 +182,7 @@ $('#CambiarPaquete').on('click', function () {
 
     $('input[type=radio][name=selectChecko]:checked').prop('checked', false);
     $("#seleccion-estudio").find('option').remove().end()
+    //$("#select-correo-cotizaciones").find('option').remove().end()
     tablaContenido(true)
 })
 
@@ -223,16 +243,14 @@ $("#guardar-contenido-paquete").on("click", function () {
                     subtotal_sin_descuento: dataAjaxDetalleCotizacion["subtotal_sindescuento"].toFixed(2),
                     iva: dataAjaxDetalleCotizacion["iva"].toFixed(2),
                     descuento: dataAjaxDetalleCotizacion["descuento"],
-                    descuento_porcentaje: dataAjaxDetalleCotizacion["descuento_porcentaje"],
+                    descuento_porcentaje: isNaN(dataAjaxDetalleCotizacion["descuento_porcentaje"]) ? 0 : dataAjaxDetalleCotizacion["descuento_porcentaje"],
                     cliente_id: dataAjaxDetalleCotizacion["cliente_id"],
                     atencion: $("#input-atencion-cortizaciones").val(),
-                    correo: $("#input-correo-cortizaciones").val(),
+                    correo: $('#select-correo-cotizaciones').val()?.join(";"),
                     observaciones: $("#input-observaciones-cortizaciones").val(),
                     fecha_vigencia: $("#input-fecha-vigencia").val(),
                     domicilio_fiscal: $("#input-domicilio_fiscal").val(),
                 };
-
-                console.log(dataAjaxDetalleCotizacion["descuento_porcentaje"])
 
                 if ($("input[type=radio][name=selectPaquete]:checked").val() == 2) {
                     datajson["id_cotizacion"] = $("#select-presupuestos").val();

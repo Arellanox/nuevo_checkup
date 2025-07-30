@@ -3435,6 +3435,7 @@ function select2Multiple(select, modal = null, placeholder = 'Selecciona una o v
   $(select).select2({
     dropdownParent: $('#' + modal),
     tags: true,
+    tokenSeparators: [",", " "],
     width: width,
     placeholder: placeholder
   });
