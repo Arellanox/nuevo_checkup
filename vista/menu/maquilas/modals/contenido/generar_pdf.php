@@ -1,4 +1,3 @@
-
 <div class="modal fade" id="modalMaquilaEstudios" tabindex="-1" aria-labelledby="filtrador" aria-hidden="true">
     <div class="modal-dialog modal-md modal-dialog-centered">
         <div class="modal-content">

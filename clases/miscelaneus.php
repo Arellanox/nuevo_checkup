@@ -746,7 +746,7 @@ class Miscelaneus
                     foreach ($maquilas as $index => $maquila) {
                         $data_estudios_filtrados = [];
                         $decode_lista_estudios = json_decode($maquila['LISTA_ESTUDIOS'], true);
-                        $data_estudios = $master->getByProcedure('sp_obtener_estudios_de_servicio', [
+                        $data_estudios = $master->getByProcedure('sp_obtener_estudios_de_servicio_b', [
                             $maquila['ID_SERVICIO']
                         ]);
 

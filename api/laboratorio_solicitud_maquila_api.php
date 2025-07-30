@@ -20,6 +20,12 @@ $fecha_fin = $_POST['FECHA_FIN'];
 $id_grupo_servicio = $_POST['ID_GRUPO_SERVICIO'];
 $lista_estudios = $_POST['LISTA_ESTUDIOS'];
 
+$estudio_alias = $_POST['NOMBRE_ALIAS_ESTUDIO'];
+$estudio_clave = $_POST['CLAVE_ALIAS_ESTUDIO'];
+$estudio_precio= $_POST['PRECIO_ALIAS_ESTUDIO'];
+$estudio_servicio_id = $_POST['SERVICIO_ESTUDIO_ID'];
+$estudio_laboratorio_id = $_POST['LABORATORIO_MAQUILA_ID'];
+
 switch ($api) {
     case 1:
         // Registrar estudio a maquilar y lista de estudios a maquilar
@@ -33,10 +39,11 @@ switch ($api) {
         ]);
 
         if (is_array($maquilas)) {
+
             foreach ($maquilas as $index => $maquila) {
                 $data_estudios_filtrados = [];
                 $decode_lista_estudios = json_decode($maquila['LISTA_ESTUDIOS'], true);
-                $data_estudios = $master->getByProcedure('sp_obtener_estudios_de_servicio', [
+                $data_estudios = $master->getByProcedure('sp_obtener_estudios_de_servicio_b', [
                     $maquila['ID_SERVICIO']
                 ]);
 
@@ -74,8 +81,18 @@ switch ($api) {
         $response = ['url' => $url];
         break;
     case 7: // Recuperar grupo de estudios a maquilar de un servicio
-        $response = $master->getByProcedure('sp_obtener_estudios_de_servicio', [
+        $response = $master->getByProcedure('sp_obtener_estudios_de_servicio_b', [
             $id_grupo_servicio
+        ]);
+        break;
+    case 8: // Recuperar alias de estudios a maquilar
+        $response = $master->getByProcedure('sp_obtener_aliases_estudio_b', [
+            $id_laboratorio_maquila, $lista_estudios
+        ]);
+        break;
+    case 9: // Registrar alias de estudios a maquilar
+        $response = $master->insertByProcedure('sp_laboratorio_estudios_maquila_alias_g', [
+            $estudio_laboratorio_id, $estudio_servicio_id, $estudio_alias, $estudio_clave, $estudio_precio
         ]);
         break;
     default:

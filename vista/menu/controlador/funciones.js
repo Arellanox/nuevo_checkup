@@ -1684,45 +1684,6 @@ function alertMsj(options, callback = function () { }) {
   })
 }
 
-/**
- * Muestra un cuadro de diálogo SweetAlert2 con un campo de entrada y tres opciones:
- * Enviar el valor ingresado, Saltar (sin ingresar valor) o Cancelar la acción.
- *
- * @param {Object} options - Opciones personalizadas para configurar el alert de SweetAlert2.
- * @param {Function} callback - Función que se ejecuta con el resultado del alert.
- */
-function alertConInput(options = {}, callback = () => { }) {
-    // Configuración por defecto
-    const defaultOptions = {
-        title: 'Ingrese un valor',
-        input: 'text',
-        inputPlaceholder: 'Escriba algo...',
-        showCancelButton: true,
-        showDenyButton: true,
-        confirmButtonText: 'Enviar',
-        denyButtonText: 'Omitir',
-        cancelButtonText: 'Cancelar',
-        confirmButtonColor: "#00AFAA",     // rgb(0, 175, 170)
-        denyButtonColor: "#F7BE00",        // rgb(247, 190, 0)
-        cancelButtonColor: "#D8DFE1",      // rgb(216, 223, 225)
-        allowOutsideClick: false,
-        inputValidator: (value) => {
-            if (!value) {
-                return 'Debe ingresar un valor o usar "Omitir" o "Cancelar"';
-            }
-        }
-    };
-
-    // Combinar opciones personalizadas
-    const config = Object.assign({}, defaultOptions, options);
-
-    Swal.fire(config).then((result) => {
-        if (result.isConfirmed && result.value) callback({ tipo: 'enviar', valor: result.value });
-        else if (result.isDenied) callback({ tipo: 'omitir' });
-        else if (result.dismiss === Swal.DismissReason.cancel) callback({ tipo: 'cancelar' });
-    });
-}
-
 function alertMensajeConfirm(
     options, callback = function () {
     },
@@ -3469,6 +3430,15 @@ function select2(select, modal = null, placeholder = 'Selecciona una opción', w
   });
 }
 
+function select2Multiple(select, modal = null, placeholder = 'Selecciona una o varias opciones', width = '100%') {
+  if (!modal) modal = 'body-controlador';
+  $(select).select2({
+    dropdownParent: $('#' + modal),
+    tags: true,
+    width: width,
+    placeholder: placeholder
+  });
+}
 
 
 //Creador vistas

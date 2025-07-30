@@ -8,7 +8,7 @@ $menu = "Laboratorio";
 
 <head>
   <?php include "../../include/head.php"; ?>
-  <title><?php echo $menu; ?> | Bimo</title>
+    <title><?php echo $menu; ?> | Bimo</title>
 </head>
 
 <body class="" id="body-controlador"> </body>
@@ -24,5 +24,5 @@ $menu = "Laboratorio";
     });
   }
 </script>
-
 </html>
+
