@@ -43,8 +43,9 @@ switch ($api) {
             foreach ($maquilas as $index => $maquila) {
                 $data_estudios_filtrados = [];
                 $decode_lista_estudios = json_decode($maquila['LISTA_ESTUDIOS'], true);
+
                 $data_estudios = $master->getByProcedure('sp_obtener_estudios_de_servicio_b', [
-                    $maquila['ID_SERVICIO']
+                    $maquila['ID_SERVICIO'], $maquila['ID_LABORATORIO']
                 ]);
 
                 if (is_array($decode_lista_estudios) and is_array($data_estudios)) {
@@ -82,7 +83,7 @@ switch ($api) {
         break;
     case 7: // Recuperar grupo de estudios a maquilar de un servicio
         $response = $master->getByProcedure('sp_obtener_estudios_de_servicio_b', [
-            $id_grupo_servicio
+            $id_grupo_servicio, $id_laboratorio_maquila
         ]);
         break;
     case 8: // Recuperar alias de estudios a maquilar

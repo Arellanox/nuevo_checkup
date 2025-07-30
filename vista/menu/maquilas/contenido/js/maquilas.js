@@ -172,11 +172,6 @@ function generarReporteMaquilas(event){
     const laboratorio_texto = $('#select-laboratorios-maquila option:selected').text();
     const laboratorio_id = $('#select-laboratorios-maquila').val();
 
-    /*if(laboratorio_id !== '9'){
-        Toast.fire({icon: 'error', title: '¡No se puede generar reporte de maquilas para este laboratorio en este momento!', timer: 2000});
-        return;
-    }*/
-
     if(maquilasCompletadas < 0){
         Toast.fire({icon: 'error', title: '¡No se puede generar reporte de maquilas con estatus pendiente!', timer: 2000});
         return;
@@ -213,7 +208,6 @@ function generarReporteMaquilas(event){
 
 //---Mostrar detalles de estudios
 function formatearEstudios(estudios) {
-    console.log(estudios)
     if (!Array.isArray(estudios) || estudios.length === 0) {
         return '<div class="p-2 text-muted">Sin estudios relacionados.</div>';
     }
@@ -226,7 +220,6 @@ function formatearEstudios(estudios) {
                         <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">#</th>
                         <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Estudio</th>
                         <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Grupo</th>
-                        <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Clasificación</th>
                         <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Abreviatura</th>
                         <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Abreviatura Estudio</th>
                     </tr>
@@ -240,7 +233,6 @@ function formatearEstudios(estudios) {
                 <td><p class="text-xs mb-0" style="color: #0c0c0c; font-weight: 300">${index}</p></td>
                 <td><p class="text-xs mb-0" style="color: #0c0c0c; font-weight: 300">${estudio.NOMBRE_ESTUDIO}</p></td>
                 <td><p class="text-xs mb-0" style="color: #0c0c0c; font-weight: 300">${estudio.NOMBRE_GRUPO}</p></td>
-                <td><p class="text-xs mb-0" style="color: #0c0c0c; font-weight: 300">${estudio.CLASIFICACION}</p></td>
                 <td><p class="text-xs mb-0" style="color: #0c0c0c; font-weight: 300">${estudio.ABREVIATURA_GRUPO}</p></td>
                 <td><p class="text-xs mb-0" style="color: #0c0c0c; font-weight: 300">${estudio.ABREVIATURA_ESTUDIO}</p></td>
             </tr>

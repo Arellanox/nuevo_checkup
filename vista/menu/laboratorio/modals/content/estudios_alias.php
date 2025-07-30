@@ -10,9 +10,15 @@
             <div class="modal-body">
                 <div>
                     <label class="form-label">Estudio</label>
+                    <p>Estudio a asociar el alias</p>
                     <select id="servicio_estudio_id" class="input-form">
                         <option value="" hidden>-- Seleccionar estudio --</option>
                     </select>
+                </div>
+                <div>
+                    <label class="form-label">Alias del Estudio</label>
+                    <p>Alias del estudio a asociar de acuerdo al laboratorio</p>
+                    <input id="asociar_alias_estudio" type="text" class="form-control input-form" placeholder="Ingresa el alias del estudio">
                 </div>
                 <div class="d-flex justify-content-between">
                     <div style="margin-right: 5px">
@@ -29,7 +35,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="btn_cancel_alias" type="button" class="btn btn-cancelar">
+                <button id="btn_cancel_alias" type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
                     <i class="bi bi-arrow-left-short"></i> Cancelar
                 </button>
                 <button id="btn_confirm_alias" type="button" class="btn btn-confirmar">

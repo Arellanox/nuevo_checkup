@@ -14,12 +14,12 @@
                     <select id="select-laboratorios-maquila" class="input-form"></select>
                 </div>
 
-                <div class="modal-body-maquila-aliases">
+                <!--<div class="modal-body-maquila-aliases">
                     <label class="form-label">Alias del estudio</label>
                     <br/>
                     <span>Verifique que los alias sean correctos en caso de que no, elimine el alias y agregue uno nuevo</span>
                     <select class="form-control input-form" id="select-aliases-estudio" multiple="multiple"></select>
-                </div>
+                </div>-->
 
                 <div id="modal-body-maquila-estudios-grupos">
                     <label class="form-label">Desmarque los estudios que no desea maquilar</label>
@@ -44,13 +44,23 @@
 </div>
 
 <style>
-    .form-check-lista-estudios{
-        background: #3bc3c0 ! important;
-        border-radius: 10px ! important;
+    .form-check-lista {
         cursor: pointer ! important;
     }
-    .form-check-lista-estudios:hover{
+    .form-check-lista:hover{
         transform: translateY(-1px) !important;
+    }
+
+    .form-check-lista-estudios{
+        background: #3bc3c0 ! important;
+        border-radius: 10px 10px 0 0 ! important;
+    }
+
+    .form-check-lista-estudios-details {
+        background: white;
+        padding: 8px 13px;
+        border-radius: 0 0 10px 10px;
+        box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
     }
 
     .form-check-lista-estudios label {
