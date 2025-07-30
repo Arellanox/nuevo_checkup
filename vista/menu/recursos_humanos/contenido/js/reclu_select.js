@@ -11,6 +11,10 @@ tableRequisicionesAprobadas = $("#tableRequisicionesAprobadas").DataTable({
     order: [[5, 'desc']], // Ordenar por prioridad
     scrollY: "60vh",
     scrollCollapse: true,
+    select: {
+        style: 'single',
+        info: true
+    },
     ajax: {
         dataType: "json",
         data: function (d) {
@@ -193,6 +197,23 @@ tableRequisicionesAprobadas = $("#tableRequisicionesAprobadas").DataTable({
             },
         },
     ],
+});
+
+// Variable global para almacenar la fila seleccionada
+let rowSelectedRequisicionesAprobadas = null;
+
+// Evento para capturar la selección de filas
+$('#tableRequisicionesAprobadas').on('select.dt', function(e, dt, type, indexes) {
+    if (type === 'row') {
+        rowSelectedRequisicionesAprobadas = dt.rows(indexes).data()[0];
+        console.log('Fila seleccionada:', rowSelectedRequisicionesAprobadas);
+    }
+});
+
+// Evento para capturar la deselección de filas
+$('#tableRequisicionesAprobadas').on('deselect.dt', function(e, dt, type, indexes) {
+    rowSelectedRequisicionesAprobadas = null;
+    console.log('Fila deseleccionada');
 });
 
 // DataTable para el historial de publicaciones
@@ -649,10 +670,20 @@ $(document).on('click', '.btn-cambiar-estado-dropdown', function(e) {
 function publicarVacanteConParametros(formData) {
     const idRequisicion = formData.id_requisicion;
     
-    // Obtener datos de la fila
-    let rowData = tableRequisicionesAprobadas.row(function(idx, data, node) {
-        return data.id_requisicion == idRequisicion;
-    }).data();
+    // Obtener datos de la fila - usar rowSelectedRequisicionesAprobadas si está disponible
+    let rowData = null;
+    
+    if (typeof rowSelectedRequisicionesAprobadas !== 'undefined' && rowSelectedRequisicionesAprobadas && 
+        rowSelectedRequisicionesAprobadas.id_requisicion == idRequisicion) {
+        rowData = rowSelectedRequisicionesAprobadas;
+        console.log('Usando datos de fila seleccionada:', rowData);
+    } else {
+        // Buscar en la tabla si no hay fila seleccionada
+        rowData = tableRequisicionesAprobadas.row(function(idx, data, node) {
+            return data.id_requisicion == idRequisicion;
+        }).data();
+        console.log('Buscando datos en tabla:', rowData);
+    }
     
     if (!rowData) {
         alertToast('Error: No se encontraron los datos de la requisición', 'error', 4000);

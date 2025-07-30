@@ -2866,72 +2866,128 @@ function mostrarAlertaRequisicionAprobada(idRequisicion) {
 function abrirModalPublicarVacante(idRequisicion, requisicionData) {
   console.log("Abriendo modal de publicar vacante para requisición:", idRequisicion); // Para depuración
 
-  if (!requisicionData) {
-    console.log("No se encontraron datos de la requisición, buscando en la tabla..."); // Para depuración
+  // Primero, navegar a la tabla de requisiciones aprobadas
+  if (typeof tableRequisicionesAprobadas !== 'undefined' && tableRequisicionesAprobadas) {
+    // Navegar a la pestaña de requisiciones aprobadas si es necesario
+    if ($('#tabRequisicionesAprobadas').length > 0) {
+      $('#tabRequisicionesAprobadas').tab('show');
+    }
     
-    // Buscar la requisición en la tabla para obtener los datos completos
-    if (tableCatRequisiciones && tableCatRequisiciones.data()) {
-      const data = tableCatRequisiciones.data().toArray();
-      console.log("Datos de la tabla:", data); // Para depuración
-
-      requisicionData = data.find((item) => {
-        console.log("Comparando:", item.id_requisicion, "con", idRequisicion); // Para depuración
-        return item.id_requisicion == idRequisicion;
+    // Recargar la tabla para asegurar que tenga los datos más recientes
+    tableRequisicionesAprobadas.ajax.reload(function(json) {
+      console.log('Tabla recargada, buscando la fila...');
+      
+      // Buscar la fila correspondiente en la tabla
+      let rowIndex = -1;
+      tableRequisicionesAprobadas.rows().every(function() {
+        let data = this.data();
+        if (data.id_requisicion == idRequisicion) {
+          rowIndex = this.index();
+          return false; // Detener la búsqueda
+        }
+        return true;
       });
+      
+      if (rowIndex !== -1) {
+        console.log('Fila encontrada en índice:', rowIndex);
+        
+        // Seleccionar la fila
+        tableRequisicionesAprobadas.row(rowIndex).select();
+        
+        // Hacer scroll a la fila seleccionada
+        let rowNode = tableRequisicionesAprobadas.row(rowIndex).node();
+        if (rowNode) {
+          rowNode.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          // Resaltar temporalmente la fila
+          $(rowNode).addClass('table-warning');
+          setTimeout(() => {
+            $(rowNode).removeClass('table-warning');
+          }, 3000);
+        }
+        
+        // Obtener los datos de la fila seleccionada
+        let rowData = tableRequisicionesAprobadas.row(rowIndex).data();
+        console.log('Datos de la fila seleccionada:', rowData);
+        
+        // Simular clic en el botón de publicar vacante de esa fila
+        setTimeout(() => {
+          let btnPublicar = $(`.btn-publicar-vacante[data-id-requisicion="${idRequisicion}"]`);
+          if (btnPublicar.length > 0) {
+            console.log('Botón de publicar encontrado, haciendo clic...');
+            btnPublicar.click();
+          } else {
+            console.log('Botón de publicar no encontrado, abriendo modal manualmente...');
+            // Usar rowSelectedRequisicionesAprobadas si está disponible
+            if (typeof rowSelectedRequisicionesAprobadas !== 'undefined' && rowSelectedRequisicionesAprobadas) {
+              abrirModalConDatos(rowSelectedRequisicionesAprobadas);
+            } else {
+              abrirModalConDatos(rowData);
+            }
+          }
+        }, 500); // Pequeño delay para asegurar que la tabla esté completamente renderizada
+      } else {
+        console.log('Fila no encontrada en la tabla, abriendo modal con datos disponibles...');
+        if (requisicionData) {
+          abrirModalConDatos(requisicionData);
+        } else {
+          alertToast('No se pudo encontrar la requisición en la tabla. Actualiza la página e intenta nuevamente.', 'warning', 5000);
+        }
+      }
+    }, false);
+  } else {
+    console.log('Tabla tableRequisicionesAprobadas no disponible, usando datos proporcionados...');
+    if (requisicionData) {
+      abrirModalConDatos(requisicionData);
+    } else {
+      alertToast('Error: No se pudo acceder a la tabla de requisiciones aprobadas.', 'error', 4000);
     }
   }
+}
 
-  if (requisicionData) {
-    console.log("Datos de requisición encontrados:", requisicionData); // Para depuración
+// Función auxiliar para abrir el modal con los datos
+function abrirModalConDatos(requisicionData) {
+  console.log("Abriendo modal con datos:", requisicionData);
 
-    // Establecer fecha límite por defecto (30 días)
-    let fechaLimiteDefault = new Date();
-    fechaLimiteDefault.setDate(fechaLimiteDefault.getDate() + 30);
-    let fechaFormateada = fechaLimiteDefault.toISOString().split('T')[0];
-    
-    // Generar título automáticamente
-    const tituloGenerado = `Vacante: ${requisicionData.puesto_nombre || 'Sin especificar'}`;
-    
-    // Llenar los datos del modal
-    $('#id_requisicion_pub').val(idRequisicion);
-    $('#titulo_vacante_hidden').val(tituloGenerado);
-    $('#numero_requisicion_display').text('#' + (requisicionData.numero_requisicion || 'N/A'));
-    $('#puesto_nombre_display').text(requisicionData.puesto_nombre || 'Sin especificar');
-    $('#departamento_nombre_display').text(requisicionData.departamento_nombre || 'Sin especificar');
-    $('#titulo_vacante_display').text(tituloGenerado);
-    
-    // Establecer badge de prioridad
-    const prioridadBadges = {
-      'urgente': '<span class="badge bg-danger">Urgente</span>',
-      'normal': '<span class="badge bg-primary">Normal</span>',
-      'baja': '<span class="badge bg-secondary">Baja</span>'
-    };
-    $('#prioridad_display').html(prioridadBadges[requisicionData.prioridad] || '<span class="badge bg-light">N/A</span>');
-    
-    // Pre-llenar campos
-    $('#fecha_limite_publicacion').val(fechaFormateada);
-    $('#fecha_limite_publicacion').attr('min', new Date().toISOString().split('T')[0]);
-    $('#max_postulantes').val('50'); // Valor por defecto
-    
-    // Resetear formulario
-    $('#tipo_publicacion').val('');
-    $('#descripcion_adicional').val('');
-    
-    // Limpiar configuración avanzada
-    $('#configAvanzada').removeClass('show');
-    $('input[name="plataformas[]"]').prop('checked', false);
-    $('#plataforma_web').prop('checked', true); // Web siempre marcado por defecto
-    
-    // Mostrar el modal
-    $('#publicarVacanteModal').modal('show');
-  } else {
-    console.log("No se encontró la requisición en la tabla"); // Para depuración
-    alertToast(
-      "La requisición fue aprobada exitosamente. Actualiza la página para publicar una vacante.",
-      "info",
-      6000
-    );
-  }
+  // Establecer fecha límite por defecto (30 días)
+  let fechaLimiteDefault = new Date();
+  fechaLimiteDefault.setDate(fechaLimiteDefault.getDate() + 30);
+  let fechaFormateada = fechaLimiteDefault.toISOString().split('T')[0];
+  
+  // Generar título automáticamente
+  const tituloGenerado = `Vacante: ${requisicionData.puesto_nombre || 'Sin especificar'}`;
+  
+  // Llenar los datos del modal
+  $('#id_requisicion_pub').val(requisicionData.id_requisicion);
+  $('#titulo_vacante_hidden').val(tituloGenerado);
+  $('#numero_requisicion_display').text('#' + (requisicionData.numero_requisicion || 'N/A'));
+  $('#puesto_nombre_display').text(requisicionData.puesto_nombre || 'Sin especificar');
+  $('#departamento_nombre_display').text(requisicionData.departamento_nombre || 'Sin especificar');
+  $('#titulo_vacante_display').text(tituloGenerado);
+  
+  // Establecer badge de prioridad
+  const prioridadBadges = {
+    'urgente': '<span class="badge bg-danger">Urgente</span>',
+    'normal': '<span class="badge bg-primary">Normal</span>',
+    'baja': '<span class="badge bg-secondary">Baja</span>'
+  };
+  $('#prioridad_display').html(prioridadBadges[requisicionData.prioridad] || '<span class="badge bg-light">N/A</span>');
+  
+  // Pre-llenar campos
+  $('#fecha_limite_publicacion').val(fechaFormateada);
+  $('#fecha_limite_publicacion').attr('min', new Date().toISOString().split('T')[0]);
+  $('#max_postulantes').val('50'); // Valor por defecto
+  
+  // Resetear formulario
+  $('#tipo_publicacion').val('');
+  $('#descripcion_adicional').val('');
+  
+  // Limpiar configuración avanzada
+  $('#configAvanzada').removeClass('show');
+  $('input[name="plataformas[]"]').prop('checked', false);
+  $('#plataforma_web').prop('checked', true); // Web siempre marcado por defecto
+  
+  // Mostrar el modal
+  $('#publicarVacanteModal').modal('show');
 }
 
 // Event listener para cambio de días de trabajo en el modal de edición
