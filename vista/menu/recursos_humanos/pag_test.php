@@ -295,6 +295,60 @@
             min-height: 100vh;
             padding: 20px 0;
         }
+        
+        /* Estilos para el canvas de firma */
+        #signatureCanvas {
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            cursor: crosshair;
+            display: block;
+            touch-action: none;
+            background-color: #fff;
+            width: 100%;
+            max-width: 953px;
+            height: 200px;
+        }
+        
+        #signatureCanvas.is-valid {
+            border-color: #28a745;
+        }
+        
+        #signatureCanvas.is-invalid {
+            border-color: #dc3545;
+        }
+        
+        .signature-container {
+            position: relative;
+            text-align: center;
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .signature-controls {
+            margin-top: 15px;
+        }
+        
+        .signature-controls button {
+            margin: 0 5px;
+        }
+        
+        .signature-placeholder {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #999;
+            font-style: italic;
+            pointer-events: none;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .signature-status {
+            margin-top: 10px;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -851,28 +905,46 @@
                                         Por favor adjunte su CURP.
                                     </div>
                                 </div>
-                            <!-- Firma del Usuario -->
-                            <!-- <div class="col-md-12 mb-4">
+                            </div>
+
+                            <!-- Firma Digital -->
+                            <div class="col-md-12 mb-4">
                                 <div class="document-item">
-                                    <div class="d-flex align-items-center mb-2">
-                                        <i class="fas fa-signature text-primary me-2 fs-4"></i>
+                                    <div class="d-flex align-items-center mb-3">
+                                        <i class="fas fa-signature text-success me-2 fs-4"></i>
                                         <div>
-                                            <strong>Firma del Usuario <span class="required-field">*</span></strong>
-                                            <br><small class="text-muted">Firme en el recuadro inferior usando su mouse o dedo (en móvil).</small>
+                                            <strong>Firma Digital <span class="required-field">*</span></strong>
+                                            <br><small class="text-muted">Firme en el cuadro utilizando su mouse, dedo o stylus</small>
                                         </div>
                                     </div>
-                                    <div style="border: 2px dashed #3498db; border-radius: 8px; padding: 10px; background: #fff;">
-                                        <canvas id="signature-pad" width="400" height="150" style="width:100%;max-width:400px;height:150px;touch-action: none; background: #f8f9fa; border-radius: 6px;"></canvas>
-                                        <div class="mt-2">
-                                            <button type="button" onclick="clearSignature()" class="btn btn-outline-secondary btn-sm">Limpiar</button>
+                                    <div class="signature-container">
+                                        <canvas id="signatureCanvas" width="953" height="200"></canvas>
+                                        <div class="signature-placeholder" id="signaturePlaceholder">
+                                            Haga clic y arrastre para firmar aquí
                                         </div>
-                                        <input type="hidden" name="firma_usuario" id="firmaInput" required>
-                                        <div class="invalid-feedback">
-                                            Por favor firme antes de enviar la postulación.
+                                        <input type="hidden" name="firma_digital" id="firmaDigitalInput" required>
+                                        <div class="invalid-feedback" id="firmaError">
+                                            Por favor proporcione su firma digital.
                                         </div>
+                                        <div class="signature-status" id="signatureStatus">
+                                            <span class="text-muted">Estado: <span id="statusText">Sin firmar</span></span>
+                                        </div>
+                                    </div>
+                                    <div class="signature-controls">
+                                        <button type="button" class="btn btn-outline-danger btn-sm" id="clearSignature">
+                                            <i class="fas fa-eraser"></i> Limpiar Firma
+                                        </button>
+                                        <!-- <button type="button" class="btn btn-outline-info btn-sm" id="previewSignature">
+                                            <i class="fas fa-eye"></i> Vista Previa
+                                        </button> -->
+                                        <button type="button" class="btn btn-outline-success btn-sm" id="testSignature">
+                                            <i class="fas fa-check"></i> Verificar Firma
+                                        </button>
+                                        </button>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
+                           
 
                   
 
@@ -1009,7 +1081,210 @@
 
     <script>
 
-        // Mostrar sección cónyuge si el estado civil es casado
+        // Variables globales
+  
+        let signaturePad; // Variable para el pad de firma
+        
+        // Inicializar Signature Pad
+        function initializeSignaturePad() {
+            const canvas = document.getElementById('signatureCanvas');
+            const placeholder = document.getElementById('signaturePlaceholder');
+            const hiddenInput = document.getElementById('firmaDigitalInput');
+            const statusText = document.getElementById('statusText');
+            
+            if (!canvas) {
+                console.error('Canvas de firma no encontrado');
+                return;
+            }
+            
+            if (!hiddenInput) {
+                console.error('Input hidden de firma no encontrado');
+                return;
+            }
+            
+            if (!statusText) {
+                console.error('StatusText no encontrado');
+                return;
+            }
+            
+            console.log('Inicializando Signature Pad...');
+            console.log('Canvas:', canvas);
+            console.log('Hidden Input:', hiddenInput);
+            console.log('Status Text:', statusText);
+            
+            // Función para actualizar el estado visual (definida primero)
+            function updateSignatureStatus(text, type) {
+                if (statusText) {
+                    statusText.textContent = text;
+                    statusText.className = `text-${type}`;
+                    console.log('Estado actualizado:', text, type);
+                } else {
+                    console.error('StatusText no disponible para actualizar');
+                }
+            }
+            
+            // Configurar el canvas con tamaño fijo para evitar problemas de escala
+            const rect = canvas.getBoundingClientRect();
+            const ratio = Math.max(1, window.devicePixelRatio || 1);
+            
+            // Establecer el tamaño del canvas en el contexto de dibujo
+            canvas.width = 953 * ratio;
+            canvas.height = 200 * ratio;
+            
+            // Escalar el contexto para que coincida con el ratio de dispositivo
+            const context = canvas.getContext('2d');
+            context.scale(ratio, ratio);
+            
+            // Establecer el tamaño CSS del canvas
+            canvas.style.width = '953px';
+            canvas.style.height = '200px';
+            
+            signaturePad = new SignaturePad(canvas, {
+                backgroundColor: 'rgba(255, 255, 255, 1)',
+                penColor: 'rgb(0, 0, 0)',
+                minWidth: 1,
+                maxWidth: 3,
+                throttle: 16,
+                minDistance: 5,
+                onBegin: function() {
+                    console.log('Comenzando a firmar...');
+                    if (placeholder) placeholder.style.display = 'none';
+                    updateSignatureStatus('Firmando...', 'warning');
+                },
+                onEnd: function() {
+                    console.log('Firma terminada, procesando...');
+                    
+                    // Pequeño delay para asegurar que el canvas esté listo
+                    setTimeout(function() {
+                        if (!signaturePad.isEmpty()) {
+                            try {
+                                // Guardar la firma como base64 en el input hidden
+                                const dataURL = signaturePad.toDataURL('image/png');
+                                hiddenInput.value = dataURL;
+                                
+                                console.log('Firma guardada exitosamente');
+                                console.log('- Longitud:', dataURL.length);
+                                console.log('- Primeros 50 chars:', dataURL.substring(0, 50));
+                                console.log('- Input value asignado:', hiddenInput.value.length > 0 ? 'SÍ' : 'NO');
+                                
+                                // Remover validación de error si existe
+                                canvas.classList.remove('is-invalid');
+                                canvas.classList.add('is-valid');
+                                const errorElement = document.getElementById('firmaError');
+                                if (errorElement) errorElement.style.display = 'none';
+                                
+                                // Actualizar estado
+                                updateSignatureStatus('Firmado ✓', 'success');
+                                
+                                // Trigger evento personalizado para notificar que la firma cambió
+                                const event = new CustomEvent('signatureChange', { 
+                                    detail: { 
+                                        signed: true, 
+                                        dataURL: dataURL 
+                                    } 
+                                });
+                                document.dispatchEvent(event);
+                                
+                            } catch (error) {
+                                console.error('Error al procesar la firma:', error);
+                                updateSignatureStatus('Error al procesar', 'danger');
+                            }
+                        } else {
+                            console.log('Canvas vacío después de onEnd');
+                            updateSignatureStatus('Sin firmar', 'muted');
+                        }
+                    }, 100); // 100ms delay
+                }
+            });
+            
+            // Limpiar firma
+            document.getElementById('clearSignature').addEventListener('click', function() {
+                console.log('Limpiando firma...');
+                signaturePad.clear();
+                if (placeholder) placeholder.style.display = 'block';
+                hiddenInput.value = '';
+                canvas.classList.remove('is-valid', 'is-invalid');
+                const errorElement = document.getElementById('firmaError');
+                if (errorElement) errorElement.style.display = 'none';
+                updateSignatureStatus('Sin firmar', 'muted');
+                
+                // Trigger evento personalizado
+                const event = new CustomEvent('signatureChange', { 
+                    detail: { 
+                        signed: false, 
+                        dataURL: null 
+                    } 
+                });
+                document.dispatchEvent(event);
+            });
+            
+            // // Vista previa de la firma
+            // document.getElementById('previewSignature').addEventListener('click', function() {
+            //     if (signaturePad.isEmpty()) {
+            //         alert('No hay firma para mostrar. Por favor firme primero.');
+            //         return;
+            //     }
+                
+            //     const dataURL = signaturePad.toDataURL('image/png');
+            //     const newWindow = window.open('', '_blank');
+            //     newWindow.document.write(`
+            //         <html>
+            //             <head><title>Vista Previa de Firma</title></head>
+            //             <body style="text-align: center; padding: 20px;">
+            //                 <h3>Vista Previa de la Firma Digital</h3>
+            //                 <img src="${dataURL}" style="border: 1px solid #ccc; max-width: 100%; background: white;">
+            //                 <br><br>
+            //                 <p><strong>Tamaño:</strong> ${dataURL.length} caracteres</p>
+            //                 <button onclick="window.close()">Cerrar</button>
+            //             </body>
+            //         </html>
+            //     `);
+            // });
+            
+            // Verificar firma (nuevo botón)
+            document.getElementById('testSignature').addEventListener('click', function() {
+                console.log('=== VERIFICACIÓN DE FIRMA ===');
+                console.log('SignaturePad existe:', !!signaturePad);
+                console.log('SignaturePad isEmpty:', signaturePad ? signaturePad.isEmpty() : 'N/A');
+                console.log('Hidden input existe:', !!hiddenInput);
+                console.log('Hidden input value length:', hiddenInput ? hiddenInput.value.length : 'N/A');
+                console.log('Hidden input value preview:', hiddenInput && hiddenInput.value ? hiddenInput.value.substring(0, 50) + '...' : 'vacío');
+                
+                // Si el pad no está vacío pero el input sí, intentar forzar la actualización
+                if (signaturePad && !signaturePad.isEmpty() && (!hiddenInput.value || hiddenInput.value.length === 0)) {
+                    console.log('Forzando actualización del input...');
+                    try {
+                        const dataURL = signaturePad.toDataURL('image/png');
+                        hiddenInput.value = dataURL;
+                        console.log('Input actualizado forzadamente, nueva longitud:', hiddenInput.value.length);
+                    } catch (error) {
+                        console.error('Error al forzar actualización:', error);
+                    }
+                }
+                
+                // Validaciones
+                if (!signaturePad) {
+                    alert('❌ SignaturePad no inicializado');
+                    updateSignatureStatus('Error: No inicializado', 'danger');
+                } else if (signaturePad.isEmpty()) {
+                    alert('❌ El canvas está vacío. Por favor firme primero.');
+                    updateSignatureStatus('Error: Canvas vacío', 'danger');
+                } else if (!hiddenInput || !hiddenInput.value || hiddenInput.value.length < 100) {
+                    alert('❌ El input hidden está vacío o corrupto.\n\nLongitud actual: ' + (hiddenInput ? hiddenInput.value.length : 0) + '\n\nIntente limpiar y firmar nuevamente.');
+                    updateSignatureStatus('Error: Datos corruptos', 'danger');
+                } else {
+                    alert('✅ Firma válida y capturada correctamente!\n\n' +
+                          'Longitud: ' + hiddenInput.value.length + ' caracteres\n' +
+                          'Formato: ' + (hiddenInput.value.startsWith('data:image/png;base64,') ? 'PNG Base64 ✓' : 'Formato incorrecto') + '\n' +
+                          'Estado: Lista para envío');
+                    updateSignatureStatus('Verificado ✓', 'success');
+                }
+                
+                console.log('=== FIN VERIFICACIÓN ===');
+            });
+            
+            console.log('Signature Pad inicializado correctamente');
+        }
         $(document).on('change', 'select[name="s_1_select_1"]', function()
         {
             if ($(this).val() === 'Casado(a)') {
@@ -1029,76 +1304,7 @@
             }
         });
 
-//         let signaturePad;
-// document.addEventListener('DOMContentLoaded', function () {
-//     const canvas = document.getElementById('signature-pad');
-//     if (canvas) {
-//         resizeCanvas(); // <-- ¡Primero redimensiona!
 
-//         signaturePad = new SignaturePad(canvas, {
-//             backgroundColor: '#f8f9fa'
-//         });
-
-//         canvas.addEventListener('mouseup', updateFirmaInput);
-//         canvas.addEventListener('touchend', updateFirmaInput);
-
-//         // Vuelve a redimensionar si la pantalla cambia (opcional)
-//         window.addEventListener("resize", function () {
-//             const data = signaturePad.toData();
-//             resizeCanvas();
-//             signaturePad.clear();
-//             signaturePad.fromData(data); // restaura la firma anterior
-//         });
-//     }
-// });
-
-//     function resizeCanvas() {
-//     const canvas = document.getElementById('signature-pad');
-//     const ratio = Math.max(window.devicePixelRatio || 1, 1);
-
-//     // Obtiene las dimensiones actuales en CSS
-//     const width = canvas.offsetWidth;
-//     const height = canvas.offsetHeight;
-
-//     // Establece el tamaño real del canvas en píxeles
-//     canvas.width = width * ratio;
-//     canvas.height = height * ratio;
-
-//     // Escala el contexto para que el dibujo sea proporcional
-//     const ctx = canvas.getContext("2d");
-//     ctx.setTransform(ratio, 0, 0, ratio, 0, 0); // Corregido
-// }
-
-//                                 function clearSignature() {
-//                                     if (signaturePad) {
-//                                         signaturePad.clear();
-//                                         document.getElementById('firmaInput').value = '';
-//                                         document.getElementById('firmaInput').classList.remove('is-valid', 'is-invalid');
-//                                     }
-//                                 }
-
-//                                 function updateFirmaInput() {
-//                                     if (signaturePad && !signaturePad.isEmpty()) {
-//                                         document.getElementById('firmaInput').value = signaturePad.toDataURL();
-//                                         document.getElementById('firmaInput').classList.remove('is-invalid');
-//                                         document.getElementById('firmaInput').classList.add('is-valid');
-//                                     }
-//                                 }
-
-//                                 // Validar firma antes de enviar
-//                                 document.getElementById('postulacionForm').addEventListener('submit', function(e) {
-//                                     const firmaInput = document.getElementById('firmaInput');
-//                                     if (signaturePad && signaturePad.isEmpty()) {
-//                                         firmaInput.classList.add('is-invalid');
-//                                         alert('Por favor firme antes de enviar la postulación.');
-//                                         e.preventDefault();
-//                                         return false;
-//                                     } else if (signaturePad && !signaturePad.isEmpty()) {
-//                                         firmaInput.value = signaturePad.toDataURL();
-//                                         firmaInput.classList.remove('is-invalid');
-//                                         firmaInput.classList.add('is-valid');
-//                                     }
-//                                 });
 
         let currentSection = 1;
         let vacanteSeleccionadaId = null;
@@ -1286,6 +1492,53 @@
                     return; // Los checkboxes no son requeridos individualmente
                 }
                 
+                if (field.name === 'firma_digital') {
+                    // Validación especial para la firma digital
+                    console.log('=== VALIDACIÓN FIRMA DIGITAL ===');
+                    console.log('Field value length:', field.value ? field.value.length : 0);
+                    console.log('SignaturePad exists:', !!signaturePad);
+                    console.log('SignaturePad isEmpty:', signaturePad ? signaturePad.isEmpty() : 'N/A');
+                    
+                    // Si el SignaturePad no está vacío pero el field sí, intentar actualizar
+                    if (signaturePad && !signaturePad.isEmpty() && (!field.value || field.value.length < 100)) {
+                        console.log('Intentando recuperar firma del canvas...');
+                        try {
+                            const dataURL = signaturePad.toDataURL('image/png');
+                            field.value = dataURL;
+                            console.log('Firma recuperada, nueva longitud:', field.value.length);
+                        } catch (error) {
+                            console.error('Error al recuperar firma:', error);
+                        }
+                    }
+                    
+                    // Validar después de la posible recuperación
+                    const isValidSignature = field.value && 
+                                           field.value.length > 100 && 
+                                           field.value.startsWith('data:image/png;base64,') &&
+                                           signaturePad && 
+                                           !signaturePad.isEmpty();
+                    
+                    if (!isValidSignature) {
+                        const canvas = document.getElementById('signatureCanvas');
+                        canvas.classList.add('is-invalid');
+                        document.getElementById('firmaError').style.display = 'block';
+                        console.log('Firma inválida - Razones:');
+                        console.log('- Field value exists:', !!field.value);
+                        console.log('- Field value length > 100:', field.value && field.value.length > 100);
+                        console.log('- Starts with PNG header:', field.value && field.value.startsWith('data:image/png;base64,'));
+                        console.log('- SignaturePad not empty:', signaturePad && !signaturePad.isEmpty());
+                        isValid = false;
+                    } else {
+                        const canvas = document.getElementById('signatureCanvas');
+                        canvas.classList.remove('is-invalid');
+                        canvas.classList.add('is-valid');
+                        document.getElementById('firmaError').style.display = 'none';
+                        console.log('Firma válida ✓');
+                    }
+                    console.log('=== FIN VALIDACIÓN FIRMA ===');
+                    return;
+                }
+                
                 if (!field.value || !field.value.trim()) {
                     field.classList.add('is-invalid');
                     isValid = false;
@@ -1293,6 +1546,50 @@
                     field.classList.add('is-valid');
                 }
             });
+            
+            // Validación adicional para firma digital si estamos en la sección 4
+            if (currentSection === 4) {
+                const firmaInput = document.getElementById('firmaDigitalInput');
+                
+                console.log('=== VALIDACIÓN ADICIONAL SECCIÓN 4 ===');
+                console.log('- signaturePad existe:', !!signaturePad);
+                console.log('- signaturePad.isEmpty():', signaturePad ? signaturePad.isEmpty() : 'N/A');
+                console.log('- firmaInput exists:', !!firmaInput);
+                console.log('- firmaInput.value length:', firmaInput ? firmaInput.value.length : 'N/A');
+                
+                // Intentar recuperar la firma si es necesario
+                if (signaturePad && !signaturePad.isEmpty() && firmaInput && (!firmaInput.value || firmaInput.value.length < 100)) {
+                    console.log('Intentando recuperar firma en validación adicional...');
+                    try {
+                        const dataURL = signaturePad.toDataURL('image/png');
+                        firmaInput.value = dataURL;
+                        console.log('Firma recuperada en validación adicional, longitud:', firmaInput.value.length);
+                    } catch (error) {
+                        console.error('Error al recuperar firma en validación adicional:', error);
+                    }
+                }
+                
+                // Validar después de la posible recuperación
+                const hasValidSignature = signaturePad && 
+                                        !signaturePad.isEmpty() && 
+                                        firmaInput && 
+                                        firmaInput.value && 
+                                        firmaInput.value.length > 100 &&
+                                        firmaInput.value.startsWith('data:image/png;base64,');
+                
+                if (!hasValidSignature) {
+                    const canvas = document.getElementById('signatureCanvas');
+                    canvas.classList.add('is-invalid');
+                    document.getElementById('firmaError').style.display = 'block';
+                    console.log('Error en validación adicional - Detalles:');
+                    console.log('- SignaturePad not empty:', signaturePad && !signaturePad.isEmpty());
+                    console.log('- Input has value:', firmaInput && !!firmaInput.value);
+                    console.log('- Value length > 100:', firmaInput && firmaInput.value && firmaInput.value.length > 100);
+                    console.log('- Valid PNG header:', firmaInput && firmaInput.value && firmaInput.value.startsWith('data:image/png;base64,'));
+                    isValid = false;
+                }
+                console.log('=== FIN VALIDACIÓN ADICIONAL ===');
+            }
             
             if (!isValid) {
                 alert('Por favor complete todos los campos requeridos antes de continuar.');
@@ -1308,6 +1605,24 @@
         
         // Validación en tiempo real - ACTUALIZADO CON NUEVOS NOMBRES
         document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar Signature Pad
+            setTimeout(function() {
+                initializeSignaturePad();
+            }, 500); // Delay para asegurar que todos los elementos estén disponibles
+            
+            // Listener para cambios en la firma
+            document.addEventListener('signatureChange', function(event) {
+                console.log('Evento signatureChange recibido:', event.detail);
+                const firmaInput = document.getElementById('firmaDigitalInput');
+                if (firmaInput && event.detail.signed && event.detail.dataURL) {
+                    // Asegurar que el input tenga el valor correcto
+                    if (firmaInput.value !== event.detail.dataURL) {
+                        firmaInput.value = event.detail.dataURL;
+                        console.log('Input actualizado via evento, longitud:', firmaInput.value.length);
+                    }
+                }
+            });
+            
             // Calcular edad automáticamente - ACTUALIZADO
             const fechaNacimiento = document.querySelector('input[name="s_1_pregunta_4"]'); // Fecha de nacimiento
             const edad = document.querySelector('input[name="s_1_pregunta_5"]'); // Edad
@@ -1485,10 +1800,17 @@
             }
             
             // Debug: Mostrar datos que se envían
+            console.log('=== DEBUG FORMULARIO ===');
             console.log('Datos del formulario que se envían:');
             for (let pair of formData.entries()) {
-                console.log(pair[0] + ': ' + pair[1]);
+                if (pair[0] === 'firma_digital') {
+                    console.log(pair[0] + ': [BASE64 DATA - Length: ' + pair[1].length + ']');
+                    console.log('Primeros 100 caracteres:', pair[1].substring(0, 100));
+                } else {
+                    console.log(pair[0] + ': ' + pair[1]);
+                }
             }
+            console.log('========================');
             
             // Enviar formulario
             fetch('../../../api/recursos_humanos_api.php', {

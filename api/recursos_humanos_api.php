@@ -196,19 +196,24 @@ if (isset($_POST['empresa']) && is_array($_POST['empresa'])) {
 // URLs de archivos (se generarán en el case)
 $url_cv = null;
 $url_curp = null;
+$firma_digital = isset($_POST['firma_digital']) ? $_POST['firma_digital'] : null; // Firma como base64
 $estado_postulacion = isset($_POST['estado_postulacion']) ? trim($_POST['estado_postulacion']) : 'nueva';
 
+# Cambiar estado de postulante
+$nuevo_estado = isset($_POST['nuevo_estado']) ? trim($_POST['nuevo_estado']) : null;
+$motivo_cambio = isset($_POST['motivo_cambio']) ? trim($_POST['motivo_cambio']) : 'Cambio de estado desde gestión de postulantes';
+
 // Variables de compatibilidad para evitar errores en código existente
-$pregunta_1 = $porque_interesa_vacante;
-$pregunta_2 = $vida_en_5_anos;
-$pregunta_3 = '';
-$pregunta_4 = '';
-$pregunta_5 = '';
-$pregunta_6 = '';
-$pregunta_7 = '';
-$pregunta_8 = '';
-$pregunta_9 = '';
-$pregunta_10 = '';
+// $pregunta_1 = $porque_interesa_vacante;
+// $pregunta_2 = $vida_en_5_anos;
+// $pregunta_3 = '';
+// $pregunta_4 = '';
+// $pregunta_5 = '';
+// $pregunta_6 = '';
+// $pregunta_7 = '';
+// $pregunta_8 = '';
+// $pregunta_9 = '';
+// $pregunta_10 = '';
 
 switch ($api) {
     case 1:
@@ -671,6 +676,50 @@ switch ($api) {
                 }
             }
             
+            // Procesar firma digital (requerida)
+            $firma_blob = null;
+            if (!empty($firma_digital)) {
+                // Verificar que sea una imagen base64 válida
+                if (strpos($firma_digital, 'data:image/') === 0) {
+                    // Extraer solo los datos base64 (remover el prefijo data:image/png;base64,)
+                    $base64_data = explode(',', $firma_digital);
+                    if (count($base64_data) == 2) {
+                        $firma_blob = base64_decode($base64_data[1]);
+                        
+                        // Verificar que la decodificación fue exitosa
+                        if ($firma_blob === false) {
+                            $response = [
+                                'code' => 0,
+                                'message' => 'Error: Firma digital no válida - Error en decodificación base64',
+                                'data' => null
+                            ];
+                            break;
+                        }
+                    } else {
+                        $response = [
+                            'code' => 0,
+                            'message' => 'Error: Formato de firma digital no válido',
+                            'data' => null
+                        ];
+                        break;
+                    }
+                } else {
+                    $response = [
+                        'code' => 0,
+                        'message' => 'Error: La firma digital debe ser una imagen en formato base64',
+                        'data' => null
+                    ];
+                    break;
+                }
+            } else {
+                $response = [
+                    'code' => 0,
+                    'message' => 'Error: La firma digital es obligatoria',
+                    'data' => null
+                ];
+                break;
+            }
+            
             // Llamar al stored procedure con todos los nuevos campos
             $response = $master->insertByProcedure("sp_rh_gestion_postulaciones_g", [
                 $id_postulacion,            // NULL para nuevo registro
@@ -718,6 +767,7 @@ switch ($api) {
                 // Archivos
                 $url_cv,
                 $url_curp,
+                $firma_blob,                // Nuevo: Firma digital como BLOB
                 $estado_postulacion
             ]);
             
@@ -801,7 +851,37 @@ switch ($api) {
                 $id_publicacion
             ]);
         }
-        break;
+    break;
+    case 32:
+        # Obtener firma digital del postulante
+        if ($id_postulacion === null) {
+            $response = [
+                'code' => 0,
+                'message' => 'Error: ID de postulación es obligatorio',
+                'data' => null
+            ];
+        } else {
+            $response = $master->getByProcedure("sp_rh_postulantes_firmas_b", [
+                $id_postulacion
+            ]);
+        }
+    break;
+    case 33:
+    if ($id_postulacion === null || $nuevo_estado === null) {
+        $response = [
+            'code' => 0,
+            'message' => 'Error: ID de postulación y nuevo estado son obligatorios',
+            'data' => null
+        ];
+    } else {
+        $response = $master->insertByProcedure("sp_rh_gestion_postulaciones_cambiar_estado", [
+            $id_postulacion,
+            $nuevo_estado,
+            $motivo_cambio,
+            $_SESSION['id']  // ID del usuario actual
+        ]);
+    }
+    break;
     default:
         # default
         $response = "API no definida";

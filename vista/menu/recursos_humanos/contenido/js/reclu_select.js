@@ -608,6 +608,43 @@ $(document).on('click', '#btnVerPostulantes', function() {
     cargarPostulantesPublicacion(idPublicacion);
 });
 
+// Event listener para cambio de estado desde dropdown
+$(document).on('click', '.btn-cambiar-estado-dropdown', function(e) {
+    e.preventDefault();
+    
+    const idPostulacion = $(this).data('id-postulacion');
+    const nuevoEstado = $(this).data('nuevo-estado');
+    const nombreEstado = $(this).text().trim();
+    
+    console.log('🔄 Cambiando estado del postulante:', idPostulacion, 'a:', nuevoEstado);
+    
+    // Confirmación con SweetAlert
+    Swal.fire({
+        title: '¿Confirmar cambio de estado?',
+        html: `¿Estás seguro de cambiar el estado del postulante a <strong>${nombreEstado}</strong>?`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: getColorByEstado(nuevoEstado),
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Sí, cambiar',
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Mostrar loading inmediatamente
+            Swal.fire({
+                title: 'Actualizando estado...',
+                html: '<div class="spinner-border text-primary" role="status"><span class="visually-hidden">Cargando...</span></div>',
+                showConfirmButton: false,
+                allowOutsideClick: false
+            });
+            
+            cambiarEstadoPostulante(idPostulacion, nuevoEstado);
+        }
+    });
+});
+
+
 // Función para publicar vacante con parámetros personalizados (SIMPLIFICADA)
 function publicarVacanteConParametros(formData) {
     const idRequisicion = formData.id_requisicion;
@@ -1032,9 +1069,23 @@ function mostrarDetallePostulante(postulante) {
         <div class="detalle-section">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h6><i class="fas fa-user me-2"></i>Información Personal</h6>
-                <span class="badge estado-${postulante.estado_postulacion} fs-6">
-                    ${formatearEstadoPostulacion(postulante.estado_postulacion)}
-                </span>
+                <div class="d-flex align-items-center">
+                    <span class="badge estado-${postulante.estado_postulacion} fs-6 me-2">
+                        ${formatearEstadoPostulacion(postulante.estado_postulacion)}
+                    </span>
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-cog"></i> Acciones
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><h6 class="dropdown-header">Cambiar Estado</h6></li>
+                            ${postulante.estado_postulacion !== 'entrevista' ? '<li><a class="dropdown-item btn-cambiar-estado-dropdown" href="#" data-id-postulacion="' + postulante.id_postulacion + '" data-nuevo-estado="entrevista"><i class="fas fa-eye me-2 text-warning"></i>Entrevista</a></li>' : ''}
+                            ${postulante.estado_postulacion !== 'preseleccionado' ? '<li><a class="dropdown-item btn-cambiar-estado-dropdown" href="#" data-id-postulacion="' + postulante.id_postulacion + '" data-nuevo-estado="preseleccionado"><i class="fas fa-star me-2 text-secondary"></i>Preseleccionado</a></li>' : ''}
+                            ${postulante.estado_postulacion !== 'rechazado' ? '<li><a class="dropdown-item btn-cambiar-estado-dropdown" href="#" data-id-postulacion="' + postulante.id_postulacion + '" data-nuevo-estado="rechazado"><i class="fas fa-times-circle me-2 text-danger"></i>Rechazado</a></li>' : ''}
+                            ${postulante.estado_postulacion !== 'aprobado' ? '<li><a class="dropdown-item btn-cambiar-estado-dropdown" href="#" data-id-postulacion="' + postulante.id_postulacion + '" data-nuevo-estado="aprobado"><i class="fas fa-check-circle me-2 text-success"></i>Aprobado</a></li>' : ''}
+                        </ul>
+                    </div>
+                </div>
             </div>
             
             <!-- DATOS GENERALES - SECCIÓN 1 -->
@@ -1361,6 +1412,12 @@ function mostrarDetallePostulante(postulante) {
                         <i class="fas fa-file-pdf me-1"></i>Ver CURP
                     </button>
                 ` : '<span class="text-muted small">Sin CURP</span>'}
+                
+                ${postulante.tiene_firma_digital == 1 ? `
+                    <button class="btn btn-gradient-primary" onclick="verFirmaDigital(${postulante.id_postulacion}, '${postulante.NOMBRE_POSTULANTE || postulante.nombre_completo}')">
+                        <i class="fas fa-signature me-1"></i>Ver Firma Digital
+                    </button>
+                ` : ''}
             </div>
         </div>
         
@@ -1377,6 +1434,90 @@ function mostrarDetallePostulante(postulante) {
     $('#detallePostulante').html(htmlDetalle);
 }
 
+
+// Función para cambiar estado del postulante
+function cambiarEstadoPostulante(idPostulacion, nuevoEstado) {
+    console.log('📤 Enviando cambio de estado:', { idPostulacion, nuevoEstado });
+
+    // Mostrar loading
+    Swal.fire({
+        title: 'Actualizando estado...',
+        html: '<div class="spinner-border text-primary" role="status"><span class="visually-hidden">Cargando...</span></div>',
+        showConfirmButton: false,
+        allowOutsideClick: false
+    });
+
+    $.ajax({
+        url: '../../../api/recursos_humanos_api.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            api: 33, // Nuevo API para cambiar estado de postulante
+            id_postulacion: idPostulacion,
+            nuevo_estado: nuevoEstado
+        },
+        success: function(response) {
+            console.log('📋 Respuesta del servidor (cambio estado):', response);
+
+            // Verificar si el cambio fue exitoso (code 1 o 2)
+            let code = response.response ? response.response.code : response.code;
+            if (code === 1 || code === 2) {
+                const estadoFormateado = formatearEstadoPostulacion(nuevoEstado);
+
+                Swal.fire({
+                    title: '¡Estado actualizado!',
+                    text: `El postulante ahora está en estado: ${estadoFormateado}`,
+                    icon: 'success',
+                    confirmButtonText: 'Entendido',
+                    timer: 3000,
+                    timerProgressBar: true
+                });
+
+                // Recargar la lista de postulantes para reflejar el cambio
+                const idPublicacion = dataTableGestionPostulantes.id_publicacion;
+                if (idPublicacion) {
+                    cargarPostulantesPublicacion(idPublicacion);
+                } else {
+                    console.warn('No se pudo obtener el ID de publicación para recargar');
+                }
+
+            } else {
+                console.error('Error en la respuesta:', response);
+                Swal.fire({
+                    title: 'Error',
+                    text: response.message || 'No se pudo actualizar el estado del postulante',
+                    icon: 'error',
+                    confirmButtonText: 'Cerrar'
+                });
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error('Error AJAX al cambiar estado:', textStatus, errorThrown);
+            console.error('Respuesta del servidor:', jqXHR.responseText);
+
+            Swal.fire({
+                title: 'Error de conexión',
+                text: 'No se pudo conectar con el servidor para actualizar el estado',
+                icon: 'error',
+                confirmButtonText: 'Cerrar'
+            });
+        }
+    });
+}
+
+
+// Función auxiliar para obtener color por estado
+function getColorByEstado(estado) {
+    const colores = {
+        'nueva': '#6c757d',
+        'preseleccionado': '#0d6efd',
+        'entrevista': '#fd7e14',
+        'rechazado': '#dc3545',
+        'aprobado': '#198754'
+    };
+    return colores[estado] || '#0d6efd';
+}
+
 // Funciones auxiliares
 function obtenerIniciales(nombreCompleto) {
     if (!nombreCompleto) return '??';
@@ -1390,11 +1531,10 @@ function obtenerIniciales(nombreCompleto) {
 function formatearEstadoPostulacion(estado) {
     const estados = {
         'nueva': 'Nueva',
-        'en_revision': 'En Revisión',
         'preseleccionado': 'Preseleccionado',
         'entrevista': 'Para Entrevista',
         'rechazado': 'Rechazado',
-        'contratado': 'Contratado'
+        'aprobado': 'Aprobado'
     };
     return estados[estado] || estado;
 }
@@ -1429,6 +1569,225 @@ function verArchivo(rutaArchivo, titulo) {
     }
     
     $('#vistaPreviewModal').modal('show');
+}
+
+// Función para ver la firma digital del postulante
+function verFirmaDigital(idPostulacion, nombrePostulante) {
+    if (!idPostulacion) {
+        alertToast('ID de postulación no válido', 'error', 3000);
+        return;
+    }
+    
+    console.log('🖋️ Obteniendo firma digital para postulación:', idPostulacion);
+    
+    // Mostrar loading
+    Swal.fire({
+        title: 'Cargando firma digital...',
+        html: '<div class="spinner-border text-primary" role="status"><span class="visually-hidden">Cargando...</span></div>',
+        showConfirmButton: false,
+        allowOutsideClick: false
+    });
+    
+    $.ajax({
+        url: '../../../api/recursos_humanos_api.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            api: 32,
+            id_postulacion: idPostulacion
+        },
+        success: function(response) {
+            console.log('📋 Respuesta del servidor (firma digital):', response);
+            
+            // Verificar si la respuesta fue exitosa
+            let code = response.response ? response.response.code : response.code;
+            let data = response.response ? response.response.data : response.data;
+            
+            if (code === 1 && data && data.length > 0) {
+                const firmaData = data[0];
+                
+                // Convertir tiene_firma a número para comparación (puede venir como string)
+                const tieneFirma = parseInt(firmaData.tiene_firma) || 0;
+                
+                console.log('🔍 Datos de firma recibidos:', {
+                    tiene_firma: firmaData.tiene_firma,
+                    tieneFirma: tieneFirma,
+                    firma_digital_length: firmaData.firma_digital ? firmaData.firma_digital.length : 0
+                });
+                
+                if (firmaData.firma_digital && tieneFirma === 1) {
+                    // La firma viene en formato base64 desde la base de datos
+                    let firmaBase64 = firmaData.firma_digital;
+                    
+                    // Limpiar la cadena base64 (remover espacios y saltos de línea)
+                    firmaBase64 = firmaBase64.replace(/\s/g, '');
+                    
+                    let imagenBase64;
+                    
+                    // Verificar si ya tiene el prefijo data:image
+                    if (firmaBase64.startsWith('data:image/')) {
+                        imagenBase64 = firmaBase64;
+                    } else {
+                        // Si no tiene el prefijo, agregarlo (asumiendo PNG por defecto)
+                        imagenBase64 = `data:image/png;base64,${firmaBase64}`;
+                    }
+                    
+                    // Mostrar modal con la firma
+                    Swal.fire({
+                        title: `Firma Digital`,
+                        html: `
+                            <div class="text-center">
+                                <div class="mb-3 firma-protegida">
+                                    <img src="${imagenBase64}" 
+                                         alt="Firma Digital" 
+                                         class="img-fluid border rounded shadow-sm firma-no-seleccionable" 
+                                         style="max-width: 100%; max-height: 300px; background-color: #f8f9fa; 
+                                                user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;
+                                                pointer-events: none; -webkit-touch-callout: none; -webkit-user-drag: none;
+                                                -khtml-user-drag: none; -moz-user-drag: none; -o-user-drag: none; user-drag: none;
+                                                -webkit-user-modify: none; -moz-user-modify: none;"
+                                         draggable="false"
+                                         oncontextmenu="return false;"
+                                         onselectstart="return false;"
+                                         ondragstart="return false;"
+                                         onmousedown="return false;">
+                                </div>
+                                <div class="text-muted small">
+                                    <p><strong>Postulante:</strong> ${firmaData.nombre_completo}</p>
+                                    <p><strong>Fecha de postulación:</strong> ${formatearFechaCompleta(firmaData.fecha_postulacion)}</p>
+                                    <p><strong>Tamaño de firma:</strong> ${Math.round(parseInt(firmaData.tamaño_firma_bytes) / 1024)} KB</p>
+                                    <p class="text-warning small mt-2"><i class="fas fa-shield-alt me-1"></i>Documento protegido - No copiable</p>
+                                </div>
+                            </div>
+                        `,
+                        width: '600px',
+                        showConfirmButton: true,
+                        confirmButtonText: 'Cerrar',
+                        confirmButtonColor: '#0d6efd',
+                        showCancelButton: false,
+                        cancelButtonText: '',
+                        cancelButtonColor: '#28a745',
+                        reverseButtons: true,
+                        customClass: {
+                            htmlContainer: 'firma-protegida-modal'
+                        },
+                        didOpen: () => {
+                            // Agregar estilos CSS adicionales de protección
+                            const style = document.createElement('style');
+                            style.textContent = `
+                                .firma-protegida-modal {
+                                    user-select: none !important;
+                                    -webkit-user-select: none !important;
+                                    -moz-user-select: none !important;
+                                    -ms-user-select: none !important;
+                                }
+                                .firma-no-seleccionable {
+                                    -webkit-user-select: none !important;
+                                    -moz-user-select: none !important;
+                                    -ms-user-select: none !important;
+                                    user-select: none !important;
+                                    -webkit-user-drag: none !important;
+                                    -khtml-user-drag: none !important;
+                                    -moz-user-drag: none !important;
+                                    -o-user-drag: none !important;
+                                    user-drag: none !important;
+                                    pointer-events: none !important;
+                                }
+                                .firma-protegida {
+                                    position: relative;
+                                }
+                                .firma-protegida::before {
+                                    content: '';
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    right: 0;
+                                    bottom: 0;
+                                    background: transparent;
+                                    z-index: 1;
+                                    pointer-events: none;
+                                }
+                            `;
+                            document.head.appendChild(style);
+                            
+                            // Deshabilitar F12, Ctrl+Shift+I, Ctrl+U, etc. temporalmente
+                            const disableDevTools = (e) => {
+                                if (e.key === 'F12' || 
+                                    (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+                                    (e.ctrlKey && e.shiftKey && e.key === 'C') ||
+                                    (e.ctrlKey && e.key === 'u') ||
+                                    (e.ctrlKey && e.key === 's') ||
+                                    (e.ctrlKey && e.key === 'p')) {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    return false;
+                                }
+                            };
+                            
+                            // Deshabilitar clic derecho en toda la modal
+                            const disableRightClick = (e) => {
+                                e.preventDefault();
+                                return false;
+                            };
+                            
+                            document.addEventListener('keydown', disableDevTools);
+                            document.addEventListener('contextmenu', disableRightClick);
+                            
+                            // Limpiar event listeners cuando se cierre el modal
+                            const modal = document.querySelector('.swal2-container');
+                            if (modal) {
+                                modal.addEventListener('DOMNodeRemoved', () => {
+                                    document.removeEventListener('keydown', disableDevTools);
+                                    document.removeEventListener('contextmenu', disableRightClick);
+                                    if (style.parentNode) {
+                                        style.parentNode.removeChild(style);
+                                    }
+                                });
+                            }
+                        },
+                        willClose: () => {
+                            // Limpiar protecciones al cerrar
+                            const styles = document.querySelectorAll('style');
+                            styles.forEach(style => {
+                                if (style.textContent.includes('firma-no-seleccionable')) {
+                                    style.remove();
+                                }
+                            });
+                        }
+                    }).then((result) => {
+                        if (result.dismiss === Swal.DismissReason.cancel) {
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Sin firma digital',
+                        text: 'Este postulante no tiene una firma digital registrada',
+                        icon: 'info',
+                        confirmButtonText: 'Entendido'
+                    });
+                }
+            } else {
+                console.error('Error en la respuesta o datos no encontrados:', response);
+                Swal.fire({
+                    title: 'Error',
+                    text: response.message || 'No se pudo obtener la firma digital del postulante',
+                    icon: 'error',
+                    confirmButtonText: 'Cerrar'
+                });
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error('Error AJAX al obtener firma:', textStatus, errorThrown);
+            console.error('Respuesta del servidor:', jqXHR.responseText);
+            
+            Swal.fire({
+                title: 'Error de conexión',
+                text: 'No se pudo conectar con el servidor para obtener la firma digital',
+                icon: 'error',
+                confirmButtonText: 'Cerrar'
+            });
+        }
+    });
 }
 
 // Función para formatear el historial laboral
@@ -1466,29 +1825,6 @@ function formatearHistorialLaboral(historialJson) {
     }
 }
 
-function cambiarEstadoPostulante(idPostulacion, nuevoEstado) {
-    // Placeholder para cambiar estado del postulante
-    console.log('Cambiar estado del postulante ' + idPostulacion + ' a ' + nuevoEstado);
-    alertToast('Función pendiente: Cambiar estado a ' + formatearEstadoPostulacion(nuevoEstado), 'info', 3000);
-}
-
-function llenarModalGestionPostulantes(postulacionData) {
-    if (!postulacionData) {
-        console.error('No se proporcionaron datos de postulación');
-        return false;
-    }
-    
-    console.log('Datos de postulante para gestión:', postulacionData);
-    
-    try{
-    $('#nombrePostulante').text(postulacionData.nombre || 'Sin nombre');
-    $('#correoPostulante').text(postulacionData.correo || 'Sin correo');
-    $('#telefonoPostulante').text(postulacionData.telefono || 'Sin teléfono');
-    }  catch (error) {
-        console.error('Error al llenar modal de detalles:', error);
-        return false;
-    }
-}
 
 // Función para formatear padecimientos como lista en 2 columnas
 function formatearPadecimientos(padecimientos) {

@@ -1,5 +1,5 @@
 <!-- Modal de Gestión de Postulantes -->
-<div class="modal fade" id="gestionPostulantesModal" tabindex="-1" aria-labelledby="gestionPostulantesLabel" aria-hidden="true">
+<div class="modal fade" id="gestionPostulantesModal" tabindex="-1" aria-labelledby="gestionPostulantesLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content shadow-lg border-0">
       <div class="modal-header bg-gradient-primary text-white border-0">
@@ -8,7 +8,7 @@
         </h5>
         <div class="d-flex align-items-center me-3">
           <span class="badge bg-light text-dark me-1" id="contadorPostulantes">1</span>
-          <span class="text-white-50" id="tituloVacantePostulantes">Vacante: Example Vacancy</span>
+          <span class="text-white-50" id="tituloVacantePostulantes">Aún sin postulantes</span>
         </div>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -27,13 +27,12 @@
                     <i class="fas fa-filter"></i>
                   </button>
                   <ul class="dropdown-menu">
-                    <li><a class="dropdown-item filtro-estado" href="#" data-estado="todos">Todos</a></li>
+                    <li><a class="dropdown-item filtro-estado active" href="#" data-estado="todos">Todos</a></li>
                     <li><a class="dropdown-item filtro-estado" href="#" data-estado="nueva">Nuevas</a></li>
-                    <li><a class="dropdown-item filtro-estado" href="#" data-estado="en_revision">En Revisión</a></li>
+                    <li><a class="dropdown-item filtro-estado" href="#" data-estado="entrevista">En Entrevista</a></li>
                     <li><a class="dropdown-item filtro-estado" href="#" data-estado="preseleccionado">Preseleccionados</a></li>
-                    <li><a class="dropdown-item filtro-estado" href="#" data-estado="entrevista">Para Entrevista</a></li>
                     <li><a class="dropdown-item filtro-estado" href="#" data-estado="rechazado">Rechazados</a></li>
-                    <li><a class="dropdown-item filtro-estado" href="#" data-estado="contratado">Contratados</a></li>
+                    <li><a class="dropdown-item filtro-estado" href="#" data-estado="aprobado">Aprobados</a></li>
                   </ul>
                 </div>
               </div>
@@ -89,11 +88,11 @@
 <div class="modal fade" id="vistaPreviewModal" tabindex="-1" aria-labelledby="vistaPreviewLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <div class="modal-header bg-gradient-info text-white">
+      <div class="modal-header bg-gradient-secondary-dark text-dark">
         <h5 class="modal-title" id="vistaPreviewLabel">
           <i class="fas fa-file me-2"></i>Vista Previa de Archivo
         </h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body text-center p-4">
         <div id="previewContent">
@@ -102,9 +101,9 @@
           </div>
         </div>
       </div>
-      <div class="modal-footer bg-gradient-info">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <a href="#" class="btn btn-primary" id="btnDescargarArchivo" target="_blank">
+      <div class="modal-footer bg-gradient-secondary-dark">
+        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cerrar</button>
+        <a href="#" class="btn btn-dark" id="btnDescargarArchivo" target="_blank">
           <i class="fas fa-download me-2"></i>Ir a descarga
         </a>
       </div>
@@ -171,7 +170,7 @@
 .estado-preseleccionado { background-color: #e8f5e8; color: #388e3c; }
 .estado-entrevista { background-color: #f3e5f5; color: #7b1fa2; }
 .estado-rechazado { background-color: #ffebee; color: #d32f2f; }
-.estado-contratado { background-color: #e0f2f1; color: #00796b; }
+.estado-aprobado { background-color: #e0f2f1; color: #00796b; }
 
 /* Sección de detalles */
 .detalle-section {
