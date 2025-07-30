@@ -80,26 +80,25 @@ $(document).on('click', '.btn-modal-maquila-confirm', function (event) {
             SERVICIO_ID: selectServicioMaquilaId,
             LISTA_ESTUDIOS: estudiosMarcados
         }, 'laboratorio_solicitud_maquila_api', {callbackAfter: true}, false, async function () {
-            alertToast('Se registro la maquila exiotsamente.', 'success', 4000);
-            $('#modalMaquilaEstudios').modal('hide');
-            listaEstudiosDelServicio = [];
+             alertToast('Se registro la maquila exiotsamente.', 'success', 4000);
+             $('#modalMaquilaEstudios').modal('hide');
 
-            //Generar notificacion
-            ajaxAwait({
-                api: 3,
-                viculo: `${current_url}/vista/menu/maquilas/`,
-                mensaje: 'Solicitud de aprobación de maquilación generada por ' + session.nombre,
-                lab_maquila_id: laboratorio_id,
-                turno_id: selectListaLab.ID_TURNO,
-                servicio_id: selectServicioMaquilaId,
-                cargos_id: '16,2,20'
-            }, 'notificaciones_api', {callbackAfter: true}, false, function () {
-                alertToast('Solicitud de aprobación enviada', 'success', 4000);
-            }).finally(() => {
-                tableEstudiosPendientes.ajax.reload();
-            });
+             //Generar notificacion
+             ajaxAwait({
+                 api: 3,
+                 viculo: `${current_url}/vista/menu/maquilas/`,
+                 mensaje: 'Solicitud de aprobación de maquilación generada por ' + session.nombre,
+                 lab_maquila_id: laboratorio_id,
+                 turno_id: selectListaLab.ID_TURNO,
+                 servicio_id: selectServicioMaquilaId,
+                 cargos_id: '16,2,20'
+             }, 'notificaciones_api', {callbackAfter: true}, false, function () {
+                 alertToast('Solicitud de aprobación enviada', 'success', 4000);
+             }).finally(() => {
+                 tableEstudiosPendientes.ajax.reload();
+             });
 
-            await obtenerBadgePendientesLabClinico();
+             await obtenerBadgePendientesLabClinico();
         });
     }, 1, function () {}, () => {});
 });
@@ -153,6 +152,7 @@ $("#btn_confirm_alias").on("click", function () {
             }, 'laboratorio_solicitud_maquila_api', {callbackAfter: true}, false, () => {
                 alertMensaje('info', '¡Alias Registrado!', 'El alias se ha registrado con exito.');
                 actualizarListaCheckboxEstudio();
+
                 $('#modalAsociarEstudio').modal('hide');
             });
         }, 1);
@@ -171,6 +171,14 @@ $("#checkFullEstudios").on('click', function () {
 
 $('#inputBuscarEstudio').on('input', function () {
     filtrarListaCheckboxEstudio($(this).val());
+});
+
+$('#modalMaquilaEstudios').on('hide.bs.modal', function () {
+    resetMaquilaModal();
+});
+
+$('#modalAsociarEstudio').on('hide.bs.modal', function () {
+    resetAliasModal();
 });
 
 // Muestra los estudios del servicio seleccionado para la selección granular de estudios a maquilar
@@ -275,6 +283,10 @@ function registrarAliasEstudio(estudioId = null) {
     }, () => {
         if (estudioId) {
             $('#servicio_estudio_id').val(estudioId).trigger('change');
+            $('#servicio_estudio_id').prop('disabled', true);
+            $('#asociar_alias_estudio').val(listaEstudiosDelServicio.find(estudio => estudio.ID_ESTUDIO == estudioId).LAB_ESTUDIO_NOMBRE);
+            $('#asociar_clave_estudio').val(listaEstudiosDelServicio.find(estudio => estudio.ID_ESTUDIO == estudioId).LAB_ESTUDIO_CLAVE);
+            $('#asociar_precio_estudio').val(listaEstudiosDelServicio.find(estudio => estudio.ID_ESTUDIO == estudioId).LAB_ALIAS_PRECIO);
         }
 
         $('#modalAsociarEstudio').modal('show');
@@ -282,19 +294,12 @@ function registrarAliasEstudio(estudioId = null) {
 }
 
 function resetMaquilaModal() {
-    $('#modalMaquilaEstudios').modal('hide');
-    $('#body-maquila-estudios-grupos-container').html('');
-    selectServicioMaquilaId = null;
-    selectLaboratorioMaquilaId = null;
-    listaEstudiosDelServicio = [];
-    $('#servicio_estudio_id').val(null).trigger('change');
-    $('#select-laboratorios-maquila').val(null).trigger('change');
-    $('#select-servicios-maquila').val(null).trigger('change');
+    $('#inputBuscarEstudio').val('');
     $('#checkFullEstudios').prop('checked', true);
+    listaEstudiosDelServicio = [];
 }
 
 function resetAliasModal() {
-    $('#modalAsociarEstudio').modal('hide');
     $('#asociar_alias_estudio').val('');
     $('#asociar_clave_estudio').val('');
     $('#asociar_precio_estudio').val('');
