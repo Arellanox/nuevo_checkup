@@ -86,11 +86,6 @@ switch ($api) {
             $id_grupo_servicio, $id_laboratorio_maquila
         ]);
         break;
-    case 8: // Recuperar alias de estudios a maquilar
-        $response = $master->getByProcedure('sp_obtener_aliases_estudio_b', [
-            $id_laboratorio_maquila, $lista_estudios
-        ]);
-        break;
     case 9: // Registrar alias de estudios a maquilar
         $response = $master->insertByProcedure('sp_laboratorio_estudios_maquila_alias_g', [
             $estudio_laboratorio_id, $estudio_servicio_id, $estudio_alias, $estudio_clave, $estudio_precio
