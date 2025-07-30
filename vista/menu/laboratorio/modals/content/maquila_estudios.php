@@ -18,6 +18,19 @@
                 <div id="modal-body-maquila-estudios-grupos">
                     <label class="form-label mt-2">Estudios del Servicio</label>
                     <p style="margin-top: -10px; margin-bottom: 10px; font-weight: normal">Los estudios que esten seleccionados seran enviados para su aprovación</p>
+
+                    <div class="pt-1 pb-3 d-flex justify-content-between align-items-center" >
+                        <div style="flex: 1; margin-right: 20px;">
+                            <label for="inputBuscarEstudio" class="form-label">Buscar estudio:</label>
+                            <input type="text" class="input-form" id="inputBuscarEstudio" placeholder="Buscar estudios" autocomplete="off">
+                        </div>
+                        <div>
+                            <label class="form-check-label" for="checkFullEstudios" data-bs-toggle="tooltip" data-bs-placement="top" title="Haz click para seleccionar todos los estudios" style="user-select: none; cursor: pointer; display: flex; flex-direction: column; align-items: center;">
+                                <input class="form-check-input" type="checkbox" checked id="checkFullEstudios" style="margin-bottom: 4px;">Todos los estudios
+                            </label>
+                        </div>
+                    </div>
+
                     <div id="body-maquila-estudios-grupos-container" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
 
                     </div>

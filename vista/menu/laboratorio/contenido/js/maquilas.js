@@ -128,6 +128,51 @@ $('#select-laboratorios-maquila').on('change', function () {
     actualizarListaCheckboxEstudio();
 });
 
+$("#btn_confirm_alias").on("click", function () {
+    const estudio = $('#servicio_estudio_id option:selected').text();
+    const servicioId = $('#servicio_estudio_id').val();
+    const precio = $('#asociar_precio_estudio').val();
+    const clave = $('#asociar_clave_estudio').val();
+    const alias = $('#asociar_alias_estudio').val();
+    const laboratorio = $('#select-laboratorios-maquila option:selected').text();
+
+    if (servicioId.length > 0 && clave.length > 0 && alias.length > 0) {
+        alertMensajeConfirm({
+            title: '¿Seguro de Registrar/Actualizar?',
+            html: `Se registrará el Alías <strong>${alias}</strong> con la Cláve <strong>${clave}</strong> del Estudío <strong style="color: #007bff;">${estudio}</strong> para el Laboratorio <strong style="color: #007bff;">${laboratorio}</strong>.`,
+            icon: 'warning',
+            confirmButtonText: 'Registrar Alias',
+        }, () => {
+            ajaxAwait({
+                SERVICIO_ESTUDIO_ID: servicioId,
+                NOMBRE_ALIAS_ESTUDIO: alias,
+                CLAVE_ALIAS_ESTUDIO: clave,
+                PRECIO_ALIAS_ESTUDIO: precio,
+                LABORATORIO_MAQUILA_ID: selectLaboratorioMaquilaId,
+                api: 9
+            }, 'laboratorio_solicitud_maquila_api', {callbackAfter: true}, false, () => {
+                alertMensaje('info', '¡Alias Registrado!', 'El alias se ha registrado con exito.');
+                actualizarListaCheckboxEstudio();
+                $('#modalAsociarEstudio').modal('hide');
+            });
+        }, 1);
+    } else {
+        alertToast('Selecciona un estudio, ingresa un alias e ingresa la clave del estudio.', 'warning', 4000);
+    }
+});
+
+$("#checkFullEstudios").on('click', function () {
+    if ($(this).is(':checked')) {
+        $('.input-estudios-check').prop('checked', true);
+    } else {
+        $('.input-estudios-check').prop('checked', false);
+    }
+});
+
+$('#inputBuscarEstudio').on('input', function () {
+    filtrarListaCheckboxEstudio($(this).val());
+});
+
 // Muestra los estudios del servicio seleccionado para la selección granular de estudios a maquilar
 function crearListaCheckboxEstudio() {
     if (listaEstudiosDelServicio.length > 0) {
@@ -156,6 +201,28 @@ function crearListaCheckboxEstudio() {
             <p class="text-center">No se encontraron estudios para maquila.</p>
         `);
     }
+}
+
+function filtrarListaCheckboxEstudio(busqueda) {
+    // Convertimos a minúsculas para hacer el filtro insensible a mayúsculas
+    const texto = busqueda.trim().toLowerCase();
+
+    // Seleccionamos todos los contenedores de los estudios
+    document.querySelectorAll('#body-maquila-estudios-grupos-container .form-check-lista').forEach(div => {
+        // Obtenemos el texto del label (nombre del estudio)
+        const label = div.querySelector('.form-check-label span');
+
+        if (label) {
+            const nombreEstudio = label.textContent.toLowerCase();
+
+            // Mostrar u ocultar según si coincide con la búsqueda
+            if (nombreEstudio.includes(texto)) {
+                div.style.display = ''; // visible
+            } else {
+                div.style.display = 'none'; // oculto
+            }
+        }
+    });
 }
 
 // Obtiene los detalles del estudio seleccionado
@@ -214,35 +281,21 @@ function registrarAliasEstudio(estudioId = null) {
     })
 }
 
-$("#btn_confirm_alias").on("click", function () {
-    const estudio = $('#servicio_estudio_id option:selected').text();
-    const servicioId = $('#servicio_estudio_id').val();
-    const precio = $('#asociar_precio_estudio').val();
-    const clave = $('#asociar_clave_estudio').val();
-    const alias = $('#asociar_alias_estudio').val();
-    const laboratorio = $('#select-laboratorios-maquila option:selected').text();
+function resetMaquilaModal() {
+    $('#modalMaquilaEstudios').modal('hide');
+    $('#body-maquila-estudios-grupos-container').html('');
+    selectServicioMaquilaId = null;
+    selectLaboratorioMaquilaId = null;
+    listaEstudiosDelServicio = [];
+    $('#servicio_estudio_id').val(null).trigger('change');
+    $('#select-laboratorios-maquila').val(null).trigger('change');
+    $('#select-servicios-maquila').val(null).trigger('change');
+    $('#checkFullEstudios').prop('checked', true);
+}
 
-    if (servicioId.length > 0 && clave.length > 0 && alias.length > 0) {
-        alertMensajeConfirm({
-            title: '¿Seguro de Registrar/Actualizar?',
-            html: `Se registrará el Alías <strong>${alias}</strong> con la Cláve <strong>${clave}</strong> del Estudío <strong style="color: #007bff;">${estudio}</strong> para el Laboratorio <strong style="color: #007bff;">${laboratorio}</strong>.`,
-            icon: 'warning',
-            confirmButtonText: 'Registrar Alias',
-        }, () => {
-            ajaxAwait({
-                SERVICIO_ESTUDIO_ID: servicioId,
-                NOMBRE_ALIAS_ESTUDIO: alias,
-                CLAVE_ALIAS_ESTUDIO: clave,
-                PRECIO_ALIAS_ESTUDIO: precio,
-                LABORATORIO_MAQUILA_ID: selectLaboratorioMaquilaId,
-                api: 9
-            }, 'laboratorio_solicitud_maquila_api', {callbackAfter: true}, false, () => {
-                alertMensaje('info', '¡Alias Registrado!', 'El alias se ha registrado con exito.');
-                actualizarListaCheckboxEstudio();
-                $('#modalAsociarEstudio').modal('hide');
-            });
-        }, 1);
-    } else {
-        alertToast('Selecciona un estudio, ingresa un alias e ingresa la clave del estudio.', 'warning', 4000);
-    }
-});
+function resetAliasModal() {
+    $('#modalAsociarEstudio').modal('hide');
+    $('#asociar_alias_estudio').val('');
+    $('#asociar_clave_estudio').val('');
+    $('#asociar_precio_estudio').val('');
+}
