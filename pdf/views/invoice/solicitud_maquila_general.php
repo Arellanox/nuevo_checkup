@@ -54,14 +54,9 @@
                         <td colspan="1"></td>
                     <?php endif; ?>
                     <td colspan="1"></td> <!-- Columna vacía según el formato -->
-                    <td colspan="4"><?= $estudio->NOMBRE_ESTUDIO ?></td> <!-- Nombre del estudio -->
-                    <td colspan="2"><?= $estudio->ABREVIATURA_ESTUDIO ?></td> <!-- Clave del estudio -->
-
-                    <?php if ($index === 0): ?>
-                        <td colspan="3"><?= $paciente['precio_general'] ?></td> <!-- Precio general del paciente -->
-                    <?php else: ?>
-                        <td colspan="3"></td>
-                    <?php endif; ?>
+                    <td colspan="4"><?= $estudio->LAB_ESTUDIO_NOMBRE ?? $estudio->NOMBRE_ESTUDIO ?></td> <!-- Nombre del estudio -->
+                    <td colspan="2"><?= $estudio->LAB_ESTUDIO_CLAVE ?? $estudio->ABREVIATURA_ESTUDIO ?></td> <!-- Clave del estudio -->
+                    <td colspan="3">$<?= number_format($estudio->LAB_ALIAS_PRECIO ?? 0, 2) ?></td>
                 </tr>
             <?php endforeach; ?>
             <?php $numeracion++; ?>

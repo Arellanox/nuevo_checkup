@@ -747,7 +747,7 @@ class Miscelaneus
                         $data_estudios_filtrados = [];
                         $decode_lista_estudios = json_decode($maquila['LISTA_ESTUDIOS'], true);
                         $data_estudios = $master->getByProcedure('sp_obtener_estudios_de_servicio_b', [
-                            $maquila['ID_SERVICIO']
+                            $maquila['ID_SERVICIO'], $maquila['ID_LABORATORIO']
                         ]);
 
                         if (is_array($decode_lista_estudios) and is_array($data_estudios)) {

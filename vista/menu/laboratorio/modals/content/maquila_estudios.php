@@ -11,20 +11,13 @@
             <div class="modal-body">
                 <div id="modal-body-maquila-estudios">
                     <label class="form-label">Laboratorios</label>
+                    <p style="margin-top: -10px; margin-bottom: 10px">Seleccióne el laboratorio para la maquilación con la que quiere trabajar</p>
                     <select id="select-laboratorios-maquila" class="input-form"></select>
                 </div>
 
-                <!--<div class="modal-body-maquila-aliases">
-                    <label class="form-label">Alias del estudio</label>
-                    <br/>
-                    <span>Verifique que los alias sean correctos en caso de que no, elimine el alias y agregue uno nuevo</span>
-                    <select class="form-control input-form" id="select-aliases-estudio" multiple="multiple"></select>
-                </div>-->
-
                 <div id="modal-body-maquila-estudios-grupos">
-                    <label class="form-label">Desmarque los estudios que no desea maquilar</label>
-                    <br/>
-                    <span>Los estudios seleccionados seran maquilados</span>
+                    <label class="form-label mt-2">Estudios del Servicio</label>
+                    <p style="margin-top: -10px; margin-bottom: 10px; font-weight: normal">Los estudios que esten seleccionados seran enviados para su aprovación</p>
                     <div id="body-maquila-estudios-grupos-container" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
 
                     </div>
