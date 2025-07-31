@@ -66,7 +66,7 @@
       </div>
       <form class="" id="formAnalisisLaboratorio">
 
-        <div id="formulario-estudios" class="overflow-auto" style="max-width: 100%; margin-bottom:10px;">
+        <div id="formulario-estudios" style="max-width: 100%; margin-bottom:10px; overflow-y: auto">
           <!-- <p class="mt-3">BIOMETRIA HEMATICA</p> -->
         </div>
       </form>

@@ -3,14 +3,12 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
         url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
         emptyTable: "La selección actual no arroja datos para mostrar.",
     },
-    lengthChange: false,
-    info: true,
     paging: true,
     lengthMenu: [
         [20, 35, 50, 100, -1],
         [20, 35, 50, 100, "All"]
     ],
-    scrollY: '61vh',
+    scrollY: '65vh',
     scrollCollapse: true,
     ajax: {
         dataType: 'json',
@@ -88,22 +86,7 @@ function parseDataTable(data) {
 
 inputBusquedaTable('tablaPrincipal', tablaPrincipal, [
     {
-        msj: 'Puedes organizar el contenido con los encabezados de la tabla.',
-        place: 'top'
+        msj: 'Filtra la tabla con palabras u oraciones que coincidan en el campo de busqueda',
+        place: 'left'
     },
-    {
-        msj: 'El campo de busqueda filtra sus coincidencias.',
-        place: 'top'
-    },
-], {}, 'col-12')
-
-// Agregar un evento clic a las filas de grupo
-$('#tablaPrincipal tbody').on('click', '.background-group', function () {
-    // $(this).toggleClass('group-hidden');
-    var rows = tablaPrincipal.rows($(this).nextUntil('.background-group'));
-    if (rows.nodes().to$().hasClass('d-none')) {
-        rows.nodes().to$().removeClass('d-none');
-    } else {
-        rows.nodes().to$().addClass('d-none');
-    }
-});
+])

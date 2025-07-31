@@ -6,11 +6,10 @@ var rangoFechas = [new Date().toISOString().split('T')[0],new Date().toISOString
 
 var tablaMaquilaasPorAprobar = $('#TablaMaquilaasPorAprobar').DataTable({
     language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json" },
-    lengthChange: false,
-    info: false,
-    paging: false,
-    scrollY: autoHeightDiv(0, 200),
     scrollCollapse: true,
+    deferRender: true,
+    scrollY: '65vh',
+    paging: true,
     ajax: {
         dataType: 'json',
         data: function (d) {
@@ -121,6 +120,13 @@ var tablaMaquilaasPorAprobar = $('#TablaMaquilaasPorAprobar').DataTable({
     ],
     columnDefs: [ { width: "50px", targets: 0 } ],
 });
+
+inputBusquedaTable('TablaMaquilaasPorAprobar', tablaMaquilaasPorAprobar, [
+    {
+        msj: 'Filtra la tabla con palabras u oraciones que coincidan en el campo de busqueda',
+        place: 'left'
+    },
+])
 
 //---Desplegar detalles de los estudios de servicio de maquilación
 $('#TablaMaquilaasPorAprobar tbody').on('click', 'tr', function (event) {

@@ -1,7 +1,5 @@
 tablaMuestras = $('#TablaMuestras').DataTable({
-  language: {
-    url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-  },
+  language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json" },
   lengthChange: false,
   info: true,
   paging: false,
@@ -66,14 +64,9 @@ tablaMuestras = $('#TablaMuestras').DataTable({
   columnDefs: [
     { "width": "10px", "targets": 0 },
   ],
-
 })
 
 loaderDiv("Out", null, "#loader-muestras", '#loaderDivmuestras');
-// selectDatatable('TablaMuestras', tablaMuestras, 0, 0, 0, 0, function (selectTR = null, array = null) {
-
-// })
-
 
 //new selectDatatable:
 selectTable('#TablaMuestras', tablaMuestras, { unSelect: true, movil: true, reload: ['col-xl-9'] }, async function (select, data, callback) {
@@ -101,13 +94,10 @@ selectTable('#TablaMuestras', tablaMuestras, { unSelect: true, movil: true, relo
   }
 })
 
-
-
 inputBusquedaTable('TablaMuestras', tablaMuestras, [{
   msj: 'Los pacientes con muestras tomadas se visualizarán confirmados de color verde',
   place: 'top'
 }], [], 'col-12')
-
 
 function obtenerListaEstudiosContenedores(idturno = null) {
   return new Promise(resolve => {
@@ -117,7 +107,7 @@ function obtenerListaEstudiosContenedores(idturno = null) {
       for (var i = 0; i < row.length; i++) {
         console.log(row)
         /* codigo nuevo */
-        html += `<div class="card">
+        html += `<div class="card bg-white mb-2">
                   <div class="card-header">
                     <h5 class="card-title">
                       <i class="bi bi-heart-pulse"></i> ${row[i]['GRUPO']}
@@ -143,27 +133,14 @@ function obtenerListaEstudiosContenedores(idturno = null) {
                 `;
 
       }
-      // ORIGINAL
-      //$('#lista-estudios-paciente').html(html);
-
       // NUEVO
       $('#lista-estudios-paciente-div').html(html);
-
       //Complete
       loaderDiv("Out", null, "#loader-muestras", '#loaderDivmuestras');
       resolve(1);
     });
-
-
   });
 }
 
-
 //Panel turnos, mandar id fisica al  principio
 obtenerPanelInformacion(7, null, "turnos_panel", '#turnos_panel')
-
-
-
-
-
-

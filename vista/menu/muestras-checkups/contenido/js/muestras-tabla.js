@@ -1,7 +1,5 @@
 tablaMuestras = $('#TablaMuestras').DataTable({
-  language: {
-    url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-  },
+  language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json" },
   lengthChange: false,
   info: true,
   paging: false,
@@ -43,7 +41,6 @@ tablaMuestras = $('#TablaMuestras').DataTable({
   columnDefs: [
     { "width": "10px", "targets": 0 },
   ],
-
 })
 
 loaderDiv("Out", null, "#loader-muestras", '#loaderDivmuestras');
@@ -53,7 +50,6 @@ selectTable('#TablaMuestras', tablaMuestras, { unSelect: true, movil: true, relo
   selectListaMuestras = data;
 
   if (select == 1) {
-
     //Activa o desactiva el boton
     if (selectListaMuestras.MUESTRA_TOMADA === 1) {
       $('#muestra-tomado').prop('disabled', true)
@@ -68,19 +64,15 @@ selectTable('#TablaMuestras', tablaMuestras, { unSelect: true, movil: true, relo
     //Muestra las columnas
     callback('In')
   } else {
-
     callback('Out')
     selectListaMuestras = null;
   }
 })
 
-
-
 inputBusquedaTable('TablaMuestras', tablaMuestras, [{
   msj: 'Los pacientes con muestras tomadas se visualizarán confirmados de color verde',
   place: 'top'
 }], [], 'col-12')
-
 
 function obtenerListaEstudiosContenedores(idturno = null) {
   return new Promise(resolve => {
@@ -89,7 +81,7 @@ function obtenerListaEstudiosContenedores(idturno = null) {
       let html = '';
       console.log(row)
       for (var i = 0; i < row.length; i++) {
-        html += `<div class="card">
+        html += `<div class="card bg-white mb-2">
                   <div class="card-header">
                     <h5 class="card-title">
                       <i class="bi bi-heart-pulse"></i> ${row[i]['GRUPO']}
@@ -122,11 +114,8 @@ function obtenerListaEstudiosContenedores(idturno = null) {
       loaderDiv("Out", null, "#loader-muestras", '#loaderDivmuestras');
       resolve(1);
     });
-
-
   });
 }
-
 
 //Panel turnos, mandar id fisica al  principio
 obtenerPanelInformacion(12, null, "turnos_panel", '#turnos_panel')

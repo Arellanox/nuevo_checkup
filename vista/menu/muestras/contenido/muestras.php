@@ -8,7 +8,7 @@
 <!-- style="max-height: 60vh" -->
 <div class="row overflow-auto">
   <div class="col-12 col-xl-3 tab-first" id="tab-paciente" style="margin-right: -5px !important;">
-    <div class="rounded p-3 shadow my-2" id="lista-pacientes">
+    <div class="rounded p-3 shadow mt-2 mb-4 bg-white" id="lista-pacientes">
       <h5>Lista de pacientes</h5>
 
       <!-- Control de turnos -->
@@ -31,11 +31,11 @@
   </div>
 
   <div class="col-12 col-xl-3 tab-second" id="tab-informacion" style="margin-right: -5px !important;  display:none !important">
-    <div class="rounded p-3 shadow my-2" id="panel-informacion"> </div>
+    <div class="rounded p-3 shadow my-2 bg-white" id="panel-informacion"> </div>
 
   </div>
   <div class="col-12 col-xl-6 tab-second" id="tab-reporte" style="margin-right: -5px !important;  display:none !important">
-    <div class="rounded p-3 shadow my-2">
+    <div class="rounded p-3 shadow my-2 mb-4 bg-white">
       <div class="row">
         <div class="col-12 col-lg-7">
           <h4>Estudios y contenedores</h4>
@@ -50,7 +50,7 @@
       <div class="row mt-3">
         <div class="col-12">
           <h5>Estudios:</h5>
-          <ul class="list-group overflow-auto" id="lista-estudios-paciente" style="max-width: 100%; max-height: 70vh;margin-bottom:10px;">
+          <ul class="list-group" id="lista-estudios-paciente" style="max-width: 100%;">
 
           </ul>
           <div id="lista-estudios-paciente-div"></div>
@@ -59,9 +59,14 @@
     </div>
   </div>
 
-
   <!-- Tercera Columna visual -->
   <div id="reload-selectable">
 
   </div>
 </div>
+
+<style>
+    #lista-estudios-paciente-div {
+        max-height: 70vh; overflow-y: scroll ; margin-bottom:10px;
+    }
+</style>

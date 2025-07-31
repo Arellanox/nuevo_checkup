@@ -1,5 +1,5 @@
-<div class="px-3 py-3">
-    <table class="table table-hover display" id="TablaMaquilaasPorAprobar">
+<div class="rounded p-3 shadow-sm my-2 table-responsive bg-white mx-4 my-4">
+    <table class="table table-hover display responsive" id="TablaMaquilaasPorAprobar">
         <thead>
         <tr>
             <th>Prefolio</th>
@@ -18,30 +18,6 @@
 </div>
 
 <style>
-    #TablaMaquilaasPorAprobar_filter{
-        width: 100% !important;
-
-    }
-    #TablaMaquilaasPorAprobar_filter input{
-        width: 100% !important;
-    }
-    div.dataTables_wrapper div.dataTables_filter input{
-        margin-left: 0 !important;
-        display: block !important;
-        width: 100% !important;
-        height: 30px !important;
-    }
-    div.dataTables_wrapper div.dataTables_filter label{
-        width: 100% !important;
-        display: block !important;
-        margin-bottom: 10px !important;
-        color: #2b2b2b;
-    }
-    #TablaMaquilaasPorAprobar_wrapper .row:first-child .col-sm-12.col-md-6:last-child{
-        width: 100% !important;
-    }
-
-
     .btn-generar-reporte,
     .btn-aprobar-all{
         display: flex;
