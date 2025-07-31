@@ -44,6 +44,7 @@ $insumo = $_POST['insumo'];
 $id_motivo = $_POST['id_motivo'] ?? $_POST['motivo_salida'] ?? null;
 $costo_unitario = $_POST['costo_unitario'] ?? null;
 $fecha_entrada = $_POST['fecha_entrada'] ?? null;
+$fecha_compra = $_POST['fecha_compra'] ?? null;
 $observaciones = $_POST['observaciones'] ?? null;
 $numero_documento = $_POST['numero_documento'] ?? null;
 

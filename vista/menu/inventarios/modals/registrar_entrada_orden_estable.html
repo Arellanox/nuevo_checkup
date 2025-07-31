@@ -129,7 +129,7 @@
                     success: function (response) {
                         if (response.response && response.response.code == 1 && response.response.data) {
                             const orden = response.response.data[0];
-                            console.log(orden);
+                            console.log("esto me esta imprimiendo", orden);
 
                             $('#infoOrdenCompra').removeClass('d-none');
                             $('#cardArtOrdenCompra').removeClass('d-none');

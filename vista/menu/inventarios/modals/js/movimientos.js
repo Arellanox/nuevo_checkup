@@ -257,6 +257,7 @@ tableCatEntradasEstable = $("#tableCatEntradasEstable").DataTable({
 
 // DATATABLE DE DETALLES DE ENTRADA
 tableCatDetEntradasEstable = $("#tableCatDetEntradasEstable").DataTable({
+  order: [[0, "desc"]],
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
   },
@@ -280,12 +281,26 @@ tableCatDetEntradasEstable = $("#tableCatDetEntradasEstable").DataTable({
   },
   columns: [
     {
+      data: "id_entrada",
+      title: "ID Detalle de Entrada",
+      visible: false,
+    },
+    {
       data: "fecha_entrada",
       title: "Fecha de Entrada",
       render: function (data) {
         if (!data || data === "0000-00-00" || data === "0000-00-00 00:00:00")
           return "-";
         return data ? moment(data).format("DD/MM/YYYY HH:mm") : "-";
+      },
+    },
+    {
+      data: "fecha_compra",
+      title: "Fecha de Compra",
+      render: function (data) {
+        if (!data || data === "0000-00-00" || data === "0000-00-00 00:00:00")
+          return "-";
+        return data ? moment(data).format("DD/MM/YYYY") : "-";
       },
     },
     {
@@ -297,6 +312,14 @@ tableCatDetEntradasEstable = $("#tableCatDetEntradasEstable").DataTable({
       },
     },
     {
+      data: "costo_unitario",
+      title: "Costo Unitario",
+      render: function (data) {
+        return data ? data : "-";
+      },
+      visible: false,
+    },
+    {
       data: "PROVEEDOR",
       title: "Proveedor",
       render: function (data) {
@@ -304,7 +327,12 @@ tableCatDetEntradasEstable = $("#tableCatDetEntradasEstable").DataTable({
       },
     },
     {
-      data: "FACTURA",
+      data: "FACTURA_NUM",
+      title: "Factura",
+      visible: false,
+    },
+    {
+      data: "FACTURA_IMG",
       title: "Factura",
       render: function (data, type, row) {
         if (data) {
@@ -345,12 +373,114 @@ tableCatDetEntradasEstable = $("#tableCatDetEntradasEstable").DataTable({
       },
     },
     // {
-    //   data: "OBSERVACIONES",
-    //   title: "Observaciones",
+    //   data: "orden_compra_numero",
+    //   title: "Orden de Compra",
     //   render: function (data) {
     //     return data ? data : "-";
     //   },
     // },
+    {
+      data: "orden_compra_documento",
+      title: "Orden de Compra",
+      render: function (data, type, row) {
+        if (data) {
+          var extension = data.split(".").pop().toLowerCase();
+
+          if (extension === "pdf") {
+            return (
+              '<a href="' +
+              data +
+              '" target="_blank"><i class="bi bi-file-earmark-pdf-fill text-danger fs-4" title="Ver PDF"></i></a>'
+            );
+          } else {
+            return (
+              '<a href="' +
+              data +
+              '" target="_blank"><img src="' +
+              data +
+              '" alt="Imagen de la orden de compra" style="width: 50px; height: auto;"/></a>'
+            );
+          }
+        } else {
+          return "-";
+        }
+      },
+    },
+    {
+      data: "observaciones",
+      title: "Observaciones",
+      render: function (data) {
+        return data ? data : "-";
+      },
+    },
+    {
+      data: "NOMBRE_COMERCIAL",
+      title: "Artículo",
+      render: function (data) {
+        return data ? data : "-";
+      },
+      visible: false,
+    },
+    {
+      data: "CLAVE_ART",
+      title: "Clave",
+      render: function (data) {
+        return data ? data : "-";
+      },
+      visible: false,
+    },
+    {
+      data: "ID_ARTICULO",
+      title: "ID Artículo",
+      visible: false,
+    },
+    {
+      data: "NUMERO_LOTE",
+      title: "Lote",
+      render: function (data) {
+        return data ? data : "-";
+      },
+      visible: false,
+    },
+    {
+      data: "FECHA_CADUCIDAD",
+      title: "Caducidad",
+      render: function (data) {
+        return data ? data : "-";
+      },
+      visible: false,
+    },
+    {
+      data: null,
+      title: "Acciones",
+      render: function (data, type, row) {
+        if (row.MOTIVO !== "Por orden de compra") {
+          return `
+          <button
+          data-id-entrada="${row.id_entrada}"
+          data-id-articulo="${row.ID_ARTICULO}"
+          data-articulo="${row.NOMBRE_COMERCIAL}"
+          data-clave="${row.CLAVE_ART}"
+          data-numero-factura="${row.FACTURA_NUM}"
+          data-documento-factura="${row.FACTURA_IMG}"
+          data-proveedor="${row.PROVEEDOR}"
+          data-fecha-entrada="${row.fecha_entrada}"
+          data-fecha-compra="${row.fecha_compra}"
+          data-lote="${row.NUMERO_LOTE}"
+          data-fecha-caducidad="${row.FECHA_CADUCIDAD}"
+          data-cantidad="${row.CANTIDAD_ENTRADA}"
+          data-precio-unitario="${row.costo_unitario}"
+          data-motivo="${row.MOTIVO}"
+          data-observaciones="${row.observaciones}"
+          type="button" class="btn btn-warning btn-sm btn-editar-entrada" data-bs-toggle="tooltip" title="Editar entrada"><i class="bi bi-pencil-square"></i></button>
+          <button
+          type="button" class="btn btn-info btn-sm btn-ver-entrada" data-bs-toggle="tooltip" title="Ver entrada"><i class="bi bi-eye"></i></button>
+          `;
+        } else {
+          return "-";
+        }
+      },
+    },
   ],
   columnDefs: [{ targets: "_all", className: "text-center align-middle" }],
   dom: 'Bl<"dataTables_toolbar">frtip',
@@ -364,6 +494,41 @@ tableCatDetEntradasEstable = $("#tableCatDetEntradasEstable").DataTable({
     },
   ],
 });
+
+$(document).on("click", ".btn-editar-entrada", function () {
+  var articulo = $(this).data("articulo");
+  var clave = $(this).data("clave");
+  var cantidad = $(this).data("cantidad");
+  var proveedor = $(this).data("proveedor");
+  var fechaEntrada = $(this).data("fecha-entrada");
+  var fechaCompra = $(this).data("fecha-compra");
+  var precioUnitario = $(this).data("precio-unitario");
+  var numeroFactura = $(this).data("numero-factura");
+  var documentoFactura = $(this).data("documento-factura");
+  var lote = $(this).data("lote");
+  var fechaCaducidad = $(this).data("fecha-caducidad");
+  var motivo = $(this).data("motivo");
+  var observaciones = $(this).data("observaciones");
+
+  $("#nombreArticuloEstableEditar").val(articulo);
+  $("#articuloSeleccionadoEstableEditar").text(articulo);
+  $("#claveArticuloEstableEditar").val(clave);
+  $("#existenciaActualTittleEstableEditar").text(cantidad);
+  $("#proveedorEstableEditar").val(proveedor);
+  $("#fechaCompraEstableEditar").val(fechaCompra);
+  $("#cantidadEstableEditar").val(cantidad);
+  $("#precioCompraEstableEditar").val(precioUnitario);
+  $("#numeroFacturaEstableEditar").val(numeroFactura);
+  // $("#documentoFacturaEstableEditar").val(documentoFactura);
+  $("#numeroLoteEstableEditar").val(lote);
+  $("#fechaCaducidadEstableEditar").val(fechaCaducidad);
+  $("#motivoEntradaEstableEditar").val(motivo);
+  $("#observacionesEstableEditar").val(observaciones);
+
+  $("#editarEntradaEstableModal").modal("show");
+});
+
+$(document).on("click", ".btn-ver-entrada", function () {});
 
 // DATATABLE DE ARTICULOS DE ORDEN DE COMPRA
 tableCatOrdenesCompraArticulos = $("#tableCatOrdenesCompraArticulos").DataTable(
@@ -396,6 +561,11 @@ tableCatOrdenesCompraArticulos = $("#tableCatOrdenesCompraArticulos").DataTable(
         render: function (data) {
           return data ? data : "-";
         },
+      },
+      {
+        data: "id_proveedor",
+        title: "ID Proveedor",
+        visible: false,
       },
       {
         data: "ID_ARTICULO",
@@ -524,6 +694,8 @@ tableCatOrdenesCompraArticulos = $("#tableCatOrdenesCompraArticulos").DataTable(
             data-id-articulo="${row.ID_ARTICULO}"
             data-cantidad-solicitada="${row.cantidad_solicitada}"
             data-cantidad-recibida="${row.cantidad_recibida}"
+            data-id-proveedor="${row.id_proveedor}"
+            data-proveedor="${row.PROVEEDOR_NOMBRE}"
             type="button" class="btn btn-warning btn-sm btn-surtir-orden-compra" data-bs-toggle="tooltip" title="Surtir orden de compra"><i class="bi bi-box-seam"></i></button>
         `;
           }
@@ -558,6 +730,8 @@ $(document).on("click", ".btn-surtir-orden-compra", function () {
   var cantidadRecibida = $(this).data("cantidad-recibida") || "-";
   var idArticulo = $(this).data("id-articulo");
   var idOrdenCompra = $(this).data("id-orden-compra");
+  var idProveedor = $(this).data("id-proveedor");
+  var proveedor = $(this).data("proveedor");
   $("#nombreArticuloSurtirOC").text(nombreArticulo);
   $("#nombreArticuloSurtirOCInput").val(nombreArticulo);
   $("#claveArticuloSurtirOC").val(claveArticulo);
@@ -565,7 +739,8 @@ $(document).on("click", ".btn-surtir-orden-compra", function () {
   $("#cantidadRecibidaSurtirOC").val(cantidadRecibida);
   $("#idArticuloSurtirOC").val(idArticulo);
   $("#idOrdenCompraSurtirOC").val(idOrdenCompra);
-
+  $("#idProveedorSurtirOC").val(proveedor);
+  $("#id_proveedor_surtir_oc").val(idProveedor);
   $("#surtirOrdenCompraIndividualModal").modal("show");
 });
 
@@ -598,14 +773,14 @@ tableCatTransacciones = $("#tableCatTransacciones").DataTable({
   columns: [
     {
       data: "CLAVE_ART",
-      title: "Clave Artículo",
+      title: "Clave",
       render: function (data) {
         return data ? data : "-";
       },
     },
     {
       data: "NOMBRE_COMERCIAL",
-      title: "Nombre Comercial",
+      title: "Nombre",
       render: function (data) {
         return data ? data : "-";
       },
@@ -619,14 +794,14 @@ tableCatTransacciones = $("#tableCatTransacciones").DataTable({
     },
     {
       data: "FECHA_TRANSACCION",
-      title: "Fecha Transacción",
+      title: "Fecha",
       render: function (data) {
         return data ? data : "-";
       },
     },
     {
       data: "COSTO_ULTIMA_TRANSACCION",
-      title: "Costo Última Transacción",
+      title: "Costo Unitario",
       render: function (data, type, row) {
         if ($.isNumeric(data)) {
           return (
@@ -657,7 +832,7 @@ tableCatTransacciones = $("#tableCatTransacciones").DataTable({
     },
     {
       data: "IMAGEN_DOCUMENTO",
-      title: "Documento",
+      title: "Documento o factura",
       render: function (data, type, row) {
         if (data) {
           // Obtener la extensión del archivo
@@ -694,14 +869,14 @@ tableCatTransacciones = $("#tableCatTransacciones").DataTable({
     },
     {
       data: "ORDEN_COMPRA",
-      title: "Orden de compra",
+      title: "Número de orden",
       render: function (data) {
         return data ? data : "-";
       },
     },
     {
       data: "IMAGEN_ORDEN_COMPRA",
-      title: "Imagen de orden de compra",
+      title: "Documento de orden de compra",
       render: function (data, type, row) {
         if (data) {
           // Obtener la extensión del archivo
@@ -884,7 +1059,7 @@ function cargarCatalogoEnSelect(selectorSelect, opciones, callback) {
 }
 
 function cargarProveedoresEstable() {
-  cargarCatalogoEnSelect("#registrarEntradaEstableModal #proveedorEstable", {
+  cargarCatalogoEnSelect("#registrarEntradaEstableModal #proveedorEstable, #editarEntradaEstableModal #proveedorEstableEditar", { // probar si sirve poner dos select en la funcion
     api: 16,
     campoId: "id_proveedores",
     campoTexto: "nombre",

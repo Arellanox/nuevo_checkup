@@ -149,21 +149,21 @@ function abrirModalRegistrarEntrada(articuloId, nombreArticulo, claveArticulo) {
       rowSelected = articuloEncontrado;
 
       // Abrir modal de registrar entrada
-      $("#registrarEntradaModal").modal("show");
-      $("#registrandoEntrada").text(
+      $("#registrarEntradaEstableModal").modal("show");
+      $("#articuloSeleccionadoEstable").text(
         ` ${nombreArticulo} (Clave: ${claveArticulo})`
       );
       $("#registrandoCantidad").text(` ${articuloEncontrado.CANTIDAD || "0"}`);
 
       // Colocar los valores al formulario
-      $("#registrarEntradaForm #no_art").val(articuloId);
-      $("#registrarEntradaForm #nombre_comercial").val(nombreArticulo);
+      $("#registrarEntradaEstableForm #no_art").val(articuloId);
+      $("#registrarEntradaEstableForm #nombre_comercial").val(nombreArticulo);
 
       // Establecer estatus
       if (articuloEncontrado.ESTATUS == 1) {
-        $("#registrarEntradaForm #estatus").prop("checked", true);
+        $("#registrarEntradaEstableForm #estatus").prop("checked", true);
       } else {
-        $("#registrarEntradaForm #estatus").prop("checked", false);
+        $("#registrarEntradaEstableForm #estatus").prop("checked", false);
       }
     } else {
       console.log("No se encontró el artículo en la tabla de entradas"); // Para depuración
@@ -177,8 +177,8 @@ function abrirModalRegistrarEntrada(articuloId, nombreArticulo, claveArticulo) {
       if (articuloPorNombre) {
         console.log("Artículo encontrado por nombre:", articuloPorNombre); // Para depuración
         rowSelected = articuloPorNombre;
-        $("#registrarEntradaModal").modal("show");
-        $("#registrandoEntrada").text(
+        $("#registrarEntradaEstableModal").modal("show");
+        $("#articuloSeleccionadoEstable").text(
           ` ${nombreArticulo} (Clave: ${claveArticulo})`
         );
         $("#registrandoCantidad").text(` ${articuloPorNombre.CANTIDAD || "0"}`);
@@ -248,9 +248,9 @@ $("#editarArticuloForm").submit(function (event) {
 });
 
 // Registrar una entrada estable
-$("#registrarEntradaEstableForm").submit(function (event) {
+$("#registrarEntradaEstableForm, #editarEntradaEstableForm").submit(function (event) {
   event.preventDefault();
-  var form = document.getElementById("registrarEntradaEstableForm");
+  var form = document.getElementById("registrarEntradaEstableForm, #editarEntradaEstableForm");
   var formData = new FormData(form);
 
   alertMensajeConfirm(
@@ -272,8 +272,8 @@ $("#registrarEntradaEstableForm").submit(function (event) {
         false,
         function (data) {
           if (data.response.code == 1) {
-            $("#registrarEntradaEstableForm")[0].reset();
-            $("#registrarEntradaEstableModal").modal("hide");
+            $("#registrarEntradaEstableForm, #editarEntradaEstableForm")[0].reset();
+            $("#registrarEntradaEstableModal, #editarEntradaEstableModal").modal("hide");
             alertToast("Entrada exitosa", "success", 4000);
             dataTableCatEntradasEstable.ajax.reload();
             dataTableCatDetEntradasEstable.ajax.reload();
@@ -298,7 +298,7 @@ $("#formSurtirOrdenCompraIndividual").submit(function (event) {
   var idArticulo = $("#idArticuloSurtirOC").val();
   var fechaEntrada = $("#fecha_entrada_orden").val();
   var ordenCompra = $("#idOrdenCompraSurtirOC").val();
-
+  var idProveedores = $("#id_proveedor_surtir_oc").val();
   alertMensajeConfirm(
     {
       title: "¿Está a punto de registrar esta entrada?",
@@ -314,6 +314,7 @@ $("#formSurtirOrdenCompraIndividual").submit(function (event) {
           esOrden: 1,
           fecha_entrada: fechaEntrada,
           id_orden_compra: ordenCompra,
+          id_proveedores: idProveedores,
         },
         "inventarios_api",
         "formSurtirOrdenCompraIndividual",
