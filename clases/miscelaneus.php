@@ -995,7 +995,7 @@ class Miscelaneus
                 $fechaInicio = $_POST['fecha_inicio'];
 	            $fechaFin = $_POST['fecha_fin'];
 
-                $arregloPaciente = $master->getByProcedure("sp_obtener_reporte_ventas", [
+                $arregloPaciente['reporte'] = $master->getByProcedure("sp_obtener_reporte_ventas", [
                     $soloNuevos, $fechaInicio, $fechaFin
                 ]);
                 break;
@@ -1011,6 +1011,11 @@ class Miscelaneus
                 $fecha_resultado = date("Ymd");
                 $nombre = "CertificadoMedico";
                 $ruta_saved = "reportes/certificados/$turno_id/$fecha_resultado/";
+                break;
+            case -12:
+                $fecha_resultado = date("Ymd");
+                $nombre = "ReporteVentas";
+                $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/";
                 break;
             case 15:
                 $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/";
@@ -1057,7 +1062,7 @@ class Miscelaneus
 
         # Crear el directorio si no existe
         $master->createDir("../" . $ruta_saved);
-        $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . $infoPaciente[0]['ETIQUETA_TURNO'] . '-' . $fecha_resultado);
+        $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre . "-" . ($infoPaciente[0]['ETIQUETA_TURNO'] ?? 'SN') . '-' . $fecha_resultado);
         $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
 
         $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview, $area_id);

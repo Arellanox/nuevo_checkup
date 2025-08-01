@@ -30,25 +30,30 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
         { data: 'PACIENTE' },
         { data: 'SERVICIO' },
         { data: 'AREA' },
-        { data: 'NUM_PASE' },
-        { data: 'CLAVE_BENEFICIARIO' },
         { data: 'NUM_PROVEEDOR' },
         { data: 'FACTURA' },
-        {data: 'COSTO'},
-        { data: 'PRECIO_VENTA' },
+        { data: 'COSTO',
+            render: function (data, type, row) {
+                return `$${parseFloat(data || 0).toFixed(2) || '0.00'}`;
+            }
+        },
+        { data: 'PRECIO_VENTA',
+            render: function (data, type, row) {
+                return `$${parseFloat(data || 0).toFixed(2) || '0.00'}`;
+            }
+        },
         { data: 'PROCEDENCIA' },
     ],
     columnDefs: [
-        { target: 0, className: 'all', title: 'Prefolio', width: '7%' },
+        { target: 0, className: 'all', title: 'Prefolio' },
         { target: 1, className: 'all', title: 'Paciente' },
         { target: 2, className: 'all', title: 'Servicios' },
         { target: 3, className: 'all', title: 'Area' },
-        { target: 4, className: 'all', title: 'No. Pase' },
-        { target: 5, className: 'all', title: 'No. Proveedor', width: '7%' },
-        { target: 6, className: 'all', title: 'No. Factura' },
-        { target: 7, className: 'all', title: 'Costo' },
-        { target: 8, className: 'all', title: 'Precio Venta' },
-        { target: 9, className: 'all', title: 'Procedencia' },
+        { target: 4, className: 'all', title: 'No. Proveedor' },
+        { target: 5, className: 'all', title: 'No. Factura' },
+        { target: 6, className: 'all', title: 'Costo' },
+        { target: 7, className: 'all', title: 'Precio Venta' },
+        { target: 8, className: 'all', title: 'Procedencia' },
     ],
     rowGroup: {
         dataSrc: 'PREFOLIO', // Columna utilizada para la agrupación
@@ -71,14 +76,12 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
                 .append(`<td>${prefolio}</td>`)
                 .append(`<td>${paciente}</td>`)
                 .append(`<td>${rows.count()} servicios</td>`)
-                .append(` <td>${area}</td>`)
-                .append(`<td>${no_pase ?? 'Sin detalle'}</td>`)
-                .append(`<td>${no_proveedor}</td>`)
-                .append(`<td>${no_factura ?? 'Sin detalles' }</td>`)
-                .append(`<td>\$${costo_servicio?.toFixed(2)}</td>`)
-                .append(`<td>\$${precio_venta?.toFixed(2)}</td>`)
+                .append(`<td>${area}</td>`)
+                .append(`<td>${no_proveedor || '-'}</td>`)
+                .append(`<td>${no_factura || '-'}</td>`)
+                .append(`<td>$${costo_servicio?.toFixed(2)}</td>`)
+                .append(`<td>$${precio_venta?.toFixed(2)}</td>`)
                 .append(`<td>${procedencia}</td>`)
-                .append(`<td></td>`)
         }
     },
     dom: 'Bfrtip',
@@ -88,42 +91,10 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
             className: 'btn btn-success',
             titleAttr: 'Descargar Excel',
             action: function () {
-                alertToast('Modulo en desarrollo, gracias por la comprension.', 'info', 3000)
-                // GENERACIÓN DE EXCEL DE REPORTE DE VENTAS
-                /*dataList['api'] = 6;
+                alertToast('Generando Excel..', 'info', 1500)
+                dataList['obtener_reporte'] = 'obtener_excel';
 
-                ajaxAwait(dataList, 'cargos_turnos_api', { callbackAfter: true }, false, function (data) {
-                    let url = data.response.data.url;
-
-                    // Verificar si estás en localhost y si la URL contiene "bimo-lab.com"
-                    if (servidor === 'localhost' && url.includes('bimo-lab.com')) {
-                        // Reemplazar "https://bimo-lab.com" por el origen actual (http://localhost)
-                        const localOrigin = window.location.origin;
-                        url = url.replace(/^https?:\/\/bimo-lab\.com/, localOrigin);
-                    }
-
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.target = '_blank';
-
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                })
-
-                dataList['api'] = 3;*/
-            }
-        },
-        {
-            text: '<i class="fa fa-file-pdf-o"></i> PDF',
-            className: 'btn btn-danger',
-            titleAttr: 'Descargar PDF',
-            action: function () {
-                alertToast('Modulo en desarrollo, gracias por la comprension.', 'info', 3000)
-                // GENERACIÓN DEL PDF DE REPORTES VENTAS
-                /*dataList['api'] = 9;
-
-                ajaxAwait(dataList, 'cargos_turnos_api', { callbackAfter: true }, false, function (data) {
+                ajaxAwait(dataList, 'reportes_api', { callbackAfter: true }, false, function (data) {
                     let url = data.response.data.url;
 
                     // Verificar si estás en localhost y si la URL contiene "bimo-lab.com"
@@ -142,7 +113,37 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
                     document.body.removeChild(link);
                 });
 
-                dataList['api'] = 3;*/
+                dataList['obtener_reporte'] = 'obtener_reporte';
+            }
+        },
+        {
+            text: '<i class="fa fa-file-pdf-o"></i> PDF',
+            className: 'btn btn-danger',
+            titleAttr: 'Descargar PDF',
+            action: function () {
+                alertToast('Generando PDF..', 'info', 1500)
+                dataList['obtener_reporte'] = 'obtener_pdf';
+
+                ajaxAwait(dataList, 'reportes_api', { callbackAfter: true }, false, function (data) {
+                    let url = data.response.data.url;
+
+                    // Verificar si estás en localhost y si la URL contiene "bimo-lab.com"
+                    if (servidor === 'localhost' && url.includes('bimo-lab.com')) {
+                        // Reemplazar "https://bimo-lab.com" por el origen actual (http://localhost)
+                        const localOrigin = window.location.origin;
+                        url = url.replace(/^https?:\/\/bimo-lab\.com/, localOrigin);
+                    }
+
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.target = '_blank';
+
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                });
+
+                dataList['obtener_reporte'] = 'obtener_reporte';
             }
         },
         {

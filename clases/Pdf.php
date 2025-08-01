@@ -269,7 +269,7 @@ class Reporte
             case "reporte_ventas":
                 $template = render_view('invoice/reporte_ventas.php', $view_vars);
                 $pdf->loadHtml($template);
-                $pdf->setPaper('letter');
+                $pdf->setPaper('letter', 'landscape');
                 break;
             default:
                 $template = render_view('invoice/reportes.php', $view_vars);
