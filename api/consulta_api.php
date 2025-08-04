@@ -112,6 +112,8 @@ $odonto_array = array(
     $comentario
 );
 
+$medico_id = $_POST['medico_id'];
+
 $master = new Master();
 
 switch ($api) {
@@ -203,7 +205,7 @@ switch ($api) {
         exit;
     case 11:
         # terminar consulta
-        $response = $master->updateByProcedure('sp_consultorio_terminar_consulta', [$id_consulta, $url, $_SESSION['id']]);
+        $response = $master->updateByProcedure('sp_consultorio_terminar_consulta', [$id_consulta, $url, $_SESSION['id'], $medico_id]);
         $url = $master->reportador($master, $turno_id, 1, "consultorio", 'url', 0);
 
         $response = $master->updateByProcedure('sp_reportes_actualizar_ruta', ["consultorio_consulta","RUTA_REPORTE",$url,$turno_id,null]);

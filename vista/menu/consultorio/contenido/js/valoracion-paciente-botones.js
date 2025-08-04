@@ -1,129 +1,173 @@
 $('#btn-consulta-terminar').click(function () {
-  let button = $(this)
-  alertMensajeConfirm({
-    title: "¿Está seguro de terminar la consulta?",
-    text: "Ya no podrá hacer cambios con la consulta",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Aceptar",
-    cancelButtonText: "Cancelar",
-  }, function () {
-    $.ajax({
-      url: `${http}${servidor}/${appname}/api/consulta_api.php`,
-      method: 'POST',
-      dataType: 'json',
-      beforeSend: function () {
-        button.prop('disabled', true)
-      },
-      data: {
-        api: 11,
-        id_consulta: pacienteActivo.selectID,
-        turno_id: pacienteActivo.array['ID_TURNO']
-      },
-      success: function (data) {
-        if (mensajeAjax(data)) {
-          button.prop('disabled', false)
-          alertMensaje('info', 'La consulta ha sido cerrada', 'Podrá consultar la información del paciente desde el menú :)')
-          obtenerContenidoAntecedentes(pacienteActivo.array)
+    $("#modalAsignarFirma").modal("show");
+
+    /*let button = $(this)
+    alertMensajeConfirm({
+      title: "¿Está seguro de terminar la consulta?",
+      text: "Ya no podrá hacer cambios con la consulta",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Aceptar",
+      cancelButtonText: "Cancelar",
+    }, function () {
+      $.ajax({
+        url: `${http}${servidor}/${appname}/api/consulta_api.php`,
+        method: 'POST',
+        dataType: 'json',
+        beforeSend: function () {
+          button.prop('disabled', true)
+        },
+        data: {
+          api: 11,
+          id_consulta: pacienteActivo.selectID,
+          turno_id: pacienteActivo.array['ID_TURNO']
+        },
+        success: function (data) {
+          if (mensajeAjax(data)) {
+            button.prop('disabled', false)
+            alertMensaje('info', 'La consulta ha sido cerrada', 'Podrá consultar la información del paciente desde el menú :)')
+            obtenerContenidoAntecedentes(pacienteActivo.array)
+          }
+        },
+        complete: function () {
+
         }
-      },
-      complete: function () {
 
-      }
+      })
+    })*/
+})
 
+$("#btn_confirmar_asignacion_firma").on('click', function () {
+    let button = $('#btn-consulta-terminar');
+    let firma = $("#select_doctor_id").val();
+
+    alertMensajeConfirm({
+        title: "¿Está seguro de terminar la consulta?",
+        text: "Ya no podrá hacer cambios con la consulta",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Aceptar",
+        cancelButtonText: "Cancelar",
+    }, function () {
+        $.ajax({
+            url: `${http}${servidor}/${appname}/api/consulta_api.php`,
+            method: 'POST',
+            dataType: 'json',
+            beforeSend: function () {
+              button.prop('disabled', true)
+            },
+            data: {
+              api: 11,
+              id_consulta: pacienteActivo.selectID,
+              turno_id: pacienteActivo.array['ID_TURNO'],
+              medico_id: firma
+            },
+            success: function (data) {
+                if (mensajeAjax(data)) {
+                    button.prop('disabled', false)
+                    alertMensaje('info', 'La consulta ha sido cerrada', 'Podrá consultar la información del paciente desde el menú :)')
+                    obtenerContenidoAntecedentes(pacienteActivo.array);
+                    $("#modalAsignarFirma").modal("hide");
+                }
+            },
+            complete: function () {
+
+            }
+        })
     })
-  })
 })
 
 $('#btn-ver-reporte').click(function () {
-  area_nombre = 'consultorio'
+    area_nombre = 'consultorio'
 
-  api = encodeURIComponent(window.btoa(area_nombre));
-  turno = encodeURIComponent(window.btoa(pacienteActivo.array['ID_TURNO']));
-  area = encodeURIComponent(window.btoa(1));
+    api = encodeURIComponent(window.btoa(area_nombre));
+    turno = encodeURIComponent(window.btoa(pacienteActivo.array['ID_TURNO']));
+    area = encodeURIComponent(window.btoa(1));
 
 
-  window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, "_blank");
+    window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, "_blank");
 })
 
 
 
 //Regresar a perfil de paciente
 $('#btn-regresar-vista').click(function () {
-  alertMensajeConfirm({
-    title: "¿Está seguro de regresar?",
-    text: "¡Asegurese de guardar los cambios!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Aceptar",
-    cancelButtonText: "Cancelar",
-  }, function () {
-    obtenerContenidoAntecedentes(pacienteActivo.array)
-  })
+    alertMensajeConfirm({
+      title: "¿Está seguro de regresar?",
+      text: "¡Asegurese de guardar los cambios!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Aceptar",
+      cancelButtonText: "Cancelar",
+    }, function () {
+        obtenerContenidoAntecedentes(pacienteActivo.array)
+    })
 })
 
 
 // Exploracion clinica
 $('#btn-agregar-exploracion-clinina').on('click', function () {
-  let titulo = $('#select-exploracion-clinica option').filter(':selected').text();
-  $.ajax({
-    data: {
-      turno_id: pacienteActivo.array['ID_TURNO'],
-      exploracion_tipo_id: $('#select-exploracion-clinica2').val(),
-      exploracion: $('#text-exploracion-clinica').val(),
-      api: 6
-    },
-    url: "../../../api/consulta_api.php",
-    type: "POST",
-    dataType: "json",
-    success: function (data) {
-      // alert("antes de la nota")
-      agregarNotaConsulta(titulo, null, $('#text-exploracion-clinica').val(), '#notas-historial-consultorio', data.response.data, 'eliminarExploracion')
-      $('#text-exploracion-clinica').val('')
-      // alert("despues de la nota")
-    },
-  });
+    let titulo = $('#select-exploracion-clinica option').filter(':selected').text();
+    $.ajax({
+        data: {
+            turno_id: pacienteActivo.array['ID_TURNO'],
+            exploracion_tipo_id: $('#select-exploracion-clinica2').val(),
+            exploracion: $('#text-exploracion-clinica').val(),
+            api: 6
+        },
+        url: "../../../api/consulta_api.php",
+        type: "POST",
+        dataType: "json",
+        success: function (data) {
+            // alert("antes de la nota")
+            agregarNotaConsulta(titulo, null, $('#text-exploracion-clinica').val(), '#notas-historial-consultorio', data.response.data, 'eliminarExploracion')
+            $('#text-exploracion-clinica').val('')
+            // alert("despues de la nota")
+        },
+    });
 })
 //Eliminar los comentario 
 $(document).on('click', '.eliminarExploracion', function () {
-  let id = $(this).attr('data-bs-id');
-  let comentario = $(this);
+    let id = $(this).attr('data-bs-id');
+    let comentario = $(this);
 
-  alertMensajeConfirm({
-    title: "¿Está seguro de eliminar este registro?",
-    text: "¡No podrá revertir esta acción!",
-    icon: "warning",
-    showCancelButton: true,
-    cancelButtonColor: "#3085d6",
-    confirmButtonColor: "#d33",
-    confirmButtonText: "Aceptar",
-    cancelButtonText: "Cancelar",
-  }, function () {
-    $.ajax({
-      data: {
-        id_exploracion_clinica: id,
-        api: 7
-      },
-      url: "../../../api/consulta_api.php",
-      type: "POST",
-      success: function (data) {
-        // alert("antes de la nota")
-        // if (mensajeAjax(data)) {
-        var parent_element = $(comentario).closest("div[class='card mt-3']");
-        console.log(parent_element)
-        $(parent_element).remove()
-        // }
+    alertMensajeConfirm({
+      title: "¿Está seguro de eliminar este registro?",
+      text: "¡No podrá revertir esta acción!",
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonColor: "#3085d6",
+      confirmButtonColor: "#d33",
+      confirmButtonText: "Aceptar",
+      cancelButtonText: "Cancelar",
+    }, function () {
+        $.ajax({
+          data: {
+              id_exploracion_clinica: id,
+              api: 7
+          },
+          url: "../../../api/consulta_api.php",
+          type: "POST",
+          success: function (data) {
+              // alert("antes de la nota")
+              // if (mensajeAjax(data)) {
+              var parent_element = $(comentario).closest("div[class='card mt-3']");
+              console.log(parent_element)
+              $(parent_element).remove()
+              // }
 
-        // alert("despues de la nota")
-      },
-    });
-  })
-  // eliminarElementoArray(id);
-  // console.log(id);
+              // alert("despues de la nota")
+          },
+        });
+    })
+    // eliminarElementoArray(id);
+    // console.log(id);
 });
 
 
