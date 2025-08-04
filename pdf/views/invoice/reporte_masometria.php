@@ -256,20 +256,30 @@ $encode = base64_encode($ruta);
 
 // path firma
 // Verifica si mandan firma o si existe en el arreglo
-if (isset($pie['datos_medicos'][0]['FIRMA_URL'])) {
+
+if (isset($resultados->MEDICO_ID)) {
+    if ($resultados->MEDICO_ID == 53) { // Beatriz
+        $ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
+        $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
+    } else { // Cesar
+        $ruta_firma = file_get_contents("../pdf/public/assets/firma_cesar.png");
+        $footerDoctor = 'Dr. César Mauricio Calderón Alipi <br>UANL - Cédula profesional: 6406214';
+    }
+
+    $encode_firma = base64_encode($ruta_firma);
+}
+
+/*if (isset($pie['datos_medicos'][0]['FIRMA_URL'])) {
     $ruta_firma = file_get_contents($pie['datos_medicos'][0]['FIRMA_URL']); //AQUI DEBO RECIBIR LA RUTA DE LA FIRMA
     $encode_firma = base64_encode($ruta_firma);
 } else {
     $ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png'); //AQUI DEBO RECIBIR LA RUTA DE LA FIRMA
     $ruta_firma = file_get_contents("../pdf/public/assets/firma_cesar.png");
     $encode_firma = base64_encode($ruta_firma); #IMPORTANTE RECIBIRLO 
-}
+}*/
 // $ruta_firma = file_get_contents('http://bimo-lab.com/pdf/logo/firma.png'); //AQUI DEBO RECIBIR LA RUTA DE LA FIRMA
 
-if (!isset($qr)) {
-    $qr = null;
-}
-
+if (!isset($qr)) { $qr = null; }
 ?>
 
 <body>
@@ -285,11 +295,7 @@ if (!isset($qr)) {
                         </h4>
                     </td>
                     <td class="col-izq" style="border-bottom: none; text-align:center;">
-                        <?php
-                        echo "<img src='data:image/png;base64, " . $encode . "' height='75' >";
-                        // echo "<img src='data:image/png;base64," . $barcode . "' height='75'>";
-                        ?>
-
+                        <?php echo "<img src='data:image/png;base64, " . $encode . "' height='75' >"; ?>
                     </td>
                 </tr>
             </tbody>
@@ -682,10 +688,10 @@ if (!isset($qr)) {
         <!-- Footer 1 chido -->
         <div class="">
             <?php
-            $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
-            $footerDoctor = 'Dr. César Mauricio Calderón Alipi <br>UANL - Cédula profesional: 6406214';
+                /*$footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
+                $footerDoctor = 'Dr. César Mauricio Calderón Alipi <br>UANL - Cédula profesional: 6406214';*/
 
-            include 'includes/footer.php';
+                include 'includes/footer.php';
             ?>
         </div>
     </div>

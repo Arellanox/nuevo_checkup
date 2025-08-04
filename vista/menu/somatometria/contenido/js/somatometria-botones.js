@@ -1,11 +1,14 @@
 $('#form-resultados-somatometria').submit(function (event) {
-    // if (selectListaMuestras['MUESTRA_TOMADA'] == 0) {
+    $('#modalAsignarFirma').modal('show');
     event.preventDefault();
+})
+
+$('#btn_confirmar_asignacion_firma').on('click', function () {
     var form = document.getElementById("form-resultados-somatometria");
     var formData = new FormData(form);
     formData.set('id_turno', selectListaSignos['ID_TURNO'])
     formData.set('medidas[3]', $('#masaCorporal').val())
-
+    formData.set('medico_id', $('#select_doctor_id').val())
     formData.set('api', 3);
 
     Swal.fire({
@@ -39,8 +42,9 @@ $('#form-resultados-somatometria').submit(function (event) {
 
         }
     });
-    // }
-})
+
+    $('#modalAsignarFirma').modal('hide');
+});
 
 //Panel turnos, mandar id fisica al  principio
 obtenerPanelInformacion(3, null, "turnos_panel", '#turnos_panel')

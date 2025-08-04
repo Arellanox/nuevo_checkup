@@ -1099,8 +1099,9 @@ class Miscelaneus
             $clave = str_replace(" ", "_", $sign['TIPO_SIGNO']);
             $arregloPaciente[$clave] = $sign['VALOR'];
         }
-        $arregloPaciente['FECHA_REGISTRO'] = $response[0]['FECHA_REGISTRO'];
 
+        $arregloPaciente['FECHA_REGISTRO'] = $response[0]['FECHA_REGISTRO'];
+        $arregloPaciente['MEDICO_ID'] = $response[0]['MEDICO_ID'];
 
         return $arregloPaciente;
     }

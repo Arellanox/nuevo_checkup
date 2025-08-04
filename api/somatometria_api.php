@@ -11,7 +11,7 @@ $tipo = $_POST['tipo_signo'];
 $valor = $_POST['resultado']; # resultado de la medida
 
 $medidas = $_POST['medidas'];
-
+$medico_id = $_POST['medico_id'];
 
 switch ($api) {
     case 1:
@@ -50,15 +50,20 @@ switch ($api) {
             $ids[] = $key;
             $valores[] = $value;
         }
-        $response = $master->insertByProcedure("sp_somatometria_signos_vitales_g", [$id_turno, json_encode($ids), json_encode($valores), null]);
-        //print_r($response);
+        $response = $master->insertByProcedure("sp_somatometria_signos_vitales_g", [
+            $id_turno,
+            json_encode($ids),
+            json_encode($valores),
+            null,
+            $medico_id
+        ]);
 
         #Generar el reporte de somatometria.
         # evaluar si el response es numerico, si es numerico es que si se guardo.
         # si se guardo, generar el reporte
         if (is_numeric($response)) {
             $url = $master->reportador($master, $id_turno, 2, "reporte_masometria", "url");
-            $response = $master->insertByProcedure("sp_somatometria_signos_vitales_g", [$id_turno, null, null, $url]);
+            $response = $master->insertByProcedure("sp_somatometria_signos_vitales_g", [$id_turno, null, null, $url, null]);
             $attachment = $master->cleanAttachFilesImage($master, $id_turno, 2, 1);
     
             if (!empty($attachment[0])) {
