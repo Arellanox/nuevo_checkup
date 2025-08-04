@@ -19,18 +19,18 @@ tablaListaPaciente = $('#TablaLaboratorio').DataTable({
     },
     createdRow: function (row, data) {
         if (data.CONFIRMADO == 1) {
-          $(row).addClass('bg-success text-white');
-        }
+            $(row).addClass('bg-success text-white');
 
-       // Se utiliza un icono para identificar la procedencia
-        if (data.PROCEDENCIA_FRANQUICIA == 1) {
+            if (data.PROCEDENCIA_FRANQUICIA == 1) {
+                $('td:eq(1)', row).prepend('<i class="bi bi-building me-2"></i>');
+                $(row).attr({'data-bs-toggle': 'tooltip', 'data-bs-original-title': 'Paciente de Franquicia', 'data-bs-placement': "right"});
+            }
+        } // Se utiliza un icono para identificar la procedencia
+        else if (data.PROCEDENCIA_FRANQUICIA == 1) {
             $('td:eq(1)', row).prepend('<i class="bi bi-building me-2"></i>');
             $(row).attr({'data-bs-toggle': 'tooltip', 'data-bs-original-title': 'Paciente de Franquicia', 'data-bs-placement': "right"});
-
-            if(data.CONFIRMADO == 0) {
-                $(row).addClass('text-white');
-                $(row).css('background-color', '#a76a2d');
-            }
+            $(row).addClass('text-white');
+            $(row).css('background-color', '#a76a2d');
         } else {
             $(row).addClass('bg-warning');
             $(row).attr({'data-bs-toggle': 'tooltip', 'data-bs-original-title': 'Paciente de BIMO', 'data-bs-placement': "right"});
@@ -62,9 +62,11 @@ selectTable('#TablaLaboratorio', tablaListaPaciente, { unSelect: true, movil: tr
 
             if (selectListaLab.CONFIRMADO == 1) {
                 $('button[type="submit"][form="formAnalisisLaboratorio"]').prop('disabled', true)
+                $('.subir-resultado-lab').addClass('hidden')
                 $('#formAnalisisLaboratorio :input').prop('disabled', true)
             } else {
                 $('button[type="submit"][form="formAnalisisLaboratorio"]').prop('disabled', false)
+                $('.subir-resultado-lab').removeClass('hidden')
                 $('#formAnalisisLaboratorio :input').prop('disabled', false)
             }
         } catch (error) {
