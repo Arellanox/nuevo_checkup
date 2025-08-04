@@ -36,72 +36,12 @@ $(`#${formulario}`).submit(function (event) {
     /*DATOS Y VALIDACION DEL REGISTRO*/
 
     if (confirmado != 1 || session.permisos['Actualizar reportes'] == 1) {
-
-        let jsonData = {}
-        jsonData['id_turno'] = dataSelect.array['turno'];
-        jsonData['id_area'] = areaActiva;
-        jsonData['api'] = api_interpretacion;
-
-        switch (areaActiva) {
-            case 5:
-                if (validarCuestionarioEspiro()) {
-                    return false
-                }
-                break;
-
-            case 4:
-                // Busca y obtiene todas las capturas de la tabla
-                // let capturesArray = []
-                // let audiometria_tablas = "#captures img";
-                // $(audiometria_tablas).each(function () {
-                //     capturesArray.push($(this).attr('src'));
-                // });
-
-                // // Convertir el arreglo a una cadena JSON 
-                // jsonData['tabla_reporte'] = JSON.stringify(capturesArray);
-
-
-
-
-                break;
+        if (areaActiva == 5) {
+            RequeriAsignarFirma()
+            return;
         }
 
-        alertMensajeConfirm({
-            title: "¿Está seguro de subir la interpretación?",
-            text: "Podrá visualizarlo una vez guardado...",
-            icon: "warning",
-        }, function () {
-
-
-
-            ajaxAwaitFormData(jsonData, url_api, formulario, { callbackAfter: true, callbackBefore: true },
-                () => {
-                    $(`#${formulario}:submit`).prop('disabled', true)
-                    alertMensaje('info', 'Cargando datos de interpretación', 'Espere un momento mientras el sistema registra todos los datos');
-                },
-                (data) => {
-                    alertMensaje('success', '¡Interpretación guardada!', 'Consulte o confirme el reporte despues de guardar');
-                    estadoFormulario(2)
-                    obtenerServicios(areaActiva, dataSelect.array['turno'])
-
-
-                    switch (areaActiva) {
-                        case 4:
-                            SubirCapturasAudiometria();
-                            break;
-
-                        default:
-                            break;
-                    }
-
-
-
-                    $("#formSubirInterpretacion:submit").prop('disabled', false)
-                }
-            )
-
-        }, 1);
-
+        PreGuardarCuestionarioConFirma();
     } else {
         alertMensaje('info', 'EL resultado ya ha sido guardado', 'No puede cargar mas resultados a este paciente');
     }
@@ -113,6 +53,54 @@ $(document).on('click', '#AbrirModalCapturarTabla', function () {
     CapturarTablaModalConfig("show");
 })
 
+$("#btn_confirmar_asignacion_firma").on('click', function () {
+    PreGuardarCuestionarioConFirma($("#select_doctor_id").val());
+});
+
+function RequeriAsignarFirma() {
+    if (validarCuestionarioEspiro()) {
+        return false;
+    }
+
+    $('#modalAsignarFirma').modal('show');
+}
+
+function PreGuardarCuestionarioConFirma(medico_id = session.id) {
+    let jsonData = {}
+    jsonData['id_turno'] = dataSelect.array['turno'];
+    jsonData['id_area'] = areaActiva;
+    jsonData['api'] = api_interpretacion;
+    jsonData['medico_id'] = medico_id;
+
+    alertMensajeConfirm({
+        title: "¿Está seguro de subir la interpretación?",
+        text: "Podrá visualizarlo una vez guardado...",
+        icon: "warning",
+    }, function () {
+        ajaxAwaitFormData(jsonData, url_api, formulario, { callbackAfter: true, callbackBefore: true },
+            () => {
+                $(`#${formulario}:submit`).prop('disabled', true)
+                alertMensaje('info', 'Cargando datos de interpretación', 'Espere un momento mientras el sistema registra todos los datos');
+            },
+            (data) => {
+                alertMensaje('success', '¡Interpretación guardada!', 'Consulte o confirme el reporte despues de guardar');
+                estadoFormulario(2)
+                obtenerServicios(areaActiva, dataSelect.array['turno'])
+
+                switch (areaActiva) {
+                    case 4:
+                        SubirCapturasAudiometria();
+                        break;
+                    default:
+                        break;
+                }
+
+                $("#formSubirInterpretacion:submit").prop('disabled', false)
+                $("#modalAsignarFirma").modal("hide");
+            }
+        )
+    }, 1);
+}
 
 // Funcion para abrir el modal de capturar tabla
 function CapturarTablaModalConfig(type) {
@@ -129,12 +117,8 @@ function ResetCapturasDeTablaDeAudio() {
     resetInputLabel()
 }
 
-
-
 $('#btn-confirmar-reporte').click(function (event) {
-    // alert(areaActiva)
     event.preventDefault();
-    /*DATOS Y VALIDACION DEL REGISTRO*/
     if (confirmado != 1 || session.permisos['Actualizar reportes'] == 1) {
 
         if (areaActiva == 5) {
@@ -142,7 +126,6 @@ $('#btn-confirmar-reporte').click(function (event) {
                 return false;
             }
         }
-
 
         alertMensajeConfirm({
             title: "¿Está seguro de confirmar este reporte?",
@@ -176,7 +159,7 @@ $('#btn-confirmar-reporte').click(function (event) {
         alertMensaje('info', 'EL resultado ya ha sido guardado', 'No puede cargar mas resultados a este paciente');
     }
     event.preventDefault()
-})
+});
 
 //Formulario Para Los Resultados de Espirometria
 $("#btn-subir-resultados-espiro").click(async function (event) {
@@ -210,7 +193,6 @@ $("#btn-subir-resultados-espiro").click(async function (event) {
     })
 })
 
-
 //Subir resultados de audiometria
 $("#btn-subir-resultados-audio").click(async function (event) {
     event.preventDefault();
@@ -242,7 +224,6 @@ $("#btn-subir-resultados-audio").click(async function (event) {
         }
     })
 })
-
 
 let isAnimating = false;
 function updatePage($newPage, direction) {

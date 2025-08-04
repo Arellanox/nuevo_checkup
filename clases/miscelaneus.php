@@ -672,6 +672,7 @@ class Miscelaneus
                 #ESPIROMETRIA
                 $datos_medicos = array();
                 $arregloPaciente = $this->getBodyEspiro($master, $turno_id);
+                $arregloPaciente['medico_firma'] = $master->getByProcedure("sp_espiro_reporte_firma_b", [$turno_id]);
                 $fecha_resultado = $infoPaciente[array_key_last($infoPaciente)]['FECHA_CARPETA_ESPIRO'];
                 $carpeta_guardado = "espirometria";
                 $folio = $infoPaciente[array_key_last($infoPaciente)]['FOLIO_ESPIRO'];

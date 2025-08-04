@@ -28,6 +28,7 @@ $confirmado = isset($_POST['confirmado']) ? $_POST['confirmado'] : 0;
 $usuario_id = $_SESSION['id'];
 $host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/practicantes/" : "https://bimo-lab.com/nuevo_checkup/";
 
+$medico_id = $_POST['medico_id'];
 
 //declaramos nuestras variables de almacenamineto para guardar nuestras preguntas y respuestas
 $preguntas = [];
@@ -66,9 +67,8 @@ switch ($api) {
             $posicion++;
         }
 
-
-
         $response = $master->insertByProcedure("sp_espiro_cuestionario_g", [json_encode($principal), $id_turno, $area_id, $usuario_id, 0]);
+        $master->insertByProcedure("sp_espiro_reporte_firma_g", [$id_turno, $medico_id]);
 
         if ($confirmado == 1) {
             # verificamos que tenga permiso para confirmar el reporte.
@@ -146,8 +146,6 @@ switch ($api) {
             $resultados[1][0]['PREGUNTAS'] = $resultados[0];
             $response = $resultados[1];
         }
-
-
 
 
         break;
