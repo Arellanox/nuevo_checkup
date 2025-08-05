@@ -47,7 +47,7 @@ $correo2 = $_POST['correo_2'];
 $tipo_conversion = $_POST['comoNosConociste'];
 
 # medios de entrega
-$medios_entrega = $_POST['medios_entrega'];
+$medios_entrega = $_POST['medios'];
 # Esta variable es enviada desde el formulario de fast checkup
 # hay que evaluarlo si tiene algo ingresarlo en somatometria. Talla
 $talla = $_POST['talla'];
@@ -84,16 +84,23 @@ $parametros = [
     $medios_entrega,   // 26 _medios (JSON string)
     $tipo_conversion,  // 27 _tipo_conversion
     $talla,            // 28 _talla
-    $idFranquicia
+    $idFranquicia      // 29 _idFranquicia
 ];
 
 switch ($api) {
     case 1:
         $medios = array_map('intval', explode(',', $medios_entrega));
-        $parametros[26] = json_encode($medios); //Se asgina a la posición 26 directamente
-        $parametros[28] = $talla; //Se asgina a la posición 28 directamente
 
-        $response = $master->insertByProcedure("sp_pacientes_g", $parametros);
+        /*$master->setLog(json_encode($parametros), 'Parametros');
+        $master->setLog(json_encode($medios_entrega), 'Medios de entrega');*/
+
+        $response = $master->insertByProcedure("sp_pacientes_g", [
+            $parametros[0], $parametros[1], $parametros[2], $parametros[3], $parametros[4], $parametros[5],
+            $parametros[6], $parametros[7], $parametros[8], $parametros[9], $parametros[10], $parametros[11],
+            $parametros[12], $parametros[13], $parametros[14], $parametros[15], $parametros[16], $parametros[17],
+            $parametros[18], $parametros[19], $parametros[20], $parametros[21], $parametros[22], $parametros[23],
+            $parametros[24], $parametros[25], json_encode($medios), $parametros[27], $talla, $parametros[29]
+        ]);
         break;
     case 2:
         # buscar pacientes
@@ -111,9 +118,17 @@ switch ($api) {
         break;
     case 3:
         $medios = array_map('intval', explode(',', $medios_entrega));
-        $parametros[26] = json_encode($medios); //Se asgina a la posición 26 directamente
+        /*$parametros[26] = json_encode($medios); //Se asgina a la posición 26 directamente
         $parametros[28] = $talla; //Se asgina a la posición 28 directamente
-        $response = $master->updateByProcedure("sp_pacientes_g", $parametros);
+        $response = $master->updateByProcedure("sp_pacientes_g", $parametros);*/
+
+        $response = $master->updateByProcedure("sp_pacientes_g", [
+            $parametros[0], $parametros[1], $parametros[2], $parametros[3], $parametros[4], $parametros[5],
+            $parametros[6], $parametros[7], $parametros[8], $parametros[9], $parametros[10], $parametros[11],
+            $parametros[12], $parametros[13], $parametros[14], $parametros[15], $parametros[16], $parametros[17],
+            $parametros[18], $parametros[19], $parametros[20], $parametros[21], $parametros[22], $parametros[23],
+            $parametros[24], $parametros[25], json_encode($medios), $parametros[27], $talla, $parametros[29]
+        ]);
         break;
     case 4:
         # desactivr paciente

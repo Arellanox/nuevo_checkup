@@ -208,8 +208,6 @@ selectTable('#TablaRecepcionPacientes', tablaRecepcionPacientes, {
         {
             class: 'btn-pendiente',
             callback: function (data) {
-                //if (!validarPermiso('RepIngPaci', 1)) return false;
-
                 array_selected = data
 
                 alertMensajeConfirm({

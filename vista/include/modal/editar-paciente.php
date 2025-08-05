@@ -144,9 +144,8 @@
                                 </label>
                             </div>
                             <div class="col-auto mb-3 form-check fs-4 mx-3">
-                                <input type="checkbox" class="form-check-input input-correo-check"
-                                       id="correo" name="medios" value="CORREO">
-                                <label class="form-check-label" for="correo" style="color: #c35f3d">
+                                <label class="form-check-label" for="correo"  style="color: #c35f3d">
+                                    <input type="checkbox" class="form-check-input input-correo-check" id="correo" name="medios" value="CORREO">
                                     <i class="fas fa-envelope"></i> Correo
                                 </label>
                             </div>
