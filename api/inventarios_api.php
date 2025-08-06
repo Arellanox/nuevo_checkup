@@ -212,6 +212,8 @@ switch ($api) {
         break;
     case 6:
 
+        $id_entrada = isset($_POST['id_entrada']) && $_POST['id_entrada'] !== '' ? intval($_POST['id_entrada']) : null;
+
         // subir la imagen del catalogo
         # nombre de articulo., la imagen no tiene id unico
         $nombreImagen = uniqid("img_$no_art");

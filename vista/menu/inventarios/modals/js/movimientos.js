@@ -208,16 +208,16 @@ tableCatEntradasEstable = $("#tableCatEntradasEstable").DataTable({
         }
       },
     },
-    {
-      text: '<i class="bi bi-funnel"></i> Filtrar Entradas',
-      className: "btn btn-warning",
-      action: function () {
-        $("#filtrosEntradasModal").modal("show");
-      },
-    },
+    // {
+    //   text: '<i class="bi bi-funnel"></i> Filtrar Entradas',
+    //   className: "btn btn-warning",
+    //   action: function () {
+    //     $("#filtrosEntradasModal").modal("show");
+    //   },
+    // },
     {
       text: '<i class="bi bi-file-earmark-arrow-down"></i> Entrada con Orden',
-      className: "btn btn-info",
+      className: "btn btn-warning",
       action: function () {
         $("#registrarEntradaOrdenEstableModal").modal("show");
       },
@@ -231,29 +231,6 @@ tableCatEntradasEstable = $("#tableCatEntradasEstable").DataTable({
     },
   ],
 });
-
-// $(document).on("click", ".btn-editar-entrada", function () {
-//   //pendiente darle func en modal_inventarios.js
-//   $("#articuloSeleccionadoEstableEditar").text(rowSelected.NOMBRE_COMERCIAL);
-//   $("#existenciaActualTittleEstableEditar").text(
-//     rowSelected.EXISTENCIA_ACTUAL || "-"
-//   );
-//   $("#numeroFacturaEstableEditar").val(rowSelected.NUMERO_DOCUMENTO);
-//   $("#numeroLoteEstableEditar").val(rowSelected.NUMERO_LOTE);
-//   $("#cantidadEstableEditar").val(rowSelected.CANTIDAD);
-//   $("#precioCompraEstableEditar").val(rowSelected.COSTO_UNITARIO);
-//   var fechaSolo = rowSelected.FECHA_ENTRADA
-//     ? rowSelected.FECHA_ENTRADA.split(" ")[0]
-//     : "";
-//   $("#fechaCompraEstableEditar").val(fechaSolo);
-//   $("#fechaCaducidadEstableEditar").val(rowSelected.FECHA_CADUCIDAD);
-//   $("#motivoEntradaEstableEditar").val(rowSelected.MOTIVO_DESCRIPCION);
-//   $("#proveedorEstableEditar").val(rowSelected.ID_PROVEEDORES);
-//   $("#observacionesEstableEditar").val(rowSelected.OBSERVACIONES);
-//   $("#unidadMedidaEstableEditar").text(rowSelected.UNIDAD_MEDIDA);
-
-//   $("#editarEntradaEstableModal").modal("show");
-// });
 
 // DATATABLE DE DETALLES DE ENTRADA
 tableCatDetEntradasEstable = $("#tableCatDetEntradasEstable").DataTable({
@@ -327,6 +304,11 @@ tableCatDetEntradasEstable = $("#tableCatDetEntradasEstable").DataTable({
       },
     },
     {
+      data: "id_proveedores",
+      title: "ID Proveedor",
+      visible: false,
+    },
+    {
       data: "FACTURA_NUM",
       title: "Factura",
       visible: false,
@@ -371,6 +353,11 @@ tableCatDetEntradasEstable = $("#tableCatDetEntradasEstable").DataTable({
       render: function (data) {
         return data ? data : "-";
       },
+    },
+    {
+      data: "id_motivo",
+      title: "ID Motivo",
+      visible: false,
     },
     // {
     //   data: "orden_compra_numero",
@@ -464,6 +451,7 @@ tableCatDetEntradasEstable = $("#tableCatDetEntradasEstable").DataTable({
           data-numero-factura="${row.FACTURA_NUM}"
           data-documento-factura="${row.FACTURA_IMG}"
           data-proveedor="${row.PROVEEDOR}"
+          data-id-proveedor="${row.id_proveedores}"
           data-fecha-entrada="${row.fecha_entrada}"
           data-fecha-compra="${row.fecha_compra}"
           data-lote="${row.NUMERO_LOTE}"
@@ -471,10 +459,9 @@ tableCatDetEntradasEstable = $("#tableCatDetEntradasEstable").DataTable({
           data-cantidad="${row.CANTIDAD_ENTRADA}"
           data-precio-unitario="${row.costo_unitario}"
           data-motivo="${row.MOTIVO}"
+          data-id-motivo="${row.id_motivo}"
           data-observaciones="${row.observaciones}"
           type="button" class="btn btn-warning btn-sm btn-editar-entrada" data-bs-toggle="tooltip" title="Editar entrada"><i class="bi bi-pencil-square"></i></button>
-          <button
-          type="button" class="btn btn-info btn-sm btn-ver-entrada" data-bs-toggle="tooltip" title="Ver entrada"><i class="bi bi-eye"></i></button>
           `;
         } else {
           return "-";
@@ -485,13 +472,13 @@ tableCatDetEntradasEstable = $("#tableCatDetEntradasEstable").DataTable({
   columnDefs: [{ targets: "_all", className: "text-center align-middle" }],
   dom: 'Bl<"dataTables_toolbar">frtip',
   buttons: [
-    {
-      text: '<i class="bi bi-funnel"></i> Filtrar',
-      className: "btn btn-warning",
-      action: function () {
-        $("#filtrosEntradasModal").modal("show");
-      },
-    },
+    // {
+    //   text: '<i class="bi bi-funnel"></i> Filtrar',
+    //   className: "btn btn-warning",
+    //   action: function () {
+    //     $("#filtrosEntradasModal").modal("show");
+    //   },
+    // },
   ],
 });
 
@@ -500,6 +487,7 @@ $(document).on("click", ".btn-editar-entrada", function () {
   var clave = $(this).data("clave");
   var cantidad = $(this).data("cantidad");
   var proveedor = $(this).data("proveedor");
+  var idProveedor = $(this).data("id-proveedor");
   var fechaEntrada = $(this).data("fecha-entrada");
   var fechaCompra = $(this).data("fecha-compra");
   var precioUnitario = $(this).data("precio-unitario");
@@ -508,13 +496,16 @@ $(document).on("click", ".btn-editar-entrada", function () {
   var lote = $(this).data("lote");
   var fechaCaducidad = $(this).data("fecha-caducidad");
   var motivo = $(this).data("motivo");
+  var idMotivo = $(this).data("id-motivo");
   var observaciones = $(this).data("observaciones");
+  var idEntrada = $(this).data("id-entrada");
+  var idArticulo = $(this).data("id-articulo");
 
   $("#nombreArticuloEstableEditar").val(articulo);
   $("#articuloSeleccionadoEstableEditar").text(articulo);
   $("#claveArticuloEstableEditar").val(clave);
-  $("#existenciaActualTittleEstableEditar").text(cantidad);
-  $("#proveedorEstableEditar").val(proveedor);
+  $("#existenciaActualTittleEstableEditar").text(cantidad || "-");
+  $("#proveedorEstableEditar").val(idProveedor);
   $("#fechaCompraEstableEditar").val(fechaCompra);
   $("#cantidadEstableEditar").val(cantidad);
   $("#precioCompraEstableEditar").val(precioUnitario);
@@ -522,13 +513,500 @@ $(document).on("click", ".btn-editar-entrada", function () {
   // $("#documentoFacturaEstableEditar").val(documentoFactura);
   $("#numeroLoteEstableEditar").val(lote);
   $("#fechaCaducidadEstableEditar").val(fechaCaducidad);
-  $("#motivoEntradaEstableEditar").val(motivo);
+  $("#motivoEntradaEstableEditar").val(idMotivo);
   $("#observacionesEstableEditar").val(observaciones);
+
+  $("#idEntradaEstableEditar").val(idEntrada);
+  $("#idArticuloEstableEditar").val(idArticulo);
+  console.log("idEntrada", idEntrada);
+  console.log("idArticulo", idArticulo);
 
   $("#editarEntradaEstableModal").modal("show");
 });
 
-$(document).on("click", ".btn-ver-entrada", function () {});
+// DATATABLE DE SALIDAS ESTABLE
+tableCatSalidasEstable = $("#tableCatSalidasEstable").DataTable({
+  language: {
+    url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+  },
+  autoWidth: true,
+  lengthChange: false,
+  info: true,
+  paging: true,
+  scrollY: "40vh",
+  scrollCollapse: true,
+  ajax: {
+    dataType: "json",
+    data: function (d) {
+      return $.extend(d, dataTableCatSalidasEstable);
+    },
+    method: "POST",
+    url: "../../../api/inventarios_api.php",
+    error: function (jqXHR, textStatus, errorThrown) {
+      alertErrorAJAX(jqXHR, textStatus, errorThrown);
+    },
+    dataSrc: "response.data",
+  },
+  columns: [
+    {
+      data: "ID_ARTICULO",
+      title: "ID Artículo",
+      visible: false,
+    },
+    {
+      data: "CLAVE_ART",
+      title: "Clave",
+      width: "50px",
+    },
+    {
+      data: "NOMBRE_COMERCIAL",
+      title: "Artículo",
+    },
+    {
+      data: "FECHA_ENTRADA",
+      title: "Fecha de Entrada",
+      render: function (data) {
+        if (!data || data === "0000-00-00" || data === "0000-00-00 00:00:00")
+          return "-";
+        return data ? moment(data).format("DD/MM/YYYY HH:mm") : "-";
+      },
+    },
+    {
+      data: "RESPONSABLE",
+      title: "Responsable",
+      render: function (data) {
+        if (data === 0 || !data) return "-";
+        return data;
+      },
+    },
+    {
+      data: "CANTIDAD",
+      title: "Cantidad Ingresada",
+      className: "text-center",
+      render: function (data, type, row) {
+        if (data === 0 || !data) return "-";
+        const unidad = row.UNIDAD_MEDIDA || "unid";
+        return `<span class="badge bg-primary">${data} ${unidad}</span>`;
+      },
+    },
+    {
+      data: "COSTO_UNITARIO",
+      title: "Costo Unitario",
+      className: "text-end",
+      render: function (data) {
+        if (data === 0 || !data) return "-";
+        return data ? `$${parseFloat(data).toFixed(2)}` : "-";
+      },
+    },
+    {
+      data: "COSTO_TOTAL",
+      title: "Costo Total",
+      className: "text-end",
+      render: function (data) {
+        return data ? `<strong>$${parseFloat(data).toFixed(2)}</strong>` : "-";
+      },
+    },
+    {
+      data: "PROVEEDOR_NOMBRE",
+      title: "Proveedor",
+      render: function (data) {
+        return data || "-";
+      },
+    },
+    {
+      data: "ALMACEN_NOMBRE",
+      title: "Almacén",
+      render: function (data) {
+        return data || "Almacén principal";
+      },
+    },
+    {
+      data: "MOTIVO_DESCRIPCION",
+      title: "Motivo",
+      render: function (data) {
+        return data || "Sin especificar";
+      },
+    },
+    {
+      data: "NUMERO_LOTE",
+      title: "Lote",
+      visible: false,
+      render: function (data) {
+        return data || "-";
+      },
+    },
+    {
+      data: "FECHA_CADUCIDAD",
+      title: "Caducidad",
+      render: function (data) {
+        if (!data || data === "0000-00-00") return "-";
+        const fechaCad = moment(data);
+        const hoy = moment();
+        const diasRestantes = fechaCad.diff(hoy, "days");
+
+        let badgeClass = "bg-success";
+        if (diasRestantes <= 30) badgeClass = "bg-danger";
+        else if (diasRestantes <= 90) badgeClass = "bg-warning";
+
+        return `<span class="badge ${badgeClass}">${fechaCad.format(
+          "DD/MM/YYYY"
+        )}</span>`;
+      },
+    },
+    {
+      data: "NUMERO_DOCUMENTO",
+      title: "Número de Documento",
+      render: function (data) {
+        return data || "-";
+      },
+      visible: false,
+    },
+    {
+      data: "DOCUMENTO_FACTURA",
+      title: "Factura",
+      render: function (data, type, row) {
+        if (data) {
+          var extension = data.split(".").pop().toLowerCase();
+
+          if (extension === "pdf") {
+            return (
+              '<a href="' +
+              data +
+              '" target="_blank"><i class="bi bi-file-earmark-pdf-fill text-danger fs-4" title="Ver PDF"></i></a>'
+            );
+          } else {
+            return (
+              '<a href="' +
+              data +
+              '" target="_blank"><img src="' +
+              data +
+              '" alt="Imagen del Documento" style="width: 50px; height: auto;"/></a>'
+            );
+          }
+        } else {
+          return "-";
+        }
+      },
+    },
+    {
+      data: "EXISTENCIA_ACTUAL",
+      title: "Existencia Actual",
+      className: "text-center",
+      render: function (data) {
+        return data !== null ? data : "-";
+      },
+    },
+    // {
+    //   data: null,
+    //   title: "Acciones",
+    //   className: "all",
+    //   orderable: false,
+    //   width: "120px",
+    //   render: function (data, type, row) {
+    //     return '<button class="btn btn-warning btn-sm btn-editar-entrada" data-bs-toggle="tooltip" title="Editar entrada"><i class="bi bi-pencil-square"></i></button>';
+    //   },
+    // },
+  ],
+  columnDefs: [{ targets: "_all", className: "text-center align-middle" }],
+  dom: 'Bl<"dataTables_toolbar">frtip',
+  buttons: [
+    {
+      text: '<i class="bi bi-plus-lg"></i> Nueva Salida',
+      className: "btn btn-success",
+      action: function () {
+        if (rowSelected) {
+          $("#registrarSalidaEstableModal").modal("show");
+
+          // Llenar información del artículo
+          $("#articuloSeleccionadoEstable").text(rowSelected.NOMBRE_COMERCIAL);
+          $("#existenciaActualTittleEstable").text(rowSelected.CANTIDAD || "0");
+          $("#nombreArticuloEstable").val(rowSelected.NOMBRE_COMERCIAL);
+          $("#claveArticuloEstable").val(rowSelected.CLAVE_ART || "");
+          $("#existenciaActualEstable").val(rowSelected.CANTIDAD || "0");
+          $("#unidadMedidaEstable").text(rowSelected.UNIDAD_MEDIDA || "unid");
+
+          // Campos ocultos
+          $("#idArticuloEstable").val(rowSelected.ID_ARTICULO);
+          $("#nombreComercialEstable").val(rowSelected.NOMBRE_COMERCIAL);
+          $("#noArtEstable").val(rowSelected.ID_ARTICULO);
+        } else {
+          alertToast("Seleccione un artículo", "warning", 4000);
+        }
+      },
+    },
+    // {
+    //   text: '<i class="bi bi-funnel"></i> Filtrar Entradas',
+    //   className: "btn btn-warning",
+    //   action: function () {
+    //     $("#filtrosEntradasModal").modal("show");
+    //   },
+    // },
+    {
+      text: '<i class="bi bi-file-earmark-arrow-down"></i> Salida con Requisición',
+      className: "btn btn-warning",
+      action: function () {
+        $("#registrarSalidaOrdenEstableModal").modal("show");
+      },
+    },
+    {
+      text: '<i class="bi bi-file-earmark-arrow-down"></i> Ver Transacciones',
+      className: "btn btn-info",
+      action: function () {
+        $("#detalleTransaccionModal").modal("show");
+      },
+    },
+  ],
+});
+
+// DATATABLE DE DETALLES DE SALIDA
+tableCatDetSalidasEstable = $("#tableCatDetSalidasEstable").DataTable({
+  order: [[0, "desc"]],
+  language: {
+    url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+  },
+  autoWidth: true,
+  lengthChange: false,
+  info: true,
+  paging: true,
+  scrollY: "40vh",
+  scrollCollapse: true,
+  ajax: {
+    dataType: "json",
+    data: function (d) {
+      return $.extend(d, dataTableCatDetSalidasEstable);
+    },
+    method: "POST",
+    url: "../../../api/inventarios_api.php",
+    error: function (jqXHR, textStatus, errorThrown) {
+      alertErrorAJAX(jqXHR, textStatus, errorThrown);
+    },
+    dataSrc: "response.data",
+  },
+  columns: [
+    {
+      data: "id_salida",
+      title: "ID Detalle de Salida",
+      visible: false,
+    },
+    {
+      data: "fecha_salida",
+      title: "Fecha de Salida",
+      render: function (data) {
+        if (!data || data === "0000-00-00" || data === "0000-00-00 00:00:00")
+          return "-";
+        return data ? moment(data).format("DD/MM/YYYY HH:mm") : "-";
+      },
+    },
+    {
+      data: "fecha_requerida",
+      title: "Fecha Requerida",
+      render: function (data) {
+        if (!data || data === "0000-00-00" || data === "0000-00-00 00:00:00")
+          return "-";
+        return data ? moment(data).format("DD/MM/YYYY") : "-";
+      },
+    },
+    {
+      data: "CANTIDAD_SALIDA",
+      title: "Cantidad Salida",
+      className: "text-center",
+      render: function (data) {
+        return data ? data : "-";
+      },
+    },
+    {
+      data: "costo_unitario_salida",
+      title: "Costo Unitario",
+      render: function (data) {
+        return data ? data : "-";
+      },
+      visible: false,
+    },
+    {
+      data: "PROVEEDOR_NOMBRE",
+      title: "Proveedor",
+      render: function (data) {
+        return data ? data : "-";
+      },
+    },
+    {
+      data: "ID_PROVEEDORES",
+      title: "ID Proveedor",
+      visible: false,
+    },
+    {
+      data: "NUMERO_DOCUMENTO",
+      title: "Factura",
+      visible: false,
+    },
+    {
+      data: "DOCUMENTO_FACTURA",
+      title: "Factura",
+      render: function (data, type, row) {
+        if (data) {
+          var extension = data.split(".").pop().toLowerCase();
+
+          if (extension === "pdf") {
+            return (
+              '<a href="' +
+              data +
+              '" target="_blank"><i class="bi bi-file-earmark-pdf-fill text-danger fs-4" title="Ver PDF"></i></a>'
+            );
+          } else {
+            return (
+              '<a href="' +
+              data +
+              '" target="_blank"><img src="' +
+              data +
+              '" alt="Imagen del Documento" style="width: 50px; height: auto;"/></a>'
+            );
+          }
+        } else {
+          return "-";
+        }
+      },
+    },
+    {
+      data: "RESPONSABLE_NOMBRE",
+      title: "Responsable",
+      render: function (data) {
+        return data ? data : "-";
+      },
+    },
+    {
+      data: "MOTIVO_DESCRIPCION",
+      title: "Motivo",
+      render: function (data) {
+        return data ? data : "-";
+      },
+    },
+    {
+      data: "ID_MOTIVO",
+      title: "ID Motivo",
+      visible: false,
+    },
+    // {
+    //   data: "orden_compra_numero",
+    //   title: "Orden de Compra",
+    //   render: function (data) {
+    //     return data ? data : "-";
+    //   },
+    // },
+    {
+      data: "ORDEN_COMPRA_DOCUMENTO",
+      title: "Orden de Compra",
+      render: function (data, type, row) {
+        if (data) {
+          var extension = data.split(".").pop().toLowerCase();
+
+          if (extension === "pdf") {
+            return (
+              '<a href="' +
+              data +
+              '" target="_blank"><i class="bi bi-file-earmark-pdf-fill text-danger fs-4" title="Ver PDF"></i></a>'
+            );
+          } else {
+            return (
+              '<a href="' +
+              data +
+              '" target="_blank"><img src="' +
+              data +
+              '" alt="Imagen de la orden de compra" style="width: 50px; height: auto;"/></a>'
+            );
+          }
+        } else {
+          return "-";
+        }
+      },
+    },
+    {
+      data: "observaciones",
+      title: "Observaciones",
+      render: function (data) {
+        return data ? data : "-";
+      },
+    },
+    {
+      data: "NOMBRE_COMERCIAL",
+      title: "Artículo",
+      render: function (data) {
+        return data ? data : "-";
+      },
+      visible: false,
+    },
+    {
+      data: "CLAVE_ART",
+      title: "Clave",
+      render: function (data) {
+        return data ? data : "-";
+      },
+      visible: false,
+    },
+    {
+      data: "ID_ARTICULO",
+      title: "ID Artículo",
+      visible: false,
+    },
+    {
+      data: "NUMERO_LOTE",
+      title: "Lote",
+      render: function (data) {
+        return data ? data : "-";
+      },
+      visible: false,
+    },
+    {
+      data: "FECHA_CADUCIDAD",
+      title: "Caducidad",
+      render: function (data) {
+        return data ? data : "-";
+      },
+      visible: false,
+    },
+    {
+      data: null,
+      title: "Acciones",
+      render: function (data, type, row) {
+        if (row.MOTIVO !== "Por orden de compra") {
+          return `
+          <button
+          data-id-entrada="${row.id_entrada}"
+          data-id-articulo="${row.ID_ARTICULO}"
+          data-articulo="${row.NOMBRE_COMERCIAL}"
+          data-clave="${row.CLAVE_ART}"
+          data-numero-factura="${row.FACTURA_NUM}"
+          data-documento-factura="${row.FACTURA_IMG}"
+          data-proveedor="${row.PROVEEDOR}"
+          data-id-proveedor="${row.id_proveedores}"
+          data-fecha-entrada="${row.fecha_entrada}"
+          data-fecha-compra="${row.fecha_compra}"
+          data-lote="${row.NUMERO_LOTE}"
+          data-fecha-caducidad="${row.FECHA_CADUCIDAD}"
+          data-cantidad="${row.CANTIDAD_ENTRADA}"
+          data-precio-unitario="${row.costo_unitario}"
+          data-motivo="${row.MOTIVO}"
+          data-id-motivo="${row.id_motivo}"
+          data-observaciones="${row.observaciones}"
+          type="button" class="btn btn-warning btn-sm btn-editar-entrada" data-bs-toggle="tooltip" title="Editar entrada"><i class="bi bi-pencil-square"></i></button>
+          `;
+        } else {
+          return "-";
+        }
+      },
+    },
+  ],
+  columnDefs: [{ targets: "_all", className: "text-center align-middle" }],
+  dom: 'Bl<"dataTables_toolbar">frtip',
+  buttons: [
+    // {
+    //   text: '<i class="bi bi-funnel"></i> Filtrar',
+    //   className: "btn btn-warning",
+    //   action: function () {
+    //     $("#filtrosEntradasModal").modal("show");
+    //   },
+    // },
+  ],
+});
 
 // DATATABLE DE ARTICULOS DE ORDEN DE COMPRA
 tableCatOrdenesCompraArticulos = $("#tableCatOrdenesCompraArticulos").DataTable(
@@ -1059,19 +1537,22 @@ function cargarCatalogoEnSelect(selectorSelect, opciones, callback) {
 }
 
 function cargarProveedoresEstable() {
-  cargarCatalogoEnSelect("#registrarEntradaEstableModal #proveedorEstable, #editarEntradaEstableModal #proveedorEstableEditar", { // probar si sirve poner dos select en la funcion
-    api: 16,
-    campoId: "id_proveedores",
-    campoTexto: "nombre",
-    placeholder: "Seleccione un proveedor",
-    soloActivos: true,
-    soloAprobadas: false,
-  });
+  cargarCatalogoEnSelect(
+    "#registrarEntradaEstableModal #proveedorEstable, #editarEntradaEstableModal #proveedorEstableEditar",
+    {
+      api: 16,
+      campoId: "id_proveedores",
+      campoTexto: "nombre",
+      placeholder: "Seleccione un proveedor",
+      soloActivos: true,
+      soloAprobadas: false,
+    }
+  );
 }
 
 function cargarMotivosEstable() {
   cargarCatalogoEnSelect(
-    "#registrarEntradaEstableModal #motivoEntradaEstable",
+    "#registrarEntradaEstableModal #motivoEntradaEstable, #editarEntradaEstableModal #motivoEntradaEstableEditar",
     {
       api: 15,
       campoId: "id_motivos",

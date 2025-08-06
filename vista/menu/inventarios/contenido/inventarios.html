@@ -1,26 +1,31 @@
 <!-- tabs para movil -->
 <div id="tab-button"></div>
 <div class="row">
-  <div class="col-6 tab-first" id="tab-menu" style="margin: auto">
-    <div class="rounded p-3 shadow my-2 card" id="lista-pacientes">
-      <h5>Elija una opción</h5>
+  <div class="col-12 col-md-10 col-lg-8 col-xl-6 tab-first" id="tab-menu" style="margin: auto">
+    <div class="rounded p-4 shadow-lg my-4 card border-0" id="lista-pacientes">
+      <h4 class="text-center mb-4 fw-bold text-primary">Sistema de Inventarios</h4>
+      <p class="text-center text-muted mb-4">Seleccione el módulo con el que desea trabajar</p>
       <div class="vertical-menu" id="menu-grid">
         <a href="#articulos" data-target="moduloCatArticulos">
           <i class="bi bi-box-seam icono-menu icono-articulos"></i>
           <span>Artículos</span>
         </a>
-        <a href="#entradas" data-target="moduloCatEntradas">
+        <!-- <a href="#entradas" data-target="moduloCatEntradas">
           <i class="bi bi-arrow-down-up icono-menu icono-entradas"></i>
           <span>Entradas y salidas</span>
-        </a>
+        </a> -->
         <a href="#entradas_estable" data-target="moduloCatEntradasEstable">
-          <i class="bi bi-arrow-down-up icono-menu icono-entradas"></i>
+          <i class="bi bi-arrow-down icono-menu icono-entradas"></i>
           <span>Entradas</span>
         </a>
-        <a href="inventarios-fisicos" data-target="moduloInventariosFisicos">
+        <a href="#salidas_estable" data-target="moduloCatSalidasEstable">
+          <i class="bi bi-arrow-up icono-menu icono-entradas"></i>
+          <span>Salidas</span>
+        </a>
+        <!-- <a href="inventarios-fisicos" data-target="moduloInventariosFisicos">
           <i class="bi bi-pencil-square icono-menu icono-inventarios"></i>
           <span>Inventarios Físicos</span>
-        </a>
+        </a> -->
         <a href="#requisiciones" data-target="moduloRequisiciones">
           <i class="bi bi-file-earmark-text-fill icono-menu icono-requisiciones"></i>
           <span>Requisiciones</span>
@@ -49,16 +54,13 @@
     </div>
 
     <!-- ENTRADAS-->
-    <div class="rounded p-3 shadow my-2 content-module" id="moduloCatEntradas">
-      <!-- Barra de título -->
-      <div class="d-flex align-items-start pb-3 mb-3 text-white rounded">
+    <!-- <div class="d-flex align-items-start pb-3 mb-3 text-white rounded">
         <h2 class="mx-2" id="titulosEntradasSalidas">Entradas</h2>
       </div>
-      <!-- Tabla -->
       <div class="table-responsive">
         <table class="table responsive table-hover" style="min-width: 1470px" id="tableCatEntradas"></table>
       </div>
-    </div>
+    </div> -->
 
     <!-- ENTRADAS ESTABLE-->
     <div class="rounded p-3 shadow my-2 content-module" id="moduloCatEntradasEstable">
@@ -72,13 +74,24 @@
       </div>
     </div>
 
-    <!-- INVENTARIOS FISICOS -->
-    <div class="rounded p-3 shadow my-2 content-module" id="moduloInventariosFisicos">
+    <!-- SALIDAS ESTABLE-->
+    <div class="rounded p-3 shadow my-2 content-module" id="moduloCatSalidasEstable">
       <!-- Barra de título -->
+      <div class="d-flex align-items-start pb-3 mb-3 text-white rounded">
+        <h2 class="mx-2" id="titulosSalidasEstable">Salidas</h2>
+      </div>
+      <!-- Tabla -->
+      <div class="table-responsive">
+        <table class="table responsive table-hover" style="min-width: 1470px" id="tableCatSalidasEstable"></table>
+      </div>
+    </div>
+
+    <!-- INVENTARIOS FISICOS -->
+    <!-- <div class="rounded p-3 shadow my-2 content-module" id="moduloInventariosFisicos">
       <div class="d-flex align-items-start pb-3 mb-3 text-white rounded">
         <h2 class="mx-2">Inventarios fisicos</h2>
       </div>
-    </div>
+    </div> -->
     <!-- REQUISICIONES -->
     <div class="rounded p-3 shadow my-2 content-module" id="moduloRequisiciones">
       <div class="d-flex align-items-start pb-3 mb-3 text-white rounded">
@@ -91,98 +104,129 @@
   </div>
 </div>
 <style>
-  #menu-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 18px 10px;
-    justify-items: center;
-    align-items: center;
-    width: 100%;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 20px 0;
+  /* Contenedor principal mejorado */
+  #lista-pacientes {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border: none !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08) !important;
+    position: relative;
+    overflow: hidden;
   }
 
+  #lista-pacientes::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #004e59 0%, #0066cc 50%, #004e59 100%);
+  }
+
+  /* Títulos mejorados */
+  #lista-pacientes h4 {
+    color: #004e59 !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.5px;
+    margin-bottom: 0.5rem !important;
+  }
+
+  #lista-pacientes p {
+    color: #6c757d !important;
+    font-size: 0.95rem;
+    margin-bottom: 2rem !important;
+  }
+
+  /* Grid de menú mejorado */
+  #menu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    justify-items: center;
+    align-items: stretch;
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  /* Enlaces del menú mejorados */
   #menu-grid a {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: #333333;
+    color: #495057;
     text-decoration: none;
-    font-size: 18px;
-    background: transparent;
-    border-bottom: none;
+    font-size: 16px;
+    font-weight: 500;
+    background: #ffffff;
+    border: 2px solid #e9ecef;
+    border-radius: 16px;
     width: 100%;
-    min-height: 120px;
+    min-height: 140px;
+    padding: 24px 16px;
     position: relative;
     overflow: hidden;
-    transition: color 0.3s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   }
 
-  #menu-grid a .icono-menu,
-  #menu-grid a span {
-    transition: transform 0.3s;
+  /* Efecto hover mejorado */
+  #menu-grid a:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    border-color: transparent;
+    background: #ffffff;
   }
 
-  #menu-grid a:hover .icono-menu,
+  #menu-grid a:hover .icono-menu {
+    transform: scale(1.1);
+  }
+
   #menu-grid a:hover span {
-    transform: translateY(-8px) scale(1.08);
+    color: #212529;
   }
 
-  #menu-grid a::after {
-    content: "";
-    position: absolute;
-    left: 30%;
-    bottom: 0;
-    width: 40%;
-    height: 3px;
-    border-radius: 2px;
-    transform: scaleX(0);
-    transition: transform 0.3s;
+  /* Efectos específicos por módulo */
+  #menu-grid a[data-target="moduloCatArticulos"]:hover {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+    border-color: #667eea;
   }
 
-  #menu-grid a:hover::after {
-    transform: scaleX(1);
+  #menu-grid a[data-target="moduloCatEntradasEstable"]:hover {
+    background: linear-gradient(135deg, rgba(240, 147, 251, 0.05) 0%, rgba(245, 87, 108, 0.05) 100%);
+    border-color: #f093fb;
   }
 
-  /* Líneas de hover específicas para cada icono */
-  #menu-grid a[data-target="moduloCatArticulos"]::after {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  #menu-grid a[data-target="moduloCatSalidasEstable"]:hover {
+    background: linear-gradient(135deg, rgba(245, 87, 108, 0.05) 0%, rgba(240, 147, 251, 0.05) 100%);
+    border-color: #f5576c;
   }
 
-  #menu-grid a[data-target="moduloCatEntradas"]::after {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  #menu-grid a[data-target="moduloRequisiciones"]:hover {
+    background: linear-gradient(135deg, rgba(67, 233, 123, 0.05) 0%, rgba(56, 249, 215, 0.05) 100%);
+    border-color: #43e97b;
   }
 
-  #menu-grid a[data-target="moduloCatEntradasEstable"]::after {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  }
-
-  #menu-grid a[data-target="moduloInventariosFisicos"]::after {
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  }
-
-  #menu-grid a[data-target="moduloRequisiciones"]::after {
-    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-  }
-
+  /* Iconos mejorados */
   .icono-menu {
-    font-size: 3.2rem !important;
-    margin-bottom: 10px;
+    font-size: 3.5rem !important;
+    margin-bottom: 12px;
     line-height: 1;
     display: block;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* Iconos coloridos individuales */
+  /* Colores de iconos más suaves y profesionales */
   .icono-articulos {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(2px 2px 4px rgba(102, 126, 234, 0.3));
+    filter: drop-shadow(0 2px 4px rgba(102, 126, 234, 0.2));
   }
 
   .icono-entradas {
@@ -190,7 +234,7 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(2px 2px 4px rgba(245, 87, 108, 0.3));
+    filter: drop-shadow(0 2px 4px rgba(245, 87, 108, 0.2));
   }
 
   .icono-inventarios {
@@ -198,7 +242,7 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(2px 2px 4px rgba(79, 172, 254, 0.3));
+    filter: drop-shadow(0 2px 4px rgba(79, 172, 254, 0.2));
   }
 
   .icono-requisiciones {
@@ -206,25 +250,75 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(2px 2px 4px rgba(67, 233, 123, 0.3));
+    filter: drop-shadow(0 2px 4px rgba(67, 233, 123, 0.2));
   }
 
+  /* Texto de los enlaces */
   #menu-grid a span {
     margin-top: 8px;
-    font-size: 1.1rem;
+    font-size: 1rem;
     display: block;
     text-align: center;
+    transition: all 0.3s ease;
+    letter-spacing: 0.25px;
   }
 
-  @media (max-width: 991px) {
+  /* Responsive design mejorado */
+  @media (min-width: 768px) {
     #menu-grid {
       grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
     }
   }
 
-  @media (max-width: 575px) {
+  @media (min-width: 992px) {
+    #menu-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+    
+    #menu-grid a {
+      min-height: 150px;
+      padding: 28px 20px;
+    }
+  }
+
+  @media (max-width: 767px) {
     #menu-grid {
       grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    
+    #menu-grid a {
+      min-height: 120px;
+      padding: 20px 16px;
+    }
+    
+    .icono-menu {
+      font-size: 3rem !important;
+    }
+    
+    #lista-pacientes h4 {
+      font-size: 1.4rem !important;
+    }
+  }
+
+  /* Animación de carga */
+  #menu-grid a {
+    animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  #menu-grid a:nth-child(1) { animation-delay: 0.1s; }
+  #menu-grid a:nth-child(2) { animation-delay: 0.2s; }
+  #menu-grid a:nth-child(3) { animation-delay: 0.3s; }
+  #menu-grid a:nth-child(4) { animation-delay: 0.4s; }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 </style>

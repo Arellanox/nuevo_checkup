@@ -131,10 +131,15 @@ function mostrarAlertaArticuloCreado(
 function abrirModalRegistrarEntrada(articuloId, nombreArticulo, claveArticulo) {
   console.log("Buscando artículo con ID:", articuloId); // Para depuración
 
-  // Buscar el artículo en la tabla para obtener los datos completos
-  tableCatEntradas.ajax.reload(function () {
+  // Primero, navegar a la nueva pestaña de entradas
+  $(".content-module").hide();
+  $("#tab-menu").hide();
+  $("#moduloCatEntradasEstable").show();
+
+  // Buscar el artículo en la tabla de entradas estables para obtener los datos completos
+  tableCatEntradasEstable.ajax.reload(function () {
     // Buscar la fila correspondiente al artículo recién creado
-    const data = tableCatEntradas.data().toArray();
+    const data = tableCatEntradasEstable.data().toArray();
     console.log("Datos de la tabla:", data); // Para depuración
 
     const articuloEncontrado = data.find((item) => {
@@ -184,7 +189,7 @@ function abrirModalRegistrarEntrada(articuloId, nombreArticulo, claveArticulo) {
         $("#registrandoCantidad").text(` ${articuloPorNombre.CANTIDAD || "0"}`);
       } else {
         alertToast(
-          "El artículo fue creado exitosamente. Actualiza la página para registrar una entrada.",
+          "El artículo fue creado exitosamente. Ve a la pestaña 'Entradas' para registrar una entrada.",
           "info",
           6000
         );
@@ -248,9 +253,9 @@ $("#editarArticuloForm").submit(function (event) {
 });
 
 // Registrar una entrada estable
-$("#registrarEntradaEstableForm, #editarEntradaEstableForm").submit(function (event) {
+$("#registrarEntradaEstableForm").submit(function (event) {
   event.preventDefault();
-  var form = document.getElementById("registrarEntradaEstableForm, #editarEntradaEstableForm");
+  var form = document.getElementById("registrarEntradaEstableForm");
   var formData = new FormData(form);
 
   alertMensajeConfirm(
@@ -272,14 +277,61 @@ $("#registrarEntradaEstableForm, #editarEntradaEstableForm").submit(function (ev
         false,
         function (data) {
           if (data.response.code == 1) {
-            $("#registrarEntradaEstableForm, #editarEntradaEstableForm")[0].reset();
-            $("#registrarEntradaEstableModal, #editarEntradaEstableModal").modal("hide");
+            $("#registrarEntradaEstableForm")[0].reset();
+            $("#registrarEntradaEstableModal").modal("hide");
             alertToast("Entrada exitosa", "success", 4000);
             dataTableCatEntradasEstable.ajax.reload();
             dataTableCatDetEntradasEstable.ajax.reload();
           } else {
             alertToast(
               "Ocurrió un error al registrar la entrada",
+              "error",
+              4000
+            );
+          }
+        }
+      );
+    }
+  );
+});
+
+// Editar una entrada estable
+$("#editarEntradaEstableForm").submit(function (event) {
+  event.preventDefault();
+  var form = document.getElementById("editarEntradaEstableForm");
+  var formData = new FormData(form);
+  var idEntrada = rowSelected.id_entrada;
+  var idArticulo = rowSelected.ID_ARTICULO;
+  console.log("idEntrada", idEntrada);
+
+  alertMensajeConfirm(
+    {
+      title: "¿Está a punto de editar esta entrada?",
+      text: "Asegúrate que los datos sean correctos.",
+      icon: "warning",
+    },
+    function () {
+      ajaxAwaitFormData(
+        {
+          api: 6,
+          id_articulo: idArticulo,
+          id_entrada: idEntrada,
+          esOrden: 0,
+        },
+        "inventarios_api",
+        "editarEntradaEstableForm",
+        { callbackAfter: true },
+        false,
+        function (data) {
+          if (data.response.code == 1) {
+            $("#editarEntradaEstableForm")[0].reset();
+            $("#editarEntradaEstableModal").modal("hide");
+            alertToast("Entrada actualizada", "success", 4000);
+            dataTableCatEntradasEstable.ajax.reload();
+            dataTableCatDetEntradasEstable.ajax.reload();
+          } else {
+            alertToast(
+              "Ocurrió un error al actualizar la entrada",
               "error",
               4000
             );
@@ -339,138 +391,138 @@ $("#formSurtirOrdenCompraIndividual").submit(function (event) {
   );
 });
 
-// Registrar un movimiento (entrada o salida)
-$("#registrarEntradaForm").submit(function (event) {
-  event.preventDefault();
-  var form = document.getElementById("registrarEntradaForm");
-  var formData = new FormData(form);
+// // Registrar un movimiento (entrada o salida)
+// $("#registrarEntradaForm").submit(function (event) {
+//   event.preventDefault();
+//   var form = document.getElementById("registrarEntradaForm");
+//   var formData = new FormData(form);
 
-  // Obtener el estatus (si existe en tu formulario)
-  var activo = $("#registrarEntradaForm #estatus").is(":checked") ? 1 : 0;
-  formData.append("activo", activo);
+//   // Obtener el estatus (si existe en tu formulario)
+//   var activo = $("#registrarEntradaForm #estatus").is(":checked") ? 1 : 0;
+//   formData.append("activo", activo);
 
-  alertMensajeConfirm(
-    {
-      title: "¿Está a punto de registrar este movimiento?",
-      text: "Asegúrate que los datos sean correctos.",
-      icon: "warning",
-    },
-    function () {
-      ajaxAwaitFormData(
-        {
-          api: 6,
-          id_articulo: rowSelected.ID_ARTICULO,
-        },
-        "inventarios_api",
-        "registrarEntradaForm",
-        { callbackAfter: true },
-        false,
-        function (data) {
-          if (data.response.code == 1) {
-            // Resetear y ocultar elementos
-            $("#registrarEntradaForm")[0].reset();
-            $("#registrarEntradaModal").modal("hide");
+//   alertMensajeConfirm(
+//     {
+//       title: "¿Está a punto de registrar este movimiento?",
+//       text: "Asegúrate que los datos sean correctos.",
+//       icon: "warning",
+//     },
+//     function () {
+//       ajaxAwaitFormData(
+//         {
+//           api: 6,
+//           id_articulo: rowSelected.ID_ARTICULO,
+//         },
+//         "inventarios_api",
+//         "registrarEntradaForm",
+//         { callbackAfter: true },
+//         false,
+//         function (data) {
+//           if (data.response.code == 1) {
+//             // Resetear y ocultar elementos
+//             $("#registrarEntradaForm")[0].reset();
+//             $("#registrarEntradaModal").modal("hide");
 
-            // Mostrar notificación
-            alertToast("Movimiento registrado correctamente!", "success", 4000);
+//             // Mostrar notificación
+//             alertToast("Movimiento registrado correctamente!", "success", 4000);
 
-            // Recargar tablas
-            tableCatEntradas.ajax.reload();
-            tableCatArticulos.ajax.reload();
-            tableCatDetallesEntradas.ajax.reload();
-            tableCatTransacciones.ajax.reload();
+//             // Recargar tablas
+//             tableCatEntradas.ajax.reload();
+//             tableCatArticulos.ajax.reload();
+//             tableCatDetallesEntradas.ajax.reload();
+//             tableCatTransacciones.ajax.reload();
 
-            // Resetear visibilidad de los elementos
-            $("#precio-compra-container").hide();
-            $("#cantidad-container").hide();
-            $("#entrada-details-card").hide();
-            $("#motivo-card").hide();
-            $("#doc-extra-card").hide();
-            $("#lotesCaducidadDiv").hide();
+//             // Resetear visibilidad de los elementos
+//             $("#precio-compra-container").hide();
+//             $("#cantidad-container").hide();
+//             $("#entrada-details-card").hide();
+//             $("#motivo-card").hide();
+//             $("#doc-extra-card").hide();
+//             $("#lotesCaducidadDiv").hide();
 
-            // Resetear campos requeridos
-            $("#cantidad").prop("required", false);
-            $("#costo_ultima_entrada").prop("required", false);
-            $("#id_proveedores").prop("required", false);
-            $("#img_factura").prop("required", false);
-            $("#motivo_salida").prop("required", false);
+//             // Resetear campos requeridos
+//             $("#cantidad").prop("required", false);
+//             $("#costo_ultima_entrada").prop("required", false);
+//             $("#id_proveedores").prop("required", false);
+//             $("#img_factura").prop("required", false);
+//             $("#motivo_salida").prop("required", false);
 
-            // Resetear botón y título
-            $("#registrarMovimientoButton")
-              .html('<i class="bi bi-pencil-square"></i> Registrar movimiento')
-              .hide();
+//             // Resetear botón y título
+//             $("#registrarMovimientoButton")
+//               .html('<i class="bi bi-pencil-square"></i> Registrar movimiento')
+//               .hide();
 
-            $("#modalTitleRegistrarEntrada").html(
-              "Registrando movimiento de <strong><span id='registrandoEntrada'>" +
-                ($("#registrandoEntrada").text() || "") +
-                "</span></strong>"
-            );
+//             $("#modalTitleRegistrarEntrada").html(
+//               "Registrando movimiento de <strong><span id='registrandoEntrada'>" +
+//                 ($("#registrandoEntrada").text() || "") +
+//                 "</span></strong>"
+//             );
 
-            // Limpiar cálculo de costo total
-            $("#costoTotal").hide();
-            $("#costoTotalValor").text("0.00");
-          } else {
-            alertToast("Error al registrar el movimiento", "error", 4000);
-          }
-        }
-      );
-    }
-  );
-});
+//             // Limpiar cálculo de costo total
+//             $("#costoTotal").hide();
+//             $("#costoTotalValor").text("0.00");
+//           } else {
+//             alertToast("Error al registrar el movimiento", "error", 4000);
+//           }
+//         }
+//       );
+//     }
+//   );
+// });
 
-//Editar una entrada
-$("#editarMovimientoForm").submit(function (event) {
-  event.preventDefault();
-  var form = document.getElementById("editarMovimientoForm");
-  var formData = new FormData(form);
+// //Editar una entrada
+// $("#editarMovimientoForm").submit(function (event) {
+//   event.preventDefault();
+//   var form = document.getElementById("editarMovimientoForm");
+//   var formData = new FormData(form);
 
-  var activo;
+//   var activo;
 
-  if ($("#editarMovimientoForm #estatus").is(":checked")) {
-    activo = 1;
-  } else {
-    activo = 0;
-  }
+//   if ($("#editarMovimientoForm #estatus").is(":checked")) {
+//     activo = 1;
+//   } else {
+//     activo = 0;
+//   }
 
-  alertMensajeConfirm(
-    {
-      title: "¿Está a punto de editar este movimiento?",
-      text: "Asegúrate que los datos sean correctos.",
-      icon: "warning",
-    },
-    function () {
-      ajaxAwaitFormData(
-        {
-          api: 6,
-          id_articulo: rowSelected.ID_ARTICULO,
-          id_cat_movimientos: rowSelected.id_cat_movimientos,
-          fecha_ultima_entrada: $("#fecha_ultima_entrada").val(),
-          id_movimiento:
-            rowSelected.id_movimiento == 1
-              ? 4
-              : rowSelected.id_movimiento == 2
-              ? 5
-              : rowSelected.id_movimiento,
-        },
-        "inventarios_api",
-        "editarMovimientoForm",
-        { callbackAfter: true },
-        false,
-        function (data) {
-          if (data.response.code == 1) {
-            $("#editarMovimientoForm")[0].reset();
-            $("#editarMovimientoModal").modal("hide");
-            alertToast("Movimiento actualizado!", "success", 4000);
-            tableCatArticulos.ajax.reload();
-            tableCatEntradas.ajax.reload();
-            tableCatDetallesEntradas.ajax.reload();
-            tableCatTransacciones.ajax.reload();
-          }
-        }
-      );
-    }
-  );
-});
+//   alertMensajeConfirm(
+//     {
+//       title: "¿Está a punto de editar este movimiento?",
+//       text: "Asegúrate que los datos sean correctos.",
+//       icon: "warning",
+//     },
+//     function () {
+//       ajaxAwaitFormData(
+//         {
+//           api: 6,
+//           id_articulo: rowSelected.ID_ARTICULO,
+//           id_cat_movimientos: rowSelected.id_cat_movimientos,
+//           fecha_ultima_entrada: $("#fecha_ultima_entrada").val(),
+//           id_movimiento:
+//             rowSelected.id_movimiento == 1
+//               ? 4
+//               : rowSelected.id_movimiento == 2
+//               ? 5
+//               : rowSelected.id_movimiento,
+//         },
+//         "inventarios_api",
+//         "editarMovimientoForm",
+//         { callbackAfter: true },
+//         false,
+//         function (data) {
+//           if (data.response.code == 1) {
+//             $("#editarMovimientoForm")[0].reset();
+//             $("#editarMovimientoModal").modal("hide");
+//             alertToast("Movimiento actualizado!", "success", 4000);
+//             tableCatArticulos.ajax.reload();
+//             tableCatEntradas.ajax.reload();
+//             tableCatDetallesEntradas.ajax.reload();
+//             tableCatTransacciones.ajax.reload();
+//           }
+//         }
+//       );
+//     }
+//   );
+// });
 
 // Registrar/Editar Tipo
 $("#registrarTipoForm").submit(function (event) {

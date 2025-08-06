@@ -764,321 +764,321 @@ if (invVerTrans == 1) {
 }
 
 // DATATABLE DE ENTRADAS
-tableCatEntradas = $("#tableCatEntradas").DataTable({
-  order: [
-    [4, "desc"],
-    [0, "desc"],
-  ],
-  autoWidth: true,
-  language: {
-    url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
-  },
-  lengthChange: false,
-  info: true,
-  paging: true,
-  sorting: true,
-  scrollY: "68vh",
-  scrollX: true,
-  scrollCollapse: true,
-  fixedHeader: true,
-  ajax: {
-    dataType: "json",
-    data: function (d) {
-      return $.extend(d, dataTableCatEntradas);
-    },
-    method: "POST",
-    url: "../../../api/inventarios_api.php",
-    error: function (jqXHR, textStatus, errorThrown) {
-      alertErrorAJAX(jqXHR, textStatus, errorThrown);
-    },
-    dataSrc: "response.data",
-  },
-  columns: [
-    { data: "CLAVE_ART" },
-    {
-      data: "IMAGEN",
-      render: function (data, type, row) {
-        if (data) {
-          return (
-            '<a href="' +
-            data +
-            '" target="_blank"><img src="' +
-            data +
-            '" alt="Imagen del Artículo" style="width: 50px; height: auto;"/></a>'
-          );
-        } else {
-          return "";
-        }
-      },
-      className: "text-center",
-    },
-    { data: "NOMBRE_COMERCIAL" },
-    {
-      data: "COSTO_ULTIMA_ENTRADA",
-      render: function (data, type, row) {
-        if ($.isNumeric(data)) {
-          return (
-            "$" +
-            Number(data).toLocaleString("es-MX", {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            })
-          );
-        } else {
-          return "$0.00";
-        }
-      },
-    },
-    {
-      data: "FECHA_ULTIMA_ENTRADA",
-      // Render personalizado para manejar fechas vacías en el ordenamiento
-      render: function (data, type, row) {
-        if (type === "sort" || type === "type") {
-          // Para ordenamiento: fechas vacías van al principio (valor alto)
-          return data
-            ? new Date(data).getTime()
-            : new Date().getTime() + 86400000; // +1 día para que vaya arriba
-        }
-        // Para display normal
-        return data || "";
-      },
-    },
-    {
-      data: "COSTO_MAS_ALTO",
-      render: function (data, type, row) {
-        if ($.isNumeric(data)) {
-          return (
-            "$" +
-            Number(data).toLocaleString("es-MX", {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            })
-          );
-        } else {
-          return "$0.00";
-        }
-      },
-    },
-    { data: "PROVEEDOR" },
-    {
-      data: "MOTIVO_SALIDA",
-    },
-    {
-      data: "CANTIDAD",
-      render: function(data, type, row) {
-        return Math.round(data);
-      }
-    },
-    { data: "USUARIO" },
-    { data: "ORDEN_COMPRA" },
-    {
-      data: "IMAGEN_ORDEN_COMPRA",
-      render: function (data, type, row) {
-        if (data) {
-          // Obtener la extensión del archivo
-          var extension = data.split(".").pop().toLowerCase();
+// tableCatEntradas = $("#tableCatEntradas").DataTable({
+//   order: [
+//     [4, "desc"],
+//     [0, "desc"],
+//   ],
+//   autoWidth: true,
+//   language: {
+//     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+//   },
+//   lengthChange: false,
+//   info: true,
+//   paging: true,
+//   sorting: true,
+//   scrollY: "68vh",
+//   scrollX: true,
+//   scrollCollapse: true,
+//   fixedHeader: true,
+//   ajax: {
+//     dataType: "json",
+//     data: function (d) {
+//       return $.extend(d, dataTableCatEntradas);
+//     },
+//     method: "POST",
+//     url: "../../../api/inventarios_api.php",
+//     error: function (jqXHR, textStatus, errorThrown) {
+//       alertErrorAJAX(jqXHR, textStatus, errorThrown);
+//     },
+//     dataSrc: "response.data",
+//   },
+//   columns: [
+//     { data: "CLAVE_ART" },
+//     {
+//       data: "IMAGEN",
+//       render: function (data, type, row) {
+//         if (data) {
+//           return (
+//             '<a href="' +
+//             data +
+//             '" target="_blank"><img src="' +
+//             data +
+//             '" alt="Imagen del Artículo" style="width: 50px; height: auto;"/></a>'
+//           );
+//         } else {
+//           return "";
+//         }
+//       },
+//       className: "text-center",
+//     },
+//     { data: "NOMBRE_COMERCIAL" },
+//     {
+//       data: "COSTO_ULTIMA_ENTRADA",
+//       render: function (data, type, row) {
+//         if ($.isNumeric(data)) {
+//           return (
+//             "$" +
+//             Number(data).toLocaleString("es-MX", {
+//               minimumFractionDigits: 2,
+//               maximumFractionDigits: 2,
+//             })
+//           );
+//         } else {
+//           return "$0.00";
+//         }
+//       },
+//     },
+//     {
+//       data: "FECHA_ULTIMA_ENTRADA",
+//       // Render personalizado para manejar fechas vacías en el ordenamiento
+//       render: function (data, type, row) {
+//         if (type === "sort" || type === "type") {
+//           // Para ordenamiento: fechas vacías van al principio (valor alto)
+//           return data
+//             ? new Date(data).getTime()
+//             : new Date().getTime() + 86400000; // +1 día para que vaya arriba
+//         }
+//         // Para display normal
+//         return data || "";
+//       },
+//     },
+//     {
+//       data: "COSTO_MAS_ALTO",
+//       render: function (data, type, row) {
+//         if ($.isNumeric(data)) {
+//           return (
+//             "$" +
+//             Number(data).toLocaleString("es-MX", {
+//               minimumFractionDigits: 2,
+//               maximumFractionDigits: 2,
+//             })
+//           );
+//         } else {
+//           return "$0.00";
+//         }
+//       },
+//     },
+//     { data: "PROVEEDOR" },
+//     {
+//       data: "MOTIVO_SALIDA",
+//     },
+//     {
+//       data: "CANTIDAD",
+//       render: function(data, type, row) {
+//         return Math.round(data);
+//       }
+//     },
+//     { data: "USUARIO" },
+//     { data: "ORDEN_COMPRA" },
+//     {
+//       data: "IMAGEN_ORDEN_COMPRA",
+//       render: function (data, type, row) {
+//         if (data) {
+//           // Obtener la extensión del archivo
+//           var extension = data.split(".").pop().toLowerCase();
 
-          if (extension === "pdf") {
-            // Si es PDF, mostrar icono de PDF
-            return (
-              '<a href="' +
-              data +
-              '" target="_blank"><i class="bi bi-file-earmark-pdf-fill text-danger fs-4" title="Ver PDF"></i></a>'
-            );
-          } else {
-            // Si es imagen, mostrar como antes
-            return (
-              '<a href="' +
-              data +
-              '" target="_blank"><img src="' +
-              data +
-              '" alt="Imagen del Documento" style="width: 50px; height: auto;"/></a>'
-            );
-          }
-        } else {
-          return "Sin documento";
-        }
-      },
-      className: "text-center",
-    },
-  ],
-  columnDefs: [
-    //editar los numeros segun las columnas que quieras, editar el tittle es el header de las tablas
-    { target: 0, title: "Clave Art", className: "all" },
-    { target: 1, title: "Imágen del artículo", className: "all" },
-    { target: 2, title: "Nombre comercial", className: "all" },
-    { target: 3, title: "Costo última entrada", className: "all" },
-    { target: 4, title: "Fecha última entrada", className: "all" },
-    { target: 5, title: "Costo más alto", className: "all" },
-    { target: 6, title: "Proveedor", className: "all" },
-    { target: 7, title: "Motivo de entrada", className: "all" },
-    { target: 8, title: "Cantidad total en almacén", className: "all" },
-    { target: 9, title: "Responsable", className: "all" },
-    { target: 10, title: "Orden de compra", className: "all" },
-    { target: 11, title: "Imagen de orden de compra", className: "all" },
-  ],
-  dom: 'Bl<"dataTables_toolbar">frtip',
-  buttons: buttonsEntradas,
-});
+//           if (extension === "pdf") {
+//             // Si es PDF, mostrar icono de PDF
+//             return (
+//               '<a href="' +
+//               data +
+//               '" target="_blank"><i class="bi bi-file-earmark-pdf-fill text-danger fs-4" title="Ver PDF"></i></a>'
+//             );
+//           } else {
+//             // Si es imagen, mostrar como antes
+//             return (
+//               '<a href="' +
+//               data +
+//               '" target="_blank"><img src="' +
+//               data +
+//               '" alt="Imagen del Documento" style="width: 50px; height: auto;"/></a>'
+//             );
+//           }
+//         } else {
+//           return "Sin documento";
+//         }
+//       },
+//       className: "text-center",
+//     },
+//   ],
+//   columnDefs: [
+//     //editar los numeros segun las columnas que quieras, editar el tittle es el header de las tablas
+//     { target: 0, title: "Clave Art", className: "all" },
+//     { target: 1, title: "Imágen del artículo", className: "all" },
+//     { target: 2, title: "Nombre comercial", className: "all" },
+//     { target: 3, title: "Costo última entrada", className: "all" },
+//     { target: 4, title: "Fecha última entrada", className: "all" },
+//     { target: 5, title: "Costo más alto", className: "all" },
+//     { target: 6, title: "Proveedor", className: "all" },
+//     { target: 7, title: "Motivo de entrada", className: "all" },
+//     { target: 8, title: "Cantidad total en almacén", className: "all" },
+//     { target: 9, title: "Responsable", className: "all" },
+//     { target: 10, title: "Orden de compra", className: "all" },
+//     { target: 11, title: "Imagen de orden de compra", className: "all" },
+//   ],
+//   dom: 'Bl<"dataTables_toolbar">frtip',
+//   buttons: buttonsEntradas,
+// });
 
 // DATATABLE DE DETALLES ENTRADAS
-var tableCatDetallesEntradas = $("#tableCatDetallesEntradas").DataTable({
-  order: [1, "desc"],
-  autoWidth: false,
-  language: {
-    url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
-  },
-  lengthChange: false,
-  info: true,
-  paging: true,
-  sorting: true,
-  scrollY: "68vh",
-  scrollX: true,
-  scrollCollapse: true,
-  fixedHeader: true,
-  ajax: {
-    dataType: "json",
-    data: function (d) {
-      return {
-        api: 7,
-        id_articulo: rowSelected ? rowSelected.ID_ARTICULO : 0,
-        id_movimiento:
-          window.dataTableCatEntradas &&
-          window.dataTableCatEntradas.id_movimiento
-            ? window.dataTableCatEntradas.id_movimiento
-            : 1,
-      };
-    },
-    method: "POST",
-    url: "../../../api/inventarios_api.php",
-    error: function (jqXHR, textStatus, errorThrown) {
-      alertErrorAJAX(jqXHR, textStatus, errorThrown);
-    },
-    dataSrc: "response.data",
-  },
-  columns: [
-    { data: "PROVEEDOR" },
-    {
-      data: "FECHA_ULTIMA_ENTRADA",
-    },
-    {
-      data: "COSTO_ULTIMA_ENTRADA",
-      render: function (data, type, row) {
-        if ($.isNumeric(data)) {
-          return (
-            "$" +
-            Number(data).toLocaleString("es-MX", {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            })
-          );
-        } else {
-          return "";
-        }
-      },
-    },
-    { data: "CANTIDAD" },
-    {
-      data: null,
-      render: function (data, type, row) {
-        const cantidad = parseFloat(row.CANTIDAD) || 0;
-        const costoUnitario = parseFloat(row.COSTO_ULTIMA_ENTRADA) || 0;
+// var tableCatDetallesEntradas = $("#tableCatDetallesEntradas").DataTable({
+//   order: [1, "desc"],
+//   autoWidth: false,
+//   language: {
+//     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+//   },
+//   lengthChange: false,
+//   info: true,
+//   paging: true,
+//   sorting: true,
+//   scrollY: "68vh",
+//   scrollX: true,
+//   scrollCollapse: true,
+//   fixedHeader: true,
+//   ajax: {
+//     dataType: "json",
+//     data: function (d) {
+//       return {
+//         api: 7,
+//         id_articulo: rowSelected ? rowSelected.ID_ARTICULO : 0,
+//         id_movimiento:
+//           window.dataTableCatEntradas &&
+//           window.dataTableCatEntradas.id_movimiento
+//             ? window.dataTableCatEntradas.id_movimiento
+//             : 1,
+//       };
+//     },
+//     method: "POST",
+//     url: "../../../api/inventarios_api.php",
+//     error: function (jqXHR, textStatus, errorThrown) {
+//       alertErrorAJAX(jqXHR, textStatus, errorThrown);
+//     },
+//     dataSrc: "response.data",
+//   },
+//   columns: [
+//     { data: "PROVEEDOR" },
+//     {
+//       data: "FECHA_ULTIMA_ENTRADA",
+//     },
+//     {
+//       data: "COSTO_ULTIMA_ENTRADA",
+//       render: function (data, type, row) {
+//         if ($.isNumeric(data)) {
+//           return (
+//             "$" +
+//             Number(data).toLocaleString("es-MX", {
+//               minimumFractionDigits: 2,
+//               maximumFractionDigits: 2,
+//             })
+//           );
+//         } else {
+//           return "";
+//         }
+//       },
+//     },
+//     { data: "CANTIDAD" },
+//     {
+//       data: null,
+//       render: function (data, type, row) {
+//         const cantidad = parseFloat(row.CANTIDAD) || 0;
+//         const costoUnitario = parseFloat(row.COSTO_ULTIMA_ENTRADA) || 0;
 
-        if (cantidad > 0 && costoUnitario > 0) {
-          const costoTotal = cantidad * costoUnitario;
-          return (
-            "$" +
-            costoTotal.toLocaleString("es-MX", {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            })
-          );
-        } else {
-          return "$0.00";
-        }
-      },
-    },
-    { data: "id_cat_movimientos" },
-    { data: "id_movimiento" },
-    { data: "MOTIVO_SALIDA" },
-    {
-      data: "imagen_documento",
-      render: function (data, type, row) {
-        if (data) {
-          // Obtener la extensión del archivo
-          var extension = data.split(".").pop().toLowerCase();
+//         if (cantidad > 0 && costoUnitario > 0) {
+//           const costoTotal = cantidad * costoUnitario;
+//           return (
+//             "$" +
+//             costoTotal.toLocaleString("es-MX", {
+//               minimumFractionDigits: 2,
+//               maximumFractionDigits: 2,
+//             })
+//           );
+//         } else {
+//           return "$0.00";
+//         }
+//       },
+//     },
+//     { data: "id_cat_movimientos" },
+//     { data: "id_movimiento" },
+//     { data: "MOTIVO_SALIDA" },
+//     {
+//       data: "imagen_documento",
+//       render: function (data, type, row) {
+//         if (data) {
+//           // Obtener la extensión del archivo
+//           var extension = data.split(".").pop().toLowerCase();
 
-          if (extension === "pdf") {
-            // Si es PDF, mostrar icono de PDF
-            return (
-              '<a href="' +
-              data +
-              '" target="_blank"><i class="bi bi-file-earmark-pdf-fill text-danger fs-4" title="Ver PDF"></i></a>'
-            );
-          } else {
-            // Si es imagen, mostrar como antes
-            return (
-              '<a href="' +
-              data +
-              '" target="_blank"><img src="' +
-              data +
-              '" alt="Imagen del Documento" style="width: 50px; height: auto;"/></a>'
-            );
-          }
-        } else {
-          return "Sin documento";
-        }
-      },
-      className: "text-center",
-    },
-    { data: "RESPONSABLE" },
-    { data: "orden_compra" },
-    {
-      data: "IMAGEN_ORDEN_COMPRA",
-      render: function (data, type, row) {
-        if (data) {
-          // Obtener la extensión del archivo
-          var extension = data.split(".").pop().toLowerCase();
+//           if (extension === "pdf") {
+//             // Si es PDF, mostrar icono de PDF
+//             return (
+//               '<a href="' +
+//               data +
+//               '" target="_blank"><i class="bi bi-file-earmark-pdf-fill text-danger fs-4" title="Ver PDF"></i></a>'
+//             );
+//           } else {
+//             // Si es imagen, mostrar como antes
+//             return (
+//               '<a href="' +
+//               data +
+//               '" target="_blank"><img src="' +
+//               data +
+//               '" alt="Imagen del Documento" style="width: 50px; height: auto;"/></a>'
+//             );
+//           }
+//         } else {
+//           return "Sin documento";
+//         }
+//       },
+//       className: "text-center",
+//     },
+//     { data: "RESPONSABLE" },
+//     { data: "orden_compra" },
+//     {
+//       data: "IMAGEN_ORDEN_COMPRA",
+//       render: function (data, type, row) {
+//         if (data) {
+//           // Obtener la extensión del archivo
+//           var extension = data.split(".").pop().toLowerCase();
 
-          if (extension === "pdf") {
-            // Si es PDF, mostrar icono de PDF
-            return (
-              '<a href="' +
-              data +
-              '" target="_blank"><i class="bi bi-file-earmark-pdf-fill text-danger fs-4" title="Ver PDF"></i></a>'
-            );
-          } else {
-            // Si es imagen, mostrar como antes
-            return (
-              '<a href="' +
-              data +
-              '" target="_blank"><img src="' +
-              data +
-              '" alt="Imagen del Documento" style="width: 50px; height: auto;"/></a>'
-            );
-          }
-        } else {
-          return "Sin documento";
-        }
-      },
-      className: "text-center",
-    },
-  ],
-  columnDefs: [
-    { targets: 0, title: "Proveedor", className: "all" },
-    { targets: 1, title: "Fecha y hora última entrada", className: "all" },
-    { targets: 2, title: "Costo última entrada", className: "all" },
-    { targets: 3, title: "Cantidad de entrada", className: "all" },
-    { targets: 4, title: "Costo total de entrada", className: "all" },
-    { targets: 5, visible: false },
-    { targets: 6, visible: false },
-    { targets: 7, title: "Motivo de entrada", className: "all" },
-    { targets: 8, title: "Documento", className: "all" },
-    { targets: 9, title: "Responsable", className: "all" },
-    { targets: 10, title: "Orden de compra", className: "all" },
-    { targets: 11, title: "Imagen de orden de compra", className: "all" },
-  ],
-});
+//           if (extension === "pdf") {
+//             // Si es PDF, mostrar icono de PDF
+//             return (
+//               '<a href="' +
+//               data +
+//               '" target="_blank"><i class="bi bi-file-earmark-pdf-fill text-danger fs-4" title="Ver PDF"></i></a>'
+//             );
+//           } else {
+//             // Si es imagen, mostrar como antes
+//             return (
+//               '<a href="' +
+//               data +
+//               '" target="_blank"><img src="' +
+//               data +
+//               '" alt="Imagen del Documento" style="width: 50px; height: auto;"/></a>'
+//             );
+//           }
+//         } else {
+//           return "Sin documento";
+//         }
+//       },
+//       className: "text-center",
+//     },
+//   ],
+//   columnDefs: [
+//     { targets: 0, title: "Proveedor", className: "all" },
+//     { targets: 1, title: "Fecha y hora última entrada", className: "all" },
+//     { targets: 2, title: "Costo última entrada", className: "all" },
+//     { targets: 3, title: "Cantidad de entrada", className: "all" },
+//     { targets: 4, title: "Costo total de entrada", className: "all" },
+//     { targets: 5, visible: false },
+//     { targets: 6, visible: false },
+//     { targets: 7, title: "Motivo de entrada", className: "all" },
+//     { targets: 8, title: "Documento", className: "all" },
+//     { targets: 9, title: "Responsable", className: "all" },
+//     { targets: 10, title: "Orden de compra", className: "all" },
+//     { targets: 11, title: "Imagen de orden de compra", className: "all" },
+//   ],
+// });
 
 //DATATABLE DE REQUISICIONES
 tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
@@ -1452,124 +1452,124 @@ selectDatatable(
   }
 );
 
-selectDatatable(
-  "tableCatDetallesEntradas",
-  tableCatDetallesEntradas,
-  0,
-  0,
-  0,
-  0,
-  async function (select, dataClick) {
-    rowSelected = dataClick;
-    //console.log("id de movimiento seleccionado:", rowSelected.id_movimiento);
-    //console.log("id de movimiento seleccionado:", rowSelected.PROVEEDOR);
-  },
-  async function () {
-    // Validar si hay registros en la tabla
-    if (tableCatDetallesEntradas.data().count() === 0) {
-      rowSelected = null; // Limpia la selección
-      $("#tableCatEntradas tbody tr.selected").removeClass("selected");
-      alertToast("No hay registros para editar.", "info", 3000);
-      return;
-    }
-    $("#editarMovimientoModal").modal("show");
-    $("#detalleEntradaModal").modal("hide");
-    $("#mostrandoDetallesEntrada").html(
-      `<strong>${rowSelected.FECHA_ULTIMA_ENTRADA}</strong>`
-    );
-    $("#editarMovimientoModal #cantidad").val(rowSelected.CANTIDAD);
-    $("#editarMovimientoModal #costo_ultima_entrada").val(
-      rowSelected.COSTO_ULTIMA_ENTRADA
-    );
+// selectDatatable(
+//   "tableCatDetallesEntradas",
+//   tableCatDetallesEntradas,
+//   0,
+//   0,
+//   0,
+//   0,
+//   async function (select, dataClick) {
+//     rowSelected = dataClick;
+//     //console.log("id de movimiento seleccionado:", rowSelected.id_movimiento);
+//     //console.log("id de movimiento seleccionado:", rowSelected.PROVEEDOR);
+//   },
+//   async function () {
+//     // Validar si hay registros en la tabla
+//     if (tableCatDetallesEntradas.data().count() === 0) {
+//       rowSelected = null; // Limpia la selección
+//       $("#tableCatEntradas tbody tr.selected").removeClass("selected");
+//       alertToast("No hay registros para editar.", "info", 3000);
+//       return;
+//     }
+//     $("#editarMovimientoModal").modal("show");
+//     $("#detalleEntradaModal").modal("hide");
+//     $("#mostrandoDetallesEntrada").html(
+//       `<strong>${rowSelected.FECHA_ULTIMA_ENTRADA}</strong>`
+//     );
+//     $("#editarMovimientoModal #cantidad").val(rowSelected.CANTIDAD);
+//     $("#editarMovimientoModal #costo_ultima_entrada").val(
+//       rowSelected.COSTO_ULTIMA_ENTRADA
+//     );
 
-    $("#editarMovimientoModal #orden_compra").val(rowSelected.orden_compra);
+//     $("#editarMovimientoModal #orden_compra").val(rowSelected.orden_compra);
 
-    //AGREGAR: Establecer valores de lote y caducidad directamente desde rowSelected
-    $("#editarMovimientoModal #numero_lote").val(rowSelected.NUMERO_LOTE || "");
+//     //AGREGAR: Establecer valores de lote y caducidad directamente desde rowSelected
+//     $("#editarMovimientoModal #numero_lote").val(rowSelected.NUMERO_LOTE || "");
 
-    // COMENTADO: Fecha de lote ya no es requerida
-    /*
-    if (rowSelected.FECHA_LOTE && rowSelected.FECHA_LOTE !== '0000-00-00') {
-      var fechaLote = rowSelected.FECHA_LOTE;
-      if (fechaLote.includes(' ')) {
-        fechaLote = fechaLote.split(' ')[0];
-      }
-      $("#editarMovimientoModal #fecha_lote").val(fechaLote);
-    } else {
-      $("#editarMovimientoModal #fecha_lote").val('');
-    }
-    */
-    // Asegurar que fecha_lote siempre sea null/vacío
-    $("#editarMovimientoModal #fecha_lote").val("");
+//     // COMENTADO: Fecha de lote ya no es requerida
+//     /*
+//     if (rowSelected.FECHA_LOTE && rowSelected.FECHA_LOTE !== '0000-00-00') {
+//       var fechaLote = rowSelected.FECHA_LOTE;
+//       if (fechaLote.includes(' ')) {
+//         fechaLote = fechaLote.split(' ')[0];
+//       }
+//       $("#editarMovimientoModal #fecha_lote").val(fechaLote);
+//     } else {
+//       $("#editarMovimientoModal #fecha_lote").val('');
+//     }
+//     */
+//     // Asegurar que fecha_lote siempre sea null/vacío
+//     $("#editarMovimientoModal #fecha_lote").val("");
 
-    // Formatear fecha de caducidad para input de tipo date
-    if (
-      rowSelected.FECHA_CADUCIDAD &&
-      rowSelected.FECHA_CADUCIDAD !== "0000-00-00"
-    ) {
-      var fechaCaducidad = rowSelected.FECHA_CADUCIDAD;
-      if (fechaCaducidad.includes(" ")) {
-        fechaCaducidad = fechaCaducidad.split(" ")[0];
-      }
-      $("#editarMovimientoModal #fecha_caducidad").val(fechaCaducidad);
-    } else {
-      $("#editarMovimientoModal #fecha_caducidad").val("");
-    }
+//     // Formatear fecha de caducidad para input de tipo date
+//     if (
+//       rowSelected.FECHA_CADUCIDAD &&
+//       rowSelected.FECHA_CADUCIDAD !== "0000-00-00"
+//     ) {
+//       var fechaCaducidad = rowSelected.FECHA_CADUCIDAD;
+//       if (fechaCaducidad.includes(" ")) {
+//         fechaCaducidad = fechaCaducidad.split(" ")[0];
+//       }
+//       $("#editarMovimientoModal #fecha_caducidad").val(fechaCaducidad);
+//     } else {
+//       $("#editarMovimientoModal #fecha_caducidad").val("");
+//     }
 
-    //MODIFICACION AQUI ME QUEDE
-    establecerValoresActuales({
-      proveedor: rowSelected.PROVEEDOR,
-      motivo: rowSelected.MOTIVO_SALIDA,
-      cantidad: rowSelected.CANTIDAD,
-      costo: rowSelected.COSTO_ULTIMA_ENTRADA,
-    });
-  }
-);
+//     //MODIFICACION AQUI ME QUEDE
+//     establecerValoresActuales({
+//       proveedor: rowSelected.PROVEEDOR,
+//       motivo: rowSelected.MOTIVO_SALIDA,
+//       cantidad: rowSelected.CANTIDAD,
+//       costo: rowSelected.COSTO_ULTIMA_ENTRADA,
+//     });
+//   }
+// );
 
 // seleccionar la fila de la tabla de entradas
-selectDatatable(
-  "tableCatEntradas",
-  tableCatEntradas,
-  0,
-  0,
-  0,
-  0,
-  async function (select, dataClick) {
-    rowSelected = dataClick;
-  },
-  async function () {
-    $("#imagenProductoa").attr("src", rowSelected.IMAGEN);
-    $("#verImagenArta").attr("href", rowSelected.IMAGEN);
-    $("#mostrandoEntrada").html(
-      `<strong>${rowSelected.NOMBRE_COMERCIAL}</strong> <span class="text-muted" style="font-size:0.95em;">&mdash; CLAVE: <b>${rowSelected.CLAVE_ART}</b></span>`
-    );
-    if (
-      rowSelected.CANTIDAD &&
-      rowSelected.CANTIDAD !== "null" &&
-      rowSelected.CANTIDAD !== null &&
-      rowSelected.COSTO_MAS_ALTO &&
-      rowSelected.COSTO_MAS_ALTO !== "null" &&
-      rowSelected.COSTO_MAS_ALTO !== null
-    ) {
-      $("#costoMasAltoEntrada").html(
-        `<span class="fw-semibold text-secondary">Costo más alto:</span> <span class="text-success fw-bold">$${Number(
-          rowSelected.COSTO_MAS_ALTO
-        ).toLocaleString("es-MX", {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })}</span>`
-      );
-      $("#totalUnidades").html(
-        `- Total de unidades en almacén: <span style="color: red;">${rowSelected.CANTIDAD}</span>`
-      );
-    } else {
-      $("#costoMasAltoEntrada").html("SIN REGISTROS");
-      $("#totalUnidades").text("");
-    }
-    tableCatDetallesEntradas.ajax.reload();
-    $("#detalleEntradaModal").modal("show");
-  }
-);
+// selectDatatable(
+//   "tableCatEntradas",
+//   tableCatEntradas,
+//   0,
+//   0,
+//   0,
+//   0,
+//   async function (select, dataClick) {
+//     rowSelected = dataClick;
+//   },
+//   async function () {
+//     $("#imagenProductoa").attr("src", rowSelected.IMAGEN);
+//     $("#verImagenArta").attr("href", rowSelected.IMAGEN);
+//     $("#mostrandoEntrada").html(
+//       `<strong>${rowSelected.NOMBRE_COMERCIAL}</strong> <span class="text-muted" style="font-size:0.95em;">&mdash; CLAVE: <b>${rowSelected.CLAVE_ART}</b></span>`
+//     );
+//     if (
+//       rowSelected.CANTIDAD &&
+//       rowSelected.CANTIDAD !== "null" &&
+//       rowSelected.CANTIDAD !== null &&
+//       rowSelected.COSTO_MAS_ALTO &&
+//       rowSelected.COSTO_MAS_ALTO !== "null" &&
+//       rowSelected.COSTO_MAS_ALTO !== null
+//     ) {
+//       $("#costoMasAltoEntrada").html(
+//         `<span class="fw-semibold text-secondary">Costo más alto:</span> <span class="text-success fw-bold">$${Number(
+//           rowSelected.COSTO_MAS_ALTO
+//         ).toLocaleString("es-MX", {
+//           minimumFractionDigits: 2,
+//           maximumFractionDigits: 2,
+//         })}</span>`
+//       );
+//       $("#totalUnidades").html(
+//         `- Total de unidades en almacén: <span style="color: red;">${rowSelected.CANTIDAD}</span>`
+//       );
+//     } else {
+//       $("#costoMasAltoEntrada").html("SIN REGISTROS");
+//       $("#totalUnidades").text("");
+//     }
+//     tableCatDetallesEntradas.ajax.reload();
+//     $("#detalleEntradaModal").modal("show");
+//   }
+// );
 
 selectDatatable(
   "tableCatArticulos",
@@ -1893,23 +1893,23 @@ setTimeout(() => {
 }, 1000);
 
 
-setTimeout(() => {
-  inputBusquedaTable(
-    "tableCatEntradas",
-    tableCatEntradas,
-    [
-      {
-        msj: "Filtre los registros por coincidencia",
-        place: "top",
-      },
-    ],
-    [],
-    "col-12"
-  );
+// setTimeout(() => {
+//   inputBusquedaTable(
+//     "tableCatEntradas",
+//     tableCatEntradas,
+//     [
+//       {
+//         msj: "Filtre los registros por coincidencia",
+//         place: "top",
+//       },
+//     ],
+//     [],
+//     "col-12"
+//   );
 
-  // resuelve el problema de ancho de las columnas en el titulo
-  tableCatEntradas.columns.adjust().draw();
-}, 1000);
+//   // resuelve el problema de ancho de las columnas en el titulo
+//   tableCatEntradas.columns.adjust().draw();
+// }, 1000);
 
 setTimeout(() => {
   inputBusquedaTable(
@@ -1960,92 +1960,6 @@ $("#detalleProductoModal").on("hidden.bs.modal", function () {
   // $('#warmGlowEffect').empty();
 });
 
-function createThermometer() {
-  let svgContainer = $("#animation");
-  let thermometer =
-    $(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="200" height="200">
-                      <!-- Termómetro -->
-                      <g fill="#BDBDBD">
-                          <rect x="28" y="8" width="8" height="40" rx="4" ry="4"/>
-                          <circle cx="32" cy="52" r="12"/>
-                      </g>
-                      
-                      <!-- Mercurio -->
-                      <g fill="#FF5252">
-                          <rect x="30" y="26" width="4" height="22" id="mercury"/>
-                          <circle cx="32" cy="52" r="8"/>
-                      </g>
-                      
-                      <!-- Animación del nivel de mercurio -->
-                      <animate xlink:href="#mercury" attributeName="y" values="26;20;26" dur="3s" repeatCount="indefinite" />
-                      <animate xlink:href="#mercury" attributeName="height" values="22;28;22" dur="3s" repeatCount="indefinite" />
-                  </svg>`);
-  let icono = $(``);
-  svgContainer.append(thermometer);
-}
-
-function createSnowflakes() {
-  let snowContainer = $("#snowAnimation");
-  let snowflakeCount = 50; // Cantidad de copos de nieve
-
-  for (let i = 0; i < snowflakeCount; i++) {
-    let snowflake = $(
-      '<div class="snowflake"><i class="bi bi-snow2 text-primary fs-4" title="Refrigerado"></i></div>'
-    );
-    let leftPosition = Math.random() * 100; // Posición horizontal aleatoria
-    let delay = Math.random() * 5; // Retraso aleatorio en la animación
-    let duration = 5 + Math.random() * 5; // Duración aleatoria de la caída
-
-    snowflake.css({
-      left: `${leftPosition}%`,
-      animationDelay: `${delay}s`,
-      animationDuration: `${duration}s`,
-    });
-
-    snowContainer.append(snowflake);
-  }
-}
-
-function createWarmGlow() {
-  let glowContainer = $("#warmGlowEffect");
-  let glowCount = 10; // Cantidad de destellos
-
-  for (let i = 0; i < glowCount; i++) {
-    let glow = $('<div class="warm-glow"></div>');
-    let topPosition = Math.random() * 100;
-    let leftPosition = Math.random() * 100;
-    let delay = Math.random() * 2; // Retraso aleatorio
-
-    glow.css({
-      top: `${topPosition}%`,
-      left: `${leftPosition}%`,
-      animationDelay: `${delay}s`,
-    });
-
-    glowContainer.append(glow);
-  }
-}
-
-function createHeatWaves() {
-  let heatContainer = $("#heatWaveAnimation");
-  let waveCount = 10; // Número de ondas
-
-  for (let i = 0; i < waveCount; i++) {
-    let heatwave = $('<div class="heatwave"></div>');
-    let topPosition = Math.random() * 100; // Posición vertical aleatoria
-    let leftPosition = Math.random() * 100; // Posición horizontal aleatoria
-    let delay = Math.random() * 4; // Retraso aleatorio en la animación
-
-    heatwave.css({
-      top: `${topPosition}%`,
-      left: `${leftPosition}%`,
-      animationDelay: `${delay}s`,
-    });
-
-    heatContainer.append(heatwave);
-  }
-}
-
 // CSS for .btn-back-menu
 $(".btn-back-menu").css({
   display: "inline-block",
@@ -2068,20 +1982,19 @@ tableCatArticulos.on("draw", function () {
   });
 });
 
-tableCatEntradas.on("draw", function () {
-  $(".dataTable th, .dataTable td").css({
-    "text-align": "center",
-    "vertical-align": "middle",
-  });
-});
+// tableCatEntradas.on("draw", function () {
+//   $(".dataTable th, .dataTable td").css({
+//     "text-align": "center",
+//     "vertical-align": "middle",
+//   });
+// });
 
-tableCatDetallesEntradas.on("draw", function () {
-  $(".dataTable th, .dataTable td").css({
-    "text-align": "center",
-    "vertical-align": "middle",
-  });
-});
-
+// tableCatDetallesEntradas.on("draw", function () {
+//   $(".dataTable th, .dataTable td").css({
+//     "text-align": "center",
+//     "vertical-align": "middle",
+//   });
+// });
 
 tableCatRequisiciones.on("draw", function () {
   $(".dataTable th, .dataTable td").css({

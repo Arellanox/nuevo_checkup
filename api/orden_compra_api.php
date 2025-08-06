@@ -77,7 +77,6 @@ switch ($api) {
 
         $response = $master->insertByProcedure("sp_inventarios_cat_orden_compra_g", [
             $id_orden_compra,
-            $_POST['numero_orden'] ?? null,
             $_POST['fecha_orden'] ?? null,
             $_POST['estado'] ?? null,
             $_POST['id_proveedor'] ?? null,

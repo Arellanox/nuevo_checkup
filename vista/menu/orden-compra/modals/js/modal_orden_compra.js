@@ -128,9 +128,6 @@ $("#registrarOrdenCompraForm").submit(async function (event) {
     idOrdenCompra = $("#ID_ORDEN_COMPRA").val();
     console.log("📋 1. ID Orden:", idOrdenCompra);
 
-    numeroOrden = ($("#NUMERO_ORDEN_COMPRA").val() || "").trim();
-    console.log("📋 2. Número Orden:", numeroOrden);
-
     fechaOrden = ($("#FECHA_ORDEN_COMPRA").val() || "").trim();
     console.log("📋 3. Fecha Orden:", fechaOrden);
 
@@ -173,8 +170,6 @@ $("#registrarOrdenCompraForm").submit(async function (event) {
     console.error("❌ Error obteniendo proveedor:", error);
     idProveedor = null;
   }
-
-  $("#NUMERO_ORDEN_COMPRA").removeClass("is-invalid");
 
   // Validación de la fecha (obligatoria)
   if (!fechaOrden) {
@@ -249,7 +244,6 @@ $("#registrarOrdenCompraForm").submit(async function (event) {
       let datosOrdenCompra = {
         api: 5,
         id_orden_compra: idOrdenCompra || null,
-        numero_orden: numeroOrden || null,
         fecha_orden: fechaOrden || null,
         estado: estado || null,
         id_proveedor: idProveedor || null, // Puede ser null si no hay artículos
