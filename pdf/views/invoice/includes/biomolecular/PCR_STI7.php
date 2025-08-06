@@ -42,6 +42,9 @@
     }
 
     ?>
+    <tr>
+        <td colspan="3"><p style="text-align:justify;"><strong>Tipo de muestra: </strong> <?php echo $kit;  ?>  <br></td>
+    </tr>
 </table>
 <br>
 <br>
