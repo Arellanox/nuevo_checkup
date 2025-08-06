@@ -124,7 +124,7 @@ $("#UsarPaquete").on("click", function () {
                     $("#observacionesCotizacionCliente").html(row2["OBSERVACIONES"]);
 
                     //ASIGNAR CALCULO DE PAQUETE
-                    $("#descuento-paquete").val(row2["PORCENTAJE_DESCUENTO"]);
+                    $("#descuento-paquete").val(row2["DESCUENTO_GENERAL"]);
 
                     for (const key in row) {
                         if (Object.hasOwnProperty.call(row, key)) {
