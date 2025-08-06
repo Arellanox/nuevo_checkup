@@ -81,6 +81,10 @@ $('#ModalEditarPaciente').on('shown.bs.modal', function () {
     $('#editar-vacunaExtra').val(array_selected['OTRAVACUNA']);
     $('#editar-inputDosis').val(array_selected['DOSIS']);
 
+    $('.input-edit-correo-check').prop('checked', false);
+    $('.input-edit-whatsapp-check').prop('checked', false);
+    $('.input-edit-impreso-check').prop('checked', false);
+
     let genero = array_selected['GENERO'];
     genero = genero.toUpperCase();
 
@@ -94,13 +98,13 @@ $('#ModalEditarPaciente').on('shown.bs.modal', function () {
         if (mediosArray.length > 0) {
             mediosArray.forEach((item) => {
                 if (item === "CORREO") {
-                    $('.input-correo-check').prop('checked', true);
+                    $('.input-edit-correo-check').prop('checked', true);
                 }
                 else if (item === "WHATSAPP") {
-                  $('.input-whatsapp-check').prop('checked', true);
+                  $('.input-edit-whatsapp-check').prop('checked', true);
                 }
                 else if (item === "IMPRESO") {
-                  $('.input-impreso-check').prop('checked', true);
+                  $('.input-edit-impreso-check').prop('checked', true);
                 }
             });
         }
@@ -115,6 +119,16 @@ $('#ModalEditarPaciente').on('shown.bs.modal', function () {
 */
 });
 
+function obtenerMediosEntrega () {
+    const medios = []
+    if ($('.input-edit-impreso-check').is(':checked')) medios.push('3')
+    if ($('.input-edit-whatsapp-check').is(':checked')) medios.push('2')
+    if ($('.input-edit-correo-check').is(':checked')) medios.push('1')
+
+    console.log(medios)
+    return medios
+}
+
 $('#ModalEditarPaciente').on('hidden.bs.modal', function () {
     $('.input-correo-check').prop('checked', false);
     $('.input-whatsapp-check').prop('checked', false);
@@ -125,7 +139,7 @@ $('#ModalEditarPaciente').on('hidden.bs.modal', function () {
 $("#formEditarPaciente").submit(function (event) {
     event.preventDefault();
 
-    selectedMedia = '';
+    /*selectedMedia = '';
 
     let checkedCount = $('#communicationOptions input[type="checkbox"]:checked').length;
 
@@ -137,14 +151,18 @@ $("#formEditarPaciente").submit(function (event) {
         let selectedMedia = $('#communicationOptions input[type="checkbox"]:checked').map(function () {
           return this.value;
         }).get().join(', ');
-    }
+    }*/
+
     /*DATOS Y VALIDACION DEL REGISTRO*/
     let form = document.getElementById("formEditarPaciente");
     let formData = new FormData(form);
 
     formData.set('id', array_selected['ID_PACIENTE']);
-    formData.set('medios_entrega', selectedMedia);
+    formData.set('medios_entrega', obtenerMediosEntrega());
     formData.set('api', 3);
+
+    console.log(Object.fromEntries(formData));
+    console.log(obtenerMediosEntrega());
 
     $i = 0;
     formData.forEach(element => {

@@ -241,6 +241,8 @@ selectTable('#TablaRecepcionPacientes', tablaRecepcionPacientes, {
             callback: function (data) {
                 if (data != null) {
                     array_selected = data
+                    console.log('Array seleccionado')
+                    console.log(data)
                     $("#ModalEditarPaciente").modal('show');
                 } else alertSelectTable();
             },

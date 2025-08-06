@@ -325,6 +325,7 @@ var columnasIngresadosFranquicia = [
     },
     {data: null},
 ];
+
 var columnasDefIngresadosFranquicia = [
     {targets: 0, title: '#', className: 'all', width: '1%'},
     {targets: 1, title: 'Nombre', className: 'all nombre', width: '30%'},
@@ -542,6 +543,9 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
             {
                 class: 'btn-editar',
                 callback: function (data) {
+                    console.log('Array seleccionado')
+                    console.log(data)
+
                     if (array_selected != null) {
                         $("#ModalEditarPaciente").modal('show');
                     } else {

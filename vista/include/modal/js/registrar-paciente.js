@@ -26,6 +26,7 @@ $("#formRegistrarPaciente").submit(function (event) {
 
 
     console.log(Object.fromEntries(formData));
+    console.log(obtenerMediosEntrega())
 
     Swal.fire({
         title: `${traducir('¿Está seguro que todos sus datos son correctos?', language)}`,
@@ -142,16 +143,18 @@ $("#formRegistrarPaciente").submit(function (event) {
 
 
 function obtenerMediosEntrega () {
-    $('.input-impreso-check').is(':checked')
-    $('.input-whatsapp-check').is(':checked')
-    $('.input-correo-check').is(':checked')
-
     const medios = []
-    if ($('.input-impreso-check').is(':checked')) medios.push('1')
+    if ($('.input-impreso-check').is(':checked')) medios.push('3')
     if ($('.input-whatsapp-check').is(':checked')) medios.push('2')
-    if ($('.input-correo-check').is(':checked')) medios.push('3')
+    if ($('.input-correo-check').is(':checked')) medios.push('1')
     return medios
 }
+
+$('#ModalRegistrarPaciente').on('hidden.bs.modal', function () {
+    $('.input-correo-check').prop('checked', false);
+    $('.input-whatsapp-check').prop('checked', false);
+    $('.input-impreso-check').prop('checked', false);
+})
 
 $('#checkCurpPasaporte').change(function () {
   if ($(this).is(":checked")) {
@@ -202,9 +205,14 @@ if (registroAgendaRecepcion == 1) {
 }
 
 
-const ModalRegistrarPaciente = document.getElementById('ModalRegistrarPaciente')
-ModalRegistrarPaciente.addEventListener('show.bs.modal', event => {
-  if (registroAgendaRecepcion == 1)
-    rellenarSelect('#selectIngresoProcedencia', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
+let ModalRegistrarPaciente = $('#ModalRegistrarPaciente');
+
+$('#ModalRegistrarPaciente').on('shown.bs.modal', function () {
+      $('.input-correo-check').prop('checked', false);
+      $('.input-whatsapp-check').prop('checked', false);
+      $('.input-impreso-check').prop('checked', false);
+
+      if (registroAgendaRecepcion == 1)
+        rellenarSelect('#selectIngresoProcedencia', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
 
 });

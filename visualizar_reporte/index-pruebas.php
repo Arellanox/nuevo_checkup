@@ -12,8 +12,8 @@ $turno_id = mb_convert_encoding(base64_decode(urldecode($_GET['turno'])), 'UTF-8
 $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8');
 $usuario_id = $_SESSION['id'];
 
-$api = "maquilas";
-$area_id = -11;
+$api = "solicitud_estudios";
+$area_id = 1;
 $turno_id = 8628;
 $id_cliente = 15;
 // $id_cotizacion = 7;

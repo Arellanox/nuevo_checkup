@@ -130,22 +130,23 @@
                         <div class="row mt-2 justify-content-center">
                             <p class="fs-6 text-center pb-2">Preferencia de entrega de resultados</p>
                             <div class="col-auto mb-3 form-check fs-4 mx-3">
-                                <input type="checkbox" class="form-check-input input-impreso-check"
-                                       id="impreso" name="medios" value="IMPRESO">
+                                <input type="checkbox" class="form-check-input input-edit-impreso-check"
+                                       id="impreso" name="medios" value="3">
                                 <label class="form-check-label" for="impreso" style="color: #1a8bbc">
                                     <i class="fas fa-print"></i> Impreso
                                 </label>
                             </div>
                             <div class="col-auto mb-3 form-check fs-4 mx-3">
-                                <input type="checkbox" class="form-check-input input-whatsapp-check"
-                                       id="whatsapp" name="medios" value="WHATSAPP">
+                                <input type="checkbox" class="form-check-input input-edit-whatsapp-check"
+                                       id="whatsapp" name="medios" value="2">
                                 <label class="form-check-label" for="whatsapp" style="color: #1ABC9C">
                                     <i class="fab fa-whatsapp"></i> Whatsapp
                                 </label>
                             </div>
                             <div class="col-auto mb-3 form-check fs-4 mx-3">
                                 <label class="form-check-label" for="correo"  style="color: #c35f3d">
-                                    <input type="checkbox" class="form-check-input input-correo-check" id="correo" name="medios" value="CORREO">
+                                    <input type="checkbox" class="form-check-input input-edit-correo-check"
+                                           id="correo" name="medios" value="1">
                                     <i class="fas fa-envelope"></i> Correo
                                 </label>
                             </div>
