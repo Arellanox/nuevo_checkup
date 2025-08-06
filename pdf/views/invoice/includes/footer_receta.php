@@ -11,7 +11,7 @@
             <td colspan="10">
             </td>
             <td colspan="2" style="text-align: left;">
-                <?php if (isset($encode_firma)) echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='20px'> " ?>
+                <?php if (isset($encode_firma)) echo "<img style='position:absolute; right:25px; margin-top: -65px ' src='data:image/png;base64, " . $encode_firma . "' height='70px'> " ?>
             </td>
         </tr>
         <tr class="col-foot-three" style="font-size: 13px;">

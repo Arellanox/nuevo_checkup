@@ -296,11 +296,11 @@ $encode = base64_encode($ruta);
 
 // path firma
 // $ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
-if (isset($pie['datos_medicos'][0]['FIRMA'])) {
+/*if (isset($pie['datos_medicos'][0]['FIRMA'])) {
     $ruta_firma = file_get_contents($pie['datos_medicos'][0]['FIRMA']);
 }
 if (isset($ruta_firma))
-    $encode_firma = base64_encode($ruta_firma);
+    $encode_firma = base64_encode($ruta_firma);*/
 
 
 ?>
@@ -321,14 +321,24 @@ if (isset($ruta_firma))
     <div class="footer">
         <?php
         // $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
-        $nombre_doctor = $pie['datos_medicos']['0']['NOMBRE_COMPLETO'];
+        /*$nombre_doctor = $pie['datos_medicos']['0']['NOMBRE_COMPLETO'];
         $uni = $pie['datos_medicos']['0']['UNIVERSIDAD'];
         $cedula = $pie['datos_medicos']['0']['CEDULA'];
 
-        $footerDoctor = "$nombre_doctor <br>$uni - Cédula profesional: $cedula";
+        $footerDoctor = "$nombre_doctor <br>$uni - Cédula profesional: $cedula";*/
 
 
+        if (isset($resultados[0][0]->MEDICO_ID)) {
+            if ($resultados[0][0]->MEDICO_ID == 53) { // Beatriz
+                $ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
+                $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
+            } else { // Cesar
+                $ruta_firma = file_get_contents("../pdf/public/assets/firma_cesar.png");
+                $footerDoctor = 'Dr. César Mauricio Calderón Alipi <br>UANL - Cédula profesional: 6406214';
+            }
 
+            $encode_firma = base64_encode($ruta_firma);
+        }
 
         include 'includes/footer.php';
         ?>

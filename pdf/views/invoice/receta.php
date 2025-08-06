@@ -363,12 +363,12 @@
 <?php
 // print_r($pie);
 // exit;
-$dataDoc = $pie['datos_medicos'][0];
-$footerDoctor = $dataDoc['NOMBRE_COMPLETO'] . '<br>' . $dataDoc['UNIVERSIDAD'] . '- Cédula profesional: ' . $dataDoc['CEDULA'];
+/*$dataDoc = $pie['datos_medicos'][0];
+$footerDoctor = $dataDoc['NOMBRE_COMPLETO'] . '<br>' . $dataDoc['UNIVERSIDAD'] . '- Cédula profesional: ' . $dataDoc['CEDULA'];*/
 
 
 
-switch ($dataDoc['ID_USUARIO']) {
+/*switch ($dataDoc['ID_USUARIO']) {
     case 84:
         $nombre_doctor = "Dr. Ibis De la Cruz Hernández";
         $especialidades = "Infectologia y Medicina Interna";
@@ -380,8 +380,19 @@ switch ($dataDoc['ID_USUARIO']) {
         $especialidades = $dataDoc['CARRERA'];
         $cedulas = $dataDoc['UNIVERSIDAD'] . ' Ced. Prof. ' . $dataDoc['CEDULA'];
         break;
-}
+}*/
 
+if (isset($resultados[2][0]->BY_MEDICO_ID)) {
+    if ($resultados[2][0]->BY_MEDICO_ID == 53) { // Beatriz
+        $ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
+        $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
+    } else { // Cesar
+        $ruta_firma = file_get_contents("../pdf/public/assets/firma_cesar.png");
+        $footerDoctor = 'Dr. César Mauricio Calderón Alipi <br>UANL - Cédula profesional: 6406214';
+    }
+
+    $encode_firma = base64_encode($ruta_firma);
+}
 
 //Signos vitales
 $data = json_decode($resultados[2][0]->SIGNOS, true);
@@ -465,7 +476,7 @@ $folio = ((array)($resultados[1][0]))['FOLIO'];
                         <tr class="col-foot-two">
                             <td colspan="10"></td>
                             <td colspan="2" style="text-align: left;">
-                                <?php if (isset($encode_firma)) echo "<img style='position:absolute; right:25px; margin-top: -15px ' src='data:image/png;base64, " . $encode_firma . "' height='20px'> " ?>
+                                <?php if (isset($encode_firma)) echo "<img style='position:absolute; right:25px; margin-top: -65px ' src='data:image/png;base64, " . $encode_firma . "' height='70px'> " ?>
                             </td>
                         </tr>
                         <tr class="col-foot-three" style="font-size: 13px;">

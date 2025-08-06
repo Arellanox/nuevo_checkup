@@ -323,7 +323,7 @@ $encode = base64_encode($ruta);
     <!-- header -->
     <div class="header">
         <?php
-        $dataDoc = $pie['datos_medicos'][0];
+        /*$dataDoc = $pie['datos_medicos'][0];
         switch ($dataDoc['ID_USUARIO']) {
             case 84:
                 $nombre_doctor = "Dr. Ibis De la Cruz Hernández";
@@ -336,6 +336,18 @@ $encode = base64_encode($ruta);
                 $especialidades = $dataDoc['CARRERA'];
                 $cedulas = $dataDoc['UNIVERSIDAD'] . ' Ced. Prof. ' . $dataDoc['CEDULA'];
                 break;
+        }*/
+
+        if (isset($resultados[0][0]->MEDICO_ID)) {
+            if ($resultados[0][0]->MEDICO_ID == 53) { // Beatriz
+                $ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
+                $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
+            } else { // Cesar
+                $ruta_firma = file_get_contents("../pdf/public/assets/firma_cesar.png");
+                $footerDoctor = 'Dr. César Mauricio Calderón Alipi <br>UANL - Cédula profesional: 6406214';
+            }
+
+            $encode_firma = base64_encode($ruta_firma);
         }
 
         // $nombre_doctor = "Dr. Ibis De la Cruz Hernández";
@@ -350,7 +362,7 @@ $encode = base64_encode($ruta);
     <div class="footer">
         <!-- Footer 1 chido -->
         <?php
-        $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
+        /*$footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';*/
         include 'includes/footer_receta.php';
         ?>
     </div>

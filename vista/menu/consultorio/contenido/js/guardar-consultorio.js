@@ -3,6 +3,7 @@ var text
 var id
 var texto = ''
 var title = ''
+var medico_id = null;
 
 //Regresar a perfil de paciente
 $('#btn-regresar-vista').click(function () {
@@ -28,15 +29,6 @@ $('#btn-ver-reporte-consultorio2').click(function () {
     window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}&area=${area}`, "_blank");
 })
 
-//botones de pdf de vista previa
-//busca y muestra lso botones solo si tiene ya una receta y solicitud mientrtas que las url esten vacias no las mostrara
-// ajaxAwait({ api: 2, turno_id: pacienteActivo.array['ID_TURNO'] }, 'consultorio2_api', { callbackAfter: true }, false, function (data) {
-//     let row = data.response.data[0]
-
-// })
-
-
-//alerta en general, sirve para todos los botons y btn se llama al switch y guardar consultorio
 function alertaConsultorio(btn) {
     alertMensajeConfirm({
         title: title,
@@ -94,11 +86,18 @@ $(document).on('click', '#btn-guardar-plan-tratamiento', function (event) {
 
 //Boton para terminar consulta
 $(document).on('click', '#btn-consulta-terminar-medica', function (event) {
+    $('#modalAsignarFirma').modal('show');
     event.preventDefault()
+})
+
+
+$('#btn_confirmar_asignacion_firma').on('click', function () {
+    medico_id = $('#select_doctor_id').val();
     title = '¿Deseas concluir la consulta médica?';
     texto = 'Confirmarás y enviarás el resultado y no podrás volver a modificarlo.'
     alertaConsultorio('terminar_consulta', title, texto)
 })
+
 
 //Insertar datos en consultorio
 function guardarDatosConsultorio(btn) {
@@ -223,11 +222,14 @@ function guardarDatosConsultorio(btn) {
 
         //terminar consulta, pasar del valor 0 al 1    
         case 'terminar_consulta':
-            ajaxAwait({ api: 1, turno_id: pacienteActivo.array['ID_TURNO'], consulta_terminada: 1 }, 'consultorio2_api', { callbackAfter: true }, false, function (data) {
-                alertToast('Consulta Finalizada!', 'success', 4000)
-
-                obtenerContenidoAntecedentes(pacienteActivo.array)
-            })
+            ajaxAwait(
+                { api: 1, turno_id: pacienteActivo.array['ID_TURNO'], consulta_terminada: 1, medico_id: medico_id },
+                'consultorio2_api', { callbackAfter: true }, false,
+                function (data) {
+                    alertToast('Consulta Finalizada!', 'success', 4000)
+                    obtenerContenidoAntecedentes(pacienteActivo.array)
+                    $('#modalAsignarFirma').modal('hide');
+                })
             break;
 
         default:

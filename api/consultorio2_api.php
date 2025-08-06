@@ -24,6 +24,9 @@ $diagnostico2 = $_POST['diagnostico2'];
 #Desactivar en la tabla consultorio2_diagnostico
 $fecha_creacion = $_POST['fecha_creacion'];
 
+#Medico id para la firma de los documentos
+$medico_id = $_POST['medico_id'];
+
 $parametros_motivo = $master->setTonull(array(
     $turno_id,
     $motivo_consulta,
@@ -38,7 +41,8 @@ $parametros = $master->setToNull(array(
     $diagnostico,
     $diagnostico2,
     $plan_tratamiento,
-    $consulta_terminada
+    $consulta_terminada,
+    $medico_id
 ));
 
 
