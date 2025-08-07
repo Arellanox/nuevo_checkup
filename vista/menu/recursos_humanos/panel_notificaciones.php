@@ -71,11 +71,11 @@
                             <div class="col-md-12">
                                 <div class="col-md-6 mb-3">
                                     <label for="idCandidato" class="form-label">
-                                        <i class="fas fa-user"></i> ID del Candidato
+                                        <i class="fas fa-user"></i> Número de Candidato
                                     </label>
                                     <div class="input-group">
                                         <span class="input-group-text">#</span>
-                                        <input type="number" class="form-control" id="idCandidato" min="1" placeholder="Ingrese ID del candidato">
+                                        <input type="number" class="form-control" id="idCandidato" min="1" placeholder="Ingrese el número del candidato">
                                         <button class="btn btn-primary" onclick="generarEnlace()">
                                             <i class="fas fa-magic"></i> Generar
                                         </button>
@@ -187,7 +187,7 @@
                             <table class="table table-sm">
                                 <thead>
                                     <tr>
-                                        <th>ID Candidato</th>
+                                        <th>Número Candidato</th>
                                         <th>Enlace</th>
                                         <th>Fecha/Hora</th>
                                         <th>Acciones</th>
