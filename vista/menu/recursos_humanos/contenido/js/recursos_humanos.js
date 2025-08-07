@@ -159,7 +159,19 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
                 return badges[data] || '<span class="badge bg-light">N/A</span>';
             }
         },
-        { data: "fecha_creacion"},
+        { data: "fecha_creacion"
+          ,
+                render: function(data) {
+                if (data && data !== null) {
+                    const fecha = new Date(data);
+                    return `<div class="text-nowrap">
+                        <div>${fecha.toLocaleDateString('es-MX')}
+                        </div>
+                    </div>`;
+                }
+                return '-';
+            }
+        },
         // Columnas ocultas - datos adicionales disponibles para el modal de detalles
         { data: "usuario_solicitante_id"},
         { data: "justificacion"},

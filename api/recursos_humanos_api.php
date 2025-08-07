@@ -203,17 +203,24 @@ $estado_postulacion = isset($_POST['estado_postulacion']) ? trim($_POST['estado_
 $nuevo_estado = isset($_POST['nuevo_estado']) ? trim($_POST['nuevo_estado']) : null;
 $motivo_cambio = isset($_POST['motivo_cambio']) ? trim($_POST['motivo_cambio']) : 'Cambio de estado desde gestión de postulantes';
 
-// Variables de compatibilidad para evitar errores en código existente
-// $pregunta_1 = $porque_interesa_vacante;
-// $pregunta_2 = $vida_en_5_anos;
-// $pregunta_3 = '';
-// $pregunta_4 = '';
-// $pregunta_5 = '';
-// $pregunta_6 = '';
-// $pregunta_7 = '';
-// $pregunta_8 = '';
-// $pregunta_9 = '';
-// $pregunta_10 = '';
+# Variables para candidatos
+$id_candidato = isset($_POST['id_candidato']) ? (int)$_POST['id_candidato'] : null;
+$numero_candidato = isset($_POST['numero_candidato']) ? trim($_POST['numero_candidato']) : '';
+$estado_candidato = isset($_POST['estado_candidato']) ? trim($_POST['estado_candidato']) : '';
+$tipo_seleccion = isset($_POST['tipo_seleccion']) ? trim($_POST['tipo_seleccion']) : 'manual';
+$fecha_seleccion = isset($_POST['fecha_seleccion']) ? $_POST['fecha_seleccion'] : null;
+$motivo_seleccion = isset($_POST['motivo_seleccion']) ? trim($_POST['motivo_seleccion']) : null;
+$motivo_rechazo = isset($_POST['motivo_rechazo']) ? trim($_POST['motivo_rechazo']) : null;
+$comentarios_rh = isset($_POST['comentarios_rh']) ? trim($_POST['comentarios_rh']) : null;
+$comentarios_solicitante = isset($_POST['comentarios_solicitante']) ? trim($_POST['comentarios_solicitante']) : null;
+$comentarios_candidato = isset($_POST['comentarios_candidato']) ? trim($_POST['comentarios_candidato']) : null;
+$salario_ofertado = isset($_POST['salario_ofertado']) ? (float)$_POST['salario_ofertado'] : null;
+$fecha_inicio_propuesta = isset($_POST['fecha_inicio_propuesta']) ? $_POST['fecha_inicio_propuesta'] : null;
+$condiciones_especiales = isset($_POST['condiciones_especiales']) ? trim($_POST['condiciones_especiales']) : null;
+$prioridad_proceso = isset($_POST['prioridad_proceso']) ? trim($_POST['prioridad_proceso']) : 'normal';
+$fecha_limite_proceso = isset($_POST['fecha_limite_proceso']) ? $_POST['fecha_limite_proceso'] : null;
+$prioridad_proceso = isset($_POST['prioridad_proceso']) ? trim($_POST['prioridad_proceso']) : 'normal';
+$fecha_limite_proceso = isset($_POST['fecha_limite_proceso']) ? $_POST['fecha_limite_proceso'] : null;
 
 switch ($api) {
     case 1:
@@ -867,6 +874,7 @@ switch ($api) {
         }
     break;
     case 33:
+        # Cambiar estado de postulación
     if ($id_postulacion === null || $nuevo_estado === null) {
         $response = [
             'code' => 0,
@@ -881,6 +889,61 @@ switch ($api) {
             $_SESSION['id']  // ID del usuario actual
         ]);
     }
+    break;
+    case 34:
+        # Mostrar Postulantes aprobados
+        $response = $master->getByProcedure("sp_rh_cat_postulantes_aprobados_b", []);
+    break;
+    case 35:
+        # Cambiar estado de candidato
+        if ($id_candidato === null || $estado_candidato === null) {
+            $response = [
+                'code' => 0,
+                'message' => 'Error: ID de candidato y nuevo estado son obligatorios',
+                'data' => null
+            ];
+        } else {
+            $response = $master->insertByProcedure("sp_rh_candidatos_cambiar_estado", [
+                $id_candidato,
+                $estado_candidato,
+                $motivo_cambio,
+                $_SESSION['id'],  // ID del usuario actual
+                $comentarios_rh,
+                $comentarios_candidato,
+                $salario_ofertado,
+                $fecha_inicio_propuesta,
+                $condiciones_especiales
+            ]);
+        }
+    break;
+    case 36:
+        # Rechazar candidato con motivo
+        if ($id_candidato === null || $motivo_rechazo === null) {
+            $response = [
+                'code' => 0,
+                'message' => 'Error: ID de candidato y motivo de rechazo son obligatorios',
+                'data' => null
+            ];
+        } else {
+            $response = $master->insertByProcedure("sp_rh_candidatos_rechazar", [
+                $id_candidato,
+                $motivo_rechazo,
+                $_SESSION['id'],  // ID del usuario actual
+                $comentarios_rh
+            ]);
+        }
+    break;
+    case 37:
+        # Obtener propuesta salarial específica para candidato (para landing page)
+        if ($id_candidato === null) {
+            $response = [
+                'code' => 0,
+                'message' => 'Error: ID de candidato es obligatorio',
+                'data' => null
+            ];
+        } else {
+            $response = $master->getByProcedure("sp_rh_propuesta_candidato_b", [$id_candidato]);
+        }
     break;
     default:
         # default

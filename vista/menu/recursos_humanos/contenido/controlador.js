@@ -23,6 +23,7 @@ var dataTableCatTecnicas;
 var dataTableRequisicionesAprobadas;
 var dataTableHistorialPublicaciones;
 var dataTableGestionPostulantes;
+var dataTablePostulantesAprobados;
 
 dataTableCatRequisiciones = {
   api: 2, // Case 2 para obtener requisiciones
@@ -62,4 +63,8 @@ dataTableHistorialPublicaciones = {
 
 dataTableGestionPostulantes = {
   api: 31,
+}
+
+dataTablePostulantesAprobados = {
+  api: 34,
 }

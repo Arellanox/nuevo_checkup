@@ -134,7 +134,7 @@ tableRequisicionesAprobadas = $("#tableRequisicionesAprobadas").DataTable({
                                     title="Editar publicación">
                                 <i class="bi bi-pencil"></i>
                             </button>
-                            <button class="btn btn-sm btn-gradient-dark btn-cerrar-publicacion" 
+                            <button class="btn btn-sm btn-gradient-secondary-dark btn-cerrar-publicacion" 
                                     data-id-publicacion="${row.id_publicacion}" 
                                     title="Cerrar publicación">
                                 <i class="bi bi-x-circle"></i>
@@ -379,6 +379,199 @@ tableGestionPostulantes = $("#tableGestionPostulantes").DataTable({
         { data: "archivo_curp", visible: false, title: "Archivo CURP" },
         { data: "fecha_postulacion", visible: false, title: "Fecha de Postulación" },
     ],
+});
+
+// DataTable para los postulantes aprobados
+tablePostulantesAprobados = $("#tablePostulantesAprobados").DataTable({
+    language: {
+        url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+    },
+    autoWidth: true,
+    lengthChange: false,
+    info: true,
+    paging: true,
+    pageLength: 10,
+    order: [[6, 'desc']], // Ordenar por fecha de selección
+    scrollY: "60vh",
+    scrollCollapse: true,
+    ajax: {
+        dataType: "json",
+        data: function (d) {
+            return $.extend(d, dataTablePostulantesAprobados);
+        },
+        method: "POST",
+        url: "../../../api/recursos_humanos_api.php",
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error("Error en AJAX:", jqXHR, textStatus, errorThrown);
+            alertErrorAJAX(jqXHR, textStatus, errorThrown);
+        },
+        dataSrc: function(json) {
+            console.log("Datos de candidatos recibidos:", json);
+            return json.response.data || [];
+        }
+    },
+    columns: [
+        { 
+            data: "numero_candidato", 
+            title: "No. Candidato",
+        },
+        { 
+            data: "nombre_completo", 
+            title: "Nombre Completo",
+        },
+        { 
+            data: "titulo_vacante", 
+            title: "Cargo",
+            render: function(data, type, row) {
+                return `<div>
+                    <div class="">${row.puesto_nombre}</div>
+                    <small class="fw-bold text-muted">${row.departamento_nombre}</small>
+                </div>`;
+            }
+        },
+        { 
+            data: "estado_candidato", 
+            title: "Estado",
+            render: function(data) {
+                const badges = {
+                    'preseleccionado': '<span class="badge bg-gradient-primary">Preseleccionado</span>',
+                    'en_proceso': '<span class="badge bg-gradient-warning">En Proceso</span>',
+                    'contratado': '<span class="badge bg-gradient-success">Contratado</span>',
+                    'rechazado': '<span class="badge bg-gradient-secondary">Rechazado</span>',
+                    'declinado': '<span class="badge bg-gradient-secondary-dark">Declinado</span>',
+                    'en_espera': '<span class="badge bg-gradient-warning">En Espera</span>',
+                    'finalista': '<span class="badge bg-gradient-info">Finalista</span>'
+                };
+                return badges[data] || `<span class="badge bg-light text-dark">${data}</span>`;
+            }
+        },
+        { 
+            data: "prioridad_proceso", 
+            title: "Prioridad", visible: false,
+            render: function(data) {
+                const badges = {
+                    'urgente': '<span class="badge bg-danger">Urgente</span>',
+                    'normal': '<span class="badge bg-primary">Normal</span>',
+                    'baja': '<span class="badge bg-secondary">Baja</span>'
+                };
+                return badges[data] || '<span class="badge bg-light">N/A</span>';
+            }
+        },
+        { 
+            data: "fecha_seleccion", 
+            title: "Fecha Selección",
+            render: function(data) {
+                if (data && data !== null) {
+                    const fecha = new Date(data);
+                    return `<div class="text-nowrap">
+                        <div>${fecha.toLocaleDateString('es-MX')}
+                        </div>
+                    </div>`;
+                }
+                return '-';
+            }
+        },
+        {
+            data: null,
+            title: "Acciones",
+            render: function(data, type, row) {
+                let botones = '<div class="btn-group" role="group">';
+                
+                // Botones según el estado actual del candidato
+                switch(row.estado_candidato) {
+                    case 'preseleccionado':
+                        botones += `
+                            <button class="btn btn-sm btn-gradient-info btn-enviar-propuesta" 
+                                    data-id-candidato="${row.id_candidato}"
+                                    data-nombre="${row.nombre_completo}" 
+                                    title="Enviar propuesta salarial"
+                                    onclick="cambiarEstadoCandidato(${row.id_candidato}, 'en_espera', '${row.nombre_completo}')">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>`;
+                        break;
+                        
+                    case 'en_espera':
+                        botones += `
+                            <button class="btn btn-sm btn-gradient-warning" title="En espera de respuesta" data-bs-toggle="button" aria-pressed="true"><i class="bi bi-stopwatch-fill"></i></button>`;
+                        break;
+                        
+                    case 'en_proceso':
+                        botones += `
+                            <button class="btn btn-sm btn-gradient-primary btn-marcar-finalista" 
+                                    data-id-candidato="${row.id_candidato}"
+                                    data-nombre="${row.nombre_completo}" 
+                                    title="Marcar como finalista"
+                                    onclick="cambiarEstadoCandidato(${row.id_candidato}, 'finalista', '${row.nombre_completo}')">
+                                <i class="fas fa-star"></i>
+                            </button>`;
+                        break;
+                        
+                    case 'finalista':
+                        botones += `
+                            <button class="btn btn-sm btn-gradient-success btn-contratar-candidato" 
+                                    data-id-candidato="${row.id_candidato}"
+                                    data-nombre="${row.nombre_completo}" 
+                                    title="Contratar candidato"
+                                    onclick="cambiarEstadoCandidato(${row.id_candidato}, 'contratado', '${row.nombre_completo}')">
+                                <i class="fas fa-handshake"></i>
+                            </button>`;
+                        break;
+                        
+                    case 'contratado':
+                        botones += `
+                            <span class="badge bg-success p-2">
+                                <i class="fas fa-check"></i> Contratado
+                            </span>`;
+                        break;
+                        
+                    case 'rechazado':
+                        botones += `
+                            <button class="btn btn-sm btn-danger" title="Cerrado definitivamente" data-bs-toggle="button" aria-pressed="true"><i class="bi bi-person-fill-x"></i></button>`;
+                        break;
+                    
+                    case 'declinado':
+                        botones += `
+                            <button class="btn btn-sm btn-danger" title="Cerrado definitivamente" data-bs-toggle="button" aria-pressed="true"><i class="bi bi-person-fill-x"></i></button>`;
+                        break;
+                }
+                
+                // Botón de rechazo (solo si no está ya rechazado o contratado)
+                if (row.estado_candidato !== 'rechazado' && row.estado_candidato !== 'contratado' && row.estado_candidato !== 'declinado') {
+                    botones += `
+                        <button class="btn btn-sm btn-gradient-secondary-dark btn-rechazar-candidato" 
+                                data-id-candidato="${row.id_candidato}"
+                                data-nombre="${row.nombre_completo}" 
+                                title="Rechazar candidato"
+                                onclick="rechazarCandidato(${row.id_candidato}, '${row.nombre_completo}')">
+                            <i class="fas fa-times"></i>
+                        </button>`;
+                }
+                
+                botones += '</div>';
+                return botones;
+            }
+        },
+        // Columnas ocultas para datos adicionales
+        { data: "id_candidato", visible: false },
+        { data: "id_postulacion", visible: false },
+        { data: "id_publicacion", visible: false },
+        { data: "telefono", visible: false },
+        { data: "edad", visible: false }
+    ],
+    columnDefs: [
+        { targets: "_all", className: "text-center align-middle" },
+        { targets: [1, 2], className: "text-start" } // Nombre y vacante alineados a la izquierda
+    ],
+    dom: 'Bl<"dataTables_toolbar">frtip',
+    buttons: [
+        {
+            text: '<i class="fas fa-sync-alt"></i> Actualizar',
+            className: "btn btn-primary btn-sm",
+            action: function() {
+                tablePostulantesAprobados.ajax.reload();
+            }
+        }
+    ]
 });
 
 // Event listeners para los botones de publicación
@@ -1095,6 +1288,9 @@ function mostrarListaPostulantes(postulantes) {
 // Función para mostrar los detalles del postulante seleccionado
 function mostrarDetallePostulante(postulante) {
     console.log('📋 Mostrando detalles del postulante:', postulante);
+
+    const opcionesEstado = generarOpcionesEstadoPostulante(postulante);
+
     
     const htmlDetalle = `
         <div class="detalle-section">
@@ -1110,10 +1306,7 @@ function mostrarDetallePostulante(postulante) {
                         </button>
                         <ul class="dropdown-menu">
                             <li><h6 class="dropdown-header">Cambiar Estado</h6></li>
-                            ${postulante.estado_postulacion !== 'entrevista' ? '<li><a class="dropdown-item btn-cambiar-estado-dropdown" href="#" data-id-postulacion="' + postulante.id_postulacion + '" data-nuevo-estado="entrevista"><i class="fas fa-eye me-2 text-warning"></i>Entrevista</a></li>' : ''}
-                            ${postulante.estado_postulacion !== 'preseleccionado' ? '<li><a class="dropdown-item btn-cambiar-estado-dropdown" href="#" data-id-postulacion="' + postulante.id_postulacion + '" data-nuevo-estado="preseleccionado"><i class="fas fa-star me-2 text-secondary"></i>Preseleccionado</a></li>' : ''}
-                            ${postulante.estado_postulacion !== 'rechazado' ? '<li><a class="dropdown-item btn-cambiar-estado-dropdown" href="#" data-id-postulacion="' + postulante.id_postulacion + '" data-nuevo-estado="rechazado"><i class="fas fa-times-circle me-2 text-danger"></i>Rechazado</a></li>' : ''}
-                            ${postulante.estado_postulacion !== 'aprobado' ? '<li><a class="dropdown-item btn-cambiar-estado-dropdown" href="#" data-id-postulacion="' + postulante.id_postulacion + '" data-nuevo-estado="aprobado"><i class="fas fa-check-circle me-2 text-success"></i>Aprobado</a></li>' : ''}
+                            ${opcionesEstado}
                         </ul>
                     </div>
                 </div>
@@ -1354,7 +1547,7 @@ function mostrarDetallePostulante(postulante) {
                     </div>
                 </div>
             </div>
-    
+
             <div class="row">
                 <div class="col-md-6">
                     <div class="info-group">
@@ -1557,6 +1750,110 @@ function obtenerIniciales(nombreCompleto) {
         return (nombres[0].charAt(0) + nombres[1].charAt(0)).toUpperCase();
     }
     return nombreCompleto.charAt(0).toUpperCase();
+}
+
+// Función para validar si una transición de estado es válida
+function esTransicionValidaPostulante(estadoActual, nuevoEstado) {
+
+    switch (estadoActual) {
+        case 'nueva':
+            // Desde nueva se puede ir a cualquier estado
+            return true;
+            
+        case 'entrevista':
+            // Desde entrevista se puede ir a preseleccionado, aprobado o rechazado
+            return ['preseleccionado', 'aprobado', 'rechazado'].includes(nuevoEstado);
+            
+        case 'preseleccionado':
+            // Desde preseleccionado se puede ir a entrevista, aprobado o rechazado
+            return ['aprobado', 'entrevista', 'rechazado'].includes(nuevoEstado);
+            
+        case 'aprobado':
+            // Desde aprobado solo se puede ir a rechazado
+            return nuevoEstado === 'rechazado';
+            
+        case 'rechazado':
+            // Desde rechazado se puede reactivar a nueva o preseleccionado
+            return ['nueva', 'preseleccionado'].includes(nuevoEstado);
+            
+        default:
+            return false;
+    }
+}
+
+// Función para obtener estados válidos para un estado actual
+function obtenerEstadosValidosPostulante(estadoActual) {
+    const estadosValidos = [];
+    const todosLosEstados = ['nueva', 'preseleccionado', 'entrevista', 'rechazado', 'aprobado'];
+    
+    todosLosEstados.forEach(estado => {
+        if (estado !== estadoActual && esTransicionValidaPostulante(estadoActual, estado)) {
+            estadosValidos.push(estado);
+        }
+    });
+    
+    return estadosValidos;
+}
+
+// Función para generar opciones de cambio de estado válidas
+function generarOpcionesEstadoPostulante(postulante) {
+    const estadoActual = postulante.estado_postulacion;
+    const estadosValidos = obtenerEstadosValidosPostulante(estadoActual);
+    
+    // Configuración de estados con iconos y colores
+    const configuracionEstados = {
+        'nueva': {
+            icono: 'fas fa-plus-circle',
+            color: 'text-info',
+            texto: 'Nueva'
+        },
+        'preseleccionado': {
+            icono: 'fas fa-star',
+            color: 'text-secondary',
+            texto: 'Preseleccionado'
+        },
+        'entrevista': {
+            icono: 'fas fa-eye',
+            color: 'text-warning',
+            texto: 'Entrevista'
+        },
+        'rechazado': {
+            icono: 'fas fa-times-circle',
+            color: 'text-danger',
+            texto: 'Rechazado'
+        },
+        'aprobado': {
+            icono: 'fas fa-check-circle',
+            color: 'text-success',
+            texto: 'Aprobado'
+        }
+    };
+    
+    let opciones = '';
+    
+    if (estadosValidos.length === 0) {
+        // Si no hay estados válidos, mostrar mensaje informativo
+        opciones = '<li><span class="dropdown-item text-muted small"><i class="fas fa-info-circle me-2"></i>No hay cambios disponibles</span></li>';
+    } else {
+        // Generar opciones válidas
+        estadosValidos.forEach(estado => {
+            const config = configuracionEstados[estado];
+            if (config) {
+                opciones += `
+                    <li>
+                        <a class="dropdown-item btn-cambiar-estado-dropdown" 
+                           href="#" 
+                           data-id-postulacion="${postulante.id_postulacion}" 
+                           data-nuevo-estado="${estado}">
+                            <i class="${config.icono} me-2 ${config.color}"></i>${config.texto}
+                        </a>
+                    </li>
+                `;
+            }
+        });
+    }
+    
+    return opciones;
 }
 
 function formatearEstadoPostulacion(estado) {
@@ -2295,5 +2592,484 @@ $(document).ready(function() {
         $('.filtro-estado[data-estado="todos"]').addClass('active');
         $('#contadorPostulantes').text('0');
         $('#tituloVacantePostulantes').text('Vacante: Example Vacancy');
+    });
+
+    // ===== FUNCIONES PARA GESTIÓN DE CANDIDATOS =====
+
+    // Función para cambiar estado de candidato
+    window.cambiarEstadoCandidato = function(idCandidato, nuevoEstado, nombreCandidato) {
+        console.group('🔄 CAMBIAR ESTADO CANDIDATO');
+        console.log('📋 Parámetros:', { idCandidato, nuevoEstado, nombreCandidato });
+        
+        let titulo, texto, textoConfirm;
+        
+        switch(nuevoEstado) {
+            case 'en_espera':
+                titulo = 'Enviar Propuesta Salarial';
+                texto = `¿Está seguro de enviar la propuesta salarial a ${nombreCandidato}? Esto cambiará su estado a "En Espera".`;
+                textoConfirm = 'Sí, enviar propuesta';
+                break;
+            // case 'en_proceso':
+            //     titulo = 'Marcar como En Proceso';
+            //     texto = `¿Confirma que ${nombreCandidato} ha aceptado la propuesta salarial? Esto cambiará su estado a "En Proceso".`;
+            //     textoConfirm = 'Sí, aceptó propuesta';
+            //     break;
+            case 'finalista':
+                titulo = 'Marcar como Finalista';
+                texto = `¿Está seguro de marcar a ${nombreCandidato} como Finalista?`;
+                textoConfirm = 'Sí, es finalista';
+                break;
+            case 'contratado':
+                titulo = 'Contratar Candidato';
+                texto = `¿Está seguro de marcar a ${nombreCandidato} como Contratado? Esta acción es irreversible.`;
+                textoConfirm = 'Sí, contratar';
+                break;
+            default:
+                titulo = 'Cambiar Estado';
+                texto = `¿Está seguro de cambiar el estado de ${nombreCandidato}?`;
+                textoConfirm = 'Sí, cambiar';
+        }
+
+        console.log('💬 Mostrar confirmación:', titulo);
+
+        Swal.fire({
+            title: titulo,
+            text: texto,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: textoConfirm,
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            console.log('✅ Resultado de confirmación:', result);
+            
+            if (result.isConfirmed) {
+                console.log('👍 Usuario confirmó acción');
+                // Mostrar modal para capturar información adicional si es necesario
+                if (nuevoEstado === 'en_espera') {
+                    console.log('📝 Mostrando modal de propuesta salarial');
+                    mostrarModalPropuestaSalarial(idCandidato, nombreCandidato);
+                } else {
+                    console.log('⚡ Ejecutando cambio directo');
+                    ejecutarCambioEstado(idCandidato, nuevoEstado);
+                }
+            } else {
+                console.log('👎 Usuario canceló acción');
+            }
+            console.groupEnd();
+        });
+    };
+
+    // Función para rechazar candidato
+    window.rechazarCandidato = function(idCandidato, nombreCandidato) {
+        console.group('❌ RECHAZAR CANDIDATO');
+        console.log('📋 Parámetros:', { idCandidato, nombreCandidato });
+        
+        Swal.fire({
+            title: 'Rechazar Candidato',
+            html: `
+                <p>¿Está seguro de rechazar a <strong>${nombreCandidato}</strong>?</p>
+                <div class="form-group mt-3">
+                    <label for="motivoRechazo">Motivo de rechazo:</label>
+                    <select class="form-control" id="motivoRechazo" required>
+                        <option value="">Seleccione un motivo</option>
+                        <option value="no_cumple_perfil">No cumple con el perfil</option>
+                        <option value="salario_elevado">Expectativa salarial muy elevada</option>
+                        <option value="disponibilidad">Problemas de disponibilidad</option>
+                        <option value="referencias">Referencias negativas</option>
+                        <option value="otro">Otro motivo</option>
+                    </select>
+                </div>
+                <div class="form-group mt-2">
+                    <label for="comentariosRechazo">Comentarios adicionales:</label>
+                    <textarea class="form-control" id="comentariosRechazo" rows="3" placeholder="Comentarios opcionales..."></textarea>
+                </div>
+            `,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Sí, rechazar',
+            cancelButtonText: 'Cancelar',
+            preConfirm: () => {
+                const motivo = document.getElementById('motivoRechazo').value;
+                const comentarios = document.getElementById('comentariosRechazo').value;
+                
+                console.log('📝 Datos del modal de rechazo:', { motivo, comentarios });
+                
+                if (!motivo) {
+                    console.warn('⚠️ No se seleccionó motivo');
+                    Swal.showValidationMessage('Debe seleccionar un motivo de rechazo');
+                    return false;
+                }
+                
+                return { motivo, comentarios };
+            }
+        }).then((result) => {
+            console.log('✅ Resultado del modal:', result);
+            
+            if (result.isConfirmed) {
+                console.log('👍 Usuario confirmó rechazo');
+                console.log('📋 Datos a enviar:', result.value);
+                ejecutarRechazo(idCandidato, result.value.motivo, result.value.comentarios);
+            } else {
+                console.log('👎 Usuario canceló rechazo');
+            }
+            console.groupEnd();
+        });
+    };
+
+    // Función para mostrar modal de propuesta salarial
+    function mostrarModalPropuestaSalarial(idCandidato, nombreCandidato) {
+        Swal.fire({
+            title: 'Propuesta Salarial',
+            html: `
+                <p>Datos de la propuesta para <strong>${nombreCandidato}</strong>:</p>
+                <div class="form-group mt-3">
+                    <label for="salarioOfertado">Salario ofertado (mensual):</label>
+                    <input type="number" class="form-control" id="salarioOfertado" min="0" step="0.01" placeholder="0.00">
+                </div>
+                <div class="form-group mt-2">
+                    <label for="fechaInicioPropuesta">Fecha de inicio propuesta:</label>
+                    <input type="date" class="form-control" id="fechaInicioPropuesta">
+                </div>
+                <div class="form-group mt-2">
+                    <label for="condicionesEspeciales">Condiciones especiales:</label>
+                    <textarea class="form-control" id="condicionesEspeciales" rows="3" placeholder="Beneficios adicionales, horarios especiales, etc."></textarea>
+                </div>
+                <div class="form-group mt-2">
+                    <label for="comentariosPropuesta">Comentarios:</label>
+                    <textarea class="form-control" id="comentariosPropuesta" rows="2" placeholder="Comentarios adicionales..."></textarea>
+                </div>
+            `,
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#28a745',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Enviar Propuesta',
+            cancelButtonText: 'Cancelar',
+            preConfirm: () => {
+                const salario = document.getElementById('salarioOfertado').value;
+                const fechaInicio = document.getElementById('fechaInicioPropuesta').value;
+                const condiciones = document.getElementById('condicionesEspeciales').value;
+                const comentarios = document.getElementById('comentariosPropuesta').value;
+                
+                if (!salario || salario <= 0) {
+                    Swal.showValidationMessage('Debe ingresar un salario válido');
+                    return false;
+                }
+                
+                return { salario, fechaInicio, condiciones, comentarios };
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                ejecutarCambioEstado(idCandidato, 'en_espera', 'Envío de propuesta salarial', result.value);
+            }
+        });
+    }
+
+    // Función para ejecutar el cambio de estado
+    function ejecutarCambioEstado(idCandidato, nuevoEstado, motivo = null, datosAdicionales = null) {
+        const datos = new FormData();
+        datos.append('api', '35');
+        datos.append('id_candidato', idCandidato);
+        datos.append('estado_candidato', nuevoEstado);
+        datos.append('motivo_cambio', motivo || `Cambio a estado ${nuevoEstado}`);
+        
+        if (datosAdicionales) {
+            if (datosAdicionales.salario) datos.append('salario_ofertado', datosAdicionales.salario);
+            if (datosAdicionales.fechaInicio) datos.append('fecha_inicio_propuesta', datosAdicionales.fechaInicio);
+            if (datosAdicionales.condiciones) datos.append('condiciones_especiales', datosAdicionales.condiciones);
+            if (datosAdicionales.comentarios) datos.append('comentarios_rh', datosAdicionales.comentarios);
+        }
+
+        fetch('../../../api/recursos_humanos_api.php', {
+            method: 'POST',
+            body: datos
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.code === 1) {
+                Swal.fire({
+                    title: '¡Éxito!',
+                    text: 'Estado del candidato actualizado correctamente',
+                    icon: 'success',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+                // Recargar la tabla
+                tablePostulantesAprobados.ajax.reload();
+            } else {
+                Swal.fire({
+                    title: 'Error',
+                    text: data.message || 'Error al actualizar el estado del candidato',
+                    icon: 'error'
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+                title: 'Error',
+                text: 'Error de conexión al servidor',
+                icon: 'error'
+            });
+        });
+    }
+
+ // Función para ejecutar el rechazo (CORREGIDA)
+function ejecutarRechazo(idCandidato, motivo, comentarios) {
+    console.group('❌ EJECUTAR RECHAZO');
+    console.log('📋 Parámetros recibidos:', {
+        idCandidato,
+        motivo,
+        comentarios
+    });
+
+    const datos = new FormData();
+    datos.append('api', '36');
+    datos.append('id_candidato', idCandidato);
+    datos.append('motivo_rechazo', motivo);
+    datos.append('comentarios_rh', comentarios);
+
+    // Log de datos que se envían
+    console.log('📤 Datos a enviar:');
+    for (let [key, value] of datos.entries()) {
+        console.log(`  ${key}: ${value}`);
+    }
+
+    fetch('../../../api/recursos_humanos_api.php', {
+        method: 'POST',
+        body: datos
+    })
+    .then(response => {
+        console.log('📨 Respuesta HTTP Status:', response.status);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        return response.text(); // Primero obtener como texto
+    })
+    .then(text => {
+        console.log('📄 Respuesta RAW del servidor:', text);
+        
+        try {
+            const data = JSON.parse(text);
+            console.log('📋 Respuesta JSON parseada:', data);
+            
+            // Verificar diferentes estructuras de respuesta
+            let code = null;
+            let message = null;
+            
+            if (data.response && data.response.code !== undefined) {
+                code = data.response.code;
+                message = data.response.message || data.response.msj;
+                console.log('📊 Estructura: data.response.code =', code);
+            } else if (data.code !== undefined) {
+                code = data.code;
+                message = data.message || data.msj;
+                console.log('📊 Estructura: data.code =', code);
+            } else {
+                console.warn('⚠️ Estructura de respuesta desconocida');
+                console.log('🔍 Explorando estructura:', Object.keys(data));
+            }
+            
+            console.log('✅ Code extraído:', code);
+            console.log('💬 Message extraído:', message);
+            
+            // ⚠️ CAMBIO PRINCIPAL: Aceptar tanto code 1 como code 2
+            if (code === 1 || code === 2) {
+                console.log('🎉 ÉXITO: Candidato rechazado correctamente');
+                Swal.fire({
+                    title: '¡Candidato Rechazado!',
+                    text: 'El candidato ha sido rechazado correctamente',
+                    icon: 'success',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+                // Recargar la tabla
+                if (typeof tablePostulantesAprobados !== 'undefined') {
+                    console.log('🔄 Recargando tabla...');
+                    tablePostulantesAprobados.ajax.reload();
+                } else {
+                    console.warn('⚠️ tabla tablePostulantesAprobados no definida');
+                }
+            } else {
+                console.error('❌ ERROR: Code no exitoso:', code);
+                console.error('💬 Mensaje de error:', message);
+                Swal.fire({
+                    title: 'Error',
+                    text: message || 'Error al rechazar el candidato',
+                    icon: 'error'
+                });
+            }
+        } catch (parseError) {
+            console.error('🚨 ERROR al parsear JSON:', parseError);
+            console.error('📄 Texto que causó el error:', text);
+            Swal.fire({
+                title: 'Error de formato',
+                text: 'La respuesta del servidor no es un JSON válido',
+                icon: 'error'
+            });
+        }
+    })
+    .catch(error => {
+        console.error('🚨 ERROR en fetch:', error);
+        console.error('📋 Detalles del error:', {
+            name: error.name,
+            message: error.message,
+            stack: error.stack
+        });
+        Swal.fire({
+            title: 'Error de conexión',
+            text: 'Error al conectar con el servidor: ' + error.message,
+            icon: 'error'
+        });
+    })
+    .finally(() => {
+        console.groupEnd();
+    });
+}
+
+// También actualizar la función ejecutarCambioEstado para consistencia
+function ejecutarCambioEstado(idCandidato, nuevoEstado, motivo = null, datosAdicionales = null) {
+    console.group('🔄 EJECUTAR CAMBIO DE ESTADO');
+    console.log('📋 Parámetros recibidos:', {
+        idCandidato,
+        nuevoEstado,
+        motivo,
+        datosAdicionales
+    });
+
+    const datos = new FormData();
+    datos.append('api', '35');
+    datos.append('id_candidato', idCandidato);
+    datos.append('estado_candidato', nuevoEstado);
+    datos.append('motivo_cambio', motivo || `Cambio a estado ${nuevoEstado}`);
+    
+    if (datosAdicionales) {
+        console.log('📝 Agregando datos adicionales:', datosAdicionales);
+        if (datosAdicionales.salario) datos.append('salario_ofertado', datosAdicionales.salario);
+        if (datosAdicionales.fechaInicio) datos.append('fecha_inicio_propuesta', datosAdicionales.fechaInicio);
+        if (datosAdicionales.condiciones) datos.append('condiciones_especiales', datosAdicionales.condiciones);
+        if (datosAdicionales.comentarios) datos.append('comentarios_rh', datosAdicionales.comentarios);
+    }
+
+    // Log de datos que se envían
+    console.log('📤 Datos a enviar:');
+    for (let [key, value] of datos.entries()) {
+        console.log(`  ${key}: ${value}`);
+    }
+
+    fetch('../../../api/recursos_humanos_api.php', {
+        method: 'POST',
+        body: datos
+    })
+    .then(response => {
+        console.log('📨 Respuesta HTTP Status:', response.status);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        return response.text();
+    })
+    .then(text => {
+        console.log('📄 Respuesta RAW del servidor:', text);
+        
+        try {
+            const data = JSON.parse(text);
+            console.log('📋 Respuesta JSON parseada:', data);
+            
+            let code = null;
+            let message = null;
+            
+            if (data.response && data.response.code !== undefined) {
+                code = data.response.code;
+                message = data.response.message || data.response.msj;
+            } else if (data.code !== undefined) {
+                code = data.code;
+                message = data.message || data.msj;
+            }
+            
+            console.log('✅ Code extraído:', code);
+            console.log('💬 Message extraído:', message);
+            
+            // ⚠️ CAMBIO: Aceptar tanto code 1 como code 2
+            if (code === 1 || code === 2) {
+                console.log('🎉 ÉXITO: Estado actualizado correctamente');
+                Swal.fire({
+                    title: '¡Éxito!',
+                    text: 'Estado del candidato actualizado correctamente',
+                    icon: 'success',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+                if (typeof tablePostulantesAprobados !== 'undefined') {
+                    tablePostulantesAprobados.ajax.reload();
+                }
+            } else {
+                console.error('❌ ERROR: Code no exitoso:', code);
+                Swal.fire({
+                    title: 'Error',
+                    text: message || 'Error al actualizar el estado del candidato',
+                    icon: 'error'
+                });
+            }
+        } catch (parseError) {
+            console.error('🚨 ERROR al parsear JSON:', parseError);
+            Swal.fire({
+                title: 'Error de formato',
+                text: 'La respuesta del servidor no es un JSON válido',
+                icon: 'error'
+            });
+        }
+    })
+    .catch(error => {
+        console.error('🚨 ERROR en fetch:', error);
+        Swal.fire({
+            title: 'Error de conexión',
+            text: 'Error al conectar con el servidor: ' + error.message,
+            icon: 'error'
+        });
+    })
+    .finally(() => {
+        console.groupEnd();
+    });
+}
+
+    // Event listeners para los botones de acciones
+    $(document).on('click', '.btn-generar-propuesta-salarial', function() {
+        const idCandidato = $(this).data('id-candidato');
+        const fila = $(this).closest('tr');
+        const nombreCandidato = tablePostulantesAprobados.row(fila).data().nombre_completo;
+        
+        cambiarEstadoCandidato(idCandidato, 'en_espera', nombreCandidato);
+    });
+
+    $(document).on('click', '.btn-gestionar-proceso', function() {
+        const idCandidato = $(this).data('id-candidato');
+        const fila = $(this).closest('tr');
+        const nombreCandidato = tablePostulantesAprobados.row(fila).data().nombre_completo;
+        
+        cambiarEstadoCandidato(idCandidato, 'finalista', nombreCandidato);
+    });
+
+    $(document).on('click', '.btn-contratar', function() {
+        const idCandidato = $(this).data('id-candidato');
+        const fila = $(this).closest('tr');
+        const nombreCandidato = tablePostulantesAprobados.row(fila).data().nombre_completo;
+        
+        cambiarEstadoCandidato(idCandidato, 'contratado', nombreCandidato);
+    });
+
+    $(document).on('click', '.btn-rechazar-candidato', function() {
+        const idCandidato = $(this).data('id-candidato');
+        const fila = $(this).closest('tr');
+        const nombreCandidato = tablePostulantesAprobados.row(fila).data().nombre_completo;
+        
+        rechazarCandidato(idCandidato, nombreCandidato);
     });
 });

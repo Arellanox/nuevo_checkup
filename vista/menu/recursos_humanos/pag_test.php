@@ -897,10 +897,10 @@
                                         <i class="fas fa-file-alt text-info me-2 fs-4"></i>
                                         <div>
                                             <strong>CURP <span class="required-field">*</span></strong>
-                                            <br><small class="text-muted">Formato: PDF, JPG, PNG - Máximo 5MB</small>
+                                            <br><small class="text-muted">Formato: PDF, DOC, DOCX - Máximo 5MB</small>
                                         </div>
                                     </div>
-                                    <input type="file" class="form-control" name="doc_curp" accept=".pdf,.jpg,.jpeg,.png" required>
+                                    <input type="file" class="form-control" name="doc_curp" accept=".pdf,.doc,.docx" required>
                                     <div class="invalid-feedback">
                                         Por favor adjunte su CURP.
                                     </div>
@@ -937,10 +937,9 @@
                                         <!-- <button type="button" class="btn btn-outline-info btn-sm" id="previewSignature">
                                             <i class="fas fa-eye"></i> Vista Previa
                                         </button> -->
-                                        <button type="button" class="btn btn-outline-success btn-sm" id="testSignature">
+                                        <!-- <button type="button" class="btn btn-outline-success btn-sm" id="testSignature">
                                             <i class="fas fa-check"></i> Verificar Firma
-                                        </button>
-                                        </button>
+                                        </button> -->
                                     </div>
                                 </div>
                             </div>
@@ -1242,46 +1241,46 @@
             // });
             
             // Verificar firma (nuevo botón)
-            document.getElementById('testSignature').addEventListener('click', function() {
-                console.log('=== VERIFICACIÓN DE FIRMA ===');
-                console.log('SignaturePad existe:', !!signaturePad);
-                console.log('SignaturePad isEmpty:', signaturePad ? signaturePad.isEmpty() : 'N/A');
-                console.log('Hidden input existe:', !!hiddenInput);
-                console.log('Hidden input value length:', hiddenInput ? hiddenInput.value.length : 'N/A');
-                console.log('Hidden input value preview:', hiddenInput && hiddenInput.value ? hiddenInput.value.substring(0, 50) + '...' : 'vacío');
+            // document.getElementById('testSignature').addEventListener('click', function() {
+            //     console.log('=== VERIFICACIÓN DE FIRMA ===');
+            //     console.log('SignaturePad existe:', !!signaturePad);
+            //     console.log('SignaturePad isEmpty:', signaturePad ? signaturePad.isEmpty() : 'N/A');
+            //     console.log('Hidden input existe:', !!hiddenInput);
+            //     console.log('Hidden input value length:', hiddenInput ? hiddenInput.value.length : 'N/A');
+            //     console.log('Hidden input value preview:', hiddenInput && hiddenInput.value ? hiddenInput.value.substring(0, 50) + '...' : 'vacío');
                 
-                // Si el pad no está vacío pero el input sí, intentar forzar la actualización
-                if (signaturePad && !signaturePad.isEmpty() && (!hiddenInput.value || hiddenInput.value.length === 0)) {
-                    console.log('Forzando actualización del input...');
-                    try {
-                        const dataURL = signaturePad.toDataURL('image/png');
-                        hiddenInput.value = dataURL;
-                        console.log('Input actualizado forzadamente, nueva longitud:', hiddenInput.value.length);
-                    } catch (error) {
-                        console.error('Error al forzar actualización:', error);
-                    }
-                }
+            //     // Si el pad no está vacío pero el input sí, intentar forzar la actualización
+            //     if (signaturePad && !signaturePad.isEmpty() && (!hiddenInput.value || hiddenInput.value.length === 0)) {
+            //         console.log('Forzando actualización del input...');
+            //         try {
+            //             const dataURL = signaturePad.toDataURL('image/png');
+            //             hiddenInput.value = dataURL;
+            //             console.log('Input actualizado forzadamente, nueva longitud:', hiddenInput.value.length);
+            //         } catch (error) {
+            //             console.error('Error al forzar actualización:', error);
+            //         }
+            //     }
                 
-                // Validaciones
-                if (!signaturePad) {
-                    alert('❌ SignaturePad no inicializado');
-                    updateSignatureStatus('Error: No inicializado', 'danger');
-                } else if (signaturePad.isEmpty()) {
-                    alert('❌ El canvas está vacío. Por favor firme primero.');
-                    updateSignatureStatus('Error: Canvas vacío', 'danger');
-                } else if (!hiddenInput || !hiddenInput.value || hiddenInput.value.length < 100) {
-                    alert('❌ El input hidden está vacío o corrupto.\n\nLongitud actual: ' + (hiddenInput ? hiddenInput.value.length : 0) + '\n\nIntente limpiar y firmar nuevamente.');
-                    updateSignatureStatus('Error: Datos corruptos', 'danger');
-                } else {
-                    alert('✅ Firma válida y capturada correctamente!\n\n' +
-                          'Longitud: ' + hiddenInput.value.length + ' caracteres\n' +
-                          'Formato: ' + (hiddenInput.value.startsWith('data:image/png;base64,') ? 'PNG Base64 ✓' : 'Formato incorrecto') + '\n' +
-                          'Estado: Lista para envío');
-                    updateSignatureStatus('Verificado ✓', 'success');
-                }
+            //     // Validaciones
+            //     if (!signaturePad) {
+            //         alert('❌ SignaturePad no inicializado');
+            //         updateSignatureStatus('Error: No inicializado', 'danger');
+            //     } else if (signaturePad.isEmpty()) {
+            //         alert('❌ El canvas está vacío. Por favor firme primero.');
+            //         updateSignatureStatus('Error: Canvas vacío', 'danger');
+            //     } else if (!hiddenInput || !hiddenInput.value || hiddenInput.value.length < 100) {
+            //         alert('❌ El input hidden está vacío o corrupto.\n\nLongitud actual: ' + (hiddenInput ? hiddenInput.value.length : 0) + '\n\nIntente limpiar y firmar nuevamente.');
+            //         updateSignatureStatus('Error: Datos corruptos', 'danger');
+            //     } else {
+            //         alert('✅ Firma válida y capturada correctamente!\n\n' +
+            //               'Longitud: ' + hiddenInput.value.length + ' caracteres\n' +
+            //               'Formato: ' + (hiddenInput.value.startsWith('data:image/png;base64,') ? 'PNG Base64 ✓' : 'Formato incorrecto') + '\n' +
+            //               'Estado: Lista para envío');
+            //         updateSignatureStatus('Verificado ✓', 'success');
+            //     }
                 
-                console.log('=== FIN VERIFICACIÓN ===');
-            });
+            //     console.log('=== FIN VERIFICACIÓN ===');
+            // });
             
             console.log('Signature Pad inicializado correctamente');
         }
@@ -1891,6 +1890,15 @@
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
             });
+        });
+
+// Reestablecer la signature pad al enviar el formulario
+        document.getElementById('postulacionForm').addEventListener('reset', function() {
+            if (signaturePad) {
+                signaturePad.clear();
+                document.getElementById('firmaDigitalInput').value = '';
+                updateSignatureStatus('Firma no capturada', 'warning');
+            }
         });
     </script>
 </body>
