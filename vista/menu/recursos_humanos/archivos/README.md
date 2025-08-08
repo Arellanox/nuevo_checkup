@@ -1,1 +1,1 @@
-Posible manejo de archivos para esta ruta.
+Posible manejo de archivos para postulantes y candidatos seleccionados para esta ruta.

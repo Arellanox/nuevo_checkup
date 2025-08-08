@@ -391,7 +391,7 @@ tablePostulantesAprobados = $("#tablePostulantesAprobados").DataTable({
     info: true,
     paging: true,
     pageLength: 10,
-    order: [[6, 'desc']], // Ordenar por fecha de selección
+    order: [[3, 'desc']], // Ordenar por fecha de selección
     scrollY: "60vh",
     scrollCollapse: true,
     ajax: {
@@ -500,9 +500,9 @@ tablePostulantesAprobados = $("#tablePostulantesAprobados").DataTable({
                             <button class="btn btn-sm btn-gradient-primary btn-marcar-finalista" 
                                     data-id-candidato="${row.id_candidato}"
                                     data-nombre="${row.nombre_completo}" 
-                                    title="Marcar como finalista"
+                                    title="Almacenar propuesta firmada"
                                     onclick="cambiarEstadoCandidato(${row.id_candidato}, 'finalista', '${row.nombre_completo}')">
-                                <i class="fas fa-star"></i>
+                                <i class="bi bi-file-earmark-text-fill"></i>
                             </button>`;
                         break;
                         

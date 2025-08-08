@@ -11,6 +11,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Animate.css para animaciones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     
     <style>
         body {
@@ -325,6 +327,13 @@
                             </button>
                         </div>
                         
+                        <!-- Botón para descargar PDF -->
+                        <!-- <div class="text-center mt-3">
+                            <button id="btnDescargarPDF" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-file-pdf"></i> Descargar Propuesta en PDF
+                            </button>
+                        </div> -->
+                        
                         <!-- Mensaje cuando ya no puede responder -->
                         <div id="noResponder" class="text-center mt-4" style="display: none;">
                             <div class="alert alert-info">
@@ -502,19 +511,77 @@
         
         // Aceptar propuesta
         async function aceptarPropuesta() {
-            const result = await Swal.fire({
-                title: '¿Aceptar propuesta?',
-                text: '¿Está seguro de aceptar esta propuesta salarial?',
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonColor: '#27ae60',
-                cancelButtonColor: '#95a5a6',
-                confirmButtonText: 'Sí, aceptar',
-                cancelButtonText: 'Cancelar'
-            });
-            
-            if (result.isConfirmed) {
-                await responderPropuesta('aceptar');
+            try {
+                // Primer paso: Confirmar la aceptación
+                const confirmResult = await Swal.fire({
+                    title: '¿Aceptar propuesta?',
+                    text: '¿Está seguro de aceptar esta propuesta salarial?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#27ae60',
+                    cancelButtonColor: '#95a5a6',
+                    confirmButtonText: 'Sí, continuar',
+                    cancelButtonText: 'Cancelar'
+                });
+                
+                if (confirmResult.isConfirmed) {
+                    // Segundo paso: Capturar firma digital
+                    try {
+                        const firmaDataURL = await mostrarModalFirma(
+                            'Firma Digital Requerida',
+                            'Para formalizar la aceptación de la propuesta, necesitamos su firma digital:'
+                        );
+                        
+                        // Convertir la firma a base64 puro (sin el prefijo data:image/png;base64,)
+                        const firmaBase64 = dataURLToBase64(firmaDataURL);
+                        
+                        // Tercer paso: Confirmar que la firma es correcta
+                        const firmaConfirmResult = await Swal.fire({
+                            title: 'Confirmar Firma',
+                            html: `
+                                <p>¿Es correcta su firma?</p>
+                                <div style="border: 2px solid #ddd; border-radius: 8px; padding: 10px; margin: 10px 0; background: white;">
+                                    <img src="${firmaDataURL}" style="max-width: 100%; height: auto;" alt="Su firma">
+                                </div>
+                                <p><small class="text-muted">Si no es correcta, puede cancelar y firmar nuevamente.</small></p>
+                            `,
+                            icon: 'question',
+                            showCancelButton: true,
+                            confirmButtonColor: '#27ae60',
+                            cancelButtonColor: '#95a5a6',
+                            confirmButtonText: 'Sí, confirmar',
+                            cancelButtonText: 'Firmar de nuevo'
+                        });
+                        
+                        if (firmaConfirmResult.isConfirmed) {
+                            // Procesar la aceptación con la firma
+                            await responderPropuesta('aceptar', null, null, firmaBase64);
+                        } else {
+                            // Volver a mostrar el modal de firma
+                            await aceptarPropuesta();
+                        }
+                        
+                    } catch (error) {
+                        console.log('Firma cancelada:', error);
+                        // No mostrar error si el usuario canceló la firma
+                        if (error !== 'Firma cancelada') {
+                            await Swal.fire({
+                                title: 'Error',
+                                text: 'No se pudo capturar la firma. Intente nuevamente.',
+                                icon: 'error',
+                                confirmButtonColor: '#e74c3c'
+                            });
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Error en aceptarPropuesta:', error);
+                await Swal.fire({
+                    title: 'Error',
+                    text: 'Ocurrió un error inesperado. Intente nuevamente.',
+                    icon: 'error',
+                    confirmButtonColor: '#e74c3c'
+                });
             }
         }
         
@@ -566,8 +633,8 @@
             }
         }
         
-// Responder a la propuesta (CORREGIDA PARA VALIDAR CODE 2)
-async function responderPropuesta(accion, motivo = null, comentarios = null) {
+// Responder a la propuesta (ACTUALIZADA PARA INCLUIR FIRMA DIGITAL)
+async function responderPropuesta(accion, motivo = null, comentarios = null, firmaBase64 = null) {
     try {
         // Mostrar loading
         Swal.fire({
@@ -588,6 +655,12 @@ async function responderPropuesta(accion, motivo = null, comentarios = null) {
             formData.append('estado_candidato', 'en_proceso');
             formData.append('motivo_cambio', 'Propuesta salarial aceptada por el candidato');
             formData.append('comentarios_rh', 'El candidato aceptó la propuesta salarial desde la landing page');
+            
+            // ⭐ NUEVO: Agregar firma digital si está disponible
+            if (firmaBase64) {
+                formData.append('documentacion_completa', firmaBase64);
+                console.log('✅ Firma digital agregada al FormData');
+            }
         } else {
             formData.append('estado_candidato', 'declinado');
             formData.append('motivo_cambio', `Propuesta rechazada: ${motivo}`);
@@ -684,6 +757,71 @@ async function responderPropuesta(accion, motivo = null, comentarios = null) {
     }
 }
 
+// Función para descargar PDF de la propuesta
+// async function descargarPDF() {
+//     try {
+//         // Mostrar loading
+//         Swal.fire({
+//             title: 'Generando PDF...',
+//             text: 'Por favor espere mientras se genera el documento',
+//             allowOutsideClick: false,
+//             showConfirmButton: false,
+//             willOpen: () => {
+//                 Swal.showLoading();
+//             }
+//         });
+        
+//         const formData = new FormData();
+//         formData.append('api', '38'); // Nuevo case para generar PDF
+//         formData.append('id_candidato', candidatoData.id_candidato);
+        
+//         const response = await fetch('../../../api/recursos_humanos_api.php', {
+//             method: 'POST',
+//             body: formData
+//         });
+        
+//         if (!response.ok) {
+//             throw new Error(`HTTP error! status: ${response.status}`);
+//         }
+        
+//         const data = await response.json();
+//         console.log('Respuesta PDF:', data);
+        
+//         if (data.code === 1 && data.data && data.data.download_url) {
+//             // Cerrar el loading
+//             Swal.close();
+            
+//             // Crear un enlace temporal para descargar
+//             const link = document.createElement('a');
+//             link.href = data.data.download_url;
+//             link.download = data.data.filename;
+//             document.body.appendChild(link);
+//             link.click();
+//             document.body.removeChild(link);
+            
+//             // Mostrar éxito
+//             await Swal.fire({
+//                 title: '¡Descarga iniciada!',
+//                 text: 'El PDF se está descargando automáticamente.',
+//                 icon: 'success',
+//                 confirmButtonColor: '#27ae60',
+//                 timer: 3000
+//             });
+//         } else {
+//             throw new Error(data.message || 'Error al generar el PDF');
+//         }
+        
+//     } catch (error) {
+//         console.error('Error al descargar PDF:', error);
+//         await Swal.fire({
+//             title: 'Error',
+//             text: 'No se pudo generar el PDF. Intente nuevamente.',
+//             icon: 'error',
+//             confirmButtonColor: '#e74c3c'
+//         });
+//     }
+// }
+
 // Event listeners
 document.addEventListener('DOMContentLoaded', function() {
     // Cargar propuesta al iniciar
@@ -692,7 +830,229 @@ document.addEventListener('DOMContentLoaded', function() {
             // Botones de acción
             document.getElementById('btnAceptar').addEventListener('click', aceptarPropuesta);
             document.getElementById('btnRechazar').addEventListener('click', rechazarPropuesta);
+            // document.getElementById('btnDescargarPDF').addEventListener('click', descargarPDF);
         });
     </script>
+    <script>
+    /**
+ * Biblioteca para captura de firmas digitales
+ * Utiliza HTML5 Canvas para dibujar la firma
+ */
+class FirmaDigital {
+    constructor(canvasId, options = {}) {
+        this.canvas = document.getElementById(canvasId);
+        this.ctx = this.canvas.getContext('2d');
+        this.isDrawing = false;
+        this.lastPoint = { x: 0, y: 0 };
+        
+        // Opciones por defecto
+        this.options = {
+            strokeColor: options.strokeColor || '#000000',
+            strokeWidth: options.strokeWidth || 2,
+            backgroundColor: options.backgroundColor || '#ffffff',
+            ...options
+        };
+        
+        this.init();
+    }
+    
+    init() {
+        // Configurar canvas
+        this.canvas.width = this.canvas.offsetWidth;
+        this.canvas.height = this.canvas.offsetHeight;
+        this.clearCanvas();
+        
+        // Event listeners para mouse
+        this.canvas.addEventListener('mousedown', (e) => this.startDrawing(e));
+        this.canvas.addEventListener('mousemove', (e) => this.draw(e));
+        this.canvas.addEventListener('mouseup', () => this.stopDrawing());
+        this.canvas.addEventListener('mouseout', () => this.stopDrawing());
+        
+        // Event listeners para touch (móviles)
+        this.canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousedown', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            this.canvas.dispatchEvent(mouseEvent);
+        });
+        
+        this.canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousemove', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            this.canvas.dispatchEvent(mouseEvent);
+        });
+        
+        this.canvas.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            const mouseEvent = new MouseEvent('mouseup', {});
+            this.canvas.dispatchEvent(mouseEvent);
+        });
+    }
+    
+    getMousePos(e) {
+        const rect = this.canvas.getBoundingClientRect();
+        return {
+            x: e.clientX - rect.left,
+            y: e.clientY - rect.top
+        };
+    }
+    
+    startDrawing(e) {
+        this.isDrawing = true;
+        this.lastPoint = this.getMousePos(e);
+    }
+    
+    draw(e) {
+        if (!this.isDrawing) return;
+        
+        const currentPoint = this.getMousePos(e);
+        
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.lastPoint.x, this.lastPoint.y);
+        this.ctx.lineTo(currentPoint.x, currentPoint.y);
+        this.ctx.strokeStyle = this.options.strokeColor;
+        this.ctx.lineWidth = this.options.strokeWidth;
+        this.ctx.lineCap = 'round';
+        this.ctx.stroke();
+        
+        this.lastPoint = currentPoint;
+    }
+    
+    stopDrawing() {
+        this.isDrawing = false;
+    }
+    
+    clearCanvas() {
+        this.ctx.fillStyle = this.options.backgroundColor;
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+    
+    isEmpty() {
+        // Verificar si el canvas está vacío (solo color de fondo)
+        const imageData = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
+        const pixelData = imageData.data;
+        
+        // Convertir color de fondo a RGB
+        const bgColor = this.hexToRgb(this.options.backgroundColor);
+        
+        for (let i = 0; i < pixelData.length; i += 4) {
+            const r = pixelData[i];
+            const g = pixelData[i + 1];
+            const b = pixelData[i + 2];
+            
+            // Si encuentra un pixel que no sea del color de fondo, hay contenido
+            if (r !== bgColor.r || g !== bgColor.g || b !== bgColor.b) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    hexToRgb(hex) {
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
+    }
+    
+    getSignatureDataURL(format = 'image/png') {
+        return this.canvas.toDataURL(format);
+    }
+    
+    getSignatureBlob(callback, format = 'image/png', quality = 0.9) {
+        this.canvas.toBlob(callback, format, quality);
+    }
+    
+    resize() {
+        // Guardar contenido actual
+        const imageData = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
+        
+        // Redimensionar canvas
+        this.canvas.width = this.canvas.offsetWidth;
+        this.canvas.height = this.canvas.offsetHeight;
+        
+        // Restaurar fondo
+        this.clearCanvas();
+        
+        // Restaurar contenido (opcional, puede que se distorsione)
+        // this.ctx.putImageData(imageData, 0, 0);
+    }
+}
+
+// Utilidad para convertir DataURL a Base64 puro
+function dataURLToBase64(dataURL) {
+    return dataURL.split(',')[1];
+}
+
+// Utilidad para crear un modal de firma con SweetAlert2
+function mostrarModalFirma(titulo = 'Firma Digital', mensaje = 'Por favor, firme en el recuadro de abajo:') {
+    return new Promise((resolve, reject) => {
+        Swal.fire({
+            title: titulo,
+            html: `
+                <div style="text-align: center;">
+                    <p>${mensaje}</p>
+                    <div style="border: 2px solid #ddd; border-radius: 8px; margin: 10px 0; background: white;">
+                        <canvas id="firmaCanvas" width="400" height="200" style="display: block; touch-action: none; cursor: crosshair;"></canvas>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <button type="button" id="limpiarFirma" class="btn btn-secondary btn-sm">
+                            <i class="fas fa-eraser"></i> Limpiar
+                        </button>
+                    </div>
+                    <small class="text-muted">Puede firmar con el mouse o con el dedo si está en un dispositivo táctil</small>
+                </div>
+            `,
+            showCancelButton: true,
+            confirmButtonText: 'Confirmar Firma',
+            cancelButtonText: 'Cancelar',
+            preConfirm: () => {
+                if (firma.isEmpty()) {
+                    Swal.showValidationMessage('Por favor, proporcione su firma');
+                    return false;
+                }
+                
+                return firma.getSignatureDataURL();
+            },
+            didOpen: () => {
+                // Inicializar la captura de firma
+                window.firma = new FirmaDigital('firmaCanvas', {
+                    strokeColor: '#2c3e50',
+                    strokeWidth: 3,
+                    backgroundColor: '#ffffff'
+                });
+                
+                // Botón limpiar
+                document.getElementById('limpiarFirma').addEventListener('click', () => {
+                    firma.clearCanvas();
+                });
+            },
+            width: 500,
+            showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                resolve(result.value); // DataURL de la firma
+            } else {
+                reject('Firma cancelada');
+            }
+        });
+    });
+}
+</script>
 </body>
 </html>

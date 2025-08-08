@@ -217,6 +217,7 @@ $comentarios_candidato = isset($_POST['comentarios_candidato']) ? trim($_POST['c
 $salario_ofertado = isset($_POST['salario_ofertado']) ? (float)$_POST['salario_ofertado'] : null;
 $fecha_inicio_propuesta = isset($_POST['fecha_inicio_propuesta']) ? $_POST['fecha_inicio_propuesta'] : null;
 $condiciones_especiales = isset($_POST['condiciones_especiales']) ? trim($_POST['condiciones_especiales']) : null;
+$documentacion_completa = isset($_POST['documentacion_completa']) ? $_POST['documentacion_completa'] : null;
 $prioridad_proceso = isset($_POST['prioridad_proceso']) ? trim($_POST['prioridad_proceso']) : 'normal';
 $fecha_limite_proceso = isset($_POST['fecha_limite_proceso']) ? $_POST['fecha_limite_proceso'] : null;
 $prioridad_proceso = isset($_POST['prioridad_proceso']) ? trim($_POST['prioridad_proceso']) : 'normal';
@@ -912,7 +913,8 @@ switch ($api) {
                 $comentarios_candidato,
                 $salario_ofertado,
                 $fecha_inicio_propuesta,
-                $condiciones_especiales
+                $condiciones_especiales,
+                $documentacion_completa
             ]);
         }
     break;
