@@ -7,7 +7,7 @@
                         <img src="https://www.bimo.com.mx/assets/img/logo_blanco_sinfondo.png" class="md:w-[280px] w-[150px]" width="250" height="auto">
                      </div>
                 </div>
-                
+
                 <div class="bg-white/10 backdrop-blur-sm rounded-lg p-3 mb-3 md:w-max text-center mx-auto">
                     <p class="text-white text-sm md:text-lg" style="font-weight: 300">Especialista en Análisis Clínicos y Checkups</p>
                 </div>

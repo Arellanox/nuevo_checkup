@@ -9,7 +9,7 @@
 
 <head>
     <?php include "../include/head.php"; ?>
-    <title><?php echo $menu; ?> | Bimo</title>
+    <title>Presentación | Bimo</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style type="text/tailwindcss">
         @theme {
