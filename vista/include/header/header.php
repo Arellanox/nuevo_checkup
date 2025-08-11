@@ -51,6 +51,9 @@ switch ($menu) {
         </nav>
         <?php
         break;
+    case 'NONE':
+
+        break;
     default:
         ?>
         <nav class="navbar navbar-expand-lg border-3 border-bottom border-dark bg-navbar navbar-menu"
