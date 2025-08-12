@@ -54,7 +54,7 @@ tableCatOrdenesCompra = $("#tableCatOrdenesCompra").DataTable({
   language: {
     url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
   },
-  order: [[1, "desc"]],
+  order: [[0, "desc"]],
   autoWidth: false,
   lengthChange: false,
   info: true,
@@ -790,17 +790,17 @@ tableCatProveedores = $("#tableCatProveedores").DataTable({
         $("#registrarProveedorModal").modal("show");
       },
     },
-    {
-      text: '<i class="bi bi-funnel"></i> Filtrar Proveedores',
-      className: "btn btn-warning",
-      attr: {
-        "data-bs-toggle": "modal",
-        "data-bs-target": "#filtrarProveedoresModal",
-      },
-      action: function () {
-        $("#filtrarProveedoresModal").modal("show");
-      },
-    },
+    // {
+    //   text: '<i class="bi bi-funnel"></i> Filtrar Proveedores',
+    //   className: "btn btn-warning",
+    //   attr: {
+    //     "data-bs-toggle": "modal",
+    //     "data-bs-target": "#filtrarProveedoresModal",
+    //   },
+    //   action: function () {
+    //     $("#filtrarProveedoresModal").modal("show");
+    //   },
+    // },
   ],
 });
 

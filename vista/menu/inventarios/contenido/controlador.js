@@ -30,6 +30,8 @@ var dataTableCatMotivos;
 var dataTableCatProveedores;
 var dataTableCatDetEntradasEstable;
 var dataTableCatOrdenesCompraArticulos;
+var dataTableCatSalidasEstable;
+var dataTableCatDetSalidasEstable;
 
 
 var rowSelected;
@@ -88,4 +90,16 @@ dataTableCatDetEntradasEstable = {
 dataTableCatOrdenesCompraArticulos = {
     api: 43,
     id_orden_compra: null
+}
+
+// Configuración inicial para la tabla de Salidas
+dataTableCatSalidasEstable = {
+    api: 45,
+    // por defecto, mostrar todos (sin filtrar por existencia)
+    solo_con_existencia: 0
+}
+
+// Configuración inicial para la tabla de Detalle de Salidas
+dataTableCatDetSalidasEstable = {
+    api: 45
 }

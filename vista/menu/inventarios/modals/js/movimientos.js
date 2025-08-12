@@ -563,8 +563,8 @@ tableCatSalidasEstable = $("#tableCatSalidasEstable").DataTable({
       title: "Artículo",
     },
     {
-      data: "FECHA_ENTRADA",
-      title: "Fecha de Entrada",
+      data: "FECHA_SALIDA",
+      title: "Fecha de Salida",
       render: function (data) {
         if (!data || data === "0000-00-00" || data === "0000-00-00 00:00:00")
           return "-";
@@ -606,13 +606,13 @@ tableCatSalidasEstable = $("#tableCatSalidasEstable").DataTable({
         return data ? `<strong>$${parseFloat(data).toFixed(2)}</strong>` : "-";
       },
     },
-    {
-      data: "PROVEEDOR_NOMBRE",
-      title: "Proveedor",
-      render: function (data) {
-        return data || "-";
-      },
-    },
+    // {
+    //   data: "PROVEEDOR_NOMBRE",
+    //   title: "Proveedor",
+    //   render: function (data) {
+    //     return data || "-";
+    //   },
+    // },
     {
       data: "ALMACEN_NOMBRE",
       title: "Almacén",
@@ -661,33 +661,33 @@ tableCatSalidasEstable = $("#tableCatSalidasEstable").DataTable({
       },
       visible: false,
     },
-    {
-      data: "DOCUMENTO_FACTURA",
-      title: "Factura",
-      render: function (data, type, row) {
-        if (data) {
-          var extension = data.split(".").pop().toLowerCase();
+    // {
+    //   data: "DOCUMENTO_FACTURA",
+    //   title: "Factura",
+    //   render: function (data, type, row) {
+    //     if (data) {
+    //       var extension = data.split(".").pop().toLowerCase();
 
-          if (extension === "pdf") {
-            return (
-              '<a href="' +
-              data +
-              '" target="_blank"><i class="bi bi-file-earmark-pdf-fill text-danger fs-4" title="Ver PDF"></i></a>'
-            );
-          } else {
-            return (
-              '<a href="' +
-              data +
-              '" target="_blank"><img src="' +
-              data +
-              '" alt="Imagen del Documento" style="width: 50px; height: auto;"/></a>'
-            );
-          }
-        } else {
-          return "-";
-        }
-      },
-    },
+    //       if (extension === "pdf") {
+    //         return (
+    //           '<a href="' +
+    //           data +
+    //           '" target="_blank"><i class="bi bi-file-earmark-pdf-fill text-danger fs-4" title="Ver PDF"></i></a>'
+    //         );
+    //       } else {
+    //         return (
+    //           '<a href="' +
+    //           data +
+    //           '" target="_blank"><img src="' +
+    //           data +
+    //           '" alt="Imagen del Documento" style="width: 50px; height: auto;"/></a>'
+    //         );
+    //       }
+    //     } else {
+    //       return "-";
+    //     }
+    //   },
+    // },
     {
       data: "EXISTENCIA_ACTUAL",
       title: "Existencia Actual",
@@ -717,18 +717,6 @@ tableCatSalidasEstable = $("#tableCatSalidasEstable").DataTable({
         if (rowSelected) {
           $("#registrarSalidaEstableModal").modal("show");
 
-          // Llenar información del artículo
-          $("#articuloSeleccionadoEstable").text(rowSelected.NOMBRE_COMERCIAL);
-          $("#existenciaActualTittleEstable").text(rowSelected.CANTIDAD || "0");
-          $("#nombreArticuloEstable").val(rowSelected.NOMBRE_COMERCIAL);
-          $("#claveArticuloEstable").val(rowSelected.CLAVE_ART || "");
-          $("#existenciaActualEstable").val(rowSelected.CANTIDAD || "0");
-          $("#unidadMedidaEstable").text(rowSelected.UNIDAD_MEDIDA || "unid");
-
-          // Campos ocultos
-          $("#idArticuloEstable").val(rowSelected.ID_ARTICULO);
-          $("#nombreComercialEstable").val(rowSelected.NOMBRE_COMERCIAL);
-          $("#noArtEstable").val(rowSelected.ID_ARTICULO);
         } else {
           alertToast("Seleccione un artículo", "warning", 4000);
         }
@@ -743,7 +731,7 @@ tableCatSalidasEstable = $("#tableCatSalidasEstable").DataTable({
     // },
     {
       text: '<i class="bi bi-file-earmark-arrow-down"></i> Salida con Requisición',
-      className: "btn btn-warning",
+      className: "btn btn-warning btn-salida-requisicion",
       action: function () {
         $("#registrarSalidaOrdenEstableModal").modal("show");
       },
@@ -1387,7 +1375,7 @@ tableCatTransacciones = $("#tableCatTransacciones").DataTable({
   buttons: [],
 });
 
-// ESTILOS PARA LA BARRA DE BUSQUEDA DE ENTRADAS
+// DOBLE CLICK
 selectDatatable(
   "tableCatEntradasEstable",
   tableCatEntradasEstable,
@@ -1412,6 +1400,22 @@ selectDatatable(
   }
 );
 
+selectDatatable(
+  "tableCatSalidasEstable",
+  tableCatSalidasEstable,
+  0,
+  0,
+  0,
+  0,
+  async function (select, dataClick) {
+    rowSelected = dataClick;
+  },
+  async function () {
+    $("#detalleSalidaEstableModal").modal("show");
+  }
+);
+
+// ESTILOS PARA LA BARRA DE BUSQUEDA
 setTimeout(() => {
   inputBusquedaTable(
     "tableCatEntradasEstable",
@@ -1442,6 +1446,38 @@ setTimeout(() => {
     "col-12"
   );
   tableCatDetEntradasEstable.columns.adjust().draw();
+}, 1000);
+
+setTimeout(() => {
+  inputBusquedaTable(
+    "tableCatSalidasEstable",
+    tableCatSalidasEstable,
+    [
+      {
+        msj: "Filtre los registros por coincidencia",
+        place: "top",
+      },
+    ],
+    [],
+    "col-12"
+  );
+  tableCatSalidasEstable.columns.adjust().draw();
+}, 1000);
+
+setTimeout(() => {
+  inputBusquedaTable(
+    "tableCatDetSalidasEstable",
+    tableCatDetSalidasEstable,
+    [
+      {
+        msj: "Filtre los registros por coincidencia",
+        place: "top",
+      },
+    ],
+    [],
+    "col-12"
+  );
+  tableCatDetSalidasEstable.columns.adjust().draw();
 }, 1000);
 
 setTimeout(() => {

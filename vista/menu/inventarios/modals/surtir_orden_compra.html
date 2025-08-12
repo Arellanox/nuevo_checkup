@@ -413,6 +413,71 @@
             }
         });
 
+        // ===== Validación: la cantidad a ingresar no puede ser mayor a la solicitada (menos lo ya recibido) =====
+        function parseNumber(value) {
+            if (value === undefined || value === null) return 0;
+            const s = String(value).replace(/\s/g, '').replace(/,/g, '.');
+            const num = parseFloat(s);
+            return isNaN(num) ? 0 : num;
+        }
+
+        function obtenerMaximoIngreso() {
+            const solicitada = parseNumber($("#cantidadOrdenadaSurtirOC").val());
+            const recibida = parseNumber($("#cantidadRecibidaSurtirOC").val());
+            const maximo = Math.max(0, solicitada - recibida);
+            return maximo;
+        }
+
+        function aplicarMaximoEnInput() {
+            const maximo = obtenerMaximoIngreso();
+            const $input = $("#cantidadIngresarSurtirOC");
+            if (maximo > 0) {
+                $input.attr("max", maximo);
+            } else {
+                // Si no hay nada por surtir, bloquear en 0
+                $input.attr("max", 0);
+            }
+        }
+
+        function validarYCorregirCantidadIngresar() {
+            const $input = $("#cantidadIngresarSurtirOC");
+            const val = parseNumber($input.val());
+            const maximo = obtenerMaximoIngreso();
+            if (val > maximo) {
+                $input.val(maximo > 0 ? maximo : 0);
+                if (typeof alertToast === 'function') {
+                    alertToast(`La cantidad a ingresar no puede ser mayor a la cantidad por surtir (${maximo}).`, "warning", 3500);
+                }
+            }
+        }
+
+        // Al abrir el modal, configurar el máximo permitido
+        $("#surtirOrdenCompraIndividualModal").on("shown.bs.modal", function () {
+            aplicarMaximoEnInput();
+            validarYCorregirCantidadIngresar();
+        });
+
+        // En tiempo real, no permitir exceder el máximo
+        $("#cantidadIngresarSurtirOC").on("input change", function () {
+            aplicarMaximoEnInput();
+            validarYCorregirCantidadIngresar();
+        });
+
+        // Validar también al enviar el formulario
+        $("#formSurtirOrdenCompraIndividual").on("submit", function (e) {
+            const $input = $("#cantidadIngresarSurtirOC");
+            const val = parseNumber($input.val());
+            const maximo = obtenerMaximoIngreso();
+            if (val > maximo) {
+                e.preventDefault();
+                if (typeof alertToast === 'function') {
+                    alertToast(`La cantidad a ingresar (${val}) no puede ser mayor a la cantidad por surtir (${maximo}).`, "error", 4000);
+                } else {
+                    alert(`La cantidad a ingresar no puede ser mayor a ${maximo}.`);
+                }
+            }
+        });
+
         // Limpiar formulario y previsualización al cerrar modal
         $("#surtirOrdenCompraIndividualModal").on("hidden.bs.modal", function () {
             $("#formSurtirOrdenCompraIndividual")[0].reset();

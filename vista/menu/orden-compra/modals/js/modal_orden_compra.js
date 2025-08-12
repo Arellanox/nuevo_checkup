@@ -171,10 +171,29 @@ $("#registrarOrdenCompraForm").submit(async function (event) {
     idProveedor = null;
   }
 
-  // Validación de la fecha (obligatoria)
+  // Validación de la fecha (obligatoria y no anterior a hoy)
   if (!fechaOrden) {
     $("#FECHA_ORDEN_COMPRA").addClass("is-invalid");
     alertToast("La fecha de orden es obligatoria", "warning", 3000);
+    return;
+  }
+
+  // Normalizar y comparar contra hoy (solo fecha, sin hora)
+  try {
+    const hoy = new Date();
+    hoy.setHours(0, 0, 0, 0);
+    const partes = fechaOrden.split("-"); // formato esperado: YYYY-MM-DD
+    const seleccionada = new Date(parseInt(partes[0], 10), parseInt(partes[1], 10) - 1, parseInt(partes[2], 10));
+    seleccionada.setHours(0, 0, 0, 0);
+
+    if (seleccionada < hoy) {
+      $("#FECHA_ORDEN_COMPRA").addClass("is-invalid");
+      alertToast("La fecha de la orden no puede ser anterior al día actual", "warning", 3500);
+      return;
+    }
+  } catch (e) {
+    $("#FECHA_ORDEN_COMPRA").addClass("is-invalid");
+    alertToast("Fecha de orden no válida", "warning", 3000);
     return;
   }
 

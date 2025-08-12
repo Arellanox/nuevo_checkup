@@ -40,6 +40,21 @@
                     <label for="FECHA_ORDEN_COMPRA" class="form-label">Fecha de Orden *</label>
                     <input type="date" class="form-control" id="FECHA_ORDEN_COMPRA" name="FECHA_ORDEN_COMPRA"
                       placeholder="Ingrese la fecha de orden" required />
+                    <script>
+                      // Establecer min = hoy para impedir fechas anteriores
+                      (function() {
+                        try {
+                          var inputFecha = document.getElementById('FECHA_ORDEN_COMPRA');
+                          if (inputFecha) {
+                            var hoy = new Date();
+                            var yyyy = hoy.getFullYear();
+                            var mm = String(hoy.getMonth() + 1).padStart(2, '0');
+                            var dd = String(hoy.getDate()).padStart(2, '0');
+                            inputFecha.min = yyyy + '-' + mm + '-' + dd;
+                          }
+                        } catch (e) { /* noop */ }
+                      })();
+                    </script>
                     <div class="invalid-feedback">Este campo es obligatorio.</div>
                   </div>
                 </div>

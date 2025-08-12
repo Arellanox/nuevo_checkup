@@ -378,6 +378,9 @@ $("#formSurtirOrdenCompraIndividual").submit(function (event) {
             $("#surtirOrdenCompraIndividualModal").modal("hide");
             alertToast("Entrada exitosa", "success", 4000);
             tableCatOrdenesCompraArticulos.ajax.reload();
+            tableCatEntradasEstable.ajax.reload();
+            tableCatDetEntradasEstable.ajax.reload();
+            tableCatTransacciones.ajax.reload();
           } else {
             alertToast(
               "Ocurrió un error al registrar la entrada",

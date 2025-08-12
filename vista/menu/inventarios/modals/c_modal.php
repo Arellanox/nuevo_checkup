@@ -18,3 +18,4 @@ include "detalle_entrada_estable.html";
 include "editar_entrada_estable.html";
 include "registrar_entrada_orden_estable.html";
 include "surtir_orden_compra.html";
+include "registrar_salida_estable.html";

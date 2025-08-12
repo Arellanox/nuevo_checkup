@@ -1502,6 +1502,28 @@ switch ($api) {
         #recuperar ordenes de compra
         $response = $master->getByProcedure("sp_inventarios_cat_orden_compra_b", []);
         break;
+    case 45:
+        // Parámetros para sp_inventarios_salidas_b
+        $id_salida = isset($_POST['id_salida']) && $_POST['id_salida'] !== '' ? intval($_POST['id_salida']) : null;
+        $id_articulo = isset($_POST['id_articulo']) && $_POST['id_articulo'] !== '' ? intval($_POST['id_articulo']) : null;
+        $id_almacen = isset($_POST['id_almacen']) && $_POST['id_almacen'] !== '' ? intval($_POST['id_almacen']) : null;
+        $id_motivo = isset($_POST['id_motivo']) && $_POST['id_motivo'] !== '' ? intval($_POST['id_motivo']) : null;
+        $fecha_inicio = isset($_POST['fecha_inicio']) && $_POST['fecha_inicio'] !== '' ? $_POST['fecha_inicio'] : null;
+        $fecha_fin = isset($_POST['fecha_fin']) && $_POST['fecha_fin'] !== '' ? $_POST['fecha_fin'] : null;
+        $activo = isset($_POST['activo']) && $_POST['activo'] !== '' ? intval($_POST['activo']) : 1;
+        $solo_con_existencia = isset($_POST['solo_con_existencia']) && $_POST['solo_con_existencia'] !== '' ? intval($_POST['solo_con_existencia']) : null; // El SP maneja default 1 si es NULL
+        // Recuperar salidas (8 parámetros en el orden correcto)
+        $response = $master->getByProcedure("sp_inventarios_salidas_b", [
+            $id_salida,
+            $id_articulo,
+            $id_almacen,
+            $id_motivo,
+            $fecha_inicio,
+            $fecha_fin,
+            $activo,
+            $solo_con_existencia
+        ]);
+        break;
     default:
         $response = "API no definida.";
 }

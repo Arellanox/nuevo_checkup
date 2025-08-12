@@ -1,15 +1,15 @@
 <div class="row">
-    <div class="col-6 tab-first" id="tab-menu" style="margin: auto">
-        <div class="rounded p-3 shadow my-2 card" id="lista-pacientes">
-            <!-- Menu -->
-            <h5>Elija una opción</h5>
+    <div class="col-12 col-md-10 col-lg-8 col-xl-6 tab-first" id="tab-menu" style="margin: auto">
+        <div class="rounded p-4 shadow-lg my-4 card border-0" id="lista-pacientes">
+            <h4 class="text-center mb-4 fw-bold text-primary">Sistema de Órdenes de Compra</h4>
+            <p class="text-center text-muted mb-4">Seleccione el módulo con el que desea trabajar</p>
             <div class="vertical-menu" id="menu-grid">
                 <a href="#ordenes-compra" data-target="moduloOrdenesCompra">
                     <i class="bi bi-cart-check icono-menu icono-orden-compra"></i>
                     <span>Órdenes de compra</span>
                 </a>
                 <a href="#proveedores" data-target="moduloProveedores">
-                    <i class="bi bi-file-earmark-text-fill icono-menu icono-proveedores"></i>
+                    <i class="bi bi-building icono-menu icono-proveedores"></i>
                     <span>Gestión de proveedores</span>
                 </a>
                 <!-- <a href="#informes" data-target="moduloInformes">
@@ -66,125 +66,222 @@
 </script>
 
 <style>
-    /* Contenedor principal del menú */
+  /* Contenedor principal mejorado */
+  #lista-pacientes {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border: none !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08) !important;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #lista-pacientes::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #004e59 0%, #0066cc 50%, #004e59 100%);
+  }
+
+  /* Títulos mejorados */
+  #lista-pacientes h4 {
+    color: #004e59 !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.5px;
+    margin-bottom: 0.5rem !important;
+  }
+
+  #lista-pacientes p {
+    color: #6c757d !important;
+    font-size: 0.95rem;
+    margin-bottom: 2rem !important;
+  }
+
+  /* Grid de menú mejorado */
+  #menu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    justify-items: center;
+    align-items: stretch;
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  /* Enlaces del menú mejorados */
+  #menu-grid a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #495057;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    background: #ffffff;
+    border: 2px solid #e9ecef;
+    border-radius: 16px;
+    width: 100%;
+    min-height: 140px;
+    padding: 24px 16px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Efecto hover mejorado */
+  #menu-grid a:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    border-color: transparent;
+    background: #ffffff;
+  }
+
+  #menu-grid a:hover .icono-menu {
+    transform: scale(1.1);
+  }
+
+  #menu-grid a:hover span {
+    color: #212529;
+  }
+
+  /* Efectos específicos por módulo */
+  #menu-grid a[data-target="moduloOrdenesCompra"]:hover {
+    background: linear-gradient(135deg, rgba(0, 78, 89, 0.05) 0%, rgba(0, 104, 115, 0.05) 100%);
+    border-color: #004e59;
+  }
+
+  #menu-grid a[data-target="moduloProveedores"]:hover {
+    background: linear-gradient(135deg, rgba(23, 162, 184, 0.05) 0%, rgba(19, 132, 150, 0.05) 100%);
+    border-color: #17a2b8;
+  }
+
+  #menu-grid a[data-target="moduloInformes"]:hover {
+    background: linear-gradient(135deg, rgba(40, 167, 69, 0.05) 0%, rgba(30, 126, 52, 0.05) 100%);
+    border-color: #28a745;
+  }
+
+  /* Iconos mejorados */
+  .icono-menu {
+    font-size: 3.5rem !important;
+    margin-bottom: 12px;
+    line-height: 1;
+    display: block;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Colores de iconos más suaves y profesionales */
+  .icono-orden-compra {
+    background: linear-gradient(135deg, #004e59 0%, #006873 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 2px 4px rgba(0, 78, 89, 0.2));
+  }
+
+  .icono-proveedores {
+    background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 2px 4px rgba(23, 162, 184, 0.2));
+  }
+
+  .icono-informes {
+    background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 2px 4px rgba(40, 167, 69, 0.2));
+  }
+
+  /* Texto de los enlaces */
+  #menu-grid a span {
+    margin-top: 8px;
+    font-size: 1rem;
+    display: block;
+    text-align: center;
+    transition: all 0.3s ease;
+    letter-spacing: 0.25px;
+  }
+
+  /* Títulos de módulos con color corporativo */
+  .content-module h2 {
+    color: #004e59 !important;
+    background: linear-gradient(135deg, #004e59 0%, #006873 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Responsive design mejorado */
+  @media (min-width: 768px) {
     #menu-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 20px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
     }
+  }
 
-    /* Estilo para cada opción del menú */
+  @media (min-width: 992px) {
+    #menu-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+    
     #menu-grid a {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 30px 20px;
-        text-decoration: none;
-        border-radius: 15px;
-        transition: all 0.2s ease;
-        border: 2px solid transparent;
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        min-height: 140px;
-        position: relative;
-        overflow: hidden;
+      min-height: 150px;
+      padding: 28px 20px;
     }
+  }
 
-    #menu-grid a:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        border-color: #004e59;
+  @media (max-width: 767px) {
+    #menu-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
     }
-
-    /* Íconos grandes y coloridos */
+    
+    #menu-grid a {
+      min-height: 120px;
+      padding: 20px 16px;
+    }
+    
     .icono-menu {
-        font-size: 3.5rem;
-        margin-bottom: 15px;
-        transition: all 0.2s ease;
+      font-size: 3rem !important;
     }
-
-    /* Colores específicos para cada ícono */
-    .icono-orden-compra {
-        color: #004e59;
+    
+    #lista-pacientes h4 {
+      font-size: 1.4rem !important;
     }
+  }
 
-    .icono-proveedores {
-        color: #17a2b8;
+  /* Animación de carga */
+  #menu-grid a {
+    animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  #menu-grid a:nth-child(1) { animation-delay: 0.1s; }
+  #menu-grid a:nth-child(2) { animation-delay: 0.2s; }
+  #menu-grid a:nth-child(3) { animation-delay: 0.3s; }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
+  }
 
-    .icono-informes {
-        color: #28a745;
-    }
-
-    /* Texto del menú */
-    #menu-grid a span {
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: #2c3e50;
-        text-align: center;
-        line-height: 1.2;
-    }
-
-    /* Efectos hover para íconos */
-    #menu-grid a:hover .icono-orden-compra {
-        color: #006873;
-        transform: scale(1.1);
-    }
-
-    #menu-grid a:hover .icono-proveedores {
-        color: #138496;
-        transform: scale(1.1);
-    }
-
-    #menu-grid a:hover .icono-informes {
-        color: #1e7e34;
-        transform: scale(1.1);
-    }
-
-    /* Títulos de módulos con color corporativo */
-    .content-module h2 {
-        color: #004e59 !important;
-        background: linear-gradient(135deg, #004e59 0%, #006873 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-
-    /* Mejorar la apariencia del contenedor principal */
-    #lista-pacientes {
-        border: none;
-        background: #ffffff;
-    }
-
-    #lista-pacientes h5 {
-        color: #004e59;
-        font-weight: 700;
-        margin-bottom: 25px;
-        text-align: center;
-        font-size: 1.3rem;
-    }
-
-    /* Responsive design */
-    @media (min-width: 768px) {
-        #menu-grid {
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 25px;
-        }
-    }
-
-    @media (min-width: 992px) {
-        #menu-grid {
-            grid-template-columns: repeat(3, 1fr);
-        }
-    }
-
-
-
-    /* Mejorar las tablas */
-    .table-responsive {
-        border-radius: 10px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
+  /* Mejorar las tablas */
+  .table-responsive {
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
 </style>
