@@ -198,6 +198,7 @@ $url_cv = null;
 $url_curp = null;
 $firma_digital = isset($_POST['firma_digital']) ? $_POST['firma_digital'] : null; // Firma como base64
 $estado_postulacion = isset($_POST['estado_postulacion']) ? trim($_POST['estado_postulacion']) : 'nueva';
+ $archivo_carta = isset($_POST['archivo_carta']) && $_POST['archivo_carta'] !== '' ? $_POST['archivo_carta'] : null;
 
 # Cambiar estado de postulante
 $nuevo_estado = isset($_POST['nuevo_estado']) ? trim($_POST['nuevo_estado']) : null;
@@ -273,6 +274,7 @@ switch ($api) {
                 $dias_personalizados,
                 $hora_inicio,
                 $hora_fin,
+                $_SESSION['id'],
                 // $salario_min,
                 // $salario_max,
                 // Parametros de aprobación
@@ -914,7 +916,8 @@ switch ($api) {
                 $salario_ofertado,
                 $fecha_inicio_propuesta,
                 $condiciones_especiales,
-                $documentacion_completa
+                $documentacion_completa,
+                $archivo_carta
             ]);
         }
     break;
@@ -947,6 +950,326 @@ switch ($api) {
             $response = $master->getByProcedure("sp_rh_propuesta_candidato_b", [$id_candidato]);
         }
     break;
+case 39:
+    # Generar la carta de propuesta salarial firmada por el candidato.
+    require_once "../config/file_config.php";
+
+    $id_candidato = isset($_POST['id_candidato']) && $_POST['id_candidato'] !== '' ? (int)$_POST['id_candidato'] : null;
+
+    if ($id_candidato === null) {
+        $response = [
+            'code' => 0,
+            'message' => 'ID de candidato es obligatorio',
+            'data' => null
+        ];
+        break;
+    }
+
+    try {
+        $raw = $master->getByProcedure("sp_rh_propuesta_candidato_b", [$id_candidato]);
+        error_log("Case 39 - RAW getByProcedure: ".json_encode($raw));
+
+        $norm = normalizarRespuestaMaster($raw);
+        error_log("Case 39 - NORMALIZADO: ".json_encode($norm));
+
+        if ($norm['code'] != 1 || empty($norm['data'])) {
+            $response = [
+                'code' => 0,
+                'message' => 'No se encontraron datos del candidato',
+                'data' => [
+                    'debug' => 'Normalizador retornó vacío',
+                    'norm' => $norm
+                ]
+            ];
+            break;
+        }
+
+        // Primer registro
+        $candidato = $norm['data'][0];
+
+        // Firma: probar campos
+        $firmaCampos = [
+            'firma_digital',
+            'documentacion_completa',
+            'firma',
+            'firma_blob'
+        ];
+        $firmaData = null;
+        foreach ($firmaCampos as $fc) {
+            if (isset($candidato[$fc]) && $candidato[$fc] !== '' && $candidato[$fc] !== null) {
+                $firmaData = $candidato[$fc];
+                break;
+            }
+        }
+
+        if (!$firmaData) {
+            $response = [
+                'code' => 0,
+                'message' => 'El candidato no tiene firma digital registrada',
+                'data' => [
+                    'candidato_keys' => array_keys($candidato),
+                    'firma_campos_probados' => $firmaCampos
+                ]
+            ];
+            break;
+        }
+
+        // Directorios
+        $directories = FileConfig::createCartasPropuestaDirectoryStructure();
+
+        $nombreCompleto  = $candidato['nombre_completo']      ?? $candidato['nombre'] ?? 'Candidato';
+        $numeroCandidat  = $candidato['numero_candidato']     ?? $candidato['folio'] ?? ('CAND-'.$id_candidato);
+        $tituloVacante   = $candidato['titulo_vacante']       ?? $candidato['vacante'] ?? 'PUESTO NO ESPECIFICADO';
+        $puestoNombre    = $candidato['puesto_nombre']        ?? $candidato['puesto'] ?? 'No especificado';
+        $departamentoNom = $candidato['departamento_nombre']  ?? $candidato['departamento'] ?? 'No especificado';
+        $salarioOfertado = $candidato['salario_ofertado']     ?? $candidato['salario'] ?? 0;
+        $tipoContrato    = $candidato['tipo_contrato']        ?? $candidato['contrato'] ?? 'No especificado';
+        $tipoJornada     = $candidato['tipo_jornada']         ?? 'No especificado';
+        $tipoModalidad   = $candidato['tipo_modalidad']       ?? 'No especificado';
+        $horaInicio      = $candidato['hora_inicio']          ?? '00:00';
+        $horaFin         = $candidato['hora_fin']             ?? '00:00';
+        $diasTrabajo     = $candidato['dias_trabajo']         ?? $candidato['dias'] ?? 'No especificado';
+        $fechaInicioProp = $candidato['fecha_inicio_propuesta'] ?? $candidato['fecha_inicio'] ?? null;
+        $condicionesEsp  = $candidato['condiciones_especiales'] ?? $candidato['observaciones'] ?? null;
+        $estadoActual    = $candidato['estado_candidato'] ?? 'preseleccionado';
+
+        $filename = FileConfig::generateCartaPropuestaFileName($numeroCandidat, $nombreCompleto);
+        $fullPath = $directories['full_path'] . $filename;
+        $urlPath  = $directories['url_path'] . $filename;
+
+        $tcpdfPath = __DIR__ . '/../vendor/tecnickcom/tcpdf/tcpdf.php';
+        if (!file_exists($tcpdfPath)) {
+            $response = [
+                'code' => 0,
+                'message' => 'TCPDF no instalado',
+                'data' => ['tcpdf_path' => $tcpdfPath]
+            ];
+            break;
+        }
+
+        require_once $tcpdfPath;
+
+        $pdf = new TCPDF('P','mm','A4',true,'UTF-8',false);
+        $pdf->SetCreator('BIMO - RRHH');
+        $pdf->SetAuthor('Diagnostico Biomolecular S.A de C.V');
+        $pdf->SetTitle('Carta de Propuesta Salarial - '.$nombreCompleto);
+        $pdf->setPrintHeader(false);
+        $pdf->setPrintFooter(false);
+        $pdf->SetMargins(20,30,20);
+        $pdf->AddPage();
+
+        $pdf->SetFont('helvetica','B',16);
+        $pdf->Cell(0,10,'BIMO',0,1,'C');
+        $pdf->SetFont('helvetica','',10);
+        $pdf->Cell(0,5,'Sistema de Recursos Humanos',0,1,'C');
+        $pdf->Ln(10);
+
+        $pdf->SetFont('helvetica','',11);
+        $fechaActual = date('d \d\e F \d\e Y');
+        $meses = [
+            'January'=>'enero','February'=>'febrero','March'=>'marzo','April'=>'abril',
+            'May'=>'mayo','June'=>'junio','July'=>'julio','August'=>'agosto',
+            'September'=>'septiembre','October'=>'octubre','November'=>'noviembre','December'=>'diciembre'
+        ];
+        $fechaActual = str_replace(array_keys($meses), array_values($meses), $fechaActual);
+        $pdf->Cell(0,6,'Fecha: '.$fechaActual,0,1,'R');
+        $pdf->Ln(10);
+
+        $pdf->SetFont('helvetica','B',14);
+        $pdf->Cell(0,8,'CARTA DE PROPUESTA SALARIAL',0,1,'C');
+        $pdf->Ln(8);
+
+        $pdf->SetFont('helvetica','B',11);
+        $pdf->Cell(30,6,'Estimado(a):',0,0,'L');
+        $pdf->SetFont('helvetica','',11);
+        $pdf->Cell(0,6,$nombreCompleto,0,1,'L');
+        $pdf->Ln(5);
+
+        $pdf->SetFont('helvetica','',11);
+        $contenido  = "Por medio de la presente, nos es grato comunicarle que ha sido seleccionado(a) ";
+        $contenido .= "para formar parte de nuestro equipo de trabajo en BIMO.\n\n";
+        $contenido .= "Después de evaluar su perfil profesional y experiencia, consideramos que reúne ";
+        $contenido .= "las competencias necesarias para desempeñar exitosamente el puesto de:\n\n";
+        $pdf->MultiCell(0,6,$contenido,0,'J');
+
+        $pdf->SetFont('helvetica','B',12);
+        $pdf->Cell(0,8,strtoupper($puestoNombre),0,1,'C');
+        $pdf->Ln(5);
+
+        $pdf->SetFont('helvetica','B',11);
+        $pdf->Cell(0,6,'DETALLES DE LA PROPUESTA:',0,1,'L');
+        $pdf->Ln(3);
+
+        $pdf->SetFont('helvetica','',10);
+        $pdf->SetFillColor(230,230,230);
+        $pdf->Cell(50,8,'CONCEPTO',1,0,'C',true);
+        $pdf->Cell(120,8,'DETALLE',1,1,'C',true);
+
+        $datos = [
+            ['Vacante',$tituloVacante],
+            ['Departamento',$departamentoNom],
+            ['Salario Mensual','$'.number_format($salarioOfertado,2).' MXN'],
+            ['Tipo de Contrato',ucfirst($tipoContrato)],
+            ['Jornada Laboral',ucfirst($tipoJornada)],
+            ['Modalidad',ucfirst($tipoModalidad)],
+            ['Horario',$horaInicio.' - '.$horaFin],
+            ['Días de Trabajo',ucfirst($diasTrabajo)],
+            ['Fecha de Inicio',$fechaInicioProp ? date('d/m/Y',strtotime($fechaInicioProp)) : 'Por definir']
+        ];
+
+        foreach($datos as $i=>$fila){
+            $fill = ($i % 2 == 0);
+            $pdf->SetFillColor($fill?248:255,$fill?248:255,$fill?248:255);
+            $pdf->Cell(50,7,$fila[0],1,0,'L',true);
+            $pdf->Cell(120,7,$fila[1],1,1,'L',true);
+        }
+
+        $pdf->Ln(8);
+
+        if ($condicionesEsp) {
+            $pdf->SetFont('helvetica','B',11);
+            $pdf->Cell(0,6,'CONDICIONES ESPECIALES:',0,1,'L');
+            $pdf->SetFont('helvetica','',10);
+            $pdf->MultiCell(0,5,$condicionesEsp,0,'J');
+            $pdf->Ln(5);
+        }
+
+        $pdf->SetFont('helvetica','',11);
+        $cierre  = "Esta propuesta está sujeta a la verificación satisfactoria de referencias laborales ";
+        $cierre .= "y profesionales, así como a la aprobación del examen médico de ingreso.\n\n";
+        $cierre .= "Esperamos que esta propuesta sea de su interés y agradecemos la confianza ";
+        $cierre .= "depositada en nuestra organización. Estamos seguros de que su incorporación ";
+        $cierre .= "contribuirá significativamente al crecimiento y éxito de BIMO.\n\n";
+        $cierre .= "Para formalizar su aceptación, ha concedido y firmado la presente carta en el espacio correspondiente.\n\n";
+        $pdf->MultiCell(0,6,$cierre,0,'J');
+
+        $pdf->Ln(15);
+        $pdf->SetFont('helvetica','B',11);
+        $pdf->Cell(0,6,'ACEPTACIÓN DE LA PROPUESTA:',0,1,'L');
+        $pdf->Ln(5);
+        $pdf->SetFont('helvetica','',10);
+        $pdf->MultiCell(0,5,'Acepto los términos y condiciones de la presente propuesta salarial:',0,'L');
+        $pdf->Ln(10);
+
+        if ($firmaData) {
+            try {
+                $tempFirmaPath = sys_get_temp_dir().'/firma_'.$id_candidato.'_'.uniqid().'.png';
+                if (is_string($firmaData) && base64_decode($firmaData,true) !== false) {
+                    $bin = base64_decode($firmaData);
+                } else {
+                    $bin = $firmaData;
+                }
+                if ($bin && file_put_contents($tempFirmaPath,$bin)) {
+                    $yAntes = $pdf->GetY();
+                    $pdf->Image($tempFirmaPath,30,$yAntes,60,20,'PNG');
+                    @unlink($tempFirmaPath);
+                    $pdf->SetY($yAntes+25);
+                }
+            } catch(Exception $e){
+                error_log("Case 39 - Firma error: ".$e->getMessage());
+            }
+        }        
+
+        $pdf->Line(30,$pdf->GetY(),100,$pdf->GetY());
+        $pdf->Ln(3);
+        $pdf->SetFont('helvetica','B',10);
+        $pdf->Cell(70,5,$nombreCompleto,0,1,'C');
+        $pdf->SetFont('helvetica','',9);
+        $pdf->Cell(70,4,'Candidato',0,1,'C');
+        // $pdf->Cell(70,4,'Fecha: '.date('d/m/Y'),0,1,'C');
+
+        $pdf->SetXY(120,$pdf->GetY()-25);
+        $pdf->Line(120,$pdf->GetY()+20,190,$pdf->GetY()+20);
+        $pdf->SetXY(120,$pdf->GetY()+23);
+        $pdf->SetFont('helvetica','B',10);
+        $pdf->Cell(70,5,'R.R.H.H.',0,1,'C');
+        $pdf->SetFont('helvetica','',9);
+        $pdf->SetXY(120,$pdf->GetY());
+        $pdf->Cell(70,4,'BIMO',0,1,'C');
+
+        $pdf->SetY(-30);
+        $pdf->SetFont('helvetica','',8);
+        $pdf->Cell(0,4,'Documento confidencial - Proceso de selección',0,1,'C');
+        $pdf->Cell(0,4,'BIMO - R.R.H.H.',0,1,'C');
+
+        $pdf->Output($fullPath,'F');
+
+        if (!file_exists($fullPath)) {
+            $response = [
+                'code'=>0,
+                'message'=>'No se pudo guardar el PDF',
+                'data'=>[
+                    'path'=>$fullPath,
+                    'dir_existe'=>is_dir($directories['full_path']),
+                    'dir_permisos'=>is_writable($directories['full_path'])
+                ]
+            ];
+            break;
+        }
+
+        // ⭐ GUARDAR RUTA EN LA BD usando case 35
+        error_log("Case 39 - Guardando ruta en BD: $urlPath");
+        
+        try {
+            $saveResponse = $master->insertByProcedure("sp_rh_candidatos_cambiar_estado", [
+                $id_candidato,
+                $estadoActual,           // Mantener el estado actual
+                'Adjuntar carta de propuesta salarial',
+                $_SESSION['id'],
+                null,                    // comentarios_rh
+                null,                    // comentarios_candidato
+                null,                    // salario_ofertado
+                null,                    // fecha_inicio_propuesta
+                null,                    // condiciones_especiales
+                null,                    // documentacion_completa
+                $urlPath                 // ⭐ archivo_carta - LA RUTA DEL PDF
+            ]);
+            
+            error_log("Case 39 - Respuesta guardar ruta: " . json_encode($saveResponse));
+            
+            // Verificar si se guardó correctamente
+            $rutaGuardada = false;
+            if (isset($saveResponse['data']) && is_array($saveResponse['data']) && !empty($saveResponse['data'])) {
+                $resultado = $saveResponse['data'][0];
+                if (isset($resultado['RESULT']) && $resultado['RESULT'] === 'SUCCESS') {
+                    $rutaGuardada = true;
+                }
+            }
+            
+        } catch (Exception $saveError) {
+            error_log("Case 39 - Error guardando ruta: " . $saveError->getMessage());
+            $rutaGuardada = false;
+        }
+
+        $response = [
+            'code'=>1,
+            'message'=>'Carta generada exitosamente',
+            'data'=>[
+                'filename'=>$filename,
+                'full_path'=>$fullPath,
+                'url_path'=>$urlPath,
+                'candidato'=>$nombreCompleto,
+                'numero_candidato'=>$numeroCandidat,
+                'directorio'=>$directories['relative_path'],
+                'tamaño_archivo'=>filesize($fullPath).' bytes',
+                'ruta_guardada_bd'=>$rutaGuardada,      // ⭐ INDICADOR SI SE GUARDÓ EN BD
+                'archivo_carta_bd'=>$urlPath,            // ⭐ RUTA GUARDADA EN BD
+                'debug_norm_shape'=>$norm['debug_shape']
+            ]
+        ];
+
+    } catch (Exception $e){
+        $response = [
+            'code'=>0,
+            'message'=>'Error interno: '.$e->getMessage(),
+            'data'=>[
+                'line'=>$e->getLine(),
+                'file'=>$e->getFile()
+            ]
+        ];
+        error_log("Case 39 Exception: ".$e->getMessage());
+    }
+break;
     default:
         # default
         $response = "API no definida";
@@ -954,3 +1277,72 @@ switch ($api) {
 }
 
 echo $master->returnApi($response);
+
+/*
+ * Normalizador genérico para respuestas de Master->getByProcedure
+ * Garantiza siempre: ['code'=>int, 'message'=>string, 'data'=>array]
+ */
+function normalizarRespuestaMaster($raw){
+    $norm = [
+        'code' => 0,
+        'message' => 'Sin datos',
+        'data' => [],
+        'debug_shape' => null
+    ];
+
+    if ($raw === null) {
+        $norm['message'] = 'Respuesta nula';
+        return $norm;
+    }
+
+    // Guardar forma original para debug
+    $norm['debug_shape'] = array_keys((array)$raw);
+
+    // Caso A: viene con clave 'response'
+    if (isset($raw['response'])) {
+        $r = $raw['response'];
+        if (isset($r['code'])) $norm['code'] = (int)$r['code'];
+        if (isset($r['message'])) $norm['message'] = $r['message'];
+        if (isset($r['data'])) {
+            // Puede ser array vacío, objeto o lista
+            if (is_array($r['data'])) {
+                $norm['data'] = $r['data'];
+            } elseif (is_object($r['data'])) {
+                $norm['data'] = (array)$r['data'];
+            }
+        }
+        return $norm;
+    }
+
+    // Caso B: estructura directa con code/data
+    if (isset($raw['code'])) {
+        $norm['code'] = (int)$raw['code'];
+        if (isset($raw['message'])) $norm['message'] = $raw['message'];
+        if (isset($raw['data'])) {
+            if (is_array($raw['data'])) {
+                $norm['data'] = $raw['data'];
+            } elseif (is_object($raw['data'])) {
+                $norm['data'] = (array)$raw['data'];
+            }
+        }
+        return $norm;
+    }
+
+    // Caso C: quizá devolvió directamente un array de filas
+    if (is_array($raw) && isset($raw[0]) && is_array($raw[0])) {
+        $norm['code'] = 1;
+        $norm['message'] = 'OK';
+        $norm['data'] = $raw;
+        return $norm;
+    }
+
+    // Caso D: cualquier otra cosa
+    if (is_array($raw)) {
+        $norm['message'] = 'Estructura no estándar';
+        $norm['data_raw'] = $raw;
+    } else {
+        $norm['message'] = 'Tipo inesperado';
+    }
+
+    return $norm;
+}

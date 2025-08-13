@@ -84,79 +84,95 @@ tableRequisicionesAprobadas = $("#tableRequisicionesAprobadas").DataTable({
             }
         },
         {
-            data: null,
-            title: "Acciones",
-            render: function(data, type, row) {
-                // Manejar estado de publicación null/undefined
-                let estadoPublicacion = row.estado_publicacion || 'no_publicada';
-                let botones = '';
-                let mostrarVerDetalles = true;
-                
-                switch(estadoPublicacion) {
-                    case 'no_publicada':
-                        botones = `
-                            <button type="button" class="btn btn-sm btn-primary bg-gradient-info btn-publicar-vacante" 
-                                    data-id-requisicion="${row.id_requisicion}" 
-                                    data-numero="${row.numero_requisicion}"
-                                    title="Publicar vacante">
-                                <i class="bi bi-megaphone"></i>
-                            </button>`;
-                        mostrarVerDetalles = false;
-                        break;
-                        
-                    case 'publicada_normal':
-                        botones = `
-                            <button class="btn btn-sm btn-primary bg-gradient-secondary btn-detener-publicacion" 
-                                    data-id-publicacion="${row.id_publicacion}" 
-                                    title="Detener publicación">
-                                <i class="bi bi-pause-circle"></i>
-                            </button>`;
-                        break;
-
-                    case 'publicada_editada':
-                        botones = `
-                            <button class="btn btn-sm btn-primary bg-gradient-secondary btn-detener-publicacion" 
-                                    data-id-publicacion="${row.id_publicacion}" 
-                                    title="Detener publicación">
-                                <i class="bi bi-pause-circle"></i>
-                            </button>`;
-                        break;
-                        
-                    case 'detenida':
-                        botones = `
-                            <button class="btn btn-sm btn-gradient-success btn-reanudar-publicacion" 
-                                    data-id-publicacion="${row.id_publicacion}" 
-                                    title="Reanudar publicación">
-                                <i class="bi bi-play-circle"></i>
-                            </button>
-                            <button class="btn btn-primary btn-sm bg-gradient-warning btn-editar-publicacion" 
-                                    data-id-publicacion="${row.id_publicacion}"
-                                    title="Editar publicación">
-                                <i class="bi bi-pencil"></i>
-                            </button>
-                            <button class="btn btn-sm btn-gradient-secondary-dark btn-cerrar-publicacion" 
-                                    data-id-publicacion="${row.id_publicacion}" 
-                                    title="Cerrar publicación">
-                                <i class="bi bi-x-circle"></i>
-                            </button>`;
-                        break;
+    data: null,
+    title: "Acciones",
+    render: function(data, type, row) {
+        // Verificar permisos del usuario
+        const tienePermisoPublicar = window.userPermissions && window.userPermissions.includes('rhRegPub');
+        
+        // Manejar estado de publicación null/undefined
+        let estadoPublicacion = row.estado_publicacion || 'no_publicada';
+        let botones = '';
+        let mostrarVerDetalles = true;
+        
+        switch(estadoPublicacion) {
+            case 'no_publicada':
+                if (tienePermisoPublicar) {
+                    botones = `
+                        <button type="button" class="btn btn-sm btn-primary bg-gradient-info btn-publicar-vacante" 
+                                data-id-requisicion="${row.id_requisicion}" 
+                                data-numero="${row.numero_requisicion}"
+                                title="Publicar vacante">
+                            <i class="bi bi-megaphone"></i>
+                        </button>`;
+                } else {
+                    botones = `
+                        <span class="badge bg-secondary p-2" title="Sin permisos para publicar">
+                            <i class="bi bi-lock"></i> Sin permisos
+                        </span>`;
                 }
+                mostrarVerDetalles = false;
+                break;
                 
-                // Botón de ver detalles solo si no es 'no_publicada'
-                if (mostrarVerDetalles) {
-                    botones += `
-                        <button class="btn btn-sm btn-primary btn-ver-publicacion" 
-                                data-id="${row.id_publicacion}" 
-                                title="Ver detalles"
-                                data-bs-target="#detallesPublicacionModal"
-                                data-bs-toggle="modal">
-                            <i class="bi bi-eye"></i>
+            case 'publicada_normal':
+                if (tienePermisoPublicar) {
+                    botones = `
+                        <button class="btn btn-sm btn-primary bg-gradient-secondary btn-detener-publicacion" 
+                                data-id-publicacion="${row.id_publicacion}" 
+                                title="Detener publicación">
+                            <i class="bi bi-pause-circle"></i>
                         </button>`;
                 }
+                break;
+
+            case 'publicada_editada':
+                if (tienePermisoPublicar) {
+                    botones = `
+                        <button class="btn btn-sm btn-primary bg-gradient-secondary btn-detener-publicacion" 
+                                data-id-publicacion="${row.id_publicacion}" 
+                                title="Detener publicación">
+                            <i class="bi bi-pause-circle"></i>
+                        </button>`;
+                }
+                break;
                 
-                return `<div class="btn-group" role="group">${botones}</div>`;
-            }
-        },
+            case 'detenida':
+                if (tienePermisoPublicar) {
+                    botones = `
+                        <button class="btn btn-sm btn-gradient-success btn-reanudar-publicacion" 
+                                data-id-publicacion="${row.id_publicacion}" 
+                                title="Reanudar publicación">
+                            <i class="bi bi-play-circle"></i>
+                        </button>
+                        <button class="btn btn-primary btn-sm bg-gradient-warning btn-editar-publicacion" 
+                                data-id-publicacion="${row.id_publicacion}"
+                                title="Editar publicación">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-sm btn-gradient-secondary-dark btn-cerrar-publicacion" 
+                                data-id-publicacion="${row.id_publicacion}" 
+                                title="Cerrar publicación">
+                            <i class="bi bi-x-circle"></i>
+                        </button>`;
+                }
+                break;
+        }
+        
+        // Botón de ver detalles solo si no es 'no_publicada' (todos pueden ver)
+        if (mostrarVerDetalles) {
+            botones += `
+                <button class="btn btn-sm btn-primary btn-ver-publicacion" 
+                        data-id="${row.id_publicacion}" 
+                        title="Ver detalles"
+                        data-bs-target="#detallesPublicacionModal"
+                        data-bs-toggle="modal">
+                    <i class="bi bi-eye"></i>
+                </button>`;
+        }
+        
+        return `<div class="btn-group" role="group">${botones}</div>`;
+    }
+},
         // Columnas ocultas para datos adicionales
         { data: "id_requisicion", visible: false },
         { data: "id_publicacion", visible: false },
@@ -191,11 +207,13 @@ tableRequisicionesAprobadas = $("#tableRequisicionesAprobadas").DataTable({
                 title: "Historial de movimientos",
             },
             action: function() {
-                // Aquí puedes cargar el contenido del modal de transacciones si es necesario
-                $("#historialPublicacionesModal").modal('show');
-                tableHistorialPublicaciones.ajax.reload();
+                if (tienePermisoRegPub) {
+                    // Aquí puedes cargar el contenido del modal de transacciones si es necesario
+                    $("#historialPublicacionesModal").modal('show');
+                    tableHistorialPublicaciones.ajax.reload();
+                }
             },
-        },
+        }
     ],
 });
 
@@ -471,86 +489,138 @@ tablePostulantesAprobados = $("#tablePostulantesAprobados").DataTable({
                 return '-';
             }
         },
-        {
-            data: null,
-            title: "Acciones",
-            render: function(data, type, row) {
-                let botones = '<div class="btn-group" role="group">';
+        // En la configuración del DataTable, actualizar la columna de acciones:
+{
+    data: null,
+    title: "Acciones",
+    render: function(data, type, row) {
+       
+        const tienePermisoGestionarCandidatos = window.userPermissions && window.userPermissions.includes('rhGesCand');
+        
+        let botones = '<div class="btn-group" role="group">';
+        
+        // Botones según el estado actual del candidato
+        switch(row.estado_candidato) {
+            case 'preseleccionado':
+             if (tienePermisoGestionarCandidatos) {
+                botones += `
+                    <button class="btn btn-sm btn-gradient-info btn-enviar-propuesta" 
+                            data-id-candidato="${row.id_candidato}"
+                            data-nombre="${row.nombre_completo}" 
+                            title="Enviar propuesta salarial"
+                            onclick="cambiarEstadoCandidato(${row.id_candidato}, 'en_espera', '${row.nombre_completo}')">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>`;
+             } else {
+                botones = `
+                        <span class="badge bg-secondary p-2" title="Sin permisos para gestionar candidatos">
+                            <i class="bi bi-lock"></i> Sin permisos
+                        </span>`;
+             }
+                break;
                 
-                // Botones según el estado actual del candidato
-                switch(row.estado_candidato) {
-                    case 'preseleccionado':
+            case 'en_espera':
+             if (tienePermisoGestionarCandidatos){
+                botones += `
+                    <button class="btn btn-sm btn-gradient-warning" 
+                            title="En espera de respuesta" data-bs-toggle="button" aria-pressed="true"><i class="bi bi-stopwatch-fill"></i></button>`;
+             } else {
+                botones = `
+                        <span class="badge bg-secondary p-2" title="Sin permisos para gestionar candidatos">
+                            <i class="bi bi-lock"></i> Sin permisos
+                        </span>`;
+             }
+                break;
+                
+            case 'en_proceso':
+                // ⭐ LÓGICA PRINCIPAL: Verificar si tiene carta firmada
+                if (tienePermisoGestionarCandidatos) {
+                    if (row.archivo_carta && row.archivo_carta.trim() !== '' && row.archivo_carta !== 'null') {
+                        // SÍ tiene carta: Mostrar botón "Abrir carta" + "Marcar finalista"
                         botones += `
-                            <button class="btn btn-sm btn-gradient-info btn-enviar-propuesta" 
-                                    data-id-candidato="${row.id_candidato}"
-                                    data-nombre="${row.nombre_completo}" 
-                                    title="Enviar propuesta salarial"
-                                    onclick="cambiarEstadoCandidato(${row.id_candidato}, 'en_espera', '${row.nombre_completo}')">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>`;
-                        break;
-                        
-                    case 'en_espera':
-                        botones += `
-                            <button class="btn btn-sm btn-gradient-warning" title="En espera de respuesta" data-bs-toggle="button" aria-pressed="true"><i class="bi bi-stopwatch-fill"></i></button>`;
-                        break;
-                        
-                    case 'en_proceso':
-                        botones += `
-                            <button class="btn btn-sm btn-gradient-primary btn-marcar-finalista" 
-                                    data-id-candidato="${row.id_candidato}"
-                                    data-nombre="${row.nombre_completo}" 
-                                    title="Almacenar propuesta firmada"
-                                    onclick="cambiarEstadoCandidato(${row.id_candidato}, 'finalista', '${row.nombre_completo}')">
-                                <i class="bi bi-file-earmark-text-fill"></i>
-                            </button>`;
-                        break;
-                        
-                    case 'finalista':
-                        botones += `
+                            <button class="btn btn-sm btn-gradient-info btn-abrir-carta" 
+                                    title="Ver carta propuesta salarial firmada"
+                                    onclick="abrirCartaSalarial('${row.archivo_carta}', '${row.nombre_completo}')">
+                                <i class="fas fa-file-pdf"></i>
+                            </button>
                             <button class="btn btn-sm btn-gradient-success btn-contratar-candidato" 
-                                    data-id-candidato="${row.id_candidato}"
-                                    data-nombre="${row.nombre_completo}" 
-                                    title="Contratar candidato"
-                                    onclick="cambiarEstadoCandidato(${row.id_candidato}, 'contratado', '${row.nombre_completo}')">
-                                <i class="fas fa-handshake"></i>
-                            </button>`;
-                        break;
-                        
-                    case 'contratado':
-                        botones += `
-                            <span class="badge bg-success p-2">
-                                <i class="fas fa-check"></i> Contratado
-                            </span>`;
-                        break;
-                        
-                    case 'rechazado':
-                        botones += `
-                            <button class="btn btn-sm btn-danger" title="Cerrado definitivamente" data-bs-toggle="button" aria-pressed="true"><i class="bi bi-person-fill-x"></i></button>`;
-                        break;
-                    
-                    case 'declinado':
-                        botones += `
-                            <button class="btn btn-sm btn-danger" title="Cerrado definitivamente" data-bs-toggle="button" aria-pressed="true"><i class="bi bi-person-fill-x"></i></button>`;
-                        break;
-                }
-                
-                // Botón de rechazo (solo si no está ya rechazado o contratado)
-                if (row.estado_candidato !== 'rechazado' && row.estado_candidato !== 'contratado' && row.estado_candidato !== 'declinado') {
-                    botones += `
-                        <button class="btn btn-sm btn-gradient-secondary-dark btn-rechazar-candidato" 
                                 data-id-candidato="${row.id_candidato}"
                                 data-nombre="${row.nombre_completo}" 
-                                title="Rechazar candidato"
-                                onclick="rechazarCandidato(${row.id_candidato}, '${row.nombre_completo}')">
-                            <i class="fas fa-times"></i>
-                        </button>`;
+                                title="Contratar candidato"
+                                onclick="cambiarEstadoCandidato(${row.id_candidato}, 'contratado', '${row.nombre_completo}')">
+                                <i class="fas fa-handshake"></i>
+                            </button>`;
+                    } else {
+                        // NO tiene carta: Mostrar botón "Generar carta"
+                        botones += `
+                            <button class="btn btn-sm btn-gradient-success btn-generar-carta-firmada" 
+                                    data-id-candidato="${row.id_candidato}"
+                                    data-nombre="${row.nombre_completo}" 
+                                    title="Generar carta de propuesta firmada"
+                                    onclick="generarCartaFirmada(${row.id_candidato}, '${row.nombre_completo}')">
+                                <i class="fas fa-file-signature"></i>
+                            </button>`;
+                    }
                 }
+                break;
                 
-                botones += '</div>';
-                return botones;
+            case 'finalista':
+                if (tienePermisoGestionarCandidatos) {
+                botones += `
+                    <button class="btn btn-sm btn-gradient-info btn-abrir-carta" 
+                            title="Ver carta propuesta salarial firmada"
+                            onclick="abrirCartaSalarial('${row.archivo_carta}', '${row.nombre_completo}')">
+                        <i class="fas fa-file-pdf"></i>
+                    </button>
+                    <button class="btn btn-sm btn-gradient-success btn-contratar-candidato" 
+                            data-id-candidato="${row.id_candidato}"
+                            data-nombre="${row.nombre_completo}" 
+                            title="Contratar candidato"
+                            onclick="cambiarEstadoCandidato(${row.id_candidato}, 'contratado', '${row.nombre_completo}')">
+                        <i class="fas fa-handshake"></i>
+                    </button>`;
+                }
+                break;
+                
+            case 'contratado':
+                botones += `
+                    <span class="badge bg-success p-2">
+                        <i class="fas fa-check"></i> Contratado
+                    </span>`;
+                break;
+                
+            case 'rechazado':
+            case 'declinado':
+                botones += `
+                    <span class="badge bg-secondary p-2">
+                        <i class="fas fa-times"></i> ${row.estado_candidato === 'rechazado' ? 'Rechazado' : 'Declinado'}
+                    </span>`;
+                break;
+        }
+        
+        // Botón de rechazo (solo si no está finalizado)
+        if (!['rechazado', 'contratado', 'declinado'].includes(row.estado_candidato)) {
+            if (tienePermisoGestionarCandidatos) {
+            botones += `
+                <button class="btn btn-sm btn-gradient-secondary btn-rechazar-candidato" 
+                    data-id-candidato="${row.id_candidato}"
+                    data-nombre="${row.nombre_completo}" 
+                    title="Rechazar candidato"
+                    onclick="rechazarCandidato(${row.id_candidato}, '${row.nombre_completo}')">
+                <i class="fas fa-times"></i>
+                </button>`;
+            } else {
+            botones += `
+                <span class="badge bg-secondary p-2" title="Sin permisos para gestionar candidatos">
+                <i class="bi bi-lock"></i> No permitido
+                </span>`;
             }
-        },
+        }
+
+        botones += '</div>';
+        return botones;
+    }
+},
         // Columnas ocultas para datos adicionales
         { data: "id_candidato", visible: false },
         { data: "id_postulacion", visible: false },
@@ -577,6 +647,11 @@ tablePostulantesAprobados = $("#tablePostulantesAprobados").DataTable({
 // Event listeners para los botones de publicación
 
 $(document).on('click', '.btn-publicar-vacante', function() {
+    // Validar permisos antes de continuar
+    if(!window.tienePermisoRegPub) {
+        alertToast('No tienes permiso para publicar vacantes', 'warning', 5000);
+        return;
+    }
     let idRequisicion = $(this).data('id-requisicion');
     let numeroRequisicion = $(this).data('numero');
     
@@ -634,6 +709,11 @@ $(document).on('click', '.btn-publicar-vacante', function() {
 
 // Event listener para botón editar publicación (SIMPLIFICADO)
 $(document).on('click', '.btn-editar-publicacion', function() {
+    // Validar permisos antes de continuar
+    if(!window.tienePermisoRegPub) {
+        alertToast('No tienes permiso para editar publicaciones', 'error', 5000);
+        return;
+    }
     let idPublicacion = $(this).data('id-publicacion');
     
     if (!idPublicacion) {
@@ -861,6 +941,11 @@ $(document).on('click', '.btn-cambiar-estado-dropdown', function(e) {
 
 // Función para publicar vacante con parámetros personalizados (SIMPLIFICADA)
 function publicarVacanteConParametros(formData) {
+    // Validar permisos
+    if(!window.tienePermisoRegPub) {
+        alertToast('No tienes permiso para publicar vacantes', 'error', 5000);
+        return;
+    }
     const idRequisicion = formData.id_requisicion;
     
     // Obtener datos de la fila - usar rowSelectedRequisicionesAprobadas si está disponible
@@ -915,7 +1000,8 @@ function publicarVacanteConParametros(formData) {
         fecha_limite_publicacion: fechaLimiteCompleta,
         plataformas_publicacion: JSON.stringify(plataformasSeleccionadas),
         criterios_cierre_automatico: JSON.stringify(criteriosCierre),
-        max_postulantes: formData.max_postulantes
+        max_postulantes: formData.max_postulantes,
+        usuario_publicador_id: window.userId // Se agrega el ID para permisos
     };
     
     console.log('Datos de publicación enviados:', datosPublicacion);
@@ -978,7 +1064,12 @@ function publicarVacanteConParametros(formData) {
                 let mensajeError = response.response && response.response.message 
                     ? response.response.message 
                     : (response.message || 'Error desconocido');
-                alertToast('Error al publicar la vacante: ' + mensajeError, 'error', 4000);
+                // Mensaje para permisos
+                if(mensajeError.includes("No tiene permisos")) {
+                    alertToast('Verifica que tu usuario tenga permisos para publicar', 'error', 5000);
+                } else {
+                    alertToast('Error al publicar la vacante: ' + mensajeError, 'error', 4000);
+                }
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -2385,6 +2476,11 @@ function llenarModalDetallesPublicacion(publicacionData) {
 
 // Función para editar una publicación
 function actualizarPublicacionVacante(formData) {
+    // Validar permiso
+    if(!window.tienePermisoRegPub) {
+        alertToast('No tiene permisos para editar publicaciones.', 'error', 5000);
+        return;
+    }
     const idPublicacion = formData.id_publicacion;
     
     // Deshabilitar botón mientras se procesa
@@ -2419,7 +2515,8 @@ function actualizarPublicacionVacante(formData) {
         fecha_limite_publicacion: fechaLimiteCompleta,
         plataformas_publicacion: JSON.stringify(plataformasSeleccionadas),
         criterios_cierre_automatico: JSON.stringify(criteriosCierre),
-        max_postulantes: formData.max_postulantes
+        max_postulantes: formData.max_postulantes,
+        usuario_publicador_id: window.userId // Se agrega el ID para permisos
     };
     
     console.log('Datos de actualización enviados:', datosActualizacion);
@@ -2593,136 +2690,153 @@ $(document).ready(function() {
         $('#contadorPostulantes').text('0');
         $('#tituloVacantePostulantes').text('Vacante: Example Vacancy');
     });
+});
 
-    // ===== FUNCIONES PARA GESTIÓN DE CANDIDATOS =====
+// MOVER TODAS ESTAS FUNCIONES FUERA DEL $(document).ready
+// ===== FUNCIONES PARA GESTIÓN DE CANDIDATOS =====
 
-    // Función para cambiar estado de candidato
-    window.cambiarEstadoCandidato = function(idCandidato, nuevoEstado, nombreCandidato) {
-        console.group('🔄 CAMBIAR ESTADO CANDIDATO');
-        console.log('📋 Parámetros:', { idCandidato, nuevoEstado, nombreCandidato });
+
+// Función para cambiar estado de candidato (CORREGIDA - declaración global)
+function cambiarEstadoCandidato(idCandidato, nuevoEstado, nombreCandidato) {
+    console.group('🔄 CAMBIAR ESTADO CANDIDATO');
+    console.log('📋 Parámetros:', { idCandidato, nuevoEstado, nombreCandidato });
+
+    if(!window.tienePermisoGesCand) {
+        alertToast('No tiene permisos para cambiar el estado de los candidatos.', 'warning', 5000);
+        return;
+    }
+    
+    let titulo, texto, textoConfirm;
+    
+    switch(nuevoEstado) {
+        case 'en_espera':
+            titulo = 'Enviar Propuesta Salarial';
+            texto = `¿Está seguro de enviar la propuesta salarial a ${nombreCandidato}? Esto cambiará su estado a "En Espera".`;
+            textoConfirm = 'Sí, enviar propuesta';
+            break;
+        case 'finalista':
+            titulo = 'Marcar como Finalista';
+            texto = `¿Está seguro de marcar a ${nombreCandidato} como Finalista?`;
+            textoConfirm = 'Sí, es finalista';
+            break;
+        case 'contratado':
+            titulo = 'Contratar Candidato';
+            texto = `¿Está seguro de marcar a ${nombreCandidato} como Contratado? Esta acción es irreversible.`;
+            textoConfirm = 'Sí, contratar';
+            break;
+        default:
+            titulo = 'Cambiar Estado';
+            texto = `¿Está seguro de cambiar el estado de ${nombreCandidato}?`;
+            textoConfirm = 'Sí, cambiar';
+    }
+
+    console.log('💬 Mostrar confirmación:', titulo);
+
+    Swal.fire({
+        title: titulo,
+        text: texto,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: textoConfirm,
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        console.log('✅ Resultado de confirmación:', result);
         
-        let titulo, texto, textoConfirm;
-        
-        switch(nuevoEstado) {
-            case 'en_espera':
-                titulo = 'Enviar Propuesta Salarial';
-                texto = `¿Está seguro de enviar la propuesta salarial a ${nombreCandidato}? Esto cambiará su estado a "En Espera".`;
-                textoConfirm = 'Sí, enviar propuesta';
-                break;
-            // case 'en_proceso':
-            //     titulo = 'Marcar como En Proceso';
-            //     texto = `¿Confirma que ${nombreCandidato} ha aceptado la propuesta salarial? Esto cambiará su estado a "En Proceso".`;
-            //     textoConfirm = 'Sí, aceptó propuesta';
-            //     break;
-            case 'finalista':
-                titulo = 'Marcar como Finalista';
-                texto = `¿Está seguro de marcar a ${nombreCandidato} como Finalista?`;
-                textoConfirm = 'Sí, es finalista';
-                break;
-            case 'contratado':
-                titulo = 'Contratar Candidato';
-                texto = `¿Está seguro de marcar a ${nombreCandidato} como Contratado? Esta acción es irreversible.`;
-                textoConfirm = 'Sí, contratar';
-                break;
-            default:
-                titulo = 'Cambiar Estado';
-                texto = `¿Está seguro de cambiar el estado de ${nombreCandidato}?`;
-                textoConfirm = 'Sí, cambiar';
+        if (result.isConfirmed) {
+            console.log('👍 Usuario confirmó acción');
+            if (nuevoEstado === 'en_espera') {
+                console.log('📝 Mostrando modal de propuesta salarial');
+                mostrarModalPropuestaSalarial(idCandidato, nombreCandidato);
+            } else {
+                console.log('⚡ Ejecutando cambio directo');
+                ejecutarCambioEstado(idCandidato, nuevoEstado);
+            }
+        } else {
+            console.log('👎 Usuario canceló acción');
         }
+        console.groupEnd();
+    });
+}
 
-        console.log('💬 Mostrar confirmación:', titulo);
+// Función para rechazar candidato (CORREGIDA - declaración global)
+function rechazarCandidato(idCandidato, nombreCandidato) {
+    console.group('❌ RECHAZAR CANDIDATO');
+    console.log('📋 Parámetros:', { idCandidato, nombreCandidato });
 
-        Swal.fire({
-            title: titulo,
-            text: texto,
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: textoConfirm,
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            console.log('✅ Resultado de confirmación:', result);
+    if(!window.tienePermisoGesCand) {
+        alertToast('No tiene permisos para rechazar el estado de los candidatos.', 'warning', 5000);
+        return;
+    }
+    
+    Swal.fire({
+        title: 'Rechazar Candidato',
+        html: `
+            <p>¿Está seguro de rechazar a <strong>${nombreCandidato}</strong>?</p>
+            <div class="form-group mt-3">
+                <label for="motivoRechazo">Motivo de rechazo:</label>
+                <select class="form-control" id="motivoRechazo" required>
+                    <option value="">Seleccione un motivo</option>
+                    <option value="no_cumple_perfil">No cumple con el perfil</option>
+                    <option value="salario_elevado">Expectativa salarial muy elevada</option>
+                    <option value="disponibilidad">Problemas de disponibilidad</option>
+                    <option value="referencias">Referencias negativas</option>
+                    <option value="otro">Otro motivo</option>
+                </select>
+            </div>
+            <div class="form-group mt-2">
+                <label for="comentariosRechazo">Comentarios adicionales:</label>
+                <textarea class="form-control" id="comentariosRechazo" rows="3" placeholder="Comentarios opcionales..."></textarea>
+            </div>
+        `,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Sí, rechazar',
+        cancelButtonText: 'Cancelar',
+        preConfirm: () => {
+            const motivo = document.getElementById('motivoRechazo').value;
+            const comentarios = document.getElementById('comentariosRechazo').value;
             
-            if (result.isConfirmed) {
-                console.log('👍 Usuario confirmó acción');
-                // Mostrar modal para capturar información adicional si es necesario
-                if (nuevoEstado === 'en_espera') {
-                    console.log('📝 Mostrando modal de propuesta salarial');
-                    mostrarModalPropuestaSalarial(idCandidato, nombreCandidato);
-                } else {
-                    console.log('⚡ Ejecutando cambio directo');
-                    ejecutarCambioEstado(idCandidato, nuevoEstado);
-                }
-            } else {
-                console.log('👎 Usuario canceló acción');
+            console.log('📝 Datos del modal de rechazo:', { motivo, comentarios });
+            
+            if (!motivo) {
+                console.warn('⚠️ No se seleccionó motivo');
+                Swal.showValidationMessage('Debe seleccionar un motivo de rechazo');
+                return false;
             }
-            console.groupEnd();
-        });
-    };
-
-    // Función para rechazar candidato
-    window.rechazarCandidato = function(idCandidato, nombreCandidato) {
-        console.group('❌ RECHAZAR CANDIDATO');
-        console.log('📋 Parámetros:', { idCandidato, nombreCandidato });
+            
+            return { motivo, comentarios };
+        }
+    }).then((result) => {
+        console.log('✅ Resultado del modal:', result);
         
-        Swal.fire({
-            title: 'Rechazar Candidato',
-            html: `
-                <p>¿Está seguro de rechazar a <strong>${nombreCandidato}</strong>?</p>
-                <div class="form-group mt-3">
-                    <label for="motivoRechazo">Motivo de rechazo:</label>
-                    <select class="form-control" id="motivoRechazo" required>
-                        <option value="">Seleccione un motivo</option>
-                        <option value="no_cumple_perfil">No cumple con el perfil</option>
-                        <option value="salario_elevado">Expectativa salarial muy elevada</option>
-                        <option value="disponibilidad">Problemas de disponibilidad</option>
-                        <option value="referencias">Referencias negativas</option>
-                        <option value="otro">Otro motivo</option>
-                    </select>
-                </div>
-                <div class="form-group mt-2">
-                    <label for="comentariosRechazo">Comentarios adicionales:</label>
-                    <textarea class="form-control" id="comentariosRechazo" rows="3" placeholder="Comentarios opcionales..."></textarea>
-                </div>
-            `,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#6c757d',
-            confirmButtonText: 'Sí, rechazar',
-            cancelButtonText: 'Cancelar',
-            preConfirm: () => {
-                const motivo = document.getElementById('motivoRechazo').value;
-                const comentarios = document.getElementById('comentariosRechazo').value;
-                
-                console.log('📝 Datos del modal de rechazo:', { motivo, comentarios });
-                
-                if (!motivo) {
-                    console.warn('⚠️ No se seleccionó motivo');
-                    Swal.showValidationMessage('Debe seleccionar un motivo de rechazo');
-                    return false;
-                }
-                
-                return { motivo, comentarios };
-            }
-        }).then((result) => {
-            console.log('✅ Resultado del modal:', result);
-            
-            if (result.isConfirmed) {
-                console.log('👍 Usuario confirmó rechazo');
-                console.log('📋 Datos a enviar:', result.value);
-                ejecutarRechazo(idCandidato, result.value.motivo, result.value.comentarios);
-            } else {
-                console.log('👎 Usuario canceló rechazo');
-            }
-            console.groupEnd();
-        });
-    };
+        if (result.isConfirmed) {
+            console.log('👍 Usuario confirmó rechazo');
+            console.log('📋 Datos a enviar:', result.value);
+            ejecutarRechazo(idCandidato, result.value.motivo, result.value.comentarios);
+        } else {
+            console.log('👎 Usuario canceló rechazo');
+        }
+        console.groupEnd();
+    });
+}
 
-    // Función para mostrar modal de propuesta salarial
-    function mostrarModalPropuestaSalarial(idCandidato, nombreCandidato) {
-        Swal.fire({
+// Función para mostrar modal de propuesta salarial
+function mostrarModalPropuestaSalarial(idCandidato, nombreCandidato) {
+    // Validar permisos antes de mostrar el modal
+    if (!window.tienePermisoGesCand) {
+        alertToast(
+            'No tiene permisos para enviar propuestas salariales.',
+            'warning',
+            5000
+        );
+        return;
+    }
+
+    Swal.fire({
             title: 'Propuesta Salarial',
             html: `
                 <p>Datos de la propuesta para <strong>${nombreCandidato}</strong>:</p>
@@ -2767,309 +2881,481 @@ $(document).ready(function() {
                 ejecutarCambioEstado(idCandidato, 'en_espera', 'Envío de propuesta salarial', result.value);
             }
         });
-    }
+}
 
     // Función para ejecutar el cambio de estado
     function ejecutarCambioEstado(idCandidato, nuevoEstado, motivo = null, datosAdicionales = null) {
+        console.group('🔄 EJECUTAR CAMBIO DE ESTADO');
+        console.log('📋 Parámetros recibidos:', {
+            idCandidato,
+            nuevoEstado,
+            motivo,
+            datosAdicionales
+        });
+
         const datos = new FormData();
         datos.append('api', '35');
         datos.append('id_candidato', idCandidato);
         datos.append('estado_candidato', nuevoEstado);
         datos.append('motivo_cambio', motivo || `Cambio a estado ${nuevoEstado}`);
+        datos.append('usuario_id', window.userId); // Agregar usuario para auditoría
         
         if (datosAdicionales) {
+            console.log('📝 Agregando datos adicionales:', datosAdicionales);
             if (datosAdicionales.salario) datos.append('salario_ofertado', datosAdicionales.salario);
             if (datosAdicionales.fechaInicio) datos.append('fecha_inicio_propuesta', datosAdicionales.fechaInicio);
             if (datosAdicionales.condiciones) datos.append('condiciones_especiales', datosAdicionales.condiciones);
             if (datosAdicionales.comentarios) datos.append('comentarios_rh', datosAdicionales.comentarios);
         }
 
+        // Log de datos que se envían
+        console.log('📤 Datos a enviar:');
+        for (let [key, value] of datos.entries()) {
+            console.log(`  ${key}: ${value}`);
+        }
+
         fetch('../../../api/recursos_humanos_api.php', {
             method: 'POST',
             body: datos
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.code === 1) {
+        .then(response => {
+            console.log('📨 Respuesta HTTP Status:', response.status);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            return response.text();
+        })
+        .then(text => {
+            console.log('📄 Respuesta RAW del servidor:', text);
+            
+            try {
+                const data = JSON.parse(text);
+                console.log('📋 Respuesta JSON parseada:', data);
+                
+                let code = null;
+                let message = null;
+                
+                if (data.response && data.response.code !== undefined) {
+                    code = data.response.code;
+                    message = data.response.message || data.response.msj;
+                } else if (data.code !== undefined) {
+                    code = data.code;
+                    message = data.message || data.msj;
+                }
+                
+                console.log('✅ Code extraído:', code);
+                console.log('💬 Message extraído:', message);
+                
+                // Aceptar tanto code 1 como code 2
+                if (code === 1 || code === 2) {
+                    console.log('🎉 ÉXITO: Estado actualizado correctamente');
+                    Swal.fire({
+                        title: '¡Éxito!',
+                        text: 'Estado del candidato actualizado correctamente',
+                        icon: 'success',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                    if (typeof tablePostulantesAprobados !== 'undefined') {
+                        tablePostulantesAprobados.ajax.reload();
+                    }
+                } else {
+                    console.error('❌ ERROR: Code no exitoso:', code);
+                    
+                    // Mensaje específico para permisos
+                    if (message && message.includes("No tiene permisos")) {
+                        alertToast(
+                            "No tiene permisos para gestionar candidatos. Contacte al administrador.",
+                            "error",
+                            5000
+                        );
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: message || 'Error al actualizar el estado del candidato',
+                            icon: 'error'
+                        });
+                    }
+                }
+            } catch (parseError) {
+                console.error('🚨 ERROR al parsear JSON:', parseError);
                 Swal.fire({
-                    title: '¡Éxito!',
-                    text: 'Estado del candidato actualizado correctamente',
-                    icon: 'success',
-                    timer: 2000,
-                    showConfirmButton: false
-                });
-                // Recargar la tabla
-                tablePostulantesAprobados.ajax.reload();
-            } else {
-                Swal.fire({
-                    title: 'Error',
-                    text: data.message || 'Error al actualizar el estado del candidato',
+                    title: 'Error de formato',
+                    text: 'La respuesta del servidor no es un JSON válido',
                     icon: 'error'
                 });
             }
         })
         .catch(error => {
-            console.error('Error:', error);
+            console.error('🚨 ERROR en fetch:', error);
             Swal.fire({
-                title: 'Error',
-                text: 'Error de conexión al servidor',
+                title: 'Error de conexión',
+                text: 'Error al conectar con el servidor: ' + error.message,
                 icon: 'error'
             });
+        })
+        .finally(() => {
+            console.groupEnd();
         });
     }
 
- // Función para ejecutar el rechazo (CORREGIDA)
-function ejecutarRechazo(idCandidato, motivo, comentarios) {
-    console.group('❌ EJECUTAR RECHAZO');
-    console.log('📋 Parámetros recibidos:', {
-        idCandidato,
-        motivo,
-        comentarios
-    });
+    // Función para ejecutar el rechazo de candidato
+    function ejecutarRechazo(idCandidato, motivo, comentarios) {
+        console.group('❌ EJECUTAR RECHAZO CANDIDATO');
+        console.log('📋 Parámetros recibidos:', {
+            idCandidato,
+            motivo,
+            comentarios
+        });
 
-    const datos = new FormData();
-    datos.append('api', '36');
-    datos.append('id_candidato', idCandidato);
-    datos.append('motivo_rechazo', motivo);
-    datos.append('comentarios_rh', comentarios);
-
-    // Log de datos que se envían
-    console.log('📤 Datos a enviar:');
-    for (let [key, value] of datos.entries()) {
-        console.log(`  ${key}: ${value}`);
-    }
-
-    fetch('../../../api/recursos_humanos_api.php', {
-        method: 'POST',
-        body: datos
-    })
-    .then(response => {
-        console.log('📨 Respuesta HTTP Status:', response.status);
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+        // Validar permisos antes de continuar
+        if (!window.tienePermisoRegPub) {
+            console.error('❌ Sin permisos para rechazar candidatos');
+            alertToast(
+                'No tiene permisos para rechazar candidatos. Contacte al administrador.',
+                'error',
+                5000
+            );
+            return;
         }
-        
-        return response.text(); // Primero obtener como texto
-    })
-    .then(text => {
-        console.log('📄 Respuesta RAW del servidor:', text);
-        
-        try {
-            const data = JSON.parse(text);
-            console.log('📋 Respuesta JSON parseada:', data);
+
+        const datos = new FormData();
+        datos.append('api', '36'); // API específica para rechazo
+        datos.append('id_candidato', idCandidato);
+        datos.append('estado_candidato', 'rechazado');
+        datos.append('motivo_rechazo', motivo);
+        datos.append('comentarios_rechazo', comentarios || '');
+        datos.append('usuario_id', window.userId); // Agregar usuario para auditoría
+
+        // Log de datos que se envían
+        console.log('📤 Datos a enviar:');
+        for (let [key, value] of datos.entries()) {
+            console.log(`  ${key}: ${value}`);
+        }
+
+        fetch('../../../api/recursos_humanos_api.php', {
+            method: 'POST',
+            body: datos
+        })
+        .then(response => {
+            console.log('📨 Respuesta HTTP Status:', response.status);
             
-            // Verificar diferentes estructuras de respuesta
-            let code = null;
-            let message = null;
-            
-            if (data.response && data.response.code !== undefined) {
-                code = data.response.code;
-                message = data.response.message || data.response.msj;
-                console.log('📊 Estructura: data.response.code =', code);
-            } else if (data.code !== undefined) {
-                code = data.code;
-                message = data.message || data.msj;
-                console.log('📊 Estructura: data.code =', code);
-            } else {
-                console.warn('⚠️ Estructura de respuesta desconocida');
-                console.log('🔍 Explorando estructura:', Object.keys(data));
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
             
-            console.log('✅ Code extraído:', code);
-            console.log('💬 Message extraído:', message);
+            return response.text();
+        })
+        .then(text => {
+            console.log('📄 Respuesta RAW del servidor:', text);
             
-            // ⚠️ CAMBIO PRINCIPAL: Aceptar tanto code 1 como code 2
-            if (code === 1 || code === 2) {
-                console.log('🎉 ÉXITO: Candidato rechazado correctamente');
-                Swal.fire({
-                    title: '¡Candidato Rechazado!',
-                    text: 'El candidato ha sido rechazado correctamente',
-                    icon: 'success',
-                    timer: 2000,
-                    showConfirmButton: false
-                });
-                // Recargar la tabla
-                if (typeof tablePostulantesAprobados !== 'undefined') {
-                    console.log('🔄 Recargando tabla...');
-                    tablePostulantesAprobados.ajax.reload();
+            try {
+                const data = JSON.parse(text);
+                console.log('📋 Respuesta JSON parseada:', data);
+                
+                let code = null;
+                let message = null;
+                
+                if (data.response && data.response.code !== undefined) {
+                    code = data.response.code;
+                    message = data.response.message || data.response.msj;
+                } else if (data.code !== undefined) {
+                    code = data.code;
+                    message = data.message || data.msj;
+                }
+                
+                console.log('✅ Code extraído:', code);
+                console.log('💬 Message extraído:', message);
+                
+                // Aceptar tanto code 1 como code 2
+                if (code === 1 || code === 2) {
+                    console.log('🎉 ÉXITO: Candidato rechazado correctamente');
+                    Swal.fire({
+                        title: '¡Candidato rechazado!',
+                        text: 'El candidato ha sido rechazado correctamente',
+                        icon: 'success',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                    if (typeof tablePostulantesAprobados !== 'undefined') {
+                        tablePostulantesAprobados.ajax.reload();
+                    }
                 } else {
-                    console.warn('⚠️ tabla tablePostulantesAprobados no definida');
+                    console.error('❌ ERROR: Code no exitoso:', code);
+                    
+                    // Mensaje específico para permisos
+                    if (message && message.includes("No tiene permisos")) {
+                        alertToast(
+                            "No tiene permisos para rechazar candidatos. Contacte al administrador.",
+                            "error",
+                            5000
+                        );
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: message || 'Error al rechazar el candidato',
+                            icon: 'error'
+                        });
+                    }
                 }
-            } else {
-                console.error('❌ ERROR: Code no exitoso:', code);
-                console.error('💬 Mensaje de error:', message);
+            } catch (parseError) {
+                console.error('🚨 ERROR al parsear JSON:', parseError);
                 Swal.fire({
-                    title: 'Error',
-                    text: message || 'Error al rechazar el candidato',
+                    title: 'Error de formato',
+                    text: 'La respuesta del servidor no es un JSON válido',
                     icon: 'error'
                 });
             }
-        } catch (parseError) {
-            console.error('🚨 ERROR al parsear JSON:', parseError);
-            console.error('📄 Texto que causó el error:', text);
+        })
+        .catch(error => {
+            console.error('🚨 ERROR en fetch:', error);
             Swal.fire({
-                title: 'Error de formato',
-                text: 'La respuesta del servidor no es un JSON válido',
+                title: 'Error de conexión',
+                text: 'Error al conectar con el servidor: ' + error.message,
                 icon: 'error'
             });
-        }
-    })
-    .catch(error => {
-        console.error('🚨 ERROR en fetch:', error);
-        console.error('📋 Detalles del error:', {
-            name: error.name,
-            message: error.message,
-            stack: error.stack
+        })
+        .finally(() => {
+            console.groupEnd();
         });
+    }
+
+// Asignar funciones al objeto window para acceso global
+window.cambiarEstadoCandidato = cambiarEstadoCandidato;
+window.rechazarCandidato = rechazarCandidato;
+window.ejecutarRechazo = ejecutarRechazo;
+window.ejecutarCambioEstado = ejecutarCambioEstado;
+window.mostrarModalPropuestaSalarial = mostrarModalPropuestaSalarial;
+
+// ⭐ NUEVA FUNCIÓN: Generar carta de propuesta salarial firmada
+window.generarCartaFirmada = async function(idCandidato, nombreCandidato) {
+    try {
+        const confirmResult = await Swal.fire({
+            title: '¿Generar carta firmada?',
+            html: `
+                <p>¿Desea generar la carta de propuesta salarial firmada para:</p>
+                <strong>${nombreCandidato}</strong>
+                <br><br>
+                <small class="text-muted">La carta se guardará en el archivo del candidato y podrá descargarse.</small>
+            `,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#28a745',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: '<i class="fas fa-file-signature"></i> Generar Carta',
+            cancelButtonText: 'Cancelar'
+        });
+
+        if (!confirmResult.isConfirmed) return;
+
         Swal.fire({
-            title: 'Error de conexión',
-            text: 'Error al conectar con el servidor: ' + error.message,
-            icon: 'error'
+            title: 'Generando carta...',
+            html: `<div class="d-flex justify-content-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Cargando...</span>
+                        </div>
+                   </div>
+                   <p class="mt-3">Generando documento PDF profesional...</p>`,
+            allowOutsideClick: false,
+            showConfirmButton: false,
+            didOpen: () => Swal.showLoading()
         });
-    })
-    .finally(() => {
-        console.groupEnd();
-    });
-}
 
-// También actualizar la función ejecutarCambioEstado para consistencia
-function ejecutarCambioEstado(idCandidato, nuevoEstado, motivo = null, datosAdicionales = null) {
-    console.group('🔄 EJECUTAR CAMBIO DE ESTADO');
-    console.log('📋 Parámetros recibidos:', {
-        idCandidato,
-        nuevoEstado,
-        motivo,
-        datosAdicionales
-    });
+        const formData = new FormData();
+        formData.append('api', '39');
+        formData.append('id_candidato', idCandidato);
 
-    const datos = new FormData();
-    datos.append('api', '35');
-    datos.append('id_candidato', idCandidato);
-    datos.append('estado_candidato', nuevoEstado);
-    datos.append('motivo_cambio', motivo || `Cambio a estado ${nuevoEstado}`);
+        const response = await fetch('../../../api/recursos_humanos_api.php', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+        const rawData = await response.json();
+        console.log('Respuesta generar carta RAW:', rawData);
+
+        // Ajustar al formato que devuelve tu API
+        const apiData = rawData.response?.data || rawData.data || rawData;
+
+        if (apiData.code === 1 && apiData.data) {
+            const info = apiData.data;
+
+            await Swal.fire({
+                title: '¡Carta generada exitosamente!',
+                html: `
+                    <div class="alert alert-success">
+                        <i class="fas fa-check-circle fa-2x text-success mb-3"></i>
+                        <h5>Carta de propuesta salarial generada</h5>
+                        <p><strong>Candidato:</strong> ${info.candidato}</p>
+                        <p><strong>Archivo:</strong> ${info.filename}</p>
+                        <p><strong>Ubicación:</strong> ${info.directorio}</p>
+                    </div>
+                    <div class="mt-3">
+                        <button type="button" class="btn btn-primary btn-sm" onclick="descargarCartaGenerada('${info.url_path}', '${info.filename}')">
+                            <i class="fas fa-download"></i> Descargar Carta
+                        </button>
+                    </div>
+                `,
+                icon: 'success',
+                confirmButtonColor: '#28a745'
+            });
+
+            if (typeof tablePostulantesAprobados !== 'undefined') {
+                tablePostulantesAprobados.ajax.reload();
+            }
+
+        } else {
+            throw new Error(apiData.message || 'Error desconocido al generar la carta');
+        }
+
+    } catch (error) {
+        console.error('Error en generarCartaFirmada:', error);
+
+        await Swal.fire({
+            title: 'Error al generar carta',
+            html: `
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-triangle fa-2x text-danger mb-3"></i>
+                    <p>${error.message || 'Ocurrió un error inesperado'}</p>
+                </div>
+                <small class="text-muted">
+                    Verifique que el candidato tenga firma digital registrada y que todos los datos estén completos.
+                </small>
+            `,
+            icon: 'error',
+            confirmButtonColor: '#dc3545'
+        });
+    }
+};
+
+
+// Función auxiliar para descargar carta generada
+window.descargarCartaGenerada = function(urlPath, filename) {
+    const link = document.createElement('a');
+    link.href = urlPath;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
     
-    if (datosAdicionales) {
-        console.log('📝 Agregando datos adicionales:', datosAdicionales);
-        if (datosAdicionales.salario) datos.append('salario_ofertado', datosAdicionales.salario);
-        if (datosAdicionales.fechaInicio) datos.append('fecha_inicio_propuesta', datosAdicionales.fechaInicio);
-        if (datosAdicionales.condiciones) datos.append('condiciones_especiales', datosAdicionales.condiciones);
-        if (datosAdicionales.comentarios) datos.append('comentarios_rh', datosAdicionales.comentarios);
-    }
+    // Mostrar confirmación
+    Swal.fire({
+        title: 'Descarga iniciada',
+        text: 'El archivo se está descargando...',
+        icon: 'info',
+        timer: 2000,
+        showConfirmButton: false
+    });
+};
 
-    // Log de datos que se envían
-    console.log('📤 Datos a enviar:');
-    for (let [key, value] of datos.entries()) {
-        console.log(`  ${key}: ${value}`);
-    }
-
-    fetch('../../../api/recursos_humanos_api.php', {
-        method: 'POST',
-        body: datos
-    })
-    .then(response => {
-        console.log('📨 Respuesta HTTP Status:', response.status);
+// Función mejorada para abrir carta salarial
+window.abrirCartaSalarial = function(archivoCartaUrl, nombreCandidato) {
+    console.log('abrirCartaSalarial - Parámetros recibidos:', {
+        archivoCartaUrl,
+        nombreCandidato,
+        tipo: typeof archivoCartaUrl
+    });
+    
+    // Validar que la URL no esté vacía o sea undefined/null
+    if (!archivoCartaUrl || 
+        archivoCartaUrl === 'undefined' || 
+        archivoCartaUrl === 'null' || 
+        archivoCartaUrl.trim() === '') {
         
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+        console.warn('URL de carta no válida:', archivoCartaUrl);
+        
+        Swal.fire({
+            icon: 'warning',
+            title: 'Carta no disponible',
+            html: `
+                <p>Este candidato no tiene una carta firmada generada aún.</p>
+                <small class="text-muted">Use el botón "Generar carta" para crear el documento.</small>
+            `,
+            confirmButtonColor: '#007bff'
+        });
+        return;
+    }
+    
+    // Normalizar la URL
+    let urlFinal = archivoCartaUrl.trim();
+    
+    // Si no es una URL completa, construir desde el dominio base
+    if (!urlFinal.startsWith('http://') && !urlFinal.startsWith('https://')) {
+        const baseUrl = window.location.origin;
+        const basePath = '/nuevo_checkup/';
+        
+        // Remover barras duplicadas
+        if (urlFinal.startsWith('/')) {
+            urlFinal = urlFinal.substring(1);
         }
         
-        return response.text();
-    })
-    .then(text => {
-        console.log('📄 Respuesta RAW del servidor:', text);
-        
+        urlFinal = baseUrl + basePath + urlFinal;
+    }
+    
+    console.log('URL final construida:', urlFinal);
+    
+    // Mostrar loading
+    Swal.fire({
+        title: 'Abriendo carta...',
+        html: `
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Cargando...</span>
+                </div>
+            </div>
+            <p class="mt-3">Cargando carta de ${nombreCandidato}</p>
+        `,
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        timer: 1500
+    });
+    
+    // Intentar abrir la URL después del loading
+    setTimeout(() => {
         try {
-            const data = JSON.parse(text);
-            console.log('📋 Respuesta JSON parseada:', data);
+            // Abrir en nueva ventana/pestaña
+            const ventana = window.open(urlFinal, '_blank', 'width=1000,height=800,scrollbars=yes,resizable=yes');
             
-            let code = null;
-            let message = null;
-            
-            if (data.response && data.response.code !== undefined) {
-                code = data.response.code;
-                message = data.response.message || data.response.msj;
-            } else if (data.code !== undefined) {
-                code = data.code;
-                message = data.message || data.msj;
+            if (!ventana) {
+                throw new Error('Popup bloqueado');
             }
             
-            console.log('✅ Code extraído:', code);
-            console.log('💬 Message extraído:', message);
+            // Cerrar el loading
+            Swal.close();
             
-            // ⚠️ CAMBIO: Aceptar tanto code 1 como code 2
-            if (code === 1 || code === 2) {
-                console.log('🎉 ÉXITO: Estado actualizado correctamente');
-                Swal.fire({
-                    title: '¡Éxito!',
-                    text: 'Estado del candidato actualizado correctamente',
-                    icon: 'success',
-                    timer: 2000,
-                    showConfirmButton: false
-                });
-                if (typeof tablePostulantesAprobados !== 'undefined') {
-                    tablePostulantesAprobados.ajax.reload();
-                }
-            } else {
-                console.error('❌ ERROR: Code no exitoso:', code);
-                Swal.fire({
-                    title: 'Error',
-                    text: message || 'Error al actualizar el estado del candidato',
-                    icon: 'error'
-                });
-            }
-        } catch (parseError) {
-            console.error('🚨 ERROR al parsear JSON:', parseError);
+            // Toast de éxito
             Swal.fire({
-                title: 'Error de formato',
-                text: 'La respuesta del servidor no es un JSON válido',
-                icon: 'error'
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: `Carta de ${nombreCandidato} abierta`,
+                showConfirmButton: false,
+                timer: 3000
+            });
+            
+        } catch (error) {
+            console.error('Error al abrir carta:', error);
+            
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al abrir carta',
+                html: `
+                    <p>No se pudo abrir la carta para <strong>${nombreCandidato}</strong></p>
+                    <small class="text-muted">
+                        Verifique que el archivo existe y que no hay bloqueo de popups.
+                    </small>
+                    <div class="mt-3">
+                        <button type="button" class="btn btn-primary btn-sm" 
+                                onclick="window.open('${urlFinal}', '_blank')">
+                            <i class="fas fa-external-link-alt"></i> Intentar nuevamente
+                        </button>
+                    </div>
+                `,
+                confirmButtonColor: '#dc3545'
             });
         }
-    })
-    .catch(error => {
-        console.error('🚨 ERROR en fetch:', error);
-        Swal.fire({
-            title: 'Error de conexión',
-            text: 'Error al conectar con el servidor: ' + error.message,
-            icon: 'error'
-        });
-    })
-    .finally(() => {
-        console.groupEnd();
-    });
-}
-
-    // Event listeners para los botones de acciones
-    $(document).on('click', '.btn-generar-propuesta-salarial', function() {
-        const idCandidato = $(this).data('id-candidato');
-        const fila = $(this).closest('tr');
-        const nombreCandidato = tablePostulantesAprobados.row(fila).data().nombre_completo;
-        
-        cambiarEstadoCandidato(idCandidato, 'en_espera', nombreCandidato);
-    });
-
-    $(document).on('click', '.btn-gestionar-proceso', function() {
-        const idCandidato = $(this).data('id-candidato');
-        const fila = $(this).closest('tr');
-        const nombreCandidato = tablePostulantesAprobados.row(fila).data().nombre_completo;
-        
-        cambiarEstadoCandidato(idCandidato, 'finalista', nombreCandidato);
-    });
-
-    $(document).on('click', '.btn-contratar', function() {
-        const idCandidato = $(this).data('id-candidato');
-        const fila = $(this).closest('tr');
-        const nombreCandidato = tablePostulantesAprobados.row(fila).data().nombre_completo;
-        
-        cambiarEstadoCandidato(idCandidato, 'contratado', nombreCandidato);
-    });
-
-    $(document).on('click', '.btn-rechazar-candidato', function() {
-        const idCandidato = $(this).data('id-candidato');
-        const fila = $(this).closest('tr');
-        const nombreCandidato = tablePostulantesAprobados.row(fila).data().nombre_completo;
-        
-        rechazarCandidato(idCandidato, nombreCandidato);
-    });
-});
+    }, 1500);
+};

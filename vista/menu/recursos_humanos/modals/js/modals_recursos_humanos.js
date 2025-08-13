@@ -872,7 +872,7 @@ $(document).ready(function() {
 
 
 
-// Registrar una nueva requisición de vacante - CORREGIDO
+// Registrar una nueva requisición de vacante - CON VALIDACIÓN DE PERMISOS
 $("#formRegistrarVacante").submit(function (event) {
     event.preventDefault();
 
@@ -880,8 +880,8 @@ $("#formRegistrarVacante").submit(function (event) {
     var formData = new FormData(form);
 
     // Validaciones básicas usando los campos que SÍ existen en el formulario
-    var id_departamento = $("#departamento").val(); // name="id_departamento"
-    var id_motivo = $("#motivo").val(); // name="id_motivo"
+    var id_departamento = $("#departamento").val();
+    var id_motivo = $("#motivo").val();
     var prioridad = $("#prioridad").val();
     var justificacion = $("#justificacion").val().trim();
     var tipo_contrato = $("#tipo_contrato").val();
@@ -891,7 +891,7 @@ $("#formRegistrarVacante").submit(function (event) {
     var hora_inicio = $("#hora_inicio").val();
     var hora_fin = $("#hora_fin").val();
 
-    // Validar campos obligatorios ACTUALIZADOS
+    // Validar campos obligatorios
     if (!id_departamento) {
         alertToast("Debe seleccionar un departamento", "warning", 3000);
         return;
@@ -938,16 +938,13 @@ $("#formRegistrarVacante").submit(function (event) {
         return;
     }
 
-    // DEBUG: Verificar que los datos se envían correctamente
+    // Agregar el usuario_id al FormData para validación de permisos
+    formData.append('usuario_id', window.userId || 0);
+
     console.log("=== DEBUG FORMULARIO REQUISICIÓN ===");
+    console.log("Usuario ID para permisos:", window.userId);
     console.log("ID Departamento:", id_departamento);
     console.log("ID Motivo:", id_motivo);
-    console.log("ID Puesto:", $("#puesto").val());
-    console.log("Usuario Solicitante ID:", $("#usuario_solicitante_id").val());
-    console.log("Tipo Modalidad:", tipo_modalidad);
-    console.log("Días Trabajo:", dias_trabajo);
-    console.log("Hora Inicio:", hora_inicio);
-    console.log("Hora Fin:", hora_fin);
     
     // Mostrar todos los datos del formulario
     for (let pair of formData.entries()) {
@@ -978,7 +975,6 @@ $("#formRegistrarVacante").submit(function (event) {
                         $("#formRegistrarVacante")[0].reset();
                         $("#registrarVacanteModal").modal("hide");
 
-
                         alertToast(
                             `Requisición registrada exitosamente!`,
                             "success",
@@ -990,25 +986,33 @@ $("#formRegistrarVacante").submit(function (event) {
                             tableCatRequisiciones.ajax.reload();
                         }
                         
-                        // También recargar si se llama con otro nombre
                         if (typeof tableRequisiciones !== 'undefined' && tableRequisiciones) {
                             tableRequisiciones.ajax.reload();
                         }
                     } else {
                         console.error("Error en la respuesta:", data);
                         
-                        // Mostrar mensaje de error más específico
+                        // Verificar si es error de permisos
                         let mensajeError = "Error al registrar la requisición";
                         if (data.response && data.response.message) {
                             mensajeError = data.response.message;
+                        }
+                        
+                        // Mensaje específico para permisos
+                        if (mensajeError.includes("No tiene permisos")) {
+                            alertToast(
+                                "No tiene permisos para registrar requisiciones de vacantes. Contacte al administrador.",
+                                "error",
+                                5000
+                            );
+                        } else {
+                            alertToast(mensajeError, "error", 4000);
                         }
                         
                         // Mostrar debug si está disponible
                         if (data.response && data.response.debug) {
                             console.error("Debug del servidor:", data.response.debug);
                         }
-                        
-                        alertToast(mensajeError, "error", 4000);
                     }
                 }
             );

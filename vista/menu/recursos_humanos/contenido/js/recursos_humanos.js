@@ -78,8 +78,15 @@ document.addEventListener("click", function (e) {
 // Funciones para mostrar/ocultar el botón
 function mostrarBotonVacante() {
   const btn = document.getElementById("btnRegistrarVacante");
-  if (btn) btn.style.display = "inline-block";
+  if (btn && window.tienePermisoRegVac) {
+    btn.style.display = "inline-block";
+  } else if (btn) {
+    btn.style.display = "none";
+    // Opcional: mostrar mensaje de que no tiene permisos
+    console.log("Usuario sin permisos para registrar vacantes");
+  }
 }
+
 function ocultarBotonVacante() {
   const btn = document.getElementById("btnRegistrarVacante");
   if (btn) btn.style.display = "none";
@@ -187,59 +194,64 @@ tableCatRequisiciones = $("#tableCatRequisiciones").DataTable({
         { data: "usuario_aprobador_id"},
         { data: "fecha_aprobacion"},
         { data: "observaciones_aprobacion"},
-        {
-            data: null,
-            title: "Acciones",
-            render: function(data, type, row) {
-                return `
-                    <div class="btn-group" role="group">
-                    ${row.estatus !== 'borrador' ? `
-                        <button class="btn btn-sm btn-primary btn-ver-requisicion" 
-                             data-id="${row.id_requisicion}" title="Ver detalles"
-                            data-bs-target="#detallesRequisicionModal"
-                            data-bs-toggle="modal">
-                            <i class="bi bi-eye"></i>
-                        </button>`
-                        : ""
-                    }
-
-                    ${row.estatus === 'en_proceso' ? `
-                        <button class="btn btn-sm btn-primary bg-gradient-success btn-aprobar-requisicion"
-                            data-id="${row.id_requisicion}"
-                            data-numero="${row.numero_requisicion}"
-                            title="Aprobar">
-                            <i class="bi bi-check-circle"></i>
-                        </button>
-                        <button class="btn btn-sm btn-primary bg-gradient-secondary btn-rechazar-requisicion"
-                            data-id="${row.id_requisicion}"
-                            data-numero="${row.numero_requisicion}"
-                            title="Rechazar">
-                            <i class="bi bi-x-circle"></i>
-                        </button>`
-                        : ""
-                    }
-                    
-                    ${row.estatus === 'borrador' ? `
-                        <button class="btn btn-sm btn-primary bg-gradient-warning btn-editar-requisicion" 
-                            data-id="${row.id_requisicion}" 
-                            data-bs-target="#editarRequisicionModal"
-                            data-bs-toggle="modal"
-                            title="Editar">
-                            <i class="bi bi-pencil"></i>
-                        </button>`
-                        : ""
-                    }
-                        ${row.estatus === '' ? `
-                        <button class="btn btn-sm btn-primary bg-gradient-secondary btn-eliminar-requisicion" 
-                            data-id="${row.id_requisicion}" title="Eliminar">
-                            <i class="bi bi-trash"></i>
-                        </button>`
-                            : ""
-                        }
-                    </div>
-                `;
+        // ...existing code...
+{
+    data: null,
+    title: "Acciones",
+    render: function(data, type, row) {
+        // Verificar permisos del usuario
+        const tienePermisoEditar = window.userPermissions && window.userPermissions.includes('rhRegVac');
+        
+        return `
+            <div class="btn-group" role="group">
+            ${row.estatus !== 'borrador' ? `
+                <button class="btn btn-sm btn-primary btn-ver-requisicion" 
+                     data-id="${row.id_requisicion}" title="Ver detalles"
+                    data-bs-target="#detallesRequisicionModal"
+                    data-bs-toggle="modal">
+                    <i class="bi bi-eye"></i>
+                </button>`
+                : ""
             }
-        },
+
+            ${row.estatus === 'en_proceso' && tienePermisoEditar ? `
+                <button class="btn btn-sm btn-primary bg-gradient-success btn-aprobar-requisicion"
+                    data-id="${row.id_requisicion}"
+                    data-numero="${row.numero_requisicion}"
+                    title="Aprobar">
+                    <i class="bi bi-check-circle"></i>
+                </button>
+                <button class="btn btn-sm btn-primary bg-gradient-secondary btn-rechazar-requisicion"
+                    data-id="${row.id_requisicion}"
+                    data-numero="${row.numero_requisicion}"
+                    title="Rechazar">
+                    <i class="bi bi-x-circle"></i>
+                </button>`
+                : ""
+            }
+            
+            ${row.estatus === 'borrador' && tienePermisoEditar ? `
+                <button class="btn btn-sm btn-primary bg-gradient-warning btn-editar-requisicion" 
+                    data-id="${row.id_requisicion}" 
+                    data-bs-target="#editarRequisicionModal"
+                    data-bs-toggle="modal"
+                    title="Editar">
+                    <i class="bi bi-pencil"></i>
+                </button>`
+                : ""
+            }
+            ${row.estatus === '' && tienePermisoEditar ? `
+                <button class="btn btn-sm btn-primary bg-gradient-secondary btn-eliminar-requisicion" 
+                    data-id="${row.id_requisicion}" title="Eliminar">
+                    <i class="bi bi-trash"></i>
+                </button>`
+                : ""
+            }
+            </div>
+        `;
+    }
+},
+// ...existing code...
         { data: "activo", visible: false },
     ],
     columnDefs: [
@@ -939,6 +951,22 @@ tableCatTecnicas = $("#tableCatTecnicas").DataTable({
           { targets: -1, className: "text-center align-middle" } // acciones
         ]
       });
+
+
+// Event listener para el botón de registrar vacante
+$(document).on('click', '#btnRegistrarVacante', function() {
+    if (!window.tienePermisoRegVac) {
+        alertToast(
+            'No tiene permisos para registrar requisiciones de vacantes.',
+            'warning',
+            4000
+        );
+        return;
+    }
+    
+    // Continuar con la lógica normal del modal
+    $('#registrarVacanteModal').modal('show');
+});
 
 // Event handlers para los nuevos botones
 $(document).on("click", ".btn-ver-detalles-puesto", function () {

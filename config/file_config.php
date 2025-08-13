@@ -64,4 +64,47 @@ class FileConfig {
     public static function isValidFileSize($fileSize, $maxSize) {
         return $fileSize <= $maxSize;
     }
+    
+    // ⭐ NUEVO: Funciones para cartas de propuesta salarial
+    
+    // Directorio base para cartas de propuesta salarial
+    public static function getCartasPropuestaPath() {
+        return $_SERVER['DOCUMENT_ROOT'] . '/nuevo_checkup/vista/menu/recursos_humanos/archivos/candidatos-carta/';
+    }
+    
+    // URL para acceder a cartas de propuesta salarial
+    public static function getCartasPropuestaUrl() {
+        return self::getBaseUrl() . 'vista/menu/recursos_humanos/archivos/candidatos-carta/';
+    }
+    
+    // Crear estructura de directorios por año para cartas
+    public static function createCartasPropuestaDirectoryStructure() {
+        $year = date('Y');
+        
+        $relativePath = "vista/menu/recursos_humanos/archivos/candidatos-carta/{$year}/";
+        $fullPath = $_SERVER['DOCUMENT_ROOT'] . '/nuevo_checkup/' . $relativePath;
+        
+        if (!file_exists($fullPath)) {
+            mkdir($fullPath, 0755, true);
+        }
+        
+        return [
+            'relative_path' => $relativePath,
+            'full_path' => $fullPath,
+            'url_path' => self::getBaseUrl() . $relativePath
+        ];
+    }
+    
+    // Generar nombre único para carta de propuesta salarial
+    public static function generateCartaPropuestaFileName($numeroCandidato, $nombreCompleto) {
+        $year = date('Y');
+        $month = date('m');
+        $day = date('d');
+        
+        // Limpiar nombre del candidato
+        $cleanName = preg_replace('/[^a-zA-Z0-9\-_]/', '_', $nombreCompleto);
+        $cleanName = substr($cleanName, 0, 30); // Limitar longitud
+        
+        return "carta_propuesta_{$numeroCandidato}_{$year}{$month}{$day}_{$cleanName}.pdf";
+    }
 }
