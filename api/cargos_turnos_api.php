@@ -92,6 +92,8 @@ switch ($api) {
             "PACIENTE" => "Paciente",
             "AREA" => "Área",
             "SERVICIOS" => "Servicios",
+            "MEDICO_TRATANTE" => "Médico Tratante",
+            "EQUIPO" => "Equipo",
             "PREFOLIO" => "Prefolio",
             "CANTIDAD" => "Cantidad",
             "COSTO_BASE" => "Costo",
@@ -117,7 +119,7 @@ switch ($api) {
             "NUM_PROVEEDOR" => "Proveedor",
             "TRABAJADOR" => "Trabajador",
             "VERIFICACION" => "Verificación (URL)"
-            
+
         ];
 
         # columnas de beneficiario
