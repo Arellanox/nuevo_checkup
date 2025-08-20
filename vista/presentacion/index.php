@@ -20,7 +20,7 @@
     </style>
 </head>
 
-<body id="body-controlador" style="background: oklch(96.7% 0.003 264.542) !important;"> </body>
+<body id="body-controlador" style="background: oklch(96.7% 0.003 264.542) !important; padding-top: 20px; padding-bottom: 20px"> </body>
 <script type="text/javascript">
     vista('<?php echo $menu; ?>', '<?php echo $https . $url . '/' . $appname . '/vista/menu/controlador/controlador.php'; ?>')
 
