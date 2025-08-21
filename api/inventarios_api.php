@@ -876,7 +876,8 @@ switch ($api) {
             'persona_recibe' => $persona_recibe,
             'observaciones' => $observaciones,
             'total_articulos' => count($articulos),
-            'total_evidencias' => $total_evidencias
+            'total_evidencias' => $total_evidencias,
+            'funcionalidad' => 'Incluye actualización de inventario (resta de existencias)'
         ]));
 
         // Debug archivos recibidos
@@ -905,7 +906,19 @@ switch ($api) {
 
             $surtimiento_id = $conexion->lastInsertId();
 
-            // 2. Procesar cada artículo
+            // 2. Obtener el almacén de la requisición
+            $sql_almacen = "SELECT id_almacen FROM inventarios_cat_requisiciones WHERE id_requisicion = ?";
+            $stmt_almacen = $conexion->prepare($sql_almacen);
+            $stmt_almacen->execute([$requisicion_id]);
+            $almacen_result = $stmt_almacen->fetch(PDO::FETCH_ASSOC);
+            
+            if (!$almacen_result || !isset($almacen_result['id_almacen'])) {
+                throw new Exception("No se pudo obtener el almacén de la requisición");
+            }
+            
+            $id_almacen = $almacen_result['id_almacen'];
+
+            // 3. Procesar cada artículo
             $total_articulos = 0;
 
             foreach ($articulos as $articulo) {
@@ -914,6 +927,22 @@ switch ($api) {
                 $cantidad_entregada = floatval($articulo['cantidad_entregada']);
 
                 if ($cantidad_entregada <= 0) continue;
+
+                // Verificar stock disponible antes de procesar
+                $sql_check_stock = "SELECT cantidad_actual FROM inventarios_existencias 
+                                   WHERE id_articulo = ? AND id_almacen = ?";
+                $stmt_check_stock = $conexion->prepare($sql_check_stock);
+                $stmt_check_stock->execute([$articulo_id, $id_almacen]);
+                $stock_result = $stmt_check_stock->fetch(PDO::FETCH_ASSOC);
+                
+                if (!$stock_result) {
+                    throw new Exception("No se encontró registro de inventario para el artículo ID: $articulo_id en almacén ID: $id_almacen");
+                }
+                
+                $stock_disponible = floatval($stock_result['cantidad_actual']);
+                if ($stock_disponible < $cantidad_entregada) {
+                    throw new Exception("Stock insuficiente para el artículo ID: $articulo_id. Disponible: $stock_disponible, Solicitado: $cantidad_entregada");
+                }
 
                 // Insertar detalle de surtimiento
                 $sql_detalle = "INSERT INTO inventarios_cat_surtimientos_detalle 
@@ -937,10 +966,27 @@ switch ($api) {
                 $stmt_update = $conexion->prepare($sql_update);
                 $stmt_update->execute([$cantidad_entregada, $detalle_requisicion_id]);
 
+                // 4. Actualizar inventario - RESTAR de existencias
+                $sql_update_inventario = "UPDATE inventarios_existencias 
+                                         SET cantidad_actual = cantidad_actual - ?,
+                                             fecha_actualizacion = NOW()
+                                         WHERE id_articulo = ? AND id_almacen = ?";
+                
+                $stmt_inventario = $conexion->prepare($sql_update_inventario);
+                $stmt_inventario->execute([$cantidad_entregada, $articulo_id, $id_almacen]);
+                
+                // Verificar que se actualizó correctamente
+                if ($stmt_inventario->rowCount() == 0) {
+                    throw new Exception("No se pudo actualizar el inventario para el artículo ID: $articulo_id en almacén ID: $id_almacen");
+                }
+
+                // Log de actualización de inventario
+                error_log("API 32 - Inventario actualizado: Artículo ID $articulo_id, Almacén ID $id_almacen, Cantidad restada: $cantidad_entregada");
+
                 $total_articulos++;
             }
 
-            // 3. Determinar el nuevo estatus de la requisición
+            // 5. Determinar el nuevo estatus de la requisición
             $sql_check = "SELECT 
                             COUNT(*) as total,
                             SUM(CASE WHEN COALESCE(cantidad_surtida, 0) >= cantidad_aprobada THEN 1 ELSE 0 END) as completos
@@ -961,7 +1007,7 @@ switch ($api) {
                 $nuevo_estatus = 'parcialmente_surtida';
             }
 
-            // 4. Actualizar estatus de requisición y surtimiento
+            // 6. Actualizar estatus de requisición y surtimiento
             $sql_update_req = "UPDATE inventarios_cat_requisiciones SET estatus = ? WHERE id_requisicion = ?";
             $stmt_update_req = $conexion->prepare($sql_update_req);
             $stmt_update_req->execute([$nuevo_estatus, $requisicion_id]);
@@ -970,7 +1016,7 @@ switch ($api) {
             $stmt_update_surt = $conexion->prepare($sql_update_surt);
             $stmt_update_surt->execute([$estatus_surtimiento, $surtimiento_id]);
 
-            // 5. Procesar evidencia fotográfica si existe (usando patrón de API 6)
+            // 7. Procesar evidencia fotográfica si existe (usando patrón de API 6)
             $evidencias_guardadas = 0;
             if ($total_evidencias > 0) {
                 $dir = '../reportes/surtimientos_evidencia/';
@@ -1523,6 +1569,101 @@ switch ($api) {
             $activo,
             $solo_con_existencia
         ]);
+        break;
+    case 46:
+        // Registrar nueva salida de inventario
+        $id_salida = isset($_POST['id_salida']) && $_POST['id_salida'] !== '' && $_POST['id_salida'] !== 'null' ? intval($_POST['id_salida']) : null;
+        $p_id_articulo = isset($_POST['id_articulo']) ? intval($_POST['id_articulo']) : null;
+        $p_id_almacen = isset($_POST['id_almacen']) ? intval($_POST['id_almacen']) : 1;
+        $p_id_motivo = isset($_POST['id_motivo']) ? intval($_POST['id_motivo']) : null;
+        $p_cantidad = isset($_POST['cantidad']) ? intval($_POST['cantidad']) : null;
+        $p_costo_unitario = isset($_POST['costo_unitario']) ? floatval($_POST['costo_unitario']) : null;
+        $p_numero_documento = isset($_POST['numero_documento']) ? $_POST['numero_documento'] : null;
+        $p_fecha_salida = isset($_POST['fecha_salida']) ? $_POST['fecha_salida'] : null;
+        $p_numero_lote = isset($_POST['numero_lote']) ? $_POST['numero_lote'] : null;
+        $p_fecha_caducidad = isset($_POST['fecha_caducidad']) && $_POST['fecha_caducidad'] !== '' ? $_POST['fecha_caducidad'] : null;
+        $p_documento_referencia = isset($_POST['documento_referencia']) ? $_POST['documento_referencia'] : null;
+        $p_observaciones = isset($_POST['observaciones']) ? $_POST['observaciones'] : null;
+        $p_esRequisicion = isset($_POST['esRequisicion']) && $_POST['esRequisicion'] == '1' ? 1 : 0;
+        $p_ID_REQUISICION = isset($_POST['ID_REQUISICION']) && $_POST['ID_REQUISICION'] !== '' ? intval($_POST['ID_REQUISICION']) : null;
+
+        // Manejo de archivo de documento de referencia
+        if (isset($_FILES['documento_referencia']) && $_FILES['documento_referencia']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = '../archivos/inventarios/salidas/';
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+            
+            $fileName = uniqid('doc_salida_') . '_' . $_FILES['documento_referencia']['name'];
+            $uploadPath = $uploadDir . $fileName;
+            
+            if (move_uploaded_file($_FILES['documento_referencia']['tmp_name'], $uploadPath)) {
+                $p_documento_referencia = 'archivos/inventarios/salidas/' . $fileName;
+            }
+        }
+
+        // Validaciones básicas
+        if ($p_id_articulo === null || $p_id_articulo <= 0) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: ID de artículo es obligatorio',
+                'data' => array()
+            );
+            break;
+        }
+
+        if ($p_cantidad === null || $p_cantidad <= 0) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: La cantidad debe ser mayor a 0',
+                'data' => array()
+            );
+            break;
+        }
+
+        if ($p_costo_unitario === null || $p_costo_unitario <= 0) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: El costo unitario debe ser mayor a 0',
+                'data' => array()
+            );
+            break;
+        }
+
+        if ($p_id_motivo === null || $p_id_motivo <= 0) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: Debe seleccionar un motivo de salida',
+                'data' => array()
+            );
+            break;
+        }
+
+        try {
+            $response = $master->insertByProcedure("sp_inventarios_salidas_g", [
+                $id_salida,
+                $p_id_articulo,
+                $p_id_almacen,
+                $p_id_motivo,
+                $p_cantidad,
+                $p_costo_unitario,
+                $p_numero_documento,
+                $p_fecha_salida,
+                $p_numero_lote,
+                $p_fecha_caducidad,
+                $p_documento_referencia,
+                $p_observaciones,
+                $_SESSION['id'], // usuario_registro
+                $p_esRequisicion,
+                $p_ID_REQUISICION
+            ]);
+        } catch (Exception $e) {
+            $response = array(
+                'code' => 0,
+                'message' => 'ERROR: ' . $e->getMessage(),
+                'data' => array()
+            );
+        }
         break;
     default:
         $response = "API no definida.";

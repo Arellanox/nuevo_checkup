@@ -711,31 +711,23 @@ tableCatSalidasEstable = $("#tableCatSalidasEstable").DataTable({
   dom: 'Bl<"dataTables_toolbar">frtip',
   buttons: [
     {
-      text: '<i class="bi bi-plus-lg"></i> Nueva Salida',
-      className: "btn btn-success",
+      text: '<i class="bi bi-file-earmark-arrow-down"></i> Nueva Salida',
+      className: "btn btn-info",
       action: function () {
         if (rowSelected) {
           $("#registrarSalidaEstableModal").modal("show");
-
         } else {
           alertToast("Seleccione un artículo", "warning", 4000);
         }
       },
     },
     // {
-    //   text: '<i class="bi bi-funnel"></i> Filtrar Entradas',
-    //   className: "btn btn-warning",
+    //   text: '<i class="bi bi-file-earmark-arrow-down"></i> Salida con Requisición',
+    //   className: "btn btn-warning btn-salida-requisicion",
     //   action: function () {
-    //     $("#filtrosEntradasModal").modal("show");
+    //     $("#registrarSalidaOrdenEstableModal").modal("show");
     //   },
     // },
-    {
-      text: '<i class="bi bi-file-earmark-arrow-down"></i> Salida con Requisición',
-      className: "btn btn-warning btn-salida-requisicion",
-      action: function () {
-        $("#registrarSalidaOrdenEstableModal").modal("show");
-      },
-    },
     {
       text: '<i class="bi bi-file-earmark-arrow-down"></i> Ver Transacciones',
       className: "btn btn-info",
@@ -1411,7 +1403,6 @@ selectDatatable(
     rowSelected = dataClick;
   },
   async function () {
-    $("#detalleSalidaEstableModal").modal("show");
   }
 );
 
@@ -1545,8 +1536,7 @@ function cargarCatalogoEnSelect(selectorSelect, opciones, callback) {
           if (!config.soloActivos || esActivo) {
             if (!config.soloAprobadas || esAprobada) {
               selectElement.append(
-                `<option value="${item[config.campoId]}">${
-                  item[config.campoTexto]
+                `<option value="${item[config.campoId]}">${item[config.campoTexto]
                 }</option>`
               );
             }

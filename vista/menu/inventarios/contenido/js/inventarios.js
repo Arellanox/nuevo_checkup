@@ -2474,11 +2474,13 @@ $(document).ready(function () {
                   </span>
                 </td>
                 <td class="text-center">
-                  <button class="btn btn-sm btn-primary btn-seleccionar-articulo" 
+                  <button class="btn btn-sm ${articulo.CANTIDAD > 0 ? 'btn-primary' : 'btn-secondary'} btn-seleccionar-articulo" 
                           data-id="${articulo.ID_ARTICULO}"
                           data-nombre="${articulo.NOMBRE_COMERCIAL}"
-                          data-clave="${articulo.CLAVE_ART}">
-                    <i class="bi bi-plus-circle"></i> Agregar
+                          data-clave="${articulo.CLAVE_ART}"
+                          data-stock="${articulo.CANTIDAD || 0}"
+                          ${articulo.CANTIDAD <= 0 ? 'disabled' : ''}>
+                    <i class="bi bi-plus-circle"></i> ${articulo.CANTIDAD > 0 ? 'Agregar' : 'Sin Stock'}
                   </button>
                 </td>
               </tr>
@@ -2508,6 +2510,17 @@ $(document).ready(function () {
     let nombreArticulo = $(this).data("nombre");
     let claveArticulo = $(this).data("clave");
     let observaciones = $(this).data("observaciones") || "Sin observaciones";
+    let stockArticulo = parseInt($(this).data("stock")) || 0;
+
+    // Verificar si el artículo tiene stock disponible
+    if (stockArticulo <= 0) {
+      alertToast(
+        "No se puede agregar este artículo porque no tiene stock disponible",
+        "warning",
+        3000
+      );
+      return;
+    }
 
     // Verificar si ya está agregado
     if (articulosRequisicion.find((art) => art.id == articuloId)) {
@@ -2977,6 +2990,17 @@ $(document).ready(function () {
     let articuloId = $(this).data("id");
     let nombreArticulo = $(this).data("nombre");
     let claveArticulo = $(this).data("clave");
+    let stockArticulo = parseInt($(this).data("stock")) || 0;
+
+    // Verificar si el artículo tiene stock disponible
+    if (stockArticulo <= 0) {
+      alertToast(
+        "No se puede agregar este artículo porque no tiene stock disponible",
+        "warning",
+        3000
+      );
+      return;
+    }
 
     // Verificar si ya está agregado
     if (articulosRequisicionEditar.find((art) => art.id == articuloId)) {
@@ -3334,14 +3358,16 @@ function cargarArticulosParaSeleccionEditar() {
                   ${articulo.CANTIDAD || 0}
                 </span>
               </td>
-              <td class="text-center">
-                <button class="btn btn-sm btn-primary btn-seleccionar-articulo-editar" 
-                        data-id="${articulo.ID_ARTICULO}"
-                        data-nombre="${articulo.NOMBRE_COMERCIAL}"
-                        data-clave="${articulo.CLAVE_ART}">
-                  <i class="bi bi-plus-circle"></i> Agregar
-                </button>
-              </td>
+                              <td class="text-center">
+                  <button class="btn btn-sm ${articulo.CANTIDAD > 0 ? 'btn-primary' : 'btn-secondary'} btn-seleccionar-articulo-editar" 
+                          data-id="${articulo.ID_ARTICULO}"
+                          data-nombre="${articulo.NOMBRE_COMERCIAL}"
+                          data-clave="${articulo.CLAVE_ART}"
+                          data-stock="${articulo.CANTIDAD || 0}"
+                          ${articulo.CANTIDAD <= 0 ? 'disabled' : ''}>
+                    <i class="bi bi-plus-circle"></i> ${articulo.CANTIDAD > 0 ? 'Agregar' : 'Sin Stock'}
+                  </button>
+                </td>
             </tr>
           `;
           tbody.append(fila);
@@ -3705,17 +3731,17 @@ function inicializarDataTablesCatalogos() {
           $("#registrarTipoModal").modal("show");
         },
       },
-      {
-        text: '<i class="bi bi-funnel"></i> Filtrar Tipos',
-        className: "btn btn-warning",
-        attr: {
-          "data-bs-toggle": "modal",
-          "data-bs-target": "#filtrarTiposModal",
-        },
-        action: function () {
-          $("#filtrarTiposModal").modal("show");
-        },
-      },
+      // {
+      //   text: '<i class="bi bi-funnel"></i> Filtrar Tipos',
+      //   className: "btn btn-warning",
+      //   attr: {
+      //     "data-bs-toggle": "modal",
+      //     "data-bs-target": "#filtrarTiposModal",
+      //   },
+      //   action: function () {
+      //     $("#filtrarTiposModal").modal("show");
+      //   },
+      // },
     ],
   });
 
@@ -3781,17 +3807,17 @@ function inicializarDataTablesCatalogos() {
           $("#registrarUnidadModal").modal("show");
         },
       },
-      {
-        text: '<i class="bi bi-funnel"></i> Filtrar Unidades',
-        className: "btn btn-warning",
-        attr: {
-          "data-bs-toggle": "modal",
-          "data-bs-target": "#filtrarUnidadesModal",
-        },
-        action: function () {
-          $("#filtrarUnidadesModal").modal("show");
-        },
-      },
+      // {
+      //   text: '<i class="bi bi-funnel"></i> Filtrar Unidades',
+      //   className: "btn btn-warning",
+      //   attr: {
+      //     "data-bs-toggle": "modal",
+      //     "data-bs-target": "#filtrarUnidadesModal",
+      //   },
+      //   action: function () {
+      //     $("#filtrarUnidadesModal").modal("show");
+      //   },
+      // },
     ],
   });
 
@@ -3857,17 +3883,17 @@ function inicializarDataTablesCatalogos() {
           $("#registrarMarcaModal").modal("show");
         },
       },
-      {
-        text: '<i class="bi bi-funnel"></i> Filtrar Marcas',
-        className: "btn btn-warning",
-        attr: {
-          "data-bs-toggle": "modal",
-          "data-bs-target": "#filtrarMarcassModal",
-        },
-        action: function () {
-          $("#filtrarMarcasModal").modal("show");
-        },
-      },
+      // {
+      //   text: '<i class="bi bi-funnel"></i> Filtrar Marcas',
+      //   className: "btn btn-warning",
+      //   attr: {
+      //     "data-bs-toggle": "modal",
+      //     "data-bs-target": "#filtrarMarcassModal",
+      //   },
+      //   action: function () {
+      //     $("#filtrarMarcasModal").modal("show");
+      //   },
+      // },
     ],
   });
 
@@ -3960,17 +3986,17 @@ function inicializarDataTablesCatalogos() {
           $("#registrarMotivoModal").modal("show");
         },
       },
-      {
-        text: '<i class="bi bi-funnel"></i> Filtrar Motivos',
-        className: "btn btn-warning",
-        attr: {
-          "data-bs-toggle": "modal",
-          "data-bs-target": "#filtrarMotivosModal",
-        },
-        action: function () {
-          $("#filtrarMotivosModal").modal("show");
-        },
-      },
+      // {
+      //   text: '<i class="bi bi-funnel"></i> Filtrar Motivos',
+      //   className: "btn btn-warning",
+      //   attr: {
+      //     "data-bs-toggle": "modal",
+      //     "data-bs-target": "#filtrarMotivosModal",
+      //   },
+      //   action: function () {
+      //     $("#filtrarMotivosModal").modal("show");
+      //   },
+      // },
     ],
   });
 
@@ -4803,6 +4829,17 @@ $(document).on("click", ".btn-seleccionar-articulo-editar", function () {
   let nombreArticulo = $(this).data("nombre");
   let claveArticulo = $(this).data("clave");
   let precioReferencia = parseFloat($(this).data("precio")) || 0;
+  let stockArticulo = parseInt($(this).data("stock")) || 0;
+
+  // Verificar si el artículo tiene stock disponible
+  if (stockArticulo <= 0) {
+    alertToast(
+      "No se puede agregar este artículo porque no tiene stock disponible",
+      "warning",
+      3000
+    );
+    return;
+  }
 
   // Verificar si ya está agregado
   if (articulosRequisicionEditar.find((art) => art.id == articuloId)) {
