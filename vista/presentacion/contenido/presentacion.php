@@ -46,7 +46,7 @@
                     </svg>
                     <span class="break all max-w-[200px] text-gray-500 md:text-left text-center mx-auto block">Ven y conócenos</span>
 
-                    <a href="https://www.bimo.com.mx" target="_blank" class="btn-confirmar p-3">
+                    <a href="https://wa.me/+529932154479?text=Hola!%20Quiero%20saber%20m%C3%A1s%20informaci%C3%B3n%20sobre%20BIMO" target="_blank" class="btn-confirmar p-3">
                         Agenda tu Cita
                     </a>
                 </div>
@@ -72,11 +72,11 @@
                 </div>
 
                 <div class="flex flex-col gap-2 text-center fill-lab-dark transition-all duration-300 md:col-span-2 w-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="min-w-8 w-8 mx-auto block"><title>google-maps</title>
+                    <!--<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="min-w-8 w-8 mx-auto block"><title>google-maps</title>
                         <path d="M18.27 6C19.28 8.17 19.05 10.73 17.94 12.81C17 14.5 15.65 15.93 14.5 17.5C14 18.2 13.5 18.95 13.13 19.76C13 20.03 12.91 20.31 12.81 20.59C12.71 20.87 12.62 21.15 12.53 21.43C12.44 21.69 12.33 22 12 22H12C11.61 22 11.5 21.56 11.42 21.26C11.18 20.53 10.94 19.83 10.57 19.16C10.15 18.37 9.62 17.64 9.08 16.93L18.27 6M9.12 8.42L5.82 12.34C6.43 13.63 7.34 14.73 8.21 15.83C8.42 16.08 8.63 16.34 8.83 16.61L13 11.67L12.96 11.68C11.5 12.18 9.88 11.44 9.3 10C9.22 9.83 9.16 9.63 9.12 9.43C9.07 9.06 9.06 8.79 9.12 8.43L9.12 8.42M6.58 4.62L6.57 4.63C4.95 6.68 4.67 9.53 5.64 11.94L9.63 7.2L9.58 7.15L6.58 4.62M14.22 2.36L11 6.17L11.04 6.16C12.38 5.7 13.88 6.28 14.56 7.5C14.71 7.78 14.83 8.08 14.87 8.38C14.93 8.76 14.95 9.03 14.88 9.4L14.88 9.41L18.08 5.61C17.24 4.09 15.87 2.93 14.23 2.37L14.22 2.36M9.89 6.89L13.8 2.24L13.76 2.23C13.18 2.08 12.59 2 12 2C10.03 2 8.17 2.85 6.85 4.31L6.83 4.32L9.89 6.89Z" />
                     </svg>
 
-                    <span class="break all max-w-[200px] text-gray-500 md:text-left text-center mx-auto block">Nuestra Ubicacion</span>
+                    <span class="break all text-gray-500 md:text-left text-center mx-auto block">Conoce donde nos ubicamos</span>-->
 
                     <div class="max-w-full md:max-w-[500px] w-[500px] max-h-[400px] min-h-[250px]">
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3537.1410810506995!2d-92.92707980416657!3d17.999932437841135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85edd91aeccf839b%3A0x744a305b0d058aaa!2sBIMO!5e1!3m2!1ses-419!2smx!4v1755704404249!5m2!1ses-419!2smx&z=15&disableDefaultUI=true&zoomControl=false&scrollwheel=true&gestureHandling=cooperative"
@@ -85,6 +85,14 @@
                                 loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                         </iframe>
                     </div>
+
+                    <a href="https://maps.app.goo.gl/ggR8WzCugriAwMAEA" target="_blank" class="btn-confirmar p-3 fill-white hover">
+                        <span class="flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="min-w-6 w-6 mr-2"><title>google-maps</title>
+                                <path d="M18.27 6C19.28 8.17 19.05 10.73 17.94 12.81C17 14.5 15.65 15.93 14.5 17.5C14 18.2 13.5 18.95 13.13 19.76C13 20.03 12.91 20.31 12.81 20.59C12.71 20.87 12.62 21.15 12.53 21.43C12.44 21.69 12.33 22 12 22H12C11.61 22 11.5 21.56 11.42 21.26C11.18 20.53 10.94 19.83 10.57 19.16C10.15 18.37 9.62 17.64 9.08 16.93L18.27 6M9.12 8.42L5.82 12.34C6.43 13.63 7.34 14.73 8.21 15.83C8.42 16.08 8.63 16.34 8.83 16.61L13 11.67L12.96 11.68C11.5 12.18 9.88 11.44 9.3 10C9.22 9.83 9.16 9.63 9.12 9.43C9.07 9.06 9.06 8.79 9.12 8.43L9.12 8.42M6.58 4.62L6.57 4.63C4.95 6.68 4.67 9.53 5.64 11.94L9.63 7.2L9.58 7.15L6.58 4.62M14.22 2.36L11 6.17L11.04 6.16C12.38 5.7 13.88 6.28 14.56 7.5C14.71 7.78 14.83 8.08 14.87 8.38C14.93 8.76 14.95 9.03 14.88 9.4L14.88 9.41L18.08 5.61C17.24 4.09 15.87 2.93 14.23 2.37L14.22 2.36M9.89 6.89L13.8 2.24L13.76 2.23C13.18 2.08 12.59 2 12 2C10.03 2 8.17 2.85 6.85 4.31L6.83 4.32L9.89 6.89Z" />
+                            </svg> Ver Ubicación
+                        </span>
+                    </a>
                 </div>
             </div>
 
