@@ -147,9 +147,11 @@ $("#formCuestionarioRiesgo").submit(async function (event) {
   if ($('#selectSegmentos').val() != null) {
     formData.set('segmento_id', $('#selectSegmentos').val()) //
   }
-  formData.set('fechaAgenda', '2024-12-31')
+  formData.set('fechaAgenda', $("#fechaAgendar").val())
   formData.set('api', 1);
 
+  console.log(formData.keys())
+      console.log( $("#fechaAgendar").val())
 
   // console.log(formData);
   Swal.fire({

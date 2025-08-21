@@ -485,12 +485,16 @@ $menu == 'Laboratorio Biomolecular'
 
     <?php if($menu == "Requisición Maquilas"): ?>
         <div class="d-flex align-items-center justify-content-end">
+            <button id="btn-generar-reportes" type="button" role="button" class="btn btn-hover btn-generar-reporte">
+                Precios
+                <i class="fa fa-money"></i>
+            </button>
             <button id="btn-aprobar-todos" type="button" role="button" class="btn btn-hover btn-aprobar-all">
                 Aprobar todas
                 <i class="bi bi-check-all fs-4"></i>
             </button>
             <button id="btn-select-fechas" type="button" role="button" class="btn btn-hover btn-aprobar-all">
-                Seleccionar Rango de Fechas
+                Filtrar Fechas
                 <i class="fa fa-calendar"></i>
             </button>
             <button id="btn-generar-reportes" type="button" role="button" class="btn btn-hover btn-generar-reporte">

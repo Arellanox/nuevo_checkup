@@ -68,6 +68,11 @@
     </div>
   </div>
 
+    <div class="col-12">
+        <label for="fechaAgenda" class="form-label">Fecha de Cita</label>
+        <input type="date" class="form-control required input-form" id="fechaAgendar" name="fechaAgenda" placeholder="">
+    </div>
+
   <!-- <div class="col-12 col-lg-4">
     <label for="curp" class="form-label">Fecha de agenda</label>
     <input type="date" name="fechaAgenda" value="<?php echo date('Y-m-d') ?>" class="form-control required input-form" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" id="fecha-agenda">
