@@ -134,4 +134,8 @@
     .estudio-row .bi {
         margin-right: 3px;
     }
+
+    .not-hover:hover{
+        background: white !important;
+    }
 </style>

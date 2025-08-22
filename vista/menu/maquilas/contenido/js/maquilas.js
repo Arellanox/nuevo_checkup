@@ -143,7 +143,44 @@ $('#TablaMaquilaasPorAprobar tbody').on('click', 'tr', function (event) {
         tr.addClass('shown');
     }
 });
+function formatearEstudios(estudios) { //---Mostrar detalles de estudios
+    if (!Array.isArray(estudios) || estudios.length === 0) {
+        return '<div class="p-2 text-muted">Sin estudios relacionados.</div>';
+    }
 
+    let table = `
+        <div class="table-responsive">
+            <table class="table align-items-center mb-0" style="border-left: 1px solid #e9ecef; border-right: 1px solid #e9ecef">
+                <thead>
+                    <tr>
+                        <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">#</th>
+                        <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Estudio</th>
+                        <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Grupo</th>
+                        <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Abreviatura</th>
+                        <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Abreviatura Estudio</th>
+                    </tr>
+                </thead>
+                <tbody>
+    `;
+
+    estudios.forEach((estudio, index) => {
+        table += `
+            <tr>
+                <td><p class="text-xs mb-0" style="color: #0c0c0c; font-weight: 300">${index}</p></td>
+                <td><p class="text-xs mb-0" style="color: #0c0c0c; font-weight: 300">${estudio.NOMBRE_ESTUDIO}</p></td>
+                <td><p class="text-xs mb-0" style="color: #0c0c0c; font-weight: 300">${estudio.NOMBRE_GRUPO}</p></td>
+                <td><p class="text-xs mb-0" style="color: #0c0c0c; font-weight: 300">${estudio.ABREVIATURA_GRUPO}</p></td>
+                <td><p class="text-xs mb-0" style="color: #0c0c0c; font-weight: 300">${estudio.ABREVIATURA_ESTUDIO}</p></td>
+            </tr>
+        `;
+    });
+
+    table += `</tbody></table></div>`;
+
+    return table;
+}
+
+//---Acciones de las tablas
 function aprobarMaquila(id) { //---Aprobación de una maquila por fechas
     alertMensajeConfirm({
         title: '¿Está seguro de aprobar esta maquila?',
@@ -248,48 +285,10 @@ function guardarMaquilasPorEstatus(response) { //---Guardar maquilas por estatus
         { maquilasPendientes: [], maquilasCompletadas: [], maquilasRechazadas: [] }
     );
 }
-function formatearEstudios(estudios) { //---Mostrar detalles de estudios
-    if (!Array.isArray(estudios) || estudios.length === 0) {
-        return '<div class="p-2 text-muted">Sin estudios relacionados.</div>';
-    }
-
-    let table = `
-        <div class="table-responsive">
-            <table class="table align-items-center mb-0" style="border-left: 1px solid #e9ecef; border-right: 1px solid #e9ecef">
-                <thead>
-                    <tr>
-                        <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">#</th>
-                        <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Estudio</th>
-                        <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Grupo</th>
-                        <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Abreviatura</th>
-                        <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Abreviatura Estudio</th>
-                    </tr>
-                </thead>
-                <tbody>
-    `;
-
-    estudios.forEach((estudio, index) => {
-        table += `
-            <tr>
-                <td><p class="text-xs mb-0" style="color: #0c0c0c; font-weight: 300">${index}</p></td>
-                <td><p class="text-xs mb-0" style="color: #0c0c0c; font-weight: 300">${estudio.NOMBRE_ESTUDIO}</p></td>
-                <td><p class="text-xs mb-0" style="color: #0c0c0c; font-weight: 300">${estudio.NOMBRE_GRUPO}</p></td>
-                <td><p class="text-xs mb-0" style="color: #0c0c0c; font-weight: 300">${estudio.ABREVIATURA_GRUPO}</p></td>
-                <td><p class="text-xs mb-0" style="color: #0c0c0c; font-weight: 300">${estudio.ABREVIATURA_ESTUDIO}</p></td>
-            </tr>
-        `;
-    });
-
-    table += `</tbody></table></div>`;
-
-    return table;
-}
 
 //---Aprobación de todas las maquilas pendientes
 $('#btn-aprobar-todos').on('click', function () { aprobarTodasMaquilas(maquilasPendientes); });
-$('#btn-select-fechas').on('click', function () {
-    $('#modal-select-fechas').modal('show');
-})
+$('#btn-select-fechas').on('click', function () { $('#modal-select-fechas').modal('show'); })
 $('#btn-confirmar-seleccion-fechas').on('click', function () {
     const fecha_inicial = $('[name="fecha_inicio"]').val();
     const fecha_final = $('[name="fecha_final"]').val();
@@ -388,6 +387,7 @@ function generarReporteMaquilas(event){ //--Generar reportes de un laboratorio
     }, 1, function () { alert("Acción cancelada."); }, () => {});
 }
 
+/*
 //---Modal listado de precios por laboratorios
 $('#btn-modal-lista-precios').on('click', function (event) {
     event.preventDefault();
@@ -409,7 +409,6 @@ $('#btn-confirm-laboratorio').on('click', function (event) { //---Consultar API 
         llenarTablaServicios(response.response.data)
     });
 });
-
 
 function llenarTablaServicios(servicios) {
     const tbody = $('#TablaListadoPreciosEstudiosLab tbody');
@@ -468,8 +467,8 @@ function llenarTablaServicios(servicios) {
                                 </thead>
                                 <tbody>
                                     <tr style="user-select: none">
-                                        <td><i class="bi bi-box2-heart"></i> ${estudio.DESCRIPCION}</td>  
-                                        <td><i class="bi bi-tag"></i> ${estudio.ABREVIATURA ? estudio.ABREVIATURA : ''}</td>                                              
+                                        <td><i class="bi bi-box2-heart"></i> ${estudio.DESCRIPCION}</td>
+                                        <td><i class="bi bi-tag"></i> ${estudio.ABREVIATURA ? estudio.ABREVIATURA : ''}</td>
                                         <td><i class="bi bi-currency-dollar"></i> ${precioVenta}</td>
                                     </tr>
                                 </tbody>
@@ -484,14 +483,14 @@ function llenarTablaServicios(servicios) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="tr-estudio-details" 
+                                    <tr class="tr-estudio-details"
                                         data-id-alias="${idAlias}"
-                                        data-abreviatura="${clavelab}" 
+                                        data-abreviatura="${clavelab}"
                                         data-alias="${nombreAlias}"
                                         data-precio="${precioLab}"
                                     >
-                                        <td style="color: #007bff;"><i class="bi bi-box2-heart"></i> ${nombreAlias}</td>  
-                                        <td><i class="bi bi-tag"></i> ${clavelab}</td>                                              
+                                        <td style="color: #007bff;"><i class="bi bi-box2-heart"></i> ${nombreAlias}</td>
+                                        <td><i class="bi bi-tag"></i> ${clavelab}</td>
                                         <td><i class="bi bi-currency-dollar"></i>${precioLab}</td>
                                     </tr>
                                 </tbody>
@@ -526,4 +525,4 @@ function llenarTablaServicios(servicios) {
             $(this).css('background-color', '#e3f2fd');
         }
     });
-}
+}*/

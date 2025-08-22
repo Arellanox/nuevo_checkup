@@ -7,6 +7,7 @@ async function contenidoMaquilas(){
         $("#body-js").html(html);
     }).done(function(){
         $.getScript("contenido/js/maquilas.js");
+        $.getScript("contenido/js/maquilas_lista_precios.js");
     })
 }
 
