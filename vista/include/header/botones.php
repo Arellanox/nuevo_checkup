@@ -485,7 +485,7 @@ $menu == 'Laboratorio Biomolecular'
 
     <?php if($menu == "Requisición Maquilas"): ?>
         <div class="d-flex align-items-center justify-content-end">
-            <button id="btn-generar-reportes" type="button" role="button" class="btn btn-hover btn-generar-reporte">
+            <button id="btn-modal-lista-precios" type="button" role="button" class="btn btn-hover btn-generar-reporte">
                 Precios
                 <i class="fa fa-money"></i>
             </button>

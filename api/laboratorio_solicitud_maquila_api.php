@@ -91,8 +91,60 @@ switch ($api) {
             $estudio_laboratorio_id, $estudio_servicio_id, $estudio_alias, $estudio_clave, $estudio_precio
         ]);
         break;
+    case 10: // Recuperar todos los grupos de estudios y ordenación para su entrega por laboratorios
+        $response = $master->getByProcedure('sp_obtener_todos_servicios_estudios_b', [
+            $id_laboratorio_maquila
+        ]);
+
+        $servicios = [];
+
+        foreach ($response as $row) {
+            $servicioId = $row['ID_SERVICIO'];
+
+            // Si el servicio no existe aún, lo agregamos
+            if (!isset($servicios[$servicioId])) {
+                $servicios[$servicioId] = [
+                    'ID_SERVICIO' => $row['ID_SERVICIO'],
+                    'DESCRIPCION' => $row['DESCRIPCION'],
+                    'ABREVIATURA' => $row['ABREVIATURA'],
+                    'AREA_ID' => $row['AREA_ID'],
+                    'CLASIFICACION_ID' => $row['CLASIFICACION_ID'],
+                    'ES_GRUPO' => $row['ES_GRUPO'],
+                    'PRECIO_VENTA' => $row['PRECIO_VENTA'],
+                    'LABORATORIO_ID' => $row['LABORATORIO_ID'],
+                    'ESTUDIOS' => [], // Aquí se guardarán los estudios
+                ];
+            }
+
+            // Agregamos el estudio al arreglo de estudios del servicio
+            $servicios[$servicioId]['ESTUDIOS'][] = [
+                'ID_ESTUDIO' => $row['ID_ESTUDIO'],
+                'DESCRIPCION' => $row['ESTUDIO_DESCRIPCION'],
+                'ABREVIATURA' => $row['ESTUDIO_ABREVIATURA'],
+                'AREA_ID' => $row['ESTUDIO_AREA_ID'],
+                'CLASIFICACION_ID' => $row['ESTUDIO_CLASIFICACION_ID'],
+                'ES_GRUPO' => $row['ESTUDIO_ES_GRUPO'],
+                'PRECIO_VENTA' => $row['ESTUDIO_PRECIO_VENTA'],
+                'LABORATORIO_ID' => $row['ESTUDIO_LABORATORIO_ID'],
+                'ORDEN' => $row['ORDEN'],
+                // Alias si existe
+                'ALIAS' => [
+                    'ID_ALIAS' => $row['ID_ALIAS'],
+                    'LAB_ESTUDIO_CLAVE' => $row['LAB_ESTUDIO_CLAVE'],
+                    'LAB_ESTUDIO_NOMBRE' => $row['LAB_ESTUDIO_NOMBRE'],
+                    'LABORATORIO_ID' => $row['LAB_ALIAS_LABORATORIO_ID'],
+                    'SERVICIO_ID' => $row['LAB_ALIAS_SERVICIO_ID'],
+                    'PRECIO' => $row['LAB_ALIAS_PRECIO'],
+                ]
+            ];
+        }
+
+        // Opcional: reindexar servicios por posición numérica en lugar de IDs
+        $servicios = array_values($servicios);
+        $response = $servicios;
+        break;
     default:
-        $response = "API no definida";;
+        $response = "API no definida";
         break;
 }
 
