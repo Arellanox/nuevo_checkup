@@ -9,7 +9,10 @@ $('#btn-modal-lista-precios').on('click', function (event) {
 
 $('#btn-confirm-laboratorio').on('click', function (event) { //---Consultar API para obtener los servicios y estudios del laboratorio seleccionado
     event.preventDefault();
+    getServiciosAndEstudiosAlias();
+});
 
+function getServiciosAndEstudiosAlias(){
     ajaxAwait({
         api: 10,
         LABORATORIO_MAQUILA_ID: $('#select-laboratorios-maquila-by-list').val()
@@ -21,7 +24,7 @@ $('#btn-confirm-laboratorio').on('click', function (event) { //---Consultar API 
 
         inicializarTablaServicios(response.response.data)
     });
-});
+}
 
 function inicializarTablaServicios(servicios) {
     // Destruir tabla anterior si existe
@@ -124,7 +127,7 @@ function formatearEstudiosListaPrecios(estudios) {
         const precioVenta = estudio.PRECIO_VENTA ? parseFloat(estudio.PRECIO_VENTA).toFixed(2) : 'Sin precio';
 
         table += `
-            <tr class='tr-estudio-details' style="cursor: pointer" data-id-alias="${idAlias}" data-abreviatura="${clavelab}" data-alias="${nombreAlias}" data-precio="${precioLab}">
+            <tr onclick="asociarEstudios(${idAlias || 'null'}, ${idAlias || estudio.ID_ESTUDIO}, '${clavelab}', '${nombreAlias}', '${precioLab}')" class='tr-estudio-details' style="cursor: pointer">
                  <td>
                     ${index + 1}
                  </td>
@@ -150,5 +153,48 @@ function formatearEstudiosListaPrecios(estudios) {
     return table;
 }
 
+let seletedTempLabId, selectedTempEstudioId, tempIdAlias;
 
+function asociarEstudios(idAlias, estudioId, claveAlias, nombreAlias, precioAlias) {
+    seletedTempLabId = $('#select-laboratorios-maquila-by-list').val();
+    tempIdAlias = idAlias;
+    selectedTempEstudioId = estudioId;
+
+    $('#asociar_alias_estudio').val(nombreAlias != 'Sin alias' ? nombreAlias : '');
+    $('#asociar_clave_estudio').val(claveAlias != 'Sin clave' ? claveAlias : '');
+    $('#asociar_precio_estudio').val(precioAlias != 'Sin precio' ? precioAlias : 0);
+
+    $('#modalAsociarEstudio').modal('show');
+}
+
+$("#btn_confirm_alias").on("click", function () {
+    const precio = $('#asociar_precio_estudio').val();
+    const clave = $('#asociar_clave_estudio').val();
+    const alias = $('#asociar_alias_estudio').val();
+    
+    if (seletedTempLabId.length > 0 && clave.length > 0 && alias.length > 0) {
+        alertMensajeConfirm({
+            title: '¿Seguro de Registrar/Actualizar?',
+            html: `Se registrará el Alías <strong>${alias}</strong> con la Cláve <strong>${clave}</strong>`,
+            icon: 'warning',
+            confirmButtonText: 'Registrar Alias',
+        }, () => {
+            ajaxAwait({
+                SERVICIO_ESTUDIO_ID: selectedTempEstudioId,
+                NOMBRE_ALIAS_ESTUDIO: alias,
+                CLAVE_ALIAS_ESTUDIO: clave,
+                PRECIO_ALIAS_ESTUDIO: precio ?? 0,
+                LABORATORIO_MAQUILA_ID: seletedTempLabId,
+                api: 9
+            }, 'laboratorio_solicitud_maquila_api', {callbackAfter: true}, false, () => {
+                alertMensaje('info', '¡Alias Registrado!', 'El alias se ha registrado con exito.');
+                getServiciosAndEstudiosAlias();
+
+                $('#modalAsociarEstudio').modal('hide');
+            });
+        }, 1);
+    } else {
+        alertToast('Selecciona un estudio, ingresa un alias e ingresa la clave del estudio.', 'warning', 4000);
+    }
+});
 
