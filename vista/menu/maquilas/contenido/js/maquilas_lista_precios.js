@@ -43,6 +43,24 @@ function inicializarTablaServicios(servicios) {
         ordering: false,
         info: true,
         data: servicios,
+        ajax: {
+            dataType: 'json',
+            data: function (d) {
+                return {
+                    api: 10,
+                    LABORATORIO_MAQUILA_ID: $('#select-laboratorios-maquila-by-list').val()
+                }
+            },
+            method: 'POST',
+            url: `${http}${servidor}/${appname}/api/laboratorio_solicitud_maquila_api.php`,
+            complete: function () {
+                TablaVistaMedicosTratantes.columns.adjust().draw()
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alertErrorAJAX(jqXHR, textStatus, errorThrown);
+            },
+            dataSrc: 'response.data'
+        },
         columns: [
             {
                 className: 'dt-control',
@@ -127,7 +145,9 @@ function formatearEstudiosListaPrecios(estudios) {
         const precioVenta = estudio.PRECIO_VENTA ? parseFloat(estudio.PRECIO_VENTA).toFixed(2) : 'Sin precio';
 
         table += `
-            <tr onclick="asociarEstudios(${idAlias || 'null'}, ${idAlias || estudio.ID_ESTUDIO}, '${clavelab}', '${nombreAlias}', '${precioLab}')" class='tr-estudio-details' style="cursor: pointer">
+            <tr 
+            data-bs-toggle="tooltip" data-bs-title="Clic para actualizar la información" data-bs-placement="right"
+            onclick="asociarEstudios(${idAlias || 'null'}, ${idAlias || estudio.ID_ESTUDIO}, '${clavelab}', '${nombreAlias}', '${precioLab}')" class='tr-estudio-details' style="cursor: pointer">
                  <td>
                     ${index + 1}
                  </td>
@@ -171,7 +191,7 @@ $("#btn_confirm_alias").on("click", function () {
     const precio = $('#asociar_precio_estudio').val();
     const clave = $('#asociar_clave_estudio').val();
     const alias = $('#asociar_alias_estudio').val();
-    
+
     if (seletedTempLabId.length > 0 && clave.length > 0 && alias.length > 0) {
         alertMensajeConfirm({
             title: '¿Seguro de Registrar/Actualizar?',
@@ -188,7 +208,8 @@ $("#btn_confirm_alias").on("click", function () {
                 api: 9
             }, 'laboratorio_solicitud_maquila_api', {callbackAfter: true}, false, () => {
                 alertMensaje('info', '¡Alias Registrado!', 'El alias se ha registrado con exito.');
-                getServiciosAndEstudiosAlias();
+                //getServiciosAndEstudiosAlias();
+                //tablaServicios.ajax.reload()
 
                 $('#modalAsociarEstudio').modal('hide');
             });
@@ -198,3 +219,7 @@ $("#btn_confirm_alias").on("click", function () {
     }
 });
 
+$(".btn-refresh").on("click", function () {
+    tablaServicios.ajax.reload();
+    alertMensaje("success", "Tabla actualizada!", "Ahora los cambios son visibles")
+})

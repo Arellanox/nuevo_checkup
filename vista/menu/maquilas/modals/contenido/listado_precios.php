@@ -46,9 +46,14 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-refresh btn-confirmar" data-bs-toggle="tooltip"
+                        data-bs-title="Recarga la tabla para visualizar cambios realizados. (Usar cuando sea necesario)">
+                    Actualizar Tabla
+                    <i class="bi bi-update"></i>
+                </button>
                 <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
                     Salir
-                    <i class="bi bi-arrow-left-short"></i>
+                    <i class="bi bi-arrow-right-short"></i>
                 </button>
             </div>
         </div>
