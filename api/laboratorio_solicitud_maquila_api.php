@@ -143,6 +143,11 @@ switch ($api) {
         $servicios = array_values($servicios);
         $response = $servicios;
         break;
+    case 11:
+        $response = $master->getByProcedure("sp_obtener_todos_alias_estudios", [
+            $id_laboratorio_maquila
+        ]);
+        break;
     default:
         $response = "API no definida";
         break;

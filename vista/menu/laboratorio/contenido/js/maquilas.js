@@ -1,6 +1,7 @@
-var selectServicioMaquilaId = null; // Servicio a maquilar (principal)
+/*var selectServicioMaquilaId = null; // Servicio a maquilar (principal)
 var selectLaboratorioMaquilaId = null; // Laboratorio seleccionado para maquila
 var listaEstudiosDelServicio = []; //Estudios del servicio seleccionado (solo para mostrar estudios)
+var listaEstudiosAliases = []; //Lista de alias de estudios de laboratorios*/
 
 var maquilas_pendientes = $('#TablaMaquilasPendientesAprovacion').DataTable({
     language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json" },
@@ -53,6 +54,21 @@ var maquilas_pendientes = $('#TablaMaquilasPendientesAprovacion').DataTable({
         {data: "LAB_MAQUILA_REGISTRO"}
     ],
     columnDefs: [ { width: "50px", targets: 0 } ]
+});
+
+/*
+
+//Marca todos los checkbox como activado
+$("#checkFullEstudios").on('click', function () {
+    if ($(this).is(':checked')) {
+        $('.input-estudios-check').prop('checked', true);
+    } else {
+        $('.input-estudios-check').prop('checked', false);
+    }
+});
+
+$('#inputBuscarEstudio').on('input', function () {
+    filtrarListaCheckboxEstudio($(this).val());
 });
 
 //Confirmación de maquila de estudios
@@ -121,12 +137,23 @@ $(document).on('click', '.btn-maquila-estudios', async function (event) {
     }
 });
 
-// Actualiza los checkbox de estudios según el servicio seleccionado
-$('#select-laboratorios-maquila').on('change', function () {
+// Actualiza los checkbox de estudios al cambiar la selección del laboratorio de maquilación
+$('#select-laboratorios-maquila').on('change', async function () {
+    alertToast('Actualizando estudios...', 'info', 1000)
     selectLaboratorioMaquilaId = $(this).val();
-    actualizarListaCheckboxEstudio();
+
+    await ajaxAwait({
+        api: 11, LABORATORIO_MAQUILA_ID: selectLaboratorioMaquilaId
+    }, 'laboratorio_solicitud_maquila_api', {callbackAfter: true}, false, function (data) {
+        listaEstudiosAliases = data.response.data; // Estudios del servicio general
+
+        if(validarListaAlias()){
+            actualizarListaCheckboxEstudio();
+        }
+    });
 });
 
+// Asocia el alias del estudio del laboratorio seleccionado con el estudio de nuestro servicio actual
 $("#btn_confirm_alias").on("click", function () {
     const estudio = $('#servicio_estudio_id option:selected').text();
     const servicioId = $('#servicio_estudio_id').val();
@@ -161,17 +188,7 @@ $("#btn_confirm_alias").on("click", function () {
     }
 });
 
-$("#checkFullEstudios").on('click', function () {
-    if ($(this).is(':checked')) {
-        $('.input-estudios-check').prop('checked', true);
-    } else {
-        $('.input-estudios-check').prop('checked', false);
-    }
-});
 
-$('#inputBuscarEstudio').on('input', function () {
-    filtrarListaCheckboxEstudio($(this).val());
-});
 
 $('#modalMaquilaEstudios').on('hide.bs.modal', function () {
     resetMaquilaModal();
@@ -237,7 +254,7 @@ function filtrarListaCheckboxEstudio(busqueda) {
 function crearDetallesListaCheckboxEstudio(i) {
     if (listaEstudiosDelServicio[i].LAB_ALIAS_LABORATORIO_ID != null) {
         return `
-           <div class="form-check-lista-estudios-details" data-bs-toggle="tooltip" data-id="${listaEstudiosDelServicio[i].ID_ESTUDIO}" data-bs-placement="bottom" title="Haz click para editar el alias">
+           <div class="form-check-lista-estudios-details" data-bs-toggle="tooltip" data-id="${listaEstudiosDelServicio[i].ID_ALIAS}" data-bs-placement="bottom" title="Haz click para editar el alias">
                <p style="font-weight: bold">Alias: <span style="color: #6a6a6a; font-weight: normal">${listaEstudiosDelServicio[i].LAB_ESTUDIO_NOMBRE}</span></p>
                <p style="font-weight: bold">Clave: <span style="color: #6a6a6a; font-weight: normal">${listaEstudiosDelServicio[i].LAB_ESTUDIO_CLAVE}</span></p>
                <p style="font-weight: bold">Precio: <span style="color: #6a6a6a; font-weight: normal">$${listaEstudiosDelServicio[i].LAB_ALIAS_PRECIO || '0.00'}</span></p>
@@ -245,7 +262,7 @@ function crearDetallesListaCheckboxEstudio(i) {
         `;
     } else {
         return`
-            <div class="form-check-lista-estudios-details" data-bs-toggle="tooltip" data-id="${listaEstudiosDelServicio[i].ID_ESTUDIO}" data-bs-placement="bottom" title="Haz click para agregar un alias">
+            <div class="form-check-lista-estudios-details" data-bs-toggle="tooltip" data-id="${listaEstudiosDelServicio[i].ID_ALIAS}" data-bs-placement="bottom" title="Haz click para agregar un alias">
                 <i class="bi bi-pencil-fill"></i> No hay alias asociado
             </div>
         `;
@@ -270,27 +287,31 @@ async function actualizarListaCheckboxEstudio() {
 function aplicarEventosCheckboxEstudio() {
     document.querySelectorAll('.form-check-lista-estudios-details').forEach(el => {
         el.addEventListener('click', () => {
-            registrarAliasEstudio(el.dataset.id);
+            registrarAliasEstudio(el.dataset.id ?? null);
         });
     });
 }
 
-function registrarAliasEstudio(estudioId = null) {
+function registrarAliasEstudio(alias_id = null) {
     alertToast('Cargando información, espera un momento', 'info', 1500);
+    select2('#servicio_estudio_id', 'modalAsociarEstudio', 'Selecciona una estudio');
 
-    rellenarOrdenarSelect('#servicio_estudio_id', 'laboratorio_solicitud_maquila_api', 7, 'ID_ESTUDIO', 'NOMBRE_ESTUDIO', {
-        ID_GRUPO_SERVICIO: selectServicioMaquilaId
-    }, () => {
-        if (estudioId) {
-            $('#servicio_estudio_id').val(estudioId).trigger('change');
-            $('#servicio_estudio_id').prop('disabled', true);
-            $('#asociar_alias_estudio').val(listaEstudiosDelServicio.find(estudio => estudio.ID_ESTUDIO == estudioId).LAB_ESTUDIO_NOMBRE);
-            $('#asociar_clave_estudio').val(listaEstudiosDelServicio.find(estudio => estudio.ID_ESTUDIO == estudioId).LAB_ESTUDIO_CLAVE);
-            $('#asociar_precio_estudio').val(listaEstudiosDelServicio.find(estudio => estudio.ID_ESTUDIO == estudioId).LAB_ALIAS_PRECIO);
+    rellenarOrdenarSelect('#servicio_estudio_id', 'laboratorio_solicitud_maquila_api', 11, 'ID_ALIAS', 'ESTUDIO', {
+        LABORATORIO_MAQUILA_ID: selectLaboratorioMaquilaId,
+    }, (data) => {
+        if (validarListaAlias()) {
+            if (alias_id !== undefined && alias_id !== null && alias_id !== "null") {
+                $('#servicio_estudio_id').val(alias_id).trigger('change');
+                $('#asociar_alias_estudio').val(listaEstudiosAliases.find(estudio => estudio.ID_ALIAS == alias_id)?.LAB_ESTUDIO_NOMBRE);
+                $('#asociar_clave_estudio').val(listaEstudiosAliases.find(estudio => estudio.ID_ALIAS == alias_id)?.LAB_ESTUDIO_CLAVE);
+                $('#asociar_precio_estudio').val(listaEstudiosAliases.find(estudio => estudio.ID_ALIAS == alias_id)?.LAB_ALIAS_PRECIO);
+            } else {
+                $('#asociar_alias_estudio').val(listaEstudiosAliases[0].LAB_ESTUDIO_NOMBRE);
+            }
+
+            $('#modalAsociarEstudio').modal('show');
         }
-
-        $('#modalAsociarEstudio').modal('show');
-    })
+    });
 }
 
 function resetMaquilaModal() {
@@ -304,3 +325,15 @@ function resetAliasModal() {
     $('#asociar_clave_estudio').val('');
     $('#asociar_precio_estudio').val('');
 }
+
+function validarListaAlias() {
+    if (listaEstudiosAliases.length === 0) {
+        alertMensaje('info', 'Registro de estudios', 'No hay estudios disponibles para este laboratorio en este momento, seleccióne otro.');
+        $('#body-maquila-estudios-grupos-container').html(`<p class="text-center">No se encontraron estudios para maquila.</p>`);
+        return false;
+    }
+
+    return true;
+}
+
+*/

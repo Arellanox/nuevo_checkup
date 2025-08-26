@@ -18,18 +18,18 @@
                 <div>
                     <label class="form-label">Alias del Estudio</label>
                     <p>Alias del estudio a asociar de acuerdo al laboratorio</p>
-                    <input id="asociar_alias_estudio" type="text" class="form-control input-form" placeholder="Ingresa el alias del estudio">
+                    <input id="asociar_alias_estudio" type="text" disabled class="form-control input-form" placeholder="Ingresa el alias del estudio">
                 </div>
                 <div class="d-flex justify-content-between">
                     <div style="margin-right: 5px">
                         <label class="form-label">Clave del Estudio</label>
-                        <input id="asociar_clave_estudio" type="text" class="form-control input-form" placeholder="Ingresa la clave del estudio">
+                        <input id="asociar_clave_estudio" type="text" disabled class="form-control input-form" placeholder="Ingresa la clave del estudio">
                     </div>
                     <div style="margin-left: 5px">
                         <label class="form-label">Precio (No obligatorio)</label>
                         <div class="input-group">
                             <span class="input-span">$</span>
-                            <input id="asociar_precio_estudio" type="number" class="form-control input-form total" placeholder="" value="0.00">
+                            <input id="asociar_precio_estudio" type="number" disabled class="form-control input-form total" placeholder="" value="0.00">
                         </div>
                     </div>
                 </div>

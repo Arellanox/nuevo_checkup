@@ -17,6 +17,7 @@ async function obtenerContenidoLaboratorio(titulo) {
         $.getScript('contenido/js/lista-tabla.js');
         $.getScript('contenido/js/laboratorio-botones.js');
         $.getScript('contenido/js/maquilas.js');
+        $.getScript('contenido/js/maquilas_aliases.js');
 
         await obtenerBadgePendientesLabClinico();
     });
