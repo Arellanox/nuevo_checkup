@@ -1,4 +1,3 @@
-let tablaServicios; // variable global para DataTable
 
 //---Modal listado de precios por laboratorios
 $('#btn-modal-lista-precios').on('click', function (event) {
@@ -54,6 +53,7 @@ function inicializarTablaServicios(servicios) {
             method: 'POST',
             url: `${http}${servidor}/${appname}/api/laboratorio_solicitud_maquila_api.php`,
             complete: function () {
+
                 TablaVistaMedicosTratantes.columns.adjust().draw()
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -138,16 +138,13 @@ function formatearEstudiosListaPrecios(estudios) {
 
     estudios.forEach((estudio, index) => {
         const alias = estudio.ALIAS || {};
-        const precioLab = alias.PRECIO ? parseFloat(alias.PRECIO).toFixed(2) : 'Sin precio';
-        const clavelab = alias.LAB_ESTUDIO_CLAVE || 'Sin clave';
-        const nombreAlias = alias.LAB_ESTUDIO_NOMBRE || 'Sin alias';
         const idAlias = alias.ID_ALIAS;
         const precioVenta = estudio.PRECIO_VENTA ? parseFloat(estudio.PRECIO_VENTA).toFixed(2) : 'Sin precio';
 
         table += `
             <tr 
             data-bs-toggle="tooltip" data-bs-title="Clic para actualizar la información" data-bs-placement="right"
-            onclick="asociarEstudios(${idAlias || 'null'}, ${idAlias || estudio.ID_ESTUDIO}, '${clavelab}', '${nombreAlias}', '${precioLab}')" class='tr-estudio-details' style="cursor: pointer">
+            onclick="asociarEstudios(${idAlias || null}, ${estudio.ID_ESTUDIO}, $('#select-laboratorios-maquila-by-list').val())" class='tr-estudio-details' style="cursor: pointer">
                  <td>
                     ${index + 1}
                  </td>
@@ -173,6 +170,7 @@ function formatearEstudiosListaPrecios(estudios) {
     return table;
 }
 
+/*
 let seletedTempLabId, selectedTempEstudioId, tempIdAlias;
 
 function asociarEstudios(idAlias, estudioId, claveAlias, nombreAlias, precioAlias) {
@@ -222,4 +220,4 @@ $("#btn_confirm_alias").on("click", function () {
 $(".btn-refresh").on("click", function () {
     tablaServicios.ajax.reload();
     alertMensaje("success", "Tabla actualizada!", "Ahora los cambios son visibles")
-})
+})*/
