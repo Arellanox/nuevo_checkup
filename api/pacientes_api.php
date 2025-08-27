@@ -122,8 +122,8 @@ switch ($api) {
         $parametros[28] = $talla; //Se asgina a la posición 28 directamente
         $response = $master->updateByProcedure("sp_pacientes_g", $parametros);*/
 
-        $master->setLog(json_encode($medios), 'Medios ');
-        $master->setLog(json_encode($medios_entrega), 'Medios de entrega ');
+//        $master->setLog(json_encode($medios), 'Medios ');
+//        $master->setLog(json_encode($medios_entrega), 'Medios de entrega ');
 
         $response = $master->updateByProcedure("sp_pacientes_g", [
             $parametros[0], $parametros[1], $parametros[2], $parametros[3], $parametros[4], $parametros[5],

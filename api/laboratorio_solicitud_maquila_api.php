@@ -20,11 +20,13 @@ $fecha_fin = $_POST['FECHA_FIN'];
 $id_grupo_servicio = $_POST['ID_GRUPO_SERVICIO'];
 $lista_estudios = $_POST['LISTA_ESTUDIOS'];
 
-$estudio_alias = $_POST['NOMBRE_ALIAS_ESTUDIO'];
-$estudio_clave = $_POST['CLAVE_ALIAS_ESTUDIO'];
-$estudio_precio= $_POST['PRECIO_ALIAS_ESTUDIO'];
-$estudio_servicio_id = $_POST['SERVICIO_ESTUDIO_ID'];
+//$estudio_alias = $_POST['NOMBRE_ALIAS_ESTUDIO'];
+//$estudio_clave = $_POST['CLAVE_ALIAS_ESTUDIO'];
+//$estudio_precio= $_POST['PRECIO_ALIAS_ESTUDIO'];
+
+$laboratorio_alias_id = $_POST['LABORATORIO_ALIAS_ID'];
 $estudio_laboratorio_id = $_POST['LABORATORIO_MAQUILA_ID'];
+$estudio_servicio_id = $_POST['SERVICIO_ESTUDIO_ID'];
 
 switch ($api) {
     case 1:
@@ -87,8 +89,12 @@ switch ($api) {
         ]);
         break;
     case 9: // Registrar alias de estudios a maquilar
-        $response = $master->insertByProcedure('sp_laboratorio_estudios_maquila_alias_g', [
-            $estudio_laboratorio_id, $estudio_servicio_id, $estudio_alias, $estudio_clave, $estudio_precio
+        $master->setLog(json_encode([$estudio_laboratorio_id, $laboratorio_alias_id, $estudio_servicio_id]), 'Detalles');
+
+        $response = $master->insertByProcedure('sp_laboratorio_estudios_equivalencias_g', [
+            $estudio_laboratorio_id,
+            $laboratorio_alias_id,
+            $estudio_servicio_id
         ]);
         break;
     case 10: // Recuperar todos los grupos de estudios y ordenación para su entrega por laboratorios

@@ -1,8 +1,12 @@
-var selectServicioMaquilaId = null; // Servicio a maquilar (principal)
 var selectLaboratorioMaquilaId = null; // Laboratorio seleccionado para maquila
 var listaEstudiosDelServicio = []; //Estudios del servicio seleccionado (solo para mostrar estudios)
 var listaEstudiosAliases = []; //Lista de alias de estudios de laboratorios
-var tempIdAliases = null;
+
+var estudioHasIdAlias = null; // Buscamos si el estudio seleccionado ya tiene un alias y si es asi obtenemos el idAlias
+var estudioAuxByHasIdAliasIsNull = null; // Auxiliar cuando el estudio no tiene un alias, entonces usamos el id del estudio
+var associatedSelectIdAlias = null;
+var selectServicioMaquilaId = null; // Servicio a maquilar (principal) desplega todos los estudios que tiene
+var autorellenar = true; //Axuiliar para evitar un ciclo redudante en triggers
 
 //_______________________ MAQUILACIÓN _____________________________
 
@@ -20,15 +24,15 @@ $("#checkFullEstudios").on('click', function () {
     } else $('.input-estudios-check').prop('checked', false);
 });
 
-// Muestra el modal con los estudios a seleccionar o deseleccionar para maquilar
+// Muestra el modal con los estudios a seleccionar o deseleccionar para maquilar [PASO 1]
 $(document).on('click', '.btn-maquila-estudios', async function (event) {
     event.preventDefault();
     alertToast('Cargando grupo de estudios, espera un momento', 'info', 1000);
 
     try {
         await rellenarOrdenarSelect('#select-laboratorios-maquila', 'laboratorio_maquila_api', 2, 'ID_LABORATORIO', 'DESCRIPCION', {}, async () => {
-            selectServicioMaquilaId = $(this).attr('data-bs-id');
-            selectLaboratorioMaquilaId = $('#select-laboratorios-maquila').val();
+            selectServicioMaquilaId = $(this).attr('data-bs-id'); //Seleccionar para mostrar de acuerdo al servicio seleccionado
+            selectLaboratorioMaquilaId = $('#select-laboratorios-maquila').val(); // Rellenamos el laboratorio
         });
 
         await ajaxAwait({
@@ -95,9 +99,12 @@ $(document).on('click', '.btn-modal-maquila-confirm', function (event) {
 });
 
 // Actualiza los checkbox de estudios al cambiar la selección del laboratorio de maquilación
-$('#select-laboratorios-maquila').on('change', async function () {
+$('#select-laboratorios-maquila').on('change', async function (e) {
+    e.preventDefault();
+
     alertToast('Actualizando estudios...', 'info', 1000)
     selectLaboratorioMaquilaId = $(this).val();
+    console.log("Valor seleccionado:", $(this).val());
 
     await ajaxAwait({
         api: 11, LABORATORIO_MAQUILA_ID: selectLaboratorioMaquilaId
@@ -142,7 +149,8 @@ function crearListaCheckboxEstudio() {
 function crearDetallesListaCheckboxEstudio(i) {
     if (listaEstudiosDelServicio[i].LAB_ALIAS_LABORATORIO_ID != null) {
         return `
-           <div class="form-check-lista-estudios-details" data-bs-toggle="tooltip" data-id="${listaEstudiosDelServicio[i].ID_ALIAS}" data-bs-placement="bottom" title="Haz click para editar el alias">
+           <div class="form-check-lista-estudios-details" data-bs-toggle="tooltip" data-id="${listaEstudiosDelServicio[i].ID_ALIAS}" 
+                data-service="${listaEstudiosDelServicio[i].ID_ESTUDIO}" data-bs-placement="bottom" title="Haz click para editar el alias">
                <p style="font-weight: bold">Alias: <span style="color: #6a6a6a; font-weight: normal">${listaEstudiosDelServicio[i].LAB_ESTUDIO_NOMBRE}</span></p>
                <p style="font-weight: bold">Clave: <span style="color: #6a6a6a; font-weight: normal">${listaEstudiosDelServicio[i].LAB_ESTUDIO_CLAVE}</span></p>
                <p style="font-weight: bold">Precio: <span style="color: #6a6a6a; font-weight: normal">$${listaEstudiosDelServicio[i].LAB_ALIAS_PRECIO || '0.00'}</span></p>
@@ -150,7 +158,8 @@ function crearDetallesListaCheckboxEstudio(i) {
         `;
     } else {
         return`
-            <div class="form-check-lista-estudios-details" data-bs-toggle="tooltip" data-id="${listaEstudiosDelServicio[i].ID_ALIAS}" data-bs-placement="bottom" title="Haz click para agregar un alias">
+            <div class="form-check-lista-estudios-details" data-bs-toggle="tooltip" data-id="${listaEstudiosDelServicio[i].ID_ALIAS}" 
+                data-service="${listaEstudiosDelServicio[i].ID_ESTUDIO}" data-bs-placement="bottom" title="Haz click para agregar un alias">
                 <i class="bi bi-pencil-fill"></i> No hay alias asociado
             </div>
         `;
@@ -161,7 +170,9 @@ function crearDetallesListaCheckboxEstudio(i) {
 function aplicarEventosCheckboxEstudio() {
     document.querySelectorAll('.form-check-lista-estudios-details').forEach(el => {
         el.addEventListener('click', () => {
-            tempIdAliases = el.dataset.id ?? null;
+            estudioHasIdAlias = (el.dataset.id == "null" || el.dataset.id == null) ? null : el.dataset.id; // Buscamos obtener el idAlias
+            estudioAuxByHasIdAliasIsNull = el.dataset.service; // Auxiliar por si no tiene el id alias
+
             openModalAliassesForm();
         });
     });
@@ -197,10 +208,11 @@ async function actualizarListaCheckboxEstudio() {
         ID_GRUPO_SERVICIO: selectServicioMaquilaId, // Servicio general
         LABORATORIO_MAQUILA_ID: selectLaboratorioMaquilaId
     }, 'laboratorio_solicitud_maquila_api', {callbackAfter: true}, false, function (data) {
-        listaEstudiosDelServicio = data.response.data; // Estudios del servicio general
+        listaEstudiosDelServicio = data.response.data; // Estudios del servicio que se selecciono
         $('#modalMaquilaEstudios').modal('show');
-        crearListaCheckboxEstudio();
-        aplicarEventosCheckboxEstudio();
+
+        crearListaCheckboxEstudio(); //Muestra los chekbox
+        aplicarEventosCheckboxEstudio(); //Aplica los eventos al checkbox
     });
 }
 
@@ -218,31 +230,36 @@ function resetMaquilaModal() {
 $('#modalAsociarEstudio').on('hide.bs.modal', resetAliasModal);
 
 // Autocompletado de formulario de acuerdo al estudio seleccionado del laboratorio de maquilación
-$("#servicio_estudio_id").on('change', function () {
-    autorellenarModalAliasesForm($(this).val())
+$("#servicio_estudio_id").on('change', async function (e) {
+    e.preventDefault();
+
+    associatedSelectIdAlias = $(this).val();
+    console.log('Asociated: ' + associatedSelectIdAlias)
+
+    if(autorellenar) {
+        await autorellenarModalAliasesForm()
+    } else autorellenar = true
 });
 
 // Asocia el alias del estudio del laboratorio seleccionado con el estudio de nuestro servicio actual
-$("#btn_confirm_alias").on("click", function () {
-    const estudio = $('#servicio_estudio_id option:selected').text();
-    const servicioId = $('#servicio_estudio_id').val();
-    const precio = $('#asociar_precio_estudio').val();
-    const clave = $('#asociar_clave_estudio').val();
-    const alias = $('#asociar_alias_estudio').val();
-    const laboratorio = $('#select-laboratorios-maquila option:selected').text();
+$("#btn_confirm_alias").on("click", function (e) {
+    e.preventDefault();
 
-    if (servicioId.length > 0 && clave.length > 0 && alias.length > 0) {
+    if (associatedSelectIdAlias != null) {
         alertMensajeConfirm({
             title: '¿Seguro de Registrar/Actualizar?',
-            html: `Se registrará el Alías <strong>${alias}</strong> con la Cláve <strong>${clave}</strong> del Estudío <strong style="color: #007bff;">${estudio}</strong> para el Laboratorio <strong style="color: #007bff;">${laboratorio}</strong>.`,
+            html: `Se registrará el Alías 
+                <strong>${$('#asociar_alias_estudio').text()}</strong> con la Cláve 
+                <strong>${$('#asociar_clave_estudio').text()}</strong> del Estudío 
+                <strong style="color: #007bff;">${$('#servicio_estudio_id option:selected').text()}</strong> del Laboratorio 
+                <strong style="color: #007bff;">${$('#select-laboratorios-maquila option:selected').text()}</strong>.
+            `,
             icon: 'warning',
             confirmButtonText: 'Registrar Alias',
         }, () => {
             ajaxAwait({
-                SERVICIO_ESTUDIO_ID: servicioId,
-                NOMBRE_ALIAS_ESTUDIO: alias,
-                CLAVE_ALIAS_ESTUDIO: clave,
-                PRECIO_ALIAS_ESTUDIO: precio,
+                SERVICIO_ESTUDIO_ID: estudioAuxByHasIdAliasIsNull,
+                LABORATORIO_ALIAS_ID: associatedSelectIdAlias,
                 LABORATORIO_MAQUILA_ID: selectLaboratorioMaquilaId,
                 api: 9
             }, 'laboratorio_solicitud_maquila_api', {callbackAfter: true}, false, () => {
@@ -268,34 +285,50 @@ function openModalAliassesForm() {
     select2('#servicio_estudio_id', 'modalAsociarEstudio', 'Selecciona una estudio');
 
     rellenarOrdenarSelect('#servicio_estudio_id', 'laboratorio_solicitud_maquila_api', 11, 'ID_ALIAS', 'ESTUDIO', {
-        LABORATORIO_MAQUILA_ID: selectLaboratorioMaquilaId,
+        LABORATORIO_MAQUILA_ID: selectLaboratorioMaquilaId
     }, () => {
         autorellenarModalAliasesForm();
         $('#modalAsociarEstudio').modal('show');
     });
 }
 
-function autorellenarModalAliasesForm(id = 0) {
-    if (tempIdAliases !== undefined && tempIdAliases !== null && tempIdAliases !== "null") {
-        $('#servicio_estudio_id').val(tempIdAliases).trigger('change');
-        $('#asociar_alias_estudio').val(listaEstudiosAliases.find(estudio => estudio.ID_ALIAS == tempIdAliases)?.LAB_ESTUDIO_NOMBRE);
-        $('#asociar_clave_estudio').val(listaEstudiosAliases.find(estudio => estudio.ID_ALIAS == tempIdAliases)?.LAB_ESTUDIO_CLAVE);
-        $('#asociar_precio_estudio').val(listaEstudiosAliases.find(estudio => estudio.ID_ALIAS == tempIdAliases)?.LAB_ALIAS_PRECIO);
-    } else {
-        if (id != 0) {
-            const data = listaEstudiosAliases.find(estudio => estudio.ID_ALIAS == id);
-            $('#asociar_alias_estudio').val(data?.ESTUDIO);
-            $('#asociar_clave_estudio').val(data?.ABREVIATURA);
-            $('#asociar_precio_estudio').val(parseFloat(data?.PRECIO ?? 0).toFixed(2));
-            return false;
-        }
+async function autorellenarModalAliasesForm() {
+    autorellenar = false;
 
-        $('#asociar_alias_estudio').val(listaEstudiosAliases[0].ESTUDIO);
-        $('#asociar_clave_estudio').val(listaEstudiosAliases[0].ABREVIATURA);
-        $('#asociar_precio_estudio').val(parseFloat(listaEstudiosAliases[0].PRECIO ?? 0).toFixed(2));
+    if (estudioHasIdAlias !== null) {
+        if (associatedSelectIdAlias != estudioHasIdAlias) {
+            const estudio = listaEstudiosAliases.find(estudio => estudio.ID_ALIAS == associatedSelectIdAlias);
+            $('#asociar_alias_estudio').val(estudio?.ESTUDIO);
+            $('#asociar_clave_estudio').val(estudio?.ABREVIATURA);
+            $('#asociar_precio_estudio').val(parseFloat((estudio?.PRECIO) ?? 0).toFixed(2));
+            autorellenar = true;
+            console.log('Caso 0:' + estudio)
+        } else {
+            const estudio = listaEstudiosAliases.find(estudio => estudio.ID_ALIAS == estudioHasIdAlias);
+            $('#servicio_estudio_id').val(estudioHasIdAlias).trigger('change');
+            $('#asociar_alias_estudio').val(estudio?.ESTUDIO);
+            $('#asociar_clave_estudio').val(estudio?.ABREVIATURA);
+            $('#asociar_precio_estudio').val(parseFloat((estudio?.PRECIO) ?? 0).toFixed(2));
+            console.log('Caso 1:' + estudio)
+        }
+    } else {
+        if(associatedSelectIdAlias) {
+            const estudio = listaEstudiosAliases.find(estudio => estudio.ID_ALIAS == associatedSelectIdAlias);
+            $('#asociar_alias_estudio').val(estudio?.ESTUDIO);
+            $('#asociar_clave_estudio').val(estudio?.ABREVIATURA);
+            $('#asociar_precio_estudio').val(parseFloat((estudio?.PRECIO) ?? 0).toFixed(2));
+            autorellenar = true;
+            console.log('Caso 2:' + estudio)
+        } else {
+            const estudio = listaEstudiosAliases[0];
+            $('#asociar_alias_estudio').val(estudio?.ESTUDIO);
+            $('#asociar_clave_estudio').val(estudio?.ABREVIATURA);
+            $('#asociar_precio_estudio').val(parseFloat(estudio?.PRECIO ?? 0).toFixed(2));
+            autorellenar = true;
+            console.log('Caso 3:' + estudio)
+        }
     }
 }
-
 
 //_________________________ SHARED FUNCTIONS ______________________________
 

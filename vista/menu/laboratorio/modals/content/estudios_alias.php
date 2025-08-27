@@ -10,14 +10,14 @@
             <div class="modal-body">
                 <div>
                     <label class="form-label">Estudio</label>
-                    <p>Estudio a asociar el alias</p>
+                    <p style="margin-top: -10px; margin-bottom: 10px">Estudio a asociar el alias</p>
                     <select id="servicio_estudio_id" class="input-form">
                         <option value="" hidden>-- Seleccionar estudio --</option>
                     </select>
                 </div>
                 <div>
                     <label class="form-label">Alias del Estudio</label>
-                    <p>Alias del estudio a asociar de acuerdo al laboratorio</p>
+                    <p style="margin-top: -10px; margin-bottom: 10px">Alias del estudio a asociar de acuerdo al laboratorio</p>
                     <input id="asociar_alias_estudio" type="text" disabled class="form-control input-form" placeholder="Ingresa el alias del estudio">
                 </div>
                 <div class="d-flex justify-content-between">
