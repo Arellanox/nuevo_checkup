@@ -223,5 +223,9 @@ function validarListaAlias() {
     return true;
 }
 
+$(".btn-refresh").on("click", function () {
+    tablaServicios.ajax.reload();
+    alertMensaje("success", "Tabla actualizada!", "Ahora los cambios son visibles")
+})
 
 //_________________________________________________________________________
