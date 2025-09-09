@@ -3478,6 +3478,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
                       $('#info-paquete_cargado').html(ifnull(row, '', ['PAQUETE_CARGADO']))
                       $('#info-vendedor').html(ifnull(row, '', ['VENDEDOR']))
+                      $('#info-medico-tratante').html(ifnull(row, '', ['MEDICO_TRATANTE']))
                       $('#info-paci-alergias').html(row.ALERGIAS);
                       $('#info-paci-procedencia').html(row.PROCEDENCIA)
                       $('#info-paci-curp').html(row.CURP);
