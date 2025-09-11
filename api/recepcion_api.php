@@ -588,7 +588,8 @@ switch ($api) {
             $id_paciente,
             $curp,
             $pasaporte,
-            null # esta variable es la id del turno, para este efecto no aplica.
+            null, # esta variable es la id del turno, para este efecto no aplica.
+            null # franquicia id
         ]);
 
         # recuperamos los correos dados

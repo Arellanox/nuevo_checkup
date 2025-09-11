@@ -1078,7 +1078,7 @@ class Miscelaneus
 
     private function getBodyFormDatos($master, $id_paciente)
     {
-        $response = $master->getByProcedure('sp_pacientes_b', [$id_paciente, null, null, null]);
+        $response = $master->getByProcedure('sp_pacientes_b', [$id_paciente, null, null, null,null]);
         return $response[0];
     }
 
