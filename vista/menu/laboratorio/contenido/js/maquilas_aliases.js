@@ -104,7 +104,7 @@ $('#select-laboratorios-maquila').on('change', async function (e) {
 
     alertToast('Actualizando estudios...', 'info', 1000)
     selectLaboratorioMaquilaId = $(this).val();
-    console.log("Valor seleccionado:", $(this).val());
+    //console.log("Valor seleccionado:", $(this).val());
 
     await ajaxAwait({
         api: 11, LABORATORIO_MAQUILA_ID: selectLaboratorioMaquilaId
@@ -234,7 +234,7 @@ $("#servicio_estudio_id").on('change', async function (e) {
     e.preventDefault();
 
     associatedSelectIdAlias = $(this).val();
-    console.log('Asociated: ' + associatedSelectIdAlias)
+    //console.log('Asociated: ' + associatedSelectIdAlias)
 
     if(autorellenar) {
         await autorellenarModalAliasesForm()

@@ -118,6 +118,11 @@ switch ($api) {
                     'ES_GRUPO' => $row['ES_GRUPO'],
                     'PRECIO_VENTA' => $row['PRECIO_VENTA'],
                     'LABORATORIO_ID' => $row['LABORATORIO_ID'],
+                    'GRUPO_LAB_ESTUDIO_CLAVE' => $row['GRUPO_LAB_ESTUDIO_CLAVE'],
+                    'GRUPO_LAB_ESTUDIO_NOMBRE' => $row['GRUPO_LAB_ESTUDIO_NOMBRE'],
+                    'GRUPO_ID_ALIAS' => $row['GRUPO_ID_ALIAS'],
+                    'GRUPO_LAB_ALIAS_LABORATORIO_ID' => $row['GRUPO_LAB_ALIAS_LABORATORIO_ID'],
+                    'GRUPO_PRECIO' => $row['GRUPO_PRECIO'],
                     'ESTUDIOS' => [], // Aquí se guardarán los estudios
                 ];
             }

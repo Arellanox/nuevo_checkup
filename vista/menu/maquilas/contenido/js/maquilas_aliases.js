@@ -12,7 +12,8 @@ var autorellenar = true; //Axuiliar para evitar un ciclo redudante en triggers
 
 //_______________________ MAQUILACIÓN _____________________________
 async function asociarEstudios(idAlias, estudioId, laboratorio) {
-    studioHasIdAlias = idAlias ?? null; // Buscamos obtener el idAlias
+    console.log(estudioId)
+    estudioHasIdAlias = idAlias ?? null; // Buscamos obtener el idAlias
     estudioAuxByHasIdAliasIsNull = estudioId; // Auxiliar por si no tiene el id alias
     selectLaboratorioMaquilaId = laboratorio;
     associatedSelectIdAlias = null;
@@ -83,14 +84,14 @@ $('#select-laboratorios-maquila').on('change', async function (e) {
 
     alertToast('Actualizando estudios...', 'info', 1000)
     selectLaboratorioMaquilaId = $(this).val();
-    console.log("Valor seleccionado:", $(this).val());
+    //console.log("Valor seleccionado:", $(this).val());
 
     await ajaxAwait({
         api: 11, LABORATORIO_MAQUILA_ID: selectLaboratorioMaquilaId
     }, 'laboratorio_solicitud_maquila_api', {callbackAfter: true}, false, function (data) {
         listaEstudiosAliases = data.response.data; // Estudios del servicio general
 
-        if(validarListaAlias()) actualizarListaCheckboxEstudio();
+        //if(validarListaAlias()) actualizarListaCheckboxEstudio();
     });
 });
 
@@ -112,7 +113,7 @@ $("#servicio_estudio_id").on('change', async function (e) {
     e.preventDefault();
 
     associatedSelectIdAlias = $(this).val();
-    console.log('Asociated: ' + associatedSelectIdAlias)
+    //console.log('Asociated: ' + associatedSelectIdAlias)
 
     if(autorellenar) {
         await autorellenarModalAliasesForm()
@@ -182,14 +183,14 @@ async function autorellenarModalAliasesForm() {
             $('#asociar_clave_estudio').val(estudio?.ABREVIATURA);
             $('#asociar_precio_estudio').val(parseFloat((estudio?.PRECIO) ?? 0).toFixed(2));
             autorellenar = true;
-            console.log('Caso 0:' + estudio)
+            //console.log('Caso 0:' + estudio)
         } else {
             const estudio = listaEstudiosAliases.find(estudio => estudio.ID_ALIAS == estudioHasIdAlias);
             $('#servicio_estudio_id').val(estudioHasIdAlias).trigger('change');
             $('#asociar_alias_estudio').val(estudio?.ESTUDIO);
             $('#asociar_clave_estudio').val(estudio?.ABREVIATURA);
             $('#asociar_precio_estudio').val(parseFloat((estudio?.PRECIO) ?? 0).toFixed(2));
-            console.log('Caso 1:' + estudio)
+            //console.log('Caso 1:' + estudio)
         }
     } else {
         if(associatedSelectIdAlias) {
@@ -198,14 +199,14 @@ async function autorellenarModalAliasesForm() {
             $('#asociar_clave_estudio').val(estudio?.ABREVIATURA);
             $('#asociar_precio_estudio').val(parseFloat((estudio?.PRECIO) ?? 0).toFixed(2));
             autorellenar = true;
-            console.log('Caso 2:' + estudio)
+            //console.log('Caso 2:' + estudio)
         } else {
             const estudio = listaEstudiosAliases[0];
             $('#asociar_alias_estudio').val(estudio?.ESTUDIO);
             $('#asociar_clave_estudio').val(estudio?.ABREVIATURA);
             $('#asociar_precio_estudio').val(parseFloat(estudio?.PRECIO ?? 0).toFixed(2));
             autorellenar = true;
-            console.log('Caso 3:' + estudio)
+            //console.log('Caso 3:' + estudio)
         }
     }
 }

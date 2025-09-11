@@ -80,14 +80,29 @@ function inicializarTablaServicios(servicios) {
                             ${row.ES_GRUPO ? 'GRUPO' : 'INDIVIDUAL'}
                         </span>
                         ${data} ${row.ABREVIATURA ? `<small class="text-muted">(${row.ABREVIATURA})</small>` : ''}
-                        <br><small class="text-success">Precio: ${parseFloat(row.PRECIO_VENTA || 0).toFixed(2)}</small>
+                        <br>
+                        <div class="d-flex gap-4">
+                            <small class="text-success">Precio: <span class="text-muted">$${parseFloat(row.GRUPO_PRECIO || 0).toFixed(2)}</span></small>
+                            <small class="text-success">Grupo Nombre: <span class="text-muted"> ${row.GRUPO_LAB_ESTUDIO_NOMBRE ?? 'Sin establecer'}</span></small>
+                        </div>
                     `;
                 }
             },
             {
                 data: 'ESTUDIOS',
-                render: function (data) {
-                    return `<span class="badge badge-info">${data.length} estudio${data.length > 1 ? 's' : ''}</span>`;
+                render: function (data, type, row) {
+                    return `
+                        <div class="d-block">
+                            <span class="badge badge-info d-block w-max" style="border-radius: 10px 10px 0 0">
+                                ${data.length} estudio${data.length > 1 ? 's' : ''}
+                            </span>
+                            <button 
+                                onclick="asociarEstudios(null, ${row.ID_SERVICIO}, $('#select-laboratorios-maquila-by-list').val())" 
+                                class="btn btn-confirmar p-1 text-xs text-white" 
+                                style="width: 100%; border-radius: 0 0 10px 10px; font-size: 13px; font-weight: bold"
+                            >Actualizar</button>
+                        </div>
+                    `;
                 }
             }
         ]
