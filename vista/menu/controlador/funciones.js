@@ -3762,7 +3762,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                               const auxEstudios = await getEstudiosPorGrupo(element["GRUPO_ID"]);
 
                               html += '<div class="collapsed" data-bs-toggle="collapse" data-bs-target="#estudio-expand-' + element["GRUPO_ID"] + '" aria-expanded="false">';
-                              html += htmlLI(element['GRUPO'] + "-" + element['GRUPO_ID']);
+                              html += htmlLI(element['GRUPO']);
                               html += "</div>"
                               html += '<div class="collapse bg-white-canvas" id="estudio-expand-' + element["GRUPO_ID"] + '">'
                               html += auxEstudios;
