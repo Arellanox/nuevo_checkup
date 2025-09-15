@@ -65,6 +65,7 @@ $('#ModalEditarPaciente').on('shown.bs.modal', function () {
 
     $('#editar-curp').val(array_selected['CURP']);
     $('#editar-telefono').val(array_selected['CELULAR']);
+    $('#editar-telefono-2').val(array_selected['CELULAR_2']);
     $('#editar-postal').val(array_selected['POSTAL']);
     $('#editar-correo').val(array_selected['CORREO']);
     $('#editar-correo_2').val(array_selected['CORREO_2']);

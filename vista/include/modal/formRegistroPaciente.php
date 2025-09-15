@@ -36,6 +36,7 @@
 <div class="col-5 col-lg-3">
     <label for="celular" class="form-label">Teléfono</label>
     <input type="number" class="form-control input-form" name="celular" placeholder="">
+    <input type="number" class="form-control input-form" name="celular_2" placeholder="">
     <!-- pattern="[0-9]{10}" -->
 </div>
 

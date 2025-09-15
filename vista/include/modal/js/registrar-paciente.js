@@ -25,8 +25,8 @@ $("#formRegistrarPaciente").submit(function (event) {
     formData.set('medios_entrega', obtenerMediosEntrega());
 
 
-    console.log(Object.fromEntries(formData));
-    console.log(obtenerMediosEntrega())
+    /*console.log(Object.fromEntries(formData));
+    console.log(obtenerMediosEntrega())*/
 
     Swal.fire({
         title: `${traducir('¿Está seguro que todos sus datos son correctos?', language)}`,

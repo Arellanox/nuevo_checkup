@@ -45,6 +45,8 @@
                         <label for="celular" class="form-label">Télefono</label>
                         <input type="number" class="form-control input-form" name="celular" pattern="[0-9]{10}"
                                placeholder="" id="editar-telefono">
+                        <input type="number" class="form-control input-form" name="celular_2" pattern="[0-9]{10}"
+                               placeholder="" id="editar-telefono-2">
                     </div>
                     <div class="col-6 col-lg-4">
                         <label for="correo" class="form-label">Correo</label>

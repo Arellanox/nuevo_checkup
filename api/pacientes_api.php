@@ -27,6 +27,7 @@ $edad = $_POST['edad'];
 $nacimiento = $_POST['nacimiento'];
 $curp = $_POST['curp'];
 $celular = $_POST['celular'];
+$celular2 = $_POST['celular_2'];
 $correo = $_POST['correo'];
 $postal = $_POST['postal'];
 $estado = $_POST['estado'];
@@ -99,7 +100,7 @@ switch ($api) {
             $parametros[6], $parametros[7], $parametros[8], $parametros[9], $parametros[10], $parametros[11],
             $parametros[12], $parametros[13], $parametros[14], $parametros[15], $parametros[16], $parametros[17],
             $parametros[18], $parametros[19], $parametros[20], $parametros[21], $parametros[22], $parametros[23],
-            $parametros[24], $parametros[25], json_encode($medios), $parametros[27], $talla, $parametros[29]
+            $parametros[24], $parametros[25], json_encode($medios), $parametros[27], $talla, $parametros[29], $celular2
         ]);
         break;
     case 2:
@@ -131,7 +132,7 @@ switch ($api) {
             $parametros[6], $parametros[7], $parametros[8], $parametros[9], $parametros[10], $parametros[11],
             $parametros[12], $parametros[13], $parametros[14], $parametros[15], $parametros[16], $parametros[17],
             $parametros[18], $parametros[19], $parametros[20], $parametros[21], $parametros[22], $parametros[23],
-            $parametros[24], $parametros[25], json_encode($medios), $parametros[27], $talla, $parametros[29]
+            $parametros[24], $parametros[25], json_encode($medios), $parametros[27], $talla, $parametros[29], $celular2
         ]);
         break;
     case 4:
