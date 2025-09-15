@@ -593,7 +593,7 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
 
     async function (select, data, callback) {
         if (select) {
-            alertToast('Espere un momento, se estan cargando los estudios', 'info', 4000)
+            alertToast('Espere un momento, se estan cargando los datos del paciente', 'info', 4000)
 
             $(`#${'buttonBeneficiario'}`).attr('disabled', ifnull(data, false, ['CLIENTE_ID']) !== '18')
             $(`#${'btn_recepcionTicket'}`).attr('disabled', !(ifnull(data, false, ['COMPLETADO']) === '1' && ifnull(data, false, ['CLIENTE_ID']) === '1'))

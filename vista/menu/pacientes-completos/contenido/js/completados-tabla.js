@@ -16,9 +16,9 @@ tablaCompletados = $('#TablaRecepcionPacientes-Ingresados').DataTable({
     method: 'POST',
     url: '../../../api/turnos_api.php',
     beforeSend: function () {
-      alertToast('Espere un momento, se estan cargando los estudios', 'info', 4000)
-
-      loader("In", 'bottom'), array_selected = null
+        array_selected = null;
+        alertToast('Espere un momento, se estan cargando los datos del paciente.', 'info', 4000)
+        loader("In", 'bottom');
     },
     complete: function () {
       loader("Out", 'bottom')

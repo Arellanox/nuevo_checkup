@@ -1,3 +1,4 @@
+let pacienteMedios = [];
 let ModalEditarPaciente = $('#ModalEditarPaciente');
 
 /*ModalEditarPaciente.addEventListener('shown.bs.modal', async event => {
@@ -51,7 +52,6 @@ let ModalEditarPaciente = $('#ModalEditarPaciente');
   }
 });*/
 
-
 $('#ModalEditarPaciente').on('shown.bs.modal', function () {
 
     $('#editar-nombre').val(array_selected['NOMBRE']);
@@ -94,24 +94,32 @@ $('#ModalEditarPaciente').on('shown.bs.modal', function () {
     if(array_selected['MEDIOS_ENTREGA']) {
         const medios = array_selected['MEDIOS_ENTREGA'];
         const mediosArray = medios.split(',').map(m => m.trim());
+        const evaluted = []; // Pérmite saber si un medio ya fue evaluado o no
 
         if (mediosArray.length > 0) {
             mediosArray.forEach((item) => {
                 if (item === "CORREO") {
                     $('.input-edit-correo-check').prop('checked', true);
+                    evaluted.push("CORREO");
+                } else {
+                    if (!evaluted.includes("CORREO")) $('.input-edit-correo-check').prop('checked', false);
                 }
-                else if (item === "WHATSAPP") {
+
+                if (item === "WHATSAPP") {
                   $('.input-edit-whatsapp-check').prop('checked', true);
+                    evaluted.push("WHATSAPP");
+                } else {
+                    if (!evaluted.includes("WHATSAPP")) $('.input-edit-whatsapp-check').prop('checked', false);
                 }
-                else if (item === "IMPRESO") {
-                  $('.input-edit-impreso-check').prop('checked', true);
+
+                if (item === "IMPRESO") {
+                    $('.input-edit-impreso-check').prop('checked', true);
+                    evaluted.push("IMPRESO");
+                }  else {
+                    if (!evaluted.includes("IMPRESO")) $('.input-edit-impreso-check').prop('checked', false);
                 }
             });
         }
-
-        /*
-              console.log(medios)
-        */
     }
 
 /*
@@ -120,12 +128,15 @@ $('#ModalEditarPaciente').on('shown.bs.modal', function () {
 });
 
 function obtenerMediosEntrega () {
-    const medios = []
+    var medios = []
     if ($('.input-edit-impreso-check').is(':checked')) medios.push('3')
     if ($('.input-edit-whatsapp-check').is(':checked')) medios.push('2')
     if ($('.input-edit-correo-check').is(':checked')) medios.push('1')
 
-    console.log(medios)
+    if (medios.length <= 0) {
+        medios = pacienteMedios;
+    }
+
     return medios
 }
 
@@ -133,6 +144,10 @@ $('#ModalEditarPaciente').on('hidden.bs.modal', function () {
     $('.input-correo-check').prop('checked', false);
     $('.input-whatsapp-check').prop('checked', false);
     $('.input-impreso-check').prop('checked', false);
+
+    $('.input-edit-impreso-check').prop('checked', false);
+    $('.input-edit-whatsapp-check').prop('checked', false);
+    $('.input-edit-correo-check').prop('checked', false);
 })
 
 //Formulario de Preregistro
@@ -161,13 +176,10 @@ $("#formEditarPaciente").submit(function (event) {
     formData.set('medios_entrega', obtenerMediosEntrega());
     formData.set('api', 3);
 
-    console.log(Object.fromEntries(formData));
-    console.log(obtenerMediosEntrega());
+    console.log(obtenerMediosEntrega())
 
     $i = 0;
-    formData.forEach(element => {
-        $i++;
-    });
+    formData.forEach(element => {$i++;});
 
     Swal.fire({
         title: '¿Está seguro que todos sus datos estén correctos?',
@@ -235,9 +247,9 @@ $("#formEditarPaciente").submit(function (event) {
           });
       }
     })
+
     event.preventDefault();
 });
-
 
 $("#editar-vacuna").change(function () {
     var seleccion = $("#editar-vacuna").val();
@@ -248,4 +260,20 @@ $("#editar-vacuna").change(function () {
         $("#editar-vacunaExtra").prop('readonly', true);
         $("#editar-vacunaExtra").prop('value', "NA");
     }
+});
+
+$('.input-edit-impreso-check').change(function (){
+    if (pacienteMedios.includes("3")) {
+        pacienteMedios = pacienteMedios.filter(item => item !== "3");
+    } else { pacienteMedios.push("3"); }
+});
+$('.input-edit-whatsapp-check').change(function (){
+    if (pacienteMedios.includes("2")) {
+        pacienteMedios = pacienteMedios.filter(item => item !== "2");
+    } else { pacienteMedios.push("2"); }
+});
+$('.input-edit-correo-check').change(function (){
+    if (pacienteMedios.includes("1")) {
+        pacienteMedios = pacienteMedios.filter(item => item !== "1");
+    } else { pacienteMedios.push("1"); }
 });

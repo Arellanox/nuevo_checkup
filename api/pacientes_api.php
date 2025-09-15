@@ -115,6 +115,7 @@ switch ($api) {
         }
 
         $response = $master->decodeJsonRecursively($response);
+        // $master->setLog(json_encode($response), "contenido");
         break;
     case 3:
         $medios = array_map('intval', explode(',', $medios_entrega));

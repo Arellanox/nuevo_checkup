@@ -3459,7 +3459,8 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
       }).done(function () {
         setTimeout(async function () {
           if (id > 0) {
-            let row = array_selected;
+            var row = array_selected;
+
             switch (tipPanel) {
               case 'paciente':
                 $.ajax({
@@ -3473,6 +3474,12 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   success: function (data) {
                     if (mensajeAjax(data)) {
                       row = data['response']['data'][0];
+                      array_selected.MEDIOS_ENTREGA = row.MEDIOS_ENTREGA !== null ? row.MEDIOS_ENTREGA.join() : [];
+
+
+                        /*console.log(array_selected.MEDIOS_ENTREGA)
+                        console.log(row.MEDIOS_ENTREGA)*/
+
                       $('#nombre-persona').html(row.NOMBRE_COMPLETO);
                       $('#edad-persona').html(`${calcularEdad2(row.NACIMIENTO)['numero']} ${calcularEdad2(row.NACIMIENTO)['tipo']}`)
                       $('#nacimiento-persona').html(formatoFecha(row.NACIMIENTO));
@@ -3487,6 +3494,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       $('#info-paci-correo').html(row.CORREO);
                       $('#info-paci-sexo').html(row.GENERO);
                       $('#info-paci-metodo-entrega').text(row.MEDIOS_ENTREGA);
+
                       if (row.TURNO) {
                         $('#info-paci-turno').html(row.TURNO);
                       } else {
