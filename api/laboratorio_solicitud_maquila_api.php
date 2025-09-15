@@ -85,7 +85,7 @@ switch ($api) {
         break;
     case 7: // Recuperar grupo de estudios a maquilar de un servicio
         $response = $master->getByProcedure('sp_obtener_estudios_de_servicio_b', [
-            $id_grupo_servicio, $id_laboratorio_maquila
+            $id_grupo_servicio, $id_laboratorio_maquila ?? null
         ]);
         break;
     case 9: // Registrar alias de estudios a maquilar
@@ -157,6 +157,13 @@ switch ($api) {
     case 11:
         $response = $master->getByProcedure("sp_obtener_todos_alias_estudios", [
             $id_laboratorio_maquila
+        ]);
+        break;
+    case 12: // Recuperar grupo de estudios a maquilar segun el paciente
+        $master->setLog(json_encode([$id_grupo_servicio, null]), "ASD");
+
+        $response = $master->getByProcedure('sp_obtener_estudios_de_servicio_b', [
+            $id_grupo_servicio, null
         ]);
         break;
     default:

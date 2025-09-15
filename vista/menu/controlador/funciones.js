@@ -3702,7 +3702,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                 resolve(1);
                 break;
               case 'estudios_muestras':
-                $.ajax({
+                 $.ajax({
                   url: http + servidor + "/" + appname + "/api/recepcion_api.php",
                   type: "POST",
                   dataType: 'json',
@@ -3719,32 +3719,66 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       return '<li class="list-group-item">' + texto + '</li>';
                     }
 
-                    function crearDIV(grupo, id, row) {
+                    function htmlLI2(texto) {
+                        return '<li class="list-group-item" style="background: #f3f3f3; color: rgba(0,78,89,0.7)">' + texto + '</li>';
+                    }
+
+                    async function getEstudiosPorGrupo(grupoId) {
+                        return new Promise((resolve, reject) => {
+                              $.ajax({
+                                  url: http + servidor + "/" + appname + "/api/laboratorio_solicitud_maquila_api.php",
+                                  type: "POST",
+                                  dataType: 'json',
+                                  data: { api: 12, ID_GRUPO_SERVICIO: grupoId },
+                                  success: function (data) {
+                                      if (data && data.response?.data) {
+                                          const datos = data.response.data;
+                                          const html = datos.map(d => htmlLI2(d["NOMBRE_ESTUDIO"] ?? "Estudio Individual")).join('');
+                                          resolve(html);
+                                      } else {
+                                          resolve('');
+                                      }
+                                  },
+                                  error: reject
+                              });
+                          });
+                    }
+
+                    async function crearDIV(grupo, id, row) {
                       let html = '';
                       html += '<a class="collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-' + id + '" aria-expanded="false">';
                       html += '<div style = "display: block"><div class="collapse_estudio" style="margin:0px;background: rgb(0 0 0 / 25%);width: 100%;padding: 10px 0px 10px 0px;text-align: center;""><h4 style="font-size: 20px !important;padding: 0px;margin: 0px;">' + grupo + '</h4></div></div>';
                       html += '</a>'
 
                       html += '<div class="collapse bg-white-canvas" id="board-' + id + '">'
-                      let area = 0;
-                      for (const key in row) {
-                        const element = row[key];
-                        console.log(element)
-                        if (element['AREA_ID'] == id) {
-                          area = 1;
-                          html += htmlLI(element['GRUPO']);
-                        }
 
-                        if (
-                          element['AREA_ID'] != '6' &&
-                          element['AREA_ID'] != '12' &&
-                          element['AREA_ID'] != '8' &&
-                          element['AREA_ID'] != '11' &&
-                          (id == 0 || id == 'paq')
-                        ) {
-                          area = 1;
-                          html += htmlLI(element['GRUPO']);
-                        }
+                      let area = 0;
+
+                      for (const key in row) {
+                          const element = row[key];
+
+                          if (element['AREA_ID'] == id) {
+                              area = 1;
+                              const auxEstudios = await getEstudiosPorGrupo(element["GRUPO_ID"]);
+
+                              html += '<div class="collapsed" data-bs-toggle="collapse" data-bs-target="#estudio-expand-' + element["GRUPO_ID"] + '" aria-expanded="false">';
+                              html += htmlLI(element['GRUPO'] + "-" + element['GRUPO_ID']);
+                              html += "</div>"
+                              html += '<div class="collapse bg-white-canvas" id="estudio-expand-' + element["GRUPO_ID"] + '">'
+                              html += auxEstudios;
+                              html += "</div>"
+                          }
+
+                          if (
+                            element['AREA_ID'] != '6' &&
+                            element['AREA_ID'] != '12' &&
+                            element['AREA_ID'] != '8' &&
+                            element['AREA_ID'] != '11' &&
+                            (id == 0 || id == 'paq')
+                          ) {
+                            area = 1;
+                            html += htmlLI(element['GRUPO']);
+                          }
                       }
                       html += '</div>';
 
@@ -3753,32 +3787,32 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       return '';
                     }
 
-
+                    let paquetes;
                     await ajaxAwait({ api: 5, turno_id: id }, 'cargos_turnos_api', { callbackAfter: true, ajaxComplete: resolve(1) }, false, (data) => {
 
-                      let row = data.response.data;
+                      paquetes = data.response.data;
                       // $('#append-html-historial-estudios').html('');
 
                       //Paquetes
-                      html += crearDIV('<i class="bi bi-box-seam"></i> Paquetes', 'paq', row);
+                      // html +=  crearDIV('<i class="bi bi-box-seam"></i> Paquetes', 'paq', row);
 
                       // setListResultadosAreas('#append-html-historial-estudios', element, arrayArea)
                     })
 
-
+                    if (paquetes) {
+                        html +=  await crearDIV('<i class="bi bi-box-seam"></i> Paquetes', 'paq', paquetes);
+                    }
 
                     //Lab
-                    html += crearDIV('<i class="bi bi-heart-pulse"></i> Laboratorio Clínico', 6, row);
+                    html += await crearDIV('<i class="bi bi-heart-pulse"></i> Laboratorio Clínico', 6, row);
                     //Lab Bio
-                    html += crearDIV('<i class="bi bi-heart-pulse"></i> Laboratorio Biomolecular', 12, row);
+                    html += await crearDIV('<i class="bi bi-heart-pulse"></i> Laboratorio Biomolecular', 12, row);
                     //Ultrasonido
-                    html += crearDIV('<i class="bi bi-person-video"></i>  Ultrasonido', 11, row);
+                    html += await crearDIV('<i class="bi bi-person-video"></i>  Ultrasonido', 11, row);
                     //RayosX
-                    html += crearDIV('<i class="bi bi-universal-access"></i>  Rayos X', 8, row);
+                    html += await crearDIV('<i class="bi bi-universal-access"></i>  Rayos X', 8, row);
                     //Otros
-                    html += crearDIV('<i class="bi bi-window-stack"></i> Otros Servicios', 0, row);
-
-
+                    html += await crearDIV('<i class="bi bi-window-stack"></i> Otros Servicios', 0, row);
 
 
                     $('#lista-estudios-paciente').html(html);
