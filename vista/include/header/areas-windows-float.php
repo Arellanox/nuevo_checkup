@@ -70,7 +70,7 @@ if (
     $_SESSION['vista']['LABORATORIO'] == 1 ||
     $_SESSION['vista']['LABORATORIO_MUESTRA_1'] == 1 ||
     $_SESSION['vista']['CORREOSLAB'] == 1 ||
-    $_SESSION['vista']['LABORATORIO_ESTUDIOS'] == 1
+    $_SESSION['vista']['ESTUDIOS_LABORATORIO'] == 1
 ) : ?>
     <li class="nav-item Recepción">
         <div class="dropdown ">
