@@ -38,8 +38,8 @@ $session_data = $_SESSION;
 $isFranquisiario = $_SESSION['franquiciario'];
 
 // Quitamos variable del frontend
-unset($session_data['token']);
-unset($session_data['permisos']);
+//unset($session_data['token']);
+//unset($session_data['permisos']);
 //
 
 if ($url == "drjb.com.mx"): ?>

@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 // Modales de Estudio
 include "estu_agregar_estudio.html";
 
@@ -16,7 +16,8 @@ include "modal_metodos.html";
 //Modales de Grupo de Examenes
 // include "gp_agregar_grupo.html";
 // include "gp_editar_grupo.html";
-include "gp_rellenar_grupo.html";
+//include "gp_rellenar_grupo.html";
+include "gp_rellenar_grupo_2.php";
 
 //Valores de Referencia
 include "modal_referencia.php";
