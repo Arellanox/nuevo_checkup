@@ -160,7 +160,7 @@ switch ($api) {
         ]);
         break;
     case 12: // Recuperar grupo de estudios a maquilar segun el paciente
-        $master->setLog(json_encode([$id_grupo_servicio, null]), "ASD");
+        // $master->setLog(json_encode([$id_grupo_servicio, null]), "ASD");
 
         $response = $master->getByProcedure('sp_obtener_estudios_de_servicio_b', [
             $id_grupo_servicio, null

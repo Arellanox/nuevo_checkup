@@ -3473,9 +3473,25 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   dataType: 'json',
                   success: function (data) {
                     if (mensajeAjax(data)) {
-                      row = data['response']['data'][0];
-                      array_selected.MEDIOS_ENTREGA = row.MEDIOS_ENTREGA !== null ? row.MEDIOS_ENTREGA.join() : [];
+                        row = data['response']['data'][0];
+                        var serialized_medios, auxMedios = row.MEDIOS_ENTREGA;
+                        console.log('aux: ', auxMedios);
 
+                        if (auxMedios) {
+                           auxMedios = Array.isArray(auxMedios) ? auxMedios : row.MEDIOS_ENTREGA?.split(',');
+
+                           serialized_medios = auxMedios.map((item) => {
+                               const val = item.trim();
+
+                               if (val == 'WHATSAPP') return '2'
+                               if (val == 'IMPRESO') return '3'
+                               if (val == "CORREO") return '1'
+                           })
+                        } else serialized_medios = []
+
+                        console.log('serialized: ', serialized_medios);
+
+                        array_selected.MEDIOS_ENTREGA = serialized_medios;
 
                         /*console.log(array_selected.MEDIOS_ENTREGA)
                         console.log(row.MEDIOS_ENTREGA)*/
