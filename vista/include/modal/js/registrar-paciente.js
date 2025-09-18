@@ -1,3 +1,5 @@
+var pacienteRegistrarMedios = [];
+
 //Formulario de Preregistro
 $("#formRegistrarPaciente").submit(function (event) {
     event.preventDefault();
@@ -22,7 +24,7 @@ $("#formRegistrarPaciente").submit(function (event) {
     let form = document.getElementById("formRegistrarPaciente");
     let formData = new FormData(form);
     formData.set('api', 1);
-    formData.set('medios_entrega', obtenerMediosEntrega());
+    formData.set('medios_entrega', pacienteRegistrarMedios);
 
 
     /*console.log(Object.fromEntries(formData));
@@ -142,18 +144,37 @@ $("#formRegistrarPaciente").submit(function (event) {
 });
 
 
-function obtenerMediosEntrega () {
-    const medios = []
-    if ($('.input-impreso-check').is(':checked')) medios.push('3')
-    if ($('.input-whatsapp-check').is(':checked')) medios.push('2')
-    if ($('.input-correo-check').is(':checked')) medios.push('1')
-    return medios
-}
+// function obtenerMediosEntrega () {
+//     const medios = []
+//     if ($('.input-impreso-check').is(':checked')) medios.push('3')
+//     if ($('.input-whatsapp-check').is(':checked')) medios.push('2')
+//     if ($('.input-correo-check').is(':checked')) medios.push('1')
+//     return medios
+// }
+
+$('.input-edit-impreso-check').change(function (){
+    if (pacienteRegistrarMedios.includes("3")) {
+        pacienteRegistrarMedios = pacienteRegistrarMedios.filter(item => item !== "3");
+    } else { pacienteRegistrarMedios.push("3"); }
+});
+
+$('.input-edit-whatsapp-check').change(function (){
+    if (pacienteRegistrarMedios.includes("2")) {
+        pacienteRegistrarMedios = pacienteRegistrarMedios.filter(item => item !== "2");
+    } else { pacienteRegistrarMedios.push("2"); }
+});
+
+$('.input-edit-correo-check').change(function (){
+    if (pacienteRegistrarMedios.includes("1")) {
+        pacienteRegistrarMedios = pacienteRegistrarMedios.filter(item => item !== "1");
+    } else { pacienteRegistrarMedios.push("1"); }
+});
 
 $('#ModalRegistrarPaciente').on('hidden.bs.modal', function () {
     $('.input-correo-check').prop('checked', false);
     $('.input-whatsapp-check').prop('checked', false);
     $('.input-impreso-check').prop('checked', false);
+    pacienteRegistrarMedios = [];
 })
 
 $('#checkCurpPasaporte').change(function () {

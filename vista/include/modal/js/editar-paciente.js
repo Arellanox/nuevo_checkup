@@ -1,5 +1,5 @@
-let pacienteMedios = [];
-let ModalEditarPaciente = $('#ModalEditarPaciente');
+var pacienteMedios = [];
+var ModalEditarPaciente = $('#ModalEditarPaciente');
 
 /*ModalEditarPaciente.addEventListener('shown.bs.modal', async event => {
   console.log('Modal Abierto 1')
