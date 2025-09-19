@@ -4,7 +4,7 @@ include_once "../clases/correo_class.php";
 
 $master = new Master();
 
-$limit = 40; // minutos sin señal antes de marcar offline
+$limit = 100; // minutos sin señal antes de marcar offline
 
 $response = $master->getByProcedure("sp_heartbeats_b",[]);
 
