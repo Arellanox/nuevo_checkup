@@ -16,7 +16,7 @@ foreach ($response as $s) {
     if ($diff > $limit) {
         // Aquí puedes mandar un correo o alerta
         echo "⚠️ Servidor {$s["server_id"]} está offline. Última señal: {$s["last_signal"]} (hace $diff minutos)\n<br>";
-        $mail->sendEmail("heartbeat", "Se fue la energía en bimo! (probablemente)", ["josue.delacruz@bimo.com.mx"]);
+        $mail->sendEmail("heartbeat", "Se fue la energía en bimo! Última señal: {$s["last_signal"]} (hace $diff minutos)", ["josue.delacruz@bimo.com.mx"]);
     }    
 }    
 
