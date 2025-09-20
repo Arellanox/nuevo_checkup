@@ -17,6 +17,9 @@ foreach ($response as $s) {
         // Aquí puedes mandar un correo o alerta
         echo "⚠️ Servidor {$s["server_id"]} está offline. Última señal: {$s["last_signal"]} (hace $diff minutos)\n<br>";
         $mail->sendEmail("heartbeat", "Se fue la energía en bimo! Última señal: {$s["last_signal"]} (hace $diff minutos)", ["josue.delacruz@bimo.com.mx"]);
+    } else {
+        $master->setLog("{$s["server_id"]} en línea", "heartbeat");
     }    
+
 }    
 
