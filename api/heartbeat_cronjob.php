@@ -8,7 +8,6 @@ $mail = new Correo();
 $limit = 20; // minutos sin señal antes de marcar offline
 
 $response = $master->getByProcedure("sp_heartbeats_b",[]);
-
 //echo "Fecha y hora local: " . date("Y-m-d H:i:s", time()) . "\n";
 
 foreach ($response as $s) {
@@ -16,11 +15,14 @@ foreach ($response as $s) {
     if ($diff > $limit) {
         // Aquí puedes mandar un correo o alerta
         echo "⚠️ Servidor {$s["server_id"]} está offline. Última señal: {$s["last_signal"]} (hace $diff minutos)\n<br>";
-        $mail->sendEmail("heartbeat", "Se fue la energía en bimo! Última señal: {$s["last_signal"]} (hace $diff minutos)", ["josue.delacruz@bimo.com.mx"]);
-    } else {
-        $master->setLog("{$s["server_id"]} en línea", "heartbeat");
-    }    
 
+        $mail->sendEmail("heartbeat", "Se fue la energía en bimo! Última señal: {$s["last_signal"]} (hace $diff minutos)", [
+            "josue.delacruz@bimo.com.mx", 
+            "talento.humano@bimo.com.mx", 
+            "gerardo.gomez@bimo.com.mx",
+            "cesar.calderon@bimo.com.mx",
+            "gerardo.goomez2@gmail.com"]);
+    }    
 }    
 
 echo "Cron ejecutado!";
