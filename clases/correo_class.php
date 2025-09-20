@@ -238,6 +238,9 @@ class Correo
                 case 'corroborarCorreos':
                     $mail->Body = $this->cuerpoCorroborarDatos($token);
                     break;
+                case 'heartbeat': 
+                    $mail->Body = $this->cuerpoHeartbeat();
+                    break;
             }
 
             # send email
@@ -278,6 +281,29 @@ class Correo
 
     private function obtenerCorreoFranquiciaParaResultados($master, $turno){
         return $master->getByProcedure("sp_correos_franquicia_para_resultado_b", [$turno]);
+    }
+
+    private function cuerpoHeartbeat(){
+        $html = '<!doctype html>
+                    <html>
+                    <head>
+                    <meta charset="utf-8">
+                    </head>
+                    <body style="font-family: Arial, sans-serif; background: #f9f9f9; padding: 20px;">
+                    <div style="max-width: 500px; margin: auto; background: #ffffff; border: 1px solid #ddd; border-radius: 6px; padding: 20px; text-align: center;">
+                        <h2 style="color: #d9534f; margin-bottom: 10px;">⚠️ Alerta de servidor</h2>
+                        <p style="font-size: 15px; color: #333;">
+                        El servidor <strong>BIMO</strong> ya no está en línea.
+                        </p>
+                        <p style="font-size: 13px; color: #777; margin-top: 20px;">
+                        Mensaje generado automáticamente por el sistema de monitoreo.
+                        </p>
+                    </div>
+                    </body>
+                    </html>
+                    ';
+
+        return $html;
     }
 
     # cuerpo corroborar datos
