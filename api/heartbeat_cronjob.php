@@ -23,3 +23,7 @@ foreach ($response as $s) {
 
 }    
 
+echo "Cron ejecutado!";
+
+?>
+
