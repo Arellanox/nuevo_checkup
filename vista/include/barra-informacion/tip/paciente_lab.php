@@ -42,6 +42,24 @@
   </div>
   <div class="col-12 text-center fw-bold text-decoration-underline pantone-3165-color" id="info-paci-comentario"></div>
 
+  <div class="col-12 text-center info-detalle" id="info-paci-comentario-tecnico-text" style="display: none">
+     <p>Comentario Tecnico:</p>
+  </div>
+  <div class="col-12 text-center fw-bold text-decoration-underline pantone-3165-color" id="info-paci-comentario-tecnico-content" style="display: none">
+      <div id="info-paci-comentario-tecnico-text--text">
+
+      </div>
+      <?php
+        session_start();
+        if($_SESSION['permisos']["RepImRX"] == 1):
+      ?>
+        <div style="width: 100%">
+            <textarea class="form-control" id="comentarioTecnicoText" style="width: 100%; margin-bottom: 10px; margin-top: 10px"></textarea>
+            <button class="btn btn-confirmar" id="guardarComentarioTecnico" style="width: 100%; margin-bottom: 10px; ">Guardar</button>
+        </div>
+      <?php endif; ?>
+  </div>
+
   <div class="col-12 text-center info-detalle">
     <p>Órdenes Médicas</p>
   </div>

@@ -166,6 +166,25 @@ selectTable('#TablaContenidoResultados', tablaContenido, { movil: true, reload: 
                 break;
             case 8: //Rayos X
                 masterImagenología('CONFIRMADO_RX', datalist)
+                $('#info-paci-comentario-tecnico-content').css('display', 'block');
+                $('#info-paci-comentario-tecnico-text').css('display', 'block');
+                $('#info-paci-comentario-tecnico-text--text').html(array_selected.COMENTARIO_TECNICO);
+
+                // console.log(array_selected)
+
+                $('#guardarComentarioTecnico').on('click', function () {
+                    const text = $('#comentarioTecnicoText').val();
+                    const turno = array_selected.ID_TURNO;
+
+                    ajaxAwait({
+                        api: 24,
+                        id_turno: turno,
+                        comentario_tecnico: text
+                    }, 'turnos_api', {callbackAfter: true}, false, (data) => {
+                        console.log(data)
+                        alertToast('Comentario añaido exitosamente.', 'success')
+                    });
+                });
                 break;
             case 11: //Ultrasonido 
                 masterImagenología('CONFIRMADO_ULTRASO', datalist)

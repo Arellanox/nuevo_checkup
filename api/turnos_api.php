@@ -36,6 +36,8 @@ $confirmado_por = $_SESSION['id'];
 
 #insertar
 $id_turno = $_POST['id_turno'];
+$comentario_tecnico = $_POST['comentario_tecnico'];
+
 $paciente_id = $_POST['paciente_id'];
 $paquete_id = $_POST['paquete_id'];
 $prefolio = $_POST['prefolio'];
@@ -383,6 +385,9 @@ switch ($api) {
         break;
     case 23:
         $response = $master->getByProcedure("sp_turno_estudios_cotizacion_b", [$turno]);
+        break;
+    case 24:
+        $response = $master->updateByProcedure("sp_cargar_comentario_paciente_xray", [$id_turno, $comentario_tecnico]);
         break;
     default:
         $response = "api no reconocida";

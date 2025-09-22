@@ -3492,6 +3492,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                         console.log('serialized: ', serialized_medios);
 
                         array_selected.MEDIOS_ENTREGA = serialized_medios;
+                        array_selected.COMENTARIO_TECNICO = row.COMENTARIOS_TECNICO;
 
                         /*console.log(array_selected.MEDIOS_ENTREGA)
                         console.log(row.MEDIOS_ENTREGA)*/
@@ -3519,6 +3520,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       $('#info-paci-directorio').html(row.CALLE + ", " + row.COLONIA + ", " +
                         row.MUNICIPIO + ", " + row.ESTADO);
                       $('#info-paci-comentario').html(row.COMENTARIO_RECHAZO);
+
 
                       $('#info-paci-diagnostico').html(row.DIAGNOSTICO);
 
