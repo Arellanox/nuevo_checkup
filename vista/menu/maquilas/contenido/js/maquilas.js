@@ -375,7 +375,11 @@ function generarReporteMaquilas(event){ //--Generar reportes de un laboratorio
         confirmButtonText: 'Sí'
     }, function () {
         ajaxAwait({
-            api: (laboratorio_id !== '9' ? 6 : 5),
+            api: (
+                //laboratorio_id !== '9' ? 6 : 5
+                laboratorio_id == 9 ? 5 :
+                laboratorio_id == 7 ? 13 : 6
+            ),
             laboratorio_id: laboratorio_id,
             fecha_inicio: rangoFechas[0],
             fecha_final: rangoFechas[1]

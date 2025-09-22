@@ -251,6 +251,11 @@ class Reporte
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter');
                 break;
+            case 'solicitud_maquila_biogenica':
+                $template = render_view('invoice/solicitud_maquila_biogenica.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter');
+                break;
             case 'solicitud_maquila_general':
                 $template = render_view('invoice/solicitud_maquila_general.php', $view_vars);
                 $pdf->loadHtml($template);

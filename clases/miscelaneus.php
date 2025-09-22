@@ -739,12 +739,16 @@ class Miscelaneus
                 $fecha_inicio = $_POST['fecha_inicio'];
                 $fecha_fin = $_POST['fecha_fin'];
 
+                $master->setLog(json_encode([NULL, NULL, $laboratorio_id, 1, $fecha_inicio, $fecha_fin]), 'sp_laboratorio_estudios_maquila_b');
+
                 $maquilas = $master->getByProcedure("sp_laboratorio_estudios_maquila_b", [
                     NULL, NULL, $laboratorio_id, 1, $fecha_inicio, $fecha_fin
                 ]);
 
                 if (is_array($maquilas)) {
                     foreach ($maquilas as $index => $maquila) {
+                        $master->setLog(json_encode([$maquila['ID_SERVICIO'], $maquila['ID_LABORATORIO']]), 'sp_obtener_estudios_de_servicio_b');
+
                         $data_estudios_filtrados = [];
                         $decode_lista_estudios = json_decode($maquila['LISTA_ESTUDIOS'], true);
                         $data_estudios = $master->getByProcedure('sp_obtener_estudios_de_servicio_b', [

@@ -35,37 +35,59 @@
         </thead>
         <tbody>
         <?php foreach ($pacientes as $paciente): ?>
-            <!-- Iteramos sobre los estudios de cada paciente -->
-            <?php foreach ($paciente['detalle_estudios'] as $index => $estudio): ?>
+            <?php if ($paciente['envio_completo'] == 1): ?>
+                <!-- Solo mostramos la fila del grupo/servicio -->
                 <tr>
-                    <?php if ($index === 0): ?>
-                        <!-- En la primera fila mostramos los datos del paciente -->
-                        <td colspan="1"><?= $numeracion ?></td>
-                        <td colspan="4"><?= $paciente['nombre'] ?></td>
-                        <td colspan="1"><?= $paciente['sexo'] === 'FEMENINO' ? 'F': '' ?></td>
-                        <td colspan="1"><?= $paciente['sexo'] === 'MASCULINO' ? 'M': '' ?></td>
-                        <td colspan="1"><?= $paciente['edad'] ?></td> <!-- Edad -->
-                    <?php else: ?>
-                        <!-- Dejamos vacíos los datos ya mostrados en la primera fila -->
-                        <td colspan="1"></td>
-                        <td colspan="4"></td>
-                        <td colspan="1"></td>
-                        <td colspan="1"></td>
-                        <td colspan="1"></td>
-                    <?php endif; ?>
+                    <td colspan="1"><?= $numeracion ?></td>
+                    <td colspan="4"><?= $paciente['nombre'] ?></td>
+                    <td colspan="1"><?= $paciente['sexo'] === 'FEMENINO' ? 'F': '' ?></td>
+                    <td colspan="1"><?= $paciente['sexo'] === 'MASCULINO' ? 'M': '' ?></td>
+                    <td colspan="1"><?= $paciente['edad'] ?></td>
                     <td colspan="1"></td> <!-- Columna vacía según el formato -->
-                    <td colspan="4"><?= $estudio->NOMBRE_ESTUDIO ?></td> <!-- Nombre del estudio -->
-                    <td colspan="2"><?= $estudio->ABREVIATURA_ESTUDIO ?></td> <!-- Clave del estudio -->
-
-                    <?php if ($index === 0): ?>
-                        <td colspan="3"><?= $paciente['precio_general'] ?></td> <!-- Precio general del paciente -->
-                    <?php else: ?>
-                        <td colspan="3"></td>
-                    <?php endif; ?>
+                    <td colspan="4"><?= $paciente['grupo_detalles']['nombre'] ?? '' ?></td>
+                    <td colspan="2"><?= $paciente['grupo_detalles']['clave'] ?? '' ?></td>
+                    <td colspan="3"><?= $paciente['precio_general'] ?></td>
                 </tr>
-            <?php endforeach; ?>
+            <?php else: ?>
+                <!-- Mostramos todos los estudios individuales -->
+                <?php foreach ($paciente['detalle_estudios'] as $index => $estudio): ?>
+                    <tr>
+                        <?php if ($index === 0): ?>
+                            <td colspan="1"><?= $numeracion ?></td>
+                            <td colspan="4"><?= $paciente['nombre'] ?></td>
+                            <td colspan="1"><?= $paciente['sexo'] === 'FEMENINO' ? 'F': '' ?></td>
+                            <td colspan="1"><?= $paciente['sexo'] === 'MASCULINO' ? 'M': '' ?></td>
+                            <td colspan="1"><?= $paciente['edad'] ?></td>
+                        <?php else: ?>
+                            <td colspan="1"></td>
+                            <td colspan="4"></td>
+                            <td colspan="1"></td>
+                            <td colspan="1"></td>
+                            <td colspan="1"></td>
+                        <?php endif; ?>
+
+                        <td colspan="1"></td> <!-- Columna vacía según el formato -->
+                        <td colspan="4"><?= $estudio->NOMBRE_ESTUDIO ?></td>
+                        <td colspan="2"><?= $estudio->ABREVIATURA_ESTUDIO ?></td>
+
+                        <?php if ($index === 0): ?>
+                            <td colspan="3"><?= $paciente['precio_general'] ?></td>
+                        <?php else: ?>
+                            <td colspan="3"></td>
+                        <?php endif; ?>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
             <?php $numeracion++; ?>
         <?php endforeach; ?>
+
+        <tr>
+                <td colspan="13"></td>
+                <td colspan="5">
+                    <strong>Total a pagar: </strong><br>
+                    <span><?= formatCurrency($accountTotalAmount ?? 0) ?></span>
+                </td>
+            </tr>
         </tbody>
     </table>
 </main>

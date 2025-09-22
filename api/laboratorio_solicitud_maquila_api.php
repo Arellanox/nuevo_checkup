@@ -75,12 +75,16 @@ switch ($api) {
             $id_maquila, $usuario_id
         ]);
         break;
-    case 5: // Generer reporte de estudios a maquilar para diagnostica
+    case 5: // Generar reporte de estudios a maquilar para diagnostica
         $url = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_diagnostica');
         $response = ['url' => $url];
         break;
-    case 6: // Generer reporte de estudios a maquilar general
+    case 6: // Generar reporte de estudios a maquilar general
         $url = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_general');
+        $response = ['url' => $url];
+        break;
+    case 13: // Generar reporte de estudios a maquilar para biogenica
+        $url = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_biogenica');
         $response = ['url' => $url];
         break;
     case 7: // Recuperar grupo de estudios a maquilar de un servicio
