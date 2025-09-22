@@ -43,7 +43,7 @@
   <div class="col-12 text-center fw-bold text-decoration-underline pantone-3165-color" id="info-paci-comentario"></div>
 
   <div class="col-12 text-center info-detalle" id="info-paci-comentario-tecnico-text" style="display: none">
-     <p>Comentario Tecnico:</p>
+     <p>Comentario Técnico:</p>
   </div>
   <div class="col-12 text-center fw-bold text-decoration-underline pantone-3165-color" id="info-paci-comentario-tecnico-content" style="display: none">
       <div id="info-paci-comentario-tecnico-text--text">
