@@ -25,7 +25,7 @@ $("#formRegistrarPaciente").submit(function (event) {
     let formData = new FormData(form);
     formData.set('api', 1);
     formData.set('medios_entrega', pacienteRegistrarMedios);
-
+    console.log(pacienteRegistrarMedios)
 
     /*console.log(Object.fromEntries(formData));
     console.log(obtenerMediosEntrega())*/
@@ -152,19 +152,20 @@ $("#formRegistrarPaciente").submit(function (event) {
 //     return medios
 // }
 
-$('.input-edit-impreso-check').change(function (){
+
+$('.input-impreso-check').change(function (){
     if (pacienteRegistrarMedios.includes("3")) {
         pacienteRegistrarMedios = pacienteRegistrarMedios.filter(item => item !== "3");
     } else { pacienteRegistrarMedios.push("3"); }
 });
 
-$('.input-edit-whatsapp-check').change(function (){
+$('.input-whatsapp-check').change(function (){
     if (pacienteRegistrarMedios.includes("2")) {
         pacienteRegistrarMedios = pacienteRegistrarMedios.filter(item => item !== "2");
     } else { pacienteRegistrarMedios.push("2"); }
 });
 
-$('.input-edit-correo-check').change(function (){
+$('.input-correo-check').change(function (){
     if (pacienteRegistrarMedios.includes("1")) {
         pacienteRegistrarMedios = pacienteRegistrarMedios.filter(item => item !== "1");
     } else { pacienteRegistrarMedios.push("1"); }
@@ -228,6 +229,7 @@ if (registroAgendaRecepcion == 1) {
 
 let ModalRegistrarPaciente = $('#ModalRegistrarPaciente');
 
+
 $('#ModalRegistrarPaciente').on('shown.bs.modal', function () {
       $('.input-correo-check').prop('checked', false);
       $('.input-whatsapp-check').prop('checked', false);
@@ -235,5 +237,4 @@ $('#ModalRegistrarPaciente').on('shown.bs.modal', function () {
 
       if (registroAgendaRecepcion == 1)
         rellenarSelect('#selectIngresoProcedencia', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
-
 });
