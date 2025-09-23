@@ -287,7 +287,7 @@
                                 <p>Ingrese informacion adicional si es necesario</p>
                                 <div class="row px-4">
                                     <div class="col-12 col-md-6">
-                                        <div class="rounded p-3 shadow my-2">
+                                        <div class="rounded p-3 shadow my-2 bg-white">
                                             <div class="mt-3">
                                                 <label for="paquete" class="form-label">Segmento del paciente</label>
                                                 <select class="select2-selection__rendered" id="select-segmento-aceptar"
@@ -306,16 +306,14 @@
                                             </div>
 
                                             <div class="mt-3">
-                                    <textarea rows="4" cols="90" class="input-form" placeholder="Observaciones"
-                                              id="Observaciones-aceptar"></textarea>
+                                                <textarea rows="4" cols="90" class="input-form" placeholder="Observaciones" id="Observaciones-aceptar"></textarea>
                                             </div>
                                         </div>
-
                                     </div>
 
 
                                     <div class="col-12 col-md-6">
-                                        <div class="rounded p-3 shadow my-2">
+                                        <div class="rounded p-3 shadow my-2 bg-white">
                                             <div class="mt-3">
                                                 <label for="est_diagnostico" class="form-label">Diagnóstico: </label>
                                                 <input type="text" name="est_diagnostico" value=""
@@ -335,24 +333,132 @@
                                             </div>
 
                                             <div class="mt-3">
-                                                <label for="medico_tratante" class="form-label">Médico
-                                                    tratante: </label>
+                                                <label for="medico_tratante" class="form-label">Médico Tratante: </label>
                                                 <select id="select-recepcion-medicos-tratantes"
                                                         class="form-control input-form"
                                                         name="medico_tratante_id">
                                                 </select>
 
-                                                <div class="form-check mt-1">
+                                                <div class="accordion my-3" id="accordionExample2">
+                                                    <div class="accordion-item d-none" id="detalles-medicos-tratante">
+                                                        <h2 class="accordion-header" id="headigNine">
+                                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                                                    data-bs-target="#collapseNine" aria-expanded="true" aria-controls="collapseNine">
+                                                                Detalles Médicos
+                                                            </button>
+                                                        </h2>
+                                                        <div id="collapseNine" class="accordion-collapse collapse show" aria-labelledby="headigNine">
+                                                            <div class="accordion-body">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <!--     -->
+                                                                        <input id="medico_tratante_email_actualizar" class="form-control input-form"
+                                                                               name="medico_tratante_email" placeholder="Correo del Médico">
+
+                                                                        <input id="medico_tratante_phone_actualizar" class="form-control input-form"
+                                                                               name="medico_tratante_phone" type="number" placeholder="Teléfono del Médico">
+
+                                                                        <input id="medico_tratante_especialidad_actualizar" class="form-control input-form"
+                                                                               name="medico_tratante_especialidad" placeholder="Especialidad del Médico">
+                                                                        <!--     -->
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <button type="button" class="btn btn-confirmar" id="btn-actualiza-datos-medico">
+                                                                            <i class="bi bi-person-badge"></i> Actualizar
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="accordion-item">
+                                                        <h2 class="accordion-header" id="headigTen">
+                                                            <label class="accordion-button collapsed block" style="width: 100%" for="checkBox-NewMedico"
+                                                                   data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen"
+                                                            >
+                                                                Agregar Nuevo
+                                                                <input class="form-check-input d-none" type="checkbox" name="checkBox-NewMedico" id="checkBox-NewMedico" >
+                                                            </label>
+                                                        </h2>
+                                                        <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headigTen">
+                                                            <div class="accordion-body">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <!--     -->
+                                                                        <input type="text" name="medico_tratante"
+                                                                               placeholder="Nombre del médico tratante"
+                                                                               class="input-new-medico form-control input-form"
+                                                                               id="medico-aceptar-paciente"
+                                                                               autocomplete="off">
+
+                                                                        <div id="suggestionsBox" class="d-none">
+                                                                            <span>Médicos Existentes:</span>
+                                                                            <div id="suggestionsList"></div>
+                                                                        </div>
+
+                                                                        <!-- <input type="text" name="medico_correo" placeholder="Correo del médico tratante"
+                                                                          autocomplete="off" class="input-new-medico form-control input-form"
+                                                                          id="medico-correo-aceptar"> -->
+
+                                                                        <!-- <div class="col-12"> -->
+                                                                        <!-- <label>Correo:</label> -->
+                                                                        <input type="email"
+                                                                               class="form-control input-form email-medicoTratante"
+                                                                               placeholder="Correo del médico tratante"
+                                                                               data-collapse-name="collapseConfirmacion_edit"
+                                                                               data-pair-id="input_actualizar_edit" data-email-order="1"
+                                                                               name="medico_correo"
+                                                                               id="email-medicoTratante-a">
+                                                                        <!-- </div> -->
+
+                                                                        <div class="collapse email-collapse"
+                                                                             id="collapseConfirmacion_edit">
+                                                                            <!-- <div class="col-12 mb-3"> -->
+                                                                            <!-- <label>Confirma el correo:</label> -->
+                                                                            <input type="email"
+                                                                                   class="form-control input-form email-medicoTratante"
+                                                                                   placeholder="Confirma el correo"
+                                                                                   data-pair-id="input_actualizar_edit"
+                                                                                   data-email-order="2">
+                                                                            <small class="error-message"
+                                                                                   style="color: red; display: none;">Los correos no
+                                                                                coinciden</small>
+                                                                            <!-- </div> -->
+                                                                        </div>
+
+
+                                                                        <input type="number" name="medico_telefono"
+                                                                               placeholder="Teléfono del médico tratante"
+                                                                               autocomplete="off"
+                                                                               class="input-new-medico form-control input-form"
+                                                                               id="medico-telefono-aceptar">
+
+                                                                        <input type="text" name="medico_especialidad"
+                                                                               placeholder="Especialidad del médico tratante"
+                                                                               autocomplete="off"
+                                                                               class="input-new-medico form-control input-form"
+                                                                               id="medico-especialidad-aceptar">
+                                                                        <!--     -->
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--<div class="form-check mt-1">
                                                     <input class="form-check-input" type="checkbox"
                                                            id="checkBox-NewMedico">
                                                     <label class="form-check-label" for="checkBox-NewMedico">
                                                         Agregar nuevo
                                                     </label>
-                                                </div>
-                                                <div class="collapse" id="CollapseNuevoMedico">
-                                                    <div class="shadow rounded p-3">
+                                                </div>-->
 
-                                                        <input type="text" name="medico_tratante"
+                                                <div class="collapse d-none" id="CollapseNuevoMedico">
+                                                    <div class="shadow rounded">
+
+                                                        <!--<input type="text" name="medico_tratante"
                                                                placeholder="Nombre del médico tratante"
                                                                class="input-new-medico form-control input-form"
                                                                id="medico-aceptar-paciente"
@@ -363,12 +469,12 @@
                                                             <div id="suggestionsList"></div>
                                                         </div>
 
-                                                        <!-- <input type="text" name="medico_correo" placeholder="Correo del médico tratante"
+                                                        &lt;!&ndash; <input type="text" name="medico_correo" placeholder="Correo del médico tratante"
                                                           autocomplete="off" class="input-new-medico form-control input-form"
-                                                          id="medico-correo-aceptar"> -->
+                                                          id="medico-correo-aceptar"> &ndash;&gt;
 
-                                                        <!-- <div class="col-12"> -->
-                                                        <!-- <label>Correo:</label> -->
+                                                        &lt;!&ndash; <div class="col-12"> &ndash;&gt;
+                                                        &lt;!&ndash; <label>Correo:</label> &ndash;&gt;
                                                         <input type="email"
                                                                class="form-control input-form email-medicoTratante"
                                                                placeholder="Correo del médico tratante"
@@ -376,12 +482,12 @@
                                                                data-pair-id="input_actualizar_edit" data-email-order="1"
                                                                name="medico_correo"
                                                                id="email-medicoTratante-a">
-                                                        <!-- </div> -->
+                                                        &lt;!&ndash; </div> &ndash;&gt;
 
                                                         <div class="collapse email-collapse"
                                                              id="collapseConfirmacion_edit">
-                                                            <!-- <div class="col-12 mb-3"> -->
-                                                            <!-- <label>Confirma el correo:</label> -->
+                                                            &lt;!&ndash; <div class="col-12 mb-3"> &ndash;&gt;
+                                                            &lt;!&ndash; <label>Confirma el correo:</label> &ndash;&gt;
                                                             <input type="email"
                                                                    class="form-control input-form email-medicoTratante"
                                                                    placeholder="Confirma el correo"
@@ -390,7 +496,7 @@
                                                             <small class="error-message"
                                                                    style="color: red; display: none;">Los correos no
                                                                 coinciden</small>
-                                                            <!-- </div> -->
+                                                            &lt;!&ndash; </div> &ndash;&gt;
                                                         </div>
 
 
@@ -404,7 +510,7 @@
                                                                placeholder="Especialidad del médico tratante"
                                                                autocomplete="off"
                                                                class="input-new-medico form-control input-form"
-                                                               id="medico-especialidad-aceptar">
+                                                               id="medico-especialidad-aceptar">-->
                                                     </div>
                                                 </div>
                                             </div>

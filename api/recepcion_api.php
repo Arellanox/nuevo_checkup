@@ -111,6 +111,11 @@ $franquiciaID = $_SESSION['franquiciario'] ? $_SESSION['id_cliente'] : null;
 $folio = $_POST['folio'];
 $servicios_detalle = $_POST['servicios_detalles'];
 
+$medico_tratante_correo = $_POST['medico_tratante_correo'];
+$medico_tratante_telefono = $_POST['medico_tratante_telefono'];
+$medico_tratante_especialidad = $_POST['medico_tratante_especialidad'];
+
+
 // Mensajes de error relacionados con corte de caja
 $mensajesErrorCaja = [
     "NO ESTÁS ASIGNADO A NINGUNA CAJA, NO PUEDES CONTINUAR CON EL PROCESO",
@@ -649,7 +654,16 @@ switch ($api) {
         # ( solo aplica para clientes de contado, aunque tambien es posible marcar como pendiente un cliente de credito )
         $response = $master->updateByProcedure('sp_marcar_paciente_pendiente_pago',[$idTurno, $_SESSION['id']]);
         break;
-
+    case 23:
+        # Actualizar los datos de un médico tratane
+        $response = $master->updateByProcedure('sp_actualizar_datos_medicos_trantantes', [
+            $id_medio, $medico_tratante_correo, $medico_tratante_telefono, $medico_tratante_especialidad
+        ]);
+        break;
+    case 24:
+        # Recuperar detalles médicos tratante
+        $response = $master->getByProcedure('sp_obtener_datos_medicos_trantantes', [$id_medio]);
+        break;
     default:
         $response = "Api no definida: ".$api;
         break;

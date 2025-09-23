@@ -411,17 +411,20 @@ $('#checkPaqueteAceptar, #select-paquetes').on('change', function () {
     }
 });
 
+var checkedNewMedico = false;
 // Cuando cambie el estado del checkbox
 $(`#${'checkBox-NewMedico'}`).change(function () {
     if (this.checked) {
         // bloquea el select y muestra ambos campos
         $("#CollapseNuevoMedico").collapse("show");
         $('#select-recepcion-medicos-tratantes').attr('disabled', true)
+        checkedNewMedico = true;
     } else {
         // desbloquea el select y oculta los campos
         $("#CollapseNuevoMedico").collapse("hide");
         $('#select-recepcion-medicos-tratantes').attr('disabled', false)
         $('.input-new-medico').val('');
+        checkedNewMedico = false;
     }
 });
 
@@ -432,3 +435,46 @@ function actualizarTotal(id, servicios, sumar = true) {
     $('#aceptar-totalCargado')
         .html(`$${totalAcumulado.toFixed(2)}`); // Actualizar el elemento HTML con el total acumulado
 }
+
+$('#select-recepcion-medicos-tratantes').on('change', async function () {
+    var valorSeleccionado = $(this).val();
+
+    if(checkedNewMedico || !valorSeleccionado) {
+        $('#detalles-medicos-tratante').addClass('d-none');
+    } else {
+        $('#detalles-medicos-tratante').removeClass('d-none')
+    }
+
+    if (valorSeleccionado) {
+        alertToast('Recuperando información', 'info');
+
+        await ajaxAwait({
+            api: 24,
+            id_medio: $('#select-recepcion-medicos-tratantes').val()
+        }, 'recepcion_api', {callbackAfter: true}, false, (data) => {
+            const response = data.response.data[0];
+            console.log(response);
+
+            $('#medico_tratante_email_actualizar').val(response.EMAIL);
+            $('#medico_tratante_phone_actualizar').val(response.TELEFONO);
+            $('#medico_tratante_especialidad_actualizar').val(response.ESPECIALIDAD);
+        });
+    }
+});
+
+$('#btn-actualiza-datos-medico').on('click', async function () {
+    const idMedico = $('#select-recepcion-medicos-tratantes').val();
+    const correo = $('#medico_tratante_email_actualizar').val();
+    const telefono = $('#medico_tratante_phone_actualizar').val();
+    const especialidad = $('#medico_tratante_especialidad_actualizar').val();
+
+    await  ajaxAwait({
+        api: 23,
+        id_medio: idMedico,
+        medico_tratante_correo: correo,
+        medico_tratante_telefono: telefono,
+        medico_tratante_especialidad: especialidad
+    }, 'recepcion_api', {callbackAfter: true}, false, (data) => {
+        alertToast('Información actualizada exitosamente', 'success')
+    });
+});
