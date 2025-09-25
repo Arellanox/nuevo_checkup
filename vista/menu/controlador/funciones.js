@@ -3508,7 +3508,12 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       $('#info-paci-curp').html(row.CURP);
                       $('#info-paci-naciondalidad').html(row.NACIONALIDAD)
                       $('#info-paci-telefono').html(row.CELULAR);
+                      $('#info-paci-telefono-2').html(row.CELULAR_2);
                       $('#info-paci-correo').html(row.CORREO);
+                      $('#info-paci-correo-2').html(row.CORREO_2);
+                      $('#info-paci-correo').attr('href', 'mailto:'+row.CORREO);
+                      $('#info-paci-correo-2').attr('href', 'mailto:'+row.CORREO_2);
+
                       $('#info-paci-sexo').html(row.GENERO);
                       $('#info-paci-metodo-entrega').text(row.MEDIOS_ENTREGA);
 
