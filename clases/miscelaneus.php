@@ -739,7 +739,7 @@ class Miscelaneus
                 $fecha_inicio = $_POST['fecha_inicio'];
                 $fecha_fin = $_POST['fecha_fin'];
 
-                $master->setLog(json_encode([NULL, NULL, $laboratorio_id, 1, $fecha_inicio, $fecha_fin]), 'sp_laboratorio_estudios_maquila_b');
+                // $master->setLog(json_encode([NULL, NULL, $laboratorio_id, 1, $fecha_inicio, $fecha_fin]), 'sp_laboratorio_estudios_maquila_b');
 
                 $maquilas = $master->getByProcedure("sp_laboratorio_estudios_maquila_b", [
                     NULL, NULL, $laboratorio_id, 1, $fecha_inicio, $fecha_fin

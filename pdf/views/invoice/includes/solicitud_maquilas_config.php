@@ -11,6 +11,9 @@ foreach ($resultados as $resultado) {
     if (!isset($pacientes[$pacienteKey])) {
         $pacientes[$pacienteKey] = [
             'nombre' => $resultado->PACIENTE_NOMBRE,
+            'pac_nombre' => $resultado->PAC_NOMBRE,
+            'pac_paterno' => $resultado->PAC_PATERNO,
+            'pac_materno' => $resultado->PAC_MATERNO,
             'sexo' => $resultado->PACIENTE_GENERO,
             'edad' => intval($resultado->PACIENTE_EDAD),
             'estudios' => [], // Inicializamos un array para almacenar sus estudios

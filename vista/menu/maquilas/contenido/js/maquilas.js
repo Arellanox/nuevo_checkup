@@ -378,7 +378,8 @@ function generarReporteMaquilas(event){ //--Generar reportes de un laboratorio
             api: (
                 //laboratorio_id !== '9' ? 6 : 5
                 laboratorio_id == 9 ? 5 :
-                laboratorio_id == 7 ? 13 : 6
+                laboratorio_id == 7 ? 13 :
+                laboratorio_id == 8 ? 14 : 6
             ),
             laboratorio_id: laboratorio_id,
             fecha_inicio: rangoFechas[0],

@@ -87,6 +87,10 @@ switch ($api) {
         $url = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_biogenica');
         $response = ['url' => $url];
         break;
+    case 14: // Generar reporte de estudios a maquilar para ortin
+        $url = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_ortin');
+        $response = ['url' => $url];
+        break;
     case 7: // Recuperar grupo de estudios a maquilar de un servicio
         $response = $master->getByProcedure('sp_obtener_estudios_de_servicio_b', [
             $id_grupo_servicio, $id_laboratorio_maquila ?? null
