@@ -84,7 +84,7 @@
                     <td colspan="2"><?= $paciente['sexo'] === 'FEMENINO' ? 'F': 'M' ?></td>
                     <td colspan="2"><?= $paciente['grupo_detalles']['clave'] ?? '' ?></td>
                     <td colspan="4"><?= $paciente['grupo_detalles']['nombre'] ?? '' ?></td>
-                    <td colspan="3"><?= $paciente['precio_general'] ?></td>
+                    <td colspan="3"><?= $paciente['grupo_detalles']['precio'] ?></td>
                 </tr>
             <?php else: ?>
                 <!-- Si es parcial, mostramos todos los estudios -->
@@ -104,7 +104,7 @@
                         <td colspan="4"><?= $estudio->NOMBRE_ESTUDIO ?></td> <!-- Nombre del estudio -->
 
                         <?php if ($index === 0): ?>
-                            <td colspan="3"><?= $paciente['precio'] ?></td>
+                            <td colspan="3"><?= formatCurrency($paciente['total_maquila'] ?? 0) ?></td>
                         <?php else: ?>
                             <td colspan="3"></td>
                         <?php endif; ?>
@@ -129,7 +129,7 @@
                 </td>
                 <td colspan="3" >
                     <strong>Total a pagar:</strong><br>
-                    <span><?= formatCurrency($accountTotalAmount ?? 0) ?></span>
+                    <span><?= formatCurrency($accountTotalAmount) ?></span>
                 </td>
             </tr>
 

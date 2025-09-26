@@ -739,7 +739,7 @@ class Miscelaneus
                 $fecha_inicio = $_POST['fecha_inicio'];
                 $fecha_fin = $_POST['fecha_fin'];
 
-                // $master->setLog(json_encode([NULL, NULL, $laboratorio_id, 1, $fecha_inicio, $fecha_fin]), 'sp_laboratorio_estudios_maquila_b');
+                $master->setLog(json_encode([NULL, NULL, $laboratorio_id, 1, $fecha_inicio, $fecha_fin]), 'sp_laboratorio_estudios_maquila_b');
 
                 $maquilas = $master->getByProcedure("sp_laboratorio_estudios_maquila_b", [
                     NULL, NULL, $laboratorio_id, 1, $fecha_inicio, $fecha_fin
@@ -747,26 +747,56 @@ class Miscelaneus
 
                 if (is_array($maquilas)) {
                     foreach ($maquilas as $index => $maquila) {
-                        $master->setLog(json_encode([$maquila['ID_SERVICIO'], $maquila['ID_LABORATORIO']]), 'sp_obtener_estudios_de_servicio_b');
+                        //$master->setLog(json_encode([$maquila['ID_SERVICIO'], $maquila['ID_LABORATORIO']]), 'sp_obtener_estudios_de_servicio_b');
 
                         $data_estudios_filtrados = [];
+
+                        //Obtenemos la lista de los estudios que si fueron marcados para maquilar
                         $decode_lista_estudios = json_decode($maquila['LISTA_ESTUDIOS'], true);
+
+                        //Obtenemos los detalles de los estudios del servicio padre (servicio grupo/servicio principal)
                         $data_estudios = $master->getByProcedure('sp_obtener_estudios_de_servicio_b', [
                             $maquila['ID_SERVICIO'], $maquila['ID_LABORATORIO']
                         ]);
 
+                        //Verificamos que los estudios que requerimos esten en la consulta anterior que nos da los estudios.
                         if (is_array($decode_lista_estudios) and is_array($data_estudios)) {
+                            //Mapeamos dichos estudios para solo obtener la informaci[on de los estudios que nos interesa
+                            //Para eso filtramos devolviendo solo aquellos estudios que estan en nuestra lista de estudios marcados para maquilar
                             $data_estudios_filtrados = array_filter($data_estudios, function ($estudio) use ($decode_lista_estudios) {
-                                return in_array($estudio['ID_ESTUDIO'], $decode_lista_estudios);
+                                return in_array($estudio['ID_ESTUDIO'], $decode_lista_estudios); //Solo si estan en la lista
                             });
                         }
 
+                        //Detalles de los estudios que si seran enviados
                         $maquilas[$index]['DETALLES_ESTUDIOS'] = array_values($data_estudios_filtrados);
                         $maquilas[$index]['LISTA_ESTUDIOS'] = $decode_lista_estudios;
+
+                        //Suma de precios a maquilar
+                        $amount = 0;
+                        $registered = [];
+                        foreach ($data_estudios_filtrados as $index2 => $estudios) {
+                            //$master->setLog(json_encode($estudios), 'ESTUDIO FOR');
+                            //$master->setLog(json_encode($estudios['LAB_ALIAS_PRECIO']), 'ESTUDIO FOR');
+                            $master->setLog(json_encode($maquila['ENVIO_COMPLETO']), 'ESTA COMPLETADO');
+
+                            if($maquila['ENVIO_COMPLETO'] == 1) {
+                                if(!in_array($maquila['GRUPO_ID_ALIAS'], $registered)) {
+                                    $registered[$index2] = $maquila['GRUPO_ID_ALIAS'];
+                                    $amount += floatval($maquila['GRUPO_PRECIO'] ?? 0);
+                                }
+                            }
+                            else $amount += floatval($estudios['LAB_ALIAS_PRECIO']) ?? 0;
+                        }
+
+                        $maquilas[$index]['TOTAL_MAQUILA'] = $amount;
+
+                        //$master->setLog(json_encode($data_estudios_filtrados), 'Detalles');
                     }
                 }
 
                 $arregloPaciente = $maquilas;
+                $master->setLog(json_encode($maquilas), 'Maquilas');
                 break;
             case -9:
                 $ujat_inicial = $_POST['fecha_inicial'];
