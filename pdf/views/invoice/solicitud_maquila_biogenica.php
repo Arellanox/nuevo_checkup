@@ -104,7 +104,7 @@
                         <td colspan="4"><?= $estudio->NOMBRE_ESTUDIO ?></td> <!-- Nombre del estudio -->
 
                         <?php if ($index === 0): ?>
-                            <td colspan="3"><?= $paciente['precio_general'] ?></td>
+                            <td colspan="3"><?= $paciente['precio'] ?></td>
                         <?php else: ?>
                             <td colspan="3"></td>
                         <?php endif; ?>
