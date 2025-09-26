@@ -201,6 +201,8 @@ async function obtenerContenidoCotizaciones() {
             $.getScript("contenido/js/cotizaciones-tabla.js");
             // Botones
             $.getScript("contenido/js/cotizaciones-botones.js");
+            // Funciones de hover
+            $.getScript("contenido/js/funcionesHover.js");
         })
     });
 }

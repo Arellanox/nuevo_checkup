@@ -6,6 +6,7 @@ var hash, servicio_nombre, formulario = 1, api, url_api, selecta, nombre_pacient
 var subtipo; //Para la tabla de lista de trabajo
 //Variable para guardar los servicios de un paciente seleccionado
 var selectEstudio = new GuardarArreglo(), dataSelect = new GuardarArreglo();
+
 var selectrue = 0,
   confirmado;
 

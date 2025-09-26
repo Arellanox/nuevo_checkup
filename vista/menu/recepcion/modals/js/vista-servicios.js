@@ -38,8 +38,6 @@ popperHover(selectRX, tooltip, function (event) {
 popperHover(selectUltras, tooltip, function (event) {
     if (event) {
         ListaEstudiosShow('#select-us', estudiosUltra);
-
-
     }
 })
 
@@ -51,12 +49,10 @@ popperHover(selectOtros, tooltip, function (event) {
     }
 })
 
-
 function ListaEstudiosShow(select, estudioData) {
     let dataJSON = {
         api: 16
     }
-
 
     let id = $(select).prop('selectedIndex');
     parseInt(estudioData[id]['ES_GRUPO']) ? dataJSON['id_grupo'] = estudioData[id]['ID_SERVICIO'] : dataJSON['id_servicio'] = estudioData[id]['ID_SERVICIO'];
@@ -97,7 +93,5 @@ function ListaEstudiosShow(select, estudioData) {
         $('#container-label').fadeOut(0);
         if (servicio) $('#container-estudios').fadeIn(0);
         if (grupo) $('#container-grupos').fadeIn(0);
-
     })
-
 }

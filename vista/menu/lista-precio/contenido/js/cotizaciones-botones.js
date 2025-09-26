@@ -4,6 +4,7 @@ select2('#select-presupuestos', 'form-select-paquetes')
 
 //Declarar variable para la clase
 var selectEstudio, SelectedFolio;
+var popSelectEstudios = [];
 var datosUsuarioCotizacion = $('#datosUsuarioCotizacion');
 let correos;
 
@@ -35,6 +36,7 @@ $("#formPaqueteSelectEstudio").addClass("disable-element");
 $("#informacionPaquete").addClass("disable-element");
 
 $("#UsarPaquete").on("click", function () {
+    popSelectEstudios = []
     if ($("input[type=radio][name=selectPaquete]:checked").val() === 2) {
         if (!$("#select-presupuestos").val()) {
             alertToast(
@@ -187,6 +189,8 @@ $('#CambiarPaquete').on('click', function () {
 })
 
 $('input[type="radio"][name="selectPaquete"]').change(function () {
+    popSelectEstudios = [];
+
     switch ($(this).val()) {
         case '1':
             contenidoPaquete();
@@ -205,16 +209,20 @@ $('input[type=radio][name=selectChecko]').change(function () {
         rellenarSelect("#seleccion-estudio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
             area_id: value,
             cliente_id: clienteId
-        }, function (listaEstudios) { selectEstudio = new GuardarArreglo(listaEstudios); });
+        }, function (listaEstudios) { selectEstudio = new GuardarArreglo(listaEstudios);
+            popSelectEstudios = listaEstudios;
+        });
     } else if (value === 13) {
         rellenarSelect("#seleccion-estudio", "paquetes_api", 2, "ID_PAQUETE", "DESCRIPCION", {
             cliente_id: clienteId
-        }, function (listaPaquetes) { selectEstudio = new GuardarArreglo(listaPaquetes) })
+        }, function (listaPaquetes) { selectEstudio = new GuardarArreglo(listaPaquetes); })
     } else {
         rellenarSelect("#seleccion-estudio", "precios_api", 7, 'ID_SERVICIO', 'ABREVIATURA.SERVICIO', {
             area_id: value,
             cliente_id: clienteId
-        }, function (listaEstudios) { selectEstudio = new GuardarArreglo(listaEstudios); });
+        }, function (listaEstudios) { selectEstudio = new GuardarArreglo(listaEstudios);
+            popSelectEstudios = listaEstudios;
+        });
     }
 });
 

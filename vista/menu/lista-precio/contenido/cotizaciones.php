@@ -105,6 +105,26 @@
                         </div>
                     </div>
                 </div>
+
+                <div id="tooltip" style="max-width: max-content;">
+                    <div class="modal-body">
+
+                        <div id="container-label">
+                            Espere un momento...
+                        </div>
+
+                        <div id="container-estudios" style="display: none;">
+                            <h5>Estudio(s): </h5>
+                            <ul class="list-group" id="listaContenidoEstudios"></ul>
+                            <hr>
+                        </div>
+                        <div id="container-grupos" style="display: none;">
+                            <h5>Grupo(s): </h5>
+                            <ul class="list-group" id="listContenidoGrupos"></ul>
+                        </div>
+
+                    </div>
+                </div>
             </div>
 
         </div>
