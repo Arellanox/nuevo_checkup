@@ -312,6 +312,9 @@ function aprobarTodasMaquilas(ids) { //---Aprobación de todas las maquilas pend
         confirmButtonText: 'Aceptar',
         cancelButtonText: 'Cancelar'
     }, function () {
+        const fecha_inicial = $('[name="fecha_inicio"]').val();
+        const fecha_final = $('[name="fecha_final"]').val();
+        
         if (ids && ids.length > 0) {
             Toast.fire({ icon: 'info', title: 'Espere un momento, estamos procesando su solicitud.' });
 
@@ -319,7 +322,8 @@ function aprobarTodasMaquilas(ids) { //---Aprobación de todas las maquilas pend
                 api: 3,
                 ID_MAQUILA: ids,
                 MAQUILA_ESTATUS: 1,
-                FECHA
+                FECHA_INICIO: fecha_inicial,
+                FECHA_FIN: fecha_final
             }, 'laboratorio_solicitud_maquila_api', { callbackAfter: true }, false, function (response) {
                 if (response.response.code) {
                     Toast.fire({ icon: 'success', title: '¡Maquilas aprobadas!', timer: 2000 });
