@@ -116,22 +116,22 @@
                         <td colspan="2"><?= $paciente['pac_paterno'] ?></td>
                         <td colspan="2"><?= $paciente['pac_materno'] ?></td>
                         <td colspan="2"><?= $paciente['pac_nombre'] ?></td>
-                        <td colspan="2"></td>
+                        <td colspan="2"><?= $paciente['fecha_nacimiento'] ?></td>
                         <td colspan="2"><?= $paciente['sexo'] === 'FEMENINO' ? 'F': 'M' ?></td>
-                        <td colspan="2"></td>
+                        <td colspan="2"><?= $paciente['FECHA_NACIMIENTO'] ?></td>
                         <td colspan="2"><?= date("Y-m-d") ?></td></td>
                         <td colspan="2"></td>
                         <td colspan="1"></td>
-                        <td colspan="2"></td>
+                        <td colspan="2">24308</td>
                         <td colspan="1"></td>
                         <td colspan="1"></td>
                         <td colspan="1"></td>
                         <td colspan="1"></td>
-                        <td colspan="2"></td>
-                        <td colspan="2"></td>
-                        <td colspan="2"></td>
-                        <td colspan="2"></td>
-                        <td colspan="2"></td>
+                        <td colspan="2"><?= $paciente['medico'] ?></td>
+                        <td colspan="2"><?= $paciente['id_paciente'] ?></td>
+                        <td colspan="2"><?= $paciente['toma_muestra'] ?></td>
+                        <td colspan="2"><?= $paciente['toma_muestra'] ?></td>
+                        <td colspan="2"><?= $paciente['grupo_detalles']['nombre'] ?? '' ?></td>
                         <td colspan="2"><?= $paciente['grupo_detalles']['clave'] ?? '' ?></td>
                     </tr>
                 <?php else: ?>
@@ -143,22 +143,22 @@
                                 <td colspan="2"><?= $paciente['pac_paterno'] ?></td>
                                 <td colspan="2"><?= $paciente['pac_materno'] ?></td>
                                 <td colspan="2"><?= $paciente['pac_nombre'] ?></td>
-                                <td colspan="2"></td>
+                                <td colspan="2"><?= $paciente['fecha_nacimiento'] ?></td>
                                 <td colspan="2"><?= $paciente['sexo'] === 'FEMENINO' ? 'F': 'M' ?></td>
                                 <td colspan="2"></td>
                                 <td colspan="2"><?= date("Y-m-d") ?></td>
                                 <td colspan="2"></td>
                                 <td colspan="1"></td>
-                                <td colspan="2"></td>
+                                <td colspan="2">24308</td>
                                 <td colspan="1"></td>
                                 <td colspan="1"></td>
                                 <td colspan="1"></td>
                                 <td colspan="1"></td>
-                                <td colspan="2"></td>
-                                <td colspan="2"></td>
-                                <td colspan="2"></td>
-                                <td colspan="2"></td>
-                                <td colspan="2"></td>
+                                <td colspan="2"><?= $paciente['medico'] ?></td>
+                                <td colspan="2"><?= $paciente['id_paciente'] ?></td>
+                                <td colspan="2"><?= $paciente['toma_muestra'] ?></td>
+                                <td colspan="2"><?= $paciente['toma_muestra'] ?></td>
+                                <td colspan="2"><?= $estudio->NOMBRE_ESTUDIO ?></td>
                                 <td colspan="2"><?= $estudio->ABREVIATURA_ESTUDIO ?></td>
                             <?php else: ?>
                                 <!-- Dejamos vacíos los datos ya mostrados en la primera fila -->
@@ -178,9 +178,9 @@
                                 <td colspan="1"></td>
                                 <td colspan="2"></td>
                                 <td colspan="2"></td>
-                                <td colspan="2"></td>
-                                <td colspan="2"></td>
-                                <td colspan="2"></td>
+                                <td colspan="2"><?= $paciente['toma_muestra'] ?></td>
+                                <td colspan="2"><?= $paciente['toma_muestra'] ?></td>
+                                <td colspan="2"><?= $estudio->NOMBRE_ESTUDIO ?></td>
                                 <td colspan="2"><?= $estudio->ABREVIATURA_ESTUDIO ?></td>
                             <?php endif; ?>
                         </tr>

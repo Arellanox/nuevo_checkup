@@ -314,7 +314,7 @@ function aprobarTodasMaquilas(ids) { //---Aprobación de todas las maquilas pend
     }, function () {
         const fecha_inicial = $('[name="fecha_inicio"]').val();
         const fecha_final = $('[name="fecha_final"]').val();
-        
+
         if (ids && ids.length > 0) {
             Toast.fire({ icon: 'info', title: 'Espere un momento, estamos procesando su solicitud.' });
 

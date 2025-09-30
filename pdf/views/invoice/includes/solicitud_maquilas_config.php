@@ -14,9 +14,12 @@ foreach ($resultados as $resultado) {
             'pac_nombre' => $resultado->PAC_NOMBRE,
             'pac_paterno' => $resultado->PAC_PATERNO,
             'pac_materno' => $resultado->PAC_MATERNO,
+            'fecha_nacimiento' => $resultado->FECHA_NACIMIENTO,
+            'id_paciente' => $resultado->PREFOLIO,
+            'toma_muestra' => $resultado->FECHA_TOMA_MUESTRA,
+            'medico' => $resultado->NOMBRE_MEDICO_TRATANTE,
             'sexo' => $resultado->PACIENTE_GENERO,
             'edad' => intval($resultado->PACIENTE_EDAD),
-            'estudios' => [], // Inicializamos un array para almacenar sus estudios
             'detalle_estudios' => $resultado->DETALLES_ESTUDIOS,
             'envio_completo' => $resultado->ENVIO_COMPLETO,
             'grupo_detalles' => [
