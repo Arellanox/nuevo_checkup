@@ -67,9 +67,9 @@
                         <?php endif; ?>
 
                         <td colspan="1"></td> <!-- Columna vacía según el formato -->
-                        <td colspan="4"><?= $estudio->NOMBRE_ESTUDIO ?></td>
-                        <td colspan="2"><?= $estudio->ABREVIATURA_ESTUDIO ?></td>
-                        <td colspan="3"><?= $estudio->LAB_ALIAS_PRECIO ?></td>
+                        <td colspan="4"><?= $estudio->LAB_ESTUDIO_NOMBRE ?></td>
+                        <td colspan="2"><?= $estudio->LAB_ESTUDIO_CLAVE ?></td>
+                        <td colspan="3"><?= formatCurrency($estudio->LAB_ALIAS_PRECIO) ?></td>
 
 <!--                        --><?php //if ($index === 0): ?>
 <!--                            <td colspan="3">--><?php //= formatCurrency($paciente['total_maquila'] ?? 0) ?><!--</td>-->

@@ -158,8 +158,8 @@
                                 <td colspan="2"><?= $paciente['id_paciente'] ?></td>
                                 <td colspan="2"><?= $paciente['toma_muestra'] ?></td>
                                 <td colspan="2"><?= $paciente['toma_muestra'] ?></td>
-                                <td colspan="2"><?= $estudio->NOMBRE_ESTUDIO ?></td>
-                                <td colspan="2"><?= $estudio->ABREVIATURA_ESTUDIO ?></td>
+                                <td colspan="2"><?= $estudio->LAB_ESTUDIO_NOMBRE ?></td>
+                                <td colspan="2"><?= $estudio->LAB_ESTUDIO_CLAVE ?></td>
                             <?php else: ?>
                                 <!-- Dejamos vacíos los datos ya mostrados en la primera fila -->
                                 <td colspan="2"></td>
@@ -180,8 +180,8 @@
                                 <td colspan="2"></td>
                                 <td colspan="2"><?= $paciente['toma_muestra'] ?></td>
                                 <td colspan="2"><?= $paciente['toma_muestra'] ?></td>
-                                <td colspan="2"><?= $estudio->NOMBRE_ESTUDIO ?></td>
-                                <td colspan="2"><?= $estudio->ABREVIATURA_ESTUDIO ?></td>
+                                <td colspan="2"><?= $estudio->LAB_ESTUDIO_NOMBRE ?></td>
+                                <td colspan="2"><?= $estudio->LAB_ESTUDIO_CLAVE ?></td>
                             <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>

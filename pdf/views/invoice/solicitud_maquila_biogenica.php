@@ -100,8 +100,8 @@
                             <td colspan="2"></td>
                         <?php endif; ?>
 
-                        <td colspan="2"><?= $estudio->ABREVIATURA_ESTUDIO ?></td> <!-- Clave del estudio -->
-                        <td colspan="4"><?= $estudio->NOMBRE_ESTUDIO ?></td> <!-- Nombre del estudio -->
+                        <td colspan="2"><?= $estudio->LAB_ESTUDIO_CLAVE ?></td> <!-- Clave del estudio -->
+                        <td colspan="4"><?= $estudio->LAB_ESTUDIO_NOMBRE ?></td> <!-- Nombre del estudio -->
                         <td colspan="3"><?= $estudio->LAB_ALIAS_PRECIO ?></td>
 
                         <!--                        --><?php //if ($index === 0): ?>
