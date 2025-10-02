@@ -121,6 +121,60 @@ var tablaMaquilaasPorAprobar = $('#TablaMaquilaasPorAprobar').DataTable({
     columnDefs: [ { width: "50px", targets: 0 } ],
 });
 
+var tablaMaquilasArchivos = $('#TablaMaquilasArchivos').DataTable({
+    language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json" },
+    scrollCollapse: true,
+    deferRender: true,
+    scrollY: '65vh',
+    paging: true,
+    ajax: {
+        dataType: 'json',
+        data: function (d) {
+            return {
+                api: 15,
+                FECHA_INICIO: rangoFechas[0] ?? null,
+                FECHA_FIN: rangoFechas[1] ?? null
+            }
+        },
+        method: 'POST',
+        url: '../../../api/laboratorio_solicitud_maquila_api.php',
+        dataSrc: 'response.data',
+        beforeSend: function () { console.info('📣 System: Obtencion de reporstes de maquila iniciada.') },
+        complete: function (data) {
+            if (data.responseJSON && data.responseJSON.response) {
+                console.log(data.responseJSON.response.data ?? [])
+            }
+        },
+        error: function () { Toast.fire({icon: 'error', title: '¡Error al recuperar los reportes de maquilas!'}); }
+    },
+    columns: [
+        {
+            className: 'dt-control',
+            orderable: false,
+            data: null,
+            defaultContent: '',
+            render: function(data, type, row, meta) {
+                return meta.row + 1; // número de fila
+            },
+            width: "10px"
+        },
+        {data: "LABORATORIO", width: '90px'},
+        {
+            data: "RUTA_REPORTE",
+            render: function (data, type, row) {
+                return `
+                    <a href="${data}" class="d-flex align-items-center" style="cursor:pointer; color: #ff0000 !important;">
+                        <i class="bi bi-file-earmark-pdf"></i>
+                        <span class="text-xs font-weight-bold" style="color: #ff0000 !important; margin-left: 10px">Ver PDF</span>
+                    </a>
+                `;
+            }, width: '20px'
+        },
+        {data: "FECHA_GENERACION"}
+    ],
+    columnDefs: [ { width: "50px", targets: 0 } ],
+})
+
 inputBusquedaTable('TablaMaquilaasPorAprobar', tablaMaquilaasPorAprobar, [
     {
         msj: 'Filtra la tabla con palabras u oraciones que coincidan en el campo de busqueda',
@@ -200,6 +254,7 @@ function aprobarMaquila(id) { //---Aprobación de una maquila por fechas
             if (response.response.code) {
                 Toast.fire({icon: 'success', title: '¡Maquila aprobada!', timer: 2000});
                 tablaMaquilaasPorAprobar.ajax.reload();
+                tablaMaquilasArchivos.ajax.reload();
 
                 ajaxAwait({
                     api: 3,
@@ -232,6 +287,7 @@ function rechazarMaquila(id) { //---Rechazo de una maquila
             if (response.response.code) {
                 Toast.fire({icon: 'success', title: '¡Maquila rechazada!', timer: 2000});
                 tablaMaquilaasPorAprobar.ajax.reload();
+                tablaMaquilasArchivos.ajax.reload();
 
                 ajaxAwait({
                     api: 3,
@@ -263,6 +319,7 @@ function eliminarMaquila(id) { //---Eliminación de una maquila
             if (response.response.code) {
                 Toast.fire({icon: 'success', title: '¡Maquila eliminada!', timer: 2000});
                 tablaMaquilaasPorAprobar.ajax.reload();
+                tablaMaquilasArchivos.ajax.reload();
             }
         }).then(r => {});
     });
@@ -295,11 +352,13 @@ $('#btn-confirmar-seleccion-fechas').on('click', function () {
 
     rangoFechas = [fecha_inicial, fecha_final];
     tablaMaquilaasPorAprobar.ajax.reload();
+    tablaMaquilasArchivos.ajax.reload();
 
     $('#modal-select-fechas').modal('hide');
 
     alertToast('Cambios guardados', 'success', 2000);
 })
+$('#btn-ver-reportes').on('click', function () {$('#modalVerReportes').modal('show');})
 
 function aprobarTodasMaquilas(ids) { //---Aprobación de todas las maquilas pendientes por fechas
     alertMensajeConfirm({
@@ -328,6 +387,7 @@ function aprobarTodasMaquilas(ids) { //---Aprobación de todas las maquilas pend
                 if (response.response.code) {
                     Toast.fire({ icon: 'success', title: '¡Maquilas aprobadas!', timer: 2000 });
                     tablaMaquilaasPorAprobar.ajax.reload();
+                    tablaMaquilasArchivos.ajax.reload();
 
                     ajaxAwait({
                         api: 3,

@@ -1,20 +1,22 @@
-<div class="rounded p-3 shadow-sm my-2 table-responsive bg-white mx-4 my-4">
-    <table class="table table-hover display responsive" id="TablaMaquilaasPorAprobar">
-        <thead>
-        <tr>
-            <th>Prefolio</th>
-            <th>Laboratorio</th>
-            <th>Servicio</th>
-            <th>Total Estudios</th>
-            <th>Paciente</th>
-            <th>Solicitado Por</th>
-            <th>Estado</th>
-            <th>Fecha de Registro</th>
-            <th>Acciones</th>
-        </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+<div class="d-block gap-2">
+    <div class="rounded p-3 shadow-sm my-2 table-responsive bg-white mx-4 my-4" style="flex: 1; ">
+        <table class="table table-hover display responsive" id="TablaMaquilaasPorAprobar">
+            <thead>
+            <tr>
+                <th>Prefolio</th>
+                <th>Laboratorio</th>
+                <th>Servicio</th>
+                <th>Total Estudios</th>
+                <th>Paciente</th>
+                <th>Solicitado Por</th>
+                <th>Estado</th>
+                <th>Fecha de Registro</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
 </div>
 
 <style>

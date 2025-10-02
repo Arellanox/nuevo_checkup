@@ -102,12 +102,13 @@
 
                         <td colspan="2"><?= $estudio->ABREVIATURA_ESTUDIO ?></td> <!-- Clave del estudio -->
                         <td colspan="4"><?= $estudio->NOMBRE_ESTUDIO ?></td> <!-- Nombre del estudio -->
+                        <td colspan="3"><?= $estudio->LAB_ALIAS_PRECIO ?></td>
 
-                        <?php if ($index === 0): ?>
-                            <td colspan="3"><?= formatCurrency($paciente['total_maquila'] ?? 0) ?></td>
-                        <?php else: ?>
-                            <td colspan="3"></td>
-                        <?php endif; ?>
+                        <!--                        --><?php //if ($index === 0): ?>
+                        <!--                            <td colspan="3">--><?php //= formatCurrency($paciente['total_maquila'] ?? 0) ?><!--</td>-->
+                        <!--                        --><?php //else: ?>
+                        <!--                            <td colspan="3">--><?php //= $estudio->PRECIO ?><!--</td>-->
+                        <!--                        --><?php //endif; ?>
                     </tr>
                 <?php endforeach; ?>
             <?php endif; ?>

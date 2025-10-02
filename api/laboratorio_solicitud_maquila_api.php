@@ -77,18 +77,22 @@ switch ($api) {
         break;
     case 5: // Generar reporte de estudios a maquilar para diagnostica
         $url = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_diagnostica');
+        $master->insertByProcedure('sp_maquila_reporte_g', [$url, 9, $turno_id, date('Y-m-d H:i:s')]);
         $response = ['url' => $url];
         break;
     case 6: // Generar reporte de estudios a maquilar general
         $url = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_general');
+        $master->insertByProcedure('sp_maquila_reporte_g', [$url, 5, $turno_id, date('Y-m-d H:i:s')]);
         $response = ['url' => $url];
         break;
     case 13: // Generar reporte de estudios a maquilar para biogenica
         $url = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_biogenica');
+        $master->insertByProcedure('sp_maquila_reporte_g', [$url, 7, $turno_id, date('Y-m-d H:i:s')]);
         $response = ['url' => $url];
         break;
     case 14: // Generar reporte de estudios a maquilar para ortin
         $url = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_ortin');
+        $master->insertByProcedure('sp_maquila_reporte_g', [$url, 8, $turno_id, date('Y-m-d H:i:s')]);
         $response = ['url' => $url];
         break;
     case 7: // Recuperar grupo de estudios a maquilar de un servicio
@@ -173,6 +177,15 @@ switch ($api) {
         $response = $master->getByProcedure('sp_obtener_estudios_de_servicio_b', [
             $id_grupo_servicio, null
         ]);
+        break;
+    case 15:
+        $response = $master->getByProcedure('sp_maquila_reporte_b', [
+            $id_laboratorio_maquila, $fecha_inicio, $fecha_fin
+        ]);
+
+        $master->setLog('entro','x');
+        break;
+    case 16:
         break;
     default:
         $response = "API no definida";

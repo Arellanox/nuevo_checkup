@@ -203,7 +203,25 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
 <?php endif; ?>
 
 <?php if($_SESSION['vista']['REQUISICION_MAQUILAS'] == 1):  ?>
-    <a class="dropdown-a align-items-center" type="button" href="<?php echo $https . $url . '/' . $appname . '/vista/menu/maquilas/'; ?>">
+    <a class="dropdown-a align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#board-maquilas" aria-expanded="false">
         <i class="bi bi-file-earmark-break"></i> Maquilas
     </a>
+
+    <div class="collapse" id="board-maquilas">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <?php if ($_SESSION['vista']['CURSOS BIMO'] == 1) : ?>
+                <li>
+                    <a href="<?php echo $https . $url . '/' . $appname . '/vista/menu/maquilas/'; ?>" style="display: flex; align-items: center; gap: 5px; padding-left: 20px" class="dropdown-a align-items-center" type="button">
+                        <i class="bi bi-file-earmark-medical"></i> Solicitudes
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo $https . $url . '/' . $appname . '/vista/menu/maquilas/reportes'; ?>" style="display: flex; align-items: center; gap: 5px; padding-left: 20px" class="dropdown-a align-items-center" type="button">
+                        <i class="bi bi-file-bar-graph"></i> Reportes
+                    </a>
+                </li>
+            <?php endif; ?>
+            <hr class="dropdown-divider">
+        </ul>
+    </div>
 <?php endif; ?>
