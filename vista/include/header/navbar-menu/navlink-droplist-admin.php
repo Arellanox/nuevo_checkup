@@ -209,19 +209,16 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
 
     <div class="collapse" id="board-maquilas">
         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <?php if ($_SESSION['vista']['CURSOS BIMO'] == 1) : ?>
-                <li>
-                    <a href="<?php echo $https . $url . '/' . $appname . '/vista/menu/maquilas/'; ?>" style="display: flex; align-items: center; gap: 5px; padding-left: 20px" class="dropdown-a align-items-center" type="button">
-                        <i class="bi bi-file-earmark-medical"></i> Solicitudes
-                    </a>
-                </li>
-                <li>
-                    <a href="<?php echo $https . $url . '/' . $appname . '/vista/menu/maquilas/reportes'; ?>" style="display: flex; align-items: center; gap: 5px; padding-left: 20px" class="dropdown-a align-items-center" type="button">
-                        <i class="bi bi-file-bar-graph"></i> Reportes
-                    </a>
-                </li>
-            <?php endif; ?>
-            <hr class="dropdown-divider">
+            <li>
+                <a href="<?php echo $https . $url . '/' . $appname . '/vista/menu/maquilas/'; ?>" style="display: flex; align-items: center; gap: 5px; padding-left: 20px" class="dropdown-a align-items-center" type="button">
+                    <i class="bi bi-file-earmark-medical"></i> Solicitudes
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo $https . $url . '/' . $appname . '/vista/menu/maquilas/reportes'; ?>" style="display: flex; align-items: center; gap: 5px; padding-left: 20px" class="dropdown-a align-items-center" type="button">
+                    <i class="bi bi-file-bar-graph"></i> Reportes
+                </a>
+            </li>
         </ul>
     </div>
 <?php endif; ?>
