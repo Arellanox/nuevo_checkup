@@ -101,25 +101,7 @@ let tablaPrincipal = $('#TablaReporteMaquilas').DataTable({
         $(row).attr('data-prefolio', data.prefolio);
         $(row).css('cursor', 'pointer');
     },
-    dom: 'Bfrtip',
-    buttons: [
-        {
-            text: '<i class="fa fa-file-excel-o"></i> Excel',
-            className: 'btn btn-success',
-            titleAttr: 'Descargar Excel',
-            action: function () {
 
-            }
-        },
-        {
-            text: '<i class="fa fa-file-pdf-o"></i> PDF',
-            className: 'btn btn-danger',
-            titleAttr: 'Descargar PDF',
-            action: function () {
-
-            }
-        },
-    ]
 });
 
 // Click en grupo para mostrar/ocultar servicios
