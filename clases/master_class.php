@@ -61,7 +61,6 @@ class Master extends Miscelaneus
                 return "ERROR. No se pudieron recuperar los datos.";
             }
 
-
             $resultSet = $sentencia->fetchAll();
             $sentencia->closeCursor();
 
