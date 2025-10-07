@@ -432,6 +432,13 @@ function generarReporteMaquilas(event){ //--Generar reportes de un laboratorio
         return;
     }
 
+    const noReportados = maquilasDelLaboratorio.filter(maquila => maquila.REPORTADO == 0);
+
+    if (noReportados.length <= 0) {
+        Toast.fire({ icon: 'error', title: '¡Los estudios ya fueron generados en un reporte anterior!', timer: 2000});
+        return;
+    }
+
     alertMensajeConfirm({
         title: '¿Quieres completar esta acción?',
         text: `Se generara un reporte de maquilas por ${laboratorio_texto}`,

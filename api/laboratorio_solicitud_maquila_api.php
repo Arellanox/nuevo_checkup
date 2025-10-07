@@ -37,7 +37,7 @@ switch ($api) {
         break;
     case 2: // Recuperar información del estudio pendiente a maquilar
         $maquilas = $master->getByProcedure('sp_laboratorio_estudios_maquila_b', [
-            $id_maquila, $mostrar_ocultos, NULL, NULL, $fecha_inicio, $fecha_fin
+            $id_maquila, $mostrar_ocultos, NULL, NULL, $fecha_inicio, $fecha_fin, NULL
         ]);
 
         if (is_array($maquilas)) {

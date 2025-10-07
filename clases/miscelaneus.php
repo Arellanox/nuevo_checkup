@@ -739,17 +739,18 @@ class Miscelaneus
                 $fecha_inicio = $_POST['fecha_inicio'];
                 $fecha_fin = $_POST['fecha_fin'];
 
-                $master->setLog(json_encode([NULL, NULL, $laboratorio_id, 1, $fecha_inicio, $fecha_fin]), 'sp_laboratorio_estudios_maquila_b');
+                //$master->setLog(json_encode([NULL, NULL, $laboratorio_id, 1, $fecha_inicio, $fecha_fin]), 'sp_laboratorio_estudios_maquila_b');
 
                 $maquilas = $master->getByProcedure("sp_laboratorio_estudios_maquila_b", [
-                    NULL, NULL, $laboratorio_id, 1, $fecha_inicio, $fecha_fin
+                    NULL, NULL, $laboratorio_id, 1, $fecha_inicio, $fecha_fin, 1
                 ]);
 
                 if (is_array($maquilas)) {
                     foreach ($maquilas as $index => $maquila) {
-                        //$master->setLog(json_encode([$maquila['ID_SERVICIO'], $maquila['ID_LABORATORIO']]), 'sp_obtener_estudios_de_servicio_b');
-
                         $data_estudios_filtrados = [];
+
+                        $master->insertByProcedure('sp_marcar_reporte_maquila', [$maquila['ID_MAQUILA']]);
+                        //$master->setLog(json_encode([$maquila['ID_MAQUILA']]), 'sp_marcar_reporte_maquila');
 
                         //Obtenemos la lista de los estudios que si fueron marcados para maquilar
                         $decode_lista_estudios = json_decode($maquila['LISTA_ESTUDIOS'], true);
@@ -796,7 +797,7 @@ class Miscelaneus
                 }
 
                 $arregloPaciente = $maquilas;
-                $master->setLog(json_encode($maquilas), 'Maquilas');
+                // $master->setLog(json_encode($maquilas), 'Maquilas');
                 break;
             case -9:
                 $ujat_inicial = $_POST['fecha_inicial'];
