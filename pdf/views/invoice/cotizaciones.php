@@ -252,7 +252,7 @@
                         $<?= json_decode(json_encode($resultArray[$i]), true)['PRECIO_UNITARIO'] ?>
                     </td>
                     <td style="width: 11%; text-align: center;">
-                        $<?= json_decode(json_encode($resultArray[$i]), true)['CANTIDAD']?>.00
+                        <?= json_decode(json_encode($resultArray[$i]), true)['CANTIDAD']?>.00
                     </td>
                     <td style="width: 11%; text-align: right;"><?= $descuento ?> %</td>
                     <td style="width: 11%; text-align: center;">16% </td>

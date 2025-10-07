@@ -261,6 +261,11 @@ class Reporte
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter');
                 break;
+            case 'solicitud_maquila_ortin':
+                $template = render_view('invoice/solicitud_maquila_ortin.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter', 'landscape');
+                break;
             case "certificado_bimo":
                 $template = render_view('invoice/footer_certificado_vinco.php', $view_vars);
                 $pdf->loadHtml($template);

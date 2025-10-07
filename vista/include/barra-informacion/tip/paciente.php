@@ -39,10 +39,20 @@
   </div>
   <div class="col-7" id="info-paci-telefono"></div>
   <div class="col-5 text-end info-detalle">
+      <p>Teléfono 2:</p>
+  </div>
+  <div class="col-7" id="info-paci-telefono-2"></div>
+  <div class="col-5 text-end info-detalle">
     <p>Correo:</p>
   </div>
   <div class="col-12">
     <a href="#" id="info-paci-correo"></a>
+  </div>
+  <div class="col-5 text-end info-detalle">
+      <p>Correo 2:</p>
+  </div>
+  <div class="col-12">
+      <a href="#" id="info-paci-correo-2"></a>
   </div>
   <div class="col-5 text-end info-detalle">
     <p>Sexo:</p>

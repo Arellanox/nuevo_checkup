@@ -103,8 +103,8 @@ header {
 /*=============[MAIN]=============*/
 main {
     border-radius: 4px;
-    padding-right: 25px;
-    padding-left: 25px;
+    padding-right: 10px;
+    padding-left: 10px;
     text-align: justify;
     text-justify: inter-word;
 }

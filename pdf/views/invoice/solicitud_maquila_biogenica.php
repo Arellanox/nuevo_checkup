@@ -65,6 +65,7 @@
             <tr>
                 <th colspan="1" style="border: 1px solid black">No.</th>
                 <th colspan="4" style="border: 1px solid black">Paciente (Nombre, Apellidos)</th>
+                <th colspan="2" style="border: 1px solid black">Edad</th>
                 <th colspan="2" style="border: 1px solid black">Sexo</th>
                 <th colspan="2" style="border: 1px solid black">Clave</th>
                 <th colspan="4" style="border: 1px solid black">Estudios</th>
@@ -81,10 +82,11 @@
                 <tr>
                     <td colspan="1"><?= $numeracion ?></td>
                     <td colspan="4"><?= $paciente['nombre'] ?></td>
+                    <td colspan="2"><?= $paciente['edad'] ?></td>
                     <td colspan="2"><?= $paciente['sexo'] === 'FEMENINO' ? 'F': 'M' ?></td>
                     <td colspan="2"><?= $paciente['grupo_detalles']['clave'] ?? '' ?></td>
                     <td colspan="4"><?= $paciente['grupo_detalles']['nombre'] ?? '' ?></td>
-                    <td colspan="3"><?= $paciente['precio_general'] ?></td>
+                    <td colspan="3"><?= $paciente['grupo_detalles']['precio'] ?></td>
                 </tr>
             <?php else: ?>
                 <!-- Si es parcial, mostramos todos los estudios -->
@@ -93,21 +95,24 @@
                         <?php if ($index === 0): ?>
                             <td colspan="1"><?= $numeracion ?></td>
                             <td colspan="4"><?= $paciente['nombre'] ?></td>
+                            <td colspan="2"><?= $paciente['edad'] ?></td>
                             <td colspan="2"><?= $paciente['sexo'] === 'FEMENINO' ? 'F': 'M' ?></td>
                         <?php else: ?>
                             <td colspan="1"></td>
                             <td colspan="4"></td>
                             <td colspan="2"></td>
+                            <td colspan="2"></td>
                         <?php endif; ?>
 
-                        <td colspan="2"><?= $estudio->ABREVIATURA_ESTUDIO ?></td> <!-- Clave del estudio -->
-                        <td colspan="4"><?= $estudio->NOMBRE_ESTUDIO ?></td> <!-- Nombre del estudio -->
+                        <td colspan="2"><?= $estudio->LAB_ESTUDIO_CLAVE ?></td> <!-- Clave del estudio -->
+                        <td colspan="4"><?= $estudio->LAB_ESTUDIO_NOMBRE ?></td> <!-- Nombre del estudio -->
+                        <td colspan="3"><?= $estudio->LAB_ALIAS_PRECIO ?></td>
 
-                        <?php if ($index === 0): ?>
-                            <td colspan="3"><?= $paciente['precio_general'] ?></td>
-                        <?php else: ?>
-                            <td colspan="3"></td>
-                        <?php endif; ?>
+                        <!--                        --><?php //if ($index === 0): ?>
+                        <!--                            <td colspan="3">--><?php //= formatCurrency($paciente['total_maquila'] ?? 0) ?><!--</td>-->
+                        <!--                        --><?php //else: ?>
+                        <!--                            <td colspan="3">--><?php //= $estudio->PRECIO ?><!--</td>-->
+                        <!--                        --><?php //endif; ?>
                     </tr>
                 <?php endforeach; ?>
             <?php endif; ?>
@@ -115,12 +120,12 @@
             <?php $numeracion++; ?>
         <?php endforeach; ?>
             <tr>
-                <td colspan="16" style="text-align: left; vertical-align: top; white-space: nowrap; padding: 5px; font-size: 11px; height: 50px">
+                <td colspan="18" style="text-align: left; vertical-align: top; white-space: nowrap; padding: 5px; font-size: 11px; height: 50px">
                     <strong>Observaciones:</strong>
                 </td>
             </tr>
             <tr>
-                <td colspan="13" style="padding: 5px; font-size: 11px; line-height: 1.3; word-break: break-word; white-space: normal;">
+                <td colspan="15" style="padding: 5px; font-size: 11px; line-height: 1.3; word-break: break-word; white-space: normal;">
                     Nota: Se deberá indicar la clave de estudios solicitados con base al catálogo de estudios.
                     <br>
                     En caso de estudios de orina de 24 h indicar el volumen de recolección.<br>
@@ -129,7 +134,7 @@
                 </td>
                 <td colspan="3" >
                     <strong>Total a pagar:</strong><br>
-                    <span><?= formatCurrency($accountTotalAmount ?? 0) ?></span>
+                    <span><?= formatCurrency($accountTotalAmount) ?></span>
                 </td>
             </tr>
 

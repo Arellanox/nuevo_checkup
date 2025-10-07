@@ -486,20 +486,36 @@ $menu == 'Laboratorio Biomolecular'
     <?php if($menu == "Requisición Maquilas"): ?>
         <div class="d-flex align-items-center justify-content-end">
             <button id="btn-modal-lista-precios" type="button" role="button" class="btn btn-hover btn-generar-reporte">
-                Precios
+                List. Precios
                 <i class="fa fa-money"></i>
             </button>
-            <button id="btn-aprobar-todos" type="button" role="button" class="btn btn-hover btn-aprobar-all">
-                Aprobar todas
-                <i class="bi bi-check-all fs-4"></i>
+            <button id="btn-ver-reportes" type="button" role="button" class="btn btn-hover btn-generar-reporte">
+                Mis Reportes
+                <i class="fa fa-file-pdf-o"></i>
+            </button>
+
+            <button id="btn-generar-reportes" type="button" role="button" class="btn btn-hover btn-generar-reporte">
+                Crear Reporte
+                <i class="fa fa-file-pdf-o"></i>
             </button>
             <button id="btn-select-fechas" type="button" role="button" class="btn btn-hover btn-aprobar-all">
-                Filtrar Fechas
+                Filtrar
                 <i class="fa fa-calendar"></i>
             </button>
-            <button id="btn-generar-reportes" type="button" role="button" class="btn btn-hover btn-generar-reporte">
-                Generar Reporte
-                <i class="fa fa-file-pdf-o"></i>
+            <button id="btn-aprobar-todos" type="button" role="button" class="btn btn-hover btn-aprobar-all">
+                Aprobar Todos
+                <i class="bi bi-check-all fs-4"></i>
+            </button>
+
+
+        </div>
+    <?php endif; ?>
+
+    <?php if($menu == "Reporte de Maquilas"): ?>
+        <div class="d-flex align-items-center justify-content-end">
+            <button id="btn-filtro-modal" type="button" role="button" class="btn btn-hover btn-aprobar-all">
+                <span style="display: inline-block; margin-right: 10px">Filtrar Maquilas</span>
+                <i class="fa fa-calendar ml-2"></i>
             </button>
         </div>
     <?php endif; ?>

@@ -12,7 +12,7 @@ $turno_id = mb_convert_encoding(base64_decode(urldecode($_GET['turno'])), 'UTF-8
 $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8');
 $usuario_id = $_SESSION['id'];
 
-$api = "solicitud_estudios";
+$api = "solicitud_maquila_ortin";
 $area_id = 1;
 $turno_id = 8628;
 $id_cliente = 15;
@@ -100,6 +100,10 @@ switch ($api) {
     case 'solicitud_maquila_general':
         # imprimir maquilas aprobadas
         $r = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_general', 'mostrar', $preview);
+        break;
+    case 'solicitud_maquila_ortin':
+        # imprimir maquilas aprobadas por ortin
+        $r = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_ortin', 'mostrar', $preview);
         break;
     default:
         echo '<script language="javascript">alert("¡URL invalida!"); window.close()</script>';

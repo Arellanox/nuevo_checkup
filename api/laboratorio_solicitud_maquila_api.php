@@ -37,7 +37,7 @@ switch ($api) {
         break;
     case 2: // Recuperar información del estudio pendiente a maquilar
         $maquilas = $master->getByProcedure('sp_laboratorio_estudios_maquila_b', [
-            $id_maquila, $mostrar_ocultos, NULL, NULL, $fecha_inicio, $fecha_fin
+            $id_maquila, $mostrar_ocultos, NULL, NULL, $fecha_inicio, $fecha_fin, NULL
         ]);
 
         if (is_array($maquilas)) {
@@ -77,14 +77,22 @@ switch ($api) {
         break;
     case 5: // Generar reporte de estudios a maquilar para diagnostica
         $url = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_diagnostica');
+        $master->insertByProcedure('sp_maquila_reporte_g', [$url, 9, $turno_id, date('Y-m-d H:i:s')]);
         $response = ['url' => $url];
         break;
     case 6: // Generar reporte de estudios a maquilar general
         $url = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_general');
+        $master->insertByProcedure('sp_maquila_reporte_g', [$url, 5, $turno_id, date('Y-m-d H:i:s')]);
         $response = ['url' => $url];
         break;
     case 13: // Generar reporte de estudios a maquilar para biogenica
         $url = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_biogenica');
+        $master->insertByProcedure('sp_maquila_reporte_g', [$url, 7, $turno_id, date('Y-m-d H:i:s')]);
+        $response = ['url' => $url];
+        break;
+    case 14: // Generar reporte de estudios a maquilar para ortin
+        $url = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_ortin');
+        $master->insertByProcedure('sp_maquila_reporte_g', [$url, 8, $turno_id, date('Y-m-d H:i:s')]);
         $response = ['url' => $url];
         break;
     case 7: // Recuperar grupo de estudios a maquilar de un servicio
@@ -170,9 +178,91 @@ switch ($api) {
             $id_grupo_servicio, null
         ]);
         break;
+    case 15: // Recupera todos los reportes que tenemos generados por fechas
+        $response = $master->getByProcedure('sp_maquila_reporte_b', [
+            $id_laboratorio_maquila, $fecha_inicio, $fecha_fin
+        ]);
+        break;
+    case 16: //Generamos un reporte de ventas de maquilas por pacientes
+        $pacientes = $master->getByProcedure('sp_reporte_maquilas_pacientes', [
+            $fecha_inicio ?? date('Y-m-01'),
+            $fecha_fin ?? date('Y-m-d', strtotime('+1 day'))
+        ]);
+
+        $resultado = [];
+
+        foreach ($pacientes as $paciente) {
+            $servicios = $master->getByProcedure('sp_reporte_maquilas_servicios', [
+                $paciente['ID_PACIENTE'],
+                $paciente['ID_LABORATORIO']
+            ]);
+
+            $serviciosDetallados = [];
+            $totalPaciente = 0;
+
+            foreach ($servicios as $servicio) {
+                // LISTA_ESTUDIOS es un JSON con ids de estudios
+                $listaEstudios = json_decode($servicio['LISTA_ESTUDIOS'], true) ?? [];
+
+                $estudiosFiltrados = [];
+                $subtotal = 0;
+
+                foreach ($listaEstudios  as $idEstudio) {
+                    $estudios = $master->getByProcedure('sp_reporte_maquilas_estudios', [
+                        $idEstudio,
+                        $paciente['ID_LABORATORIO']
+                    ]);
+
+                    foreach ($estudios as $estudio) {
+                        $precio = $estudio['PRECIO_GRUPO'] ?? $estudio['PRECIO'] ?? 0;
+                        $subtotal += $precio;
+
+                        $estudiosFiltrados[] = [
+                            'id' => $estudio['ID_SERVICIO'],
+                            'descripcion' => $estudio['ESTUDIO'],
+                            'laboratorio' => $estudio['ID_LABORATORIO'],
+                            'clave' => $estudio['CLAVE'],
+                            'precio' => $precio,
+                            'grupo' => $estudio['GRUPO_ID_ALIAS'],
+                        ];
+                    }
+                }
+
+                $totalPaciente += $subtotal; // ← Acumula el subtotal de este servicio
+
+                $serviciosDetallados[] = [
+                    'id_solicitud' => $servicio['ID_SOLICITUD'],
+                    'id_servicio' => $servicio['ID_SERVICIO'],
+                    'descripcion' => $servicio['SERVICIO'],
+                    'prefolio' => $servicio['PREFOLIO'],
+                    'fecha' => $servicio['FECHA_REGISTRO'],
+                    'subtotal' => $subtotal,
+                    'estudios' => $estudiosFiltrados,
+                ];
+            }
+
+            $resultado[] = [
+                'id_paciente' => $paciente['ID_PACIENTE'],
+                'paciente' => $paciente['PACIENTE'],
+                'prefolio' => $paciente['PREFOLIO'],
+                'laboratorio' => [
+                    'id' => $paciente['ID_LABORATORIO'],
+                    'nombre' => $paciente['LABORATORIO']
+                ],
+                'total_general' => $totalPaciente,
+                'total_servicios' => $paciente['TOTAL_SERVICIOS'],
+                'medico_tratante' => $paciente['MEDICO_TRATANTE'],
+                'fecha' => $paciente['FECHA_REGISTRO'],
+                'servicios' => $serviciosDetallados
+            ];
+        }
+
+        $response = $resultado;
+        break;
     default:
         $response = "API no definida";
         break;
 }
 
 echo $master->returnApi($response);
+

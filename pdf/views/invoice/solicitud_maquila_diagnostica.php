@@ -46,7 +46,7 @@
                     <td colspan="1"></td> <!-- Columna vacía según el formato -->
                     <td colspan="4"><?= $paciente['grupo_detalles']['nombre'] ?? '' ?></td>
                     <td colspan="2"><?= $paciente['grupo_detalles']['clave'] ?? '' ?></td>
-                    <td colspan="3"><?= $paciente['precio_general'] ?></td>
+                    <td colspan="3"><?= $paciente['grupo_detalles']['precio'] ?></td>
                 </tr>
             <?php else: ?>
                 <!-- Mostramos todos los estudios individuales -->
@@ -67,14 +67,15 @@
                         <?php endif; ?>
 
                         <td colspan="1"></td> <!-- Columna vacía según el formato -->
-                        <td colspan="4"><?= $estudio->NOMBRE_ESTUDIO ?></td>
-                        <td colspan="2"><?= $estudio->ABREVIATURA_ESTUDIO ?></td>
+                        <td colspan="4"><?= $estudio->LAB_ESTUDIO_NOMBRE ?></td>
+                        <td colspan="2"><?= $estudio->LAB_ESTUDIO_CLAVE ?></td>
+                        <td colspan="3"><?= formatCurrency($estudio->LAB_ALIAS_PRECIO) ?></td>
 
-                        <?php if ($index === 0): ?>
-                            <td colspan="3"><?= $paciente['precio_general'] ?></td>
-                        <?php else: ?>
-                            <td colspan="3"></td>
-                        <?php endif; ?>
+<!--                        --><?php //if ($index === 0): ?>
+<!--                            <td colspan="3">--><?php //= formatCurrency($paciente['total_maquila'] ?? 0) ?><!--</td>-->
+<!--                        --><?php //else: ?>
+<!--                            <td colspan="3">--><?php //= $estudio->PRECIO ?><!--</td>-->
+<!--                        --><?php //endif; ?>
                     </tr>
                 <?php endforeach; ?>
             <?php endif; ?>
@@ -85,7 +86,7 @@
                 <td colspan="13"></td>
                 <td colspan="5">
                     <strong>Total a pagar: </strong><br>
-                    <span><?= formatCurrency($accountTotalAmount ?? 0) ?></span>
+                    <span><?= formatCurrency($accountTotalAmount) ?></span>
                 </td>
             </tr>
         </tbody>
