@@ -278,6 +278,10 @@ switch ($api) {
         } else {
             $response = "Paciente sin resultados o imágenes.";
         }
+
+        if($response == 1){
+             $master->setLog("Correo enviado. turno $idTurno.", "[Correo reenviado manualmente]");
+        }
         break;
     case 5:
         $zip = new ZipArchive();
