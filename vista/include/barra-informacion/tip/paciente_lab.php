@@ -14,6 +14,10 @@
   </div>
 </div>
 <div class="row mt-3">
+  <div class="col-6  text-end info-medico">
+      <p>Medico Tratante:</p>
+  </div>
+  <div class="col-6" id="info-medico-tratante"></div>
   <div class="col-6  text-end info-detalle">
     <p>Procedencia:</p>
   </div>

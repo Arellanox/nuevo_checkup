@@ -3472,10 +3472,13 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                   type: "POST",
                   dataType: 'json',
                   success: function (data) {
+                      console.log(row);
                     if (mensajeAjax(data)) {
                         row = data['response']['data'][0];
                         var serialized_medios, auxMedios = row.MEDIOS_ENTREGA;
+/*
                         console.log('aux: ', auxMedios);
+*/
 
                         if (auxMedios) {
                            auxMedios = Array.isArray(auxMedios) ? auxMedios : row.MEDIOS_ENTREGA?.split(',');
@@ -3489,10 +3492,13 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                            })
                         } else serialized_medios = []
 
+/*
                         console.log('serialized: ', serialized_medios);
+*/
 
                         array_selected.MEDIOS_ENTREGA = serialized_medios;
                         array_selected.COMENTARIO_TECNICO = row.COMENTARIOS_TECNICO;
+
 
                         /*console.log(array_selected.MEDIOS_ENTREGA)
                         console.log(row.MEDIOS_ENTREGA)*/
@@ -3537,6 +3543,14 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       if (row.FECHA_RECEPCION != null) {
                         $('#info-paci-recepcion').html(row.FECHA_RECEPCION);
                       }
+                      
+                      if (row.MEDICO_TRATANTE != null) {
+                          $('#info-medico-tratante').html(row.MEDICO_TRATANTE);
+                      }
+
+                      /*console.log(row);
+                      console.log(array_selected);
+                      console.log(data);*/
 
                       $('#info-paci-prefolio').html(row.PREFOLIO)
 

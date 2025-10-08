@@ -110,13 +110,15 @@ switch ($api) {
             $id_paciente, $curp, $pasaporte, $id_turno, $idFranquicia
         ]);
 
+/*        $master->setLog(json_encode($response), "contenido 0");*/
+
         foreach ($response as $key => $value) {
             $value['ordenes'] = $master->decodeJson([$value['ordenes']]);
             $response[$key]['ordenes'] = $value['ordenes'];
         }
 
         $response = $master->decodeJsonRecursively($response);
-        // $master->setLog(json_encode($response), "contenido");
+/*        $master->setLog(json_encode($response), "contenido");*/
         break;
     case 3:
         $medios = array_map('intval', explode(',', $medios_entrega));
