@@ -1068,7 +1068,7 @@ class Miscelaneus
                 }
                 break;
             case -8:
-                $fecha_resultado = date("Ymd");
+                $fecha_resultado = date("Ymd His");
                 $nombre = "Solicitud_Laboratorio_Maquilas";
                 $ruta_saved = "reportes/modulo/laboratorio/solicitud_laboratorio_maquila/$fecha_resultado/";
 

@@ -3543,7 +3543,7 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       if (row.FECHA_RECEPCION != null) {
                         $('#info-paci-recepcion').html(row.FECHA_RECEPCION);
                       }
-                      
+
                       if (row.MEDICO_TRATANTE != null) {
                           $('#info-medico-tratante').html(row.MEDICO_TRATANTE);
                       }

@@ -163,7 +163,7 @@ var tablaMaquilasArchivos = $('#TablaMaquilasArchivos').DataTable({
             data: "RUTA_REPORTE",
             render: function (data, type, row) {
                 return `
-                    <a href="${data}" class="d-flex align-items-center" style="cursor:pointer; color: #ff0000 !important;">
+                    <a href="${data}" target="_blank" class="d-flex align-items-center" style="cursor:pointer; color: #ff0000 !important;">
                         <i class="bi bi-file-earmark-pdf"></i>
                         <span class="text-xs font-weight-bold" style="color: #ff0000 !important; margin-left: 10px">Ver PDF</span>
                     </a>

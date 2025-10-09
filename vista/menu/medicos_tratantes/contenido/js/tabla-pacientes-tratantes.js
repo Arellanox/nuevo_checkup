@@ -97,7 +97,7 @@ tablaPacientesTratantes = $("#tablaPacientesTratantes").DataTable({
             width: '1%',
             data: null,
             defaultContent: `
-                <button type="button" class="btn-vizu-reporte btn btn-pantone-325" style="font-size: 20px;margin: 0px;padding: 1px 8px 1px 8px;">
+                <button type="button" class="btn-vizu-reporte btn btn-pantone-325" style="font-size: 20px;margin: 0;padding: 1px 8px 1px 8px;">
                     <i class="bi bi-clipboard2-pulse-fill btn-vizu-reporte"></i>
                 </button>`
         }
