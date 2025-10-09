@@ -26,7 +26,7 @@ var dataJsonTablaEstudiosPaciente;
 // ###################### Tablas ################################################
 
 // ==============================================================================
-dataPacientesTratantes = { api: 4 };
+dataPacientesTratantes = { api: 4, fecha_inicio: obtenerFechaActualYMD() };
 //Tbla donde se vizualiza los Médicos tratantes ya registrados en la base de datos
 tablaPacientesTratantes = $("#tablaPacientesTratantes").DataTable({
     language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json", },

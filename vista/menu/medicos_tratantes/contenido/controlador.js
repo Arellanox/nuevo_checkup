@@ -23,8 +23,7 @@ async function contenidoMedicosTratantes() {
 
 var tablaPacientesTratantes, dataPacientesTratantes = { api: 4 }
 dataJsonTablaEstudiosPaciente = {
-    api: 6,
-
+    api: 6
 }
 // console.log('Valida el paciente')
 // console.log(validarPermiso('filPacientes'))
@@ -38,6 +37,22 @@ async function contenidoPacientesTratantes() {
     })
 }
 
+function obtenerFechaActualYMD() {
+    const hoy = new Date(); // 1. Obtiene la fecha y hora actual
+
+    // 2. Extrae el año, mes y día
+    const anio = hoy.getFullYear();
+    // Los meses van de 0 (Enero) a 11 (Diciembre), se suma 1
+    const mes = hoy.getMonth() + 1;
+    const dia = hoy.getDate();
+
+    // 3. Formatea el mes y el día para que tengan siempre dos dígitos (ej: 09 en vez de 9)
+    const mesFormato = String(mes).padStart(2, '0');
+    const diaFormato = String(dia).padStart(2, '0');
+
+    // 4. Une las partes con guiones
+    return `${anio}-${mesFormato}-${diaFormato}`;
+}
 
 function hasLocation() {
     var hash = window.location.hash.substring(1);
