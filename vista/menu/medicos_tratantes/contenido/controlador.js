@@ -1,3 +1,6 @@
+var datosCargaodsPaciente = null;
+var selectedEstudiosCargadosPacientes; // <- Aqui se guardan toda la información del estudio que seleccione
+
 if (validarVista('MEDICOS_TRATANTES')) {
     hasLocation();
     $(window).on("hashchange", function (e) {
@@ -21,21 +24,12 @@ async function contenidoMedicosTratantes() {
     })
 }
 
-var tablaPacientesTratantes, dataPacientesTratantes = { api: 4 }
+var tablaPacientesTratantes, dataPacientesTratantes = { api: 4, fecha_inicio: obtenerFechaActualYMD() }
 dataJsonTablaEstudiosPaciente = {
-    api: 6
+    api: 6, fecha_inicio: obtenerFechaActualYMD()
 }
 // console.log('Valida el paciente')
 // console.log(validarPermiso('filPacientes'))
-
-async function contenidoPacientesTratantes() {
-    await obtenerTitulo("Pacientes Tratantes");
-    $.post("contenido/pacientes_tratantes.php", function (html) {
-        $("#body-js").html(html);
-    }).done(function () {
-        $.getScript("contenido/js/tabla-pacientes-tratantes.js");
-    })
-}
 
 function obtenerFechaActualYMD() {
     const hoy = new Date(); // 1. Obtiene la fecha y hora actual
@@ -52,6 +46,15 @@ function obtenerFechaActualYMD() {
 
     // 4. Une las partes con guiones
     return `${anio}-${mesFormato}-${diaFormato}`;
+}
+
+async function contenidoPacientesTratantes() {
+    await obtenerTitulo("Pacientes Tratantes");
+    $.post("contenido/pacientes_tratantes.php", function (html) {
+        $("#body-js").html(html);
+    }).done(function () {
+        $.getScript("contenido/js/tabla-pacientes-tratantes.js");
+    })
 }
 
 function hasLocation() {

@@ -129,7 +129,7 @@ selectTable('#tablaPacientesTratantes', tablaPacientesTratantes,
 // ==============================================================================
 
 // function para configurar el modal
-function configurarModal(data) {
+async function configurarModal(data) {
     ChangePacienteData(data)
     const NOMBRE = selectedPacientes['PX'];
     const TURNO_ID = selectedPacientes['ID_TURNO'];
@@ -141,9 +141,12 @@ function configurarModal(data) {
         turno_id: TURNO_ID
     }
 
-    TablaEstudiosCargadosPaciente.ajax.reload()
-
-    $("#ModalVisualizarEstudiosPaciente").modal('show');
+    await ajaxAwait(dataJsonTablaEstudiosPaciente, 'medicos_tratantes_api', {callbackAfter: true}, false, (data) => {
+        if(data.response.data && data.response.data.length > 1) {
+            TablaEstudiosCargadosPaciente.ajax.reload()
+            $("#ModalVisualizarEstudiosPaciente").modal('show');
+        } else window.open(data.response.data[0].RUTA, '_blank');
+    });
 }
 
 // Funcion para setear o limpiar en una variable la informacion del paciente

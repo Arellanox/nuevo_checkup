@@ -4,7 +4,6 @@
 
 // ==============================================================================
 
-var selectedEstudiosCargadosPacientes; // <- Aqui se guardan toda la información del estudio que seleccione
 
 // ==============================================================================
 
@@ -28,8 +27,9 @@ TablaEstudiosCargadosPaciente = $("#tablaEstudiosCargadosPaciente").DataTable({
         url: `${http}${servidor}/${appname}/api/medicos_tratantes_api.php`,
         beforeSend: function () {
         },
-        complete: function () {
+        complete: function (data) {
             TablaEstudiosCargadosPaciente.columns.adjust().draw()
+            datosCargaodsPaciente = data
             // obtenerBTNEstudios()
         },
         error: function (jqXHR, textStatus, errorThrown) {
