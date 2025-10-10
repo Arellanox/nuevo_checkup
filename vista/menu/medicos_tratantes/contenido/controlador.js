@@ -24,9 +24,9 @@ async function contenidoMedicosTratantes() {
     })
 }
 
-var tablaPacientesTratantes, dataPacientesTratantes = { api: 4, fecha_inicio: obtenerFechaActualYMD() }
+var tablaPacientesTratantes, dataPacientesTratantes = { api: 4, fecha_inicio: obtenerFechaActualYMD(), fecha_fin: obtenerFechaActualYMD(), todos: 0 }
 dataJsonTablaEstudiosPaciente = {
-    api: 6, fecha_inicio: obtenerFechaActualYMD()
+    api: 6, fecha_inicio: obtenerFechaActualYMD(), fecha_fin: obtenerFechaActualYMD(), todos: 0
 }
 // console.log('Valida el paciente')
 // console.log(validarPermiso('filPacientes'))

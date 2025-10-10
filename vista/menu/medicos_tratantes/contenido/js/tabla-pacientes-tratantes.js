@@ -26,7 +26,7 @@ var dataJsonTablaEstudiosPaciente;
 // ###################### Tablas ################################################
 
 // ==============================================================================
-dataPacientesTratantes = { api: 4, fecha_inicio: obtenerFechaActualYMD() };
+dataPacientesTratantes = { api: 4, fecha_inicio: obtenerFechaActualYMD(), fecha_fin: obtenerFechaActualYMD(), todos: 0 };
 //Tbla donde se vizualiza los Médicos tratantes ya registrados en la base de datos
 tablaPacientesTratantes = $("#tablaPacientesTratantes").DataTable({
     language: { url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json", },
@@ -145,7 +145,12 @@ async function configurarModal(data) {
         if(data.response.data && data.response.data.length > 1) {
             TablaEstudiosCargadosPaciente.ajax.reload()
             $("#ModalVisualizarEstudiosPaciente").modal('show');
-        } else window.open(data.response.data[0].RUTA, '_blank');
+        } else {
+            if(data.response.data[0]?.RUTA){
+                window.open(data.response.data[0]?.RUTA, '_blank');
+            } else alertToast('No ha seleccionado ningún registro', info)
+
+        }
     });
 }
 
