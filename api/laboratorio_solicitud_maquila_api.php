@@ -312,7 +312,7 @@ switch ($api) {
             $response = ['url' => $urlDescarga];
         } catch (\PhpOffice\PhpSpreadsheet\Writer\Exception $e) {
             $response = ['msj' => $e->getMessage()];
-            $master->mis->setLog($response, 'Error de Generación de reporte: ');
+            $master->mis->setLog($e->getMessage(), 'Error de Generación de reporte: ');
             return;
         }
         break;
