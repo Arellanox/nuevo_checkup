@@ -281,6 +281,11 @@ class Reporte
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter', 'landscape');
                 break;
+            case 'reporte_servicios_asociados':
+                $template = render_view('invoice/reporte_servicios_asociados.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter');
+                break;
             default:
                 $template = render_view('invoice/reportes.php', $view_vars);
                 $pdf->loadHtml($template);

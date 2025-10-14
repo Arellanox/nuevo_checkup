@@ -1035,6 +1035,13 @@ class Miscelaneus
                     $soloNuevos, $fechaInicio, $fechaFin
                 ]);
                 break;
+            case -13:
+                $carpeta_guardado = 'reporte_asocidos';
+                ini_set('memory_limit', '512M');
+                set_time_limit(0);
+
+                $arregloPaciente['reporte'] = $master->getByProcedure('sp_obtener_reporte_asociaciones', [null]);
+                break;
         }
 
         if ($area_id == 0) $area_id = 6;
@@ -1043,29 +1050,20 @@ class Miscelaneus
         $nombre = str_replace(" ", "_", $nombre_paciente);  #Crear directorio
 
         switch ($area_id) { #CERTIFICADOS
-            case -10:
+            case -13:
                 $fecha_resultado = date("Ymd");
-                $nombre = "CertificadoMedico";
-                $ruta_saved = "reportes/certificados/$turno_id/$fecha_resultado/";
+                $nombre = "ReporteAsociados";
+                $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/";
                 break;
             case -12:
                 $fecha_resultado = date("Ymd");
                 $nombre = "ReporteVentas";
                 $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/";
                 break;
-            case 15:
-                $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/";
-                $this->setRutaReporte($ruta_saved);
-
-                $r = $master->createDir("../" . $ruta_saved);
-
-                if ($r === 1) {
-                    $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre_paciente);
-                    $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
-                } else {
-                    $this->setLog("Imposible crear la ruta del archivo", "[cotizaciones, reportador]");
-                    exit;
-                }
+            case -10:
+                $fecha_resultado = date("Ymd");
+                $nombre = "CertificadoMedico";
+                $ruta_saved = "reportes/certificados/$turno_id/$fecha_resultado/";
                 break;
             case -8:
                 $fecha_resultado = date("Ymd His");
@@ -1080,6 +1078,20 @@ class Miscelaneus
 
                 $pdf = new Reporte(json_encode($arregloPaciente), json_encode($infoPaciente[0]), $pie_pagina, $archivo, $reporte, $tipo, $preview, $area_id);
                 return $pdf->build();
+            case 15:
+                $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/";
+                $this->setRutaReporte($ruta_saved);
+
+                $r = $master->createDir("../" . $ruta_saved);
+
+                if ($r === 1) {
+                    $archivo = array("ruta" => $ruta_saved, "nombre_archivo" => $nombre_paciente);
+                    $pie_pagina = array("clave" => $infoPaciente[0]['CLAVE_IMAGEN'], "folio" => $folio, "modulo" => $area_id, "datos_medicos" => $datos_medicos);
+                } else {
+                    $this->setLog("Imposible crear la ruta del archivo", "[cotizaciones, reportador]");
+                    exit;
+                }
+                break;
             default:
                 $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/$turno_id/";
 

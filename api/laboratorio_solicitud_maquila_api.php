@@ -1,6 +1,9 @@
 <?php
 include "../clases/master_class.php";
 require_once "../clases/token_auth.php";
+include_once "../clases/ExcelReport_class.php";
+include_once "../clases/ExcelFileManager_class.php";
+include_once "../clases/Pdf.php";
 
 $tokenVerification = new TokenVerificacion();
 $tokenValido = $tokenVerification->verificar();
@@ -258,6 +261,60 @@ switch ($api) {
         }
 
         $response = $resultado;
+        break;
+    case 17: // Obtener datos de reportes asociados
+        $response = $master->getByProcedure('sp_obtener_reporte_asociaciones', [null]);
+        break;
+    case 18: // Genera el pdf del reporte asociaciones
+        $URL = $master->reportador($master, $turno_id, -13, 'reporte_servicios_asociados');
+        $response = ['url' => $URL];
+        break;
+    case 19: // Genera el Excel del reporte asociaciones
+        $response = $master->getByProcedure('sp_obtener_reporte_asociaciones', [null]);
+
+        $columnas = [
+            'COUNT',
+            'DESCRIPCION',
+            'ABREVIATURA',
+            'COSTO',
+            'PRECIO_VENTA',
+            'PRECIO_DIAGNOSTICA',
+            'PRECIO_BIOGENICA',
+            'PRECIO_ORTHIN'
+        ];
+
+        $columnasMoneda = [
+            'COSTO',
+            'PRECIO_VENTA',
+            'PRECIO_DIAGNOSTICA',
+            'PRECIO_BIOGENICA',
+            'PRECIO_ORTHIN'
+        ];
+
+        $reporte = new ExcelReport(
+            'DIAGNOSTICO BIOMOLECULAR SA DE CV',
+            'ESTUDIOS DE MAQUILA',
+            $columnas,
+            $response,
+            $columnasMoneda
+        );
+
+        $reporte->generar();
+
+        # Se requiere esperficar una ruta o desencadena un error
+        $nombreArchivo = 'reporte_servicios_asociados_' . $_SESSION['id'] . ".xlsx";
+        $rutaFisica = '../reportes/excel/reporte_asociados/' . $nombreArchivo;
+
+        try {
+            ExcelFileManagerClass::guardar($reporte->getSpreadsheet(), $rutaFisica);
+
+            $urlDescarga = $host . 'reportes/excel/reporte_asociados/' . $nombreArchivo;
+            $response = ['url' => $urlDescarga];
+        } catch (\PhpOffice\PhpSpreadsheet\Writer\Exception $e) {
+            $response = ['msj' => $e->getMessage()];
+            $master->mis->setLog($response, 'Error de Generación de reporte: ');
+            return;
+        }
         break;
     default:
         $response = "API no definida";

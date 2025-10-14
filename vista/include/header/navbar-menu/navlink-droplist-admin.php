@@ -216,7 +216,12 @@ if ($_SESSION['vista']['SERVICIOS (EQUIPOS)'] == 1) : ?>
             </li>
             <li>
                 <a href="<?php echo $https . $url . '/' . $appname . '/vista/menu/maquilas/reportes'; ?>" style="display: flex; align-items: center; gap: 5px; padding-left: 20px" class="dropdown-a align-items-center" type="button">
-                    <i class="bi bi-file-bar-graph"></i> Reportes
+                    <i class="bi bi-file-bar-graph"></i> Reportes Maquilas
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo $https . $url . '/' . $appname . '/vista/menu/maquilas/reportes-asociados'; ?>" style="display: flex; align-items: center; gap: 5px; padding-left: 20px" class="dropdown-a align-items-center" type="button">
+                    <i class="bi bi-file-earmark-ruled"></i> Reportes Asociados Maqquilas
                 </a>
             </li>
         </ul>

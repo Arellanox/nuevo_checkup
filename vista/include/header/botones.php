@@ -520,6 +520,15 @@ $menu == 'Laboratorio Biomolecular'
         </div>
     <?php endif; ?>
 
+    <?php if($menu == "Reporte de Estudios Asociados"): ?>
+        <div class="d-flex align-items-center justify-content-end">
+            <button id="btn-filtro-modal" type="button" role="button" class="btn btn-hover btn-aprobar-all">
+                <span style="display: inline-block; margin-right: 10px">Filtrar Estudios</span>
+                <i class="fa fa-calendar ml-2"></i>
+            </button>
+        </div>
+    <?php endif; ?>
+
     <script>
         // Abrir el dropdown al pasar el mouse
         $('.btn-group').on('mouseenter', '.dropdown-toggle', function () {
