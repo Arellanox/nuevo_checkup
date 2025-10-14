@@ -95,6 +95,8 @@ let tablaPrincipal = $('#TablaReporteMaquilas').DataTable({
                     api: 18,
                     SERVICIO_ID: null
                 }, 'laboratorio_solicitud_maquila_api', { callbackAfter: true }, false, function (data) {
+                   alertToast('Generando reporte, espere por favor.', 'info');
+
                     let url = data.response.data.url;
 
                     // Verificar si estás en localhost y si la URL contiene "bimo-lab.com"
