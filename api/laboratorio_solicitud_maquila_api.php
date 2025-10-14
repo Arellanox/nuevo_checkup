@@ -273,14 +273,14 @@ switch ($api) {
         $response = $master->getByProcedure('sp_obtener_reporte_asociaciones', [null]);
 
         $columnas = [
-            'COUNT',
-            'DESCRIPCION',
-            'ABREVIATURA',
-            'COSTO',
-            'PRECIO_VENTA',
-            'PRECIO_DIAGNOSTICA',
-            'PRECIO_BIOGENICA',
-            'PRECIO_ORTHIN'
+            'COUNT' => '#',
+            'DESCRIPCION' => 'Servicio',
+            'ABREVIATURA' => 'Abreviatura',
+            'COSTO' => 'Costo',
+            'PRECIO_VENTA' => 'Precio Venta',
+            'PRECIO_DIAGNOSTICA' => 'Diagnostica',
+            'PRECIO_BIOGENICA' => 'Biogenica',
+            'PRECIO_ORTHIN' => 'Orthin'
         ];
 
         $columnasMoneda = [
