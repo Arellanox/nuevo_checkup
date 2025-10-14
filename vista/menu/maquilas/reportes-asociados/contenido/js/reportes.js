@@ -74,7 +74,7 @@ let tablaPrincipal = $('#TablaReporteMaquilas').DataTable({
                     api: 19,
                     SERVICIO_ID: null
                 }, 'laboratorio_solicitud_maquila_api', { callbackAfter: true }, false, function (data) {
-                    let url = data.response.data.url;
+                    let url = 'https://bimo-lab.com/nuevo_checkup/' + data.response.data.url;
 
                     const link = document.createElement('a');
                     link.href = url;
