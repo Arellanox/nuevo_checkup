@@ -3,7 +3,7 @@ $pacientes = []; // Inicializamos un array para almacenar los pacientes agrupado
 $numeracion = 1; // Contador para la columna de numeración en la tabla
 $accountTotalAmount = 0;
 
-foreach ($resultados as $resultado) {
+foreach ($resultados[0] as $resultado) {
     // Generamos una clave única basada en el nombre completo para evitar duplicados (emulando un grupo)
     $pacienteKey = md5($resultado->PACIENTE_NOMBRE.$resultado->ID_SERVICIO);
 
@@ -22,6 +22,7 @@ foreach ($resultados as $resultado) {
             'edad' => intval($resultado->PACIENTE_EDAD),
             'detalle_estudios' => $resultado->DETALLES_ESTUDIOS,
             'envio_completo' => $resultado->ENVIO_COMPLETO,
+            'obsercaciones' => $resultados->OBSERVACIONES,
             'grupo_detalles' => [
                 'nombre' => $resultado->GRUPO_LAB_ESTUDIO_NOMBRE,
                 'clave' => $resultado->GRUPO_LAB_ESTUDIO_CLAVE,

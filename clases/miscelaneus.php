@@ -738,6 +738,7 @@ class Miscelaneus
                 $laboratorio_id = $_POST['laboratorio_id'];
                 $fecha_inicio = $_POST['fecha_inicio'];
                 $fecha_fin = $_POST['fecha_fin'];
+                $observaciones = $_POST['obsercaciones'];
 
                 //$master->setLog(json_encode([NULL, NULL, $laboratorio_id, 1, $fecha_inicio, $fecha_fin]), 'sp_laboratorio_estudios_maquila_b');
 
@@ -791,12 +792,12 @@ class Miscelaneus
                         }
 
                         $maquilas[$index]['TOTAL_MAQUILA'] = $amount;
-
                         //$master->setLog(json_encode($data_estudios_filtrados), 'Detalles');
                     }
                 }
 
-                $arregloPaciente = $maquilas;
+
+                $arregloPaciente =[$maquilas, $observaciones ?? ''];
                 // $master->setLog(json_encode($maquilas), 'Maquilas');
                 break;
             case -9:

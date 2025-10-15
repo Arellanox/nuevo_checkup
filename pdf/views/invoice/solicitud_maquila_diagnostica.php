@@ -83,7 +83,10 @@
         <?php endforeach; ?>
 
         <tr>
-                <td colspan="13"></td>
+                <td colspan="13" style="text-align: left; vertical-align: top; white-space: nowrap; padding: 5px; font-size: 11px; height: 50px">
+                    <strong>Observaciones:</strong>
+                    <p><?= $resultados[1] ?></p>
+                </td>
                 <td colspan="5">
                     <strong>Total a pagar: </strong><br>
                     <span><?= formatCurrency($accountTotalAmount) ?></span>

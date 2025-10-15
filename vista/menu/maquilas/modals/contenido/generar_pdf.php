@@ -13,6 +13,8 @@
                     <label class="form-label">Laboratorios</label>
                     <select id="select-laboratorios-maquila" class="input-form" >
                     </select>
+                    <label class="form-label">Observaciones</label>
+                    <textarea id="observaciones-reporte" class="input-form"></textarea>
                 </div>
             </div>
             <div class="modal-footer">

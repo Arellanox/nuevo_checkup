@@ -30,6 +30,7 @@ $lista_estudios = $_POST['LISTA_ESTUDIOS'];
 $laboratorio_alias_id = $_POST['LABORATORIO_ALIAS_ID'];
 $estudio_laboratorio_id = $_POST['LABORATORIO_MAQUILA_ID'];
 $estudio_servicio_id = $_POST['SERVICIO_ESTUDIO_ID'];
+// $observaciones = $_POST['obsercaciones']; -> Miscelaneus
 
 switch ($api) {
     case 1:

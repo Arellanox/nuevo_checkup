@@ -416,6 +416,7 @@ function generarReporteMaquilas(event){ //--Generar reportes de un laboratorio
     event.preventDefault();
     const laboratorio_texto = $('#select-laboratorios-maquila option:selected').text();
     const laboratorio_id = $('#select-laboratorios-maquila').val();
+    const observaciones = $('#observaciones-reporte').val();
 
     if(maquilasCompletadas < 0){
         Toast.fire({icon: 'error', title: '¡No se puede generar reporte de maquilas con estatus pendiente!', timer: 2000});
@@ -439,6 +440,7 @@ function generarReporteMaquilas(event){ //--Generar reportes de un laboratorio
         return;
     }
 
+    alertToast('Generando reporte, espere un momento por favor...', 'success', 4000)
     alertMensajeConfirm({
         title: '¿Quieres completar esta acción?',
         text: `Se generara un reporte de maquilas por ${laboratorio_texto}`,
@@ -454,7 +456,8 @@ function generarReporteMaquilas(event){ //--Generar reportes de un laboratorio
             ),
             laboratorio_id: laboratorio_id,
             fecha_inicio: rangoFechas[0],
-            fecha_final: rangoFechas[1]
+            fecha_final: rangoFechas[1],
+            obsercaciones: observaciones
         }, 'laboratorio_solicitud_maquila_api', { callbackAfter: true }, false, function (response) {
             const url = response.response.data.url;
             window.open(url, '_blank');
