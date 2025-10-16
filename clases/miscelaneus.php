@@ -332,8 +332,10 @@ class Miscelaneus
     } // fin de checkArray
 
 
-    public function reportador($master, $turno_id, $area_id, $reporte, $tipo = 'url', $preview = 0, $lab = 0, $id_consulta = 0, $cliente_id = 1, $id_cotizacion = 8, $params = [])
-    {
+    public function reportador(
+        $master, $turno_id, $area_id, $reporte, $tipo = 'url', $preview = 0, $lab = 0,
+        $id_consulta = 0, $cliente_id = 1, $id_cotizacion = 8, $params = []
+    ) {
         #Recupera la información personal del paciente
         $infoPaciente = $master->getByProcedure('sp_informacion_paciente', [$turno_id]);
         $infoPaciente = [$infoPaciente[count($infoPaciente) - 1]];
@@ -750,7 +752,8 @@ class Miscelaneus
                     foreach ($maquilas as $index => $maquila) {
                         $data_estudios_filtrados = [];
 
-                        $master->insertByProcedure('sp_marcar_reporte_maquila', [$maquila['ID_MAQUILA']]);
+                        //AQUI MARCAMOS LOS ESTUDIOS A MAQUILAR COMO REPORTADOS PARA QUE NO SE VUELVAN A GENERAR LOS PDFS
+                        $master->insertByProcedure('sp_marcar_reporte_maquila', [$maquila['ID_MAQUILA'], $preview]);
                         //$master->setLog(json_encode([$maquila['ID_MAQUILA']]), 'sp_marcar_reporte_maquila');
 
                         //Obtenemos la lista de los estudios que si fueron marcados para maquilar
@@ -796,7 +799,7 @@ class Miscelaneus
                     }
                 }
 
-
+                $preview = 0; //IMPORTANTE REALIZAR ESTE CAMBIO YA QUE ES UN IDENTIFICADOR LO QUE SE USA
                 $arregloPaciente =[$maquilas, $observaciones ?? ''];
                 // $master->setLog(json_encode($maquilas), 'Maquilas');
                 break;

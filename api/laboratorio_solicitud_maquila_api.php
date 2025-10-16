@@ -73,6 +73,8 @@ switch ($api) {
         $response = $master->updateByProcedure('sp_laboratorio_estudios_maquila_a', [
             $ids, $maquila_estatus, $fecha_inicio, $fecha_fin, $usuario_id
         ]);
+
+        $master->updateByProcedure('sp_laboratorio_limpiar_maquila', [$ids, $usuario_id]);
         break;
     case 4: // Eliminar estudio a maquilar
         $response = $master->deleteByProcedure('sp_laboratorio_estudios_maquila_e', [
@@ -80,23 +82,47 @@ switch ($api) {
         ]);
         break;
     case 5: // Generar reporte de estudios a maquilar para diagnostica
-        $url = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_diagnostica');
-        $master->insertByProcedure('sp_maquila_reporte_g', [$url, 9, $turno_id, date('Y-m-d H:i:s')]);
+        /*
+         * EL IDENTIFICADOR NOS PERMITE RASTREAR LA ASOCIACION DE UN PDF Y SUS MAQUILAS, OJO ESTE VALOR SE MANDA COMO
+         * REPORTADOR POR LO CUAL DEBE SER REASINADO EN REPORTADOR A 0, ES REQUISITO ENVIAR ESTE VALOR YA QUE SE SUBIRA
+         * EN CADA MAQUILA COMO ASOCIACION
+         * */
+        $identificador = bin2hex(random_bytes(16));
+        $url = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_diagnostica', 'url', $identificador);
+        $master->insertByProcedure('sp_maquila_reporte_g', [$url, 9, $turno_id, date('Y-m-d H:i:s'), $identificador]);
         $response = ['url' => $url];
         break;
     case 6: // Generar reporte de estudios a maquilar general
-        $url = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_general');
-        $master->insertByProcedure('sp_maquila_reporte_g', [$url, 5, $turno_id, date('Y-m-d H:i:s')]);
+        /*
+         * EL IDENTIFICADOR NOS PERMITE RASTREAR LA ASOCIACION DE UN PDF Y SUS MAQUILAS, OJO ESTE VALOR SE MANDA COMO
+         * REPORTADOR POR LO CUAL DEBE SER REASINADO EN REPORTADOR A 0, ES REQUISITO ENVIAR ESTE VALOR YA QUE SE SUBIRA
+         * EN CADA MAQUILA COMO ASOCIACION
+         * */
+        $identificador = bin2hex(random_bytes(16));
+        $url = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_general', 'url', $identificador);
+        $master->insertByProcedure('sp_maquila_reporte_g', [$url, 5, $turno_id, date('Y-m-d H:i:s'), $identificador]);
         $response = ['url' => $url];
         break;
     case 13: // Generar reporte de estudios a maquilar para biogenica
-        $url = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_biogenica');
-        $master->insertByProcedure('sp_maquila_reporte_g', [$url, 7, $turno_id, date('Y-m-d H:i:s')]);
+        /*
+         * EL IDENTIFICADOR NOS PERMITE RASTREAR LA ASOCIACION DE UN PDF Y SUS MAQUILAS, OJO ESTE VALOR SE MANDA COMO
+         * REPORTADOR POR LO CUAL DEBE SER REASINADO EN REPORTADOR A 0, ES REQUISITO ENVIAR ESTE VALOR YA QUE SE SUBIRA
+         * EN CADA MAQUILA COMO ASOCIACION
+         * */
+        $identificador = bin2hex(random_bytes(16));
+        $url = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_biogenica', 'url', $identificador);
+        $master->insertByProcedure('sp_maquila_reporte_g', [$url, 7, $turno_id, date('Y-m-d H:i:s'), $identificador]);
         $response = ['url' => $url];
         break;
     case 14: // Generar reporte de estudios a maquilar para ortin
-        $url = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_ortin');
-        $master->insertByProcedure('sp_maquila_reporte_g', [$url, 8, $turno_id, date('Y-m-d H:i:s')]);
+        /*
+         * EL IDENTIFICADOR NOS PERMITE RASTREAR LA ASOCIACION DE UN PDF Y SUS MAQUILAS, OJO ESTE VALOR SE MANDA COMO
+         * REPORTADOR POR LO CUAL DEBE SER REASINADO EN REPORTADOR A 0, ES REQUISITO ENVIAR ESTE VALOR YA QUE SE SUBIRA
+         * EN CADA MAQUILA COMO ASOCIACION
+         * */
+        $identificador = bin2hex(random_bytes(16));
+        $url = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_ortin', 'url', $identificador);
+        $master->insertByProcedure('sp_maquila_reporte_g', [$url, 8, $turno_id, date('Y-m-d H:i:s'), $identificador]);
         $response = ['url' => $url];
         break;
     case 7: // Recuperar grupo de estudios a maquilar de un servicio

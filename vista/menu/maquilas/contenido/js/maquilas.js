@@ -76,6 +76,12 @@ var tablaMaquilaasPorAprobar = $('#TablaMaquilaasPorAprobar').DataTable({
                     className = "badge bg-danger"; // Rojo
                 }
 
+                if (row['REPORTADO'] == 1)
+                {
+                    text = 'PDF Disponible'
+                    className = "badge bg-info";
+                }
+
                 return `<span class="${className}">${text}</span>`;
             }
         },
@@ -358,7 +364,10 @@ $('#btn-confirmar-seleccion-fechas').on('click', function () {
 
     alertToast('Cambios guardados', 'success', 2000);
 })
-$('#btn-ver-reportes').on('click', function () {$('#modalVerReportes').modal('show');})
+$('#btn-ver-reportes').on('click', function () {
+    $('#modalVerReportes').modal('show');
+    tablaMaquilasArchivos.ajax.reload();
+})
 
 function aprobarTodasMaquilas(ids) { //---Aprobación de todas las maquilas pendientes por fechas
     alertMensajeConfirm({
@@ -459,6 +468,7 @@ function generarReporteMaquilas(event){ //--Generar reportes de un laboratorio
             fecha_final: rangoFechas[1],
             obsercaciones: observaciones
         }, 'laboratorio_solicitud_maquila_api', { callbackAfter: true }, false, function (response) {
+            tablaMaquilaasPorAprobar.ajax.reload();
             const url = response.response.data.url;
             window.open(url, '_blank');
         });
