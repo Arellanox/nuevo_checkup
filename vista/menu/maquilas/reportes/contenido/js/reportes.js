@@ -1,5 +1,5 @@
 const hoy = new Date();
-var laboratorioSelect = null;
+var laboratorio = null;
 var fecha_inicio = formatDateToYMD(new Date(hoy.getFullYear(), hoy.getMonth() - 2, 1));
 var fecha_final = formatDateToYMD(new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate() + 1));
 
@@ -29,8 +29,9 @@ let tablaPrincipal = $('#TablaReporteMaquilas').DataTable({
         data: function (d) {
             return {
                 api: 16,
-                FECHA_INICIO: fecha_inicio,
-                FECHA_FIN: fecha_final
+                FECHA_INICIO: fecha_inicio ?? null,
+                FECHA_FIN: fecha_final ?? null,
+                LABORATORIO_MAQUILA_ID: laboratorio ?? null
             }
         },
         dataSrc: function(json) {
@@ -190,6 +191,14 @@ inputBusquedaTable('TablaReporteMaquilas', tablaPrincipal, [
     {msj: 'Puedes organizar el contenido con los encabezados de la tabla.', place: 'top'},
     {msj: 'El campo de busqueda filtra sus coincidencias.', place: 'top'},
 ], {}, 'col-12')
+
+$('#btn_filtrar').on('click', function () {
+    laboratorio = $('#select_laboratorios').val()
+    fecha_inicio = $('#fecha_inicio').val()
+    fecha_final = $('#fecha_final').val()
+    tablaPrincipal.ajax.reload();
+    $('#modalFiltrarMaquilas').modal('hide');
+})
 
 function parseDataTable(data){
     let parsed = parseFloat(data);

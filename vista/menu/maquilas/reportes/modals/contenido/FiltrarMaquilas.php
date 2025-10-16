@@ -11,14 +11,14 @@
                 <div style="display: flex; flex-direction: column; gap: 10px">
                     <label class="form-label">Laboratorios</label>
                     <select class="form-control" name="laboratorios" id="select_laboratorios" required>
-                        <option value="null" selected>Todos</option>
+                        <option selected>Todos</option>
                     </select>
 
                     <label class="form-label">Fecha de inicio</label>
                     <input type="date" class="form-control input-form" name="fecha_inicio" required id="fecha_inicio">
 
                     <label class="form-label">Fecha de final</label>
-                    <input type="date" class="form-control input-form" name="fecha_final" required id="fecha_inicio">
+                    <input type="date" class="form-control input-form" name="fecha_final" required id="fecha_final">
                 </div>
             </div>
             <div class="modal-footer">

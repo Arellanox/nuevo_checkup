@@ -189,9 +189,12 @@ switch ($api) {
         break;
     case 16: //Generamos un reporte de ventas de maquilas por pacientes
         $pacientes = $master->getByProcedure('sp_reporte_maquilas_pacientes', [
-            $fecha_inicio ?? date('Y-m-01'),
-            $fecha_fin ?? date('Y-m-d', strtotime('+1 day'))
+            $fecha_inicio == '' ? null : $fecha_inicio,
+            $fecha_fin == '' ?  null : $fecha_fin,
+            (($id_laboratorio_maquila == '' || $id_laboratorio_maquila == 'null') ? null : $id_laboratorio_maquila)
         ]);
+
+        $master->setLog(json_encode([$fecha_fin, $fecha_inicio, $id_laboratorio_maquila]), 'Mensaje');
 
         $resultado = [];
 
