@@ -27,7 +27,7 @@ $lema_enconde = base64_encode($ruta_lema);
                 </div>
                 <div class="fecha-maquila">
                     <p class="label">Fecha de Envío</p>
-                    <p class="data-result"><?= $resultados[0]->FECHA_ENVIO ?></p>
+                    <p class="data-result"><?= $resultados[0][0]->FECHA_ENVIO ?></p>
                 </div>
             </td>
         </tr>

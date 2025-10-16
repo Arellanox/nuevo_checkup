@@ -17,7 +17,7 @@ $logo_enconde = base64_encode($ruta_logo);
                     </div>
                     <div class="fecha-maquila-bio">
                         <p class="data-result">Fecha de Envío</p>
-                        <p class="label"><?= $resultados[0]->FECHA_ENVIO ?></p>
+                        <p class="label"><?= $resultados[0][0]->FECHA_ENVIO ?></p>
                     </div>
                 </td>
             </tr>

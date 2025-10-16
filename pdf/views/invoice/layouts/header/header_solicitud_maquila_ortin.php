@@ -26,7 +26,7 @@
 
                         </span>
                         <span style="font-weight: bold; font-size: 11px;">
-                            Fecha: <span style="font-size: 11px; margin-left: 5px; display: inline-block; border-bottom: .5px solid #353535; padding-bottom: 1px; padding-left: 8px; padding-right: 8px; color: white">XXXXXXXXXXXXXX</span>
+                            Fecha: <span style="font-size: 11px; margin-left: 5px; display: inline-block; border-bottom: .5px solid #353535; padding-bottom: 1px; padding-left: 8px; padding-right: 8px; color: white"><?= $resultados[0][0]?></span>
                         </span>
                     </td>
                 </tr>
