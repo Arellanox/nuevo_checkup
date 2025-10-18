@@ -217,9 +217,9 @@
                     <th style="width: 11%;">Unidad de Medida</th>
                     <th style="width: 11%;">Precio unitario</th>
                     <th style="width: 11%;">Cantidad</th>
-                    <th style="width: 11%;">Descuento</th>
-                    <th style="width: 11%;">Impuesto</th>
-                    <th style="width: 11%;">Total</th>
+                    <!-- <th style="width: 11%;">Descuento</th>
+                    <th style="width: 11%;">Impuesto</th> -->
+                    <th style="width: 11%;">Subtotal</th>
                 </tr>
             </thead>
             <tbody>
@@ -254,8 +254,8 @@
                     <td style="width: 11%; text-align: center;">
                         <?= json_decode(json_encode($resultArray[$i]), true)['CANTIDAD']?>.00
                     </td>
-                    <td style="width: 11%; text-align: right;"><?= $descuento ?> %</td>
-                    <td style="width: 11%; text-align: center;">16% </td>
+                    <!-- <td style="width: 11%; text-align: right;"><?= $descuento ?> %</td>
+                    <td style="width: 11%; text-align: center;">16% </td> -->
                     <td style="width: 11%; text-align: right;">
                         $<?= $formateado ?>
                         <?php if($descuento != 0) : ?>
@@ -316,6 +316,7 @@
                     </td>
                 </tr>
             </table>
+            <p><small>* Precio antes de IVA.</small></p>
         </div>
     </div>
 </body>
