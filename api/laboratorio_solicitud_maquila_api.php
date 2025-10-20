@@ -131,7 +131,7 @@ switch ($api) {
         ]);
         break;
     case 9: // Registrar alias de estudios a maquilar
-        //$master->setLog(json_encode([$estudio_laboratorio_id, $laboratorio_alias_id, $estudio_servicio_id]), 'Detalles');
+        $master->setLog(json_encode([$estudio_laboratorio_id, $laboratorio_alias_id, $estudio_servicio_id]), 'Detalles');
 
         $response = $master->insertByProcedure('sp_laboratorio_estudios_equivalencias_g', [
             $estudio_laboratorio_id,
@@ -220,7 +220,7 @@ switch ($api) {
             (($id_laboratorio_maquila == '' || $id_laboratorio_maquila == 'null') ? null : $id_laboratorio_maquila)
         ]);
 
-        //$master->setLog(json_encode([$fecha_fin, $fecha_inicio, $id_laboratorio_maquila]), 'Mensaje');
+        $master->setLog(json_encode([$fecha_fin, $fecha_inicio, $id_laboratorio_maquila]), 'Mensaje');
 
         $resultado = [];
 
