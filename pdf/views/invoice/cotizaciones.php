@@ -241,14 +241,14 @@
                     $descuento = json_decode(json_encode($resultArray[$i]), true)['DESCUENTO_PORCENTAJE'];
             ?>
                 <tr>
-                    <td style="width: 34%; text-align: left;">
+                    <td style="width: 34%; text-align: left; padding-bottom: 5px">
                         <?=
                             json_decode(json_encode($resultArray[$i]), true)['PRODUCTO'] ??
                             json_decode(json_encode($resultArray[$i]), true)['PAQUETE']
                         ?>
                     </td>
-                    <td style="width: 11%; text-align: left;">E48 -Service unit</td>
-                    <td style="width: 11%; text-align: right;">
+                    <td style="width: 11%; text-align: center;">E48 -Service unit</td>
+                    <td style="width: 11%; text-align: center;">
                         $<?= json_decode(json_encode($resultArray[$i]), true)['PRECIO_UNITARIO'] ?>
                     </td>
                     <td style="width: 11%; text-align: center;">
@@ -256,8 +256,8 @@
                     </td>
                     <!-- <td style="width: 11%; text-align: right;"><?= $descuento ?> %</td>
                     <td style="width: 11%; text-align: center;">16% </td> -->
-                    <td style="width: 11%; text-align: right;">
-                        $<?= $formateado ?>
+                    <td style="width: 11%; text-align: center;">
+                        $<?= $formateado ?>*
                         <?php if($descuento != 0) : ?>
                             <br>
                             <span class='tachado-doble'>$<?= $formateado2 ?></span>

@@ -125,10 +125,9 @@ switch ($api) {
         $arrayMuestras = [];
         $arrayContenedoryMuestra = [];
 
-
+        $master->setLog(json_encode($response), 'Informacion Estudios');
 
         for ($i = 0; $i < count($response); $i++) {
-
             if (!in_array($response[$i]['GRUPO_ID'], $arrayGrupo) || !in_array($response[$i]['ORDEN'], $arrayOrden)) {
                 $grupo = $response[$i]['GRUPO_ID'];
                 $orden = $response[$i]['ORDEN'];
@@ -152,7 +151,6 @@ switch ($api) {
                 array_push($arrayMuestras, $muestras);
                 array_push($arrayContenedoryMuestra, array('CONTENEDOR_ID' => $contenedores, 'MUESTRA_ID' =>  $muestras));
             }
-
         }
 
         $response = array(
@@ -180,6 +178,8 @@ switch ($api) {
             "EDAD_INICIAL" => $response[0]['EDAD_INICIAL'],
             "EDAD_FINAL" => $response[0]['EDAD_FINAL'],
             "MAQUILA_ID" => $response[0]['MAQUILA_ID'],
+            "MOTIVO_RECHAZO" => $response[0]['MOTIVO_RECHAZO'],
+            "CONSERVACION" => $response[0]['CONSERVACION'],
             "LABORATORIO_MAQUILA" => $response[0]['LABORATORIO_MAQUILA']
         );
         break;

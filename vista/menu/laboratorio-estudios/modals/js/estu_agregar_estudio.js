@@ -78,6 +78,8 @@ async function getValueEstudio(id) {
 
                     $('#input-descripcion').val(ifnull(row.DESCRIPCION, ''));
                     $('#input-abreviatura').val(ifnull(row.ABREVIATURA, ''));
+                    $('#input-motivo-rechazo').val(ifnull(row.MOTIVO_RECHAZO, ''))
+                    $('#input-modo-conservacion').val(ifnull(row.CONSERVACION, ''))
 
                     if (row.CLASIFICACION_ID) {
                         $('#registrar-clasificacion-estudio').val(row.CLASIFICACION_ID).trigger('change');
@@ -265,6 +267,8 @@ async function getDataFirst(edit = false, id = false) {
         }
         swal.close(); //Cerrar la ventana de espera
     }
+
+
     $("#ModalRegistrarEstudio").modal('show');
 }
 
