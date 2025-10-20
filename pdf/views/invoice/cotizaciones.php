@@ -219,7 +219,7 @@
                     <th style="width: 11%;">Cantidad</th>
                     <!-- <th style="width: 11%;">Descuento</th>
                     <th style="width: 11%;">Impuesto</th> -->
-                    <th style="width: 11%;">Subtotal</th>
+                    <th style="width: 11%;">Subtotal*</th>
                 </tr>
             </thead>
             <tbody>
@@ -257,7 +257,7 @@
                     <!-- <td style="width: 11%; text-align: right;"><?= $descuento ?> %</td>
                     <td style="width: 11%; text-align: center;">16% </td> -->
                     <td style="width: 11%; text-align: center;">
-                        $<?= $formateado ?>*
+                        $<?= $formateado ?>
                         <?php if($descuento != 0) : ?>
                             <br>
                             <span class='tachado-doble'>$<?= $formateado2 ?></span>
