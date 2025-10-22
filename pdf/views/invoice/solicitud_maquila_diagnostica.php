@@ -83,9 +83,9 @@
         <?php endforeach; ?>
 
         <tr>
-                <td colspan="13" style="text-align: left; vertical-align: top; white-space: nowrap; padding: 5px; font-size: 11px; height: 50px">
+            <td colspan="13" style="text-align: left; vertical-align: top; white-space: normal; padding: 5px; font-size: 11px; height: 50px; word-wrap: break-word;">
                     <strong>Observaciones:</strong>
-                    <p><?= $resultados[1] ?></p>
+                    <p style="margin: 0; white-space: pre-wrap;"><?= $resultados[1] ?></p>
                 </td>
                 <td colspan="5">
                     <strong>Total a pagar: </strong><br>
