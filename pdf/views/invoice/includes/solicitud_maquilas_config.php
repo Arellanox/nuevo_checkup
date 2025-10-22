@@ -5,7 +5,7 @@ $accountTotalAmount = 0;
 
 foreach ($resultados[0] as $resultado) {
     // Generamos una clave única basada en el nombre completo para evitar duplicados (emulando un grupo)
-    $pacienteKey = md5($resultado->PACIENTE_NOMBRE.$resultado->ID_SERVICIO);
+    $pacienteKey = md5($resultado->PREFOLIO.$resultado->ID_SERVICIO);
 
     // Si el paciente aún no está en la lista, lo agregamos con su información básica
     if (!isset($pacientes[$pacienteKey])) {
