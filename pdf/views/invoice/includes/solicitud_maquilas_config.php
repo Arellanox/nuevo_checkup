@@ -2,6 +2,7 @@
 $pacientes = []; // Inicializamos un array para almacenar los pacientes agrupados con sus estudios
 $numeracion = 1; // Contador para la columna de numeración en la tabla
 $accountTotalAmount = 0;
+$lastKey = 0;
 
 foreach ($resultados[0] as $resultado) {
     // Generamos una clave única basada en el nombre completo para evitar duplicados (emulando un grupo)
@@ -9,8 +10,17 @@ foreach ($resultados[0] as $resultado) {
 
     // Si el paciente aún no está en la lista, lo agregamos con su información básica
     if (!isset($pacientes[$pacienteKey])) {
+
+        if ($lastKey != $resultado->PREFOLIO) {
+            $lastKey = $resultado->PREFOLIO;
+            $nombre = $resultado->PACIENTE_NOMBRE;
+        } else {
+            $nombre = '';
+        }
+
         $pacientes[$pacienteKey] = [
-            'nombre' => $resultado->PACIENTE_NOMBRE,
+            'prefolio' => $resultado->PREFOLIO,
+            'nombre' => $nombre,
             'pac_nombre' => $resultado->PAC_NOMBRE,
             'pac_paterno' => $resultado->PAC_PATERNO,
             'pac_materno' => $resultado->PAC_MATERNO,
