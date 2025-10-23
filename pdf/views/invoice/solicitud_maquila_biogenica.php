@@ -83,7 +83,7 @@
                     <td colspan="1"><?= $numeracion ?></td>
                     <td colspan="4"><?= $paciente['nombre'] ?></td>
                     <td colspan="2"><?= $paciente['edad'] ?></td>
-                    <td colspan="2"><?= $paciente['sexo'] === 'FEMENINO' ? 'F': 'M' ?></td>
+                    <td colspan="2"><?= $paciente['sexo'] === 'FEMENINO' ? 'F': ($paciente['sexo'] == '' ? '' : 'M') ?></td>
                     <td colspan="2"><?= $paciente['grupo_detalles']['clave'] ?? '' ?></td>
                     <td colspan="4"><?= $paciente['grupo_detalles']['nombre'] ?? '' ?></td>
                     <td colspan="3"><?= $paciente['grupo_detalles']['precio'] ?></td>
@@ -97,7 +97,7 @@
                             <td colspan="1"><?= $numeracion ?></td>
                             <td colspan="4"><?= $paciente['nombre'] ?></td>
                             <td colspan="2"><?= $paciente['edad'] ?></td>
-                            <td colspan="2"><?= $paciente['sexo'] === 'FEMENINO' ? 'F': 'M' ?></td>
+                            <td colspan="2"><?= $paciente['sexo'] === 'FEMENINO' ? 'F': ($paciente['sexo'] == '' ? '' : 'M') ?></td>
                         <?php else: ?>
                             <td colspan="1"><?= $numeracion ?></td>
                             <td colspan="4"></td>
