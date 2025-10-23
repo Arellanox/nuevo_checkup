@@ -88,6 +88,7 @@
                     <td colspan="4"><?= $paciente['grupo_detalles']['nombre'] ?? '' ?></td>
                     <td colspan="3"><?= $paciente['grupo_detalles']['precio'] ?></td>
                 </tr>
+                <?php $numeracion++; ?>
             <?php else: ?>
                 <!-- Si es parcial, mostramos todos los estudios -->
                 <?php foreach ($paciente['detalle_estudios'] as $index => $estudio): ?>
@@ -117,8 +118,6 @@
                     <?php $numeracion++; ?>
                 <?php endforeach; ?>
             <?php endif; ?>
-
-            <?php $numeracion++; ?>
         <?php endforeach; ?>
             <tr>
                 <td colspan="18" style="text-align: left; vertical-align: top; white-space: nowrap; padding: 5px; font-size: 11px; height: 50px">
