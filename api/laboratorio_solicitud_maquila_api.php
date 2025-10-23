@@ -32,6 +32,11 @@ $estudio_laboratorio_id = $_POST['LABORATORIO_MAQUILA_ID'];
 $estudio_servicio_id = $_POST['SERVICIO_ESTUDIO_ID'];
 // $observaciones = $_POST['obsercaciones']; -> Miscelaneus
 
+$NUEVO_ALIAS = $_POST['NUEVO_ALIAS'];
+$NUEVO_ALIAS_NOMBRE = $_POST['NUEVO_ALIAS_NOMBRE'];
+$NUEVO_ALIAS_CLAVE = $_POST['NUEVO_ALIAS_CLAVE'];
+$NUEVO_ALIAS_PRECIO = $_POST['NUEVO_ALIAS_PRECIO'];
+
 switch ($api) {
     case 1:
         // Registrar estudio a maquilar y lista de estudios a maquilar
@@ -131,7 +136,7 @@ switch ($api) {
         ]);
         break;
     case 9: // Registrar alias de estudios a maquilar
-        $master->setLog(json_encode([$estudio_laboratorio_id, $laboratorio_alias_id, $estudio_servicio_id]), 'Detalles');
+        //$master->setLog(json_encode([$estudio_laboratorio_id, $laboratorio_alias_id, $estudio_servicio_id]), 'Detalles');
 
         $response = $master->insertByProcedure('sp_laboratorio_estudios_equivalencias_g', [
             $estudio_laboratorio_id,
@@ -345,6 +350,16 @@ switch ($api) {
             $master->mis->setLog($e->getMessage(), 'Error de Generación de reporte: ');
             return;
         }
+        break;
+    case 20:
+        $response = $master->insertByProcedure('sp_laboratorio_estudios_equivalencias_nuevo_g', [
+            $NUEVO_ALIAS_NOMBRE,
+            $NUEVO_ALIAS_CLAVE,
+            $NUEVO_ALIAS_PRECIO,
+
+            $estudio_laboratorio_id,
+            $estudio_servicio_id,
+        ]);
         break;
     default:
         $response = "API no definida";

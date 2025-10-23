@@ -6,6 +6,10 @@
                     <i class="bi bi-file-earmark-break-fill"></i>
                     Registro de Alias de Estudio
                 </h5>
+                <label>
+                    <input type="checkbox" style="padding: 14px" id="nuevo-alias-input" name="alias-nuevo">
+                    ¿Nuevo Estudio?
+                </label>
             </div>
             <div class="modal-body">
                 <div>

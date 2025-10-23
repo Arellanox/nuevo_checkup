@@ -7,6 +7,7 @@ var estudioAuxByHasIdAliasIsNull = null; // Auxiliar cuando el estudio no tiene 
 var associatedSelectIdAlias = null;
 var selectServicioMaquilaId = null; // Servicio a maquilar (principal) desplega todos los estudios que tiene
 var autorellenar = true; //Axuiliar para evitar un ciclo redudante en triggers
+var nuevoAlias = false
 
 //_______________________ MAQUILACIÓN _____________________________
 
@@ -216,10 +217,21 @@ async function actualizarListaCheckboxEstudio() {
     });
 }
 
+$("#nuevo-alias-input").on("change", function (e) {
+    nuevoAlias = !nuevoAlias;
+    $('#asociar_alias_estudio').prop('disabled', !nuevoAlias);
+    $('#asociar_clave_estudio').prop('disabled', !nuevoAlias);
+    $('#asociar_precio_estudio').prop('disabled', !nuevoAlias);
+});
+
 function resetMaquilaModal() {
     $('#inputBuscarEstudio').val('');
     $('#checkFullEstudios').prop('checked', true);
     listaEstudiosDelServicio = [];
+    $('#asociar_alias_estudio').prop('disabled', true);
+    $('#asociar_clave_estudio').prop('disabled', true);
+    $('#asociar_precio_estudio').prop('disabled', true);
+    nuevoAlias = false;
 }
 
 
@@ -244,6 +256,41 @@ $("#servicio_estudio_id").on('change', async function (e) {
 // Asocia el alias del estudio del laboratorio seleccionado con el estudio de nuestro servicio actual
 $("#btn_confirm_alias").on("click", function (e) {
     e.preventDefault();
+
+    if(nuevoAlias) {
+        alertMensajeConfirm({
+            title: '¿Seguro de Registrar y Asociar Alias?',
+            html: `Se registrará el Alías 
+                <strong>${$('#asociar_alias_estudio').text()}</strong> con la Cláve 
+                <strong>${$('#asociar_clave_estudio').text()}</strong> del Estudío 
+                <strong style="color: #007bff;">${$('#servicio_estudio_id option:selected').text()}</strong> del Laboratorio 
+                <strong style="color: #007bff;">${$('#select-laboratorios-maquila option:selected').text()}</strong>.
+            `,
+            icon: 'warning',
+            confirmButtonText: 'Registrar Alias',
+        }, () => {
+            ajaxAwait({
+                NUEVO_ALIAS: nuevoAlias,
+                NUEVO_ALIAS_NOMBRE: $("#asociar_alias_estudio").val(),
+                NUEVO_ALIAS_CLAVE: $("#asociar_clave_estudio").val(),
+                NUEVO_ALIAS_PRECIO: $("#asociar_precio_estudio").val(),
+
+                SERVICIO_ESTUDIO_ID: estudioAuxByHasIdAliasIsNull,
+                LABORATORIO_ALIAS_ID: associatedSelectIdAlias,
+                LABORATORIO_MAQUILA_ID: selectLaboratorioMaquilaId,
+                api: 20
+            }, 'laboratorio_solicitud_maquila_api', {callbackAfter: true}, false, () => {
+                alertMensaje(
+                    'info', '¡Alias Registrado!',
+                    `Puedes visualizar el cambio acutalizando la tabla (Advertencia esto cierra los estudios desplegados).`
+                );
+
+                $('#modalAsociarEstudio').modal('hide');
+            });
+        });
+
+        return;
+    }
 
     if (associatedSelectIdAlias != null) {
         alertMensajeConfirm({
@@ -278,6 +325,10 @@ function resetAliasModal() {
     $('#asociar_alias_estudio').val('');
     $('#asociar_clave_estudio').val('');
     $('#asociar_precio_estudio').val('');
+    $("#nuevo-alias-input").prop('checked', false);
+    $('#asociar_alias_estudio').prop('disabled', true);
+    $('#asociar_clave_estudio').prop('disabled', true);
+    $('#asociar_precio_estudio').prop('disabled', true);
 }
 
 function openModalAliassesForm() {
@@ -288,6 +339,12 @@ function openModalAliassesForm() {
         LABORATORIO_MAQUILA_ID: selectLaboratorioMaquilaId
     }, () => {
         autorellenarModalAliasesForm();
+        nuevoAlias = false;
+        //associatedSelectIdAlias = $("#asociar_alias_estudio").val();
+        $("#nuevo-alias-input").prop('checked', false);
+        $('#asociar_alias_estudio').prop('disabled', true);
+        $('#asociar_clave_estudio').prop('disabled', true);
+        $('#asociar_precio_estudio').prop('disabled', true);
         $('#modalAsociarEstudio').modal('show');
     });
 }
