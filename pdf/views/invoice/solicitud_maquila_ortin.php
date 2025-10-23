@@ -117,7 +117,7 @@
                         <td colspan="2"><?= $paciente['pac_materno'] ?></td>
                         <td colspan="2"><?= $paciente['pac_nombre'] ?></td>
                         <td colspan="2"><?= $paciente['fecha_nacimiento'] ?></td>
-                        <td colspan="2"><?= $paciente['sexo'] === 'FEMENINO' ? 'F': 'M' ?></td>
+                        <td colspan="2"><?= $paciente['sexo'] === 'FEMENINO' ? 'F': ($paciente['sexo'] == '' ? '' : 'M') ?></td>
                         <td colspan="2"><?= $paciente['FECHA_NACIMIENTO'] ?></td>
                         <td colspan="2"><?= date("Y-m-d") ?></td></td>
                         <td colspan="2"></td>
