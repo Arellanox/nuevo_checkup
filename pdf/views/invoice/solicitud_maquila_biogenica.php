@@ -98,7 +98,7 @@
                             <td colspan="2"><?= $paciente['edad'] ?></td>
                             <td colspan="2"><?= $paciente['sexo'] === 'FEMENINO' ? 'F': 'M' ?></td>
                         <?php else: ?>
-                            <td colspan="1"></td>
+                            <td colspan="1"><?= $numeracion ?></td>
                             <td colspan="4"></td>
                             <td colspan="2"></td>
                             <td colspan="2"></td>
@@ -106,7 +106,7 @@
 
                         <td colspan="2"><?= $estudio->LAB_ESTUDIO_CLAVE ?></td> <!-- Clave del estudio -->
                         <td colspan="4"><?= $estudio->LAB_ESTUDIO_NOMBRE ?></td> <!-- Nombre del estudio -->
-                        <td colspan="3"><?= $estudio->LAB_ALIAS_PRECIO ?></td>
+                        <td colspan="3"><?= formatCurrency($estudio->LAB_ALIAS_PRECIO) ?></td>
 
                         <!--                        --><?php //if ($index === 0): ?>
                         <!--                            <td colspan="3">--><?php //= formatCurrency($paciente['total_maquila'] ?? 0) ?><!--</td>-->
@@ -114,6 +114,7 @@
                         <!--                            <td colspan="3">--><?php //= $estudio->PRECIO ?><!--</td>-->
                         <!--                        --><?php //endif; ?>
                     </tr>
+                    <?php $numeracion++; ?>
                 <?php endforeach; ?>
             <?php endif; ?>
 

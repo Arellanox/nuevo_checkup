@@ -14,8 +14,12 @@ foreach ($resultados[0] as $resultado) {
         if ($lastKey != $resultado->PREFOLIO) {
             $lastKey = $resultado->PREFOLIO;
             $nombre = $resultado->PACIENTE_NOMBRE;
+            $sexo = $resultado->PACIENTE_GENERO;
+            $edad = intval($resultado->PACIENTE_EDAD);
         } else {
             $nombre = '';
+            $sexo = '';
+            $edad = '';
         }
 
         $pacientes[$pacienteKey] = [
@@ -28,8 +32,8 @@ foreach ($resultados[0] as $resultado) {
             'id_paciente' => $resultado->PREFOLIO,
             'toma_muestra' => $resultado->FECHA_TOMA_MUESTRA,
             'medico' => $resultado->NOMBRE_MEDICO_TRATANTE,
-            'sexo' => $resultado->PACIENTE_GENERO,
-            'edad' => intval($resultado->PACIENTE_EDAD),
+            'sexo' => $sexo,
+            'edad' => $edad,
             'detalle_estudios' => $resultado->DETALLES_ESTUDIOS,
             'envio_completo' => $resultado->ENVIO_COMPLETO,
             'obsercaciones' => $resultados->OBSERVACIONES,
