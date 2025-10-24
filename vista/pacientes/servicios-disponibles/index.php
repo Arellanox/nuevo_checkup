@@ -45,11 +45,11 @@ if ($_GET['filter'] == '[6,12]') {
   };
 
   // Obtener la cadena de consulta de la URL
-  const url = window.location.search;
-  const urlParams = new URLSearchParams(url);
+  var url = window.location.search;
+  var urlParams = new URLSearchParams(url);
 
   // Obtener el valor de la variable desde los parámetros
-  const filter = urlParams.get("filter");
+  var filter = urlParams.get("filter");
 
   let strings = [];
 
@@ -60,7 +60,7 @@ if ($_GET['filter'] == '[6,12]') {
   }
 
   // Mapear los números de áreas a nombres de áreas en un nuevo arreglo
-  const areasString = strings.map(areaNumber => areasMap[areaNumber]);
+  var areasString = strings.map(areaNumber => areasMap[areaNumber]);
 
   // Si no hay áreas seleccionadas, llenar el arreglo con todos los nombres de áreas
   if (areasString.length === 0) {

@@ -15,7 +15,7 @@
       <!-- Iconos -->
       <div class="row d-flex justify-content-center">
         <div class="col-6 col-lg-auto">
-          <div class="rounded p-3 shadow-sm my-2 card_franquicias btn-agregar_paciente" data-bs-type="1">
+          <div class="rounded p-3 shadow-sm my-2 card_franquicias btn-agregar_paciente bg-white" data-bs-type="1">
             <div class="d-flex align-items-center card_botones_menu">
               <!-- Icono -->
               <img src="../../../css/icons/franquicias/ciencia/icon_2.svg" alt="Icono" class="me-3 icon_btn"
@@ -28,7 +28,7 @@
         </div>
 
         <div class="col-6 col-lg-auto">
-          <div class="rounded p-3 shadow-sm my-2 card_franquicias btn-agregar_paciente" data-bs-type="2">
+          <div class="rounded p-3 shadow-sm my-2 card_franquicias btn-agregar_paciente bg-white" data-bs-type="2">
             <div class="d-flex align-items-center card_botones_menu">
               <!-- Icono -->
               <img src="../../../css/icons/franquicias/ciencia/icon_3.svg" alt="Icono" class="me-3 icon_btn"
@@ -41,7 +41,7 @@
         </div>
 
         <div class="col-6 col-lg-auto">
-          <div class="rounded p-3 shadow-sm my-2 card_franquicias" id="btn-envio_muestras">
+          <div class="rounded p-3 shadow-sm my-2 card_franquicias bg-white" id="btn-envio_muestras">
             <div class="d-flex align-items-center card_botones_menu">
               <!-- Icono -->
               <img src="../../../css/icons/franquicias/ciencia/icon_1.svg" alt="Icono" class="me-3 icon_btn"
@@ -54,7 +54,7 @@
         </div>
 
         <div class="col-6 col-lg-auto">
-          <div class="rounded p-3 shadow-sm my-2 card_franquicias" id="btn-muestras_enviadas">
+          <div class="rounded p-3 shadow-sm my-2 card_franquicias bg-white" id="btn-muestras_enviadas">
             <div class="d-flex align-items-center card_botones_menu">
               <!-- Icono -->
               <img src="../../../css/icons/franquicias/ciencia/icon_4.svg" alt="Icono" class="me-3 icon_btn"
@@ -69,48 +69,33 @@
 
       </div>
 
-      <div class="rounded p-3 shadow-sm my-2 table-responsive">
-        <div class="text-center" style="margin-top:4px;">
-          <!-- <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-aceptar"
-                      data-bs-toggle="tooltip" data-bs-placement="top" title="Carga una solicitud de estudios">
-                      <i class="bi bi-check"></i> Aceptar paciente
-                    </button>
-                    <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-rechazar"
-                      data-bs-toggle="tooltip" data-bs-placement="top" title="Rechaza/Elimina este registro">
-                      <i class="bi bi-x"></i> Rechazar paciente
-                    </button> -->
-
-
-          <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px; display: none;"
-            data-bs-toggle="modal" style="display: none;" data-bs-target="#ModalBeneficiario" id="buttonBeneficiario"
-            data-bs-toggle="tooltip" data-bs-placement="top" title="Agregué información de pacientes de la UJAT">
-            <i class="bi bi-save"></i> Beneficiario
-          </button>
-        </div>
-        <div>
+      <div class="rounded p-3 shadow-sm my-2 table-responsive bg-white">
+          <!--
+            <div class="text-center" style="margin-top:4px;">
+                <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-aceptar"
+                   data-bs-toggle="tooltip" data-bs-placement="top" title="Carga una solicitud de estudios">
+                   <i class="bi bi-check"></i> Aceptar paciente
+                 </button>
+                 <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-rechazar"
+                   data-bs-toggle="tooltip" data-bs-placement="top" title="Rechaza/Elimina este registro">
+                   <i class="bi bi-x"></i> Rechazar paciente
+                 </button>
+                <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px; display: none;"
+                  data-bs-toggle="modal" style="display: none;" data-bs-target="#ModalBeneficiario" id="buttonBeneficiario"
+                  data-bs-toggle="tooltip" data-bs-placement="top" title="Agregué información de pacientes de la UJAT">
+                  <i class="bi bi-save"></i> Beneficiario
+                </button>
+            </div>
+        -->
           <table class="table table-hover display responsive" id="tablaPacientes" style="width: 100%;">
 
           </table>
-        </div>
       </div>
+
     </div>
-
   </div>
-
 </div>
 
-
-<script>
-  $(document).on({
-    mouseenter: function () {
-      $(this).removeClass('shadow-sm').addClass('shadow');
-    },
-    mouseleave: function () {
-      $(this).removeClass('shadow').addClass('shadow-sm');
-    }
-  }, '.card_franquicias'); // Reemplaza #miDiv con el selector de tu elemento
-
-</script>
 
 <style>
   .drop-zone {

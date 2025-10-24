@@ -1,44 +1,3 @@
-if (validarVista('FRANQUICIAS')) {
-    hasLocation();
-    obtenerContenido()
-
-    $(window).on("hashchange", function (e) {
-        hasLocation();
-    });
-}
-
-function obtenerContenido() {
-    obtenerTitulo('Principal | Maquila'); //Aqui mandar el nombre de la area
-    $.post("contenido/estudios.php", function (html) {
-        $("#body-js").html(html);
-    }).done(function () {
-        // Datatable
-        $.getScript("contenido/js/app.js");
-        $.getScript("contenido/js/utilidades.js");
-
-        $.getScript("contenido/js/franq-tabla.js");
-        // Botones
-        $.getScript("contenido/js/franq-botones.js");
-    });
-}
-
-function hasLocation() {
-    var hash = window.location.hash.substring(1);
-    $("a").removeClass("navlinkactive");
-    $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
-    switch (hash) {
-        case "HNSG":
-            obtenerContenido();
-            // Config por empresa
-            // ------------ por id de empresa cada usuario para permisos y personalizacion
-            break;
-        default:
-            // window.location.hash = '#UJAT';
-            break;
-    }
-}
-
-/*
 function combinePages(divPadre, estatus) {
     const $visiblePage = $(`#${divPadre} .page:visible`);
     // 1 para next, 0 para prev
@@ -50,8 +9,7 @@ function combinePages(divPadre, estatus) {
         restartPages(divPadre); // No existe y veremos la primera pagina
     }
 }
-// Inicializamos mostrando la primera página
-// updatePage($('.page').first());
+
 function restartPages(divPadre) {
     // Ocultar todas las páginas
     $(`#${divPadre} .page`).hide();
@@ -60,8 +18,6 @@ function restartPages(divPadre) {
     $(`#${divPadre} .page`).first().show();
 }
 
-// Movilidad de tablet o paginacion
-let isAnimating = false;
 function updatePage($newPage, direction) {
     const $currentVisiblePage = $('.page:visible');
     const $prevButton = $('button.control-pagina-interpretacion[target="back"]')
@@ -110,20 +66,3 @@ function updatePage($newPage, direction) {
         // $nextButton.attr('disabled', isLastPage ? true : false)
     });
 }
-
-function hasLocation() {
-
-    var hash = window.location.hash.substring(1);
-    $("a").removeClass("navlinkactive");
-    $("nav li a[href='#" + hash + "']").addClass("navlinkactive");
-    switch (hash) {
-        case "HNSG":
-            obtenerContenido();
-            // Config por empresa
-            // ------------ por id de empresa cada usuario para permisos y personalizacion
-            break;
-        default:
-            // window.location.hash = '#UJAT';
-            break;
-    }
-} */

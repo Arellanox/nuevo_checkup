@@ -177,7 +177,7 @@ function tipoFormulario(tipo) {
         $('#nueva_solicitd_paciente_form').fadeIn(1);
     }
 }
-
+var temporalTurno;
 // Usa datos del formulario y lo muestra en muestras
 function previewInfoPaciente(data) {
     return new Promise(resolve => {
@@ -185,7 +185,6 @@ function previewInfoPaciente(data) {
         ajaxAwait({
             api: 2, id: $('#paciente_existente').val()
         }, 'pacientes_api', { callbackAfter: true }, false, (data) => {
-            console.log(data);
             muestraDataPaciente(data.response.data[0])
             resolve(1);
         })
@@ -285,7 +284,7 @@ $(document).on('click', '#btn-etiquetas-pdf', function (e) {
     // Obtener URL para abrir
     let api = encodeURIComponent(window.btoa('etiquetas'));
     // area = encodeURIComponent(window.btoa(-1));
-    let turno = encodeURIComponent(window.btoa(btn.attr('data-bs-turno_guardado')));
+    var turno = encodeURIComponent(window.btoa(btn.attr('data-bs-turno_guardado')));
 
     let win = window.open(`${http}${servidor}/${appname}/visualizar_reporte/?api=${api}&turno=${turno}`, '_blank')
 
@@ -338,7 +337,7 @@ let input_ordenMedica = InputDragDrop('#dropPromocionalesBimo', (inputArea, sali
 }, { multiple: true })
 
 // Submit de formulario
-let turno;
+var turno;
 $(document).on('submit', '#formAgregarPaciente', function (event) {
     event.preventDefault();
     event.stopPropagation();
@@ -384,11 +383,13 @@ $(document).on('submit', '#formAgregarPaciente', function (event) {
 
         // Envia fotos para guardarlo
         ajaxAwaitFormData(data_json, 'maquilas_api', 'formAgregarPaciente', { callbackAfter: true }, false, async (data) => {
-
+            console.log(data)
             const row = data.response.data;
 
             // Guarda el turno que se ha hecho
             turno = row.ID_TURNO;
+            console.log(turno)
+            console.log(row.ID_TURNO)
 
             let folio_empresa = row.FOLIO;
             $('#folio-paciente').html(folio_empresa);
@@ -426,7 +427,7 @@ $(document).on('submit', '#formulario_submit_muestras', function (e) {
 })
 
 // Guardar muestra
-$(document).on('click', '#btn_submit_tomarmuestra', function (e) {
+$(document).on('click', '#btn_submit_tomarmuestra', async function (e) {
     e.preventDefault();
     e.stopPropagation();
 
@@ -439,19 +440,37 @@ $(document).on('click', '#btn_submit_tomarmuestra', function (e) {
         return false;
     }
 
+    await new Promise(resolve => {
+
+        ajaxAwait({
+            api: 2, id: $('#paciente_existente').val()
+        }, 'pacientes_api', { callbackAfter: true }, false, (data) => {
+            turno = data.response.data[0]["ID_TURNO"]
+            temporalTurno = turno
+            muestraDataPaciente(data.response.data[0])
+            resolve(1);
+        })
+
+    });
     // const botonGuardarMuestra = form.find('.btn_submit_tomarmuestra'); // Encuentra el botón dentro del formulario
 
     guardarMuestraTomada(input, btn)
 })
 
 function guardarMuestraTomada(input, botonGuardarMuestra) {
+    if (!turno || !temporalTurno) {
+        console.log(turno, temporalTurno)
+        alertToast('No ha seleccionado ningún registro')
+        return
+    }
+
     alertMensajeConfirm({
         title: '¿Está seguro de cargar correctamente la fecha de toma?',
         text: 'No podrás modificarlo luego.',
         icon: 'warning',
     }, () => {
         // Datos a enviar
-        const data_json = { api: 9, id_turno: turno, fecha_toma: input.val() };
+        const data_json = { api: 9, id_turno: turno ?? temporalTurno, fecha_toma: input.val() };
         ajaxAwait(data_json, 'maquilas_api', { callbackAfter: true }, false, () => {
             alertToast('¡Fecha de muestra guardada!', 'success', 4000)
 
