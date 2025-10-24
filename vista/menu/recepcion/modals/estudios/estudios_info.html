@@ -37,8 +37,8 @@
                         <div class="col-12 col-md-5">
                             <!-- Coincidencias -->
                             <div id="listEstudios" class="d-none">
-                                <span>Médicos Existentes:</span>
-                                <div id="suggestionsListEstudios"></div>
+                                <span>Estudios Existentes:</span>
+                                <div id="suggestionsListEstudios" style="max-height: 400px; overflow-y: auto; overflow-x: hidden"></div>
                             </div>
                         </div>
                         <div class="col-12 col-md-7" id="info_estudios-search" style="display: none;">
@@ -83,14 +83,42 @@
                                         </p>
                                         <p>
                                             <strong>Muestra Valores Referencia:</strong>
-                                            <span class="pantone-3165-color"
-                                                id="InfoModal_MUESTRA_VALORES_REFERENCIA"></span>
+                                            <span class="pantone-3165-color" id="InfoModal_MUESTRA_VALORES_REFERENCIA"></span>
                                         </p>
                                         <p>
                                             <strong>Registrado Por:</strong>
-                                            <span class="pantone-3165-color" id="InfoModal_REGISTRADO_POR"></span>
+                                            <span class="pantone-3165-color" id="InfoModal_REGISTRADO_POR_NOMBRE"></span>
                                         </p>
                                         <!-- Incluye más elementos aquí según sea necesario -->
+
+                                        <p>
+                                            <strong>Tipo de muestra:</strong>
+                                            <span class="pantone-3165-color" id="InfoModal_MUESTRA"></span>
+                                        </p>
+                                        <p>
+                                            <strong>Contenedor:</strong>
+                                            <span class="pantone-3165-color" id="InfoModal_CONTENEDOR"></span>
+                                        </p>
+                                        <p>
+                                            <strong>Indicaciones para el laboratorio:</strong>
+                                            <span class="pantone-3165-color" id="InfoModal_INDICACIONES_LABORATORIO"></span>
+                                        </p>
+                                        <p>
+                                            <strong>Motivos para rechazo de muestras:</strong>
+                                            <span class="pantone-3165-color" id="InfoModal_MOTIVO_RECHAZO"></span>
+                                        </p>
+                                        <p>
+                                            <strong>Indicaciones para el paciente:</strong>
+                                            <span class="pantone-3165-color" id="InfoModal_INDICACIONES"></span>
+                                        </p>
+                                        <p>
+                                            <strong>Conservación:</strong>
+                                            <span class="pantone-3165-color" id="InfoModal_CONSERVACION"></span>
+                                        </p>
+                                        <p>
+                                            <strong>Metodología:</strong>
+                                            <span class="pantone-3165-color" id="InfoModal_METODOLOGIA"></span>
+                                        </p>
                                     </div>
                                 </div>
 

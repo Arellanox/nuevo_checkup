@@ -24,12 +24,8 @@ $('#FormEstudioBuscar').submit(function (e) {
         buscar_estudio = 1;
 
         // buscar datos
-        ajaxAwaitFormData({
-            api: 15
-        }, 'recepcion_api', 'FormEstudioBuscar', { callbackAfter: true }, false, (data) => {
-            // console.log(data);
+        ajaxAwaitFormData({api: 15}, 'recepcion_api', 'FormEstudioBuscar', { callbackAfter: true }, false, (data) => {
             buscar_estudio = 0;
-
             rows_estudios = data.response.data;
 
             const html = rows_estudios.map(row => {
@@ -44,8 +40,6 @@ $('#FormEstudioBuscar').submit(function (e) {
             } else {
                 $(`#${'listEstudios'}`).addClass('d-none');
             }
-
-
         })
     }
 })
