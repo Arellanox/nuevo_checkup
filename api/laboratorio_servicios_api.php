@@ -76,9 +76,51 @@ $parametros = array(
 # Datos para marcar un estudio como pendiente
 $turno_id = $_POST['turno_id'];
 $pendiente = $_POST['pendiente'];
+$imagen = $_FILES['imagen-motivo-rechazo'];
 
 switch ($api) {
     case 1:
+        $path = null;
+        $master->setLog("Imagne", $imagen);
+
+        $path = null;
+
+        if (!empty($_FILES['imagen-motivo-rechazo'])) {
+            // 🧾 Caso 1: viene como archivo binario (multipart/form-data)
+            $file = $_FILES['imagen-motivo-rechazo'];
+            if ($file['error'] === UPLOAD_ERR_OK) {
+                $master->createDir('../archivos/laboratorio/servicios/');
+
+                // Generar nombre único con extensión original
+                $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+                $imageName = uniqid('rechazo_', true) . '.' . $ext;
+                $destPath = '../archivos/laboratorio/servicios/' . $imageName;
+
+                // Mover archivo desde temporal
+                move_uploaded_file($file['tmp_name'], $destPath);
+
+                // URL final pública
+                $path = "$host/archivos/laboratorio/servicios/$imageName";
+            }
+
+        } elseif (!empty($_POST['imagen-motivo-rechazo'])) {
+            // 🧾 Caso 2: viene como base64
+            $imagen = $_POST['imagen-motivo-rechazo'];
+            $master->createDir('../archivos/laboratorio/servicios/');
+
+            if (preg_match('/^data:image\/(\w+);base64,/', $imagen, $type)) {
+                $imagen = substr($imagen, strpos($imagen, ',') + 1);
+                $extension = strtolower($type[1]);
+                if (!in_array($extension, ['jpg', 'jpeg', 'png'])) {
+                    throw new Exception('Formato de imagen no permitido.');
+                }
+                $imageName = uniqid('rechazo_', true) . '.' . $extension;
+                $destPath = "../archivos/laboratorio/servicios/$imageName";
+                file_put_contents($destPath, base64_decode($imagen));
+                $path = "$host/archivos/laboratorio/servicios/$imageName";
+            }
+        }
+
         $payload = [
             $id_servicio,
             $descripcion,
@@ -109,8 +151,11 @@ switch ($api) {
             $motivo_rechazo,
             $indicaciones_lab,
             $conservacion,
-            $_SESSION['id']
+            $_SESSION['id'],
+            $path
         ];
+
+
 
         $response = $master->insertByProcedure("sp_servicio_laboratorio_g", $payload);
         break;
