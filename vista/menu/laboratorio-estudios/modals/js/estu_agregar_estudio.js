@@ -79,10 +79,11 @@ async function getValueEstudio(id) {
                     $('#input-descripcion').val(ifnull(row.DESCRIPCION, ''));
                     $('#input-abreviatura').val(ifnull(row.ABREVIATURA, ''));
                     $('#input-motivo-rechazo').val(ifnull(row.MOTIVO_RECHAZO, ''))
-                    $('#imagen-motivo-rechazo').val(ifnull(row.IMAGEN_MOTIVO_RECHAZO, ''))
+                    $('#imagen-motivo-rechazo').val(null)
                     $('#input-modo-conservacion').val(ifnull(row.CONSERVACION, ''))
-                    $('#preview').attr('src', current_url + '/archivos/laboratorio/servicios/rechazo_68ffb566044128.62137298.png');
+                    $('#preview').attr('src', current_url + row.IMAGEN_MOTIVO_RECHAZO);
 
+                    console.log(row)
 
                     if (row.CLASIFICACION_ID) {
                         $('#registrar-clasificacion-estudio').val(row.CLASIFICACION_ID).trigger('change');

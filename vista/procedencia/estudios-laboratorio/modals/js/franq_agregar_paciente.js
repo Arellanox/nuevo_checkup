@@ -105,37 +105,88 @@ async function getListMuestras() {
             servicios: arrayATexto(estudiosEnviar)
         }, 'maquilas_api', { callbackAfter: true }, false, (data) => {
             let row = data.response.data;
-
             let html = '';
+
+            // Limpia el carrusel antes de agregar nuevas imágenes
+            $('#imagenesRechazadas .carousel-inner').empty();
+
+            // 🔹 Para controlar cuál será la primera imagen "active"
+            let firstImage = true;
+
             for (var i = 0; i < row.length; i++) {
-                // console.log(row[i]);
-                html += `<div class="card">
-                  <div class="card-header">
-                    <h5 class="card-title">
-                      <i class="bi bi-heart-pulse"></i> ${row[i]['NOMBRE']}
-                    </h5>
-                  </div>
-                  <div class="card-body">
-                    <p><strong><i class="bi bi-droplet"></i> Tipo de muestra:</strong> <span class="none-p">${ifnull(row[i]['MUESTRA'])}</span></p>
-                    <p><strong><i class="bi bi-box"></i> Contenedor:</strong> <span class="none-p">${row[i]['TUBO']}</span></p>
-                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#moreInfo${row[i]['ID_SERVICIO']}" aria-expanded="false" aria-controls="moreInfo">
-                      <i class="bi bi-chevron-down"></i> Más información
-                    </button>
-                    <div class="collapse" id="moreInfo${row[i]['ID_SERVICIO']}">
-                      <p><strong><i class="bi bi-clock"></i> Tiempo de entrega:</strong> <span class="none-p">${ifnull(row[i]['DURACION'])}</span></p>
-                      <p><strong><i class="bi bi-file-earmark-medical"></i> Indicaciones para el laboratorio:</strong> <span class="none-p">${ifnull(row[i]['INDICACIONES_LABORATORIO'])}</span></p>
-                      <p><strong><i class="bi bi-file-earmark-medical"></i> Motivos para rechazo de muestras:</strong> <span class="none-p">${ifnull(row[i]['MOTIVO_RECHAZO'])}</span></p>
-                      <p><strong><i class="bi bi-person-lines-fill"></i> Indicaciones para el paciente:</strong> <span class="none-p">${ifnull(row[i]['INDICACIONES'])}</span></p>
-                      <p><strong><i class="bi bi-thermometer-half"></i> Conservación:</strong> <span class="none-p">${ifnull(row[i]['CONSERVACION'])}</span></p>
-                      <p><strong><i class="bi bi-building"></i> Área:</strong> <span class="none-p">${ifnull(row[i]['AREA'])}</span></p>
-                      <p><strong><i class="bi bi-activity"></i> Metodología:</strong> <span class="none-p">${ifnull(row[i]['METODOLOGIA'])}</span></p>
+                let imagenes = row[i]['IMAGEN_MOTIVO_RECHAZO'];
+
+                html += `
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">
+                                <i class="bi bi-heart-pulse"></i> ${row[i]['NOMBRE']}
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <p><strong><i class="bi bi-droplet"></i> Tipo de muestra:</strong> <span>${ifnull(row[i]['MUESTRA'])}</span></p>
+                            <p><strong><i class="bi bi-box"></i> Contenedor:</strong> <span>${row[i]['TUBO']}</span></p>
+        
+                            <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#moreInfo${row[i]['ID_SERVICIO']}">
+                                <i class="bi bi-chevron-down"></i> Más información
+                            </button>
+        
+                            <div class="collapse" id="moreInfo${row[i]['ID_SERVICIO']}">
+                                <p><strong><i class="bi bi-clock"></i> Tiempo de entrega:</strong> <span>${ifnull(row[i]['DURACION'])}</span></p>
+                                <p><strong><i class="bi bi-file-earmark-medical"></i> Motivos para rechazo de muestras:</strong> <span>${ifnull(row[i]['MOTIVO_RECHAZO'])}</span></p>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                </div>
                 `;
+
+                if (typeof imagenes === 'string') {
+                    try {
+                        imagenes = JSON.parse(imagenes);
+                    } catch (e) { imagenes = imagenes ? [imagenes] : []; }
+                } else if (!Array.isArray(imagenes)) { imagenes = []; }
+
+                console.log('Imagenes procesadas:', imagenes);
+
+                // 🔹 Si tiene imágenes, agrégalas al carrusel
+                imagenes.forEach((img) => {
+                    const isActive = firstImage ? 'active' : '';
+                    firstImage = false;
+                    $('#imagenesRechazadas .carousel-inner').append(`
+                        <div class="carousel-item ${isActive}"  style="background: #bcbcbc; padding-top: 8px; margin-bottom: 8px">
+                            <img style="max-width: 200px; margin: auto; display: block" src="${current_url + img}" alt="Imagen de rechazo">
+                        </div>
+                    `);
+                });
+
+                try {
+                    // Bootstrap 5
+                    var carousel = bootstrap.Carousel.getInstance(document.querySelector('#imagenesRechazadas'));
+                    if (carousel) {
+                        carousel.dispose();
+                    }
+                    new bootstrap.Carousel('#imagenesRechazadas', { interval: 3000 });
+                } catch (e) {
+                    // Bootstrap 4 fallback
+                    $('#imagenesRechazadas').carousel({
+                        interval: 3000
+                    });
+                }
             }
 
+            // Inserta los cards
             $("#lista-estudios-paciente-div").html(html);
+
+            // Si no hay imágenes, agrega una por defecto
+            if ($('#imagenesRechazadas .carousel-item').length === 0) {
+                $('#imagenesRechazadas .carousel-inner').append(`
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="img/no-image.png" alt="Sin imágenes">
+            </div>
+        `);
+            }
+
+            // Vuelve a inicializar el carrusel (por si ya estaba cargado)
+            $('#imagenesRechazadas').carousel(0);
             
             loaderDiv("Out", null, "#loader-muestras", "#loaderDivmuestras");
             resolve(1);
