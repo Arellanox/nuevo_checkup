@@ -105,7 +105,8 @@ if (!empty($_SESSION['id'])) {
                 json_encode($servicios),
                 $comentarios_orden,
                 $_SESSION['id'],
-                $orden_medica
+                $orden_medica,
+                1
             ]);
 
             $count = 0;

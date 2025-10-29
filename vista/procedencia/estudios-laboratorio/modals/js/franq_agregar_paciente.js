@@ -406,60 +406,80 @@ $(document).on('submit', '#formAgregarPaciente', function (event) {
         cancelButtonText: 'No estoy seguro',
     }, () => {
 
-        alertMsj({
-            title: '¡Genial, todo en orden!',
-            text: 'Cargando todos los datos, espere un momento',
-            showCancelButton: false, showConfirmButton: false,
-            icon: 'info'
-        })
+        alertMensajeConfirm({
+            title: 'DECLARACIÓN DE RESPONSABILIDAD',
+            html: '<div style="max-height:300px; overflow-y: auto; text-align: left">' +
+                'Al proceder con el envío de muestras para análisis de laboratorio, usted declara y acepta expresamente lo siguiente:' +
+                '<br/><br/>'
+                +
+                'Confirmo que estoy de acuerdo y asumo la total responsabilidad de enviar las muestras bajo las condiciones y especificaciones correctas establecidas por el laboratorio, independientemente de las situaciones mostradas en el material visual de referencia (carrusel de imágenes de muestras rechazables).\n' +
+                '<br/><br/>' +
+                'Entiendo que el carrusel de imágenes de muestras rechazables tiene únicamente propósitos informativos, mostrando ejemplos de condiciones NO ACEPTABLES para el procesamiento de muestras.' +
+                'Me comprometo a:' +
+                '<br/><br/>' +
+                '1.- Seguir estrictamente los protocolos y lineamientos oficiales de recolección y envío de muestras' + '<br/><br/>' +
+                '2.- Asegurar que las muestras cumplan con todos los requisitos de calidad, temperatura, etiquetado y conservación' + '<br/><br/>' +
+                '3.- No replicar ninguna de las condiciones mostradas en el material de muestras rechazables' + '<br/><br/>' +
+                '4.- Asumir cualquier consecuencia derivada del envío inadecuado de muestras, incluyendo posibles rechazos, retrasos en resultados o costos adicionales' +
+                '<br/><br/>' +
+                'Acepto que cualquier muestra enviada bajo condiciones incorrectas será rechazada y corre bajo mi exclusiva responsabilidad.</div>',
+            confirmButtonText: 'Si, aceptar',
+            cancelButtonText: 'No estoy seguro',
+        }, () => {
+            alertMsj({
+                title: '¡Genial, todo en orden!',
+                text: 'Cargando todos los datos, espere un momento',
+                showCancelButton: false, showConfirmButton: false,
+                icon: 'info'
+            })
 
-        // Calcula y envia la edad del paciente
-        let fecha_nacimiento = $('#nacimiento-form-agregar').val();
-        let edad = calcularEdad(fecha_nacimiento);
+            // Calcula y envia la edad del paciente
+            let fecha_nacimiento = $('#nacimiento-form-agregar').val();
+            let edad = calcularEdad(fecha_nacimiento);
 
-        const data_json = {
-            servicios: estudiosEnviar,
-            api: 2, edad: edad
-        }
+            const data_json = {
+                servicios: estudiosEnviar,
+                api: 2, edad: edad
+            }
 
-        // Verificamos si estamos agregando un nuevo usuario o ya existente
-        if (form_type == 2) {
-            data_json['id_paciente'] = $('#paciente_existente').val(); // <-- el que seleccionó el usuario
-        }
+            // Verificamos si estamos agregando un nuevo usuario o ya existente
+            if (form_type == 2) {
+                data_json['id_paciente'] = $('#paciente_existente').val(); // <-- el que seleccionó el usuario
+            }
 
-        // if ($('#paciente_existente').is(':visible')) {
-        //     // El elemento es visible
-        //     data_json['id_paciente'] = $('#paciente_existente').val(); // <-- el que seleccionó el usuario
-        // } 
+            // if ($('#paciente_existente').is(':visible')) {
+            //     // El elemento es visible
+            //     data_json['id_paciente'] = $('#paciente_existente').val(); // <-- el que seleccionó el usuario
+            // }
 
-        // Envia fotos para guardarlo
-        ajaxAwaitFormData(data_json, 'maquilas_api', 'formAgregarPaciente', { callbackAfter: true }, false, async (data) => {
-            console.log(data)
-            const row = data.response.data;
+            // Envia fotos para guardarlo
+            ajaxAwaitFormData(data_json, 'maquilas_api', 'formAgregarPaciente', { callbackAfter: true }, false, async (data) => {
+                const row = data.response.data;
 
-            // Guarda el turno que se ha hecho
-            turno = row.ID_TURNO;
-            console.log(turno)
-            console.log(row.ID_TURNO)
+                // Guarda el turno que se ha hecho
+                turno = row.ID_TURNO;
 
-            let folio_empresa = row.FOLIO;
-            $('#folio-paciente').html(folio_empresa);
+                let folio_empresa = row.FOLIO;
+                $('#folio-paciente').html(folio_empresa);
 
-            // Muestra la información que se guardo en la base;
-            // muestrasInfoPaciente(row); // Muestra información del paciente
+                // Muestra la información que se guardo en la base;
+                // muestrasInfoPaciente(row); // Muestra información del paciente
 
-            $('#btn-etiquetas-pdf').attr('data-bs-turno_guardado', turno)
+                $('#btn-etiquetas-pdf').attr('data-bs-turno_guardado', turno)
 
-            // alertMensajeConfirm({
-            //     title: ''
-            // })
+                // alertMensajeConfirm({
+                //     title: ''
+                // })
 
-            tablaPacientes.ajax.reload();
-            await getListMuestras(turno); // Obtiene las muestras
-            btnEstatus(2); // Cambia de botones
-            combinePages('page_control-agregar_paciente', 1) // Cambia de pagina
-            swal.close();
-        })
+                tablaPacientes.ajax.reload();
+                await getListMuestras(turno); // Obtiene las muestras
+                btnEstatus(2); // Cambia de botones
+                combinePages('page_control-agregar_paciente', 1) // Cambia de pagina
+                swal.close();
+            })
+
+
+        });
     }, 1)
 })
 
@@ -509,7 +529,7 @@ $(document).on('click', '#btn_submit_tomarmuestra', async function (e) {
 })
 
 function guardarMuestraTomada(input, botonGuardarMuestra) {
-    if (!turno || !temporalTurno) {
+    if (!turno && !temporalTurno) {
         console.log(turno, temporalTurno)
         alertToast('No ha seleccionado ningún registro')
         return
