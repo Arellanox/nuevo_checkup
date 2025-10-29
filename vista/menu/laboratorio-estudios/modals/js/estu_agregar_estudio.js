@@ -79,6 +79,7 @@ async function getValueEstudio(id) {
                     $('#input-descripcion').val(ifnull(row.DESCRIPCION, ''));
                     $('#input-abreviatura').val(ifnull(row.ABREVIATURA, ''));
                     $('#input-motivo-rechazo').val(ifnull(row.MOTIVO_RECHAZO, ''))
+                    $('#input-indicaciones-laboratorio').val(ifnull(row.INDICACIONES_LABORATORIO, ''))
                     $('#imagen-motivo-rechazo').val(null)
                     $('#input-modo-conservacion').val(ifnull(row.CONSERVACION, ''))
                     $('#preview').attr('src', current_url + row.IMAGEN_MOTIVO_RECHAZO);

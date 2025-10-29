@@ -121,7 +121,7 @@ switch ($api) {
             }
         }
 
-        $payload = [
+        $response = $master->insertByProcedure("sp_servicio_laboratorio_g", [
             $id_servicio,
             $descripcion,
             $abreviatura,
@@ -153,11 +153,10 @@ switch ($api) {
             $conservacion,
             $_SESSION['id'],
             $path
-        ];
+        ]);
 
+        $master->setLog(json_encode($response), 'poar: ');
 
-
-        $response = $master->insertByProcedure("sp_servicio_laboratorio_g", $payload);
         break;
     case 2:
         $response = $master->getByProcedure('sp_servicio_laboratorio_b', [$id_servicio]);
@@ -170,9 +169,10 @@ switch ($api) {
         $arrayMuestras = [];
         $arrayContenedoryMuestra = [];
         $imagen = $response[0]['IMAGEN_MOTIVO_RECHAZO'];
+        $indicaciones_labo = $response[0]['INDICACIONES_LABORATORIO'];
 
-        $master->setLog(json_encode($response), 'Informacion Estudios');
-        $master->setLog($imagen, 'imagen');
+//        $master->setLog(json_encode($response), 'Informacion Estudios');
+//        $master->setLog($indicaciones_labo, 'imagen');
 
         for ($i = 0; $i < count($response); $i++) {
 
@@ -229,7 +229,8 @@ switch ($api) {
             "MOTIVO_RECHAZO" => $response[0]['MOTIVO_RECHAZO'],
             "IMAGEN_MOTIVO_RECHAZO" => $imagen,
             "CONSERVACION" => $response[0]['CONSERVACION'],
-            "LABORATORIO_MAQUILA" => $response[0]['LABORATORIO_MAQUILA']
+            "LABORATORIO_MAQUILA" => $response[0]['LABORATORIO_MAQUILA'],
+            "INDICACIONES_LABORATORIO" => $indicaciones_labo
         );
         break;
     case 3:
