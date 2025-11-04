@@ -742,7 +742,7 @@ class Miscelaneus
                 $fecha_fin = $_POST['fecha_fin'];
                 $observaciones = $_POST['obsercaciones'];
 
-                //$master->setLog(json_encode([NULL, NULL, $laboratorio_id, 1, $fecha_inicio, $fecha_fin]), 'sp_laboratorio_estudios_maquila_b');
+                $master->setLog(json_encode([NULL, NULL, $laboratorio_id, 1, $fecha_inicio, $fecha_fin]), 'sp_laboratorio_estudios_maquila_b');
 
                 $maquilas = $master->getByProcedure("sp_laboratorio_estudios_maquila_b", [
                     NULL, NULL, $laboratorio_id, 1, $fecha_inicio, $fecha_fin, 1
@@ -754,7 +754,7 @@ class Miscelaneus
 
                         //AQUI MARCAMOS LOS ESTUDIOS A MAQUILAR COMO REPORTADOS PARA QUE NO SE VUELVAN A GENERAR LOS PDFS
                         $master->insertByProcedure('sp_marcar_reporte_maquila', [$maquila['ID_MAQUILA'], $preview]);
-                        //$master->setLog(json_encode([$maquila['ID_MAQUILA']]), 'sp_marcar_reporte_maquila');
+                        $master->setLog(json_encode([$maquila['ID_MAQUILA']]), 'sp_marcar_reporte_maquila');
 
                         //Obtenemos la lista de los estudios que si fueron marcados para maquilar
                         $decode_lista_estudios = json_decode($maquila['LISTA_ESTUDIOS'], true);
@@ -783,7 +783,7 @@ class Miscelaneus
                         foreach ($data_estudios_filtrados as $index2 => $estudios) {
                             //$master->setLog(json_encode($estudios), 'ESTUDIO FOR');
                             //$master->setLog(json_encode($estudios['LAB_ALIAS_PRECIO']), 'ESTUDIO FOR');
-                            $master->setLog(json_encode($maquila['ENVIO_COMPLETO']), 'ESTA COMPLETADO');
+                            //$master->setLog(json_encode($maquila['ENVIO_COMPLETO']), 'ESTA COMPLETADO');
 
                             if($maquila['ENVIO_COMPLETO'] == 1) {
                                 if(!in_array($maquila['GRUPO_ID_ALIAS'], $registered)) {
@@ -795,13 +795,13 @@ class Miscelaneus
                         }
 
                         $maquilas[$index]['TOTAL_MAQUILA'] = $amount;
-                        //$master->setLog(json_encode($data_estudios_filtrados), 'Detalles');
+                        $master->setLog(json_encode($data_estudios_filtrados), 'Detalles');
                     }
                 }
 
                 $preview = 0; //IMPORTANTE REALIZAR ESTE CAMBIO YA QUE ES UN IDENTIFICADOR LO QUE SE USA
                 $arregloPaciente =[$maquilas, $observaciones ?? ''];
-                // $master->setLog(json_encode($maquilas), 'Maquilas');
+                $master->setLog(json_encode($maquilas), 'Maquilas');
                 break;
             case -9:
                 $ujat_inicial = $_POST['fecha_inicial'];

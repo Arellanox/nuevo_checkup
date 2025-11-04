@@ -127,6 +127,7 @@ switch ($api) {
          * */
         $identificador = bin2hex(random_bytes(16));
         $url = $master->reportador($master, $turno_id, -8, 'solicitud_maquila_ortin', 'url', $identificador);
+        $master->setLog('Error', $url);
         $master->insertByProcedure('sp_maquila_reporte_g', [$url, 8, $turno_id, date('Y-m-d H:i:s'), $identificador]);
         $response = ['url' => $url];
         break;

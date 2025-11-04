@@ -57,6 +57,7 @@
     </style>
 </head>
 <body>
+
 <!-- header -->
 <div class="header">
     <?php
@@ -64,6 +65,8 @@
         include 'layouts/header/header_solicitud_maquila_ortin.php';
     ?>
 </div>
+
+
 
 <main>
     <table class="table-studies-content">
@@ -119,7 +122,7 @@
                         <td colspan="2"><?= $paciente['fecha_nacimiento'] ?></td>
                         <td colspan="2"><?= $paciente['sexo'] === 'FEMENINO' ? 'F': ($paciente['sexo'] == '' ? '' : 'M') ?></td>
                         <td colspan="2"><?= $paciente['FECHA_NACIMIENTO'] ?></td>
-                        <td colspan="2"><?= date("Y-m-d") ?></td></td>
+                        <td colspan="2"><?= date("Y-m-d") ?></td>
                         <td colspan="2"></td>
                         <td colspan="1"></td>
                         <td colspan="2">24308</td>
@@ -185,6 +188,7 @@
                             <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>
+
                 <?php endif; ?>
             <?php endforeach; ?>
         </tbody>
