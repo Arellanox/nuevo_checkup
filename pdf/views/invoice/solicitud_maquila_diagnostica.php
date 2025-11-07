@@ -82,8 +82,8 @@
             <?php $numeracion++; ?>
         <?php endforeach; ?>
 
-        <tr>
-            <td colspan="13" style="text-align: left; vertical-align: top; white-space: normal; padding: 5px; font-size: 11px; height: 50px; word-wrap: break-word;">
+            <tr>
+                <td colspan="13" style="text-align: left; vertical-align: top; white-space: normal; padding: 5px; font-size: 11px; height: 50px; word-wrap: break-word;">
                     <strong>Observaciones:</strong>
                     <p style="margin: 0; white-space: pre-wrap;"><?= $resultados[1] ?></p>
                 </td>
