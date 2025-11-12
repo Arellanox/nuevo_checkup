@@ -200,7 +200,8 @@ TablaPacientesLotes = $('#TablaPacientesLotes').DataTable({
         },
 
         {
-            data: 'REPORTES', render: function (data) {
+            data: 'REPORTES', render: function (data, type, row) {
+                console.log(data, type, row)
                 var buttons = [];
 
                 // Verificar si 'data' no es null o undefined y no termina en 'null'

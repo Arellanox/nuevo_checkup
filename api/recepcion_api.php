@@ -122,6 +122,17 @@ $mensajesErrorCaja = [
     "UPS...NO ES POSIBLE ACEPTAR ESTE PACIENTE, YA QUE HAY UN CORTE DE CAJA EN PROCESO DEL DÍA ANTERIOR"
 ];
 
+$parametros_muestra_recepcion = [
+    $_POST['turno_id'] ?? null,
+    $_SESSION['id'] ?? null,
+    $_POST['estudio_id'] ?? null,
+    $_POST['tipo_muestra'] ?? null,
+    $_POST['muestra_tomada'] ?? null,
+    $_POST['observaciones'] ?? null,
+    $_FILES['evidencia'] ?? null,
+    date('d/m/y H:i') ?? null
+];
+
 switch ($api) {
     case 1:
         // Recupera pacientes por estado (1 - aceptados, 0 - rechazados o en null -espera)
@@ -667,6 +678,49 @@ switch ($api) {
     case 24:
         # Recuperar detalles médicos tratante
         $response = $master->getByProcedure('sp_obtener_datos_medicos_trantantes', [$id_medio]);
+        break;
+    case 25: # Acturlizar muestras externas tomadas.
+        $path = null;
+
+        if (!empty($_FILES['evidencia'])) {
+            $file = $_FILES['evidencia'];
+            if ($file['error'] === UPLOAD_ERR_OK) {
+                $master->createDir('../archivos/muestras/evidencias/');
+
+                // Generar nombre único con extensión original
+                $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+                $imageName = uniqid('rechazo_', true) . '.' . $ext;
+                $destPath = '../archivos/muestras/evidencias/' . $imageName;
+
+                // Mover archivo desde temporal
+                move_uploaded_file($file['tmp_name'], $destPath);
+
+                // URL final pública
+                $path = "$host/archivos/muestras/evidencias/$imageName";
+            }
+        } elseif (!empty($_POST['evidencia'])) {
+            // 🧾 Caso 2: viene como base64
+            $imagen = $_POST['evidencia'];
+            $master->createDir('../archivos/muestras/evidencias/');
+
+            if (preg_match('/^data:image\/(\w+);base64,/', $imagen, $type)) {
+                $imagen = substr($imagen, strpos($imagen, ',') + 1);
+                $extension = strtolower($type[1]);
+
+                if (!in_array($extension, ['jpg', 'jpeg', 'png'])) {
+                    throw new Exception('Formato de imagen no permitido.');
+                }
+
+                $imageName = uniqid('rechazo_', true) . '.' . $extension;
+                $destPath = "../archivos/muestras/evidencias/$imageName";
+                file_put_contents($destPath, base64_decode($imagen));
+                $path = "$host/archivos/muestras/evidencias/$imageName";
+            }
+        }
+
+        $master->setLog(json_encode($parametros_muestra_recepcion), 'parametros txasjdh');
+        $parametros_muestra_recepcion[6] = $path;
+        $response = $master->insertByProcedure('sp_recepcion_muestras_externas', $parametros_muestra_recepcion);
         break;
     default:
         $response = "Api no definida: ".$api;

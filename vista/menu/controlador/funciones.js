@@ -339,7 +339,61 @@ async function ajaxAwaitFormData(dataJson = { api: 0, }, apiURL, form = 'OnlyFor
   });
 }
 
+// ajaxAwaitByFormData: async, flexible, para FormData construido en JS (con callback y promesa)
+async function ajaxAwaitByFormData(formData, apiURL,
+                                   config = { alertBefore: false },
+                                   callbackBefore = function () {
+                                       alertMsj({
+                                           title: 'Espera un momento...',
+                                           text: 'Estamos cargando tu solicitud, esto puede demorar un rato',
+                                           icon: 'info',
+                                           showCancelButton: false
+                                       });
+                                   },
+                                   callbackSuccess = function (data) {
+                                       // Definición por defecto; puedes sobreescribirla al llamar la función.
+                                       console.log('callback ajaxAwaitByFormData por defecto');
+                                   }
+) {
+    return new Promise(function(resolve, reject) {
+        // Permite que tu setConfig y cualquier config global se acoplen aquí
+        config = setConfig(configAjaxAwait, config);
+        $.ajax({
+            url: `${http}${servidor}/${appname}/api/${apiURL}.php`,
+            type: 'POST',
+            data: formData,
+            processData: false,         // Necesario para FormData
+            contentType: false,         // Necesario para FormData
+            // OJO: no pongas dataType: 'json' aquí, deja que el backend devuelva lo que sea necesario
+            beforeSend: function () {
+                config.callbackBefore ? callbackBefore() : null;
+            },
+            success: function (data) {
+                try {
+                    // Lógica estándar de validación y devolución
+                    if (config.response) {
+                        if (mensajeAjax(data)) {
+                            config.callbackAfter ? callbackSuccess(config.WithoutResponseData ? data.response.data : data) : null;
+                            config.returnData ? resolve(config.WithoutResponseData ? data.response.data : data) : resolve(1);
+                        }
+                    } else {
+                        config.callbackAfter ? callbackSuccess(config.WithoutResponseData ? data.response.data : data) : null;
+                        config.returnData ? resolve(config.WithoutResponseData ? data.response.data : data) : resolve(1);
+                    }
+                } catch (error) {
 
+                    alertMensaje('error', 'Error', 'Datos/Configuración errónea', error);
+                    console.error(error);
+                    reject(error);
+                }
+            },
+            error: function (jqXHR, exception, data) {
+                alertErrorAJAX(jqXHR, exception, data);
+                reject(exception);
+            }
+        });
+    });
+}
 
 
 // Verificar si tiene una sesión activa
@@ -1871,7 +1925,11 @@ function mensajeAjax(data, modulo = null) {
     text = ' No pudimos cargar'
   }
 
-  try {
+    if (typeof data === 'string') {
+        data = JSON.parse(data);
+    }
+
+    try {
     switch (data['response']['code']) {
       case 1:
         return 1;
