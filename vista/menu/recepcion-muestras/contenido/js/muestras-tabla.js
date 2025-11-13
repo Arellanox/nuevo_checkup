@@ -201,7 +201,6 @@ TablaPacientesLotes = $('#TablaPacientesLotes').DataTable({
 
         {
             data: 'REPORTES', render: function (data, type, row) {
-                console.log(data, type, row)
                 var buttons = [];
 
                 // Verificar si 'data' no es null o undefined y no termina en 'null'
@@ -213,10 +212,7 @@ TablaPacientesLotes = $('#TablaPacientesLotes').DataTable({
                     );
                 } else {
                     // En dado caso que no tenga nada se mostrara este boton
-                    buttons.push(
-                        '<span class="badge text-bg-warning">En proceso</span>'
-
-                    );
+                    buttons.push('<span class="badge text-bg-warning">En proceso</span>');
                 }
 
                 return '<div class="d-flex justify-content-start align-items-center">' + buttons.join(' ') + '</div>';

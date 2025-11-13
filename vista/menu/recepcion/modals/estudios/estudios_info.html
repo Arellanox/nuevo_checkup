@@ -7,8 +7,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-
-                <!-- Input y listado -->
                 <form id="FormEstudioBuscar">
                     <div class="row">
                         <div class="col-12 col-md-4">
@@ -20,25 +18,27 @@
                         <div class="col-12 col-md-8">
                             <!-- Texto a coincidir -->
                             <label for="estudio" class="form-label">Estudio: </label>
-                            <input type="text" name="estudio" placeholder="Coincidecias" class="form-control input-form"
-                                required>
+
+
+                            <div style="display: flex; gap: 10px">
+                                <input type="text" name="estudio" placeholder="Coincidecias" class="form-control input-form" style="flex: 1"
+                                       required>
+                                <button type="submit" form="FormEstudioBuscar" class="btn btn-confirmar" style="flex: 1; min-width: max-content; max-width: max-content; max-height: 40px">
+                                    <i class="bi bi-search"></i> Buscar
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="text-end">
-                        <button type="submit" form="FormEstudioBuscar" class="btn btn-confirmar">
-                            <i class="bi bi-search"></i> Buscar
-                        </button>
                     </div>
                 </form>
 
                 <!-- información del estudio -->
-                <div class="container p-3">
+                <div class="py-3">
                     <div class="row">
                         <div class="col-12 col-md-5">
                             <!-- Coincidencias -->
                             <div id="listEstudios" class="d-none">
                                 <span>Estudios Existentes:</span>
-                                <div id="suggestionsListEstudios" style="max-height: 400px; overflow-y: auto; overflow-x: hidden"></div>
+                                <div id="suggestionsListEstudios" style="max-height: 600px; overflow-y: auto; overflow-x: hidden"></div>
                             </div>
                         </div>
                         <div class="col-12 col-md-7" id="info_estudios-search" style="display: none;">
@@ -47,82 +47,105 @@
                                 <p class="lead" id="InfoModal_AREA"></p>
                                 <h5 id="InfoModal_CLASIFICACIOa"></h5>
                             </div>
-                            <div class="rounded p-3 shadow mb-2">
-                                <div class="row">
+                            <div class="rounded p-0 shadow mb-2" style="border-radius: 15px; overflow: hidden">
+                                <div class="row gap-4">
                                     <div class="col-12">
-                                        <h3>Información General</h3>
-                                        <p>
-                                            <strong>Activo:</strong>
-                                            <span class="pantone-3165-color" id="InfoModal_ACTIVO"></span>
-                                        </p>
-                                        <p>
-                                            <strong>Código SAT:</strong>
-                                            <span class="pantone-3165-color" id="InfoModal_CODIGO_SAT"></span>
-                                        </p>
-                                        <p>
-                                            <strong>Costo:</strong>
-                                            <span class="pantone-3165-color" id="InfoModal_COSTO"></span>
-                                        </p>
-                                        <p><strong>Días de Entrega:</strong>
-                                            <span class="pantone-3165-color" id="InfoModal_DIAS_DE_ENTREGA"></span>
-                                        </p>
-                                        <p>
-                                            <strong>Laboratorio Maquila:</strong>
-                                            <span class="pantone-3165-color" id="InfoModal_LABORATORIO_MAQUILA"></span>
-                                        </p>
-                                    </div>
-                                    <div class="col-12">
-                                        <h3>Detalles Adicionales</h3>
-                                        <p>
-                                            <strong>Es Producto:</strong>
-                                            <span class="pantone-3165-color" id="InfoModal_ES_PRODUCTO"></span>
-                                        </p>
-                                        <p>
-                                            <strong>Medida:</strong>
-                                            <span class="pantone-3165-color" id="InfoModal_MEDIDA"></span>
-                                        </p>
-                                        <p>
-                                            <strong>Muestra Valores Referencia:</strong>
-                                            <span class="pantone-3165-color" id="InfoModal_MUESTRA_VALORES_REFERENCIA"></span>
-                                        </p>
-                                        <p>
-                                            <strong>Registrado Por:</strong>
-                                            <span class="pantone-3165-color" id="InfoModal_REGISTRADO_POR_NOMBRE"></span>
-                                        </p>
-                                        <!-- Incluye más elementos aquí según sea necesario -->
+                                        <h3 style="background: rgba(0,78,89,0.78); color: #ffffff; padding: 10px;">Información General</h3>
+                                        <div style="display: flex; flex-direction: column; gap: 4px; padding: 10px">
+                                            <p><strong>Tiempo de Entrega:</strong>
+                                                <span class="pantone-3165-color" id="InfoModal_DIAS_DE_ENTREGA"></span>
+                                            </p>
+                                            <p>
+                                                <strong>Tipo de muestra:</strong>
+                                                <span class="pantone-3165-color" id="InfoModal_MUESTRA"></span>
+                                            </p>
+                                            <p>
+                                                <strong>Contenedor:</strong>
+                                                <span class="pantone-3165-color" id="InfoModal_CONTENEDOR"></span>
+                                            </p>
+                                            <p>
+                                                <strong>Indicaciones para el paciente:</strong>
+                                                <span class="pantone-3165-color" id="InfoModal_INDICACIONES"></span>
+                                            </p>
+                                        </div>
 
-                                        <p>
-                                            <strong>Tipo de muestra:</strong>
-                                            <span class="pantone-3165-color" id="InfoModal_MUESTRA"></span>
-                                        </p>
-                                        <p>
-                                            <strong>Contenedor:</strong>
-                                            <span class="pantone-3165-color" id="InfoModal_CONTENEDOR"></span>
-                                        </p>
-                                        <p>
-                                            <strong>Indicaciones para el laboratorio:</strong>
-                                            <span class="pantone-3165-color" id="InfoModal_INDICACIONES_LABORATORIO"></span>
-                                        </p>
-                                        <p>
-                                            <strong>Motivos para rechazo de muestras:</strong>
-                                            <span class="pantone-3165-color" id="InfoModal_MOTIVO_RECHAZO"></span>
-                                        </p>
-                                        <p>
-                                            <strong>Indicaciones para el paciente:</strong>
-                                            <span class="pantone-3165-color" id="InfoModal_INDICACIONES"></span>
-                                        </p>
-                                        <p>
-                                            <strong>Conservación:</strong>
-                                            <span class="pantone-3165-color" id="InfoModal_CONSERVACION"></span>
-                                        </p>
-                                        <p>
-                                            <strong>Metodología:</strong>
-                                            <span class="pantone-3165-color" id="InfoModal_METODOLOGIA_NOMBRE"></span>
-                                        </p>
-                                        <p>
-                                            <strong>Area:</strong>
-                                            <span class="pantone-3165-color" id="InfoModal_AREA_NOMBRE"></span>
-                                        </p>
+<!--                                        <p>-->
+<!--                                            <strong>Activo:</strong>-->
+<!--                                            <span class="pantone-3165-color" id="InfoModal_ACTIVO"></span>-->
+<!--                                        </p>-->
+<!--                                        <p>-->
+<!--                                            <strong>Código SAT:</strong>-->
+<!--                                            <span class="pantone-3165-color" id="InfoModal_CODIGO_SAT"></span>-->
+<!--                                        </p>-->
+<!--                                        <p>-->
+<!--                                            <strong>Costo:</strong>-->
+<!--                                            <span class="pantone-3165-color" id="InfoModal_COSTO"></span>-->
+<!--                                        </p>-->
+<!--                                        <p><strong>Días de Entrega:</strong>-->
+<!--                                            <span class="pantone-3165-color" id="InfoModal_DIAS_DE_ENTREGA"></span>-->
+<!--                                        </p>-->
+<!--                                        <p>-->
+<!--                                            <strong>Laboratorio Maquila:</strong>-->
+<!--                                            <span class="pantone-3165-color" id="InfoModal_LABORATORIO_MAQUILA"></span>-->
+<!--                                        </p>-->
+                                    </div>
+                                    <div class="col-12" style="padding: 10px">
+                                        <h3 style="background: rgba(0,78,89,0.78); color: #ffffff; padding: 10px;">Detalles Grupos</h3>
+                                        <div id="lista_grupos" style="display: flex; flex-direction: column; gap: 4px; padding: 10px">
+                                            ....
+                                        </div>
+
+
+<!--                                        <p>-->
+<!--                                            <strong>Es Producto:</strong>-->
+<!--                                            <span class="pantone-3165-color" id="InfoModal_ES_PRODUCTO"></span>-->
+<!--                                        </p>-->
+<!--                                        <p>-->
+<!--                                            <strong>Medida:</strong>-->
+<!--                                            <span class="pantone-3165-color" id="InfoModal_MEDIDA"></span>-->
+<!--                                        </p>-->
+<!--                                        <p>-->
+<!--                                            <strong>Muestra Valores Referencia:</strong>-->
+<!--                                            <span class="pantone-3165-color" id="InfoModal_MUESTRA_VALORES_REFERENCIA"></span>-->
+<!--                                        </p>-->
+<!--                                        <p>-->
+<!--                                            <strong>Registrado Por:</strong>-->
+<!--                                            <span class="pantone-3165-color" id="InfoModal_REGISTRADO_POR_NOMBRE"></span>-->
+<!--                                        </p>-->
+<!--                                        &lt;!&ndash; Incluye más elementos aquí según sea necesario &ndash;&gt;-->
+
+<!--                                        <p>-->
+<!--                                            <strong>Tipo de muestra:</strong>-->
+<!--                                            <span class="pantone-3165-color" id="InfoModal_MUESTRA"></span>-->
+<!--                                        </p>-->
+<!--                                        <p>-->
+<!--                                            <strong>Contenedor:</strong>-->
+<!--                                            <span class="pantone-3165-color" id="InfoModal_CONTENEDOR"></span>-->
+<!--                                        </p>-->
+<!--                                        <p>-->
+<!--                                            <strong>Indicaciones para el laboratorio:</strong>-->
+<!--                                            <span class="pantone-3165-color" id="InfoModal_INDICACIONES_LABORATORIO"></span>-->
+<!--                                        </p>-->
+<!--                                        <p>-->
+<!--                                            <strong>Motivos para rechazo de muestras:</strong>-->
+<!--                                            <span class="pantone-3165-color" id="InfoModal_MOTIVO_RECHAZO"></span>-->
+<!--                                        </p>-->
+<!--                                        <p>-->
+<!--                                            <strong>Indicaciones para el paciente:</strong>-->
+<!--                                            <span class="pantone-3165-color" id="InfoModal_INDICACIONES"></span>-->
+<!--                                        </p>-->
+<!--                                        <p>-->
+<!--                                            <strong>Conservación:</strong>-->
+<!--                                            <span class="pantone-3165-color" id="InfoModal_CONSERVACION"></span>-->
+<!--                                        </p>-->
+<!--                                        <p>-->
+<!--                                            <strong>Metodología:</strong>-->
+<!--                                            <span class="pantone-3165-color" id="InfoModal_METODOLOGIA_NOMBRE"></span>-->
+<!--                                        </p>-->
+<!--                                        <p>-->
+<!--                                            <strong>Area:</strong>-->
+<!--                                            <span class="pantone-3165-color" id="InfoModal_AREA_NOMBRE"></span>-->
+<!--                                        </p>-->
                                     </div>
                                 </div>
 
@@ -130,8 +153,6 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
