@@ -6,8 +6,9 @@
 
 
 <?php
-
+// echo "<pre>";
 // print_r($body);
+// exit;
 
 ?>
 
@@ -21,7 +22,7 @@
         <td><strong>rT-PCR-SARS-CoV2 (Coronavirus)</strong></td>
         <td>
             <strong>
-                <?php if ($body[0]->resultados == "NEGATIVO" && $body[1]->resultado == "NEGATIVO" && $body[2]->resultado == "NEGATIVO") {
+                <?php if ($body[0]->resultado == "NEGATIVO" && $body[1]->resultado == "NEGATIVO" && $body[2]->resultado == "NEGATIVO") {
                     echo 'NEGATIVO';
                 } else {
                     echo 'POSITIVO';
@@ -34,18 +35,21 @@
         <td><br></td>
     </tr>
     <tr>
-        <td><strong>Valor CT N1: </strong> <?php
+        <td colspan="3">
+                <strong>Valor CT:</strong> <?php if ($body[0]->resultado != 'NEGATIVO') echo $body[0]->resultado; ?>
+        </td>
+        <!-- <td colspan="3"><strong>Valor CT N1: </strong> <?php
                                             if ($body[0]->resultado != 'NEGATIVO')
                                                 echo $body[0]->resultado; ?>
-        </td>
-        <td><strong>N2: </strong> <?php
+        </td> -->
+        <!-- <td><strong>N2: </strong> <?php
                                     if ($body[2]->resultado != 'NEGATIVO')
                                         echo $body[2]->resultado; ?>
         </td>
         <td><strong>N3: </strong><?php
                                     if ($body[3]->resultado != 'NEGATIVO')
                                         echo $body[3]->resultado; ?>
-        </td>
+        </td> -->
     </tr>
 </table>
 <br>
