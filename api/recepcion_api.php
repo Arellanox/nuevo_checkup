@@ -276,7 +276,7 @@ switch ($api) {
         break;
     case 3:
         # reagendar una cita
-        $response = $master->updateByProcedure('s', array($idTurno, $fecha_reagenda));
+        $response = $master->updateByProcedure('sp_recepcion_reagendar', array($idTurno, $fecha_reagenda));
         break;
     case 4:
         // Reenviar reportes e imágenes por correo
