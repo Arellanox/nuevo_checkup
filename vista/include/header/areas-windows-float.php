@@ -10,6 +10,16 @@ if (
 <?php endif; ?>
 
 <?php
+if ($_SESSION['vista']['CIMMO'] == 1):
+?>
+    <li class="nav-item">
+        <a href="<?php echo "$https$url/$appname/vista/menu/cimmo/"; ?>"> 
+            <i class="bi bi-thunderbolt"></i> CIMMO
+        </a>
+    </li>
+<?php endif; ?>
+
+<?php
 if (
     $menu != 'Recepción' && $_SESSION['vista']['RECEPCIÓN'] == 1
 ) : ?>

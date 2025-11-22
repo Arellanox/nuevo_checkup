@@ -1,0 +1,174 @@
+
+<div class="container-fluid p-4">
+
+    <!-- ACCORDION: NUEVO PACIENTE -->
+    <div class="accordion mb-4" id="accordionPaciente">
+        <div class="accordion-item card-custom">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#nuevoPaciente">
+                    ➕ Agregar nuevo paciente
+                </button>
+            </h2>
+
+            <div id="nuevoPaciente" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <form id="formPaciente" class="row g-3">
+
+                        <!-- ID -->
+                        <div class="col-md-2">
+                            <label class="form-label label-title">ID Paciente</label>
+                            <input type="text" class="form-control" placeholder="Ej. 12345" required>
+                            <small class="text-muted">Identificador único del paciente</small>
+                        </div>
+
+                        <!-- Nombre -->
+                        <div class="col-md-4">
+                            <label class="form-label label-title">Nombre</label>
+                            <input type="text" class="form-control" placeholder="Nombre completo" required>
+                            <small class="text-muted">Escribe el nombre tal como aparece en la identificación</small>
+                        </div>
+
+                        <!-- Sexo -->
+                        <div class="col-md-2">
+                            <label class="form-label label-title">Sexo</label>
+                            <select class="form-select">
+                                <option value="" disabled selected>Selecciona...</option>
+                                <option>Masculino</option>
+                                <option>Femenino</option>
+                            </select>
+                            <small class="text-muted">Selecciona el sexo biológico</small>
+                        </div>
+
+                        <!-- Fecha de nacimiento -->
+                        <div class="col-md-2">
+                            <label class="form-label label-title">Fecha de nacimiento</label>
+                            <input type="date" class="form-control" id="fechaNac">
+                            <small class="text-muted">Selecciona la fecha de nacimiento</small>
+                        </div>
+
+                        <!-- Edad (no editable) -->
+                        <div class="col-md-2">
+                            <label class="form-label label-title">Edad</label>
+                            <input type="text" class="form-control" id="edad" readonly>
+                            <small class="text-muted">Se calcula automáticamente</small>
+                        </div>
+
+                        <div class="col-12 text-end">
+                            <button class="btn btn-primary px-4">Guardar</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN INFERIOR -->
+    <div class="row">
+
+        <!-- PACIENTES -->
+        <div class="col-md-4">
+            <div class="card card-custom p-3">
+
+                <h5 class="mb-3">📋 Lista de Pacientes</h5>
+
+                <!-- FILTRO POR FECHA -->
+                <label class="form-label label-title">Filtrar por fecha:</label>
+                <input type="date" class="form-control mb-3" id="filtroFecha">
+                <small class="text-muted">Selecciona la fecha de registro</small>
+
+                <table id="tablaPacientes" class="table table-striped" style="width:100%">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <!-- RESULTADOS -->
+        <div class="col-md-8">
+            <div class="card card-custom p-4">
+
+                <h4 class="mb-1">🧪 Resultados del Paciente</h4>
+                <p class="text-muted">Selecciona un paciente de la lista para cargar resultados</p>
+                <hr>
+
+                <h5 id="pacienteSeleccionado" class="text-primary"></h5>
+
+                <form class="row g-3 mt-2">
+
+                    <div class="col-md-4">
+                        <label class="form-label label-title">VIH 1 y 2</label>
+                        <select class="form-select">
+                            <option value="" disabled selected>Selecciona...</option>
+                            <option>Reactivo</option>
+                            <option>No Reactivo</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label label-title">VHB</label>
+                        <select class="form-select">
+                            <option value="" disabled selected>Selecciona...</option>
+                            <option>Reactivo</option>
+                            <option>No Reactivo</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label label-title">VHC</label>
+                        <select class="form-select">
+                            <option value="" disabled selected>Selecciona...</option>
+                            <option>Reactivo</option>
+                            <option>No Reactivo</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label label-title">Observaciones</label>
+                        <textarea class="form-control" rows="3" placeholder="Escribe cualquier observación relevante..."></textarea>
+                    </div>
+
+                    <div class="col-12 text-end">
+                        <button class="btn btn-success px-4">Guardar Resultados</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- JS -->
+<script>
+    // Inicializar DataTable
+    const tablaPacientes = new DataTable('#tablaPacientes');
+
+    // Calcular edad automáticamente
+    document.getElementById("fechaNac").addEventListener("change", function() {
+        const fecha = new Date(this.value);
+        const hoy = new Date();
+        let edad = hoy.getFullYear() - fecha.getFullYear();
+        const mes = hoy.getMonth() - fecha.getMonth();
+
+        if (mes < 0 || (mes === 0 && hoy.getDate() < fecha.getDate())) {
+            edad--;
+        }
+
+        document.getElementById("edad").value = edad > 0 ? edad + " años" : "";
+    });
+
+    // Filtro por fecha
+    document.getElementById("filtroFecha").addEventListener("change", function() {
+        const fecha = this.value;
+        alert("Aquí puedes cargar vía AJAX los pacientes filtrados por la fecha: " + fecha);
+    });
+</script>
