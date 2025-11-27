@@ -26,6 +26,7 @@ $usuario_id = $_SESSION['id'];
 $vih = $_POST["vih"];
 $vhb = $_POST["vhb"];
 $vhc = $_POST["vhc"];
+$observaciones = $_POST['observaciones'];
 
 $inicio = $_POST["fecha_inicio"];
 $fin = $_POST["fecha_fin"];
@@ -50,7 +51,8 @@ switch($api){
             $vih,
             $vhb,
             $vhc,
-            $usuario_id
+            $usuario_id,
+            $observaciones
         ]);
         break;
     case 3:
@@ -61,6 +63,10 @@ switch($api){
     case 4:
         # confirmar
         $response = $master->updateByProcedure("sp_cimmo_pacientes_confirmar",[$id_cimmo]);
+
+        # crear el reporte
+        $url = $master->reportador($master, $id_cimmo, -14, 'cimmo', 'url');
+        $response = $master->updateByProcedure('sp_cimmo_actualizar_ruta', [$id_cimmo, $url]);
         break;
     default:
         $response = "API no definida";

@@ -81,6 +81,7 @@ class Reporte
             case 'lista-barras':
                 $generator = null;
                 $barcode = null;
+            case 'cimmo':
             default:
                 $barcode = null;
                 break;
@@ -216,7 +217,7 @@ class Reporte
             case 'temperatura':
                 $template = render_view('invoice/temperatura_refrigeradores.php', $view_vars);
                 $pdf->loadHtml($template);
-                $pdf->setPaper('letter', 'landscape');
+                $pdf->setPaper('letter', 'land  scape');
                 break;
             case 'audiometria':
                 $template = render_view('invoice/audio.php', $view_vars);
@@ -283,6 +284,11 @@ class Reporte
                 break;
             case 'reporte_servicios_asociados':
                 $template = render_view('invoice/reporte_servicios_asociados.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter');
+                break;
+            case 'cimmo':
+                $template = render_view('invoice/cimmo.php', $view_vars);
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter');
                 break;

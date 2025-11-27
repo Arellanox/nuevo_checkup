@@ -1,9 +1,9 @@
 
-<div class="container-fluid p-4">
+<div class="container-fluid p-4" id="divPadreCimmo">
 
     <!-- ACCORDION: NUEVO PACIENTE -->
     <div class="accordion mb-4" id="accordionPaciente">
-        <div class="accordion-item card-custom">
+        <div class="accordion-item card-custom" id="acordion-paciente">
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#nuevoPaciente">
                     ➕ Agregar nuevo paciente
@@ -17,24 +17,24 @@
                         <!-- ID -->
                         <div class="col-md-2">
                             <label class="form-label label-title">ID Paciente</label>
-                            <input type="text" class="form-control" placeholder="Ej. 12345" required>
+                            <input type="text" id="id_paciente" name="id_paciente" class="form-control" placeholder="Ej. 12345" required>
                             <small class="text-muted">Identificador único del paciente</small>
                         </div>
 
                         <!-- Nombre -->
                         <div class="col-md-4">
                             <label class="form-label label-title">Nombre</label>
-                            <input type="text" class="form-control" placeholder="Nombre completo" required>
+                            <input type="text" id="paciente" name="paciente" class="form-control" placeholder="Nombre completo" required>
                             <small class="text-muted">Escribe el nombre tal como aparece en la identificación</small>
                         </div>
 
                         <!-- Sexo -->
                         <div class="col-md-2">
                             <label class="form-label label-title">Sexo</label>
-                            <select class="form-select">
+                            <select id="sexo" name="sexo" class="form-select">
                                 <option value="" disabled selected>Selecciona...</option>
-                                <option>Masculino</option>
-                                <option>Femenino</option>
+                                <option value="1">Masculino</option>
+                                <option value="2">Femenino</option>
                             </select>
                             <small class="text-muted">Selecciona el sexo biológico</small>
                         </div>
@@ -42,19 +42,19 @@
                         <!-- Fecha de nacimiento -->
                         <div class="col-md-2">
                             <label class="form-label label-title">Fecha de nacimiento</label>
-                            <input type="date" class="form-control" id="fechaNac">
+                            <input type="date"id="nacimiento" name="nacimiento" class="form-control" id="fechaNac">
                             <small class="text-muted">Selecciona la fecha de nacimiento</small>
                         </div>
 
                         <!-- Edad (no editable) -->
                         <div class="col-md-2">
                             <label class="form-label label-title">Edad</label>
-                            <input type="text" class="form-control" id="edad" readonly>
+                            <input type="text" id="edad" name="edad" class="form-control" id="edad" readonly>
                             <small class="text-muted">Se calcula automáticamente</small>
                         </div>
 
                         <div class="col-12 text-end">
-                            <button class="btn btn-primary px-4">Guardar</button>
+                            <button id="btnGuardarPaciente" class="btn btn-primary px-4">Guardar</button>
                         </div>
 
                     </form>
@@ -78,67 +78,94 @@
                 <small class="text-muted">Selecciona la fecha de registro</small>
 
                 <table id="tablaPacientes" class="table table-striped" style="width:100%">
-                    <thead class="table-primary">
+                    <!-- <thead class="table-primary">
                         <tr>
                             <th>ID</th>
                             <th>Nombre</th>
                         </tr>
                     </thead>
                     <tbody>
-                    </tbody>
+                    </tbody> -->
                 </table>
 
             </div>
         </div>
 
         <!-- RESULTADOS -->
-        <div class="col-md-8">
-            <div class="card card-custom p-4">
+        <div class="col-md-8" >
+            <div class="card card-custom p-4" id="panelResultados">
 
-                <h4 class="mb-1">🧪 Resultados del Paciente</h4>
+              <h4 class="mb-1 d-flex align-items-center gap-3">
+
+                    🧪 Resultados del Paciente
+
+                    <span class="ms-3">
+
+                        <!-- ICONO PDF ROJO -->
+                        <span id="verPDF" style="display: none;">
+                            <a href="#" target="_blank" id="linkPDF" style="font-size: 26px; text-decoration:none; color: red;">
+                                <i class="fa fa-file-pdf"></i> Reporte
+                            </a>
+                        </span>
+
+                        <!-- BOTÓN CONFIRMAR -->
+                        <span id="verBtnConfirmar" style="display: none;">
+                            <button class="btn btn-primary px-4" id="btnConfirmar">Confirmar</button>
+                        </span>
+
+                    </span>
+
+                </h4>
+    
+                <h2 class="text-primary fw-bold mt-2">
+                    <span id="spanNombrePaciente"></span>
+                    <span id="spanIdPaciente" class="ms-3 text-dark"></span>
+                </h2>
                 <p class="text-muted">Selecciona un paciente de la lista para cargar resultados</p>
                 <hr>
 
                 <h5 id="pacienteSeleccionado" class="text-primary"></h5>
 
-                <form class="row g-3 mt-2">
+                <form class="row g-3 mt-2" id="formResultados" name="formResultados">
 
                     <div class="col-md-4">
                         <label class="form-label label-title">VIH 1 y 2</label>
-                        <select class="form-select">
+                        <input type="text" id="vih" name="vih" class="form-control" placeholder="Ej. 1.0">
+                        <!-- <select class="form-select">
                             <option value="" disabled selected>Selecciona...</option>
                             <option>Reactivo</option>
                             <option>No Reactivo</option>
-                        </select>
+                        </select> -->
                     </div>
 
                     <div class="col-md-4">
                         <label class="form-label label-title">VHB</label>
-                        <select class="form-select">
+                        <input type="text" id="vhb" name="vhb" class="form-control" placeholder="Ej. 0.2">
+                        <!-- <select class="form-select">
                             <option value="" disabled selected>Selecciona...</option>
                             <option>Reactivo</option>
                             <option>No Reactivo</option>
-                        </select>
+                        </select> -->
                     </div>
 
                     <div class="col-md-4">
                         <label class="form-label label-title">VHC</label>
-                        <select class="form-select">
+                        <input type="text" id="vhc" name="vhc" class="form-control" placeholder="Ej. 0.5">
+                        <!-- <select class="form-select">
                             <option value="" disabled selected>Selecciona...</option>
                             <option>Reactivo</option>
                             <option>No Reactivo</option>
-                        </select>
+                        </select> -->
                     </div>
 
                     <div class="col-12">
                         <label class="form-label label-title">Observaciones</label>
-                        <textarea class="form-control" rows="3" placeholder="Escribe cualquier observación relevante..."></textarea>
+                        <textarea class="form-control" id="observaciones" name="observaciones" rows="3" placeholder="Escribe cualquier observación relevante..."></textarea>
                     </div>
 
                     <div class="col-12 text-end">
-                        <button class="btn btn-success px-4">Guardar Resultados</button>
+                        <input type="submit" class="btn btn-success px-4" value="Guardar Resultados">
                     </div>
-
                 </form>
 
             </div>
@@ -149,11 +176,9 @@
 
 <!-- JS -->
 <script>
-    // Inicializar DataTable
-    const tablaPacientes = new DataTable('#tablaPacientes');
 
     // Calcular edad automáticamente
-    document.getElementById("fechaNac").addEventListener("change", function() {
+    document.getElementById("nacimiento").addEventListener("change", function() {
         const fecha = new Date(this.value);
         const hoy = new Date();
         let edad = hoy.getFullYear() - fecha.getFullYear();
@@ -165,10 +190,16 @@
 
         document.getElementById("edad").value = edad > 0 ? edad + " años" : "";
     });
-
-    // Filtro por fecha
-    document.getElementById("filtroFecha").addEventListener("change", function() {
-        const fecha = this.value;
-        alert("Aquí puedes cargar vía AJAX los pacientes filtrados por la fecha: " + fecha);
-    });
 </script>
+
+<style>
+    .border-pulse {
+        box-shadow: 0 0 10px #0d6efd;
+        transition: box-shadow .7s ease;
+    }
+
+    .highlight {
+        background-color: #fff3cd !important;
+        transition: background-color 1s ease;
+    }
+</style>

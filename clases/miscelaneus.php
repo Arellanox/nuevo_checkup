@@ -1046,6 +1046,13 @@ class Miscelaneus
 
                 $arregloPaciente['reporte'] = $master->getByProcedure('sp_obtener_reporte_asociaciones', [null]);
                 break;
+            case -14: 
+                $carpeta_guardado = "cimmo";
+                $fecha_resultado = date('Ymd');
+                $ruta_saved = "reportes/modulo/$carpeta_guardado/$fecha_resultado/";
+                $arregloPaciente = $this->getBodyCimmo($master, $turno_id);
+                $nombre_paciente = $arregloPaciente['ID_PACIENTE'];
+                break;
         }
 
         if ($area_id == 0) $area_id = 6;
@@ -1125,6 +1132,11 @@ class Miscelaneus
         }
 
         return $renderpdf;
+    }
+
+    private function getBodyCimmo($master, $id_turno){
+        $response = $master->getByProcedure("sp_cimmo_pacientes_b", [$id_turno, null, null]);
+        return $response[0];
     }
 
     private function getBodyFormDatos($master, $id_paciente)
