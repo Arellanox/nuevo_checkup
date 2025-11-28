@@ -17,10 +17,10 @@
 
 </head>
 <?php
-$logo = file_get_contents("http://localhost/nuevo_checkup/pdf/public/assets/logo_cimmo.png");
+$logo = file_get_contents("https://bimo-lab.com/nuevo_checkup/pdf/public/assets/logo_cimmo.png");
 $logo = base64_encode($logo);
 
-$qr = file_get_contents("http://localhost/nuevo_checkup/pdf/public/assets/cimmo_qr.png");
+$qr = file_get_contents("https://bimo-lab.com/nuevo_checkup/pdf/public/assets/cimmo_qr.png");
 $qr = base64_encode($qr);
 ?>
 

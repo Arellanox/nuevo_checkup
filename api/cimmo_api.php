@@ -10,7 +10,8 @@ if (!$tokenValido) {
 }
 
 $master = new Master();
-$api = $_POST["api"];
+$api = $_REQUEST["api"];
+$fecha = $_REQUEST['fecha_inicio'];
 
 # registro
 $id_cimmo = $_POST["id_cimmo"];
@@ -67,6 +68,54 @@ switch($api){
         # crear el reporte
         $url = $master->reportador($master, $id_cimmo, -14, 'cimmo', 'url');
         $response = $master->updateByProcedure('sp_cimmo_actualizar_ruta', [$id_cimmo, $url]);
+        break;
+    case 5:
+        # descargar el modulo de cimmo
+        $urls = $master->getByProcedure('sp_cimmo_get_pdfs', [$fecha]);
+
+        $reportes = [];
+        foreach($urls as $url){
+            $reportes[] = $url['REPORTE'];
+        }
+
+        if(count($reportes) == 0){
+            echo "<h1>NO EXISTEN REPORTES PARA DESCARGAR DEL DIA SELECCIONADO</h1>";
+            exit;
+        }
+
+        // 2️⃣ CREAR ZIP EN MEMORIA
+        $zip = new ZipArchive();
+        $zipName = "cimmo_" . date("Ymd_His") . ".zip";
+
+        if ($zip->open($zipName, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== TRUE) {
+            die("No se pudo crear el archivo ZIP");
+        }
+
+        foreach ($reportes as $url) {
+
+            if (empty($url)) continue;
+
+            $archivo = basename($url);
+            $contenido = file_get_contents($url);
+
+            if ($contenido !== false) {
+                $zip->addFromString($archivo, $contenido);
+            }
+        }
+
+        $zip->close();
+
+        // 3️⃣ DESCARGAR
+        header("Content-Type: application/zip");
+        header("Content-Disposition: attachment; filename=$zipName");
+        header("Content-Length: " . filesize($zipName));
+
+        readfile($zipName);
+
+        // 4️⃣ BORRAR
+        unlink($zipName);
+        
+        exit;
         break;
     default:
         $response = "API no definida";

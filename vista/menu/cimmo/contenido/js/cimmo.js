@@ -201,3 +201,10 @@ $("#filtroFecha").on("change", function(){
 
     tablaPacientes.ajax.reload();
 })
+
+
+$("#btnDescargarZip").on('click', function(){
+    var fecha = $("#filtroFecha").val();
+
+  window.open('http://localhost/nuevo_checkup/api/cimmo_api.php?api=5&fecha_inicio='+fecha)
+})

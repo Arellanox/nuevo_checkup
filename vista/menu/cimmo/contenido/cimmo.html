@@ -74,7 +74,16 @@
 
                 <!-- FILTRO POR FECHA -->
                 <label class="form-label label-title">Filtrar por fecha:</label>
-                <input type="date" class="form-control mb-3" id="filtroFecha">
+                 <!-- FECHA -->
+                <div class="input-group">
+                     <input type="date" class="form-control" id="filtroFecha">
+
+                    <!-- BOTÓN ZIP -->
+                    <button class="btn btn-danger" id="btnDescargarZip" title="Descargar ZIP">
+                        📦 Descargar ZIP
+                    </button>
+                </div>
+               
                 <small class="text-muted">Selecciona la fecha de registro</small>
 
                 <table id="tablaPacientes" class="table table-striped" style="width:100%">
