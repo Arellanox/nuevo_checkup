@@ -117,6 +117,47 @@ switch($api){
         
         exit;
         break;
+    case 6:
+        $urls = $master->getByProcedure('sp_cimmo_get_pdfs', [$fecha]);
+
+    $reportes = [];
+    foreach ($urls as $url) {
+
+        if (empty($url['REPORTE'])) continue;
+
+        // Convertir URL completa a ruta local
+        $rutaLocal = ".." . explode("nuevo_checkup", $url['REPORTE'])[1];
+
+        if (file_exists($rutaLocal)) {
+            $reportes[] = $rutaLocal;
+        }
+    }
+
+    if (count($reportes) == 0) {
+        echo "<h1>NO EXISTEN REPORTES PARA DESCARGAR DEL DIA SELECCIONADO</h1>";
+        exit;
+    }
+
+    // Unir PDFs
+    $pdf_unido = $master->joinPdf($reportes);
+
+    $pdfName = "cimmo_" . date("Ymd_His") . ".pdf";
+
+    // Guardar el PDF correctamente
+    file_put_contents($pdfName, $pdf_unido);
+
+    // Descargar
+    header("Content-Type: application/pdf");
+    header("Content-Disposition: attachment; filename=$pdfName");
+    header("Content-Length: " . filesize($pdfName));
+
+    readfile($pdfName);
+
+    unlink($pdfName);
+    exit;
+
+        
+        break;
     default:
         $response = "API no definida";
 }
