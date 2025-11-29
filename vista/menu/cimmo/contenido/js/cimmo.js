@@ -206,5 +206,5 @@ $("#filtroFecha").on("change", function(){
 $("#btnDescargarZip").on('click', function(){
     var fecha = $("#filtroFecha").val();
 
-  window.open('http://localhost/nuevo_checkup/api/cimmo_api.php?api=6&fecha_inicio='+fecha)
+  window.open('https://bimo-lab.com/nuevo_checkup/api/cimmo_api.php?api=6&fecha_inicio='+fecha)
 })
