@@ -110,7 +110,7 @@ selectTable('#tablaPacientes', tablaPacientes, {
 
         const mapaSexo = {
             "MASCULINO": 1,
-            "FEMENIMO": 2
+            "FEMENINO": 2
         };
 
 
