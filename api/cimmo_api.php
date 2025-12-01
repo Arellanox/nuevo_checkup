@@ -63,7 +63,7 @@ switch($api){
 
     case 4:
         # confirmar
-        $response = $master->updateByProcedure("sp_cimmo_pacientes_confirmar",[$id_cimmo]);
+        $response = $master->updateByProcedure("sp_cimmo_pacientes_confirmar",[$id_cimmo, $vih, $vhb, $vhc, $observaciones]);
 
         # crear el reporte
         $url = $master->reportador($master, $id_cimmo, -14, 'cimmo', 'url');

@@ -182,7 +182,14 @@ $("#formResultados").submit(function(event){
 
 // Confirmar el resultados y cerrar
 $("#btnConfirmar").on("click", function(){
-     ajaxAwait({api: 4, id_cimmo: id_cimmo}, 'cimmo_api', {callbackAfter: true}, false, (data) => {
+     ajaxAwait({
+                api: 4, 
+                id_cimmo: id_cimmo,
+                vih: $("#vih").val(),
+                vhb: $("#vhb").val(),
+                vhc: $("#vhc").val(),
+                observaciones: $("#observaciones").val()
+            }, 'cimmo_api', {callbackAfter: true}, false, (data) => {
 
         if (data.response.code) {
             alertToast("Resultados CONFIRMADOS!", "success", 4000);
