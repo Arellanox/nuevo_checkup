@@ -62,7 +62,7 @@ selectTable('#tablaPacientes', tablaPacientes, {
             {
                 callback: async function (data) {
 
-                    id_cimmo = 0;
+                    id_cimmo = null;
 
                 }, selected: true
             },
