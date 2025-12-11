@@ -71,7 +71,21 @@ selectTable('#tablaPacientes', tablaPacientes, {
     },
     // un solo click 
     async function (select, data, callback) {
-        //
+        
+        // SI NO hay selección → resetear variable global
+        if (!select || !data) {
+            id_cimmo = null;
+
+            // Ocultar PDF y mostrar botón vacíos
+            $("#verPDF").hide();
+            $("#linkPDF").attr("href", "#");
+
+            $("#verBtnConfirmar").hide();
+            return;
+        }
+
+        // SI sí hay selección → asignar datos
+
         id_cimmo = data.ID_CIMO;
         $("#spanNombrePaciente").html(data.PACIENTE);
         $("#spanIdPaciente").html(data.ID_PACIENTE);
@@ -144,7 +158,8 @@ $("#formPaciente").submit(function(event){
 
     $("#btnGuardarPaciente").prop("disabled", true).text("Guardando...");
 
-    ajaxAwaitFormData({ api: 1}, 'cimmo_api', 'formPaciente', { callbackAfter: true }, false,
+
+    ajaxAwaitFormData({ api: 1, id_cimmo: id_cimmo}, 'cimmo_api', 'formPaciente', { callbackAfter: true }, false,
             (data) => {
 
                 if(data.response.code){
@@ -157,6 +172,7 @@ $("#formPaciente").submit(function(event){
                 }
 
                 this.reset();
+                id_cimmo = null;
                 $("#btnGuardarPaciente").prop("disabled", false).text("Guardar");
 
             })
