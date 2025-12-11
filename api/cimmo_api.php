@@ -35,6 +35,12 @@ $fin = $_POST["fecha_fin"];
 switch($api){
     case 1:
         # registro/actualizacion de pacientes
+        $aux = [
+            'undefined',
+            'null'
+        ];
+        $id_cimmo = in_array($id_cimmo, $aux) ? null : $id_cimmo;
+
         $response = $master->insertByProcedure("sp_cimmo_pacientes_registro_g", [
             $id_cimmo,
             $id_paciente,
