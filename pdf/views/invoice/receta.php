@@ -400,7 +400,6 @@ if (isset($resultados[2][0]->BY_MEDICO_ID)) {
     $encode_firma = base64_encode($ruta_firma);
 } else {
     // cual otro medico que esta en la sesion actual
-     echo "otro medico";
     $dataDoc = $pie['datos_medicos'][0];
     $nombre_doctor = $dataDoc['NOMBRE_COMPLETO'];
     $especialidades = $dataDoc['CARRERA'];
