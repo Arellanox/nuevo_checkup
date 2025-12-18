@@ -21,7 +21,9 @@ foreach ($response as $s) {
             "talento.humano@bimo.com.mx", 
             "gerardo.gomez@bimo.com.mx",
             "cesar.calderon@bimo.com.mx",
-            "gerardo.goomez2@gmail.com"]);
+            "gerardo.goomez2@gmail.com",
+            "administracion@bimo.com.mx",
+            "arellanox0392@gmail.com"]);
     }    
 }    
 
