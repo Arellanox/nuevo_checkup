@@ -660,7 +660,7 @@ class Correo
                 </div>
                 <div class=\"mensaje\">
                     <p><strong>Mensaje:</strong></p>
-                    <p>" . $data['comentario_ayuda'] . " ?></p>
+                    <p>" . $data['comentario_ayuda'] . "</p>
                 </div>
             </div>
         </body>
