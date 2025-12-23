@@ -148,9 +148,7 @@ $(document).on('click', '.idEstudiosView', async function (e) {
         });
     });
 
-    loadDetailsGroup(subEstudios)
-
-    console.log(subEstudios)
+    loadDetailsGroup(subEstudios);
 });
 
 function loadDetailsGroup (datos) {

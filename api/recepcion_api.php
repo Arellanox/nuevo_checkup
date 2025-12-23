@@ -594,7 +594,7 @@ switch ($api) {
 
             $score = $matches / count($userTokens); // Cambio clave aquí: ahora consideramos la proporción basada en el userInput
 
-            if ($score > 0.7) { // Puedes ajustar este umbral según lo necesites
+            if ($score > 0.8) { // Puedes ajustar este umbral según lo necesites
                 $coincidencias[] = $item;
             }
         }
