@@ -61,7 +61,7 @@ class Master extends Miscelaneus
                 return "ERROR. No se pudieron recuperar los datos.";
             }
 
-            $resultSet = $sentencia->fetchAll();
+            $resultSet = $sentencia->fetchAll(PDO::FETCH_ASSOC);
             $sentencia->closeCursor();
 
             # cerramos la conexion a la base de datos.

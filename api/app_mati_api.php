@@ -37,17 +37,23 @@ $json = file_get_contents('php://input');
 $request = json_decode($json, true);
 $api = $request['api'];
 $area = $request['area'] ?? null;
+$teminos = $request['termino'] ?? null;
 // --- END REQUEST DATA  ---
 
 switch ($api) {
     case 1: // Servicios Disponibles
         $response = $master->getByProcedure('ia_servicios_precios', [$area]);
-        $message = '';
+        $message = 'INFORMACIÓN RECUPERADA EXITOSAMENTE.';
         $code = 200;
         break;
     case 2: // Promociones Disponibles
         $response = $master->getByProcedure('ia_promociones', [1]);
-        $message = '';
+        $message = 'INFORMACIÓN RECUPERADA EXITOSAMENTE.';
+        $code = 200;
+        break;
+    case 3: // Promociones Disponibles
+        $response = $master->getByProcedure('ia_servicios_busqueda', [$teminos, $area]);
+        $message = 'INFORMACIÓN RECUPERADA EXITOSAMENTE.';
         $code = 200;
         break;
     default:
