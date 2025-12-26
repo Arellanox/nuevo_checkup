@@ -42,17 +42,17 @@ $teminos = $request['termino'] ?? null;
 
 switch ($api) {
     case 1: // Servicios Disponibles
-        $response = $master->getByProcedure('ia_servicios_precios', [$area]);
+        $response = $master->getByProcedureWithFecthAssoc('ia_servicios_precios', [$area]);
         $message = 'INFORMACIÓN RECUPERADA EXITOSAMENTE.';
         $code = 200;
         break;
     case 2: // Promociones Disponibles
-        $response = $master->getByProcedure('ia_promociones', [1]);
+        $response = $master->getByProcedureWithFecthAssoc('ia_promociones', [1]);
         $message = 'INFORMACIÓN RECUPERADA EXITOSAMENTE.';
         $code = 200;
         break;
     case 3: // Promociones Disponibles
-        $response = $master->getByProcedure('ia_servicios_busqueda', [$teminos, $area]);
+        $response = $master->getByProcedureWithFecthAssoc('ia_servicios_busqueda', [$teminos, $area]);
         $message = 'INFORMACIÓN RECUPERADA EXITOSAMENTE.';
         $code = 200;
         break;

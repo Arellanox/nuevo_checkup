@@ -61,6 +61,36 @@ class Master extends Miscelaneus
                 return "ERROR. No se pudieron recuperar los datos.";
             }
 
+            $resultSet = $sentencia->fetchAll();
+            $sentencia->closeCursor();
+
+            # cerramos la conexion a la base de datos.
+
+            return $resultSet;
+        } catch (Exception $e) {
+            $this->mis->setLog($e->getMessage(), $nombreProcedimiento);
+            echo $e->getMessage();
+        } finally {
+            $conexion = null;
+        }
+    }
+
+    public function getByProcedureWithFecthAssoc($nombreProcedimiento, $parametros)
+    {
+        try {
+            $conexion = $this->connectDb();
+
+            $sp = "call " . $nombreProcedimiento . $this->concatQuestionMark(count($parametros));
+            $sentencia = $conexion->prepare($sp);
+
+            $sentencia = $this->bindParams($sentencia, $parametros);
+
+            if (!$sentencia->execute()) {
+                $error_msj = "Ha ocurrido un error(" . $sentencia->errorCode() . "). " . implode(" ", $sentencia->errorInfo());
+                $this->mis->setLog($error_msj, $nombreProcedimiento);
+                return "ERROR. No se pudieron recuperar los datos.";
+            }
+
             $resultSet = $sentencia->fetchAll(PDO::FETCH_ASSOC);
             $sentencia->closeCursor();
 
