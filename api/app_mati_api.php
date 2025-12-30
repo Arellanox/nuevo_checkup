@@ -1,96 +1,66 @@
 <?php
-// --- CORS ---
-$allowedOrigins = [
-    'https://bimo.com.mx',
-    'http://localhost:3000', // provisional
-    'http://localhost:3001',
-    'https://www.bimo.com.mx' // provisional
-];
+require_once "../api/config/cors.php";
+require_once "../api/config/auth.php";
 
-if (isset($_SERVER['HTTP_ORIGIN']) && in_array($_SERVER['HTTP_ORIGIN'], $allowedOrigins, true)) {
-    header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
-    header("Access-Control-Allow-Credentials: true");
-    header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-    header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
-    header("Vary: Origin");
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(204);
-    exit;
-}
-// --- END CORS ---
-
-require_once "../clases/master_class.php";
-
-$master = new Master();
-$token = getBearerToken();
-
-if (!$token || !validateToken($token, $master)) {
-    http_response_code(401);
-    echo json_encode(["response" => ["message" => 'No tienes permiso para realizar esto', "data" => [], "code" => 401]]);
-    exit;
-}
-
-// ---    REQUEST DATA   ---
+$master = requireAuth();
 $json = file_get_contents('php://input');
 $request = json_decode($json, true);
-$api = $request['api'];
-$area = $request['area'] ?? null;
-$teminos = $request['termino'] ?? null;
-// --- END REQUEST DATA  ---
+$api = $request['api'] ?? null;
+$message = 'Operación Exitosa';
+$code = 200;
 
 switch ($api) {
-    case 1: // Servicios Disponibles
-        $response = $master->getByProcedureWithFecthAssoc('ia_servicios_precios', [$area]);
-        $message = 'INFORMACIÓN RECUPERADA EXITOSAMENTE.';
-        $code = 200;
+    case 1:
+        // Servicios Disponibles
+        $params = getParams($request, ['area']);
+        $response = $master->getByProcedureWithFecthAssoc('ia_servicios_precios', $params);
         break;
-    case 2: // Promociones Disponibles
+    case 2:
+        // Promociones Disponibles
         $response = $master->getByProcedureWithFecthAssoc('ia_promociones', [1]);
-        $message = 'INFORMACIÓN RECUPERADA EXITOSAMENTE.';
-        $code = 200;
         break;
-    case 3: // Promociones Disponibles
-        $response = $master->getByProcedureWithFecthAssoc('ia_servicios_busqueda', [$teminos, $area]);
-        $message = 'INFORMACIÓN RECUPERADA EXITOSAMENTE.';
-        $code = 200;
+    case 3:
+        // Busqueda de Servicios
+        $params = getParams($request, ['termino', 'area']);
+        $response = $master->getByProcedure('ia_servicios_busqueda', $params);
+        break;
+    case 4:
+        // Crear o Actualizar Blog
+        $params = getParams($request, [
+            'id', 'title', 'slug', 'description', 'content', 'cover_image',
+            'badge', 'badge_color', 'author', 'read_time', 'publish_date'
+        ]);
+        $response = $master->getByProcedureWithFecthAssoc('ia_blog_save', $params);
+        break;
+    case 5:
+        // Busqueda de Blog Listado
+        $params = getParams($request, ['search_term', 'badge_filter', 'page', 'limit']);
+        $params[2] = $params[2] ?? 1;  // page default
+        $params[3] = $params[3] ?? 10; // limit default
+        $response = $master->getByProcedureWithFecthAssoc('ia_blog_list', $params);
+        break;
+    case 6:
+        // Busqueda de detalles de un Blog
+        $params = getParams($request, ['identifier']);
+        $response = $master->getByProcedureWithFecthAssoc('ia_blog_get_detail', $params);
+        break;
+    case 7:
+        // Eliminación de un Blog
+        $params = getParams($request, ['id']);
+        $response = $master->getByProcedureWithFecthAssoc('ia_blog_delete', $params);
         break;
     default:
         $code = 400;
         $response = [];
-        $message = 'ERROR PARAMETROS INVALIDOS.';
+        $message = 'Operación Fallida.';
         break;
 }
 
+function getParams($source, $keys): array {
+    return array_map(function ($key) use ($source) {
+        return $source[$key] ?? null;
+    }, $keys);
+}
+
 http_response_code($code);
-
-echo json_encode(["response" => ["message" => $message, "data" => $response, "code" => $code]]);
-
-function validateToken(string $token, $master): bool {
-    $token = $master->getByProcedure('sp_validar_token_externo', [$token]);
-
-    if (!$token) return false;
-    return true;
-}
-
-function getBearerToken(): ?string {
-    $headers = null;
-
-    if (function_exists('apache_request_headers')) {
-        $requestHeaders = apache_request_headers();
-        if (!empty($requestHeaders['Authorization'])) {
-            $headers = trim($requestHeaders['Authorization']);
-        }
-    }
-
-    if (!$headers && isset($_SERVER['HTTP_AUTHORIZATION'])) {
-        $headers = trim($_SERVER['HTTP_AUTHORIZATION']);
-    }
-
-    if ($headers && stripos($headers, 'Bearer ') === 0) {
-        return substr($headers, 7);
-    }
-
-    return null;
-}
+echo json_encode(["response" => ["message" => 'Operación Fallida', "data" => $response, "code" => $code]]);
