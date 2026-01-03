@@ -287,6 +287,7 @@ $encode_firma = base64_encode($ruta_firma);
                 $especialidades = $dataDoc['CARRERA'];
                 $cedulas = $dataDoc['UNIVERSIDAD'] . ' Ced. Pro. ' . $dataDoc['CEDULA'];
                 $footerDoctor = $dataDoc['NOMBRE_COMPLETO'] . '<br>' . $dataDoc['UNIVERSIDAD'] . '- Cédula profesional: ' . $dataDoc['CEDULA'];
+                $ruta_firma = file_get_contents( $dataDoc['FIRMA'] );
             }
 
             $encode_firma = base64_encode($ruta_firma);
@@ -297,6 +298,7 @@ $encode_firma = base64_encode($ruta_firma);
             $especialidades = $dataDoc['CARRERA'];
             $cedulas = $dataDoc['UNIVERSIDAD'] . ' Ced. Pro. ' . $dataDoc['CEDULA'];
             $footerDoctor = $dataDoc['NOMBRE_COMPLETO'] . '<br>' . $dataDoc['UNIVERSIDAD'] . '- Cédula profesional: ' . $dataDoc['CEDULA'];
+            $ruta_firma = file_get_contents( $dataDoc['FIRMA'] );
         }
 
         /*//$footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';

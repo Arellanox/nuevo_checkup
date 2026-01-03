@@ -353,7 +353,7 @@ if (isset($ruta_firma))
                 $especialidades = $dataDoc['CARRERA'];
                 $cedulas = $dataDoc['UNIVERSIDAD'] . ' Ced. Pro. ' . $dataDoc['CEDULA'];
                 $footerDoctor = $dataDoc['NOMBRE_COMPLETO'] . '<br>' . $dataDoc['UNIVERSIDAD'] . '- Cédula profesional: ' . $dataDoc['CEDULA'];
-                $ruta_firma = $dataDoc['FIRMA'];
+                $ruta_firma = file_get_contents( $dataDoc['FIRMA'] );
             }
 
             $encode_firma = base64_encode($ruta_firma);
@@ -364,8 +364,11 @@ if (isset($ruta_firma))
             $especialidades = $dataDoc['CARRERA'];
             $cedulas = $dataDoc['UNIVERSIDAD'] . ' Ced. Pro. ' . $dataDoc['CEDULA'];
             $footerDoctor = $dataDoc['NOMBRE_COMPLETO'] . '<br>' . $dataDoc['UNIVERSIDAD'] . '- Cédula profesional: ' . $dataDoc['CEDULA'];
-            $ruta_firma = $dataDoc['FIRMA'];
+            $ruta_firma = file_get_contents( $dataDoc['FIRMA'] );
+   
         }
+        
+
 
         include 'includes/footer.php';
         ?>
