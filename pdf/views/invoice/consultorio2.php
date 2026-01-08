@@ -328,17 +328,47 @@ if (isset($ruta_firma))
         $footerDoctor = "$nombre_doctor <br>$uni - Cédula profesional: $cedula";*/
 
 
-        if (isset($resultados[0][0]->MEDICO_ID)) {
-            if ($resultados[0][0]->MEDICO_ID == 53) { // Beatriz
+        // if (isset($resultados[0][0]->MEDICO_ID)) {
+        //     if ($resultados[0][0]->MEDICO_ID == 53) { // Beatriz
+        //         $ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
+        //         $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
+        //     } else { // Cesar
+        //         $ruta_firma = file_get_contents("../pdf/public/assets/firma_cesar.png");
+        //         $footerDoctor = 'Dr. César Mauricio Calderón Alipi <br>UANL - Cédula profesional: 6406214';
+        //     }
+
+        //     $encode_firma = base64_encode($ruta_firma);
+        // }
+
+        if (isset($resultados[2][0]->BY_MEDICO_ID)) {
+            if ($resultados[2][0]->BY_MEDICO_ID == 53) { // Beatriz
                 $ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
                 $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
-            } else { // Cesar
+            } else if ($resultados[2][0]->BY_MEDICO_ID == 119) { // Cesar
                 $ruta_firma = file_get_contents("../pdf/public/assets/firma_cesar.png");
                 $footerDoctor = 'Dr. César Mauricio Calderón Alipi <br>UANL - Cédula profesional: 6406214';
+            } else { // CUALQUIER OTRO MEDICO
+                $dataDoc = $pie['datos_medicos'][0];
+                $nombre_doctor = $dataDoc['NOMBRE_COMPLETO'];
+                $especialidades = $dataDoc['CARRERA'];
+                $cedulas = $dataDoc['UNIVERSIDAD'] . ' Ced. Pro. ' . $dataDoc['CEDULA'];
+                $footerDoctor = $dataDoc['NOMBRE_COMPLETO'] . '<br>' . $dataDoc['UNIVERSIDAD'] . '- Cédula profesional: ' . $dataDoc['CEDULA'];
+                $ruta_firma = file_get_contents( $dataDoc['FIRMA'] );
             }
 
             $encode_firma = base64_encode($ruta_firma);
+        } else {
+            // cual otro medico que esta en la sesion actual
+            $dataDoc = $pie['datos_medicos'][0];
+            $nombre_doctor = $dataDoc['NOMBRE_COMPLETO'];
+            $especialidades = $dataDoc['CARRERA'];
+            $cedulas = $dataDoc['UNIVERSIDAD'] . ' Ced. Pro. ' . $dataDoc['CEDULA'];
+            $footerDoctor = $dataDoc['NOMBRE_COMPLETO'] . '<br>' . $dataDoc['UNIVERSIDAD'] . '- Cédula profesional: ' . $dataDoc['CEDULA'];
+            $ruta_firma = file_get_contents( $dataDoc['FIRMA'] );
+   
         }
+        
+
 
         include 'includes/footer.php';
         ?>
