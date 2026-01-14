@@ -32,6 +32,27 @@ switch ($api) {
         ]);
         $response = $master->getByProcedureWithFecthAssoc('sp_tracking_proveedores_crear', $params);
         break;
+    case 3: # Crear Trabajador
+        $params = getParams($request, [
+            'nombre_completo', 'puesto', 'salario_diario', 'jornada', 'fecha_inicio', 'fecha_terminacion',
+            'domicilio', 'telefono', 'correo', 'rfc', 'curp', 'nss', 'ine', 
+            'banco', 'cuenta_clabe', 'unidad_negocio_id', 'categoria_id', 'subcategoria_id'
+        ]);
+        $response = $master->getByProcedureWithFecthAssoc('sp_tracking_trabajadores_crear', $params);
+        break;
+    case 4: # Listado de Trabajadores
+        $response = $master->getByProcedureWithFecthAssoc('sp_tracking_trabajadores_listado', [null, null]);
+        break;
+    case 5: # Crear Profesionales
+        $params = getParams($request, [
+            'nombre_completo', 'especialidad', 'modalidad_fiscal', 'monto_honorarios', 'fecha_inicio', 'fecha_terminacion',
+            'domicilio', 'telefono', 'correo', 'observaciones', 'banco', 'cuenta_clabe', 'unidad_negocio_id', 'categoria_id', 'subcategoria_id'
+        ]);
+        $response = $master->getByProcedureWithFecthAssoc('sp_tracking_profesionales_crear', $params);
+        break;
+    case 6: # Listado de Profesionales
+        $response = $master->getByProcedureWithFecthAssoc('sp_tracking_profesionales_listado', [null, null]);
+        break;
     default:
         $code = 400;
         $response = [];
