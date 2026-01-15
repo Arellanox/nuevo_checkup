@@ -52,7 +52,8 @@ var ModalEditarPaciente = $('#ModalEditarPaciente');
   }
 });*/
 
-$('#ModalEditarPaciente').on('shown.bs.modal', function () {
+$('#ModalEditarPaciente').on('shown.bs.modal', async function () {
+    
     $('#editar-nombre').val(array_selected['NOMBRE']);
     $('#editar-paterno').val(array_selected['PATERNO']);
     $('#editar-materno').val(array_selected['MATERNO']);
@@ -85,6 +86,8 @@ $('#ModalEditarPaciente').on('shown.bs.modal', function () {
     $('.input-edit-whatsapp-check').prop('checked', false);
     $('.input-edit-impreso-check').prop('checked', false);
 
+
+
     let genero = array_selected['GENERO'];
     genero = genero.toUpperCase();
 
@@ -96,6 +99,10 @@ $('#ModalEditarPaciente').on('shown.bs.modal', function () {
 
     checkedInputMedios();
 
+    await rellenarSelect('#selectComoNosConociste2', 'clientes_api', 9, "ID_CONVERSION", 'DESCRIPCION')
+    if(array_selected['CONOCISTE']){
+        $('#selectComoNosConociste2').val(array_selected['CONOCISTE']);
+    }
     // if(array_selected['MEDIOS_ENTREGA']) {
     //     const evaluted = []; // Pérmite saber si un medio ya fue evaluado o no
     //
@@ -219,6 +226,10 @@ $("#formEditarPaciente").submit(function (event) {
     formData.set('id', array_selected['ID_PACIENTE']);
     formData.set('medios_entrega', pacienteMedios);
     formData.set('api', 3);
+
+    // enviar en el formulario de edicion de pacientes,
+    // el valor de como nos conociste
+    formData.set('comoNosConociste', $("#selectComoNosConociste2").val());
 
     $i = 0;
     formData.forEach(element => {$i++;});

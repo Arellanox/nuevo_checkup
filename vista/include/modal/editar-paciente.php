@@ -154,6 +154,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-12 pt-2">
+                        <div class="row mt-2 justify-content-center">
+                            <div class="col-auto mb-3 form-check fs-4 mx-3">
+                                <label for="selectComoNosConociste2" class= "form-label" > ¿Cómo supiste de nosotros?</label>
+                                <select class="form-control input-form dataIdProcedencias2" name="comoNosConociste" id="selectComoNosConociste2">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">

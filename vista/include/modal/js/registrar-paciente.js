@@ -224,6 +224,7 @@ if (registroAgendaRecepcion == 1) {
   select2('#selectIngresoProcedencia', "ModalRegistrarPaciente", 'Cargando...')
   rellenarSelect('#selectIngresoProcedencia', 'clientes_api', 2, 'ID_CLIENTE', 'NOMBRE_COMERCIAL')
   rellenarSelect("#selectComoNosConociste", 'clientes_api', 9, 'ID_CONVERSION', 'DESCRIPCION')
+  
 }
 
 
