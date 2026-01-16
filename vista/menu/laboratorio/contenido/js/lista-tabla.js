@@ -665,7 +665,12 @@ function generarFormularioPaciente(id) {
                     html += '</li>';
 
                     if (row[k]['LLEVA_COMENTARIO'] == true) {
-                        html += `<div class="d-flex justify-content-center"><div style="padding-top: 15px;"><p style = "/* font-size: 18px; */" > Observaciones:</p><textarea name="observacionesServicios[${row[k]['ID_SERVICIO']}]" rows="2;" cols="90" class="input-form" value="">${ifnull(row[k]['OBSERVACIONES'], '')}</textarea></div ></div > `;
+
+                        if (row[k]['ID_SERVICIO']==2292){// HEMOGLOBINA GLICOSILADA (HBA1C)
+                            html += `<div class="d-flex justify-content-center"><div style="padding-top: 15px;"><p style = "/* font-size: 18px; */" > Observaciones:</p><textarea name="observacionesServicios[${row[k]['ID_SERVICIO']}]" rows="2;" cols="90" class="input-form" value="">${ifnull(row[k]['OBSERVACIONES'], 'La glucosa media estimada se refiere a los resultados de la Hemoglobina Glicosilada convertida a un nivel de glucosa promedio diaria en las semanas antes del estudio (el tiempo aproximado es de 120 dias previos a la toma de muestra). Referencia: Asociación Americana de Diabetes (ADA). 2-Diagnosis and Classification of Diabetes: Standards of Care in Diabetes - 2025')}</textarea></div ></div > `;
+                        } else {
+                            html += `<div class="d-flex justify-content-center"><div style="padding-top: 15px;"><p style = "/* font-size: 18px; */" > Observaciones:</p><textarea name="observacionesServicios[${row[k]['ID_SERVICIO']}]" rows="2;" cols="90" class="input-form" value="">${ifnull(row[k]['OBSERVACIONES'], '')}</textarea></div ></div > `;
+                        }
                     }
                 }
             }
