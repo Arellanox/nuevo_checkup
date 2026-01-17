@@ -268,7 +268,8 @@ $(document).ready(function(){
             api: 1,
             id: $('#seleccion-paquete').val(),
             descripcion: $('#nombrePaqEditar').val(),
-            tipo_paquete: $('#tipoPaqEditar').val()
+            tipo_paquete: $('#tipoPaqEditar').val(),
+            comentario_paquete: $("#formEditarPaquete #comentario_paquete").val()
         };
 
         alertMensajeConfirm(
@@ -317,7 +318,8 @@ $('#editarInfoPaqueteBtn').on('click', function(){
         id: idPaquete
     }, "paquetes_api", { callbackAfter: true, WithoutResponseData: true}, false, function(data){
         $('#nombrePaqEditar').val(data[0].DESCRIPCION);
-        $('#tipoPaqEditar').val(data[0].TIPO_PAQUETE);
+        $('#tipoPaqEditar').val(data[0].TIPO_PAQUETE)
+        $("#formEditarPaquete #comentario_paquete").val(data[0].COMENTARIO_PAQUETE);
     });
 
     $('#ModalEditarPaquete').modal('show');

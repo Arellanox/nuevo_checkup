@@ -18,6 +18,10 @@
                             <label for="tipo_paquete" class="form-label">Tipo de Paquete</label>
                             <input type="text" name="tipo_paquete" class="form-control input-form" required>
                         </div>
+                        <div class="col-12">
+                            <label for="comentario_paquete">Comentario Paquete</label>
+                            <input type="text" name="comentario_paquete" id="comentario_paquete" class="form-control input-form">
+                        </div>
                     </div>
                 </form>
             </div>

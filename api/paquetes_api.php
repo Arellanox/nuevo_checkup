@@ -30,6 +30,7 @@ $costo = $_POST['costo'];
 $utilidad = $_POST['utilidad'];
 $precio_venta = $_POST['precio_venta'];
 $iva = $_POST['iva'];
+$comentario_paquete = $_POST['comentario_paquete'];
 
 # para eliminar el detalle de un paquete
 $eliminados = $_POST['contenido'];
@@ -43,7 +44,8 @@ $parametros = array(
     $costo,
     $utilidad,
     $precio_venta,
-    $iva
+    $iva,
+    $comentario_paquete
 );
 
 $response = "";

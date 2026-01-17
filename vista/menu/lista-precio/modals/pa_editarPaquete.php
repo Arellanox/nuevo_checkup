@@ -20,6 +20,10 @@
                             <input type="text" name="tipo_paquete" class="form-control input-form" id="tipoPaqEditar"
                                    required>
                         </div>
+                        <div class="col-12">
+                            <label for="comentario_paquete" class="form-label">Comentario Paquetaxo</label>
+                            <input type="text" name="comentario_paquete" id="comentario_paquete" class="form-control input-form">
+                        </div>
                     </div>
                 </form>
             </div>
