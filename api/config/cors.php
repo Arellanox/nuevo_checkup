@@ -3,7 +3,8 @@ $allowedOrigins = [
     'https://bimo.com.mx',
     'http://localhost:3000',
     'http://localhost:3001',
-    'https://www.bimo.com.mx'
+    'https://www.bimo.com.mx',
+    'https://bimo-tracking.vercel.app'
 ];
 
 if (isset($_SERVER['HTTP_ORIGIN']) && in_array($_SERVER['HTTP_ORIGIN'], $allowedOrigins, true)) {
