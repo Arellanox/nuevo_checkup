@@ -27,5 +27,29 @@ $("#formOrdenesMedicasPaciente").submit(async function (event) {
     event.preventDefault();
 });
 
+const modalConsentimiento = document.getElementById('modalConcentimientos')
+modalConsentimiento.addEventListener('show.bs.modal', event => {
+    // document.getElementById("title-paciente_perfil_imagen").innerHTML = ;
+    $('#title-consentimientos').html("Cargar Consentimiento: <br />" + array_selected['NOMBRE_COMPLETO']);
 
+    $('input [type="file"]').val('');
+})
 
+$("#formconsentimientos").submit(async function (event) {
+    event.preventDefault();
+
+    let dataAjax = await ajaxAwaitFormData(
+        {
+            turno_id: array_selected['ID_TURNO'],
+            api: 10
+        },
+        'recepcion_api',
+        'formconsentimientos'
+    );
+
+    if (dataAjax) {
+        alertToast('Consentimiento cargado correctamente', 'success', 4000);
+        // CORRECCIÓN: Debe coincidir con el ID del HTML "modalConcentimientos"
+        $('#modalConcentimientos').modal('hide');
+    }
+});

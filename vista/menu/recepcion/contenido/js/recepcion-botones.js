@@ -165,6 +165,13 @@ $(document).on('click', '#btn-ordenes-paciente', function () {
     } else alertSelectTable();
 })
 
+$(document).on('click', '#btn-concentimiento-paciente', function () {
+    if (array_selected) {
+        Swal.close();
+        $('#modalConcentimientos').modal('show');
+    } else alertSelectTable();
+})
+
 $(document).on('click', '#btn-editar', function () {
     if (array_selected != null) {
         $("#ModalEditarPaciente").modal('show');

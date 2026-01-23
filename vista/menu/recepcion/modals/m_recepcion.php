@@ -23,6 +23,7 @@ include "ujat-beneficiarios.html";
 //documentos
 include "ine-paciente.html";
 include "ordenes-medicas.html";
+include "consentimientos.html";
 
 //Actualizar estudios
 if ($_SESSION['permisos']['RepActEstudios'])

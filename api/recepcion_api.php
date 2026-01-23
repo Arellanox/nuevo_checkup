@@ -510,6 +510,36 @@ switch ($api) {
             $master->setLog("No se pudo crear el directorio para las ines de los pacientes.", "recepcion_api [case 10]");
         }
 
+
+        # SUBIR CONSENTIMIENTO INFORMADO
+        $dir = $master->urlComodin . "archivos/consentimientos/";
+        $r = $master->createDir($dir);
+
+        if ($r == 1) {
+            $consentimiento = $master->guardarFiles(
+                $_FILES,
+                'consentimiento_pdf',
+                $dir,
+                "consentimiento_$e_turno_id"
+            );
+
+            if (!empty($consentimiento[0]['url'])) {
+                $url = str_replace("../", $host, $consentimiento[0]['url']);
+
+                // Ejecutar el SP
+                $response = $master->updateByProcedure(
+                    'sp_subir_consentimiento_turno',
+                    [
+                        $e_turno_id,
+                        $url,
+                        $_SESSION['id']
+                    ]
+                );
+            }
+        } else {
+            $master->setLog("No se pudo crear directorio de consentimientos 2", "recepcion_api [case 10]");
+        }
+
         $response = 1;
         break;
     case 11:
