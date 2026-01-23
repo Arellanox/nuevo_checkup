@@ -119,12 +119,7 @@ $master = new Master();
 switch ($api) {
     case 0:
         # actualizar ruta de reporte de consultorio dados las id del turno.
-        $prefolios = [1177,
-            1180,
-            1192,
-            1193,
-            1194,
-            1197];
+        $prefolios = [12023, 12024];
 
         foreach($prefolios as $prefolio){
             $url = $master->reportador($master, $prefolio, 1, "consultorio", 'url', 0);
