@@ -99,6 +99,26 @@ switch ($api) {
         $response = true;
         break;
 
+    case 12: # Eliminar Proveedor
+        $id = $request['id'] ?? null;
+        if ($id) {
+            $master->getByProcedureWithFecthAssoc('sp_tracking_proveedores_eliminar', [$id]);
+            $response = ['id' => $id];
+        } else {
+            $code = 400; $message = 'ID requerido';
+        }
+        break;
+
+    case 13: # Eliminar Trabajador
+        $id = $request['id'] ?? null;
+        if ($id) {
+            $master->getByProcedureWithFecthAssoc('sp_tracking_trabajadores_eliminar', [$id]);
+            $response = ['id' => $id];
+        } else {
+            $code = 400; $message = 'ID requerido';
+        }
+        break;
+
     case 7: # Listado de Profesionales
         $response = $master->getByProcedureWithFecthAssoc('sp_tracking_profesionales_listado', [null, null]);
         break;
@@ -108,6 +128,46 @@ switch ($api) {
             'proveedor_id', 'folio', 'fecha_emision', 'fecha_limite', 'monto', 'archivo_ruta'
         ]);
         $res = $master->getByProcedureWithFecthAssoc('sp_tracking_pagos_crear', $params);
+        $response = ['id' => $res[0]['id'] ?? null];
+        break;
+
+    case 11: # Listar Pagos (Facturas)
+        $response = $master->getByProcedureWithFecthAssoc('sp_tracking_pagos_listado', [1]);
+        break;
+
+    case 14: # Registrar Nómina (Batch)
+        // Expected payload: year, quincena, items: [{ workerId, daysWorked, bonusAmount, imssAmount, totalPayable, paymentDate }]
+        $items = $request['items'] ?? [];
+        $anio = $request['year'] ?? date('Y');
+        $quin = $request['quincena'] ?? 1;
+        $paymentDate = $request['paymentDate'] ?? date('Y-m-d');
+        
+        $ids = [];
+        foreach ($items as $item) {
+            $params = [
+                $item['workerId'],
+                $anio,
+                $quin,
+                $item['daysWorked'],
+                $item['bonusAmount'],
+                $item['imssAmount'],
+                $item['totalPayable'],
+                $paymentDate
+            ];
+            $res = $master->getByProcedureWithFecthAssoc('sp_tracking_nomina_crear', $params);
+            if (isset($res[0]['id'])) {
+                $ids[] = $res[0]['id'];
+            }
+        }
+        $response = ['created_count' => count($ids), 'ids' => $ids];
+        break;
+
+    case 15: # Marcar como Pagado
+        $params = getParams($request, ['id', 'fecha', 'origen']);
+        if (!$params[1]) $params[1] = date('Y-m-d'); // Default to today if no date
+        if (!$params[2]) $params[2] = 'PROVEEDOR'; // Default origin
+        
+        $res = $master->getByProcedureWithFecthAssoc('sp_tracking_pago_pagar', $params);
         $response = ['id' => $res[0]['id'] ?? null];
         break;
 
