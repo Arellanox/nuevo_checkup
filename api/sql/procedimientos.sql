@@ -294,3 +294,24 @@ BEGIN
     SELECT _id as id;
 END //
 DELIMITER ;
+
+-- Procedimiento para eliminar facturas (soft delete)
+DROP PROCEDURE IF EXISTS sp_tracking_pago_eliminar;
+
+DELIMITER / /
+
+CREATE PROCEDURE sp_tracking_pago_eliminar(IN _id INT, IN _origen VARCHAR(20))
+BEGIN
+    IF _origen = 'PROVEEDOR' THEN
+        UPDATE tracking_pagos 
+        SET activo = 0 
+        WHERE id = _id;
+    ELSEIF _origen = 'NOMINA' THEN
+        UPDATE tracking_nomina
+        SET activo = 0 
+        WHERE id = _id;
+    END IF;
+    SELECT _id as id;
+END //
+
+DELIMITER;

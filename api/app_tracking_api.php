@@ -171,6 +171,19 @@ switch ($api) {
         $response = ['id' => $res[0]['id'] ?? null];
         break;
 
+    case 16: # Eliminar Factura/Pago
+        $params = getParams($request, ['id', 'origen']);
+        if (!$params[0]) {
+            $code = 400; 
+            $message = 'ID requerido';
+            $response = [];
+        } else {
+            if (!$params[1]) $params[1] = 'PROVEEDOR'; // Default origin
+            $res = $master->getByProcedureWithFecthAssoc('sp_tracking_pago_eliminar', $params);
+            $response = ['id' => $res[0]['id'] ?? null];
+        }
+        break;
+
     default:
         $code = 400;
         $response = [];
