@@ -4201,6 +4201,9 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
 
                   if (dataDocumentos['PERFIL'])
                     $(`#btn-PERFIL`).fadeIn();
+                  
+                  if(dataDocumentos['CONSENTIMIENTO'])
+                    $('#btn-CONSENTIMIENTO').fadeIn();
 
 
                   //Credencial
@@ -4298,6 +4301,10 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
 
                     case 'btn-VERIFICACION_UJAT':
                       window.open(`${dataDocumentos['VERIFICACION_UJAT']}`);
+                      break;
+                    
+                    case 'btn-CONSENTIMIENTO':
+                        window.open(`${dataDocumentos['CONSENTIMIENTO']}`);
                       break;
 
                     case 'btn-PASE_UJAT':

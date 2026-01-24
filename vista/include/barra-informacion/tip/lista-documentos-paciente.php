@@ -7,6 +7,12 @@
         Etiquetas laboratorio
     </button>
 
+    <!-- LINK PARA VER EL CONSENTIMIENTO FIRMADO POR EL PACIENTE -->
+    <button type="button" style="display: none;"
+        class="btn_documentacion_paciente list-group-item list-group-item-action" id="btn-CONSENTIMIENTO">
+        Consentimiento Informado
+    </button>
+
     <button type="button" style="display: none;"
         class="btn_documentacion_paciente list-group-item list-group-item-action" id="btn-PERFIL">
         Perfil del paciente

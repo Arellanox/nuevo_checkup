@@ -523,9 +523,11 @@ switch ($api) {
                 "consentimiento_$e_turno_id"
             );
 
+
+
             if (!empty($consentimiento[0]['url'])) {
                 $url = str_replace("../", $host, $consentimiento[0]['url']);
-
+                
                 // Ejecutar el SP
                 $response = $master->updateByProcedure(
                     'sp_subir_consentimiento_turno',
@@ -538,15 +540,17 @@ switch ($api) {
             }
         } else {
             $master->setLog("No se pudo crear directorio de consentimientos 2", "recepcion_api [case 10]");
+            $response = "No se pudo crear el directorio para guardar el archivo.";
         }
 
-        $response = 1;
+        #$response = 1;
         break;
     case 11:
         # recuperar todos los documentos que existen.
         $response = $master->getByProcedure("sp_recuperar_archivos_turno", [$e_turno_id]);
         $response[0]['ORDENES_MEDICAS'] = $master->decodeJson([$response[0]['ORDENES_MEDICAS']]);
         $response[0]['IDENTIFICACION'] = $master->decodeJson([$response[0]['IDENTIFICACION']]);
+        $response[0]['CONSENTIMIENTO'] = $master->decodeJson([$response[0]['CONSENTIMIENTOS']]);
         break;
     case 12:
         #recuperar todos los tipops de cuestionarios
