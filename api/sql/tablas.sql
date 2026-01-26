@@ -116,3 +116,5 @@ CREATE TABLE `tracking_trabajadores` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish2_ci;
 
+
+ALTER TABLE tracking_pagos ADD COLUMN concepto VARCHAR(255) DEFAULT NULL;

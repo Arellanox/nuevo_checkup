@@ -279,7 +279,10 @@ BEGIN
 END;
 -- UPDATE sp_tracking_pago_pagar to include NOMINA logic
 DROP PROCEDURE IF EXISTS sp_tracking_pago_pagar;
-DELIMITER //
+
+DELIMITER /
+/
+
 CREATE PROCEDURE sp_tracking_pago_pagar(IN _id INT, IN _fecha DATE, IN _origen VARCHAR(20))
 BEGIN
     IF _origen = 'PROVEEDOR' THEN
@@ -292,8 +295,11 @@ BEGIN
         WHERE id = _id;
     END IF;
     SELECT _id as id;
-END //
-DELIMITER ;
+END
+/
+/
+
+DELIMITER;
 
 -- Procedimiento para eliminar facturas (soft delete)
 DROP PROCEDURE IF EXISTS sp_tracking_pago_eliminar;
@@ -303,15 +309,85 @@ DELIMITER / /
 CREATE PROCEDURE sp_tracking_pago_eliminar(IN _id INT, IN _origen VARCHAR(20))
 BEGIN
     IF _origen = 'PROVEEDOR' THEN
-        UPDATE tracking_pagos 
-        SET activo = 0 
-        WHERE id = _id;
+        UPDATE tracking_pagos SET activo = 0 WHERE id = _id;
     ELSEIF _origen = 'NOMINA' THEN
-        UPDATE tracking_nomina
-        SET activo = 0 
-        WHERE id = _id;
+        UPDATE tracking_nomina SET activo = 0 WHERE id = _id;
     END IF;
     SELECT _id as id;
 END //
 
 DELIMITER;
+-- PROCEDIMIENTOS NUEVOS PARA GASTOS GENERALES
+DROP PROCEDURE IF EXISTS sp_tracking_gasto_crear;
+DELIMITER //
+CREATE PROCEDURE sp_tracking_gasto_crear(IN _super VARCHAR(50), IN _cat VARCHAR(50), IN _sub VARCHAR(50), IN _concepto VARCHAR(255), IN _monto DECIMAL(10,2), IN _fecha DATE, IN _archivo VARCHAR(255))
+BEGIN
+    INSERT INTO tracking_pagos (proveedor_id, concepto, fecha_emision, fecha_limite_pago, monto_total, archivo_ruta)
+    VALUES (NULL, _concepto, _fecha, _fecha, _monto, _archivo);
+    SET @id = LAST_INSERT_ID();
+    INSERT INTO tracking_entidad_categorias (entidad_tipo, entidad_id, super_category_id, category_id, subcategory_id)
+    VALUES ('GASTO', @id, _super, _cat, _sub);
+    SELECT @id as id;
+END //
+DELIMITER ;
+
+-- LISTADO V2 (Incluye Gastos Generales)
+DROP PROCEDURE IF EXISTS sp_tracking_pagos_listado_v2;
+DELIMITER //
+CREATE PROCEDURE sp_tracking_pagos_listado_v2(IN _filter INT)
+BEGIN
+    SELECT 
+        tp.id, 
+        tp.proveedor_id as entidad_id,
+        COALESCE(prov.razon_social, tp.concepto, 'Sin Nombre') as nombre, 
+        tp.folio_fiscal as factura, 
+        tp.fecha_emision as emision, 
+        tp.fecha_limite_pago as pagoEstimado, 
+        tp.estado as status, 
+        tp.fecha_pago as fechaPago,
+        tp.monto_total,
+        COALESCE(p_cat.super_category_id, g_cat.super_category_id, 'S/C') as super_categoria,
+        COALESCE(p_cat.category_id, g_cat.category_id, 'Gasto General') as categoria,
+        COALESCE(p_cat.subcategory_id, g_cat.subcategory_id, '-') as sub_categoria,
+        CASE WHEN tp.proveedor_id IS NOT NULL THEN 'PROVEEDOR' ELSE 'GASTO' END as origen_tipo
+    FROM tracking_pagos tp
+    LEFT JOIN tracking_proveedores prov ON tp.proveedor_id = prov.id
+    LEFT JOIN tracking_entidad_categorias p_cat ON p_cat.entidad_id = tp.proveedor_id AND p_cat.entidad_tipo = 'PROVEEDOR' AND p_cat.activo = 1
+    LEFT JOIN tracking_entidad_categorias g_cat ON g_cat.entidad_id = tp.id AND g_cat.entidad_tipo = 'GASTO' AND g_cat.activo = 1
+    WHERE tp.activo = 1
+    GROUP BY tp.id 
+    UNION ALL
+    SELECT 
+        tn.id,
+        tn.trabajador_id as entidad_id,
+        tr.nombre_completo as nombre,
+        CONCAT('NOM-', tn.periodo_anio, '-Q', tn.periodo_quincena) as factura,
+        tn.fecha_pago as emision,
+        tn.fecha_pago as pagoEstimado,
+        CASE WHEN tn.fecha_pago <= CURDATE() THEN 'pagado' ELSE 'pendiente' END as status,
+        tn.fecha_pago as fechaPago,
+        tn.monto_total,
+        'RH' as super_categoria,
+        'NOMINA' as categoria,
+        'GENERAL' as sub_categoria,
+        'NOMINA' as origen_tipo
+    FROM tracking_nomina tn
+    LEFT JOIN tracking_trabajadores tr ON tn.trabajador_id = tr.id
+    WHERE tn.activo = 1
+    ORDER BY pagoEstimado ASC;
+END //
+DELIMITER ;
+
+-- ELIMINAR V2 (Incluye GASTO)
+DROP PROCEDURE IF EXISTS sp_tracking_pago_eliminar_v2;
+DELIMITER //
+CREATE PROCEDURE sp_tracking_pago_eliminar_v2(IN _id INT, IN _origen VARCHAR(20))
+BEGIN
+    IF _origen = 'PROVEEDOR' OR _origen = 'GASTO' THEN
+        UPDATE tracking_pagos SET activo = 0 WHERE id = _id;
+    ELSEIF _origen = 'NOMINA' THEN
+        UPDATE tracking_nomina SET activo = 0 WHERE id = _id;
+    END IF;
+    SELECT _id as id;
+END //
+DELIMITER ;

@@ -131,8 +131,16 @@ switch ($api) {
         $response = ['id' => $res[0]['id'] ?? null];
         break;
 
-    case 11: # Listar Pagos (Facturas)
-        $response = $master->getByProcedureWithFecthAssoc('sp_tracking_pagos_listado', [1]);
+    case 11: # Listar Pagos (Facturas) V2
+        $response = $master->getByProcedureWithFecthAssoc('sp_tracking_pagos_listado_v2', [1]);
+        break;
+
+    case 17: # Registrar Gasto General
+        $params = getParams($request, [
+            'super_category_id', 'category_id', 'subcategory_id', 'concepto', 'monto', 'fecha_emision', 'archivo_ruta'
+        ]);
+        $res = $master->getByProcedureWithFecthAssoc('sp_tracking_gasto_crear', $params);
+        $response = ['id' => $res[0]['id'] ?? null];
         break;
 
     case 14: # Registrar Nómina (Batch)
@@ -178,8 +186,8 @@ switch ($api) {
             $message = 'ID requerido';
             $response = [];
         } else {
-            if (!$params[1]) $params[1] = 'PROVEEDOR'; // Default origin
-            $res = $master->getByProcedureWithFecthAssoc('sp_tracking_pago_eliminar', $params);
+            if (!$params[1]) $params[1] = 'PROVEEDOR';
+            $res = $master->getByProcedureWithFecthAssoc('sp_tracking_pago_eliminar_v2', $params);
             $response = ['id' => $res[0]['id'] ?? null];
         }
         break;
