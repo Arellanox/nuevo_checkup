@@ -563,16 +563,19 @@ selectTable('#TablaRecepcionPacientes-Ingresados', tablaRecepcionPacientesIngrer
                         title: 'Documentación del paciente <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Cargue/Guarde la documentación del paciente"></i>',
                         footer: 'Seleccione una opción.',
                         html: `
-                <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px;" id="btn-perfil-paciente">
-                  <i class="bi bi-person-bounding-box"></i> Foto de Perfil
-                </button>
-                <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-credencial-paciente">
-                  <i class="bi bi-person-vcard-fill"></i> Credencial
-                </button> 
-                <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-ordenes-paciente">
-                  <i class="bi bi-files"></i> Ordenes médicas
-                </button> 
-            `,
+                            <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px;" id="btn-perfil-paciente">
+                              <i class="bi bi-person-bounding-box"></i> Foto de Perfil
+                            </button>
+                            <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-credencial-paciente">
+                              <i class="bi bi-person-vcard-fill"></i> Credencial
+                            </button> 
+                            <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-ordenes-paciente">
+                              <i class="bi bi-files"></i> Ordenes médicas
+                            </button> 
+                            <button type="button" class="btn btn-hover me-2" style="margin-bottom:4px" id="btn-concentimiento-paciente">
+                              <i class="bi bi-file-earmark-medical"></i> Consentimientos
+                            </button> 
+                        `,
                         showCancelButton: false,
                         showConfirmButton: false,
                         allowOutsideClick: true,
