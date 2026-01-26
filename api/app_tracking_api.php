@@ -143,6 +143,97 @@ switch ($api) {
         $response = ['id' => $res[0]['id'] ?? null];
         break;
 
+    case 18: # Reporte General Anual
+        $params = getParams($request, ['anio']); 
+        $response = $master->getByProcedureWithFecthAssoc('sp_tracking_estado_general_caja_toma_muestra', $params);
+        break;
+    case 19: # Estado General Anual - Caja Toma de Muestra (por cliente)
+
+    $anio   = $request['anio'] ?? date('Y');
+    $cajaId = 3; // CAJA TOMA DE MUESTRA
+
+    // 1️⃣ Obtener todos los cortes del año
+    $cortes = $master->getByProcedureWithFecthAssoc(
+        'sp_tracking_cortes_por_caja_anio',
+        [$cajaId, $anio]
+    );
+
+    $acumulado = [];
+
+    foreach ($cortes as $corte) {
+
+        $mes = (int)date('n', strtotime($corte['FECHA_FINAL']));
+
+        // 2️⃣ Detalle del corte (aquí está el cliente)
+        $detalle = $master->getByProcedureWithFecthAssoc(
+            'sp_recuperar_info_hostorial_caja',
+            [$corte['ID_CORTE']]
+        );
+
+        // Indexar detalle por TURNO_ID
+        $turnos = [];
+        foreach ($detalle as $row) {
+            $turnos[$row['TURNO_ID']] = [
+                'cliente_id' => $row['CLIENTE_ID'],
+                'cliente'    => $row['NOMBRE_COMERCIAL']
+            ];
+        }
+
+        // 3️⃣ Pagos del corte (aquí está CRÉDITO operativo)
+        $pagos = $master->getByProcedureWithFecthAssoc(
+            'sp_corte_detalle_pagos',
+            [$corte['ID_CORTE']]
+        );
+
+        foreach ($pagos as $pago) {
+
+            // 🔹 Determinar tipo de ingreso
+            $tipoIngreso = ($pago['TIPO_PAGO'] === 'CREDITO')
+                ? 'CRÉDITO'
+                : 'CONTADO';
+
+            // 🔹 Relacionar pago con turno → cliente
+            $turnoId = $pago['TICKET_ID'] ?? $pago['TURNO_ID'] ?? null;
+
+            if (!$turnoId || !isset($turnos[$turnoId])) {
+                continue; // seguridad
+            }
+
+            $clienteId = $turnos[$turnoId]['cliente_id'];
+            $cliente   = $turnos[$turnoId]['cliente'];
+
+            // 🔑 Clave de agregación FINAL
+            $key = implode('|', [
+                $anio,
+                $mes,
+                $clienteId,
+                $tipoIngreso
+            ]);
+
+            if (!isset($acumulado[$key])) {
+                $acumulado[$key] = [
+                    'anio'         => $anio,
+                    'mes'          => $mes,
+                    'cliente_id'   => $clienteId,
+                    'cliente'      => $cliente,
+                    'tipo_ingreso' => $tipoIngreso,
+                    'total'        => 0
+                ];
+            }
+
+            $acumulado[$key]['total'] += (float)$pago['TOTAL'];
+        }
+    }
+
+    // 4️⃣ Normalizar salida
+    $response = array_values(array_map(function ($row) {
+        $row['total'] = round($row['total'], 2);
+        return $row;
+    }, $acumulado));
+
+    break;
+   
+
     case 14: # Registrar Nómina (Batch)
         // Expected payload: year, quincena, items: [{ workerId, daysWorked, bonusAmount, imssAmount, totalPayable, paymentDate }]
         $items = $request['items'] ?? [];

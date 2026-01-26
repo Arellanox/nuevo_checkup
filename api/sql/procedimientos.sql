@@ -391,3 +391,125 @@ BEGIN
     SELECT _id as id;
 END //
 DELIMITER ;
+
+-- REPORTING ANUAL
+DROP PROCEDURE IF EXISTS sp_tracking_reporte_anual;
+DELIMITER //
+CREATE PROCEDURE sp_tracking_reporte_anual(IN _anio INT)
+BEGIN
+    IF _anio IS NULL THEN SET _anio = YEAR(CURDATE()); END IF;
+    SELECT
+        super_category_id, category_id, subcategory_id,
+        SUM(CASE WHEN MONTH(fecha) = 1 THEN monto ELSE 0 END) as ENE,
+        SUM(CASE WHEN MONTH(fecha) = 2 THEN monto ELSE 0 END) as FEB,
+        SUM(CASE WHEN MONTH(fecha) = 3 THEN monto ELSE 0 END) as MAR,
+        SUM(CASE WHEN MONTH(fecha) = 4 THEN monto ELSE 0 END) as ABR,
+        SUM(CASE WHEN MONTH(fecha) = 5 THEN monto ELSE 0 END) as MAY,
+        SUM(CASE WHEN MONTH(fecha) = 6 THEN monto ELSE 0 END) as JUN,
+        SUM(CASE WHEN MONTH(fecha) = 7 THEN monto ELSE 0 END) as JUL,
+        SUM(CASE WHEN MONTH(fecha) = 8 THEN monto ELSE 0 END) as AGO,
+        SUM(CASE WHEN MONTH(fecha) = 9 THEN monto ELSE 0 END) as SEP,
+        SUM(CASE WHEN MONTH(fecha) = 10 THEN monto ELSE 0 END) as OCT,
+        SUM(CASE WHEN MONTH(fecha) = 11 THEN monto ELSE 0 END) as NOV,
+        SUM(CASE WHEN MONTH(fecha) = 12 THEN monto ELSE 0 END) as DIC,
+        SUM(monto) as TOTAL
+    FROM (
+        -- Pagos Proveedores
+        SELECT
+            COALESCE(tec.super_category_id, 'SIN CLASIFICAR') as super_category_id,
+            COALESCE(tec.category_id, 'GENERAL') as category_id,
+            COALESCE(tec.subcategory_id, '-') as subcategory_id,
+            tp.fecha_emision as fecha,
+            tp.monto_total as monto
+        FROM tracking_pagos tp
+        JOIN tracking_entidad_categorias tec ON tec.entidad_id = tp.proveedor_id AND tec.entidad_tipo = 'PROVEEDOR'
+        WHERE tp.activo = 1 AND tp.proveedor_id IS NOT NULL
+        UNION ALL
+        -- Gastos Generales
+        SELECT
+            COALESCE(tec.super_category_id, 'SIN CLASIFICAR') as super_category_id,
+            COALESCE(tec.category_id, 'GENERAL') as category_id,
+            COALESCE(tec.subcategory_id, '-') as subcategory_id,
+            tp.fecha_emision as fecha,
+            tp.monto_total as monto
+        FROM tracking_pagos tp
+        JOIN tracking_entidad_categorias tec ON tec.entidad_id = tp.id AND tec.entidad_tipo = 'GASTO'
+        WHERE tp.activo = 1 AND tp.proveedor_id IS NULL
+        UNION ALL
+        -- Nomina
+        SELECT
+            'RH' as super_category_id,
+            'NOMINA' as category_id,
+            'GENERAL' as subcategory_id,
+            tn.fecha_pago as fecha,
+            tn.monto_total as monto
+        FROM tracking_nomina tn
+        WHERE tn.activo = 1
+    ) as data
+    WHERE YEAR(fecha) = _anio
+    GROUP BY super_category_id, category_id, subcategory_id
+    ORDER BY super_category_id, category_id, subcategory_id;
+END //
+DELIMITER ;
+
+CREATE DEFINER=`u808450138_bimo`@`%` PROCEDURE `sp_tracking_estado_general_caja_toma_muestra`(
+    IN p_anio INT
+)
+BEGIN
+    SELECT
+        YEAR(cc.FECHA_FINAL) AS anio,
+        MONTH(cc.FECHA_FINAL) AS mes,
+
+        c.ID_CLIENTE,
+        c.NOMBRE_COMERCIAL AS cliente,
+
+        CASE
+            WHEN fp.DESCRIPCION IN ('CRÉDITO', 'TARJETA DE CREDITO')
+                THEN 'CRÉDITO'
+            ELSE 'CONTADO'
+        END AS tipo_ingreso,
+
+        ROUND( COALESCE( SUM(
+            IFNULL(fpt.MONTO, t.TOTAL)
+        ), 0), 2) AS total_ingresos
+
+    FROM detalle_corte dc
+    INNER JOIN corte_caja cc 
+        ON cc.ID_CORTE = dc.CORTE_ID
+
+    INNER JOIN cajas caja 
+        ON caja.ID_CAJAS = cc.CAJAS_ID
+        AND caja.ACTIVO = 1
+
+    INNER JOIN turnos tur 
+        ON tur.ID_TURNO = dc.TURNO_ID
+
+    INNER JOIN clientes c 
+        ON c.ID_CLIENTE = tur.CLIENTE_ID
+
+    LEFT JOIN tickets t 
+        ON t.TURNO_ID = tur.ID_TURNO
+        AND t.ACTIVO = 1
+
+    LEFT JOIN forma_pago_ticket fpt 
+        ON fpt.TICKET_ID = t.ID_TICKET
+
+    LEFT JOIN formas_pago fp 
+        ON fp.ID_PAGO = fpt.PAGO_ID
+
+    WHERE dc.ACTIVO = 1
+      AND caja.DESCRIPCION = 'CAJA TOMA DE MUESTRA'
+      AND YEAR(cc.FECHA_FINAL) = p_anio
+
+    GROUP BY
+        anio,
+        mes,
+        c.ID_CLIENTE,
+        tipo_ingreso
+
+    ORDER BY
+        anio,
+        mes,
+        tipo_ingreso,
+        cliente;
+END
