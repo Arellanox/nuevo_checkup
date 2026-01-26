@@ -285,7 +285,6 @@
 </head>
 
 <?php
-
 // para el path del logo 
 $ruta = file_get_contents('../pdf/public/assets/icono_reporte_checkup.png');
 $encode = base64_encode($ruta);
@@ -339,12 +338,12 @@ if (isset($ruta_firma))
 
         //     $encode_firma = base64_encode($ruta_firma);
         // }
-
-        if (isset($resultados[2][0]->BY_MEDICO_ID)) {
-            if ($resultados[2][0]->BY_MEDICO_ID == 53) { // Beatriz
+   
+        if (isset($resultados[0][0]->MEDICO_ID)) {
+            if ($resultados[0][0]->MEDICO_ID == 53) { // Beatriz
                 $ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
                 $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
-            } else if ($resultados[2][0]->BY_MEDICO_ID == 119) { // Cesar
+            } else if ($resultados[0][0]->MEDICO_ID == 119) { // Cesar
                 $ruta_firma = file_get_contents("../pdf/public/assets/firma_cesar.png");
                 $footerDoctor = 'Dr. César Mauricio Calderón Alipi <br>UANL - Cédula profesional: 6406214';
             } else { // CUALQUIER OTRO MEDICO
