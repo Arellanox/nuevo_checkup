@@ -151,7 +151,6 @@ class Correo
             $fromName = 'Resultados [bimo]';
         }
 
-
         $img = 'bimo.png';
         $descripcion = 'Laboratorio de Biología Molecular';
         // $fromName = utf8_decode('Biologia Molecular | Diagnóstico Biomolecular');
@@ -247,6 +246,8 @@ class Correo
             $mail->send();
 
             if (isset($id_turno)) {
+                $mis->setLog('hola', json_encode([$id_turno, $area_id, $this->getCorreoSeleccionado(), json_encode($emails), null, "CORRECTO", 1]));
+
                 $response = $master->insertByProcedure("sp_correos_g", [
                     $id_turno,
                     $area_id,
