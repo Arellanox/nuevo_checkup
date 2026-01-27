@@ -173,64 +173,51 @@ switch ($api) {
         // Indexar detalle por TURNO_ID
         $turnos = [];
         foreach ($detalle as $row) {
-            $turnos[$row['TURNO_ID']] = [
-                'cliente_id' => $row['CLIENTE_ID'],
-                'cliente'    => $row['NOMBRE_COMERCIAL']
-            ];
-        }
+            // 📅 Año y mes desde la fecha del corte o recepción
+            $fecha = $row['FECHA_FINAL']; // o FECHA_RECEPCION si prefieres
+            $anio  = (int)date('Y', strtotime($fecha));
+            $mes   = (int)date('n', strtotime($fecha));
 
-        // 3️⃣ Pagos del corte (aquí está CRÉDITO operativo)
-        $pagos = $master->getByProcedureWithFecthAssoc(
-            'sp_corte_detalle_pagos',
-            [$corte['ID_CORTE']]
-        );
+            // 👤 Cliente
+            $clienteId = $row['CLIENTE_ID'];
+            $cliente   = $row['NOMBRE_COMERCIAL'];
 
-        foreach ($pagos as $pago) {
-
-            // 🔹 Determinar tipo de ingreso
-            $tipoIngreso = ($pago['TIPO_PAGO'] === 'CREDITO')
+            // 💳 Tipo de ingreso
+            $tipoIngreso = ($row['FORMA_PAGO'] === 'CRÉDITO')
                 ? 'CRÉDITO'
                 : 'CONTADO';
 
-            // 🔹 Relacionar pago con turno → cliente
-            $turnoId = $pago['TICKET_ID'] ?? $pago['TURNO_ID'] ?? null;
-
-            if (!$turnoId || !isset($turnos[$turnoId])) {
-                continue; // seguridad
-            }
-
-            $clienteId = $turnos[$turnoId]['cliente_id'];
-            $cliente   = $turnos[$turnoId]['cliente'];
-
-            // 🔑 Clave de agregación FINAL
+            // 💰 Total (ya viene calculado correctamente)
+            $monto = (float)$row['TOTAL'];
+        
+            // 🔑 Clave única de agrupación
             $key = implode('|', [
                 $anio,
                 $mes,
                 $clienteId,
                 $tipoIngreso
             ]);
-
+        
             if (!isset($acumulado[$key])) {
-                $acumulado[$key] = [
-                    'anio'         => $anio,
-                    'mes'          => $mes,
-                    'cliente_id'   => $clienteId,
-                    'cliente'      => $cliente,
-                    'tipo_ingreso' => $tipoIngreso,
-                    'total'        => 0
-                ];
-            }
-
-            $acumulado[$key]['total'] += (float)$pago['TOTAL'];
+             $acumulado[$key] = [
+                 'anio'         => $anio,
+                 'mes'          => $mes,
+                 'cliente_id'   => $clienteId,
+                 'cliente'      => $cliente,
+                 'tipo_ingreso' => $tipoIngreso,
+                 'total'        => 0
+             ];
+         }
+        
+            $acumulado[$key]['total'] += $monto;
         }
     }
 
-    // 4️⃣ Normalizar salida
     $response = array_values(array_map(function ($row) {
         $row['total'] = round($row['total'], 2);
         return $row;
     }, $acumulado));
-
+    
     break;
    
 
