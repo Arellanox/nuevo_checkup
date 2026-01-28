@@ -26,7 +26,7 @@ $preguntasRespuestas = $_POST['respuestas'];
 $confirmado = isset($_POST['confirmado']) ? $_POST['confirmado'] : 0;
 
 $usuario_id = $_SESSION['id'];
-$host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/practicantes/" : "https://bimo-lab.com/nuevo_checkup/";
+$host = $_SERVER['SERVER_NAME'] == "localhost" ? "http://localhost/nuevo_checkup/" : "https://bimo-lab.com/nuevo_checkup/";
 
 $medico_id = $_POST['medico_id'];
 
@@ -84,10 +84,14 @@ switch ($api) {
 
             if (isset($response[0]['RUTA_REPORTES_ESPIRO'])) {
 
+
                 $response = $master->insertByProcedure("sp_espiro_cuestionario_g", [json_encode($principal), $id_turno, $area_id, $usuario_id, $confirmado]);
 
                 //Si confirma el cuestionario lo crea en pdf y lo guarda
                 $url = $master->reportador($master, $id_turno, 5, "espirometria", 'url', 0);
+
+
+
                 $response = $master->updateByProcedure('sp_espiro_ruta_reporte_g', [$id_turno, $url]);
 
                 //Verificamos la ruta de los reportes para unirlos
@@ -97,7 +101,6 @@ switch ($api) {
 
 
                 foreach ($reportes as $reporte) {
-
                     $reporte_bimo = explode("nuevo_checkup", $reporte['RUTA']);
                     $arreglo[] = ".." . $reporte_bimo[1];
                 }
@@ -121,10 +124,10 @@ switch ($api) {
                 //Enviamos correo
                 $attachment = $master->cleanAttachFilesImage($master, $id_turno, 5, 1);
 
-
                 if (!empty($attachment[0])) {
                     $mail = new Correo();
-                    if ($mail->sendEmail('resultados', '[bimo] Resultados de espirometria', [$attachment[1]], null, [$espiro], 1,$id_turno, 5, $master)) {
+
+                    if ($mail->sendEmail('resultados', '[bimo] Resultados de espirometria', [$attachment[1]], null, [$espiro], 1, null, $id_turno, 5, $master)) {
                         $master->setLog("Correo enviado.", "Espirometria resultados");
                     }
                 }
