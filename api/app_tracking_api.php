@@ -10,82 +10,6 @@ $message = 'Operación Exitosa';
 $code = 200;
 
 switch ($api) {
-    case 0: # Obtener proveedores
-        $response = $master->getByProcedureWithFecthAssoc('sp_tracking_proveedores_listado', [null, null]);
-        break;
-
-    case 1: # Obtener trabajadores (Activos)
-        $workers = $master->getByProcedureWithFecthAssoc('sp_tracking_trabajadores_listado', [1]);
-        $cats = $master->getByProcedureWithFecthAssoc('sp_tracking_trabajadores_atributos', []);
-
-        foreach ($workers as &$worker) {
-            $worker['categorias'] = [];
-            foreach ($cats as $c) {
-                if ($c['entidad_id'] == $worker['id']) {
-                    $worker['categorias'][] = $c;
-                }
-            }
-        }
-        $response = $workers;
-        break;
-    case 2: # Crear proveedor
-        $params = getParams($request, [
-            'razon_social', 'nombre_contacto', 'telefono', 'correo', 'rfc',
-            'banco', 'cuenta_clabe', 'tiene_credito', 'dias_credito', 'unidad_negocio_id'
-        ]);
-        
-        $res = $master->getByProcedureWithFecthAssoc('sp_tracking_proveedores_crear', $params);
-        $entityId = $res[0]['id'] ?? null;
-
-        if ($entityId && !empty($request['clasificaciones']) && is_array($request['clasificaciones'])) {
-            foreach ($request['clasificaciones'] as $c) {
-                $master->getByProcedureWithFecthAssoc('sp_tracking_entidad_categoria_agregar', [
-                    'PROVEEDOR', $entityId, $c['superId'], $c['catId'], $c['subId']
-                ]);
-            }
-        }
-        $response = ['id' => $entityId];
-        break;
-
-    case 3: # Crear Trabajador
-        $params = getParams($request, [
-            'nombre_completo', 'puesto', 'salario_diario', 'fecha_inicio',
-            'curp', 'rfc', 'nss', 'telefono', 'correo', 'banco', 'cuenta_clabe'
-        ]);
-
-        $res = $master->getByProcedureWithFecthAssoc('sp_tracking_trabajadores_crear', $params);
-        $entityId = $res[0]['id'] ?? null;
-
-        if ($entityId && !empty($request['clasificaciones']) && is_array($request['clasificaciones'])) {
-             foreach ($request['clasificaciones'] as $c) {
-                $master->getByProcedureWithFecthAssoc('sp_tracking_entidad_categoria_agregar', [
-                    'TRABAJADOR', $entityId, $c['superId'], $c['catId'], $c['subId']
-                ]);
-            }
-        }
-        $response = ['id' => $entityId];
-        break;
-
-    case 4: # Crear Profesionales
-        $params = getParams($request, [
-            'nombre_completo', 'especialidad', 'modalidad_fiscal', 'monto_honorarios',
-            'fecha_inicio', 'fecha_terminacion', 'domicilio', 'telefono', 'correo', 
-            'observaciones', 'banco', 'cuenta_clabe', 'unidad_negocio_id'
-        ]);
-
-        $res = $master->getByProcedureWithFecthAssoc('sp_tracking_profesionales_crear', $params);
-        $entityId = $res[0]['id'] ?? null;
-
-        if ($entityId && !empty($request['clasificaciones']) && is_array($request['clasificaciones'])) {
-             foreach ($request['clasificaciones'] as $c) {
-                $master->getByProcedureWithFecthAssoc('sp_tracking_entidad_categoria_agregar', [
-                    'PROFESIONAL', $entityId, $c['superId'], $c['catId'], $c['subId']
-                ]);
-            }
-        }
-        $response = ['id' => $entityId];
-        break;
-
     case 5: # Get Categories Config
         $res = $master->getByProcedureWithFecthAssoc('sp_tracking_config_obtener', []);
         $json = $res[0]['json_data'] ?? null;
@@ -99,31 +23,9 @@ switch ($api) {
         $response = true;
         break;
 
-    case 12: # Eliminar Proveedor
-        $id = $request['id'] ?? null;
-        if ($id) {
-            $master->getByProcedureWithFecthAssoc('sp_tracking_proveedores_eliminar', [$id]);
-            $response = ['id' => $id];
-        } else {
-            $code = 400; $message = 'ID requerido';
-        }
-        break;
 
-    case 13: # Eliminar Trabajador
-        $id = $request['id'] ?? null;
-        if ($id) {
-            $master->getByProcedureWithFecthAssoc('sp_tracking_trabajadores_eliminar', [$id]);
-            $response = ['id' => $id];
-        } else {
-            $code = 400; $message = 'ID requerido';
-        }
-        break;
 
-    case 7: # Listado de Profesionales
-        $response = $master->getByProcedureWithFecthAssoc('sp_tracking_profesionales_listado', [null, null]);
-        break;
-
-    case 10: # Registrar Pago (Factura)
+    case 8: # Registrar Pago (Factura)
         $params = getParams($request, [
             'proveedor_id', 'folio', 'fecha_emision', 'fecha_limite', 'monto', 'archivo_ruta'
         ]);
@@ -131,97 +33,13 @@ switch ($api) {
         $response = ['id' => $res[0]['id'] ?? null];
         break;
 
-    case 11: # Listar Pagos (Facturas) V2
+    case 9: # Listar Pagos (Facturas) V2
         $response = $master->getByProcedureWithFecthAssoc('sp_tracking_pagos_listado_v2', [1]);
         break;
 
-    case 17: # Registrar Gasto General
-        $params = getParams($request, [
-            'super_category_id', 'category_id', 'subcategory_id', 'concepto', 'monto', 'fecha_emision', 'archivo_ruta'
-        ]);
-        $res = $master->getByProcedureWithFecthAssoc('sp_tracking_gasto_crear', $params);
-        $response = ['id' => $res[0]['id'] ?? null];
-        break;
 
-    case 18: # Reporte General Anual
-        $params = getParams($request, ['anio']); 
-        $response = $master->getByProcedureWithFecthAssoc('sp_tracking_estado_general_caja_toma_muestra', $params);
-        break;
-    case 19: # Estado General Anual - Caja Toma de Muestra (por cliente)
 
-    $anio   = $request['anio'] ?? date('Y');
-    $cajaId = 3; // CAJA TOMA DE MUESTRA
-
-    // 1️⃣ Obtener todos los cortes del año
-    $cortes = $master->getByProcedureWithFecthAssoc(
-        'sp_tracking_cortes_por_caja_anio',
-        [$cajaId, $anio]
-    );
-
-    $acumulado = [];
-
-    foreach ($cortes as $corte) {
-
-        $mes = (int)date('n', strtotime($corte['FECHA_FINAL']));
-
-        // 2️⃣ Detalle del corte (aquí está el cliente)
-        $detalle = $master->getByProcedureWithFecthAssoc(
-            'sp_recuperar_info_hostorial_caja',
-            [$corte['ID_CORTE']]
-        );
-
-        // Indexar detalle por TURNO_ID
-        $turnos = [];
-        foreach ($detalle as $row) {
-            // 📅 Año y mes desde la fecha del corte o recepción
-            $fecha = $row['FECHA_FINAL']; // o FECHA_RECEPCION si prefieres
-            $anio  = (int)date('Y', strtotime($fecha));
-            $mes   = (int)date('n', strtotime($fecha));
-
-            // 👤 Cliente
-            $clienteId = $row['CLIENTE_ID'];
-            $cliente   = $row['NOMBRE_COMERCIAL'];
-
-            // 💳 Tipo de ingreso
-            $tipoIngreso = ($row['FORMA_PAGO'] === 'CRÉDITO')
-                ? 'CRÉDITO'
-                : 'CONTADO';
-
-            // 💰 Total (ya viene calculado correctamente)
-            $monto = (float)$row['TOTAL'];
-        
-            // 🔑 Clave única de agrupación
-            $key = implode('|', [
-                $anio,
-                $mes,
-                $clienteId,
-                $tipoIngreso
-            ]);
-        
-            if (!isset($acumulado[$key])) {
-             $acumulado[$key] = [
-                 'anio'         => $anio,
-                 'mes'          => $mes,
-                 'cliente_id'   => $clienteId,
-                 'cliente'      => $cliente,
-                 'tipo_ingreso' => $tipoIngreso,
-                 'total'        => 0
-             ];
-         }
-        
-            $acumulado[$key]['total'] += $monto;
-        }
-    }
-
-    $response = array_values(array_map(function ($row) {
-        $row['total'] = round($row['total'], 2);
-        return $row;
-    }, $acumulado));
-    
-    break;
-   
-
-    case 14: # Registrar Nómina (Batch)
+    case 12: # Registrar Nómina (Batch)
         // Expected payload: year, quincena, items: [{ workerId, daysWorked, bonusAmount, imssAmount, totalPayable, paymentDate }]
         $items = $request['items'] ?? [];
         $anio = $request['year'] ?? date('Y');
@@ -248,7 +66,7 @@ switch ($api) {
         $response = ['created_count' => count($ids), 'ids' => $ids];
         break;
 
-    case 15: # Marcar como Pagado
+    case 13: # Marcar como Pagado
         $params = getParams($request, ['id', 'fecha', 'origen']);
         if (!$params[1]) $params[1] = date('Y-m-d'); // Default to today if no date
         if (!$params[2]) $params[2] = 'PROVEEDOR'; // Default origin
@@ -257,7 +75,7 @@ switch ($api) {
         $response = ['id' => $res[0]['id'] ?? null];
         break;
 
-    case 16: # Eliminar Factura/Pago
+    case 14: # Eliminar Factura/Pago
         $params = getParams($request, ['id', 'origen']);
         if (!$params[0]) {
             $code = 400; 
@@ -269,6 +87,61 @@ switch ($api) {
             $response = ['id' => $res[0]['id'] ?? null];
         }
         break;
+
+    case 15: # Registrar Gasto General
+        $params = getParams($request, [
+            'super_category_id', 'category_id', 'subcategory_id', 'concepto', 'monto', 'fecha_emision', 'archivo_ruta'
+        ]);
+        $res = $master->getByProcedureWithFecthAssoc('sp_tracking_gasto_crear', $params);
+        $response = ['id' => $res[0]['id'] ?? null];
+        break;
+
+    case 16: # Estado General Anual - Caja Toma de Muestra (por cliente)
+        $anio   = $request['anio'] ?? date('Y');
+        $cajaId = 3; // CAJA TOMA DE MUESTRA
+
+        $cortes = $master->getByProcedureWithFecthAssoc('sp_tracking_cortes_por_caja_anio',[$cajaId, $anio]);
+
+        $acumulado = [];
+
+        foreach ($cortes as $corte) {
+            $mes = (int)date('n', strtotime($corte['FECHA_FINAL']));
+            $detalle = $master->getByProcedureWithFecthAssoc('sp_recuperar_info_hostorial_caja',[$corte['ID_CORTE']]);
+
+            $turnos = [];
+            foreach ($detalle as $row) {
+                $fecha = $row['FECHA_FINAL'];
+                $anio  = (int)date('Y', strtotime($fecha));
+                $mes   = (int)date('n', strtotime($fecha));
+                $clienteId = $row['CLIENTE_ID'];
+                $cliente   = $row['NOMBRE_COMERCIAL'];
+
+                $tipoIngreso = ($row['FORMA_PAGO'] === 'CRÉDITO') ? 'CRÉDITO' : 'CONTADO';
+                $monto = (float)$row['TOTAL'];
+            
+                $key = implode('|', [$anio, $mes, $clienteId, $tipoIngreso]);
+            
+                if (!isset($acumulado[$key])) {
+                    $acumulado[$key] = [
+                        'anio'         => $anio,
+                        'mes'          => $mes,
+                        'cliente_id'   => $clienteId,
+                        'cliente'      => $cliente,
+                        'tipo_ingreso' => $tipoIngreso,
+                        'total'        => 0
+                    ];
+                }
+            
+                $acumulado[$key]['total'] += $monto;
+            }
+        }
+
+        $response = array_values(array_map(function ($row) { 
+            $row['total'] = round($row['total'], 2);
+            return $row;
+        }, $acumulado));
+        break;
+
 
     default:
         $code = 400;
