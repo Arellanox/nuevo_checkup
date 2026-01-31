@@ -543,7 +543,7 @@ switch ($api) {
             $response = "No se pudo crear el directorio para guardar el archivo.";
         }
 
-        #$response = 1;
+        $response = 1;
         break;
     case 11:
         # recuperar todos los documentos que existen.
