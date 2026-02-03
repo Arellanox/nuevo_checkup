@@ -756,6 +756,10 @@ switch ($api) {
         $parametros_muestra_recepcion[6] = $path;
         $response = $master->insertByProcedure('sp_recepcion_muestras_externas', $parametros_muestra_recepcion);
         break;
+    case 26:
+        # modificar el comentario del paciente
+        $response = $master->updateByProcedure("sp_recepcion_modificar_comentario", [$idTurno, $_POST['comentario']]);
+        break;
     default:
         $response = "Api no definida: ".$api;
         break;

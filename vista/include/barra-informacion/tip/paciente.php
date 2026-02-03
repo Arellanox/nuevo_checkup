@@ -93,13 +93,31 @@
     <div class="text-center info-detalle">
       <p>Diagnóstico:</p>
     </div>
-    <div class="col-12 text-center fw-bold text-decoration-underline pantone-3165-color" id="info-paci-diagnostico">
+    <div id="div-mostrar-comentario">
+      <div class="col-12 text-center fw-bold text-decoration-underline pantone-3165-color" id="info-paci-diagnostico">
+      </div>
+      <div class="text-center info-detalle">
+        <p>Comentario:
+          <button 
+            class="btn btn-sm btn-link p-0"
+            id="btn-editar-comentario2"
+            data-bs-toggle="tooltip"
+            title="Editar comentario">
+            <i class="bi bi-pencil-square"></i>
+          </button>
+        </p>
+       
+      </div>
+      <div class="col-12 text-center fw-bold text-decoration-underline pantone-3165-color" id="info-paci-comentario">
+        Sin comentarios...
+      </div>
     </div>
-    <div class="text-center info-detalle">
-      <p>Comentario:</p>
+    <!-- EDITAR COMENTARIO -->
+    <div id="div-editar-comentario" style="display: none;">
+      <p>Estás editando el comentario...</p>
+      <input type="text" class="input-form" name="modificarComent" id="modificarComent">
     </div>
-    <div class="col-12 text-center fw-bold text-decoration-underline pantone-3165-color" id="info-paci-comentario">
-    </div>
+
     <div class="col-6 text-center info-detalle">
       <p>Aceptado:</p>
     </div>
@@ -110,3 +128,50 @@
     <div class="col-6 text-center" id="info-paci-reagenda"></div>
   </div>
 </div>
+
+<script>
+  $("#btn-editar-comentario2").on("click", function(){
+    var comentarioOld = $("#info-paci-comentario").html();
+    $("#div-editar-comentario").fadeIn(400);
+    $("#div-mostrar-comentario").fadeOut(400);
+    $("#modificarComent").val(comentarioOld);
+  })
+
+  // Detectamos el Enter en el cuadro de texto.
+  $("#modificarComent").on("keypress", function(e) {
+        if (e.which == 13) { // 13 es el código de la tecla Enter
+            var nuevoComentario = $(this).val();
+            alertMensajeConfirm({
+                title: '¿Confirma que quiere modificar el comentario?',
+                text: '¡El cambio se reflejará en todas la áreas!',
+                icon: 'warning',
+                confirmButtonText: 'Sí, estoy seguro'
+            }, function () {
+                //envio de datos (factura y tipo de pago_datos)
+                let dataJson = {
+                    api: 26, 
+                    id_turno: array_selected['ID_TURNO'],
+                    comentario:nuevoComentario
+                }
+
+                ajaxAwait(dataJson, "recepcion_api", {callbackAfter: true}, false, (data) => {
+                  // logica de negocios para el cambio/actualizacion de comentario
+                  if(data.response.code == 1){
+                     alertToast("Comentario actualizado!", 'success', 5000)
+                    // ocultamos el panel de edicion y mostramos el panel de informacion de comentario
+                    $("#div-editar-comentario").fadeOut(400);
+                    $("#div-mostrar-comentario").fadeIn(400);
+                    $("#info-paci-comentario").html(nuevoComentario);
+                  } else {
+                    alertToast('Imposible editar comentario', 'error', 5000)
+                  }
+
+
+                 
+                
+                })
+
+            }, 1)
+        }
+  });
+</script>
