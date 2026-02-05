@@ -40,7 +40,7 @@ $('#UsarPaquete').on('click', function () {
                 success: function (data) {
                     row = data.response.data;
                     for (let i = 0; i < row.length; i++) {
-                        meterDato(row[i]['SERVICIO'], row[i].ABREVIATURA, row[i].COSTO_UNITARIO, row[i].PRECIO_VENTA_UNITARIO, row[i].CANTIDAD, row[i].ID_SERVICIO, row[i].ABREVIATURA, tablaContenidoPaquete)
+                        meterDato(row[i]['SERVICIO'], row[i].ABREVIATURA, row[i].COSTO_UNITARIO, row[i].PRECIO_VENTA_UNITARIO, row[i].CANTIDAD, row[i].ID_SERVICIO, row[i].ABREVIATURA, tablaContenidoPaquete, ifnull(row[i].PRECIO_REFERENCIA,0))
                     }
 
                     calcularFilasPaqueteTR();
@@ -99,6 +99,8 @@ $('input[type=radio][name=selectChecko]').change(function () {
 $('#guardar-contenido-paquete').on('click', function () {
     let dataAjax = calcularFilasPaqueteTR();
     let tableData = tablaContenidoPaquete.rows().data().toArray();
+
+    console.log(dataAjax);
 
     if (tableData.length > 0) {
 

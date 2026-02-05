@@ -173,7 +173,8 @@ function tablaContenido(descuento = false) {
             },
             {className: 'desktop', width: "99.344px", title: "Precio Venta", targets: 6},
             {className: 'all', width: "64.75px", title: "Subtotal", targets: 7},
-            {visible: false, title: "?", targets: 8, searchable: false,},
+            {className: 'min-tablet', width: "90.516px", title: "Referencia", targets: 8, orderable: false},
+            {visible: false, title: "?", targets: 9, searchable: false,},
         ],
         language: {
             url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",

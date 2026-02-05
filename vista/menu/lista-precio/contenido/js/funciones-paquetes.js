@@ -37,7 +37,7 @@ async function contenidoPaquete(select = null) {
 }
 
 // Agrega Un nuevo TR a la tabla de paquetes
-function meterDato(DESCRIPCION, CVE, costo_total, precio_venta, CANTIDAD, ID_SERVICIO, ABREVIATURA, tablaContenidoPaquete) {
+function meterDato(DESCRIPCION, CVE, costo_total, precio_venta, CANTIDAD, ID_SERVICIO, ABREVIATURA, tablaContenidoPaquete, PRECIO_REFERENCIA = null) {
     let longitud = dataSet.length + 1;
     if (costo_total == null) {
         costo_total = 0;
@@ -58,7 +58,9 @@ function meterDato(DESCRIPCION, CVE, costo_total, precio_venta, CANTIDAD, ID_SER
         `<div class="costo-paquete text-center">$${costo_total}</div>`,
         `<div class="costototal-paquete text-center">$${costo_total}</div>`, null,
         `<div class="precioventa-paquete text-center">$${precio_venta}</div>`,
-        `<div class="subtotal-paquete text-center">$0</div>`, ID_SERVICIO
+        `<div class="subtotal-paquete text-center">$0</div>`, 
+        `<div class="input-group"><span class="input-span">$</span><input type="number" class="form-control input-form precio-referencia text-center" name="precio-referencia" placeholder="20" value="${PRECIO_REFERENCIA}"></div>`,
+        ID_SERVICIO
     ]).draw();
 }
 
@@ -73,7 +75,7 @@ function calcularFilasPaqueteTR() {
             let rowData = this.data();
             let rowNode = this.node(); // para pasar el nodo al cálculo si lo necesitas
             let calculo = caluloFila(rowNode); // Usa el nodo para los cálculos
-            let id_servicio = rowData[8];
+            let id_servicio = rowData[9];
 
             subtotalCosto += parseFloat(calculo[0]) || 0;
             subtotalPrecioventa += parseFloat(calculo[1]) || 0;
@@ -93,7 +95,8 @@ function calcularFilasPaqueteTR() {
                 'costo': parseFloat(calculo[3]) || 0,
                 'costototal': parseFloat(calculo[0]) || 0,
                 'precioventa': parseFloat(calculo[4]) || 0,
-                'subtotal': parseFloat(calculo[1]) || 0
+                'subtotal': parseFloat(calculo[1]) || 0,
+                'precio_referencia': parseFloat(calculo[5]) || 0
             });
         });
     } catch (error) {
@@ -139,6 +142,9 @@ function caluloFila(parent_element) {
     let cantidad = parseFloat($(parent_element).find("input[name='cantidad-paquete']").val());
     let costo = parseFloat($(parent_element).find("div[class='costo-paquete text-center']").text().slice(1));
     let precioventa = parseFloat($(parent_element).find("div[class='precioventa-paquete text-center']").text().slice(1));
+
+    // pobtiene el precio de referencia introducido por el usuario
+    let precio_referencia = parseFloat($(parent_element).find("input[name='precio-referencia']").val());
     // Dar valor a costo total
     let costoTotal = cantidad * costo;
     if (checkNumber(costoTotal)) {
@@ -168,9 +174,10 @@ function caluloFila(parent_element) {
         5: row.data()[5],
         6: `<div class="precioventa-paquete text-center">$${precioventa}</div>`,
         7: `<div class="subtotal-paquete text-center">$${subtotal}</div>`,
-        8: row.data()[8]
+        8: `<div class="input-group"><span class="input-span">$</span><input type="number" class="form-control input-form precio-referencia text-center" name="precio-referencia" placeholder="1" value="${precio_referencia}"></div>`,
+        9: row.data()[9]
     }).invalidate().draw(false);
-    return data = [costoTotal, subtotal, cantidad, costo, precioventa]
+    return data = [costoTotal, subtotal, cantidad, costo, precioventa, precio_referencia]
 }
 
 function checkNumber(x) {
