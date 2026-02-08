@@ -515,8 +515,7 @@ BEGIN
     AND (
         _search IS NULL OR _search = '' OR 
         p.nombre_completo LIKE CONCAT('%', _search, '%') OR
-        p.especialidad LIKE CONCAT('%', _search, '%') OR
-        p.rfc LIKE CONCAT('%', _search, '%')
+        p.especialidad LIKE CONCAT('%', _search, '%')
     )
     ORDER BY p.nombre_completo;
 END;
