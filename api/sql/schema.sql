@@ -630,3 +630,144 @@ END;
 
 /* Se mantienen otros SPs de cortes de caja si son necesarios, 
 pero se recomienda revisar su uso */
+
+/* -------------------------------------------------------------------------- */
+/*                        STORED PROCEDURES - CONSOLIDADO                     */
+/* -------------------------------------------------------------------------- */
+
+DROP PROCEDURE IF EXISTS `sp_tracking_unificado_listado`;
+
+CREATE PROCEDURE `sp_tracking_unificado_listado`(IN _activo TINYINT)
+BEGIN
+    /* 1. FACTURAS DE PROVEEDORES */
+    SELECT 
+        pg.id,
+        'PROVEEDOR' as origen_tipo,
+        pr.nombre_comercial as nombre,
+        'Proveedores' as super_categoria,
+        'Factura' as categoria,
+        pr.razon_social as sub_categoria,
+        pg.folio_fiscal as factura,
+        pg.fecha_emision as emision,
+        pg.fecha_limite_pago as pagoEstimado,
+        pg.fecha_pago as fechaPago,
+        pg.monto_total,
+        pg.estado as status,
+        pg.archivo_ruta
+    FROM tracking_pagos pg
+    LEFT JOIN tracking_proveedores pr ON pg.proveedor_id = pr.id
+    WHERE pg.activo = IFNULL(_activo, 1)
+
+    UNION ALL
+
+    /* 2. NÓMINA */
+    SELECT 
+        n.id,
+        'NOMINA' as origen_tipo,
+        t.nombre_completo as nombre,
+        'Nómina' as super_categoria,
+        t.puesto as categoria,
+        CONCAT('Q', n.periodo_quincena, '-', n.periodo_anio) as sub_categoria,
+        'NOMINA' as factura,
+        CAST(n.created_at AS DATE) as emision,
+        DATE_ADD(CAST(n.created_at AS DATE), INTERVAL 1 DAY) as pagoEstimado,
+        n.fecha_pago as fechaPago,
+        n.monto_total,
+        IF(n.fecha_pago IS NOT NULL, 'pagado', 'pendiente') as status,
+        NULL as archivo_ruta
+    FROM tracking_nomina n
+    LEFT JOIN tracking_trabajadores t ON n.trabajador_id = t.id
+    WHERE n.activo = IFNULL(_activo, 1)
+
+    UNION ALL
+
+    /* 3. GASTOS GENERALES */
+    SELECT 
+        g.id,
+        'GASTO' as origen_tipo,
+        g.concepto as nombre,
+        g.super_category_id as super_categoria,
+        g.category_id as categoria,
+        g.subcategory_id as sub_categoria,
+        'S/F' as factura,
+        g.fecha_emision as emision,
+        g.fecha_emision as pagoEstimado,
+        g.fecha_emision as fechaPago, 
+        g.monto as monto_total,
+        'pagado' as status, 
+        g.archivo_ruta
+    FROM tracking_gastos g
+    WHERE g.activo = IFNULL(_activo, 1)
+    
+    ORDER BY emision DESC;
+END;
+
+/* sp_tracking_unificado_listado 12:00 08/02/2026*/
+
+DROP PROCEDURE IF EXISTS `sp_tracking_unificado_listado`;
+
+CREATE PROCEDURE `sp_tracking_unificado_listado`(IN _activo TINYINT)
+BEGIN
+    /* 1. FACTURAS DE PROVEEDORES */
+    SELECT 
+        pg.id,
+        'PROVEEDOR' as origen_tipo,
+        IFNULL(pr.nombre_comercial, 'Proveedor Desconocido') as nombre,
+        'Proveedores' as super_categoria,
+        'Factura' as categoria,
+        IFNULL(pr.razon_social, '-') as sub_categoria,
+        pg.folio_fiscal as factura,
+        pg.fecha_emision as emision,
+        pg.fecha_limite_pago as pagoEstimado,
+        pg.fecha_pago as fechaPago,
+        pg.monto_total,
+        pg.estado as status,
+        pg.archivo_ruta
+    FROM tracking_pagos pg
+    LEFT JOIN tracking_proveedores pr ON pg.proveedor_id = pr.id
+    WHERE pg.activo = IFNULL(_activo, 1)
+
+    UNION ALL
+
+    /* 2. NÓMINA */
+    SELECT 
+        n.id,
+        'NOMINA' as origen_tipo,
+        IFNULL(t.nombre_completo, 'Trabajador') as nombre,
+        'Nómina' as super_categoria,
+        t.puesto as categoria,
+        CONCAT('Q', n.periodo_quincena, '-', n.periodo_anio) as sub_categoria,
+        'NOMINA' as factura,
+        CAST(n.created_at AS DATE) as emision,
+        DATE_ADD(CAST(n.created_at AS DATE), INTERVAL 1 DAY) as pagoEstimado,
+        n.fecha_pago as fechaPago,
+        n.monto_total,
+        IF(n.fecha_pago IS NOT NULL, 'pagado', 'pendiente') as status,
+        NULL as archivo_ruta
+    FROM tracking_nomina n
+    LEFT JOIN tracking_trabajadores t ON n.trabajador_id = t.id
+    WHERE n.activo = IFNULL(_activo, 1)
+
+    UNION ALL
+
+    /* 3. GASTOS GENERALES */
+    SELECT 
+        g.id,
+        'GASTO' as origen_tipo,
+        IFNULL(g.concepto, 'Gasto General') as nombre,
+        g.super_category_id as super_categoria,
+        g.category_id as categoria,
+        g.subcategory_id as sub_categoria,
+        'S/F' as factura,
+        g.fecha_emision as emision,
+        g.fecha_emision as pagoEstimado,
+        g.fecha_emision as fechaPago, 
+        g.monto as monto_total,
+        'pagado' as status, 
+        g.archivo_ruta
+    FROM tracking_gastos g
+    WHERE g.activo = IFNULL(_activo, 1)
+    
+    ORDER BY emision DESC;
+END;
+

@@ -33,8 +33,8 @@ switch ($api) {
         $response = ['id' => $res[0]['id'] ?? null];
         break;
 
-    case 9: # Listar Pagos (Facturas) V2
-        $response = $master->getByProcedureWithFecthAssoc('sp_tracking_pagos_listado_v2', [1]);
+    case 9: # Listar Tracking Unificado
+        $response = $master->getByProcedureWithFecthAssoc('sp_tracking_unificado_listado', [1]);
         break;
 
 
