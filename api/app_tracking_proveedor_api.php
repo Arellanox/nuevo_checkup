@@ -14,22 +14,35 @@ $code = 200;
 
 switch ($api) {
     case 0: # Obtener proveedores
-        $response = $master->getByProcedureWithFecthAssoc('sp_tracking_proveedores_listado', [null, null]);
+        $search = $request['search'] ?? '';
+        $response = $master->getByProcedureWithFecthAssoc('sp_tracking_proveedores_listado_v2_search', [null, null, $search]);
         break;
 
     case 2: # Crear proveedor
         $params = getParams($request, [
-            'nombre_comercial', 'razon_social', 'nombre_contacto', 'telefono', 'correo', 'rfc',
-            'banco', 'cuenta_clabe', 'tiene_credito', 'dias_credito', 'unidad_negocio_id'
+            'nombre_comercial',
+            'razon_social',
+            'nombre_contacto',
+            'telefono',
+            'correo',
+            'rfc',
+            'banco',
+            'cuenta_clabe',
+            'tiene_credito',
+            'dias_credito'
         ]);
-        
+
         $res = $master->getByProcedureWithFecthAssoc('sp_tracking_proveedores_crear', $params);
         $entityId = $res[0]['id'] ?? null;
 
         if ($entityId && !empty($request['clasificaciones']) && is_array($request['clasificaciones'])) {
             foreach ($request['clasificaciones'] as $c) {
                 $master->getByProcedureWithFecthAssoc('sp_tracking_entidad_categoria_agregar', [
-                    'PROVEEDOR', $entityId, $c['superId'], $c['catId'], $c['subId']
+                    'PROVEEDOR',
+                    $entityId,
+                    $c['superId'],
+                    $c['catId'],
+                    $c['subId']
                 ]);
             }
         }
@@ -42,10 +55,11 @@ switch ($api) {
             $master->getByProcedureWithFecthAssoc('sp_tracking_proveedores_eliminar', [$id]);
             $response = ['id' => $id];
         } else {
-            $code = 400; $message = 'ID requerido';
+            $code = 400;
+            $message = 'ID requerido';
         }
         break;
-        
+
     case 12: # Obtener Proveedor (Detalle)
         $id = $request['id'] ?? null;
         if ($id) {
@@ -55,7 +69,8 @@ switch ($api) {
                 $response['categorias'] = json_decode($response['categorias_json'], true);
             }
         } else {
-            $code = 400; $message = 'ID requerido';
+            $code = 400;
+            $message = 'ID requerido';
         }
         break;
 
@@ -63,26 +78,40 @@ switch ($api) {
         $id = $request['id'] ?? null;
         if ($id) {
             $params = getParams($request, [
-                'id', 'nombre_comercial', 'razon_social', 'nombre_contacto', 'telefono', 'correo', 'rfc',
-                'banco', 'cuenta_clabe', 'tiene_credito', 'dias_credito', 'unidad_negocio_id'
+                'id',
+                'nombre_comercial',
+                'razon_social',
+                'nombre_contacto',
+                'telefono',
+                'correo',
+                'rfc',
+                'banco',
+                'cuenta_clabe',
+                'tiene_credito',
+                'dias_credito'
             ]);
-            
+
             $master->getByProcedureWithFecthAssoc('sp_tracking_proveedores_actualizar', $params);
-            
+
             // Re-sync categories if provided
-             if (!empty($request['clasificaciones']) && is_array($request['clasificaciones'])) {
+            if (!empty($request['clasificaciones']) && is_array($request['clasificaciones'])) {
                 // Clear existing categories first to avoid duplicates
                 $master->getByProcedureWithFecthAssoc('sp_tracking_entidad_categorias_limpiar', ['PROVEEDOR', $id]);
-                
-                 foreach ($request['clasificaciones'] as $c) {
+
+                foreach ($request['clasificaciones'] as $c) {
                     $master->getByProcedureWithFecthAssoc('sp_tracking_entidad_categoria_agregar', [
-                        'PROVEEDOR', $id, $c['superId'], $c['catId'], $c['subId']
+                        'PROVEEDOR',
+                        $id,
+                        $c['superId'],
+                        $c['catId'],
+                        $c['subId']
                     ]);
                 }
             }
             $response = ['id' => $id];
         } else {
-             $code = 400; $message = 'ID requerido';
+            $code = 400;
+            $message = 'ID requerido';
         }
         break;
 
@@ -95,7 +124,8 @@ switch ($api) {
 
 
 
-function getParams($source, $keys): array {
+function getParams($source, $keys): array
+{
     return array_map(function ($key) use ($source) {
         return $source[$key] ?? null;
     }, $keys);
