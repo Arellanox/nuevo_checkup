@@ -3588,7 +3588,8 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                       }
                       $('#info-paci-directorio').html(row.CALLE + ", " + row.COLONIA + ", " +
                         row.MUNICIPIO + ", " + row.ESTADO);
-                      $('#info-paci-comentario').html(row.COMENTARIO_RECHAZO);
+                      $('#info-paci-comentario').html(ifnull(row.COMENTARIO_RECHAZO,"SIN COMENTARIOS"));
+
 
 
                       $('#info-paci-diagnostico').html(row.DIAGNOSTICO);

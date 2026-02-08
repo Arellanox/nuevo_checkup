@@ -77,12 +77,11 @@ switch ($api) {
 
         break;
     case 6:
-
-
-
         #detalles de un paquete
         $detalle = $_POST['paquete_detalle'];
-        //print_r($detalle);
+        // print_r($detalle);
+        // exit;
+
         # obtiene el arreglo del final
         $info_paquete = array_slice($detalle, count($detalle) - 1, 1);
         #quita la informacion del paquete, solo deja los detalles
@@ -96,7 +95,7 @@ switch ($api) {
         $id_paquete =  $info_paquete[0]['id_paquete'];
 
         #desactivo todos los detalles actuales del paquete para poder dejar unicamente los cambios que estoy recibiendo
-        $array_reset = array(null, $id_paquete, null, null, null, null, null, null, 1 /*reseatear contenido */);
+        $array_reset = array(null, $id_paquete, null, null, null, null, null, null, null,  1 /*reseatear contenido */);
         $desactivados = $master->deleteByProcedure('sp_detalle_paquete_g', $array_reset);
 
         if (is_numeric($desactivados)) {
@@ -110,6 +109,7 @@ switch ($api) {
                     $det['costototal'],
                     $det['precioventa'],
                     $det['subtotal'],
+                    $det['precio_referencia'],
                     //descuento
                     0 #resetear contenido
                 );
