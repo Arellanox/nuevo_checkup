@@ -4,12 +4,28 @@ rellenarSelect('#seleccionar-cliente', 'clientes_api', 2, 0, 'NOMBRE_SISTEMA.NOM
 
 // Rellenan la tabla dependiendo de las opciones
 $('#seleccionar-cliente').change(function () {
+    
+    var  modalElement = document.getElementById('ModalDetallePaquete');
+    var  modalInstance = bootstrap.Modal.getInstance(modalElement);
+
+    if (modalInstance) {
+        modalInstance.hide();
+    }
+
+    // quitar foco manualmente (esto evita el error aria-hidden)
+    document.activeElement.blur();
+
+
     switch ($('input[type=radio][name=selectTipLista]:checked').val()) {
         case '3': //Solo paquetes
+            idPaquete = null;
+            jsonDetallePaquete.id_paquete = 0;
+
             obtenertablaListaPrecios(columnsDefinidas, columnasData, 'paquetes_api', {
                 api: 2,
                 cliente_id: $(this).val()
-            }, 'response.data')
+            }, 'response.data', true)
+           
             break;
         default:
             $('input[type=radio][name=selectChecko]').prop('checked', false)
@@ -63,7 +79,6 @@ $('input[type=radio][name=selectChecko]').change(function () {
                 alertSelectTable('Seleccione un cliente')
             }
             break;
-
 
     }
 
@@ -264,17 +279,20 @@ $('input[type=radio][name=selectTipLista]').change(function () {
             //     cliente_id = $('#seleccionar-cliente').val()
             //   }, 400);
             // }
-
             obtenertablaListaPrecios(columnsDefinidas, columnasData, 'paquetes_api', {
                 api: 2,
                 cliente_id: $('#seleccionar-cliente').val()
-            }, 'response.data')
+            }, 'response.data', true)
+
+            destruirTablaDetallePaquete();
+            inicializarTablaDetalle();
 
             return 1;
             break;
         default:
             confirm('Esta opcion no deberia verser, recargue la pagina y eliga una opción')
     }
+
     tablaPrecio.destroy();
     $('#TablaListaPrecios').empty();
     tablaPrecio = $("#TablaListaPrecios").DataTable({
@@ -286,11 +304,11 @@ $('input[type=radio][name=selectTipLista]').change(function () {
         // paging: false,
         columnDefs: columnsDefinidas
     });
-    inputBusquedaTable('TablaListaPrecios', tablaPrecio, [], [], 'col-12')
+    inputBusquedaTable('TablaListaPrecios', tablaPrecio, [], [], 'col-12') 
     $('input[type=radio][name=selectChecko]:checked').prop('checked', false);
     // obtenertablaListaPrecios(columnsDefinidas, columnasData, apiurl)
-})
 
+})
 
 // opciones = obtenerDatosMostrar(menu)
 
