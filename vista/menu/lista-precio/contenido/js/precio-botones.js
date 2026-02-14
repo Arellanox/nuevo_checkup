@@ -287,6 +287,11 @@ $('input[type=radio][name=selectTipLista]').change(function () {
             destruirTablaDetallePaquete();
             inicializarTablaDetalle();
 
+            setTimeout(() => {
+                mostrarDiscoveryPaquetesPro();
+            }, 500);
+
+
             return 1;
             break;
         default:

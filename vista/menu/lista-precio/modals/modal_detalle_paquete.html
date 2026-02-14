@@ -46,4 +46,36 @@
     .fila-seleccionada {
         background-color: #d0ebff !important;
     }
+
+    /* 🔥 overlay oscuro */
+    .discovery-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.45);
+        z-index: 2000;
+        backdrop-filter: blur(2px);
+    }
+
+    /* 🎯 spotlight */
+    .discovery-spotlight {
+        position: relative;
+        z-index: 2002;
+        box-shadow: 0 0 0 6px rgba(13,110,253,0.45);
+        border-radius: 10px;
+        animation: pulseDiscovery 1.5s infinite;
+    }
+
+    @keyframes pulseDiscovery {
+        0% { box-shadow: 0 0 0 4px rgba(13,110,253,0.45); }
+        50% { box-shadow: 0 0 0 10px rgba(13,110,253,0.25); }
+        100% { box-shadow: 0 0 0 4px rgba(13,110,253,0.45); }
+    }
+
+    /* 💬 tooltip */
+    .discovery-tooltip {
+        position: fixed;
+        z-index: 2003;
+        max-width: 320px;
+    }
+
 </style>

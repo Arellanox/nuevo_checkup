@@ -214,6 +214,47 @@ function obtenertablaListaPrecios(columnDefs, columnsData, urlApi, dataAjax = {
     if(detallePaq)    configurarClickFilas();
 }
 
+function mostrarDiscoveryPaquetes() {
+
+    const KEY = 'discovery_paquetes_count';
+    let veces = parseInt(localStorage.getItem(KEY) || '0');
+
+    // 🔒 solo mostrar máximo 2 veces
+    if (veces >= 2) return;
+
+    // incrementar contador
+    localStorage.setItem(KEY, veces + 1);
+
+    // 🔥 crear alerta bonita
+    const alerta = $(`
+        <div id="discovery-paquetes" class="alert alert-info shadow"
+             style="
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                z-index: 2000;
+                max-width: 320px;
+                display: none;
+             ">
+            <strong>Tip 👆</strong><br>
+            Puedes hacer <b>doble click</b> en un paquete para ver su detalle.
+        </div>
+    `);
+
+    $('body').append(alerta);
+
+    // animación suave
+    alerta.fadeIn(400);
+
+    // auto cerrar
+    setTimeout(() => {
+        alerta.fadeOut(400, function () {
+            $(this).remove();
+        });
+    }, 5000);
+}
+
+
 function configurarClickFilas() {
 
     // 🔥 Limpiar eventos anteriores
@@ -532,3 +573,69 @@ $(document).on('click', 'button.toggle-vis', function (e) {
     $(this).removeClass('span-info');
     if (column_costo.visible()) $(this).addClass('span-info');
 });
+
+function mostrarDiscoveryPaquetesPro() {
+
+    const KEY = 'discovery_paquetes_pro_count';
+    let veces = parseInt(localStorage.getItem(KEY) || '0');
+
+    // 🔒 solo máximo 2 veces
+    if (veces >= 2) return;
+
+    // esperar a que la tabla exista
+    const tabla = $('#TablaListaPrecios');
+    if (!tabla.length) return;
+
+    localStorage.setItem(KEY, veces + 1);
+
+    // 🔥 overlay
+    const overlay = $('<div class="discovery-overlay"></div>');
+    $('body').append(overlay);
+
+    // 🎯 spotlight
+    tabla.addClass('discovery-spotlight');
+
+    // 📍 calcular posición
+    const offset = tabla.offset();
+
+    // 💬 tooltip bonito
+    const tooltip = $(`
+        <div class="discovery-tooltip card shadow-lg">
+            <div class="card-body">
+                <div class="fw-bold mb-2">💡 Tip rápido</div>
+                <div class="mb-3">
+                    Haz <b>doble clic</b> en cualquier paquete
+                    para ver su detalle.
+                </div>
+                <div class="text-end">
+                    <button class="btn btn-primary btn-sm" id="btnCerrarDiscovery">
+                        Entendido
+                    </button>
+                </div>
+            </div>
+        </div>
+    `);
+
+    $('body').append(tooltip);
+
+    // posicionar tooltip
+    tooltip.css({
+        top: offset.top + 40,
+        left: offset.left + tabla.outerWidth() - 340
+    }).hide().fadeIn(300);
+
+    // cerrar
+    $('#btnCerrarDiscovery').on('click', function () {
+        tooltip.fadeOut(200, () => tooltip.remove());
+        overlay.fadeOut(200, () => overlay.remove());
+        tabla.removeClass('discovery-spotlight');
+    });
+
+    // 🔥 auto cierre opcional (10s)
+    setTimeout(() => {
+        if ($('#btnCerrarDiscovery').length) {
+            $('#btnCerrarDiscovery').trigger('click');
+        }
+    }, 10000);
+}
+
