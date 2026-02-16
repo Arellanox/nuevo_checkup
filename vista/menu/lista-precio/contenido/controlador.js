@@ -56,6 +56,12 @@ function inicializarTablaDetalle(){
             url: '../../../api/paquetes_api.php',
             dataSrc: 'response.data'
         },
+        drawCallback: function () {
+            const table = this.api();
+            setTimeout(() => {
+                table.columns.adjust();
+            }, 50);
+        },
         initComplete: function () {
             setTimeout(() => {
                 tablaDetallePaquetes.columns.adjust().draw(false);
