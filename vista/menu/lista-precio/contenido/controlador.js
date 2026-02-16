@@ -42,8 +42,10 @@ function inicializarTablaDetalle(){
     }
     // inicializar la tabla detalle de paquetes
     tablaDetallePaquetes = $("#TablaDetallePaquete").DataTable({
+        autoWidth: false,
         scrollY: "63vh",
         scrollCollapse: true,
+        responsive: true,
         ajax: {
             dataType: 'json',
             data: function(d){
@@ -53,6 +55,11 @@ function inicializarTablaDetalle(){
             method: 'POST',
             url: '../../../api/paquetes_api.php',
             dataSrc: 'response.data'
+        },
+        initComplete: function () {
+            setTimeout(() => {
+                tablaDetallePaquetes.columns.adjust().draw(false);
+            }, 100);
         },
         columns: [
             { data: 'SERVICIO' },
