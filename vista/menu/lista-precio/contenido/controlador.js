@@ -60,7 +60,7 @@ function inicializarTablaDetalle(){
             const table = this.api();
             setTimeout(() => {
                 table.columns.adjust();
-            }, 50);
+            }, 100);
         },
         initComplete: function () {
             setTimeout(() => {
