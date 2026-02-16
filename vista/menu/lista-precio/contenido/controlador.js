@@ -384,6 +384,7 @@ function doSelectableTablePack(tablaPrecio){
                     keyboard: false
                 }
             )
+            tablaDetallePaquetes.columns.adjust().draw(false);
             modal.show();
            
         }
