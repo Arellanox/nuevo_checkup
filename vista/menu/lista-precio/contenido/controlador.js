@@ -639,3 +639,8 @@ function mostrarDiscoveryPaquetesPro() {
     }, 10000);
 }
 
+$('#ModalDetallePaquete').on('shown.bs.modal', function () {
+    if ($.fn.DataTable.isDataTable('#TablaDetallePaquete')) {
+        tablaDetallePaquetes.columns.adjust().draw(false);
+    }
+});
