@@ -9,9 +9,6 @@ $api = $request['api'] ?? null;
 $message = 'Operación Exitosa';
 $code = 200;
 
-
-
-
 switch ($api) {
     case 0: # Obtener proveedores
         $search = $request['search'] ?? '';

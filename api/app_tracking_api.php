@@ -39,8 +39,8 @@ switch ($api) {
 
 
 
-    case 12: # Registrar Nómina (Batch)
-        // Expected payload: year, quincena, items: [{ workerId, daysWorked, bonusAmount, imssAmount, totalPayable, paymentDate }]
+    case 12: # Registrar Nómina (Batch) - v2 con tipo_nomina (IMSS / BONO)
+        // Expected payload: year, quincena, items: [{ workerId, tipoNomina, daysWorked, bonusAmount, imssAmount, totalPayable, paymentDate }]
         $items = $request['items'] ?? [];
         $anio = $request['year'] ?? date('Y');
         $quin = $request['quincena'] ?? 1;
@@ -48,8 +48,10 @@ switch ($api) {
         
         $ids = [];
         foreach ($items as $item) {
+            $tipoNomina = $item['tipoNomina'] ?? 'IMSS';
             $params = [
                 $item['workerId'],
+                $tipoNomina,
                 $anio,
                 $quin,
                 $item['daysWorked'],
@@ -58,7 +60,7 @@ switch ($api) {
                 $item['totalPayable'],
                 $paymentDate
             ];
-            $res = $master->getByProcedureWithFecthAssoc('sp_tracking_nomina_crear', $params);
+            $res = $master->getByProcedureWithFecthAssoc('sp_tracking_nomina_crear_v2', $params);
             if (isset($res[0]['id'])) {
                 $ids[] = $res[0]['id'];
             }
@@ -140,6 +142,54 @@ switch ($api) {
             $row['total'] = round($row['total'], 2);
             return $row;
         }, $acumulado));
+        break;
+
+    case 17: # Ingresos por CxC (Cobranza) - Integración con Estado de Resultados
+        $anio = $request['anio'] ?? date('Y');
+        $mes  = $request['mes'] ?? null; // null = todo el año
+        
+        $response = $master->getByProcedureWithFecthAssoc('sp_cxc_ingresos_por_periodo', [$anio, $mes]);
+        break;
+
+    case 18: # Actualizar Pago (Factura de Proveedor)
+        $params = getParams($request, [
+            'id', 'proveedor_id', 'folio', 'fecha_emision', 'fecha_limite', 'monto', 'archivo_ruta'
+        ]);
+        if (!$params[0]) {
+            $code = 400;
+            $message = 'ID requerido';
+            $response = [];
+        } else {
+            $res = $master->getByProcedureWithFecthAssoc('sp_tracking_pago_actualizar', $params);
+            $response = ['id' => $res[0]['id'] ?? null];
+        }
+        break;
+
+    case 19: # Obtener Pago Individual (para formulario de edición)
+        $id = $request['id'] ?? null;
+        $origen = $request['origen'] ?? 'PROVEEDOR';
+        if (!$id) {
+            $code = 400;
+            $message = 'ID requerido';
+            $response = [];
+        } else {
+            $res = $master->getByProcedureWithFecthAssoc('sp_tracking_pago_obtener', [$id, $origen]);
+            $response = $res[0] ?? null;
+        }
+        break;
+
+    case 20: # Actualizar Gasto General
+        $params = getParams($request, [
+            'id', 'super_category_id', 'category_id', 'subcategory_id', 'concepto', 'monto', 'fecha_emision', 'archivo_ruta'
+        ]);
+        if (!$params[0]) {
+            $code = 400;
+            $message = 'ID requerido';
+            $response = [];
+        } else {
+            $res = $master->getByProcedureWithFecthAssoc('sp_tracking_gasto_actualizar', $params);
+            $response = ['id' => $res[0]['id'] ?? null];
+        }
         break;
 
 
