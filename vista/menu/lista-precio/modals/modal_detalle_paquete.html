@@ -1,0 +1,81 @@
+<div class="modal fade" id="ModalDetallePaquete" tabindex="-1" aria-labelledby="tituloPaquete" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header header-modal">
+                <h5 class="modal-title" id="tituloPaquete">
+                    Nombre del paquete
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table id="TablaDetallePaquete" class="table table-striped table-bordered w-100">
+                        <thead>
+                            <!-- <tr> -->
+                                <!-- Ajusta columnas según tu DataTable -->
+                                <!-- <th>Servicio</th>
+                                <th>Abreviatura</th>
+                                <th>Costo Unitario</th>
+                                <th>Precio Venta</th>
+                                <th>Precio Referencia</th>
+                            </tr> -->
+                        </thead>
+                        <tbody>
+                            <!-- DataTable llenará esto -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle"></i> Cerrar
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .fila-seleccionada {
+        background-color: #d0ebff !important;
+    }
+
+    /* 🔥 overlay oscuro */
+    .discovery-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.45);
+        z-index: 2000;
+        backdrop-filter: blur(2px);
+    }
+
+    /* 🎯 spotlight */
+    .discovery-spotlight {
+        position: relative;
+        z-index: 2002;
+        box-shadow: 0 0 0 6px rgba(13,110,253,0.45);
+        border-radius: 10px;
+        animation: pulseDiscovery 1.5s infinite;
+    }
+
+    @keyframes pulseDiscovery {
+        0% { box-shadow: 0 0 0 4px rgba(13,110,253,0.45); }
+        50% { box-shadow: 0 0 0 10px rgba(13,110,253,0.25); }
+        100% { box-shadow: 0 0 0 4px rgba(13,110,253,0.45); }
+    }
+
+    /* 💬 tooltip */
+    .discovery-tooltip {
+        position: fixed;
+        z-index: 2003;
+        max-width: 320px;
+    }
+
+</style>

@@ -19,6 +19,121 @@ var dataVistaPq = {};
 var cliente_id;
 var row2;
 
+// Recuperar el contenido de un paquete en la lista de precios
+var idPaquete;
+var jsonDetallePaquete = {
+    api: 9,
+    id_paquete: 0
+};
+var tablaDetallePaquetes;
+var bitDetallePaquete = false;
+
+var formatoMXN = new Intl.NumberFormat('es-MX', {
+    style: 'currency',
+    currency: 'MXN',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+});
+
+
+function inicializarTablaDetalle(){
+    if ($.fn.DataTable.isDataTable('#TablaDetallePaquete')) {
+        return; // ⛔ ya existe, no reinicializar
+    }
+    // inicializar la tabla detalle de paquetes
+    tablaDetallePaquetes = $("#TablaDetallePaquete").DataTable({
+        autoWidth: false,
+        scrollY: "63vh",
+        scrollCollapse: true,
+        responsive: true,
+        ajax: {
+            dataType: 'json',
+            data: function(d){
+                d.api = jsonDetallePaquete.api;
+                d.id_paquete = jsonDetallePaquete.id_paquete;
+            },
+            method: 'POST',
+            url: '../../../api/paquetes_api.php',
+            dataSrc: 'response.data'
+        },
+        drawCallback: function () {
+            const table = this.api();
+            setTimeout(() => {
+                table.columns.adjust();
+            }, 100);
+        },
+        initComplete: function () {
+            setTimeout(() => {
+                tablaDetallePaquetes.columns.adjust().draw(false);
+            }, 100);
+        },
+        columns: [
+            { data: 'SERVICIO' },
+            { data: 'ABREVIATURA' },
+            { data: 'COSTO_UNITARIO' },
+            { data: 'PRECIO_VENTA_UNITARIO' },
+            { data: 'PRECIO_REFERENCIA' },
+        ],
+        columnDefs: [
+            { targets: 0, title: "Servicio" },
+            { targets: 1, title: "Abreviatura" },
+            // { targets: 2, title: "Costo Unitario" },
+            // { targets: 3, title: "Precio Venta" },
+            // { targets: 4, title: "Precio Referencia" }
+            {
+                targets: 2,
+                title: 'Costo Unitario',
+                render: function(data, type, row){
+                    // para ordenar y buscar, devuelve solo numeros
+                    if(type == "sort" || type == "type"){
+                        return parseFloat(data);
+                    }
+
+                    // para mostrar en la tabla
+                    return formatoMXN.format(parseFloat(data) || 0);
+                },
+                className: 'text-end'
+            },
+            {
+                targets: 3,
+                title: 'Precio Venta',
+                render: function(data, type, row){
+                    // para ordenar y buscar, devuelve solo numeros
+                    if(type == "sort" || type == "type"){
+                        return parseFloat(data);
+                    }
+
+                    // para mostrar en la tabla
+                    return formatoMXN.format(parseFloat(data) || 0);
+                },
+                className: 'text-end'
+            },
+            {
+                targets: 4,
+                title: 'Precio Referencia',
+                render: function(data, type, row){
+                    // para ordenar y buscar, devuelve solo numeros
+                    if(type == "sort" || type == "type"){
+                        return parseFloat(data);
+                    }
+
+                    // para mostrar en la tabla
+                    return formatoMXN.format(parseFloat(data) || 0);
+                },
+                className: 'text-end'
+            }
+        ]
+    })
+}
+
+function destruirTablaDetallePaquete(){
+      if ($.fn.DataTable.isDataTable('#TablaDetallePaquete')) {
+        tablaDetallePaquetes.clear().destroy();
+        tablaDetallePaquetes = null;
+        bitDetallePaquete = false;
+    }
+}
+
 //Cambia la vista a la lista de precios
 function obtenerContenidoPrecios() {
     obtenerTitulo("Lista de precios"); //Aqui mandar el nombre de la area
@@ -26,6 +141,7 @@ function obtenerContenidoPrecios() {
     $.post("contenido/listaprecios.php", {franquicia: isFranquisiario}, function (html) {
         $("#body-js").html(html);
     }).done(function () {
+        
         $('#vista_paquetes-precios').fadeOut(0)
         $('#divSeleccionCliente').fadeOut(0)
         $.getScript('contenido/js/funciones-listaprecios.js').done(function () {
@@ -68,6 +184,9 @@ function obtenerContenidoPrecios() {
                 inputBusquedaTable('TablaListaPrecios', tablaPrecio, [], [], 'col-12')
                 $('input[type=radio][name=selectChecko]:checked').prop('checked', false);
             }, 200);
+
+            inicializarTablaDetalle();
+
         })
     });
 }
@@ -76,10 +195,17 @@ function obtenerContenidoPrecios() {
 function obtenertablaListaPrecios(columnDefs, columnsData, urlApi, dataAjax = {
     api: 7,
     id_area: 7
-}, response = null) {
+}, response = null, detallePaq = false) {
     dataEliminados = []
+
+    //  if ($.fn.DataTable.isDataTable('#TablaListaPrecios')) {
+    //     tablaPrecio.destroy(true); // 🔥 elimina eventos también
+    //     $('#TablaListaPrecios').empty();
+    // }
+
     tablaPrecio.destroy();
     $('#TablaListaPrecios').empty();
+
     tablaPrecio = $("#TablaListaPrecios").DataTable({
         scrollY: "63vh",
         scrollCollapse: true,
@@ -95,6 +221,193 @@ function obtenertablaListaPrecios(columnDefs, columnsData, urlApi, dataAjax = {
     });
 
     inputBusquedaTable('TablaListaPrecios', tablaPrecio, [], [], 'col-12')
+
+    // poder seleccionar rows de la tabla de paquetes.
+    // doSelectableTablePack(tablaPrecio);
+    if(detallePaq)    configurarClickFilas();
+}
+
+function mostrarDiscoveryPaquetes() {
+
+    const KEY = 'discovery_paquetes_count';
+    let veces = parseInt(localStorage.getItem(KEY) || '0');
+
+    // 🔒 solo mostrar máximo 2 veces
+    if (veces >= 2) return;
+
+    // incrementar contador
+    localStorage.setItem(KEY, veces + 1);
+
+    // 🔥 crear alerta bonita
+    const alerta = $(`
+        <div id="discovery-paquetes" class="alert alert-info shadow"
+             style="
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                z-index: 2000;
+                max-width: 320px;
+                display: none;
+             ">
+            <strong>Tip 👆</strong><br>
+            Puedes hacer <b>doble click</b> en un paquete para ver su detalle.
+        </div>
+    `);
+
+    $('body').append(alerta);
+
+    // animación suave
+    alerta.fadeIn(400);
+
+    // auto cerrar
+    setTimeout(() => {
+        alerta.fadeOut(400, function () {
+            $(this).remove();
+        });
+    }, 5000);
+}
+
+
+function configurarClickFilas() {
+
+    // 🔥 Limpiar eventos anteriores
+    $('#TablaListaPrecios tbody').off('click', 'tr');
+    $('#TablaListaPrecios tbody').off('dblclick', 'tr');
+
+    $('#TablaListaPrecios tbody').on('click', 'tr', function () {
+
+        // Si ya está seleccionada, no hacer nada
+        if ($(this).hasClass('fila-seleccionada')) {
+            return;
+        }
+
+        // Quitar selección anterior
+        $('#TablaListaPrecios tbody tr').removeClass('fila-seleccionada');
+
+        // Agregar selección a la actual
+        $(this).addClass('fila-seleccionada');
+
+        // Obtener datos del row
+        const data = tablaPrecio.row(this).data();
+
+        if (!data) return;
+
+        idPaquete = data.ID_PAQUETE;
+
+        console.log("Seleccionado:", idPaquete);
+    });
+
+    // =========================
+    // DOBLE CLICK
+    // =========================
+    $('#TablaListaPrecios tbody').on('dblclick', 'tr', function () {
+
+        const data = tablaPrecio.row(this).data();
+        if (!data) return;
+
+        idPaquete = data.ID_PAQUETE;
+        // colocar el titulo al modal
+        $("#tituloPaquete").text(data.DESCRIPCION);
+
+        //recuperar el detalle del paquete
+        jsonDetallePaquete['id_paquete'] = data.ID_PAQUETE;
+        //vaciar la tabla
+        $('#TablaDetallePaquete tbody').html(`
+            <tr>
+                <td colspan="5" class="text-center py-4">
+                    <div class="spinner-border text-primary" role="status"></div>
+                    <br>
+                    Cargando información del paquete...
+                </td>
+            </tr>
+        `);
+
+        tablaDetallePaquetes.ajax.reload(null, false);
+        
+
+        // mostrar el modal
+        var modal = new bootstrap.Modal(
+            document.getElementById("ModalDetallePaquete"),
+            {
+                backdrop: 'static',
+                keyboard: false
+            }
+        )
+        modal.show();
+    });
+}
+
+
+function doSelectableTablePack(tablaPrecio){
+
+    // CODIGO PARA HACER SELEECIONABLE LOS ROWS DE LA TABLA
+    selectTable("#TablaListaPrecios", tablaPrecio, {
+            unSelect: true, ClickClass: [
+                {
+                    callback: async function (data) {
+                        
+                        // si no hay nada seleccionado, entonces nuleamos el paquete para no enviar el ultimo seleciconado
+                        idPaquete = null;
+
+                    }, selected: true
+                },
+
+            ], dblClick: true, reload: ['col-xl-9']
+        },
+        // un solo click 
+        async function (select, data, callback) { 
+            // SI NO hay selección → resetear variable global
+            if (!select || !data) {
+                idPaquete = null;
+                // terminar la funcion
+                return;
+            }
+            // SI sí hay selección → asignar datos
+    
+        }, // doble click
+        async function (select, data, callback){
+
+            if(!data) return;
+
+            idPaquete = data.ID_PAQUETE;
+            // colocar el titulo al modal
+            $("#tituloPaquete").text(data.DESCRIPCION);
+
+            //recuperar el detalle del paquete
+            jsonDetallePaquete['id_paquete'] = data.ID_PAQUETE;
+            //vaciar la tabla
+            $('#TablaDetallePaquete tbody').html(`
+                <tr>
+                    <td colspan="5" class="text-center py-4">
+                        <div class="spinner-border text-primary" role="status"></div>
+                        <br>
+                        Cargando información del paquete...
+                    </td>
+                </tr>
+            `);
+
+            tablaDetallePaquetes.ajax.reload(null, false);
+            
+
+            // mostrar el modal
+            var modal = new bootstrap.Modal(
+                document.getElementById("ModalDetallePaquete"),
+                {
+                    backdrop: 'static',
+                    keyboard: false
+                }
+            )
+            tablaDetallePaquetes.columns.adjust().draw(false);
+            modal.show();
+           
+        }
+    )
+
+}
+
+function mostrarDetallePaquete(id){
+
+
 }
 
 //Cambia la vista para paquetes
@@ -273,4 +586,75 @@ $(document).on('click', 'button.toggle-vis', function (e) {
 
     $(this).removeClass('span-info');
     if (column_costo.visible()) $(this).addClass('span-info');
+});
+
+function mostrarDiscoveryPaquetesPro() {
+
+    const KEY = 'discovery_paquetes_pro_count';
+    let veces = parseInt(localStorage.getItem(KEY) || '0');
+
+    // 🔒 solo máximo 2 veces
+    if (veces >= 2) return;
+
+    // esperar a que la tabla exista
+    const tabla = $('#TablaListaPrecios');
+    if (!tabla.length) return;
+
+    localStorage.setItem(KEY, veces + 1);
+
+    // 🔥 overlay
+    const overlay = $('<div class="discovery-overlay"></div>');
+    $('body').append(overlay);
+
+    // 🎯 spotlight
+    tabla.addClass('discovery-spotlight');
+
+    // 📍 calcular posición
+    const offset = tabla.offset();
+
+    // 💬 tooltip bonito
+    const tooltip = $(`
+        <div class="discovery-tooltip card shadow-lg">
+            <div class="card-body">
+                <div class="fw-bold mb-2">💡 Tip rápido</div>
+                <div class="mb-3">
+                    Haz <b>doble clic</b> en cualquier paquete
+                    para ver su detalle.
+                </div>
+                <div class="text-end">
+                    <button class="btn btn-primary btn-sm" id="btnCerrarDiscovery">
+                        Entendido
+                    </button>
+                </div>
+            </div>
+        </div>
+    `);
+
+    $('body').append(tooltip);
+
+    // posicionar tooltip
+    tooltip.css({
+        top: offset.top + 40,
+        left: offset.left + tabla.outerWidth() - 340
+    }).hide().fadeIn(300);
+
+    // cerrar
+    $('#btnCerrarDiscovery').on('click', function () {
+        tooltip.fadeOut(200, () => tooltip.remove());
+        overlay.fadeOut(200, () => overlay.remove());
+        tabla.removeClass('discovery-spotlight');
+    });
+
+    // 🔥 auto cierre opcional (10s)
+    setTimeout(() => {
+        if ($('#btnCerrarDiscovery').length) {
+            $('#btnCerrarDiscovery').trigger('click');
+        }
+    }, 10000);
+}
+
+$('#ModalDetallePaquete').on('shown.bs.modal', function () {
+    if ($.fn.DataTable.isDataTable('#TablaDetallePaquete')) {
+        tablaDetallePaquetes.columns.adjust().draw(false);
+    }
 });

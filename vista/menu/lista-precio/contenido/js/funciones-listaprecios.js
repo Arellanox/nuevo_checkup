@@ -184,7 +184,6 @@ function obtenerColumnasTabla(tipo) {
                     data: 'UTILIDAD',
                     render: function (data, type, full, meta) {
                         utilidadInput = data;
-                        console.log(full)
                         if (full['COSTO'] && full['PRECIO_VENTA']) {
                             utilidadInput = (full['PRECIO_VENTA'] - full['COSTO']) / full['COSTO'] * 100;
                         }
