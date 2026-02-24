@@ -390,7 +390,7 @@ listaPreciosExelModal = $('#listaPreciosExel').DataTable({
     buttons: [
         {
             extend: 'excelHtml5',
-            text: '<i class="bi bi-box-arrow-down"></i> Descargar Exel',
+            text: '<i class="bi bi-box-arrow-down"></i> Descargar Excel',
             className: 'btn btn-success',
             titleAttr: 'Excel',
             filename: function () {
@@ -485,6 +485,7 @@ function setTablaPreciosExcel(listaPreciosExelModal) {
             break;
     }
 }
+
 
 
 

@@ -359,3 +359,33 @@ $("#btnInhabilitarPaquete").click(function(){
         },1
     );
 });
+
+// ACTUALIZACIONES PARA EL TOTAL DEL PAQUETE 
+// SUMANDO TODOS LOS PRECIOS DE REFERENCIA
+$('#CambiarPaquete').off('click.resetTotal').on('click.resetTotal', function () {
+    console.log("debe limpiar el total")
+    resetTotalPrecioPaquete({
+        limpiarInputs: false // 🔥 cámbialo a true si quieres limpiar campos
+    });
+});
+
+$('input[name="selectPaquete"]')
+    .off('change.resetTotal')
+    .on('change.resetTotal', function () {
+
+        resetTotalPrecioPaquete({
+            limpiarInputs: false
+        });
+    });
+
+function limpiarMoneda(valor) {
+    if (!valor) return 0;
+
+    return parseFloat(
+        valor
+            .replace(/\$/g, '')   // quitar $
+            .replace(/,/g, '')    // quitar comas
+            .trim()
+    ) || 0;
+}
+

@@ -9,7 +9,7 @@
             <div class="col-12">
                 <div class="row d-flex justify-content-center">
                     <div class="col-12 text-center">
-                        <h4 class="pt-3">Seleccione la accion a realizar</h4>
+                        <h4 class="pt-3">Seleccione la acción a realizar</h4>
                     </div>
                     <div class="col-auto">
                         <input type="radio" class="btn-check" name="selectPaquete" id="check-agregar" value="1" checked
@@ -148,7 +148,7 @@
                     <th scope="col d-flex justify-content-center" class="min-tablet">Costo Total</th>
                     <th scope="col d-flex justify-content-center" class="min-tablet">Precio Venta</th>
                     <th scope="col d-flex justify-content-center" class="min-tablet">Subtotal</th>
-                    <th scope="col d-flex justify-content-center" class="min-tablet">Cantidad</th>
+                    <th scope="col d-flex justify-content-center" class="min-tablet">Precio referencia</th>
                     <th scope="col d-flex justify-content-center" class="all">ID</th>
                 </tr>
                 </thead>
@@ -156,6 +156,22 @@
 
                 </tbody>
             </table>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12 col-md-6 ms-auto">
+                <div class="input-group input-group-lg shadow-sm">
+                    <span class="input-group-text fw-bold">
+                        💰 Precio total del paquete
+                    </span>
+                    <input
+                        type="text"
+                        id="total-precio-referencia"
+                        class="form-control text-end fw-bold"
+                        value="$0.00"
+                        style="background:#f8f9fa;"
+                    >
+                </div>
+            </div>
         </div>
     </div>
 </div>

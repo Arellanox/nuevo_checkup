@@ -46,6 +46,25 @@ $('#UsarPaquete').on('click', function () {
                     calcularFilasPaqueteTR();
                 }
             })
+
+            // recuperar el precio de venta del paquete entero guardado en la base de datos
+            $.ajax({
+                url: `${http}${servidor}/${appname}/api/paquetes_api.php`,
+                type: "POST",
+                dataType: 'json',
+                data: {
+                    id_paquete: $("#seleccion-paquete").val(),
+                    api: 15
+                },
+                success: function(data){
+                    $("#total-precio-referencia").val(formatoMXN.format(data.response.data[0].PRECIO_VENTA));
+                },
+                complete: function(){
+                    var x = $("#total-precio-referencia").val();
+                    //$("#total-precio-referencia").val(formatoMXN.format(x));
+                }
+            })
+
             break;
     }
 })
@@ -100,7 +119,8 @@ $('#guardar-contenido-paquete').on('click', function () {
     let dataAjax = calcularFilasPaqueteTR();
     let tableData = tablaContenidoPaquete.rows().data().toArray();
 
-    console.log(dataAjax);
+    // conseguir el precio total del paquete
+    var precioTotalPaquete = limpiarMoneda($("#total-precio-referencia").val());
 
     if (tableData.length > 0) {
 
@@ -167,6 +187,29 @@ $('#guardar-contenido-paquete').on('click', function () {
                             }
                         }
                     })
+
+                    // Actualizar ahora el precio del paquete
+                    $.ajax({
+                        url: `${http}${servidor}/${appname}/api/paquetes_api.php`,
+                        data: {
+                            api: 14,
+                            precio_venta: precioTotalPaquete,
+                            id_paquete: $("#seleccion-paquete").val()
+                        },
+                        type: "POST",
+                        datatype: "json",
+                        beforeSend: function(data){
+
+                        },
+                        success: function(data){
+                            data = jQuery.parseJSON(data);
+                            if(mensajeAjax(data)){
+                                alertToast('¡Precio del paquete actualizado!', 'success', 4000);
+                                resetTotalPrecioPaquete();
+                            }
+                        }
+                    })
+
                 } else {
                     alertSelectTable('¡Contraseña incorrecta!', 'error')
                 }

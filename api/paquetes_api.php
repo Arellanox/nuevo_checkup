@@ -195,6 +195,16 @@ switch ($api) {
         $response = $master->insertByProcedure('sp_paquetes_clientes_e', [$cliente_id, $paquete]);
         break;
 
+    case 14:
+        # actualizar el precio del paquete con la sumatoria de los precio de referencia
+        $response = $master->updateByProcedure("sp_paquetes_actualizar_precio_venta",[$paquete, $precio_venta]);
+        break;
+
+    case 15:
+        # recuperar el precio actual del paquete seleccionado
+        $response = $master->getByProcedure('sp_paquetes_recuperar_precio_venta',[$paquete]);
+        break;
+
     default:
 
         $response = "api no reconocida " . $api;

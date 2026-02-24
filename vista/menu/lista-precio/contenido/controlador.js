@@ -494,6 +494,8 @@ function tablaContenido(descuento = false) {
         },
     });
 
+    escucharCambiosPrecioReferencia();
+
     inputBusquedaTable('TablaListaPaquetes', tablaContenidoPaquete, [], [], 'col-12')
     loader("Out");
 }
@@ -658,3 +660,52 @@ $('#ModalDetallePaquete').on('shown.bs.modal', function () {
         tablaDetallePaquetes.columns.adjust().draw(false);
     }
 });
+
+// Esto es para evaluar el precio total del paquete
+function calcularTotalPrecioReferencia() {
+    if (!tablaContenidoPaquete) return;
+
+    let total = 0;
+
+    // 🔥 recorrer inputs reales del DOM (LA CLAVE)
+    $('#TablaListaPaquetes tbody .precio-referencia').each(function () {
+
+        let valor = $(this).val();
+
+        if (typeof valor === 'string') {
+            valor = valor.replace(/[^0-9.-]+/g, '');
+        }
+
+        total += parseFloat(valor) || 0;
+    });
+
+    // ✅ usar tu formateador global
+    $('#total-precio-referencia').val(formatoMXN.format(total));
+}
+
+
+function escucharCambiosPrecioReferencia() {
+
+    $('#TablaListaPaquetes tbody')
+        .off('.precioRef')
+        .on('input.precioRef change.precioRef', '.precio-referencia', function () {
+
+            calcularTotalPrecioReferencia();
+        });
+} 
+
+function resetTotalPrecioPaquete({ limpiarInputs = false } = {}) {
+
+    // 🔹 poner total en cero
+    $('#total-precio-referencia').val(formatoMXN.format(0));
+
+    // 🔹 opcional: limpiar todos los precios de referencia
+    if (limpiarInputs) {
+        $('#TablaListaPaquetes tbody .precio-referencia').each(function () {
+            $(this).val('');
+        });
+    }
+}
+
+
+
