@@ -292,6 +292,11 @@ class Reporte
                 $pdf->loadHtml($template);
                 $pdf->setPaper('letter');
                 break;
+            case 'imende_oftalmo':
+                $template = render_view('invoice/imende_oftalmo.php', $view_vars);
+                $pdf->loadHtml($template);
+                $pdf->setPaper('letter');
+                break;
             default:
                 $template = render_view('invoice/reportes.php', $view_vars);
                 $pdf->loadHtml($template);

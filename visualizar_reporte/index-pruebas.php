@@ -12,7 +12,7 @@ $turno_id = mb_convert_encoding(base64_decode(urldecode($_GET['turno'])), 'UTF-8
 $area_id = mb_convert_encoding(base64_decode(urldecode($_GET['area'])), 'UTF-8');
 $usuario_id = $_SESSION['id'];
 
-$api = "cimmo";
+$api = "imende_oftalmo";
 $area_id = 1;
 $turno_id = 8;
 $id_cliente = 15;
@@ -21,6 +21,9 @@ $id_cliente = 15;
 $preview = 0; // <- debe estar activo, y la firma de quien interpreta no debe aparecer
 
 switch ($api) {
+    case "imende_oftalmo":
+        $r = $master->reportador($master, $turno_id, $area_id, 'imende_oftalmo', 'mostrar');
+        break;
     case 'imagenologia':
         # previsualizar el reporte [el reporte que previsualizan debe ir sin pie de pagina]
         $r = $master->reportador($master, $turno_id, $area_id, 'ultrasonido', 'mostrar', $preview, 0, 0, $id_cliente, $id_cotizacion);
