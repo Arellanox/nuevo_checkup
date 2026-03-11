@@ -346,6 +346,10 @@ $encode_firma = base64_encode($ruta_firma);
     <div class="footer">
         <?php
         $footerDoctor = 'Dra. Elsa G Calderón Valencia <br>Medicina Interna<br>Cédula profesional: 4896084';
+        $footerDoctor = "Dr. Ibis de la Cruz Hernández<br>
+        Infectología - Medicina Interna<br>
+        Cédula Profesional: 09995591<br>
+        Ced. Prof. Infectología: 10532710";
         include 'includes/footer.php';
         ?>
     </div>
