@@ -13,7 +13,7 @@ switch($api){
         # recuperar los reportes confirmados dada una lista de pases.
         $pases = $datos['ids'];
         $reportes = [];
-        
+
         foreach($pases as $pase){
             $info = $master->getByProcedure("sp_id_turno_x_pase_ujat", [$pase]);
             $id = $info[0]['ID_TURNO'];
