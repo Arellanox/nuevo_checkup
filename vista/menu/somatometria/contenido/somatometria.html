@@ -186,7 +186,6 @@
                         <input type="text" class="form-control input-form" id="porcentajeGrasaVisceral" name="medidas[13]" placeholder="">
                         <span class="input-span">%</span>
                       </div>
-
                     </li>
 
                   </ul>
@@ -245,6 +244,35 @@
                       </div>
                     </li>
 
+                    <!-- CINTURA Y CARDERA -->
+                    <li class="list-group-item border border-warning bg-light" id="grupo-cintura-cadera">
+                        <p class="text-warning fw-bold">
+                          <i class="bi bi-exclamation-triangle-fill"></i> Medidas requeridas para pacientes SIGMA
+                        </p>
+
+                        <div class="mb-2">
+                          <label><strong>Cintura</strong></label>
+                          <div class="input-group">
+                            <input type="text" class="form-control input-form campo-importante" id="cintura" name="medidas[20]" placeholder="Ej. 80">
+                            <span class="input-span">cm</span>
+                          </div>
+                        </div>
+
+                        <div>
+                          <label><strong>Cadera</strong></label>
+                          <div class="input-group">
+                            <input type="text" class="form-control input-form campo-importante" id="cadera" name="medidas[21]" placeholder="Ej. 95">
+                            <span class="input-span">cm</span>
+                          </div>
+                        </div>
+
+                        <small class="text-danger d-none" id="alerta-cintura-cadera">
+                          ⚠️ No olvides capturar estos datos
+                        </small>
+                    </li>
+
+                    <!-- FIN DE CINTURA Y CADERA -->
+
                   </ul>
                 </div>
               </div>
@@ -266,3 +294,47 @@
   <!-- Tercera Columna visual -->
   <div id="reload-selectable"> </div>
 </div>
+
+
+<style>
+  .campo-importante:focus {
+    border: 2px solid #ffc107;
+    box-shadow: 0 0 8px rgba(255,193,7,0.7);
+  }
+
+  .parpadeo {
+    animation: parpadeo 1s infinite;
+  }
+
+  @keyframes parpadeo {
+    0% { background-color: #fff3cd; }
+    50% { background-color: #ffeeba; }
+    100% { background-color: #fff3cd; }
+  }
+</style>
+
+<script>
+  $('#collapseSomato').on('shown.bs.collapse', function () {
+
+  let cintura = $("#cintura").val();
+  let cadera = $("#cadera").val();
+
+  let requiereMedidas = true; // tu lógica aquí
+
+  if (requiereMedidas && (!cintura || !cadera)) {
+
+    $("#alerta-cintura-cadera").removeClass("d-none");
+    $("#grupo-cintura-cadera").addClass("parpadeo");
+
+    // opcional: enfocar directamente
+    if (!cintura) {
+      $("#cintura").focus();
+    } else {
+      $("#cadera").focus();
+    }
+
+  }
+
+});
+
+</script>
