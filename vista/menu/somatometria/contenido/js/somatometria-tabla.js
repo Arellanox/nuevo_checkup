@@ -95,7 +95,9 @@ async function obtenerResultadosSignos(id) {
                 'porcentajeProteinas': 'PROTEÍNAS',
                 'porcentajeAgua': 'AGUA CORPORAL TOTAL',
                 'masagrasaCorportal': 'MASA GRASA CORPORAL',
-                'minerales': 'MINERALES'
+                'minerales': 'MINERALES',
+                'cintura': 'CINTURA',
+                'cadera': 'CADERA'
             };
 
             // Iterar sobre el mapeo para establecer los valores de los elementos
