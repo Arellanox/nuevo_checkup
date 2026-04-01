@@ -16,6 +16,7 @@ var tablaGrupos = $('#TablaGruposServicios').DataTable({
   },
   columns: [
     { data: 'COUNT' },
+    { data: 'ID_SERVICIO' },
     { data: 'DESCRIPCION' },
     { data: 'ABREVIATURA' },
     { data: 'CLASIFICACION_EXAMEN' },
@@ -45,14 +46,15 @@ var tablaGrupos = $('#TablaGruposServicios').DataTable({
   columnDefs: [
     // { "width": "3px", "targets": [0, 4] },
     { target: 0, title: '#', className: 'all' },
-    { target: 1, title: 'Descripción', className: 'all' },
-    { target: 2, title: 'Abreviatura', className: 'all' },
-    { target: 3, title: 'Clasificación', className: 'min-tablet' },
-    { target: 4, title: 'Dirigido', className: 'min-tablet' },
-    { target: 5, title: 'Area', className: 'desktop' },
-    { target: 6, title: 'Maquilado', className: 'all' },
-    { target: 7, title: 'Subrogado', className: 'all' },
-    { target: 8, title: 'Indicaciones', className: 'none' }
+    { target: 1, title: 'Identificador', className: 'all' },
+    { target: 2, title: 'Descripción', className: 'all' },
+    { target: 3, title: 'Abreviatura', className: 'all' },
+    { target: 4, title: 'Clasificación', className: 'min-tablet' },
+    { target: 5, title: 'Dirigido', className: 'min-tablet' },
+    { target: 6, title: 'Area', className: 'desktop' },
+    { target: 7, title: 'Maquilado', className: 'all' },
+    { target: 8, title: 'Subrogado', className: 'all' },
+    { target: 9, title: 'Indicaciones', className: 'none' }
   ],
 
   dom: 'Blfrtip',

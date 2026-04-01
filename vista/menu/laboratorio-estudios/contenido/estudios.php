@@ -18,6 +18,7 @@
         <thead>
           <tr>
             <th scope="col d-flex justify-content-center" class="all">#</th>
+            <th scope="col d-flex justify-content-center" class="all">Identificador</th>
             <th scope="col d-flex justify-content-center" class="all">Servicio</th>
             <th scope="col d-flex justify-content-center" class="all">Abreviatura</th>
             <th scope="col d-flex justify-content-center" class="min-tablet">Clasificacion</th>

@@ -22,6 +22,7 @@ var tablaServicio = $('#TablaEstudioServicio').DataTable({
     },
     columns: [
         {data: 'COUNT'},
+        {data: 'ID_SERVICIO'},
         {data: 'DESCRIPCION'},
         {data: 'ABREVIATURA'},
         {data: 'CLASIFICACION_EXAMEN'},
