@@ -64,6 +64,11 @@ switch($api){
 
         $response = $master->decodeJsonRecursively($resultset);
         break;
+    case 4:
+        $response = $master->updateByProcedure("sp_laboratorio_desactivar_servicios", [
+            $servicio_id
+        ]);
+        break;
 
     default:
         $response = "API no definida.";

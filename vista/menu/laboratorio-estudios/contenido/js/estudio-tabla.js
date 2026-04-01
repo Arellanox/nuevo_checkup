@@ -99,6 +99,39 @@ var tablaServicio = $('#TablaEstudioServicio').DataTable({
             //   columns: [0, 1, 8, 3, 2, 4, 6, 7, 5, 9, 10, 11]
             // }
 
+        },
+        {
+            text: '<i class="bi bi-trash-fill"></i> Inhabilitar',
+            className: 'btn btn-danger',
+            action: function (){
+                if(array_selected != null){
+                    // si algo esta seleccionado, continuamos con el proceso de inhabilitar
+                    alertMensajeConfirm(
+                        {
+                            title: '¿Inhabilitar estudio ' + array_selected['DESCRIPCION'] + '?',
+                            text: 'Calma, se puede activar nuevamente después',
+                            icon: 'warning',
+                        },function(){
+                            // proceso en caso de presionar el boton de confirmar
+                            ajaxAwait(
+                              {api: 4, servicio_id: array_selected['ID_SERVICIO']}, 'laboratorio_api', {callbackAfter: true}, false, (data) => {
+                                
+                                if(data.response.code == 1){
+                                    alertToast("Servicio desactivado", 'info', 5000);
+                                    tablaServicio.ajax.reload();
+                                } else {
+                                    alertToast("Imposible desactivar");
+                                }
+
+                                   
+                              })
+                        }, 1
+                    )
+                } else {
+                    // de lo contrario, avisamos que debe seleccionar algo primero
+                    alertSelectTable()
+                }
+            }
         }
     ],
 })
