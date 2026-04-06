@@ -78,6 +78,8 @@ $parametros = array(
     $duracion
 );
 
+$estado = $_POST['estado'];
+
 // print_r($_POST['contenedores']);
 
 // foreach ($_POST['contenedores'] as $key => $value) {
@@ -603,6 +605,12 @@ switch ($api) {
 
     case 17:
         $response = $master->getByProcedure('sp_consultorio_servicios_b', [$id_servicio, $descripcion, $abreviatura]);
+        echo $master->returnApi($response);
+        exit;
+        break;
+    case 18:
+        # marcar un estudio como venta individual
+        $response = $master->updateByProcedure("sp_servicios_venta_individual_g", [$id_servicio, $estado]);
         echo $master->returnApi($response);
         exit;
         break;

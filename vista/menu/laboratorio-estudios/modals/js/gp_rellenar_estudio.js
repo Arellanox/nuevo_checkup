@@ -51,15 +51,44 @@ tablaLLenarGrupo = $('#TablaLLenarGrupo').DataTable({
                 return html;
             }
         },
+        {
+            data: 'VENTA_INDIVIDUAL', render: function (data, type, row){
+                var checked = data == 1 ? 'checked' : ''; 
+                
+                return `<input type="checkbox" class="chk-venta-individual" data-id="${row.ID_SERVICIO}" ${checked} style="transform: scale(1.8); cursor: pointer;">`;
+
+            
+            }
+        }
     ],
     columnDefs: [
         { width: "10%", targets: 0, title: 'Orden' },
         { width: "70%", targets: 1, title: 'Servicio' },
         { width: "20%", targets: 2, title: 'Anterior' },
         { width: "10%", targets: 3, title: '<i class="bi bi-trash"></i>' },
+        { width: "20%", targets: 4, title: 'Venta Individual' },
     ],
 
 });
+
+$("#TablaLLenarGrupo tbody").on('change', '.chk-venta-individual', function(){
+    var checkbox = $(this);
+    var id = checkbox.data('id');
+    var estado = checkbox.is(":checked") ? 1 : 0;
+
+    ajaxAwait(
+        { api: 18, id_servicio: id, estado: estado }, 'servicios_api', {callbackAfter: true}, false, (data) => {
+        
+        if(data.response.code == 1){
+            alertToast("Estado cambiado con éxito", 'info', 5000);
+        } else {
+            alertToast("Ha ocurrido un error");
+        }
+
+            
+    })
+})
+
 
 inputBusquedaTable('TablaLLenarGrupo', tablaLLenarGrupo, [], [], 'col-12')
 
@@ -212,7 +241,6 @@ $(document).on('click', '#btn-agregar-estudios', function (e) {
     });
 
 })
-
 
 function rowDataAdd(tabla, newRowData = {}) {
     // Verificar si la descripción ya existe en alguna fila
