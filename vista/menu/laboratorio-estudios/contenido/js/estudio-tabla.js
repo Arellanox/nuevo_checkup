@@ -46,6 +46,13 @@ var tablaServicio = $('#TablaEstudioServicio').DataTable({
             }
         },
         {data: 'ACTIVO'},
+        {
+            data: 'VENTA_INDIVIDUAL', render: function(data, type, row){
+                var checked = data == 1 ? 'checked' : ''; 
+                
+                return `<input type="checkbox" class="chk-venta-individual" data-id="${row.ID_SERVICIO}" ${checked} style="transform: scale(1.8); cursor: pointer;">`;
+            }
+        }
         // {defaultContent: 'En progreso...'}
     ],
     columnDefs: [
@@ -135,6 +142,24 @@ var tablaServicio = $('#TablaEstudioServicio').DataTable({
             }
         }
     ],
+})
+
+$("#TablaEstudioServicio tbody").on('change', '.chk-venta-individual', function(){
+    var checkbox = $(this);
+    var id = checkbox.data('id');
+    var estado = checkbox.is(":checked") ? 1 : 0;
+
+    ajaxAwait(
+        { api: 18, id_servicio: id, estado: estado }, 'servicios_api', {callbackAfter: true}, false, (data) => {
+        
+        if(data.response.code == 1){
+            alertToast("Estado cambiado con éxito", 'info', 5000);
+        } else {
+            alertToast("Ha ocurrido un error");
+        }
+
+            
+    })
 })
 
 selectDatatable("TablaEstudioServicio", tablaServicio, 0, 0, 0, 0, function (select, selectData) {
