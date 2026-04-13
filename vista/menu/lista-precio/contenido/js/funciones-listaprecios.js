@@ -78,14 +78,16 @@ function obtenerColumnasTabla(tipo) {
         case "1.1": //Regresa columna definidas de concepto
             return value = [
                 {width: "5%", title: "#", targets: 0},
-                {width: "8%", title: "AB", targets: 1},
-                {width: "42%", title: "Nombre", targets: 2},
-                {width: "20%", title: "Costo", targets: 3, orderable: false},
+                {width: "5%", title: "Identificador", targets: 1},
+                {width: "8%", title: "AB", targets: 2},
+                {width: "42%", title: "Nombre", targets: 3},
+                {width: "20%", title: "Costo", targets: 4, orderable: false},
             ]
             break;
         case "1.2": //Regresa columnas datos de concepto
             return value = [
                 {data: 'COUNT'},
+                {data: 'ID_SERVICIO'},
                 {data: 'ABREVIATURA'},
                 {data: 'DESCRIPCION'},
                 {
@@ -104,16 +106,18 @@ function obtenerColumnasTabla(tipo) {
         case "2.1": //Regresa columna definidas de precios
             return value = [
                 {width: "5%", title: "#", targets: 0},
-                {width: "8%", title: "AB", targets: 1},
-                {width: "38%", title: "Nombre", targets: 2},
-                {title: "Costo", visible: false, targets: 3},
-                {width: "20%", title: "Utilidad", visible: false, targets: 4, orderable: false},
-                {width: "20%", title: "Precio Venta", targets: 5, orderable: false}
+                {width: "%5", title: "Identificador", targets: 1},
+                {width: "8%", title: "AB", targets: 2},
+                {width: "38%", title: "Nombre", targets: 3},
+                {title: "Costo", visible: false, targets: 4},
+                {width: "20%", title: "Utilidad", visible: false, targets: 5, orderable: false},
+                {width: "20%", title: "Precio Venta", targets: 6, orderable: false}
             ]
             break;
         case "2.2": //Regresa columnas data de precios
             return value = [
                 {data: 'COUNT'},
+                {data: 'ID_SERVICIO'},
                 {data: 'ABREVIATURA'},
                 {data: 'SERVICIO'},
                 {

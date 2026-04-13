@@ -45,7 +45,7 @@ var tablaServicio = $('#TablaEstudioServicio').DataTable({
                 }
             }
         },
-        {data: 'ACTIVO'},
+        { data: 'ACTIVO' },
         {
             data: 'VENTA_INDIVIDUAL', render: function(data, type, row){
                 var checked = data == 1 ? 'checked' : ''; 
