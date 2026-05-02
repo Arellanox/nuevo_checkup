@@ -348,6 +348,14 @@ function generarFormularioPaciente(id) {
                                 1: {'descripcion': "Exudado Orofaríngeo"}
                             }
                             break;
+                        case '2344': //PCR PANEL ITS (STI ESSENTIAL ASSAY)
+                            muestras = {
+                                0: {'descripcion': "Orina"},
+                                1: {'descripcion': "Citología"},
+                                2: {'descripcion': "Vaginal"},
+                                3: {'descripcion': "Uretral"}
+                            }
+                            break;
                         default:
                             input = null;
                             if (areaActiva === 12) {
