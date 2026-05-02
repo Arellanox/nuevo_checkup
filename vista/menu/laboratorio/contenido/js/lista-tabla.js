@@ -349,6 +349,7 @@ function generarFormularioPaciente(id) {
                             }
                             break;
                         case '2344': //PCR PANEL ITS (STI ESSENTIAL ASSAY)
+                        case "2335": // PCR PANEL ULCERA GENITAL (GENITAL ULCER ASSAY)
                             muestras = {
                                 0: {'descripcion': "Orina"},
                                 1: {'descripcion': "Citología"},
