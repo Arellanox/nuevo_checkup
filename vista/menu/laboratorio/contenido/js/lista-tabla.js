@@ -495,7 +495,7 @@ function generarFormularioPaciente(id) {
                         case '344': // PCR SARS-CoV-2/INFLUENZA A Y B
                         case '1470': case '1472': case '1474': case '1523': case '1526': case '1529': case '1531': // rT-PCR Thrombosis SNP
                         case '1519': case '1521': // STI7
-                        case '1800': case '1801': anotherInput = crearSelectCamposMolecular(resultado, nameInput, row[k]['RESULTADO']); break; // Panel 21
+                        case '1800': case '1801': anotherInput = crearInputCamposMolecular(resultado, nameInput, row[k]['RESULTADO']); break; // Panel 21
                         case '710': case '715': case '720': case '724': case '729': // BlueFinder 22
                         case '1106': case '1111': case '1115': case '1120': case '1125': case '1129': //rT-PCR para Mycobacterium tuberculosis MDR y XDR
                         case '1146': case '1150': case '1147': case '1152': case '1164':// rT-PCR Panel Meningitis
@@ -503,7 +503,7 @@ function generarFormularioPaciente(id) {
                         case '1436': case '1432': // rT-PCR Entero-DR
                         case '1421': case '1427': case '1430': // rT-PCR Thrombosis SNP
                         case '1517': case '1524': case '1527': onlyLabel = true; break;// PCR Virus Respiratorio - coviflu
-                        case '1555': anotherInput = crearSelectCamposMolecular(tipo_resultado, nameInput, row[k]['RESULTADO']); break; //FTD KIT DIAGNOSTICO
+                        case '1555': anotherInput = crearInputCamposMolecular(tipo_resultado, nameInput, row[k]['RESULTADO']); break; //FTD KIT DIAGNOSTICO
                         case '1082': anotherValue = 'TF22-64-09R'; break;
                         case '694': anotherValue = 'KCFMP110123'; break; // <-- PCR -->
                         case '737': anotherValue = 'E160-22071101'; break; // <-- PANEL RESPIRATORIO POR PCR -->
@@ -521,14 +521,14 @@ function generarFormularioPaciente(id) {
                             break;
                         case '692': case '706': case '734': case '991': case '1083': // Bluefinder 22
                         case '1133': //rT-PCR para Mycobacterium tuberculosis MDR y XDR
-                        case '1140': anotherInput = crearSelectCamposMolecular(kitDiag, nameInput, row[k]['RESULTADO'], ifnull(classSelect)); break;
+                        case '1140': anotherInput = crearInputCamposMolecular(kitDiag, nameInput, row[k]['RESULTADO'], ifnull(classSelect)); break;
                         case '693': case '707': case '735': case '992': anotherValue = ifnull(kitDiag[0]['clave']); anotherClassInput = 'ClaveAutorizacion'; anotherAttr = 'disabled'; break;
                         case '743': anotherValue = ifnull(row[k]['RESULTADO'], 'A QUIEN CORRESPONDA'); break; // No. Lote: Bluefinder 22
                         case '1136': anotherValue = 'KBFMP010324'; break;
                         case '695': case '700': case '708': case '736': case '756': case '994': case '1084': // BlueFinder 22:
                         case '1135'://rT-PCR para Mycobacterium tuberculosis MDR y XDR
                         case '1142':// Ag. Virus respiratorio
-                        case '145': anotherInput = crearSelectCamposMolecular(muestras, nameInput, row[k]['RESULTADO']); break; //Laboratorio Clinico:
+                        case '145': anotherInput = crearInputCamposMolecular(muestras, nameInput, row[k]['RESULTADO']); break; //Laboratorio Clinico:
                         case '70': anotherClassInput = `LEUCOCITOS_VALUE${Tipo}`; break;
                         case '71': case '72': case '73': case '74': case '75': case '76': case '77': case '78': case '79':
                             anotherClassInput = `VALOR_ABSOLUTO${Tipo}`;
@@ -720,6 +720,29 @@ function crearSelectCamposMolecular(data, nameInput, valueInput, classInput = ''
     selectHtml += '</select>';
 
     return selectHtml;
+}
+
+function crearInputCamposMolecular(data, nameInput, valueInput, classInput = '') {
+
+    let listId = `list_${Math.random().toString(36).substring(7)}`;
+    let options = '';
+
+    for (const key in data) {
+        options += `<option value="${data[key]['descripcion']}"></option>`;
+    }
+
+    return `
+        <input 
+            list="${listId}"
+            name="${nameInput}" 
+            class="form-control input-form text-end ${classInput}" 
+            value="${ifnull(valueInput)}"
+            autocomplete="off"
+        >
+        <datalist id="${listId}">
+            ${options}
+        </datalist>
+    `;
 }
 
 $(document).on('keyup', '.VALOR_ABSOLUTO_BH', function () {
