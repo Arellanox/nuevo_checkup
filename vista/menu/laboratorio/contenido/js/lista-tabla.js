@@ -359,7 +359,7 @@ function generarFormularioPaciente(id) {
                             }
                             break;
                         case '2352': 
-                            classSelect: 'selectTipoMuestraPCR';
+                            classSelect = 'selectTipoMuestraPCR';
                             break;
                         default:
                             input = null;
