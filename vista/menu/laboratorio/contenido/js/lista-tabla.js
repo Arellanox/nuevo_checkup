@@ -358,6 +358,9 @@ function generarFormularioPaciente(id) {
                                 3: {'descripcion': "Uretral"}
                             }
                             break;
+                        case '2352': 
+                            classSelect: 'selectTipoMuestraPCR';
+                            break;
                         default:
                             input = null;
                             if (areaActiva === 12) {
