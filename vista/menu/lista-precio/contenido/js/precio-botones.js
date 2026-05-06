@@ -374,7 +374,8 @@ listaPreciosExelModal = $('#listaPreciosExel').DataTable({
                 return precio_venta
             }
         },
-        { data: 'EQUIPO' }
+        { data: 'EQUIPO' },
+        { data: 'ID_SERVICIO' } 
     ],
     columnDefs: [
         {target: 0, width: '1%', title: '#', className: 'all'},
@@ -384,6 +385,7 @@ listaPreciosExelModal = $('#listaPreciosExel').DataTable({
         {target: 4, width: '10%', title: 'Utilidad', className: 'all', visible: true},
         {target: 5, width: '15%', title: 'Precio Venta', className: 'all', visible: true},
         {target: 6, width: '15%', title: 'Equipo', className: 'all', visible: true},
+        { targer: 7, width: '15%', title: "Identificador", className: 'all', visible: true}
 
     ],
     dom: 'Bfrtip',
