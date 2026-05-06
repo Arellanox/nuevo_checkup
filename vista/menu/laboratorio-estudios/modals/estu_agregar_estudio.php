@@ -18,9 +18,7 @@
                                     <div class="col-8">
                                         <label for="descripcion" class="form-label">Nombre del Estudio</label>
                                         <input type="text" name="descripcion" class="form-control input-form"
-                                            id="input-descripcion" required
-                                               <!-- id="input-descripcion" required style="text-transform:uppercase;" -->
-                                               <!-- onkeyup="javascript:this.value=this.value.toUpperCase();"> -->
+                                               id="input-descripcion" required style="text-transform:uppercase;"
                                                >
                                     </div>
                                     <div class="col-4">
