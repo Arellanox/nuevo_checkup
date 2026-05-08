@@ -261,6 +261,12 @@ if (isset($resultados->MEDICO_ID)) {
     if ($resultados->MEDICO_ID == 53) { // Beatriz
         $ruta_firma = file_get_contents('../pdf/public/assets/firma_beatriz.png');
         $footerDoctor = 'Dra. BEATRIZ ALEJANDRA RAMOS GONZÁLEZ <br>UJAT - Cédula profesional: 7796595';
+    } else if ($resultados->MEDICO_ID == 129){
+        $ruta_firma = file_get_contents('../pdf/public/assets/firma_martina.png');
+        $footerDoctor = 'Dra. Martina Guadalupe Zapata Santiago <br>UNAM - Cédula profesional: 11508987';
+    } else if($resultados->MEDICO_ID == 130){
+        $ruta_firma = file_get_contents('../pdf/public/assets/firma_reyna.png');
+        $footerDoctor = 'Dra. Reyna Guadalupe Arce Alonso <br>UVM - Cédula profesional: 7796595';
     } else { // Cesar
         $ruta_firma = file_get_contents("../pdf/public/assets/firma_cesar.png");
         $footerDoctor = 'Dr. César Mauricio Calderón Alipi <br>UANL - Cédula profesional: 6406214';
