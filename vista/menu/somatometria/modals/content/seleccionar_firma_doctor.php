@@ -18,6 +18,7 @@
                         <option value="119">Dr. César Mauricio Calderón Alipi</option>
                         <option value="129">Dra. Martina Guadalupe Zapata Santiago</option>
                         <option value="130">Dra. Reyna Guadalupe  Arce Alonso</option>
+                        <option value="108">Dra. Valeria Herrera Orueta</option>
                     </select>
                 </div>
             </div>

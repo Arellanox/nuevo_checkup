@@ -267,6 +267,10 @@ if (isset($resultados->MEDICO_ID)) {
     } else if($resultados->MEDICO_ID == 130){
         $ruta_firma = file_get_contents('../pdf/public/assets/firma_reyna.png');
         $footerDoctor = 'Dra. Reyna Guadalupe Arce Alonso <br>UVM - Cédula profesional: 7796595';
+    } else if ($resultados->MEDICO_ID == 108){
+        $ruta_firma = file_get_contents('../pdf/public/assets/firma_valeria_herrera.png');
+        $footerDoctor = 'Dra. Valeria Herrara Orueta <br>UNAM-UO - Cédula profesional: 15134958';
+
     } else { // Cesar
         $ruta_firma = file_get_contents("../pdf/public/assets/firma_cesar.png");
         $footerDoctor = 'Dr. César Mauricio Calderón Alipi <br>UANL - Cédula profesional: 6406214';
