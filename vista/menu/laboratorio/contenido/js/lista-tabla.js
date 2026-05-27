@@ -362,6 +362,7 @@ function generarFormularioPaciente(id) {
                             classSelect = 'selectTipoMuestraPCR';
                             break;
                         default:
+                            classSelect = 'selectTipoMuestraPCR';
                             input = null;
                             if (areaActiva === 12) {
                               alert('El paciente no tiene estudios compatibles, hay un problema con la compatibilidad ' +
