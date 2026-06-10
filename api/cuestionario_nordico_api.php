@@ -10,7 +10,8 @@ $api = $_POST['api'];
 
 switch($api){
     case 1:
-        $response
+        # datos generales
+        $response = $master->insertByProcedure("", []);
         break;
 }
 
