@@ -967,6 +967,8 @@ async function obtenerResultadosOftalmo(data) {
     $('#diagnostico').val(ifnull(row.DIAGNOSTICO));
     $('#plan').val(ifnull(row.PLAN));
     $('#observaciones').val(ifnull(row.OBSERVACIONES));
+    $('#esteropsis').val(ifnull(row.OBSERVACIONES));
+    $("#fondo_ojo").val(ifnull(row.FONDO_OJO));
 }
 
 async function obtenerResultadosElectro(data) {

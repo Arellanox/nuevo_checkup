@@ -176,6 +176,8 @@ switch ($api) {
             $diagnostico = $response1[$i]['DIAGNOSTICO'];
             $plan = $response1[$i]['PLAN'];
             $observaciones = $response1[$i]['OBSERVACIONES'];
+            $estereopsis = $response1[$i]['ESTEREOPSIS'];
+            $fondo_ojo = $response1[$i]['FONDO_OJO'];
             $array1 = array(
                 "ANTECEDENTES_PERSONALES" => $antecedentes_personales,
                 "ANTECEDENTE_OFTALMOLOGICOS" => $antecedentes_oftalmologicos,
@@ -193,7 +195,9 @@ switch ($api) {
                 "PRESION_INTRAOCULAR_OI" => $presion_intraocular_oi,
                 "DIAGNOSTICO" => $diagnostico,
                 "PLAN" => $plan,
-                "OBSERVACIONES" => $observaciones
+                "OBSERVACIONES" => $observaciones,
+                "ESTEREOPSIS" => $estereopsis,
+                "FONDO_OJO" => $fondo_ojo
 
             );
             array_push($arrayoftalmo, $array1);
