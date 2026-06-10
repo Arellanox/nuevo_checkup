@@ -42,6 +42,8 @@ $con_agudeza_visual = $_POST['agudeza_visual_con'];
 $con_oi = $_POST['oi_con'];
 $con_od = $_POST['od_con'];
 $con_jaeger = $_POST['jaeger_con'];
+$estereopsis = $_POST['estereopsis'];
+$fondo_ojo = $_POST['fondo_ojo'];
 #creacion de array.
 $params = array(
     $id_oftalmo,
@@ -69,7 +71,9 @@ $params = array(
     $con_agudeza_visual,
     $con_oi,
     $con_od,
-    $con_jaeger
+    $con_jaeger,
+    $estereopsis,
+    $fondo_ojo
     #creacion de array.
 );
 
@@ -85,11 +89,11 @@ switch ($api) {
             // $url = crearReporteOftalmologia($turno_id);
             # actualizar la url del reporte
 
-            $response = $master->updateByProcedure("sp_oftalmo_resultados_g", [null, $turno_id, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, $_SESSION['id'], null, null, $confirmado, NULL, NULL, NULL, NULL]);
+            $response = $master->updateByProcedure("sp_oftalmo_resultados_g", [null, $turno_id, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, $_SESSION['id'], null, null, $confirmado, NULL, NULL, NULL, NULL,  null, null]);
 
             $url = $master->reportador($master, $turno_id, 3, 'oftalmologia', 'url');
 
-            $response = $master->updateByProcedure("sp_oftalmo_resultados_g", [null, $turno_id, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, $_SESSION['id'], $url, null, $confirmado, NULL, NULL, NULL, NULL]);
+            $response = $master->updateByProcedure("sp_oftalmo_resultados_g", [null, $turno_id, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, $_SESSION['id'], $url, null, $confirmado, NULL, NULL, NULL, NULL, null, null]);
 
             //enviamos correo
             $attachment = $master->cleanAttachFilesImage($master, $turno_id, 3, 1);
