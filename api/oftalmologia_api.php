@@ -177,7 +177,7 @@ switch ($api) {
             $plan = $response1[$i]['PLAN'];
             $observaciones = $response1[$i]['OBSERVACIONES'];
             $estereopsis = $response1[$i]['ESTEREOPSIS'];
-            $fondo_ojo = $response1[$i]['FONDO_OJO'];
+            $fondo_ojo = $response1[$i]['FONDO_DE_OJO'];
             $array1 = array(
                 "ANTECEDENTES_PERSONALES" => $antecedentes_personales,
                 "ANTECEDENTE_OFTALMOLOGICOS" => $antecedentes_oftalmologicos,

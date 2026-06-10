@@ -526,6 +526,8 @@ if (!isset($qr)) {
 
 
         <p>
+            <strong>Estereopsis:</strong>
+            <?php echo $resultados->ESTEREOPSIS; ?><br>
             <strong>
                 PRUEBA ISHIHARA:
             </strong>
@@ -552,6 +554,8 @@ if (!isset($qr)) {
         </p>
 
         <p>
+            <strong>Fondo de Ojo:</strong>
+            <?php echo $resultados->FONDO_OJO; ?> <br>
             <strong>
                 CAMPIMETRÍA POR CONFRONTACIÓN:
             </strong>
