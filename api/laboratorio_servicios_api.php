@@ -232,7 +232,8 @@ switch ($api) {
             "IMAGEN_MOTIVO_RECHAZO" => $imagen,
             "CONSERVACION" => $response[0]['CONSERVACION'],
             "LABORATORIO_MAQUILA" => $response[0]['LABORATORIO_MAQUILA'],
-            "INDICACIONES_LABORATORIO" => $indicaciones_labo
+            "INDICACIONES_LABORATORIO" => $indicaciones_labo,
+            "DETALLE_SERVICIO" => $response[0]['DETALLE_SERVICIO']
         );
         break;
     case 3:

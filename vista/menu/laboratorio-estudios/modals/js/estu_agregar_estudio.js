@@ -84,6 +84,8 @@ async function getValueEstudio(id) {
                     $('#input-modo-conservacion').val(ifnull(row.CONSERVACION, ''))
                     $('#preview').attr('src', current_url + row.IMAGEN_MOTIVO_RECHAZO);
 
+                    $("#descripcion_estudio").val(ifnull(row.DETALLE_SERVICIO, ''))
+
                     console.log(row)
 
                     if (row.CLASIFICACION_ID) {
