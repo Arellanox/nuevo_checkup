@@ -46,6 +46,7 @@ $costos = $_POST['costos'];
 $motivo_rechazo = $_POST['motivo_rechazo'];
 $indicaciones_lab = $_POST['indicaciones_laboratorio'];
 $conservacion = $_POST['modo_conservacion'];
+$detalle_estudio = $_POST['descripcion_estudio'];
 
 #datos para rellenar un grupo
 $id_grupo = $_POST['id_grupo'];
@@ -152,7 +153,8 @@ switch ($api) {
             $indicaciones_lab,
             $conservacion,
             $_SESSION['id'],
-            $path
+            $path,
+            $detalle_estudio
         ]);
 
         $master->setLog(json_encode($response), 'poar: ');
