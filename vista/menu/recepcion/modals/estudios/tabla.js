@@ -97,7 +97,7 @@ $('#FormEstudioBuscar input[name="estudio"]').on('input', function () {
                         data-id_servicio="${row.ID_SERVICIO}"
                         style="background: rgba(0,78,89,0.78); color: #ffffff; border-radius: 10px;
                                margin-top: 10px; margin-bottom: 10px; padding: 16px; cursor: pointer">
-                        <span class="estudios_encontrados">${row.DESCRIPCION}</span>
+                        <span class="estudios_encontrados">${row.SERVICIO}</span>
                     </div>
                 `).join(' ');
 
