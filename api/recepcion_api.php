@@ -604,7 +604,13 @@ switch ($api) {
         echo json_encode($response);
         exit;
     case 15:
-        # Detalle de los estudios
+        # CODIGO NUEVO 
+        $response = $master->getByProcedure("sp_recepcion_estudios_b", [$estudio]);
+        break;
+        
+
+        # ESTE ES EL CODIGO ORIGINAL
+        /*# Detalle de los estudios
         $estudios = $master->getByProcedure('sp_recepcion_estudios_b', [$area_id]);
 
         $coincidencias = [];
@@ -634,7 +640,7 @@ switch ($api) {
         }
 
         $response = $coincidencias;
-        break;
+        break;*/
     case 16:
         $mail = new Correo();
         # enviar correo de para comprobacion de datos del paciente
