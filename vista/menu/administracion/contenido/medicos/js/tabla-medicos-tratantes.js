@@ -79,7 +79,7 @@ TablaVistaMedicosTratantes = $("#TablaVistaMedicosTratantes").DataTable({
         {
             data: 'TIENE_VENDEDOR', render: function (data, type, row) {
                 if (data == '1') {
-                    return `<span class="badge text-bg-success">¿?</span>`
+                    return `<span class="badge text-bg-success" data-id="${row.ID_MEDICO}" style="cursor: pointer" onclick="selectVendedorMedicoTratantes.call(this)">${row.VENDEDOR}</span>`
                 } else {
 
                     return `<span class="badge text-bg-warning"  data-id = "${row.ID_MEDICO}" style = "cursor: pointer"
@@ -113,7 +113,7 @@ TablaVistaMedicosTratantes = $("#TablaVistaMedicosTratantes").DataTable({
         { target: 5, title: 'Teléfono: ', className: 'none' },
         { target: 6, title: 'Especialidad: ', className: 'none' },
         { target: 7, title: 'Vendedor', className: 'all' },
-        { target: 8, title: 'Vendedor', className: 'all' },
+        { target: 8, title: 'Vendedor', className: 'none' },
         { target: 9, title: '<i class="bi bi-trash"></i>', className: 'all', width: '5px' },
         
     ],
