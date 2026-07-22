@@ -36,6 +36,12 @@
                         <input type="text" class="form-control input-form" name="especialidad" id="especialidad-medicoTratante">
                     </div>
                     <div class="col-12 mb-3">
+                        <label>Vendedor:</label>
+                        <select name="vendedor_id" id="select-vendedores-medicos-tratentes" class="form-control input-form">
+
+                        </select>
+                    </div>
+                    <div class="col-12 mb-3">
                         <label>Usuario:</label>
                         <select id="select-usuarios-medicos-tratantes" name="usuario_id" class="form-control input-form">
                         </select>

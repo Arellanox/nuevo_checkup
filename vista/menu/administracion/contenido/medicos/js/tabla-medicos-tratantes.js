@@ -114,7 +114,7 @@ TablaVistaMedicosTratantes = $("#TablaVistaMedicosTratantes").DataTable({
         { target: 6, title: 'Especialidad: ', className: 'none' },
         { target: 7, title: 'Vendedor', className: 'all' },
         { target: 8, title: '<i class="bi bi-trash"></i>', className: 'all', width: '5px' },
-        { target: 9, title: 'Vendedor', className: 'none' }
+        { target: 9, title: 'Vendedor', className: 'all' }
     ],
     dom: 'Bfrtip',
     buttons: [
