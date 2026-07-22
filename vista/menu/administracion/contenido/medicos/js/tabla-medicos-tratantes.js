@@ -79,19 +79,12 @@ TablaVistaMedicosTratantes = $("#TablaVistaMedicosTratantes").DataTable({
         {
             data: 'TIENE_VENDEDOR', render: function (data, type, row) {
                 if (data == '1') {
-                    return `<span class="badge text-bg-success">Con vendedor</span>`
+                    return `<span class="badge text-bg-success">¿?</span>`
                 } else {
 
                     return `<span class="badge text-bg-warning"  data-id = "${row.ID_MEDICO}" style = "cursor: pointer"
                     onclick="selectVendedorMedicoTratantes.call(this)">Sin vendedor</span>`
                 }
-            }
-        },
-        {
-            data: 'ID_MEDICO', render: function (data) {
-                return `<i class="bi bi-trash eliminar-diagnostico" data-id = "${data}" style = "cursor: pointer"
-                onclick="desactivarTablaMedicosTratantes.call(this)"></i>`;
-
             }
         },
         {
@@ -102,7 +95,14 @@ TablaVistaMedicosTratantes = $("#TablaVistaMedicosTratantes").DataTable({
                     return 'Sin vendedor'
                 }
             }
-        }
+        },
+        {
+            data: 'ID_MEDICO', render: function (data) {
+                return `<i class="bi bi-trash eliminar-diagnostico" data-id = "${data}" style = "cursor: pointer"
+                onclick="desactivarTablaMedicosTratantes.call(this)"></i>`;
+
+            }
+        },
     ],
     columnDefs: [
         { target: 0, title: '#', className: 'all' },
@@ -113,8 +113,9 @@ TablaVistaMedicosTratantes = $("#TablaVistaMedicosTratantes").DataTable({
         { target: 5, title: 'Teléfono: ', className: 'none' },
         { target: 6, title: 'Especialidad: ', className: 'none' },
         { target: 7, title: 'Vendedor', className: 'all' },
-        { target: 8, title: '<i class="bi bi-trash"></i>', className: 'all', width: '5px' },
-        { target: 9, title: 'Vendedor', className: 'all' }
+        { target: 8, title: 'Vendedor', className: 'all' },
+        { target: 9, title: '<i class="bi bi-trash"></i>', className: 'all', width: '5px' },
+        
     ],
     dom: 'Bfrtip',
     buttons: [
