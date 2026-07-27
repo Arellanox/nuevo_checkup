@@ -20,7 +20,7 @@ $message = '';
 switch ($api) {
     case 1:
         $area = $request['area'] ?? null;
-        $response = $master->getByProcedure('sp_clientes_particulares_servicios_b', [1, $area]);
+        $response = $master->getByProcedure('sp_clientes_particulares_servicios_b', [55, $area]);
         break;
     default:
         $code = 400;
