@@ -1,169 +1,663 @@
-<div class="modal fade" id="modalEstudiosInformacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+<div class="modal fade" id="modalEstudiosInformacion"
+     data-bs-backdrop="static"
+     data-bs-keyboard="false"
+     tabindex="-1">
+
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+         style="max-width:90%;">
+
         <div class="modal-content">
+
+            <!-- HEADER -->
             <div class="modal-header header-modal">
-                <h5 class="modal-title">Información de estudios</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">
+                    Información de Estudios
+                </h5>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal">
+                </button>
             </div>
+
+
+            <!-- BODY -->
             <div class="modal-body">
+
+                <!-- BUSCADOR -->
                 <form id="FormEstudioBuscar">
-                    <div class="row">
-                        <div class="col-12 col-md-8">
-                            <!-- Texto a coincidir -->
-                            <label for="estudio" class="form-label">Estudio: </label>
 
+                    <div class="row mb-4">
 
-                            <div style="display: flex; gap: 10px">
-                                <input type="text" name="estudio" placeholder="Coincidecias" class="form-control input-form" style="flex: 1"
-                                       required>
-                                <!-- <button type="submit" form="FormEstudioBuscar" class="btn btn-confirmar" style="flex: 1; min-width: max-content; max-width: max-content; max-height: 40px">
-                                    <i class="bi bi-search"></i> Buscar
-                                </button> -->
-                            </div>
+                        <div class="col-md-8">
+
+                            <label class="form-label">
+                                Buscar estudio
+                            </label>
+
+                            <input type="text"
+                                   name="estudio"
+                                   class="form-control input-form"
+                                   placeholder="Escriba el nombre del estudio..."
+                                   autocomplete="off"
+                                   required>
+
                         </div>
+
                     </div>
+
                 </form>
 
-                <!-- información del estudio -->
-                <div class="py-3">
-                    <div class="row">
-                        <div class="col-12 col-md-5">
-                            <!-- Coincidencias -->
-                            <div id="listEstudios" class="d-none">
-                                <span>Estudios Existentes:</span>
-                                <div id="suggestionsListEstudios" style="max-height: 600px; overflow-y: auto; overflow-x: hidden"></div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-7" id="info_estudios-search" style="display: none;">
-                            <div class="info-header text-center mb-3">
-                                <h3 id="InfoModal_DESCRIPCION"></h3>
-                                <p class="lead" id="InfoModal_AREA"></p>
-                                <h5 id="InfoModal_CLASIFICACIOa"></h5>
-                            </div>
-                            <div class="rounded p-0 shadow mb-2" style="border-radius: 15px; overflow: hidden">
-                                <div class="row gap-4">
-                                    <div class="col-12">
-                                        <h3 style="background: rgba(0,78,89,0.78); color: #ffffff; padding: 10px;">Información General</h3>
-                                        <div style="display: flex; flex-direction: column; gap: 4px; padding: 10px">
-                                            <p><strong>Tiempo de Entrega:</strong>
-                                                <span class="pantone-3165-color" id="InfoModal_DIAS_DE_ENTREGA"></span>
-                                            </p>
-                                            <p>
-                                                <strong>Tipo de muestra:</strong>
-                                                <span class="pantone-3165-color" id="InfoModal_MUESTRA"></span>
-                                            </p>
-                                            <p>
-                                                <strong>Contenedor:</strong>
-                                                <span class="pantone-3165-color" id="InfoModal_CONTENEDOR"></span>
-                                            </p>
-                                            <p>
-                                                <strong>Indicaciones para el paciente:</strong>
-                                                <span class="pantone-3165-color" id="InfoModal_INDICACIONES"></span>
-                                            </p>
-                                        </div>
 
-<!--                                        <p>-->
-<!--                                            <strong>Activo:</strong>-->
-<!--                                            <span class="pantone-3165-color" id="InfoModal_ACTIVO"></span>-->
-<!--                                        </p>-->
-<!--                                        <p>-->
-<!--                                            <strong>Código SAT:</strong>-->
-<!--                                            <span class="pantone-3165-color" id="InfoModal_CODIGO_SAT"></span>-->
-<!--                                        </p>-->
-<!--                                        <p>-->
-<!--                                            <strong>Costo:</strong>-->
-<!--                                            <span class="pantone-3165-color" id="InfoModal_COSTO"></span>-->
-<!--                                        </p>-->
-<!--                                        <p><strong>Días de Entrega:</strong>-->
-<!--                                            <span class="pantone-3165-color" id="InfoModal_DIAS_DE_ENTREGA"></span>-->
-<!--                                        </p>-->
-<!--                                        <p>-->
-<!--                                            <strong>Laboratorio Maquila:</strong>-->
-<!--                                            <span class="pantone-3165-color" id="InfoModal_LABORATORIO_MAQUILA"></span>-->
-<!--                                        </p>-->
+                <div class="row">
+
+
+                    <!-- LISTADO DE ESTUDIOS -->
+                    <div class="col-lg-3">
+
+                        <div id="listEstudios" class="d-none">
+
+                            <div class="card shadow-sm">
+
+                                <div class="card-header">
+
+                                    <strong>
+                                        Estudios encontrados
+                                    </strong>
+
+                                </div>
+
+                                <div class="card-body p-2">
+
+                                    <div id="suggestionsListEstudios"
+                                         style="max-height:650px;
+                                         overflow-y:auto;">
+
                                     </div>
-                                    <div class="col-12" style="padding: 10px">
-                                        <h3 style="background: rgba(0,78,89,0.78); color: #ffffff; padding: 10px;">Detalles Grupos</h3>
-                                        <div id="lista_grupos" style="display: flex; flex-direction: column; gap: 4px; padding: 10px">
-                                            ....
-                                        </div>
 
-
-<!--                                        <p>-->
-<!--                                            <strong>Es Producto:</strong>-->
-<!--                                            <span class="pantone-3165-color" id="InfoModal_ES_PRODUCTO"></span>-->
-<!--                                        </p>-->
-<!--                                        <p>-->
-<!--                                            <strong>Medida:</strong>-->
-<!--                                            <span class="pantone-3165-color" id="InfoModal_MEDIDA"></span>-->
-<!--                                        </p>-->
-<!--                                        <p>-->
-<!--                                            <strong>Muestra Valores Referencia:</strong>-->
-<!--                                            <span class="pantone-3165-color" id="InfoModal_MUESTRA_VALORES_REFERENCIA"></span>-->
-<!--                                        </p>-->
-<!--                                        <p>-->
-<!--                                            <strong>Registrado Por:</strong>-->
-<!--                                            <span class="pantone-3165-color" id="InfoModal_REGISTRADO_POR_NOMBRE"></span>-->
-<!--                                        </p>-->
-<!--                                        &lt;!&ndash; Incluye más elementos aquí según sea necesario &ndash;&gt;-->
-
-<!--                                        <p>-->
-<!--                                            <strong>Tipo de muestra:</strong>-->
-<!--                                            <span class="pantone-3165-color" id="InfoModal_MUESTRA"></span>-->
-<!--                                        </p>-->
-<!--                                        <p>-->
-<!--                                            <strong>Contenedor:</strong>-->
-<!--                                            <span class="pantone-3165-color" id="InfoModal_CONTENEDOR"></span>-->
-<!--                                        </p>-->
-<!--                                        <p>-->
-<!--                                            <strong>Indicaciones para el laboratorio:</strong>-->
-<!--                                            <span class="pantone-3165-color" id="InfoModal_INDICACIONES_LABORATORIO"></span>-->
-<!--                                        </p>-->
-<!--                                        <p>-->
-<!--                                            <strong>Motivos para rechazo de muestras:</strong>-->
-<!--                                            <span class="pantone-3165-color" id="InfoModal_MOTIVO_RECHAZO"></span>-->
-<!--                                        </p>-->
-<!--                                        <p>-->
-<!--                                            <strong>Indicaciones para el paciente:</strong>-->
-<!--                                            <span class="pantone-3165-color" id="InfoModal_INDICACIONES"></span>-->
-<!--                                        </p>-->
-<!--                                        <p>-->
-<!--                                            <strong>Conservación:</strong>-->
-<!--                                            <span class="pantone-3165-color" id="InfoModal_CONSERVACION"></span>-->
-<!--                                        </p>-->
-<!--                                        <p>-->
-<!--                                            <strong>Metodología:</strong>-->
-<!--                                            <span class="pantone-3165-color" id="InfoModal_METODOLOGIA_NOMBRE"></span>-->
-<!--                                        </p>-->
-<!--                                        <p>-->
-<!--                                            <strong>Area:</strong>-->
-<!--                                            <span class="pantone-3165-color" id="InfoModal_AREA_NOMBRE"></span>-->
-<!--                                        </p>-->
-                                    </div>
                                 </div>
 
                             </div>
+
                         </div>
+
                     </div>
+
+
+                    <!-- INFORMACIÓN -->
+                    <div class="col-lg-9"
+                         id="info_estudios-search"
+                         style="display:none;">
+
+
+                        <!-- CABECERA DEL ESTUDIO -->
+                        <div class="study-header mb-4">
+
+                            <h2 id="InfoModal_DESCRIPCION"></h2>
+
+                            <p class="mb-1">
+
+                                Área:
+                                <strong id="InfoModal_AREA"></strong>
+
+                            </p>
+
+                            <p class="mb-0">
+
+                                Clasificación:
+                                <strong id="InfoModal_CLASIFICACION"></strong>
+
+                            </p>
+
+                        </div>
+
+
+                        <!-- TABS -->
+                        <ul class="nav nav-tabs mb-3"
+                            id="tabsEstudios"
+                            role="tablist">
+
+
+                            <li class="nav-item">
+
+                                <button class="nav-link active"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#general">
+
+                                    Información General
+
+                                </button>
+
+                            </li>
+
+
+                            <li class="nav-item">
+
+                                <button class="nav-link"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#paciente">
+
+                                    Paciente
+
+                                </button>
+
+                            </li>
+
+
+                            <li class="nav-item">
+
+                                <button class="nav-link"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#laboratorio">
+
+                                    Laboratorio
+
+                                </button>
+
+                            </li>
+
+
+                            <li class="nav-item">
+
+                                <button class="nav-link"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#referencias">
+
+                                    Valores Ref.
+
+                                </button>
+
+                            </li>
+
+
+                            <li class="nav-item">
+
+                                <button class="nav-link"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#grupos">
+
+                                    Grupos
+
+                                </button>
+
+                            </li>
+
+                        </ul>
+
+
+
+                        <!-- CONTENIDO DE LAS PESTAÑAS -->
+                        <div class="tab-content">
+
+
+
+                            <!-- GENERAL -->
+                            <div class="tab-pane fade show active"
+                                 id="general">
+
+                                <div class="row">
+
+
+                                    <div class="col-md-4 mb-3">
+
+                                        <div class="card-info">
+
+                                            <small>Tiempo de entrega</small>
+
+                                            <h5 id="InfoModal_DIAS_DE_ENTREGA">
+                                            </h5>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-4 mb-3">
+
+                                        <div class="card-info">
+
+                                            <small>Tipo de muestra</small>
+
+                                            <h5 id="InfoModal_MUESTRA">
+                                            </h5>
+
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <div class="col-md-4 mb-3">
+
+                                        <div class="card-info">
+
+                                            <small>Contenedor</small>
+
+                                            <h5 id="InfoModal_CONTENEDOR">
+                                            </h5>
+
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <div class="col-md-4 mb-3">
+
+                                        <div class="card-info">
+
+                                            <small>Código SAT</small>
+
+                                            <h5 id="InfoModal_CODIGO_SAT">
+                                            </h5>
+
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <div class="col-md-4 mb-3">
+
+                                        <div class="card-info">
+
+                                            <small>Medida</small>
+
+                                            <h5 id="InfoModal_MEDIDA">
+                                            </h5>
+
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <div class="col-md-4 mb-3">
+
+                                        <div class="card-info">
+
+                                            <small>Activo</small>
+
+                                            <h5 id="InfoModal_ACTIVO">
+                                            </h5>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+
+
+                            <!-- PACIENTE -->
+                            <div class="tab-pane fade"
+                                 id="paciente">
+
+
+                                <div class="accordion"
+                                     id="accordionPaciente">
+
+
+                                    <div class="accordion-item">
+
+                                        <h2 class="accordion-header">
+
+                                            <button class="accordion-button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#indicaciones">
+
+                                                Indicaciones para el paciente
+
+                                            </button>
+
+                                        </h2>
+
+
+                                        <div id="indicaciones"
+                                             class="accordion-collapse collapse show">
+
+                                            <div class="accordion-body"
+                                                 id="InfoModal_INDICACIONES">
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                    <div class="accordion-item">
+
+                                        <h2 class="accordion-header">
+
+                                            <button class="accordion-button collapsed"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#conservacion">
+
+                                                Conservación
+
+                                            </button>
+
+                                        </h2>
+
+
+                                        <div id="conservacion"
+                                             class="accordion-collapse collapse">
+
+                                            <div class="accordion-body"
+                                                 id="InfoModal_CONSERVACION">
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+
+
+
+
+                            <!-- LABORATORIO -->
+                            <div class="tab-pane fade"
+                                 id="laboratorio">
+
+
+                                <div class="accordion">
+
+
+                                    <div class="accordion-item">
+
+                                        <h2 class="accordion-header">
+
+                                            <button class="accordion-button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#lab1">
+
+                                                Indicaciones del Laboratorio
+
+                                            </button>
+
+                                        </h2>
+
+
+                                        <div class="accordion-collapse collapse show"
+                                             id="lab1">
+
+                                            <div class="accordion-body"
+                                                 id="InfoModal_INDICACIONES_LABORATORIO">
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                    <div class="accordion-item">
+
+                                        <h2 class="accordion-header">
+
+                                            <button class="accordion-button collapsed"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#lab2">
+
+                                                Motivos de rechazo
+
+                                            </button>
+
+                                        </h2>
+
+
+                                        <div class="accordion-collapse collapse"
+                                             id="lab2">
+
+                                            <div class="accordion-body"
+                                                 id="InfoModal_MOTIVO_RECHAZO">
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                    <div class="accordion-item">
+
+                                        <h2 class="accordion-header">
+
+                                            <button class="accordion-button collapsed"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#lab3">
+
+                                                Metodología
+
+                                            </button>
+
+                                        </h2>
+
+
+                                        <div class="accordion-collapse collapse"
+                                             id="lab3">
+
+                                            <div class="accordion-body"
+                                                 id="InfoModal_METODOLOGIA_NOMBRE">
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+
+
+
+
+                            <!-- VALORES -->
+                            <div class="tab-pane fade"
+                                 id="referencias">
+
+                                <div class="table-responsive">
+
+                                    <table class="table table-striped table-hover">
+
+                                        <thead>
+
+                                        <tr>
+
+                                            <th>Sexo</th>
+                                            <th>Edad</th>
+                                            <th>Valor mínimo</th>
+                                            <th>Valor máximo</th>
+
+                                        </tr>
+
+                                        </thead>
+
+                                        <tbody id="tabla_valores_referencia">
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+
+                            </div>
+
+
+
+
+                            <!-- GRUPOS -->
+                            <div class="tab-pane fade"
+                                 id="grupos">
+
+
+                                <div class="card shadow-sm">
+
+                                    <div class="card-body">
+
+                                        <div id="lista_grupos">
+
+                                            <!-- GRUPOS -->
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+
                 </div>
+
+
             </div>
+
+
+
+            <!-- FOOTER -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">
+
+                <button type="button"
+                        class="btn btn-cancelar"
+                        data-bs-dismiss="modal">
+
                     <i class="bi bi-arrow-left-short"></i>
                     Cerrar
+
                 </button>
+
             </div>
+
         </div>
+
     </div>
+
 </div>
 
+
+
 <style>
-    .estudios_encontrados {
-        cursor: pointer !important;
+
+    .study-header{
+
+        background:linear-gradient(
+                135deg,
+                #004E59,
+                #006C7A
+        );
+
+        color:white;
+        padding:25px;
+        border-radius:15px;
+
     }
+
+
+    .study-header h2{
+
+        margin-bottom:10px;
+        font-weight:bold;
+
+    }
+
+
+    .card-info{
+
+        background:#FFF;
+        padding:20px;
+        border-radius:15px;
+        box-shadow:0 3px 10px rgba(0,0,0,.08);
+        height:100%;
+
+    }
+
+
+    .card-info small{
+
+        color:#7B7B7B;
+        font-weight:600;
+
+    }
+
+
+    .card-info h5{
+
+        margin-top:10px;
+        color:#004E59;
+        font-weight:bold;
+        word-break:break-word;
+
+    }
+
+
+
+    #suggestionsListEstudios{
+
+        overflow-x:hidden;
+
+    }
+
+
+    .estudios_encontrados{
+
+        cursor:pointer;
+
+    }
+
+
+    .nav-tabs .nav-link{
+
+        font-weight:600;
+
+    }
+
+
+    .accordion-button{
+
+        font-weight:600;
+
+    }
+
+
+    .accordion-body{
+
+        white-space:pre-line;
+
+    }
+
+
 </style>
 
+
+
 <script>
+
     html_estudios_info = $('#info_estudios-search').html();
+
 </script>
