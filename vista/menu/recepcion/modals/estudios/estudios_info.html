@@ -114,73 +114,85 @@
 
                         <!-- TABS -->
                         <ul class="nav nav-tabs mb-3"
-                            id="tabsEstudios"
-                            role="tablist">
+    id="tabsEstudios"
+    role="tablist">
+
+    <li class="nav-item">
+
+        <button class="nav-link active"
+                data-bs-toggle="tab"
+                data-bs-target="#descripcion">
+
+            Descripción
+
+        </button>
+
+    </li>
 
 
-                            <li class="nav-item">
+    <li class="nav-item">
 
-                                <button class="nav-link active"
-                                        data-bs-toggle="tab"
-                                        data-bs-target="#general">
+        <button class="nav-link"
+                data-bs-toggle="tab"
+                data-bs-target="#general">
 
-                                    Información General
+            Información General
 
-                                </button>
+        </button>
 
-                            </li>
-
-
-                            <li class="nav-item">
-
-                                <button class="nav-link"
-                                        data-bs-toggle="tab"
-                                        data-bs-target="#paciente">
-
-                                    Paciente
-
-                                </button>
-
-                            </li>
+    </li>
 
 
-                            <li class="nav-item">
+    <li class="nav-item">
 
-                                <button class="nav-link"
-                                        data-bs-toggle="tab"
-                                        data-bs-target="#laboratorio">
+        <button class="nav-link"
+                data-bs-toggle="tab"
+                data-bs-target="#paciente">
 
-                                    Laboratorio
+            Paciente
 
-                                </button>
+        </button>
 
-                            </li>
-
-
-                            <li class="nav-item">
-
-                                <button class="nav-link"
-                                        data-bs-toggle="tab"
-                                        data-bs-target="#referencias">
-
-                                    Valores Ref.
-
-                                </button>
-
-                            </li>
+    </li>
 
 
-                            <li class="nav-item">
+    <li class="nav-item">
 
-                                <button class="nav-link"
-                                        data-bs-toggle="tab"
-                                        data-bs-target="#grupos">
+        <button class="nav-link"
+                data-bs-toggle="tab"
+                data-bs-target="#laboratorio">
 
-                                    Grupos
+            Laboratorio
 
-                                </button>
+        </button>
 
-                            </li>
+    </li>
+
+
+    <li class="nav-item">
+
+        <button class="nav-link"
+                data-bs-toggle="tab"
+                data-bs-target="#referencias">
+
+            Valores Ref.
+
+        </button>
+
+    </li>
+
+
+    <li class="nav-item">
+
+        <button class="nav-link"
+                data-bs-toggle="tab"
+                data-bs-target="#grupos">
+
+            Grupos
+
+        </button>
+
+    </li>
 
                         </ul>
 
@@ -189,10 +201,49 @@
                         <!-- CONTENIDO DE LAS PESTAÑAS -->
                         <div class="tab-content">
 
+                            <!-- DESCRIPCIÓN -->
+                            <div class="tab-pane fade show active"
+                                id="descripcion">
 
+                                <div class="study-description">
+
+                                    <div class="d-flex align-items-center mb-3">
+
+                                        <i class="bi bi-journal-medical fs-3 me-2"></i>
+
+                                        <h4 class="mb-0">
+                                            Descripción del estudio
+                                        </h4>
+
+                                    </div>
+
+
+                                    <div id="InfoModal_DETALLE_SERVICIO">
+
+                                        <!--
+                                            Aquí se cargará la descripción desde AJAX.
+                                        -->
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- OPCIONAL -->
+                                <div class="alert alert-info mt-4">
+
+                                    <i class="bi bi-info-circle-fill"></i>
+
+                                    La información presentada tiene fines informativos y
+                                    sirve como apoyo para conocer el propósito y la utilidad
+                                    clínica del estudio.
+
+                                </div>
+
+                            </div>
 
                             <!-- GENERAL -->
-                            <div class="tab-pane fade show active"
+                            <div class="tab-pane fade show"
                                  id="general">
 
                                 <div class="row">
