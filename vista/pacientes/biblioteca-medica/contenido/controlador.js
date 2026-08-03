@@ -1,5 +1,5 @@
 async function contenidoBibliotecaMedica() {
-  await obtenerTitulo("Biblioteca médica | Bimo");
+  await obtenerTitulo("Biblioteca médica");
 
   $.post("contenido/biblioteca-medica.html", function (html) {
     $("#body-js").html(html);
