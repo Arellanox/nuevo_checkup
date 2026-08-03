@@ -1,0 +1,86 @@
+<section class="biblioteca-medica py-3">
+  <div class="rounded-4 p-4 p-md-5 mb-4 biblioteca-medica__hero">
+    <div class="row align-items-center g-3">
+      <div class="col-md-8">
+        <span class="badge rounded-pill biblioteca-medica__badge mb-3">Herramienta comercial Bimo</span>
+        <h1 class="h2 fw-bold mb-2">Biblioteca médica</h1>
+        <p class="mb-0 fs-6">Encuentra la información de cada estudio para orientar a médicos y pacientes al elegir Bimo.</p>
+      </div>
+      <div class="col-md-4 text-md-end d-none d-md-block">
+        <i class="bi bi-journal-medical biblioteca-medica__hero-icon" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-3 p-md-4">
+      <form id="form-buscar-estudio" novalidate>
+        <label class="form-label fw-semibold" for="buscar-biblioteca">Busca un estudio</label>
+        <div class="input-group input-group-lg">
+          <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+          <input type="search" class="form-control" id="buscar-biblioteca" autocomplete="off"
+                 placeholder="Nombre, identificador o abreviatura del estudio">
+          <button class="btn biblioteca-medica__boton" type="submit">Buscar</button>
+        </div>
+        <div class="form-text">Ejemplos: biometría hemática, BH, glucosa o el identificador del estudio.</div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-md-4">
+      <div class="biblioteca-medica__beneficio h-100">
+        <i class="bi bi-person-check me-2"></i><strong>Explica con claridad</strong>
+        <span>Comparte indicaciones y datos del estudio durante la conversación.</span>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="biblioteca-medica__beneficio h-100">
+        <i class="bi bi-heart-pulse me-2"></i><strong>Orienta la decisión</strong>
+        <span>Localiza el estudio que el médico o paciente necesita.</span>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="biblioteca-medica__beneficio h-100">
+        <i class="bi bi-building-check me-2"></i><strong>Conecta con Bimo</strong>
+        <span>Ten la información del catálogo Bimo a la mano.</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="estado-busqueda" class="text-center text-muted py-4">
+    <i class="bi bi-search fs-3 d-block mb-2"></i>
+    Ingresa el nombre, clave o abreviatura de un estudio para consultar su ficha.
+  </div>
+  <div class="row g-3 d-none" id="resultados-biblioteca" aria-live="polite"></div>
+  <p class="text-center text-muted py-4 d-none" id="sin-resultados">No encontramos estudios con esa búsqueda.</p>
+
+  <div class="alert alert-light border mt-4 mb-0 small" role="note">
+    <i class="bi bi-info-circle me-1"></i> La información es una guía de apoyo. Las indicaciones finales deben confirmarse con el personal de Bimo y la orden médica correspondiente.
+  </div>
+</section>
+
+<style>
+  .biblioteca-medica__hero { background: linear-gradient(135deg, #003f4b, #087f7b); color: #fff; }
+  .biblioteca-medica__badge { background: rgba(255, 255, 255, .18); color: #fff; }
+  .biblioteca-medica__hero-icon { font-size: 5rem; opacity: .85; }
+  .biblioteca-medica__boton { background: #087f7b; border-color: #087f7b; color: #fff; }
+  .biblioteca-medica__boton:hover, .biblioteca-medica__boton:focus { background: #006662; border-color: #006662; color: #fff; }
+  .biblioteca-medica__beneficio { border: 1px solid #d8ebe9; border-radius: .75rem; padding: 1rem; background: #f8fcfb; color: #075c59; }
+  .biblioteca-medica__beneficio span { display: block; color: #5f6b6a; font-size: .9rem; margin-top: .35rem; }
+  .biblioteca-medica__card { border: 0; box-shadow: 0 .15rem .7rem rgba(0, 0, 0, .08); overflow: hidden; }
+  .biblioteca-medica__encabezado { border-left: 5px solid #087f7b; }
+  .biblioteca-medica__codigo { color: #087f7b; font-size: .82rem; font-weight: 700; letter-spacing: .04em; }
+  .biblioteca-medica__detalle { color: #596664; }
+  .biblioteca-medica__dato { background: #f8f9fa; border-radius: .5rem; padding: .75rem; height: 100%; }
+  .biblioteca-medica__dato small { color: #6c757d; display: block; margin-bottom: .25rem; }
+  .biblioteca-medica__dato span { color: #212529; font-weight: 500; }
+  .biblioteca-medica__seccion-titulo { color: #075c59; font-size: .9rem; font-weight: 700; letter-spacing: .02em; text-transform: uppercase; }
+  .biblioteca-medica__tecnico { background: #f8fcfb; border: 1px solid #d8ebe9; border-radius: .5rem; }
+  .biblioteca-medica__tecnico summary { color: #075c59; cursor: pointer; font-weight: 600; }
+  .biblioteca-medica__tecnico summary::marker { color: #087f7b; }
+  .biblioteca-medica__grupo { background: #fff; border: 1px solid #087f7b; border-radius: .5rem; }
+  .biblioteca-medica__grupo summary { color: #075c59; cursor: pointer; font-weight: 700; }
+  .biblioteca-medica__grupo summary::marker { color: #087f7b; }
+  .biblioteca-medica__estudio-incluido { background: #f8fcfb; border-color: #d8ebe9; color: #24403e; }
+</style>
