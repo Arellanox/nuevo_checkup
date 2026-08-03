@@ -38,7 +38,7 @@ function bloqueEstudiosIncluidos(idServicio, esGrupo) {
 
   return `
     <details class="biblioteca-medica__grupo p-3" data-id-servicio="${textoSeguro(idServicio)}" data-cargado="0">
-      <summary><i class="bi bi-collection me-2"></i>Estudios incluidos en este perfil</summary>
+      <summary><i class="bi bi-collection me-2"></i>Contenido de este perfil</summary>
       <div class="biblioteca-medica__estudios-incluidos mt-3 small" aria-live="polite"></div>
     </details>`;
 }
