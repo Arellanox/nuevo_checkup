@@ -82,7 +82,7 @@ function tarjetaEstudio(estudio, indice) {
 
           <div class="p-4 pt-3">
             <p class="biblioteca-medica__detalle mb-4">${detalle !== null ? textoSeguro(detalle) : 'Consulta los requisitos y datos operativos de este estudio en Bimo.'}</p>
-            <div class="biblioteca-medica__seccion-titulo mb-2">Datos para orientar la conversación</div>
+            <div class="biblioteca-medica__seccion-titulo mb-2">Datos del estudio</div>
             <div class="row g-2 mb-3">
               ${datoFicha('Área de estudio', clasificacion, 'bi-tag')}
               ${datoFicha('Abreviatura', abreviatura, 'bi-upc')}
@@ -94,7 +94,7 @@ function tarjetaEstudio(estudio, indice) {
             <div class="row g-2 mb-3">
               ${datoFicha('Tipo de muestra', muestra, 'bi-droplet')}
               ${datoFicha('Contenedor', contenedor, 'bi-box-seam')}
-              ${datoFicha('Conservación', conservacion, 'bi-thermometer-half')}
+              ${datoFicha('Conservación', conservacion ? String(conservacion).toUpperCase() : null, 'bi-thermometer-half')}
               ${datoFicha('Metodología', metodologia, 'bi-clipboard2-pulse')}
             </div>
 
