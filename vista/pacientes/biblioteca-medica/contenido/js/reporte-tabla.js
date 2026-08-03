@@ -43,7 +43,7 @@ function bloqueEstudiosIncluidos(idServicio, esGrupo) {
     </details>`;
 }
 
-function tarjetaEstudio(estudio) {
+function tarjetaEstudio(estudio, indice) {
   const id = valorEstudio(estudio, ['ID_SERVICIO', 'ID_ESTUDIO', 'CLAVE']);
   const servicio = valorEstudio(estudio, ['SERVICIO', 'DESCRIPCION', 'NOMBRE_ESTUDIO']);
   const area = valorEstudio(estudio, ['AREA', 'NOMBRE_AREA']);
@@ -65,20 +65,23 @@ function tarjetaEstudio(estudio) {
   return `
     <div class="col-12">
       <article class="card biblioteca-medica__card">
-        <div class="card-body p-0">
-          <header class="biblioteca-medica__encabezado p-4 pb-3">
-            <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-2">
-              <span class="biblioteca-medica__codigo">ID ${textoSeguro(id, 'SIN ID')}</span>
-              <div class="d-flex flex-wrap gap-2">
-                <span class="badge text-bg-light">${textoSeguro(area, 'Bimo')}</span>
-                <span class="badge text-bg-light">${textoSeguro(tipoEstudio)}</span>
+        <details class="biblioteca-medica__resultado" ${indice === 0 ? 'open' : ''}>
+          <summary class="biblioteca-medica__encabezado p-3 p-md-4 d-flex align-items-center gap-3">
+            <div class="biblioteca-medica__resultado-resumen flex-grow-1">
+              <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-1">
+                <span class="biblioteca-medica__codigo">ID ${textoSeguro(id, 'SIN ID')}</span>
+                <div class="d-flex flex-wrap gap-2">
+                  <span class="badge text-bg-light">${textoSeguro(area, 'Bimo')}</span>
+                  <span class="badge text-bg-light">${textoSeguro(tipoEstudio)}</span>
+                </div>
               </div>
+              <h2 class="h5 fw-bold mb-1">${textoSeguro(servicio, 'Estudio Bimo')}</h2>
+              <span class="biblioteca-medica__resultado-titulo">${textoSeguro(clasificacion, 'Catálogo Bimo')} · Entrega: ${textoSeguro(entrega, 'por confirmar')}</span>
             </div>
-            <h2 class="h4 fw-bold mb-1">${textoSeguro(servicio, 'Estudio Bimo')}</h2>
-            <p class="biblioteca-medica__detalle mb-0">${detalle !== null ? textoSeguro(detalle) : 'Consulta los requisitos y datos operativos de este estudio en Bimo.'}</p>
-          </header>
+          </summary>
 
           <div class="p-4 pt-3">
+            <p class="biblioteca-medica__detalle mb-4">${detalle !== null ? textoSeguro(detalle) : 'Consulta los requisitos y datos operativos de este estudio en Bimo.'}</p>
             <div class="biblioteca-medica__seccion-titulo mb-2">Datos para orientar la conversación</div>
             <div class="row g-2 mb-3">
               ${datoFicha('Área de estudio', clasificacion, 'bi-tag')}
@@ -102,7 +105,7 @@ function tarjetaEstudio(estudio) {
               ${bloqueTecnico('Criterios de rechazo de muestra', 'bi-exclamation-triangle', motivoRechazo)}
             </div>
           </div>
-        </div>
+        </details>
       </article>
     </div>`;
 }
@@ -200,5 +203,16 @@ $(document).on('click', '.biblioteca-medica__grupo summary', function () {
   // El estado "open" cambia después del clic sobre el summary.
   setTimeout(function () {
     if ($grupo.prop('open')) cargarEstudiosIncluidos($grupo);
+  }, 0);
+});
+
+$(document).on('click', '.biblioteca-medica__resultado > summary', function () {
+  const $resultadoActual = $(this).closest('.biblioteca-medica__resultado');
+
+  // Mantiene visible una sola ficha completa y facilita comparar resultados extensos.
+  setTimeout(function () {
+    if ($resultadoActual.prop('open')) {
+      $('.biblioteca-medica__resultado').not($resultadoActual).prop('open', false);
+    }
   }, 0);
 });

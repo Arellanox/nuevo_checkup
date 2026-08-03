@@ -68,8 +68,17 @@
   .biblioteca-medica__boton:hover, .biblioteca-medica__boton:focus { background: #006662; border-color: #006662; color: #fff; }
   .biblioteca-medica__beneficio { border: 1px solid #d8ebe9; border-radius: .75rem; padding: 1rem; background: #f8fcfb; color: #075c59; }
   .biblioteca-medica__beneficio span { display: block; color: #5f6b6a; font-size: .9rem; margin-top: .35rem; }
-  .biblioteca-medica__card { border: 0; box-shadow: 0 .15rem .7rem rgba(0, 0, 0, .08); overflow: hidden; }
+  .biblioteca-medica__card { border: 1px solid rgba(8, 127, 123, .12); box-shadow: 0 .6rem 1.5rem rgba(0, 44, 52, .16); overflow: hidden; transition: box-shadow .2s ease, transform .2s ease; }
+  .biblioteca-medica__card:hover { box-shadow: 0 .85rem 2rem rgba(0, 44, 52, .22); transform: translateY(-2px); }
+  .biblioteca-medica__resultado[open] { box-shadow: inset 0 .25rem .6rem rgba(8, 127, 123, .04); }
   .biblioteca-medica__encabezado { border-left: 5px solid #087f7b; }
+  .biblioteca-medica__resultado { background: #fff; }
+  .biblioteca-medica__resultado > summary { cursor: pointer; list-style: none; }
+  .biblioteca-medica__resultado > summary::-webkit-details-marker { display: none; }
+  .biblioteca-medica__resultado > summary::after { content: '\F282'; font-family: bootstrap-icons; color: #087f7b; font-size: 1.2rem; }
+  .biblioteca-medica__resultado[open] > summary::after { content: '\F286'; }
+  .biblioteca-medica__resultado-resumen { min-width: 0; }
+  .biblioteca-medica__resultado-titulo { color: #075c59; font-size: .83rem; font-weight: 700; }
   .biblioteca-medica__codigo { color: #087f7b; font-size: .82rem; font-weight: 700; letter-spacing: .04em; }
   .biblioteca-medica__detalle { color: #596664; }
   .biblioteca-medica__dato { background: #f8f9fa; border-radius: .5rem; padding: .75rem; height: 100%; }
