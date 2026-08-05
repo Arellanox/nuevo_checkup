@@ -58,6 +58,35 @@
   <div class="alert alert-light border mt-4 mb-0 small" role="note">
     <i class="bi bi-info-circle me-1"></i> La información es una guía de apoyo. Las indicaciones finales deben confirmarse con el personal de bimo y la orden médica correspondiente.
   </div>
+
+  <div class="modal fade" id="modalDetalleEstudio" tabindex="-1" aria-labelledby="tituloModalDetalleEstudio" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content biblioteca-medica__modal-content">
+        <div class="modal-header biblioteca-medica__modal-header">
+          <div class="d-flex align-items-center gap-3">
+            <div class="biblioteca-medica__modal-icon">
+              <i class="bi bi-journal-medical"></i>
+            </div>
+            <div>
+              <h5 class="modal-title mb-1" id="tituloModalDetalleEstudio">Detalle del estudio</h5>
+              <p class="modal-subtitle mb-0 text-white-75">Revisa y comparte la información del estudio</p>
+            </div>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body biblioteca-medica__modal-body"></div>
+        <div class="modal-footer biblioteca-medica__modal-footer">
+          <button type="button" id="btn-copiar-texto" class="btn btn-outline-secondary">
+            <i class="bi bi-clipboard me-2"></i>Copiar texto
+          </button>
+          <a id="btn-compartir-whatsapp" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-success">
+            <i class="bi bi-whatsapp me-2"></i>Compartir por WhatsApp
+          </a>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <style>
@@ -70,6 +99,16 @@
   .biblioteca-medica__beneficio span { display: block; color: #5f6b6a; font-size: .9rem; margin-top: .35rem; }
   .biblioteca-medica__card { border: 1px solid rgba(8, 127, 123, .12); box-shadow: 0 .6rem 1.5rem rgba(0, 44, 52, .16); overflow: hidden; transition: box-shadow .2s ease, transform .2s ease; }
   .biblioteca-medica__card:hover { box-shadow: 0 .85rem 2rem rgba(0, 44, 52, .22); transform: translateY(-2px); }
+  .biblioteca-medica__resultado-header { cursor: pointer; }
+  .biblioteca-medica__modal-content { border: none; border-radius: 1.25rem; overflow: hidden; }
+  .biblioteca-medica__modal-header { background: linear-gradient(135deg, #0b7f70, #0f9c84); color: #fff; border-bottom: none; padding: 1.5rem 1.75rem; }
+  .biblioteca-medica__modal-icon { width: 3rem; height: 3rem; background: rgba(255, 255, 255, .18); display: inline-flex; align-items: center; justify-content: center; border-radius: .75rem; }
+  .biblioteca-medica__modal-icon i { font-size: 1.35rem; }
+  .biblioteca-medica__modal-body { padding: 1.75rem; background: #f8fcfb; }
+  .biblioteca-medica__modal-footer { background: #fff; border-top: 1px solid rgba(0, 0, 0, .05); padding: 1rem 1.5rem; }
+  .biblioteca-medica__modal-body > *:not(:last-child) { margin-bottom: 1rem; }
+  .biblioteca-medica__modal-body p { color: #495057; }
+  .biblioteca-medica__resultado-header:hover { background: rgba(8, 127, 123, .04); }
   .biblioteca-medica__resultado[open] { box-shadow: inset 0 .25rem .6rem rgba(8, 127, 123, .04); }
   .biblioteca-medica__encabezado { border-left: 5px solid #087f7b; }
   .biblioteca-medica__resultado { background: #fff; }
