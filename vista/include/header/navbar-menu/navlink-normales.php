@@ -169,7 +169,7 @@ if (
     <li class="nav-item">
         <div class="dropdown ">
             <a class="dropdown-toggle" id="dropCatalogosLab" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-journals"></i> Catalogos
+                <i class="bi bi-journals"></i> Catálogos
             </a>
             <ul class="dropdown-menu bg-navbar-drop drop-areas" aria-labelledby="dropCatalogosLab">
                 <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrarmetodos">
@@ -177,6 +177,18 @@ if (
                 </a>
                 <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrarmaquila">
                     <i class="bi bi-box"></i> Laboratorio Maquila
+                </a>
+                <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrarMedidas">
+                    <i class="bi bi-box"></i> Medidas
+                </a>
+                <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrarClasificaciones">
+                    <i class="bi bi-box"></i> Clasificaciones
+                </a>
+                <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrarContenedores">
+                    <i class="bi bi-box"></i> Contenedores
+                </a>
+                <a class="dropdown-a align-items-center" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistrarMuestras">
+                    <i class="bi bi-box"></i> Muestras
                 </a>
             </ul>
         </div>

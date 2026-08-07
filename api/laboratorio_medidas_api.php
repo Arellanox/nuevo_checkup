@@ -17,13 +17,13 @@ $api = isset($_POST['api']) ?  $_POST['api'] : (isset($_GET['api']) ? $_GET['api
 $id = $_POST['id'];
 
 #insertar
-$id_medida = $_POST['id_medida'];
+$id_medida = $_POST['ID_MEDIDA'];
 $descripcion = $_POST['descripcion'];
 $abreviatura = $_POST['abreviatura'];
 
 $parametros = array(
-    $descripcion,
     $id_medida,
+    $descripcion,
     $abreviatura
 );
 

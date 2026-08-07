@@ -4485,7 +4485,20 @@ function selectedTrTable(text, column = 1, table) {
 
 
 //Vista de un solo valor
-function getAreaUnValor(titulo, titulosingular, api_url, registro_id, divContenedor) {
+function getAreaUnValor(titulo, titulosingular, api_url, registro_id, divContenedor, options = {}) {
+  options = options || {};
+  let extraFields = options.extraFields || [];
+  extraFields = extraFields.map(field => ({
+    name: field.name,
+    key: field.key || field.name.toUpperCase(),
+    label: field.label || firstMayus(field.name),
+    type: field.type || 'text',
+    required: field.required || false,
+    placeholder: field.placeholder || ''
+  }));
+  let showActive = options.showActive !== undefined ? options.showActive : true;
+  let registroField = options.registroField || registro_id;
+
   //Plantilla 
   html = '<div class="modal fade" id="modalRegistrar' + titulo + '" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"' +
     'data-bs-keyboard="false">' +
@@ -4513,51 +4526,70 @@ function getAreaUnValor(titulo, titulosingular, api_url, registro_id, divContene
     'title="Doble click a un registro para modificarlo">' +
     '<i class="bi bi-pencil"></i> </span>' +
     '</div> </div>' +
-    '<div class="row mt-3">' +
+    '<div class="d-flex flex-wrap" style="gap: 1rem; align-items: flex-start;">' +
 
     //Tabla contenido
-    '<div class="col-6">' +
-    '<table class="table tableContenido" id="Tabla' + titulo + '" style="width:100%">' +
+    '<div style="flex: 1 1 58%; min-width: 360px;">' +
+    '<div class="table-responsive" style="max-height: 348px; overflow-y: auto; overflow-x: auto; min-width: 0;">' +
+    '<table class="table tableContenido" id="Tabla' + titulo + '" style="width:100%; min-width: 0;">' +
     '<thead class="">' +
     '<tr>' +
     '<th scope="col d-flex justify-content-center">#</th>' +
-    '<th scope="col d-flex justify-content-center">' + firstMayus(titulo) + '</th>' +
-    '<th scope="col d-flex justify-content-center"><i class="bi bi-collection"></i></th>' +
+    '<th scope="col d-flex justify-content-center">' + firstMayus(titulo) + '</th>';
+  extraFields.forEach(field => {
+    html += '<th scope="col d-flex justify-content-center">' + field.label + '</th>';
+  });
+  html += '<th scope="col d-flex justify-content-center"><i class="bi bi-collection"></i></th>' +
     '</tr>' +
     '</thead>' +
     '<tbody>' +
     '</tbody>' +
     '</table>' +
     '</div>' +
+    '</div>' +
     //
 
-    //Formularios Registrar
-    '<div class="col-6" id="RegistrarMetodo' + titulo + '">' +
-    '<p>Crear nuevo registro:</p>' +
-    '<form class="row" id="formRegistrar' + titulo + '">' +
-    '<div class="col-12">' +
-    '<label for="descripcion" class="form-label">Nombre ' + titulosingular + '</label>' +
-    '<input type="text" name="descripcion" required value="" class="form-control input-form">' +
-    '</div>' +
-    '<div class="text-center">' +
+    //Formularios Registrar y Actualizar
+    '<div style="flex: 0 0 38%; min-width: 300px;">' +
+      '<div id="RegistrarMetodo' + titulo + '">' +
+        '<p>Crear nuevo registro:</p>' +
+        '<form class="row" id="formRegistrar' + titulo + '">' +
+          '<div class="col-12">' +
+            '<label for="descripcion" class="form-label">Nombre ' + titulosingular + '</label>' +
+            '<input type="text" name="descripcion" required value="" class="form-control input-form">' +
+          '</div>';
+  extraFields.forEach(field => {
+    html += '<div class="col-12">' +
+      '<label for="' + field.name + '-' + titulo + '" class="form-label">' + field.label + '</label>' +
+      '<input type="' + field.type + '" name="' + field.name + '" id="' + field.name + '-' + titulo + '" class="form-control input-form"' +
+      (field.required ? ' required' : '') +
+      ' placeholder="' + field.placeholder + '">' +
+      '</div>';
+  });
+  html += '<div class="text-center">' +
     '<button type="submit" class="btn btn-hover me-2" style="margin-bottom:4px">' +
     '<i class="bi bi-send-plus"></i> Guardar' +
     '</button>' +
     '</div>' +
     '</form>' +
-    '</div>' +
-    //
-
-    //Formulario Actualizar
-    '<div class="col-6" id="editarMetodo' + titulo + '" style="display:none">' +
-    '<p>Actualizar registro:</p>' +
-    '<form class="row" id="formEditar' + titulo + '">' +
-    '<div class="col-12">' +
-    '<label for="descripcion" class="form-label">Nombre ' + titulosingular + '</label>' +
-    '<input type="text" name="descripcion" required id="edit-' + titulo + '-descripcion" ' +
-    'class="form-control input-form">' +
-    '</div>' +
-    '<div class="text-center">' +
+      '</div>' +
+      '<div id="editarMetodo' + titulo + '" style="display:none">' +
+        '<p>Actualizar registro:</p>' +
+        '<form class="row" id="formEditar' + titulo + '">' +
+          '<div class="col-12">' +
+            '<label for="descripcion" class="form-label">Nombre ' + titulosingular + '</label>' +
+            '<input type="text" name="descripcion" required id="edit-' + titulo + '-descripcion" ' +
+            'class="form-control input-form">' +
+          '</div>';
+  extraFields.forEach(field => {
+    html += '<div class="col-12">' +
+      '<label for="edit-' + titulo + '-' + field.name + '" class="form-label">' + field.label + '</label>' +
+      '<input type="' + field.type + '" name="' + field.name + '" id="edit-' + titulo + '-' + field.name + '" class="form-control input-form"' +
+      (field.required ? ' required' : '') +
+      ' placeholder="' + field.placeholder + '">' +
+      '</div>';
+  });
+  html += '<div class="text-center">' +
     '<button type="submit" class="btn btn-hover me-2" style="margin-bottom:4px">' +
     '<i class="bi bi-pencil-square"></i> Actualizar' +
     '</button>' +
@@ -4569,6 +4601,7 @@ function getAreaUnValor(titulo, titulosingular, api_url, registro_id, divContene
     '</button>' +
     '</div>' +
     '</form>' +
+      '</div>' +
     '</div>' +
     //
 
@@ -4593,15 +4626,37 @@ function getAreaUnValor(titulo, titulosingular, api_url, registro_id, divContene
   //Crea el html en DOM
   $(divContenedor).html(html);
 
-  vistaAreaUnValor(api_url, '#Tabla' + titulo, registro_id, titulo)
+  vistaAreaUnValor(api_url, '#Tabla' + titulo, registro_id, titulo, extraFields, showActive)
 
 
 }
 
-function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
+function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo, extraFields = [], showActive = true, registroField = null) {
   let dataAreaValor;
+  registroField = registroField || registro_id;
   //Vista table {-
+  let columns = [
+    { data: null, render: function (data, type, row, meta) { return meta.row + 1; } },
+    { data: 'DESCRIPCION' }
+  ];
+  extraFields.forEach(field => {
+    columns.push({ data: field.key });
+  });
+  if (showActive) {
+    columns.push({
+      data: 'ACTIVO', render: function (data) {
+        if (data == 1) {
+          return '<i class="bi bi-check-circle"></i>';
+        } else {
+          return '<i class="bi bi-x-circle"></i>';
+        }
+      }
+    });
+  }
+
   let TablaContenido = $(tabla_id).DataTable({
+    // Permite destruir la instancia previa si ya exista
+    destroy: true,
     processing: true,
     language: {
       url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
@@ -4617,11 +4672,9 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
     lengthChange: false,
     info: false,
     paging: false,
-    scrollY: autoHeightDiv(0, 348),
-    scrollCollapse: true,
     ajax: {
       dataType: 'json',
-      data: { api: 2, ACTIVO: 1 },
+      data: showActive ? { api: 2, ACTIVO: 1 } : { api: 2 },
       method: 'POST',
       url: http + servidor + "/" + appname + "/api/" + api_url + ".php",
       beforeSend: function () { },
@@ -4631,25 +4684,15 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
     },
     createdRow: function (row, data, dataIndex) {
       // mensajeAjax(data)
-      if (data.ACTIVO == 1) {
-        $(row).addClass('bg-success text-white');
-      } else {
-        $(row).addClass('bg-danger text-white');
+      if (showActive && data.ACTIVO != null) {
+        if (data.ACTIVO == 1) {
+          $(row).addClass('bg-success text-white');
+        } else {
+          $(row).addClass('bg-danger text-white');
+        }
       }
     },
-    columns: [
-      { data: 'COUNT' },
-      { data: 'DESCRIPCION' },
-      {
-        data: 'ACTIVO', render: function (data) {
-          if (data == 1) {
-            return '<i class="bi bi-check-circle"></i>';
-          } else {
-            return '<i class="bi bi-x-circle"></i>';
-          }
-        }
-      },
-    ],
+    columns: columns,
     columnDefs: [{
       "width": "3px",
       "targets": 0
@@ -4670,21 +4713,34 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
     if (!select) {
       cambiarFormMetodo(0, titulo, "formEditar" + titulo);
     } else {
-      switch (dataAreaValor.ACTIVO) {
-        case 1: case '1':
-          $('#desactivar-' + titulo).fadeIn(100);
-          setTimeout(() => {
-            $('#desactivar-' + titulo).prop('disabled', false);
-          }, 100);
-          break;
-        case 0: case '0':
-          $('#activar-' + titulo).fadeIn(100);
-          setTimeout(() => {
-            $('#activar-' + titulo).prop('disabled', false);
-          }, 100);
-          break;
+      if (dataAreaValor.ACTIVO !== undefined && dataAreaValor.ACTIVO !== null) {
+        switch (dataAreaValor.ACTIVO) {
+          case 1: case '1':
+            $('#desactivar-' + titulo).fadeIn(100);
+            setTimeout(() => {
+              $('#desactivar-' + titulo).prop('disabled', false);
+            }, 100);
+            break;
+          case 0: case '0':
+            $('#activar-' + titulo).fadeIn(100);
+            setTimeout(() => {
+              $('#activar-' + titulo).prop('disabled', false);
+            }, 100);
+            break;
+        }
+      } else if (!showActive) {
+        $('#desactivar-' + titulo).fadeIn(100);
+        setTimeout(() => {
+          $('#desactivar-' + titulo).prop('disabled', false);
+        }, 100);
       }
       document.getElementById("edit-" + titulo + "-descripcion").value = dataAreaValor['DESCRIPCION'];
+      extraFields.forEach(field => {
+        let editInput = document.getElementById('edit-' + titulo + '-' + field.name);
+        if (editInput) {
+          editInput.value = dataAreaValor[field.key] || '';
+        }
+      });
       cambiarFormMetodo(1, titulo);
     }
   }, tabla_id, TablaContenido, true)
@@ -4757,7 +4813,7 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo) {
     /*DATOS Y VALIDACION DEL REGISTRO*/
     var form = document.getElementById("formEditar" + titulo);
     var formData = new FormData(form);
-    formData.set(registro_id, dataAreaValor[registro_id])
+formData.set(registroField, dataAreaValor[registro_id])
     formData.set('api', 1);
 
     alertMensajeConfirm({
@@ -5094,6 +5150,8 @@ function getHTMLCatalogo(divContenedor, titulos, formLabels, tableContent, dise√
 
 function getTableControlador(tagTable, CONTENT, id_primario, formLabels, configTable, ajax, createdRow, columnsData, columnsDefData) {
   let TablaContenido = $(tagTable['table_id']).DataTable({
+    // Evita duplicar la tabla si ya estaba inicializada
+    destroy: true,
     processing: configTable['processing'],
     language: {
       url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",

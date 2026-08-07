@@ -9,6 +9,14 @@ $.post("modals/a_modals.php", function (html) {
 
   getAreaUnValor('metodos', 'metodo', 'laboratorio_metodos_api', 'ID_METODO', '#MODAL_METODOS_VISTA')
 
+  getAreaUnValor('Medidas', 'medida', 'laboratorio_medidas_api', 'ID_MEDIDA', '#MODAL_MEDIDAS_VISTA', {
+    extraFields: [
+      { name: 'abreviatura', label: 'Abreviatura', required: false }
+    ],
+    showActive: false,
+    registroField: 'id_medida'
+  })
+
   getAreaUnValor('maquila', 'maquila', 'laboratorio_maquila_api', 'ID_LABORATORIO', '#MODAL_MAQUILA_VISTA')
 
 
