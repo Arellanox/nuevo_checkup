@@ -313,7 +313,7 @@ $encode_firma = base64_encode($ruta_firma);
 
 
         <?php
-        if (isset($resultados->ANTECEDENTES)) {
+        if (isset($resultados->ANTECEDENTES) && !empty($resultados->ANTECEDENTES)) {
             echo '<h2 style="padding-bottom: 6px; padding-top: 6px;">ANTECEDENTES </h2>';
             foreach ($resultados->ANTECEDENTES as $key => $antecedente) {
                 echo "<br><h4>" . str_replace("_", " ", $key) . "</h4><hr>";
