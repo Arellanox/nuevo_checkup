@@ -140,6 +140,32 @@ $(document).on('click', '.cancel-button', function (e) {
   });
 });
 
+$(document).on('click', '.delete-button', function (e) {
+  e.preventDefault();
+
+  const formulario = $(this).closest('form.formEditarGalleria');
+
+  alertMensajeConfirm({
+    title: '¿Deseas eliminar la promoción?',
+    text: '¡Si la eliminas, no podrás recuperarla!'
+  }, () => {
+    ajaxAwaitFormData({
+      api: 3,
+      id_promocion: $(this).attr('data-bs-id_promocion'),
+    }, 'promociones_api', null, {
+      callbackAfter: true,
+      resetForm: true,
+      formJquery: formulario
+    }, false, (data) => {
+      alertToast('¡Promoción eliminada!', 'success', 4000);
+      
+      setTimeout(() => {
+          location.reload();
+      }, 1000);
+
+    });
+  });
+});
 
 $(document).on('click', '.save-button', function (e) {
   e.preventDefault();

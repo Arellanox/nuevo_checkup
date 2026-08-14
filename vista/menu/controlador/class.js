@@ -315,6 +315,10 @@ class CargadorProgresivo {
         <button class="btn btn-success btn-sm save-button mx-2" data-bs-id_promocion="${dato.ID_PROMOCION}" type="button" style="display: none">
           <i class="bi bi-save"></i>
         </button>
+        <!-- Boton para ELIMINAR PROMOCIONES -->
+        <button class="btn btn-danger btn-sm delete-button mx-2" data-bs-id_promocion="${dato.ID_PROMOCION}" type="button" style="display: block" title="Eliminar Promoción">
+          <i class="bi bi-eraser"></i>
+        </button>
         <!-- Boton para cancelar texto a inputs -->
         <button class="btn btn-pantone-7408 btn-sm cancel-button" data-bs-id_promocion="${dato.ID_PROMOCION}" type="button" style="display: none">
           <i class="bi bi-x-lg"></i>
