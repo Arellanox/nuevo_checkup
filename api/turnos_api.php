@@ -474,7 +474,8 @@ function crearReporteLaboratorio($id_area, $id_turno)
     # como el id 0 no existe dentro de la tabla de clasificaciones, el algoritmo de arriba los ignora
     # por tanto se tiene que realizar un algoritmo similar pero con el filtro en 0.
     $servicios = array_filter($response, function ($obj) {
-        $return = $obj['CLASIFICACION_ID'] == 0;
+        #$return = $obj['CLASIFICACION_ID'] == 0;
+        $return = $obj['CLASIFICACION_ID'] == null;
         return $return;
     });
 
