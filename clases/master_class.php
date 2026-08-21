@@ -34,7 +34,10 @@ class Master extends Miscelaneus
         $port = $this->database->port ?? 3306;
 
         try {
-            $conn = new PDO("mysql:host=$host;dbname=$dbname;port=$port", $username, $password);
+            $conn = new PDO("mysql:host=$host;dbname=$dbname;port=$port", $username, $password,  [
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_PERSISTENT => true
+                ]);
             //echo "Connected to $dbname at $host successfully.";
         } catch (PDOException $pe) {
             $this->mis->setLog("Could not connect to the database $dbname :" . $pe->getMessage(), 'fn_connect_db');
