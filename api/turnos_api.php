@@ -84,6 +84,10 @@ $response = "";
 $nuevo_reporte = $_POST['nuevo_reporte'];
 $ruta_reporte = $_POST['ruta_reporte'];
 
+// VARIABLES PARA COMPROBACION DE ESTUDIOS DE RECEPCION
+$id_servicio = $_POST['id_servicio'];
+$servicios = $_POST['servicios'];
+
 // Angel estuvo aqui XD
 $master = new Master();
 switch ($api) {
@@ -388,6 +392,9 @@ switch ($api) {
         break;
     case 24:
         $response = $master->updateByProcedure("sp_cargar_comentario_paciente_xray", [$id_turno, $comentario_tecnico]);
+        break;
+    case 25:
+        $response = $master->getByProcedure("sp_recepcion_comprobar_carga_estudios", [$id_servicio, json_encode($servicios)]);
         break;
     default:
         $response = "api no reconocida";

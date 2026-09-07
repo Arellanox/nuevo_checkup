@@ -1,6 +1,8 @@
 // Obtener datos del paciente seleccionado
 let url_paciente = null, validarEstudiosLab = 0, validarEstudiosRX = 0, validarEstudiosImg = 0, validarEstudiosOtros = 0;
 let estudiosEnviar = [];
+let validandoEstudio = false;
+let estudiosIncluidosPorPerfil = {};
 let detallesEstudiosCotizacion = [];
 let PaquetesDatos;
 
@@ -215,13 +217,111 @@ $('#formAceptarPacienteRecepcion').submit(function (event) {
 })
 
 // Create an observer instance.
-$('#btn-AgregarEstudioLab').on('click', function () {
+$('#btn-AgregarEstudioLab').on('click', async function () {
     let text = $("#select-lab option:selected").text();
     let id = $("#select-lab").val();
-    validarEstudiosLab = 1;
-    actualizarTotal(id, estudiosLab, true)
-    agregarFilaDiv('#list-estudios-laboratorio', text, id)
+
+    if (!id || validandoEstudio) return;
+
+    validandoEstudio = true;
+    try {
+        if (!await validarEstudioEnLista(id)) return;
+
+        validarEstudiosLab = 1;
+        actualizarTotal(id, estudiosLab, true)
+        agregarFilaDiv('#list-estudios-laboratorio', text, id)
+    } catch (error) {
+        alertMensaje(
+            'error',
+            'No se pudo validar el estudio',
+            'Intenta nuevamente. El estudio no se agregó porque no fue posible consultar la lista.'
+        );
+    } finally {
+        validandoEstudio = false;
+    }
 })
+
+async function validarEstudioEnLista(id) {
+    const validacionEstudio = await ajaxAwait({
+        api: 25,
+        id_servicio: id,
+        servicios: estudiosEnviar
+    }, 'turnos_api', { callbackAfter: true }, false);
+
+    if (validacionEstudio?.response?.data?.[0]?.incluido == 1) {
+        alertMensaje(
+            'warning',
+            'Estudio ya en la lista',
+            'Este estudio ya se encuentra en la lista o está incluido en un grupo de la lista.'
+        );
+        return false;
+    }
+
+    return true;
+}
+
+async function obtenerEstudiosPerfil(idPerfil) {
+    if (!estudiosIncluidosPorPerfil[idPerfil]) {
+        const respuesta = await $.ajax({
+            url: http + servidor + "/" + appname + "/api/laboratorio_solicitud_maquila_api.php",
+            type: 'POST',
+            dataType: 'json',
+            data: { api: 12, ID_GRUPO_SERVICIO: idPerfil }
+        });
+        estudiosIncluidosPorPerfil[idPerfil] = respuesta?.response?.data || [];
+    }
+
+    return estudiosIncluidosPorPerfil[idPerfil];
+}
+
+async function buscarConflictoPerfil(idEstudio) {
+    const estudioSeleccionado = estudiosLab.find(estudio => estudio.ID_SERVICIO == idEstudio);
+    if (!estudioSeleccionado) return null;
+
+    const serviciosAgregados = estudiosEnviar
+        .map(idServicio => estudiosLab.find(estudio => estudio.ID_SERVICIO == idServicio))
+        .filter(Boolean);
+    const perfilesAgregados = serviciosAgregados.filter(esPerfil);
+    const estudiosIncluidos = serviciosAgregados.filter(estudio => !esPerfil(estudio));
+
+    if (esPerfil(estudioSeleccionado)) {
+        const estudiosDelPerfil = await obtenerEstudiosPerfil(estudioSeleccionado.ID_SERVICIO);
+        const estudioCoincidente = estudiosIncluidos.find(estudio =>
+            estudiosDelPerfil.some(incluido => idsCoinciden(incluido, estudio.ID_SERVICIO))
+        );
+
+        if (estudioCoincidente) {
+            return {
+                mensaje: `El estudio ${estudioCoincidente.SERVICIO || estudioCoincidente.DESCRIPCION || estudioCoincidente.ABREVIATURA} ya fue agregado y está incluido en el perfil ${estudioSeleccionado.SERVICIO || estudioSeleccionado.DESCRIPCION || estudioSeleccionado.ABREVIATURA}.`
+            };
+        }
+
+        return null;
+    }
+
+    for (const perfil of perfilesAgregados) {
+        const estudioIncluido = (await obtenerEstudiosPerfil(perfil.ID_SERVICIO))
+            .some(estudio => idsCoinciden(estudio, idEstudio));
+
+        if (estudioIncluido) {
+            return {
+                mensaje: `El estudio seleccionado ya está incluido en el perfil ${perfil.SERVICIO || perfil.DESCRIPCION || perfil.ABREVIATURA}.`
+            };
+        }
+    }
+
+    return null;
+}
+
+function esPerfil(estudio) {
+    return parseInt(estudio.ES_GRUPO ?? estudio.ESTUDIO_ES_GRUPO, 10) === 1;
+}
+
+function idsCoinciden(estudioIncluido, idEstudio) {
+    return [estudioIncluido.ID_ESTUDIO, estudioIncluido.ID_SERVICIO]
+        .some(idIncluido => idIncluido != null && idIncluido == idEstudio);
+}
+
 var Obserlab = new MutationObserver(function (mutations) {
     if ($('#list-estudios-laboratorio').children().length == 0 || array_selected['CLIENTE_ID'] != 1) {
         validarEstudiosLab = 0;
@@ -233,11 +333,21 @@ Obserlab.observe(document.querySelector('#list-estudios-laboratorio'), {
     characterData: true
 });
 
-$('#btn-agregarEstudioRX').on('click', function () {
+$('#btn-agregarEstudioRX').on('click', async function () {
     let text = $("#select-rx option:selected").text();
     let id = $("#select-rx").val();
-    actualizarTotal(id, estudiosRX, true)
-    agregarFilaDiv('#list-estudios-rx', text, id)
+    if (!id || validandoEstudio) return;
+
+    validandoEstudio = true;
+    try {
+        if (!await validarEstudioEnLista(id)) return;
+        actualizarTotal(id, estudiosRX, true)
+        agregarFilaDiv('#list-estudios-rx', text, id)
+    } catch (error) {
+        alertMensaje('error', 'No se pudo validar el estudio', 'Intenta nuevamente. El estudio no se agregó porque no fue posible consultar la lista.');
+    } finally {
+        validandoEstudio = false;
+    }
 })
 var ObserRX = new MutationObserver(function (mutations) {
     if ($('#list-estudios-rx').children().length == 0 || array_selected['CLIENTE_ID'] != 1) {
@@ -253,11 +363,21 @@ ObserRX.observe(document.querySelector('#list-estudios-rx'), {
     characterData: true
 });
 
-$('#btn-agregarEstudioImg').on('click', function () {
+$('#btn-agregarEstudioImg').on('click', async function () {
     let text = $("#select-us option:selected").text();
     let id = $("#select-us").val();
-    actualizarTotal(id, estudiosUltra, true)
-    agregarFilaDiv('#list-estudios-ultrasonido', text, id)
+    if (!id || validandoEstudio) return;
+
+    validandoEstudio = true;
+    try {
+        if (!await validarEstudioEnLista(id)) return;
+        actualizarTotal(id, estudiosUltra, true)
+        agregarFilaDiv('#list-estudios-ultrasonido', text, id)
+    } catch (error) {
+        alertMensaje('error', 'No se pudo validar el estudio', 'Intenta nuevamente. El estudio no se agregó porque no fue posible consultar la lista.');
+    } finally {
+        validandoEstudio = false;
+    }
 })
 var ObserULTRSONIDO = new MutationObserver(function (mutations) {
     if ($('#list-estudios-ultrasonido').children().length == 0 || array_selected['CLIENTE_ID'] != 1) {
@@ -270,11 +390,21 @@ ObserULTRSONIDO.observe(document.querySelector('#list-estudios-ultrasonido'), {
     characterData: true
 });
 
-$('#btn-agregarEstudioOtros').on('click', function () {
+$('#btn-agregarEstudioOtros').on('click', async function () {
     let text = $("#select-otros option:selected").text();
     let id = $("#select-otros").val();
-    actualizarTotal(id, estudiosOtros, true)
-    agregarFilaDiv('#list-estudios-otros', text, id)
+    if (!id || validandoEstudio) return;
+
+    validandoEstudio = true;
+    try {
+        if (!await validarEstudioEnLista(id)) return;
+        actualizarTotal(id, estudiosOtros, true)
+        agregarFilaDiv('#list-estudios-otros', text, id)
+    } catch (error) {
+        alertMensaje('error', 'No se pudo validar el estudio', 'Intenta nuevamente. El estudio no se agregó porque no fue posible consultar la lista.');
+    } finally {
+        validandoEstudio = false;
+    }
 })
 var ObserOtros = new MutationObserver(function (mutations) {
     if ($('#list-estudios-otros').children().length == 0 || array_selected['CLIENTE_ID'] != 1) {
@@ -287,11 +417,21 @@ ObserOtros.observe(document.querySelector('#list-estudios-otros'), {
     characterData: true
 });
 
-$('#btn-AgregarEstudioLabBio').on('click', function () {
+$('#btn-AgregarEstudioLabBio').on('click', async function () {
     let text = $("#select-labbio option:selected").text();
     let id = $("#select-labbio").val();
-    actualizarTotal(id, estudiosLabBio, true)
-    agregarFilaDiv('#list-estudios-laboratorio-biomolecular', text, id)
+    if (!id || validandoEstudio) return;
+
+    validandoEstudio = true;
+    try {
+        if (!await validarEstudioEnLista(id)) return;
+        actualizarTotal(id, estudiosLabBio, true)
+        agregarFilaDiv('#list-estudios-laboratorio-biomolecular', text, id)
+    } catch (error) {
+        alertMensaje('error', 'No se pudo validar el estudio', 'Intenta nuevamente. El estudio no se agregó porque no fue posible consultar la lista.');
+    } finally {
+        validandoEstudio = false;
+    }
 })
 var ObserOtros = new MutationObserver(function (mutations) {
     if ($('#list-estudios-laboratorio-biomolecular').children().length == 0 || array_selected['CLIENTE_ID'] != 1) {
@@ -351,6 +491,7 @@ function limpiarFormAceptar() {
     validarEstudiosImg = 0;
     validarEstudiosOtros = 0;
     estudiosEnviar = [];
+    estudiosIncluidosPorPerfil = {};
     totalAcumulado = 0;  //Precio final
 
     // New set page
