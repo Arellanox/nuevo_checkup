@@ -4083,44 +4083,165 @@ function obtenerPanelInformacion(id = null, api = null, tipPanel = null, panel =
                     }
                   }
 
+                  updateHistorialEmptyState('#append-html-historial-estudios');
+
                   $(panel).fadeIn(100);
                   resolve(1);
                 })
 
+                function getAreaMeta(titulo) {
+                  const areaMeta = {
+                    'CONSULTORIO': { icon: 'bi-clipboard2-pulse', badge: 'bg-primary text-white' },
+                    'SOMATOMETRÍA': { icon: 'bi-rulers', badge: 'bg-info text-white' },
+                    'OFTALMOLOGÍA': { icon: 'bi-eye', badge: 'bg-success text-white' },
+                    'AUDIOMETRÍA': { icon: 'bi-ear', badge: 'bg-warning text-dark' },
+                    'ESPIROMETRÍA': { icon: 'bi-heart-pulse', badge: 'bg-danger text-white' },
+                    'LABORATORIO CLÍNICO': { icon: 'bi-droplet-half', badge: 'bg-primary text-white' },
+                    'RAYOS X': { icon: 'bi-bandaid', badge: 'bg-secondary text-white' },
+                    'ELECTROCARDIOGRAMA': { icon: 'bi-activity', badge: 'bg-success text-white' },
+                    'ELECTRO_CAPTURAS': { icon: 'bi-cpu', badge: 'bg-secondary text-white' },
+                    'ULTRASONIDO': { icon: 'bi-person-video', badge: 'bg-info text-white' },
+                    'LABORATORIO BIOMOLECULAR': { icon: 'bi-flask', badge: 'bg-purple text-white' },
+                    'CITOLOGÍA': { icon: 'bi-clipboard2-check', badge: 'bg-warning text-dark' },
+                    'NUTRICIÓN': { icon: 'bi-basket2', badge: 'bg-success text-white' },
+                    'INBODY': { icon: 'bi-body-text', badge: 'bg-dark text-white' },
+                    'CERTIFICADO MÉDICO': { icon: 'bi-file-medical', badge: 'bg-secondary text-white' },
+                    'CONSULTORIO FASTCHECKUP': { icon: 'bi-speedometer2', badge: 'bg-primary text-white' },
+                    'CERTIFICADO POE': { icon: 'bi-card-checklist', badge: 'bg-info text-white' },
+                    'CERTIFICADO BIMO': { icon: 'bi-shield-check', badge: 'bg-success text-white' },
+                    'PAQUETES': { icon: 'bi-box-seam', badge: 'bg-warning text-dark' },
+                  };
+
+                  return areaMeta[titulo] || { icon: 'bi-file-earmark-text', badge: 'bg-secondary text-white' };
+                }
+
+                function sortHistorialResultados(array) {
+                  return [...array].sort((a, b) => {
+                    const fechaA = new Date(a.FECHA_RECEPCION || 0).getTime();
+                    const fechaB = new Date(b.FECHA_RECEPCION || 0).getTime();
+                    return fechaB - fechaA;
+                  });
+                }
+
+                function updateHistorialEmptyState(div) {
+                  const $emptyState = $('#empty-historial-resultados');
+
+                  if (!$emptyState.length) {
+                    return;
+                  }
+
+                  const $areas = $(div).find('li[data-area]');
+                  const hasResults = $areas.length > 0;
+
+                  $emptyState.toggleClass('d-none', hasResults);
+                }
+
                 function setListResultadosAreas(div, titulo, array) {
                   let html = '';
-                  //titulo
                   let lenghtArray = array.length;
+
                   if (!lenghtArray)
                     return false;
-                  html += `<li class="list-group-item d-flex justify-content-between align-items-start">
-                              <div class="ms-2 me-auto">`
-                  html += `<div class="fw-bold">
-                                <a class="" data-bs-toggle="collapse" href="#collapseEstudios${deleteSpace(titulo)}" role="button"
-                                    aria-expanded="false" aria-controls="collapseEstudios${deleteSpace(titulo)}">
-                                    ${titulo}
-                                </a>
-                            </div>`
-                  //Body 
-                  html += `<div class="collapse" id="collapseEstudios${deleteSpace(titulo)}">
-                                <ul style="list-style: disc;">`
 
-                  for (const key in array) {
-                    if (Object.hasOwnProperty.call(array, key)) {
-                      const element = array[key];
-                      html += `<li><a href="${element['RUTA']}" target="_blank">${formatoFecha2(element['FECHA_RECEPCION'], [0, 1, 2, 2, 0, 0, 0])}</a></li>`
+                  const orderedArray = sortHistorialResultados(array);
+                  const meta = getAreaMeta(titulo);
+                  let collapseId = `collapseEstudios${deleteSpace(titulo)}`;
+
+                  html += `
+                    <li class="list-group-item border-0 p-0 mb-2" data-area="${titulo}">
+                      <div class="card border-0 shadow-sm overflow-hidden">
+                        <div class="card-header px-3 py-2 border-0" style="background: linear-gradient(135deg, rgba(13,110,253,0.12), rgba(111,66,193,0.12));">
+                          <div class="d-flex justify-content-between align-items-center gap-2">
+                            <button class="btn btn-link text-start text-decoration-none p-0 fw-bold text-body w-100 d-flex align-items-center gap-2" type="button"
+                              data-bs-toggle="collapse" data-bs-target="#${collapseId}" aria-expanded="false"
+                              aria-controls="${collapseId}">
+                              <span class="d-inline-flex align-items-center justify-content-center rounded-circle bg-white shadow-sm" style="width: 34px; height: 34px;">
+                                <i class="${meta.icon} text-primary"></i>
+                              </span>
+                              <span>${titulo}</span>
+                            </button>
+                            <span class="badge rounded-pill ${meta.badge} px-2 py-2">${lenghtArray}</span>
+                          </div>
+                        </div>
+                        <div class="collapse" id="${collapseId}">
+                          <div class="card-body p-2">
+                            <div class="row g-2">
+                  `;
+
+                  for (const key in orderedArray) {
+                    if (Object.hasOwnProperty.call(orderedArray, key)) {
+                      const element = orderedArray[key];
+                      const fecha = formatoFecha2(element['FECHA_RECEPCION'], [0, 1, 2, 2, 0, 0, 0]);
+                      const isRecent = Number(key) === 0;
+
+                      html += `
+                                <div class="col-md-6 col-xl-4">
+                                  <div class="card border-0 h-100 shadow-sm result-card ${isRecent ? 'recent' : 'older'}" style="transition: all 0.2s ease;">
+                                    <div class="card-body p-3">
+                                      <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                                        <div class="d-flex align-items-center gap-2">
+                                          <span class="d-inline-flex align-items-center justify-content-center rounded-circle bg-light" style="width: 32px; height: 32px;">
+                                            <i class="${meta.icon} text-primary"></i>
+                                          </span>
+                                          <span class="fw-semibold text-dark">${fecha}</span>
+                                        </div>
+                                        <span class="badge rounded-pill ${meta.badge}">PDF</span>
+                                      </div>
+
+                                      <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <div class="small text-muted">Resultado disponible</div>
+                                        <span class="badge rounded-pill ${isRecent ? 'bg-success text-white' : 'bg-secondary-subtle text-secondary-emphasis'}">
+                                          ${isRecent ? 'Reciente' : 'Anterior'}
+                                        </span>
+                                      </div>
+
+                                      <div class="d-flex gap-2">
+                                        <a class="btn btn-sm btn-primary flex-fill" href="${element['RUTA']}" target="_blank" rel="noopener noreferrer">
+                                          <i class="bi bi-box-arrow-up-right me-1"></i>
+                                          Abrir
+                                        </a>
+                                        <a class="btn btn-sm btn-outline-primary" href="${element['RUTA']}" download>
+                                          <i class="bi bi-download me-1"></i>
+                                          Descargar
+                                        </a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                      `;
                     }
                   }
 
-                  html += `</ul> </div>`
-
-                  //Finish and number span 
-                  html += `</div>
-                        <span class="badge bg-primary rounded-pill">${lenghtArray}</span>
-                    </li>`
+                  html += `
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  `;
 
                   $(div).append(html);
 
+                  const totalAreas = $(div).find('li[data-area]').length;
+                  $('#contador-historial-resultados').text(totalAreas);
+
+                  const $input = $('#buscar-resultados-historial');
+                  if ($input.length && !$input.data('historial-bound')) {
+                    $input.data('historial-bound', true).on('input.historial', function () {
+                      const filtro = $(this).val().trim().toLowerCase();
+
+                      $(div).find('li[data-area]').each(function () {
+                        const $item = $(this);
+                        const texto = $item.text().toLowerCase();
+                        const visible = !filtro || texto.includes(filtro);
+                        $item.toggle(visible);
+                      });
+
+                      updateHistorialEmptyState(div);
+                    });
+                  }
+
+                  updateHistorialEmptyState(div);
                 }
 
                 break;
@@ -4526,12 +4647,11 @@ function getAreaUnValor(titulo, titulosingular, api_url, registro_id, divContene
     'title="Doble click a un registro para modificarlo">' +
     '<i class="bi bi-pencil"></i> </span>' +
     '</div> </div>' +
-    '<div class="d-flex flex-wrap" style="gap: 1rem; align-items: flex-start;">' +
+    '<div class="row mt-3">' +
 
     //Tabla contenido
-    '<div style="flex: 1 1 58%; min-width: 360px;">' +
-    '<div class="table-responsive" style="max-height: 348px; overflow-y: auto; overflow-x: auto; min-width: 0;">' +
-    '<table class="table tableContenido" id="Tabla' + titulo + '" style="width:100%; min-width: 0;">' +
+    '<div class="col-6">' +
+    '<table class="table tableContenido" id="Tabla' + titulo + '" style="width:100%">' +
     '<thead class="">' +
     '<tr>' +
     '<th scope="col d-flex justify-content-center">#</th>' +
@@ -4546,18 +4666,16 @@ function getAreaUnValor(titulo, titulosingular, api_url, registro_id, divContene
     '</tbody>' +
     '</table>' +
     '</div>' +
-    '</div>' +
     //
 
-    //Formularios Registrar y Actualizar
-    '<div style="flex: 0 0 38%; min-width: 300px;">' +
-      '<div id="RegistrarMetodo' + titulo + '">' +
-        '<p>Crear nuevo registro:</p>' +
-        '<form class="row" id="formRegistrar' + titulo + '">' +
-          '<div class="col-12">' +
-            '<label for="descripcion" class="form-label">Nombre ' + titulosingular + '</label>' +
-            '<input type="text" name="descripcion" required value="" class="form-control input-form">' +
-          '</div>';
+    //Formularios Registrar
+    '<div class="col-6" id="RegistrarMetodo' + titulo + '">' +
+    '<p>Crear nuevo registro:</p>' +
+    '<form class="row" id="formRegistrar' + titulo + '">' +
+    '<div class="col-12">' +
+    '<label for="descripcion" class="form-label">Nombre ' + titulosingular + '</label>' +
+    '<input type="text" name="descripcion" required value="" class="form-control input-form">' +
+    '</div>';
   extraFields.forEach(field => {
     html += '<div class="col-12">' +
       '<label for="' + field.name + '-' + titulo + '" class="form-label">' + field.label + '</label>' +
@@ -4572,15 +4690,18 @@ function getAreaUnValor(titulo, titulosingular, api_url, registro_id, divContene
     '</button>' +
     '</div>' +
     '</form>' +
-      '</div>' +
-      '<div id="editarMetodo' + titulo + '" style="display:none">' +
-        '<p>Actualizar registro:</p>' +
-        '<form class="row" id="formEditar' + titulo + '">' +
-          '<div class="col-12">' +
-            '<label for="descripcion" class="form-label">Nombre ' + titulosingular + '</label>' +
-            '<input type="text" name="descripcion" required id="edit-' + titulo + '-descripcion" ' +
-            'class="form-control input-form">' +
-          '</div>';
+    '</div>' +
+    //
+
+    //Formulario Actualizar
+    '<div class="col-6" id="editarMetodo' + titulo + '" style="display:none">' +
+    '<p>Actualizar registro:</p>' +
+    '<form class="row" id="formEditar' + titulo + '">' +
+    '<div class="col-12">' +
+    '<label for="descripcion" class="form-label">Nombre ' + titulosingular + '</label>' +
+    '<input type="text" name="descripcion" required id="edit-' + titulo + '-descripcion" ' +
+    'class="form-control input-form">' +
+    '</div>';
   extraFields.forEach(field => {
     html += '<div class="col-12">' +
       '<label for="edit-' + titulo + '-' + field.name + '" class="form-label">' + field.label + '</label>' +
@@ -4601,7 +4722,6 @@ function getAreaUnValor(titulo, titulosingular, api_url, registro_id, divContene
     '</button>' +
     '</div>' +
     '</form>' +
-      '</div>' +
     '</div>' +
     //
 
@@ -4655,7 +4775,7 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo, extraFields = 
   }
 
   let TablaContenido = $(tabla_id).DataTable({
-    // Permite destruir la instancia previa si ya exista
+    // Permite destruir la instancia previa si ya existe (evita header duplicado)
     destroy: true,
     processing: true,
     language: {
@@ -4672,6 +4792,8 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo, extraFields = 
     lengthChange: false,
     info: false,
     paging: false,
+    scrollY: autoHeightDiv(0, 348),
+    scrollCollapse: true,
     ajax: {
       dataType: 'json',
       data: showActive ? { api: 2, ACTIVO: 1 } : { api: 2 },
@@ -4713,7 +4835,7 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo, extraFields = 
     if (!select) {
       cambiarFormMetodo(0, titulo, "formEditar" + titulo);
     } else {
-      if (dataAreaValor.ACTIVO !== undefined && dataAreaValor.ACTIVO !== null) {
+      if (showActive) {
         switch (dataAreaValor.ACTIVO) {
           case 1: case '1':
             $('#desactivar-' + titulo).fadeIn(100);
@@ -4728,11 +4850,6 @@ function vistaAreaUnValor(api_url, tabla_id, registro_id, titulo, extraFields = 
             }, 100);
             break;
         }
-      } else if (!showActive) {
-        $('#desactivar-' + titulo).fadeIn(100);
-        setTimeout(() => {
-          $('#desactivar-' + titulo).prop('disabled', false);
-        }, 100);
       }
       document.getElementById("edit-" + titulo + "-descripcion").value = dataAreaValor['DESCRIPCION'];
       extraFields.forEach(field => {
