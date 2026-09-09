@@ -8,27 +8,64 @@ var popSelectEstudios = [];
 var datosUsuarioCotizacion = $('#datosUsuarioCotizacion');
 let correos;
 
-$('#agregar-estudio-paquete').click(function () {
-    const value = $('input[type=radio][name=selectChecko]:checked').val()
+$('#agregar-estudio-paquete').click(async function () {
+    const value = $('input[type=radio][name=selectChecko]:checked').val();
+
+    if (!value) {
+        alertMensaje(
+            'warning',
+            'Selecciona un estudio',
+            'Debes elegir un estudio o paquete antes de continuar.'
+        );
+        return;
+    }
+
+    selectData = selectEstudio.array[$("#seleccion-estudio").prop('selectedIndex')];
+
+    if (!selectData) {
+        alertMensaje(
+            'error',
+            'No se pudo seleccionar el estudio',
+            'Intenta nuevamente.'
+        );
+        return;
+    }
 
     if (parseInt(value) === 13) {
-        selectData = selectEstudio.array[$("#seleccion-estudio").prop('selectedIndex')]
-
         meterDato(
             selectData['DESCRIPCION'], '-----',
             selectData['COSTO'], selectData['PRECIO_VENTA'], 1, null,
             null, selectData['ID_PAQUETE'],
             tablaContenidoPaquete
         );
-    } else {
-        selectData = selectEstudio.array[$("#seleccion-estudio").prop('selectedIndex')]
-        meterDato(
-            selectData['SERVICIO'], selectData['ABREVIATURA'],
-            selectData['COSTO'], selectData['PRECIO_VENTA'], 1, null,
-            selectData['ID_SERVICIO'], null,
-            tablaContenidoPaquete
-        );
+        return;
     }
+
+    const serviciosEnTabla = tablaContenidoPaquete.rows().data().toArray()
+        .map(row => row[8])
+        .filter(id => id !== null && id !== undefined && id !== '');
+
+    const validacionEstudio = await ajaxAwait({
+        api: 25,
+        id_servicio: selectData['ID_SERVICIO'],
+        servicios: serviciosEnTabla
+    }, 'turnos_api', { callbackAfter: true }, false);
+
+    if (validacionEstudio?.response?.data?.[0]?.incluido == 1) {
+        alertMensaje(
+            'warning',
+            'Estudio ya en la lista',
+            'Este estudio ya se encuentra en la lista o está incluido en un grupo de la lista.'
+        );
+        return;
+    }
+
+    meterDato(
+        selectData['SERVICIO'], selectData['ABREVIATURA'],
+        selectData['COSTO'], selectData['PRECIO_VENTA'], 1, null,
+        selectData['ID_SERVICIO'], null,
+        tablaContenidoPaquete
+    );
 })
 
 $("#formPaqueteBotonesArea").addClass("disable-element");
