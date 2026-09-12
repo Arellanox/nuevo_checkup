@@ -51,6 +51,7 @@ $(document).on('click', '#EstudiosInfo', function (e) {
 
 let buscar_estudio = 0;
 let rows_estudios = [];
+let estudioSeleccionado = null;
 let debounceTimer = null;
 let currentRequest = null; // Para cancelar peticiones previas
 
@@ -79,6 +80,8 @@ $('#FormEstudioBuscar input[name="estudio"]').on('input', function () {
             currentRequest.abort();
         }
         clearTimeout(debounceTimer);
+        estudioSeleccionado = null;
+        window.estudioSeleccionado = null;
         $('#suggestionsListEstudios').empty();
         $('#listEstudios').addClass('d-none');
         return;
@@ -123,6 +126,7 @@ $('#FormEstudioBuscar input[name="estudio"]').on('input', function () {
                 const html = rows_estudios.map(row => `
                     <div class="idEstudiosView"
                         data-id_servicio="${row.ID_SERVICIO}"
+                        data-estudio='${encodeURIComponent(JSON.stringify(row))}'
                         style="background: rgba(0,78,89,0.78); color: #ffffff; border-radius: 10px;
                                margin-top: 10px; margin-bottom: 10px; padding: 16px; cursor: pointer">
                         <span class="estudios_encontrados">${row.SERVICIO}</span>
@@ -157,7 +161,21 @@ $(document).on('click', '.idEstudiosView', async function (e) {
 
     // ID del seervicio
     $id_servicio = $span.attr('data-id_servicio')
-    const info_estudio = rows_estudios.find(element => element.ID_SERVICIO === $id_servicio);
+    let info_estudio = rows_estudios.find(element => element.ID_SERVICIO === $id_servicio);
+
+    if (!info_estudio) {
+        const estudioRaw = $span.attr('data-estudio');
+        if (estudioRaw) {
+            try {
+                info_estudio = JSON.parse(decodeURIComponent(estudioRaw));
+            } catch (error) {
+                console.warn('No se pudo parsear el estudio seleccionado:', error);
+            }
+        }
+    }
+
+    estudioSeleccionado = info_estudio || null;
+    window.estudioSeleccionado = estudioSeleccionado;
 
     setInformation(info_estudio)
 

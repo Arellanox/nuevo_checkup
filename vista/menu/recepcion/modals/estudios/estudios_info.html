@@ -592,7 +592,16 @@
 
 
             <!-- FOOTER -->
-            <div class="modal-footer">
+            <div class="modal-footer justify-content-between">
+
+                <button type="button"
+                        id="btn-compartir-estudio-whatsapp"
+                        class="btn btn-success">
+
+                    <i class="bi bi-whatsapp me-2"></i>
+                    Compartir por WhatsApp
+
+                </button>
 
                 <button type="button"
                         class="btn btn-cancelar"
@@ -710,5 +719,46 @@
 <script>
 
     html_estudios_info = $('#info_estudios-search').html();
+
+    function getEstudioWhatsAppText() {
+        const estudio = window.estudioSeleccionado || null;
+
+        function limpiarTexto(texto) {
+            return String(texto || '')
+                .replace(/\r\n/g, '\n')
+                .replace(/\n{3,}/g, '\n\n')
+                .replace(/[ \t]+/g, ' ')
+                .trim();
+        }
+
+        if (!estudio) {
+            return '*Estudio / Servicio:* Estudio no disponible\n\n*Abreviatura:* No disponible\n\n*Tiempo de entrega:* No disponible\n\n*Indicaciones para el paciente:*\nNo disponible';
+        }
+
+        const nombre = limpiarTexto(estudio.DESCRIPCION || estudio.SERVICIO || 'Estudio no disponible');
+        const abreviatura = limpiarTexto(estudio.ABREVIATURA || 'No disponible');
+        const entrega = limpiarTexto(estudio.DIAS_DE_ENTREGA || 'No disponible');
+        const indicaciones = limpiarTexto(estudio.INDICACIONES || 'No disponible');
+
+        return [
+            '*'+nombre+'*',
+            '',
+            '*Abreviatura:* ' + abreviatura,
+            '*Tiempo de entrega:* ' + entrega,
+            '',
+            '*Indicaciones para el paciente:*',
+            indicaciones
+        ].join('\n');
+    }
+
+    $('#btn-compartir-estudio-whatsapp').on('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const texto = getEstudioWhatsAppText();
+        const whatsappUrl = 'https://wa.me/?text=' + encodeURIComponent(texto);
+
+        window.open(whatsappUrl, '_blank');
+    });
 
 </script>
