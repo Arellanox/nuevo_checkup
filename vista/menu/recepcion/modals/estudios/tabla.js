@@ -54,11 +54,31 @@ let rows_estudios = [];
 let debounceTimer = null;
 let currentRequest = null; // Para cancelar peticiones previas
 
+$('#FormEstudioBuscar').on('submit', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+});
+
+function mostrarEstadoBusqueda() {
+    $('#suggestionsListEstudios').html(`
+        <div class="text-center py-4 text-muted">
+            <div class="spinner-border spinner-border-sm me-2 align-middle" role="status" aria-hidden="true"></div>
+            <span>Buscando...</span>
+        </div>
+    `);
+    $('#listEstudios').removeClass('d-none');
+}
+
 $('#FormEstudioBuscar input[name="estudio"]').on('input', function () {
     const query = $(this).val().trim();
 
     // Si está vacío, limpiar y ocultar resultados
     if (query.length === 0) {
+        if (currentRequest && typeof currentRequest.abort === 'function') {
+            currentRequest.abort();
+        }
+        clearTimeout(debounceTimer);
         $('#suggestionsListEstudios').empty();
         $('#listEstudios').addClass('d-none');
         return;
@@ -66,6 +86,8 @@ $('#FormEstudioBuscar input[name="estudio"]').on('input', function () {
 
     // Limpiar debounce anterior
     clearTimeout(debounceTimer);
+
+    mostrarEstadoBusqueda();
 
     // Crear nuevo debounce (ej. 400ms)
     debounceTimer = setTimeout(() => {
@@ -75,7 +97,13 @@ $('#FormEstudioBuscar input[name="estudio"]').on('input', function () {
         }
 
         if (buscar_estudio) {
-            alertToast('Cargando datos previos', 'info', 2000);
+            $('#suggestionsListEstudios').html(`
+                <div class="text-center py-4 text-muted">
+                    <div class="spinner-border spinner-border-sm me-2 align-middle" role="status" aria-hidden="true"></div>
+                    <span>Buscando...</span>
+                </div>
+            `);
+            $('#listEstudios').removeClass('d-none');
             return;
         }
 
@@ -107,7 +135,12 @@ $('#FormEstudioBuscar input[name="estudio"]').on('input', function () {
                         .removeClass('d-none')
                         .addClass('animate__animated animate__fadeIn');
                 } else {
-                    $('#listEstudios').addClass('d-none');
+                    $('#suggestionsListEstudios').html(`
+                        <div class="text-center py-4 text-muted">
+                            <span>No se encontraron resultados</span>
+                        </div>
+                    `);
+                    $('#listEstudios').removeClass('d-none');
                 }
             }
         );
