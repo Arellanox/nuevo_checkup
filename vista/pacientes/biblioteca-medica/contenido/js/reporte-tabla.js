@@ -14,6 +14,10 @@ function textoSeguro(valor, reemplazo = 'No disponible') {
   return $('<div>').text(valor).html();
 }
 
+function normalizarBusqueda(valor) {
+  return String(valor ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase().trim();
+}
+
 function datoFicha(etiqueta, valor, icono) {
   if (valor === null) return '';
   return `
@@ -28,8 +32,8 @@ function datoFicha(etiqueta, valor, icono) {
 function bloqueTecnico(titulo, icono, contenido) {
   if (contenido === null) return '';
   return `
-    <details class="biblioteca-medica__tecnico p-3">
-      <summary><i class="bi ${icono} me-2"></i>${titulo}</summary>
+    <details class="biblioteca-medica__tecnico p-3 h-100">
+      <summary><i class="bi ${icono} me-2"></i>${titulo}<span class="small d-block mt-1">Hay más información. Haz clic para desplegarla.</span></summary>
       <p class="small mb-0 mt-2">${textoSeguro(contenido)}</p>
     </details>`;
 }
@@ -107,14 +111,21 @@ function cargarEstudiosIncluidos($grupo) {
         return;
       }
 
-      const lista = estudios.map(function (estudio) {
+      const badges = estudios.map(function (estudio) {
         const nombre = textoSeguro(valorEstudio(estudio, ['NOMBRE_ESTUDIO', 'SERVICIO', 'DESCRIPCION']), 'Estudio individual');
         const abreviatura = valorEstudio(estudio, ['ABREVIATURA']);
         const textoAbreviatura = abreviatura !== null ? `<small class="text-muted ms-1">(${textoSeguro(abreviatura)})</small>` : '';
-        return `<li class="list-group-item biblioteca-medica__estudio-incluido">${nombre}${textoAbreviatura}</li>`;
+        const busqueda = textoSeguro(`${valorEstudio(estudio, ['NOMBRE_ESTUDIO', 'SERVICIO', 'DESCRIPCION']) || 'Estudio individual'} ${abreviatura || ''}`);
+        return `<span class="badge rounded-pill text-bg-light border biblioteca-medica__estudio-incluido" data-busqueda="${busqueda}">${nombre}${textoAbreviatura}</span>`;
       }).join('');
 
-      $contenedor.html(`<ul class="list-group list-group-flush">${lista}</ul>`);
+      $contenedor.html(`
+        <div class="mb-3">
+          <label for="buscar-estudio-perfil" class="form-label small fw-semibold">Buscar un estudio incluido</label>
+          <input type="search" id="buscar-estudio-perfil" class="form-control form-control-sm biblioteca-medica__busqueda-estudios" placeholder="Nombre o abreviatura">
+        </div>
+        <div class="d-flex flex-wrap gap-2" aria-live="polite">${badges}</div>
+        <p class="biblioteca-medica__sin-coincidencias text-muted small mt-3 mb-0 d-none">No hay estudios que coincidan con la búsqueda.</p>`);
     },
     error: function (jqXHR, textStatus, errorThrown) {
       $grupo.data('cargado', 0);
@@ -174,7 +185,7 @@ function construirContenidoModal(estudio) {
         <div class="d-flex flex-column flex-md-row justify-content-between gap-3">
           <div>
             <h3 class="mb-1">${textoSeguro(servicio, 'Estudio Bimo')}</h3>
-            <p class="mb-0 text-muted">${textoSeguro(clasificacion, 'Catálogo Bimo')} · Entrega: ${textoSeguro(entrega, 'por confirmar')}</p>
+            <p class="mb-0 text-muted">ID: ${textoSeguro(id, 'SIN ID')} · ${textoSeguro(clasificacion, 'Catálogo Bimo')} · Entrega: ${textoSeguro(entrega, 'por confirmar')}${abreviatura !== null ? ` · Abreviatura: ${textoSeguro(abreviatura)}` : ''}${medida !== null ? ` · Medida: ${textoSeguro(medida)}` : ''}</p>
           </div>
           <div class="text-md-end">
             <div class="badge bg-light text-dark mb-2">${textoSeguro(area, 'Bimo')}</div>
@@ -185,16 +196,7 @@ function construirContenidoModal(estudio) {
       <div class="col-12">
         <p class="mb-4">${detalle !== null ? textoSeguro(detalle) : 'Consulta los requisitos y datos operativos de este estudio en Bimo.'}</p>
       </div>
-      <div class="col-12 col-lg-6">
-        <div class="biblioteca-medica__seccion-titulo mb-2">Datos del estudio</div>
-        <div class="row g-2">
-          ${datoFicha('Área de estudio', clasificacion, 'bi-tag')}
-          ${datoFicha('Abreviatura', abreviatura, 'bi-upc')}
-          ${datoFicha('Tiempo de entrega', entrega, 'bi-clock')}
-          ${datoFicha('Medida', medida, 'bi-rulers')}
-        </div>
-      </div>
-      <div class="col-12 col-lg-6">
+      <div class="col-12">
         <div class="biblioteca-medica__seccion-titulo mb-2">Toma y manejo de muestra</div>
         <div class="row g-2">
           ${datoFicha('Tipo de muestra', muestra, 'bi-droplet')}
@@ -206,15 +208,15 @@ function construirContenidoModal(estudio) {
       <div class="col-12">
         <div class="biblioteca-medica__seccion-titulo mb-2">Indicaciones importantes</div>
         <div class="row g-2">
-          ${datoFicha('Indicaciones del estudio', indicaciones, 'bi-card-checklist')}
-          ${datoFicha('Indicaciones laboratorio', indicacionesLaboratorio, 'bi-building-gear')}
-          ${datoFicha('Criterios de rechazo', motivoRechazo, 'bi-exclamation-triangle')}
+          ${indicaciones !== null ? `<div class="col-12"><p class="mb-2"><strong>Indicaciones del estudio</strong><br>${textoSeguro(indicaciones)}</p></div>` : ''}
+          <div class="col-12 col-md-6">${bloqueTecnico('Indicaciones para el laboratorio', 'bi-building-gear', indicacionesLaboratorio)}</div>
+          <div class="col-12 col-md-6">${bloqueTecnico('Criterios de rechazo', 'bi-exclamation-triangle', motivoRechazo)}</div>
         </div>
       </div>
       ${String(esGrupo) === '1' ? `
       <div class="col-12">
         <div class="biblioteca-medica__seccion-titulo mb-2">Contenido del perfil</div>
-        <div id="modal-estudios-incluidos" class="small text-muted">Cargando estudios incluidos…</div>
+        <div id="modal-estudios-incluidos" class="small text-muted biblioteca-medica__estudios-incluidos">Cargando estudios incluidos…</div>
       </div>` : ''}
     </div>`;
 }
@@ -287,14 +289,21 @@ function cargarEstudiosIncluidosModal(idServicio) {
         return;
       }
 
-      const lista = estudios.map(function (estudio) {
+      const badges = estudios.map(function (estudio) {
         const nombre = textoSeguro(valorEstudio(estudio, ['NOMBRE_ESTUDIO', 'SERVICIO', 'DESCRIPCION']), 'Estudio individual');
         const abreviatura = valorEstudio(estudio, ['ABREVIATURA']);
         const textoAbreviatura = abreviatura !== null ? `<small class="text-muted ms-1">(${textoSeguro(abreviatura)})</small>` : '';
-        return `<li class="list-group-item biblioteca-medica__estudio-incluido">${nombre}${textoAbreviatura}</li>`;
+        const busqueda = textoSeguro(`${valorEstudio(estudio, ['NOMBRE_ESTUDIO', 'SERVICIO', 'DESCRIPCION']) || 'Estudio individual'} ${abreviatura || ''}`);
+        return `<span class="badge rounded-pill text-bg-light border biblioteca-medica__estudio-incluido" data-busqueda="${busqueda}">${nombre}${textoAbreviatura}</span>`;
       }).join('');
 
-      $contenedor.html(`<ul class="list-group list-group-flush">${lista}</ul>`);
+      $contenedor.html(`
+        <div class="mb-3">
+          <label for="buscar-estudio-perfil-modal" class="form-label small fw-semibold">Buscar un estudio incluido</label>
+          <input type="search" id="buscar-estudio-perfil-modal" class="form-control form-control-sm biblioteca-medica__busqueda-estudios" placeholder="Nombre o abreviatura">
+        </div>
+        <div class="d-flex flex-wrap gap-2" aria-live="polite">${badges}</div>
+        <p class="biblioteca-medica__sin-coincidencias text-muted small mt-3 mb-0 d-none">No hay estudios que coincidan con la búsqueda.</p>`);
     },
     error: function (jqXHR, textStatus, errorThrown) {
       $contenedor.html('<span class="text-danger">No fue posible cargar los estudios incluidos. Intenta nuevamente.</span>');
@@ -307,6 +316,20 @@ $(document).on('click', '.biblioteca-medica__resultado-header', function () {
   const indice = $(this).closest('.biblioteca-medica__resultado').data('estudio-index');
   const estudio = estudiosBiblioteca[indice];
   if (estudio) abrirModalEstudio(estudio, indice);
+});
+
+$(document).on('input', '.biblioteca-medica__busqueda-estudios', function () {
+  const consulta = normalizarBusqueda($(this).val());
+  const $contenedor = $(this).closest('.biblioteca-medica__estudios-incluidos');
+  let coincidencias = 0;
+
+  $contenedor.find('.biblioteca-medica__estudio-incluido').each(function () {
+    const coincide = normalizarBusqueda($(this).attr('data-busqueda')).includes(consulta);
+    $(this).toggleClass('d-none', !coincide);
+    if (coincide) coincidencias += 1;
+  });
+
+  $contenedor.find('.biblioteca-medica__sin-coincidencias').toggleClass('d-none', coincidencias > 0);
 });
 
 $(document).on('click', '#btn-copiar-texto', function () {

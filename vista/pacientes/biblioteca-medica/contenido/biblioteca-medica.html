@@ -130,5 +130,28 @@
   .biblioteca-medica__grupo { background: #fff; border: 1px solid #087f7b; border-radius: .5rem; }
   .biblioteca-medica__grupo summary { color: #075c59; cursor: pointer; font-weight: 700; }
   .biblioteca-medica__grupo summary::marker { color: #087f7b; }
-  .biblioteca-medica__estudio-incluido { background: #f8fcfb; border-color: #d8ebe9; color: #24403e; }
+  .biblioteca-medica__estudio-incluido {
+    align-items: center;
+    background: linear-gradient(135deg, #f3fbfa, #e1f3f0) !important;
+    border-color: #9ed5cf !important;
+    border-radius: 999px;
+    color: #075c59 !important;
+    display: inline-flex;
+    font-size: .92rem;
+    font-weight: 600;
+    line-height: 1.35;
+    min-height: 2.5rem;
+    padding: .55rem 1rem;
+    box-shadow: 0 .2rem .55rem rgba(0, 95, 88, .1);
+    transition: background .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+  }
+  .biblioteca-medica__estudio-incluido:hover {
+    background: linear-gradient(135deg, #e1f3f0, #cce9e5) !important;
+    border-color: #087f7b !important;
+    box-shadow: 0 .35rem .8rem rgba(0, 95, 88, .18);
+    transform: translateY(-1px);
+  }
+  .biblioteca-medica__estudio-incluido small { color: #477572 !important; font-size: .78rem; font-weight: 700; }
+  .biblioteca-medica__busqueda-estudios { border-color: #b7dcd8; }
+  .biblioteca-medica__busqueda-estudios:focus { border-color: #087f7b; box-shadow: 0 0 0 .2rem rgba(8, 127, 123, .15); }
 </style>
