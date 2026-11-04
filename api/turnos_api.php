@@ -146,6 +146,12 @@ switch ($api) {
                     throw new Exception('Error al cargar estudios');
                 }
 
+                $clasificaciones = $master->getByProcedure('sp_laboratorio_clasificacion_examen_b', [null, $id_area]);
+                $clasificacionesPorId = [];
+                foreach ($clasificaciones as $clasificacionItem) {
+                    $clasificacionesPorId[$clasificacionItem['ID_CLASIFICACION']] = $clasificacionItem['DESCRIPCION'];
+                }
+
                 for ($i = 0; $i < count($grupos); $i++) {
                     $nombre_grupo = $grupos[$i]['GRUPO'];
                     $id_grupo = $grupos[$i]['GRUPO_ID'];
@@ -156,6 +162,15 @@ switch ($api) {
                         $r = $obj["GRUPO"] == $nombre_grupo;
                         return $r;
                     });
+
+                    if (empty($clasificacion) || stripos($clasificacion, 'SIN CLASIFIC') === 0) {
+                        foreach ($contenido_grupo as $servicio) {
+                            if (isset($servicio['CLASIFICACION_ID']) && isset($clasificacionesPorId[$servicio['CLASIFICACION_ID']])) {
+                                $clasificacion = $clasificacionesPorId[$servicio['CLASIFICACION_ID']];
+                                break;
+                            }
+                        }
+                    }
 
                     $contenido_grupo['NombreGrupo'] = $nombre_grupo;
                     $contenido_grupo['ID_GRUPO'] = $id_grupo;
