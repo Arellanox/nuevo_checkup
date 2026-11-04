@@ -163,23 +163,31 @@ switch ($api) {
                         return $r;
                     });
 
-                    if (empty($clasificacion) || stripos($clasificacion, 'SIN CLASIFIC') === 0) {
+                    $contenidos = [$clasificacion => $contenido_grupo];
+                    if ($nombre_grupo === 'OTROS SERVICIOS') {
+                        $contenidos = [];
                         foreach ($contenido_grupo as $servicio) {
-                            if (isset($servicio['CLASIFICACION_ID']) && isset($clasificacionesPorId[$servicio['CLASIFICACION_ID']])) {
-                                $clasificacion = $clasificacionesPorId[$servicio['CLASIFICACION_ID']];
-                                break;
-                            }
+                            $clasificacionId = $servicio['CLASIFICACION_ID'] ?? null;
+                            $claveClasificacion = $clasificacionId ?? '__SIN_CLASIFICACION__';
+                            $contenidos[$claveClasificacion][] = $servicio;
                         }
                     }
 
-                    $contenido_grupo['NombreGrupo'] = $nombre_grupo;
-                    $contenido_grupo['ID_GRUPO'] = $id_grupo;
-                    $contenido_grupo['OBSERVACIONES'] = $obs;
-                    $contenido_grupo['CLASIFICACION'] = $clasificacion;
-                    $contenido_grupo['PENDIENTE'] = $grupos[$i]['PENDIENTE'];
+                    foreach ($contenidos as $claveClasificacion => $serviciosGrupo) {
+                        $clasificacionGrupo = $clasificacion;
+                        if ($nombre_grupo === 'OTROS SERVICIOS') {
+                            $clasificacionGrupo = $clasificacionesPorId[$claveClasificacion] ?? $clasificacion;
+                        }
 
-                    if (!empty($contenido_grupo)) {
-                        $array[] = $contenido_grupo;
+                        $serviciosGrupo['NombreGrupo'] = $nombre_grupo;
+                        $serviciosGrupo['ID_GRUPO'] = $id_grupo;
+                        $serviciosGrupo['OBSERVACIONES'] = $obs;
+                        $serviciosGrupo['CLASIFICACION'] = $clasificacionGrupo;
+                        $serviciosGrupo['PENDIENTE'] = $grupos[$i]['PENDIENTE'];
+
+                        if (!empty($serviciosGrupo)) {
+                            $array[] = $serviciosGrupo;
+                        }
                     }
                 }
 
