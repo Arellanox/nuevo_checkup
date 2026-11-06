@@ -186,6 +186,7 @@ async function configurarModal(data) {
     //Estatus en proceso
     OcultarTablas()
     ReiniarFormasPago()
+    $('#descuento').val(0)
     tipo_pago = $('#contado-tipo-pago').val()
     tipo_factura = false
 
