@@ -306,6 +306,8 @@ $("#guardar-contenido-paquete").on("click", function () {
                 if (data) {
                     tablaContenidoPaquete.clear().draw();
                     dataEliminados = [];
+                    $("#descuento-paquete").val(0);
+                    verificarDescuentosPaquete();
 
                     alertMsj({
                         title: "Cotización guardada",
