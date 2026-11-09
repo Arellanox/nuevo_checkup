@@ -235,13 +235,42 @@ switch ($api) {
             'VERIFICACION' => 'Verificación (URL)'
         ];
 
+        $sumatoriasPdf = ['SUBTOTAL' => 0, 'IVA' => 0, 'TOTAL' => 0];
+        foreach ($response as $fila) {
+            foreach ($sumatoriasPdf as $campo => $total) {
+                $importe = str_replace([',', '$', ' '], '', (string) ($fila[$campo] ?? 0));
+                $sumatoriasPdf[$campo] += is_numeric($importe) ? (float) $importe : 0;
+            }
+        }
+
+        $meses = [
+            1 => 'ENERO', 2 => 'FEBRERO', 3 => 'MARZO', 4 => 'ABRIL',
+            5 => 'MAYO', 6 => 'JUNIO', 7 => 'JULIO', 8 => 'AGOSTO',
+            9 => 'SEPTIEMBRE', 10 => 'OCTUBRE', 11 => 'NOVIEMBRE', 12 => 'DICIEMBRE'
+        ];
+        $formatearFechaReporte = static function ($fecha) use ($meses) {
+            $date = new DateTime($fecha);
+            return $date->format('d') . ' DE ' . $meses[(int) $date->format('n')] . ' DEL ' . $date->format('Y');
+        };
+        $logoBimo = base64_encode(file_get_contents(__DIR__ . '/../pdf/public/assets/logotipo.png'));
+        $subtituloReporte = 'ESTADO DE CUENTA | HOSPITAL NUESTRA SEÑORA DE GUADALUPE | DEL '
+            . $formatearFechaReporte($ujat_inicial) . ' AL ' . $formatearFechaReporte($ujat_final);
+
         $html = '<html><head><meta charset="UTF-8"><style>'
-            . 'body{font-family:DejaVu Sans,sans-serif;font-size:6px}h1{font-size:14px;text-align:center}'
+            . 'body{font-family:DejaVu Sans,sans-serif;font-size:6px;margin:25px 30px}'
+            . '.report-header{margin-bottom:20px}.report-header td{border:0;vertical-align:middle;padding:0}'
+            . '.logo-cell{width:20%;text-align:left}.logo-cell img{width:105px;height:auto}'
+            . '.heading-cell{width:80%;text-align:center}.heading-cell h1{font-size:15px;margin:0 0 8px}'
+            . '.heading-cell p{font-size:10px;margin:0}'
             . 'p{font-size:9px}table{border-collapse:collapse;width:100%}th,td{border:1px solid #999;padding:3px;vertical-align:top}'
             . 'th{background:#e8eef2}thead{display:table-header-group}tr{page-break-inside:avoid}'
-            . '</style></head><body><h1>Reporte de pacientes</h1><p>Periodo: '
-            . htmlspecialchars((string) $ujat_inicial, ENT_QUOTES, 'UTF-8') . ' al '
-            . htmlspecialchars((string) $ujat_final, ENT_QUOTES, 'UTF-8') . '</p><table><thead><tr>';
+            . '.summary{width:225px;margin:18px 0 0 auto;font-size:9px}.summary td{padding:5px 8px}'
+            . '.summary-label{font-weight:bold;background:#e8eef2}.summary-value{text-align:right}'
+            . '</style></head><body><table class="report-header"><tbody><tr>'
+            . '<td class="logo-cell"><img src="data:image/png;base64,' . $logoBimo . '" alt="Bimo"></td>'
+            . '<td class="heading-cell"><h1>DIAGNOSTICO BIOMOLECULAR SA DE CV</h1><p>'
+            . htmlspecialchars($subtituloReporte, ENT_QUOTES, 'UTF-8')
+            . '</p></td></tr></tbody></table><table><thead><tr>';
 
         foreach ($columnasPdf as $tituloColumna) {
             $html .= '<th>' . htmlspecialchars($tituloColumna, ENT_QUOTES, 'UTF-8') . '</th>';
@@ -255,6 +284,12 @@ switch ($api) {
                 $html .= '<td>' . htmlspecialchars((string) $valor, ENT_QUOTES, 'UTF-8') . '</td>';
             }
             $html .= '</tr>';
+        }
+        $html .= '</tbody></table><table class="summary"><tbody>';
+        foreach (['SUBTOTAL' => 'Subtotal', 'IVA' => 'IVA', 'TOTAL' => 'TOTAL'] as $campo => $etiqueta) {
+            $importe = number_format($sumatoriasPdf[$campo], 2, '.', ',');
+            $html .= '<tr><td class="summary-label">' . $etiqueta . '</td><td class="summary-value">$'
+                . $importe . '</td></tr>';
         }
         $html .= '</tbody></table></body></html>';
 
