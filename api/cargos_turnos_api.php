@@ -217,11 +217,15 @@ switch ($api) {
             'FACTURA' => 'Factura'
         ];
 
+        $obtenerImporte = static function ($valor) {
+            $importe = str_replace([',', '$', ' '], '', (string) $valor);
+            return is_numeric($importe) ? (float) $importe : 0;
+        };
+
         $sumatoriasPdf = ['SUBTOTAL' => 0, 'IVA' => 0, 'TOTAL' => 0];
         foreach ($response as $fila) {
             foreach ($sumatoriasPdf as $campo => $total) {
-                $importe = str_replace([',', '$', ' '], '', (string) ($fila[$campo] ?? 0));
-                $sumatoriasPdf[$campo] += is_numeric($importe) ? (float) $importe : 0;
+                $sumatoriasPdf[$campo] += $obtenerImporte($fila[$campo] ?? 0);
             }
         }
 
@@ -264,6 +268,9 @@ switch ($api) {
             $html .= '<tr>';
             foreach ($columnasPdf as $campo => $tituloColumna) {
                 $valor = $fila[$campo] ?? '';
+                if (in_array($campo, ['PRECIO_UNITARIO', 'SUBTOTAL', 'IVA', 'TOTAL'], true)) {
+                    $valor = '$' . number_format($obtenerImporte($valor), 2, '.', ',');
+                }
                 $html .= '<td>' . htmlspecialchars((string) $valor, ENT_QUOTES, 'UTF-8') . '</td>';
             }
             $html .= '</tr>';
