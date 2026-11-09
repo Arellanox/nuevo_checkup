@@ -24,6 +24,7 @@ $tipo_cliente = $_POST['tipo_cliente']; # 1 contado, 2 credito
 $tiene_factura = $_POST['tiene_factura']; #1 tiene, 0 no tiene, null todas
 
 $detallado = $_POST['detallado']; # indica el tipo de reporte que quieren ver
+$incluir = $_POST['incluir'] ?? 0;
 
 switch ($api) {
     case "estados_cuentas":
@@ -165,26 +166,116 @@ switch ($api) {
 
         $reporte->generar();
 
-        # Se requiere esperficar una ruta o desencadena un error
-        $nombreArchivo = 'reporte_pacientes_' . $_SESSION['id'] . ".xlsx";
-        $rutaFisica = '../reportes/excel/reporte_pacientes/' . $nombreArchivo;
+        # Cada exportación usa una URL propia para evitar que el navegador entregue una descarga anterior.
+        $nombreArchivo = 'reporte_pacientes_' . date('Ymd_His') . '_' . bin2hex(random_bytes(8)) . ".xlsx";
+        $directorioReportes = __DIR__ . '/../reportes/excel/reporte_pacientes';
+        $rutaFisica = $directorioReportes . DIRECTORY_SEPARATOR . $nombreArchivo;
 
         # Guardar archivo en la carpeta
         try {
+            if (!is_dir($directorioReportes) && !mkdir($directorioReportes, 0775, true) && !is_dir($directorioReportes)) {
+                throw new RuntimeException('No se pudo crear el directorio de reportes.');
+            }
+
             ExcelFileManagerClass::guardar($reporte->getSpreadsheet(), $rutaFisica);
 
             $urlDescarga = $host . 'reportes/excel/reporte_pacientes/' . $nombreArchivo;
             $response = ['url' => $urlDescarga];
-        } catch (\PhpOffice\PhpSpreadsheet\Writer\Exception $e) {
+        } catch (Throwable $e) {
             $response = ['msj' => $e->getMessage()];
             $master->mis->setLog($response, 'Error de Generación de reporte: ');
             return;
         }
         break;
     case 9:
-        #Generar PDF
-        $url = $master->reportador($master, $turno_id, -9, 'estados_cuentas', 'url');
-        $response = ['url' => $url];
+        # Generar PDF con los mismos filtros y datos que el reporte Excel.
+        $params = $master->setToNull([
+            $ujat_inicial,
+            $ujat_final,
+            $id_cliente,
+            $area_id,
+            $tipo_cliente,
+            $tiene_factura,
+            'es_franquiciario' => $_SESSION['franquiciario'] ? $_SESSION['id'] : null
+        ]);
+
+        $response = ($detallado == 1)
+            ? $master->getByProcedure("sp_reporte_ujat", $params)
+            : $master->getByProcedure("sp_reporte_ujat_prueba", $params);
+
+        $columnasPdf = [
+            'PACIENTE' => 'Paciente',
+            'AREA' => 'Área',
+            'SERVICIOS' => 'Servicios',
+            'MEDICO_TRATANTE' => 'Médico Tratante',
+            'EQUIPO' => 'Equipo',
+            'PREFOLIO' => 'Prefolio',
+            'CANTIDAD' => 'Cantidad',
+            'COSTO_BASE' => 'Costo',
+            'PRECIO_UNITARIO' => 'Unitario',
+            'SUBTOTAL' => 'Subtotal',
+            'IVA' => 'IVA',
+            'TOTAL' => 'Total',
+            'FECHA_RECEPCION' => 'Fecha Recepción',
+            'MES' => 'Mes',
+            'DIA' => 'Dia',
+            'ANIO' => 'Año',
+            'FORMA_PAGO' => 'Forma de Pago',
+            'FACTURA' => 'Factura',
+            'PROCEDENCIA' => 'Procedencia',
+            'US_INTERPRETADO_POR' => 'Interpretó',
+            'CLAVE_BENEFICIARIO' => 'Clave Beneficiario',
+            'PARENTESCO' => 'Parentesco',
+            'NUM_PASE' => 'Pase',
+            'URES' => 'URES',
+            'CATEGORIA' => 'Categoría',
+            'NUM_TRABAJADOR' => 'Num Trabajador',
+            'NUM_PROVEEDOR' => 'Proveedor',
+            'TRABAJADOR' => 'Trabajador',
+            'VERIFICACION' => 'Verificación (URL)'
+        ];
+
+        $html = '<html><head><meta charset="UTF-8"><style>'
+            . 'body{font-family:DejaVu Sans,sans-serif;font-size:6px}h1{font-size:14px;text-align:center}'
+            . 'p{font-size:9px}table{border-collapse:collapse;width:100%}th,td{border:1px solid #999;padding:3px;vertical-align:top}'
+            . 'th{background:#e8eef2}thead{display:table-header-group}tr{page-break-inside:avoid}'
+            . '</style></head><body><h1>Reporte de pacientes</h1><p>Periodo: '
+            . htmlspecialchars((string) $ujat_inicial, ENT_QUOTES, 'UTF-8') . ' al '
+            . htmlspecialchars((string) $ujat_final, ENT_QUOTES, 'UTF-8') . '</p><table><thead><tr>';
+
+        foreach ($columnasPdf as $tituloColumna) {
+            $html .= '<th>' . htmlspecialchars($tituloColumna, ENT_QUOTES, 'UTF-8') . '</th>';
+        }
+
+        $html .= '</tr></thead><tbody>';
+        foreach ($response as $fila) {
+            $html .= '<tr>';
+            foreach ($columnasPdf as $campo => $tituloColumna) {
+                $valor = $fila[$campo] ?? '';
+                $html .= '<td>' . htmlspecialchars((string) $valor, ENT_QUOTES, 'UTF-8') . '</td>';
+            }
+            $html .= '</tr>';
+        }
+        $html .= '</tbody></table></body></html>';
+
+        $pdf = new \Dompdf\Dompdf();
+        $pdf->loadHtml($html, 'UTF-8');
+        $pdf->setPaper('legal', 'landscape');
+        $pdf->render();
+
+        $nombreArchivo = 'reporte_pacientes_' . date('Ymd_His') . '_' . bin2hex(random_bytes(8)) . '.pdf';
+        $directorioReportes = __DIR__ . '/../reportes/excel/reporte_pacientes';
+        if (!is_dir($directorioReportes) && !mkdir($directorioReportes, 0775, true) && !is_dir($directorioReportes)) {
+            $response = ['msj' => 'No se pudo crear el directorio de reportes.'];
+            break;
+        }
+
+        if (file_put_contents($directorioReportes . DIRECTORY_SEPARATOR . $nombreArchivo, $pdf->output()) === false) {
+            $response = ['msj' => 'No se pudo guardar el reporte PDF.'];
+            break;
+        }
+
+        $response = ['url' => $host . 'reportes/excel/reporte_pacientes/' . $nombreArchivo];
         break;
     default:
         $response = "Apino definida";

@@ -178,9 +178,7 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
           className: 'btn btn-success',
           titleAttr: 'Descargar Excel',
           action: function () {
-              dataList['api'] = 6;
-
-              ajaxAwait(dataList, 'cargos_turnos_api', { callbackAfter: true }, false, function (data) {
+              ajaxAwait({ ...dataList, api: 6 }, 'cargos_turnos_api', { callbackAfter: true }, false, function (data) {
                   let url = data.response.data.url;
 
                   // Verificar si estás en localhost y si la URL contiene "bimo-lab.com"
@@ -198,8 +196,6 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
                   link.click();
                   document.body.removeChild(link);
               })
-
-              dataList['api'] = 3;
           }
       },
       {
@@ -207,9 +203,7 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
           className: 'btn btn-danger',
           titleAttr: 'Descargar PDF',
           action: function () {
-              dataList['api'] = 9;
-
-              ajaxAwait(dataList, 'cargos_turnos_api', { callbackAfter: true }, false, function (data) {
+              ajaxAwait({ ...dataList, api: 9 }, 'cargos_turnos_api', { callbackAfter: true }, false, function (data) {
                   let url = data.response.data.url;
 
                   // Verificar si estás en localhost y si la URL contiene "bimo-lab.com"
@@ -227,8 +221,6 @@ tablaPrincipal = $('#tablaPrincipal').DataTable({
                   link.click();
                   document.body.removeChild(link);
               });
-
-              dataList['api'] = 3;
           }
       },
       {
