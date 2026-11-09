@@ -207,32 +207,14 @@ switch ($api) {
             'PACIENTE' => 'Paciente',
             'AREA' => 'Área',
             'SERVICIOS' => 'Servicios',
-            'MEDICO_TRATANTE' => 'Médico Tratante',
-            'EQUIPO' => 'Equipo',
             'PREFOLIO' => 'Prefolio',
             'CANTIDAD' => 'Cantidad',
-            'COSTO_BASE' => 'Costo',
             'PRECIO_UNITARIO' => 'Unitario',
             'SUBTOTAL' => 'Subtotal',
             'IVA' => 'IVA',
             'TOTAL' => 'Total',
             'FECHA_RECEPCION' => 'Fecha Recepción',
-            'MES' => 'Mes',
-            'DIA' => 'Dia',
-            'ANIO' => 'Año',
-            'FORMA_PAGO' => 'Forma de Pago',
-            'FACTURA' => 'Factura',
-            'PROCEDENCIA' => 'Procedencia',
-            'US_INTERPRETADO_POR' => 'Interpretó',
-            'CLAVE_BENEFICIARIO' => 'Clave Beneficiario',
-            'PARENTESCO' => 'Parentesco',
-            'NUM_PASE' => 'Pase',
-            'URES' => 'URES',
-            'CATEGORIA' => 'Categoría',
-            'NUM_TRABAJADOR' => 'Num Trabajador',
-            'NUM_PROVEEDOR' => 'Proveedor',
-            'TRABAJADOR' => 'Trabajador',
-            'VERIFICACION' => 'Verificación (URL)'
+            'FACTURA' => 'Factura'
         ];
 
         $sumatoriasPdf = ['SUBTOTAL' => 0, 'IVA' => 0, 'TOTAL' => 0];
