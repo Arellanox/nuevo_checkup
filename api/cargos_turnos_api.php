@@ -278,7 +278,7 @@ switch ($api) {
 
         $pdf = new \Dompdf\Dompdf();
         $pdf->loadHtml($html, 'UTF-8');
-        $pdf->setPaper('legal', 'landscape');
+        $pdf->setPaper('letter', 'landscape');
         $pdf->render();
 
         $nombreArchivo = 'reporte_pacientes_' . date('Ymd_His') . '_' . bin2hex(random_bytes(8)) . '.pdf';
