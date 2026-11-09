@@ -239,12 +239,13 @@ switch ($api) {
             . $formatearFechaReporte($ujat_inicial) . ' AL ' . $formatearFechaReporte($ujat_final);
 
         $html = '<html><head><meta charset="UTF-8"><style>'
-            . 'body{font-family:DejaVu Sans,sans-serif;font-size:6px;margin:25px 30px}'
+            . 'body{font-family:DejaVu Sans,sans-serif;font-size:9px;margin:25px 30px}'
             . '.report-header{margin-bottom:20px}.report-header td{border:0;vertical-align:middle;padding:0}'
             . '.logo-cell{width:20%;text-align:left}.logo-cell img{width:105px;height:auto}'
             . '.heading-cell{width:80%;text-align:center}.heading-cell h1{font-size:15px;margin:0 0 8px}'
             . '.heading-cell p{font-size:10px;margin:0}'
             . 'p{font-size:9px}table{border-collapse:collapse;width:100%}th,td{border:1px solid #999;padding:3px;vertical-align:top}'
+            . '.report-table{font-size:11px}.report-table th{font-size:11px;padding:5px}.report-table td{padding:5px}'
             . 'th{background:#e8eef2}thead{display:table-header-group}tr{page-break-inside:avoid}'
             . '.summary{width:225px;margin:18px 0 0 auto;font-size:9px}.summary td{padding:5px 8px}'
             . '.summary-label{font-weight:bold;background:#e8eef2}.summary-value{text-align:right}'
@@ -252,7 +253,7 @@ switch ($api) {
             . '<td class="logo-cell"><img src="data:image/png;base64,' . $logoBimo . '" alt="Bimo"></td>'
             . '<td class="heading-cell"><h1>DIAGNOSTICO BIOMOLECULAR SA DE CV</h1><p>'
             . htmlspecialchars($subtituloReporte, ENT_QUOTES, 'UTF-8')
-            . '</p></td></tr></tbody></table><table><thead><tr>';
+            . '</p></td></tr></tbody></table><table class="report-table"><thead><tr>';
 
         foreach ($columnasPdf as $tituloColumna) {
             $html .= '<th>' . htmlspecialchars($tituloColumna, ENT_QUOTES, 'UTF-8') . '</th>';
