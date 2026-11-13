@@ -1,6 +1,5 @@
 // Variables locales
 var SelectEstudios = false;
-var solicitudDetalleEstudio = 0;
 
 var tablaServicio = $('#TablaEstudioServicio').DataTable({
     language: {
@@ -188,51 +187,14 @@ selectDatatable("TablaEstudioServicio", tablaServicio, 0, 0, 0, 0, function (sel
 })
 
 function mostrarDetalleEstudio(data) {
-    const idServicio = data?.ID_SERVICIO;
-    if (!idServicio) {
+    if (!data?.ID_SERVICIO) {
         return;
     }
 
-    const solicitudActual = ++solicitudDetalleEstudio;
     const $modal = $('#modalDetalleEstudio');
     $modal.find('.modal-title').text(data?.DESCRIPCION || 'Detalle del estudio');
-    $modal.find('.modal-body').html(`
-        <div class="text-center py-5">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Cargando...</span>
-            </div>
-            <p class="mt-3 mb-0">Buscando información del estudio…</p>
-        </div>
-    `);
+    $modal.find('.modal-body').html(construirContenidoModalEstudio(data));
     $modal.modal('show');
-
-    $.ajax({
-        url: `${http}${servidor}/${appname}/api/servicios_api.php`,
-        method: 'POST',
-        dataType: 'json',
-        data: {
-            api: 3,
-            id: idServicio
-        },
-        success: function (response) {
-            if (solicitudActual !== solicitudDetalleEstudio) return;
-
-            const resultado = response?.response?.data || response;
-            const estudios = Array.isArray(resultado) ? resultado : [resultado];
-            const estudio = estudios.find(item => String(item?.ID_SERVICIO) === String(idServicio));
-            if (estudio) {
-                $modal.find('.modal-title').text(data.DESCRIPCION || estudio.DESCRIPCION || 'Detalle del estudio');
-                $modal.find('.modal-body').html(construirContenidoModalEstudio(estudio));
-            } else {
-                $modal.find('.modal-body').html('<div class="text-center text-danger py-5">No se encontró información del estudio.</div>');
-            }
-        },
-        error: function () {
-            if (solicitudActual !== solicitudDetalleEstudio) return;
-
-            $modal.find('.modal-body').html('<div class="text-center text-danger py-5">No se pudo cargar la información. Intenta nuevamente.</div>');
-        }
-    });
 }
 
 function construirContenidoModalEstudio(estudio) {
