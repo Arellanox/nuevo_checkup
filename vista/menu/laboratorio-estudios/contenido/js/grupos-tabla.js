@@ -139,12 +139,18 @@ inputBusquedaTable('TablaGruposServicios', tablaGrupos, [], [], '_', '_')
 
 selectDatatable("TablaGruposServicios", tablaGrupos, 1, 'servicios_api', 'estudio', '#panel-informacion', null, function (data) {
   if (!data) return;
+  console.log('[GruposLab] Registro recibido al abrir el detalle:', data);
   mostrarDetalleGrupo(data);
 })
 
 function mostrarDetalleGrupo(data) {
   const estudioConsulta = data?.DESCRIPCION || data?.ABREVIATURA || data?.ID_SERVICIO;
+  console.log('[GruposLab] Registro seleccionado y clave de consulta:', {
+    registroSeleccionado: data,
+    estudioEnviado: estudioConsulta
+  });
   if (!estudioConsulta) {
+    console.warn('[GruposLab] No se consulta el detalle: no se encontró DESCRIPCION, ABREVIATURA ni ID_SERVICIO.', data);
     return;
   }
 
@@ -171,6 +177,8 @@ function mostrarDetalleGrupo(data) {
     success: function (response) {
       const resultado = response?.response?.data || response;
       const estudio = Array.isArray(resultado) ? resultado[0] : resultado;
+      console.log('[GruposLab] Respuesta recibida de recepcion_api.php:', response);
+      console.log('[GruposLab] Datos normalizados que se usan para el modal:', estudio);
       if (estudio) {
         $modal.find('.modal-title').text(estudio.DESCRIPCION || data.DESCRIPCION || 'Detalle del grupo');
         $modal.find('.modal-body').html(construirContenidoModalEstudio(estudio));
@@ -178,13 +186,34 @@ function mostrarDetalleGrupo(data) {
         $modal.find('.modal-body').html('<div class="text-center text-danger py-5">No se encontró información del grupo.</div>');
       }
     },
-    error: function () {
+    error: function (xhr, status, error) {
+      console.error('[GruposLab] Falló la consulta del detalle:', {
+        status: status,
+        error: error,
+        response: xhr.responseText
+      });
       $modal.find('.modal-body').html('<div class="text-center text-danger py-5">No se pudo cargar la información. Intenta nuevamente.</div>');
     }
   });
 }
 
 function construirContenidoModalEstudio(estudio) {
+  console.log('[GruposLab] Campos usados para construir el modal:', {
+    estudio: estudio,
+    nombre: estudio.DESCRIPCION || estudio.SERVICIO || estudio.NOMBRE_ESTUDIO,
+    clasificacion: estudio.CLASIFICACION_EXAMEN || estudio.CLASIFICACION,
+    area: estudio.DESCRIPCION_AREA || estudio.AREA,
+    entrega: estudio.DIAS_DE_ENTREGA,
+    muestra: estudio.MUESTRA || estudio.TIPO_MUESTRA,
+    contenedor: estudio.CONTENEDOR,
+    conservacion: estudio.CONSERVACION,
+    metodologia: estudio.METODOLOGIA_NOMBRE || estudio.METODO || estudio.METODOLOGIA,
+    detalle: estudio.DETALLE_SERVICIO || estudio.DESCRIPCION_DETALLE,
+    indicaciones: estudio.INDICACIONES || estudio.INDICACIONES_LABORATORIO,
+    motivoRechazo: estudio.MOTIVO_RECHAZO,
+    laboratorio: estudio.LABORATORIO,
+    laboratorioMaquila: estudio.LABORATORIO_MAQUILA
+  });
   const nombre = textSafe(estudio.DESCRIPCION || estudio.SERVICIO || estudio.NOMBRE_ESTUDIO, 'Sin nombre');
   const clasificacion = textSafe(estudio.CLASIFICACION_EXAMEN || estudio.CLASIFICACION, 'No disponible');
   const area = textSafe(estudio.DESCRIPCION_AREA || estudio.AREA, 'No disponible');
