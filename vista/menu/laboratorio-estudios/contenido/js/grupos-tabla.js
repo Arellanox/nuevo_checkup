@@ -144,13 +144,14 @@ selectDatatable("TablaGruposServicios", tablaGrupos, 1, 'servicios_api', 'estudi
 })
 
 function mostrarDetalleGrupo(data) {
-  const estudioConsulta = data?.DESCRIPCION || data?.ABREVIATURA || data?.ID_SERVICIO;
+  const estudioConsulta = data?.ID_SERVICIO || data?.DESCRIPCION || data?.ABREVIATURA;
   console.log('[GruposLab] Registro seleccionado y clave de consulta:', {
     registroSeleccionado: data,
+    idServicioSeleccionado: data?.ID_SERVICIO,
     estudioEnviado: estudioConsulta
   });
   if (!estudioConsulta) {
-    console.warn('[GruposLab] No se consulta el detalle: no se encontró DESCRIPCION, ABREVIATURA ni ID_SERVICIO.', data);
+    console.warn('[GruposLab] No se consulta el detalle: no se encontró ID_SERVICIO, DESCRIPCION ni ABREVIATURA.', data);
     return;
   }
 
