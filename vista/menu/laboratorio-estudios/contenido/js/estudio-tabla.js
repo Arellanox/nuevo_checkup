@@ -190,7 +190,7 @@ function mostrarDetalleEstudio(data) {
     if (!data?.ID_SERVICIO) {
         return;
     }
-
+    console.log('Mostrando detalle del estudio:', data);
     const $modal = $('#modalDetalleEstudio');
     $modal.find('.modal-title').text(data?.DESCRIPCION || 'Detalle del estudio');
     $modal.find('.modal-body').html(construirContenidoModalEstudio(data));
